@@ -1,3 +1,4 @@
+
 SMODS.Joker {
     key = "invisible_man",
     config = {
@@ -6,8 +7,7 @@ SMODS.Joker {
     loc_txt = {
       name = "Invisible Man",
       text ={
-          "All face cards count as {C:attention}[Jacks/Queens/Kings]{}.",
-          "Rank changes every round."
+          "All face cards count as {C:attention}Jacks, Queens{} or {C:attention{}Kings]{}.",
       },
   },
     rarity = 2,

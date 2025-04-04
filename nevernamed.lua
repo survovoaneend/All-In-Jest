@@ -14,11 +14,44 @@ SMODS.Atlas {
   px = 71,
   py = 95
 }
+SMODS.Atlas {
+  key = "consumable_atlas",
+  path = "consumables.png",
+  px = 71,
+  py = 95
+}
+
+
 assert(SMODS.load_file('utils/context.lua'))()
+--planets
+assert(SMODS.load_file('consumables/vulcanoid.lua'))()
+assert(SMODS.load_file('consumables/zoozve.lua'))()
+assert(SMODS.load_file('consumables/luna.lua'))()
+assert(SMODS.load_file('consumables/phobos.lua'))()
+assert(SMODS.load_file('consumables/europa.lua'))()
+assert(SMODS.load_file('consumables/titan.lua'))()
+assert(SMODS.load_file('consumables/umbriel.lua'))()
+assert(SMODS.load_file('consumables/triton.lua'))()
+assert(SMODS.load_file('consumables/nix.lua'))()
+assert(SMODS.load_file('consumables/planet_nine.lua'))()
+assert(SMODS.load_file('consumables/pallas.lua'))()
+assert(SMODS.load_file('consumables/dysnomia.lua'))()
+assert(SMODS.load_file('consumables/phaethon.lua'))()
+assert(SMODS.load_file('consumables/2013_nd15.lua'))()
+assert(SMODS.load_file('consumables/kamooalewa.lua'))()
+assert(SMODS.load_file('consumables/deimos.lua'))()
+assert(SMODS.load_file('consumables/callisto.lua'))()
+assert(SMODS.load_file('consumables/iapetus.lua'))()
+assert(SMODS.load_file('consumables/oberon.lua'))()
+assert(SMODS.load_file('consumables/proteus.lua'))()
+assert(SMODS.load_file('consumables/charon.lua'))()
+assert(SMODS.load_file('consumables/nibiru.lua'))()
+assert(SMODS.load_file('consumables/2000_eu16.lua'))()
+assert(SMODS.load_file('consumables/kuiper.lua'))()
 --way too many fucking jokers
 assert(SMODS.load_file('jokers/flying_ace.lua'))()
 assert(SMODS.load_file('jokers/lucky_seven.lua'))()
---assert(SMODS.load_file('jokers/you_broke_it.lua'))()
+assert(SMODS.load_file('jokers/you_broke_it.lua'))()
 assert(SMODS.load_file('jokers/birthday_clown.lua'))()
 --assert(SMODS.load_file('jokers/memory_card.lua'))()
 --assert(SMODS.load_file('jokers/sleepy_joker.lua'))()
@@ -42,13 +75,13 @@ assert(SMODS.load_file('jokers/birthday_clown.lua'))()
 --assert(SMODS.load_file('jokers/carousel.lua'))()
 --assert(SMODS.load_file('jokers/slippery_when_wet.lua'))()
 --assert(SMODS.load_file('jokers/founding_father.lua'))()
---assert(SMODS.load_file('jokers/scary_story.lua'))()
+assert(SMODS.load_file('jokers/scary_story.lua'))()
 --assert(SMODS.load_file('jokers/doodle.lua'))()
 --assert(SMODS.load_file('jokers/joqr.lua'))()
 --assert(SMODS.load_file('jokers/greasepaint.lua'))()
 --assert(SMODS.load_file('jokers/public_bathroom.lua'))()
 --assert(SMODS.load_file('jokers/diogenes.lua'))()
---assert(SMODS.load_file('jokers/blank_card.lua'))()
+assert(SMODS.load_file('jokers/blank_card.lua'))()
 --assert(SMODS.load_file('jokers/comedians_manifesto.lua'))()
 --assert(SMODS.load_file('jokers/circuit_board.lua'))()
 --assert(SMODS.load_file('jokers/platinum_chip.lua'))()
@@ -161,7 +194,7 @@ assert(SMODS.load_file('jokers/atom.lua'))()
 --assert(SMODS.load_file('jokers/cosmological_constant.lua'))()
 --assert(SMODS.load_file('jokers/monster.lua'))()
 --assert(SMODS.load_file('jokers/mistigri.lua'))()
---assert(SMODS.load_file('jokers/simple_simon.lua'))()
+assert(SMODS.load_file('jokers/simple_simon.lua'))()
 --assert(SMODS.load_file('jokers/giocoliere.lua'))()
 --assert(SMODS.load_file('jokers/spectre.lua'))()
 --assert(SMODS.load_file('jokers/dapper_dan.lua'))()

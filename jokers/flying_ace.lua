@@ -52,8 +52,9 @@ SMODS.Joker {
         end
     end,
     calc_dollar_bonus = function(self, card)
-        local dollar_bonus = card.ability.extra.dollars
-    
-        return dollar_bonus
+        if card.ability.extra.dollars > 0 then
+            local dollar_bonus = card.ability.extra.dollars
+            return dollar_bonus
+        end
     end
 }
