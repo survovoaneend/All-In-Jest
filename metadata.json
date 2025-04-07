@@ -1,7 +1,7 @@
 {
   "id": "nevernamed",
   "name": "Nevernamed Pack",
-  "prefix": "nevernamed",
+  "prefix": "never",
   "author": [
     "Nevernamed",
     "survivalaiden"
@@ -9,7 +9,7 @@
   "description": "A mod made with Jokers with art made by Nevernamed",
   "main_file": "nevernamed.lua",
   "badge_colour": "8b61ad",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": [
     "Steamodded (>=1.0.0~ALPHA-1423h)",
     "Lovely (>=0.7.1)"

@@ -20,6 +20,13 @@ SMODS.Atlas {
   px = 71,
   py = 95
 }
+SMODS.Atlas {
+  key = "enhancements_atlas",
+  path = "enhancements.png",
+  px = 71,
+  py = 95
+}
+
 
 
 assert(SMODS.load_file('utils/context.lua'))()
@@ -48,6 +55,10 @@ assert(SMODS.load_file('consumables/charon.lua'))()
 assert(SMODS.load_file('consumables/nibiru.lua'))()
 assert(SMODS.load_file('consumables/2000_eu16.lua'))()
 assert(SMODS.load_file('consumables/kuiper.lua'))()
+--tarots
+assert(SMODS.load_file('consumables/magus.lua'))()
+--enhancements
+assert(SMODS.load_file('enhancements/fervent.lua'))()
 --way too many fucking jokers
 assert(SMODS.load_file('jokers/flying_ace.lua'))()
 assert(SMODS.load_file('jokers/lucky_seven.lua'))()
@@ -65,7 +76,7 @@ assert(SMODS.load_file('jokers/birthday_clown.lua'))()
 --assert(SMODS.load_file('jokers/squeezy_pete.lua'))()
 --assert(SMODS.load_file('jokers/infinite_jest.lua'))()
 --assert(SMODS.load_file('jokers/bloody_mary.lua'))()
---assert(SMODS.load_file('jokers/trypophobia.lua'))()
+assert(SMODS.load_file('jokers/trypophobia.lua'))()
 --assert(SMODS.load_file('jokers/rummikub.lua'))()
 --assert(SMODS.load_file('jokers/imperial_bower.lua'))()
 --assert(SMODS.load_file('jokers/ultrasound.lua'))()
@@ -76,7 +87,7 @@ assert(SMODS.load_file('jokers/birthday_clown.lua'))()
 --assert(SMODS.load_file('jokers/slippery_when_wet.lua'))()
 --assert(SMODS.load_file('jokers/founding_father.lua'))()
 assert(SMODS.load_file('jokers/scary_story.lua'))()
---assert(SMODS.load_file('jokers/doodle.lua'))()
+assert(SMODS.load_file('jokers/doodle.lua'))()
 --assert(SMODS.load_file('jokers/joqr.lua'))()
 --assert(SMODS.load_file('jokers/greasepaint.lua'))()
 --assert(SMODS.load_file('jokers/public_bathroom.lua'))()
@@ -156,7 +167,7 @@ assert(SMODS.load_file('jokers/atom.lua'))()
 --assert(SMODS.load_file('jokers/red_wine.lua'))()
 --assert(SMODS.load_file('jokers/mute_joker.lua'))()
 --assert(SMODS.load_file('jokers/scapino.lua'))()
---assert(SMODS.load_file('jokers/pinhead.lua'))()
+assert(SMODS.load_file('jokers/pinhead.lua'))()
 --assert(SMODS.load_file('jokers/saltimbanco.lua'))()
 --assert(SMODS.load_file('jokers/pulcinella.lua'))()
 --assert(SMODS.load_file('jokers/petrushka.lua'))()
@@ -171,7 +182,8 @@ assert(SMODS.load_file('jokers/atom.lua'))()
 --assert(SMODS.load_file('jokers/vesti_la_guibba.lua'))()
 --assert(SMODS.load_file('jokers/dead_president.lua'))()
 --assert(SMODS.load_file('jokers/second_tier_meme.lua'))()
---assert(SMODS.load_file('jokers/clowns_on_parade.lua'))()
+assert(SMODS.load_file('jokers/teeny_joker.lua'))()
+assert(SMODS.load_file('jokers/clowns_on_parade.lua'))()
 --assert(SMODS.load_file('jokers/rising_sun.lua'))()
 --assert(SMODS.load_file('jokers/red_sky.lua'))()
 --assert(SMODS.load_file('jokers/blind_drawn.lua'))()
@@ -205,7 +217,7 @@ assert(SMODS.load_file('jokers/simple_simon.lua'))()
 --assert(SMODS.load_file('jokers/peeping_tom.lua'))()
 --assert(SMODS.load_file('jokers/la_commedia_e_finita.lua'))()
 --assert(SMODS.load_file('jokers/straight_to_hell.lua'))()
---assert(SMODS.load_file('jokers/guiser.lua'))()
+assert(SMODS.load_file('jokers/guiser.lua'))()
 --assert(SMODS.load_file('jokers/mummer.lua'))()
 --assert(SMODS.load_file('jokers/tipteerer.lua'))()
 --assert(SMODS.load_file('jokers/honest_john.lua'))()
@@ -217,7 +229,7 @@ assert(SMODS.load_file('jokers/simple_simon.lua'))()
 --assert(SMODS.load_file('jokers/gnasher.lua'))()
 --assert(SMODS.load_file('jokers/executioner.lua'))()
 --assert(SMODS.load_file('jokers/jongleur.lua'))()
---assert(SMODS.load_file('jokers/black_hole_joker.lua'))()
+--assert(SMODS.load_file('jokers/event_horizon.lua'))()
 --assert(SMODS.load_file('jokers/joka_lisa.lua'))()
 --assert(SMODS.load_file('jokers/tonpraten.lua'))()
 --assert(SMODS.load_file('jokers/rodeo_clown.lua'))()

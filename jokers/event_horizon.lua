@@ -1,10 +1,10 @@
 SMODS.Joker {
-  key = "black_hole_joker",
+  key = "event_horizon",
   config = {
     
   },
   loc_txt = {
-    name = "Black Hole Joker",
+    name = "Event Horizon",
     text ={
         "{C:dark_edition}Black Hole{} has the same rarity",
         "of other {C:planet}Planet Cards{}"
@@ -24,6 +24,6 @@ SMODS.Joker {
   end,
 
   calculate = function(self, card, context)
-    
+
   end
 }
