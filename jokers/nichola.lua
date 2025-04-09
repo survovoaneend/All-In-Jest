@@ -16,11 +16,11 @@ SMODS.Joker {
     rarity = 4,
     pos = { x = 6, y = 2},
     atlas = 'legendary_atlas',
-    cost = 4,
+    cost = 20,
     unlocked = true,
     discovered = true,
-    blueprint_compat = false,
-    eternal_compat = false,
+    blueprint_compat = true,
+    eternal_compat = true,
     soul_pos = { x = 6, y = 3},
   
     loc_vars = function(self, info_queue, card)

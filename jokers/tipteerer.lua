@@ -17,11 +17,11 @@ SMODS.Joker {
   rarity = 2,
   pos = { x = 3, y = 6},
   atlas = 'joker_atlas',
-  cost = 8,
+  cost = 6,
   unlocked = true,
   discovered = true,
   blueprint_compat = false,
-  eternal_compat = false,
+  eternal_compat = true,
 
   loc_vars = function(self, info_queue, card)
     local sell_cost = 0

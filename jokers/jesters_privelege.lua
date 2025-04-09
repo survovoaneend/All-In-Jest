@@ -6,18 +6,18 @@ SMODS.Joker {
     loc_txt = {
       name = "Jester's Privelege",
       text ={
-          "{C:legendary,E:1}Legendary{} Jokers may",
+          "{C:legendary}Legendary{} Jokers may",
           "appear in the {C:attention}Shop{}",
       },
   },
     rarity = 3,
     pos = { x = 15, y = 3 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 10,
     unlocked = true,
     discovered = true,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
   
@@ -25,14 +25,13 @@ SMODS.Joker {
   
     calculate = function(self, card, context)
       if context.reroll_shop and not context.blueprint then
-        -- search for common jokers in shop
-        local common_jokers = {}
+        local rare_jokers = {}
         for _, v in ipairs(G.shop_jokers.cards) do
             if v.config.center.rarity == 3 then
-                table.insert(common_jokers, v)
+                table.insert(rare_jokers, v)
             end
         end
-        for _, j in ipairs(common_jokers) do
+        for _, j in ipairs(rare_jokers) do
             if pseudorandom('jesters_privelege') < 0.2 then
                 j:juice_up(0.3, 0.4)
                 local c = G.shop_jokers:remove_card(j)

@@ -13,11 +13,11 @@ SMODS.Joker {
   rarity = 1,
   pos = { x = 14, y = 2 },
   atlas = 'joker_atlas',
-  cost = 4,
+  cost = 5,
   unlocked = true,
   discovered = true,
-  blueprint_compat = false,
-  eternal_compat = false,
+  blueprint_compat = true,
+  eternal_compat = true,
 
   loc_vars = function(self, info_queue, card)
       return { vars = {card.ability.extra.dollars} }
