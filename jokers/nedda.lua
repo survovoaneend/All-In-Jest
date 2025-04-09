@@ -1,7 +1,9 @@
 SMODS.Joker {
     key = "nedda",
     config = {
-      
+      extra = {
+        xmult = 2
+      }
     },
     loc_txt = {
       name = "Nedda",
@@ -13,7 +15,7 @@ SMODS.Joker {
     rarity = 4,
     pos = { x = 7, y = 0},
     atlas = 'legendary_atlas',
-    cost = 4,
+    cost = 20,
     unlocked = true,
     discovered = true,
     blueprint_compat = false,
@@ -25,6 +27,11 @@ SMODS.Joker {
     end,
   
     calculate = function(self, card, context)
-      
+      if not context.end_of_round and context.individual and context.cardarea == G.hand and context.other_card:get_id() == 12 then
+        return {
+          card = card,
+          xmult = card.ability.extra.xmult,
+        }
+      end
     end
   }

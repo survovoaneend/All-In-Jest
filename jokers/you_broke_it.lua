@@ -100,23 +100,22 @@ SMODS.Joker {
         local enhancement_key = card.ability.extra.current_enhancement_key
         local enhancement_name = localize{type = 'name_text', set = 'Enhanced', key = enhancement_key}
 
-        -- Determine color based on enhancement (optional but nice)
-        local message_colour = G.C.SECONDARY_SET.Enhanced -- Default
+       
+        local message_colour = G.C.SECONDARY_SET.Enhanced
         if enhancement_key == 'm_bonus' or enhancement_key == 'm_stone' or enhancement_key == 'm_wild' then
             message_colour = G.C.CHIPS
         elseif enhancement_key == 'm_mult' then
             message_colour = G.C.MULT
         elseif enhancement_key == 'm_glass' or enhancement_key == 'm_steel' or enhancement_key == 'm_wild' then
-            message_colour = G.C.JOKER_GREY -- Or another distinct color like G.C.JOKER_GREY
+            message_colour = G.C.JOKER_GREY 
         elseif enhancement_key == 'm_gold' or enhancement_key == 'm_lucky' then
             message_colour = G.C.MONEY
         end
-        -- Wild Card is excluded, so no need for a specific check
 
         return {
-            -- Use the localized name of the enhancement, maybe add "!"
-            message = enhancement_name, -- <<< CHANGE HERE
-            colour = message_colour         -- <<< CHANGE HERE (using determined color)
+       
+            message = enhancement_name, 
+            colour = message_colour  
         }
     end
   end
