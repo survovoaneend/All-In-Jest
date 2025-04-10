@@ -57,6 +57,8 @@ assert(SMODS.load_file('consumables/2000_eu16.lua'))()
 assert(SMODS.load_file('consumables/kuiper.lua'))()
 --tarots
 assert(SMODS.load_file('consumables/magus.lua'))()
+--spectrals 
+assert(SMODS.load_file('consumables/trefle.lua'))()
 --enhancements
 assert(SMODS.load_file('enhancements/fervent.lua'))()
 --way too many fucking jokers

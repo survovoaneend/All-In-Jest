@@ -14,10 +14,10 @@ SMODS.Joker {
           "Joker's {C:attention}ability{}"
       },
   },
-    rarity = 3,
+    rarity = 2,
     pos = { x = 24, y = 0 },
     atlas = 'joker_atlas',
-    cost = 8,
+    cost = 7,
     unlocked = true,
     discovered = true,
     blueprint_compat = false,

@@ -17,6 +17,6 @@ SMODS.Consumable {
 	config = {mod_conv = 'm_aij_fervent', max_highlighted = 1},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, center)
-        info_queue[#info_queue+1] = G.P_CENTERS.m_never_fervent
+        info_queue[#info_queue+1] = G.P_CENTERS.m_aij_fervent
 	end,
 }
