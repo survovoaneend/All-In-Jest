@@ -28,5 +28,28 @@ SMODS.Consumable {
 	can_use = function(self, card)
 	end,
 	use = function(self, card, area, copier)
+		local hand = 'High Card'
+		update_hand_text({ sound = "button", volume = 0.7, pitch = 0.8, delay = 0.3 }, {
+			handname = localize(hand, "poker_hands"),
+			chips = G.GAME.hands[hand].chips,
+			mult = G.GAME.hands[hand].mult,
+			level = G.GAME.hands[hand].level,
+		})
+		G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + 1)
+		G.GAME.hands[hand].mult = G.GAME.hands[hand].mult + 2
+		G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+            play_sound('tarot1')
+            if card then card:juice_up(0.8, 0.5) end
+            G.TAROT_INTERRUPT_PULSE = true
+            return true end }))
+        update_hand_text({delay = 0}, {mult = G.GAME.hands[hand].mult, StatusText = true})
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
+            play_sound('tarot1')
+            if card then card:juice_up(0.8, 0.5) end
+            G.TAROT_INTERRUPT_PULSE = nil
+            return true end }))
+        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
+        delay(1.6)
+		update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
 	end,
 }
