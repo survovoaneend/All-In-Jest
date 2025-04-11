@@ -26,10 +26,18 @@ SMODS.Atlas {
   px = 71,
   py = 95
 }
+SMODS.Atlas {
+  key = 'tag_atlas',
+  path = 'tag.png',
+  px = 34,
+  py = 34
+}
 
 
 
 assert(SMODS.load_file('utils/context.lua'))()
+--tags
+assert(SMODS.load_file('tag/soulbound.lua'))()
 --planets
 assert(SMODS.load_file('consumables/vulcanoid.lua'))()
 assert(SMODS.load_file('consumables/zoozve.lua'))()
@@ -59,6 +67,9 @@ assert(SMODS.load_file('consumables/kuiper.lua'))()
 assert(SMODS.load_file('consumables/magus.lua'))()
 --spectrals 
 assert(SMODS.load_file('consumables/trefle.lua'))()
+assert(SMODS.load_file('consumables/pulsar.lua'))()
+assert(SMODS.load_file('consumables/gravastar.lua'))()
+assert(SMODS.load_file('consumables/shade.lua'))()
 --enhancements
 assert(SMODS.load_file('enhancements/fervent.lua'))()
 --way too many fucking jokers

@@ -80,12 +80,6 @@ SMODS.Consumable {
         end
 
 
-        if #replacement_pool == 0 then
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = 'No Replacement Found', colour = G.C.RED})
-            return false
-        end
-
-
         local replacement_key = pseudorandom_element(replacement_pool, pseudoseed('apex_swap_replacement'))
 
         local victim_index
