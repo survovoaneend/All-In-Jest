@@ -10,12 +10,17 @@ SMODS.Joker {
       current_enhancement_name = localize{type = 'name_text', set = 'Enhanced', key = 'm_bonus'},
       
       enhancement_pool = (function()
-          local pool = {}
-          for k, v in pairs(G.P_CENTERS) do
-              if v.set == 'Enhanced' and k ~= 'c_base' then 
-                  pool[#pool+1] = k
-              end
-          end
+          local pool = {
+            'm_bonus',
+            'm_mult',
+            'm_wild',
+            'm_glass',
+            'm_steel',
+            'm_stone',
+            'm_gold',
+            'm_lucky',
+            'm_aij_fervent'
+          }
           return pool
       end)()
       }
@@ -102,7 +107,7 @@ SMODS.Joker {
 
        
         local message_colour = G.C.SECONDARY_SET.Enhanced
-        if enhancement_key == 'm_bonus' or enhancement_key == 'm_stone' or enhancement_key == 'm_wild' then
+        if enhancement_key == 'm_bonus' or enhancement_key == 'm_stone' or enhancement_key == 'm_wild' or enhancement_key == 'm_aij_fervent' then
             message_colour = G.C.CHIPS
         elseif enhancement_key == 'm_mult' then
             message_colour = G.C.MULT

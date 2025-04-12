@@ -27,7 +27,7 @@ SMODS.Joker {
       if context.before and not context.blueprint then
         local cards = {}
         for k, v in ipairs(context.scoring_hand) do
-          if v:get_id() == 7 then
+          if v:get_id() == 7 and v.config.center == G.P_CENTERS.c_base then
             cards[#cards+1] = v
             v:set_ability(G.P_CENTERS.m_lucky, nil, true)
             G.E_MANAGER:add_event(Event({
@@ -35,7 +35,10 @@ SMODS.Joker {
                     v:juice_up()
                     return true
                 end
-            })) 
+            }))
+            return {
+              message = 'Lucky!'
+            }
           end
         end
       end

@@ -7,7 +7,7 @@ SMODS.Joker {
       name = "Petrushka",
       text ={
           "Gives {C:red}Mult{} equal to",
-          "the total {C:attention}rank{} of",
+          "{C:attention}half{} the total {C:attention}rank{} of",
           "all {C:attention}scored cards{}",
           "{C:inactive}(A=14, K=13, Q=12, J=11)"
       },
@@ -37,8 +37,9 @@ SMODS.Joker {
             end
 
             if rank_sum > 0 then
+                local mult_mod = math.floor(rank_sum / 2)
                 return {
-                    mult= rank_sum,
+                    mult= mult_mod,
                 }
               end
         end

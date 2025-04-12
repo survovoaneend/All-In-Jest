@@ -7,7 +7,7 @@ SMODS.Joker {
       name = "Nichola",
       text ={
           'When round begins, add',
-            'two random {C:attention}Queens',
+            'one random {C:attention}Queen',
             'to your hand with a',
             'random {C:attention}Enhancement{}, {C:attention}Seal{},',
             'and {C:dark_edition}Edition{}'
@@ -32,7 +32,7 @@ SMODS.Joker {
           G.E_MANAGER:add_event(Event({
               func = function()
                   local created_cards = {}
-                  for i = 1, 2 do
+                  for i = 1, 1 do
                       local suits = {'S', 'H', 'D', 'C'}
                       local random_suit_prefix = suits[pseudorandom('nichola_suit'..i, 1, #suits)]
                       local queen_card_key = random_suit_prefix .. '_Q'

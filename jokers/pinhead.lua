@@ -33,13 +33,11 @@ SMODS.Joker {
       if context.end_of_round then
         if G.GAME.current_round.hands_played == 1 then
           card.ability.extra.money = 10
-        else
-          card.ability.extra.money = 0
         end
       end
     end,
     calc_dollar_bonus = function(self, card)
-      if card.ability.extra.money > 0 then
+      if card.ability.extra.money > 0 and G.GAME.current_round.hands_played == 1 then
           local dollar_bonus = card.ability.extra.money
           return dollar_bonus
       end
