@@ -7,17 +7,16 @@ SMODS.Joker {
       name = "Jack of All Trades",
       text ={
           "{C:attention}Jacks{} count as any {C:attention}suit",
-          "or {C:attention}rank{}"
       },
   },
     rarity = 2,
     pos = { x = 9, y = 5 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = true,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
   

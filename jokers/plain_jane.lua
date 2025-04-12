@@ -1,28 +1,46 @@
 SMODS.Joker {
     key = "plain_jane",
     config = {
-      
+      extra = {
+        mult = 5
+      }
     },
     loc_txt = {
       name = "Plain Jane",
       text ={
-          "",
-      },
+          "Scored {C:attention}non-enhanced{} cards",
+          "give {C:red}+#1#{} Mult"
+
+        },
   },
     rarity = 1,
     pos = { x = 15, y = 1 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 5,
     unlocked = true,
     discovered = true,
-    blueprint_compat = false,
-    eternal_compat = false,
+    blueprint_compat = true,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+      return {
+        vars = {
+          card.ability.extra.mult
+        }
+      }
     end,
   
     calculate = function(self, card, context)
-      
+       if context.individual and context.cardarea == G.play then
+        local scored_card = context.other_card
+        if scored_card.config.center == G.P_CENTERS.c_base then
+            return {
+                mult = card.ability.extra.mult,
+                card = card 
+            }
+        end
+    end
+
+    return nil
     end
   }

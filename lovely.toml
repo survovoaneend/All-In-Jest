@@ -16,3 +16,18 @@ G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (G.GAME.hands[ha
 G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (G.GAME.hands[hand].l_chips * amount))
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "function Card:is_suit(suit, bypass_debuff, flush_calc)"
+position = "after" 
+match_indent = true
+payload = '''
+if G.jokers then
+    local jack_joker = next(SMODS.find_card('j_aij_jack_of_all_trades')) 
+    if jack_joker and self.base and self.base.value == 'Jack' then
+        return true
+    end
+end
+'''

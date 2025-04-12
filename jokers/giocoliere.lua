@@ -2,13 +2,13 @@ SMODS.Joker {
     key = "giocoliere",
     config = {
       extra = {
-        h_size = 2,
       },
     },
     loc_txt = {
       name = "Giocoliere",
       text ={
-          "",
+          "{C:attention}+2{} hand size{} during",
+          "the {C:attention}Boss Blind"
       },
   },
     rarity = 1,
@@ -18,21 +18,54 @@ SMODS.Joker {
     unlocked = true,
     discovered = true,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
   
     end,
   
     calculate = function(self, card, context)
+      card.ability.boss_bonus_active = card.ability.boss_bonus_active or false
+
       if context.setting_blind then
-        print(G.GAME.round_resets.blind)
-        if context.blind and G.GAME.round_resets.blind == 'boss' then
-          G.hand:change_size(card.ability.extra.h_size)
-        end
+          if G.GAME.blind and G.GAME.blind.boss then
+              if not card.ability.boss_bonus_active then
+                  G.hand:change_size(2)     
+                  card.ability.boss_bonus_active = true      
+                  return nil, true 
+              end
+
+          elseif card.ability.boss_bonus_active then
+              G.hand:change_size(-2)                     
+              card.ability.boss_bonus_active = false      
+              return nil, true
+          end
       end
-      if context.end_of_round and G.GAME.blind.boss then
-        G.hand:change_size(-card.ability.extra.h_size)
+
+      if context.blind_defeated then
+          if card.ability.boss_bonus_active then
+              G.hand:change_size(-2)                     
+              card.ability.boss_bonus_active = false   
+              return nil, true
+          end
       end
-    end
+  end,
+
+
+  add_to_deck = function(self, card, from_debuff)
+      card.ability.boss_bonus_active = false 
+      if G.GAME and G.GAME.blind and G.GAME.blind.boss and not card.debuff then
+           G.hand:change_size(2)
+           card.ability.boss_bonus_active = true
+      end
+  end,
+
+
+  remove_from_deck = function(self, card, from_debuff)
+
+      if card.ability.boss_bonus_active then
+          G.hand:change_size(-2)
+          card.ability.boss_bonus_active = false
+      end
+  end,
   }

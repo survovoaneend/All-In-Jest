@@ -52,12 +52,6 @@ SMODS.Consumable {
             end
         end
 
-
-        if #candidates == 0 then
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_nope_ex'), colour = G.C.RED})
-            return false
-        end
-
         local victim_joker = pseudorandom_element(candidates, pseudoseed('apex_swap_victim'))
         local victim_key = victim_joker.config.center.key
 
