@@ -45,7 +45,7 @@ SMODS.Joker {
   end,
   calc_dollar_bonus = function(self, card)
     if card.ability.extra.money > 0 then
-        local dollar_bonus = card.ability.extra.money
+        local dollar_bonus = card.ability.extra.money or 0
         return dollar_bonus
     end
 end
