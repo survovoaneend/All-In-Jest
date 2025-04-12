@@ -26,6 +26,7 @@ SMODS.Consumable {
 		}
     end,
 	can_use = function(self, card)
+		return true
 	end,
 	use = function(self, card, area, copier)
 		local hand = 'High Card'
