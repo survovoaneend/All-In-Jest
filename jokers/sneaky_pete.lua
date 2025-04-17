@@ -12,10 +12,10 @@ SMODS.Joker {
             '{C:inactive}(Currently {C:money}$#1#{C:inactive})'
       },
   },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 22, y = 5 },
     atlas = 'joker_atlas',
-    cost = 7,
+    cost = 5,
     unlocked = true,
     discovered = true,
     blueprint_compat = false,

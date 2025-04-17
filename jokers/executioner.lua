@@ -9,9 +9,10 @@ SMODS.Joker {
   loc_txt = {
     name = "Executioner",
     text ={
-        "Gains {C:blue}+50{} Chips when",
-        "a {C:attention}Face Card{} is",
-        "{C:attention}destroyed"
+        "This Joker gains {C:blue}+50{}",
+        "Chips when a {C:attention}face{} card",
+        "is {C:attention}destroyed",
+        "{C:inactive}(Currently {C:blue}+#1#{C:inactive} Chips)"
     },
   },
   rarity = 2,
@@ -20,8 +21,8 @@ SMODS.Joker {
   cost = 6,
   unlocked = true,
   discovered = true,
-  blueprint_compat = false,
-  eternal_compat = false,
+  blueprint_compat = true,
+  eternal_compat = true,
 
   loc_vars = function(self, info_queue, card)
     return {
@@ -32,32 +33,38 @@ SMODS.Joker {
   end,
 
   calculate = function(self, card, context)
+    if context.remove_playing_cards and not context.blueprint then
+      local face_cards = 0
+      for k, val in ipairs(context.removed) do
+        if val:is_face() then face_cards = face_cards + 1 end
+      end
+      if face_cards > 0 then
+        card.ability.extra.chips = card.ability.extra.chips + (face_cards * card.ability.extra.chip_gain)
+        return {
+          message = '+' .. card.ability.extra.chips,
+          colour = G.C.BLUE
+        }
+      end
+      return
+    end
     if context.cards_destroyed and not context.blueprint then
-      local faces = 0
-      for k, v in ipairs(context.glass_shattered) do
-          if v:is_face() then
-              faces = faces + 1
-          end
+      local face_cards = 0
+      for k, val in ipairs(context.glass_shattered) do
+        if val:is_face() then face_cards = face_cards + 1 end
       end
-      if faces > 0 then
-          G.E_MANAGER:add_event(Event({
-              func = function()
-          G.E_MANAGER:add_event(Event({
-              func = function()
-                  card.ability.extra.chips = card.ability.extra.chips + faces*card.ability.extra.chip_gain
-                return true
-              end
-            }))
-          card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_chips', vars = {card.ability.extra.chips + faces*card.ability.extra.chip_gain}}})
-          return true
+      if face_cards > 0 then
+        card.ability.extra.chips = card.ability.extra.chips + (face_cards * card.ability.extra.chip_gain)
+        return {
+          message = '+' .. card.ability.extra.chips,
+          colour = G.C.BLUE
+        }
       end
-    }))
-  end
-  end
-  if context.joker_main then
-    return {
-      chips = card.ability.extra.chips
-    }
-  end
+      return
+    end
+    if context.joker_main then
+      return {
+        chips = card.ability.extra.chips,
+      }
+    end
   end
 }

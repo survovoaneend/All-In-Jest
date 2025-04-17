@@ -18,9 +18,14 @@ SMODS.Joker {
   discovered = true,
   blueprint_compat = false,
   eternal_compat = false,
-
+  add_to_deck = function(self, card, from_debuff)
+    SMODS.Consumable:take_ownership("black_hole", {
+      discovered = true,
+      hidden = false
+    })
+  end,
   loc_vars = function(self, info_queue, card)
-
+    
   end,
 
   calculate = function(self, card, context)

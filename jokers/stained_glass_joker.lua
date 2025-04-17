@@ -6,13 +6,14 @@ SMODS.Joker {
     loc_txt = {
       name = "Stained Glass Joker",
       text ={
-          "",
+          "{C:attention}Glass{} cards count as any {C:attention}suit{}",
+
       },
   },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 17, y = 8},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = true,
     blueprint_compat = false,

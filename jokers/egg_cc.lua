@@ -1,12 +1,20 @@
 SMODS.Joker {
     key = "egg_cc",
     config = {
-      
+      extra = {
+        chips = 9,
+        chip_mod = 9,
+        sell_value = 2
+      }
     },
     loc_txt = {
       name = "\"egg\"",
       text ={
+          "{C:blue}+#1#{} Chips. Gains {C:blue}+9{} Chips",
+          "and {C:money}$2{} of {C:attention}sell value{} at",
+          "end of round",
           "",
+          "{C:inactive}hey it's \"egg\""
       },
   },
     rarity = 1,
@@ -15,14 +23,43 @@ SMODS.Joker {
     cost = 4,
     unlocked = true,
     discovered = true,
-    blueprint_compat = false,
-    eternal_compat = false,
+    blueprint_compat = true,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+      return {
+        vars = {
+          card.ability.extra.chips
+        }
+      }
     end,
   
     calculate = function(self, card, context)
-      
+      if context.end_of_round and not context.blueprint then
+        if card.ability.extra.round_ended_processed then
+          return nil
+        end
+        G.E_MANAGER:add_event(Event({
+          func = function()
+              card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
+              card.ability.extra_value = card.ability.extra_value + card.ability.extra.sell_value
+              card:set_cost()
+              return true
+          end
+        }))
+        card.ability.extra.round_ended_processed = true
+        return {
+          message = localize('k_upgrade_ex'),
+        }
+        
+      end
+      if context.joker_main and card.ability.extra.chips > 0 then
+        return {
+          chips = card.ability.extra.chips,
+        }
+      end
+      if context.setting_blind then
+        card.ability.extra.round_ended_processed = false
+      end
     end
   }

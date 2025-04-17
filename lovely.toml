@@ -29,5 +29,22 @@ if G.jokers then
     if jack_joker and self.base and self.base.value == 'Jack' then
         return true
     end
+    local glass_joker = next(SMODS.find_card('j_aij_stained_glass_joker'))
+    local enhancements = SMODS.get_enhancements(self)
+    if glass_joker and enhancements['m_glass'] then
+        return true
+    end
 end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "G.CONTROLLER:snap_to({node = G.shop:get_UIE_by_ID('next_round_button')})"
+position = "before"
+match_indent = true
+payload = '''
+SMODS.calculate_context({
+    entering_shop = true,
+})
 '''
