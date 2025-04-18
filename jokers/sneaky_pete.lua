@@ -22,6 +22,7 @@ SMODS.Joker {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
+      info_queue[#info_queue + 1] = {set = 'Other', key = 'gold_seal'}
       local seal_count = 0
       if G.GAME and G.playing_cards then
           for _, card in ipairs(G.playing_cards) do

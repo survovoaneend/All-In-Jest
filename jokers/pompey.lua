@@ -6,10 +6,10 @@ SMODS.Joker {
     loc_txt = {
       name = "Pompey",
       text ={
-          "{X:red,C:white}X1{} Mult per {C:attention}Joker{} to",
+          "{X:red,C:white}X1.5{} Mult per {C:attention}Joker{} to",
           "the {C:attention}right{} of this one.",
           "Pompey included",
-          "{C:inactive}(Currently{} {X:red,C:white}X#1#{} {C:inactive} Mult){}"
+          "{C:inactive}(Currently{} {X:red,C:white}X#1#{}{C:inactive} Mult){}"
           
       },
   },
@@ -37,7 +37,7 @@ SMODS.Joker {
                 jokers_to_right = #G.jokers.cards - my_pos + 1
             end
         end
-        return {vars = {math.max(1, jokers_to_right)}} -- Ensure Xmult is at least 1
+        return {vars = {math.max(1.5, (jokers_to_right*1.5))}} 
     end,
   
     calculate = function(self, card, context)
@@ -53,13 +53,12 @@ SMODS.Joker {
             end
 
             if my_pos then
-                -- Count jokers from this position to the end
+                
                 jokers_to_right = #G.jokers.cards - my_pos + 1
             end
         end
 
-        local final_xmult = math.max(1, jokers_to_right) -- Calculate Xmult, ensuring it's at least 1
-
+        local final_xmult = math.max(1.5, (jokers_to_right*1.5)) 
         if final_xmult > 1 then
             return {
                 message = localize{type='variable',key='a_xmult',vars={final_xmult}},

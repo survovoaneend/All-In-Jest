@@ -6,7 +6,7 @@ SMODS.Joker {
     loc_txt = {
       name = "Stained Glass Joker",
       text ={
-          "{C:attention}Glass{} cards count as any {C:attention}suit{}",
+          "{C:attention}Glass Cards{} count as any {C:attention}suit{}",
 
       },
   },
@@ -20,7 +20,7 @@ SMODS.Joker {
     eternal_compat = false,
   
     loc_vars = function(self, info_queue, card)
-  
+      info_queue[#info_queue+1] = G.P_CENTERS.m_glass
     end,
   
     calculate = function(self, card, context)

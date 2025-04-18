@@ -22,7 +22,10 @@ SMODS.Joker {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+      local possible_seals = {'red_seal', 'blue_seal', 'gold_seal'}
+      for _, tag_key in ipairs(possible_seals) do
+          info_queue[#info_queue+1] = {set = 'Other', key = tag_key}
+      end
     end,
   
   calculate = function(self, card, context)

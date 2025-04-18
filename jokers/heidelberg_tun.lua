@@ -9,7 +9,7 @@ SMODS.Joker {
       name = "Heidelberg Tun",
       text ={
           "{C:green}#1# in #2#{} chance for",
-          "purchased {C:attention}consumeables{}",
+          "purchased {C:attention}consumables{}",
           "to become {C:dark_edition}Negative"
       },
   },
@@ -23,6 +23,7 @@ SMODS.Joker {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
+      info_queue[#info_queue + 1] = G.P_CENTERS.e_negative_consumable
       return {
         vars = {
           G.GAME.probabilities.normal, 

@@ -13,7 +13,8 @@ SMODS.Consumable {
 		badges[#badges+1] = create_badge(localize('k_moon'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2 )
 	end,
 	pos = { x = 3, y = 2 },
-	cost = 4,
+	cost = 3,
+	config = {hand_type = "Four of a Kind", moon = true},
 	unlocked = true,
 	discovered = true,
 	atlas = 'consumable_atlas',

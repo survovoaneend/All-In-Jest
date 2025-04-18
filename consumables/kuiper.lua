@@ -13,10 +13,10 @@ SMODS.Consumable {
 		badges[#badges+1] = create_badge(localize('k_asteroid'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2 )
 	end,
 	pos = { x = 5, y = 3 },
-	cost = 4,
+	cost = 3,
 	unlocked = true,
 	discovered = true,
-	config = { hand_type = "Flush Five", softlock = true },
+	config = { hand_type = "Flush Five", softlock = true, moon = true },
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, center)
 		return {

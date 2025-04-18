@@ -14,10 +14,10 @@ SMODS.Joker {
           '{C:inactive}(Must have room)'
       },
   },
-  rarity = 1,
+  rarity = 2,
   pos = { x = 2, y = 7 }, 
   atlas = 'joker_atlas', 
-  cost = 4,
+  cost = 6,
   unlocked = true,
   discovered = true,
   blueprint_compat = true, 

@@ -6,7 +6,7 @@ SMODS.Joker {
   loc_txt = {
     name = "Tetraphobia",
     text ={
-        "This {C:attention}Joker{} gains {C:mult}+1{} Mult",
+        "This Joker gains {C:mult}+1{} Mult",
         "per {C:attention}4{} discarded",
         "{C:attention}Resets{} when a {C:attention}4{} is played",
         "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",

@@ -30,6 +30,7 @@ SMODS.Joker {
     end,
   
     calculate = function(self, card, context)
+      
       local eights, all_cards = 0, 0
       if context.joker_main then
         for k, v in ipairs(context.full_hand) do

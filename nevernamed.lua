@@ -1,6 +1,4 @@
-Nevernamed = SMODS.current_mod
-
-
+All_in_Jest = SMODS.current_mod
 
 SMODS.Atlas {
   key = "joker_atlas",
@@ -37,9 +35,12 @@ SMODS.Atlas {
 
 assert(SMODS.load_file('utils/context.lua'))()
 assert(SMODS.load_file('utils/functions.lua'))()
+assert(SMODS.load_file('utils/overrides.lua'))()
+assert(SMODS.load_file('utils/ui.lua'))()
 --tags
 assert(SMODS.load_file('tag/soulbound.lua'))()
 --planets
+if All_in_Jest.config.moons_enabled then
 assert(SMODS.load_file('consumables/vulcanoid.lua'))()
 assert(SMODS.load_file('consumables/zoozve.lua'))()
 assert(SMODS.load_file('consumables/luna.lua'))()
@@ -64,6 +65,17 @@ assert(SMODS.load_file('consumables/charon.lua'))()
 assert(SMODS.load_file('consumables/nibiru.lua'))()
 assert(SMODS.load_file('consumables/2000_eu16.lua'))()
 assert(SMODS.load_file('consumables/kuiper.lua'))()
+if (SMODS.Mods["paperback"] or {}).can_load then
+  assert(SMODS.load_file('consumables/paper_weywot.lua'))()
+  assert(SMODS.load_file('consumables/paper_namaka.lua'))()
+  assert(SMODS.load_file('consumables/paper_ilmare.lua'))()
+  assert(SMODS.load_file('consumables/paper_salacia.lua'))()
+  assert(SMODS.load_file('consumables/paper_ixion.lua'))()
+  assert(SMODS.load_file('consumables/paper_hiiaka.lua'))()
+  assert(SMODS.load_file('consumables/paper_varda.lua'))()
+  assert(SMODS.load_file('consumables/paper_mk2.lua'))()
+end
+end
 --tarots
 assert(SMODS.load_file('consumables/magus.lua'))()
 --spectrals 

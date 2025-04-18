@@ -16,7 +16,7 @@ SMODS.Consumable {
     soul_set = 'Planet',
 	unlocked = true,
 	discovered = true,
-	config = {},
+	config = {moon = true},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, center)
 	end,
