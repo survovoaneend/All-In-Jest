@@ -1,5 +1,6 @@
 All_in_Jest = SMODS.current_mod
 
+
 SMODS.Atlas {
   key = "joker_atlas",
   path = "jokers.png",
@@ -41,6 +42,7 @@ assert(SMODS.load_file('utils/ui.lua'))()
 assert(SMODS.load_file('tag/soulbound.lua'))()
 --planets
 if All_in_Jest.config.moons_enabled then
+  
 assert(SMODS.load_file('consumables/vulcanoid.lua'))()
 assert(SMODS.load_file('consumables/zoozve.lua'))()
 assert(SMODS.load_file('consumables/luna.lua'))()
@@ -65,7 +67,8 @@ assert(SMODS.load_file('consumables/charon.lua'))()
 assert(SMODS.load_file('consumables/nibiru.lua'))()
 assert(SMODS.load_file('consumables/2000_eu16.lua'))()
 assert(SMODS.load_file('consumables/kuiper.lua'))()
-if (SMODS.Mods["paperback"] or {}).can_load then
+if (SMODS.Mods["paperback"] or {}).can_load and not (SMODS.Mods["Bunco"] or {}).can_load then
+  if PB_UTIL and PB_UTIL.config.suits_enabled then
   assert(SMODS.load_file('consumables/paper_weywot.lua'))()
   assert(SMODS.load_file('consumables/paper_namaka.lua'))()
   assert(SMODS.load_file('consumables/paper_ilmare.lua'))()
@@ -74,6 +77,7 @@ if (SMODS.Mods["paperback"] or {}).can_load then
   assert(SMODS.load_file('consumables/paper_hiiaka.lua'))()
   assert(SMODS.load_file('consumables/paper_varda.lua'))()
   assert(SMODS.load_file('consumables/paper_mk2.lua'))()
+  end
 end
 end
 --tarots
