@@ -18,7 +18,7 @@ SMODS.Consumable {
 	discovered = true,
 	config = {moon = true},
 	atlas = 'consumable_atlas',
-    loc_vars = function(self, info_queue, center)
+    loc_vars = function(self, info_queue, card)
 	end,
     can_use = function(self, card)
         return true

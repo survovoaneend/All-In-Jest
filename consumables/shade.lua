@@ -15,7 +15,7 @@ SMODS.Consumable {
 	discovered = true,
 	config = {max_highlighted = 1},
 	atlas = 'consumable_atlas',
-    loc_vars = function(self, info_queue, center)
+    loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {key = 'e_negative_playing_card', set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit} }
 	end,
     can_use = function(self, card)

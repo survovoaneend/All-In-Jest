@@ -16,7 +16,7 @@ SMODS.Consumable {
 	discovered = true,
 	config = {},
 	atlas = 'consumable_atlas',
-    loc_vars = function(self, info_queue, center)
+    loc_vars = function(self, info_queue, card)
 	end,
     can_use = function(self, card)
         return G.jokers and #G.jokers.cards > 0
