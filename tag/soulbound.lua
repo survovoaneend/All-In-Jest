@@ -1,44 +1,32 @@
 SMODS.Tag {
-    key = 'soulbound', 
-    loc_txt = {
-        name = 'Soulbound Tag',
-        text = {
-            'Creates a random {C:attention}Perishable{} ',
-            '{C:legendary}Legendary{} Joker',
-            '{C:inactive}(Must have room)'
-        }
-    },
+    key = 'soulbound',
 
-    
-    pos = { x = 0, y = 0 }, 
-    atlas = 'tag_atlas', 
+    pos = { x = 0, y = 0 },
+    atlas = 'tag_atlas',
 
     discovered = true,
-   
+
     loc_vars = function(self, info_queue)
     end,
 
     -- Function defining the tag's effect
     apply = function(self, tag, context)
-       
         if context.type == 'immediate' then
-    
             tag:yep('+', G.C.RARITY[4], function()
                 if G.jokers and #G.jokers.cards < G.jokers.config.card_limit then
-                local joker_card = create_card('Joker', G.jokers, true, nil, nil, nil, nil, 'perishable_legendary_tag')
+                    local joker_card = create_card('Joker', G.jokers, true, nil, nil, nil, nil,
+                        'perishable_legendary_tag')
 
-                if joker_card then
-
+                    if joker_card then
                         joker_card.ability.perishable = true
-                        joker_card.ability.perish_tally = G.GAME.perishable_rounds or 5 
+                        joker_card.ability.perish_tally = G.GAME.perishable_rounds or 5
 
-                    joker_card:add_to_deck()
-                    G.jokers:emplace(joker_card)
-                    joker_card:start_materialize() 
-            
+                        joker_card:add_to_deck()
+                        G.jokers:emplace(joker_card)
+                        joker_card:start_materialize()
+                    end
                 end
-            end
-                return true 
+                return true
             end)
             tag.triggered = true
             return true
