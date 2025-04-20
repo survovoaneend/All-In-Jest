@@ -66,6 +66,10 @@ if All_in_Jest.config.moons_enabled then
   assert(SMODS.load_file('consumables/nibiru.lua'))()
   assert(SMODS.load_file('consumables/2000_eu16.lua'))()
   assert(SMODS.load_file('consumables/kuiper.lua'))()
+
+  -- Spectral planets
+  assert(SMODS.load_file('consumables/pulsar.lua'))()
+  assert(SMODS.load_file('consumables/gravastar.lua'))()
   if next(SMODS.find_mod("paperback")) or next(SMODS.find_mod("Bunco")) then
     if PB_UTIL and PB_UTIL.config.suits_enabled or next(SMODS.find_mod("Bunco")) then
       assert(SMODS.load_file('consumables/paper_weywot.lua'))()
@@ -83,8 +87,6 @@ end
 assert(SMODS.load_file('consumables/magus.lua'))()
 --spectrals 
 assert(SMODS.load_file('consumables/trefle.lua'))()
-assert(SMODS.load_file('consumables/pulsar.lua'))()
-assert(SMODS.load_file('consumables/gravastar.lua'))()
 assert(SMODS.load_file('consumables/shade.lua'))()
 --enhancements
 assert(SMODS.load_file('enhancements/fervent.lua'))()
