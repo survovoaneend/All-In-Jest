@@ -13,26 +13,8 @@ SMODS.Joker {
     discovered = true,
     blueprint_compat = true,
     eternal_compat = true,
-    set_ability = function(self, card, initial, delay_sprites)
-      local w_scale, h_scale = 53 / 71, 53 / 95
-  
-      card.T.h = card.T.h * h_scale
-      card.T.w = card.T.w * w_scale
-    end,
-  
-    set_sprites = function(self, card, front)
-      local w_scale, h_scale = 53 / 71, 53 / 95
-  
-      card.children.center.scale.y = card.children.center.scale.y * h_scale
-      card.children.center.scale.x = card.children.center.scale.x * w_scale
-    end,
-  
-    load = function(self, card, card_table, other_card)
-      local w_scale, h_scale = 53 / 71, 53 / 95
-  
-      card.T.h = card.T.h * h_scale
-      card.T.w = card.T.w * w_scale
-    end,
+
+    pixel_size = { w = 53, h = 53 },
   
     loc_vars = function(self, info_queue, card)
       info_queue[#info_queue+1] = G.P_SEALS['Gold']
