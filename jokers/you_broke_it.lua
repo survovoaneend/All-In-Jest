@@ -25,15 +25,6 @@ SMODS.Joker {
       end)()
       }
     },
-    loc_txt = {
-      name = "You Broke It!",
-      text ={
-          "Turns every scored {C:attention}#1#{} into a",
-          "{C:attention}#2#{}. Rank and",
-          "Enhancement change when",
-          "selecting {C:attention}blind{}"
-      },
-  },
     rarity = 2,
     pos = { x = 24, y = 8},
     atlas = 'joker_atlas',

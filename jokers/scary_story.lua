@@ -5,14 +5,6 @@ SMODS.Joker {
         chance = 3
       }
     },
-    loc_txt = {
-      name = "Scary Story",
-      text ={
-          "Base edition playing cards in {C:attention}Standard{}",
-          "{C:attention}Packs{} have a {C:green}#1# in #2#{} chance to become",
-          "{C:dark_edition}Negative{}"
-      },
-  },
     rarity = 3,
     pos = { x = 0, y = 1 },
     atlas = 'joker_atlas',

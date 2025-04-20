@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Vesti la Guibba",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 14, y = 4 },
     atlas = 'joker_atlas',

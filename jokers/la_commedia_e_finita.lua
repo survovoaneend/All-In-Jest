@@ -6,15 +6,6 @@ SMODS.Joker {
       mult_gain = 5
     }
   },
-  loc_txt = {
-    name = "La Commedia e Finita",
-    text ={
-      "This Joker gains {C:red}+5{}",
-      "Mult when a {C:attention}face{} card",
-      "is {C:attention}destroyed",
-      "{C:inactive}(Currently {C:red}+#1#{C:inactive} Mult)"
-    },
-},
   rarity = 1,
   pos = { x = 24, y = 5 },
   atlas = 'joker_atlas',
@@ -27,6 +18,7 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     return {
       vars = {
+        card.ability.extra.mult_gain,
         card.ability.extra.mult
       }
     }

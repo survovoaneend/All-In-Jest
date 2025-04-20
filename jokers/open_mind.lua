@@ -3,15 +3,6 @@ SMODS.Joker {
   config = {
     extra = { packs = 2 }
   },
-  loc_txt = {
-    name = "Open Mind",
-    text ={
-        "{C:attention}#1#{} additional random",
-        "{C:attention}Booster Packs{} available",
-        "for purchase in every",
-        "{C:attention}shop{}"
-    },
-},
   rarity = 3,
   pos = { x = 22, y = 4 },
   atlas = 'joker_atlas',

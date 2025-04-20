@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Arecibo Message",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 13, y = 7},
     atlas = 'joker_atlas',

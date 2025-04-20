@@ -3,13 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Jumbo Joker",
-      text ={
-          "Only {C:attention}Jumbo{} and {C:attention}Mega{} Booster",
-          "Packs can appear"
-      },
-  },
     rarity = 2,
     pos = { x = 10, y = 5 },
     atlas = 'joker_atlas',

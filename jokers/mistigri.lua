@@ -3,13 +3,6 @@ SMODS.Joker {
     config = {
 
     },
-    loc_txt = {
-      name = "Mistigri",
-      text ={
-          "{C:attention}+1{} hand size per",
-          "{C:attention}Jack{} held in hand"
-      },
-    },
     rarity = 2,
     pos = { x = 14, y = 5 },
     atlas = 'joker_atlas',

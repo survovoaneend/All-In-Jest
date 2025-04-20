@@ -3,14 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Dead President",
-      text ={
-          "Sell this {C:attention}Joker{} to",
-          "{C:attention}double{} the {C:money}Sell Values{}",
-          "of adjacent {C:attention}Jokers"
-      },
-  },
     rarity = 1,
     pos = { x = 15, y = 4 },
     atlas = 'joker_atlas',

@@ -4,13 +4,6 @@ SMODS.Joker {
       extra = {
       },
     },
-    loc_txt = {
-      name = "Giocoliere",
-      text ={
-          "{C:attention}+2{} hand size{} during",
-          "the {C:attention}Boss Blind"
-      },
-  },
     rarity = 1,
     pos = { x = 16, y = 5 },
     atlas = 'joker_atlas',

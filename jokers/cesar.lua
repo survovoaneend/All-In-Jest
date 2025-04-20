@@ -6,15 +6,6 @@ SMODS.Joker {
         money_mod = 1
       }
     },
-    loc_txt = {
-      name = "Cesar",
-      text ={
-          'Earn {C:money}$#1#{} at end of',
-          'round. Increases by {C:money}$1{}',
-          'if {C:attention}played hand{} is only',
-          '{C:diamonds}Diamond {C:attention}Kings'
-      },
-  },
     rarity = 3,
     pos = { x = 20, y = 9},
     atlas = 'joker_atlas',
@@ -27,7 +18,8 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
         return {
           vars = {
-            card.ability.extra.money
+            card.ability.extra.money,
+            card.ability.extra.money_mod
           }
         }
     end,

@@ -5,14 +5,6 @@ SMODS.Joker {
         odds = 2
       }
     },
-    loc_txt = {
-      name = "Penny",
-      text ={
-          "Cards with {C:money}Gold Seal{}",
-          "have a {C:green}#1# in #2#{} chance to",
-          "{C:attention}retrigger"
-      },
-  },
     rarity = 1,
     pos = { x = 1, y = 2 },
     atlas = 'joker_atlas',

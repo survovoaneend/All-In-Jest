@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "In Vino Veritas",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 6, y = 5 },
     atlas = 'joker_atlas',

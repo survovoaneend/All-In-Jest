@@ -3,13 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Lucky Seven",
-      text ={
-          "Turn all scored {C:attention}7s{} into",
-          "{C:attention}Lucky Cards{}."
-      },
-  },
     rarity = 2,
     pos = { x = 1, y = 0 },
     atlas = 'joker_atlas',

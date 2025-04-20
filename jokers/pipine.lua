@@ -3,13 +3,8 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Pipine",
-      text ={
-          ""
-      },
-  },
     rarity = 4,
+		unlock_condition = {hidden = true},
     pos = { x = 2, y = 8},
     atlas = 'legendary_atlas',
     cost = 4,

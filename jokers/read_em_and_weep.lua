@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Read Em and Weep",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 12, y = 3 },
     atlas = 'joker_atlas',

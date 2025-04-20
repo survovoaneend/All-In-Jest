@@ -6,15 +6,6 @@ SMODS.Joker {
       xmult_mod = 0.25
     }
   },
-  loc_txt = {
-    name = "Straight to Hell",
-    text ={
-        "This {C:attention}Joker{} gains {X:red,C:white}X0.25{}",
-        "Mult when a {C:attention}Straight{}",
-        "is {C:attention}discarded{}",
-        '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
-    },
-},
   rarity = 2,
   pos = { x = 0, y = 6},
   atlas = 'joker_atlas',
@@ -27,6 +18,7 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     return {
       vars = {
+        card.ability.extra.xmult_mod,
         card.ability.extra.xmult
       }
     }

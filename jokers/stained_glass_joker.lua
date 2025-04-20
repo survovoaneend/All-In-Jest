@@ -3,13 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Stained Glass Joker",
-      text ={
-          "{C:attention}Glass Cards{} count as any {C:attention}suit{}",
-
-      },
-  },
     rarity = 2,
     pos = { x = 17, y = 8},
     atlas = 'joker_atlas',

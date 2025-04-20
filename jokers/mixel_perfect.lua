@@ -5,14 +5,6 @@ SMODS.Joker {
         mult = 10
       }
     },
-    loc_txt = {
-      name = "Mixel Perfect",
-      text ={
-          "{C:red}+#1#{} Mult if {C:attention}played hand{}",
-          "contains an {C:attention}odd{} number",
-          "of cards"
-      },
-  },
     rarity = 1,
     pos = { x = 10, y = 4 },
     atlas = 'joker_atlas',

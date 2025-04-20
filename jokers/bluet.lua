@@ -3,13 +3,8 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Bluet",
-      text ={
-          ""
-      },
-  },
     rarity = 4,
+		unlock_condition = {hidden = true},
     pos = { x = 0, y = 8},
     atlas = 'legendary_atlas',
     cost = 4,

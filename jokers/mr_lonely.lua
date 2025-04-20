@@ -6,15 +6,6 @@ SMODS.Joker {
         chip_mod = 10
       }
     },
-    loc_txt = {
-      name = "Mr. Lonely",
-      text ={
-          "This Joker gains {C:blue}+10",
-          "Chips per empty {C:attention}Joker",
-          "{C:attention}slot{} at end of {C:attention}round{}",
-          "{C:inactive}(Currently{} {C:blue}+#1#{}{C:inactive{} Chips)"
-      },
-  },
     rarity = 1,
     pos = { x = 18, y = 7},
     atlas = 'joker_atlas',
@@ -27,6 +18,7 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
       return {
         vars = {
+          card.ability.extra.chip_mod,
           card.ability.extra.chips
         }
       }

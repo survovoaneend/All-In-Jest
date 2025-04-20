@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Comedian's Manifesto",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 6, y = 1 },
     atlas = 'joker_atlas',

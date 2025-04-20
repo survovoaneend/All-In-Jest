@@ -6,14 +6,6 @@ SMODS.Joker {
         xmult = 10
       }
     },
-    loc_txt = {
-      name = "Hofnarr the Barbarian",
-      text ={
-          "{C:red}+10{} Mult",
-          "On {C:attention}Finisher{} Blinds, instead {C:attention}disables{}",
-          "them and gives {X:red,C:white}X10{} Mult"
-      },
-  },
     rarity = 2,
     pos = { x = 11, y = 8},
     atlas = 'joker_atlas',
@@ -25,6 +17,7 @@ SMODS.Joker {
   
     loc_vars = function(self, info_queue, card)
       info_queue[#info_queue+1] = {set = 'Other', key = 'finisher_blind'}
+      return { vars = {card.ability.extra.mult, card.ability.extra.xmult} }
     end,
   
     calculate = function(self, card, context)

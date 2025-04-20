@@ -3,16 +3,8 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Nybbas",
-      text ={
-          "Grants a {C:dark_edition}Negative{} {C:attention}The Devil{}",
-          "{C:tarot}Tarot{} card upon selecting {C:attention}Blind{}.",
-          "Scored {C:attention}Gold Cards{} are given a random",
-          "{C:attention}seal{} and {C:attention}edition{}"
-      },
-  },
     rarity = 4,
+		unlock_condition = {hidden = true},
     pos = { x = 0, y = 0},
     atlas = 'legendary_atlas',
     cost = 4,

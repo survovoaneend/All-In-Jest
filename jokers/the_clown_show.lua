@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "The Clown Show",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 8, y = 0 },
     atlas = 'joker_atlas',

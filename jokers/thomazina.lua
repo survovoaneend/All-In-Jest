@@ -3,13 +3,8 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Thomazina",
-      text ={
-          ""
-      },
-  },
     rarity = 4,
+		unlock_condition = {hidden = true},
     pos = { x = 3, y = 4},
     atlas = 'legendary_atlas',
     cost = 4,

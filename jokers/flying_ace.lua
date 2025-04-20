@@ -7,15 +7,6 @@ SMODS.Joker {
         aces = {}
       }
     },
-    loc_txt = {
-      name = "Flying Ace",
-      text ={
-          "Earn {C:money}$#1#{} at end of round per",
-          "{C:attention}Ace{} of unique {C:attention}suit{} scored", 
-          "this round.",
-          "{C:inactive}(Currently{} {C:money}$#2#{} {C:inactive}){}"
-      },
-  },
     rarity = 1,
     pos = { x = 0, y = 0 },
     atlas = 'joker_atlas',

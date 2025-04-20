@@ -3,14 +3,8 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Biancolelli",
-      text ={
-          "{X:dark_edition,C:white}^1.3{} Mult on the {C:attention}final{}",
-          "{C:attention}hand{} of round."
-      },
-  },
     rarity = 4,
+		unlock_condition = {hidden = true},
     pos = { x = 9, y = 0},
     atlas = 'legendary_atlas',
     cost = 4,

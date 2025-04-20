@@ -3,22 +3,13 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Nichola",
-      text ={
-          'When round begins, add',
-            'one random {C:attention}Queen',
-            'to your hand with a',
-            'random {C:attention}Enhancement{}, {C:attention}Seal{},',
-            'and {C:dark_edition}Edition{}'
-      },
-  },
     rarity = 4,
+		unlock_condition = {hidden = true},
     pos = { x = 6, y = 2},
     atlas = 'legendary_atlas',
     cost = 20,
     unlocked = true,
-    discovered = false,
+    discovered = true,
     blueprint_compat = true,
     eternal_compat = true,
     soul_pos = { x = 6, y = 3},

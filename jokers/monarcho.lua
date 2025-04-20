@@ -3,17 +3,8 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Monarcho",
-      text ={
-          "Played {C:attention}Kings{} give {X:red,C:white}X4{} Mult.",
-          "{C:green}1 in 2{} chance for played", 
-          "{C:attention}Kings{} to be {C:red}destroyed{}",
-          "after scoring"
-
-      },
-  },
     rarity = 4,
+		unlock_condition = {hidden = true},
     pos = { x = 2, y = 0},
     atlas = 'legendary_atlas',
     cost = 4,

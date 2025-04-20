@@ -3,13 +3,6 @@ SMODS.Joker {
   config = {
     
   },
-  loc_txt = {
-    name = "Event Horizon",
-    text ={
-        "{C:dark_edition}Black Hole{} has the same rarity",
-        "of other {C:planet}Planet Cards{}"
-    },
-},
   rarity = 3,
   pos = { x = 13, y = 6},
   atlas = 'joker_atlas',

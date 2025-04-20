@@ -3,16 +3,8 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Pellesini",
-      text ={
-          "This {C:attention}Joker{} gains {X:red,C:white}X0.5{} Mult",
-          "upon leaving a {C:attention}shop{} without",
-          "{C:green}rerolling{}.",
-          "{C:inactive}(Currently{} {X:red,C:white}X1{} {C:inactive}Mult){}",
-      },
-  },
     rarity = 4,
+		unlock_condition = {hidden = true},
     pos = { x = 6, y = 0},
     atlas = 'legendary_atlas',
     cost = 4,

@@ -6,15 +6,6 @@ SMODS.Joker {
       chip_gain = 50
     }
   },
-  loc_txt = {
-    name = "Executioner",
-    text ={
-        "This Joker gains {C:blue}+50{}",
-        "Chips when a {C:attention}face{} card",
-        "is {C:attention}destroyed",
-        "{C:inactive}(Currently {C:blue}+#1#{C:inactive} Chips)"
-    },
-  },
   rarity = 2,
   pos = { x = 11, y = 6},
   atlas = 'joker_atlas',
@@ -27,6 +18,7 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     return {
       vars = {
+        card.ability.extra.chip_gain,
         card.ability.extra.chips
       }
     }

@@ -3,13 +3,6 @@ SMODS.Joker {
   config = {
     extra = { original_prob = 1, is_nullifying = false }
   },
-  loc_txt = {
-    name = "Null Joker",
-    text ={
-        "Sets all {C:green}probabilities{}",
-        "to {C:attention}zero{}"
-    },
-},
   rarity = 1,
   pos = { x = 7, y = 3 },
   atlas = 'joker_atlas',

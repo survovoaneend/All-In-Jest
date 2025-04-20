@@ -3,13 +3,8 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Fleeman",
-      text ={
-          ""
-      },
-  },
     rarity = 4,
+		unlock_condition = {hidden = true},
     pos = { x = 7, y = 2},
     atlas = 'legendary_atlas',
     cost = 4,

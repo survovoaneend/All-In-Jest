@@ -3,15 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Sneaky Pete",
-      text ={
-          'Earn {C:money}$1{} at end of round',
-            'for every {C:money}Gold Seal{}',
-            'in your {C:attention}full deck',
-            '{C:inactive}(Currently {C:money}$#1#{C:inactive})'
-      },
-  },
     rarity = 1,
     pos = { x = 22, y = 5 },
     atlas = 'joker_atlas',

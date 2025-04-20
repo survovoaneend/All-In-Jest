@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Carousel",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 21, y = 0 },
     atlas = 'joker_atlas',

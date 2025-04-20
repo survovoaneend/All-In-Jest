@@ -3,15 +3,6 @@ SMODS.Joker {
   config = {
     extra = { bonus_mult = 0 }
   },
-  loc_txt = {
-    name = "Tetraphobia",
-    text ={
-        "This Joker gains {C:mult}+1{} Mult",
-        "per {C:attention}4{} discarded",
-        "{C:attention}Resets{} when a {C:attention}4{} is played",
-        "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
-    },
-},
   rarity = 1,
   pos = {x = 8, y = 5 },
   atlas = 'joker_atlas',

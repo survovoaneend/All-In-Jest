@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Jack of All Trades",
-      text ={
-          "{C:attention}Jacks{} count as any {C:attention}suit",
-      },
-  },
     rarity = 2,
     pos = { x = 9, y = 5 },
     atlas = 'joker_atlas',

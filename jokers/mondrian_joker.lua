@@ -2,17 +2,9 @@ SMODS.Joker {
     key = "mondrian_joker",
     config = {
       extra = {
-        
+        mult_mod = 4
       }
     },
-    loc_txt = {
-      name = "Mondrian Joker",
-      text ={
-          "{C:red}+4{} Mult per {C:attention}4",
-          "in your {C:attention}full deck",
-          "{C:inactive}(Currently{} {C:red}+#1#{}{C:inactive} Mult)"
-      },
-  },
     rarity = 1,
     pos = { x = 3, y = 8},
     atlas = 'joker_atlas',
@@ -31,8 +23,8 @@ SMODS.Joker {
                 end
             end
         end
-        local current_mult = four_count * 4
-        return { vars = {current_mult} }
+        local current_mult = four_count * card.ability.extra.mult_mod
+        return { vars = {card.ability.extra.mult_mod, current_mult} }
     end,
   
     calculate = function(self, card, context)
@@ -46,7 +38,7 @@ SMODS.Joker {
               end
           end
 
-          local total_mult = four_count * 4
+          local total_mult = four_count * card.ability.extra.mult_mod
 
           if total_mult > 0 then
               return {

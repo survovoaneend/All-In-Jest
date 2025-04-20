@@ -3,15 +3,8 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Grock",
-      text ={
-          "{C:attention}Retriggers{} Jokers to the left",
-          "and right if {C:attention}played hand{} contains",
-          "only {C:attention}Kings{}"
-      },
-  },
     rarity = 4,
+		unlock_condition = {hidden = true},
     pos = { x = 1, y = 2},
     atlas = 'legendary_atlas',
     cost = 4,
