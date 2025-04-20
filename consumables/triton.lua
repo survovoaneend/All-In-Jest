@@ -1,13 +1,5 @@
 SMODS.Consumable {
 	key = 'triton',
-	loc_txt = {
-		name = 'Triton',
-		text = {
-			"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
-                    "{C:attention}Straight Flush{}",
-                    "{C:mult}+#2#{} Mult",
-			}
-	},
 	set = 'Planet',
 	set_card_type_badge = function(self, card, badges)
 		badges[#badges+1] = create_badge(localize('k_moon'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2 )
@@ -22,6 +14,7 @@ SMODS.Consumable {
 		return {
 			vars = {
 				G.GAME.hands[card.ability.consumeable.hand_type].level,
+				localize(card.ability.consumeable.hand_type, 'poker_hands'),
 				G.GAME.hands[card.ability.consumeable.hand_type].l_mult * 2,
 				colours = {(G.GAME.hands[card.ability.consumeable.hand_type].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[card.ability.consumeable.hand_type].level)])}
 			},

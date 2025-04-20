@@ -1,13 +1,5 @@
 SMODS.Consumable {
 	key = 'gravastar',
-	loc_txt = {
-		name = 'Gravastar',
-		text = {
-			'{C:attention}Levels up{} the',
-            '{C:blue}Chips{} of all',
-            '{C:legendary,E:1}poker hands'
-			}
-	},
 	set = 'Spectral',
 	pos = { x = 3, y = 4 },
 	cost = 4,

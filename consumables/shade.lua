@@ -1,13 +1,5 @@
 SMODS.Consumable {
 	key = 'shade',
-	loc_txt = {
-		name = 'Shade',
-		text = {
-			'Add {C:dark_edition}Negative{} edtion',
-            'to {C:attention}1{} selected',
-            'card in hand'
-			}
-	},
 	set = 'Spectral',
 	pos = { x = 4, y = 4 },
 	cost = 4,

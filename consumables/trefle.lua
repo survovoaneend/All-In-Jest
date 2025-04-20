@@ -1,14 +1,5 @@
 SMODS.Consumable {
 	key = 'trefle',
-	loc_txt = {
-		name = 'Trèfle',
-		text = {
-			'Replace a random owned',
-            '{C:attention}Joker{} of the {C:attention}highest rarity',
-            'with a different random {C:attention}Joker{}',
-            'of the {C:attention}same rarity',
-			}
-	},
 	set = 'Spectral',
 	pos = { x = 1, y = 4 },
 	cost = 4,
