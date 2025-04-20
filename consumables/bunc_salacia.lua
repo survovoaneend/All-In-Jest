@@ -1,5 +1,5 @@
 SMODS.Consumable {
-	key = 'paper_salacia',
+	key = 'bunc_salacia',
 	loc_txt = {
 		name = 'Salacia',
 		text = {
@@ -16,13 +16,13 @@ SMODS.Consumable {
 	cost = 3,
 	unlocked = true,
 	discovered = true,
-	config = { hand_type = "paperback_Spectrum Five", softlock = true, moon = true },
+	config = { hand_type = "bunc_Spectrum Five", softlock = true, moon = true },
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, center)
 		return {
 			vars = {
-				G.GAME.hands['paperback_Spectrum Five'].level,
-				colours = {(G.GAME.hands['paperback_Spectrum Five'].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands['paperback_Spectrum Five'].level)])}
+				G.GAME.hands['bunc_Spectrum Five'].level,
+				colours = {(G.GAME.hands['bunc_Spectrum Five'].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands['bunc_Spectrum Five'].level)])}
 			},
 		}
     end,
@@ -30,7 +30,7 @@ SMODS.Consumable {
 		return true
 	end,
 	use = function(self, card, area, copier)
-		local hand = 'paperback_Spectrum Five'
+		local hand = 'bunc_Spectrum Five'
 		update_hand_text({ sound = "button", volume = 0.7, pitch = 0.8, delay = 0.3 }, {
 			handname = localize(hand, "poker_hands"),
 			chips = G.GAME.hands[hand].chips,

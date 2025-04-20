@@ -42,19 +42,24 @@ SMODS.Joker {
         func = function()
           if (G.jokers.config.card_limit - #G.jokers.cards) > 0 then
             card.ability.extra.chips = card.ability.extra.chips +
-            card.ability.extra.chip_mod * (G.jokers.config.card_limit - #G.jokers.cards)
+                card.ability.extra.chip_mod * (G.jokers.config.card_limit - #G.jokers.cards)
+            return true
+          else
             return true
           end
         end
       }))
-      
+
       card.ability.extra.round_ended_processed = true
       if (G.jokers.config.card_limit - #G.jokers.cards) > 0 then
         return {
-        message = localize('k_upgrade_ex'),
-        card = card
-      }
-    end
+          message = localize('k_upgrade_ex'),
+          card = card
+
+        }
+      else
+        return true
+      end
     end
     if context.joker_main and card.ability.extra.chips > 0 then
       return {
@@ -65,4 +70,5 @@ SMODS.Joker {
       card.ability.extra.round_ended_processed = false
     end
   end
+
 }

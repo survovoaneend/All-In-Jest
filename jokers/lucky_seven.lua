@@ -25,22 +25,32 @@ SMODS.Joker {
   
     calculate = function(self, card, context)
       if context.before and not context.blueprint then
-        local cards = {}
-        for k, v in ipairs(context.scoring_hand) do
-          if v:get_id() == 7 and v.config.center == G.P_CENTERS.c_base then
-            cards[#cards+1] = v
-            v:set_ability(G.P_CENTERS.m_lucky, nil, true)
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    v:juice_up()
-                    return true
+        local enhanced_a_card = false
+        if context.scoring_hand and #context.scoring_hand > 0 then
+            for k, v in ipairs(context.scoring_hand) do
+                if v:get_id() == 7 and v.config.center == G.P_CENTERS.c_base then
+                    v:set_ability(G.P_CENTERS.m_lucky, nil, true) 
+                    enhanced_a_card = true 
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            if v and not v.removed then
+                                v:juice_up()
+                            end
+                            return true
+                        end
+                    }))
                 end
-            }))
-            return {
-              message = 'Lucky!'
-            }
-          end
+            end
         end
-      end
+
+
+        if enhanced_a_card then
+          return {
+              message = 'Lucky!',
+              card = card 
+          }
+        end
+    end
+    return nil
     end
   }

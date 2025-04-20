@@ -79,6 +79,16 @@ if (SMODS.Mods["paperback"] or {}).can_load and not (SMODS.Mods["Bunco"] or {}).
   assert(SMODS.load_file('consumables/paper_mk2.lua'))()
   end
 end
+if (SMODS.Mods["Bunco"] or {}).can_load then
+  assert(SMODS.load_file('consumables/bunc_weywot.lua'))()
+  assert(SMODS.load_file('consumables/bunc_namaka.lua'))()
+  assert(SMODS.load_file('consumables/bunc_ilmare.lua'))()
+  assert(SMODS.load_file('consumables/bunc_salacia.lua'))()
+  assert(SMODS.load_file('consumables/bunc_ixion.lua'))()
+  assert(SMODS.load_file('consumables/bunc_hiiaka.lua'))()
+  assert(SMODS.load_file('consumables/bunc_varda.lua'))()
+  assert(SMODS.load_file('consumables/bunc_mk2.lua'))()
+end
 end
 --tarots
 assert(SMODS.load_file('consumables/magus.lua'))()
