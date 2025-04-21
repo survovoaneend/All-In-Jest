@@ -62,4 +62,5 @@ SMODS.Joker {
       card.ability.extra.round_ended_processed = false
     end
   end
+
 }
