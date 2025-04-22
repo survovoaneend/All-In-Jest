@@ -1,16 +1,5 @@
 SMODS.Joker {
   key = "little_devil",
-  loc_txt = {
-    name = "Little Devil",
-    text = {
-        "When {C:attention}skipping{} a {C:attention}Blind{}, gain a",
-        "random {C:attention}Standard{}, {C:tarot}Charm{},",
-        "{C:planet}Meteor{}, or {C:red}Buffoon {C:attention}Tag{}"
-    },
-  },
-  atlas = 'joker_atlas',
-  pos = { x = 9, y = 0 }, 
-
   rarity = 2,
   cost = 6,
   unlocked = true,

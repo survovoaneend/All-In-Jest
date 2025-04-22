@@ -3,15 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Petrushka",
-      text ={
-          "Gives {C:red}Mult{} equal to",
-          "the total {C:attention}rank{} of",
-          "all {C:attention}scored cards{}",
-          "{C:inactive}(A=14, K=13, Q=12, J=11)"
-      },
-  },
     rarity = 2,
     pos = { x = 5, y = 4 },
     atlas = 'joker_atlas',

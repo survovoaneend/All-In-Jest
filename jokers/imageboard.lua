@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Imageboard",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 20, y = 0 },
     atlas = 'joker_atlas',

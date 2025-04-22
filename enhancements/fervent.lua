@@ -8,13 +8,6 @@ SMODS.Enhancement {
             chips_extra = 10,
         }
     },
-    loc_txt = {
-        name = "Fervent Card",
-        text = {
-            "Gains {C:blue}+#2#{}",
-            "chips when scored"
-        }
-    },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {

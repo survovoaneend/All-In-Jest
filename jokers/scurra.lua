@@ -5,14 +5,6 @@ SMODS.Joker {
           retriggers = 1
       }
   },
-  loc_txt = {
-      name = "Scurra",
-      text = {
-          'Retrigger all played cards',
-          'with a {C:red}Red Seal',
-          '{C:attention}#1#{} additional time'
-      },
-  },
   rarity = 2,
   pos = { x = 18, y = 6 }, 
   atlas = 'joker_atlas',   

@@ -6,15 +6,6 @@ SMODS.Joker {
         chip_mod = 20
       }
     },
-    loc_txt = {
-      name = "Clowns on Parade",
-      text ={
-          "This {C:attention}Joker{} gains {C:blue}+#2#{} Chips if",
-          "played {C:attention}hand{} contains at least",
-          "three {C:attention}2s{}",
-          "{C:inactive}(Currently{} {C:blue}+#1#{} {C:inactive}Chips){}"
-      },
-  },
     rarity = 2,
     pos = { x = 17, y = 4 },
     atlas = 'joker_atlas',

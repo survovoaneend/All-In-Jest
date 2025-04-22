@@ -8,17 +8,6 @@ SMODS.Joker {
       }
   },
 
-  loc_txt = {
-    name = "Squeezy Pete",
-    text = {
-        "Gains {X:mult,C:white}X#1#{} Mult when a", 
-        "{C:attention}Full House{} is played.",
-        "Resets if played hand",
-        "is not a {C:attention}Full House{}.",
-        "{C:inactive}(Currently{} {X:mult,C:white}X#2#{}{C:inactive} Mult){}",
-    },
-  },
-
   rarity = 2,
   pos = { x = 12, y = 0 },
   atlas = 'joker_atlas',

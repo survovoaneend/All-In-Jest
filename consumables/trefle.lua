@@ -1,14 +1,5 @@
 SMODS.Consumable {
 	key = 'trefle',
-	loc_txt = {
-		name = 'Trèfle',
-		text = {
-			'Replace a random owned',
-            '{C:attention}Joker{} of the {C:attention}highest rarity',
-            'with a different random {C:attention}Joker{}',
-            'of the {C:attention}same rarity',
-			}
-	},
 	set = 'Spectral',
 	pos = { x = 1, y = 4 },
 	cost = 4,
@@ -16,7 +7,7 @@ SMODS.Consumable {
 	discovered = true,
 	config = {},
 	atlas = 'consumable_atlas',
-    loc_vars = function(self, info_queue, center)
+    loc_vars = function(self, info_queue, card)
 	end,
     can_use = function(self, card)
         return G.jokers and #G.jokers.cards > 0

@@ -5,13 +5,6 @@ SMODS.Joker {
       money = 5
     }
   },
-  loc_txt = {
-    name = "Guiser",
-    text ={
-        "Gains {C:money}$5{} of {C:attention}sell value{}",
-        "when a {C:tarot}Tarot{} card is used"
-    },
-},
   rarity = 3,
   pos = { x = 1, y = 6},
   atlas = 'joker_atlas',
@@ -22,7 +15,11 @@ SMODS.Joker {
   eternal_compat = true,
 
   loc_vars = function(self, info_queue, card)
-
+    return {
+      vars = {
+        card.ability.extra.money
+      }
+    }
   end,
 
   calculate = function(self, card, context)

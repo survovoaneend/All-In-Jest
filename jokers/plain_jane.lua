@@ -5,14 +5,6 @@ SMODS.Joker {
         mult = 5
       }
     },
-    loc_txt = {
-      name = "Plain Jane",
-      text ={
-          "Scored {C:attention}non-enhanced{} cards",
-          "give {C:red}+#1#{} Mult"
-
-        },
-  },
     rarity = 1,
     pos = { x = 15, y = 1 },
     atlas = 'joker_atlas',

@@ -3,14 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Atom",
-      text ={
-          "Levels up {C:attention}High Card{} if",
-          "played hand is only one",
-          "{C:attention}Ace{}."
-      },
-  },
     rarity = 2,
     pos = { x = 14, y = 1 },
     atlas = 'joker_atlas',

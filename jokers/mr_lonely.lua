@@ -1,37 +1,29 @@
 SMODS.Joker {
-    key = "mr_lonely",
-    config = {
-      extra = {
-        chips = 0,
-        chip_mod = 10
-      }
-    },
-    loc_txt = {
-      name = "Mr. Lonely",
-      text ={
-          "This Joker gains {C:blue}+10",
-          "Chips per empty {C:attention}Joker",
-          "{C:attention}slot{} at end of {C:attention}round{}",
-          "{C:inactive}(Currently{} {C:blue}+#1#{}{C:inactive{} Chips)"
-      },
+  key = "mr_lonely",
+  config = {
+    extra = {
+      chips = 0,
+      chip_mod = 10
+    }
   },
-    rarity = 1,
-    pos = { x = 18, y = 7},
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = true,
-    blueprint_compat = true,
-    eternal_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-      return {
-        vars = {
-          card.ability.extra.chips
-        }
+  rarity = 1,
+  pos = { x = 18, y = 7 },
+  atlas = 'joker_atlas',
+  cost = 4,
+  unlocked = true,
+  discovered = true,
+  blueprint_compat = true,
+  eternal_compat = true,
+
+  loc_vars = function(self, info_queue, card)
+    return {
+      vars = {
+        card.ability.extra.chip_mod,
+        card.ability.extra.chips
       }
-    end,
-  
+    }
+  end,
+
   calculate = function(self, card, context)
     if context.end_of_round and not context.blueprint then
       if card.ability.extra.round_ended_processed then

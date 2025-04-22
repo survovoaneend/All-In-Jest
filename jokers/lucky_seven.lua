@@ -3,13 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Lucky Seven",
-      text ={
-          "Turn all scored {C:attention}7s{} into",
-          "{C:attention}Lucky Cards{}."
-      },
-  },
     rarity = 2,
     pos = { x = 1, y = 0 },
     atlas = 'joker_atlas',
@@ -18,11 +11,11 @@ SMODS.Joker {
     discovered = true,
     blueprint_compat = false,
     eternal_compat = true,
-  
+
     loc_vars = function(self, info_queue, card)
       info_queue[#info_queue+1] = G.P_CENTERS.m_lucky
     end,
-  
+
     calculate = function(self, card, context)
       if context.before and not context.blueprint then
         local enhanced_a_card = false

@@ -3,12 +3,6 @@ SMODS.Joker {
   config = {
     
   },
-  loc_txt = {
-    name = "Taikomochi",
-    text ={
-        "",
-    },
-},
   rarity = 1,
   pos = { x = 8, y = 6},
   atlas = 'joker_atlas',

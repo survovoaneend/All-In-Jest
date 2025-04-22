@@ -5,12 +5,6 @@ SMODS.Joker {
         chips = 50
       }
     },
-    loc_txt = {
-      name = "Simple Simon",
-      text ={
-          "{C:blue}+#1#{} Chips",
-      },
-  },
     rarity = 1,
     pos = { x = 15, y = 5 },
     atlas = 'joker_atlas',

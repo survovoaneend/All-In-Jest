@@ -5,15 +5,6 @@ SMODS.Joker {
       money = 0
     }
   },
-  loc_txt = {
-    name = "Tipteerer",
-    text = {
-      "Earn {C:attention}20%{} of the {C:money}Sell Value{}",
-      "of other {C:attention}Jokers{}, rounded up",
-      "at the end of {C:attention}round{}",
-      "{C:inactive}(Currently{} {C:money}$#1#{} {C:inactive}){}"
-    },
-  },
   rarity = 2,
   pos = { x = 3, y = 6 },
   atlas = 'joker_atlas',

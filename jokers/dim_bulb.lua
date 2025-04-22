@@ -3,13 +3,6 @@ SMODS.Joker {
   config = {
     extra = { xmult = 3 }
   },
-  loc_txt = {
-    name = "Dim Bulb",
-    text ={
-        "{X:red,C:white}X#1#{} Mult if only {C:common}Common",
-        "{C:attention}Jokers{} are owned"
-    },
-},
   rarity = 1,
   pos = { x = 5, y = 3 },
   atlas = 'joker_atlas',

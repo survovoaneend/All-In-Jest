@@ -3,14 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Dead President",
-      text ={
-          "Sell this {C:attention}Joker{} to",
-          "{C:attention}double{} the {C:money}Sell Values{}",
-          "of adjacent {C:attention}Jokers"
-      },
-  },
     rarity = 1,
     pos = { x = 15, y = 4 },
     atlas = 'joker_atlas',
@@ -19,26 +11,8 @@ SMODS.Joker {
     discovered = true,
     blueprint_compat = false,
     eternal_compat = false,
-    set_ability = function(self, card, initial, delay_sprites)
-      local w_scale, h_scale = 46 / 71, 95 / 95
-  
-      card.T.h = card.T.h * h_scale
-      card.T.w = card.T.w * w_scale
-    end,
-  
-    set_sprites = function(self, card, front)
-      local w_scale, h_scale = 46 / 71, 95 / 95
-  
-      card.children.center.scale.y = card.children.center.scale.y * h_scale
-      card.children.center.scale.x = card.children.center.scale.x * w_scale
-    end,
-  
-    load = function(self, card, card_table, other_card)
-      local w_scale, h_scale = 46 / 71, 95 / 95
-  
-      card.T.h = card.T.h * h_scale
-      card.T.w = card.T.w * w_scale
-    end,
+
+    pixel_size = { w = 46, h = 95 },
   
     loc_vars = function(self, info_queue, card)
   

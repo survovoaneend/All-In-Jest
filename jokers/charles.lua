@@ -6,16 +6,6 @@ SMODS.Joker {
       xmult_mod = 0.25
     }
   },
-  loc_txt = {
-    name = "Charles",
-    text ={
-        "This Joker gains {X:red,C:white}X0.25{}",
-        "Mult if {C:attention}played hand{}",
-        "is only {C:hearts}Heart{} {C:attention}Kings{}",
-        "{C:inactive}(Currently{} {X:red,C:white}X#1#{}{C:inactive{} Mult)",
-
-    },
-},
   rarity = 3,
   pos = { x = 19, y = 9},
   atlas = 'joker_atlas',
@@ -28,6 +18,7 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
       return {
         vars = {
+          card.ability.extra.xmult_mod,
           card.ability.extra.xmult
         }
       }

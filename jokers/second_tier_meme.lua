@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Second Tier meme",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 16, y = 4 },
     atlas = 'joker_atlas',

@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Bumper Sticker",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 13, y = 4 },
     atlas = 'joker_atlas',

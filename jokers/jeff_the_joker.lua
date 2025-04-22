@@ -5,15 +5,6 @@ SMODS.Joker {
           x_mult = 1 
       }
   },
-  loc_txt = {
-      name = "Jeff the Joker",
-      text = {
-          'When {C:attention}Small Blind{} is selected,',
-          '{C:red}destroy{} all other Jokers.',
-          'Gain {X:mult,C:white}X0.5{} Mult per Joker destroyed.',
-          '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive})'
-      },
-  },
   rarity = 2,
   pos = { x = 9, y = 3 },
   atlas = 'joker_atlas',

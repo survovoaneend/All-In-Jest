@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Infuriating Note",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 5, y = 7},
     atlas = 'joker_atlas',

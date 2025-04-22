@@ -5,15 +5,6 @@ SMODS.Joker {
           odds = 2
       }
   },
-  loc_txt = {
-      name = "Fou du Roi",
-      text = {
-          '{C:green}#2# in #1#{} chance to create a', 
-          '{C:tarot}Tarot card{} if played hand',
-          'contains a {C:attention}King{} or {C:attention}Queen',
-          '{C:inactive}(Must have room)'
-      },
-  },
   rarity = 2,
   pos = { x = 2, y = 7 }, 
   atlas = 'joker_atlas', 

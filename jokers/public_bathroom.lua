@@ -6,15 +6,6 @@ SMODS.Joker {
         mult_mod = 2
       }
     },
-    loc_txt = {
-      name = "Public Bathroom",
-      text ={
-          "This Joker gains {C:red}+2{}",
-          "Mult per played {C:attention}2{}",
-          "in a {C:attention}Flush{}",
-          "{C:inactive}(Currently {C:red}+#1#{C:inactive} Mult)"
-      },
-  },
     rarity = 1,
     pos = { x = 3, y = 1 },
     atlas = 'joker_atlas',
@@ -27,6 +18,7 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
       return {
         vars = {
+          card.ability.extra.mult_mod,
           card.ability.extra.mult
         }
       }

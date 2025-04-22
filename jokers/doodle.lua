@@ -6,14 +6,6 @@ SMODS.Joker {
         odds = 2
       }
     },
-    loc_txt = {
-      name = "Doodle",
-      text ={
-          "{C:green}#1# in #2#{} chance that this",
-          "{C:attention}Joker{} copies an adjacent",
-          "Joker's {C:attention}ability{}"
-      },
-  },
     rarity = 2,
     pos = { x = 24, y = 0 },
     atlas = 'joker_atlas',

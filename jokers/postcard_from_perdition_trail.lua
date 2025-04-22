@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Postcard From Perdition Trail",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 17, y = 7},
     atlas = 'joker_atlas',

@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Corpse Paint",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 1, y = 8},
     atlas = 'joker_atlas',

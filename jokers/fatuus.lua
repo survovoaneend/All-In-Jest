@@ -3,16 +3,6 @@ SMODS.Joker {
   config = {
       extra = {}
   },
-  loc_txt = {
-      name = "Fatuus",
-      text = {
-          'If played hand contains only',
-          '{C:attention}Kings{} and {C:attention}Queens{}, apply a',
-          '{C:blue}Blue Seal{} to a random', 
-          'card in hand.',
-  
-      },
-  },
   rarity = 2, 
   pos = { x = 3, y = 7 }, 
   atlas = 'joker_atlas',   

@@ -3,13 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "The Jester",
-      text ={
-          "Selling a {C:attention}Joker{} grants a",
-          "{C:tarot}The Fool{} Tarot card"
-      },
-  },
     rarity = 2,
     pos = { x = 17, y = 9},
     atlas = 'joker_atlas',

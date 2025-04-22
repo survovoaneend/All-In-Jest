@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Beanstalk",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 8, y = 7},
     atlas = 'joker_atlas',

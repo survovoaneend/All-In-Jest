@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Oil and Water",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 18, y = 2 },
     atlas = 'joker_atlas',

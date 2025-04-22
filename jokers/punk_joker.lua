@@ -3,15 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Punk Joker",
-      text ={
-          "If scored hand contains ",
-          "a {C:attention}Wild Card{}, turn another",
-          "random card into a",
-          "{C:attention}Wild Card{}"
-      },
-  },
     rarity = 2,
     pos = { x = 21, y = 1 },
     atlas = 'joker_atlas',
