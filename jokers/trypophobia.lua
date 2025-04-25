@@ -5,19 +5,12 @@ SMODS.Joker {
         mult = 20,
       }
     },
-    loc_txt = {
-      name = "Trypophobia",
-      text ={
-          "{C:red}+#1#{} Mult if played hand",
-          "contains only {C:attention}8s{}",
-      },
-  },
     rarity = 1,
     pos = { x = 15, y = 0 },
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
   

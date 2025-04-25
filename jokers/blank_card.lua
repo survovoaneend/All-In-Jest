@@ -5,20 +5,12 @@ SMODS.Joker {
         can_copy = false
       }
     },
-    loc_txt = {
-      name = "Blank Card",
-      text ={
-          "Every time a {C:attention}playing card{} is",
-          "chosen from a {C:attention}standard{}", 
-          "{C:attention}pack{}, create an exact {C:attention}copy{}"
-      },
-  },
     rarity = 2,
     pos = { x = 5, y = 1 },
     atlas = 'joker_atlas',
     cost = 7,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
   

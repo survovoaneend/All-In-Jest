@@ -3,19 +3,12 @@ SMODS.Joker {
   config = {
     extra = { dollars = 5 }
   },
-  loc_txt = {
-    name = "Lucignolo",
-    text ={
-        "Earn {C:money}$#1#{} when any",
-        "playing card is {C:attention}destroyed{}"
-    },
-},
   rarity = 1,
   pos = { x = 14, y = 2 },
   atlas = 'joker_atlas',
   cost = 5,
   unlocked = true,
-  discovered = true,
+  discovered = false,
   blueprint_compat = true,
   eternal_compat = true,
 

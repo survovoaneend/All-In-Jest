@@ -3,20 +3,12 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Atom",
-      text ={
-          "Levels up {C:attention}High Card{} if",
-          "played hand is only one",
-          "{C:attention}Ace{}."
-      },
-  },
     rarity = 2,
     pos = { x = 14, y = 1 },
     atlas = 'joker_atlas',
     cost = 6,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
   

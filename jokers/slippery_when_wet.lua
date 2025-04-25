@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Slippery When Wet",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 22, y = 0 },
     atlas = 'joker_atlas',

@@ -5,19 +5,12 @@ SMODS.Joker {
         money = 10
       }
     },
-    loc_txt = {
-      name = "Pinhead",
-      text ={
-          "Earn {C:money}$#1#{} if blind is beaten ",
-          "in a {C:attention}single hand{}"
-      },
-  },
     rarity = 1,
     pos = { x = 2, y = 4 },
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
   

@@ -3,19 +3,12 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Cosmological Constant",
-      text ={
-          "{C:attention}Balance{} base {C:blue}Chips{} and {C:red}Mult{} of",
-          "{C:attention}played hand"
-      },
-  },
     rarity = 3,
     pos = { x = 12, y = 5 },
     atlas = 'joker_atlas',
     cost = 10,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
   

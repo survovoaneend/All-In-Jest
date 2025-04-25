@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Circuit Board",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 7, y = 1 },
     atlas = 'joker_atlas',

@@ -3,19 +3,12 @@ SMODS.Joker {
     config = {
 
     },
-    loc_txt = {
-      name = "Mistigri",
-      text ={
-          "{C:attention}+1{} hand size per",
-          "{C:attention}Jack{} held in hand"
-      },
-    },
-    rarity = 2,
+    rarity = 3,
     pos = { x = 14, y = 5 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 8,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
 

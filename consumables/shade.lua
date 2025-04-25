@@ -1,34 +1,33 @@
 SMODS.Consumable {
 	key = 'shade',
-	loc_txt = {
-		name = 'Shade',
-		text = {
-			'Add {C:dark_edition}Negative{} edtion',
-            'to {C:attention}1{} selected',
-            'card in hand'
-			}
-	},
 	set = 'Spectral',
 	pos = { x = 4, y = 4 },
 	cost = 4,
 	unlocked = true,
-	discovered = true,
-	config = {max_highlighted = 1},
+	discovered = false,
+	config ={},
 	atlas = 'consumable_atlas',
-    loc_vars = function(self, info_queue, center)
+    loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {key = 'e_negative_playing_card', set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit} }
 	end,
     can_use = function(self, card)
-        return true
+        if G.hand and G.hand.cards and #G.hand.cards > 0 then
+            return true
+        else
+            return false
+        end
     end,
 	use = function(self, card, area, copier)
+        local cards = {}
+        for k, v in ipairs(G.hand.cards) do
+            if not v.edition then cards[#cards + 1] = v end
+          end
+        local _card = pseudorandom_element(cards, pseudoseed('shade_card'))
         local edition = {negative = true}
-        for i = 1, #G.hand.highlighted do
+    
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.1, func = function()
-                local highlighted = G.hand.highlighted[i]
-                highlighted:set_edition(edition, true)
+                _card:set_edition(edition, true)
             return true end }))
-        end
         card:juice_up(0.3, 0.5)
     end,
 

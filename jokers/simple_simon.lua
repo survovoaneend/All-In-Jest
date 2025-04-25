@@ -5,18 +5,12 @@ SMODS.Joker {
         chips = 50
       }
     },
-    loc_txt = {
-      name = "Simple Simon",
-      text ={
-          "{C:blue}+#1#{} Chips",
-      },
-  },
     rarity = 1,
     pos = { x = 15, y = 5 },
     atlas = 'joker_atlas',
     cost = 2,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
   

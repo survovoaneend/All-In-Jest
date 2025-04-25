@@ -3,21 +3,12 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Quark",
-      text ={
-          'Levels up {C:attention}Three of a Kind{} if the',
-            'played hand is exactly {C:attention}three{}',
-            'cards of the {C:attention}same rank',
-            'but {C:attention}different suits{}.'
-      },
-  },
     rarity = 2,
     pos = { x = 16, y = 3 },
     atlas = 'joker_atlas',
     cost = 7,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
   

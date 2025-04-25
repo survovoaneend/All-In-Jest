@@ -6,28 +6,19 @@ SMODS.Joker {
         chip_mod = 50
       }
     },
-    loc_txt = {
-      name = "David",
-      text ={
-          "This Joker gains {C:blue}+50{}",
-            "Chips if {C:attention}played hand{}",
-        "is only {C:spades}Spade{} {C:attention}Kings{}",
-        "{C:inactive}(Currently{} {C:blue}+#1#{}{C:inactive{} Chips)",
-
-      },
-  },
     rarity = 3,
     pos = { x = 18, y = 9},
     atlas = 'joker_atlas',
     cost = 8,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
         return {
           vars = {
+            card.ability.extra.chip_mod,
             card.ability.extra.chips
           }
         }

@@ -3,15 +3,8 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Touchstone",
-      text ={
-          "Reveals the next {C:attention}10 cards{}",
-          "in your deck.",
-          "{C:attention}+2{} hand size"
-      },
-  },
     rarity = 4,
+		unlock_condition = {hidden = true},
     pos = { x = 4, y = 0},
     atlas = 'legendary_atlas',
     cost = 4,

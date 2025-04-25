@@ -4,19 +4,12 @@ SMODS.Joker {
       extra = {
       },
     },
-    loc_txt = {
-      name = "Giocoliere",
-      text ={
-          "{C:attention}+2{} hand size{} during",
-          "the {C:attention}Boss Blind"
-      },
-  },
     rarity = 1,
     pos = { x = 16, y = 5 },
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
   

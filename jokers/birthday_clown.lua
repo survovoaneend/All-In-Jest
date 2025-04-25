@@ -6,20 +6,12 @@ SMODS.Joker {
         active = true
       }
     },
-    loc_txt = {
-      name = "Birthday Clown",
-      text ={
-          "{X:red,C:white}X#1#{} Mult on the {C:attention}first{}",
-          "{C:attention}round{} of the {C:attention}Ante{} faced",
-          "with this {C:attention}Joker{} "
-      },
-  },
     rarity = 1,
     pos = { x = 2, y = 0 },
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
   

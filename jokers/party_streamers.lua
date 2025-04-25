@@ -3,21 +3,12 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Party Streamers",
-      text ={
-          "If {C:attention}first hand{} of round",
-          "has only {C:attention}1{} card with no",
-          "{C:attention}Seal{}, it gains a {C:red}Red{}, {C:blue}Blue{},",
-          "or {C:money}Gold{} {C:attention}Seal{}"
-      },
-  },
     rarity = 3,
     pos = { x = 0, y = 5 },
     atlas = 'joker_atlas',
     cost = 8,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
   

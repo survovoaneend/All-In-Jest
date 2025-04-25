@@ -5,21 +5,12 @@ SMODS.Joker {
       money = 0
     }
   },
-  loc_txt = {
-    name = "Tipteerer",
-    text = {
-      "Earn {C:attention}20%{} of the {C:money}Sell Value{}",
-      "of other {C:attention}Jokers{}, rounded up",
-      "at the end of {C:attention}round{}",
-      "{C:inactive}(Currently{} {C:money}$#1#{} {C:inactive}){}"
-    },
-  },
   rarity = 2,
   pos = { x = 3, y = 6 },
   atlas = 'joker_atlas',
   cost = 6,
   unlocked = true,
-  discovered = true,
+  discovered = false,
   blueprint_compat = false,
   eternal_compat = true,
 
@@ -31,7 +22,7 @@ SMODS.Joker {
           sell_cost = sell_cost + G.jokers.cards[i].sell_cost
         end
       end
-      card.ability.extra.money = math.ceil(sell_cost / 10)
+      card.ability.extra.money = math.ceil(sell_cost / 5)
     end
     return {
       vars = {

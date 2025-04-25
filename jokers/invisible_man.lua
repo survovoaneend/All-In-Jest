@@ -4,12 +4,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Invisible Man",
-      text ={
-          "All face cards count as {C:attention}Jacks, Queens{} or {C:attention{}Kings]{}.",
-      },
-  },
     rarity = 2,
     pos = { x = 4, y = 0 },
     atlas = 'joker_atlas',

@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Line in the Sand",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 1, y = 3 },
     atlas = 'joker_atlas',

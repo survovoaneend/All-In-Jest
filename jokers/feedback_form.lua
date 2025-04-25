@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Feedback Form",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 23, y = 6},
     atlas = 'joker_atlas',

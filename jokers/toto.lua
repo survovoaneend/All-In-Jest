@@ -3,16 +3,8 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Toto",
-      text ={
-          "All {C:attention}numbered cards{} give {C:blue}+0{}",
-          "Chips when scored.",
-          "Increases by {C:blue}+5{} Chips every time a", 
-          "{C:attention}numbered card{} is scored.",
-      },
-  },
     rarity = 4,
+		unlock_condition = {hidden = true},
     pos = { x = 0, y = 2},
     atlas = 'legendary_atlas',
     cost = 4,

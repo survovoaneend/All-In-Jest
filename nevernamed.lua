@@ -32,7 +32,27 @@ SMODS.Atlas {
   py = 34
 }
 
+SMODS.Atlas {
+  key = 'familiar_atlas',
+  path = 'familiar.png',
+  px = 71,
+  py = 95
+}
 
+SMODS.Atlas {
+  key = 'modicon',
+  px = 32,
+  py = 32,
+  path = 'modicon.png'
+}
+
+SMODS.Rarity({
+	key = "familiar_face",
+	loc_txt = {
+    name = "Familiar Face"
+  },
+	badge_colour = HEX("12077d"),
+})
 
 assert(SMODS.load_file('utils/context.lua'))()
 assert(SMODS.load_file('utils/functions.lua'))()
@@ -42,61 +62,53 @@ assert(SMODS.load_file('utils/ui.lua'))()
 assert(SMODS.load_file('tag/soulbound.lua'))()
 --planets
 if All_in_Jest.config.moons_enabled then
+  assert(SMODS.load_file('consumables/vulcanoid.lua'))()
+  assert(SMODS.load_file('consumables/zoozve.lua'))()
+  assert(SMODS.load_file('consumables/luna.lua'))()
+  assert(SMODS.load_file('consumables/phobos.lua'))()
+  assert(SMODS.load_file('consumables/europa.lua'))()
+  assert(SMODS.load_file('consumables/titan.lua'))()
+  assert(SMODS.load_file('consumables/umbriel.lua'))()
+  assert(SMODS.load_file('consumables/triton.lua'))()
+  assert(SMODS.load_file('consumables/nix.lua'))()
+  assert(SMODS.load_file('consumables/planet_nine.lua'))()
+  assert(SMODS.load_file('consumables/pallas.lua'))()
+  assert(SMODS.load_file('consumables/dysnomia.lua'))()
+  assert(SMODS.load_file('consumables/phaethon.lua'))()
+  assert(SMODS.load_file('consumables/2013_nd15.lua'))()
+  assert(SMODS.load_file('consumables/kamooalewa.lua'))()
+  assert(SMODS.load_file('consumables/deimos.lua'))()
+  assert(SMODS.load_file('consumables/callisto.lua'))()
+  assert(SMODS.load_file('consumables/iapetus.lua'))()
+  assert(SMODS.load_file('consumables/oberon.lua'))()
+  assert(SMODS.load_file('consumables/proteus.lua'))()
+  assert(SMODS.load_file('consumables/charon.lua'))()
+  assert(SMODS.load_file('consumables/nibiru.lua'))()
+  assert(SMODS.load_file('consumables/2000_eu16.lua'))()
+  assert(SMODS.load_file('consumables/kuiper.lua'))()
+
   
-assert(SMODS.load_file('consumables/vulcanoid.lua'))()
-assert(SMODS.load_file('consumables/zoozve.lua'))()
-assert(SMODS.load_file('consumables/luna.lua'))()
-assert(SMODS.load_file('consumables/phobos.lua'))()
-assert(SMODS.load_file('consumables/europa.lua'))()
-assert(SMODS.load_file('consumables/titan.lua'))()
-assert(SMODS.load_file('consumables/umbriel.lua'))()
-assert(SMODS.load_file('consumables/triton.lua'))()
-assert(SMODS.load_file('consumables/nix.lua'))()
-assert(SMODS.load_file('consumables/planet_nine.lua'))()
-assert(SMODS.load_file('consumables/pallas.lua'))()
-assert(SMODS.load_file('consumables/dysnomia.lua'))()
-assert(SMODS.load_file('consumables/phaethon.lua'))()
-assert(SMODS.load_file('consumables/2013_nd15.lua'))()
-assert(SMODS.load_file('consumables/kamooalewa.lua'))()
-assert(SMODS.load_file('consumables/deimos.lua'))()
-assert(SMODS.load_file('consumables/callisto.lua'))()
-assert(SMODS.load_file('consumables/iapetus.lua'))()
-assert(SMODS.load_file('consumables/oberon.lua'))()
-assert(SMODS.load_file('consumables/proteus.lua'))()
-assert(SMODS.load_file('consumables/charon.lua'))()
-assert(SMODS.load_file('consumables/nibiru.lua'))()
-assert(SMODS.load_file('consumables/2000_eu16.lua'))()
-assert(SMODS.load_file('consumables/kuiper.lua'))()
-if (SMODS.Mods["paperback"] or {}).can_load and not (SMODS.Mods["Bunco"] or {}).can_load then
-  if PB_UTIL and PB_UTIL.config.suits_enabled then
-  assert(SMODS.load_file('consumables/paper_weywot.lua'))()
-  assert(SMODS.load_file('consumables/paper_namaka.lua'))()
-  assert(SMODS.load_file('consumables/paper_ilmare.lua'))()
-  assert(SMODS.load_file('consumables/paper_salacia.lua'))()
-  assert(SMODS.load_file('consumables/paper_ixion.lua'))()
-  assert(SMODS.load_file('consumables/paper_hiiaka.lua'))()
-  assert(SMODS.load_file('consumables/paper_varda.lua'))()
-  assert(SMODS.load_file('consumables/paper_mk2.lua'))()
+  if next(SMODS.find_mod("paperback")) or next(SMODS.find_mod("Bunco")) then
+    if PB_UTIL and PB_UTIL.config.suits_enabled or next(SMODS.find_mod("Bunco")) then
+      assert(SMODS.load_file('consumables/paper_weywot.lua'))()
+      assert(SMODS.load_file('consumables/paper_namaka.lua'))()
+      assert(SMODS.load_file('consumables/paper_ilmare.lua'))()
+      assert(SMODS.load_file('consumables/paper_salacia.lua'))()
+      assert(SMODS.load_file('consumables/paper_ixion.lua'))()
+      assert(SMODS.load_file('consumables/paper_hiiaka.lua'))()
+      assert(SMODS.load_file('consumables/paper_varda.lua'))()
+      assert(SMODS.load_file('consumables/paper_mk2.lua'))()
+    end
   end
-end
-if (SMODS.Mods["Bunco"] or {}).can_load then
-  assert(SMODS.load_file('consumables/bunc_weywot.lua'))()
-  assert(SMODS.load_file('consumables/bunc_namaka.lua'))()
-  assert(SMODS.load_file('consumables/bunc_ilmare.lua'))()
-  assert(SMODS.load_file('consumables/bunc_salacia.lua'))()
-  assert(SMODS.load_file('consumables/bunc_ixion.lua'))()
-  assert(SMODS.load_file('consumables/bunc_hiiaka.lua'))()
-  assert(SMODS.load_file('consumables/bunc_varda.lua'))()
-  assert(SMODS.load_file('consumables/bunc_mk2.lua'))()
-end
 end
 --tarots
 assert(SMODS.load_file('consumables/magus.lua'))()
 --spectrals 
 assert(SMODS.load_file('consumables/trefle.lua'))()
+assert(SMODS.load_file('consumables/shade.lua'))()
+-- Spectral planets
 assert(SMODS.load_file('consumables/pulsar.lua'))()
 assert(SMODS.load_file('consumables/gravastar.lua'))()
-assert(SMODS.load_file('consumables/shade.lua'))()
 --enhancements
 assert(SMODS.load_file('enhancements/fervent.lua'))()
 --way too many fucking jokers
@@ -138,7 +150,7 @@ assert(SMODS.load_file('jokers/blank_card.lua'))()
 --assert(SMODS.load_file('jokers/platinum_chip.lua'))()
 --assert(SMODS.load_file('jokers/cctv.lua'))()
 --assert(SMODS.load_file('jokers/pell_mel.lua'))()
---assert(SMODS.load_file(jokers/put_together.lua))()
+--assert(SMODS.load_file('jokers/put_together.lua'))()
 assert(SMODS.load_file('jokers/krampus.lua'))()
 --assert(SMODS.load_file('jokers/art_of_the_deal.lua'))()
 --assert(SMODS.load_file('jokers/word_art.lua'))()
@@ -279,7 +291,7 @@ assert(SMODS.load_file('jokers/scurra.lua'))()
 --assert(SMODS.load_file('jokers/pigpen.lua'))()
 --assert(SMODS.load_file('jokers/cyclops.lua'))()
 --assert(SMODS.load_file('jokers/blarney_stone.lua'))()
----assert(SMODS.load_file('jokers/sticker.lua'))()
+--assert(SMODS.load_file('jokers/sticker.lua'))()
 --assert(SMODS.load_file('jokers/feedback_form.lua'))()
 --assert(SMODS.load_file('jokers/stultor.lua'))()
 assert(SMODS.load_file('jokers/david.lua'))()
@@ -335,8 +347,20 @@ assert(SMODS.load_file('jokers/stained_glass_joker.lua'))()
 --assert(SMODS.load_file('jokers/visage.lua'))()
 --assert(SMODS.load_file('jokers/goofball.lua'))()
 --assert(SMODS.load_file('jokers/heyokha.lua'))()
+--assert(SMODS.load_file('jokers/casual_absent_paranoia.lua'))()
 
-
+--familar faces
+ 
+--assert(SMODS.load_file('jokers/prototype.lua'))()
+--assert(SMODS.load_file('jokers/spoofy.lua'))()
+--assert(SMODS.load_file('jokers/toyrapple.lua'))()
+--assert(SMODS.load_file('jokers/grass.lua'))()
+--assert(SMODS.load_file('jokers/mythie.lua'))()
+--assert(SMODS.load_file('jokers/zan.lua'))()
+--assert(SMODS.load_file('jokers/metrollen.lua'))()
+--assert(SMODS.load_file('jokers/clay.lua'))()
+--assert(SMODS.load_file('jokers/generic.lua'))()
+--assert(SMODS.load_file('jokers/cheddar.lua'))()
 
 --legendaries
 

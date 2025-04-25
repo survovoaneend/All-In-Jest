@@ -2,21 +2,12 @@ SMODS.Joker {
     key = "fortunato",
     config = {
       extra = {
-        x_mult = 1
-
+        x_mult = 1,
+        xmult_mod = 0.15,
       }
     },
-    loc_txt = {
-      name = "Fortunato",
-      text ={
-          "Turns all {C:attention}played{} but not scored",
-          "{C:attention}cards{} into {C:attention}Stone Cards{}.",
-          "This {C:attention}Joker{} gains {X:red,C:white}X0.15{} Mult",
-          "when a {C:attention}Stone Card{} is scored.",
-          "{C:inactive}(Currently{} {X:red,C:white}X#1#{} {C:inactive}Mult){}",
-      },
-  },
     rarity = 4,
+		unlock_condition = {hidden = true},
     pos = { x = 5, y = 0},
     atlas = 'legendary_atlas',
     cost = 20,
@@ -31,6 +22,7 @@ SMODS.Joker {
       return {
         vars = {
           card.ability.extra.x_mult,
+          card.ability.extra.xmult_mod
         }
       }
     end,
@@ -62,17 +54,16 @@ SMODS.Joker {
           end
       end
 
-      -- Check individual cards during scoring
       if context.individual and context.cardarea == G.play then
-          -- If a Stone Card is scored, increase this Joker's Xmult
           if context.other_card.ability.name == 'Stone Card' and not context.blueprint then
-              card.ability.extra.x_mult = card.ability.extra.x_mult + 0.15
-              card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
-              card:juice_up(0.3, 0.2)
+              card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.xmult_mod
+              return {
+                extra = {focus = card, message = localize('k_upgrade_ex')},
+                card = card,
+            }
           end
       end
 
-      -- Apply the Joker's Xmult during the main Joker calculation phase
       if context.joker_main then
           if card.ability.extra.x_mult > 1 then
                return {

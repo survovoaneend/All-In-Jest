@@ -1,20 +1,12 @@
 SMODS.Joker {
   key = "negative_nancy",
 
-  loc_txt = {
-    name = "Negative Nancy",
-    text ={
-        "{C:dark_edition}Negative{} Jokers appear {C:attention}3X{}",
-        "more often in the {C:attention}Shop{}."
-    },
-  },
-
   rarity = 1,
   pos = { x = 18, y = 0 },
   atlas = 'joker_atlas', 
   cost = 4,
   unlocked = true,
-  discovered = true,
+  discovered = false,
   blueprint_compat = false,
   eternal_compat = true,
   perishable_compat = true,

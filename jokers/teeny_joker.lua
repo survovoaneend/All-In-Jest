@@ -5,19 +5,12 @@ SMODS.Joker {
       chips = 150,
     }
   },
-  loc_txt = {
-    name = "Teeny Joker",
-    text ={
-        "{C:blue}+#1#{} Chips if played hand",
-        "contains only {C:attention}2s{}",
-    },
-},
   rarity = 1,
   pos = { x = 2, y = 9},
   atlas = 'joker_atlas',
   cost = 4,
   unlocked = true,
-  discovered = true,
+  discovered = false,
   blueprint_compat = true,
   eternal_compat = true,
 

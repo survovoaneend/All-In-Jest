@@ -5,20 +5,12 @@ SMODS.Joker {
           retriggers = 1
       }
   },
-  loc_txt = {
-      name = "Scurra",
-      text = {
-          'Retrigger all played cards',
-          'with a {C:red}Red Seal',
-          '{C:attention}#1#{} additional time'
-      },
-  },
   rarity = 2,
   pos = { x = 18, y = 6 }, 
   atlas = 'joker_atlas',   
   cost = 6,
   unlocked = true,
-  discovered = true,
+  discovered = false,
   blueprint_compat = true,
   eternal_compat = true, 
 
@@ -37,5 +29,20 @@ SMODS.Joker {
               }
           end
       end
-  end
+  end,
+  in_pool = function(self, args)
+    local seal_count = 0
+    if G.GAME and G.playing_cards then
+        for _, card in ipairs(G.playing_cards) do
+            if card.seal == 'Red' then
+                seal_count = seal_count + 1
+            end
+        end
+    end
+    if seal_count > 0 then
+        return true
+    else
+        return false
+    end
+  end,
 }

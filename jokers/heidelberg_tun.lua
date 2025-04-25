@@ -5,20 +5,12 @@ SMODS.Joker {
         odds = 3
       }
     },
-    loc_txt = {
-      name = "Heidelberg Tun",
-      text ={
-          "{C:green}#1# in #2#{} chance for",
-          "purchased {C:attention}consumables{}",
-          "to become {C:dark_edition}Negative"
-      },
-  },
     rarity = 2,
     pos = { x = 21, y = 4 },
     atlas = 'joker_atlas',
     cost = 7,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
   

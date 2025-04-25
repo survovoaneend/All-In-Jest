@@ -3,14 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Aluzinnu",
-      text ={
-          "The {C:attention}Heiroglyph{} and {C:attention}Petroglyph{} vouchers",
-          "can appear multiple times. {C:attention}Heiroglyph{}",
-          "and {C:attention}Petroglyph{} have no downside."
-      },
-  },
     rarity = 2,
     pos = { x = 7, y = 8},
     atlas = 'joker_atlas',

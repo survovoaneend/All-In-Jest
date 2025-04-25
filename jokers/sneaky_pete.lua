@@ -3,21 +3,12 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Sneaky Pete",
-      text ={
-          'Earn {C:money}$1{} at end of round',
-            'for every {C:money}Gold Seal{}',
-            'in your {C:attention}full deck',
-            '{C:inactive}(Currently {C:money}$#1#{C:inactive})'
-      },
-  },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 22, y = 5 },
     atlas = 'joker_atlas',
-    cost = 5,
+    cost = 6,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
   
@@ -51,8 +42,23 @@ SMODS.Joker {
         end
     end
       if seal_count > 0 then
-        local dollar_bonus = seal_count or 0
+        local dollar_bonus = seal_count * 2 or 0
           return dollar_bonus
       end
-  end
+  end,
+  in_pool = function(self, args)
+    local seal_count = 0
+    if G.GAME and G.playing_cards then
+        for _, card in ipairs(G.playing_cards) do
+            if card.seal == 'Gold' then
+                seal_count = seal_count + 1
+            end
+        end
+    end
+    if seal_count > 0 then
+        return true
+    else
+        return false
+    end
+  end,
   }

@@ -1,5 +1,5 @@
 SMODS.Joker {
-  -- Assuming 'jen' prefix based on previous examples
+  
   key = "krampus",
 
   config = {
@@ -8,22 +8,12 @@ SMODS.Joker {
       }
   },
 
-  loc_txt = {
-    name = "Krampus",
-    text ={
-        "Played {C:attention}Gold cards{} are",
-        "turned into {C:attention}Stone Cards{}.",
-        "{C:attention}Stone Cards{} earn {C:money}$#1#{}", 
-        "when scored."
-    },
-  },
-
   rarity = 2,
   pos = { x = 11, y = 1 }, 
   atlas = 'joker_atlas',
   cost = 7,
   unlocked = true,
-  discovered = true,
+  discovered = false,
 
 
   blueprint_compat = true,

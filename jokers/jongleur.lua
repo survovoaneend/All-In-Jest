@@ -5,18 +5,12 @@ SMODS.Joker {
       reroll_sale = 2
     }
   },
-  loc_txt = {
-    name = "Jongleur",
-    text ={
-        "{C:attention}-2{} {C:green}reroll{} cost",
-    },
-},
   rarity = 1,
   pos = { x = 12, y = 6},
   atlas = 'joker_atlas',
   cost = 4,
   unlocked = true,
-  discovered = true,
+  discovered = false,
   blueprint_compat = false,
   eternal_compat = true,
   add_to_deck = function(self, card, from_debuff)
@@ -28,7 +22,11 @@ SMODS.Joker {
     G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost + card.ability.extra.reroll_sale)
   end,
   loc_vars = function(self, info_queue, card)
-
+    return {
+      vars = {
+        card.ability.extra.reroll_sale
+      }
+    }
   end,
 
   calculate = function(self, card, context)

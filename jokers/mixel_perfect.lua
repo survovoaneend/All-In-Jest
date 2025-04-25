@@ -5,20 +5,12 @@ SMODS.Joker {
         mult = 10
       }
     },
-    loc_txt = {
-      name = "Mixel Perfect",
-      text ={
-          "{C:red}+#1#{} Mult if {C:attention}played hand{}",
-          "contains an {C:attention}odd{} number",
-          "of cards"
-      },
-  },
     rarity = 1,
     pos = { x = 10, y = 4 },
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
   

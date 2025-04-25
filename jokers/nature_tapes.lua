@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Nature Tapes",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 17, y = 2 },
     atlas = 'joker_atlas',

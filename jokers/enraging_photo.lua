@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Enraging Photo",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 4, y = 7},
     atlas = 'joker_atlas',

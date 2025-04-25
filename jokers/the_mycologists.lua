@@ -3,12 +3,6 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "The Mycologists",
-      text ={
-          "",
-      },
-  },
     rarity = 1,
     pos = { x = 18, y = 1 },
     atlas = 'joker_atlas',

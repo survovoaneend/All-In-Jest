@@ -3,19 +3,12 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Jester's Privelege",
-      text ={
-          "{C:legendary}Legendary{} Jokers may",
-          "appear in the {C:attention}Shop{}",
-      },
-  },
     rarity = 3,
     pos = { x = 15, y = 3 },
     atlas = 'joker_atlas',
     cost = 10,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
   

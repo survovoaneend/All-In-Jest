@@ -3,20 +3,12 @@ SMODS.Joker {
     config = {
       extra = { sell_increase = 5 }
     },
-    loc_txt = {
-      name = "Realty Sign",
-      text ={
-          "Playing a {C:attention}Full House{}",
-          "increases the {C:money}Sell Value{}",
-          "of this Joker by {C:money}$#1#{}"
-      },
-  },
     rarity = 1,
     pos = { x = 3, y = 3 },
     atlas = 'joker_atlas',
     cost = 5,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
   

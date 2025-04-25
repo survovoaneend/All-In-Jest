@@ -7,29 +7,21 @@ SMODS.Joker {
         sell_value = 2
       }
     },
-    loc_txt = {
-      name = "\"egg\"",
-      text ={
-          "{C:blue}+#1#{} Chips. Gains {C:blue}+9{} Chips",
-          "and {C:money}$2{} of {C:attention}sell value{} at",
-          "end of round",
-          "",
-          "{C:inactive}hey it's \"egg\""
-      },
-  },
     rarity = 1,
     pos = { x = 14, y = 8},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
       return {
         vars = {
-          card.ability.extra.chips
+          card.ability.extra.chips,
+          card.ability.extra.chip_mod,
+          card.ability.extra.sell_value
         }
       }
     end,

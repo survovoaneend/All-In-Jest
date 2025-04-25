@@ -3,21 +3,12 @@ SMODS.Joker {
     config = {
       
     },
-    loc_txt = {
-      name = "Orphic Joker",
-      text ={
-          "Create {C:attention}1{} random ",
-          "{C:uncommon}Uncommon{} {C:attention}Joker{} when",
-          "{C:attention}Blind{} is skipped",
-          "{C:inactive}(Must have room){}"
-      },
-  },
     rarity = 3,
     pos = { x = 4, y = 8},
     atlas = 'joker_atlas',
     cost = 10,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
   
