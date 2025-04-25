@@ -4,7 +4,7 @@ SMODS.Consumable {
 	pos = { x = 0, y = 4 },
 	cost = 3,
 	unlocked = true,
-	discovered = true,
+	discovered = false,
 	config = { mod_conv = 'm_aij_fervent', max_highlighted = 1 },
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)

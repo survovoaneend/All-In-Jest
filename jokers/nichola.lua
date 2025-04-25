@@ -9,7 +9,7 @@ SMODS.Joker {
     atlas = 'legendary_atlas',
     cost = 20,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
     soul_pos = { x = 6, y = 3},
