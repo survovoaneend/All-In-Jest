@@ -51,81 +51,13 @@ SMODS.calculate_context({
 
 # blue seals can work with moons
 [[patches]]
-[patches.pattern]
+[patches.regex]
 target = "card.lua"
-pattern = '''
-function Card:get_end_of_round_effect(context)
-    local ret = {}
-    local h_dollars = self:get_h_dollars()
-    if h_dollars ~= 0 then
-        ret.h_dollars = h_dollars
-        ret.card = self
-    end
-    if self.seal == 'Blue' and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit and not self.ability.extra_enhancement then
-        local card_type = 'Planet'
-        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-        G.E_MANAGER:add_event(Event({
-            trigger = 'before',
-            delay = 0.0,
-            func = (function()
-                if G.GAME.last_hand_played then
-                    local _planet = 0
-                    for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-                        if v.config.hand_type == G.GAME.last_hand_played then
-                            _planet = v.key
-                        end
-                    end
-                    local card = create_card(card_type,G.consumeables, nil, nil, nil, nil, _planet, 'blusl')
-                    card:add_to_deck()
-                    G.consumeables:emplace(card)
-                    G.GAME.consumeable_buffer = 0
-                end
-                return true
-            end)}))
-        card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
-        ret.effect = true
-    end
-    return ret
-end
-'''
+pattern = '''(?<indent>[\t ]*)if v.config.hand_type == G.GAME.last_hand_played (?<post>.*)'''
 position = "at"
-match_indent = false
-payload = '''
+line_prepend = '$indent'
+payload = '''if v.config.hand_type == G.GAME.last_hand_played and not v.config.moon $post'''
 
-function Card:get_end_of_round_effect(context)
-    if self.debuff then return {} end
-    local ret = {}
-    if self.ability.h_dollars > 0 then
-        ret.h_dollars = self.ability.h_dollars
-        ret.card = self
-    end
-    if self.seal == 'Blue' and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-        local card_type = 'Planet'
-        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-        G.E_MANAGER:add_event(Event({
-            trigger = 'before',
-            delay = 0.0,
-            func = (function()
-                if G.GAME.last_hand_played then
-                    local _planet = 0
-                    for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-                        if v.config.hand_type == G.GAME.last_hand_played and not v.config.moon then
-                            _planet = v.key
-                        end
-                    end
-                    local card = create_card(card_type,G.consumeables, nil, nil, nil, nil, _planet, 'blusl')
-                    card:add_to_deck()
-                    G.consumeables:emplace(card)
-                    G.GAME.consumeable_buffer = 0
-                end
-                return true
-            end)}))
-        card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet})
-        ret.effect = true
-    end
-    return ret
-end
-'''
 #planets that aren't in this list are 3x 
 [[patches]]
 [patches.pattern]

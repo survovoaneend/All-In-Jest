@@ -8,6 +8,7 @@ SMODS.Consumable {
 	config = {},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'reroll_joker'}
 	end,
     can_use = function(self, card)
       return G.jokers and #G.jokers.cards > 0  

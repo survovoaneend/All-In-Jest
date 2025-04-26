@@ -23,8 +23,6 @@ SMODS.Joker {
     end,
   --thank you unstable
   calculate = function(self, card, context)
-    if not context.joker_main then return end
-
     local my_index = nil
     for i, joker_in_area in ipairs(G.jokers.cards) do
       if joker_in_area == card then

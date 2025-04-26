@@ -18,7 +18,7 @@ SMODS.Joker {
 
   calculate = function(self, card, context)
       -- Gain mult on discard
-      if context.discard and context.other_card and context.other_card:get_id() == 4 then
+      if context.discard and context.other_card and context.other_card:get_id() == 4 and not context.other_card.debuff then
           card.ability.extra.bonus_mult = (card.ability.extra.bonus_mult or 0) + 1
           card_eval_status_text(card, 'extra', nil, nil, nil, {
               message = '+'..(card.ability.extra.bonus_mult or 0)..' Mult',

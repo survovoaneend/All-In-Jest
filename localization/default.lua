@@ -1106,10 +1106,8 @@ return {
             c_aij_trefle = {
                 name = 'Trèfle',
                 text = {
-                    'Replace a random owned',
-                    '{C:attention}Joker{} of the {C:attention}highest rarity',
-                    'with a different random {C:attention}Joker{}',
-                    'of the {C:attention}same rarity',
+                    '{C:attention}Reroll{} one of your',
+                    'highest rarity {C:attention}Jokers',
                     "{C:inactive}(Cannot be eternal){}"
                 }
             },
@@ -1143,6 +1141,14 @@ return {
                     "{C:attention}8th{} Ante ",
                 }
             },
+            reroll_joker = {
+                name = "Reroll",
+                text = {
+                    'Replaces Joker with', 
+                    'a random Joker of',
+                    'the same rarity'
+                }
+            }
         }
     }
 }

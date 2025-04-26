@@ -45,9 +45,9 @@ SMODS.Joker {
     card.ability.extra.money = math.ceil(sell_cost / 5)
     if card.ability.extra.money > 0 then
       local dollar_bonus = card.ability.extra.money or 0
-      return {
+      return 
         dollar_bonus
-      }
+      
     end
   end
 }
