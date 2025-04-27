@@ -1,4 +1,4 @@
-paper_weywot_planet = {
+local paper_weywot_planet = {
     object_type = "Consumable",
 	key = 'paper_weywot',
 	set = 'Planet',
@@ -10,7 +10,7 @@ paper_weywot_planet = {
 	unlocked = true,
 	discovered = false,
 	order = 24,
-	paperback = true,
+	jest_rec_paperback = true,
 	jest_spec_moon = true,
 	config = { hand_type = "paperback_Spectrum", softlock = true, moon = true },
 	atlas = 'consumable_atlas',

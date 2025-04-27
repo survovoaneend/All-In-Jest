@@ -1,4 +1,4 @@
-paper_mk2_planet = {
+local paper_mk2_planet = {
     object_type = "Consumable",
 	key = 'paper_mk2',
 	set = 'Planet',
@@ -10,7 +10,7 @@ paper_mk2_planet = {
 	unlocked = true,
 	discovered = false,
 	order = 31,
-	paperback = true,
+	jest_rec_paperback = true,
 	jest_spec_moon = true,
 	config = { hand_type = "paperback_Spectrum Five", softlock = true, moon = true },
 	atlas = 'consumable_atlas',

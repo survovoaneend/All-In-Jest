@@ -1,4 +1,4 @@
-paper_ixion_planet = {
+local paper_ixion_planet = {
     object_type = "Consumable",
 	key = 'paper_ixion',
 	set = 'Planet',
@@ -10,7 +10,7 @@ paper_ixion_planet = {
 	unlocked = true,
 	discovered = false,
 	order = 28,
-	paperback = true,
+	jest_rec_paperback = true,
 	jest_spec_moon = true,
 	config = { hand_type = "paperback_Spectrum", softlock = true, moon = true },
 	atlas = 'consumable_atlas',

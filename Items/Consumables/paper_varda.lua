@@ -1,4 +1,4 @@
-paper_varda_planet = {
+local paper_varda_planet = {
     object_type = "Consumable",
 	key = 'paper_varda',
 	set = 'Planet',
@@ -10,7 +10,7 @@ paper_varda_planet = {
 	unlocked = true,
 	discovered = false,
 	order = 30,
-	paperback = true,
+	jest_rec_paperback = true,
 	jest_spec_moon = true,
 	config = { hand_type = "paperback_Spectrum House", softlock = true, moon = true },
 	atlas = 'consumable_atlas',
