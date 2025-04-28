@@ -54,6 +54,7 @@ SMODS.Rarity({
 	badge_colour = HEX("12077d"),
 })
 
+AllInJest = {}
 assert(SMODS.load_file('Utils/context.lua'))()
 assert(SMODS.load_file('Utils/functions.lua'))()
 assert(SMODS.load_file('Utils/overrides.lua'))()
