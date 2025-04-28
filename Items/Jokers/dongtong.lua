@@ -1,7 +1,7 @@
 local dongtong = {
     object_type = "Joker",
     order = 302,
-
+    ignore = true,
     key = "dongtong",
     config = {
       

@@ -1,5 +1,3 @@
-// I don't know how to do shaders so thank you chatgpt
-
 #if defined(VERTEX) || __VERSION__ > 100 || defined(GL_FRAGMENT_PRECISION_HIGH)
 	#define PRECISION highp
 #else
@@ -8,7 +6,7 @@
 
 
 extern PRECISION vec2 silhouette;         
-extern PRECISION vec2 mouse_screen_pos;  
+extern PRECISION vec2 mouse_screen_pos; 
 
 
 extern PRECISION number dissolve;
@@ -18,12 +16,11 @@ extern PRECISION vec2 image_details;
 extern bool shadow;
 extern PRECISION vec4 burn_colour_1; 
 extern PRECISION vec4 burn_colour_2; 
-extern PRECISION float hovering;      
+extern PRECISION float hovering;    
 extern PRECISION float screen_scale;   
 
 
 const vec3 target_rgb = vec3(62.0/255.0, 75.0/255.0, 77.0/255.0);
-
 
 vec4 dissolve_mask(vec4 final_pixel, vec2 texture_coords, vec2 uv)
 {
@@ -32,7 +29,7 @@ vec4 dissolve_mask(vec4 final_pixel, vec2 texture_coords, vec2 uv)
         return vec4(shadow ? vec3(0.,0.,0.) : final_pixel.rgb, shadow ? final_pixel.a*0.3: final_pixel.a);
     }
 
- 
+    // Standard Balatro dissolve noise calculation
     float adjusted_dissolve = (dissolve*dissolve*(3.-2.*dissolve))*1.02 - 0.01;
 	float t = time * 10.0 + 2003.;
 	vec2 floored_uv = (floor((uv*texture_details.ba)))/max(texture_details.b, texture_details.a);
@@ -62,8 +59,10 @@ vec4 dissolve_mask(vec4 final_pixel, vec2 texture_coords, vec2 uv)
 }
 
 
+
 vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords )
 {
+    
     float original_alpha = Texel(texture, texture_coords).a;
 
     vec4 output_pixel = vec4(target_rgb, original_alpha);
@@ -84,11 +83,12 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
 #ifdef VERTEX
 vec4 position( mat4 transform_projection, vec4 vertex_position )
 {
+
     if (hovering <= 0.){
         return transform_projection * vertex_position;
     }
     float mid_dist = length(vertex_position.xy - 0.5*love_ScreenSize.xy)/length(love_ScreenSize.xy);
-    vec2 mouse_offset = (vertex_position.xy - mouse_screen_pos.xy)/screen_scale; // Uses mouse_screen_pos
+    vec2 mouse_offset = (vertex_position.xy - mouse_screen_pos.xy)/screen_scale; 
     float scale = 0.2*(-0.03 - 0.3*max(0., 0.3-mid_dist))
                 *hovering*(length(mouse_offset)*length(mouse_offset))/(2. -mid_dist);
 

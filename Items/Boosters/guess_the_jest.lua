@@ -1,15 +1,15 @@
-SMODS.Booster({
+local guess_the_jest = {
+    object_type = "Booster",
+    order = 67,
+    ignore = true,
     key = 'guess_the_jest', 
     atlas = 'booster_atlas', 
-    object_type = "Booster",
-    order = 0,
     pos = { x = 0, y = 0 }, 
     cost = 20, 
     weight = 0.01, 
     config = { extra = 3, choose = 1 }, 
     discovered = false, 
     unlocked = true, 
-    ignore = true,
     loc_vars = function(self, info_queue, card)
         return { vars = {card.ability.choose, card.ability.extra} }
     end,
@@ -39,14 +39,12 @@ SMODS.Booster({
         if _card then
             _card.ability = _card.ability or {}
             _card.ability.from_guess_the_jest = true
-            _card.ability.background = math.random(1,4)
+            _card.ability.background = tostring(math.random(1,4))
         end
-        
         return _card
     end,
     group_key = "k_aij_guess_the_jest",
-})
-
+}
 SMODS.DrawStep {
     key = 'guess_the_jest_background',
     order = 2,
@@ -71,3 +69,4 @@ SMODS.DrawStep {
     end,
     conditions = { vortex = false, facing = 'front' },
 }
+return { name = {"Boosters"}, items = {guess_the_jest} }

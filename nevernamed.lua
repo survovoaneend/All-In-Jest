@@ -1,7 +1,6 @@
 All_in_Jest = SMODS.current_mod
 local mod_path = ''..SMODS.current_mod.path
 G.AIJ = {}
-
 local injectitems_ref = SMODS.injectItems
 SMODS.injectItems = function()
     injectitems_ref()
@@ -63,11 +62,29 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+    key = 'booster_atlas',
+    path = 'boosters.png',
+    px = 71,
+    py = 95
+}
+
+SMODS.Atlas {
+    key = 'mystery_atlas',
+    path = 'mystery.png',
+    px = 71,
+    py = 95
+}
+
+SMODS.Atlas {
   key = 'modicon',
   px = 32,
   py = 32,
   path = 'modicon.png'
 }
+SMODS.Shader {
+    key = 'silhouette',
+    path = 'silhouette.fs',
+  }
 
 SMODS.Atlas {
   key = 'booster_atlas',
@@ -96,6 +113,7 @@ SMODS.Rarity({
   },
 	badge_colour = HEX("12077d"),
 })
+
 
 assert(SMODS.load_file('Utils/context.lua'))()
 assert(SMODS.load_file('Utils/functions.lua'))()
@@ -133,6 +151,9 @@ local function load_items(curr_obj)
                     SMODS[item.object_type](item) 
                     goto continue
                 end
+            end
+            if item.jest_spec_moon and not All_in_Jest.config.moons_enabled then
+                goto continue
             end
             if SMODS[item.object_type] and not item.ignore then
                 SMODS[item.object_type](item) 
