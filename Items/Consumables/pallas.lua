@@ -9,7 +9,7 @@ local pallas_planet = {
 	cost = 3,
 	unlocked = true,
 	discovered = false,
-	order = 16,
+	order = 10,
 	jest_spec_moon = true,
 	config = { hand_type = "Flush House", softlock = true, moon = true },
 	atlas = 'consumable_atlas',
