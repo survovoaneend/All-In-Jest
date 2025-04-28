@@ -8,6 +8,7 @@ return {
             k_asteroid = "Asteroid",
             aij_requires_restart = "Requires Restart",
             aij_enable_moons = "Enable Moons",
+            
         }
     },
     descriptions = {
@@ -725,7 +726,14 @@ return {
                     "?????"
                 }
             },
-            j_aij_touchstone = { name = "Touchstone", text = { "" }, unlock = { "?????" } },
+            j_aij_touchstone = { 
+                name = "Touchstone", 
+                text = { 
+                    "Reveals the next {C:attention}#2#{} cards in your deck",
+                    "{C:attention}+#1#{} hand size",
+                }, 
+                unlock = { "?????" } 
+            },
             j_aij_fortunato = {
                 name = "Fortunato",
                 text = {
@@ -1154,7 +1162,7 @@ return {
                     'a random Joker of',
                     'the same rarity'
                 }
-            }
+            },
         }
     }
 }
