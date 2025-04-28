@@ -1,6 +1,29 @@
 All_in_Jest = SMODS.current_mod
+local mod_path = ''..SMODS.current_mod.path
+G.AIJ = {}
 
-
+local injectitems_ref = SMODS.injectItems
+SMODS.injectItems = function()
+    injectitems_ref()
+    G.AIJ.shared_mystery_sprites = G.AIJ.shared_mystery_sprites or {
+        bg1 = Sprite(0, 0, 1, 1, G.ASSET_ATLAS['aij_mystery_atlas'], {
+            x = 0,
+            y = 0
+        }),
+        bg2 = Sprite(0, 0, 1, 1, G.ASSET_ATLAS['aij_mystery_atlas'], {
+          x = 1,
+          y = 0
+        }),
+        bg3 = Sprite(0, 0, 1, 1, G.ASSET_ATLAS['aij_mystery_atlas'], {
+          x = 2,
+          y = 0
+        }),
+        bg4 = Sprite(0, 0, 1, 1, G.ASSET_ATLAS['aij_mystery_atlas'], {
+          x = 3,
+          y = 0
+      }),
+    }
+end
 SMODS.Atlas {
   key = "joker_atlas",
   path = "jokers.png",
@@ -46,6 +69,26 @@ SMODS.Atlas {
   path = 'modicon.png'
 }
 
+SMODS.Atlas {
+  key = 'booster_atlas',
+  px = 71,
+  py = 95,
+  path = 'boosters.png'
+}
+
+SMODS.Atlas {
+  key = 'mystery_atlas',
+  px = 71,
+  py = 95,
+  path = 'mystery.png'
+}
+SMODS.Shader {
+  key = 'silhouette',
+  px = 71,
+  py = 95,
+  path = 'silhouette.fs'
+}
+
 SMODS.Rarity({
 	key = "familiar_face",
 	loc_txt = {
@@ -54,370 +97,82 @@ SMODS.Rarity({
 	badge_colour = HEX("12077d"),
 })
 
-assert(SMODS.load_file('utils/context.lua'))()
-assert(SMODS.load_file('utils/functions.lua'))()
-assert(SMODS.load_file('utils/overrides.lua'))()
-assert(SMODS.load_file('utils/ui.lua'))()
---tags
-assert(SMODS.load_file('tag/soulbound.lua'))()
---planets
-if All_in_Jest.config.moons_enabled then
-  assert(SMODS.load_file('consumables/vulcanoid.lua'))()
-  assert(SMODS.load_file('consumables/zoozve.lua'))()
-  assert(SMODS.load_file('consumables/luna.lua'))()
-  assert(SMODS.load_file('consumables/phobos.lua'))()
-  assert(SMODS.load_file('consumables/europa.lua'))()
-  assert(SMODS.load_file('consumables/titan.lua'))()
-  assert(SMODS.load_file('consumables/umbriel.lua'))()
-  assert(SMODS.load_file('consumables/triton.lua'))()
-  assert(SMODS.load_file('consumables/nix.lua'))()
-  assert(SMODS.load_file('consumables/planet_nine.lua'))()
-  assert(SMODS.load_file('consumables/pallas.lua'))()
-  assert(SMODS.load_file('consumables/dysnomia.lua'))()
-  assert(SMODS.load_file('consumables/phaethon.lua'))()
-  assert(SMODS.load_file('consumables/2013_nd15.lua'))()
-  assert(SMODS.load_file('consumables/kamooalewa.lua'))()
-  assert(SMODS.load_file('consumables/deimos.lua'))()
-  assert(SMODS.load_file('consumables/callisto.lua'))()
-  assert(SMODS.load_file('consumables/iapetus.lua'))()
-  assert(SMODS.load_file('consumables/oberon.lua'))()
-  assert(SMODS.load_file('consumables/proteus.lua'))()
-  assert(SMODS.load_file('consumables/charon.lua'))()
-  assert(SMODS.load_file('consumables/nibiru.lua'))()
-  assert(SMODS.load_file('consumables/2000_eu16.lua'))()
-  assert(SMODS.load_file('consumables/kuiper.lua'))()
+assert(SMODS.load_file('Utils/context.lua'))()
+assert(SMODS.load_file('Utils/functions.lua'))()
+assert(SMODS.load_file('Utils/overrides.lua'))()
+assert(SMODS.load_file('Utils/ui.lua'))()
 
-  
-  if next(SMODS.find_mod("paperback")) or next(SMODS.find_mod("Bunco")) then
-    if PB_UTIL and PB_UTIL.config.suits_enabled or next(SMODS.find_mod("Bunco")) then
-      assert(SMODS.load_file('consumables/paper_weywot.lua'))()
-      assert(SMODS.load_file('consumables/paper_namaka.lua'))()
-      assert(SMODS.load_file('consumables/paper_ilmare.lua'))()
-      assert(SMODS.load_file('consumables/paper_salacia.lua'))()
-      assert(SMODS.load_file('consumables/paper_ixion.lua'))()
-      assert(SMODS.load_file('consumables/paper_hiiaka.lua'))()
-      assert(SMODS.load_file('consumables/paper_varda.lua'))()
-      assert(SMODS.load_file('consumables/paper_mk2.lua'))()
+local folders = NFS.getDirectoryItems(mod_path.."Items")
+local function load_items(curr_obj)
+    if curr_obj.init then curr_obj:init() end
+
+    if not curr_obj.items then
+        print("Warning: curr_obj has no items")
+    else
+        for _, item in ipairs(curr_obj.items) do
+            if item.ignore == nil then
+                item.ignore = false
+            end
+            if item.jest_spec_moon == nil then
+                item.jest_spec_moon = false
+            end
+            if item.jest_rec_paperback == nil then
+                item.jest_rec_paperback = false
+            end
+            if item.jest_spec_moon and All_in_Jest.config.moons_enabled and not item.ignore then
+                if item.jest_rec_paperback then
+                    if next(SMODS.find_mod("paperback")) or next(SMODS.find_mod("Bunco")) then
+                        if PB_UTIL and PB_UTIL.config.suits_enabled or next(SMODS.find_mod("Bunco")) then
+                            SMODS[item.object_type](item) 
+                            goto continue
+                        end
+                    else
+                        goto continue
+                    end
+                else
+                    SMODS[item.object_type](item) 
+                    goto continue
+                end
+            end
+            if SMODS[item.object_type] and not item.ignore then
+                SMODS[item.object_type](item) 
+            elseif CardSleeves and CardSleeves[item.object_type] and not item.ignore then -- In case of deck cross content
+                CardSleeves[item.object_type](item)
+            else
+                print("Error loading item "..item.key.." of unknown type "..item.object_type)
+            end
+            ::continue::
+        end
     end
-  end
 end
---tarots
-assert(SMODS.load_file('consumables/magus.lua'))()
---spectrals 
-assert(SMODS.load_file('consumables/trefle.lua'))()
-assert(SMODS.load_file('consumables/shade.lua'))()
--- Spectral planets
-assert(SMODS.load_file('consumables/pulsar.lua'))()
-assert(SMODS.load_file('consumables/gravastar.lua'))()
---enhancements
-assert(SMODS.load_file('enhancements/fervent.lua'))()
---way too many fucking jokers
-assert(SMODS.load_file('jokers/flying_ace.lua'))()
-assert(SMODS.load_file('jokers/lucky_seven.lua'))()
-assert(SMODS.load_file('jokers/you_broke_it.lua'))()
-assert(SMODS.load_file('jokers/birthday_clown.lua'))()
---assert(SMODS.load_file('jokers/memory_card.lua'))()
---assert(SMODS.load_file('jokers/sleepy_joker.lua'))()
---assert(SMODS.load_file('jokers/invisible_man.lua'))()
---assert(SMODS.load_file('jokers/handsome_joker.lua'))()
---assert(SMODS.load_file('jokers/whiteface_grotesque.lua'))()
---assert(SMODS.load_file('jokers/the_clown_show.lua'))()
-assert(SMODS.load_file('jokers/little_devil.lua'))()
---assert(SMODS.load_file('jokers/pierrot.lua'))()
---assert(SMODS.load_file('jokers/hat_trick.lua'))()
-assert(SMODS.load_file('jokers/squeezy_pete.lua'))()
---assert(SMODS.load_file('jokers/infinite_jest.lua'))()
---assert(SMODS.load_file('jokers/bloody_mary.lua'))()
-assert(SMODS.load_file('jokers/trypophobia.lua'))()
---assert(SMODS.load_file('jokers/rummikub.lua'))()
---assert(SMODS.load_file('jokers/imperial_bower.lua'))()
---assert(SMODS.load_file('jokers/ultrasound.lua'))()
-assert(SMODS.load_file('jokers/negative_nancy.lua'))()
---assert(SMODS.load_file('jokers/old_joker.lua'))()
---assert(SMODS.load_file('jokers/imageboard.lua'))()
---assert(SMODS.load_file('jokers/carousel.lua'))()
---assert(SMODS.load_file('jokers/slippery_when_wet.lua'))()
---assert(SMODS.load_file('jokers/founding_father.lua'))()
-assert(SMODS.load_file('jokers/scary_story.lua'))()
-assert(SMODS.load_file('jokers/doodle.lua'))()
---assert(SMODS.load_file('jokers/joqr.lua'))()
---assert(SMODS.load_file('jokers/greasepaint.lua'))()
-assert(SMODS.load_file('jokers/public_bathroom.lua'))()
---assert(SMODS.load_file('jokers/diogenes.lua'))()
-assert(SMODS.load_file('jokers/blank_card.lua'))()
---assert(SMODS.load_file('jokers/comedians_manifesto.lua'))()
---assert(SMODS.load_file('jokers/circuit_board.lua'))()
---assert(SMODS.load_file('jokers/platinum_chip.lua'))()
---assert(SMODS.load_file('jokers/cctv.lua'))()
---assert(SMODS.load_file('jokers/pell_mel.lua'))()
---assert(SMODS.load_file('jokers/put_together.lua'))()
-assert(SMODS.load_file('jokers/krampus.lua'))()
---assert(SMODS.load_file('jokers/art_of_the_deal.lua'))()
---assert(SMODS.load_file('jokers/word_art.lua'))()
-assert(SMODS.load_file('jokers/atom.lua'))()
-assert(SMODS.load_file('jokers/plain_jane.lua'))()
---assert(SMODS.load_file('jokers/paper_bag.lua'))()
---assert(SMODS.load_file('jokers/fruity_joker.lua'))()
---assert(SMODS.load_file('jokers/jokia.lua'))()
---assert(SMODS.load_file('jokers/the_mycologists.lua'))()
---assert(SMODS.load_file('jokers/cool_joker.lua'))()
---assert(SMODS.load_file('jokers/square_eyes.lua'))()
-assert(SMODS.load_file('jokers/punk_joker.lua'))()
---assert(SMODS.load_file('jokers/slim_joker.lua'))()
---assert(SMODS.load_file('jokers/wireframe.lua'))()
---assert(SMODS.load_file('jokers/soviet.lua'))()
---assert(SMODS.load_file('jokers/mustachio.lua'))()
-assert(SMODS.load_file('jokers/penny.lua'))()
---assert(SMODS.load_file('jokers/doctors_note.lua'))()
---assert(SMODS.load_file('jokers/silly_sausage.lua'))()
---assert(SMODS.load_file('jokers/joker_baby.lua'))()
---assert(SMODS.load_file('jokers/anchor.lua'))()
---assert(SMODS.load_file('jokers/hei_tiki.lua'))()
---assert(SMODS.load_file('jokers/polybius.lua'))()
---assert(SMODS.load_file('jokers/joker_sighting.lua'))()
---assert(SMODS.load_file('jokers/pencil_drawing.lua'))()
---assert(SMODS.load_file('jokers/holy_bible.lua'))()
---assert(SMODS.load_file('jokers/great_white_north.lua'))()
---assert(SMODS.load_file('jokers/right_angle.lua'))()
---assert(SMODS.load_file('jokers/adoring_joker.lua'))()
-assert(SMODS.load_file('jokers/lucignolo.lua'))()
---assert(SMODS.load_file('jokers/scorecard.lua'))()
---assert(SMODS.load_file('jokers/punch_and_judy.lua'))()
---assert(SMODS.load_file('jokers/nature_tapes.lua'))()
---assert(SMODS.load_file('jokers/low_priest.lua'))()
---assert(SMODS.load_file('jokers/oil_and_water.lua'))()
---assert(SMODS.load_file('jokers/big_ears.lua'))()
---assert(SMODS.load_file('jokers/causal_absent_paranoia.lua'))()
---assert(SMODS.load_file('jokers/hand_drawn.lua'))()
---assert(SMODS.load_file('jokers/haruspex.lua'))()
---assert(SMODS.load_file('jokers/bobblehead.lua'))()
---assert(SMODS.load_file('jokers/topsy_the_clown.lua'))()
---assert(SMODS.load_file('jokers/cloudwatching.lua'))()
---assert(SMODS.load_file('jokers/line_in_the_sand.lua'))()
---assert(SMODS.load_file('jokers/hairy_joker.lua'))()
-assert(SMODS.load_file('jokers/realty_sign.lua'))()
---assert(SMODS.load_file('jokers/bad_apple.lua'))()
-assert(SMODS.load_file('jokers/dim_bulb.lua'))()
---assert(SMODS.load_file('jokers/blood_artist.lua'))()
-assert(SMODS.load_file('jokers/null_joker.lua'))()
---assert(SMODS.load_file('jokers/magick_joker.lua'))()
-assert(SMODS.load_file('jokers/jeff_the_joker.lua'))()
---assert(SMODS.load_file('jokers/zanni.lua'))()
---assert(SMODS.load_file('jokers/furbo_e_stupedo.lua'))()
---assert(SMODS.load_file('jokers/read_em_and_weep.lua'))()
---assert(SMODS.load_file('jokers/goblin_joker.lua'))()
---assert(SMODS.load_file('jokers/string_theory.lua'))()
-assert(SMODS.load_file('jokers/jesters_privelege.lua'))()
-assert(SMODS.load_file('jokers/quark.lua'))()
---assert(SMODS.load_file('jokers/lucky_carder.lua'))()
---assert(SMODS.load_file('jokers/silver_screen.lua'))()
---assert(SMODS.load_file('jokers/pedrolino.lua'))()
---assert(SMODS.load_file('jokers/pierrette.lua'))()
---assert(SMODS.load_file('jokers/scaramouche.lua'))()
---assert(SMODS.load_file('jokers/clay_joker.lua'))()
---assert(SMODS.load_file('jokers/sunny_joker.lua'))()
---assert(SMODS.load_file('jokers/red_wine.lua'))()
---assert(SMODS.load_file('jokers/mute_joker.lua'))()
---assert(SMODS.load_file('jokers/scapino.lua'))()
-assert(SMODS.load_file('jokers/pinhead.lua'))()
---assert(SMODS.load_file('jokers/saltimbanco.lua'))()
---assert(SMODS.load_file('jokers/pulcinella.lua'))()
-assert(SMODS.load_file('jokers/petrushka.lua'))()
---assert(SMODS.load_file('jokers/void.lua'))()
---assert(SMODS.load_file('jokers/kasperle.lua'))()
---assert(SMODS.load_file('jokers/tumbler.lua'))()
---assert(SMODS.load_file('jokers/plain_packaging.lua'))()
-assert(SMODS.load_file('jokers/mixel_perfect.lua'))()
---assert(SMODS.load_file('jokers/columbina.lua'))()
---assert(SMODS.load_file('jokers/j_file.lua'))()
---assert(SMODS.load_file('jokers/bumper_sticker.lua'))()
---assert(SMODS.load_file('jokers/vesti_la_guibba.lua'))()
-assert(SMODS.load_file('jokers/dead_president.lua'))()
---assert(SMODS.load_file('jokers/second_tier_meme.lua'))()
-assert(SMODS.load_file('jokers/teeny_joker.lua'))()
-assert(SMODS.load_file('jokers/clowns_on_parade.lua'))()
---assert(SMODS.load_file('jokers/rising_sun.lua'))()
---assert(SMODS.load_file('jokers/red_sky.lua'))()
---assert(SMODS.load_file('jokers/blind_drawn.lua'))()
-assert(SMODS.load_file('jokers/heidelberg_tun.lua'))()
-assert(SMODS.load_file('jokers/open_mind.lua'))()
---assert(SMODS.load_file('jokers/little_boy_blue.lua'))()
---assert(SMODS.load_file('jokers/big_red.lua'))()
-assert(SMODS.load_file('jokers/party_streamers.lua'))()
---assert(SMODS.load_file('jokers/kilroy.lua'))()
---assert(SMODS.load_file('jokers/janus.lua'))()
---assert(SMODS.load_file('jokers/honker.lua'))()
---assert(SMODS.load_file('jokers/mummy.lua'))()
---assert(SMODS.load_file('jokers/sitcom.lua'))()
---assert(SMODS.load_file('jokers/in_vino_veritas.lua'))()
---assert(SMODS.load_file('jokers/beefeater.lua'))()
-assert(SMODS.load_file('jokers/tetraphobia.lua'))()
-assert(SMODS.load_file('jokers/jack_of_all_trades.lua'))()
---assert(SMODS.load_file('jokers/jumbo_joker.lua'))()
---assert(SMODS.load_file('jokers/pellucid_joker.lua'))()
-assert(SMODS.load_file('jokers/cosmological_constant.lua'))()
---assert(SMODS.load_file('jokers/monster.lua'))()
-assert(SMODS.load_file('jokers/mistigri.lua'))()
-assert(SMODS.load_file('jokers/simple_simon.lua'))()
-assert(SMODS.load_file('jokers/giocoliere.lua'))()
---assert(SMODS.load_file('jokers/spectre.lua'))()
---assert(SMODS.load_file('jokers/dapper_dan.lua'))()
---assert(SMODS.load_file('jokers/average_joe.lua'))()
---assert(SMODS.load_file('jokers/silent_sam.lua'))()
---assert(SMODS.load_file('jokers/pantomimus.lua'))()
-assert(SMODS.load_file('jokers/sneaky_pete.lua'))()
---assert(SMODS.load_file('jokers/peeping_tom.lua'))()
-assert(SMODS.load_file('jokers/la_commedia_e_finita.lua'))()
-assert(SMODS.load_file('jokers/straight_to_hell.lua'))()
-assert(SMODS.load_file('jokers/guiser.lua'))()
---assert(SMODS.load_file('jokers/mummer.lua'))()
-assert(SMODS.load_file('jokers/tipteerer.lua'))()
---assert(SMODS.load_file('jokers/honest_john.lua'))()
---assert(SMODS.load_file('jokers/dizzard.lua'))()
---assert(SMODS.load_file('jokers/arlecchino.lua'))()
---assert(SMODS.load_file('jokers/arlecchina.lua'))()
---assert(SMODS.load_file('jokers/taikomochi.lua'))()
---assert(SMODS.load_file('jokers/sudoku.lua'))()
---assert(SMODS.load_file('jokers/gnasher.lua'))()
-assert(SMODS.load_file('jokers/executioner.lua'))()
-assert(SMODS.load_file('jokers/jongleur.lua'))()
---assert(SMODS.load_file('jokers/event_horizon.lua'))()
-assert(SMODS.load_file('jokers/the_jester.lua'))()
---assert(SMODS.load_file('jokers/joka_lisa.lua'))()
---assert(SMODS.load_file('jokers/tonpraten.lua'))()
---assert(SMODS.load_file('jokers/rodeo_clown.lua'))()
---assert(SMODS.load_file('jokers/joculator.lua'))()
-assert(SMODS.load_file('jokers/scurra.lua'))()
---assert(SMODS.load_file('jokers/pigpen.lua'))()
---assert(SMODS.load_file('jokers/cyclops.lua'))()
---assert(SMODS.load_file('jokers/blarney_stone.lua'))()
---assert(SMODS.load_file('jokers/sticker.lua'))()
---assert(SMODS.load_file('jokers/feedback_form.lua'))()
---assert(SMODS.load_file('jokers/stultor.lua'))()
-assert(SMODS.load_file('jokers/david.lua'))()
-assert(SMODS.load_file('jokers/charles.lua'))()
-assert(SMODS.load_file('jokers/cesar.lua'))()
-assert(SMODS.load_file('jokers/alexandre.lua'))()
---assert(SMODS.load_file('jokers/sannio.lua'))()
---assert(SMODS.load_file('jokers/stock_photo.lua'))()
-assert(SMODS.load_file('jokers/fou_du_roi.lua'))()
-assert(SMODS.load_file('jokers/fatuus.lua'))()
---assert(SMODS.load_file('jokers/enraging_photo.lua'))()
---assert(SMODS.load_file('jokers/infuriating_note.lua'))()
---assert(SMODS.load_file('jokers/magic_hat.lua'))()
---assert(SMODS.load_file('jokers/anagraph.lua'))()
---assert(SMODS.load_file('jokers/beanstalk.lua'))()
---assert(SMODS.load_file('jokers/phoney_baloney.lua'))()
---assert(SMODS.load_file('jokers/jerko.lua'))()
---assert(SMODS.load_file('jokers/design_document.lua'))()
---assert(SMODS.load_file('jokers/animatronic.lua'))()
---assert(SMODS.load_file('jokers/arecibo_message.lua'))()
---assert(SMODS.load_file('jokers/napkin.lua'))()
---assert(SMODS.load_file('jokers/lost_carcosa.lua'))()
---assert(SMODS.load_file('jokers/magic_mirror.lua'))()
---assert(SMODS.load_file('jokers/postcard_from_perdition_trail.lua'))()
-assert(SMODS.load_file('jokers/mr_lonely.lua'))()
---assert(SMODS.load_file('jokers/spiders_georg.lua'))()
---assert(SMODS.load_file('jokers/gille.lua'))()
---assert(SMODS.load_file('jokers/fulehung.lua'))()
---assert(SMODS.load_file('jokers/bearded_joker.lua'))()
---assert(SMODS.load_file('jokers/skomorokh.lua'))()
---assert(SMODS.load_file('jokers/silly_billy.lua'))()
---assert(SMODS.load_file('jokers/ijoker_co.lua'))()
---assert(SMODS.load_file('jokers/corpse_paint.lua'))()
---assert(SMODS.load_file('jokers/toothy_joker.lua'))()
-assert(SMODS.load_file('jokers/mondrian_joker.lua'))()
-assert(SMODS.load_file('jokers/orphic_joker.lua'))()
---assert(SMODS.load_file('jokers/the_artist.lua'))()
---assert(SMODS.load_file('jokers/toynbee_joker.lua'))()
---assert(SMODS.load_file('jokers/aluzinnu.lua'))()
---assert(SMODS.load_file('jokers/great_kraken.lua'))()
---assert(SMODS.load_file('jokers/truhan.lua'))()
---assert(SMODS.load_file('jokers/chippy.lua'))()
-assert(SMODS.load_file('jokers/hofnarr_the_barbarian.lua'))()
---assert(SMODS.load_file('jokers/histrio.lua'))()
---assert(SMODS.load_file('jokers/loregg.lua'))()
-assert(SMODS.load_file('jokers/egg_cc.lua'))()
---assert(SMODS.load_file('jokers/sot.lua'))()
---assert(SMODS.load_file('jokers/fat_ed.lua'))()
-assert(SMODS.load_file('jokers/stained_glass_joker.lua'))()
---assert(SMODS.load_file('jokers/mushroom_cloud.lua'))()
---assert(SMODS.load_file('jokers/overdesigned_joker.lua'))()
---assert(SMODS.load_file('jokers/morio.lua'))()
---assert(SMODS.load_file('jokers/visage.lua'))()
---assert(SMODS.load_file('jokers/goofball.lua'))()
---assert(SMODS.load_file('jokers/heyokha.lua'))()
---assert(SMODS.load_file('jokers/casual_absent_paranoia.lua'))()
+local objects = {}
+for _, folder in ipairs(folders) do
+    local files = NFS.getDirectoryItems(mod_path.."Items/"..folder)
 
---familar faces
- 
---assert(SMODS.load_file('jokers/prototype.lua'))()
---assert(SMODS.load_file('jokers/spoofy.lua'))()
---assert(SMODS.load_file('jokers/toyrapple.lua'))()
---assert(SMODS.load_file('jokers/grass.lua'))()
---assert(SMODS.load_file('jokers/mythie.lua'))()
---assert(SMODS.load_file('jokers/zan.lua'))()
---assert(SMODS.load_file('jokers/metrollen.lua'))()
---assert(SMODS.load_file('jokers/clay.lua'))()
---assert(SMODS.load_file('jokers/generic.lua'))()
---assert(SMODS.load_file('jokers/cheddar.lua'))()
+    for _, file in ipairs(files) do
+        local f, err = SMODS.load_file("Items/"..folder.."/"..file)
+        if err then
+            print("Error loading file: "..err)
+        else
+            local curr_obj = f()
+            table.insert(objects, curr_obj)
+        end
+    end
+end
+table.sort(objects, function(a, b)
+    local function get_lowest_order(obj)
+        if not obj.items then return math.huge end
+        local lowest = math.huge
+        for _, item in ipairs(obj.items) do
+            if item.order and item.order < lowest then
+                lowest = item.order
+            end
+        end
+        return lowest
+    end
 
---legendaries
-
-
-
---assert(SMODS.load_file('jokers/nybbas.lua'))()
---assert(SMODS.load_file('jokers/doink.lua'))()
---assert(SMODS.load_file('jokers/monarcho.lua'))()
-assert(SMODS.load_file('jokers/pompey.lua'))()
---assert(SMODS.load_file('jokers/touchstone.lua'))()
-assert(SMODS.load_file('jokers/fortunato.lua'))()
---assert(SMODS.load_file('jokers/pellesini.lua'))()
-assert(SMODS.load_file('jokers/nedda.lua'))()
-assert(SMODS.load_file('jokers/silvio.lua'))()
---assert(SMODS.load_file('jokers/biancolelli.lua'))()
---assert(SMODS.load_file('jokers/toto.lua'))()
---assert(SMODS.load_file('jokers/grock.lua'))()
---assert(SMODS.load_file('jokers/eulenspiegel.lua'))()
---assert(SMODS.load_file('jokers/deburau.lua'))()
---assert(SMODS.load_file('jokers/dacosta.lua'))()
---assert(SMODS.load_file('jokers/durie.lua'))()
-assert(SMODS.load_file('jokers/nichola.lua'))()
---assert(SMODS.load_file('jokers/fleeman.lua'))()
---assert(SMODS.load_file('jokers/calquhoun.lua'))()
---assert(SMODS.load_file('jokers/dor.lua'))()
---assert(SMODS.load_file('jokers/archy.lua'))()
---assert(SMODS.load_file('jokers/sommers.lua'))()
---assert(SMODS.load_file('jokers/pace.lua'))()
---assert(SMODS.load_file('jokers/thomazina.lua'))()
---assert(SMODS.load_file('jokers/mathurine.lua'))()
---assert(SMODS.load_file('jokers/guillaume.lua'))()
---assert(SMODS.load_file('jokers/tarlton.lua'))()
---assert(SMODS.load_file('jokers/roland.lua'))()
---assert(SMODS.load_file('jokers/borra.lua'))()
---assert(SMODS.load_file('jokers/taillefer.lua'))()
---assert(SMODS.load_file('jokers/killigrew.lua'))()
---assert(SMODS.load_file('jokers/dongfang.lua'))()
---assert(SMODS.load_file('jokers/zerco.lua'))()
---assert(SMODS.load_file('jokers/yu_sze.lua'))()
---assert(SMODS.load_file('jokers/brusquet.lua'))()
---assert(SMODS.load_file('jokers/rahere.lua'))()
---assert(SMODS.load_file('jokers/gonnella.lua'))()
---assert(SMODS.load_file('jokers/gong_gil.lua'))()
---assert(SMODS.load_file('jokers/angoulevent.lua'))()
---assert(SMODS.load_file('jokers/coryat.lua'))()
---assert(SMODS.load_file('jokers/bluet.lua'))()
---assert(SMODS.load_file('jokers/bebe.lua'))()
---assert(SMODS.load_file('jokers/pipine.lua'))()
---assert(SMODS.load_file('jokers/golitsyn.lua'))()
---assert(SMODS.load_file('jokers/buzheninova.lua'))()
---assert(SMODS.load_file('jokers/yakov.lua'))()
---assert(SMODS.load_file('jokers/komar.lua'))()
---assert(SMODS.load_file('jokers/lavatch.lua'))()
---assert(SMODS.load_file('jokers/Ffwllier.lua'))()
---assert(SMODS.load_file('jokers/martellino.lua'))()
---assert(SMODS.load_file('jokers/shir_ei.lua'))()
---assert(SMODS.load_file('jokers/xinmo.lua'))()
---assert(SMODS.load_file('jokers/chunyu.lua'))()
---assert(SMODS.load_file('jokers/fantasio.lua'))()
---assert(SMODS.load_file('jokers/sexton.lua'))()
+    return get_lowest_order(a) < get_lowest_order(b)
+end)
+for _, curr_obj in ipairs(objects) do
+    load_items(curr_obj)
+end

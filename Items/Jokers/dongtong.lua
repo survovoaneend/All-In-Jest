@@ -1,0 +1,67 @@
+local dongtong = {
+    object_type = "Joker",
+    order = 302,
+
+    key = "dongtong",
+    config = {
+      
+    },
+    rarity = 4,
+    pos = { x = 6, y = 10},
+    atlas = 'legendary_atlas',
+    cost = 4,
+    unlocked = true,
+    discovered = false,
+    blueprint_compat = false,
+    eternal_compat = true,
+    soul_pos = { x = 6, y = 11},
+  
+    loc_vars = function(self, info_queue, card)
+  
+    end,
+}
+local updateref = Card.update
+function Card:update(dt)
+  local ref = updateref(self, dt)
+  if G.jokers and self.ability.set == 'Joker' then
+    local applied = self.ability.jest_applied or {}
+    self.ability.jest_applied = applied
+
+    local current_count = 0
+    if G.jokers.cards then
+      for _, j in ipairs(G.jokers.cards) do
+        if j.config and j.config.center_key == "j_aij_dongtong" then
+          current_count = current_count + 1
+        end
+      end
+    end
+
+    local prev_count = applied["j_aij_dongtong"] or 0
+    local diff = current_count - prev_count
+
+    if diff > 0 then
+      for i = 1, diff do
+        jest_ability_calculate(
+          self,
+          "*", 2,
+          { x_chips = 1, x_mult = 1, extra_value = true },
+          nil, true
+        )
+      end
+    elseif diff < 0 then
+      for i = 1, -diff do
+        jest_ability_calculate(
+          self,
+          "/", 2,
+          { x_chips = 1, x_mult = 1, extra_value = true },
+          nil, true
+        )
+      end
+    end
+
+    applied["j_aij_dongtong"] = current_count
+  end
+  return ref
+end
+
+return { name = {"Jokers"}, items = {dongtong} }

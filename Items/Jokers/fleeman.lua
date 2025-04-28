@@ -1,0 +1,30 @@
+local fleeman = {
+    object_type = "Joker",
+    order = 263,
+    ignore = true,
+
+    key = "fleeman",
+    config = {
+      
+    },
+    rarity = 4,
+		unlock_condition = {hidden = true},
+    pos = { x = 7, y = 2},
+    atlas = 'legendary_atlas',
+    cost = 4,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    eternal_compat = false,
+    soul_pos = { x = 7, y = 3},
+  
+    loc_vars = function(self, info_queue, card)
+  
+    end,
+  
+    calculate = function(self, card, context)
+      
+    end
+  
+}
+return { name = {"Jokers"}, items = {fleeman} }

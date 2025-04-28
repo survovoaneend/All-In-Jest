@@ -818,7 +818,15 @@ return {
             j_aij_xinmo = { name = "Xinmo", text = { "" }, unlock = { "?????" } },
             j_aij_chunyu = { name = "Chunyu", text = { "" }, unlock = { "?????" } },
             j_aij_fantasio = { name = "Fantasio", text = { "" }, unlock = { "?????" } },
-            j_aij_sexton = { name = "Sexton", text = { "" }, unlock = { "?????" } }
+            j_aij_sexton = { name = "Sexton", text = { "" }, unlock = { "?????" } },
+            j_aij_dongtong = { 
+                name = "Dongtong",
+                text = { 
+                    "{C:green}X2{} to all ",
+                    "{C:attention}Joker Values{}"
+                } 
+            },
+
         },        
         Planet = {
             c_aij_vulcanoid = {
@@ -1147,6 +1155,13 @@ return {
                     'Replaces Joker with', 
                     'a random Joker of',
                     'the same rarity'
+                }
+            },
+            p_aij_guess_the_jest = {
+                name = "Guess the Jest Pack",
+                text = {
+                    'Choose {C:attention}#1#{} of {C:attention}#2#{} hidden',
+                    ' {C:legendary,E:2}Legendary{} Jokers',
                 }
             }
         }
