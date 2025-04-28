@@ -818,7 +818,14 @@ return {
             j_aij_xinmo = { name = "Xinmo", text = { "" }, unlock = { "?????" } },
             j_aij_chunyu = { name = "Chunyu", text = { "" }, unlock = { "?????" } },
             j_aij_fantasio = { name = "Fantasio", text = { "" }, unlock = { "?????" } },
-            j_aij_sexton = { name = "Sexton", text = { "" }, unlock = { "?????" } }
+            j_aij_sexton = { name = "Sexton", text = { "" }, unlock = { "?????" } },
+            j_aij_dongtong = { 
+                name = "Dongtong",
+                text = { 
+                    "{C:green}Doubles{} most {C:attention}Joker{}",
+                    "{C:attention}Effects" 
+                } 
+            },
         },        
         Planet = {
             c_aij_vulcanoid = {

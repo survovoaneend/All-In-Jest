@@ -73,11 +73,11 @@ local function load_items(curr_obj)
             if item.jest_spec_moon == nil then
                 item.jest_spec_moon = false
             end
-            if item.paperback == nil then
-                item.paperback = false
+            if item.jest_rec_paperback == nil then
+                item.jest_rec_paperback = false
             end
             if item.jest_spec_moon and All_in_Jest.config.moons_enabled and not item.ignore then
-                if item.paperback then
+                if item.jest_rec_paperback then
                     if next(SMODS.find_mod("paperback")) or next(SMODS.find_mod("Bunco")) then
                         if PB_UTIL and PB_UTIL.config.suits_enabled or next(SMODS.find_mod("Bunco")) then
                             SMODS[item.object_type](item) 
