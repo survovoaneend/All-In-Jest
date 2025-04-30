@@ -48,6 +48,30 @@ SMODS.calculate_context({
     entering_shop = true,
 })
 '''
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.set == 'Enhanced' or self.ability.set == 'Default' then"
+position = "before"
+match_indent = true
+payload = '''
+    if self.ability and self.ability.from_guess_the_jest and self.ability.set == 'Joker' then
+        self.ability.from_guess_the_jest = nil
+    end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.states.focus.is and not self.children.focused_ui then" # Find a line inside Card:hover() before the tooltip logic
+position = "before"
+match_indent = true
+payload = '''
+-- Prevent tooltip for Guess the Jest cards while in the pack
+if self.ability and self.ability.from_guess_the_jest and self.area == G.pack_cards then
+    return
+end
+'''
 
 # blue seals can work with moons
 [[patches]]

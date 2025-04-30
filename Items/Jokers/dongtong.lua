@@ -6,7 +6,7 @@ local dongtong = {
     config = {
       
     },
-    rarity = 4,
+    rarity = 20,
     pos = { x = 6, y = 10},
     atlas = 'legendary_atlas',
     cost = 4,

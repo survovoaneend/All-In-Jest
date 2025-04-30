@@ -8,7 +8,7 @@ return {
             k_asteroid = "Asteroid",
             aij_requires_restart = "Requires Restart",
             aij_enable_moons = "Enable Moons",
-            
+            k_aij_guess_the_jest = "Guess the Jest",
         }
     },
     descriptions = {
@@ -868,7 +868,8 @@ return {
             j_aij_dongtong = { 
                 name = "Dongtong",
                 text = { 
-                    "{C:green}X2{} Joker Effects" 
+                    "{C:green}Doubles{} most {C:attention}Joker{}",
+                    "{C:attention}Effects" 
                 } 
             },
         },        
@@ -1201,6 +1202,13 @@ return {
                     'the same rarity'
                 }
             },
+            p_aij_guess_the_jest = {
+                name = "Guess the Jest Pack",
+                text = {
+                    'Choose {C:attention}#1#{} of {C:attention}#2#{} hidden',
+                    '{C:legendary,E:2}Legendary{} Jokers'
+                }
+            }
         }
     }
 }
