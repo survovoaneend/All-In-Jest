@@ -851,7 +851,15 @@ return {
             j_aij_komar = { name = "Komar", text = { "" }, unlock = { "?????" } },
             j_aij_lavatch = { name = "Lavatch", text = { "" }, unlock = { "?????" } },
             j_aij_Ffwllier = { name = "Ffwllier", text = { "" }, unlock = { "?????" } },
-            j_aij_martellino = { name = "Martellino", text = { "" }, unlock = { "?????" } },
+            j_aij_martellino = { 
+                name = "Martellino", 
+                text = { 
+                    "After {C:attention}#2#{} rounds, {C:money}sell{} this card to",
+                    "select a joker from your {C:attention}collection",
+                    "{C:inactive}(Currently {C:attention}#1#{}{C:inactive}/#2#){}"
+                }, 
+                unlock = { "?????" } 
+            },
             j_aij_shir_ei = { name = "Shir'ei", text = { "" }, unlock = { "?????" } },
             j_aij_xinmo = { name = "Xinmo", text = { "" }, unlock = { "?????" } },
             j_aij_chunyu = { name = "Chunyu", text = { "" }, unlock = { "?????" } },
