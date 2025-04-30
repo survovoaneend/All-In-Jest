@@ -99,7 +99,7 @@ local function load_items(curr_obj)
                 SMODS[item.object_type](item) 
             elseif CardSleeves and CardSleeves[item.object_type] and not item.ignore then -- In case of deck cross content
                 CardSleeves[item.object_type](item)
-            else
+            elseif not item.ignore then
                 print("Error loading item "..item.key.." of unknown type "..item.object_type)
             end
             ::continue::
