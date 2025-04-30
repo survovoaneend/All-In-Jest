@@ -94,7 +94,7 @@ SMODS.Rarity({
 	badge_colour = HEX("12077d"),
 })
 
-
+AllInJest = {}
 assert(SMODS.load_file('Utils/context.lua'))()
 assert(SMODS.load_file('Utils/functions.lua'))()
 assert(SMODS.load_file('Utils/overrides.lua'))()
@@ -139,7 +139,7 @@ local function load_items(curr_obj)
                 SMODS[item.object_type](item) 
             elseif CardSleeves and CardSleeves[item.object_type] and not item.ignore then -- In case of deck cross content
                 CardSleeves[item.object_type](item)
-            else
+            elseif not item.ignore then
                 print("Error loading item "..item.key.." of unknown type "..item.object_type)
             end
             ::continue::

@@ -35,5 +35,5 @@ SMODS.Edition:take_ownership('e_negative', {
 
       return weight
   end
-})
+}, true)
 return { name = {"Jokers"}, items = {negative_nancy} }
