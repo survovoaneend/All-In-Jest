@@ -8,7 +8,7 @@ return {
             k_asteroid = "Asteroid",
             aij_requires_restart = "Requires Restart",
             aij_enable_moons = "Enable Moons",
-            k_aij_guess_the_jest = "Guess the Jest",
+            
         }
     },
     descriptions = {
@@ -817,7 +817,14 @@ return {
             j_aij_dor = { name = "D'or", text = { "" }, unlock = { "?????" } },
             j_aij_archy = { name = "Archy", text = { "" }, unlock = { "?????" } },
             j_aij_sommers = { name = "Sommers", text = { "" }, unlock = { "?????" } },
-            j_aij_pace = { name = "Pace", text = { "" }, unlock = { "?????" } },
+            j_aij_pace = { 
+                name = "Pace", 
+                text = { 
+                    "All {C:uncommon}Uncommon{} and {C:rare}Rare{} Jokers",
+                    "are considered {C:common}Common" 
+                }, 
+                unlock = { "?????" } 
+            },
             j_aij_thomazina = { name = "Thomazina", text = { "" }, unlock = { "?????" } },
             j_aij_mathurine = { name = "Mathurine", text = { "" }, unlock = { "?????" } },
             j_aij_guillaume = { name = "Guillaume", text = { "" }, unlock = { "?????" } },
@@ -868,8 +875,7 @@ return {
             j_aij_dongtong = { 
                 name = "Dongtong",
                 text = { 
-                    "{C:green}Doubles{} most {C:attention}Joker{}",
-                    "{C:attention}Effects" 
+                    "{C:green}X2{} Joker Effects" 
                 } 
             },
         },        
@@ -1202,13 +1208,6 @@ return {
                     'the same rarity'
                 }
             },
-            p_aij_guess_the_jest = {
-                name = "Guess the Jest Pack",
-                text = {
-                    'Choose {C:attention}#1#{} of {C:attention}#2#{} hidden',
-                    '{C:legendary,E:2}Legendary{} Jokers'
-                }
-            }
         }
     }
 }
