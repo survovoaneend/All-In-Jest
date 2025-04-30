@@ -817,7 +817,14 @@ return {
             j_aij_dor = { name = "D'or", text = { "" }, unlock = { "?????" } },
             j_aij_archy = { name = "Archy", text = { "" }, unlock = { "?????" } },
             j_aij_sommers = { name = "Sommers", text = { "" }, unlock = { "?????" } },
-            j_aij_pace = { name = "Pace", text = { "" }, unlock = { "?????" } },
+            j_aij_pace = { 
+                name = "Pace", 
+                text = { 
+                    "All {C:uncommon}Uncommon{} and {C:rare}Rare{} Jokers",
+                    "are considered {C:common}Common" 
+                }, 
+                unlock = { "?????" } 
+            },
             j_aij_thomazina = { name = "Thomazina", text = { "" }, unlock = { "?????" } },
             j_aij_mathurine = { name = "Mathurine", text = { "" }, unlock = { "?????" } },
             j_aij_guillaume = { name = "Guillaume", text = { "" }, unlock = { "?????" } },

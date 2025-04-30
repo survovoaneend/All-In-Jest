@@ -6,10 +6,10 @@ local dongtong = {
     config = {
       
     },
-    rarity = 20,
+    rarity = 4,
     pos = { x = 6, y = 10},
     atlas = 'legendary_atlas',
-    cost = 4,
+    cost = 20,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
@@ -23,7 +23,7 @@ local dongtong = {
 local updateref = Card.update
 function Card:update(dt)
   local ref = updateref(self, dt)
-  if G.jokers and self.ability.set == 'Joker' then
+  if G.jokers and self.ability.set == 'Joker' and not self.ability.group_key then
     local applied = self.ability.jest_applied or {}
     self.ability.jest_applied = applied
 
@@ -44,7 +44,7 @@ function Card:update(dt)
         jest_ability_calculate(
           self,
           "*", 2,
-          { x_chips = 1, x_mult = 1, extra_value = true },
+          { x_chips = 1, x_mult = 1, extra_value = true, rarity },
           nil, true
         )
       end
@@ -53,7 +53,7 @@ function Card:update(dt)
         jest_ability_calculate(
           self,
           "/", 2,
-          { x_chips = 1, x_mult = 1, extra_value = true },
+          { x_chips = 1, x_mult = 1, extra_value = true, rarity },
           nil, true
         )
       end
