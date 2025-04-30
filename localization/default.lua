@@ -176,7 +176,15 @@ return {
             j_aij_paper_bag = { name = "Paper bag", text = { "" } },
             j_aij_fruity_joker = { name = "Fruity Joker", text = { "" } },
             j_aij_jokia = { name = "Jokia", text = { "" } },
-            j_aij_the_mycologists = { name = "The Mycologists", text = { "" } },
+            j_aij_the_mycologists = { 
+                name = "The Mycologists", 
+                text = { 
+                    "If played hand is a {C:attention}#1#{} the",
+                    "left card inherets the",
+                    "{C:chips}chips{}, {C:dark_edition}enhancement{}, and",
+                    "{C:dark_edition}edition{} of the right card" 
+                } 
+            },
             j_aij_cool_joker = { name = "Cool Joker", text = { "" } },
             j_aij_square_eyes = { name = "Square Eyes", text = { "" } },
             j_aij_punk_joker = {
@@ -257,7 +265,14 @@ return {
                     "to {C:attention}zero{}"
                 },
             },
-            j_aij_magick_joker = { name = "Magick Joker", text = { "" } },
+            j_aij_magick_joker = { 
+                name = "Magick Joker", 
+                text = { 
+                    "Played {V:1}#1#{} cards give their",
+                    "{C:chips}Chip{} value as {C:mult}Mult{} instead",
+                    "{C:inactive,s:0.8}(Suit changes at the end of every round){}" 
+                } 
+            },
             j_aij_jeff_the_joker = {
                 name = "Jeff the Joker",
                 text = {
@@ -358,7 +373,15 @@ return {
                 },
             },
             j_aij_rising_sun = { name = "Rising sun", text = { "" } },
-            j_aij_red_sky = { name = "Red sky", text = { "" } },
+            j_aij_red_sky = { 
+                name = "Red sky", 
+                text = { 
+                    "Scoring cards in the {C:attention}first",
+                    "and {C:attention}last{} hands of the",
+                    "round give {C:mult}+Mult{} instead",
+                    "of {C:chips}+Chips" 
+                } 
+            },
             j_aij_blind_drawn = { name = "Blind-Drawn", text = { "" } },
             j_aij_heidelberg_tun = {
                 name = "Heidelberg Tun",
@@ -802,7 +825,14 @@ return {
             j_aij_roland = { name = "Roland", text = { "" }, unlock = { "?????" } },
             j_aij_borra = { name = "Borra", text = { "" }, unlock = { "?????" } },
             j_aij_taillefer = { name = "Taillefer", text = { "" }, unlock = { "?????" } },
-            j_aij_killigrew = { name = "Killigrew", text = { "" }, unlock = { "?????" } },
+            j_aij_killigrew = { 
+                name = "Killigrew", 
+                text = { 
+                    "{X:mult,C:white}X#1#{} Mult for every {C:attention}Voucher{} owned",
+                    "{C:inactive}(Currently{} {X:mult,C:white}X#2#{} {C:inactive}Mult){}",
+                }, 
+                unlock = { "?????" } 
+            },
             j_aij_dongfang = { name = "Dongfang", text = { "" }, unlock = { "?????" } },
             j_aij_zerco = { name = "Zerco", text = { "" }, unlock = { "?????" } },
             j_aij_yu_sze = { name = "Yu_sze", text = { "" }, unlock = { "?????" } },

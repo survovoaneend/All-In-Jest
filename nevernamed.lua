@@ -92,6 +92,9 @@ local function load_items(curr_obj)
                     goto continue
                 end
             end
+            if item.jest_spec_moon and not All_in_Jest.config.moons_enabled then
+                goto continue
+            end
             if SMODS[item.object_type] and not item.ignore then
                 SMODS[item.object_type](item) 
             elseif CardSleeves and CardSleeves[item.object_type] and not item.ignore then -- In case of deck cross content

@@ -49,6 +49,19 @@ function level_up_hand_mult(card, hand, instant, amount)
     }))
 end
 
+function redeemed_voucher_count()
+    if G.GAME and G.GAME.used_vouchers then
+        local used_voucher = 0
+        for k, _ in pairs(G.GAME.used_vouchers) do
+            used_voucher = used_voucher + 1
+        end
+        if used_voucher > 0 then
+            return used_voucher
+        end
+    end
+    return 0
+end
+
 jest_ability_calculate = function(card, equation, extra_value, exclusions, inclusions, do_round, only, extra_search)
   if do_round == nil then do_round = true end
   if only == nil then only = false end
@@ -133,6 +146,89 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
   end
 end
 
+jest_ability_get_items = function(card, equation, extra_value, exclusions, inclusions, do_round, only, extra_search)
+  if do_round == nil then do_round = true end
+  if only == nil then only = false end
+
+  local keys = {}
+  local values = {}
+
+  local operators = {
+    ["+"] = function(a, b) return a + b end,
+    ["-"] = function(a, b) return a - b end,
+    ["*"] = function(a, b) return a * b end,
+    ["/"] = function(a, b) return a / b end,
+    ["%"] = function(a, b) return a % b end,
+    ["="] = function(a, b) return b end,
+    ["nil"] = function(a, b) return a end,
+  }
+
+  local function round_int(x)
+    return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
+  end
+  local function round_hundredth(x)
+    if x >= 0 then
+      return math.floor(x * 100 + 0.5) / 100
+    else
+      return math.ceil(x * 100 - 0.5) / 100
+    end
+  end
+
+  local function process_value(val)
+    if type(val) == "number" then
+      local res = operators[equation](val, extra_value)
+      if do_round then
+        if val % 1 ~= 0 then
+          return round_hundredth(res)
+        else
+          return round_int(res)
+        end
+      else
+        return res
+      end
+    else
+      return val
+    end
+  end
+
+  local function should_process(key, value)
+    if type(key) ~= "string" then return true end
+    if inclusions and next(inclusions) then
+      local valid = false
+      for _, prefix in ipairs(inclusions) do
+        if (not only and key:sub(1, #prefix) == prefix) or (only and key == prefix) then
+          valid = true; break
+        end
+      end
+      if not valid then return false end
+    end
+    if exclusions and exclusions[key] ~= nil then
+      if exclusions[key] == true or value == exclusions[key] then
+        return false
+      end
+    end
+    return true
+  end
+
+  local search_table = extra_search and card[extra_search] or card.ability
+
+  if search_table then
+    if type(search_table) == "number" then
+      table.insert(keys, extra_search or "ability")
+      table.insert(values, process_value(search_table))
+    elseif type(search_table) == "table" then
+      for key, value in pairs(search_table) do
+        if value ~= nil and should_process(key, value) then
+          table.insert(keys, key)
+          table.insert(values, process_value(value))
+        end
+      end
+    end
+  end
+
+  return keys, values
+end
+
 AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
     if not config then config = {} end
     local height = config.h or 1.25
@@ -183,4 +279,18 @@ AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
         end
     end
     return uiEX
+end
+
+function reset_jest_magick_joker_card()
+    G.GAME.current_round.jest_magick_joker_card.suit = 'Spades'
+    local valid_jest_magick_joker_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        if v.ability.effect ~= 'Stone Card' then
+            valid_jest_magick_joker_cards[#valid_jest_magick_joker_cards+1] = v
+        end
+    end
+    if valid_jest_magick_joker_cards[1] then 
+        local jest_magick_joker_card = pseudorandom_element(valid_jest_magick_joker_cards, pseudoseed('mag'..G.GAME.round_resets.ante))
+        G.GAME.current_round.jest_magick_joker_card.suit = jest_magick_joker_card.base.suit
+    end
 end
