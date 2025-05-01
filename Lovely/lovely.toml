@@ -28,9 +28,11 @@ match_indent = true
 payload = '''
 if G.GAME.jest_legendary_pool.in_shop then
     local rary = _rarity or pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) 
-    rary = (rary > G.GAME.jest_legendary_pool.rate and 4) or 1 
-    if rary ~= 1 then
-        _legendary = true
+    if type(rary) == "number" then
+        rary = (rary > G.GAME.jest_legendary_pool.rate and 4) or 1 
+        if rary ~= 1 then
+            _legendary = true
+        end
     end
 end
 '''
@@ -257,7 +259,7 @@ end
 [patches.pattern]
 target = "functions/common_events.lua"
 pattern = '''
-elseif v.set == 'Planet' then
+if v.name == 'Black Hole' or v.name == 'The Soul' then
 '''
 position = "before"
 match_indent = true
