@@ -832,7 +832,15 @@ return {
                 }, 
                 unlock = { "?????" } 
             },
-            j_aij_thomazina = { name = "Thomazina", text = { "" }, unlock = { "?????" } },
+            j_aij_thomazina = {
+                 name = "Thomazina", 
+                 text = { 
+                    "Scored {C:attention}numbered{} cards",
+                    "give {C:blue}+#1#{} Chips. Gains {C:blue}+#2#{}",
+                    "Chips when a {C:attention}numbered{}",
+                    "card is scored"
+                }, 
+                unlock = { "?????" } },
             j_aij_mathurine = { name = "Mathurine", text = { "" }, unlock = { "?????" } },
             j_aij_guillaume = { name = "Guillaume", text = { "" }, unlock = { "?????" } },
             j_aij_tarlton = { name = "Tarlton", text = { "" }, unlock = { "?????" } },
@@ -848,7 +856,14 @@ return {
                 unlock = { "?????" } 
             },
             j_aij_dongfang = { name = "Dongfang", text = { "" }, unlock = { "?????" } },
-            j_aij_zerco = { name = "Zerco", text = { "" }, unlock = { "?????" } },
+            j_aij_zerco = {
+                 name = "Zerco", 
+                 text = {
+                     "Applies {C:dark_edition}Negative{} to", 
+                     "the first scored {C:attention}card{}",
+                     "each {C:attention}round{}",
+                    }, 
+                    unlock = { "?????" } },
             j_aij_yu_sze = { name = "Yu_sze", text = { "" }, unlock = { "?????" } },
             j_aij_brusquet = { name = "Brusquet", text = { "" }, unlock = { "?????" } },
             j_aij_rahere = { name = "Rahere", text = { "" }, unlock = { "?????" } },
@@ -857,13 +872,26 @@ return {
             j_aij_angoulevent = { name = "Angoulevent", text = { "" }, unlock = { "?????" } },
             j_aij_coryat = { name = "Coryat", text = { "" }, unlock = { "?????" } },
             j_aij_bluet = { name = "Bluet", text = { "" }, unlock = { "?????" } },
-            j_aij_bebe = { name = "Bébé", text = { "" }, unlock = { "?????" } },
+            j_aij_bebe = {
+                 name = "Bébé", 
+                 text = { 
+                    "{C:blue}+#1#{} Hands per",
+                    "round"
+                }, 
+                 unlock = { "?????" } },
             j_aij_pipine = { name = "Pipine", text = { "" }, unlock = { "?????" } },
             j_aij_golitsyn = { name = "Golitsyn", text = { "" }, unlock = { "?????" } },
             j_aij_buzheninova = { name = "Buzheninova", text = { "" }, unlock = { "?????" } },
             j_aij_yakov = { name = "Yakov", text = { "" }, unlock = { "?????" } },
             j_aij_komar = { name = "Komar", text = { "" }, unlock = { "?????" } },
-            j_aij_lavatch = { name = "Lavatch", text = { "" }, unlock = { "?????" } },
+            j_aij_lavatch = {
+                 name = "Lavatch", 
+                 text = { 
+                    "Scored {C:clubs}Clubs{} give {X:red,C:white}X#1#{} Mult",
+                    "Increases by {X:red,C:white}X#2#{} Mult", 
+                    "when a {C:clubs}Club{} is scored",
+                }, 
+                 unlock = { "?????" } },
             j_aij_Ffwllier = { name = "Ffwllier", text = { "" }, unlock = { "?????" } },
             j_aij_martellino = { 
                 name = "Martellino", 
@@ -884,6 +912,14 @@ return {
                 text = { 
                     "{C:green}Doubles{} most {C:attention}Joker{}",
                     "{C:attention}Effects" 
+                } 
+            },
+            j_aij_naiteh = { 
+                name = "Nai-Teh",
+                text = { 
+                    "{C:attention}+#1#{} hand size",
+                    "Increases by {C:attention}#2#{} when",
+                    "{C:attention}Boss Blind{} is defeated"
                 } 
             },
         },        
