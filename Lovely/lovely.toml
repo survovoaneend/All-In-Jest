@@ -19,6 +19,25 @@ match_indent = true
 
 [[patches]]
 [patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+if _type == 'Joker' then 
+'''
+position = "before"
+match_indent = true
+payload = '''
+if G.GAME.jest_legendary_pool.in_shop then
+    local rary = _rarity or pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) 
+    rary = (rary > G.GAME.jest_legendary_pool.rate and 4) or 1 
+    if rary ~= 1 then
+        _legendary = true
+    end
+end
+'''
+
+
+[[patches]]
+[patches.pattern]
 target = "card.lua"
 pattern = "function Card:is_suit(suit, bypass_debuff, flush_calc)"
 position = "after" 
