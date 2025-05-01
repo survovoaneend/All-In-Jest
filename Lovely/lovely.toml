@@ -75,15 +75,24 @@ end
 
 [[patches]]
 [patches.pattern]
-target = "card.lua"
-pattern = "if self.ability.set == 'Enhanced' or self.ability.set == 'Default' then"
-position = "before"
+target = "functions/common_events.lua"
+pattern = "(v.unlocked ~= false or v.rarity == 4) then"
+position = "at"
 match_indent = true
 payload = '''
-    if self.ability and self.ability.from_guess_the_jest and self.ability.set == 'Joker' then
-        self.ability.from_guess_the_jest = nil
-    end
+(v.unlocked ~= false or (v.rarity == 4 and not G.GAME.jest_legends_in_shop)) then    
 '''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''_rarity = (_legendary and 4) or (type(_rarity) == "number" and ((_rarity > 0.95 and 3) or (_rarity > 0.7 and 2) or 1)) or _rarity'''
+position = "at"
+match_indent = true
+payload = '''
+ _rarity = (_legendary and not G.GAME.jest_legends_in_shop and 4) or (type(_rarity) == "number" and ((_rarity > 0.99 and 4) or (_rarity > 0.95 and 3) or (_rarity > 0.7 and 2) or 1)) or _rarity
+'''
+
 
 # blue seals can work with moons
 [[patches]]
