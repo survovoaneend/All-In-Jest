@@ -922,7 +922,8 @@ return {
                 text = { 
                     "{C:green}Doubles{} most {C:attention}Joker{}",
                     "{C:attention}Effects" 
-                } 
+                }, 
+                unlock = { "?????" } 
             },
             j_aij_naiteh = { 
                 name = "Nai-Teh",
@@ -930,7 +931,8 @@ return {
                     "{C:attention}+#1#{} hand size",
                     "Increases by {C:attention}#2#{} when",
                     "{C:attention}Boss Blind{} is defeated"
-                } 
+                }, 
+                unlock = { "?????" } 
             },
         },        
         Planet = {
