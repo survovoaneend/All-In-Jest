@@ -4,6 +4,8 @@ local fabled = {
     atlas = 'deck_atlas',
     order = 0,
     pos = { x = 0, y = 0 },
+    unlocked = false,
+	unlock_condition = {hidden = true},
     config = {
         joker_slot = -1
     },
@@ -12,6 +14,16 @@ local fabled = {
 	end,
     calculate = function(self, card, context)
         
+    end,
+    check_for_unlock = function(self, args)
+        if args.type == 'discover_amount' and G.P_CENTER_POOLS then
+            for i, v in ipairs(G.P_CENTER_POOLS["Joker"]) do
+                if v.rarity == 4 and v.discovered then
+                    return true
+                end
+            end
+        end
+        return false
     end,
     apply = function(self, back)
         G.GAME.jest_legendary_pool.in_shop = true

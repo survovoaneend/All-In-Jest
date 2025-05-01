@@ -16,10 +16,13 @@ return {
             b_aij_fabled = {
                 name = 'Fabled Deck',
                 text = {
-                '{C:legendary}Legendary{} Jokers may',
-                'appear in the {C:attention}Shop',
-                '{C:attention}-1{} Joker Slot'
-            }
+                    '{C:legendary}Legendary{} Jokers may',
+                    'appear in the {C:attention}Shop',
+                    '{C:attention}-1{} Joker Slot'
+                },
+                unlock = {
+                    '?????'
+                }
             }
         },
         Enhanced = {
