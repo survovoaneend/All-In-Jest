@@ -38,3 +38,14 @@ match_indent = true
 payload = '''
 reset_jest_magick_joker_card()
 '''
+
+[[patches]] #G.Game 
+[patches.pattern]
+target = 'game.lua'
+pattern = '''
+unused_discards = 0,'''
+position = 'after'
+match_indent = true
+payload = '''
+jest_legendary_pool = {in_shop = false, rate = 0.99},
+'''
