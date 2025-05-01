@@ -26,9 +26,9 @@ function Card:update(dt)
   local ref = updateref(self, dt)
   if G.jokers and self.ability.set == 'Joker' then
     if self.config.center.rarity ~= 1 then
-        self.ability.jest_real_rarity = self.config.center.rarity
+        self.ability.jest_real_rarity = tostring(self.config.center.rarity)
     else
-        self.ability.jest_real_rarity = self.ability.jest_real_rarity or 1
+        self.ability.jest_real_rarity = tostring(self.ability.jest_real_rarity or 1)
     end
 
     local has_pace = false
@@ -40,11 +40,11 @@ function Card:update(dt)
       end
     end
     
-    if has_pace and (self.ability.jest_real_rarity == 2 or self.ability.jest_real_rarity == 3) then
+    if has_pace and (self.ability.jest_real_rarity == "2" or self.ability.jest_real_rarity == "3") then
         self.config.center.rarity = 1
     else
-        if self.config.center.rarity ~= self.ability.jest_real_rarity then
-            self.config.center.rarity = self.ability.jest_real_rarity
+        if self.config.center.rarity ~= tonumber(self.ability.jest_real_rarity) then
+            self.config.center.rarity = tonumber(self.ability.jest_real_rarity)
         end
     end
   end
