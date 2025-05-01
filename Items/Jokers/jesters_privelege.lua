@@ -19,14 +19,13 @@ local jesters_privelege = {
   
     end,
   
-    calculate = function(self, card, context)
-      
-    end,
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.jest_legends_in_shop = true
+      G.GAME.jest_legendary_pool.in_shop = true
+      G.GAME.jest_legendary_pool.rate = 0.99 -- 1%
     end,
+
     remove_from_deck = function(self, card, from_debuff)
-        G.GAME.jest_legends_in_shop = false
+        G.GAME.jest_legendary_pool.in_shop = false
     end,
 }
 return { name = {"Jokers"}, items = {jesters_privelege} }

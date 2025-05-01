@@ -2,27 +2,23 @@ local aluzinnu = {
     object_type = "Joker",
     order = 218,
     ignore = true,
-
     key = "aluzinnu",
     config = {
       
     },
-    rarity = 2,
+    rarity = 3,
     pos = { x = 7, y = 8},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 8,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
   
     end,
   
-    calculate = function(self, card, context)
-      
-    end
-  
+    -- Lmao no code here
 }
 return { name = {"Jokers"}, items = {aluzinnu} }

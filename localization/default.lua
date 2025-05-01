@@ -12,6 +12,16 @@ return {
         }
     },
     descriptions = {
+        Back = {
+            b_aij_fabled = {
+                name = 'Fabled Deck',
+                text = {
+                '{C:legendary}Legendary{} Jokers may',
+                'appear in the {C:attention}Shop',
+                '{C:attention}-1{} Joker Slot'
+            }
+            }
+        },
         Enhanced = {
             m_aij_fervent = {
                 name = "Fervent Card",
@@ -671,7 +681,14 @@ return {
             },
             j_aij_the_artist = { name = "The Artist", text = { "" } },
             j_aij_toynbee_joker = { name = "Toynbee Joker", text = { "" } },
-            j_aij_aluzinnu = { name = "Aluzinnu", text = { "" } },
+            j_aij_aluzinnu = { 
+                name = "Aluzinnu", 
+                text = { 
+                    "The {C:attention}Hieroglyph{} and {C:attention}Petroglyph",
+                    "vouchers have no {C:red}downsides{} and",
+                    "can appear {C:attention}multiple{} times" 
+                } 
+            },
             j_aij_great_kraken = { name = "Great Kraken", text = { "" } },
             j_aij_truhan = { name = "Truhan", text = { "" } },
             j_aij_chippy = { name = "Chippy", text = { "" } },
