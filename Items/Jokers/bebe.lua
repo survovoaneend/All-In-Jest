@@ -15,9 +15,9 @@ local bebe = {
     atlas = 'legendary_atlas',
     cost = 20,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
     soul_pos = { x = 1, y = 9},
   
     loc_vars = function(self, info_queue, card)
