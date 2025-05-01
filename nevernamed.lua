@@ -30,6 +30,12 @@ SMODS.Atlas {
   py = 95
 }
 SMODS.Atlas {
+    key = "deck_atlas",
+    path = "decks.png",
+    px = 71,
+    py = 95
+  }
+SMODS.Atlas {
   key = "legendary_atlas",
   path = "legendaries.png",
   px = 71,
@@ -86,26 +92,6 @@ SMODS.Shader {
     path = 'silhouette.fs',
   }
 
-SMODS.Atlas {
-  key = 'booster_atlas',
-  px = 71,
-  py = 95,
-  path = 'boosters.png'
-}
-
-SMODS.Atlas {
-  key = 'mystery_atlas',
-  px = 71,
-  py = 95,
-  path = 'mystery.png'
-}
-SMODS.Shader {
-  key = 'silhouette',
-  px = 71,
-  py = 95,
-  path = 'silhouette.fs'
-}
-
 SMODS.Rarity({
 	key = "familiar_face",
 	loc_txt = {
@@ -114,7 +100,7 @@ SMODS.Rarity({
 	badge_colour = HEX("12077d"),
 })
 
-
+AllInJest = {}
 assert(SMODS.load_file('Utils/context.lua'))()
 assert(SMODS.load_file('Utils/functions.lua'))()
 assert(SMODS.load_file('Utils/overrides.lua'))()
@@ -159,7 +145,7 @@ local function load_items(curr_obj)
                 SMODS[item.object_type](item) 
             elseif CardSleeves and CardSleeves[item.object_type] and not item.ignore then -- In case of deck cross content
                 CardSleeves[item.object_type](item)
-            else
+            elseif not item.ignore then
                 print("Error loading item "..item.key.." of unknown type "..item.object_type)
             end
             ::continue::

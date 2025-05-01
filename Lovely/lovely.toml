@@ -19,6 +19,25 @@ match_indent = true
 
 [[patches]]
 [patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+if _type == 'Joker' then 
+'''
+position = "before"
+match_indent = true
+payload = '''
+if G.GAME.jest_legendary_pool.in_shop then
+    local rary = _rarity or pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) 
+    rary = (rary > G.GAME.jest_legendary_pool.rate and 4) or 1 
+    if rary ~= 1 then
+        _legendary = true
+    end
+end
+'''
+
+
+[[patches]]
+[patches.pattern]
 target = "card.lua"
 pattern = "function Card:is_suit(suit, bypass_debuff, flush_calc)"
 position = "after" 
@@ -73,16 +92,177 @@ if self.ability and self.ability.from_guess_the_jest and self.area == G.pack_car
 end
 '''
 
+# Aluzinu patch
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "if self.ability.set == 'Enhanced' or self.ability.set == 'Default' then"
+pattern = "if center_table.name == 'Hieroglyph' then"
 position = "before"
 match_indent = true
 payload = '''
-    if self.ability and self.ability.from_guess_the_jest and self.ability.set == 'Joker' then
-        self.ability.from_guess_the_jest = nil
+local has_Aluzinu = false
+if G.jokers ~= nil and G.jokers.cards then
+    for _, j in ipairs(G.jokers.cards) do
+        if j.config and j.config.center_key == "j_aij_aluzinnu" then
+            has_Aluzinu = true
+        end
     end
+end
+if has_Aluzinu then
+    goto continue_Aluzinu
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+if center_table.name == 'Petroglyph' then
+    G.GAME.round_resets.discards = G.GAME.round_resets.discards - center_table.extra
+    ease_discard(-center_table.extra)
+end
+'''
+position = "after"
+match_indent = true
+payload = '''
+::continue_Aluzinu::
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+if not G.GAME.used_vouchers[v.key] then 
+'''
+position = "before"
+match_indent = true
+payload = '''
+local has_Aluzinu = false
+if G.jokers ~= nil and G.jokers.cards then
+    for _, j in ipairs(G.jokers.cards) do
+        if j.config and j.config.center_key == "j_aij_aluzinnu" then
+            has_Aluzinu = true
+        end
+    end
+end
+if has_Aluzinu then
+    if v.key == "v_petroglyph" or v.key == "v_hieroglyph" then
+        add = true
+        goto continue_has_Aluzinu
+    end
+    if pseudorandom('aluzinnu') < 0.05 then
+        local temp_key = math.random(1,3)
+        if temp_key == 1 then
+            v.key = "v_petroglyph"
+        else
+            v.key = "v_hieroglyph"
+        end
+        add = true
+        goto continue_has_Aluzinu
+    end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+if card.ability_UIBox_table then
+'''
+position = "before"
+match_indent = true
+payload = '''
+local has_Aluzinu = false
+if G.jokers ~= nil and G.jokers.cards then
+    for _, j in ipairs(G.jokers.cards) do
+        if j.config and j.config.center_key == "j_aij_aluzinnu" then
+            has_Aluzinu = true
+        end
+    end
+end
+if has_Aluzinu and card.ability ~= nil then
+    if card.ability_UIBox_table and card.ability.name == "Hieroglyph" or card.ability.name == "Petroglyph" then
+        local AUT = card.ability_UIBox_table
+        if AUT.card_type == 'Voucher' then
+            local debuffed = card.debuff
+            local card_type_colour = get_type_colour(card.config.center or card.config, card)
+            local card_type_background = 
+                (AUT.card_type == 'Locked' and G.C.BLACK) or 
+                ((AUT.card_type == 'Undiscovered') and darken(G.C.JOKER_GREY, 0.3)) or 
+                (AUT.card_type == 'Enhanced' or AUT.card_type == 'Default') and darken(G.C.BLACK, 0.1) or
+                (debuffed and darken(G.C.BLACK, 0.1)) or 
+                (card_type_colour and darken(G.C.BLACK, 0.1)) or
+                G.C.SET[AUT.card_type] or
+                {0, 1, 1, 1}
+
+            local outer_padding = 0.05
+            local card_type = localize('k_'..string.lower(AUT.card_type))
+
+            if AUT.card_type == 'Joker' or (AUT.badges and AUT.badges.force_rarity) then card_type = ({localize('k_common'), localize('k_uncommon'), localize('k_rare'), localize('k_legendary')})[card.config.center.rarity] end
+            if AUT.card_type == 'Enhanced' then card_type = localize{type = 'name_text', key = card.config.center.key, set = 'Enhanced'} end
+            card_type = (debuffed and AUT.card_type ~= 'Enhanced') and localize('k_debuffed') or card_type
+
+            local disp_type, is_playing_card = 
+                    (AUT.card_type ~= 'Locked' and AUT.card_type ~= 'Undiscovered' and AUT.card_type ~= 'Default') or debuffed,
+                    AUT.card_type == 'Enhanced' or AUT.card_type == 'Default'
+
+            local info_boxes = {}
+            local badges = {}
+
+            if AUT.badges.card_type or AUT.badges.force_rarity then
+            badges[#badges + 1] = create_badge(((card.ability.name == 'Pluto' or card.ability.name == 'Ceres' or card.ability.name == 'Eris') and localize('k_dwarf_planet')) or (card.ability.name == 'Planet X' and localize('k_planet_q') or card_type),card_type_colour, nil, 1.2)
+            end
+            if AUT.badges then
+            for k, v in ipairs(AUT.badges) do
+                if v == 'negative_consumable' then v = 'negative' end
+                badges[#badges + 1] = create_badge(localize(v, "labels"), get_badge_colour(v))
+            end
+            end
+
+            if AUT.info then
+            for k, v in ipairs(AUT.info) do
+                info_boxes[#info_boxes+1] =
+                {n=G.UIT.R, config={align = "cm"}, nodes={
+                {n=G.UIT.R, config={align = "cm", colour = lighten(G.C.JOKER_GREY, 0.5), r = 0.1, padding = 0.05, emboss = 0.05}, nodes={
+                info_tip_from_rows(v, v.name),
+                }}
+            }}
+            end
+            end
+
+            return {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR}, nodes={
+            {n=G.UIT.C, config={align = "cm", func = 'show_infotip',object = Moveable(),ref_table = next(info_boxes) and info_boxes or nil}, nodes={
+                {n=G.UIT.R, config={padding = outer_padding, r = 0.12, colour = lighten(G.C.JOKER_GREY, 0.5), emboss = 0.07}, nodes={
+                {n=G.UIT.R, config={align = "cm", padding = 0.07, r = 0.1, colour = adjust_alpha(card_type_background, 0.8)}, nodes={
+                    name_from_rows(AUT.name, is_playing_card and G.C.WHITE or nil),
+                    {n=G.UIT.R, config={align = "cm", colour = empty and G.C.CLEAR or G.C.UI.BACKGROUND_WHITE, r = 0.1, padding = 0.04, minw = 2, minh = 0.8, emboss = not empty and 0.05 or nil, filler = true}, nodes={
+                        {n=G.UIT.C, config={align = "cm", maxw = maxw}, nodes={
+                            {n=G.UIT.T, config={text = "-1 ",colour = G.C.FILTER, scale = 0.32}}
+                        }},
+                        {n=G.UIT.C, config={align = "cm", maxw = maxw}, nodes={
+                            {n=G.UIT.T, config={text = "Ante",colour = G.C.UI.TEXT_DARK, scale = 0.32}}
+                        }},
+                    }},
+                    badges[1] and {n=G.UIT.R, config={align = "cm", padding = 0.03}, nodes=badges} or nil,
+                }}
+                }}
+            }},
+            }}
+        end
+    end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+elseif v.set == 'Planet' then
+'''
+position = "before"
+match_indent = true
+payload = '''
+::continue_has_Aluzinu::
 '''
 
 # blue seals can work with moons

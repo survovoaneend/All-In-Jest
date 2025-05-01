@@ -12,6 +12,16 @@ return {
         }
     },
     descriptions = {
+        Back = {
+            b_aij_fabled = {
+                name = 'Fabled Deck',
+                text = {
+                '{C:legendary}Legendary{} Jokers may',
+                'appear in the {C:attention}Shop',
+                '{C:attention}-1{} Joker Slot'
+            }
+            }
+        },
         Enhanced = {
             m_aij_fervent = {
                 name = "Fervent Card",
@@ -176,7 +186,15 @@ return {
             j_aij_paper_bag = { name = "Paper bag", text = { "" } },
             j_aij_fruity_joker = { name = "Fruity Joker", text = { "" } },
             j_aij_jokia = { name = "Jokia", text = { "" } },
-            j_aij_the_mycologists = { name = "The Mycologists", text = { "" } },
+            j_aij_the_mycologists = { 
+                name = "The Mycologists", 
+                text = { 
+                    "If played hand is a {C:attention}#1#{} the",
+                    "left card inherets the",
+                    "{C:chips}chips{}, {C:dark_edition}enhancement{}, and",
+                    "{C:dark_edition}edition{} of the right card" 
+                } 
+            },
             j_aij_cool_joker = { name = "Cool Joker", text = { "" } },
             j_aij_square_eyes = { name = "Square Eyes", text = { "" } },
             j_aij_punk_joker = {
@@ -257,7 +275,14 @@ return {
                     "to {C:attention}zero{}"
                 },
             },
-            j_aij_magick_joker = { name = "Magick Joker", text = { "" } },
+            j_aij_magick_joker = { 
+                name = "Magick Joker", 
+                text = { 
+                    "Played {V:1}#1#{} cards give their",
+                    "{C:chips}Chip{} value as {C:mult}Mult{} instead",
+                    "{C:inactive,s:0.8}(Suit changes at the end of every round){}" 
+                } 
+            },
             j_aij_jeff_the_joker = {
                 name = "Jeff the Joker",
                 text = {
@@ -358,7 +383,15 @@ return {
                 },
             },
             j_aij_rising_sun = { name = "Rising sun", text = { "" } },
-            j_aij_red_sky = { name = "Red sky", text = { "" } },
+            j_aij_red_sky = { 
+                name = "Red sky", 
+                text = { 
+                    "Scoring cards in the {C:attention}first",
+                    "and {C:attention}last{} hands of the",
+                    "round give {C:mult}+Mult{} instead",
+                    "of {C:chips}+Chips" 
+                } 
+            },
             j_aij_blind_drawn = { name = "Blind-Drawn", text = { "" } },
             j_aij_heidelberg_tun = {
                 name = "Heidelberg Tun",
@@ -648,7 +681,14 @@ return {
             },
             j_aij_the_artist = { name = "The Artist", text = { "" } },
             j_aij_toynbee_joker = { name = "Toynbee Joker", text = { "" } },
-            j_aij_aluzinnu = { name = "Aluzinnu", text = { "" } },
+            j_aij_aluzinnu = { 
+                name = "Aluzinnu", 
+                text = { 
+                    "The {C:attention}Hieroglyph{} and {C:attention}Petroglyph",
+                    "vouchers have no {C:red}downsides{} and",
+                    "can appear {C:attention}multiple{} times" 
+                } 
+            },
             j_aij_great_kraken = { name = "Great Kraken", text = { "" } },
             j_aij_truhan = { name = "Truhan", text = { "" } },
             j_aij_chippy = { name = "Chippy", text = { "" } },
@@ -726,7 +766,14 @@ return {
                     "?????"
                 }
             },
-            j_aij_touchstone = { name = "Touchstone", text = { "" }, unlock = { "?????" } },
+            j_aij_touchstone = { 
+                name = "Touchstone", 
+                text = { 
+                    "Reveals the next {C:attention}#2#{} cards in your deck",
+                    "{C:attention}+#1#{} hand size",
+                }, 
+                unlock = { "?????" } 
+            },
             j_aij_fortunato = {
                 name = "Fortunato",
                 text = {
@@ -787,17 +834,46 @@ return {
             j_aij_dor = { name = "D'or", text = { "" }, unlock = { "?????" } },
             j_aij_archy = { name = "Archy", text = { "" }, unlock = { "?????" } },
             j_aij_sommers = { name = "Sommers", text = { "" }, unlock = { "?????" } },
-            j_aij_pace = { name = "Pace", text = { "" }, unlock = { "?????" } },
-            j_aij_thomazina = { name = "Thomazina", text = { "" }, unlock = { "?????" } },
+            j_aij_pace = { 
+                name = "Pace", 
+                text = { 
+                    "All {C:uncommon}Uncommon{} and {C:rare}Rare{} Jokers",
+                    "are considered {C:common}Common" 
+                }, 
+                unlock = { "?????" } 
+            },
+            j_aij_thomazina = {
+                 name = "Thomazina", 
+                 text = { 
+                    "Scored {C:attention}numbered{} cards",
+                    "give {C:blue}+#1#{} Chips. Gains {C:blue}+#2#{}",
+                    "Chips when a {C:attention}numbered{}",
+                    "card is scored"
+                }, 
+                unlock = { "?????" } },
             j_aij_mathurine = { name = "Mathurine", text = { "" }, unlock = { "?????" } },
             j_aij_guillaume = { name = "Guillaume", text = { "" }, unlock = { "?????" } },
             j_aij_tarlton = { name = "Tarlton", text = { "" }, unlock = { "?????" } },
             j_aij_roland = { name = "Roland", text = { "" }, unlock = { "?????" } },
             j_aij_borra = { name = "Borra", text = { "" }, unlock = { "?????" } },
             j_aij_taillefer = { name = "Taillefer", text = { "" }, unlock = { "?????" } },
-            j_aij_killigrew = { name = "Killigrew", text = { "" }, unlock = { "?????" } },
+            j_aij_killigrew = { 
+                name = "Killigrew", 
+                text = { 
+                    "{X:mult,C:white}X#1#{} Mult for every {C:attention}Voucher{} owned",
+                    "{C:inactive}(Currently{} {X:mult,C:white}X#2#{} {C:inactive}Mult){}",
+                }, 
+                unlock = { "?????" } 
+            },
             j_aij_dongfang = { name = "Dongfang", text = { "" }, unlock = { "?????" } },
-            j_aij_zerco = { name = "Zerco", text = { "" }, unlock = { "?????" } },
+            j_aij_zerco = {
+                 name = "Zerco", 
+                 text = {
+                     "Applies {C:dark_edition}Negative{} to", 
+                     "the first scored {C:attention}card{}",
+                     "each {C:attention}round{}",
+                    }, 
+                    unlock = { "?????" } },
             j_aij_yu_sze = { name = "Yu_sze", text = { "" }, unlock = { "?????" } },
             j_aij_brusquet = { name = "Brusquet", text = { "" }, unlock = { "?????" } },
             j_aij_rahere = { name = "Rahere", text = { "" }, unlock = { "?????" } },
@@ -806,15 +882,36 @@ return {
             j_aij_angoulevent = { name = "Angoulevent", text = { "" }, unlock = { "?????" } },
             j_aij_coryat = { name = "Coryat", text = { "" }, unlock = { "?????" } },
             j_aij_bluet = { name = "Bluet", text = { "" }, unlock = { "?????" } },
-            j_aij_bebe = { name = "Bébé", text = { "" }, unlock = { "?????" } },
+            j_aij_bebe = {
+                 name = "Bébé", 
+                 text = { 
+                    "{C:blue}+#1#{} Hands per",
+                    "round"
+                }, 
+                 unlock = { "?????" } },
             j_aij_pipine = { name = "Pipine", text = { "" }, unlock = { "?????" } },
             j_aij_golitsyn = { name = "Golitsyn", text = { "" }, unlock = { "?????" } },
             j_aij_buzheninova = { name = "Buzheninova", text = { "" }, unlock = { "?????" } },
             j_aij_yakov = { name = "Yakov", text = { "" }, unlock = { "?????" } },
             j_aij_komar = { name = "Komar", text = { "" }, unlock = { "?????" } },
-            j_aij_lavatch = { name = "Lavatch", text = { "" }, unlock = { "?????" } },
+            j_aij_lavatch = {
+                 name = "Lavatch", 
+                 text = { 
+                    "Scored {C:clubs}Clubs{} give {X:red,C:white}X#1#{} Mult",
+                    "Increases by {X:red,C:white}X#2#{} Mult", 
+                    "when a {C:clubs}Club{} is scored",
+                }, 
+                 unlock = { "?????" } },
             j_aij_Ffwllier = { name = "Ffwllier", text = { "" }, unlock = { "?????" } },
-            j_aij_martellino = { name = "Martellino", text = { "" }, unlock = { "?????" } },
+            j_aij_martellino = { 
+                name = "Martellino", 
+                text = { 
+                    "After {C:attention}#2#{} rounds, {C:money}sell{} this card to",
+                    "select a joker from your {C:attention}collection",
+                    "{C:inactive}(Currently {C:attention}#1#{}{C:inactive}/#2#){}"
+                }, 
+                unlock = { "?????" } 
+            },
             j_aij_shir_ei = { name = "Shir'ei", text = { "" }, unlock = { "?????" } },
             j_aij_xinmo = { name = "Xinmo", text = { "" }, unlock = { "?????" } },
             j_aij_chunyu = { name = "Chunyu", text = { "" }, unlock = { "?????" } },
@@ -825,6 +922,14 @@ return {
                 text = { 
                     "{C:green}Doubles{} most {C:attention}Joker{}",
                     "{C:attention}Effects" 
+                } 
+            },
+            j_aij_naiteh = { 
+                name = "Nai-Teh",
+                text = { 
+                    "{C:attention}+#1#{} hand size",
+                    "Increases by {C:attention}#2#{} when",
+                    "{C:attention}Boss Blind{} is defeated"
                 } 
             },
         },        
