@@ -259,7 +259,7 @@ end
 [patches.pattern]
 target = "functions/common_events.lua"
 pattern = '''
-if v.name == 'Black Hole' or v.name == 'The Soul' then
+if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = nil end
 '''
 position = "before"
 match_indent = true
