@@ -16,7 +16,7 @@ local soulbound_tag = {
         if context.type == 'immediate' then
             tag:yep('+', G.C.RARITY[4], function()
                 if G.jokers and #G.jokers.cards < G.jokers.config.card_limit then
-                    local joker_card = create_card('Joker', G.jokers, true, nil, nil, nil, nil,
+                    local joker_card = create_card('Joker', G.jokers, true, nil, nil, true, nil,
                         'perishable_legendary_tag')
 
                     if joker_card then
