@@ -16,12 +16,24 @@ return {
             b_aij_fabled = {
                 name = 'Fabled Deck',
                 text = {
-                    '{C:legendary}Legendary{} Jokers may',
-                    'appear in the {C:attention}Shop',
+                    'Unlocked {C:legendary,E:1}Legendary{} Jokers',
+                    'may appear in the {C:attention}Shop',
                     '{C:attention}-1{} Joker Slot'
                 },
                 unlock = {
-                    '?????'
+                    'Unlock a',
+                    '{C:legendary,E:1}Legendary{} Joker',
+                }
+            },
+            b_aij_fabled_hidden = {
+                name = 'Fabled Deck',
+                text = {
+                    'Unlocked {C:legendary,E:1}Legendary{} Jokers',
+                    'may appear in the {C:attention}Shop',
+                    '{C:attention}-1{} Joker Slot'
+                },
+                unlock = {
+                    '?????',
                 }
             }
         },
