@@ -8,11 +8,11 @@ local touchstone = {
       future_sense = 10
     },
     rarity = 4,
-		unlock_condition = {hidden = true},
+	unlock_condition = {hidden = true},
     pos = { x = 4, y = 0},
     atlas = 'legendary_atlas',
     cost = 4,
-    unlocked = true,
+    unlocked = false,
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,

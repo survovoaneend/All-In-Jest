@@ -16,10 +16,25 @@ return {
             b_aij_fabled = {
                 name = 'Fabled Deck',
                 text = {
-                '{C:legendary}Legendary{} Jokers may',
-                'appear in the {C:attention}Shop',
-                '{C:attention}-1{} Joker Slot'
-            }
+                    'Unlocked {C:legendary,E:1}Legendary{} Jokers',
+                    'may appear in the {C:attention}Shop',
+                    '{C:attention}-1{} Joker Slot'
+                },
+                unlock = {
+                    'Unlock a',
+                    '{C:legendary,E:1}Legendary{} Joker',
+                }
+            },
+            b_aij_fabled_hidden = {
+                name = 'Fabled Deck',
+                text = {
+                    'Unlocked {C:legendary,E:1}Legendary{} Jokers',
+                    'may appear in the {C:attention}Shop',
+                    '{C:attention}-1{} Joker Slot'
+                },
+                unlock = {
+                    '?????',
+                }
             }
         },
         Enhanced = {
@@ -922,7 +937,8 @@ return {
                 text = { 
                     "{C:green}Doubles{} most {C:attention}Joker{}",
                     "{C:attention}Effects" 
-                } 
+                }, 
+                unlock = { "?????" } 
             },
             j_aij_naiteh = { 
                 name = "Nai-Teh",
@@ -930,7 +946,8 @@ return {
                     "{C:attention}+#1#{} hand size",
                     "Increases by {C:attention}#2#{} when",
                     "{C:attention}Boss Blind{} is defeated"
-                } 
+                }, 
+                unlock = { "?????" } 
             },
         },        
         Planet = {
