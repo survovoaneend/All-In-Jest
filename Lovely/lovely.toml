@@ -179,6 +179,18 @@ end
 
 [[patches]]
 [patches.pattern]
+target = "card.lua"
+pattern = "function Card:add_to_deck(*"
+position = "after"
+match_indent = true
+payload = '''
+    if not self.config.center.unlocked and self.config.center.rarity == 4 then
+        unlock_card(self.config.center)
+    end
+'''
+
+[[patches]]
+[patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = '''
 if card.ability_UIBox_table then
