@@ -32,7 +32,7 @@ local touchstone = {
     generate_ui = function(self, info_queue, cardd, desc_nodes, specific_vars, full_UI_table)
         if G.deck ~= nil and cardd.area == G.jokers then
             local cards = {}
-            for i = 0, self.config.future_sense do 
+            for i = 1, self.config.future_sense do 
                 if #G.deck.cards-i >= 1 then
                     local card = copy_card(G.deck.cards[#G.deck.cards-i], nil, nil, G.playing_card)
                     if G.jokers and self.area == G.jokers then
