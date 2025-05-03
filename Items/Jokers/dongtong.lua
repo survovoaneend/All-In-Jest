@@ -45,7 +45,7 @@ function Card:update(dt)
           self,
           "*", 2,
           { x_chips = 1, x_mult = 1, extra_value = true, rarity },
-          nil, true
+          nil, true, "ability.extra"
         )
       end
     elseif diff < 0 then
@@ -54,7 +54,7 @@ function Card:update(dt)
           self,
           "/", 2,
           { x_chips = 1, x_mult = 1, extra_value = true, rarity },
-          nil, true
+          nil, true, "ability.extra"
         )
       end
     end
