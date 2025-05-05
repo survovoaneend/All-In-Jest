@@ -16,10 +16,25 @@ return {
             b_aij_fabled = {
                 name = 'Fabled Deck',
                 text = {
-                '{C:legendary}Legendary{} Jokers may',
-                'appear in the {C:attention}Shop',
-                '{C:attention}-1{} Joker Slot'
-            }
+                    'Unlocked {C:legendary,E:1}Legendary{} Jokers',
+                    'may appear in the {C:attention}Shop',
+                    '{C:attention}-1{} Joker Slot'
+                },
+                unlock = {
+                    'Unlock a',
+                    '{C:legendary,E:1}Legendary{} Joker',
+                }
+            },
+            b_aij_fabled_hidden = {
+                name = 'Fabled Deck',
+                text = {
+                    'Unlocked {C:legendary,E:1}Legendary{} Jokers',
+                    'may appear in the {C:attention}Shop',
+                    '{C:attention}-1{} Joker Slot'
+                },
+                unlock = {
+                    '?????',
+                }
             }
         },
         Enhanced = {
@@ -102,7 +117,13 @@ return {
             },
             j_aij_rummikub = { name = "Rummikub", text = { "" } },
             j_aij_imperial_bower = { name = "Imperial Bower", text = { "" } },
-            j_aij_ultrasound = { name = "Ultrasound", text = { "" } },
+            j_aij_ultrasound = { 
+                name = "Ultrasound", 
+                text = { 
+                    "Selecting a {C:attention}Booster Pack{} shows",
+                    "one of its contents" 
+                } 
+            },
             j_aij_negative_nancy = {
                 name = "Negative Nancy",
                 text = {
@@ -229,7 +250,15 @@ return {
             j_aij_holy_bible = { name = "Holy Bible", text = { "" } },
             j_aij_great_white_north = { name = "Great white North", text = { "" } },
             j_aij_right_angle = { name = "Right Angle", text = { "" } },
-            j_aij_adoring_joker = { name = "Adoring Joker", text = { "" } },
+            j_aij_adoring_joker = { 
+                name = "Adoring Joker", 
+                text = { 
+                    "After Jokers have {C:attention}triggered",
+                    "set Mult to the {C:attention}highest",
+                    "scoring Mult this round" ,
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
+                } 
+            },
             j_aij_lucignolo = {
                 name = "Lucignolo",
                 text = {
@@ -249,7 +278,13 @@ return {
             j_aij_bobblehead = { name = "Bobblehead", text = { "" } },
             j_aij_topsy_the_clown = { name = "Topsy the Clown", text = { "" } },
             j_aij_cloudwatching = { name = "Cloudwatching", text = { "" } },
-            j_aij_line_in_the_sand = { name = "Line in the Sand", text = { "" } },
+            j_aij_line_in_the_sand = { 
+                name = "Line in the Sand", 
+                text = { 
+                    "{C:attention}Discarded Cards{} do not return to",
+                    "{C:attention}Deck{} until the end of the ante" 
+                } 
+            },
             j_aij_hairy_joker = { name = "Hairy Joker", text = { "" } },
             j_aij_realty_sign = {
                 name = "Realty Sign",
@@ -392,7 +427,14 @@ return {
                     "of {C:chips}+Chips" 
                 } 
             },
-            j_aij_blind_drawn = { name = "Blind-Drawn", text = { "" } },
+            j_aij_blind_drawn = { 
+                name = "Blind-Drawn", 
+                text = { 
+                    "Cannot see {C:attention}Boss Blind{} or",
+                    "its effects until entering it",
+                    "{C:mult}X#1#{} Mult",
+                } 
+            },
             j_aij_heidelberg_tun = {
                 name = "Heidelberg Tun",
                 text = {
@@ -721,8 +763,22 @@ return {
                 },
             },
             j_aij_mushroom_cloud = { name = "Mushroom Cloud", text = { "" } },
-            j_aij_overdesigned_joker = { name = "Overdesigned Joker", text = { "" } },
-            j_aij_morio = { name = "Morio", text = { "" } },
+            j_aij_overdesigned_joker = { 
+                name = "Overdesigned Joker", 
+                text = { 
+                    "Scored cards with {V:1}#1#{} suit",
+                    "#3# {B:3,V:2}#4##2#{}#5#when scored",
+                    "{C:inactive}(Hearts->Clubs->Diamonds->Spades)"
+                } 
+            },
+            j_aij_morio = { 
+                name = "Morio", 
+                text = { 
+                    "When {C:attention}boss blind{} is defeated",
+                    "choose {C:attention}1{} {C:tarot}tarot{} card to acquire",
+                    "{C:inactive}(Must have room)" 
+                } 
+            },
             j_aij_visage = { name = "Visage", text = { "" } },
             j_aij_goofball = { name = "Goofball", text = { "" } },
             j_aij_heyokha = { name = "Heyókȟa", text = { "" } },
@@ -922,7 +978,8 @@ return {
                 text = { 
                     "{C:green}Doubles{} most {C:attention}Joker{}",
                     "{C:attention}Effects" 
-                } 
+                }, 
+                unlock = { "?????" } 
             },
             j_aij_naiteh = { 
                 name = "Nai-Teh",
@@ -930,7 +987,8 @@ return {
                     "{C:attention}+#1#{} hand size",
                     "Increases by {C:attention}#2#{} when",
                     "{C:attention}Boss Blind{} is defeated"
-                } 
+                }, 
+                unlock = { "?????" } 
             },
         },        
         Planet = {
@@ -1231,6 +1289,14 @@ return {
                 text = {
                     'Creates a random {C:attention}Perishable{} ',
                     '{C:legendary}Legendary{} Joker',
+                    '{C:inactive}(Must have room)'
+                }
+            },
+            tag_aij_fortunate = {
+                name = 'Fortunate Tag',
+                text = {
+                    'Choose {C:attention}1{} {C:tarot}Tarot{}',
+                    'Card to acquire',
                     '{C:inactive}(Must have room)'
                 }
             }

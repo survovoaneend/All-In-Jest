@@ -294,3 +294,212 @@ function reset_jest_magick_joker_card()
         G.GAME.current_round.jest_magick_joker_card.suit = jest_magick_joker_card.base.suit
     end
 end
+
+-- card predict begin
+--------------------------------
+--------------------------------
+local function predicte_pseudrandom(predicte_fn, ...)
+    local ante = G.GAME.round_resets.ante
+    local used_jokers = copy_table(G.GAME.used_jokers)
+    local banned_keys = copy_table(G.GAME.banned_keys)
+    local pool = copy_table(G.ARGS.TEMP_POOL)
+    local pool_flags = copy_table(G.GAME.pool_flags)
+    local random_data = copy_table(G.GAME.pseudorandom)
+    local hand_data = copy_table(G.GAME.hands)
+
+    predicte_fn(...)
+
+    G.GAME.round_resets.ante = ante
+    G.GAME.used_jokers = used_jokers
+    G.GAME.pool_flags = pool_flags
+    G.GAME.banned_keys = banned_keys
+    G.ARGS.TEMP_POOL = pool
+    G.GAME.pseudorandom = random_data
+    G.GAME.hands = hand_data
+end
+
+local function predicte_cards(booster_pack, create_card_fn)
+    local pack_size = booster_pack.ability.extra or G.GAME.pack_size
+    booster_pack.ability.jest_selected_shown = booster_pack.ability.jest_selected_shown or math.random(1,pack_size)
+    local i = booster_pack.ability.jest_selected_shown
+    booster_pack.prediction_cards = {}
+
+    local card = create_card_fn(booster_pack)
+    card.T.x = booster_pack.T.x 
+    card.T.y = booster_pack.T.y - card.T.h - 0.5
+    card:start_materialize({G.C.WHITE, G.C.WHITE}, nil, 1.5 * G.SETTINGS.GAMESPEED)
+
+    booster_pack.prediction_cards[i] = card
+end
+
+local function predicte_card(booster_pack) -- Pretty much the card:open code
+    local card = nil
+    if booster_pack.config.center.create_card and type(booster_pack.config.center.create_card) == "function" then
+        local _card_to_spawn = booster_pack.config.center:create_card(booster_pack, i)
+        if type((_card_to_spawn or {}).is) == 'function' and _card_to_spawn:is(Card) then
+            card = _card_to_spawn
+        else
+            card = SMODS.create_card(_card_to_spawn)
+        end
+    elseif booster_pack.ability.name:find('Arcana') then
+        if G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8 then
+            card = create_card("Spectral", G.pack_cards, nil, nil, true, true, nil, 'ar2')
+        else
+            card = create_card("Tarot", G.pack_cards, nil, nil, true, true, nil, 'ar1')
+        end
+    elseif booster_pack.ability.name:find('Celestial') then
+        if G.GAME.used_vouchers.v_telescope and i == 1 then
+            local _planet, _hand, _tally = nil, nil, 0
+            for k, v in ipairs(G.handlist) do
+                if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
+                    _hand = v
+                    _tally = G.GAME.hands[v].played
+                end
+            end
+            if _hand then
+                for k, v in pairs(G.P_CENTER_POOLS.Planet) do
+                    if v.config.hand_type == _hand then
+                        _planet = v.key
+                    end
+                end
+            end
+            card = create_card("Planet", G.pack_cards, nil, nil, true, true, _planet, 'pl1')
+        else
+            card = create_card("Planet", G.pack_cards, nil, nil, true, true, nil, 'pl1')
+        end
+    elseif booster_pack.ability.name:find('Spectral') then
+        card = create_card("Spectral", G.pack_cards, nil, nil, true, true, nil, 'spe')
+    elseif booster_pack.ability.name:find('Standard') then
+        card = create_card((pseudorandom(pseudoseed('stdset'..G.GAME.round_resets.ante)) > 0.6) and "Enhanced" or "Base", G.pack_cards, nil, nil, nil, true, nil, 'sta')
+        local edition_rate = 2
+        if G.GAME.modifiers.fam_force_dual then
+            notsuit = card.base.suit
+            suit = pseudorandom_element({'Spades','Hearts','Diamonds','Clubs'}, pseudoseed('dual_deck'))
+            if suit == notsuit then
+                while suit == notsuit do
+                    suit = pseudorandom_element({'Spades','Hearts','Diamonds','Clubs'}, pseudoseed('dual_deck'))
+                end
+            end
+            if suit == 'Spades' then
+                card.ability.is_spade = true
+            elseif suit == 'Hearts' then
+                card.ability.is_heart = true
+            elseif suit == 'Diamonds' then
+                card.ability.is_diamond = true
+            elseif suit == 'Clubs' then
+                card.ability.is_club = true
+            end
+            set_sprite_suits(card, false)
+        end
+        local edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true)
+        card:set_edition(edition)
+        card:set_seal(SMODS.poll_seal({mod = 10}))
+    elseif booster_pack.ability.name:find('Buffoon') then
+        card = create_card("Joker", G.pack_cards, nil, nil, true, true, nil, 'buf')
+    end
+    card.ability.jest_got_no_ui = true
+    return card
+end
+
+function Card:remove_prediction_card()
+    for k, card in pairs(self.prediction_cards or {}) do
+        card:remove()
+        self.prediction_cards[k] = nil
+    end
+end
+
+local remove = Card.remove
+function Card:remove(...)
+    self:remove_prediction_card()
+    return remove(self, ...)
+end
+
+local _click = Card.click
+function Card:click(...)
+    if self.area and self.area.config and self.area.config.type == "shop" then
+        local has_ultrasound = false
+        if G.jokers ~= nil and G.jokers.cards then
+            for _, j in ipairs(G.jokers.cards) do
+                if j.config and j.config.center_key == "j_aij_ultrasound" then
+                    has_ultrasound = true
+                end
+            end
+        end
+        if has_ultrasound then
+            if self.highlighted then
+                self:remove_prediction_card()
+            elseif self.config.center.create_card then
+                predicte_pseudrandom(predicte_cards, self, predicte_card)
+            end
+        end
+    end
+
+    return _click(self, ...)
+end
+
+local _highlight = Card.highlight
+function Card:highlight(is_higlighted, ...)
+    if not is_higlighted then
+        self:remove_prediction_card()
+    end
+    return _highlight(self, is_higlighted, ...)
+end
+
+-------------------------------- 
+--------------------------------
+-- card predict end 
+
+function Tag:jest_apply_fortunate(message, _colour, func) -- Play on words just apply
+    if #G.consumeables.cards < G.consumeables.config.card_limit then
+        stop_use()    
+
+        local temptrigger = false
+        G.E_MANAGER:add_event(Event({
+            delay = 0.4,
+            trigger = 'after',
+            func = (function()
+                if #G.consumeables.cards < G.consumeables.config.card_limit then
+                    attention_text({
+                        text = message,
+                        colour = G.C.WHITE,
+                        scale = 1, 
+                        hold = 0.3/G.SETTINGS.GAMESPEED,
+                        cover = self.HUD_tag,
+                        cover_colour = _colour or G.C.GREEN,
+                        align = 'cm',
+                        })
+                    play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                    play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+                    temptrigger = true
+                end
+                return true
+            end)
+        }))
+        G.E_MANAGER:add_event(Event({
+            func = (function()
+                if #G.consumeables.cards < G.consumeables.config.card_limit then
+                    self.HUD_tag.states.visible = false
+                end
+                return true
+            end)
+        }))
+
+        
+        G.E_MANAGER:add_event(Event({
+            func = func
+        }))
+    
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.7,
+            func = (function()
+                if temptrigger then
+                    self:remove()
+                else
+                    self.triggered = false
+                end
+                return true
+            end)
+        }))
+    end
+end
