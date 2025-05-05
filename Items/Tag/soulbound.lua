@@ -7,6 +7,7 @@ local soulbound_tag = {
 
     discovered = false,
     order = 0,
+    min_ante = 4,
 
     loc_vars = function(self, info_queue)
     end,
@@ -16,7 +17,7 @@ local soulbound_tag = {
         if context.type == 'immediate' then
             tag:yep('+', G.C.RARITY[4], function()
                 if G.jokers and #G.jokers.cards < G.jokers.config.card_limit then
-                    local joker_card = create_card('Joker', G.jokers, true, nil, nil, nil, nil,
+                    local joker_card = create_card('Joker', G.jokers, true, nil, nil, true, nil,
                         'perishable_legendary_tag')
 
                     if joker_card then
@@ -33,9 +34,6 @@ local soulbound_tag = {
             tag.triggered = true
             return true
         end
-    end,
-    in_pool = function(self)
-        return G.GAME.round_resets.ante >= 4
     end,
 }
 return {name = "Tags", items = {soulbound_tag}}
