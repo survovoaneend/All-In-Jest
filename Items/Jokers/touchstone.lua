@@ -8,11 +8,11 @@ local touchstone = {
       future_sense = 10
     },
     rarity = 4,
-		unlock_condition = {hidden = true},
+	unlock_condition = {hidden = true},
     pos = { x = 4, y = 0},
     atlas = 'legendary_atlas',
     cost = 4,
-    unlocked = true,
+    unlocked = false,
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
@@ -32,7 +32,7 @@ local touchstone = {
     generate_ui = function(self, info_queue, cardd, desc_nodes, specific_vars, full_UI_table)
         if G.deck ~= nil and cardd.area == G.jokers then
             local cards = {}
-            for i = 0, self.config.future_sense do 
+            for i = 1, self.config.future_sense do 
                 if #G.deck.cards-i >= 1 then
                     local card = copy_card(G.deck.cards[#G.deck.cards-i], nil, nil, G.playing_card)
                     if G.jokers and self.area == G.jokers then

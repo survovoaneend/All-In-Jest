@@ -9,14 +9,14 @@ local killigrew = {
         }
     },
     rarity = 4,
-		unlock_condition = {hidden = true},
+	unlock_condition = {hidden = true},
     pos = { x = 0, y = 6},
     atlas = 'legendary_atlas',
     in_pool = function(self, args)
         return (redeemed_voucher_count() >= 1)
     end,
     cost = 4,
-    unlocked = true,
+    unlocked = false,
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,

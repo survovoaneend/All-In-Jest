@@ -7,13 +7,23 @@ priority = 214748364
 [patches.pattern]
 target = "functions/common_events.lua"
 pattern = '''
-G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].s_mult + G.GAME.hands[hand].l_mult*(G.GAME.hands[hand].level - 1), 1)
 G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].s_chips + G.GAME.hands[hand].l_chips*(G.GAME.hands[hand].level - 1), 0)
 '''
 position = "at"
 payload = ''' 
-G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (G.GAME.hands[hand].l_mult * amount))
 G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (G.GAME.hands[hand].l_chips * amount))
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].s_mult + G.GAME.hands[hand].l_mult*(G.GAME.hands[hand].level - 1), 1)
+'''
+position = "at"
+payload = ''' 
+G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (G.GAME.hands[hand].l_mult * amount))
 '''
 match_indent = true
 
@@ -26,11 +36,15 @@ if _type == 'Joker' then
 position = "before"
 match_indent = true
 payload = '''
-if G.GAME.jest_legendary_pool.in_shop then
-    local rary = _rarity or pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) 
-    rary = (rary > G.GAME.jest_legendary_pool.rate and 4) or 1 
-    if rary ~= 1 then
-        _legendary = true
+if G.GAME.jest_legendary_pool ~= nil then
+    if G.GAME.jest_legendary_pool.in_shop then
+        local rary = _rarity or pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) 
+        if type(rary) == "number" then
+            rary = (rary > G.GAME.jest_legendary_pool.rate and 4) or 1 
+            if rary ~= 1 then
+                _legendary = true
+            end
+        end
     end
 end
 '''
@@ -165,6 +179,18 @@ end
 
 [[patches]]
 [patches.pattern]
+target = "card.lua"
+pattern = "function Card:add_to_deck(*"
+position = "after"
+match_indent = true
+payload = '''
+    if not self.config.center.unlocked and self.config.center.rarity == 4 then
+        unlock_card(self.config.center)
+    end
+'''
+
+[[patches]]
+[patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = '''
 if card.ability_UIBox_table then
@@ -257,7 +283,7 @@ end
 [patches.pattern]
 target = "functions/common_events.lua"
 pattern = '''
-elseif v.set == 'Planet' then
+if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = nil end
 '''
 position = "before"
 match_indent = true

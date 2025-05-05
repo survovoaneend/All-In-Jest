@@ -10,7 +10,7 @@ local dongtong = {
     pos = { x = 6, y = 10},
     atlas = 'legendary_atlas',
     cost = 20,
-    unlocked = true,
+    unlocked = false,
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
@@ -45,7 +45,7 @@ function Card:update(dt)
           self,
           "*", 2,
           { x_chips = 1, x_mult = 1, extra_value = true, rarity },
-          nil, true
+          nil, true, "ability.extra"
         )
       end
     elseif diff < 0 then
@@ -54,7 +54,7 @@ function Card:update(dt)
           self,
           "/", 2,
           { x_chips = 1, x_mult = 1, extra_value = true, rarity },
-          nil, true
+          nil, true, "ability.extra"
         )
       end
     end
