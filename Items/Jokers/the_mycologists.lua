@@ -1,6 +1,7 @@
 local the_mycologists = {
     object_type = "Joker",
     order = 47,
+    ignore = true,
     key = "the_mycologists",
     config = {
       poker_hand = "Pair",
