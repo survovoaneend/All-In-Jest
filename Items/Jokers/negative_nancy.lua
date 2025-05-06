@@ -6,7 +6,7 @@ local negative_nancy = {
 
   rarity = 1,
   pos = { x = 18, y = 0 },
-  atlas = 'joker_atlas', 
+  atlas = 'joker_atlas',
   cost = 4,
   unlocked = true,
   discovered = false,
@@ -15,8 +15,10 @@ local negative_nancy = {
   perishable_compat = true,
 
   loc_vars = function(self, info_queue, card)
+    if not card.edition or (card.edition and not card.edition.negative) then
       info_queue[#info_queue+1] = G.P_CENTERS.e_negative
-      return {}
+    end
+    return {}
   end,
 
   calculate = function(self, card, context)
