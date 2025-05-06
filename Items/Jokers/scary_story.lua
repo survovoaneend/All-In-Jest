@@ -16,15 +16,16 @@ local scary_story = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
-  
+
     loc_vars = function(self, info_queue, card)
+      info_queue[#info_queue+1] = G.P_CENTERS.p_standard_normal_1
       info_queue[#info_queue+1] = {key = 'e_negative_playing_card', set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit} }
-      return { vars = { 
+      return { vars = {
         ''..(G.GAME and G.GAME.probabilities.normal or 1),
-        card.ability.extra.chance 
+        card.ability.extra.chance
       } }
     end,
-  
+
     calculate = function(self, card, context)
       if context.open_booster and context.card.ability.name then
         if (context.open_booster and context.card.ability.name == 'Standard Pack' or
@@ -54,6 +55,6 @@ local scary_story = {
         end
     end
     end
-  
+
 }
 return { name = {"Jokers"}, items = {scary_story} }
