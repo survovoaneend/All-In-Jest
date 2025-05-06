@@ -8,11 +8,11 @@ local martellino = {
       total_rounds = 3,
     },
     rarity = 4,
-		unlock_condition = {hidden = true},
+	unlock_condition = {hidden = true},
     pos = { x = 9, y = 8},
     atlas = 'legendary_atlas',
     cost = 20,
-    unlocked = true,
+    unlocked = false,
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true, -- Egg has it so why not
@@ -54,7 +54,7 @@ local martellino = {
                       modify_card = function(card, center) 
                           card.sticker = get_joker_win_sticker(center) 
                           if card.config.center.discovered then
-                            jest_create_select_card_ui(card)
+                            jest_create_select_card_ui(card, G.jokers)
                           end
                       end, 
                       h_mod = 1.05,
