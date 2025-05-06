@@ -1,7 +1,6 @@
 local magick_joker = {
     object_type = "Joker",
     order = 88,
-    ignore = true,
     key = "magick_joker",
     config = {
       current_suit = "Spades",

@@ -7,6 +7,7 @@ local soulbound_tag = {
 
     discovered = false,
     order = 0,
+    min_ante = 4,
 
     loc_vars = function(self, info_queue)
     end,
@@ -33,9 +34,6 @@ local soulbound_tag = {
             tag.triggered = true
             return true
         end
-    end,
-    in_pool = function(self)
-        return G.GAME.round_resets.ante >= 4
     end,
 }
 return {name = "Tags", items = {soulbound_tag}}

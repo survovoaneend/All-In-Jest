@@ -104,7 +104,7 @@ G.FUNCS.jest_select = function(e)
         func = function()
           local card = copy_card(c1)
           card:add_to_deck()
-          G.jokers:emplace(card)
+          e.config.data[1]:emplace(card)
           G.SETTINGS.paused = false
           if G.OVERLAY_MENU ~= nil then
               G.OVERLAY_MENU:remove()
@@ -115,8 +115,8 @@ G.FUNCS.jest_select = function(e)
       }))
     end
 end
-function jest_create_select_card_ui(card)
-    local t2 =  {n=G.UIT.ROOT, config = {ref_table = card, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true, button = 'jest_select', hover = true}, nodes={
+function jest_create_select_card_ui(card, area)
+    local t2 =  {n=G.UIT.ROOT, config = {ref_table = card, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true, button = 'jest_select', data = {area}, hover = true}, nodes={
         {n=G.UIT.T, config={text = "Select",colour = G.C.WHITE, scale = 0.5}}
     }}
 
