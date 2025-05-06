@@ -1,52 +1,56 @@
 function level_up_hand_chips(card, hand, instant, amount)
-    amount = amount or 1
-    G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
+    if (G.GAME.hands[hand].level and G.GAME.hands[hand].chips) then
+        amount = amount or 1
+        G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
 
-    G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (G.GAME.hands[hand].l_chips * amount * 2))
-    if not instant then 
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
-            play_sound('tarot1')
-            if card then card:juice_up(0.8, 0.5) end
-            G.TAROT_INTERRUPT_PULSE = true
-            return true end }))
-        update_hand_text({delay = 0}, {chips = G.GAME.hands[hand].chips, StatusText = true})
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-            play_sound('tarot1')
-            if card then card:juice_up(0.8, 0.5) end
-            G.TAROT_INTERRUPT_PULSE = nil
-            return true end }))
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
-        delay(1.3)
+        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (G.GAME.hands[hand].l_chips * amount * 2))
+        if not instant then 
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+                play_sound('tarot1')
+                if card then card:juice_up(0.8, 0.5) end
+                G.TAROT_INTERRUPT_PULSE = true
+                return true end }))
+            update_hand_text({delay = 0}, {chips = G.GAME.hands[hand].chips, StatusText = true})
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
+                play_sound('tarot1')
+                if card then card:juice_up(0.8, 0.5) end
+                G.TAROT_INTERRUPT_PULSE = nil
+                return true end }))
+            update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
+            delay(1.3)
+        end
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
+        }))
     end
-    G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
-    }))
 end
 
 function level_up_hand_mult(card, hand, instant, amount)
-    amount = amount or 1
-    G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
+    if (G.GAME.hands[hand].level and G.GAME.hands[hand].mult) then
+        amount = amount or 1
+        G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
 
-    G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (G.GAME.hands[hand].l_mult * amount * 2))
-    if not instant then 
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
-            play_sound('tarot1')
-            if card then card:juice_up(0.8, 0.5) end
-            G.TAROT_INTERRUPT_PULSE = true
-            return true end }))
-        update_hand_text({delay = 0}, {mult = G.GAME.hands[hand].mult, StatusText = true})
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-            play_sound('tarot1')
-            if card then card:juice_up(0.8, 0.5) end
-            return true end }))
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
-        delay(1.3)
+        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (G.GAME.hands[hand].l_mult * amount * 2))
+        if not instant then 
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+                play_sound('tarot1')
+                if card then card:juice_up(0.8, 0.5) end
+                G.TAROT_INTERRUPT_PULSE = true
+                return true end }))
+            update_hand_text({delay = 0}, {mult = G.GAME.hands[hand].mult, StatusText = true})
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
+                play_sound('tarot1')
+                if card then card:juice_up(0.8, 0.5) end
+                return true end }))
+            update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
+            delay(1.3)
+        end
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
+        }))
     end
-    G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
-    }))
 end
 
 function redeemed_voucher_count()
@@ -60,6 +64,59 @@ function redeemed_voucher_count()
         end
     end
     return 0
+end
+
+function balance_percent(card, percent)
+  local chip_mod = percent * hand_chips
+  local mult_mod = percent * mult
+  local avg = (chip_mod + mult_mod)/2
+  hand_chips = hand_chips + (avg - chip_mod)
+  mult = mult + (avg - mult_mod)
+  local text = localize('k_balanced')
+  
+  update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
+  card_eval_status_text(card, 'extra', nil, nil, nil, {
+    message = text,
+    colour = { 0.8, 0.45, 0.85, 1 },
+    sound = 'gong'
+ })
+  
+  G.E_MANAGER:add_event(Event({
+    trigger = 'immediate',
+    func = (function()
+      ease_colour(G.C.UI_CHIPS, { 0.8, 0.45, 0.85, 1 })
+      ease_colour(G.C.UI_MULT, { 0.8, 0.45, 0.85, 1 })
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        blockable = false,
+        blocking = false,
+        delay = 4.3,
+        func = (function()
+          ease_colour(G.C.UI_CHIPS, G.C.BLUE, 2)
+          ease_colour(G.C.UI_MULT, G.C.RED, 2)
+          return true
+        end)
+      }))
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        blockable = false,
+        blocking = false,
+        no_delete = true,
+        delay = 6.3,
+        func = (function()
+          G.C.UI_CHIPS[1], G.C.UI_CHIPS[2], G.C.UI_CHIPS[3], G.C.UI_CHIPS[4] = G.C.BLUE[1], G.C.BLUE[2], G.C.BLUE[3],
+              G.C.BLUE[4]
+          G.C.UI_MULT[1], G.C.UI_MULT[2], G.C.UI_MULT[3], G.C.UI_MULT[4] = G.C.RED[1], G.C.RED[2], G.C.RED[3], G.C.RED
+          [4]
+          return true
+        end)
+      }))
+      return true
+    end)
+  }))
+
+  delay(0.6)
+  return hand_chips, mult
 end
 
 jest_ability_calculate = function(card, equation, extra_value, exclusions, inclusions, do_round, only, extra_search)

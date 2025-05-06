@@ -4,7 +4,7 @@ local adoring_joker = {
     ignore = true,
     key = "adoring_joker",
     config = {
-      
+      jest_highest_scored_mult = {}
     },
     rarity = 3,
     pos = { x = 13, y = 2 },
@@ -12,29 +12,27 @@ local adoring_joker = {
     cost = 8,
     unlocked = true,
     discovered = false,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
-  
+      
     loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                G.GAME.current_round.jest_highest_scored_mult.amount
-            }
-        }
+        
     end,
-  
+      
     calculate = function(self, card, context)
-      if context.joker_main then
-          local xmlt = G.GAME.current_round.jest_highest_scored_mult.amount
-          if xmlt > 0 then
-              return {
-                  mult = xmlt,
-                  card = card
-              }
-          end
+      if context.final_scoring_step and context.cardarea == G.jokers then
+        local mult = G.GAME.current_round.current_hand.mult
+        table.insert(card.ability.jest_highest_scored_mult, mult)
+        for i = 1, #card.ability.jest_highest_scored_mult do
+            if card.ability.jest_highest_scored_mult[i] > mult then
+                mult = card.ability.jest_highest_scored_mult[i]
+            end
+        end
+        G.GAME.current_round.current_hand.mult = mult
+        update_hand_text({delay = 0}, {mult = mult})
       end
       if (context.end_of_round or context.setting_blind) and context.cardarea == G.jokers then
-        G.GAME.current_round.jest_highest_scored_mult.amount = 0
+        card.ability.jest_highest_scored_mult = {}
       end
     end
   

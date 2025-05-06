@@ -16,17 +16,17 @@ local heidelberg_tun = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
-  
+
     loc_vars = function(self, info_queue, card)
-      info_queue[#info_queue + 1] = G.P_CENTERS.e_negative_consumable
+      info_queue[#info_queue+1] = {key = 'e_negative_consumable', set = 'Edition', config = {extra = 1}}
       return {
         vars = {
-          G.GAME.probabilities.normal, 
+          G.GAME.probabilities.normal,
           card.ability.extra.odds
         }
       }
     end,
-  
+
     calculate = function(self, card, context)
       if context.buying_card and context.card and context.card.ability.consumeable and not context.blueprint then
           local bought_card = context.card
@@ -36,12 +36,12 @@ local heidelberg_tun = {
                   G.E_MANAGER:add_event(Event({
                     func = function()
                       if bought_card and not bought_card.removed then
-                        
+
                         bought_card:set_edition({negative = true}, true)
                         end
                         return true
                     end
-                })) 
+                }))
                   return true
               end
               bought_card.volatile_processed = true

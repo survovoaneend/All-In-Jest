@@ -107,6 +107,14 @@ SMODS.Atlas {
     frames = 21, 
     atlas_table = 'ANIMATION_ATLAS' 
 }
+SMODS.Gradient {
+    key = 'plasma',
+    colours = {
+        HEX('F9A2E6'), HEX('b288bc')
+    },
+    cycle = 5,
+    interpolation = 'trig'
+}
 AllInJest = {}
 assert(SMODS.load_file('Utils/context.lua'))()
 assert(SMODS.load_file('Utils/functions.lua'))()
@@ -133,7 +141,7 @@ local function load_items(curr_obj)
             if item.jest_spec_moon and All_in_Jest.config.moons_enabled and not item.ignore then
                 if item.jest_rec_paperback then
                     if next(SMODS.find_mod("paperback")) or next(SMODS.find_mod("Bunco")) then
-                        if PB_UTIL and PB_UTIL.config.suits_enabled or next(SMODS.find_mod("Bunco")) then
+                        if (PB_UTIL and PB_UTIL.config and PB_UTIL.config.suits_enabled) or next(SMODS.find_mod("Bunco")) then
                             SMODS[item.object_type](item) 
                             goto continue
                         end
