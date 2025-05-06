@@ -1,17 +1,17 @@
 local zerco = {
     object_type = "Joker",
-    order = 278,
+    order = 1033,
 
     key = "zerco",
     config = {
       
     },
     rarity = 4,
-		unlock_condition = {hidden = true},
+	unlock_condition = {hidden = true},
     pos = { x = 2, y = 6},
     atlas = 'legendary_atlas',
     cost = 20,
-    unlocked = true,
+    unlocked = false,
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,

@@ -1,6 +1,6 @@
 local silvio = {
     object_type = "Joker",
-    order = 254,
+    order = 1009,
 
     key = "silvio",
     config = {
@@ -12,7 +12,7 @@ local silvio = {
     pos = { x = 8, y = 0 },
     atlas = 'legendary_atlas',
     cost = 20,
-    unlocked = true,
+    unlocked = false,
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,

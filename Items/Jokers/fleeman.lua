@@ -1,6 +1,6 @@
 local fleeman = {
     object_type = "Joker",
-    order = 263,
+    order = 1018,
     ignore = true,
 
     key = "fleeman",
@@ -8,12 +8,12 @@ local fleeman = {
       
     },
     rarity = 4,
-		unlock_condition = {hidden = true},
+	unlock_condition = {hidden = true},
     pos = { x = 7, y = 2},
     atlas = 'legendary_atlas',
     cost = 4,
-    unlocked = true,
-    discovered = true,
+    unlocked = false,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
     soul_pos = { x = 7, y = 3},

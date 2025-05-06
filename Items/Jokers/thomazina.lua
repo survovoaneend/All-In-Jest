@@ -1,6 +1,6 @@
 local thomazina = {
     object_type = "Joker",
-    order = 269,
+    order = 1024,
 
     key = "thomazina",
     config = {
@@ -8,11 +8,11 @@ local thomazina = {
       chip_mod = 5
     },
     rarity = 4,
-		unlock_condition = {hidden = true},
+	unlock_condition = {hidden = true},
     pos = { x = 3, y = 4},
     atlas = 'legendary_atlas',
     cost = 20,
-    unlocked = true,
+    unlocked = false,
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,

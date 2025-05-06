@@ -1,6 +1,6 @@
 local yu_sze = {
     object_type = "Joker",
-    order = 279,
+    order = 1034,
     ignore = true,
 
     key = "yu_sze",
@@ -8,12 +8,12 @@ local yu_sze = {
       
     },
     rarity = 4,
-		unlock_condition = {hidden = true},
+	unlock_condition = {hidden = true},
     pos = { x = 3, y = 6},
     atlas = 'legendary_atlas',
     cost = 4,
-    unlocked = true,
-    discovered = true,
+    unlocked = false,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
     soul_pos = { x = 3, y = 7},

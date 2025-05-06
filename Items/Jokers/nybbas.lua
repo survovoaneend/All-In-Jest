@@ -1,6 +1,6 @@
 local nybbas = {
     object_type = "Joker",
-    order = 246,
+    order = 1001,
     ignore = true,
 
     key = "nybbas",
@@ -8,12 +8,12 @@ local nybbas = {
       
     },
     rarity = 4,
-		unlock_condition = {hidden = true},
+	unlock_condition = {hidden = true},
     pos = { x = 0, y = 0},
     atlas = 'legendary_atlas',
     cost = 4,
-    unlocked = true,
-    discovered = true,
+    unlocked = false,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
     soul_pos = { x = 0, y = 1},

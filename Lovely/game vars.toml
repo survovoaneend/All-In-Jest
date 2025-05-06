@@ -13,18 +13,7 @@ position = 'after'
 match_indent = true
 payload = '''
 jest_magick_joker_card = {suit = 'Spades'},
-'''
-
-[[patches]] #G.Game
-[patches.pattern]
-target = 'game.lua'
-pattern = '''
-current_boss_streak = 0,
-'''
-position = 'after'
-match_indent = true
-payload = '''
-jest_legends_in_shop,
+jest_highest_scored_mult = {amount = 0, trigger = true},
 '''
 
 [[patches]]  
