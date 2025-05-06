@@ -1,6 +1,6 @@
 local nybbas = {
     object_type = "Joker",
-    order = 246,
+    order = 1001,
     ignore = true,
 
     key = "nybbas",

@@ -1,6 +1,6 @@
 local silvio = {
     object_type = "Joker",
-    order = 254,
+    order = 1009,
 
     key = "silvio",
     config = {

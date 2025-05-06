@@ -1,6 +1,6 @@
 local mathurine = {
     object_type = "Joker",
-    order = 270,
+    order = 1025,
     ignore = true,
 
     key = "mathurine",

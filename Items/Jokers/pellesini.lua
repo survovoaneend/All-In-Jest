@@ -1,6 +1,6 @@
 local pellesini = {
     object_type = "Joker",
-    order = 252,
+    order = 1007,
     ignore = true,
 
     key = "pellesini",

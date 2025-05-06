@@ -1,6 +1,6 @@
 local pompey = {
     object_type = "Joker",
-    order = 249,
+    order = 1004,
 
     key = "pompey",
     config = {

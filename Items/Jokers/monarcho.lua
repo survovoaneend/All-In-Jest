@@ -1,6 +1,6 @@
 local monarcho = {
     object_type = "Joker",
-    order = 248,
+    order = 1003,
     ignore = true,
 
     key = "monarcho",

@@ -99,7 +99,14 @@ SMODS.Rarity({
   },
 	badge_colour = HEX("12077d"),
 })
-
+SMODS.Atlas { 
+    key = 'blind_drawn_replacement', 
+    path = 'unknown_blind.png', 
+    px = 34, 
+    py = 34, 
+    frames = 21, 
+    atlas_table = 'ANIMATION_ATLAS' 
+}
 AllInJest = {}
 assert(SMODS.load_file('Utils/context.lua'))()
 assert(SMODS.load_file('Utils/functions.lua'))()

@@ -1,6 +1,6 @@
 local dongtong = {
     object_type = "Joker",
-    order = 302,
+    order = 1057,
 
     key = "dongtong",
     config = {

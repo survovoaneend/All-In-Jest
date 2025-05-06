@@ -1,6 +1,6 @@
 local dor = {
     object_type = "Joker",
-    order = 265,
+    order = 1020,
     ignore = true,
 
     key = "dor",

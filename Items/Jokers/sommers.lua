@@ -1,6 +1,6 @@
 local sommers = {
     object_type = "Joker",
-    order = 267,
+    order = 1022,
     ignore = true,
 
     key = "sommers",

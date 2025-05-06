@@ -1,6 +1,6 @@
 local eulenspiegel = {
     object_type = "Joker",
-    order = 258,
+    order = 1013,
     ignore = true,
 
     key = "eulenspiegel",

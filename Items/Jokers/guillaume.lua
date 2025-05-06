@@ -1,6 +1,6 @@
 local guillaume = {
     object_type = "Joker",
-    order = 271,
+    order = 1026,
     ignore = true,
 
     key = "guillaume",

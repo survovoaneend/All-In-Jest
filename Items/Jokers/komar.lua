@@ -1,6 +1,6 @@
 local komar = {
     object_type = "Joker",
-    order = 292,
+    order = 1047,
     ignore = true,
 
     key = "komar",

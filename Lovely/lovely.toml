@@ -11,7 +11,11 @@ G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].s_chips + G.GAME.hands[ha
 '''
 position = "at"
 payload = ''' 
-G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (G.GAME.hands[hand].l_chips * amount))
+if G.GAME.hands[hand].l_chips >= 1 then
+    G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (G.GAME.hands[hand].l_chips * amount))
+else
+    G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (1 * amount))
+end
 '''
 match_indent = true
 
@@ -23,9 +27,27 @@ G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].s_mult + G.GAME.hands[hand
 '''
 position = "at"
 payload = ''' 
-G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (G.GAME.hands[hand].l_mult * amount))
+if G.GAME.hands[hand].l_mult >= 1 then
+    G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (G.GAME.hands[hand].l_mult * amount))
+else
+    G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (1 * amount))
+end
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "mult = mod_mult(mult + amount)"
+position = "after"
+payload = '''
+if G.GAME.current_round.jest_highest_scored_mult.trigger then
+    if amount > G.GAME.current_round.jest_highest_scored_mult.amount then
+        G.GAME.current_round.jest_highest_scored_mult.amount = amount
+    end
+end
+'''
+match_indent = true 
 
 [[patches]]
 [patches.pattern]
@@ -39,7 +61,7 @@ payload = '''
 if G.GAME.jest_legendary_pool ~= nil then
     if G.GAME.jest_legendary_pool.in_shop then
         local rary = _rarity or pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) 
-        if type(rary) == "number" then
+        if type(rary) == "number" and (_rarity == nil or _rarity == 4 or _rarity == "Legendary") then
             rary = (rary > G.GAME.jest_legendary_pool.rate and 4) or 1 
             if rary ~= 1 then
                 _legendary = true
@@ -95,13 +117,235 @@ payload = '''
 
 [[patches]]
 [patches.pattern]
+target = "game.lua"
+pattern = "self.discard = CardArea("
+position = "before"
+match_indent = true
+payload = '''
+self.jest_super_discard = CardArea(
+        0, 0,
+        CAI.discard_W,CAI.discard_H,
+        {card_limit = 1e308, type = 'discard'})
+'''
+
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "local discard_count = #G.discard.cards"
+position = "before"
+payload = '''
+local has_line_in_the_sand = false
+if G.jokers ~= nil and G.jokers.cards then
+    for _, j in ipairs(G.jokers.cards) do
+        if j.config and j.config.center_key == "j_aij_line_in_the_sand" then
+            has_line_in_the_sand = true
+        end
+    end
+end
+if has_line_in_the_sand and G.GAME.blind.boss then
+    local discard_count = #G.jest_super_discard.cards
+    for i=1, discard_count do --draw cards from deck
+        draw_card(G.jest_super_discard, G.deck, i*100/discard_count,'up', nil ,nil, 0.005, i%2==0, nil, math.max((21-i)/20,0.7))
+    end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "draw_card(G.hand, G.discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])"
+position = "before"
+payload = '''
+local has_line_in_the_sand = false
+if G.jokers ~= nil and G.jokers.cards then
+    for _, j in ipairs(G.jokers.cards) do
+        if j.config and j.config.center_key == "j_aij_line_in_the_sand" then
+            has_line_in_the_sand = true
+        end
+    end
+end
+if has_line_in_the_sand then
+    draw_card(G.hand, G.jest_super_discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])
+else
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "draw_card(G.hand, G.discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])"
+position = "after"
+payload = '''
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "if not run_info then G.GAME.round_resets.blind_states[G.GAME.blind_on_deck] = 'Select' end"
+position = "after"
+payload = '''
+local has_blind_drawn = false
+if G.jokers ~= nil and G.jokers.cards then
+    for _, j in ipairs(G.jokers.cards) do
+        if j.config and j.config.center_key == "j_aij_blind_drawn" and type == 'Boss' then
+            has_blind_drawn = true
+        end
+    end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = ''' {n=G.UIT.R, config={id = 'blind_name',align = "cm", padding = 0.07}, nodes={
+    {n=G.UIT.R, config={align = "cm", r = 0.1, outline = 1, outline_colour = blind_col, colour = darken(blind_col, 0.3), minw = 2.9, emboss = 0.1, padding = 0.07, line_emboss = 1}, nodes={
+        {n=G.UIT.O, config={object = DynaText({string = loc_name, colours = {disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE}, shadow = not disabled, float = not disabled, y_offset = -4, scale = 0.45, maxw =2.8})}},
+    }},
+}},
+'''
+position = "before"
+payload = '''
+has_blind_drawn and {n=G.UIT.R, config={id = 'blind_name',align = "cm", padding = 0.07}, nodes={
+    {n=G.UIT.R, config={align = "cm", r = 0.1, outline = 1, outline_colour = G.C.UI.TEXT_INACTIVE, colour = darken(G.C.UI.TEXT_INACTIVE, 0.3), minw = 2.9, emboss = 0.1, padding = 0.07, line_emboss = 1}, nodes={
+        {n=G.UIT.O, config={object = DynaText({string = "???", colours = {disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE}, shadow = not disabled, float = not disabled, y_offset = -4, scale = 0.45, maxw =2.8})}},
+    }},
+}} or
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = ''' {n=G.UIT.R, config={align = "cm", minh = 0.6}, nodes={
+    {n=G.UIT.O, config={w=0.5,h=0.5, colour = G.C.BLUE, object = stake_sprite, hover = true, can_collide = false}},
+    {n=G.UIT.B, config={h=0.1,w=0.1}},
+    {n=G.UIT.T, config={text = number_format(blind_amt), scale = score_number_scale(0.9, blind_amt), colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.RED, shadow =  not disabled}}
+}},
+'''
+position = "before"
+payload = '''
+has_blind_drawn and {n=G.UIT.R, config={align = "cm", minh = 0.6}, nodes={
+    {n=G.UIT.O, config={w=0.5,h=0.5, colour = G.C.BLUE, object = stake_sprite, hover = true, can_collide = false}},
+    {n=G.UIT.B, config={h=0.1,w=0.1}},
+    {n=G.UIT.T, config={text = "???", scale = score_number_scale(0.9, 600), colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.RED, shadow =  not disabled}}
+}} or
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = ''' _reward and {n=G.UIT.R, config={align = "cm"}, nodes={
+    {n=G.UIT.T, config={text = localize('ph_blind_reward'), scale = 0.35, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE, shadow = not disabled}},
+    {n=G.UIT.T, config={text = string.rep(localize("$"), blind_choice.config.dollars)..'+', scale = 0.35, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.MONEY, shadow = not disabled}}
+}} or nil,
+'''
+position = "before"
+payload = '''
+has_blind_drawn and _reward and {n=G.UIT.R, config={align = "cm"}, nodes={
+    {n=G.UIT.T, config={text = localize('ph_blind_reward'), scale = 0.35, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE, shadow = not disabled}},
+    {n=G.UIT.T, config={text = "???+", scale = 0.35, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.MONEY, shadow = not disabled}}
+}} or
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+for k, v in ipairs(text_table) do
+    blind_desc_nodes[#blind_desc_nodes+1] = {n=G.UIT.R, config={align = "cm", maxw = 2.8}, nodes={
+        {n=G.UIT.T, config={text = v or '-', scale = 0.32, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE, shadow = not disabled}}
+    }}
+end
+'''
+position = "before"
+payload = '''
+if has_blind_drawn then
+    for k, v in ipairs(text_table) do
+        blind_desc_nodes[#blind_desc_nodes+1] = {n=G.UIT.R, config={align = "cm", maxw = 2.8}, nodes={
+            {n=G.UIT.T, config={text = "???", scale = 0.32, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE, shadow = not disabled}}
+        }}
+    end
+    blind_col = G.C.UI.TEXT_INACTIVE
+else
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+for k, v in ipairs(text_table) do
+    blind_desc_nodes[#blind_desc_nodes+1] = {n=G.UIT.R, config={align = "cm", maxw = 2.8}, nodes={
+        {n=G.UIT.T, config={text = v or '-', scale = 0.32, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE, shadow = not disabled}}
+    }}
+end
+'''
+position = "after"
+payload = '''
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+G.GAME.blind:change_dim(1.5,1.5)
+'''
+position = "before"
+payload = '''
+local has_blind_drawn = false
+if G.jokers ~= nil and G.jokers.cards then
+    for _, j in ipairs(G.jokers.cards) do
+        if j.config and j.config.center_key == "j_aij_blind_drawn" and type == 'Boss' then
+            has_blind_drawn = true
+        end
+    end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+blind_choice.animation:define_draw_steps({
+    {shader = 'dissolve', shadow_height = 0.05},
+    {shader = 'dissolve'}
+})
+'''
+position = "before"
+payload = '''
+if has_blind_drawn then
+    blind_choice.animation = AnimatedSprite(0,0, 1.4, 1.4, G.ANIMATION_ATLAS["aij_blind_drawn_replacement"] or G.ANIMATION_ATLAS['blind_chips'],  { x = 0, y = 0 })
+    if blind_choice.config.boss_colour ~= G.C.UI.TEXT_INACTIVE then
+        blind_choice.config.jesttempvaule = blind_choice.config.boss_colour
+        blind_choice.config.boss_colour = G.C.UI.TEXT_INACTIVE
+    end
+else
+    if blind_choice.config.jesttempvaule ~= nil then
+        blind_choice.config.boss_colour = blind_choice.config.jesttempvaule
+        blind_choice.config.jesttempvaule = nil
+    end
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
 target = "card.lua"
 pattern = "if self.states.focus.is and not self.children.focused_ui then" # Find a line inside Card:hover() before the tooltip logic
 position = "before"
 match_indent = true
 payload = '''
 -- Prevent tooltip for Guess the Jest cards while in the pack
-if self.ability and self.ability.from_guess_the_jest and self.area == G.pack_cards then
+if (self.ability and self.ability.from_guess_the_jest and self.area == G.pack_cards) or self.ability.jest_got_no_ui then
     return
 end
 '''

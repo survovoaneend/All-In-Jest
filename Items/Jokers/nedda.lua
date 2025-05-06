@@ -1,6 +1,6 @@
 local nedda = {
   object_type = "Joker",
-  order = 253,
+  order = 1008,
 
   key = "nedda",
   config = {

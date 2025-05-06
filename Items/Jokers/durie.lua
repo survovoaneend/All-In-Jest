@@ -1,6 +1,6 @@
 local durie = {
     object_type = "Joker",
-    order = 261,
+    order = 1016,
     ignore = true,
 
     key = "durie",

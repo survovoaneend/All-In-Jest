@@ -1,6 +1,6 @@
 local dacosta = {
     object_type = "Joker",
-    order = 260,
+    order = 1015,
     ignore = true,
 
     key = "dacosta",

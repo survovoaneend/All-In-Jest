@@ -1,6 +1,6 @@
 local coryat = {
     object_type = "Joker",
-    order = 285,
+    order = 1040,
     ignore = true,
 
     key = "coryat",

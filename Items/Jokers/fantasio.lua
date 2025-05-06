@@ -1,6 +1,6 @@
 local fantasio = {
     object_type = "Joker",
-    order = 299,
+    order = 1054,
     ignore = true,
 
     key = "fantasio",

@@ -1,6 +1,6 @@
 local brusquet = {
     object_type = "Joker",
-    order = 280,
+    order = 1035,
     ignore = true,
 
     key = "brusquet",

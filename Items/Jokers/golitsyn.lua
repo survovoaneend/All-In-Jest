@@ -1,6 +1,6 @@
 local golitsyn = {
     object_type = "Joker",
-    order = 289,
+    order = 1044,
     ignore = true,
 
     key = "golitsyn",

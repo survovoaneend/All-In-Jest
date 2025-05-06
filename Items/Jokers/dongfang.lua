@@ -1,6 +1,6 @@
 local dongfang = {
     object_type = "Joker",
-    order = 277,
+    order = 1032,
     ignore = true,
 
     key = "dongfang",

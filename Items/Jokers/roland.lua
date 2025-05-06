@@ -1,6 +1,6 @@
 local roland = {
     object_type = "Joker",
-    order = 273,
+    order = 1028,
     ignore = true,
 
     key = "roland",

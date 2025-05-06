@@ -1,6 +1,6 @@
 local xinmo = {
     object_type = "Joker",
-    order = 297,
+    order = 1052,
     ignore = true,
 
     key = "xinmo",

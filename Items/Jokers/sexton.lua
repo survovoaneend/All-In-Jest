@@ -1,6 +1,6 @@
 local sexton = {
     object_type = "Joker",
-    order = 300,
+    order = 1055,
     ignore = true,
 
     key = "sexton",

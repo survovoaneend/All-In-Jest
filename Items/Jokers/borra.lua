@@ -1,6 +1,6 @@
 local borra = {
     object_type = "Joker",
-    order = 274,
+    order = 1029,
     ignore = true,
 
     key = "borra",

@@ -1,6 +1,6 @@
 local shir_ei = {
     object_type = "Joker",
-    order = 296,
+    order = 1051,
     ignore = true,
 
     key = "shir_ei",

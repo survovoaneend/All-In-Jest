@@ -117,7 +117,13 @@ return {
             },
             j_aij_rummikub = { name = "Rummikub", text = { "" } },
             j_aij_imperial_bower = { name = "Imperial Bower", text = { "" } },
-            j_aij_ultrasound = { name = "Ultrasound", text = { "" } },
+            j_aij_ultrasound = { 
+                name = "Ultrasound", 
+                text = { 
+                    "Selecting a {C:attention}Booster Pack{} shows",
+                    "one of its contents" 
+                } 
+            },
             j_aij_negative_nancy = {
                 name = "Negative Nancy",
                 text = {
@@ -244,7 +250,15 @@ return {
             j_aij_holy_bible = { name = "Holy Bible", text = { "" } },
             j_aij_great_white_north = { name = "Great white North", text = { "" } },
             j_aij_right_angle = { name = "Right Angle", text = { "" } },
-            j_aij_adoring_joker = { name = "Adoring Joker", text = { "" } },
+            j_aij_adoring_joker = { 
+                name = "Adoring Joker", 
+                text = { 
+                    "After Jokers have {C:attention}triggered",
+                    "set Mult to the {C:attention}highest",
+                    "scoring Mult this round" ,
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
+                } 
+            },
             j_aij_lucignolo = {
                 name = "Lucignolo",
                 text = {
@@ -264,7 +278,13 @@ return {
             j_aij_bobblehead = { name = "Bobblehead", text = { "" } },
             j_aij_topsy_the_clown = { name = "Topsy the Clown", text = { "" } },
             j_aij_cloudwatching = { name = "Cloudwatching", text = { "" } },
-            j_aij_line_in_the_sand = { name = "Line in the Sand", text = { "" } },
+            j_aij_line_in_the_sand = { 
+                name = "Line in the Sand", 
+                text = { 
+                    "{C:attention}Discarded Cards{} do not return to",
+                    "{C:attention}Deck{} until the end of the ante" 
+                } 
+            },
             j_aij_hairy_joker = { name = "Hairy Joker", text = { "" } },
             j_aij_realty_sign = {
                 name = "Realty Sign",
@@ -407,7 +427,14 @@ return {
                     "of {C:chips}+Chips" 
                 } 
             },
-            j_aij_blind_drawn = { name = "Blind-Drawn", text = { "" } },
+            j_aij_blind_drawn = { 
+                name = "Blind-Drawn", 
+                text = { 
+                    "Cannot see {C:attention}Boss Blind{} or",
+                    "its effects until entering it",
+                    "{C:mult}X#1#{} Mult",
+                } 
+            },
             j_aij_heidelberg_tun = {
                 name = "Heidelberg Tun",
                 text = {
@@ -471,8 +498,8 @@ return {
             j_aij_mistigri = {
                 name = "Mistigri",
                 text = {
-                    "{C:attention}+1{} hand size per",
-                    "{C:attention}Jack{} held in hand"
+                    "{C:attention}+1{} hand size per {C:attention}2",
+                    "{C:attention}Jacks{} held in hand"
                 },
             },
             j_aij_simple_simon = {
@@ -504,7 +531,7 @@ return {
             },
             j_aij_peeping_tom = { name = "Peeping tom", text = { "" } },
             j_aij_la_commedia_e_finita = {
-                name = "La Commedia e Finita",
+                name = "La Commedia è Finita",
                 text = {
                     "This Joker gains {C:red}+#1#{}",
                     "Mult when a {C:attention}face{} card",
@@ -535,7 +562,7 @@ return {
                     "Earn {C:attention}20%{} of the {C:money}Sell Value{}",
                     "of other {C:attention}Jokers{}, rounded up",
                     "at the end of {C:attention}round{}",
-                    "{C:inactive}(Currently{} {C:money}$#1#{} {C:inactive}){}"
+                    "{C:inactive}(Currently{} {C:money}$#1#{}{C:inactive}){}"
                 },
             },
             j_aij_honest_john = { name = "Honest John", text = { "" } },
@@ -594,7 +621,7 @@ return {
                     "This Joker gains {C:blue}+#1#{}",
                     "Chips if {C:attention}played hand{}",
                     "is only {C:spades}Spade{} {C:attention}Kings{}",
-                    "{C:inactive}(Currently{} {C:blue}+#2#{}{C:inactive{} Chips)",
+                    "{C:inactive}(Currently{} {C:blue}+#2#{}{C:inactive} Chips){}",
                 },
             },
             j_aij_charles = {
@@ -603,7 +630,7 @@ return {
                     "This Joker gains {X:red,C:white}X#1#{}",
                     "Mult if {C:attention}played hand{}",
                     "is only {C:hearts}Heart{} {C:attention}Kings{}",
-                    "{C:inactive}(Currently{} {X:red,C:white}X#2#{}{C:inactive{} Mult)",
+                    "{C:inactive}(Currently{} {X:red,C:white}X#2#{}{C:inactive} Mult){}",
         
                 },
             },
@@ -622,7 +649,7 @@ return {
                     "This Joker gains {C:red}+#1#{}",
                     "Mult if {C:attention}played hand{}",
                     "is only {C:clubs}Club{} {C:attention}Kings{}",
-                    "{C:inactive}(Currently{} {C:red}+#2#{}{C:inactive{} Mult)",
+                    "{C:inactive}(Currently{} {C:red}+#2#{}{C:inactive} Mult){}",
                 },
             },
             j_aij_sannio = { name = "Sannio", text = { "" } },
@@ -736,8 +763,22 @@ return {
                 },
             },
             j_aij_mushroom_cloud = { name = "Mushroom Cloud", text = { "" } },
-            j_aij_overdesigned_joker = { name = "Overdesigned Joker", text = { "" } },
-            j_aij_morio = { name = "Morio", text = { "" } },
+            j_aij_overdesigned_joker = { 
+                name = "Overdesigned Joker", 
+                text = { 
+                    "Scored cards with {V:1}#1#{} suit",
+                    "#3# {B:3,V:2}#4##2#{}#5#when scored",
+                    "{C:inactive}(Hearts->Clubs->Diamonds->Spades)"
+                } 
+            },
+            j_aij_morio = { 
+                name = "Morio", 
+                text = { 
+                    "When {C:attention}boss blind{} is defeated",
+                    "choose {C:attention}1{} {C:tarot}tarot{} card to acquire",
+                    "{C:inactive}(Must have room)" 
+                } 
+            },
             j_aij_visage = { name = "Visage", text = { "" } },
             j_aij_goofball = { name = "Goofball", text = { "" } },
             j_aij_heyokha = { name = "Heyókȟa", text = { "" } },
@@ -1248,6 +1289,14 @@ return {
                 text = {
                     'Creates a random {C:attention}Perishable{} ',
                     '{C:legendary}Legendary{} Joker',
+                    '{C:inactive}(Must have room)'
+                }
+            },
+            tag_aij_fortunate = {
+                name = 'Fortunate Tag',
+                text = {
+                    'Choose {C:attention}1{} {C:tarot}Tarot{}',
+                    'Card to acquire',
                     '{C:inactive}(Must have room)'
                 }
             }

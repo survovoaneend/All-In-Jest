@@ -1,6 +1,6 @@
 local thomazina = {
     object_type = "Joker",
-    order = 269,
+    order = 1024,
 
     key = "thomazina",
     config = {

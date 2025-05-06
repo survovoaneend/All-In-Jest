@@ -1,6 +1,6 @@
 local grock = {
     object_type = "Joker",
-    order = 257,
+    order = 1012,
     ignore = true,
 
     key = "grock",

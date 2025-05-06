@@ -1,6 +1,6 @@
 local touchstone = {
     object_type = "Joker",
-    order = 250,
+    order = 1005,
 
     key = "touchstone",
     config = {

@@ -1,6 +1,6 @@
 local chunyu = {
     object_type = "Joker",
-    order = 298,
+    order = 1053,
     ignore = true,
 
     key = "chunyu",

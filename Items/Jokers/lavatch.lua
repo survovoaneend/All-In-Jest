@@ -1,6 +1,6 @@
 local lavatch = {
     object_type = "Joker",
-    order = 293,
+    order = 1048,
 
     key = "lavatch",
     config = {

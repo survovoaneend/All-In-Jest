@@ -1,6 +1,6 @@
 local naiteh = {
     object_type = "Joker",
-    order = 303,
+    order = 1058,
 
     key = "naiteh",
     config = {

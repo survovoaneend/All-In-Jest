@@ -1,6 +1,6 @@
 local tarlton = {
     object_type = "Joker",
-    order = 272,
+    order = 1027,
     ignore = true,
 
     key = "tarlton",

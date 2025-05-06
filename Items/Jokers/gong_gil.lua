@@ -1,6 +1,6 @@
 local gong_gil = {
     object_type = "Joker",
-    order = 283,
+    order = 1038,
     ignore = true,
 
     key = "gong_gil",

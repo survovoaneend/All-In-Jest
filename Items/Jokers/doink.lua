@@ -1,6 +1,6 @@
 local doink = {
     object_type = "Joker",
-    order = 247,
+    order = 1002,
     ignore = true,
 
     key = "doink",

@@ -1,6 +1,6 @@
 local calquhoun = {
     object_type = "Joker",
-    order = 264,
+    order = 1019,
     ignore = true,
 
     key = "calquhoun",

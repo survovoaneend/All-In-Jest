@@ -1,6 +1,6 @@
 local deburau = {
     object_type = "Joker",
-    order = 259,
+    order = 1014,
     ignore = true,
 
     key = "deburau",

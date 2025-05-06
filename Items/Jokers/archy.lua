@@ -1,6 +1,6 @@
 local archy = {
     object_type = "Joker",
-    order = 266,
+    order = 1021,
     ignore = true,
 
     key = "archy",

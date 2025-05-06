@@ -1,6 +1,6 @@
 local biancolelli = {
     object_type = "Joker",
-    order = 255,
+    order = 1010,
     ignore = true,
 
     key = "biancolelli",

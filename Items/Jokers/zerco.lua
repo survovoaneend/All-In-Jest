@@ -1,6 +1,6 @@
 local zerco = {
     object_type = "Joker",
-    order = 278,
+    order = 1033,
 
     key = "zerco",
     config = {

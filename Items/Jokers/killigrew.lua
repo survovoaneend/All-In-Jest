@@ -1,6 +1,6 @@
 local killigrew = {
     object_type = "Joker",
-    order = 276,
+    order = 1031,
 
     key = "killigrew",
     config = {

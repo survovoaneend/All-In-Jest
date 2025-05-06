@@ -1,6 +1,6 @@
 local pace = {
     object_type = "Joker",
-    order = 268,
+    order = 1023,
 
     key = "pace",
     config = {
@@ -24,44 +24,40 @@ local pace = {
 local updateref = Card.update
 function Card:update(dt)
   local ref = updateref(self, dt)
+
   if G.jokers and self.ability.set == 'Joker' then
-    if self.config.center.rarity ~= 1 then
-        if type(self.config.center.rarity) == "number" then
-            self.ability.jest_real_rarity = tostring(self.config.center.rarity)
-        else
-            self.ability.jest_real_rarity = self.config.center.rarity
-        end
-    else
-        if self.ability.jest_real_rarity ~= nil and type(self.ability.jest_real_rarity) == "string" then
-            self.ability.jest_real_rarity = self.ability.jest_real_rarity
-        end
+    if self.ability.jest_real_rarity == nil then
+      local r = self.config.center.rarity
+      self.ability.jest_real_rarity = type(r) == "number" and tostring(r) or r
     end
 
     local has_pace = false
-    if G.jokers.cards then
-      for _, j in ipairs(G.jokers.cards) do
-        if j.config and j.config.center_key == "j_aij_pace" then
-          has_pace = true
-        end
+    for _, j in ipairs(G.jokers.cards or {}) do
+      if j.config and j.config.center_key == "j_aij_pace" then
+        has_pace = true
+        break
       end
     end
-    
-    if has_pace and (self.ability.jest_real_rarity == "2" or self.ability.jest_real_rarity == "Rare" or self.ability.jest_real_rarity == "Uncommon" or self.ability.jest_real_rarity == "3") then
+
+    if has_pace then
+      local orig = self.ability.jest_real_rarity
+      if orig == "2" or orig == "3" or orig == "Uncommon" or orig == "Rare" then
         self.config.center.rarity = 1
+      end
     else
-        if self.ability.jest_real_rarity ~= nil then
-            if type(tonumber(self.ability.jest_real_rarity)) ~= nil and type(tonumber(self.ability.jest_real_rarity)) == "number" then
-                if self.config.center.rarity ~= tonumber(self.ability.jest_real_rarity) then
-                    self.config.center.rarity = tonumber(self.ability.jest_real_rarity)
-                end
-            else
-                if self.config.center.rarity ~= self.ability.jest_real_rarity then
-                    self.config.center.rarity = self.ability.jest_real_rarity
-                end
-            end
-        end
+      local orig = self.ability.jest_real_rarity
+      local num = tonumber(orig)
+      if num then
+        self.config.center.rarity = num
+      else
+        self.config.center.rarity = orig
+      end
+
+      self.ability.jest_real_rarity = nil
     end
   end
+
   return ref
 end
+
 return { name = {"Jokers"}, items = {pace} }

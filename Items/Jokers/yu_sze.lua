@@ -1,6 +1,6 @@
 local yu_sze = {
     object_type = "Joker",
-    order = 279,
+    order = 1034,
     ignore = true,
 
     key = "yu_sze",

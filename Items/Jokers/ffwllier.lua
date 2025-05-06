@@ -1,6 +1,6 @@
 local ffwllier = {
     object_type = "Joker",
-    order = 294,
+    order = 1049,
     ignore = true,
 
     key = "Ffwllier",

@@ -1,6 +1,6 @@
 local rahere = {
     object_type = "Joker",
-    order = 281,
+    order = 1036,
     ignore = true,
 
     key = "rahere",

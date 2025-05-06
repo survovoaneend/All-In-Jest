@@ -1,6 +1,6 @@
 local bluet = {
     object_type = "Joker",
-    order = 286,
+    order = 1041,
     ignore = true,
 
     key = "bluet",

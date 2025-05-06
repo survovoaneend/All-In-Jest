@@ -1,6 +1,6 @@
 local fleeman = {
     object_type = "Joker",
-    order = 263,
+    order = 1018,
     ignore = true,
 
     key = "fleeman",

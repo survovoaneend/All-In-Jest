@@ -1,6 +1,6 @@
 local yakov = {
     object_type = "Joker",
-    order = 291,
+    order = 1046,
     ignore = true,
 
     key = "yakov",

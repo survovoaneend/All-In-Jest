@@ -1,6 +1,6 @@
 local angoulevent = {
     object_type = "Joker",
-    order = 284,
+    order = 1039,
     ignore = true,
 
     key = "angoulevent",

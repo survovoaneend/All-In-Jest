@@ -1,6 +1,6 @@
 local pipine = {
     object_type = "Joker",
-    order = 288,
+    order = 1043,
     ignore = true,
 
     key = "pipine",

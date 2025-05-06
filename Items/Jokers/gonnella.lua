@@ -1,6 +1,6 @@
 local gonnella = {
     object_type = "Joker",
-    order = 282,
+    order = 1037,
     ignore = true,
 
     key = "gonnella",

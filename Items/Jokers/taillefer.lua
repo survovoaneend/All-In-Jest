@@ -1,6 +1,6 @@
 local taillefer = {
     object_type = "Joker",
-    order = 275,
+    order = 1030,
     ignore = true,
 
     key = "taillefer",

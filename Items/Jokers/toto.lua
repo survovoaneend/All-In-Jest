@@ -1,6 +1,6 @@
 local toto = {
     object_type = "Joker",
-    order = 256,
+    order = 1011,
     ignore = true,
 
     key = "toto",
