@@ -1,7 +1,7 @@
 local average_joe = {
     object_type = "Joker",
     order = 150,
-
+    ignore = true,
     key = "average_joe",
     config = {
       
