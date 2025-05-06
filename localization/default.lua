@@ -256,7 +256,6 @@ return {
                     "After Jokers have {C:attention}triggered",
                     "set Mult to the {C:attention}highest",
                     "scoring Mult this round" ,
-                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 } 
             },
             j_aij_lucignolo = {
@@ -783,6 +782,15 @@ return {
             j_aij_goofball = { name = "Goofball", text = { "" } },
             j_aij_heyokha = { name = "Heyókȟa", text = { "" } },
             j_aij_casual_absent_paranoia = { name = "Casual-Absent Paranoia", text = { "" } },
+            j_aij_tabula_rasa = { 
+                name = "Tabula Rasa", 
+                text = { 
+                    "When {C:attention}Blind{} is selected",
+                    "this jokers {C:dark_edition}edition{} is",
+                    "removed and its effects",
+                    "become {C:jest_inherent}inherent" 
+                } 
+            },
 
 
             j_aij_prototype = { name = "Prototype", text = {
