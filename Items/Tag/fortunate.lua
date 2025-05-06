@@ -1,7 +1,7 @@
 local fortunate_tag = {
     object_type = "Tag",
     key = 'fortunate',
-
+    ignore = true,
     pos = { x = 4, y = 0 },
     atlas = 'tag_atlas',
 

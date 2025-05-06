@@ -1,6 +1,6 @@
 local naiteh = {
     object_type = "Joker",
-    order = 303,
+    order = 1058,
 
     key = "naiteh",
     config = {
@@ -13,7 +13,7 @@ local naiteh = {
     pos = { x = 7, y = 10},
     atlas = 'legendary_atlas',
     cost = 20,
-    unlocked = true,
+    unlocked = false,
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,

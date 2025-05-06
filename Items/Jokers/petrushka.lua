@@ -6,7 +6,7 @@ local petrushka = {
     config = {
       
     },
-    rarity = 2,
+    rarity = 3,
     pos = { x = 5, y = 4 },
     atlas = 'joker_atlas',
     cost = 8,

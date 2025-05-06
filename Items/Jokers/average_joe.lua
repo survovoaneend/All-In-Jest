@@ -2,7 +2,6 @@ local average_joe = {
     object_type = "Joker",
     order = 150,
     ignore = true,
-
     key = "average_joe",
     config = {
       
@@ -21,7 +20,9 @@ local average_joe = {
     end,
   
     calculate = function(self, card, context)
-      
+      if context.joker_main then
+        balance_percent(card,0.2)
+      end
     end
   
 }

@@ -1,6 +1,6 @@
 local sommers = {
     object_type = "Joker",
-    order = 267,
+    order = 1022,
     ignore = true,
 
     key = "sommers",
@@ -8,12 +8,12 @@ local sommers = {
       
     },
     rarity = 4,
-		unlock_condition = {hidden = true},
+	unlock_condition = {hidden = true},
     pos = { x = 1, y = 4},
     atlas = 'legendary_atlas',
     cost = 4,
-    unlocked = true,
-    discovered = true,
+    unlocked = false,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
     soul_pos = { x = 1, y = 5},

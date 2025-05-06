@@ -1,6 +1,6 @@
 local dongtong = {
     object_type = "Joker",
-    order = 302,
+    order = 1057,
 
     key = "dongtong",
     config = {
@@ -10,7 +10,7 @@ local dongtong = {
     pos = { x = 6, y = 10},
     atlas = 'legendary_atlas',
     cost = 20,
-    unlocked = true,
+    unlocked = false,
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,

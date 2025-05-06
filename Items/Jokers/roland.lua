@@ -1,6 +1,6 @@
 local roland = {
     object_type = "Joker",
-    order = 273,
+    order = 1028,
     ignore = true,
 
     key = "roland",
@@ -8,12 +8,12 @@ local roland = {
       
     },
     rarity = 4,
-		unlock_condition = {hidden = true},
+	unlock_condition = {hidden = true},
     pos = { x = 7, y = 4},
     atlas = 'legendary_atlas',
     cost = 4,
-    unlocked = true,
-    discovered = true,
+    unlocked = false,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
     soul_pos = { x = 7, y = 5},

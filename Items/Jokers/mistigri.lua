@@ -49,7 +49,7 @@ local mistigri = {
             end
         end
 
-        local required_bonus = jacks_in_hand
+        local required_bonus = math.floor(jacks_in_hand/2)
         local bonus_difference = required_bonus - card.ability.current_bonus_applied
 
         if bonus_difference ~= 0 then

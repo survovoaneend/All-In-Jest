@@ -1,6 +1,6 @@
 local pace = {
     object_type = "Joker",
-    order = 268,
+    order = 1023,
 
     key = "pace",
     config = {

@@ -1,6 +1,6 @@
 local fortunato = {
   object_type = "Joker",
-  order = 251,
+  order = 1006,
 
   key = "fortunato",
   config = {
@@ -15,7 +15,7 @@ local fortunato = {
   pos = { x = 5, y = 0 },
   atlas = 'legendary_atlas',
   cost = 20,
-  unlocked = true,
+  unlocked = false,
   discovered = false,
   blueprint_compat = true,
   eternal_compat = true,

@@ -8,10 +8,10 @@ local mondrian_joker = {
         mult_mod = 4
       }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 3, y = 8},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

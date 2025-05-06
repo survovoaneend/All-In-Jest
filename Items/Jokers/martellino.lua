@@ -1,6 +1,6 @@
 local martellino = {
     object_type = "Joker",
-    order = 295,
+    order = 1050,
 
     key = "martellino",
     config = {
