@@ -58,7 +58,7 @@ if _type == 'Joker' then
 position = "before"
 match_indent = true
 payload = '''
-if G.GAME.jest_legendary_pool ~= nil then
+if G.GAME.jest_legendary_pool ~= nil and _type == 'Joker' then
     if G.GAME.jest_legendary_pool.in_shop then
         local rary = _rarity or pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) 
         if type(rary) == "number" and (_rarity == nil or _rarity == 4 or _rarity == "Legendary") then
