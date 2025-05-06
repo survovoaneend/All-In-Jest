@@ -38,3 +38,13 @@ match_indent = true
 payload = '''
 jest_legendary_pool = {in_shop = false, rate = 0.99},
 '''
+
+[[patches]] #Colors
+[patches.pattern]
+target = 'functions/misc_functions.lua'
+pattern = '''enhanced = G.C.SECONDARY_SET.Enhanced'''
+position = 'before'
+payload = '''
+jest_inherent = HEX("b7e1d7"),
+'''
+match_indent = true
