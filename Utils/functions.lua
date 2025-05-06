@@ -72,22 +72,20 @@ function balance_percent(card, percent)
   local avg = (chip_mod + mult_mod)/2
   hand_chips = hand_chips + (avg - chip_mod)
   mult = mult + (avg - mult_mod)
+  local text = localize('k_balanced')
+  
   update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
+  card_eval_status_text(card, 'extra', nil, nil, nil, {
+    message = text,
+    colour = { 0.8, 0.45, 0.85, 1 },
+    sound = 'gong'
+ })
+  
   G.E_MANAGER:add_event(Event({
     trigger = 'immediate',
     func = (function()
-      card:juice_up(0.5, 0.3)
-      local text = localize('k_balanced')
-      card_eval_status_text(card, 'extra', nil, nil, nil, {
-        message = text,
-        colour = { 0.8, 0.45, 0.85, 1 }
-     })
-      play_sound('gong', 0.94, 0.3)
-      play_sound('gong', 0.94 * 1.5, 0.2)
-      play_sound('tarot1', 1.5)
       ease_colour(G.C.UI_CHIPS, { 0.8, 0.45, 0.85, 1 })
       ease_colour(G.C.UI_MULT, { 0.8, 0.45, 0.85, 1 })
-      
       G.E_MANAGER:add_event(Event({
         trigger = 'after',
         blockable = false,

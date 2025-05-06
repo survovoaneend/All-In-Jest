@@ -518,7 +518,13 @@ return {
             },
             j_aij_spectre = { name = "Spectre", text = { "" } },
             j_aij_dapper_dan = { name = "Dapper dan", text = { "" } },
-            j_aij_average_joe = { name = "Average joe", text = { "" } },
+            j_aij_average_joe = {
+                 name = "Average Joe", 
+                 text = { 
+                    "{C:aij_plasma}Balance{} {C:attention}20%{} of",
+                    "{C:blue}Chips{} and {C:red}Mult{}"
+                } 
+            },
             j_aij_silent_sam = { name = "Silent sam", text = { "" } },
             j_aij_pantomimus = { name = "Pantomimus", text = { "" } },
             j_aij_sneaky_pete = {
