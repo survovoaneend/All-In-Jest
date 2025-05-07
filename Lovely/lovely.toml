@@ -554,7 +554,7 @@ match_indent = true
 payload = '''
         if _type == 'Planet' then
             local boosted_planet_keys = {
-                ['c_mercury'] = true, ['c_venus'] = true, ['c_earth'] = true,
+                ['c_pluto'] = true, ['c_mercury'] = true, ['c_venus'] = true, ['c_earth'] = true,
                 ['c_mars'] = true,    ['c_jupiter'] = true,['c_saturn'] = true,
                 ['c_uranus'] = true,  ['c_neptune'] = true,['c_planet_x'] = true,
                 ['c_ceres'] = true, ['c_eris'] = true, ['c_aij_vulcanoid'] = true, 

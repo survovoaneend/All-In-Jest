@@ -1,6 +1,6 @@
 local tabula_rasa = {
     object_type = "Joker",
-    order = 234.36,
+    order = 269,
     ignore = true,
 
     key = "tabula_rasa",

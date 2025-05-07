@@ -42,6 +42,7 @@ function level_up_hand_mult(card, hand, instant, amount)
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
                 play_sound('tarot1')
                 if card then card:juice_up(0.8, 0.5) end
+                G.TAROT_INTERRUPT_PULSE = nil 
                 return true end }))
             update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
             delay(1.3)

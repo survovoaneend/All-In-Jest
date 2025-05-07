@@ -7,6 +7,7 @@ local gravastar_spectral = {
     hidden = true,
     soul_rate = 0.003,
     soul_set = 'Planet',
+    jest_spec_moon = true,
 	unlocked = true,
 	discovered = false,
     order = 3,

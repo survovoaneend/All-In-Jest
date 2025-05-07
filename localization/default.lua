@@ -789,6 +789,7 @@ return {
             j_aij_goofball = { name = "Goofball", text = { "" } },
             j_aij_heyokha = { name = "Heyókȟa", text = { "" } },
             j_aij_casual_absent_paranoia = { name = "Casual-Absent Paranoia", text = { "" } },
+            j_aij_mandrake = { name = "Mandrake", text = { "" } },
             j_aij_tabula_rasa = { 
                 name = "Tabula Rasa", 
                 text = { 
