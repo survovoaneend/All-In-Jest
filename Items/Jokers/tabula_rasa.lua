@@ -1,7 +1,6 @@
 local tabula_rasa = {
     object_type = "Joker",
-    order = 234.36,
-    ignore = true,
+    order = 270,
 
     key = "tabula_rasa",
     config = {
