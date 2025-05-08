@@ -9,6 +9,7 @@ return {
             aij_requires_restart = "Requires Restart",
             aij_enable_moons = "Enable Moons",
             k_aij_guess_the_jest = "Guess the Jest",
+            k_aij_memory_card = "Memorized!",
         }
     },
     descriptions = {
@@ -80,7 +81,16 @@ return {
                     "with this {C:attention}Joker{} "
                 },
             },
-            j_aij_memory_card = { name = "Memory Card", text = { "" } },
+            j_aij_memory_card = { 
+                name = "Memory Card", 
+                text = { 
+                    "If first hand of round",
+                    "contains {C:attention}exactly one{} card",
+                    "that card is {C:attention}always drawn",
+                    "{C:money}first{} on future Blinds",
+                    "{C:inactive}(Can only store one card)" 
+                } 
+            },
             j_aij_sleepy_joker = { name = "Sleepy Joker", text = { "" } },
             j_aij_invisible_man = { name = "Invisible man", text = { "" } },
             j_aij_handsome_joker = { name = "Handsome Joker", text = { "" } },
@@ -188,7 +198,16 @@ return {
                     "{C:money}$#1#{} when scored"
                 },
             },
-            j_aij_art_of_the_deal = { name = "Art of the Deal", text = { "" } },
+            j_aij_art_of_the_deal = { 
+                name = "Art of the Deal", 
+                text = { 
+                    "Gains {C:mult}+#2#{} Mult when",
+                    "{C:money}money{} is earned",
+                    "Resets if {C:money}money{} is",
+                    "at or below {C:money}$0",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
+                } 
+            },
             j_aij_word_art = { name = "Word art", text = { "" } },
             j_aij_atom = {
                 name = "Atom",
@@ -332,7 +351,13 @@ return {
             j_aij_furbo_e_stupedo = { name = "Furbo e Stupedo", text = { "" } },
             j_aij_read_em_and_weep = { name = "Read 'em and Weep", text = { "" } },
             j_aij_goblin_joker = { name = "Goblin Joker", text = { "" } },
-            j_aij_string_theory = { name = "String Theory", text = { "" } },
+            j_aij_string_theory = { 
+                name = "String Theory", 
+                text = { 
+                    "Hand is always considered",
+                    "to contain a {C:attention}Straight" 
+                } 
+            },
             j_aij_jesters_privelege = {
                 name = "Jester's Privelege",
                 text = {
@@ -572,7 +597,13 @@ return {
                 },
             },
             j_aij_honest_john = { name = "Honest John", text = { "" } },
-            j_aij_dizzard = { name = "Dizzard", text = { "" } },
+            j_aij_dizzard = { 
+                name = "Dizzard", 
+                text = { 
+                    "After {C:attention}blind{} is skipped",
+                    "visit the {C:money}shop" 
+                } 
+            },
             j_aij_arlecchino = { name = "Arlecchino", text = { "" } },
             j_aij_arlecchina = { name = "Arlecchina", text = { "" } },
             j_aij_taikomochi = { name = "Taikomochi", text = { "" } },

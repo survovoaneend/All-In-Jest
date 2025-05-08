@@ -66,6 +66,10 @@ function redeemed_voucher_count()
     return 0
 end
 
+to_big = to_big or function(num)
+    return num
+end
+
 function balance_percent(card, percent)
   local chip_mod = percent * hand_chips
   local mult_mod = percent * mult
@@ -323,7 +327,7 @@ AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
         n = G.UIT.R,
         config = { align = alignment , padding = padding, no_fill = true, minh = box_height },
         nodes = {
-            {n=G.UIT.R, config={padding = outer_padding, r = 0.12, colour = lighten(G.C.JOKER_GREY, 0.5), emboss = 0.07}, nodes={
+            {n=G.UIT.R, config={padding = padding, r = 0.12, colour = lighten(G.C.JOKER_GREY, 0.5), emboss = 0.07}, nodes={
                 {n = G.UIT.O, config = { object = cardArea }}
             }}
         }

@@ -37,20 +37,6 @@ match_indent = true
 
 [[patches]]
 [patches.pattern]
-target = '=[SMODS _ "src/utils.lua"]'
-pattern = "mult = mod_mult(mult + amount)"
-position = "after"
-payload = '''
-if G.GAME.current_round.jest_highest_scored_mult.trigger then
-    if amount > G.GAME.current_round.jest_highest_scored_mult.amount then
-        G.GAME.current_round.jest_highest_scored_mult.amount = amount
-    end
-end
-'''
-match_indent = true 
-
-[[patches]]
-[patches.pattern]
 target = "functions/common_events.lua"
 pattern = '''
 if _type == 'Joker' then 
@@ -71,6 +57,46 @@ if G.GAME.jest_legendary_pool ~= nil and _type == 'Joker' then
 end
 '''
 
+#Memory_card
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = "pseudoshuffle(self.cards, pseudoseed(_seed or 'shuffle'))"
+position = "after"
+payload = '''
+for i = #self.cards, 1, -1 do
+    local card = self.cards[i]
+    if G.GAME.jest_stored_memory_card ~= nil then
+        if card == G.GAME.jest_stored_memory_card then
+            table.remove(self.cards, i)
+            table.insert(self.cards, #self.cards + 1, card)
+        end
+    end
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = '''
+elseif self.config.sort == 'order' then 
+    table.sort(self.cards, function (a, b) return (a.config.card.order or a.config.center.order) < (b.config.card.order or b.config.center.order) end )
+end
+'''
+position = "after"
+payload = '''
+for i = #self.cards, 1, -1 do
+    local card = self.cards[i]
+    if G.GAME.jest_stored_memory_card ~= nil then
+        if card == G.GAME.jest_stored_memory_card then
+            table.remove(self.cards, i)
+            table.insert(self.cards, #self.cards + 1, card)
+        end
+    end
+end
+'''
+match_indent = true
 
 [[patches]]
 [patches.pattern]
