@@ -343,8 +343,8 @@ return {
             j_aij_quark = {
                 name = "Quark",
                 text = {
-                    'Levels up {C:attention}Three of a Kind{} if the',
-                    'played hand is exactly {C:attention}three{}',
+                    'Levels up {C:attention}Three of a Kind{} if',
+                    'scored hand is exactly {C:attention}three{}',
                     'cards of the {C:attention}same rank',
                     'but {C:attention}different suits{}'
                 },
