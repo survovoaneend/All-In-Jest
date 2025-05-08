@@ -334,7 +334,7 @@ return {
             j_aij_goblin_joker = { name = "Goblin Joker", text = { "" } },
             j_aij_string_theory = { name = "String Theory", text = { "" } },
             j_aij_jesters_privelege = {
-                name = "Jester's Privelege",
+                name = "Jester's Privilege",
                 text = {
                     "{C:legendary}Legendary{} Jokers may",
                     "appear in the {C:attention}Shop{}",
