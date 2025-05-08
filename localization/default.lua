@@ -169,8 +169,8 @@ return {
                 name = "Blank Card",
                 text = {
                     "Every time a {C:attention}playing card{} is",
-                    "chosen from a {C:attention}Standard{}",
-                    "{C:attention}Pack{}, create an exact {C:attention}copy{}"
+                    "chosen from a {C:attention}Standard Pack{},",
+                    "add an exact {C:attention}copy{} to your deck"
                 },
             },
             j_aij_comedians_manifesto = { name = "Comedian's Manifesto", text = { "" } },
@@ -1319,8 +1319,8 @@ return {
             tag_aij_fortunate = {
                 name = 'Fortunate Tag',
                 text = {
-                    'Choose {C:attention}1{} {C:tarot}Tarot{}',
-                    'Card to acquire',
+                    'Choose any {C:attention}1{} {C:tarot}Tarot{}',
+                    'card to create',
                     '{C:inactive}(Must have room)'
                 }
             }
