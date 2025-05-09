@@ -676,7 +676,7 @@ return {
             j_aij_fatuus = {
                 name = "Fatuus",
                 text = {
-                    'If played hand contains only',
+                    'If played hand contains',
                     'only {C:attention}Kings{} and {C:attention}Queens{},',
                     'apply a {C:blue}Blue Seal{} to',
                     'a random card held in hand',
