@@ -41,8 +41,8 @@ return {
             m_aij_fervent = {
                 name = "Fervent Card",
                 text = {
-                    "Gains {C:blue}+#2#{}",
-                    "Chips when scored"
+                    "Gains {C:blue}+#2#{} chips",
+                    "when scored"
                 }
             },
         },
