@@ -7,15 +7,34 @@ priority = 214748364
 [patches.pattern]
 target = "functions/common_events.lua"
 pattern = '''
-G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].s_chips + G.GAME.hands[hand].l_chips*(G.GAME.hands[hand].level - 1), 0)
+G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
 '''
 position = "at"
-payload = ''' 
-if G.GAME.hands[hand].l_chips >= 1 then
-    G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (G.GAME.hands[hand].l_chips * amount))
+payload = '''
+local aij_moon_type, chip_amount, mult_amount
+if type(amount) == 'table' and amount.aij_moon_type then
+    aij_moon_type = amount.aij_moon_type
+    amount[1] = amount[1] or 1
+    if aij_moon_type == 'chips' then
+        chip_amount = amount[1] * 2
+        mult_amount = 0
+    elseif aij_moon_type == 'mult' then
+        chip_amount = 0
+        mult_amount = amount[1] * 2
+    end
+    amount = amount[1]
 else
-    G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (1 * amount))
+    chip_amount = amount
+    mult_amount = amount
 end
+G.GAME.hands[hand].level = math.max(1, G.GAME.hands[hand].level + amount)
+local cl = (G.GAME.hands[hand].chips_level or 0) + chip_amount
+local ml = (G.GAME.hands[hand].mult_level or 0) + mult_amount
+cl, ml = math.max(0, cl + math.min(0,ml)), math.max(0, ml + math.min(0,cl))
+local dcl = cl - (G.GAME.hands[hand].chips_level or 0)
+local dml = ml - (G.GAME.hands[hand].mult_level or 0)
+G.GAME.hands[hand].chips_level = cl
+G.GAME.hands[hand].mult_level = ml
 '''
 match_indent = true
 
@@ -27,12 +46,47 @@ G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].s_mult + G.GAME.hands[hand
 '''
 position = "at"
 payload = ''' 
-if G.GAME.hands[hand].l_mult >= 1 then
-    G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (G.GAME.hands[hand].l_mult * amount))
-else
-    G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (1 * amount))
-end
+G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].s_mult + G.GAME.hands[hand].l_mult*(G.GAME.hands[hand].mult_level), 1)
 '''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].s_chips + G.GAME.hands[hand].l_chips*(G.GAME.hands[hand].level - 1), 0)
+'''
+position = "at"
+payload = ''' 
+G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].s_chips + G.GAME.hands[hand].l_chips*(G.GAME.hands[hand].chips_level), 0)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = 'if not instant*then'
+position = 'after'
+match_indent = true
+payload = '''
+    if dml == to_big(0) and dcl == to_big(0) then
+        return
+    elseif dml == to_big(0) then
+        update_chips_only_helper(card, hand)
+        goto aij_level_up_label
+    elseif dcl == to_big(0) then
+        update_mult_only_helper(card, hand)
+        goto aij_level_up_label
+    end'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
+'''
+position = 'before'
+payload = '''::aij_level_up_label::'''
 match_indent = true
 
 [[patches]]
