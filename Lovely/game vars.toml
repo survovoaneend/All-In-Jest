@@ -47,5 +47,6 @@ pattern = '''enhanced = G.C.SECONDARY_SET.Enhanced'''
 position = 'before'
 payload = '''
 jest_inherent = HEX("b7e1d7"),
+jest_glitter = HEX("ff97ff"),
 '''
 match_indent = true
