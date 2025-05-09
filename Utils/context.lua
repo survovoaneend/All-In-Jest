@@ -22,3 +22,7 @@ function ease_dollars(mod, instant)
     })
     ease_dollars_ref(mod, instant)
 end
+
+-- Workshoping
+-- context.chance_trigger.trigger (returns true when 1 in whatever chance is true and false when it fails) 
+-- context.chance_trigger.chances (The denomator of the triggered chance)

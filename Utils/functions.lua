@@ -53,6 +53,62 @@ function level_up_hand_mult(card, hand, instant, amount)
     end
 end
 
+function ids_op(card, op, b, c)
+  local id = card:get_id() 
+
+  local function alias(x)
+    local has_invis, has_doc = false, false
+
+    if G.jokers and G.jokers.cards then
+      for _, j in ipairs(G.jokers.cards) do
+        local k = j.config and j.config.center_key
+        if k == "j_aij_invisible_man" then has_invis = true end
+        if k == "j_aij_doctors_note" then has_doc = true end
+      end
+    end
+
+    if has_invis and ({[11]=true, [12]=true, [13]=true})[x] then
+      return 11
+    end
+
+    if has_doc and type(card) == "table"
+       and card.is_suit and card:is_suit("Hearts")
+       and card.is_face and not card:is_face() then
+      return 11
+    end
+
+    if type(card) == "table" and card.ability and card.ability.jest_all_rank then
+      return 11
+    end
+
+    return x
+  end
+
+  if op == "mod" then
+    return (id % b) == c
+  end
+
+  if op == "==" or op == "~=" then
+    local lhs = alias(id)
+    local rhs = alias(b) 
+    return lhs == rhs
+  end
+  if op == "==" then
+    local lhs = alias(id)
+    local rhs = alias(b) 
+    print(lhs.. " " ..op.. " " ..rhs)
+    return lhs ~= rhs
+  end
+
+  if op == ">=" then return id >= b end
+  if op == "<=" then return id <= b end
+  if op == ">" then return id > b end
+  if op == "<" then return id < b end
+
+  error("ids_op: unsupported op " .. tostring(op))
+end
+
+
 function redeemed_voucher_count()
     if G.GAME and G.GAME.used_vouchers then
         local used_voucher = 0
@@ -64,6 +120,59 @@ function redeemed_voucher_count()
         end
     end
     return 0
+end
+
+function balance_percent(card, percent)
+  local chip_mod = percent * hand_chips
+  local mult_mod = percent * mult
+  local avg = (chip_mod + mult_mod)/2
+  hand_chips = hand_chips + (avg - chip_mod)
+  mult = mult + (avg - mult_mod)
+  local text = localize('k_balanced')
+  
+  update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
+  card_eval_status_text(card, 'extra', nil, nil, nil, {
+    message = text,
+    colour = { 0.8, 0.45, 0.85, 1 },
+    sound = 'gong'
+ })
+  
+  G.E_MANAGER:add_event(Event({
+    trigger = 'immediate',
+    func = (function()
+      ease_colour(G.C.UI_CHIPS, { 0.8, 0.45, 0.85, 1 })
+      ease_colour(G.C.UI_MULT, { 0.8, 0.45, 0.85, 1 })
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        blockable = false,
+        blocking = false,
+        delay = 4.3,
+        func = (function()
+          ease_colour(G.C.UI_CHIPS, G.C.BLUE, 2)
+          ease_colour(G.C.UI_MULT, G.C.RED, 2)
+          return true
+        end)
+      }))
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        blockable = false,
+        blocking = false,
+        no_delete = true,
+        delay = 6.3,
+        func = (function()
+          G.C.UI_CHIPS[1], G.C.UI_CHIPS[2], G.C.UI_CHIPS[3], G.C.UI_CHIPS[4] = G.C.BLUE[1], G.C.BLUE[2], G.C.BLUE[3],
+              G.C.BLUE[4]
+          G.C.UI_MULT[1], G.C.UI_MULT[2], G.C.UI_MULT[3], G.C.UI_MULT[4] = G.C.RED[1], G.C.RED[2], G.C.RED[3], G.C.RED
+          [4]
+          return true
+        end)
+      }))
+      return true
+    end)
+  }))
+
+  delay(0.6)
+  return hand_chips, mult
 end
 
 to_big = to_big or function(num)

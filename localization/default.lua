@@ -10,6 +10,9 @@ return {
             aij_enable_moons = "Enable Moons",
             k_aij_guess_the_jest = "Guess the Jest",
             k_aij_memory_card = "Memorized!",
+        },
+        labels = {
+            aij_glimmer = "Glimmer",
         }
     },
     descriptions = {
@@ -44,6 +47,15 @@ return {
                 text = {
                     "Gains {C:blue}+#2#{}",
                     "chips when scored"
+                }
+            },
+        },
+        Edition = {
+            e_aij_glimmer = {
+                name = "Glimmer",
+                text = {
+                    "Balances {C:attention}#1#%{} of",
+                    "{C:mult}Mult{} and {C:chips}Chips"
                 }
             },
         },
@@ -92,7 +104,13 @@ return {
                 } 
             },
             j_aij_sleepy_joker = { name = "Sleepy Joker", text = { "" } },
-            j_aij_invisible_man = { name = "Invisible man", text = { "" } },
+            j_aij_invisible_man = { 
+                name = "Invisible man", 
+                text = { 
+                    "All {C:attention}face cards{} count as",
+                    "{C:attention}Kings{}, {C:attention}Queens{}, and {C:attention}Jacks" 
+                } 
+            },
             j_aij_handsome_joker = { name = "Handsome Joker", text = { "" } },
             j_aij_whiteface_grotesque = { name = "Whiteface Grotesque", text = { "" } },
             j_aij_the_clown_show = { name = "The clown Show", text = { "" } },
@@ -126,7 +144,14 @@ return {
                 },
             },
             j_aij_rummikub = { name = "Rummikub", text = { "" } },
-            j_aij_imperial_bower = { name = "Imperial Bower", text = { "" } },
+            j_aij_imperial_bower = { 
+                name = "Imperial Bower", 
+                text = { 
+                    "The {C:attention}first drawn{} card this",
+                    "round counts as {C:attention}any{} rank",
+                    "and suit" 
+                } 
+            },
             j_aij_ultrasound = {
                 name = "Ultrasound",
                 text = {
@@ -259,7 +284,14 @@ return {
                     "{C:attention}retrigger"
                 },
             },
-            j_aij_doctors_note = { name = "Doctor's Note", text = { "" } },
+            j_aij_doctors_note = { 
+                name = "Doctor's Note", 
+                text = { 
+                    "All {C:attention}numbered{} {C:hearts}Hearts{} are",
+                    "considered to be the {C:attention}same",
+                    "{C:attention}rank" 
+                } 
+            },
             j_aij_silly_sausage = { name = "Silly Sausage", text = { "" } },
             j_aij_joker_baby = { name = "Joker Baby", text = { "" } },
             j_aij_anchor = { name = "Anchor", text = { "" } },
@@ -624,7 +656,14 @@ return {
                     "{C:attention}-#1#{} {C:green}reroll{} cost",
                 },
             },
-            j_aij_event_horizon = { name = "Event Horizon", text = { "" } },
+            j_aij_event_horizon = { 
+                name = "Event Horizon", 
+                text = { 
+                    "{C:dark_edition}Black Hole{} has the same",
+                    "rarity as other {C:planet}planet",
+                    "cards" 
+                } 
+            },
             j_aij_the_jester = {
                 name = "The Jester",
                 text = {
