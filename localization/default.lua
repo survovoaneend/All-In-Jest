@@ -1378,7 +1378,7 @@ return {
                 text = {
                     'Next base edition shop',
                     'Joker is free and',
-                    'becomes {C:jest_glitter}Glimmer'
+                    'becomes {C:edition}Glimmer'
                 }
             },
             tag_aij_soulbound = {
