@@ -1,12 +1,11 @@
 local fortunate_tag = {
     object_type = "Tag",
     key = 'fortunate',
-    ignore = true,
     pos = { x = 4, y = 0 },
     atlas = 'tag_atlas',
 
     discovered = false,
-    order = 5, -- This is the 2nd in game but 5th on the list, does not negativiely effct order
+    order = 4, -- This is the 2nd in game but 5th on the list, does not negativiely effct order
 
     loc_vars = function(self, info_queue)
     end,
