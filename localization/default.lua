@@ -482,6 +482,7 @@ return {
                     "when a {C:attention}4{} is played",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
                 },
+                -- played/scored issue discussed on discord
             },
             j_aij_jack_of_all_trades = {
                 name = "Jack of All Trades",
