@@ -28,15 +28,16 @@ payload = '''
 reset_jest_magick_joker_card()
 '''
 
-[[patches]] #G.Game 
+[[patches]] #G.GAME 
 [patches.pattern]
 target = 'game.lua'
 pattern = '''
 unused_discards = 0,'''
 position = 'after'
-match_indent = true
+match_indent = true 
 payload = '''
 jest_legendary_pool = {in_shop = false, rate = 0.99},
+jest_stored_memory_card = nil,
 '''
 
 [[patches]] #Colors
@@ -46,5 +47,6 @@ pattern = '''enhanced = G.C.SECONDARY_SET.Enhanced'''
 position = 'before'
 payload = '''
 jest_inherent = HEX("b7e1d7"),
+jest_glitter = HEX("ff97ff"),
 '''
 match_indent = true

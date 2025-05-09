@@ -122,65 +122,74 @@ assert(SMODS.load_file('Utils/overrides.lua'))()
 assert(SMODS.load_file('Utils/ui.lua'))()
 
 local folders = NFS.getDirectoryItems(mod_path.."Items")
-local function load_items(curr_obj)
-    if curr_obj.init then curr_obj:init() end
+local objects = {}
 
-    if not curr_obj.items then
-        print("Warning: curr_obj has no items")
-    else
-        for _, item in ipairs(curr_obj.items) do
-            if item.ignore == nil then
-                item.ignore = false
-            end
-            if item.jest_spec_moon == nil then
-                item.jest_spec_moon = false
-            end
-            if item.jest_rec_paperback == nil then
-                item.jest_rec_paperback = false
-            end
-            if item.jest_spec_moon and All_in_Jest.config.moons_enabled and not item.ignore then
-                if item.jest_rec_paperback then
-                    if next(SMODS.find_mod("paperback")) or next(SMODS.find_mod("Bunco")) then
-                        if (PB_UTIL and PB_UTIL.config and PB_UTIL.config.suits_enabled) or next(SMODS.find_mod("Bunco")) then
-                            SMODS[item.object_type](item) 
-                            goto continue
-                        end
-                    else
-                        goto continue
-                    end
-                else
-                    SMODS[item.object_type](item) 
-                    goto continue
-                end
-            end
-            if item.jest_spec_moon and not All_in_Jest.config.moons_enabled then
-                goto continue
-            end
-            if SMODS[item.object_type] and not item.ignore then
-                SMODS[item.object_type](item) 
-            elseif CardSleeves and CardSleeves[item.object_type] and not item.ignore then -- In case of deck cross content
-                CardSleeves[item.object_type](item)
-            elseif not item.ignore then
-                print("Error loading item "..item.key.." of unknown type "..item.object_type)
-            end
-            ::continue::
+local function collect_item_files(base_fs, rel, out)
+    for _, name in ipairs(NFS.getDirectoryItems(base_fs)) do
+        local abs = base_fs.."/"..name
+        local info = NFS.getInfo(abs)
+        if info and info.type == "directory" then
+            collect_item_files(abs, rel.."/"..name, out)
+        elseif info and info.type == "file" and name:match("%.lua$") then
+            table.insert(out, rel.."/"..name)
         end
     end
 end
-local objects = {}
-for _, folder in ipairs(folders) do
-    local files = NFS.getDirectoryItems(mod_path.."Items/"..folder)
 
-    for _, file in ipairs(files) do
-        local f, err = SMODS.load_file("Items/"..folder.."/"..file)
-        if err then
-            print("Error loading file: "..err)
-        else
-            local curr_obj = f()
+local files = {}
+collect_item_files(mod_path.."Items", "Items", files)
+
+local function load_items(curr_obj)
+    if curr_obj.init then curr_obj:init() end
+    if not curr_obj.items then
+        print("Warning: curr_obj has no items")
+        return
+    end
+    for _, item in ipairs(curr_obj.items) do
+        item.ignore             = item.ignore             or false
+        item.jest_spec_moon     = item.jest_spec_moon     or false
+        item.jest_rec_paperback = item.jest_rec_paperback or false
+        if item.jest_spec_moon and All_in_Jest.config.moons_enabled and not item.ignore then
+            if item.jest_rec_paperback then
+                if (next(SMODS.find_mod("paperback")) or next(SMODS.find_mod("Bunco")))
+                   and ((PB_UTIL and PB_UTIL.config and PB_UTIL.config.suits_enabled)
+                        or next(SMODS.find_mod("Bunco"))) then
+                    SMODS[item.object_type](item)
+                    goto continue
+                else
+                    goto continue
+                end
+            else
+                SMODS[item.object_type](item)
+                goto continue
+            end
+        end
+        if item.jest_spec_moon and not All_in_Jest.config.moons_enabled then
+            goto continue
+        end
+        if SMODS[item.object_type] and not item.ignore then
+            SMODS[item.object_type](item)
+        elseif CardSleeves and CardSleeves[item.object_type] and not item.ignore then
+            CardSleeves[item.object_type](item)
+        elseif not item.ignore then
+            print("Error loading item "..item.key.." of unknown type "..item.object_type)
+        end
+        ::continue::
+    end
+end
+
+for _, rel in ipairs(files) do
+    local f, err = SMODS.load_file(rel)
+    if not f then
+        print("Error loading item file '"..rel.."': "..tostring(err))
+    else
+        local ok, curr_obj = pcall(f)
+        if ok then
             table.insert(objects, curr_obj)
         end
     end
 end
+
 table.sort(objects, function(a, b)
     local function get_lowest_order(obj)
         if not obj.items then return math.huge end
@@ -192,9 +201,9 @@ table.sort(objects, function(a, b)
         end
         return lowest
     end
-
     return get_lowest_order(a) < get_lowest_order(b)
 end)
+
 for _, curr_obj in ipairs(objects) do
     load_items(curr_obj)
 end
