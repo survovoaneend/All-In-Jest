@@ -9,6 +9,7 @@ local pulsar_spectral = {
     soul_set = 'Planet',
 	unlocked = true,
 	discovered = false,
+    jest_spec_moon = true,
     order = 2,
 	config = {moon = true},
 	atlas = 'consumable_atlas',
