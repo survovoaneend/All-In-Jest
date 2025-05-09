@@ -533,7 +533,7 @@ return {
             j_aij_sneaky_pete = {
                 name = "Sneaky Pete",
                 text = {
-                    'Earn {C:money}$2{} at end of round',
+                    'Earn {C:money}$#1#{} at end of round',
                     'for every {C:money}Gold Seal{}',
                     'in your {C:attention}full deck',
                     '{C:inactive}(Currently {C:money}$#1#{C:inactive})'
