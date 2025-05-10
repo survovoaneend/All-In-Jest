@@ -41,8 +41,8 @@ return {
             m_aij_fervent = {
                 name = "Fervent Card",
                 text = {
-                    "Gains {C:blue}+#2#{}",
-                    "Chips when scored"
+                    "Gains {C:blue}+#2#{} chips",
+                    "when scored"
                 }
             },
         },
@@ -482,6 +482,7 @@ return {
                     "when a {C:attention}4{} is played",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
                 },
+                -- played/scored issue discussed on discord
             },
             j_aij_jack_of_all_trades = {
                 name = "Jack of All Trades",
@@ -533,7 +534,7 @@ return {
             j_aij_sneaky_pete = {
                 name = "Sneaky Pete",
                 text = {
-                    'Earn {C:money}$2{} at end of round',
+                    'Earn {C:money}$#1#{} at end of round',
                     'for every {C:money}Gold Seal{}',
                     'in your {C:attention}full deck',
                     '{C:inactive}(Currently {C:money}$#1#{C:inactive})'
@@ -676,7 +677,7 @@ return {
             j_aij_fatuus = {
                 name = "Fatuus",
                 text = {
-                    'If played hand contains only',
+                    'If played hand contains',
                     'only {C:attention}Kings{} and {C:attention}Queens{},',
                     'apply a {C:blue}Blue Seal{} to',
                     'a random card held in hand',
