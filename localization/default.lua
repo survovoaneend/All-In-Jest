@@ -49,6 +49,13 @@ return {
                     "chips when scored"
                 }
             },
+            m_aij_dyscalcular = {
+                name = "Dyscalcular Card",
+                text = {
+                    "Is considered by {C:attention}Jokers",
+                    "to be every {C:attention}numbered{} rank",
+                }
+            },
         },
         Edition = {
             e_aij_glimmer = {
@@ -1407,6 +1414,40 @@ return {
                     "{C:attention}#2#{}"
                 }
             },
+            c_aij_cubic_stone = {
+                name = 'The Cubic Stone',
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#{}"
+                }
+            },
+            c_aij_master_arcanes = {
+                name = 'Master of the Arcanes',
+                text = {
+                    "Creates a random",
+                    "{C:spectral}Spectral{} card",
+                    '{C:inactive}(Must have room)'
+                }
+            },
+            c_aij_two_ways = {
+                name = 'The Two Ways',
+                text = {
+                    "Splits {C:attention}1{} selected card",
+                    "into {C:attention}2{} cards of divided",
+                    "rank, shares the {C:attention}modifiers",
+                    "of the original card"
+                }
+            },
+            c_aij_osiris = {
+                name = 'Osiris',
+                text = {
+                    "{C:red}Destroy{} {C:attention}1{} selected",
+                    "Joker and earn triple",
+                    "its {C:money}sell value",
+                    "{C:inactive}(Currently{} {C:money}$#1#{}{C:inactive}){}"
+                }
+            },
         },
         Other = {
             showdown_blind = {
@@ -1431,7 +1472,13 @@ return {
                     'Choose {C:attention}#1#{} of {C:attention}#2#{} hidden',
                     '{C:legendary,E:2}Legendary{} Jokers'
                 }
-            }
+            },
+            m_aij_dyscalcular_numbered_rank = {
+                name = "Numbered Ranks",
+                text = {
+                    "(ie; {C:attention}2{}, {C:attention}3{}, {C:attention}4{}, {C:attention}5{}, {C:attention}6{}, {C:attention}7{}, {C:attention}8{}, {C:attention}9{}, and {C:attention}10{})",
+                }
+            },
         }
     }
 }

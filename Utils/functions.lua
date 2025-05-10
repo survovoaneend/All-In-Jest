@@ -42,7 +42,6 @@ function level_up_hand_mult(card, hand, instant, amount)
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
                 play_sound('tarot1')
                 if card then card:juice_up(0.8, 0.5) end
-                G.TAROT_INTERRUPT_PULSE = nil 
                 return true end }))
             update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
             delay(1.3)
@@ -68,17 +67,19 @@ function ids_op(card, op, b, c)
       end
     end
 
-    if has_invis and ({[11]=true, [12]=true, [13]=true})[x] then
+    if has_invis and (({[11]=true, [12]=true, [13]=true, [id]=true})[b] and card:is_face()) then -- Face cards count as 11-13 ranks
       return 11
     end
 
-    if has_doc and type(card) == "table"
-       and card.is_suit and card:is_suit("Hearts")
-       and card.is_face and not card:is_face() then
+    if has_doc and card:is_suit("Hearts") and not card:is_face() then -- Counts as any heart non-face ranks
       return 11
     end
 
-    if type(card) == "table" and card.ability and card.ability.jest_all_rank then
+    if card.config.center == G.P_CENTERS.m_aij_dyscalcular and (id == b or not card:is_face()) then -- Counts as any non-face ranks
+        return 11
+    end
+
+    if card.ability.jest_all_rank then -- Counts as any rank
       return 11
     end
 
@@ -89,12 +90,12 @@ function ids_op(card, op, b, c)
     return (id % b) == c
   end
 
-  if op == "==" or op == "~=" then
+  if op == "==" then
     local lhs = alias(id)
     local rhs = alias(b) 
     return lhs == rhs
   end
-  if op == "==" then
+  if op == "~=" then
     local lhs = alias(id)
     local rhs = alias(b) 
     print(lhs.. " " ..op.. " " ..rhs)
@@ -673,4 +674,75 @@ function Tag:jest_apply_fortunate(message, _colour, func) -- Play on words just 
             end)
         }))
     end
+end
+
+-- Some of my personal functions i use in my projects
+function create_consumable(card_type,tag,message,extra, thing1, thing2)
+    extra=extra or {}
+    
+    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+    G.E_MANAGER:add_event(Event({
+        trigger = 'before',
+        delay = 0.0,
+        func = (function()
+                local card = create_card(card_type,G.consumeables, nil, nil, thing1, thing2, extra.forced_key or nil, tag)
+                card:add_to_deck()
+                if extra.edition~=nil then
+                    card:set_edition(extra.edition,true,false)
+                end
+                if extra.eternal~=nil then
+                    card.ability.eternal=extra.eternal
+                end
+                if extra.perishable~=nil then
+                    card.ability.perishable = extra.perishable
+                    if tag=='v_epilogue' then
+                        card.ability.perish_tally=get_voucher('epilogue').config.extra
+                    else card.ability.perish_tally = G.GAME.perishable_rounds
+                    end
+                end
+                if extra.extra_ability~=nil then
+                    card.ability[extra.extra_ability]=true
+                end
+                G.consumeables:emplace(card)
+                G.GAME.consumeable_buffer = 0
+                if message~=nil then
+                    card_eval_status_text(card,'extra',nil,nil,nil,{message=message})
+                end
+        return true
+    end)}))
+end
+
+function create_joker(card_type,tag,message,extra, rarity)
+    extra=extra or {}
+    
+    G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+    G.E_MANAGER:add_event(Event({
+        trigger = 'before',
+        delay = 0.0,
+        func = (function()
+                local card = create_card(card_type, G.joker, nil, rarity, nil, nil, extra.forced_key or nil, tag)
+                card:add_to_deck()
+                if extra.edition~=nil then
+                    card:set_edition(extra.edition,true,false)
+                end
+                if extra.eternal~=nil then
+                    card.ability.eternal=extra.eternal
+                end
+                if extra.perishable~=nil then
+                    card.ability.perishable = extra.perishable
+                    if tag=='v_epilogue' then
+                        card.ability.perish_tally=get_voucher('epilogue').config.extra
+                    else card.ability.perish_tally = G.GAME.perishable_rounds
+                    end
+                end
+                if extra.extra_ability~=nil then
+                    card.ability[extra.extra_ability]=true
+                end
+                G.jokers:emplace(card)
+                G.GAME.joker_buffer = 0
+                if message~=nil then
+                    card_eval_status_text(card,'extra',nil,nil,nil,{message=message})
+                end
+        return true
+    end)}))
 end
