@@ -13,7 +13,7 @@ local broken_fate = {
 		
 	end,
 	can_use = function(self, card, area, copier)
-        if G.consumeables and #G.consumeables.cards > 0 and G.consumeables.cards[1] ~= card and G.consumeables.cards[1].ability.name ~= "Broken Fate" then
+        if G.consumeables and #G.consumeables.cards > 0 and G.consumeables.cards[1].config.center.key ~= "c_aij_broken_fate" then
             return true 
         end
     end,
