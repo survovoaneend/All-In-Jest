@@ -1448,6 +1448,15 @@ return {
                     "{C:inactive}(Currently{} {C:money}$#1#{}{C:inactive}){}"
                 }
             },
+            c_aij_broken_fate = {
+                name = 'Broken Fate',
+                text = {
+                    "Randomises the values",
+                    "of {C:attention}leftmost consumable",
+                    "between {C:attention}X0.75{} and {C:attention}X2.5",
+                    "their base values"
+                }
+            },
         },
         Other = {
             showdown_blind = {
