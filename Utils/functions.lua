@@ -621,8 +621,8 @@ end
 --------------------------------
 -- card predict end 
 
-function Tag:jest_apply_fortunate(message, _colour, func) -- Play on words just apply
-    if #G.consumeables.cards < G.consumeables.config.card_limit then
+function Tag:jest_apply(message, _colour, func, statement) -- Play on words just apply
+    if statement() then
         stop_use()    
 
         local temptrigger = false
@@ -630,7 +630,7 @@ function Tag:jest_apply_fortunate(message, _colour, func) -- Play on words just 
             delay = 0.4,
             trigger = 'after',
             func = (function()
-                if #G.consumeables.cards < G.consumeables.config.card_limit then
+                if statement() then
                     attention_text({
                         text = message,
                         colour = G.C.WHITE,
@@ -649,7 +649,7 @@ function Tag:jest_apply_fortunate(message, _colour, func) -- Play on words just 
         }))
         G.E_MANAGER:add_event(Event({
             func = (function()
-                if #G.consumeables.cards < G.consumeables.config.card_limit then
+                if statement() then
                     self.HUD_tag.states.visible = false
                 end
                 return true
