@@ -1433,7 +1433,7 @@ return {
             c_aij_two_ways = {
                 name = 'The Two Ways',
                 text = {
-                    "Splits {C:attention}1{} selected card",
+                    "Splits {C:attention}#1#{} selected card",
                     "into {C:attention}2{} cards of divided",
                     "rank, shares the {C:attention}modifiers",
                     "of the original card"
