@@ -12,7 +12,7 @@ local fortunate_tag = {
 
     apply = function(self, tag, context)
         if context.type == 'immediate' then
-            tag:jest_apply_fortunate("+", G.C.ATTENTION, function()
+            tag:jest_apply("+", G.C.ATTENTION, function()
                 if #G.consumeables.cards < G.consumeables.config.card_limit then
 				    G.SETTINGS.paused = true
                     G.FUNCS.overlay_menu{
@@ -33,7 +33,10 @@ local fortunate_tag = {
                     }
                 end
                 return true
-			end)
+			end,
+            function() 
+                return #G.consumeables.cards < G.consumeables.config.card_limit
+            end)
             tag.triggered = true
             return true
         end
