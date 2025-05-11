@@ -8,7 +8,22 @@ local charged = {
         
     },
     loc_vars = function(self, info_queue, card)
-        
+        local charged_text = 50
+        local has_founding_father = false
+        if G.jokers then
+            for _, j in ipairs(G.jokers.cards or {}) do
+                if j.config and j.config.center_key == "j_aij_founding_father" then
+                has_founding_father = true
+                break
+                end
+            end
+        end
+        if has_founding_father then
+            charged_text = 100
+        else
+            charged_text = 50
+        end
+        return { vars = {charged_text} }
     end,
     calculate = function(self, card, context)
         -- There isn't even any code here T_T
