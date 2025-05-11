@@ -57,13 +57,15 @@ function ids_op(card, op, b, c)
   local id = card:get_id() 
 
   local function alias(x)
-    local has_invis, has_doc = false, false
+    local has_invis, has_doc, has_pygm, has_furb = false, false, false, false
 
     if G.jokers and G.jokers.cards then
       for _, j in ipairs(G.jokers.cards) do
         local k = j.config and j.config.center_key
         if k == "j_aij_invisible_man" then has_invis = true end
         if k == "j_aij_doctors_note" then has_doc = true end
+        if k == "j_aij_pygmalion" then has_pygm = true end
+        if k == "j_aij_furbo_e_stupendo" then has_furb = true end
       end
     end
 
@@ -75,7 +77,13 @@ function ids_op(card, op, b, c)
       return 11
     end
 
-    if card.config.center == G.P_CENTERS.m_aij_dyscalcular and (id == b or not card:is_face()) then -- Counts as any non-face ranks
+    if has_pygm and ({[12]=true})[b] and card.config.center == G.P_CENTERS["m_stone"] then -- Stone cards count as rank 12
+      return 11
+    end
+
+    if has_furb and card.config.center == G.P_CENTERS.m_aij_dyscalcular and (11 == b or id == b) or not card:is_face() then
+        return 11
+    elseif card.config.center == G.P_CENTERS.m_aij_dyscalcular and (id == b or not (card:is_face() or 14 == b)) then -- Counts as any non-face ranks and non-ace
         return 11
     end
 

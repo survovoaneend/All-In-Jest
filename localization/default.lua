@@ -121,7 +121,7 @@ return {
             },
             j_aij_sleepy_joker = { name = "Sleepy Joker", text = { "" } },
             j_aij_invisible_man = { 
-                name = "Invisible man", 
+                name = "Invisible Man", 
                 text = { 
                     "All {C:attention}face cards{} count as",
                     "{C:attention}Kings{}, {C:attention}Queens{}, and {C:attention}Jacks" 
@@ -317,7 +317,13 @@ return {
             },
             j_aij_silly_sausage = { name = "Silly Sausage", text = { "" } },
             j_aij_joker_baby = { name = "Joker Baby", text = { "" } },
-            j_aij_anchor = { name = "Anchor", text = { "" } },
+            j_aij_anchor = { 
+                name = "Anchor", 
+                text = { 
+                    "Adjacent Jokers {C:attention}cannot",
+                    "be {C:red}destroyed" 
+                } 
+            },
             j_aij_hei_tiki = { name = "Hei-tiki", text = { "" } },
             j_aij_polybius = { name = "Polybius", text = { "" } },
             j_aij_joker_sighting = { name = "Joker Sighting", text = { "" } },
@@ -403,7 +409,14 @@ return {
                 },
             },
             j_aij_zanni = { name = "Zanni", text = { "" } },
-            j_aij_furbo_e_stupedo = { name = "Furbo e Stupedo", text = { "" } },
+            j_aij_furbo_e_stupendo = { 
+                name = "Furbo e Stupedo", 
+                text = { 
+                    "{C:attention}Dyscalcular{} cards are",
+                    "also considered {C:attention}Aces",
+                    "and {C:attention}Jacks" 
+                } 
+            },
             j_aij_read_em_and_weep = { name = "Read 'em and Weep", text = { "" } },
             j_aij_goblin_joker = { name = "Goblin Joker", text = { "" } },
             j_aij_string_theory = { 
@@ -641,7 +654,14 @@ return {
                     "when a {C:tarot}Tarot{} card is used"
                 },
             },
-            j_aij_mummer = { name = "Mummer", text = { "" } },
+            j_aij_mummer = { 
+                name = "Mummer", 
+                text = { 
+                    "Trigger all {C:attention}Steel{} cards held",
+                    "in hand when a {C:attention}Steel{} card",
+                    "is scored" 
+                } 
+            },
             j_aij_tipteerer = {
                 name = "Tipteerer",
                 text = {
@@ -774,8 +794,22 @@ return {
             j_aij_enraging_photo = { name = "Enraging Photo", text = { "" } },
             j_aij_infuriating_note = { name = "Infuriating Note", text = { "" } },
             j_aij_magic_hat = { name = "Magic hat", text = { "" } },
-            j_aij_anagraph = { name = "Anagraph", text = { "" } },
-            j_aij_beanstalk = { name = "Beanstalk", text = { "" } },
+            j_aij_anagraph = { 
+                name = "Anagraph", 
+                text = { 
+                    "When any joker is {C:money}sold{} or",
+                    "{C:red}destroyed{} create an exact",
+                    "copy and immediately",
+                    "{C:red}destroy{} it again" 
+                } 
+            },
+            j_aij_beanstalk = { 
+                name = "Beanstalk", 
+                text = { 
+                    "{C:attention}Jacks{} cannot be {C:red}debuffed",
+                    "and always score" 
+                } 
+            },
             j_aij_phoney_baloney = { name = "Phoney Baloney", text = { "" } },
             j_aij_jerko = { name = "Jerko", text = { "" } },
             j_aij_design_document = { name = "Design Document", text = { "" } },
@@ -801,7 +835,16 @@ return {
             j_aij_skomorokh = { name = "Skomorokh", text = { "" } },
             j_aij_silly_billy = { name = "Silly Billy", text = { "" } },
             j_aij_ijoker_co = { name = "iJoker.co", text = { "" } },
-            j_aij_corpse_paint = { name = "Corpse Paint", text = { "" } },
+            j_aij_corpse_paint = { 
+                name = "Corpse Paint", 
+                text = { 
+                    "Removes {C:dark_edition}Negative{} from",
+                    "played cards",
+                    "{C:green}#2# in #1#{} chance to gain {C:attention}+#3#",
+                    "hand size when triggered",
+                    "{C:inactive}(Currently {C:attention}+#4#{C:inactive} hand size)"
+                } 
+            },
             j_aij_toothy_joker = { name = "Toothy Joker", text = { "" } },
             j_aij_mondrian_joker = {
                 name = "Mondrian Joker",
@@ -881,6 +924,12 @@ return {
             j_aij_visage = { name = "Visage", text = { "" } },
             j_aij_goofball = { name = "Goofball", text = { "" } },
             j_aij_heyokha = { name = "Heyókȟa", text = { "" } },
+            j_aij_mistake = {
+                name = "Mistake",
+                text = {
+                    "{C:attention}Eternal{} Jokers can be {C:attention}sold",
+                }
+            },
             j_aij_casual_absent_paranoia = { name = "Casual-Absent Paranoia", text = { "" } },
             j_aij_tabula_rasa = { 
                 name = "Tabula Rasa", 
@@ -889,6 +938,27 @@ return {
                     "this jokers {C:dark_edition}edition{} is",
                     "removed and its effects",
                     "become {C:jest_inherent}inherent" 
+                } 
+            },
+            j_aij_pygmalion = { 
+                name = "Pygmalion", 
+                text = { 
+                    "All {C:attention}Stone{} cards are",
+                    "considered {C:attention}Queens",
+                } 
+            },
+            j_aij_test_card = { 
+                name = "Test Card", 
+                text = { 
+                    "{C:attention}Editions{} held in hand",
+                    "trigger their effects"
+                } 
+            },
+            j_aij_homemade_comic = { 
+                name = "Homemade Comic", 
+                text = { 
+                    "Scoring {C:attention}Charged Cards{}",
+                    "give {C:mult}X#1#{} Mult",
                 } 
             },
 
@@ -937,7 +1007,9 @@ return {
                     "reveals the next {C:attention}#2#{}",
                     "cards in your deck",
                 },
-                unlock = { "?????" }
+                unlock = { 
+                    "?????" 
+                }
             },
             j_aij_fortunato = {
                 name = "Fortunato",
@@ -952,7 +1024,16 @@ return {
                     "?????"
                 }
             },
-            j_aij_pellesini = { name = "Pellesini", text = { "" }, unlock = { "?????" } },
+            j_aij_pellesini = { 
+                name = "Pellesini", 
+                text = { 
+                    "When a joker is {C:red}destroyed",
+                    "create an {C:attention}exact{} copy" 
+                },
+                unlock = { 
+                    "?????" 
+                } 
+            },
             j_aij_nedda = {
                 name = "Nedda",
                 text = {
@@ -977,7 +1058,17 @@ return {
             j_aij_biancolelli = { name = "Biancolelli", text = { "" }, unlock = { "?????" } },
             j_aij_toto = { name = "Toto", text = { "" }, unlock = { "?????" } },
             j_aij_grock = { name = "Grock", text = { "" }, unlock = { "?????" } },
-            j_aij_eulenspiegel = { name = "Eulenspiegel", text = { "" }, unlock = { "?????" } },
+            j_aij_eulenspiegel = { 
+                name = "Eulenspiegel", 
+                text = { 
+                    "Upon {C:red}defeating{} a boss blind",
+                    "{C:attention}-#1#{} ante and {X:mult,C:white}-#2#{} XMult",
+                    "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} XMult)"
+                }, 
+                unlock = { 
+                    "?????" 
+                } 
+            },
             j_aij_deburau = { name = "Deburau", text = { "" }, unlock = { "?????" } },
             j_aij_dacosta = { name = "D'acosta", text = { "" }, unlock = { "?????" } },
             j_aij_durie = { name = "Durie", text = { "" }, unlock = { "?????" } },
@@ -996,8 +1087,27 @@ return {
             },
             j_aij_fleeman = { name = "Fleeman", text = { "" }, unlock = { "?????" } },
             j_aij_calquhoun = { name = "Calquhoun", text = { "" }, unlock = { "?????" } },
-            j_aij_dor = { name = "D'or", text = { "" }, unlock = { "?????" } },
-            j_aij_archy = { name = "Archy", text = { "" }, unlock = { "?????" } },
+            j_aij_dor = { 
+                name = "D'or", 
+                text = { 
+                    "{C:enhanced}#1#{} Mult on the {C:attention}final{} hand",
+                    "of the {C:attention}round" 
+                },
+                unlock = { 
+                    "?????" 
+                } 
+            },
+            j_aij_archy = { 
+                name = "Archy", 
+                text = { 
+                    "All initial {C:attention}cards{} and",
+                    "{C:attention}booster packs{} in the",
+                    "{C:money}shop{} are free" 
+                }, 
+                unlock = { 
+                    "?????" 
+                } 
+            },
             j_aij_sommers = { name = "Sommers", text = { "" }, unlock = { "?????" } },
             j_aij_pace = {
                 name = "Pace",

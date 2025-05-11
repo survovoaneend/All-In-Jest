@@ -106,6 +106,28 @@ if G.GAME.jest_legendary_pool ~= nil and _type == 'Joker' then
 end
 '''
 
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "if (G.P_CENTERS[(card.edition or {}).key] or {}).always_scores then return true end"
+position = "before"
+payload = '''
+local has_beanstalk = false
+
+if G.jokers and G.jokers.cards then
+    for _, j in ipairs(G.jokers.cards) do
+    local k = j.config and j.config.center_key
+    if k == "j_aij_beanstalk" then has_beanstalk = true end
+    end
+end
+if has_beanstalk then
+    if card:get_id() == 11 then
+        return true
+    end
+end
+'''
+match_indent = true 
+
 #Multi-Rank stuff
 [[patches]]
 [patches.pattern]
