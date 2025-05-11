@@ -56,6 +56,15 @@ return {
                     "to be every {C:attention}numbered{} rank",
                 }
             },
+            m_aij_charged = {
+                name = "Charged Card",
+                text = {
+                    "Increases the effects of",
+                    "other {C:attention}enhancements{} played",
+                    "or held in the same hand",
+                    "by {C:attention}50%"
+                }
+            },
         },
         Edition = {
             e_aij_glimmer = {
@@ -1408,6 +1417,14 @@ return {
         Tarot = {
             c_aij_magus = {
                 name = 'The Magus',
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#{}"
+                }
+            },
+            c_aij_isis_urania = {
+                name = 'Isis-Urania',
                 text = {
                     "Enhances {C:attention}#1#{} selected",
                     "card into a",
