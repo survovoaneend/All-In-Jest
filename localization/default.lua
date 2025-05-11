@@ -62,7 +62,7 @@ return {
                     "Increases the effects of",
                     "other {C:attention}enhancements{} played",
                     "or held in the same hand",
-                    "by {C:attention}50%"
+                    "by {C:attention}#1#%"
                 }
             },
         },
@@ -186,7 +186,14 @@ return {
             j_aij_imageboard = { name = "Imageboard", text = { "" } },
             j_aij_carousel = { name = "Carousel", text = { "" } },
             j_aij_slippery_when_wet = { name = "Slippery When wet", text = { "" } },
-            j_aij_founding_father = { name = "Founding Father", text = { "" } },
+            j_aij_founding_father = { 
+                name = "Founding Father", 
+                text = { 
+                    "Charged Cards {C:attention}double{} the",
+                    "effectiveness of other",
+                    "{C:attention}enhancements" 
+                } 
+            },
             j_aij_scary_story = {
                 name = "Scary Story",
                 text = {
@@ -551,7 +558,6 @@ return {
                     "when a {C:attention}4{} is played",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
                 },
-                -- played/scored issue discussed on discord
             },
             j_aij_jack_of_all_trades = {
                 name = "Jack of All Trades",
@@ -603,7 +609,7 @@ return {
             j_aij_sneaky_pete = {
                 name = "Sneaky Pete",
                 text = {
-                    'Earn {C:money}$#1#{} at end of round',
+                    'Earn {C:money}$2{} at end of round',
                     'for every {C:money}Gold Seal{}',
                     'in your {C:attention}full deck',
                     '{C:inactive}(Currently {C:money}$#1#{C:inactive})'
@@ -759,7 +765,7 @@ return {
             j_aij_fatuus = {
                 name = "Fatuus",
                 text = {
-                    'If played hand contains',
+                    'If played hand contains only',
                     'only {C:attention}Kings{} and {C:attention}Queens{},',
                     'apply a {C:blue}Blue Seal{} to',
                     'a random card in hand',
