@@ -4,7 +4,9 @@ local sneaky_pete = {
 
     key = "sneaky_pete",
     config = {
-      
+      extra = {
+        money_per_seal = 2
+      }
     },
     rarity = 2,
     pos = { x = 22, y = 5 },
@@ -27,7 +29,7 @@ local sneaky_pete = {
       end
       return {
         vars = {
-          seal_count
+          seal_count * card.ability.extra.money_per_seal
         }
       }
     end,
@@ -45,7 +47,7 @@ local sneaky_pete = {
         end
     end
       if seal_count > 0 then
-        local dollar_bonus = seal_count * 2 or 0
+          local dollar_bonus = (seal_count * card.ability.extra.money_per_seal) or 0
           return dollar_bonus
       end
   end,
