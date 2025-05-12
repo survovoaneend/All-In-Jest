@@ -15,7 +15,7 @@ local soulbound_tag = {
     -- Function defining the tag's effect
     apply = function(self, tag, context)
         if context.type == 'immediate' then
-            tag:yep('+', G.C.RARITY[4], function()
+            tag:jest_apply('+', G.C.RARITY[4], function()
                 if G.jokers and #G.jokers.cards < G.jokers.config.card_limit then
                     local joker_card = create_card('Joker', G.jokers, true, nil, nil, true, nil,
                         'perishable_legendary_tag')
@@ -30,6 +30,9 @@ local soulbound_tag = {
                     end
                 end
                 return true
+            end,
+            function() 
+                return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
             end)
             tag.triggered = true
             return true

@@ -42,7 +42,6 @@ function level_up_hand_mult(card, hand, instant, amount)
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
                 play_sound('tarot1')
                 if card then card:juice_up(0.8, 0.5) end
-                G.TAROT_INTERRUPT_PULSE = nil 
                 return true end }))
             update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
             delay(1.3)
@@ -53,6 +52,72 @@ function level_up_hand_mult(card, hand, instant, amount)
         }))
     end
 end
+
+function ids_op(card, op, b, c)
+  local id = card:get_id() 
+
+  local function alias(x)
+    local has_invis, has_doc, has_pygm, has_furb = false, false, false, false
+
+    if G.jokers and G.jokers.cards then
+      for _, j in ipairs(G.jokers.cards) do
+        local k = j.config and j.config.center_key
+        if k == "j_aij_invisible_man" then has_invis = true end
+        if k == "j_aij_doctors_note" then has_doc = true end
+        if k == "j_aij_pygmalion" then has_pygm = true end
+        if k == "j_aij_furbo_e_stupendo" then has_furb = true end
+      end
+    end
+
+    if has_invis and (({[11]=true, [12]=true, [13]=true, [id]=true})[b] and card:is_face()) then -- Face cards count as 11-13 ranks
+      return 11
+    end
+
+    if has_doc and card:is_suit("Hearts") and not card:is_face() then -- Counts as any heart non-face ranks
+      return 11
+    end
+
+    if has_pygm and ({[12]=true})[b] and card.config.center == G.P_CENTERS["m_stone"] then -- Stone cards count as rank 12
+      return 11
+    end
+
+    if has_furb and card.config.center == G.P_CENTERS.m_aij_dyscalcular and (11 == b or id == b) or not card:is_face() then
+        return 11
+    elseif card.config.center == G.P_CENTERS.m_aij_dyscalcular and (id == b or not (card:is_face() or 14 == b)) then -- Counts as any non-face ranks and non-ace
+        return 11
+    end
+
+    if card.ability.jest_all_rank then -- Counts as any rank
+      return 11
+    end
+
+    return x
+  end
+
+  if op == "mod" then
+    return (id % b) == c
+  end
+
+  if op == "==" then
+    local lhs = alias(id)
+    local rhs = alias(b) 
+    return lhs == rhs
+  end
+  if op == "~=" then
+    local lhs = alias(id)
+    local rhs = alias(b) 
+    print(lhs.. " " ..op.. " " ..rhs)
+    return lhs ~= rhs
+  end
+
+  if op == ">=" then return id >= b end
+  if op == "<=" then return id <= b end
+  if op == ">" then return id > b end
+  if op == "<" then return id < b end
+
+  error("ids_op: unsupported op " .. tostring(op))
+end
+
 
 function redeemed_voucher_count()
     if G.GAME and G.GAME.used_vouchers then
@@ -65,6 +130,63 @@ function redeemed_voucher_count()
         end
     end
     return 0
+end
+
+function balance_percent(card, percent)
+  local chip_mod = percent * hand_chips
+  local mult_mod = percent * mult
+  local avg = (chip_mod + mult_mod)/2
+  hand_chips = hand_chips + (avg - chip_mod)
+  mult = mult + (avg - mult_mod)
+  local text = localize('k_balanced')
+  
+  update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
+  card_eval_status_text(card, 'extra', nil, nil, nil, {
+    message = text,
+    colour = { 0.8, 0.45, 0.85, 1 },
+    sound = 'gong'
+ })
+  
+  G.E_MANAGER:add_event(Event({
+    trigger = 'immediate',
+    func = (function()
+      ease_colour(G.C.UI_CHIPS, { 0.8, 0.45, 0.85, 1 })
+      ease_colour(G.C.UI_MULT, { 0.8, 0.45, 0.85, 1 })
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        blockable = false,
+        blocking = false,
+        delay = 4.3,
+        func = (function()
+          ease_colour(G.C.UI_CHIPS, G.C.BLUE, 2)
+          ease_colour(G.C.UI_MULT, G.C.RED, 2)
+          return true
+        end)
+      }))
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        blockable = false,
+        blocking = false,
+        no_delete = true,
+        delay = 6.3,
+        func = (function()
+          G.C.UI_CHIPS[1], G.C.UI_CHIPS[2], G.C.UI_CHIPS[3], G.C.UI_CHIPS[4] = G.C.BLUE[1], G.C.BLUE[2], G.C.BLUE[3],
+              G.C.BLUE[4]
+          G.C.UI_MULT[1], G.C.UI_MULT[2], G.C.UI_MULT[3], G.C.UI_MULT[4] = G.C.RED[1], G.C.RED[2], G.C.RED[3], G.C.RED
+          [4]
+          return true
+        end)
+      }))
+      return true
+    end)
+  }))
+
+  delay(0.6)
+  return hand_chips, mult
+end
+
+to_big = to_big or function(num)
+    return num
 end
 
 function balance_percent(card, percent)
@@ -324,7 +446,7 @@ AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
         n = G.UIT.R,
         config = { align = alignment , padding = padding, no_fill = true, minh = box_height },
         nodes = {
-            {n=G.UIT.R, config={padding = outer_padding, r = 0.12, colour = lighten(G.C.JOKER_GREY, 0.5), emboss = 0.07}, nodes={
+            {n=G.UIT.R, config={padding = padding, r = 0.12, colour = lighten(G.C.JOKER_GREY, 0.5), emboss = 0.07}, nodes={
                 {n = G.UIT.O, config = { object = cardArea }}
             }}
         }
@@ -507,8 +629,8 @@ end
 --------------------------------
 -- card predict end 
 
-function Tag:jest_apply_fortunate(message, _colour, func) -- Play on words just apply
-    if #G.consumeables.cards < G.consumeables.config.card_limit then
+function Tag:jest_apply(message, _colour, func, statement) -- Play on words just apply
+    if statement() then
         stop_use()    
 
         local temptrigger = false
@@ -516,7 +638,7 @@ function Tag:jest_apply_fortunate(message, _colour, func) -- Play on words just 
             delay = 0.4,
             trigger = 'after',
             func = (function()
-                if #G.consumeables.cards < G.consumeables.config.card_limit then
+                if statement() then
                     attention_text({
                         text = message,
                         colour = G.C.WHITE,
@@ -535,7 +657,7 @@ function Tag:jest_apply_fortunate(message, _colour, func) -- Play on words just 
         }))
         G.E_MANAGER:add_event(Event({
             func = (function()
-                if #G.consumeables.cards < G.consumeables.config.card_limit then
+                if statement() then
                     self.HUD_tag.states.visible = false
                 end
                 return true
@@ -560,4 +682,75 @@ function Tag:jest_apply_fortunate(message, _colour, func) -- Play on words just 
             end)
         }))
     end
+end
+
+-- Some of my personal functions i use in my projects
+function create_consumable(card_type,tag,message,extra, thing1, thing2)
+    extra=extra or {}
+    
+    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+    G.E_MANAGER:add_event(Event({
+        trigger = 'before',
+        delay = 0.0,
+        func = (function()
+                local card = create_card(card_type,G.consumeables, nil, nil, thing1, thing2, extra.forced_key or nil, tag)
+                card:add_to_deck()
+                if extra.edition~=nil then
+                    card:set_edition(extra.edition,true,false)
+                end
+                if extra.eternal~=nil then
+                    card.ability.eternal=extra.eternal
+                end
+                if extra.perishable~=nil then
+                    card.ability.perishable = extra.perishable
+                    if tag=='v_epilogue' then
+                        card.ability.perish_tally=get_voucher('epilogue').config.extra
+                    else card.ability.perish_tally = G.GAME.perishable_rounds
+                    end
+                end
+                if extra.extra_ability~=nil then
+                    card.ability[extra.extra_ability]=true
+                end
+                G.consumeables:emplace(card)
+                G.GAME.consumeable_buffer = 0
+                if message~=nil then
+                    card_eval_status_text(card,'extra',nil,nil,nil,{message=message})
+                end
+        return true
+    end)}))
+end
+
+function create_joker(card_type,tag,message,extra, rarity)
+    extra=extra or {}
+    
+    G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+    G.E_MANAGER:add_event(Event({
+        trigger = 'before',
+        delay = 0.0,
+        func = (function()
+                local card = create_card(card_type, G.joker, nil, rarity, nil, nil, extra.forced_key or nil, tag)
+                card:add_to_deck()
+                if extra.edition~=nil then
+                    card:set_edition(extra.edition,true,false)
+                end
+                if extra.eternal~=nil then
+                    card.ability.eternal=extra.eternal
+                end
+                if extra.perishable~=nil then
+                    card.ability.perishable = extra.perishable
+                    if tag=='v_epilogue' then
+                        card.ability.perish_tally=get_voucher('epilogue').config.extra
+                    else card.ability.perish_tally = G.GAME.perishable_rounds
+                    end
+                end
+                if extra.extra_ability~=nil then
+                    card.ability[extra.extra_ability]=true
+                end
+                G.jokers:emplace(card)
+                G.GAME.joker_buffer = 0
+                if message~=nil then
+                    card_eval_status_text(card,'extra',nil,nil,nil,{message=message})
+                end
+        return true
+    end)}))
 end

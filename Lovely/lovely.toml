@@ -5,13 +5,62 @@ priority = 214748364
 
 [[patches]]
 [patches.pattern]
+target = "main.lua"
+pattern = "if (love.system.getOS() == 'OS X' ) and (jit.arch == 'arm64' or jit.arch == 'arm') then jit.off() end"
+position = "before" 
+match_indent = true
+payload = '''
+local function patch_text(txt)
+    txt = txt:gsub(
+        "([%w_%[%]%.]+):get_id%(%s*%)%s*%%%s*([%w_%[%]%.%(%)]+)%s*==%s*([%w_%[%]%.%(%)]+)",
+        "ids_op(%1, \"mod\", %2, %3)"
+    )
+
+    for _, op in ipairs({">=", "<=", "~=", "==", ">", "<"}) do
+        local esc = op:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
+    
+        txt = txt:gsub(
+            "([%w_%[%]%.]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.]+):get_id%(%s*%)",
+            "ids_op(%1, \"" .. op .. "\", %2:get_id())"
+        )
+    
+        txt = txt:gsub(
+            "([%w_%[%]%.]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.%(%)]+)",
+            "ids_op(%1, \"" .. op .. "\", %2)"
+        )
+    end
+
+    return txt
+end
+
+local orig = package.searchers or package.loaders
+table.insert(orig, 1, function(modname)
+    local path = modname:gsub("%.", "/")..".lua"
+    if path:lower():match("misc_functions%.lua") then
+        return "\n\t[patched loader skipped: misc functions]"
+    end
+    if not love.filesystem.getInfo(path) then
+        return "\n\t[patched loader skipped]"
+    end
+    local ok, txt = pcall(love.filesystem.read, path)
+    if not ok or not txt then
+        return "\n\t[patched loader skipped]"
+    end
+    local fixed, err = load(patch_text(txt), path)
+    if not fixed then error(err) end
+    return fixed
+end)
+'''
+
+[[patches]]
+[patches.pattern]
 target = "functions/common_events.lua"
 pattern = '''
 G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].s_chips + G.GAME.hands[hand].l_chips*(G.GAME.hands[hand].level - 1), 0)
 '''
 position = "at"
 payload = ''' 
-if G.GAME.hands[hand].l_chips >= 1 then
+if to_big(G.GAME.hands[hand].l_chips) >= to_big(1) then
     G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (G.GAME.hands[hand].l_chips * amount))
 else
     G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (1 * amount))
@@ -27,27 +76,13 @@ G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].s_mult + G.GAME.hands[hand
 '''
 position = "at"
 payload = ''' 
-if G.GAME.hands[hand].l_mult >= 1 then
+if to_big(G.GAME.hands[hand].l_mult) >= to_big(1) then
     G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (G.GAME.hands[hand].l_mult * amount))
 else
     G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (1 * amount))
 end
 '''
 match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = '=[SMODS _ "src/utils.lua"]'
-pattern = "mult = mod_mult(mult + amount)"
-position = "after"
-payload = '''
-if G.GAME.current_round.jest_highest_scored_mult.trigger then
-    if amount > G.GAME.current_round.jest_highest_scored_mult.amount then
-        G.GAME.current_round.jest_highest_scored_mult.amount = amount
-    end
-end
-'''
-match_indent = true 
 
 [[patches]]
 [patches.pattern]
@@ -71,6 +106,117 @@ if G.GAME.jest_legendary_pool ~= nil and _type == 'Joker' then
 end
 '''
 
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "if (G.P_CENTERS[(card.edition or {}).key] or {}).always_scores then return true end"
+position = "before"
+payload = '''
+local has_beanstalk = false
+
+if G.jokers and G.jokers.cards then
+    for _, j in ipairs(G.jokers.cards) do
+    local k = j.config and j.config.center_key
+    if k == "j_aij_beanstalk" then has_beanstalk = true end
+    end
+end
+if has_beanstalk then
+    if card:get_id() == 11 then
+        return true
+    end
+end
+'''
+match_indent = true 
+
+#Multi-Rank stuff
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/loader.lua"]'
+pattern = "SMODS.Mods = {}"
+position = "before"
+payload = '''
+local function patch_text(txt)
+    txt = txt:gsub(
+        "([%w_%[%]%.]+):get_id%(%s*%)%s*%%%s*([%w_%[%]%.%(%)]+)%s*==%s*([%w_%[%]%.%(%)]+)",
+        "ids_op(%1, \"mod\", %2, %3)"
+    )
+
+    for _, op in ipairs({">=", "<=", "~=", "==", ">", "<"}) do
+        local esc = op:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
+    
+        txt = txt:gsub(
+            "([%w_%[%]%.]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.]+):get_id%(%s*%)",
+            "ids_op(%1, \"" .. op .. "\", %2:get_id())"
+        )
+    
+        txt = txt:gsub(
+            "([%w_%[%]%.]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.%(%)]+)",
+            "ids_op(%1, \"" .. op .. "\", %2)"
+        )
+    end
+
+    return txt
+end
+
+local real_read = NFS.read
+NFS.read = function(path)
+    local content = real_read(path)
+    if not content or not path:match("%.lua$") then return content end
+    return patch_text(content)
+end
+'''
+match_indent = true 
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/loader.lua"]'
+pattern = "SMODS.get_optional_features()"
+position = "after"
+payload = '''
+NFS.read = real_read
+'''
+match_indent = true 
+
+#Memory_card
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = "pseudoshuffle(self.cards, pseudoseed(_seed or 'shuffle'))"
+position = "after"
+payload = '''
+for i = #self.cards, 1, -1 do
+    local card = self.cards[i]
+    if G.GAME.jest_stored_memory_card ~= nil then
+        if card == G.GAME.jest_stored_memory_card then
+            table.remove(self.cards, i)
+            table.insert(self.cards, #self.cards + 1, card)
+        end
+    end
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = '''
+elseif self.config.sort == 'order' then 
+    table.sort(self.cards, function (a, b) return (a.config.card.order or a.config.center.order) < (b.config.card.order or b.config.center.order) end )
+end
+'''
+position = "after"
+payload = '''
+for i = #self.cards, 1, -1 do
+    local card = self.cards[i]
+    if G.GAME.jest_stored_memory_card ~= nil then
+        if card == G.GAME.jest_stored_memory_card then
+            table.remove(self.cards, i)
+            table.insert(self.cards, #self.cards + 1, card)
+        end
+    end
+end
+'''
+match_indent = true
 
 [[patches]]
 [patches.pattern]
@@ -89,6 +235,9 @@ if G.jokers then
     if glass_joker and enhancements['m_glass'] then
         return true
     end
+end
+if self.ability.jest_all_suit then
+    return true
 end
 '''
 
@@ -358,6 +507,7 @@ pattern = "if center_table.name == 'Hieroglyph' then"
 position = "before"
 match_indent = true
 payload = '''
+
 local has_Aluzinu = false
 if G.jokers ~= nil and G.jokers.cards then
     for _, j in ipairs(G.jokers.cards) do
@@ -369,6 +519,7 @@ end
 if has_Aluzinu then
     goto continue_Aluzinu
 end
+
 '''
 
 [[patches]]
@@ -383,6 +534,7 @@ end
 position = "after"
 match_indent = true
 payload = '''
+
 ::continue_Aluzinu::
 '''
 
@@ -395,6 +547,7 @@ if not G.GAME.used_vouchers[v.key] then
 position = "before"
 match_indent = true
 payload = '''
+
 local has_Aluzinu = false
 if G.jokers ~= nil and G.jokers.cards then
     for _, j in ipairs(G.jokers.cards) do
@@ -417,6 +570,55 @@ if has_Aluzinu then
         end
         add = true
         goto continue_has_Aluzinu
+    end
+end
+
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+if v.yes_pool_flag and not G.GAME.pool_flags[v.yes_pool_flag] then add = nil end
+'''
+position = "after"
+match_indent = true
+payload = '''
+
+local has_event_horizon = false
+if G.jokers ~= nil and G.jokers.cards then
+    if next(SMODS.find_card('j_aij_event_horizon')) then
+        has_event_horizon = true
+    end
+end
+if has_event_horizon then
+    if v.name == 'Black Hole' then
+        add = true
+    end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+if pseudorandom('soul_'.._type..G.GAME.round_resets.ante) > 0.997 then
+    forced_key = 'c_black_hole'
+end
+'''
+position = "after"
+match_indent = true
+payload = '''
+
+local has_event_horizon = false
+if G.jokers ~= nil and G.jokers.cards then
+    if next(SMODS.find_card('j_aij_event_horizon')) then
+        has_event_horizon = true
+    end
+end
+if has_event_horizon then
+    if pseudorandom('soul_'.._type..G.GAME.round_resets.ante) > 0.923 then
+        forced_key = 'c_black_hole'
     end
 end
 '''
@@ -554,7 +756,7 @@ match_indent = true
 payload = '''
         if _type == 'Planet' then
             local boosted_planet_keys = {
-                ['c_pluto'] = true, ['c_mercury'] = true, ['c_venus'] = true, ['c_earth'] = true,
+                ['c_mercury'] = true, ['c_venus'] = true, ['c_earth'] = true,
                 ['c_mars'] = true,    ['c_jupiter'] = true,['c_saturn'] = true,
                 ['c_uranus'] = true,  ['c_neptune'] = true,['c_planet_x'] = true,
                 ['c_ceres'] = true, ['c_eris'] = true, ['c_aij_vulcanoid'] = true, 
