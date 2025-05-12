@@ -81,7 +81,14 @@ return {
                 },
             },
             j_aij_memory_card = { name = "Memory Card", text = { "" } },
-            j_aij_sleepy_joker = { name = "Sleepy Joker", text = { "" } },
+            j_aij_sleepy_joker = {
+                name = "Sleepy Joker", 
+                text = { 
+                    "{X:red,C:white}X#1#{} Mult if played hand",
+                    "contains only {C:spades}Spades{} or",
+                    "{C:clubs}Clubs"
+                } 
+            },
             j_aij_invisible_man = { name = "Invisible man", text = { "" } },
             j_aij_handsome_joker = { name = "Handsome Joker", text = { "" } },
             j_aij_whiteface_grotesque = { name = "Whiteface Grotesque", text = { "" } },
@@ -221,7 +228,14 @@ return {
                 }
             },
             j_aij_cool_joker = { name = "Cool Joker", text = { "" } },
-            j_aij_square_eyes = { name = "Square Eyes", text = { "" } },
+            j_aij_square_eyes = { 
+                name = "Square Eyes", 
+                text = { 
+                    "Played {C:attention}4s{} give {C:red}+#1#",
+                    "Mult per {C:attention}4{} in the",
+                    "played hand"
+                } 
+            },
             j_aij_punk_joker = {
                 name = "Punk Joker",
                 text = {
@@ -231,9 +245,23 @@ return {
                     "{C:attention}Wild Card{}"
                 },
             },
-            j_aij_slim_joker = { name = "Slim Joker", text = { "" } },
+            j_aij_slim_joker = { 
+                name = "Slim Joker", 
+                text = { 
+                    "{C:red}+#1#{} Mult" ,
+                    "Gives {C:red}#2# less{} Mult per",
+                    "card in the {C:attention}played hand"
+                } 
+            },
             j_aij_wireframe = { name = "Wireframe", text = { "" } },
-            j_aij_soviet = { name = "Soviet", text = { "" } },
+            j_aij_soviet = { 
+                name = "Soviet", 
+                text = {
+                    "{C:red}+#1#{} Mult if {C:attention}played",
+                    "{C:attention}hand{} contains no",
+                    "{C:attention}Kings{} or {C:attention}Queens"
+                } 
+            },
             j_aij_mustachio = { name = "Mustachio", text = { "" } },
             j_aij_penny = {
                 name = "Penny",
@@ -244,7 +272,14 @@ return {
                 },
             },
             j_aij_doctors_note = { name = "Doctor's Note", text = { "" } },
-            j_aij_silly_sausage = { name = "Silly Sausage", text = { "" } },
+            j_aij_silly_sausage = { 
+                name = "Silly Sausage", 
+                text = { 
+                    "{C:green}Rerolls{} cost {C:money}$#1#{} less,",
+                    "{C:attention}decreases{} by {C:money}$1{} at",
+                    "end of round"
+                } 
+            },
             j_aij_joker_baby = { name = "Joker Baby", text = { "" } },
             j_aij_anchor = { name = "Anchor", text = { "" } },
             j_aij_hei_tiki = { name = "Hei-tiki", text = { "" } },

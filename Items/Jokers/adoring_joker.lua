@@ -1,7 +1,7 @@
 local adoring_joker = {
     object_type = "Joker",
     order = 67,
-    ignore = true,
+  
     key = "adoring_joker",
     config = {
       jest_highest_scored_mult = {}

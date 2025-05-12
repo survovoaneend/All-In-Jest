@@ -1,7 +1,6 @@
 local blind_drawn = {
     object_type = "Joker",
     order = 126,
-    ignore = true,
     key = "blind_drawn",
     config = {
         extra = {
