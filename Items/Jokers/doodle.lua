@@ -56,32 +56,12 @@ local doodle = {
     end
 
     if target_joker and target_joker ~= card and pseudorandom('doodle' .. G.SEED) < G.GAME.probabilities.normal / card.ability.extra.odds then
-      context.blueprint = (context.blueprint and (context.blueprint + 1)) or 1
-      context.blueprint_card = context.blueprint_card or card
-
-      if context.blueprint > #G.jokers.cards + 1 then
-        return
+      local other_joker_ret = SMODS.blueprint_effect(card, target_joker, context)
+      if other_joker_ret then
+        other_joker_ret.colour = G.C.GREEN
       end
-
-      local other_joker_ret, trig = target_joker:calculate_joker(context)
-
-      context.blueprint = nil
-      local eff_card = context.blueprint_card or card
-      context.blueprint_card = nil
-
-      if other_joker_ret or trig then
-        if not other_joker_ret then
-          other_joker_ret = {}      
-        end
-
-        other_joker_ret.card = eff_card         
-        other_joker_ret.colour = G.C.GREEN    
-        other_joker_ret.no_callback = true     
-
-        return other_joker_ret           
-      end
+      return other_joker_ret
     end
-    return nil
   end
   
 }
