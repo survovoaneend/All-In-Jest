@@ -1,7 +1,7 @@
-local test_card = {
+local homemade_comic = {
     object_type = "Joker",
     order = 300,
-
+     ignore = true,
     key = "homemade_comic",
     config = {
        xmult = 1.5
@@ -45,4 +45,4 @@ local test_card = {
     end
   
 }
-return { name = {"Jokers"}, items = {test_card} }
+return { name = {"Jokers"}, items = {homemade_comic} }

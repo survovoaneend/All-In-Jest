@@ -1,7 +1,7 @@
 local silly_sausage = {
     object_type = "Joker",
     order = 57,
-
+ ignore = true,
     key = "silly_sausage",
     config = {
         extra = {

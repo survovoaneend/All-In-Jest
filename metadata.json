@@ -15,5 +15,8 @@
   "dependencies": [
     "Steamodded (>=1.0.0~ALPHA-1423h)",
     "Lovely (>=0.7.1)"
-  ]
+  ],
+  "conflicts": [
+		"Talisman (>=1.1)"
+	]
 }

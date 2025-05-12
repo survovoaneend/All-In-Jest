@@ -1,6 +1,7 @@
 local slim_joker = {
     object_type = "Joker",
     order = 51,
+     ignore = true,
     key = "slim_joker",
     config = {
       extra = {

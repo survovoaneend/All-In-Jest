@@ -1,7 +1,7 @@
 local art_of_the_deal = {
     object_type = "Joker",
     order = 40,
-
+ignore = true,
     key = "art_of_the_deal",
     config = {
       extra = {

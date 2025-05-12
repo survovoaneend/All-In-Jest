@@ -1,7 +1,7 @@
 local sleepy_joker = {
     object_type = "Joker",
     order = 5,
-    
+ ignore = true,
 
     key = "sleepy_joker",
     config = {

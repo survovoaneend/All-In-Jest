@@ -2,6 +2,7 @@ local dyscalcular = {
     object_type = "Enhancement",
     key = 'dyscalcular',
     atlas = 'enhancements_atlas',
+     ignore = true,
     order = 0,
     pos = { x = 1, y = 0 },
     config = {
