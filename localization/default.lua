@@ -1151,14 +1151,41 @@ return {
                      "each {C:attention}round{}",
                     },
                     unlock = { "?????" } },
-            j_aij_yu_sze = { name = "Yu_sze", text = { "" }, unlock = { "?????" } },
+            j_aij_yu_sze = { 
+                name = "Yu Sze", 
+                text = { 
+                    "Jokers without {C:dark_edition}editions{}",
+                    "give {X:mult,C:white}X#1#{} Mult" 
+                },
+                unlock = { 
+                    "?????" 
+                } 
+            },
             j_aij_brusquet = { name = "Brusquet", text = { "" }, unlock = { "?????" } },
             j_aij_rahere = { name = "Rahere", text = { "" }, unlock = { "?????" } },
             j_aij_gonnella = { name = "Gonnella", text = { "" }, unlock = { "?????" } },
             j_aij_gong_gil = { name = "Gong-Gil", text = { "" }, unlock = { "?????" } },
-            j_aij_angoulevent = { name = "Angoulevent", text = { "" }, unlock = { "?????" } },
+            j_aij_angoulevent = { 
+                name = "Angoulevent", 
+                text = { 
+                    "Retrigger all cards played {C:attention}#1#",
+                    "additional times" 
+                }, 
+                unlock = { 
+                    "?????" 
+                } 
+            },
             j_aij_coryat = { name = "Coryat", text = { "" }, unlock = { "?????" } },
-            j_aij_bluet = { name = "Bluet", text = { "" }, unlock = { "?????" } },
+            j_aij_bluet = { 
+                name = "Bluet", 
+                text = { 
+                    "Grants a {C:dark_edition}Negative{} {C:spectral}Spectral",
+                    "card when {C:attention}selecting{} a blind" 
+                }, 
+                unlock = { 
+                    "?????" 
+                } 
+            },
             j_aij_bebe = {
                  name = "Bébé",
                  text = {
@@ -1166,7 +1193,15 @@ return {
                     "round"
                 },
                  unlock = { "?????" } },
-            j_aij_pipine = { name = "Pipine", text = { "" }, unlock = { "?????" } },
+            j_aij_pipine = { 
+                name = "Pipine", 
+                text = { 
+                    "{C:red}+#1#{} discards per round" 
+                }, 
+                unlock = { 
+                    "?????" 
+                } 
+            },
             j_aij_golitsyn = { name = "Golitsyn", text = { "" }, unlock = { "?????" } },
             j_aij_buzheninova = { name = "Buzheninova", text = { "" }, unlock = { "?????" } },
             j_aij_yakov = { name = "Yakov", text = { "" }, unlock = { "?????" } },
