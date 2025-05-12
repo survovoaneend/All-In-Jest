@@ -10,46 +10,60 @@ pattern = "if (love.system.getOS() == 'OS X' ) and (jit.arch == 'arm64' or jit.a
 position = "before" 
 match_indent = true
 payload = '''
-local function patch_text(txt)
-    txt = txt:gsub(
-        "([%w_%[%]%.]+):get_id%(%s*%)%s*%%%s*([%w_%[%]%.%(%)]+)%s*==%s*([%w_%[%]%.%(%)]+)",
-        "ids_op(%1, \"mod\", %2, %3)"
-    )
 
-    for _, op in ipairs({">=", "<=", "~=", "==", ">", "<"}) do
-        local esc = op:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
-    
-        txt = txt:gsub(
-            "([%w_%[%]%.]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.]+):get_id%(%s*%)",
-            "ids_op(%1, \"" .. op .. "\", %2:get_id())"
-        )
-    
-        txt = txt:gsub(
-            "([%w_%[%]%.]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.%(%)]+)",
-            "ids_op(%1, \"" .. op .. "\", %2)"
-        )
-    end
+ local id_patterns = {}
 
-    return txt
-end
+ table.insert(id_patterns, {
+   patt = "([%w_%[%]%.]+):get_id%(%)%s*%%%s*([%w_%[%]%.%(%)]+)%s*==%s*([%w_%[%]%.%(%)]+)",
+   repl = "ids_op(%1, \"mod\", %2, %3)"
+ })
+ local ops = {">=", "<=", "~=", "==", ">", "<"}
+ for _, op in ipairs(ops) do
+   local esc = op:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
+   table.insert(id_patterns, {
+     patt = "([%w_%[%]%.]+):get_id%(%)%s*"..esc.."%s*([%w_%[%]%.]+):get_id%(%)",
+     repl = "ids_op(%1, \""..op.."\", %2:get_id())"
+   })
+   table.insert(id_patterns, {
+     patt = "([%w_%[%]%.]+):get_id%(%)%s*"..esc.."%s*([%w_%[%]%.%(%)]+)",
+     repl = "ids_op(%1, \""..op.."\", %2)"
+   })
+ end
 
-local orig = package.searchers or package.loaders
-table.insert(orig, 1, function(modname)
-    local path = modname:gsub("%.", "/")..".lua"
-    if path:lower():match("misc_functions%.lua") then
-        return "\n\t[patched loader skipped: misc functions]"
-    end
-    if not love.filesystem.getInfo(path) then
-        return "\n\t[patched loader skipped]"
-    end
-    local ok, txt = pcall(love.filesystem.read, path)
-    if not ok or not txt then
-        return "\n\t[patched loader skipped]"
-    end
-    local fixed, err = load(patch_text(txt), path)
-    if not fixed then error(err) end
-    return fixed
-end)
+ local patched_cache = {}
+
+ local function patch_text(txt)
+   if not txt:find("get_id", 1, true) then
+     return txt
+   end
+   for _, p in ipairs(id_patterns) do
+     txt = txt:gsub(p.patt, p.repl)
+   end
+   return txt
+ end
+
+
+ local orig_searchers = package.searchers or package.loaders
+ table.insert(orig_searchers, 1, function(modname)
+   local path = modname:gsub("%.", "/")..".lua"
+
+   if path:lower():match("misc_functions%.lua")
+     or not love.filesystem.getInfo(path)
+   then
+     return "\n\t[patched loader skipped]"
+   end
+   if patched_cache[path] then
+     return patched_cache[path]
+   end
+   local ok, txt = pcall(love.filesystem.read, path)
+   if not ok or not txt then
+     return "\n\t[patched loader skipped]"
+   end
+   local fn, err = load(patch_text(txt), path)
+   if not fn then error(err) end
+   patched_cache[path] = fn
+   return fn
+ end)
 '''
 
 [[patches]]
@@ -135,35 +149,49 @@ target = '=[SMODS _ "src/loader.lua"]'
 pattern = "SMODS.Mods = {}"
 position = "before"
 payload = '''
+ local id_patterns = {}
+ table.insert(id_patterns, {
+   patt = "([%w_%[%]%.]+):get_id%(%)%s*%%%s*([%w_%[%]%.%(%)]+)%s*==%s*([%w_%[%]%.%(%)]+)",
+   repl = "ids_op(%1, \"mod\", %2, %3)"
+ })
+ local ops = {">=", "<=", "~=", "==", ">", "<"}
+ for _, op in ipairs(ops) do
+   local esc = op:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
+   table.insert(id_patterns, {
+     patt = "([%w_%[%]%.]+):get_id%(%)%s*"..esc.."%s*([%w_%[%]%.]+):get_id%(%)",
+     repl = "ids_op(%1, \""..op.."\", %2:get_id())"
+   })
+   table.insert(id_patterns, {
+     patt = "([%w_%[%]%.]+):get_id%(%)%s*"..esc.."%s*([%w_%[%]%.%(%)]+)",
+     repl = "ids_op(%1, \""..op.."\", %2)"
+   })
+ end
+
+local patched_cache = {}
 local function patch_text(txt)
-    txt = txt:gsub(
-        "([%w_%[%]%.]+):get_id%(%s*%)%s*%%%s*([%w_%[%]%.%(%)]+)%s*==%s*([%w_%[%]%.%(%)]+)",
-        "ids_op(%1, \"mod\", %2, %3)"
-    )
-
-    for _, op in ipairs({">=", "<=", "~=", "==", ">", "<"}) do
-        local esc = op:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
-    
-        txt = txt:gsub(
-            "([%w_%[%]%.]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.]+):get_id%(%s*%)",
-            "ids_op(%1, \"" .. op .. "\", %2:get_id())"
-        )
-    
-        txt = txt:gsub(
-            "([%w_%[%]%.]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.%(%)]+)",
-            "ids_op(%1, \"" .. op .. "\", %2)"
-        )
-    end
-
-    return txt
+   if not txt:find("get_id", 1, true) then return txt end
+   for _, p in ipairs(id_patterns) do
+     txt = txt:gsub(p.patt, p.repl)
+   end
+   return txt
 end
 
 local real_read = NFS.read
 NFS.read = function(path)
-    local content = real_read(path)
-    if not content or not path:match("%.lua$") then return content end
-    return patch_text(content)
-end
+   if not path:match("%.lua$") then
+     return real_read(path)
+   end
+   if patched_cache[path] then
+     return patched_cache[path]
+   end
+   local content = real_read(path)
+   if not content then
+     return content
+   end
+   local fixed = patch_text(content)
+   patched_cache[path] = fixed
+   return fixed
+ end
 '''
 match_indent = true 
 
