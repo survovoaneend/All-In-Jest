@@ -3,7 +3,7 @@ local fortunate_tag = {
     key = 'fortunate',
     pos = { x = 4, y = 0 },
     atlas = 'tag_atlas',
-
+     ignore = true,
     discovered = false,
     order = 4, -- This is the 2nd in game but 5th on the list, does not negativiely effct order
 

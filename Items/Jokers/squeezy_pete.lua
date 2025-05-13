@@ -36,7 +36,7 @@ local squeezy_pete = {
               if context.scoring_name == 'Full House' or context.scoring_name == 'Flush House' then
                   card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.bonus
                   card_eval_status_text(card, 'extra', nil, nil, nil, {
-                      message = 'X' .. number_format(card.ability.extra.xmult) .. ' Mult' ,
+                      message = 'Upgrade!',
                   })
                   return nil, true
               else

@@ -1,7 +1,7 @@
 local dor = {
     object_type = "Joker",
     order = 1020,
-
+    ignore = true,
     key = "dor",
     config = {
       powmult = 0.3

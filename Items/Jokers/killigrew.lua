@@ -15,7 +15,7 @@ local killigrew = {
     in_pool = function(self, args)
         return (redeemed_voucher_count() >= 1)
     end,
-    cost = 4,
+    cost = 20,
     unlocked = false,
     discovered = false,
     blueprint_compat = true,

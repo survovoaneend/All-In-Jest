@@ -1,7 +1,7 @@
 local eulenspiegel = {
     object_type = "Joker",
     order = 1013,
-
+     ignore = true,
     key = "eulenspiegel",
     config = {
       Xmult = 3,

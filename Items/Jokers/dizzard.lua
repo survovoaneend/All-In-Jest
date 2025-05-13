@@ -1,7 +1,7 @@
 local dizzard = {
   object_type = "Joker",
   order = 161,
-
+  ignore = true,
   key = "dizzard",
   config = {
     
