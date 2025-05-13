@@ -81,10 +81,14 @@ function ids_op(card, op, b, c)
       return 11
     end
 
-    if has_furb and card.config.center == G.P_CENTERS.m_aij_dyscalcular and (11 == b or id == b) or not card:is_face() then
-        return 11
-    elseif card.config.center == G.P_CENTERS.m_aij_dyscalcular and (id == b or not (card:is_face() or 14 == b)) then -- Counts as any non-face ranks and non-ace
-        return 11
+     if has_furb and card.config.center == G.P_CENTERS.m_aij_dyscalcular then
+        if 11 == b or id == b or not card:is_face() then
+            return 11
+        end
+    elseif card.config.center == G.P_CENTERS.m_aij_dyscalcular then -- Counts as any non-face ranks and non-ace
+        if (id == b or not (card:is_face() or 14 == b)) then 
+            return 11
+        end
     end
 
     if card.ability.jest_all_rank then -- Counts as any rank
