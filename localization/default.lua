@@ -952,7 +952,8 @@ return {
                 name = "Morio",
                 text = {
                     "When {C:attention}boss blind{} is defeated",
-                    "choose {C:attention}1{} {C:tarot}tarot{} card to acquire",
+                    "choose {C:attention}1{} {C:tarot}tarot{} card",
+                    "to acquire",
                     "{C:inactive}(Must have room)"
                 }
             },
@@ -1263,7 +1264,17 @@ return {
             j_aij_golitsyn = { name = "Golitsyn", text = { "" }, unlock = { "?????" } },
             j_aij_buzheninova = { name = "Buzheninova", text = { "" }, unlock = { "?????" } },
             j_aij_yakov = { name = "Yakov", text = { "" }, unlock = { "?????" } },
-            j_aij_komar = { name = "Komar", text = { "" }, unlock = { "?????" } },
+            j_aij_komar = { 
+                name = "Komar", 
+                text = { 
+                    "All {C:attention}scored{} cards gain {C:chips}chips",
+                    "equal to the {C:chips}chip{} value of",
+                    "all {C:attention}other{} played cards" 
+                }, 
+                unlock = { 
+                    "?????" 
+                } 
+            },
             j_aij_lavatch = {
                  name = "Lavatch",
                  text = {
@@ -1286,7 +1297,17 @@ return {
             j_aij_shir_ei = { name = "Shir'ei", text = { "" }, unlock = { "?????" } },
             j_aij_xinmo = { name = "Xinmo", text = { "" }, unlock = { "?????" } },
             j_aij_chunyu = { name = "Chunyu", text = { "" }, unlock = { "?????" } },
-            j_aij_fantasio = { name = "Fantasio", text = { "" }, unlock = { "?????" } },
+            j_aij_fantasio = { 
+                name = "Fantasio", 
+                text = { 
+                    "All cards are considered",
+                    "{C:hearts}Hearts{}, {C:spades}Spades{}, {C:diamonds}Diamonds{},",
+                    "and {C:clubs}Clubs{} simultaneously" 
+                }, 
+                unlock = { 
+                    "?????" 
+                } 
+            },
             j_aij_sexton = { name = "Sexton", text = { "" }, unlock = { "?????" } },
             j_aij_dongtong = {
                 name = "Dongtong",
@@ -1302,6 +1323,16 @@ return {
                     "{C:attention}+#2#{} hand size when",
                     "{C:attention}Boss Blind{} is defeated",
                     "{C:inactive}(Currently {C:attention}+#1#{C:inactive} hand size)"
+                },
+                unlock = { "?????" }
+            },
+            j_aij_talhak = {
+                name = "Talhak",
+                text = {
+                    "When {C:attention}boss blind{} is defeated",
+                    "choose {C:attention}1{} {C:spectral}spectral{} card",
+                    "to acquire",
+                    "{C:inactive}(Must have room)"
                 },
                 unlock = { "?????" }
             },
