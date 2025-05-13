@@ -618,7 +618,7 @@ return {
             j_aij_cosmological_constant = {
                 name = "Cosmological Constant",
                 text = {
-                    "{C:attention}Balance{} base {C:blue}Chips{} and {C:red}Mult{} of",
+                    "{C:aij_plasma}Balance{} base {C:blue}Chips{} and {C:red}Mult{} of",
                     "{C:attention}played hand"
                 },
             },
@@ -648,7 +648,7 @@ return {
             j_aij_average_joe = {
                  name = "Average Joe", 
                  text = { 
-                    "{C:aij_plasma}Balance{} {C:attention}20%{} of",
+                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of",
                     "{C:blue}Chips{} and {C:red}Mult{}"
                 } 
             },
@@ -957,7 +957,14 @@ return {
                 }
             },
             j_aij_visage = { name = "Visage", text = { "" } },
-            j_aij_goofball = { name = "Goofball", text = { "" } },
+            j_aij_goofball = { 
+                name = "Goofball", 
+                text = { 
+                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of {C:red}Mult{}",
+                    "and {C:blue}Chips{} when any",
+                    "{C:attention}face{} card is {C:attention}scored"
+                } 
+            },
             j_aij_heyokha = { name = "Heyókȟa", text = { "" } },
             j_aij_mistake = {
                 name = "Mistake",
@@ -982,6 +989,14 @@ return {
                     "considered {C:attention}Queens",
                 } 
             },
+            j_aij_chips_n_dip = {
+                name = "Chips n' Dip",
+                text = {
+                    "{X:blue,C:white}X#1#{} Chips, decreases",
+                    "by {X:blue,C:white}X#2#{} Chips at end",
+                    "of {C:attention}round"
+                }
+            },
             j_aij_test_card = { 
                 name = "Test Card", 
                 text = { 
@@ -995,6 +1010,14 @@ return {
                     "Scoring {C:attention}Charged Cards{}",
                     "give {C:mult}X#1#{} Mult",
                 } 
+            },
+            j_aij_candy_floss = {
+                name = "Candy Floss",
+                text = {
+                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of {C:red}Mult{}",
+                    "and {C:blue}Chips{}, decreases",
+                    "by {C:attention}#2#%{} at end of round"
+                }
             },
 
 
@@ -1581,7 +1604,7 @@ return {
                 text = {
                     'Next base edition shop',
                     'Joker is free and',
-                    'becomes {C:edition}Glimmer'
+                    'becomes {C:aij_plasma}Glimmer'
                 }
             },
             tag_aij_soulbound = {

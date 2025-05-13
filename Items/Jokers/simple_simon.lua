@@ -5,7 +5,7 @@ local simple_simon = {
     key = "simple_simon",
     config = {
       extra = {
-        chips = 50
+        chips = 30
       }
     },
     rarity = 1,

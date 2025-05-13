@@ -4,7 +4,7 @@ local realty_sign = {
 
     key = "realty_sign",
     config = {
-      extra = { sell_increase = 5 }
+      extra = { sell_increase = 3 }
     },
     rarity = 1,
     pos = { x = 3, y = 3 },

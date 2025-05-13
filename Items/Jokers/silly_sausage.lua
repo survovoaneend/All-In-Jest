@@ -1,7 +1,7 @@
 local silly_sausage = {
     object_type = "Joker",
     order = 57,
- ignore = true,
+    ignore = true,
     key = "silly_sausage",
     config = {
         extra = {
@@ -45,7 +45,7 @@ local silly_sausage = {
             if card.ability.extra.current_discount > 0 then
                 G.GAME.round_resets.reroll_cost = (G.GAME.round_resets.reroll_cost or 0) + discount_this_round
                 card.ability.extra.current_discount = card.ability.extra.current_discount - 1
-               
+
                 if card.ability.extra.current_discount <= 0 then
                     G.E_MANAGER:add_event(Event({
                         func = function()
@@ -75,7 +75,7 @@ local silly_sausage = {
                 else
                     card_eval_status_text(card, 'extra', nil, nil, nil, { message = "-$1 Discount", colour = G.C.RED })
                     G.GAME.round_resets.reroll_cost = math.max(0,
-                    (G.GAME.round_resets.reroll_cost or 0) - card.ability.extra.current_discount)
+                        (G.GAME.round_resets.reroll_cost or 0) - card.ability.extra.current_discount)
                 end
                 calculate_reroll_cost(true)
             end
