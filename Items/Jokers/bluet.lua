@@ -1,8 +1,7 @@
 local bluet = {
     object_type = "Joker",
     order = 1041,
-    ignore = true,
-
+     ignore = true,
     key = "bluet",
     config = {
       
@@ -11,7 +10,7 @@ local bluet = {
 	unlock_condition = {hidden = true},
     pos = { x = 0, y = 8},
     atlas = 'legendary_atlas',
-    cost = 4,
+    cost = 20,
     unlocked = false,
     discovered = false,
     blueprint_compat = false,
@@ -23,7 +22,9 @@ local bluet = {
     end,
   
     calculate = function(self, card, context)
-      
+      if context.setting_blind then
+        create_consumable("Spectral", nil, nil, {edition = "e_negative"})
+      end
     end
   
 }

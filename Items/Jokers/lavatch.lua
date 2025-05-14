@@ -29,19 +29,23 @@ local lavatch = {
       }
     end,
   
-    calculate = function(self, card, context)
-      if context.individual and context.cardarea == G.play then
-        if context.other_card:is_suit('Clubs') and not context.blueprint then
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play then
+      if context.other_card:is_suit('Clubs') then
+        local message_ = nil
+        if not context.blueprint then
           card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_mod
-          return {
-            message = localize('k_upgrade_ex'),
-            x_mult = card.ability.extra.xmult,
-            card = card,
-            colour = G.C.RED
-          }
+          message_ = localize('k_upgrade_ex')
         end
+        return {
+          message = message_,
+          x_mult = card.ability.extra.xmult,
+          card = card,
+          colour = G.C.RED
+        }
       end
     end
+  end
   
 }
 return { name = {"Jokers"}, items = {lavatch} }

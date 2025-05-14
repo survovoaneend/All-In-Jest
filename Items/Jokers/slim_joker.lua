@@ -1,27 +1,43 @@
 local slim_joker = {
     object_type = "Joker",
     order = 51,
-    ignore = true,
-
+     ignore = true,
     key = "slim_joker",
     config = {
-      
+      extra = {
+        initial_mult = 30,
+        mult_mod = 5
+      }
     },
     rarity = 1,
     pos = { x = 22, y = 1 },
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
-    blueprint_compat = false,
-    eternal_compat = false,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
+
+    pixel_size = { w = 59, h = 93 },
   
     loc_vars = function(self, info_queue, card)
-  
+        return {
+            vars = {
+                card.ability.extra.initial_mult,
+                card.ability.extra.mult_mod
+            }
+        }
     end,
   
     calculate = function(self, card, context)
-      
+        if context.joker_main then
+            local _mult = card.ability.extra.initial_mult - card.ability.extra.mult_mod * #context.full_hand
+            if _mult > 0 then 
+                return {
+                    mult = _mult
+                }
+            end
+        end
     end
   
 }

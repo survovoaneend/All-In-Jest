@@ -4,7 +4,7 @@ local realty_sign = {
 
     key = "realty_sign",
     config = {
-      extra = { sell_increase = 5 }
+      extra = { sell_increase = 3 }
     },
     rarity = 1,
     pos = { x = 3, y = 3 },
@@ -20,7 +20,7 @@ local realty_sign = {
     end,
   
     calculate = function(self, card, context)
-        if context.before and context.scoring_name == 'Full House' then 
+        if not context.blueprint and context.before and context.scoring_name == 'Full House' then 
             card.ability.extra_value = (card.ability.extra_value or 0) + card.ability.extra.sell_increase
             card:set_cost()
             card_eval_status_text(card, 'extra', nil, nil, nil, {

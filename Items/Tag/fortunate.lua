@@ -1,19 +1,18 @@
 local fortunate_tag = {
     object_type = "Tag",
     key = 'fortunate',
-    ignore = true,
     pos = { x = 4, y = 0 },
     atlas = 'tag_atlas',
-
+     ignore = true,
     discovered = false,
-    order = 5, -- This is the 2nd in game but 5th on the list, does not negativiely effct order
+    order = 4, -- This is the 2nd in game but 5th on the list, does not negativiely effct order
 
     loc_vars = function(self, info_queue)
     end,
 
     apply = function(self, tag, context)
         if context.type == 'immediate' then
-            tag:jest_apply_fortunate("+", G.C.ATTENTION, function()
+            tag:jest_apply("+", G.C.ATTENTION, function()
                 if #G.consumeables.cards < G.consumeables.config.card_limit then
 				    G.SETTINGS.paused = true
                     G.FUNCS.overlay_menu{
@@ -34,7 +33,10 @@ local fortunate_tag = {
                     }
                 end
                 return true
-			end)
+			end,
+            function() 
+                return #G.consumeables.cards < G.consumeables.config.card_limit
+            end)
             tag.triggered = true
             return true
         end

@@ -2,20 +2,19 @@
 local invisible_man = {
     object_type = "Joker",
     order = 6,
-    ignore = true,
-
+     ignore = true,
     key = "invisible_man",
     config = {
       
     },
-    rarity = 2,
+    rarity = 3,
     pos = { x = 4, y = 0 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 8,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
   
@@ -23,7 +22,7 @@ local invisible_man = {
   
     calculate = function(self, card, context)
       
-    end
-  
+    end  
 }
+
 return { name = {"Jokers"}, items = {invisible_man} }

@@ -1,8 +1,7 @@
 local event_horizon = {
   object_type = "Joker",
   order = 169,
-  ignore = true,
-
+   ignore = true,
   key = "event_horizon",
   config = {
     
@@ -10,23 +9,18 @@ local event_horizon = {
   rarity = 3,
   pos = { x = 13, y = 6},
   atlas = 'joker_atlas',
-  cost = 4,
+  cost = 8,
   unlocked = true,
-  discovered = true,
+  discovered = false,
   blueprint_compat = false,
-  eternal_compat = false,
+  eternal_compat = true,
+
   add_to_deck = function(self, card, from_debuff)
-    SMODS.Consumable:take_ownership("black_hole", {
-      discovered = true,
-      hidden = false
-    })
-  end,
-  loc_vars = function(self, info_queue, card)
     
   end,
 
-  calculate = function(self, card, context)
-
-  end
+  remove_from_deck = function(self, card, from_debuff)
+      
+  end,
 }
 return { name = {"Jokers"}, items = {event_horizon} }

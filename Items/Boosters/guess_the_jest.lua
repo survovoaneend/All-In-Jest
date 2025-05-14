@@ -5,7 +5,7 @@ local guess_the_jest = {
     atlas = 'booster_atlas', 
     pos = { x = 0, y = 0 }, 
     cost = 20, 
-    weight = 0.01, 
+    weight = 0.05, 
     config = { extra = 3, choose = 1 }, 
     discovered = false, 
     unlocked = true, 

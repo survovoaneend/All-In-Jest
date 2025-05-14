@@ -39,7 +39,6 @@ local clowns_on_parade = {
         card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
         return {
           message = localize('k_upgrade_ex'),
-          chips = card.ability.extra.chips
         }
       end
     end

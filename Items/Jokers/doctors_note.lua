@@ -2,19 +2,18 @@ local doctors_note = {
     object_type = "Joker",
     order = 56,
     ignore = true,
-
     key = "doctors_note",
     config = {
       
     },
-    rarity = 1,
+    rarity = 3,
     pos = { x = 2, y = 2 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 8,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
   
