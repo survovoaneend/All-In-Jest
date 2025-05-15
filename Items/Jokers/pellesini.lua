@@ -1,7 +1,7 @@
 local pellesini = {
     object_type = "Joker",
     order = 1007,
-     ignore = true,
+    
     key = "pellesini",
     config = {
       

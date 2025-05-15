@@ -1,7 +1,7 @@
 local candy_floss = {
     object_type = "Joker",
     order = 304,
-    ignore = true,
+    
     key = "candy_floss",
     config = {
       extra = {

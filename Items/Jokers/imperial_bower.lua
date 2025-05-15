@@ -1,7 +1,7 @@
 local imperial_bower = {
     object_type = "Joker",
     order = 18,
-    ignore = true,
+    
     key = "imperial_bower",
     config = {
       

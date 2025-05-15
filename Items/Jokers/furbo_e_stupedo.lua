@@ -1,8 +1,8 @@
-local furbo_e_stupedo = {
+local furbo_e_stupido = {
     object_type = "Joker",
     order = 91,
-     ignore = true,
-    key = "furbo_e_stupendo",
+    
+    key = "furbo_e_stupido",
     config = {
       
     },
@@ -37,4 +37,4 @@ local furbo_e_stupedo = {
     end
   
 }
-return { name = {"Jokers"}, items = {furbo_e_stupedo} }
+return { name = {"Jokers"}, items = {furbo_e_stupido} }

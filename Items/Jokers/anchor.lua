@@ -1,7 +1,7 @@
 local anchor = {
     object_type = "Joker",
     order = 59,
-    ignore = true,
+   
     key = "anchor",
     config = {
       

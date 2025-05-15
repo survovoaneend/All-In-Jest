@@ -1,7 +1,7 @@
 local homemade_comic = {
     object_type = "Joker",
     order = 300,
-     ignore = true,
+    
     key = "homemade_comic",
     config = {
        xmult = 1.5

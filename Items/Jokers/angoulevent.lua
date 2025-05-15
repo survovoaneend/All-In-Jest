@@ -1,7 +1,7 @@
 local angoulevent = {
     object_type = "Joker",
     order = 1039,
-    ignore = true,
+    
     key = "angoulevent",
     config = {
       repetitions = 2

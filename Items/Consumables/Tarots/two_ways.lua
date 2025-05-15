@@ -4,7 +4,7 @@ local two_ways = {
 	set = 'Tarot',
 	pos = { x = 5, y = 6 },
 	cost = 3,
-     ignore = true,
+    
 	unlocked = true,
 	discovered = false,
 	order = 5,

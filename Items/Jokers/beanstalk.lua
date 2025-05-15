@@ -1,7 +1,7 @@
 local beanstalk = {
     object_type = "Joker",
     order = 194,
-    ignore = true,
+    
     key = "beanstalk",
     config = {
       

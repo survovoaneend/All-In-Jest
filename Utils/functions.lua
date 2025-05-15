@@ -42,6 +42,7 @@ function level_up_hand_mult(card, hand, instant, amount)
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
                 play_sound('tarot1')
                 if card then card:juice_up(0.8, 0.5) end
+                G.TAROT_INTERRUPT_PULSE = nil
                 return true end }))
             update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
             delay(1.3)
@@ -65,7 +66,7 @@ function ids_op(card, op, b, c)
         if k == "j_aij_invisible_man" then has_invis = true end
         if k == "j_aij_doctors_note" then has_doc = true end
         if k == "j_aij_pygmalion" then has_pygm = true end
-        if k == "j_aij_furbo_e_stupendo" then has_furb = true end
+        if k == "j_aij_furbo_e_stupido" then has_furb = true end
       end
     end
 
@@ -81,11 +82,15 @@ function ids_op(card, op, b, c)
       return 11
     end
 
-    if has_furb and card.config.center == G.P_CENTERS.m_aij_dyscalcular and (11 == b or id == b) or not card:is_face() then
-        return 11
-    elseif card.config.center == G.P_CENTERS.m_aij_dyscalcular and (id == b or not (card:is_face() or 14 == b)) then -- Counts as any non-face ranks and non-ace
+    if has_furb and card.config.center == G.P_CENTERS.m_aij_dyscalcular then
+    if 11 == b or id == b or not card:is_face() then
         return 11
     end
+  elseif card.config.center == G.P_CENTERS.m_aij_dyscalcular then -- Counts as any non-face ranks and non-ace
+    if (id == b or not (card:is_face() or 14 == b)) then 
+        return 11
+    end
+end
 
     if card.ability.jest_all_rank then -- Counts as any rank
       return 11
@@ -187,59 +192,6 @@ end
 
 to_big = to_big or function(num)
     return num
-end
-
-function balance_percent(card, percent)
-  local chip_mod = percent * hand_chips
-  local mult_mod = percent * mult
-  local avg = (chip_mod + mult_mod)/2
-  hand_chips = hand_chips + (avg - chip_mod)
-  mult = mult + (avg - mult_mod)
-  local text = localize('k_balanced')
-  
-  update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
-  card_eval_status_text(card, 'extra', nil, nil, nil, {
-    message = text,
-    colour = { 0.8, 0.45, 0.85, 1 },
-    sound = 'gong'
- })
-  
-  G.E_MANAGER:add_event(Event({
-    trigger = 'immediate',
-    func = (function()
-      ease_colour(G.C.UI_CHIPS, { 0.8, 0.45, 0.85, 1 })
-      ease_colour(G.C.UI_MULT, { 0.8, 0.45, 0.85, 1 })
-      G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        blockable = false,
-        blocking = false,
-        delay = 4.3,
-        func = (function()
-          ease_colour(G.C.UI_CHIPS, G.C.BLUE, 2)
-          ease_colour(G.C.UI_MULT, G.C.RED, 2)
-          return true
-        end)
-      }))
-      G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        blockable = false,
-        blocking = false,
-        no_delete = true,
-        delay = 6.3,
-        func = (function()
-          G.C.UI_CHIPS[1], G.C.UI_CHIPS[2], G.C.UI_CHIPS[3], G.C.UI_CHIPS[4] = G.C.BLUE[1], G.C.BLUE[2], G.C.BLUE[3],
-              G.C.BLUE[4]
-          G.C.UI_MULT[1], G.C.UI_MULT[2], G.C.UI_MULT[3], G.C.UI_MULT[4] = G.C.RED[1], G.C.RED[2], G.C.RED[3], G.C.RED
-          [4]
-          return true
-        end)
-      }))
-      return true
-    end)
-  }))
-
-  delay(0.6)
-  return hand_chips, mult
 end
 
 jest_ability_calculate = function(card, equation, extra_value, exclusions, inclusions, do_round, only, extra_search)
@@ -475,6 +427,26 @@ function reset_jest_magick_joker_card()
     end
 end
 
+function reset_jest_you_broke_it_card()
+  G.GAME.current_round.jest_you_broke_it_card.rank = 'Ace'
+  G.GAME.current_round.jest_you_broke_it_card.enhancement = 'm_bonus'
+  local valid_enhancements = get_current_pool("Enhanced")
+  local valid_jest_ybi_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        if v.ability.effect ~= 'Stone Card' then
+            valid_jest_ybi_cards[#valid_jest_ybi_cards+1] = v
+        end
+    end
+    if valid_jest_ybi_cards[1] then 
+        local jest_ybi_card = pseudorandom_element(valid_jest_ybi_cards, pseudoseed('ybi'..G.GAME.round_resets.ante))
+        G.GAME.current_round.jest_you_broke_it_card.rank = jest_ybi_card.base.value
+        G.GAME.current_round.jest_you_broke_it_card.id = jest_ybi_card.base.id
+    end
+    if valid_enhancements[1] then
+      local jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..G.GAME.round_resets.ante))
+      G.GAME.current_round.jest_you_broke_it_card.enhancement = jest_ybi_enhancement
+    end
+end
 -- card predict begin
 --------------------------------
 --------------------------------

@@ -1,7 +1,7 @@
 local morio = {
     object_type = "Joker",
     order = 231,
-    ignore = true,
+    
     key = "morio",
     config = {
       

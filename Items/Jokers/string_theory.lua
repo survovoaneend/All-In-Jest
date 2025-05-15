@@ -1,7 +1,7 @@
 local string_theory = {
     object_type = "Joker",
     order = 94,
-     ignore = true,
+    
     key = "string_theory",
     config = {
       

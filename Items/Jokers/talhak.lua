@@ -1,7 +1,7 @@
 local talhak = {
     object_type = "Joker",
     order = 1059,
-    ignore = true,
+    
     key = "talhak",
     config = {
 

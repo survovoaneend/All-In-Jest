@@ -1,7 +1,7 @@
 local eulenspiegel = {
     object_type = "Joker",
     order = 1013,
-     ignore = true,
+    
     key = "eulenspiegel",
     config = {
       Xmult = 3,
@@ -24,12 +24,15 @@ local eulenspiegel = {
     end,
   
     calculate = function(self, card, context)
-      if context.end_of_round and context.cardarea == G.jokers then
+      if context.end_of_round and context.cardarea == G.jokers and context.main_eval then
         if G.GAME.blind.boss then
             ease_ante(-card.ability.ante_mod)
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = "-"..card.ability.ante_mod.." Ante", colour = G.C.FILTER})
             card.ability.Xmult = card.ability.Xmult - card.ability.Xmult_mod
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = "-"..card.ability.Xmult_mod.." XMult", colour = G.C.MULT})
+            if card.ability.Xmult == 0 then
+              card:start_dissolve()
+            end
         end
       end
       if context.joker_main then
@@ -39,9 +42,7 @@ local eulenspiegel = {
             Xmult_mod = xmlt,
         }
       end
-      if card.ability.Xmult == 0 then
-        self:start_dissolve()
-      end
+      
     end
 }
 return { name = {"Jokers"}, items = {eulenspiegel} }

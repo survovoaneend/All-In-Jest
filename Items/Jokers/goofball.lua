@@ -1,7 +1,7 @@
 local goofball = {
     object_type = "Joker",
     order = 233,
-    ignore = true,
+    
     key = "goofball",
     config = {
       extra = {

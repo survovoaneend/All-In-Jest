@@ -2,7 +2,7 @@ local master_arcanes = {
     object_type = "Consumable",
 	key = 'master_arcanes',
 	set = 'Tarot',
-	 ignore = true,
+	 
 	pos = { x = 4, y = 6 },
 	cost = 3,
 	unlocked = true,

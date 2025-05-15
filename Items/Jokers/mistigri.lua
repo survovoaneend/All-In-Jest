@@ -24,11 +24,10 @@ local mistigri = {
     end,
 
     update = function(self, card, dt)
+
         if not card.area or card.area ~= G.jokers then
             return
         end
-
-
         if not (G.GAME and G.hand and G.jokers and G.hand.cards) then
             return
         end
@@ -39,19 +38,18 @@ local mistigri = {
             end
             return
         end
-
         card.ability.current_bonus_applied = card.ability.current_bonus_applied or 0
-
         local jacks_in_hand = 0
-        for _, v in ipairs(G.hand.cards) do
-            if v.base and v.base.value == 'Jack' then
+        for i = 1, #G.hand.cards do
+            local _card = G.hand.cards[i]
+            if _card then
+            if _card:get_id() == 11 then
                 jacks_in_hand = jacks_in_hand + 1
             end
         end
-
+        end
         local required_bonus = math.floor(jacks_in_hand/2)
         local bonus_difference = required_bonus - card.ability.current_bonus_applied
-
         if bonus_difference ~= 0 then
             if G.hand then
                 G.hand:change_size(bonus_difference)
@@ -59,7 +57,6 @@ local mistigri = {
             card.ability.current_bonus_applied = required_bonus
         end
     end,
-
     remove_from_deck = function(self, card, from_debuff)
         if card.ability.current_bonus_applied and card.ability.current_bonus_applied > 0 then
             if G.hand then

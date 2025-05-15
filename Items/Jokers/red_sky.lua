@@ -1,7 +1,7 @@
 local red_sky = {
     object_type = "Joker",
     order = 125,
-    ignore = true,
+    
     key = "red_sky",
     config = {
       
@@ -20,7 +20,7 @@ local red_sky = {
     end,
   
     calculate = function(self, card, context)
-        if G.GAME.current_round.hands_played == 0 or G.GAME.current_round.hands_left == 0 then
+        if G.GAME.current_round.hands_played == 0 or G.GAME.current_round.hands_left == 0 and not context.blueprint then
             if G.play ~= nil then
                 for _, card in ipairs(G.play.cards) do
                   if context.before then

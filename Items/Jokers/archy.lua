@@ -1,7 +1,7 @@
 local archy = {
     object_type = "Joker",
     order = 1021,
-ignore = true,
+
     key = "archy",
     config = {
       

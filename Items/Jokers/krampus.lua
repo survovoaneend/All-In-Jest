@@ -31,35 +31,40 @@ local krampus = {
 
   calculate = function(self, card, context)
     if context.before and not context.blueprint then
-      local cards = {}
-      for k, v in ipairs(context.scoring_hand) do
-        if v.ability.name == 'Gold Card' then
-          cards[#cards+1] = v
-          v:set_ability(G.P_CENTERS.m_stone, nil, true)
-          G.E_MANAGER:add_event(Event({
+      local enhanced_a_card = false
+      if context.scoring_hand and #context.scoring_hand > 0 then
+        for k, v in ipairs(context.scoring_hand) do
+          if v.config.center == G.P_CENTERS.m_gold and not v.debuff then
+            v:set_ability(G.P_CENTERS.m_stone, nil, true)
+            enhanced_a_card = true
+            G.E_MANAGER:add_event(Event({
               func = function()
-                  card:juice_up()
+                if v and not v.removed then
                   v:juice_up()
-                  return true
+                end
+                return true
               end
-          })) 
+            }))
+          end
         end
       end
-      return {
-        message = 'Stone',
-        colour = G.C.JOKER_GREY
-      }
+      if enhanced_a_card then
+        return {
+          message = 'Stone',
+          colour = G.C.JOKER_GREY
+        }
+      end
     end
     if context.individual and context.cardarea == G.play then
-      if context.other_card.ability.name == 'Stone Card' then
-          local dollar_bonus = card.ability.extra.dollars
-          return {
-              dollars = dollar_bonus,
-              card = card,
-              colour = G.C.MONEY 
-          }
+      if context.other_card.config.center == G.P_CENTERS.m_stone then
+        local dollar_bonus = card.ability.extra.dollars
+        return {
+          dollars = dollar_bonus,
+          card = card,
+          colour = G.C.MONEY
+        }
       end
-  end
+    end
   end
 }
-return { name = {"Jokers"}, items = {krampus} }
+return { name = { "Jokers" }, items = { krampus } }

@@ -1,7 +1,7 @@
 local ultrasound = {
   object_type = "Joker",
   order = 19,
-  ignore = true,
+  
   key = "ultrasound",
   config = {
     

@@ -2,7 +2,7 @@ local cubic_stone_tarot = {
     object_type = "Consumable",
 	key = 'cubic_stone',
 	set = 'Tarot',
-	 ignore = true,
+	 
 	pos = { x = 3, y = 6 },
 	cost = 3,
 	unlocked = true,

@@ -6,7 +6,7 @@ local squeezy_pete = {
 
   config = {
       extra = {
-          bonus = 0.5,
+          bonus = 0.25,
           xmult = 1
       }
   },
