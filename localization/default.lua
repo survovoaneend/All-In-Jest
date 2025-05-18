@@ -1066,7 +1066,17 @@ return {
                 }
             },
             j_aij_biancolelli = { name = "Biancolelli", text = { "" }, unlock = { "?????" } },
-            j_aij_toto = { name = "Toto", text = { "" }, unlock = { "?????" } },
+            j_aij_toto = { 
+                name = "Toto", 
+                text = { 
+                    "When any {C:attention}Tag{} is acquired",
+                    "gain {C:attention}2{} duplicates",
+                    "{C:inactive}(Excludes Double Tag)" 
+                }, 
+                unlock = { 
+                    "?????" 
+                } 
+            },
             j_aij_grock = { name = "Grock", text = { "" }, unlock = { "?????" } },
             j_aij_eulenspiegel = { 
                 name = "Eulenspiegel", 
