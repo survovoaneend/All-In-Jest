@@ -350,6 +350,35 @@ match_indent = true
 [[patches]] 
 [patches.pattern]
 target = "functions/UI_definitions.lua"
+pattern = "_tag.HUD_tag = G.HUD_tags[#G.HUD_tags]"
+position = "after"
+payload = '''
+local has_toto = false
+if G.jokers and G.jokers.cards then
+    for _, j in ipairs(G.jokers.cards) do
+        if j.config and j.config.center_key == "j_aij_toto" then
+            has_toto = true
+            break
+        end
+    end
+end
+
+if has_toto and _tag.key ~= 'tag_double' and (_tag.config.jest_tag_toto_trigger == nil or not _tag.config.jest_tag_toto_trigger) then
+    for i = 1, 2 do
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
+            temptag = Tag(_tag.key)
+            temptag.config.jest_tag_toto_trigger = true
+            add_tag(temptag)
+            return true end }))
+    end
+end
+'''
+match_indent = true
+
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
 pattern = ''' {n=G.UIT.R, config={id = 'blind_name',align = "cm", padding = 0.07}, nodes={
     {n=G.UIT.R, config={align = "cm", r = 0.1, outline = 1, outline_colour = blind_col, colour = darken(blind_col, 0.3), minw = 2.9, emboss = 0.1, padding = 0.07, line_emboss = 1}, nodes={
         {n=G.UIT.O, config={object = DynaText({string = loc_name, colours = {disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE}, shadow = not disabled, float = not disabled, y_offset = -4, scale = 0.45, maxw =2.8})}},
