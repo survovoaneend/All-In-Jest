@@ -13,6 +13,7 @@ return {
         },
         labels = {
             aij_glimmer = "Glimmer",
+            aij_stellar = "Stellar",
         }
     },
     descriptions = {
@@ -72,6 +73,14 @@ return {
                 text = {
                     "Balances {C:attention}#1#%{} of",
                     "{C:mult}Mult{} and {C:chips}Chips"
+                }
+            },
+            e_aij_stellar = {
+                name = "Stellar",
+                text = {
+                    "{C:chips}+#1#{} Chips and",
+                    "{C:mult}+#2#{} Mult per {C:attention}level{}",
+                    "of played hand"
                 }
             },
         },
