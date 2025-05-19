@@ -1614,6 +1614,20 @@ return {
                     'Card to acquire',
                     '{C:inactive}(Must have room)'
                 }
+            },
+            tag_aij_overstuffed = {
+                name = 'Overstuffed Tag',
+                text = {
+                    "Next {C:attention}Booster Pack{} opened",
+                    "contains twice the number of",
+                    "options and avaliable picks"
+                }
+            },
+            tag_aij_chaos = {
+                name = 'Chaos Tag',
+                text = {
+                    "Has a {C:red}random{} effect"
+                }
             }
         },
         Tarot = {
