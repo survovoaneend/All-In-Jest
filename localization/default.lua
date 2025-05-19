@@ -215,9 +215,9 @@ return {
             j_aij_doodle = {
                 name = "Doodle",
                 text = {
-                    "{C:green}#1# in #2#{} chance that this",
-                    "{C:attention}Joker{} copies an adjacent",
-                    "Joker's {C:attention}ability{}"
+                    "{C:green}#1# in #2#{} chance to copy",
+                    "the {C:attention}abilities{} of both",
+                    "adjacent {C:attention}Jokers{}"
                 },
             },
             j_aij_joqr = { name = "Joqr", text = { "" } },
@@ -362,7 +362,15 @@ return {
                     "be {C:red}destroyed" 
                 } 
             },
-            j_aij_hei_tiki = { name = "Hei-tiki", text = { "" } },
+            j_aij_hei_tiki = { 
+                name = "Hei-tiki", 
+                text = { 
+                    "This {C:attention}Joker{} gains {C:red}+#2#{}",
+                    "Mult if played hand's",
+                    "{C:blue}Chips{} exceeds its {C:red}Mult{}",
+                    "{C:inactive}(Currently {C:red}+#1#{} {C:inactive}Mult)"
+                } 
+            },
             j_aij_polybius = { name = "Polybius", text = { "" } },
             j_aij_joker_sighting = { name = "Joker Sighting", text = { "" } },
             j_aij_pencil_drawing = { name = "Pencil Drawing", text = { "" } },
@@ -550,7 +558,15 @@ return {
                     "{C:inactive}(Currently{} {C:blue}+#1#{} {C:inactive}Chips){}"
                 },
             },
-            j_aij_rising_sun = { name = "Rising sun", text = { "" } },
+            j_aij_rising_sun = { 
+                name = "Rising Sun", 
+                text = { 
+                    "Retrigger the {C:attention}first{}",
+                    "and {C:attention}last{} scored cards",
+                    "on the {C:attention}first{} and {C:attention}last{}",
+                    "hands of round",
+                }
+             },
             j_aij_red_sky = {
                 name = "Red Sky",
                 text = {
@@ -720,7 +736,14 @@ return {
             },
             j_aij_arlecchino = { name = "Arlecchino", text = { "" } },
             j_aij_arlecchina = { name = "Arlecchina", text = { "" } },
-            j_aij_taikomochi = { name = "Taikomochi", text = { "" } },
+            j_aij_taikomochi = { 
+                name = "Taikomochi", 
+                text = 
+                { 
+                    "{C:attention}Jacks{} held in hand",
+                    "give {C:blue}+#1#{} Chips"
+                } 
+                },
             j_aij_sudoku = { name = "Sudoku", text = { "" } },
             j_aij_gnasher = { name = "Gnasher", text = { "" } },
             j_aij_executioner = {
@@ -836,9 +859,9 @@ return {
             j_aij_anagraph = { 
                 name = "Anagraph", 
                 text = { 
-                    "When any joker is {C:money}sold{} or",
-                    "{C:red}destroyed{} create an exact",
-                    "copy and immediately",
+                    "When any {C:attention}Joker{} is {C:money}sold{} or",
+                    "{C:red}destroyed{}, create an exact",
+                    "{C:attention}copy{} and immediately",
                     "{C:red}destroy{} it again" 
                 } 
             },
@@ -913,7 +936,15 @@ return {
                 }
             },
             j_aij_great_kraken = { name = "Great Kraken", text = { "" } },
-            j_aij_truhan = { name = "Truhan", text = { "" } },
+            j_aij_truhan = { 
+                name = "Truhan", 
+                text = { 
+                    "This Joker gains {X:red,C:white}X#2#{}",
+                    "Mult when a {C:attention}Joker{} is",
+                    "{C:red}destroyed",
+                    "{C:inactive}(Currently {X:red,C:white}X#1#{} {C:inactive}Mult)"
+                } 
+            },
             j_aij_chippy = { name = "Chippy", text = { "" } },
             j_aij_hofnarr_the_barbarian = {
                 name = "Hofnarr the Barbarian",
@@ -986,6 +1017,13 @@ return {
                     "removed and its effects",
                     "become {C:jest_inherent}inherent" 
                 } 
+            },
+            j_aij_vitruvian_joker = {
+                name = "Vitruvian Clown",
+                text = {
+                    "{X:red,C:white}X#1#{} Mult if exactly {C:attention}5{}",
+                    "Jokers are owned"
+                }
             },
             j_aij_pygmalion = { 
                 name = "Pygmalion", 
@@ -1191,11 +1229,40 @@ return {
                 },
                 unlock = { "?????" } },
             j_aij_mathurine = { name = "Mathurine", text = { "" }, unlock = { "?????" } },
-            j_aij_guillaume = { name = "Guillaume", text = { "" }, unlock = { "?????" } },
-            j_aij_tarlton = { name = "Tarlton", text = { "" }, unlock = { "?????" } },
+            j_aij_guillaume = { 
+                name = "Guillaume", 
+                text = { 
+                    "If {C:attention}Boss Blind{} is",
+                    "defeated with less than",
+                    "{C:attention}5{} Jokers, {C:dark_edition}+#2#{} {C:attention}Joker Slot",
+                    "{C:inactive}(Currently {C:dark_edition}+#1#{C:inactive} Joker Slots){}",
+                },
+                unlock = { "?????" } 
+            },
+            j_aij_tarlton = { 
+                name = "Tarlton", 
+                text = { 
+                    "Gives {C:blue}Chips{} equal to",
+                    "the total {C:blue}Chips{} of the",
+                    "{C:attention}previous hand{} this",
+                    "round",
+                    "{C:inactive}(Currently {C:blue}+#1#{} {C:inactive}Chips){}",
+                }, 
+                unlock = { "?????" }
+            },
             j_aij_roland = { name = "Roland", text = { "" }, unlock = { "?????" } },
             j_aij_borra = { name = "Borra", text = { "" }, unlock = { "?????" } },
-            j_aij_taillefer = { name = "Taillefer", text = { "" }, unlock = { "?????" } },
+            j_aij_taillefer = { 
+                name = "Taillefer", 
+                text = { 
+                    "This Joker gains {X:red,C:white}X#2#{} Mult",
+                    "per hand played,",
+                    "{C:red}self-destructs{} after",
+                    "defeating {C:attention}#3#{} {C:attention}Boss Blinds{}",
+                    "{C:inactive}(Currently {X:red,C:white}X#1#{} {C:inactive}Mult, {C:attention}#4#{C:inactive}/{C:attention}#3#{C:inactive}){}",
+                }, 
+                unlock = { "?????" } 
+            },
             j_aij_killigrew = {
                 name = "Killigrew",
                 text = {

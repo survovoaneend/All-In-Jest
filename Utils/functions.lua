@@ -726,3 +726,4 @@ function create_joker(card_type,tag,message,extra, rarity)
         return true
     end)}))
 end
+

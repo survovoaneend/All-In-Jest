@@ -5,14 +5,14 @@ local slim_joker = {
     key = "slim_joker",
     config = {
       extra = {
-        initial_mult = 30,
-        mult_mod = 5
+        initial_mult = 24,
+        mult_mod = 4
       }
     },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 22, y = 1 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
