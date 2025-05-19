@@ -1,7 +1,6 @@
 local magick_joker = {
     object_type = "Joker",
     order = 88,
-    ignore = true,
     key = "magick_joker",
     config = {
       current_suit = "Spades",
@@ -26,7 +25,20 @@ local magick_joker = {
     end,
   
     calculate = function(self, card, context)
-        if G.play ~= nil then
+        local has_magick_joker = false
+
+        if G.jokers and G.jokers.cards then
+            for _, j in ipairs(G.jokers.cards) do
+                local k = j.config and j.config.center_key
+                if k == "j_aij_magick_joker" then 
+                    if j == card then
+                        has_magick_joker = true
+                    end
+                    break
+                end
+            end
+        end
+        if G.play ~= nil and has_magick_joker then
             for _, card in ipairs(G.play.cards) do
               if context.before then
                 local saved = card.ability._saved_chip_values
