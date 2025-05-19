@@ -3,7 +3,6 @@ local glimmer = {
     key = 'glimmer', 
     pos = { x = 2, y = 0},
     atlas = 'tag_atlas',
-     ignore = true,
     order = 2,
     config = {type = 'store_joker_modify', edition = 'aij_glimmer'},
     loc_vars = function(self, info_queue)

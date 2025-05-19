@@ -167,7 +167,9 @@ local chaos = {
                 end
                 return true
             end)
-            tag.triggered = true
+            if tag.HUD_tag.states.visible == false then
+                tag.triggered = true
+            end
             return true
         end
     end,
