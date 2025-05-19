@@ -1,7 +1,7 @@
 local corpse_paint = {
     object_type = "Joker",
     order = 212,
-    ignore = true,
+    
     key = "corpse_paint",
     config = {
       odds = 3,

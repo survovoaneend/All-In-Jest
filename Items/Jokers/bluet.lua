@@ -1,7 +1,7 @@
 local bluet = {
     object_type = "Joker",
     order = 1041,
-     ignore = true,
+    
     key = "bluet",
     config = {
       

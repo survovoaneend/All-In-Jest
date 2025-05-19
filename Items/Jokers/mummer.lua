@@ -1,7 +1,7 @@
 local mummer = {
   object_type = "Joker",
   order = 158,
-ignore = true,
+
   key = "mummer",
   config = {
     triggers = "0"

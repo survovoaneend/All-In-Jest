@@ -6,7 +6,7 @@ local glimmer_shader = {
 local glimmer = {
     object_type = "Edition",
     key = 'glimmer', 
-    ignore = true,
+    
     order = 0,
     config = { percent = 10 },
     loc_vars = function(self, info_queue)

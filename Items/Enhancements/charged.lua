@@ -2,7 +2,7 @@ local charged = {
     object_type = "Enhancement",
     key = 'charged',
     atlas = 'enhancements_atlas',
-     ignore = true,
+    
     order = 2,
     pos = { x = 2, y = 0 },
     config = {

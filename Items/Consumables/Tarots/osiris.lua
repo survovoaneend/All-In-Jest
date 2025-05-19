@@ -4,7 +4,7 @@ local osiris = {
 	set = 'Tarot',
 	pos = { x = 6, y = 0 },
 	cost = 3,
-     ignore = true,
+   
 	unlocked = true,
 	discovered = false,
 	order = 6,

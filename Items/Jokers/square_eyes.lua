@@ -1,7 +1,7 @@
 local square_eyes = {
     object_type = "Joker",
     order = 49,
-     ignore = true,
+  
     key = "square_eyes",
     config = {
       extra = {

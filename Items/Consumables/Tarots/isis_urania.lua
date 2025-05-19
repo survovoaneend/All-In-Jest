@@ -2,7 +2,7 @@ local isis_urania = {
     object_type = "Consumable",
 	key = 'isis_urania',
 	set = 'Tarot',
-	 ignore = true,
+	 
 	pos = { x = 2, y = 6 },
 	cost = 3,
 	unlocked = true,

@@ -1,7 +1,7 @@
 local pipine = {
     object_type = "Joker",
     order = 1043,
-     ignore = true,
+    
     key = "pipine",
     config = {
       discards = 5

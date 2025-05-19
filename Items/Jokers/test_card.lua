@@ -1,7 +1,7 @@
 local test_card = {
     object_type = "Joker",
     order = 296,
-     ignore = true,
+    
     key = "test_card",
     config = {
        

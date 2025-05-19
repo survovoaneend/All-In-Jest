@@ -1,7 +1,7 @@
 local soviet = {
     object_type = "Joker",
     order = 53,
-     ignore = true,
+    
     key = "soviet",
     config = {
       extra = {

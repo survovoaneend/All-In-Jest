@@ -1,7 +1,7 @@
 local slim_joker = {
     object_type = "Joker",
     order = 51,
-     ignore = true,
+     
     key = "slim_joker",
     config = {
       extra = {
@@ -9,10 +9,10 @@ local slim_joker = {
         mult_mod = 5
       }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 22, y = 1 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

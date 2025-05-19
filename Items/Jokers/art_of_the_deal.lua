@@ -1,7 +1,7 @@
 local art_of_the_deal = {
     object_type = "Joker",
     order = 40,
-ignore = true,
+
     key = "art_of_the_deal",
     config = {
       extra = {
@@ -25,6 +25,9 @@ ignore = true,
     calculate = function(self, card, context)
       if context.jest_money_earned and context.jest_earned_sign == "+" and to_big(G.GAME.dollars) > to_big(0) and not context.blueprint then
         card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
+        return {
+          message = localize('k_upgrade_ex')
+        }
       end
       if to_big(G.GAME.dollars) <= to_big(0) and card.ability.extra.mult ~= 0 and not context.blueprint then
         card.ability.extra.mult = 0
