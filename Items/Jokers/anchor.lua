@@ -1,7 +1,7 @@
 local anchor = {
     object_type = "Joker",
     order = 59,
-    ignore = true,
+
     key = "anchor",
     config = {
       
@@ -41,7 +41,7 @@ function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_jui
   if has_anchor then
     local left  = location - 1
     local right = location + 1
-    local nearby = (left >= 1 and G.jokers.cards[left].label == self.config.center_key) or (right <= #G.jokers.cards and G.jokers.cards[right].label == self.config.center_key)
+    local nearby = (left >= 1 and G.jokers.cards[left].config.center_key == self.config.center_key) or (right <= #G.jokers.cards and G.jokers.cards[right].config.center_key == self.config.center_key)
 
     if nearby and self.ability.jest_sold_self == nil then
         return false
