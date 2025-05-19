@@ -3,7 +3,6 @@ local fortunate_tag = {
     key = 'fortunate',
     pos = { x = 4, y = 0 },
     atlas = 'tag_atlas',
-    
     discovered = false,
     order = 4, -- This is the 2nd in game but 5th on the list, does not negativiely effct order
 
@@ -37,7 +36,9 @@ local fortunate_tag = {
             function() 
                 return #G.consumeables.cards < G.consumeables.config.card_limit
             end)
-            tag.triggered = true
+            if tag.HUD_tag.states.visible == false then
+                tag.triggered = true
+            end
             return true
         end
     end,

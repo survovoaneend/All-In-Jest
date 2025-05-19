@@ -1,7 +1,6 @@
 local imperial_bower = {
     object_type = "Joker",
     order = 18,
-    
     key = "imperial_bower",
     config = {
       
@@ -33,9 +32,10 @@ local imperial_bower = {
             if G.hand ~= nil and G.hand.cards then
                 G.hand.cards[#G.hand.cards].ability.jest_all_rank = true
                 G.hand.cards[#G.hand.cards].ability.jest_all_suit = true
+                card_eval_status_text(G.hand.cards[#G.hand.cards], 'extra', nil, nil, nil, {message = 'Enhanced!', colour = G.C.FILTER})
             end
         end
-        if context.end_of_round then
+        if context.cashing_out then
             if G.deck ~= nil and G.deck.cards then
                 for i = 1, #G.deck.cards do
                     G.deck.cards[i].ability.jest_all_rank = nil

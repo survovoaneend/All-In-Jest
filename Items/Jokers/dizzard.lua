@@ -1,7 +1,7 @@
 local dizzard = {
   object_type = "Joker",
   order = 161,
- 
+
   key = "dizzard",
   config = {
     
@@ -24,12 +24,17 @@ local dizzard = {
         stop_use()
             G.deck:shuffle('cashout'..G.GAME.round_resets.ante)
             G.deck:hard_set_T()
+            G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext1').config.object.pop_delay = 0
+            G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext1').config.object:pop_out(5)
+            G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext2').config.object.pop_delay = 0
+            G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext2').config.object:pop_out(5) 
             delay(0.3)
             G.E_MANAGER:add_event(Event({
               trigger = 'immediate',
               func = function()
                   if G.blind_select then 
                     G.blind_select:remove()
+                    G.blind_prompt_box:remove()
                     G.blind_select = nil
                   end
                   G.GAME.current_round.jokers_purchased = 0
