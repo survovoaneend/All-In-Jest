@@ -1,7 +1,6 @@
 local toto = {
     object_type = "Joker",
     order = 1011,
-    ignore = true,
 
     key = "toto",
     config = {
@@ -11,7 +10,7 @@ local toto = {
 	unlock_condition = {hidden = true},
     pos = { x = 0, y = 2},
     atlas = 'legendary_atlas',
-    cost = 4,
+    cost = 20,
     unlocked = false,
     discovered = false,
     blueprint_compat = false,

@@ -1,7 +1,7 @@
 local pellesini = {
     object_type = "Joker",
     order = 1007,
-    
+
     key = "pellesini",
     config = {
       
@@ -38,7 +38,7 @@ function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_jui
             if k == "j_aij_pellesini" then has_pellesini = has_pellesini + 1 end
         end
     end
-    if has_pellesini >= 0 and self.ability.jest_sold_self == nil and (#G.jokers.cards < G.jokers.config.card_limit or (self.edition ~= nil and self.edition.negative)) then
+    if has_pellesini >= 0 and self.ability.jest_sold_self == nil and (#G.jokers.cards <= G.jokers.config.card_limit or (self.edition ~= nil and self.edition.negative)) then
         for i = 1, has_pellesini do
             G.E_MANAGER:add_event(Event({trigger = 'before', delay = 0.4, func = function()
                 local card = copy_card(self, nil, nil, nil, false)

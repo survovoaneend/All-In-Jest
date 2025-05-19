@@ -13,6 +13,7 @@ return {
         },
         labels = {
             aij_glimmer = "Glimmer",
+            aij_stellar = "Stellar",
         }
     },
     descriptions = {
@@ -74,6 +75,14 @@ return {
                     "{C:mult}Mult{} and {C:chips}Chips"
                 }
             },
+            e_aij_stellar = {
+                name = "Stellar",
+                text = {
+                    "{C:chips}+#1#{} Chips and",
+                    "{C:mult}+#2#{} Mult per {C:attention}level{}",
+                    "of played hand"
+                }
+            },
         },
         Joker = {
             j_aij_flying_ace = {
@@ -111,14 +120,6 @@ return {
                     "{C:inactive}(#2#)"
                 },
             },
-            j_aij_sleepy_joker = {
-                name = "Sleepy Joker", 
-                text = { 
-                    "{X:red,C:white}X#1#{} Mult if played hand",
-                    "contains only {C:spades}Spades{} or",
-                    "{C:clubs}Clubs"
-                } 
-            },
             j_aij_memory_card = { 
                 name = "Memory Card", 
                 text = { 
@@ -129,6 +130,7 @@ return {
                     "{C:inactive}(Can only store one card)" 
                 } 
             },
+            j_aij_sleepy_joker = { name = "Sleepy Joker", text = { "" } },
             j_aij_invisible_man = { 
                 name = "Invisible Man", 
                 text = { 
@@ -295,14 +297,7 @@ return {
                 }
             },
             j_aij_cool_joker = { name = "Cool Joker", text = { "" } },
-            j_aij_square_eyes = { 
-                name = "Square Eyes", 
-                text = { 
-                    "Played {C:attention}4s{} give {C:red}+#1#",
-                    "Mult per {C:attention}4{} in the",
-                    "played hand"
-                } 
-            },
+            j_aij_square_eyes = { name = "Square Eyes", text = { "" } },
             j_aij_punk_joker = {
                 name = "Punk Joker",
                 text = {
@@ -312,23 +307,9 @@ return {
                     "{C:attention}Wild Card{}"
                 },
             },
-            j_aij_slim_joker = { 
-                name = "Slim Joker", 
-                text = { 
-                    "{C:red}+#1#{} Mult" ,
-                    "Gives {C:red}#2# less{} Mult per",
-                    "card in the {C:attention}played hand"
-                } 
-            },
+            j_aij_slim_joker = { name = "Slim Joker", text = { "" } },
             j_aij_wireframe = { name = "Wireframe", text = { "" } },
-            j_aij_soviet = { 
-                name = "Soviet", 
-                text = {
-                    "{C:red}+#1#{} Mult if {C:attention}played",
-                    "{C:attention}hand{} contains no",
-                    "{C:attention}Kings{} or {C:attention}Queens"
-                } 
-            },
+            j_aij_soviet = { name = "Soviet", text = { "" } },
             j_aij_mustachio = { name = "Mustachio", text = { "" } },
             j_aij_penny = {
                 name = "Penny",
@@ -338,14 +319,6 @@ return {
                     "{C:attention}retrigger"
                 },
             },
-            j_aij_silly_sausage = { 
-                name = "Silly Sausage", 
-                text = { 
-                    "{C:green}Rerolls{} cost {C:money}$#1#{} less,",
-                    "{C:attention}decreases{} by {C:money}$1{} at",
-                    "end of round"
-                } 
-            },
             j_aij_doctors_note = { 
                 name = "Doctor's Note", 
                 text = { 
@@ -354,6 +327,7 @@ return {
                     "{C:attention}rank" 
                 } 
             },
+            j_aij_silly_sausage = { name = "Silly Sausage", text = { "" } },
             j_aij_joker_baby = { name = "Joker Baby", text = { "" } },
             j_aij_anchor = { 
                 name = "Anchor", 
@@ -622,7 +596,7 @@ return {
             j_aij_cosmological_constant = {
                 name = "Cosmological Constant",
                 text = {
-                    "{C:aij_plasma}Balance{} base {C:blue}Chips{} and {C:red}Mult{} of",
+                    "{C:attention}Balance{} base {C:blue}Chips{} and {C:red}Mult{} of",
                     "{C:attention}played hand"
                 },
             },
@@ -652,7 +626,7 @@ return {
             j_aij_average_joe = {
                  name = "Average Joe", 
                  text = { 
-                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of",
+                    "{C:aij_plasma}Balance{} {C:attention}20%{} of",
                     "{C:blue}Chips{} and {C:red}Mult{}"
                 } 
             },
@@ -962,14 +936,7 @@ return {
                 }
             },
             j_aij_visage = { name = "Visage", text = { "" } },
-            j_aij_goofball = { 
-                name = "Goofball", 
-                text = { 
-                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of {C:red}Mult{}",
-                    "and {C:blue}Chips{} when any",
-                    "{C:attention}face{} card is {C:attention}scored"
-                } 
-            },
+            j_aij_goofball = { name = "Goofball", text = { "" } },
             j_aij_heyokha = { name = "Heyókȟa", text = { "" } },
             j_aij_mistake = {
                 name = "Mistake",
@@ -994,14 +961,6 @@ return {
                     "considered {C:attention}Queens",
                 } 
             },
-            j_aij_chips_n_dip = {
-                name = "Chips n' Dip",
-                text = {
-                    "{X:blue,C:white}X#1#{} Chips, decreases",
-                    "by {X:blue,C:white}X#2#{} Chips at end",
-                    "of {C:attention}round"
-                }
-            },
             j_aij_test_card = { 
                 name = "Test Card", 
                 text = { 
@@ -1015,14 +974,6 @@ return {
                     "Scoring {C:attention}Charged Cards{}",
                     "give {C:mult}X#1#{} Mult",
                 } 
-            },
-            j_aij_candy_floss = {
-                name = "Candy Floss",
-                text = {
-                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of {C:red}Mult{}",
-                    "and {C:blue}Chips{}, decreases",
-                    "by {C:attention}#2#%{} at end of round"
-                }
             },
 
 
@@ -1119,7 +1070,17 @@ return {
                 }
             },
             j_aij_biancolelli = { name = "Biancolelli", text = { "" }, unlock = { "?????" } },
-            j_aij_toto = { name = "Toto", text = { "" }, unlock = { "?????" } },
+            j_aij_toto = { 
+                name = "Toto", 
+                text = { 
+                    "When any {C:attention}Tag{} is acquired",
+                    "gain {C:attention}2{} duplicates",
+                    "{C:inactive}(Excludes Double Tag)" 
+                }, 
+                unlock = { 
+                    "?????" 
+                } 
+            },
             j_aij_grock = { name = "Grock", text = { "" }, unlock = { "?????" } },
             j_aij_eulenspiegel = { 
                 name = "Eulenspiegel", 
@@ -1639,7 +1600,7 @@ return {
                 text = {
                     'Next base edition shop',
                     'Joker is free and',
-                    'becomes {C:aij_plasma}Glimmer'
+                    'becomes {C:edition}Glimmer'
                 }
             },
             tag_aij_soulbound = {
@@ -1656,6 +1617,20 @@ return {
                     'Choose {C:attention}1{} {C:tarot}Tarot{}',
                     'Card to acquire',
                     '{C:inactive}(Must have room)'
+                }
+            },
+            tag_aij_overstuffed = {
+                name = 'Overstuffed Tag',
+                text = {
+                    "Next {C:attention}Booster Pack{} opened",
+                    "contains twice the number of",
+                    "options and avaliable picks"
+                }
+            },
+            tag_aij_chaos = {
+                name = 'Chaos Tag',
+                text = {
+                    "Has a {C:red}random{} effect"
                 }
             }
         },

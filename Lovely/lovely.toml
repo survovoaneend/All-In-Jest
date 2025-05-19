@@ -243,6 +243,82 @@ end
 
 [[patches]]
 [patches.pattern]
+target = "card.lua"
+pattern = "G.GAME.pack_choices = self.ability.choose or self.config.center.config.choose or 1"
+position = "after" 
+match_indent = true
+payload = '''
+if G.GAME.jest_change_booster_options.trigger then
+    if G.GAME.jest_change_booster_options.option == "pick" or G.GAME.jest_change_booster_options.option == "both" then
+        -- Pemdas order
+        if G.GAME.jest_change_booster_options.op.mult ~= 0 then
+            G.GAME.pack_choices = G.GAME.pack_choices * G.GAME.jest_change_booster_options.op.mult
+            if G.GAME.jest_change_booster_options.option ~= "both" then
+                G.GAME.jest_change_booster_options.op.mult = 0
+            end
+        end
+        if G.GAME.jest_change_booster_options.op.div ~= 0 then
+            G.GAME.pack_choices = G.GAME.pack_choices / G.GAME.jest_change_booster_options.op.div
+            if G.GAME.jest_change_booster_options.option ~= "both" then
+                G.GAME.jest_change_booster_options.op.div = 0
+            end
+        end
+        if G.GAME.jest_change_booster_options.op.add ~= 0 then
+            G.GAME.pack_choices = G.GAME.pack_choices + G.GAME.jest_change_booster_options.op.add
+            if G.GAME.jest_change_booster_options.option ~= "both" then
+                G.GAME.jest_change_booster_options.op.add = 0
+            end
+        end
+        if G.GAME.jest_change_booster_options.op.sub ~= 0 then
+            G.GAME.pack_choices = G.GAME.pack_choices - G.GAME.jest_change_booster_options.op.sub
+            if G.GAME.jest_change_booster_options.option ~= "both" then
+                G.GAME.jest_change_booster_options.op.sub = 0
+            end
+        end
+        if G.GAME.jest_change_booster_options.option ~= "both" then
+            G.GAME.jest_change_booster_options.option = ""
+        end
+    end
+    if G.GAME.jest_change_booster_options.option ~= "both" then
+        G.GAME.jest_change_booster_options.trigger = false
+    end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "local _size = self.ability.extra"
+position = "after" 
+match_indent = true
+payload = '''
+if G.GAME.jest_change_booster_options.trigger then
+    if G.GAME.jest_change_booster_options.option == "size" or G.GAME.jest_change_booster_options.option == "both" then
+        -- Pemdas order
+        if G.GAME.jest_change_booster_options.op.mult ~= 0 then
+            _size = _size * G.GAME.jest_change_booster_options.op.mult
+            G.GAME.jest_change_booster_options.op.mult = 0
+        end
+        if G.GAME.jest_change_booster_options.op.div ~= 0 then
+            _size = _size / G.GAME.jest_change_booster_options.op.div
+            G.GAME.jest_change_booster_options.op.div = 0
+        end
+        if G.GAME.jest_change_booster_options.op.add ~= 0 then
+            _size = _size + G.GAME.jest_change_booster_options.op.add
+            G.GAME.jest_change_booster_options.op.add = 0
+        end
+        if G.GAME.jest_change_booster_options.op.sub ~= 0 then
+            _size = _size - G.GAME.jest_change_booster_options.op.sub
+            G.GAME.jest_change_booster_options.op.sub = 0
+        end
+        G.GAME.jest_change_booster_options.option = ""
+    end
+    G.GAME.jest_change_booster_options.trigger = false
+end
+'''
+
+[[patches]]
+[patches.pattern]
 target = "game.lua"
 pattern = "G.CONTROLLER:snap_to({node = G.shop:get_UIE_by_ID('next_round_button')})"
 position = "before"
@@ -346,6 +422,35 @@ if G.jokers ~= nil and G.jokers.cards then
 end
 '''
 match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "_tag.HUD_tag = G.HUD_tags[#G.HUD_tags]"
+position = "after"
+payload = '''
+local has_toto = false
+if G.jokers and G.jokers.cards then
+    for _, j in ipairs(G.jokers.cards) do
+        if j.config and j.config.center_key == "j_aij_toto" then
+            has_toto = true
+            break
+        end
+    end
+end
+
+if has_toto and _tag.key ~= 'tag_double' and (_tag.config.jest_tag_toto_trigger == nil or not _tag.config.jest_tag_toto_trigger) then
+    for i = 1, 2 do
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
+            temptag = Tag(_tag.key)
+            temptag.config.jest_tag_toto_trigger = true
+            add_tag(temptag)
+            return true end }))
+    end
+end
+'''
+match_indent = true
+
 
 [[patches]] 
 [patches.pattern]
