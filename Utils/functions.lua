@@ -683,7 +683,7 @@ function Tag:jest_apply(message, _colour, func, statement) -- Play on words just
                     play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
                     play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
                     temptrigger = true
-                end
+                  end 
                 return true
             end)
         }))
@@ -786,3 +786,4 @@ function create_joker(card_type,tag,message,extra, rarity)
         return true
     end)}))
 end
+

@@ -6,7 +6,7 @@ local sleepy_joker = {
     key = "sleepy_joker",
     config = {
       extra = {
-        xmult = 3
+        xmult = 2
       }
     },
     rarity = 2,
