@@ -849,8 +849,8 @@ return {
                 name = "Touchstone",
                 text = {
                     "{C:attention}+#1#{} hand size,",
-                    "reveals the next {C:attention}#2#{}",
-                    "cards in your deck",
+                    "reveals the next {C:attention}#2#{} cards in your",
+                    "deck in order from left to right",
                 },
                 unlock = { "?????" }
             },
