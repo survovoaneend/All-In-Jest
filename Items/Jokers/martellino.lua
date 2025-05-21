@@ -15,7 +15,7 @@ local martellino = {
     unlocked = false,
     discovered = false,
     blueprint_compat = false,
-    eternal_compat = true, -- Egg has it so why not
+    eternal_compat = false, 
     soul_pos = { x = 9, y = 9},
   
     loc_vars = function(self, info_queue, card)

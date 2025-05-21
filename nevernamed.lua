@@ -115,6 +115,14 @@ SMODS.Gradient {
     cycle = 5,
     interpolation = 'trig'
 }
+SMODS.Gradient {
+    key = 'stellar',
+    colours = {
+        HEX('666694'), HEX('7a73bb')
+    },
+    cycle = 5,
+    interpolation = 'trig'
+}
 AllInJest = {}
 assert(SMODS.load_file('Utils/context.lua'))()
 assert(SMODS.load_file('Utils/functions.lua'))()

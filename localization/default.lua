@@ -547,7 +547,14 @@ return {
             },
             j_aij_columbina = { name = "Columbina", text = { "" } },
             j_aij_j_file = { name = "J-File", text = { "" } },
-            j_aij_bumper_sticker = { name = "Bumper Sticker", text = { "" } },
+            j_aij_bumper_sticker = { 
+                name = "Bumper Sticker", 
+                text = { 
+                    "Every played {C:attention}card",
+                    "permanently gains {C:red}+#1#",
+                    "Mult when {C:attention}scored"
+            } 
+            },
             j_aij_vesti_la_guibba = { name = "Vesti la Guibba", text = { "" } },
             j_aij_dead_president = {
                 name = "Dead President",
@@ -760,7 +767,15 @@ return {
                     "give {C:blue}+#1#{} Chips"
                 } 
                 },
-            j_aij_sudoku = { name = "Sudoku", text = { "" } },
+            j_aij_sudoku = { 
+                name = "Sudoku", 
+                text = { 
+                    "This Joker gains {X:red,C:white}X#1#{} Mult",
+                    "if played hand contains a",
+                    "{C:attention}Straight{}, resets if not",
+                    "{C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)"
+            } 
+            },
             j_aij_gnasher = { name = "Gnasher", text = { "" } },
             j_aij_executioner = {
                 name = "Executioner",
@@ -909,7 +924,15 @@ return {
             j_aij_spiders_georg = { name = "Spiders Georg", text = { "" } },
             j_aij_gille = { name = "Gille", text = { "" } },
             j_aij_fulehung = { name = "Fulehung", text = { "" } },
-            j_aij_bearded_joker = { name = "Bearded Joker", text = { "" } },
+            j_aij_bearded_joker = { 
+                name = "Bearded Joker", 
+                text = { 
+                    "{C:red}+#1#{} Mult for each",
+                    "{C:attention}enhanced{} card in your",
+                    "{C:attention}full deck",
+                    "{C:inactive}(Currently {C:red}+#2#{} {C:inactive}Mult)"
+                } 
+            },
             j_aij_skomorokh = { name = "Skomorokh", text = { "" } },
             j_aij_silly_billy = { name = "Silly Billy", text = { "" } },
             j_aij_ijoker_co = { name = "iJoker.co", text = { "" } },
@@ -1034,8 +1057,21 @@ return {
             j_aij_curse_of_scotland = { name = "Curse of Scotland", text = { "" } },
             j_aij_banana_man = { name = "Banana Man", text = { "" } },
             j_aij_corny_joker = { name = "Corny Joker", text = { "" } },
-            j_aij_entropy = { name = "Entropy", text = { "" } },
-            j_aij_urchin = { name = "Urchin", text = { "" } },
+            j_aij_entropy = { 
+                name = "Entropy", 
+                text = { 
+                    "Gain a {C:attention}Chaos Tag",
+                    "when Blind is {C:attention}skipped"
+                } 
+            },
+            j_aij_urchin = { 
+                name = "Urchin", 
+                text = { 
+                    "Earn {C:money}$#1#{} at end of",
+                    "round, increases by {C:money}$#2#{}",
+                    "when Blind is {C:attention}skipped",
+                } 
+            },
             j_aij_machine_intelligence = { name = "Machine Intelligence", text = { "" } },
             j_aij_grandma = { name = "Grandma", text = { "" } },
             j_aij_funny_money = { name = "Funny Money", text = { "" } },
@@ -1051,8 +1087,23 @@ return {
             j_aij_fuzzy_joker = { name = "Fuzzy Joker", text = { "" } },
             j_aij_saucy_jacky = { name = "Saucy Jacky", text = { "" } },
             j_aij_funny_phone = { name = "Funny Phone", text = { "" } },
-            j_aij_taggart = { name = "Taggart", text = { "" } },
-            j_aij_chitty = { name = "Chitty", text = { "" } },
+            j_aij_taggart = { 
+                name = "Taggart", 
+                text = { 
+                    "When any {C:attention}Tag{} is",
+                    "aquired, {C:attention}duplicate{} it",
+                    "{C:inactive}(Except Double Tag)"
+
+                    
+            } 
+            },
+            j_aij_chitty = { 
+                name = "Chitty", 
+                text = { 
+                    "{C:attention}#1#{} additional {C:attention}Voucher",
+                    "available for {C:money}purchase" 
+            } 
+            },
             j_aij_whatsisname = { name = "Whatsisname", text = { "" } },
             j_aij_downing_street = { name = "Downing Street", text = { "" } },
             j_aij_one_little_duck = { name = "One Little Duck", text = { "" } },
@@ -1143,11 +1194,31 @@ return {
             },
             j_aij_stargazy_pie = { name = "Stargazy Pie", text = { "" } },
             j_aij_gameshow = { name = "Gameshow", text = { "" } },
-            j_aij_bonus_pay = { name = "Bonus Pay", text = { "" } },
+            j_aij_bonus_pay = { 
+                name = "Bonus Pay", 
+                text = { 
+                    "Earn {C:money}$#1#{} when a",
+                    "{C:attention}Bonus{} card is",
+                    "scored"
+                } 
+            },
             j_aij_illuminated_joker = { name = "Illuminated Joker", text = { "" } },
             j_aij_magazine_ad = { name = "Magazine Ad", text = { "" } },
-            j_aij_bonus_bob = { name = "Bonus Bob", text = { "" } },
-            j_aij_bonus_round = { name = "Bonus Round", text = { "" } },
+            j_aij_bonus_bob = { 
+                name = "Bonus Bob", 
+                text = { 
+                    "{C:attention}Bonus{} cards give",
+                    "{X:blue,C:white}X#1#{} Chips when",
+                    "scored"
+                } 
+            },
+            j_aij_bonus_round = { 
+                name = "Bonus Round", 
+                text = { 
+                    "{C:attention}Retrigger{} all scoring",
+                    "{C:attention}Bonus{} cards",
+            } 
+            },
             j_aij_jack_o_lantern = { name = "Jack o' Lantern", text = { "" } },
             j_aij_astrologer = { name = "Astrologer", text = { "" } },
             j_aij_planetarium = { name = "Planetarium", text = { "" } },
@@ -1826,7 +1897,15 @@ return {
                 text = {
                     'Next base edition shop',
                     'Joker is free and',
-                    'becomes {C:edition}Glimmer'
+                    'becomes {C:aij_plasma}Glimmer'
+                }
+            },
+            tag_aij_stellar = {
+                name = 'Stellar Tag',
+                text = {
+                    'Next base edition shop',
+                    'Joker is free and',
+                    'becomes {C:aij_stellar}Stellar'
                 }
             },
             tag_aij_soulbound = {
