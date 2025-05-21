@@ -294,7 +294,7 @@ AllInJest.touchstone_deck_preview = function()
         if #G.deck.cards-i >= 1 then
             local card = copy_card(G.deck.cards[#G.deck.cards-i], nil, nil, G.playing_card)
             if G.jokers and touchstone_card.area == G.jokers then
-                card:flip()
+                card.facing = 'front'
             end
             table.insert(cards, card)
         end
