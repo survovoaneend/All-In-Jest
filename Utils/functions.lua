@@ -290,9 +290,9 @@ end
 AllInJest.touchstone_deck_preview = function()
     local touchstone_card = SMODS.find_card('j_aij_touchstone')[1]
     local cards = {}
-    for i = 1, touchstone_card.ability.future_sense do 
-        if #G.deck.cards-i >= 1 then
-            local card = copy_card(G.deck.cards[#G.deck.cards-i], nil, nil, G.playing_card)
+    for i = #G.deck.cards, #G.deck.cards - touchstone_card.ability.future_sense + 1, -1 do
+        if i > 0 then
+            local card = copy_card(G.deck.cards[i], nil, nil, G.playing_card)
             if G.jokers and touchstone_card.area == G.jokers then
                 card.facing = 'front'
             end
