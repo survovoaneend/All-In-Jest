@@ -23,16 +23,16 @@ local touchstone = {
     end,
   
     add_to_deck = function(self, card, from_debuff)
-        G.hand:change_size(2)
+        G.hand:change_size(card.ability.hand_size)
     end,
 
     remove_from_deck = function(self, card, from_debuff)
-        G.hand:change_size(-2)
+        G.hand:change_size(-card.ability.hand_size)
     end,
     generate_ui = function(self, info_queue, cardd, desc_nodes, specific_vars, full_UI_table)
         if G.deck ~= nil and cardd.area == G.jokers then
             local cards = {}
-            for i = 1, self.config.future_sense do 
+            for i = 1, cardd.ability.future_sense do 
                 if #G.deck.cards-i >= 1 then
                     local card = copy_card(G.deck.cards[#G.deck.cards-i], nil, nil, G.playing_card)
                     if G.jokers and self.area == G.jokers then
