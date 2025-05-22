@@ -9,10 +9,10 @@ local art_of_the_deal = {
         mult_mod = 1
       }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 12, y = 1 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 7,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

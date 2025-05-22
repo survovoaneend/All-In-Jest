@@ -3,9 +3,18 @@ local stellar_shader = {
     key = 'stellar', 
     path = 'stellar.fs',
 }
+SMODS.Sound {
+  key = 'stellar',
+  path = 'stellar.mp3'
+}
 local stellar = {
     object_type = "Edition",
     key = 'stellar', 
+    sound = {
+        sound = 'aij_stellar',
+        per = 1,
+        vol = 1
+    },
     order = 2,
     config = { chips = 5, mult = 1 },
     loc_vars = function(self, info_queue)
@@ -13,8 +22,8 @@ local stellar = {
     end,
     calculate = function(self, card, context)
 		if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
-            local chip = G.GAME.hands[context.scoring_name].level * G.P_CENTERS.e_aij_stellar.config.chips
-            local mul = G.GAME.hands[context.scoring_name].level * G.P_CENTERS.e_aij_stellar.config.mult
+            local chip = G.GAME.hands[context.scoring_name].level * self.config.chips
+            local mul = G.GAME.hands[context.scoring_name].level * self.config.mult
 			return {
 				chips = chip,
 				mult = mul
@@ -22,8 +31,8 @@ local stellar = {
 		end
 	end,
     in_shop = true,
-    weight = 3,
-    extra_cost = 5,
+    weight = 10,
+    extra_cost = 2,
     get_weight = function(self)
         return G.GAME.edition_rate * self.weight
     end,

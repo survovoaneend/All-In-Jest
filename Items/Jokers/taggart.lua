@@ -1,19 +1,19 @@
 local taggart = {
     object_type = "Joker",
     order = 262,
-    ignore = true,
+    
     key = "taggart",
     config = {
       
     },
-    rarity = 1,
+    rarity = 3,
     pos = { x = 10, y = 10},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 8,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
   

@@ -13,8 +13,8 @@ local angoulevent = {
     cost = 20,
     unlocked = false,
     discovered = false,
-    blueprint_compat = false,
-    eternal_compat = false,
+    blueprint_compat = true,
+    eternal_compat = true,
     soul_pos = { x = 8, y = 7},
   
     loc_vars = function(self, info_queue, card)

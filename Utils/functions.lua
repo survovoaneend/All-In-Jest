@@ -620,6 +620,32 @@ function Card:remove_prediction_card()
     end
 end
 
+function get_probability(rnd_val, op, num, den)
+    --Maninulate numerator/denominatior here
+    local threshold = num / den
+    local result = false
+
+    if op == "<" then result = rnd_val < threshold
+    elseif op == "<=" then result = rnd_val <= threshold
+    elseif op == ">" then result = rnd_val > threshold
+    elseif op == ">=" then result = rnd_val >= threshold
+    elseif op == "==" then result = rnd_val == threshold
+    elseif op == "~=" then result = rnd_val ~= threshold
+    else error("bad op: "..tostring(op)) end
+
+    if result then
+        SMODS.calculate_context({
+            probability_trigger = {result = true, numerator = num, denominator = den}
+        })
+    else
+        SMODS.calculate_context({
+            probability_trigger = {result = false, numerator = num, denominator = den}
+        })
+    end
+
+    return result
+end
+
 local remove = Card.remove
 function Card:remove(...)
     self:remove_prediction_card()
