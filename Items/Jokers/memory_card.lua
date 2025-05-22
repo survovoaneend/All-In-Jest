@@ -11,9 +11,9 @@ local memory_card = {
     atlas = 'joker_atlas',
     cost = 8,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
   

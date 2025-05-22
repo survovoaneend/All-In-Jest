@@ -13,9 +13,9 @@ local average_joe = {
     atlas = 'joker_atlas',
     cost = 6,
     unlocked = true,
-    discovered = true,
-    blueprint_compat = false,
-    eternal_compat = false,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
       return {
@@ -27,7 +27,7 @@ local average_joe = {
   
     calculate = function(self, card, context)
       if context.joker_main then
-        balance_percent(card,(card.ability.extra.percent*0.01))
+        return balance_percent(card,(card.ability.extra.percent*0.01))
       end
     end
   

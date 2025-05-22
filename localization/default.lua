@@ -21,7 +21,7 @@ return {
             b_aij_fabled = {
                 name = 'Fabled Deck',
                 text = {
-                    'Unlocked {C:legendary,E:1}Legendary{} Jokers',
+                    '{C:legendary,E:1}Legendary{} Jokers',
                     'may appear in the {C:attention}Shop',
                     '{C:attention}-1{} Joker Slot'
                 },
@@ -1018,7 +1018,9 @@ return {
                 name = "Overdesigned Joker",
                 text = {
                     "Scored cards with {V:1}#1#{} suit",
-                    "#3# {B:3,V:2}#4##2#{}#5#when scored",
+                    "#3# {B:3,V:2}#4##2#{}#5#when scored,",
+                    "suit {C:attention}rotates{} when a card",
+                    "is {C:attention}scored",
                     "{C:inactive}(Hearts->Clubs->Diamonds->Spades)"
                 }
             },
@@ -1382,7 +1384,7 @@ return {
             j_aij_dor = { 
                 name = "D'or", 
                 text = { 
-                    "{C:enhanced}#1#{} Mult on the {C:attention}final{} hand",
+                    "{X:dark_edition,C:white}#1#{} Mult on the {C:attention}final{} hand",
                     "of the {C:attention}round" 
                 },
                 unlock = { 
@@ -2015,6 +2017,38 @@ return {
                     'Replaces Joker with',
                     'a random Joker of',
                     'the same rarity'
+                }
+            },
+            overdesigned_club = {
+                name = "Clubs",
+                text = {
+                    "Scored cards with", 
+                    "{C:clubs}Club{} suit give",
+                    "{C:red}+14{} Mult when scored",
+                }
+            },
+            overdesigned_spade = {
+                name = "Spades",
+                text = {
+                    "Scored cards with",
+                    "{C:spades}Spade{} suit give",
+                    "{C:blue}+100{} Chips when scored",
+                }
+            },
+            overdesigned_diamond = {
+                name = "Diamonds",
+                text = {
+                    "Scored cards with",
+                    "{C:diamonds}Diamond{} suit earn",
+                    "{C:money}$2{} when scored",
+                }
+            },
+            overdesigned_heart = {
+                name = "Hearts",
+                text = {
+                    "Scored cards with",
+                    "{C:hearts}Heart{} suit give",
+                    "{X:red,C:white}X1.5{} Mult when scored",
                 }
             },
             p_aij_guess_the_jest = {

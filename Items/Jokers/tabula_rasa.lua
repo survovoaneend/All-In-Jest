@@ -1,7 +1,7 @@
 local tabula_rasa = {
     object_type = "Joker",
     order = 269,
-    
+    ignore = true,
 
     key = "tabula_rasa",
     config = {
@@ -26,8 +26,8 @@ local tabula_rasa = {
   
     end,
 
-    add_to_deck = function(self, card, from_debuff)
-        if card.edition == nil then
+    set_ability = function(self, card, initial, delay_sprites)
+        if card.edition == nil  then
             local edition = poll_edition('aura', nil, true, true)
             card:set_edition(edition)
         end

@@ -7,7 +7,10 @@ local fabled = {
     unlocked = false,
 	unlock_condition = {hidden = true},
     config = {
-        joker_slot = -1
+        joker_slot = -1,
+        extra = {
+            should_increase = true,
+        }
     },
     loc_vars = function(self)
         return {vars = {self.config.joker_slot}}
@@ -18,7 +21,15 @@ local fabled = {
         end
 	end,
     calculate = function(self, card, context)
-        
+        if context.end_of_round and not context.repetition and not context.individual and G.GAME.selected_back.effect.config.extra.should_increase then
+             G.GAME.jest_legendary_pool.rate =  G.GAME.jest_legendary_pool.rate - 0.002
+        end
+        if context.buying_card then
+            if context.card.ability.set == "Joker" and context.card.config.center.rarity == 4 then
+                G.GAME.selected_back.effect.config.extra.should_increase = false
+                G.GAME.jest_legendary_pool.rate = 0.992
+            end
+        end
     end,
     check_for_unlock = function(self, args)
         if args.type == 'discover_amount' and G.P_CENTER_POOLS then

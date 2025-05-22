@@ -14,9 +14,9 @@ local word_art = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
-    blueprint_compat = false,
-    eternal_compat = false,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
         return {

@@ -13,8 +13,8 @@ local dor = {
     cost = 20,
     unlocked = false,
     discovered = false,
-    blueprint_compat = false,
-    eternal_compat = false,
+    blueprint_compat = true,
+    eternal_compat = true,
     soul_pos = { x = 9, y = 3},
   
     loc_vars = function(self, info_queue, card)

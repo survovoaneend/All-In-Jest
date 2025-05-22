@@ -15,7 +15,7 @@ local eulenspiegel = {
     cost = 20,
     unlocked = false,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = false,
     soul_pos = { x = 2, y = 3},
   
@@ -25,7 +25,7 @@ local eulenspiegel = {
   
     calculate = function(self, card, context)
       if context.end_of_round and context.cardarea == G.jokers and context.main_eval then
-        if G.GAME.blind.boss then
+        if G.GAME.blind.boss and not context.blueprint then
             ease_ante(-card.ability.ante_mod)
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = "-"..card.ability.ante_mod.." Ante", colour = G.C.FILTER})
             card.ability.Xmult = card.ability.Xmult - card.ability.Xmult_mod
