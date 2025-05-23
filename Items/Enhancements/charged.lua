@@ -166,7 +166,7 @@ function Card:update(dt)
                 self,
                 "*", 1.5,
                 { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
-                nil, true, false, "edition"
+                nil, true, false, "ability"
               )
             end
           elseif diff < 0 then
