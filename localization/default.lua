@@ -49,8 +49,8 @@ return {
             m_aij_dyscalcular = {
                 name = "Dyscalcular Card",
                 text = {
-                    "Counts as every",
-                    "{C:attention}numbered{} rank",
+                    "Counts as every {C:attention}numbered{} rank",
+                    "{C:inactive}(Except for making poker hands)"
                 }
             },
             m_aij_charged = {
@@ -136,9 +136,8 @@ return {
                 name = "Invisible Man", 
                 text = { 
                     "All {C:attention}face cards{} count as",
-                    "{C:attention}Kings{}, {C:attention}Queens{}, and {C:attention}Jacks" 
-                    -- (temp) add note: (except for making poker hands)
-                    -- to all similar effects
+                    "{C:attention}Kings{}, {C:attention}Queens{}, and {C:attention}Jacks",
+                    "{C:inactive}(Except for making poker hands)"
                 } 
             },
             j_aij_handsome_joker = { name = "Handsome Joker", text = { "" } },
@@ -178,7 +177,8 @@ return {
                 text = { 
                     "{C:attention}First card{} drawn",
                     "each round counts as",
-                    "{C:attention}any{} rank and suit"
+                    "{C:attention}any{} rank and suit",
+                    "{C:inactive}(Ranks don't make poker hands)"
                 } 
             },
             j_aij_ultrasound = {
@@ -348,6 +348,7 @@ return {
                 text = { 
                     "All {C:attention}numbered{} {C:hearts}Hearts{} are",
                     "considered the {C:attention}same rank",
+                    "{C:inactive}(Except for making poker hands)"
                 } 
             },
             j_aij_silly_sausage = { 
