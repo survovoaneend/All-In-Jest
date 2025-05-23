@@ -1,8 +1,7 @@
 local fantasio = {
     object_type = "Joker",
     order = 1054,
-    ignore = true,
-
+    
     key = "fantasio",
     config = {
       
@@ -11,7 +10,7 @@ local fantasio = {
 	unlock_condition = {hidden = true},
     pos = { x = 3, y = 10},
     atlas = 'legendary_atlas',
-    cost = 4,
+    cost = 20,
     unlocked = false,
     discovered = false,
     blueprint_compat = false,

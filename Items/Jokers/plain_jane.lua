@@ -35,8 +35,6 @@ local plain_jane = {
         }
       end
     end
-
-    return nil
   end,
   in_pool = function(self, args)
     local enhancement_tally = 0

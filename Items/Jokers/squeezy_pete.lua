@@ -6,7 +6,7 @@ local squeezy_pete = {
 
   config = {
       extra = {
-          bonus = 0.5,
+          bonus = 0.25,
           xmult = 1
       }
   },
@@ -33,10 +33,10 @@ local squeezy_pete = {
   calculate = function(self, card, context)
       if context.before and context.scoring_name then
           if not context.blueprint then
-              if context.scoring_name == 'Full House' or context.scoring_name == 'Flush House' then
+              if context.poker_hands and next(context.poker_hands['Full House']) then
                   card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.bonus
                   card_eval_status_text(card, 'extra', nil, nil, nil, {
-                      message = 'X' .. number_format(card.ability.extra.xmult) .. ' Mult' ,
+                      message = 'Upgrade!',
                   })
                   return nil, true
               else

@@ -1,7 +1,7 @@
 local the_mycologists = {
     object_type = "Joker",
     order = 47,
-    ignore = true,
+    
     key = "the_mycologists",
     config = {
       poker_hand = "Pair",
@@ -22,7 +22,7 @@ local the_mycologists = {
   
     calculate = function(self, card, context)
         if context.final_scoring_step then
-            if context.scoring_name == card.ability.poker_hand then
+            if context.scoring_name == card.ability.poker_hand and #context.full_hand == 2 then
                 local cards = G.play.cards
                 if card.ability.added == false then
                     card.ability.added = true

@@ -14,7 +14,11 @@ local shade_spectral = {
 	end,
     can_use = function(self, card)
         if G.hand and G.hand.cards and #G.hand.cards > 0 then
-            return true
+            for k, v in ipairs(G.hand.cards) do
+            if not v.edition then 
+                return true 
+            end
+        end
         else
             return false
         end

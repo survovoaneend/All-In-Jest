@@ -24,7 +24,7 @@ local lucky_seven = {
         local enhanced_a_card = false
         if context.scoring_hand and #context.scoring_hand > 0 then
             for k, v in ipairs(context.scoring_hand) do
-                if v:get_id() == 7 and v.config.center == G.P_CENTERS.c_base then
+                if v:get_id() == 7 and v.config.center == G.P_CENTERS.c_base and not v.debuff then
                     v:set_ability(G.P_CENTERS.m_lucky, nil, true) 
                     enhanced_a_card = true 
                     G.E_MANAGER:add_event(Event({

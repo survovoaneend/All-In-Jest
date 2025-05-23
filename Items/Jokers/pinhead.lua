@@ -5,7 +5,7 @@ local pinhead = {
     key = "pinhead",
     config = {
       extra = {
-        money = 10
+        money = 8
       }
     },
     rarity = 1,
@@ -28,7 +28,7 @@ local pinhead = {
     calculate = function(self, card, context)
       if context.end_of_round then
         if G.GAME.current_round.hands_played == 1 then
-          card.ability.extra.money = 10
+          card.ability.extra.money = 8
         end
       end
     end,

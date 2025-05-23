@@ -39,8 +39,8 @@ local quark = {
                         end
                     end
                     if all_different_suits then
-                        level_up_hand(card, 'Three of a Kind', false, 1)
-                        return true 
+                        local text = "Three of a Kind"
+                        level_up_hand(context.blueprint_card or card, text, nil, 1)
                     end
                 end
             end

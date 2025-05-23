@@ -19,23 +19,26 @@ local birthday_clown = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
+      local active_text = "Active!"
+      if not card.ability.extra.active then 
+        active_text = "Inactive"
+      end
       return {
         vars = {
-          card.ability.extra.xmult
+          card.ability.extra.xmult,
+          active_text
         }
       }
     end,
   
     calculate = function(self, card, context)
       if context.end_of_round then
-        --sets to true if boss blind is defeated, and then resets it when it's played again
         if G.GAME.blind.boss then
           card.ability.extra.active = true
         else
           card.ability.extra.active = false
         end
       end
-      --gives the xmult only if its active
       if card.ability.extra.active and context.joker_main then
         return {
           xmult = card.ability.extra.xmult

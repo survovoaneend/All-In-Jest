@@ -12,7 +12,7 @@ end
 local overdesigned_joker = {
     object_type = "Joker",
     order = 230,
-    ignore = true,
+    
     key = "overdesigned_joker",
     config = {
       suit = "Heart",
@@ -38,6 +38,10 @@ local overdesigned_joker = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
+        local suits = {'overdesigned_spade', 'overdesigned_heart', 'overdesigned_club', 'overdesigned_diamond'}
+        for _, key in ipairs(suits) do
+          info_queue[#info_queue+1] = {set = 'Other', key = key}
+        end
         return {
             vars = {
                 card.ability.suit,
@@ -59,7 +63,7 @@ local overdesigned_joker = {
             local cardd = context.other_card
             local orig_suit = card.ability.suit
             local orig_amount = card.ability.amount
-
+            
             local suit_info, suffix_info, colour_info = jest_overdesigned_joker_cycle(card.ability.suit)
             card.ability.suit = suit_info[1]
             card.ability.amount = suit_info[2]
@@ -69,7 +73,7 @@ local overdesigned_joker = {
             card.ability.extra.colours.suit = colour_info[1]
             card.ability.extra.colours.amount = colour_info[2]
             card.ability.extra.colours.background = colour_info[3] or G.C.WHITE
-
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = card.ability.suit, colour = G.C.FILTER})
             if cardd:is_suit(orig_suit.."s") then
                 if orig_suit == "Club" then
                     return {

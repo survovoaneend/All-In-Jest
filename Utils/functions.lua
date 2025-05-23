@@ -42,7 +42,7 @@ function level_up_hand_mult(card, hand, instant, amount)
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
                 play_sound('tarot1')
                 if card then card:juice_up(0.8, 0.5) end
-                G.TAROT_INTERRUPT_PULSE = nil 
+                G.TAROT_INTERRUPT_PULSE = nil
                 return true end }))
             update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
             delay(1.3)
@@ -53,6 +53,79 @@ function level_up_hand_mult(card, hand, instant, amount)
         }))
     end
 end
+
+function ids_op(card, op, b, c)
+  local id = card:get_id() 
+
+  local function alias(x)
+    local has_invis, has_doc, has_pygm, has_furb = false, false, false, false
+
+    if G.jokers and G.jokers.cards then
+      for _, j in ipairs(G.jokers.cards) do
+        local k = j.config and j.config.center_key
+        if k == "j_aij_invisible_man" then has_invis = true end
+        if k == "j_aij_doctors_note" then has_doc = true end
+        if k == "j_aij_pygmalion" then has_pygm = true end
+        if k == "j_aij_furbo_e_stupido" then has_furb = true end
+      end
+    end
+
+    if has_invis and (({[11]=true, [12]=true, [13]=true, [id]=true})[b] and card:is_face()) then -- Face cards count as 11-13 ranks
+      return 11
+    end
+
+    if has_doc and card:is_suit("Hearts") and not ({[11]=true, [12]=true, [13]=true, [14]=true})[b] then -- Counts as any heart non-face ranks
+      return 11
+    end
+
+    if has_pygm and ({[12]=true})[b] and card.config.center == G.P_CENTERS["m_stone"] then -- Stone cards count as rank 12
+      return 11
+    end
+
+    if has_furb then
+        if card.config.center == G.P_CENTERS.m_aij_dyscalcular then
+            if id == b or not ({[12]=true, [13]=true})[b] then
+                return 11
+            end
+        end
+    elseif card.config.center == G.P_CENTERS.m_aij_dyscalcular then -- Counts as any non-face ranks and non-ace
+        if id == b or not ({[11]=true, [12]=true, [13]=true, [14]=true})[b] then 
+            return 11
+        end
+    end
+
+
+    if card.ability.jest_all_rank then -- Counts as any rank
+      return 11
+    end
+
+    return x
+  end
+
+  if op == "mod" then
+    return (id % b) == c
+  end
+
+  if op == "==" then
+    local lhs = alias(id)
+    local rhs = alias(b) 
+    return lhs == rhs
+  end
+  if op == "~=" then
+    local lhs = alias(id)
+    local rhs = alias(b) 
+    print(lhs.. " " ..op.. " " ..rhs)
+    return lhs ~= rhs
+  end
+
+  if op == ">=" then return id >= b end
+  if op == "<=" then return id <= b end
+  if op == ">" then return id > b end
+  if op == "<" then return id < b end
+
+  error("ids_op: unsupported op " .. tostring(op))
+end
+
 
 function redeemed_voucher_count()
     if G.GAME and G.GAME.used_vouchers then
@@ -118,6 +191,10 @@ function balance_percent(card, percent)
 
   delay(0.6)
   return hand_chips, mult
+end
+
+to_big = to_big or function(num)
+    return num
 end
 
 jest_ability_calculate = function(card, equation, extra_value, exclusions, inclusions, do_round, only, extra_search)
@@ -347,7 +424,7 @@ AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
         n = G.UIT.R,
         config = { align = alignment , padding = padding, no_fill = true, minh = box_height },
         nodes = {
-            {n=G.UIT.R, config={padding = outer_padding, r = 0.12, colour = lighten(G.C.JOKER_GREY, 0.5), emboss = 0.07}, nodes={
+            {n=G.UIT.R, config={padding = padding, r = 0.12, colour = lighten(G.C.JOKER_GREY, 0.5), emboss = 0.07}, nodes={
                 {n = G.UIT.O, config = { object = cardArea }}
             }}
         }
@@ -376,6 +453,26 @@ function reset_jest_magick_joker_card()
     end
 end
 
+function reset_jest_you_broke_it_card()
+  G.GAME.current_round.jest_you_broke_it_card.rank = 'Ace'
+  G.GAME.current_round.jest_you_broke_it_card.enhancement = 'm_bonus'
+  local valid_enhancements = get_current_pool("Enhanced")
+  local valid_jest_ybi_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        if v.ability.effect ~= 'Stone Card' then
+            valid_jest_ybi_cards[#valid_jest_ybi_cards+1] = v
+        end
+    end
+    if valid_jest_ybi_cards[1] then 
+        local jest_ybi_card = pseudorandom_element(valid_jest_ybi_cards, pseudoseed('ybi'..G.GAME.round_resets.ante))
+        G.GAME.current_round.jest_you_broke_it_card.rank = jest_ybi_card.base.value
+        G.GAME.current_round.jest_you_broke_it_card.id = jest_ybi_card.base.id
+    end
+    if valid_enhancements[1] then
+      local jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..G.GAME.round_resets.ante))
+      G.GAME.current_round.jest_you_broke_it_card.enhancement = jest_ybi_enhancement
+    end
+end
 -- card predict begin
 --------------------------------
 --------------------------------
@@ -489,6 +586,32 @@ function Card:remove_prediction_card()
     end
 end
 
+function get_probability(rnd_val, op, num, den)
+    --Maninulate numerator/denominatior here
+    local threshold = num / den
+    local result = false
+
+    if op == "<" then result = rnd_val < threshold
+    elseif op == "<=" then result = rnd_val <= threshold
+    elseif op == ">" then result = rnd_val > threshold
+    elseif op == ">=" then result = rnd_val >= threshold
+    elseif op == "==" then result = rnd_val == threshold
+    elseif op == "~=" then result = rnd_val ~= threshold
+    else error("bad op: "..tostring(op)) end
+
+    if result then
+        SMODS.calculate_context({
+            probability_trigger = {result = true, numerator = num, denominator = den}
+        })
+    else
+        SMODS.calculate_context({
+            probability_trigger = {result = false, numerator = num, denominator = den}
+        })
+    end
+
+    return result
+end
+
 local remove = Card.remove
 function Card:remove(...)
     self:remove_prediction_card()
@@ -530,8 +653,8 @@ end
 --------------------------------
 -- card predict end 
 
-function Tag:jest_apply_fortunate(message, _colour, func) -- Play on words just apply
-    if #G.consumeables.cards < G.consumeables.config.card_limit then
+function Tag:jest_apply(message, _colour, func, statement) -- Play on words just apply
+    if statement() then
         stop_use()    
 
         local temptrigger = false
@@ -539,7 +662,7 @@ function Tag:jest_apply_fortunate(message, _colour, func) -- Play on words just 
             delay = 0.4,
             trigger = 'after',
             func = (function()
-                if #G.consumeables.cards < G.consumeables.config.card_limit then
+                if statement() then
                     attention_text({
                         text = message,
                         colour = G.C.WHITE,
@@ -552,13 +675,13 @@ function Tag:jest_apply_fortunate(message, _colour, func) -- Play on words just 
                     play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
                     play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
                     temptrigger = true
-                end
+                  end 
                 return true
             end)
         }))
         G.E_MANAGER:add_event(Event({
             func = (function()
-                if #G.consumeables.cards < G.consumeables.config.card_limit then
+                if statement() then
                     self.HUD_tag.states.visible = false
                 end
                 return true
@@ -584,3 +707,75 @@ function Tag:jest_apply_fortunate(message, _colour, func) -- Play on words just 
         }))
     end
 end
+
+-- Some of my personal functions i use in my projects
+function create_consumable(card_type,tag,message,extra, thing1, thing2)
+    extra=extra or {}
+    
+    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+    G.E_MANAGER:add_event(Event({
+        trigger = 'before',
+        delay = 0.0,
+        func = (function()
+                local card = create_card(card_type,G.consumeables, nil, nil, thing1, thing2, extra.forced_key or nil, tag)
+                card:add_to_deck()
+                if extra.edition~=nil then
+                    card:set_edition(extra.edition,true,false)
+                end
+                if extra.eternal~=nil then
+                    card.ability.eternal=extra.eternal
+                end
+                if extra.perishable~=nil then
+                    card.ability.perishable = extra.perishable
+                    if tag=='v_epilogue' then
+                        card.ability.perish_tally=get_voucher('epilogue').config.extra
+                    else card.ability.perish_tally = G.GAME.perishable_rounds
+                    end
+                end
+                if extra.extra_ability~=nil then
+                    card.ability[extra.extra_ability]=true
+                end
+                G.consumeables:emplace(card)
+                G.GAME.consumeable_buffer = 0
+                if message~=nil then
+                    card_eval_status_text(card,'extra',nil,nil,nil,{message=message})
+                end
+        return true
+    end)}))
+end
+
+function create_joker(card_type,tag,message,extra, rarity)
+    extra=extra or {}
+    
+    G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+    G.E_MANAGER:add_event(Event({
+        trigger = 'before',
+        delay = 0.0,
+        func = (function()
+                local card = create_card(card_type, G.joker, nil, rarity, nil, nil, extra.forced_key or nil, tag)
+                card:add_to_deck()
+                if extra.edition~=nil then
+                    card:set_edition(extra.edition,true,false)
+                end
+                if extra.eternal~=nil then
+                    card.ability.eternal=extra.eternal
+                end
+                if extra.perishable~=nil then
+                    card.ability.perishable = extra.perishable
+                    if tag=='v_epilogue' then
+                        card.ability.perish_tally=get_voucher('epilogue').config.extra
+                    else card.ability.perish_tally = G.GAME.perishable_rounds
+                    end
+                end
+                if extra.extra_ability~=nil then
+                    card.ability[extra.extra_ability]=true
+                end
+                G.jokers:emplace(card)
+                G.GAME.joker_buffer = 0
+                if message~=nil then
+                    card_eval_status_text(card,'extra',nil,nil,nil,{message=message})
+                end
+        return true
+    end)}))
+end
+

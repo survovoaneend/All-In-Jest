@@ -23,12 +23,10 @@ local lucignolo = {
       if context.remove_playing_cards and context.removed and #context.removed > 0 then
           local money_to_earn = #context.removed * card.ability.extra.dollars
           if money_to_earn > 0 then
-              ease_dollars(money_to_earn)
-              card_eval_status_text(card, 'extra', nil, nil, nil, {
-                  message = localize('$')..money_to_earn,
-                  colour = G.C.MONEY
-              })
-              return { card = card }
+              return { 
+                dollars = money_to_earn,
+                card = card 
+            }
           end
       end
   end

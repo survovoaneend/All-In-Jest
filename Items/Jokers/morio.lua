@@ -1,10 +1,9 @@
 local morio = {
     object_type = "Joker",
     order = 231,
-    ignore = true,
     key = "morio",
     config = {
-      
+      trigger = false
     },
     rarity = 3,
     pos = { x = 20, y = 8},
@@ -12,7 +11,7 @@ local morio = {
     cost = 8,
     unlocked = true,
     discovered = false,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
@@ -21,8 +20,10 @@ local morio = {
   
     calculate = function(self, card, context)
         if context.end_of_round and G.GAME.blind.boss then
+            card.ability.trigger = true
+        end
+        if context.cashing_out and card.ability.trigger then
             if #G.consumeables.cards < G.consumeables.config.card_limit then
-		        G.SETTINGS.paused = true
                 G.FUNCS.overlay_menu{
                     config = {no_esc = true},
                     definition = SMODS.jest_no_back_card_collection_UIBox(
@@ -40,6 +41,7 @@ local morio = {
                     ),
                 }
             end
+            card.ability.trigger = false
         end
     end
   

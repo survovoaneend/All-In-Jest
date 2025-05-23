@@ -8,10 +8,10 @@ local heidelberg_tun = {
         odds = 3
       }
     },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 21, y = 4 },
     atlas = 'joker_atlas',
-    cost = 7,
+    cost = 5,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

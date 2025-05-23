@@ -37,7 +37,7 @@ local penny = {
                   return {
                       message = localize('k_again_ex'),
                       repetitions = 1,
-                      card = card, 
+                      card = context.other_card, 
                       colour = G.C.GOLD 
                   }
               end

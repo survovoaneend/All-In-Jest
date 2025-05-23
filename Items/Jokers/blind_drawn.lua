@@ -1,17 +1,17 @@
 local blind_drawn = {
     object_type = "Joker",
     order = 126,
-    ignore = true,
+    
     key = "blind_drawn",
     config = {
         extra = {
             Xmult = 3
         }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 20, y = 4 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

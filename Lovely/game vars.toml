@@ -14,6 +14,7 @@ match_indent = true
 payload = '''
 jest_magick_joker_card = {suit = 'Spades'},
 jest_highest_scored_mult = {amount = 0, trigger = true},
+jest_you_broke_it_card = {rank = 'Ace', enhancement = 'm_bonus'},
 '''
 
 [[patches]]  
@@ -26,17 +27,20 @@ position = 'after'
 match_indent = true
 payload = '''
 reset_jest_magick_joker_card()
+reset_jest_you_broke_it_card()
 '''
 
-[[patches]] #G.Game 
+[[patches]] #G.GAME 
 [patches.pattern]
 target = 'game.lua'
 pattern = '''
 unused_discards = 0,'''
 position = 'after'
-match_indent = true
+match_indent = true 
 payload = '''
 jest_legendary_pool = {in_shop = false, rate = 0.99},
+jest_stored_memory_card = nil,
+jest_change_booster_options = {op = {add = 0, mult = 0, div = 0, sub = 0}, trigger = false, option = ""}, -- both, pick, or size
 '''
 
 [[patches]] #Colors
@@ -46,5 +50,6 @@ pattern = '''enhanced = G.C.SECONDARY_SET.Enhanced'''
 position = 'before'
 payload = '''
 jest_inherent = HEX("b7e1d7"),
+jest_glitter = HEX("ff97ff"),
 '''
 match_indent = true
