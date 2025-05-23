@@ -131,45 +131,58 @@ function Card:update(dt)
     end
   end
   if G.hand and not self.ability.group_key then
-    local applied = self.ability.jest_charged_applied_h or {}
-    self.ability.jest_charged_applied_h = applied
+      local applied = self.ability.jest_charged_applied_h or {}
+      self.ability.jest_charged_applied_h = applied
 
-    local current_count = 0
-    if #G.hand.cards > 0 then
-        for _, j in ipairs(G.hand.cards) do
-          if j.config and j.config.center == G.P_CENTERS["m_aij_charged"] then
-            current_count = current_count + 1
+      local highlighted_set = G.hand.highlighted or {}
+      local hand_set = G.hand.cards
+
+      local is_highlighted = {}
+      for _, c in ipairs(highlighted_set) do
+        is_highlighted[c] = true
+      end
+
+      local self_is_highlighted = is_highlighted[self]
+
+      local charged_count = 0
+      for _, c in ipairs(hand_set) do
+        local c_is_highlighted = is_highlighted[c]
+
+        if c ~= self and (self_is_highlighted == c_is_highlighted) then
+          if c.config and c.config.center == G.P_CENTERS["m_aij_charged"] then
+            charged_count = charged_count + 1
           end
         end
-        for _, j in ipairs(G.hand.cards) do
-          if j == self and self.config.center ~= G.P_CENTERS["m_aij_charged"] and self.config.center ~= G.P_CENTERS.c_base then
-            local prev_count = applied["m_aij_charged"] or 0
-            local diff = current_count - prev_count
+      end
 
-            if diff > 0 then
-              for i = 1, diff do
-                jest_ability_calculate(
-                  self,
-                  "*", 1.5,
-                  { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
-                  nil, true, false, "edition"
-                )
-              end
-            elseif diff < 0 then
-              for i = 1, -diff do
-                jest_ability_calculate(
-                  self,
-                  "/", 1.5,
-                  { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
-                  nil, true, false, "ability"
-                )
-              end
+      for _, j in ipairs(hand_set) do
+        if j == self and self.config.center ~= G.P_CENTERS["m_aij_charged"] and self.config.center ~= G.P_CENTERS.c_base then
+          local prev_count = applied["m_aij_charged"] or 0
+          local diff = charged_count - prev_count
+
+          if diff > 0 then
+            for i = 1, diff do
+              jest_ability_calculate(
+                self,
+                "*", 1.5,
+                { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
+                nil, true, false, "edition"
+              )
             end
-
-            applied["m_aij_charged"] = current_count
+          elseif diff < 0 then
+            for i = 1, -diff do
+              jest_ability_calculate(
+                self,
+                "/", 1.5,
+                { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
+                nil, true, false, "ability"
+              )
+            end
           end
+
+          applied["m_aij_charged"] = charged_count
         end
-    end
+      end
   end
   return ref
 end
