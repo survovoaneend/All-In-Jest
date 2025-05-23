@@ -9,7 +9,6 @@ local charged = {
         
     },
     loc_vars = function(self, info_queue, card)
-        local charged_text = 50
         local has_founding_father = false
         if G.jokers then
             for _, j in ipairs(G.jokers.cards or {}) do
@@ -20,9 +19,9 @@ local charged = {
             end
         end
         if has_founding_father then
-            charged_text = 100
+            charged_text = 2
         else
-            charged_text = 50
+            charged_text = 1.5
         end
         return { vars = {charged_text} }
     end,
