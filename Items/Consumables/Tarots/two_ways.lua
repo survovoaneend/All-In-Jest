@@ -49,6 +49,7 @@ local two_ways = {
             G.E_MANAGER:add_event(Event({
                 func = function()
                     _card:start_materialize()
+                    playing_card_joker_effects({_card})
                     return true
                 end
             })) 
