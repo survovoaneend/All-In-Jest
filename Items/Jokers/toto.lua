@@ -1,7 +1,7 @@
 local toto = {
     object_type = "Joker",
     order = 1011,
-
+    ignore = true,
     key = "toto",
     config = {
       

@@ -1,7 +1,7 @@
 local taggart = {
     object_type = "Joker",
     order = 262,
-    
+    ignore = true,
     key = "taggart",
     config = {
       
