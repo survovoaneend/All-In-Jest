@@ -29,7 +29,8 @@ local sneaky_pete = {
       end
       return {
         vars = {
-          seal_count * card.ability.extra.money_per_seal
+          seal_count * card.ability.extra.money_per_seal,
+          card.ability.extra.money_per_seal,
         }
       }
     end,
