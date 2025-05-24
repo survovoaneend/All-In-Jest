@@ -155,12 +155,14 @@ local chaos = {
                     return #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
                 end
                 if effect == "dupe_joker" then
-                    return #G.jokers.cards <= G.jokers.config.card_limit
+                    return (#G.jokers.cards <= G.jokers.config.card_limit and #G.jokers.cards > 0)
                 end
                 if effect == "apply_edition" then
-                    for i = 1, #G.jokers.cards do
-                        if G.jokers.cards[i].edition == nil then
-                            return true
+                    if #G.jokers.cards > 0 then
+                        for i = 1, #G.jokers.cards do
+                            if G.jokers.cards[i].edition == nil then
+                                return true
+                            end
                         end
                     end
                     return false
