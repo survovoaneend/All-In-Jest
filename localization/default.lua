@@ -127,7 +127,8 @@ return {
                     "contains {C:attention}exactly one{} card",
                     "that card is {C:attention}always drawn",
                     "{C:money}first{} on future Blinds",
-                    "{C:inactive}(Can only store one card)" 
+                    "{C:inactive}(Can only store one card)",
+                    "{C:inactive}(Only triggers in leftmost position)" 
                 } 
             },
             j_aij_sleepy_joker = { 
