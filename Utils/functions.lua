@@ -114,7 +114,6 @@ function ids_op(card, op, b, c)
   if op == "~=" then
     local lhs = alias(id)
     local rhs = alias(b) 
-    print(lhs.. " " ..op.. " " ..rhs)
     return lhs ~= rhs
   end
 
