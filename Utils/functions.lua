@@ -114,7 +114,6 @@ function ids_op(card, op, b, c)
   if op == "~=" then
     local lhs = alias(id)
     local rhs = alias(b) 
-    print(lhs.. " " ..op.. " " ..rhs)
     return lhs ~= rhs
   end
 
@@ -395,17 +394,18 @@ AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
     local override = config.override or false
     local cards = config.cards or {}
     local padding = config.padding or 0.07
-    local margin_left = config.ml or 0.2
+    local margin_left = config.ml or 0
     local margin_top = config.mt or 0
     local alignment = config.alignment or "cm"
     local scale = config.scale or 1
     local type = config.type or "title"
     local box_height = config.box_height or 0
     local highlight_limit = config.highlight_limit or 0
+    local x_offset = config.x_offset or 0
     if override or not cardArea then
         cardArea = CardArea(
-            G.ROOM.T.x + margin_left * G.ROOM.T.w, G.ROOM.T.h + margin_top
-            , width * G.CARD_W, height * G.CARD_H,
+            G.ROOM.T.x + margin_left * G.ROOM.T.w - x_offset, G.ROOM.T.h + margin_top
+            ,G.CARD_W <= width * G.CARD_W and width * G.CARD_W or G.CARD_W, height * G.CARD_H,
             {card_limit = card_limit, type = type, highlight_limit = highlight_limit, collection = true,temporary = true}
         )
         for i, card in ipairs(cards) do
