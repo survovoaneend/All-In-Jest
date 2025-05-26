@@ -523,7 +523,15 @@ return {
                     "beaten in a {C:attention}single hand{}"
                 },
             },
-            j_aij_saltimbanco = { name = "Saltimbanco", text = { "" } },
+            j_aij_saltimbanco = { 
+                name = "Saltimbanco", 
+                text = { 
+                    "When any {C:green}probability",
+                    "effect triggers multiply",
+                    "{C:mult}Mult{} by its chance of not",
+                    "occurring" 
+                } 
+            },
             j_aij_pulcinella = { name = "Pulcinella", text = { "" } },
             j_aij_petrushka = {
                 name = "Petrushka",
@@ -688,7 +696,13 @@ return {
                 },
             },
             j_aij_spectre = { name = "Spectre", text = { "" } },
-            j_aij_dapper_dan = { name = "Dapper dan", text = { "" } },
+            j_aij_dapper_dan = { 
+                name = "Dapper Dan", 
+                text = { 
+                    "{C:attention}X2{} effectiveness of joker",
+                    "{C:attention}editions" 
+                } 
+            },
             j_aij_average_joe = {
                  name = "Average Joe", 
                  text = { 
@@ -906,7 +920,14 @@ return {
             },
             j_aij_phoney_baloney = { name = "Phoney Baloney", text = { "" } },
             j_aij_jerko = { name = "Jerko", text = { "" } },
-            j_aij_design_document = { name = "Design Document", text = { "" } },
+            j_aij_design_document = { 
+                name = "Design Document", 
+                text = { 
+                    "Earn {C:money}$#1#{} when any",
+                    "{C:green}probability{} effect fails to",
+                    "trigger" 
+                } 
+            },
             j_aij_animatronic = { name = "Animatronic", text = { "" } },
             j_aij_arecibo_message = { name = "Arecibo Message", text = { "" } },
             j_aij_napkin = { name = "Napkin", text = { "" } },
@@ -985,7 +1006,14 @@ return {
                     "{C:inactive}(Currently {X:red,C:white}X#1#{} {C:inactive}Mult)"
                 } 
             },
-            j_aij_chippy = { name = "Chippy", text = { "" } },
+            j_aij_chippy = { 
+                name = "Chippy", 
+                text = { 
+                    "When {C:money}money{} is spent this",
+                    "joker gains equal {C:chips}chips",
+                    "{C:inactive}(Currently {C:blue}+#1#{C:inactive} Chips)",
+                } 
+            },
             j_aij_hofnarr_the_barbarian = {
                 name = "Hofnarr the Barbarian",
                 text = {
@@ -1111,7 +1139,13 @@ return {
             j_aij_downing_street = { name = "Downing Street", text = { "" } },
             j_aij_one_little_duck = { name = "One Little Duck", text = { "" } },
             j_aij_four_leaf_clover = { name = "Four-leaf Clover", text = { "" } },
-            j_aij_aphantasia = { name = "Aphantasia", text = { "" } },
+            j_aij_aphantasia = { 
+                name = "Aphantasia", 
+                text = { 
+                    "All played {C:attention}enhanced{} cards",
+                    "become {C:red}Chaotic" 
+                } 
+            },
             j_aij_tabula_rasa = { 
                 name = "Tabula Rasa", 
                 text = { 
