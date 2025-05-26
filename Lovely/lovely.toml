@@ -450,6 +450,22 @@ match_indent = true
 [[patches]] 
 [patches.pattern]
 target = "functions/state_events.lua"
+pattern = "-- TARGET: effects before scoring starts"
+position = "before"
+payload = '''
+for i = 1, #scoring_hand do
+    if scoring_hand[i].ability.jest_chaotic_card ~= nil and scoring_hand[i].ability.jest_chaotic_card then
+        local random_enhancement_key = SMODS.poll_enhancement({ guaranteed = true, key_append = 'jest_chaotic_card_enhance'..i })
+        scoring_hand[i].ability.jest_chaotic_card_changing = true
+        scoring_hand[i]:set_ability(G.P_CENTERS[random_enhancement_key or 'c_base'], nil, true)
+    end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
 pattern = "draw_card(G.hand, G.discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])"
 position = "before"
 payload = '''
