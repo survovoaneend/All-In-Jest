@@ -17,13 +17,13 @@ local stellar = {
     },
     order = 2,
     config = { chips = 5, mult = 1 },
-    loc_vars = function(self, info_queue)
-        return {vars = {self.config.chips, self.config.mult}}
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.edition.chips, card.edition.mult}}
     end,
     calculate = function(self, card, context)
 		if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
-            local chip = G.GAME.hands[context.scoring_name].level * self.config.chips
-            local mul = G.GAME.hands[context.scoring_name].level * self.config.mult
+            local chip = G.GAME.hands[context.scoring_name].level * card.edition.chips
+            local mul = G.GAME.hands[context.scoring_name].level * card.edition.mult
 			return {
 				chips = chip,
 				mult = mul
