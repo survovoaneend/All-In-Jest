@@ -62,7 +62,7 @@ function ids_op(card, op, b, c)
 
     if G.jokers and G.jokers.cards then
       for _, j in ipairs(G.jokers.cards) do
-        local k = j.config and j.config.center_key
+        local k = j.config and not j.debuff and j.config.center_key
         if k == "j_aij_invisible_man" then has_invis = true end
         if k == "j_aij_doctors_note" then has_doc = true end
         if k == "j_aij_pygmalion" then has_pygm = true end
@@ -78,24 +78,24 @@ function ids_op(card, op, b, c)
       return 11
     end
 
-    if has_pygm and ({[12]=true})[b] and card.config.center == G.P_CENTERS["m_stone"] then -- Stone cards count as rank 12
+    if has_pygm and ({[12]=true})[b] and SMODS.has_enhancement(card, 'm_stone') and not card.debuff then -- Stone cards count as rank 12
       return 11
     end
 
     if has_furb then
-        if card.config.center == G.P_CENTERS.m_aij_dyscalcular then
+        if SMODS.has_enhancement(card, 'm_aij_dyscalcular') and not card.debuff then
             if id == b or not ({[12]=true, [13]=true})[b] then
                 return 11
             end
         end
-    elseif card.config.center == G.P_CENTERS.m_aij_dyscalcular then -- Counts as any non-face ranks and non-ace
+    elseif SMODS.has_enhancement(card, 'm_aij_dyscalcular') and not card.debuff then -- Counts as any non-face ranks and non-ace
         if id == b or not ({[11]=true, [12]=true, [13]=true, [14]=true})[b] then 
             return 11
         end
     end
 
 
-    if card.ability.jest_all_rank then -- Counts as any rank
+    if card.ability.jest_all_rank and not card.debuff then -- Counts as any rank
       return 11
     end
 
