@@ -40,7 +40,7 @@ function Card:update(dt)
     local current_count = 0
     if G.play.cards then
         for _, j in ipairs(G.play.cards) do
-          if j.config and j.config.center == G.P_CENTERS["m_aij_charged"] then
+          if j.config and j.config.center == G.P_CENTERS["m_aij_charged"] and not j.debuff then
             current_count = current_count + 1
           end
         end
@@ -149,7 +149,7 @@ function Card:update(dt)
         local c_is_highlighted = is_highlighted[c]
 
         if c ~= self and (self_is_highlighted == c_is_highlighted) then
-          if c.config and c.config.center == G.P_CENTERS["m_aij_charged"] then
+          if c.config and c.config.center == G.P_CENTERS["m_aij_charged"] and not c.debuff then
             charged_count = charged_count + 1
           end
         end
