@@ -19,7 +19,7 @@ local taillefer = {
     unlocked = false,
     discovered = false,
     blueprint_compat = true,
-    eternal_compat = true,
+    eternal_compat = false,
     soul_pos = { x = 9, y = 5},
   
     loc_vars = function(self, info_queue, card)
