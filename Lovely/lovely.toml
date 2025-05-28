@@ -516,42 +516,57 @@ target = "functions/UI_definitions.lua"
 pattern = "_tag.HUD_tag = G.HUD_tags[#G.HUD_tags]"
 position = "after"
 payload = '''
-local has_toto = false
+local toto_count = 0
+
 if G.jokers and G.jokers.cards then
     for _, j in ipairs(G.jokers.cards) do
         if j.config and j.config.center_key == "j_aij_toto" then
-            has_toto = true
-            break
+            toto_count = toto_count + 1
         end
     end
 end
 
-if has_toto and _tag.key ~= 'tag_double' and (_tag.config.jest_tag_toto_trigger == nil or not _tag.config.jest_tag_toto_trigger) then
-    for i = 1, 2 do
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-            temptag = Tag(_tag.key)
-            temptag.config.jest_tag_toto_trigger = true
-            add_tag(temptag)
-            return true end }))
+if toto_count > 0 and _tag.key ~= 'tag_double' and (not _tag.config.jest_tag_duplicate_trigger) then
+    for i = 1, toto_count do
+        for i = 1, 2 do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.9,
+                func = function()
+                    local temptag = Tag(_tag.key)
+                    temptag.config.jest_tag_duplicate_trigger = true
+                    add_tag(temptag)
+                    return true
+                end
+            }))
+        end
     end
 end
 
-local has_taggart = false
+local taggart_count = 0
+
 if G.jokers and G.jokers.cards then
     for _, j in ipairs(G.jokers.cards) do
         if j.config and j.config.center_key == "j_aij_taggart" then
-            has_taggart = true
-            break
+            taggart_count = taggart_count + 1
         end
     end
 end
-if has_taggart and _tag.key ~= 'tag_double' and (_tag.config.jest_tag_taggart_trigger == nil or not _tag.config.jest_tag_taggart_trigger) then
-    for i = 1, 1 do
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-            temptag = Tag(_tag.key)
-            temptag.config.jest_tag_taggart_trigger = true
-            add_tag(temptag)
-            return true end }))
+
+if taggart_count > 0 and _tag.key ~= 'tag_double' and (not _tag.config.jest_tag_duplicate_trigger) then
+    for i = 1, taggart_count do
+        for i = 1, 1 do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.9,
+                func = function()
+                    local temptag = Tag(_tag.key)
+                    temptag.config.jest_tag_duplicate_trigger = true
+                    add_tag(temptag)
+                    return true
+                end
+            }))
+        end
     end
 end
 '''
