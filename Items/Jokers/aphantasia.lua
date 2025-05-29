@@ -2,6 +2,7 @@ local aphantasia = {
     object_type = "Joker",
     order = 268,
     key = "aphantasia",
+    ignore = true,
     config = {
       
     },
