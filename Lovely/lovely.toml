@@ -18,17 +18,17 @@ local function patch_text(txt)
 
     for _, op in ipairs({">=", "<=", "~=", "==", ">", "<"}) do
         local esc = op:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
-
         txt = txt:gsub(
             "([%w_%[%]%.#]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.#]+):get_id%(%s*%)",
-            "ids_op(%1, \"" .. op .. "\", %2:get_id())"
+            "ids_op(%1, \""..op.."\", %2:get_id())"
+        )
+        txt = txt:gsub(
+            "([%w_%[%]%.#]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.%(%)#'\"]+)",
+            "ids_op(%1, \""..op.."\", %2)"
         )
 
-        txt = txt:gsub(
-            "([%w_%[%]%.#]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.%(%)#]+)",
-            "ids_op(%1, \"" .. op .. "\", %2)"
-        )
-    end
+
+end
 
     txt = txt:gsub(
       "(pseudorandom%([^%)]+%))%s*([><~=]+)%s*([%w_%[%]%.]+)%s*/%s*([%w_%[%]%.]+)",
@@ -148,17 +148,16 @@ local function patch_text(txt)
 
     for _, op in ipairs({">=", "<=", "~=", "==", ">", "<"}) do
         local esc = op:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
-
         txt = txt:gsub(
             "([%w_%[%]%.#]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.#]+):get_id%(%s*%)",
-            "ids_op(%1, \"" .. op .. "\", %2:get_id())"
+            "ids_op(%1, \""..op.."\", %2:get_id())"
+        )
+        txt = txt:gsub(
+            "([%w_%[%]%.#]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.%(%)#'\"]+)",
+            "ids_op(%1, \""..op.."\", %2)"
         )
 
-        txt = txt:gsub(
-            "([%w_%[%]%.#]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.%(%)#]+)",
-            "ids_op(%1, \"" .. op .. "\", %2)"
-        )
-    end
+end
 
     txt = txt:gsub(
       "(pseudorandom%([^%)]+%))%s*([><~=]+)%s*([%w_%[%]%.]+)%s*/%s*([%w_%[%]%.]+)",
