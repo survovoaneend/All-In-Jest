@@ -1,7 +1,7 @@
 local saltimbanco = {
     object_type = "Joker",
     order = 108,
-
+    ignore = true,
     key = "saltimbanco",
     config = {
       
