@@ -196,6 +196,17 @@ to_big = to_big or function(num)
     return num
 end
 
+local set_ability_ref = Card.set_ability
+function Card:set_ability(center, initial, delay_sprites)
+    local t = set_ability_ref(self, center, initial, delay_sprites)
+    if self.ability then
+        if self.ability.jest_chaotic_card ~= nil and self.ability.jest_chaotic_card and not self.ability.jest_chaotic_card_changing then
+            self.ability.jest_chaotic_card = nil
+        end
+    end
+    return t
+end
+
 jest_ability_calculate = function(card, equation, extra_value, exclusions, inclusions, do_round, only, extra_search)
   if do_round == nil then do_round = true end
   if only == nil then only = false end

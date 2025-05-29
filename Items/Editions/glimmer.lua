@@ -17,12 +17,12 @@ local glimmer = {
     },
     order = 0,
     config = { percent = 10 },
-    loc_vars = function(self, info_queue)
-        return {vars = {self.config.percent}}
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.edition.percent}}
     end,
     calculate = function(self, card, context)
 		if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
-			balance_percent(card, (G.P_CENTERS.e_aij_glimmer.config.percent*0.01))
+			balance_percent(card, (card.edition.percent*0.01))
 		end
 	end,
     in_shop = true,

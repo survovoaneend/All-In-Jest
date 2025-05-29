@@ -26,11 +26,15 @@ local function patch_text(txt)
             "([%w_%[%]%.#]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.%(%)#'\"]+)",
             "ids_op(%1, \""..op.."\", %2)"
         )
+
+
 end
+
     txt = txt:gsub(
       "(pseudorandom%([^%)]+%))%s*([><~=]+)%s*([%w_%[%]%.]+)%s*/%s*([%w_%[%]%.]+)",
       "get_probability(%1, \"%2\", %3, %4)"
     )
+
     return txt
 end
 
@@ -152,11 +156,14 @@ local function patch_text(txt)
             "([%w_%[%]%.#]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.%(%)#'\"]+)",
             "ids_op(%1, \""..op.."\", %2)"
         )
+
 end
+
     txt = txt:gsub(
       "(pseudorandom%([^%)]+%))%s*([><~=]+)%s*([%w_%[%]%.]+)%s*/%s*([%w_%[%]%.]+)",
       "get_probability(%1, \"%2\", %3, %4)"
     )
+
     return txt
 end
 
@@ -271,6 +278,37 @@ end
 if self.ability.jest_all_suit then
     return true
 end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice)"
+position = "after" 
+match_indent = true
+payload = '''
+    local has_anchor = false
+    local location = 0
+    if G.jokers and self.ability.set == 'Joker' then
+        if G.jokers and G.jokers.cards then
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i].config and G.jokers.cards[i].config.center_key == "j_aij_anchor" then
+                    has_anchor = true
+                    location = i
+                end
+            end
+        end
+        if has_anchor then
+            local left  = location - 1
+            local right = location + 1
+            local nearby = (left >= 1 and G.jokers.cards[left].config.center_key == self.config.center_key) or (right <= #G.jokers.cards and G.jokers.cards[right].config.center_key == self.config.center_key)
+
+            if nearby and self.ability.jest_sold_self == nil then
+                self.getting_sliced = false
+                return
+            end
+        end
+    end
 '''
 
 [[patches]]
@@ -411,6 +449,22 @@ match_indent = true
 [[patches]] 
 [patches.pattern]
 target = "functions/state_events.lua"
+pattern = "-- TARGET: effects before scoring starts"
+position = "before"
+payload = '''
+for i = 1, #scoring_hand do
+    if scoring_hand[i].ability.jest_chaotic_card ~= nil and scoring_hand[i].ability.jest_chaotic_card then
+        local random_enhancement_key = SMODS.poll_enhancement({ guaranteed = true, key_append = 'jest_chaotic_card_enhance'..i })
+        scoring_hand[i].ability.jest_chaotic_card_changing = true
+        scoring_hand[i]:set_ability(G.P_CENTERS[random_enhancement_key or 'c_base'], nil, true)
+    end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
 pattern = "draw_card(G.hand, G.discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])"
 position = "before"
 payload = '''
@@ -461,42 +515,57 @@ target = "functions/UI_definitions.lua"
 pattern = "_tag.HUD_tag = G.HUD_tags[#G.HUD_tags]"
 position = "after"
 payload = '''
-local has_toto = false
+local toto_count = 0
+
 if G.jokers and G.jokers.cards then
     for _, j in ipairs(G.jokers.cards) do
         if j.config and j.config.center_key == "j_aij_toto" then
-            has_toto = true
-            break
+            toto_count = toto_count + 1
         end
     end
 end
 
-if has_toto and _tag.key ~= 'tag_double' and (_tag.config.jest_tag_toto_trigger == nil or not _tag.config.jest_tag_toto_trigger) then
-    for i = 1, 2 do
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-            temptag = Tag(_tag.key)
-            temptag.config.jest_tag_toto_trigger = true
-            add_tag(temptag)
-            return true end }))
+if toto_count > 0 and _tag.key ~= 'tag_double' and (not _tag.config.jest_tag_duplicate_trigger) then
+    for i = 1, toto_count do
+        for i = 1, 2 do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.9,
+                func = function()
+                    local temptag = Tag(_tag.key)
+                    temptag.config.jest_tag_duplicate_trigger = true
+                    add_tag(temptag)
+                    return true
+                end
+            }))
+        end
     end
 end
 
-local has_taggart = false
+local taggart_count = 0
+
 if G.jokers and G.jokers.cards then
     for _, j in ipairs(G.jokers.cards) do
         if j.config and j.config.center_key == "j_aij_taggart" then
-            has_taggart = true
-            break
+            taggart_count = taggart_count + 1
         end
     end
 end
-if has_taggart and _tag.key ~= 'tag_double' and (_tag.config.jest_tag_taggart_trigger == nil or not _tag.config.jest_tag_taggart_trigger) then
-    for i = 1, 1 do
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-            temptag = Tag(_tag.key)
-            temptag.config.jest_tag_taggart_trigger = true
-            add_tag(temptag)
-            return true end }))
+
+if taggart_count > 0 and _tag.key ~= 'tag_double' and (not _tag.config.jest_tag_duplicate_trigger) then
+    for i = 1, taggart_count do
+        for i = 1, 1 do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.9,
+                func = function()
+                    local temptag = Tag(_tag.key)
+                    temptag.config.jest_tag_duplicate_trigger = true
+                    add_tag(temptag)
+                    return true
+                end
+            }))
+        end
     end
 end
 '''
@@ -747,7 +816,6 @@ if has_Aluzinu then
         end
     end
 end
-
 '''
 
 [[patches]]
