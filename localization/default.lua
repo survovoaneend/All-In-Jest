@@ -594,8 +594,8 @@ return {
                 name = "Blind-Drawn",
                 text = {
                     "{X:mult,C:white}X#1#{} Mult",
-                    "Cannot see {C:attention}Boss Blind{} or its",
-                    "effects until it's selected",
+                    "Cannot see {C:attention}Boss Blind{} or",
+                    "its effects until selected",
                 }
             },
             j_aij_heidelberg_tun = {
