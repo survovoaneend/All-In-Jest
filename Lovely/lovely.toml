@@ -512,7 +512,7 @@ match_indent = true
 [[patches]] 
 [patches.pattern]
 target = "functions/UI_definitions.lua"
-pattern = "_tag.HUD_tag = G.HUD_tags[#G.HUD_tags]"
+pattern = "G.GAME.tags[#G.GAME.tags+1] = _tag"
 position = "after"
 payload = '''
 local toto_count = 0
