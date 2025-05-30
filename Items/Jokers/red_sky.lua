@@ -19,19 +19,7 @@ local red_sky = {
     end,
   
     calculate = function(self, card, context)
-        local has_red_sky = false
-
-        if G.jokers and G.jokers.cards then
-            for _, j in ipairs(G.jokers.cards) do
-                local k = j.config and j.config.center_key
-                if k == "j_aij_red_sky" then 
-                    if j == card then
-                        has_red_sky = true
-                    end
-                    break
-                end
-            end
-        end
+        local has_red_sky = next(SMODS.find_card("j_aij_red_sky"))
         if G.GAME.current_round.hands_played == 0 or G.GAME.current_round.hands_left == 0 then
             if G.play ~= nil and has_red_sky then
                 for _, card in ipairs(G.play.cards) do

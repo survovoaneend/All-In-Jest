@@ -39,15 +39,8 @@ local founding_father = {
 local updateref = Card.update
 function Card:update(dt)
   local ref = updateref(self, dt)
-  local has_founding_father = false
-  if G.jokers then
-      for _, j in ipairs(G.jokers.cards or {}) do
-        if j.config and j.config.center_key == "j_aij_founding_father" then
-          has_founding_father = true
-          break
-        end
-      end
-  end
+  local has_founding_father = next(SMODS.find_card("j_aij_founding_father"))
+  -- TODO this whole patch is a bit redundant
   if G.play and not self.ability.group_key and (has_founding_father or self.ability.jest_charged_ff_applied_h ~= nil) then
     local applied = self.ability.jest_charged_ff_applied or {}
     self.ability.jest_charged_ff_applied = applied
