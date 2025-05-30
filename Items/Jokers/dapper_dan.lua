@@ -48,7 +48,7 @@ function Card:update(dt)
     local current_card_limit = (self.edition and self.edition.card_limit) or 0
     local card_limit_diff = current_card_limit - last_card_limit
 
-    if self.added_to_deck and self.edition and self.edition.negative and card_limit_diff ~= 0 then
+    if (self.added_to_deck or self.joker_added_to_deck_but_debuffed) and self.edition and self.edition.negative and card_limit_diff ~= 0 then
       G.jokers.config.card_limit = G.jokers.config.card_limit + card_limit_diff
     end
 
@@ -65,7 +65,7 @@ function Card:update(dt)
     end
 
     if edition_changed and current_count > 0 and not skip then
-      if self.added_to_deck and self.edition and self.edition.negative and card_limit_diff ~= 0 then
+      if (self.added_to_deck or self.joker_added_to_deck_but_debuffed) and self.edition and self.edition.negative and card_limit_diff ~= 0 then
         G.jokers.config.card_limit = G.jokers.config.card_limit - 1
       end
       for _ = 1, current_count do
