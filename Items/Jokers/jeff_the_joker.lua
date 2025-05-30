@@ -5,7 +5,8 @@ local jeff_the_joker = {
   key = "jeff_the_joker",
   config = {
       extra = {
-          x_mult = 1 
+          x_mult = 1,
+          x_mult_per_destroy = 0.5,
       }
   },
   rarity = 2,
@@ -20,7 +21,7 @@ local jeff_the_joker = {
   loc_vars = function(self, info_queue, card)
       -- Display the current multiplier stored in the card's ability table
       local current_xmult = card.ability.extra.x_mult or 1
-      return { vars = { current_xmult } }
+      return { vars = { current_xmult, card.ability.extra.x_mult_per_destroy } }
   end,
 
   calculate = function(self, card, context)
@@ -50,7 +51,7 @@ local jeff_the_joker = {
           end
 
           if destroyed_count > 0 then
-              card.ability.extra.x_mult = card.ability.extra.x_mult + (destroyed_count * 0.5)
+              card.ability.extra.x_mult = card.ability.extra.x_mult + (destroyed_count * card.ability.extra.x_mult_per_destroy)
               card_eval_status_text(card, 'extra', nil, nil, nil, {message = 'X'..card.ability.extra.x_mult..' Mult', colour = G.C.RED})
               card:juice_up(0.6, 0.6)
           end
