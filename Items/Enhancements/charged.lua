@@ -9,15 +9,8 @@ local charged = {
         
     },
     loc_vars = function(self, info_queue, card)
-        local has_founding_father = false
-        if G.jokers then
-            for _, j in ipairs(G.jokers.cards or {}) do
-                if j.config and j.config.center_key == "j_aij_founding_father" then
-                has_founding_father = true
-                break
-                end
-            end
-        end
+        local charged_text
+        local has_founding_father = next(SMODS.find_card("j_aij_founding_father"))
         if has_founding_father then
             charged_text = 2
         else

@@ -46,14 +46,7 @@ local start_dissolve_ref = Card.start_dissolve
 function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice)
   local ref = start_dissolve_ref(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
   if G.jokers and self.ability.set == 'Joker' then
-    local has_anagraph = false
-
-    if G.jokers and G.jokers.cards then
-      for _, j in ipairs(G.jokers.cards) do
-        local k = j.config and j.config.center_key
-        if k == "j_aij_anagraph" then has_anagraph = true end
-      end
-    end
+    local has_anagraph = next(SMODS.find_card("j_aij_anagraph"))
     if has_anagraph and (self.ability.has_anagraph_triggered == nil or not self.ability.has_anagraph_triggered) then
       G.E_MANAGER:add_event(Event({
         trigger = 'before',
