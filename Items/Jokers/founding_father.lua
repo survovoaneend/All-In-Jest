@@ -41,7 +41,7 @@ function Card:update(dt)
   local ref = updateref(self, dt)
   local has_founding_father = next(SMODS.find_card("j_aij_founding_father"))
   -- TODO this whole patch is a bit redundant
-  if G.play and not self.ability.group_key and (has_founding_father or self.ability.jest_charged_ff_applied_h ~= nil) then
+  if G.play and (has_founding_father or self.ability.jest_charged_ff_applied_h ~= nil) then
     local applied = self.ability.jest_charged_ff_applied or {}
     self.ability.jest_charged_ff_applied = applied
 
@@ -98,7 +98,7 @@ function Card:update(dt)
         end
     end
   end
-  if G.deck and not self.ability.group_key and (has_founding_father or self.ability.jest_charged_ff_applied_h ~= nil) then
+  if G.deck and (has_founding_father or self.ability.jest_charged_ff_applied_h ~= nil) then
     if G.deck.cards then
         for _, j in ipairs(G.deck.cards) do
           if j == self then
@@ -138,7 +138,7 @@ function Card:update(dt)
         end
     end
   end
-  if G.hand and not self.ability.group_key and (has_founding_father or self.ability.jest_charged_ff_applied_h ~= nil) then
+  if G.hand and (has_founding_father or self.ability.jest_charged_ff_applied_h ~= nil) then
     local applied = self.ability.jest_charged_ff_applied_h or {}
     self.ability.jest_charged_ff_applied_h = applied
 

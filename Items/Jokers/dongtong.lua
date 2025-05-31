@@ -23,7 +23,7 @@ local dongtong = {
 local updateref = Card.update
 function Card:update(dt)
   local ref = updateref(self, dt)
-  if G.jokers and self.ability.set == 'Joker' and not self.ability.group_key then
+  if G.jokers and self.ability.set == 'Joker' then
     local applied = self.ability.jest_applied or {}
     self.ability.jest_applied = applied
 

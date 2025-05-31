@@ -682,8 +682,8 @@ return {
             j_aij_dapper_dan = { 
                 name = "Dapper Dan", 
                 text = { 
-                    "{C:attention}X2{} effectiveness of joker",
-                    "{C:attention}editions" 
+                    "Joker {C:dark_edition}Editions{} are",
+                    "{C:attention}2X{} as effective",
                 } 
             },
             j_aij_average_joe = {

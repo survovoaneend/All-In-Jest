@@ -25,7 +25,7 @@ local charged = {
 local updateref = Card.update
 function Card:update(dt)
   local ref = updateref(self, dt)
-  if G.play and not self.ability.group_key then
+  if G.play then
     local applied = self.ability.jest_charged_applied or {}
     self.ability.jest_charged_applied = applied
 
@@ -82,7 +82,7 @@ function Card:update(dt)
         end
     end
   end
-  if G.deck and not self.ability.group_key then
+  if G.deck then
     if G.deck.cards then
         for _, j in ipairs(G.deck.cards) do
           if j == self then
@@ -122,7 +122,7 @@ function Card:update(dt)
         end
     end
   end
-  if G.hand and not self.ability.group_key then
+  if G.hand then
       local applied = self.ability.jest_charged_applied_h or {}
       self.ability.jest_charged_applied_h = applied
 
