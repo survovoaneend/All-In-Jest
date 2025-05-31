@@ -316,29 +316,6 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "function Card:is_suit(suit, bypass_debuff, flush_calc)"
-position = "after" 
-match_indent = true
-payload = '''
-if G.jokers then
-    local jack_joker = next(SMODS.find_card('j_aij_jack_of_all_trades')) 
-    if jack_joker and self.base and self.base.value == 'Jack' then
-        return true
-    end
-    local glass_joker = next(SMODS.find_card('j_aij_stained_glass_joker'))
-    local enhancements = SMODS.get_enhancements(self)
-    if glass_joker and enhancements['m_glass'] then
-        return true
-    end
-end
-if self.ability.jest_all_suit then
-    return true
-end
-'''
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
 pattern = "function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice)"
 position = "after" 
 match_indent = true
