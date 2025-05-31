@@ -1481,13 +1481,13 @@ return {
             },
             j_aij_dongfang = { name = "Dongfang", text = { "" }, unlock = { "?????" } },
             j_aij_zerco = {
-                 name = "Zerco",
-                 text = {
-                     "Applies {C:dark_edition}Negative{} to",
-                     "first scored {C:attention}card{}",
-                     "each {C:attention}round{}",
-                    },
-                    unlock = { "?????" } },
+                name = "Zerco",
+                text = {
+                    "Applies {C:dark_edition}Negative{} to {C:attention}first{}",
+                    "scored {C:attention}card{} each {C:attention}round{}",
+                    "{C:inactive}(if it has no existing Edition)"
+                },
+                unlock = { "?????" } },
             j_aij_yu_sze = { 
                 name = "Yu Sze", 
                 text = { 
