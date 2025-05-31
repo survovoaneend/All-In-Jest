@@ -119,8 +119,8 @@ return {
                 text = { 
                     "If first hand of round",
                     "contains {C:attention}exactly one{} card,",
-                    "that card is {C:attention}always drawn",
-                    "{C:attention}first{} on future Blinds",
+                    "that card is always {C:attention}drawn",
+                    "{C:attention}first{} in future Blinds",
                     "{C:inactive}(Can only store one card)",
                     "{C:inactive}(Only triggers in leftmost position)" 
                 } 
@@ -178,7 +178,7 @@ return {
                     "{C:attention}First card{} drawn",
                     "each round counts as",
                     "{C:attention}any{} rank and suit",
-                    "{C:inactive}(Ranks don't make poker hands)"
+                    "{C:inactive}(Ranks can't make poker hands)"
                 } 
             },
             j_aij_ultrasound = {
@@ -313,9 +313,9 @@ return {
             j_aij_punk_joker = {
                 name = "Punk Joker",
                 text = {
-                    "If scored hand contains",
-                    "a {C:attention}Wild Card{}, turn",
-                    "another random card",
+                    "If scored hand contains a",
+                    "{C:attention}Wild Card{}, turn a random",
+                    "unenhanced scored card",
                     "into a {C:attention}Wild Card{}"
                 },
             },
@@ -516,6 +516,7 @@ return {
                     "effect triggers multiply",
                     "{C:mult}Mult{} by its chance of not",
                     "occurring" 
+                    -- TODO revise this
                 } 
             },
             j_aij_pulcinella = { name = "Pulcinella", text = { "" } },
@@ -548,7 +549,7 @@ return {
                     "Played {C:attention}cards{}",
                     "permanently gain",
                     "{C:mult}+#1#{} Mult when scored"
-            } 
+                } 
             },
             j_aij_vesti_la_guibba = { name = "Vesti la Guibba", text = { "" } },
             j_aij_dead_president = {
@@ -990,9 +991,9 @@ return {
             j_aij_chippy = { 
                 name = "Chippy", 
                 text = { 
-                    "When {C:money}money{} is spent this",
-                    "joker gains equal {C:chips}chips",
-                    "{C:inactive}(Currently {C:blue}+#1#{C:inactive} Chips)",
+                    "This Joker gains {C:chips}Chips{}",
+                    "equal to {C:money}money{} spent",
+                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
                 } 
             },
             j_aij_hofnarr_the_barbarian = {
@@ -1422,8 +1423,9 @@ return {
                     "considered {C:common}Common"
                 },
                 unlock = { "?????" }
-                -- TODO discuss: are they both rarities or just Common?
-                -- do they affect pools
+                -- TODO discuss: are these rarities inclusive,
+                -- so e.g. an Uncommon would count as Common and still be Uncommon
+                -- for a Baseball Card
             },
             j_aij_thomazina = {
                  name = "Thomazina",
