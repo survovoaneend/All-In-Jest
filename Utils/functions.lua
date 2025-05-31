@@ -54,8 +54,13 @@ function level_up_hand_mult(card, hand, instant, amount)
     end
 end
 
+local ids_op_ref = ids_op
 function ids_op(card, op, b, c)
   local id = card:get_id() 
+  local other_results = false
+  if ids_op_ref ~= nil then
+    other_results = ids_op_ref(card, op, b, c) 
+  end
 
   local function alias(x)
     local has_invis, has_doc, has_pygm, has_furb = false, false, false, false
@@ -100,6 +105,10 @@ function ids_op(card, op, b, c)
     end
 
     return x
+  end
+
+  if other_results == true then
+    return true
   end
 
   if op == "mod" then
