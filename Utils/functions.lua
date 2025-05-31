@@ -776,3 +776,22 @@ function create_joker(card_type,tag,message,extra, rarity)
     end)}))
 end
 
+---- All In Jest-specific utility functions
+
+-- return `true` if an effect from All In Jest makes `card` count as all suits
+function All_in_Jest.counts_as_all_suits(card)
+  if G.jokers then
+    local jack_joker = next(SMODS.find_card('j_aij_jack_of_all_trades')) 
+    if jack_joker and card.base and card.base.value == 'Jack' then
+        return true
+    end
+    local glass_joker = next(SMODS.find_card('j_aij_stained_glass_joker'))
+    local enhancements = SMODS.get_enhancements(card)
+    if glass_joker and enhancements['m_glass'] then
+        return true
+    end
+  end
+  if card.ability.jest_all_suit then
+      return true
+  end
+end

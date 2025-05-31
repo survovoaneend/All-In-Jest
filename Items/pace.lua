@@ -45,13 +45,7 @@ function Card:update(dt)
         end
     end
 
-    local has_pace = false
-    for _, j in ipairs(G.jokers.cards or {}) do
-      if j.config and j.config.center_key == "j_aij_pace" then
-        has_pace = true
-        break
-      end
-    end
+    local has_pace = next(SMODS.find_card("j_aij_pace"))
     if self.config.center.jest_real_rarity ~= "1" and self.config.center.jest_real_rarity ~= "Common" then
         if has_pace then
           local orig = self.config.center.jest_real_rarity
@@ -132,13 +126,7 @@ end
 
 SMODS.Rarity:take_ownership('Uncommon', {
   get_weight = function(self, weight, object_type)
-    local has_pace = false
-    for _, j in ipairs(G.jokers.cards or {}) do
-      if j.config and j.config.center_key == "j_aij_pace" then
-        has_pace = true
-        break
-      end
-    end
+    local has_pace = next(SMODS.find_card("j_aij_pace"))
     if has_pace then
         return 0.7
     end
@@ -148,13 +136,7 @@ SMODS.Rarity:take_ownership('Uncommon', {
 
 SMODS.Rarity:take_ownership('Rare', {
   get_weight = function(self, weight, object_type)
-    local has_pace = false
-    for _, j in ipairs(G.jokers.cards or {}) do
-      if j.config and j.config.center_key == "j_aij_pace" then
-        has_pace = true
-        break
-      end
-    end
+    local has_pace = next(SMODS.find_card("j_aij_pace"))
     if has_pace then
         return 0.7
     end

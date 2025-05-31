@@ -9,15 +9,8 @@ local charged = {
         
     },
     loc_vars = function(self, info_queue, card)
-        local has_founding_father = false
-        if G.jokers then
-            for _, j in ipairs(G.jokers.cards or {}) do
-                if j.config and j.config.center_key == "j_aij_founding_father" then
-                has_founding_father = true
-                break
-                end
-            end
-        end
+        local charged_text
+        local has_founding_father = next(SMODS.find_card("j_aij_founding_father"))
         if has_founding_father then
             charged_text = 2
         else
@@ -32,195 +25,53 @@ local charged = {
 local updateref = Card.update
 function Card:update(dt)
   local ref = updateref(self, dt)
-  if G.play and not self.ability.group_key then
-    local applied = self.ability.jest_charged_applied or {}
-    self.ability.jest_charged_applied = applied
+  if self.config.center == G.P_CENTERS["m_aij_charged"]
+  or self.config.center == G.P_CENTERS.c_base then
+    return ref
+  end
 
-    local current_count = 0
-    if G.play.cards then
-        for _, j in ipairs(G.play.cards) do
-          if j.config and j.config.center == G.P_CENTERS["m_aij_charged"] and not j.debuff then
-            current_count = current_count + 1
-          end
-        end
-        for _, j in ipairs(G.play.cards) do
-          if j == self and self.config.center ~= G.P_CENTERS["m_aij_charged"] and self.config.center ~= G.P_CENTERS.c_base then
-            if self.ability and self.ability.jest_charged_applied_h and self.ability.jest_charged_applied_h.m_aij_charged and self.ability.jest_charged_applied_h.m_aij_charged > 0 then
-                local count_h = self.ability.jest_charged_applied_h.m_aij_charged
-                self.ability.jest_charged_applied_h = nil
-
-                for i = 1, count_h do
-                    jest_ability_calculate(
-                    self,
-                    "/", 1.5,
-                    { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
-                    nil,   
-                    true,  
-                    false,    
-                    "ability"  
-                    )
-                end
-            end
-            local prev_count = applied["m_aij_charged"] or 0
-            local diff = current_count - prev_count
-
-            if diff > 0 then
-              for i = 1, diff do
-                jest_ability_calculate(
-                  self,
-                  "*", 1.5,
-                  { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
-                  nil, true, false, "ability"
-                )
-              end
-            elseif diff < 0 then
-              for i = 1, -diff do
-                jest_ability_calculate(
-                  self,
-                  "/", 1.5,
-                  { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
-                  nil, true, false, "ability"
-                )
-              end
-            end
-
-            applied["m_aij_charged"] = current_count
-          end
-        end
+  local current_count = 0
+  if self.area == G.play and G.play then
+    for _, c in ipairs(G.play.cards) do
+      if c.config and c.config.center == G.P_CENTERS["m_aij_charged"] and not c.debuff then
+        current_count = current_count + 1
+      end
     end
   end
-  if G.deck and not self.ability.group_key then
-    if G.deck.cards then
-        for _, j in ipairs(G.deck.cards) do
-          if j == self then
-              if self.ability and self.ability.jest_charged_applied_h and self.ability.jest_charged_applied_h.m_aij_charged and self.ability.jest_charged_applied_h.m_aij_charged > 0 then
-                local count_h = self.ability.jest_charged_applied_h.m_aij_charged
-                self.ability.jest_charged_applied_h = nil
+  if self.area == G.hand and G.hand then
+    local is_highlighted = {}
+    for _, c in ipairs(G.hand.highlighted) do
+      is_highlighted[c] = true
+    end
+    local self_is_highlighted = is_highlighted[self]
 
-                for i = 1, count_h do
-                    jest_ability_calculate(
-                    self,
-                    "/", 1.5,
-                    { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
-                    nil,   
-                    true,  
-                    false,    
-                    "ability"  
-                    )
-                end
-              end
-              if self.ability and self.ability.jest_charged_applied and self.ability.jest_charged_applied.m_aij_charged and self.ability.jest_charged_applied.m_aij_charged > 0 then
-                local count_h = self.ability.jest_charged_applied.m_aij_charged
-                self.ability.jest_charged_applied = nil
-
-                for i = 1, count_h do
-                    jest_ability_calculate(
-                    self,
-                    "/", 1.5,
-                    { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
-                    nil,   
-                    true,  
-                    false,    
-                    "ability"  
-                    )
-                end
-              end
-          end
+    for _, c in ipairs(G.hand.cards) do
+      if c.config and c.config.center == G.P_CENTERS["m_aij_charged"] and not c.debuff then
+        if is_highlighted[c] == self_is_highlighted then
+          current_count = current_count + 1
         end
+      end
     end
   end
-  if G.hand and not self.ability.group_key then
-      local applied = self.ability.jest_charged_applied_h or {}
-      self.ability.jest_charged_applied_h = applied
 
-      local highlighted_set = G.hand.highlighted or {}
-      local hand_set = G.hand.cards
-
-      local is_highlighted = {}
-      for _, c in ipairs(highlighted_set) do
-        is_highlighted[c] = true
-      end
-
-      local self_is_highlighted = is_highlighted[self]
-
-      local charged_count = 0
-      for _, c in ipairs(hand_set) do
-        local c_is_highlighted = is_highlighted[c]
-
-        if c ~= self and (self_is_highlighted == c_is_highlighted) then
-          if c.config and c.config.center == G.P_CENTERS["m_aij_charged"] and not c.debuff then
-            charged_count = charged_count + 1
-          end
-        end
-      end
-
-      for _, j in ipairs(hand_set) do
-        if j == self and self.config.center ~= G.P_CENTERS["m_aij_charged"] and self.config.center ~= G.P_CENTERS.c_base then
-          local prev_count = applied["m_aij_charged"] or 0
-          local diff = charged_count - prev_count
-
-          if diff > 0 then
-            for i = 1, diff do
-              jest_ability_calculate(
-                self,
-                "*", 1.5,
-                { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
-                nil, true, false, "ability"
-              )
-            end
-          elseif diff < 0 then
-            for i = 1, -diff do
-              jest_ability_calculate(
-                self,
-                "/", 1.5,
-                { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
-                nil, true, false, "ability"
-              )
-            end
-          end
-
-          applied["m_aij_charged"] = charged_count
-        end
-      end
+  local applied = self.ability.jest_charged_applied or {}
+  self.ability.jest_charged_applied = applied
+  local prev_factor = applied.factor or 1
+  local has_founding_father = next(SMODS.find_card("j_aij_founding_father"))
+  local b = (has_founding_father and 2 or 1.5) -- base of exponential
+  local factor = b^current_count
+  local diff = factor/prev_factor
+  -- NOTE concern about imprecision
+  if diff ~= 1 then
+    jest_ability_calculate(
+      self,
+      "*", diff,
+      { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
+      nil, true, false, "ability"
+    )
+    applied.factor = factor
   end
   return ref
-end
-local set_ability_ref = Card.set_ability
-function Card:set_ability(center, initial, delay_sprites)
-  if self.ability and self.ability.jest_charged_applied_h and self.ability.jest_charged_applied_h.m_aij_charged and self.ability.jest_charged_applied_h.m_aij_charged > 0 then
-    local count_h = self.ability.jest_charged_applied_h.m_aij_charged
-    self.ability.jest_charged_applied_h = nil
-
-    for i = 1, count_h do
-        jest_ability_calculate(
-        self,
-        "/", 1.5,
-        { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
-        nil,   
-        true,  
-        false,    
-        "ability"  
-        )
-    end
-  end
-  if self.ability and self.ability.jest_charged_applied and self.ability.jest_charged_applied.m_aij_charged and self.ability.jest_charged_applied.m_aij_charged > 0 then
-    local count_h = self.ability.jest_charged_applied.m_aij_charged
-    self.ability.jest_charged_applied = nil
-
-    for i = 1, count_h do
-        jest_ability_calculate(
-        self,
-        "/", 1.5,
-        { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
-        nil,   
-        true,  
-        false,    
-        "ability"  
-        )
-    end
-  end
-
-  return set_ability_ref(self, center, initial, delay_sprites)
 end
 
 return {name = {"Enhancements"}, items = {charged}}

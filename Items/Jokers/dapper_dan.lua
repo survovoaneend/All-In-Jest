@@ -27,37 +27,16 @@ local updateref = Card.update
 function Card:update(dt)
   local ref = updateref(self, dt)
 
-  if G.jokers and self.ability.set == 'Joker' and not self.ability.group_key and self.edition ~= nil then
-    local applied = self.ability.jest_dapper_dan_applied or {}
-    local skip = false
-    if self.ability.jest_dapper_dan_applied == nil then
-      skip = true
-    end
-    self.ability.jest_dapper_dan_applied = applied
+  if G.jokers and self.ability.set == 'Joker' and self.edition ~= nil then
+    local applied = self.edition.jest_dapper_dan_applied or {}
+    self.edition.jest_dapper_dan_applied = applied
 
-    local current_count = 0
-    if G.jokers.cards then
-      for _, j in ipairs(G.jokers.cards) do
-        if j.config and j.config.center_key == "j_aij_dapper_dan" then
-          current_count = current_count + 1
-        end
-      end
-    end
-
+    local current_count = #SMODS.find_card("j_aij_dapper_dan")
     local prev_count = applied["j_aij_dapper_dan"] or 0
     local diff = current_count - prev_count
+    if diff == 0 then return ref end
 
-    local last_type = applied._last_edition_type
-    local current_type = self.edition and self.edition.type
-    local edition_changed = last_type ~= current_type
-
-    local last_card_limit = applied._last_card_limit or 0
-    local current_card_limit = (self.edition and self.edition.card_limit) or 0
-    local card_limit_diff = current_card_limit - last_card_limit
-
-    if self.added_to_deck and self.edition and self.edition.negative and card_limit_diff ~= 0 then
-      G.jokers.config.card_limit = G.jokers.config.card_limit + card_limit_diff
-    end
+    local last_card_limit = (self.edition and self.edition.card_limit) or 0
 
     if diff > 0 then
       for _ = 1, diff do
@@ -71,18 +50,13 @@ function Card:update(dt)
       end
     end
 
-    if edition_changed and current_count > 0 and not skip then
-      if self.added_to_deck and self.edition and self.edition.negative and card_limit_diff ~= 0 then
-        G.jokers.config.card_limit = G.jokers.config.card_limit - 1
-      end
-      for _ = 1, current_count do
-        jest_ability_calculate(self, "*", 2, nil, nil, true, nil, "edition")
-      end
+    local current_card_limit = (self.edition and self.edition.card_limit) or 0
+    local card_limit_diff = current_card_limit - last_card_limit
+    if (self.added_to_deck or self.joker_added_to_deck_but_debuffed) and card_limit_diff ~= 0 then
+      G.jokers.config.card_limit = G.jokers.config.card_limit + card_limit_diff
     end
 
-    applied._last_card_limit = current_card_limit
     applied["j_aij_dapper_dan"] = current_count
-    applied._last_edition_type = current_type
   end
 
   return ref

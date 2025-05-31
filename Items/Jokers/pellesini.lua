@@ -30,14 +30,7 @@ local start_dissolve_ref = Card.start_dissolve
 function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice)
   local ref = start_dissolve_ref(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
   if G.jokers and self.ability.set == 'Joker' then
-    local has_pellesini = 0
-
-    if G.jokers and G.jokers.cards then
-        for _, j in ipairs(G.jokers.cards) do
-            local k = j.config and j.config.center_key
-            if k == "j_aij_pellesini" then has_pellesini = has_pellesini + 1 end
-        end
-    end
+    local has_pellesini = #SMODS.find_card("j_aij_pellesini")
     if has_pellesini >= 0 and self.ability.jest_sold_self == nil and (#G.jokers.cards <= G.jokers.config.card_limit or (self.edition ~= nil and self.edition.negative)) then
         for i = 1, has_pellesini do
             G.E_MANAGER:add_event(Event({trigger = 'before', delay = 0.4, func = function()

@@ -51,20 +51,20 @@ local bearded_joker = {
         end
     end,
     in_pool = function(self, args)
-    local enhancement_tally = 0
-    if G.GAME and G.playing_cards then
-        for _, card in ipairs(G.playing_cards) do
-            if card.config.center ~= G.P_CENTERS.c_base then
-                enhancement_tally = enhancement_tally + 1
+        local enhancement_tally = 0
+        if G.GAME and G.playing_cards then
+            for _, card in ipairs(G.playing_cards) do
+                if card.config.center ~= G.P_CENTERS.c_base then
+                    enhancement_tally = enhancement_tally + 1
+                end
             end
         end
-    end
-    if enhancement_tally > 2 then
-        return true
-    else
-        return false
-    end
-  end,
+        if enhancement_tally > 2 then
+            return true
+        else
+            return false
+        end
+    end,
   
 }
 return { name = {"Jokers"}, items = {bearded_joker} }
