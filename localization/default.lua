@@ -908,8 +908,7 @@ return {
                 name = "Design Document", 
                 text = { 
                     "Earn {C:money}$#1#{} when any",
-                    "{C:green}probability{} effect fails to",
-                    "trigger" 
+                    "{C:green}probability{} effect fails"
                 } 
             },
             j_aij_animatronic = { name = "Animatronic", text = { "" } },
