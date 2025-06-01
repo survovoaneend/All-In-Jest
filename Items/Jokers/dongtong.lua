@@ -23,18 +23,11 @@ local dongtong = {
 local updateref = Card.update
 function Card:update(dt)
   local ref = updateref(self, dt)
-  if G.jokers and self.ability.set == 'Joker' and not self.ability.group_key then
+  if G.jokers and self.ability.set == 'Joker' then
     local applied = self.ability.jest_applied or {}
     self.ability.jest_applied = applied
 
-    local current_count = 0
-    if G.jokers.cards then
-      for _, j in ipairs(G.jokers.cards) do
-        if j.config and j.config.center_key == "j_aij_dongtong" then
-          current_count = current_count + 1
-        end
-      end
-    end
+    local current_count = #SMODS.find_card("j_aij_dongtong")
 
     local prev_count = applied["j_aij_dongtong"] or 0
     local diff = current_count - prev_count
