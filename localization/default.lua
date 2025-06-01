@@ -167,7 +167,7 @@ return {
             j_aij_trypophobia = {
                 name = "Trypophobia",
                 text = {
-                    "{C:mult}+#1#{} Mult if played hand",
+                    "{C:mult}+#1#{} Mult if scored hand",
                     "contains only {C:attention}8s{}",
                 },
             },

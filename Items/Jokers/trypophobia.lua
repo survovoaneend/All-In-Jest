@@ -29,7 +29,7 @@ local trypophobia = {
       
       local eights, all_cards = 0, 0
       if context.joker_main then
-        for k, v in ipairs(context.full_hand) do
+        for k, v in ipairs(context.scoring_hand) do
           all_cards = all_cards + 1
           if v:get_id() == 8 then
             eights = eights + 1
