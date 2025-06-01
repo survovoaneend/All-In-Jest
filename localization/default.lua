@@ -102,7 +102,7 @@ return {
                 text = {
                     "Turn every scored {C:attention}#1#{}",
                     "into a {C:attention}#2#{}",
-                    "{s:0.8}rank and enhancement",
+                    "{s:0.8}Rank and Enhancement",
                     "{s:0.8}change at end of round"
                 },
             },
