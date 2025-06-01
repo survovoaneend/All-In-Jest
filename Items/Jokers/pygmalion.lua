@@ -6,10 +6,10 @@ local pygmalion = {
     config = {
        
     },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 1, y = 11},
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

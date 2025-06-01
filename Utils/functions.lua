@@ -134,6 +134,21 @@ function ids_op(card, op, b, c)
   error("ids_op: unsupported op " .. tostring(op))
 end
 
+local is_face_ref = is_face
+function is_face(from_boss)
+    local has_pygm = false
+    if G.jokers and G.jokers.cards then
+      for _, j in ipairs(G.jokers.cards) do
+        local k = j.config and not j.debuff and j.config.center_key
+        if k == "j_aij_pygmalion" then has_pygm = true end
+      end
+    end
+    if has_pygm and SMODS.has_enhancement(card, 'm_stone') and not card.debuff then
+      return true
+    end
+    return is_face_ref(from_boss)
+end
+
 
 function redeemed_voucher_count()
     if G.GAME and G.GAME.used_vouchers then

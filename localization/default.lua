@@ -387,7 +387,7 @@ return {
                 text = {
                     "{C:attention}After{} {C:attention}Jokers{} have triggered,",
                     "set {C:mult}Mult{} to the {C:attention}highest",
-                    "{C:mult}Mult{} reached this round",
+                    "{C:mult}Mult{} reached this {C:attention}Ante",
                     "{C:inactive}(Currently {C:mult}#1# {C:inactive}Mult)"
                 } 
             },
