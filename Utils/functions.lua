@@ -790,6 +790,10 @@ function All_in_Jest.counts_as_all_suits(card)
     if glass_joker and enhancements['m_glass'] then
         return true
     end
+    local fantasio = next(SMODS.find_card('j_aij_fantasio'))
+    if fantasio then
+      return true
+    end
   end
   if card.ability.jest_all_suit then
       return true

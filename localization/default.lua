@@ -876,10 +876,11 @@ return {
             j_aij_fatuus = {
                 name = "Fatuus",
                 text = {
-                    'If played hand contains',
-                    'only {C:attention}Kings{} and {C:attention}Queens{},',
-                    'apply a {C:blue}Blue Seal{} to a',
-                    'random card held in hand',
+                    'If first played hand of',
+                    'round contains only {C:attention}Kings{}',
+                    'and {C:attention}Queens{}, apply a {C:blue}Blue',
+                    '{C:blue}Seal{} to a random played',
+                    'card',
                 },
             },
             j_aij_enraging_photo = { name = "Enraging Photo", text = { "" } },
@@ -1580,8 +1581,7 @@ return {
                 name = "Fantasio", 
                 text = { 
                     "All cards are considered",
-                    "{C:hearts}Hearts{}, {C:spades}Spades{},",
-                    "{C:diamonds}Diamonds{}, and {C:clubs}Clubs{}" 
+                    "to be {C:attention}every suit",
                 }, 
                 unlock = { 
                     "?????" 
