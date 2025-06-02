@@ -21,7 +21,7 @@ local mondrian_joker = {
       local four_count = 0
         if G.playing_cards then
             for _, card in ipairs(G.playing_cards) do
-                if card.base.value == '4' and not SMODS.has_no_rank(card) then
+                if card:get_id() == 4 and not SMODS.has_no_rank(card) then
                     four_count = four_count + 1
                 end
             end
@@ -35,7 +35,7 @@ local mondrian_joker = {
           local four_count = 0
           if G.playing_cards then
               for _, deck_card in ipairs(G.playing_cards) do
-                  if deck_card.base.value == '4' and not SMODS.has_no_rank(deck_card) then
+                  if deck_card:get_id() == 4 and not SMODS.has_no_rank(deck_card) then
                       four_count = four_count + 1
                   end
               end

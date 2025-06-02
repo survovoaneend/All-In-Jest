@@ -51,6 +51,8 @@ local blank_card = {
                   func = function()
                       if _card and not _card.REMOVED then
                           _card:start_materialize()
+                          playing_card_joker_effects({_card})
+                          return true
                       end
                       return true
                   end
@@ -59,6 +61,7 @@ local blank_card = {
                 card:juice_up(0.4, 0.3)
 
                 return {
+                  
                   message = localize('k_copied_ex'),
                   colour = G.C.CHIPS,
                   card = card,
