@@ -51,7 +51,6 @@ local blank_card = {
                   func = function()
                       if _card and not _card.REMOVED then
                           _card:start_materialize()
-                          playing_card_joker_effects({_card})
                           return true
                       end
                       return true
