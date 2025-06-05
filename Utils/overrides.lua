@@ -50,3 +50,8 @@
         end,
         loc_vars = pack_loc_vars,
     },true)
+
+local has_any_suit_ref = SMODS.has_any_suit
+function SMODS.has_any_suit(card)
+    return has_any_suit_ref(card) or All_in_Jest.counts_as_all_suits(card)
+end

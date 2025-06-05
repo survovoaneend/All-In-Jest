@@ -6,7 +6,7 @@ local urchin = {
     config = {
         extra = {
             money = 0,
-            money_mod = 1
+            money_mod = 2
         }
     },
     rarity = 1,

@@ -13,7 +13,7 @@ local toyrapple = {
   atlas = 'familiar_atlas',
   cost = 10,
   unlocked = true,
-  discovered = true,
+  discovered = false,
   blueprint_compat = true,
   eternal_compat = true,
   soul_pos = { x = 2, y = 1 },

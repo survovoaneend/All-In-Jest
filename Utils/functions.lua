@@ -54,15 +54,20 @@ function level_up_hand_mult(card, hand, instant, amount)
     end
 end
 
+local ids_op_ref = ids_op
 function ids_op(card, op, b, c)
   local id = card:get_id() 
+  local other_results = false
+  if ids_op_ref ~= nil then
+    other_results = ids_op_ref(card, op, b, c) 
+  end
 
   local function alias(x)
     local has_invis, has_doc, has_pygm, has_furb = false, false, false, false
 
     if G.jokers and G.jokers.cards then
       for _, j in ipairs(G.jokers.cards) do
-        local k = j.config and j.config.center_key
+        local k = j.config and not j.debuff and j.config.center_key
         if k == "j_aij_invisible_man" then has_invis = true end
         if k == "j_aij_doctors_note" then has_doc = true end
         if k == "j_aij_pygmalion" then has_pygm = true end
@@ -78,28 +83,32 @@ function ids_op(card, op, b, c)
       return 11
     end
 
-    if has_pygm and ({[12]=true})[b] and card.config.center == G.P_CENTERS["m_stone"] then -- Stone cards count as rank 12
+    if has_pygm and ({[12]=true})[b] and SMODS.has_enhancement(card, 'm_stone') and not card.debuff then -- Stone cards count as rank 12
       return 11
     end
 
     if has_furb then
-        if card.config.center == G.P_CENTERS.m_aij_dyscalcular then
+        if SMODS.has_enhancement(card, 'm_aij_dyscalcular') and not card.debuff then
             if id == b or not ({[12]=true, [13]=true})[b] then
                 return 11
             end
         end
-    elseif card.config.center == G.P_CENTERS.m_aij_dyscalcular then -- Counts as any non-face ranks and non-ace
+    elseif SMODS.has_enhancement(card, 'm_aij_dyscalcular') and not card.debuff then -- Counts as any non-face ranks and non-ace
         if id == b or not ({[11]=true, [12]=true, [13]=true, [14]=true})[b] then 
             return 11
         end
     end
 
 
-    if card.ability.jest_all_rank then -- Counts as any rank
+    if card.ability.jest_all_rank and not card.debuff then -- Counts as any rank
       return 11
     end
 
     return x
+  end
+
+  if other_results == true then
+    return true
   end
 
   if op == "mod" then
@@ -194,6 +203,17 @@ end
 
 to_big = to_big or function(num)
     return num
+end
+
+local set_ability_ref = Card.set_ability
+function Card:set_ability(center, initial, delay_sprites)
+    local t = set_ability_ref(self, center, initial, delay_sprites)
+    if self.ability then
+        if self.ability.jest_chaotic_card ~= nil and self.ability.jest_chaotic_card and not self.ability.jest_chaotic_card_changing then
+            self.ability.jest_chaotic_card = nil
+        end
+    end
+    return t
 end
 
 jest_ability_calculate = function(card, equation, extra_value, exclusions, inclusions, do_round, only, extra_search)
@@ -779,3 +799,26 @@ function create_joker(card_type,tag,message,extra, rarity)
     end)}))
 end
 
+---- All In Jest-specific utility functions
+
+-- return `true` if an effect from All In Jest makes `card` count as all suits
+function All_in_Jest.counts_as_all_suits(card)
+  if G.jokers then
+    local jack_joker = next(SMODS.find_card('j_aij_jack_of_all_trades')) 
+    if jack_joker and card.base and card.base.value == 'Jack' then
+        return true
+    end
+    local glass_joker = next(SMODS.find_card('j_aij_stained_glass_joker'))
+    local enhancements = SMODS.get_enhancements(card)
+    if glass_joker and enhancements['m_glass'] then
+        return true
+    end
+    local fantasio = next(SMODS.find_card('j_aij_fantasio'))
+    if fantasio then
+      return true
+    end
+  end
+  if card.ability.jest_all_suit then
+      return true
+  end
+end

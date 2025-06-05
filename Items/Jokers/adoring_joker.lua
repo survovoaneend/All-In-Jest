@@ -41,7 +41,7 @@ local adoring_joker = {
             }
         end
       end
-      if (context.end_of_round or context.setting_blind) and context.cardarea == G.jokers then
+      if (context.end_of_round and G.GAME.blind.boss) and context.cardarea == G.jokers then
         card.ability.jest_highest_scored_mult = {}
         card.ability.highest_mult = 0
       end

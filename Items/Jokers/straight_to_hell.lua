@@ -31,7 +31,7 @@ local straight_to_hell = {
         if not context.blueprint then
             if G.hand and G.hand.highlighted and #G.hand.highlighted > 0 then
                 local hand_info = G.FUNCS.get_poker_hand_info(G.hand.highlighted)
-                if hand_info == 'Straight' then
+                if hand_info == 'Straight' or hand_info == 'Straight Flush' or hand_info == 'Straight Spectrum' or hand_info == 'Royal Flush' or hand_info == 'Royal Spectrum'  or (G.jokers and next(SMODS.find_card('j_aij_string_theory'))) then
                     card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_mod
 
                     card_eval_status_text(card, 'extra', nil, nil, nil, {

@@ -21,6 +21,7 @@ local krampus = {
 
   blueprint_compat = true,
   eternal_compat = true,
+  enhancement_gate = "m_gold",
 
   loc_vars = function(self, info_queue, card)
 

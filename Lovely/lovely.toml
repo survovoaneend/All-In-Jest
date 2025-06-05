@@ -10,27 +10,49 @@ pattern = "if (love.system.getOS() == 'OS X' ) and (jit.arch == 'arm64' or jit.a
 position = "before" 
 match_indent = true
 payload = '''
+-- __NFS_READ_MULTI_RANK_PATCHED__
 local function patch_text(txt)
     txt = txt:gsub(
-        "([%w_%[%]%.#]+):get_id%(%s*%)%s*%%%s*([%w_%[%]%.%(%)#]+)%s*==%s*([%w_%[%]%.%(%)#]+)",
+        "([%w_.#]+):get_id%(%s*%)%s*%%%s*([%w_.%(%)#]+)%s*==%s*([%w_.%(%)#]+)",
         "ids_op(%1, \"mod\", %2, %3)"
     )
 
     for _, op in ipairs({">=", "<=", "~=", "==", ">", "<"}) do
         local esc = op:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
+
         txt = txt:gsub(
-            "([%w_%[%]%.#]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.#]+):get_id%(%s*%)",
-            "ids_op(%1, \""..op.."\", %2:get_id())"
+            "([%w_.#]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_.#]+):get_id%(%s*%)",
+            "ids_op(%1, \"" .. op .. "\", %2:get_id())"
         )
+
         txt = txt:gsub(
-            "([%w_%[%]%.#]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.%(%)#'\"]+)",
-            "ids_op(%1, \""..op.."\", %2)"
+            "([%w_.#]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_.#]+)",
+            "ids_op(%1, \"" .. op .. "\", %2)"
         )
-end
+    end
+
+    -- separate for brackets
     txt = txt:gsub(
-      "(pseudorandom%([^%)]+%))%s*([><~=]+)%s*([%w_%[%]%.]+)%s*/%s*([%w_%[%]%.]+)",
-      "get_probability(%1, \"%2\", %3, %4)"
+        "([%w_.#]+%b[]):get_id%(%s*%)%s*%%%s*([%w_.%(%)]+)%s*==%s*([%w_.%(%)]+)",
+        "ids_op(%1, \"mod\", %2, %3)"
     )
+
+    for _, op in ipairs({">=", "<=", "~=", "==", ">", "<"}) do
+        local esc = op:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
+
+        txt = txt:gsub(
+            "([%w_.#]+%b[]):get_id%(%s*%)%s*" .. esc .. "%s*([%w_.#]+%b[]):get_id%(%s*%)",
+            "ids_op(%1, \"" .. op .. "\", %2:get_id())"
+        )
+
+        txt = txt:gsub(
+            "([%w_.#]+%b[]):get_id%(%s*%)%s*" .. esc .. "%s*([%w_.%(%)]+)",
+            "ids_op(%1, \"" .. op .. "\", %2)"
+        )
+    end
+
+    -- insert other_patch_text additions here
+
     return txt
 end
 
@@ -51,6 +73,19 @@ table.insert(orig, 1, function(modname)
     if not fixed then error(err) end
     return fixed
 end)
+'''
+
+[[patches]]
+[patches.pattern]
+target = "main.lua"
+pattern = "-- insert other_patch_text additions here"
+position = "after" 
+match_indent = true
+payload = '''
+txt = txt:gsub(
+    "(pseudorandom%([^%)]+%))%s*([><~=]+)%s*([%w_.#]+)%s*/%s*([%w_.#]+)",
+    "get_probability(%1, \"%2\", %3, %4)"
+)
 '''
 
 [[patches]]
@@ -113,14 +148,7 @@ target = '=[SMODS _ "src/utils.lua"]'
 pattern = "if (G.P_CENTERS[(card.edition or {}).key] or {}).always_scores then return true end"
 position = "before"
 payload = '''
-local has_beanstalk = false
-
-if G.jokers and G.jokers.cards then
-    for _, j in ipairs(G.jokers.cards) do
-    local k = j.config and j.config.center_key
-    if k == "j_aij_beanstalk" then has_beanstalk = true end
-    end
-end
+local has_beanstalk = next(SMODS.find_card("j_aij_beanstalk"))
 if has_beanstalk then
     if card:get_id() == 11 then
         return true
@@ -136,27 +164,49 @@ target = '=[SMODS _ "src/loader.lua"]'
 pattern = "SMODS.Mods = {}"
 position = "before"
 payload = '''
+-- __NFS_READ_MULTI_RANK_PATCHED__
 local function patch_text(txt)
     txt = txt:gsub(
-        "([%w_%[%]%.#]+):get_id%(%s*%)%s*%%%s*([%w_%[%]%.%(%)#]+)%s*==%s*([%w_%[%]%.%(%)#]+)",
+        "([%w_.#]+):get_id%(%s*%)%s*%%%s*([%w_.%(%)#]+)%s*==%s*([%w_.%(%)#]+)",
         "ids_op(%1, \"mod\", %2, %3)"
     )
 
     for _, op in ipairs({">=", "<=", "~=", "==", ">", "<"}) do
         local esc = op:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
+
         txt = txt:gsub(
-            "([%w_%[%]%.#]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.#]+):get_id%(%s*%)",
-            "ids_op(%1, \""..op.."\", %2:get_id())"
+            "([%w_.#]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_.#]+):get_id%(%s*%)",
+            "ids_op(%1, \"" .. op .. "\", %2:get_id())"
         )
+
         txt = txt:gsub(
-            "([%w_%[%]%.#]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_%[%]%.%(%)#'\"]+)",
-            "ids_op(%1, \""..op.."\", %2)"
+            "([%w_.#]+):get_id%(%s*%)%s*" .. esc .. "%s*([%w_.#]+)",
+            "ids_op(%1, \"" .. op .. "\", %2)"
         )
-end
+    end
+
+    -- separate for brackets
     txt = txt:gsub(
-      "(pseudorandom%([^%)]+%))%s*([><~=]+)%s*([%w_%[%]%.]+)%s*/%s*([%w_%[%]%.]+)",
-      "get_probability(%1, \"%2\", %3, %4)"
+        "([%w_.#]+%b[]):get_id%(%s*%)%s*%%%s*([%w_.%(%)]+)%s*==%s*([%w_.%(%)]+)",
+        "ids_op(%1, \"mod\", %2, %3)"
     )
+
+    for _, op in ipairs({">=", "<=", "~=", "==", ">", "<"}) do
+        local esc = op:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
+
+        txt = txt:gsub(
+            "([%w_.#]+%b[]):get_id%(%s*%)%s*" .. esc .. "%s*([%w_.#]+%b[]):get_id%(%s*%)",
+            "ids_op(%1, \"" .. op .. "\", %2:get_id())"
+        )
+
+        txt = txt:gsub(
+            "([%w_.#]+%b[]):get_id%(%s*%)%s*" .. esc .. "%s*([%w_.%(%)]+)",
+            "ids_op(%1, \"" .. op .. "\", %2)"
+        )
+    end
+
+    -- insert other_patch_text additions here
+
     return txt
 end
 
@@ -167,7 +217,20 @@ NFS.read = function(path)
     return patch_text(content)
 end
 '''
-match_indent = true 
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/loader.lua"]'
+pattern = "-- insert other_patch_text additions here"
+position = "after"
+payload = '''
+txt = txt:gsub(
+    "(pseudorandom%([^%)]+%))%s*([><~=]+)%s*([%w_.#]+)%s*/%s*([%w_.#]+)",
+    "get_probability(%1, \"%2\", %3, %4)"
+)
+'''
+match_indent = true
 
 [[patches]]
 [patches.pattern]
@@ -191,7 +254,7 @@ payload = '''
     if G.jokers and self.ability.set == 'Joker' then
         if G.jokers and G.jokers.cards then
             for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i].config and G.jokers.cards[i].config.center_key == "j_aij_anchor" then
+                if G.jokers.cards[i].config and G.jokers.cards[i].config.center_key == "j_aij_anchor" and not G.jokers.cards[i].debuff then
                     has_anchor = true
                     location = i
                 end
@@ -253,24 +316,32 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "function Card:is_suit(suit, bypass_debuff, flush_calc)"
+pattern = "function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice)"
 position = "after" 
 match_indent = true
 payload = '''
-if G.jokers then
-    local jack_joker = next(SMODS.find_card('j_aij_jack_of_all_trades')) 
-    if jack_joker and self.base and self.base.value == 'Jack' then
-        return true
+    local has_anchor = false
+    local location = 0
+    if G.jokers and self.ability.set == 'Joker' then
+        if G.jokers and G.jokers.cards then
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i].config and G.jokers.cards[i].config.center_key == "j_aij_anchor" and not G.jokers.cards[i].debuff then
+                    has_anchor = true
+                    location = i
+                end
+            end
+        end
+        if has_anchor then
+            local left  = location - 1
+            local right = location + 1
+            local nearby = (left >= 1 and G.jokers.cards[left].config.center_key == self.config.center_key) or (right <= #G.jokers.cards and G.jokers.cards[right].config.center_key == self.config.center_key)
+
+            if nearby and self.ability.jest_sold_self == nil then
+                self.getting_sliced = false
+                return
+            end
+        end
     end
-    local glass_joker = next(SMODS.find_card('j_aij_stained_glass_joker'))
-    local enhancements = SMODS.get_enhancements(self)
-    if glass_joker and enhancements['m_glass'] then
-        return true
-    end
-end
-if self.ability.jest_all_suit then
-    return true
-end
 '''
 
 [[patches]]
@@ -391,18 +462,27 @@ target = "functions/state_events.lua"
 pattern = "local discard_count = #G.discard.cards"
 position = "before"
 payload = '''
-local has_line_in_the_sand = false
-if G.jokers ~= nil and G.jokers.cards then
-    for _, j in ipairs(G.jokers.cards) do
-        if j.config and j.config.center_key == "j_aij_line_in_the_sand" then
-            has_line_in_the_sand = true
-        end
-    end
-end
+local has_line_in_the_sand = next(SMODS.find_card("j_aij_line_in_the_sand"))
 if has_line_in_the_sand and G.GAME.blind.boss then
     local discard_count = #G.jest_super_discard.cards
     for i=1, discard_count do --draw cards from deck
         draw_card(G.jest_super_discard, G.deck, i*100/discard_count,'up', nil ,nil, 0.005, i%2==0, nil, math.max((21-i)/20,0.7))
+    end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "-- TARGET: effects before scoring starts"
+position = "before"
+payload = '''
+for i = 1, #scoring_hand do
+    if scoring_hand[i].ability.jest_chaotic_card ~= nil and scoring_hand[i].ability.jest_chaotic_card then
+        local random_enhancement_key = SMODS.poll_enhancement({ guaranteed = true, key_append = 'jest_chaotic_card_enhance'..i })
+        scoring_hand[i].ability.jest_chaotic_card_changing = true
+        scoring_hand[i]:set_ability(G.P_CENTERS[random_enhancement_key or 'c_base'], nil, true)
     end
 end
 '''
@@ -444,59 +524,51 @@ target = "functions/UI_definitions.lua"
 pattern = "if not run_info then G.GAME.round_resets.blind_states[G.GAME.blind_on_deck] = 'Select' end"
 position = "after"
 payload = '''
-local has_blind_drawn = false
-if G.jokers ~= nil and G.jokers.cards then
-    for _, j in ipairs(G.jokers.cards) do
-        if j.config and j.config.center_key == "j_aij_blind_drawn" and type == 'Boss' then
-            has_blind_drawn = true
-        end
-    end
-end
+local has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and type == 'Boss'
 '''
 match_indent = true
 
 [[patches]] 
 [patches.pattern]
 target = "functions/UI_definitions.lua"
-pattern = "_tag.HUD_tag = G.HUD_tags[#G.HUD_tags]"
+pattern = "G.GAME.tags[#G.GAME.tags+1] = _tag"
 position = "after"
 payload = '''
-local has_toto = false
-if G.jokers and G.jokers.cards then
-    for _, j in ipairs(G.jokers.cards) do
-        if j.config and j.config.center_key == "j_aij_toto" then
-            has_toto = true
-            break
+local toto_count = #SMODS.find_card("j_aij_toto")
+
+if toto_count > 0 and _tag.key ~= 'tag_double' and (not _tag.config.jest_tag_duplicate_trigger) then
+    for i = 1, toto_count do
+        for i = 1, 2 do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.9,
+                func = function()
+                    local temptag = Tag(_tag.key)
+                    temptag.config.jest_tag_duplicate_trigger = true
+                    add_tag(temptag)
+                    return true
+                end
+            }))
         end
     end
 end
 
-if has_toto and _tag.key ~= 'tag_double' and (_tag.config.jest_tag_toto_trigger == nil or not _tag.config.jest_tag_toto_trigger) then
-    for i = 1, 2 do
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-            temptag = Tag(_tag.key)
-            temptag.config.jest_tag_toto_trigger = true
-            add_tag(temptag)
-            return true end }))
-    end
-end
+local taggart_count = #SMODS.find_card("j_aij_taggart")
 
-local has_taggart = false
-if G.jokers and G.jokers.cards then
-    for _, j in ipairs(G.jokers.cards) do
-        if j.config and j.config.center_key == "j_aij_taggart" then
-            has_taggart = true
-            break
+if taggart_count > 0 and _tag.key ~= 'tag_double' and (not _tag.config.jest_tag_duplicate_trigger) then
+    for i = 1, taggart_count do
+        for i = 1, 1 do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.9,
+                func = function()
+                    local temptag = Tag(_tag.key)
+                    temptag.config.jest_tag_duplicate_trigger = true
+                    add_tag(temptag)
+                    return true
+                end
+            }))
         end
-    end
-end
-if has_taggart and _tag.key ~= 'tag_double' and (_tag.config.jest_tag_taggart_trigger == nil or not _tag.config.jest_tag_taggart_trigger) then
-    for i = 1, 1 do
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-            temptag = Tag(_tag.key)
-            temptag.config.jest_tag_taggart_trigger = true
-            add_tag(temptag)
-            return true end }))
     end
 end
 '''
@@ -605,14 +677,7 @@ G.GAME.blind:change_dim(1.5,1.5)
 '''
 position = "before"
 payload = '''
-local has_blind_drawn = false
-if G.jokers ~= nil and G.jokers.cards then
-    for _, j in ipairs(G.jokers.cards) do
-        if j.config and j.config.center_key == "j_aij_blind_drawn" and type == 'Boss' then
-            has_blind_drawn = true
-        end
-    end
-end
+local has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and type == 'Boss'
 '''
 match_indent = true
 
@@ -664,14 +729,7 @@ position = "before"
 match_indent = true
 payload = '''
 
-local has_Aluzinu = false
-if G.jokers ~= nil and G.jokers.cards then
-    for _, j in ipairs(G.jokers.cards) do
-        if j.config and j.config.center_key == "j_aij_aluzinnu" then
-            has_Aluzinu = true
-        end
-    end
-end
+local has_Aluzinu = next(SMODS.find_card("j_aij_aluzinnu"))
 if has_Aluzinu then
     goto continue_Aluzinu
 end
@@ -747,7 +805,6 @@ if has_Aluzinu then
         end
     end
 end
-
 '''
 
 [[patches]]
@@ -819,14 +876,7 @@ if card.ability_UIBox_table then
 position = "before"
 match_indent = true
 payload = '''
-local has_Aluzinu = false
-if G.jokers ~= nil and G.jokers.cards then
-    for _, j in ipairs(G.jokers.cards) do
-        if j.config and j.config.center_key == "j_aij_aluzinnu" then
-            has_Aluzinu = true
-        end
-    end
-end
+local has_Aluzinu = next(SMODS.find_card("j_aij_aluzinnu"))
 if has_Aluzinu and card.ability ~= nil then
     if card.ability_UIBox_table and card.ability.name == "Hieroglyph" or card.ability.name == "Petroglyph" then
         local AUT = card.ability_UIBox_table

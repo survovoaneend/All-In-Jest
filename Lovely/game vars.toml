@@ -14,7 +14,7 @@ match_indent = true
 payload = '''
 jest_magick_joker_card = {suit = 'Spades'},
 jest_highest_scored_mult = {amount = 0, trigger = true},
-jest_you_broke_it_card = {rank = 'Ace', enhancement = 'm_bonus'},
+jest_you_broke_it_card = {rank = nil, enhancement = nil, id = nil},
 '''
 
 [[patches]]  
@@ -27,7 +27,6 @@ position = 'after'
 match_indent = true
 payload = '''
 reset_jest_magick_joker_card()
-reset_jest_you_broke_it_card()
 '''
 
 [[patches]] #G.GAME 

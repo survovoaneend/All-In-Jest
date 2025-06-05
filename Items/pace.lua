@@ -124,4 +124,24 @@ function Game:start_run(args)
   return ref
 end
 
+SMODS.Rarity:take_ownership('Uncommon', {
+  get_weight = function(self, weight, object_type)
+    local has_pace = next(SMODS.find_card("j_aij_pace"))
+    if has_pace then
+        return 0.7
+    end
+    return weight
+  end,
+}, true)
+
+SMODS.Rarity:take_ownership('Rare', {
+  get_weight = function(self, weight, object_type)
+    local has_pace = next(SMODS.find_card("j_aij_pace"))
+    if has_pace then
+        return 0.7
+    end
+    return weight
+  end,
+}, true)
+
 return { name = {"Jokers"}, items = {pace} }

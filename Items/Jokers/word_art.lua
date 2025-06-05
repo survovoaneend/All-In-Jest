@@ -6,7 +6,7 @@ local word_art = {
     key = "word_art",
     config = {
       extra = {
-        mult_per_card = 3
+        mult_per_card = 5
       }
     },
     rarity = 1,

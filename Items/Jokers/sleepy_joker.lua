@@ -31,7 +31,7 @@ local sleepy_joker = {
             if context.full_hand and #context.full_hand > 0 then
                 local all_dark_suits = true
                 for _, played_card in ipairs(context.full_hand) do
-                    if not (played_card:is_suit('Spades') or played_card:is_suit('Clubs')) then
+                    if not (played_card:is_suit('Spades', true) or played_card:is_suit('Clubs', true)) then
                         all_dark_suits = false
                         break
                     end

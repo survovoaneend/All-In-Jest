@@ -38,6 +38,7 @@ local hofnarr_the_barbarian = {
       if context.joker_main then
         if math.fmod(G.GAME.round_resets.ante, 8) == 0 and G.GAME.blind:get_type() == 'Boss' then
           return {
+            mult = card.ability.extra.mult,
             xmult = card.ability.extra.xmult,
           }
         else

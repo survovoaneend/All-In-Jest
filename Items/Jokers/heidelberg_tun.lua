@@ -5,7 +5,7 @@ local heidelberg_tun = {
     key = "heidelberg_tun",
     config = {
       extra = {
-        odds = 3
+        odds = 2
       }
     },
     rarity = 1,

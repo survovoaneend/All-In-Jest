@@ -90,7 +90,11 @@ SMODS.Atlas {
 SMODS.Shader {
     key = 'silhouette',
     path = 'silhouette.fs',
-  }
+ }
+SMODS.Shader {
+    key = 'chaotic',
+    path = 'chaotic.fs',
+ }
 
 SMODS.Rarity({
 	key = "familiar_face",
@@ -125,6 +129,7 @@ SMODS.Gradient {
 }
 AllInJest = {}
 assert(SMODS.load_file('Utils/context.lua'))()
+assert(SMODS.load_file('Utils/draw.lua'))()
 assert(SMODS.load_file('Utils/functions.lua'))()
 assert(SMODS.load_file('Utils/overrides.lua'))()
 assert(SMODS.load_file('Utils/ui.lua'))()
@@ -214,4 +219,9 @@ end)
 
 for _, curr_obj in ipairs(objects) do
     load_items(curr_obj)
+end
+
+-- SMODS mod-specific settings
+function All_in_Jest.set_ability_reset_keys()
+    return {'jest_charged_applied'}
 end
