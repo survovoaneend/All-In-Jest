@@ -75,11 +75,15 @@ function ids_op(card, op, b, c)
       end
     end
 
+    local function numbered(b)
+        return ({[2]=true, [3]=true, [4]=true, [5]=true, [6]=true, [7]=true, [8]=true, [9]=true, [10]=true})[b]
+    end
+
     if has_invis and (({[11]=true, [12]=true, [13]=true, [id]=true})[b] and card:is_face()) then -- Face cards count as 11-13 ranks
       return 11
     end
 
-    if has_doc and card:is_suit("Hearts") and not ({[11]=true, [12]=true, [13]=true, [14]=true})[b] then -- Counts as any heart non-face ranks
+    if has_doc and card:is_suit("Hearts") and numbered(b) then -- Counts as any heart non-face ranks
       return 11
     end
 
@@ -89,12 +93,12 @@ function ids_op(card, op, b, c)
 
     if has_furb then
         if SMODS.has_enhancement(card, 'm_aij_dyscalcular') and not card.debuff then
-            if id == b or not ({[12]=true, [13]=true})[b] then
+            if id == b or ({[11]=true, [14]=true})[b] or numbered(b) then
                 return 11
             end
         end
     elseif SMODS.has_enhancement(card, 'm_aij_dyscalcular') and not card.debuff then -- Counts as any non-face ranks and non-ace
-        if id == b or not ({[11]=true, [12]=true, [13]=true, [14]=true})[b] then 
+        if id == b or numbered(b) then 
             return 11
         end
     end
