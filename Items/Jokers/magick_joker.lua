@@ -25,7 +25,7 @@ local magick_joker = {
     end,
   
     calculate = function(self, card, context)
-        local has_magick_joker = next(SMODS.find_card("aij_j_magick_joker"))
+        local has_magick_joker = next(SMODS.find_card("j_aij_magick_joker"))
         if G.play ~= nil and has_magick_joker then
             for _, card in ipairs(G.play.cards) do
               if context.before then

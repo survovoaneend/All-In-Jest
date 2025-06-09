@@ -1893,7 +1893,7 @@ return {
             c_aij_shade = {
                 name = 'Shade',
                 text = {
-                    'Add {C:dark_edition}Negative{} edtion',
+                    'Add {C:dark_edition}Negative{} edition',
                     'to {C:attention}1{} random',
                     'card in hand'
                 }
@@ -1901,9 +1901,10 @@ return {
             c_aij_trefle = {
                 name = 'Trèfle',
                 text = {
-                    '{C:attention}Reroll{} one of your',
-                    'highest rarity {C:attention}Jokers',
-                    "{C:inactive}(Cannot be eternal){}"
+                    '{C:attention}Reroll{} one',
+                    'selected {C:attention}Joker',
+                    "{C:inactive}(Cannot be{}",
+                    "{C:inactive}eternal){}"
                 }
             },
         },

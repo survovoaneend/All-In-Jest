@@ -87,6 +87,32 @@ txt = txt:gsub(
     "get_probability(%1, \"%2\", %3, %4)"
 )
 '''
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''if self.ability.effect == "Lucky Card" then
+    if get_probability(pseudorandom('lucky_mult'), "<", G.GAME.probabilities.normal, 5) then
+        self.lucky_trigger = true
+        return self.ability.mult
+    else
+        return 0
+    end
+else
+    return self.ability.mult
+end'''
+position = "at"
+match_indent = true
+payload = '''local ret = (not self.ability.extra_enhancement and self.ability.perma_mult) or 0
+if self.ability.effect == "Lucky Card" then
+    if get_probability(pseudorandom('lucky_mult'), "<", G.GAME.probabilities.normal, 5) then
+        self.lucky_trigger = true
+        ret = ret + self.ability.mult
+    end
+else
+    ret = ret + self.ability.mult
+end
+-- TARGET: get_chip_mult
+return ret'''
 
 [[patches]]
 [patches.pattern]
@@ -262,9 +288,10 @@ payload = '''
         end
         if has_anchor then
             local left  = location - 1
-            local right = location + 1
+            local right = location + 1 
             local nearby = (left >= 1 and G.jokers.cards[left].config.center_key == self.config.center_key) or (right <= #G.jokers.cards and G.jokers.cards[right].config.center_key == self.config.center_key)
-            if nearby and self.ability.jest_sold_self == nil then
+            local is_anchor_itself = (self.config.center_key == "j_aij_anchor")
+            if (is_nearby or is_anchor_itself) and self.ability.jest_sold_self == nil then
                 self.getting_sliced = false
                 return
             end
