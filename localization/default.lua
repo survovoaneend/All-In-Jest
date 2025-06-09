@@ -363,8 +363,9 @@ return {
             j_aij_anchor = { 
                 name = "Anchor", 
                 text = { 
-                    "Adjacent Jokers",
-                    "{C:attention}cannot be {C:red}destroyed" 
+                    "This Joker and",
+                    "Adjacent Jokers {C:attention}cannot{} be",
+                    "{C:attention}be {C:red}destroyed" 
                 } 
             },
             j_aij_hei_tiki = { 
