@@ -30,7 +30,7 @@ local tarlton = {
   
     calculate = function(self, card, context)
         if context.final_scoring_step and context.cardarea == G.jokers then
-            card.ability.extra.last_chips = hand_chips
+            card.ability.extra.last_chips = to_number(hand_chips)
         end
         if context.joker_main then
             return {

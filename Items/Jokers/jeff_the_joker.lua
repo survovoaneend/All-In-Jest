@@ -43,7 +43,7 @@ local jeff_the_joker = {
                   G.E_MANAGER:add_event(Event({
                       trigger = 'after', delay = 0.7,
                       func = function()
-                          if v and not v.removed then v:remove() end
+                          if v and not v.removed then destroyed_count = destroyed_count - 1 end
                           return true
                       end
                   }))

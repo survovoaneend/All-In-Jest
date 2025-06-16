@@ -9,10 +9,10 @@ local bumper_sticker = {
         mult_mod = 1
       }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 13, y = 4 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 5,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

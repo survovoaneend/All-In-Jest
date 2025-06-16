@@ -2,6 +2,14 @@ All_in_Jest = SMODS.current_mod
 local mod_path = ''..SMODS.current_mod.path
 G.AIJ = {}
 local injectitems_ref = SMODS.injectItems
+--talisman compat
+to_big = to_big or function(n)
+  return n
+end
+
+to_number = to_number or function(n)
+  return n
+end
 SMODS.injectItems = function()
     injectitems_ref()
     G.AIJ.shared_mystery_sprites = G.AIJ.shared_mystery_sprites or {
