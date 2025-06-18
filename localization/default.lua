@@ -8,6 +8,7 @@ return {
             k_asteroid = "Asteroid",
             aij_requires_restart = "Requires Restart",
             aij_enable_moons = "Enable Moons",
+            aij_alter_trypophobia = "Alter Trypophobia",
             k_aij_guess_the_jest = "Guess the Jest",
             k_aij_memory_card = "Memorized!",
         },
