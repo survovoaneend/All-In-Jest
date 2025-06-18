@@ -7,6 +7,7 @@ local cubic_stone_tarot = {
 	cost = 3,
 	unlocked = true,
 	discovered = false,
+	ignore = true,
 	order = 3,
 	config = { mod_conv = 'm_aij_dyscalcular', max_highlighted = 1 },
 	atlas = 'consumable_atlas',

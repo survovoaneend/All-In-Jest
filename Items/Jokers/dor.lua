@@ -1,3 +1,8 @@
+SMODS.Sound {
+  key = 'expmult',
+  path = 'ExponentialMult.wav'
+}
+
 local dor = {
     object_type = "Joker",
     order = 1020,
@@ -23,12 +28,16 @@ local dor = {
   
     calculate = function(self, card, context)
       if context.joker_main and G.GAME.current_round.hands_left == 0 then 
-        local xmlt = math.pow(mult, card.ability.powmult)
+        local xmlt = mult^card.ability.powmult
         return {
-            message = "^"..(card.ability.powmult + 1).." Mult", 
-            colour = G.C.SECONDARY_SET.Enhanced,
-            Xmult_mod = xmlt,
+              
+              colour = G.C.EDITION,
+              remove_default_message = true,
+              Xmult_mod = xmlt,
+              message = "^"..(card.ability.powmult + 1).." Mult",
+              sound = 'aij_expmult'
         }
+    
       end
     end
   

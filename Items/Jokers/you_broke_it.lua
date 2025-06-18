@@ -33,7 +33,7 @@ local you_broke_it = {
       local message_text = localize { type = 'name_text', set = 'Enhanced', key = G.GAME.current_round.jest_you_broke_it_card and G.GAME.current_round.jest_you_broke_it_card.enhancement or 'm_bonus' }
       if context.scoring_hand and #context.scoring_hand > 0 then
         for k, v in ipairs(context.scoring_hand) do
-          if v:get_id() == G.GAME.current_round.jest_you_broke_it_card.id and v.debuff then
+          if v:get_id() == G.GAME.current_round.jest_you_broke_it_card.id and not v.debuff then
             v:set_ability(G.P_CENTERS[G.GAME.current_round.jest_you_broke_it_card.enhancement], nil, true)
             enhanced_a_card = true
             G.E_MANAGER:add_event(Event({

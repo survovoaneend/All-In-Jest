@@ -54,85 +54,85 @@ function level_up_hand_mult(card, hand, instant, amount)
     end
 end
 
-local ids_op_ref = ids_op
-function ids_op(card, op, b, c)
-  local id = card:get_id() 
-  local other_results = false
-  if ids_op_ref ~= nil then
-    other_results = ids_op_ref(card, op, b, c) 
-  end
+--local ids_op_ref = ids_op
+--function ids_op(card, op, b, c)
+--  local id = card:get_id() 
+--  local other_results = false
+-- if ids_op_ref ~= nil then
+--    other_results = ids_op_ref(card, op, b, c) 
+--  end
 
-  local function alias(x)
-    local has_invis, has_doc, has_pygm, has_furb = false, false, false, false
+--  local function alias(x)
+--    local has_invis, has_doc, has_pygm, has_furb = false, false, false, false
 
-    if G.jokers and G.jokers.cards then
-      for _, j in ipairs(G.jokers.cards) do
-        local k = j.config and not j.debuff and j.config.center_key
-        if k == "j_aij_invisible_man" then has_invis = true end
-        if k == "j_aij_doctors_note" then has_doc = true end
-        if k == "j_aij_pygmalion" then has_pygm = true end
-        if k == "j_aij_furbo_e_stupido" then has_furb = true end
-      end
-    end
+--    if G.jokers and G.jokers.cards then
+--      for _, j in ipairs(G.jokers.cards) do
+--        local k = j.config and not j.debuff and j.config.center_key
+--        if k == "j_aij_invisible_man" then has_invis = true end
+--        if k == "j_aij_doctors_note" then has_doc = true end
+--        if k == "j_aij_pygmalion" then has_pygm = true end
+--        if k == "j_aij_furbo_e_stupido" then has_furb = true end
+--      end
+--    end
 
-    if has_invis and (({[11]=true, [12]=true, [13]=true, [id]=true})[b] and card:is_face()) then -- Face cards count as 11-13 ranks
-      return 11
-    end
+--    if has_invis and (({[11]=true, [12]=true, [13]=true, [id]=true})[b] and card:is_face()) then -- Face cards count as 11-13 ranks
+--      return 11
+--    end
 
-    if has_doc and card:is_suit("Hearts") and not ({[11]=true, [12]=true, [13]=true, [14]=true})[b] then -- Counts as any heart non-face ranks
-      return 11
-    end
+ --   if has_doc and card:is_suit("Hearts") and not ({[11]=true, [12]=true, [13]=true, [14]=true})[b] then -- Counts as any heart non-face ranks
+--      return 11
+--    end
 
-    if has_pygm and ({[12]=true})[b] and SMODS.has_enhancement(card, 'm_stone') and not card.debuff then -- Stone cards count as rank 12
-      return 11
-    end
+--    if has_pygm and ({[12]=true})[b] and SMODS.has_enhancement(card, 'm_stone') and not card.debuff then -- Stone cards count as rank 12
+--      return 11
+--    end
 
-    if has_furb then
-        if SMODS.has_enhancement(card, 'm_aij_dyscalcular') and not card.debuff then
-            if id == b or not ({[12]=true, [13]=true})[b] then
-                return 11
-            end
-        end
-    elseif SMODS.has_enhancement(card, 'm_aij_dyscalcular') and not card.debuff then -- Counts as any non-face ranks and non-ace
-        if id == b or not ({[11]=true, [12]=true, [13]=true, [14]=true})[b] then 
-            return 11
-        end
-    end
+--    if has_furb then
+--        if SMODS.has_enhancement(card, 'm_aij_dyscalcular') and not card.debuff then
+--            if id == b or not ({[12]=true, [13]=true})[b] then
+--                return 11
+--            end
+--        end
+--    elseif SMODS.has_enhancement(card, 'm_aij_dyscalcular') and not card.debuff then -- Counts as any non-face ranks and non-ace
+--        if id == b or not ({[11]=true, [12]=true, [13]=true, [14]=true})[b] then 
+--            return 11
+--        end
+--    end
 
 
-    if card.ability.jest_all_rank and not card.debuff then -- Counts as any rank
-      return 11
-    end
+--    if card.ability.jest_all_rank and not card.debuff then -- Counts as any rank
+--      return 11
+--    end
 
-    return x
-  end
+--    return x
+--  end
 
-  if other_results == true then
-    return true
-  end
+--  if other_results == true then
+--    return true
+--  end
 
-  if op == "mod" then
-    return (id % b) == c
-  end
+--  if op == "mod" then
+--    return (id % b) == c
+--  end
 
-  if op == "==" then
-    local lhs = alias(id)
-    local rhs = alias(b) 
-    return lhs == rhs
-  end
-  if op == "~=" then
-    local lhs = alias(id)
-    local rhs = alias(b) 
-    return lhs ~= rhs
-  end
+--  if op == "==" then
+--    local lhs = alias(id)
+--    local rhs = alias(b) 
+--    return lhs == rhs
+--  end
+--  if op == "~=" then
+--    local lhs = alias(id)
+--    local rhs = alias(b) 
+--    return lhs ~= rhs
+--  end
 
-  if op == ">=" then return id >= b end
-  if op == "<=" then return id <= b end
-  if op == ">" then return id > b end
-  if op == "<" then return id < b end
+--  if op == ">=" then return id >= b end
+--  if op == "<=" then return id <= b end
+--  if op == ">" then return id > b end
+--  if op == "<" then return id < b end
 
-  error("ids_op: unsupported op " .. tostring(op))
-end
+--  error("ids_op: unsupported op " .. tostring(op))
+--end
 
 
 function redeemed_voucher_count()
@@ -583,31 +583,31 @@ function Card:remove_prediction_card()
     end
 end
 
-function get_probability(rnd_val, op, num, den)
+--function get_probability(rnd_val, op, num, den)
     --Maninulate numerator/denominatior here
-    local threshold = num / den
-    local result = false
+--    local threshold = num / den
+--    local result = false
 
-    if op == "<" then result = rnd_val < threshold
-    elseif op == "<=" then result = rnd_val <= threshold
-    elseif op == ">" then result = rnd_val > threshold
-    elseif op == ">=" then result = rnd_val >= threshold
-    elseif op == "==" then result = rnd_val == threshold
-    elseif op == "~=" then result = rnd_val ~= threshold
-    else error("bad op: "..tostring(op)) end
+--   if op == "<" then result = rnd_val < threshold
+--   elseif op == "<=" then result = rnd_val <= threshold
+--    elseif op == ">" then result = rnd_val > threshold
+--    elseif op == ">=" then result = rnd_val >= threshold
+--    elseif op == "==" then result = rnd_val == threshold
+--    elseif op == "~=" then result = rnd_val ~= threshold
+--    else error("bad op: "..tostring(op)) end
 
-    if result then
-        SMODS.calculate_context({
-            probability_trigger = {result = true, numerator = num, denominator = den}
-        })
-    else
-        SMODS.calculate_context({
-            probability_trigger = {result = false, numerator = num, denominator = den}
-        })
-    end
+--    if result then
+--        SMODS.calculate_context({
+--            probability_trigger = {result = true, numerator = num, denominator = den}
+--        })
+--    else
+--        SMODS.calculate_context({
+--            probability_trigger = {result = false, numerator = num, denominator = den}
+--        })
+--    end
 
-    return result
-end
+--    return result
+--end
 
 local remove = Card.remove
 function Card:remove(...)

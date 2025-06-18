@@ -32,9 +32,9 @@ local chippy = {
           message = localize('k_upgrade_ex'),
         }
       end
-      if context.joker_main and card.ability.extra.chips > 0 then
+      if context.joker_main and to_number(card.ability.extra.chips) > 0 then
         return {
-          chips = card.ability.extra.chips,
+          chips = to_number(card.ability.extra.chips),
         }
       end
     end

@@ -1,7 +1,7 @@
 local memory_card = {
     object_type = "Joker",
     order = 4,
-    
+    ignore = true,
     key = "memory_card",
     config = {
       jest_stored_memory_card = nil

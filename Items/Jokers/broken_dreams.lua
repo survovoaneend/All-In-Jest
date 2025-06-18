@@ -1,12 +1,12 @@
-local full_monty = {
+local broken_dreams = {
     object_type = "Joker",
-    order = 330,
+    order = 340,
     ignore = true,
-    key = "full_monty",
+    key = "broken_dreams",
     config = {
     },
     rarity = 1,
-    pos = { x = 1, y = 13},
+    pos = { x = 11, y = 13},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
@@ -23,4 +23,4 @@ local full_monty = {
     end
   
 }
-return { name = {"Jokers"}, items = {full_monty} }
+return { name = {"Jokers"}, items = {broken_dreams} }

@@ -364,7 +364,7 @@ return {
                 name = "Anchor", 
                 text = { 
                     "This Joker and",
-                    "Adjacent Jokers {C:attention}cannot{} be",
+                    "Adjacent Jokers {C:attention}cannot{}",
                     "{C:attention}be {C:red}destroyed" 
                 } 
             },
@@ -637,7 +637,7 @@ return {
             j_aij_tetraphobia = {
                 name = "Tetraphobia",
                 text = {
-                    "This Joker gains {C:mult}+1{} Mult",
+                    "This Joker gains {C:mult}+#2#{} Mult",
                     "per {C:attention}4{} discarded, resets",
                     "when a {C:attention}4{} is scored",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
@@ -1256,7 +1256,28 @@ return {
             j_aij_screamer = { name = "Screamer", text = { "" } },
             j_aij_evil_twin = { name = "Evil Twin", text = { "" } },
             j_aij_cubic_joker = { name = "Cubic Joker", text = { "" } },
-            
+            j_aij_remina = { name = "Remina", text = { "" } },
+            j_aij_jpeg = { name = ".jpeg", text = { "" } },
+            j_aij_sherrif = { name = "Sherrif", text = { "" } },
+            j_aij_alien_joker = { name = "Alien Joker", text = { "" } },
+            j_aij_nobody = { name = "Nobody", text = { "" } },
+            j_aij_broken_dreams = { name = "Broken Dreams", text = { "" } },
+            j_aij_elf = { name = "Elf", text = { "" } },
+            j_aij_fall_of_count_chaligny = { name = "Fall of Count Chaligny", text = { "" } },
+            j_aij_coulrorachne = { name = "Coulrorachne", text = { "" } },
+            j_aij_bad_sun = { name = "Bad Sun", text = { "" } },
+            j_aij_lemarchand_cube = { name = "LeMarchand Cube", text = { "" } },
+            j_aij_duende = { name = "Duende", text = { "" } },
+            j_aij_evil_joker = { name = "Evil Joker", text = { "" } },
+            j_aij_sanguine_joker = { name = "Sanguine Joker", text = { "" } },
+            j_aij_choleric_joker = { name = "Choleric Joker", text = { "" } },
+            j_aij_phlegmatic_joker = { name = "Phlegmatic Joker", text = { "" } },
+            j_aij_melancholic_joker = { name = "Melancholic Joker", text = { "" } },
+            j_aij_majordomo = { name = "Majordomo", text = { "" } },
+            j_aij_skinsuit = { name = "Skinsuit", text = { "" } },
+            j_aij_shock_humor = { name = "Shock Humor", text = { "" } },
+            j_aij_the_house_that_jack_built = { name = "The House that Jack Built", text = { "" } },
+            j_aij_clownbug = { name = "Clownbug", text = { "" } },
 
 
 

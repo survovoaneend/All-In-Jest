@@ -1,7 +1,7 @@
 local furbo_e_stupido = {
     object_type = "Joker",
     order = 91,
-    
+    ignore = true,
     key = "furbo_e_stupido",
     config = {
       

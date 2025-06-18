@@ -6,7 +6,7 @@ local evil_twin = {
     config = {
     },
     rarity = 1,
-    pos = { x = 3, y = 13},
+    pos = { x = 4, y = 13},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,

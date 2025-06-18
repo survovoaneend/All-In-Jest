@@ -6,7 +6,7 @@ local screamer = {
     config = {
     },
     rarity = 1,
-    pos = { x = 2, y = 13},
+    pos = { x = 3, y = 13},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,

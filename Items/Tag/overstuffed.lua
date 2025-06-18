@@ -12,11 +12,12 @@ local overstuffed = {
     end,
 
     apply = function(self, tag, context)
-        if context.type == 'shop_start' then
+        if context.type == 'open_booster' then
             tag:jest_apply("+", G.C.ATTENTION, function()
+                G.GAME.pack_choices = G.GAME.pack_choices * 2
                 G.GAME.jest_change_booster_options.op.mult = 2
                 G.GAME.jest_change_booster_options.trigger = true
-                G.GAME.jest_change_booster_options.option = "both"
+                G.GAME.jest_change_booster_options.option = "size"
                 return true
 			end,
             function() 
