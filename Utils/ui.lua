@@ -21,10 +21,20 @@ SMODS.current_mod.config_tab = function()
                 ref_table = All_in_Jest.config,
                 ref_value = 'moons_enabled'
               },
+            },
           },
+          {
+            n = G.UIT.C,
+            nodes = {
+              create_toggle {
+                label = localize('aij_alter_trypophobia'),
+                ref_table = All_in_Jest.config,
+                ref_value = 'alter_trypophobia'
+              },
+            },
+          }
         }
       }
-    }
     }
   }
 end
