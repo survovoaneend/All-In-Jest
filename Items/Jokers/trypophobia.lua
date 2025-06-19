@@ -9,7 +9,7 @@ local trypophobia = {
       }
     },
     rarity = 1,
-    pos = { x = 15, y = 0 },
+    pos = All_in_Jest.config.alter_trypophobia and { x = 3, y = 14 } or { x = 15, y = 0 },
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
