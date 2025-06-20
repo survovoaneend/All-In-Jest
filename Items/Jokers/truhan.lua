@@ -29,7 +29,7 @@ local truhan = {
   
     calculate = function(self, card, context)
       if context.jest_destroying_or_selling_joker then
-        local curmod = (card.ability.extra.xmult_mod * context.jest_destroyed_joker.ability.jest_held_for) or 0
+        local curmod = card.ability.extra.xmult_mod * (context.jest_destroyed_joker.ability.jest_held_for or 0)
         card.ability.extra.xmult = card.ability.extra.xmult + curmod
         if curmod ~= 0 then
             return {
