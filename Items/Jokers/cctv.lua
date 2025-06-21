@@ -55,10 +55,8 @@ local cctv = {
                         end
                     end
                     local index = 0
-                    if #valid_cards > 0 then
+                    if #valid_cards > 0 and #G.hand.cards > 0 then
                         index = valid_cards[math.random(#valid_cards)]
-                    end
-                    if #G.hand.cards > 0 then
                         G.hand.cards[index]:set_ability(G.P_CENTERS.m_glass, nil, true) 
                         G.E_MANAGER:add_event(Event({
                             func = function()

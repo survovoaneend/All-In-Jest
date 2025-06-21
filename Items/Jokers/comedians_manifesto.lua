@@ -40,7 +40,6 @@ local comedians_manifesto = {
                             trigger = 'after',
                             delay = 0.1,
                             func = function()
-                            v:juice_up(0.4, 0.3)
                             assert(SMODS.change_base(v, nil, 'Jack'))
                             return true
                             end

@@ -27,10 +27,10 @@ local goblin_joker = {
     end,
   
     calculate = function(self, card, context)
-      if context.discard and context.cardarea ~= G.play then
+      if context.pre_discard and context.cardarea ~= G.play then
         card.ability.extra.trigger = true
       end
-      if context.hand_drawn and card.ability.extra.trigger then
+      if (context.hand_drawn or G.hand.config.card_limit < G.hand.config.card_count) and card.ability.extra.trigger then
         for i = 1, card.ability.extra.draw_extra do
             if #G.deck.cards > 0 then
                 G.E_MANAGER:add_event(Event({
@@ -41,6 +41,7 @@ local goblin_joker = {
                 }))
             end
         end
+        card.ability.extra.trigger = false
       end
     end
   
