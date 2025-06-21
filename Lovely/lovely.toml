@@ -62,6 +62,7 @@ if context.after and context.cardarea == G.play then
                 
                     G.play.cards[i]:juice_up(0.3, 0.3)
                     G.play.cards[i]:set_ability(center, nil, true)
+                    G.play.cards[i].ability.jest_chaotic_card = true
                 return true
                 end
             }))
@@ -403,16 +404,6 @@ pattern = "pseudoshuffle(self.cards, pseudoseed(_seed or 'shuffle'))"
 position = "after"
 payload = '''
 local has_circuit_diagram = next(SMODS.find_card("j_aij_circuit_diagram"))
-local has_headstone = next(SMODS.find_card("j_aij_headstone"))
-if has_headstone then
-    for i = #self.cards, 1, -1 do
-        local card = self.cards[i]
-        if card:is_face() then
-            table.remove(self.cards, i)
-            table.insert(self.cards, 1, card)
-        end
-    end
-end
 if has_circuit_diagram then
     for i = #self.cards, 1, -1 do
         local card = self.cards[i]
