@@ -40,7 +40,10 @@ SMODS.current_mod.config_tab = function()
 end
 G.FUNCS.jest_free_reroll_boss = function(e) 
     stop_use()
-    G.GAME.round_resets.boss_rerolled = true
+    if G.GAME.jest_free_stultor_rerolls == 0 then
+        G.GAME.round_resets.boss_rerolled = true
+        if not G.from_boss_tag then ease_dollars(-10) end
+    end
     G.from_boss_tag = nil
     G.CONTROLLER.locks.boss_reroll = true
     G.E_MANAGER:add_event(Event({
@@ -94,15 +97,20 @@ G.FUNCS.jest_free_reroll_boss = function(e)
   end
 G.FUNCS.jest_free_reroll_boss_button = function(e)
     if G.GAME.jest_free_stultor_rerolls > 0 then 
+        e.config.text = localize('$')..'0'
         e.config.colour = G.C.RED
         e.config.button = 'jest_free_reroll_boss'
         e.children[1].children[1].config.shadow = true
         if e.children[2] then e.children[2].children[1].config.shadow = true end 
     else
-      e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-      e.config.button = nil
-      e.children[1].children[1].config.shadow = false
-      if e.children[2] then e.children[2].children[1].config.shadow = false end 
+        e.config.text = localize('$')..'10'
+        G.FUNCS.reroll_boss_button(e)
+    end
+    if G.blind_prompt_box ~= nil and G.blind_prompt_box.definition.nodes[3] ~= nil then
+        if e.config.text ~= G.blind_prompt_box.definition.nodes[3].nodes[1].nodes[2].nodes[1].config.text then
+            G.blind_prompt_box.definition.nodes[3].nodes[1].nodes[2].nodes[1].config.text = e.config.text
+            G.blind_prompt_box.definition.nodes[3].nodes[1].nodes[2].config.button_UIE.UIBox:recalculate()
+        end
     end
   end
 SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
