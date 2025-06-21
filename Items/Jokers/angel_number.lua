@@ -1,26 +1,56 @@
 local angel_number = {
     object_type = "Joker",
     order = 283,
-    ignore = true,
     key = "angel_number",
     config = {
-      
+      extra = {
+          curnumerator = "0",
+          numeratormod = 1
+      }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 6, y = 11},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
-    discovered = true,
-    blueprint_compat = false,
-    eternal_compat = false,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+        return {
+            vars = {
+                card.ability.extra.numeratormod,
+            }
+        }
     end,
   
     calculate = function(self, card, context)
-        
+        if context.before and context.scoring_hand then
+            for i = 1, #context.scoring_hand do
+                if context.scoring_hand[i]:get_id() == 7 then
+                    for k, v in pairs(G.GAME.probabilities) do 
+                        G.GAME.probabilities[k] = v+card.ability.extra.numeratormod
+                    end
+                    card.ability.extra.curnumerator = tostring(tonumber(card.ability.extra.curnumerator) + card.ability.extra.numeratormod)
+                end
+            end
+        end
+        if context.after then
+            if card.ability.extra.curnumerator ~= "0" then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.1,
+                    func = function()
+                        for k, v in pairs(G.GAME.probabilities) do 
+                            G.GAME.probabilities[k] = v-tonumber(card.ability.extra.curnumerator)
+                        end
+                        card.ability.extra.curnumerator = "0"
+                    return true
+                    end
+                }))
+            end
+        end
     end
   
 }

@@ -1,7 +1,6 @@
 local headstone = {
     object_type = "Joker",
     order = 329,
-    ignore = true,
     key = "headstone",
     config = {
     },
@@ -10,9 +9,9 @@ local headstone = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
 
@@ -20,7 +19,17 @@ local headstone = {
   
     calculate = function(self, card, context)
         
-    end
+    end,
+    in_pool = function(self, args)
+        if G.GAME and G.playing_cards then
+            for _, card in ipairs(G.playing_cards) do
+                if card:is_face() then
+                    return true
+                end
+            end
+        end
+        return false
+    end,
   
 }
 return { name = {"Jokers"}, items = {headstone} }
