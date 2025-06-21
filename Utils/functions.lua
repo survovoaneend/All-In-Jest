@@ -29,6 +29,42 @@ function jest_poll_tag(seed, options)
   return tag
 end
 
+function next_palindrome(n)
+    while true do
+        local s = tostring(n)
+        if s == s:reverse() then
+            return n
+        end
+        n = n + 1
+    end
+end
+
+-- better temp values
+function apply_multiplier(t, key, factor, tag)
+    t.temp_mult_val = t.temp_mult_val or {}
+    t.temp_mult_val[key] = t.temp_mult_val[key] or {}
+    t.temp_mult_val[key][tag] = factor
+    update_multiplied_value(t, key)
+end
+
+function remove_multiplier(t, key, tag)
+    if t.temp_mult_val and t.temp_mult_val[key] then
+        t.temp_mult_val[key][tag] = nil
+        update_multiplied_value(t, key)
+    end
+end
+
+function update_multiplied_value(t, key)
+    local base = t["base_"..key] or t[key]
+    t["base_"..key] = base  -- Save original if not already
+    local result = base
+    for _, mult in pairs(t.temp_mult_val[key] or {}) do
+        result = result * mult
+    end
+    t[key] = result
+end
+
+
 --also repurposed from paperback
 function jest_add_tag(tag, event, silent)
   local func = function()
