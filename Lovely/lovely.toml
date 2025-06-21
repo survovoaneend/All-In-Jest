@@ -15,6 +15,71 @@ for i = #G.GAME.tags, 1, -1 do
 end
 '''
 
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "self.extra_cost = self.extra_cost + v.extra_cost"
+position = "at"
+match_indent = true
+payload = '''
+local has_chef = next(SMODS.find_card("j_aij_chef"))
+if has_chef and self.ability.perishable then self.extra_cost = 0 else self.extra_cost = self.extra_cost + v.extra_cost end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '(G.GAME.used_vouchers["v_retcon"] or G.GAME.used_vouchers["v_directors_cut"]) and'
+position = "before"
+match_indent = true
+payload = '''
+(G.GAME.jest_free_stultor_rerolls > 0) and
+UIBox_button({label = {localize('b_reroll_boss'), localize('$')..'0'}, button = "jest_free_reroll_boss", func = 'jest_free_reroll_boss_button'}) or
+'''
+
+# Chaotic Card effect 
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "-- TARGET: evaluate your own general effects"
+position = "before"
+match_indent = true
+payload = '''
+if context.after and context.cardarea == G.play then
+    for i = 1, #G.play.cards do
+        if G.play.cards[i].ability.set == 'Enhanced' and G.play.cards[i].ability.jest_chaotic_card then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.3,
+                func = function()
+                    local cen_pool = {}
+                    for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
+                        if v.key ~= 'm_stone' then 
+                            cen_pool[#cen_pool+1] = v
+                        end
+                    end
+                    center = pseudorandom_element(cen_pool, pseudoseed('jest_chaotic_card'))
+                
+                    G.play.cards[i]:juice_up(0.3, 0.3)
+                    G.play.cards[i]:set_ability(center, nil, true)
+                return true
+                end
+            }))
+        end
+    end
+end
+'''
+
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "dollars = dollars + G.GAME.interest_amount*math.min(math.floor(G.GAME.dollars/5), G.GAME.interest_cap/5)"
+position = "after"
+payload = '''
+dollars = math.floor(dollars + 0.5)
+'''
+match_indent = true
+
 #[[patches]]
 #[patches.pattern]
 #target = "main.lua"
@@ -330,27 +395,35 @@ payload = '''
 #'''
 #match_indent = true
 
-#[[patches]]
-#[patches.pattern]
-#target = "cardarea.lua"
-#pattern = '''
-#elseif self.config.sort == 'order' then 
-#    table.sort(self.cards, function (a, b) return (a.config.card.order or a.config.center.order) < (b.config.card.order or b.config.center.order) end )
-#end
-#'''
-#position = "after"
-#payload = '''
-#for i = #self.cards, 1, -1 do
-#    local card = self.cards[i]
-#    if G.GAME.jest_stored_memory_card ~= nil then
-#        if card == G.GAME.jest_stored_memory_card then
-#            table.remove(self.cards, i)
-#            table.insert(self.cards, #self.cards + 1, card)
-#        end
-#    end
-#end
-#'''
-#match_indent = true
+# Circuit Diagram
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = "pseudoshuffle(self.cards, pseudoseed(_seed or 'shuffle'))"
+position = "after"
+payload = '''
+local has_circuit_diagram = next(SMODS.find_card("j_aij_circuit_diagram"))
+local has_headstone = next(SMODS.find_card("j_aij_headstone"))
+if has_headstone then
+    for i = #self.cards, 1, -1 do
+        local card = self.cards[i]
+        if card:is_face() then
+            table.remove(self.cards, i)
+            table.insert(self.cards, 1, card)
+        end
+    end
+end
+if has_circuit_diagram then
+    for i = #self.cards, 1, -1 do
+        local card = self.cards[i]
+        if card.config.center == G.P_CENTERS["m_aij_charged"] then
+            table.remove(self.cards, i)
+            table.insert(self.cards, #self.cards + 1, card)
+        end
+    end
+end
+'''
+match_indent = true
 
 [[patches]]
 [patches.pattern]
