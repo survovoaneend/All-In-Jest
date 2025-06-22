@@ -5,6 +5,22 @@ SMODS.current_mod.config_tab = function()
     nodes = {
       {
         n = G.UIT.R,
+        config = { align = 'cm'},
+        nodes = {
+          {
+            n = G.UIT.C,
+            nodes = {
+              create_toggle {
+                label = localize('aij_no_copy_neg'),
+                ref_table = All_in_Jest.config,
+                ref_value = 'no_copy_neg'
+              },
+            },
+          },
+        }
+      },
+      {
+        n = G.UIT.R,
         config = { align = 'cm', minh = 1 },
         nodes = {
           { n = G.UIT.T, config = { text = localize('aij_requires_restart'), colour = G.C.RED, scale = 0.5 } }
@@ -34,7 +50,7 @@ SMODS.current_mod.config_tab = function()
             },
           }
         }
-      }
+      },
     }
   }
 end
