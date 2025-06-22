@@ -71,6 +71,21 @@ if context.after and context.cardarea == G.play then
 end
 '''
 
+# Remove neg copy
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "return new_card"
+position = "before"
+match_indent = true
+payload = '''
+if new_card.edition and new_card.edition.negative and not All_in_Jest.config.no_copy_neg then 
+    if new_card.ability.set == 'Enhanced' or new_card.ability.set == 'Default' then
+        new_card:set_edition(nil, nil, true)
+    end
+end
+'''
+
 [[patches]] 
 [patches.pattern]
 target = "functions/state_events.lua"
