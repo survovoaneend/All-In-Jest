@@ -9,6 +9,7 @@ return {
             aij_requires_restart = "Requires Restart",
             aij_enable_moons = "Enable Moons",
             aij_alter_trypophobia = "Alter Trypophobia",
+            aij_no_copy_neg = "Allow Copying Negative Playing Cards",
             k_aij_guess_the_jest = "Guess the Jest",
             k_aij_memory_card = "Memorized!",
             aij_plus_tag = "+1 Tag",
@@ -1044,10 +1045,11 @@ return {
             j_aij_anagraph = { 
                 name = "Anagraph", 
                 text = { 
-                    "When any {C:attention}Joker{} is {C:money}sold{} or",
-                    "{C:red}destroyed{}, create an exact",
-                    "{C:attention}copy{} and immediately",
-                    "{C:red}destroy{} it again" 
+                    "When any {C:attention}Joker{} or {C:attention}Playing ",
+                    "{C:attention}card{} is {C:money}sold{} or {C:red}destroyed{}",
+                    "create an exact {C:attention}copy{} and",
+                    "immediately {C:red}destroy{} it",
+                    "again" 
                     -- NOTE doesn't actually work with Jeff the Joker from
                     -- the wording?
                 } 
