@@ -23,7 +23,7 @@ local anagraph = {
   
   calculate = function(self, card, context)
     --really dumb way to do this
-    if context.jest_destroying_or_selling_card then
+    if (context.jest_destroying_or_selling_joker and context.cardarea == G.jokers) or (context.jest_destroying_or_selling_card and (G.hand or G.play)) then
       if not card.ability.extra.has_triggered then
         card_eval_status_text(card, 'extra', nil, nil, nil, { message = localize('k_again_ex') })
         card.ability.extra.has_triggered = true
@@ -71,7 +71,7 @@ function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_jui
       }))
     end
   end
-  if (G.hand and G.jokers) and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
+  if (G.hand or G.play) and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
     local has_anagraph = next(SMODS.find_card("j_aij_anagraph"))
     if has_anagraph and (self.ability.has_anagraph_triggered == nil or not self.ability.has_anagraph_triggered) then
       G.E_MANAGER:add_event(Event({
