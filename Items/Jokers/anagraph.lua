@@ -71,7 +71,7 @@ function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_jui
       }))
     end
   end
-  if self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
+  if (G.hand and G.jokers) and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
     local has_anagraph = next(SMODS.find_card("j_aij_anagraph"))
     if has_anagraph and (self.ability.has_anagraph_triggered == nil or not self.ability.has_anagraph_triggered) then
       G.E_MANAGER:add_event(Event({
