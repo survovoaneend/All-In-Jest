@@ -5,6 +5,22 @@ SMODS.current_mod.config_tab = function()
     nodes = {
       {
         n = G.UIT.R,
+        config = { align = 'cm'},
+        nodes = {
+          {
+            n = G.UIT.C,
+            nodes = {
+              create_toggle {
+                label = localize('aij_no_copy_neg'),
+                ref_table = All_in_Jest.config,
+                ref_value = 'no_copy_neg'
+              },
+            },
+          },
+        }
+      },
+      {
+        n = G.UIT.R,
         config = { align = 'cm', minh = 1 },
         nodes = {
           { n = G.UIT.T, config = { text = localize('aij_requires_restart'), colour = G.C.RED, scale = 0.5 } }
@@ -34,10 +50,85 @@ SMODS.current_mod.config_tab = function()
             },
           }
         }
-      }
+      },
     }
   }
 end
+G.FUNCS.jest_free_reroll_boss = function(e) 
+    stop_use()
+    if G.GAME.jest_free_stultor_rerolls == 0 then
+        G.GAME.round_resets.boss_rerolled = true
+        if not G.from_boss_tag then ease_dollars(-10) end
+    end
+    G.from_boss_tag = nil
+    G.CONTROLLER.locks.boss_reroll = true
+    G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+          play_sound('other1')
+          G.blind_select_opts.boss:set_role({xy_bond = 'Weak'})
+          G.blind_select_opts.boss.alignment.offset.y = 20
+          return true
+        end
+      }))
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.3,
+      func = (function()
+        local par = G.blind_select_opts.boss.parent
+        G.GAME.round_resets.blind_choices.Boss = get_new_boss()
+        G.GAME.jest_free_stultor_rerolls = G.GAME.jest_free_stultor_rerolls - 1
+
+        G.blind_select_opts.boss:remove()
+        G.blind_select_opts.boss = UIBox{
+          T = {par.T.x, 0, 0, 0, },
+          definition =
+            {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
+              UIBox_dyn_container({create_UIBox_blind_choice('Boss')},false,get_blind_main_colour('Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Boss'), 0.8))
+            }},
+          config = {align="bmi",
+                    offset = {x=0,y=G.ROOM.T.y + 9},
+                    major = par,
+                    xy_bond = 'Weak'
+                  }
+        }
+        par.config.object = G.blind_select_opts.boss
+        par.config.object:recalculate()
+        G.blind_select_opts.boss.parent = par
+        G.blind_select_opts.boss.alignment.offset.y = 0
+        
+        G.E_MANAGER:add_event(Event({blocking = false, trigger = 'after', delay = 0.5,func = function()
+            G.CONTROLLER.locks.boss_reroll = nil
+            return true
+          end
+        }))
+
+        save_run()
+        for i = 1, #G.GAME.tags do
+          if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
+        end
+          return true
+      end)
+    }))
+  end
+G.FUNCS.jest_free_reroll_boss_button = function(e)
+    if G.GAME.jest_free_stultor_rerolls > 0 then 
+        e.config.text = localize('$')..'0'
+        e.config.colour = G.C.RED
+        e.config.button = 'jest_free_reroll_boss'
+        e.children[1].children[1].config.shadow = true
+        if e.children[2] then e.children[2].children[1].config.shadow = true end 
+    else
+        e.config.text = localize('$')..'10'
+        G.FUNCS.reroll_boss_button(e)
+    end
+    if G.blind_prompt_box ~= nil and G.blind_prompt_box.definition.nodes[3] ~= nil then
+        if e.config.text ~= G.blind_prompt_box.definition.nodes[3].nodes[1].nodes[2].nodes[1].config.text then
+            G.blind_prompt_box.definition.nodes[3].nodes[1].nodes[2].nodes[1].config.text = e.config.text
+            G.blind_prompt_box.definition.nodes[3].nodes[1].nodes[2].config.button_UIE.UIBox:recalculate()
+        end
+    end
+  end
 SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
     args = args or {}
     args.w_mod = args.w_mod or 1
