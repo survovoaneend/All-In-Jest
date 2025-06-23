@@ -15,6 +15,56 @@ for i = #G.GAME.tags, 1, -1 do
 end
 '''
 
+# Clay Joker and Visage Comapat visuals
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.name == 'Blueprint' or self.ability.name == 'Brainstorm' then"
+position = "before"
+payload = '''
+if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage' then
+	local other_joker = nil
+    if self.ability.name == 'j_aij_visage' then
+        other_joker = G.GAME.jest_visage_last_sold
+    elseif self.ability.name == 'j_aij_clay_joker' then
+        other_joker = G.GAME.jest_clay_last_destroyed
+    end
+    if other_joker and other_joker ~= self and other_joker.config.center.blueprint_compat then
+        self.ability.blueprint_compat = 'compatible'
+    else
+        self.ability.blueprint_compat = 'incompatible'
+    end
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "elseif self.ability.name == 'Blueprint' then"
+position = "before"
+payload = '''
+elseif self.ability.name == 'j_aij_clay_joker' then
+    self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
+    main_end = (self.area and self.area == G.jokers) and {
+        {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+            {n=G.UIT.C, config={ref_table = self, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
+                {n=G.UIT.T, config={ref_table = self.ability, ref_value = 'blueprint_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            }}
+        }}
+    } or nil
+elseif self.ability.name == 'j_aij_visage' then
+    self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
+    main_end = (self.area and self.area == G.jokers) and {
+        {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+            {n=G.UIT.C, config={ref_table = self, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
+                {n=G.UIT.T, config={ref_table = self.ability, ref_value = 'blueprint_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            }}
+        }}
+    } or nil
+'''
+match_indent = true 
+
 [[patches]]
 [patches.pattern]
 target = "card.lua"
