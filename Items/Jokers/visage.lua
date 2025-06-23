@@ -18,6 +18,9 @@ local visage = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
+        if G.GAME.jest_visage_last_sold then  
+            info_queue[#info_queue + 1] = G.P_CENTERS[G.GAME.jest_visage_last_sold.config.center.key] 
+        end
         return { vars = {  } }
     end,
   

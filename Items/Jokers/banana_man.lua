@@ -37,7 +37,7 @@ local banana_man = {
       end
       if context.after and context.cardarea == G.jokers then
         for i = 1, #G.jokers.cards do
-            if pseudorandom('banana_man') < G.GAME.probabilities.normal / card.ability.extra.odds then
+            if pseudorandom('banana_man') < G.GAME.probabilities.normal / card.ability.extra.odds and not G.jokers.cards[i].ability.eternal then
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         G.jokers.cards[i]:start_dissolve()
