@@ -494,8 +494,9 @@ return {
             j_aij_dim_bulb = {
                 name = "Dim Bulb",
                 text = {
-                    "{X:mult,C:white}X#1#{} Mult if only {C:common}Common",
-                    "{C:attention}Jokers{} are owned"
+                    "{X:mult,C:white}X#1#{} Mult if no {C:uncommon}Uncommon",
+                    "or {C:red}Rare{} {C:attention}Jokers{}",
+                    "are owned"
                 },
             },
             j_aij_blood_artist = { 
@@ -1127,7 +1128,8 @@ return {
                 name = "Magic Mirror", 
                 text = { 
                     "Apply {C:dark_edition}Negative{} to the first",
-                    "scored Face Card this {C:attention}Ante" 
+                    "scored Face Card this {C:attention}Ante",
+                    "{C:inactive}#1#"
                 } 
             },
             j_aij_postcard_from_perdition_trail = { name = "Postcard from Perdition Trail", text = { "" } },
@@ -1741,8 +1743,9 @@ return {
                 text = { 
                     "Played cards with {C:clubs}Club",
                     "suit have a {C:green}#1# in #2#{} chance",
-                    "to create a random {C:planet}Planet{}",
-                    "card when scored",
+                    "to create the {C:planet}Planet{} card",
+                    "for the {C:attention}played hand{}",
+                    "when scored",
                     "{C:inactive}(Must have room){}"
                 } 
             },
