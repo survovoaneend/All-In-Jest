@@ -6,17 +6,23 @@ local void = {
     config = {
       extra = { xmult = 3 }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 6, y = 4 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 7,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-        return { vars = {card.ability.extra.xmult}}
+        local active_text = "(Active!)"
+        if G.GAME.jest_void_planet_ante then 
+            active_text = "(Inactive)"
+        else
+            active_text = "(Active!)"
+        end
+        return { vars = {card.ability.extra.xmult, active_text}}
     end,
   
     calculate = function(self, card, context)

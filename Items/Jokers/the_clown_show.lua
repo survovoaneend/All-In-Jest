@@ -5,7 +5,7 @@ local the_clown_show = {
     key = "the_clown_show",
     config = {
       extra = {
-          chips = 10
+          chips = 5
       }
     },
     rarity = 2,
@@ -30,6 +30,9 @@ local the_clown_show = {
       if context.buying_card then
         if context.card.ability.set == "Joker" and context.cardarea == G.jokers then
             G.GAME.jest_bought_jokers = G.GAME.jest_bought_jokers + 1
+            return {
+              message = localize('k_upgrade_ex')
+            }
         end
       end
       if context.joker_main and (card.ability.extra.chips * G.GAME.jest_bought_jokers) > 0 then

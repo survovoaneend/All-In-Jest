@@ -5,13 +5,13 @@ local fuzzy_joker = {
     config = {
       
     },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 6, y = 10},
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 5,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
@@ -20,12 +20,19 @@ local fuzzy_joker = {
   
     calculate = function(self, card, context)
         if context.joker_main then
-            card:juice_up(0.4, 0.3)
-            if hand_chips <= 0 then return 1 end
-            local power = math.ceil(math.log10(hand_chips))
-            hand_chips = 10 ^ power
-            mult = mult
-            update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
+            if to_number(mult) <= 0 then return 1 end
+            local power = math.ceil(math.log(to_number(mult), 2))
+            hand_chips = to_number(hand_chips)
+            Mult = 2 ^ power
+            if Mult - to_number(mult) > 0 then
+            return {
+                mult = Mult - to_number(mult),
+                remove_default_message = true,
+                message = '=' .. Mult .. ' Mult',
+                colour = G.C.RED,
+                sound = 'multhit1'
+            }
+            end
         end
     end
 }

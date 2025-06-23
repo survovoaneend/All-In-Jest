@@ -16,7 +16,16 @@ local kasperle = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-        return { vars = {card.ability.extra.xmult}}
+        local active_text = "(Inactive)"
+        if G.GAME.jest_kasperle_voucher_ante then 
+            active_text = "(Active!)"
+        else
+            active_text = "(Inactive)"
+        end
+        return { vars = {
+            card.ability.extra.xmult,
+            active_text
+        }}
     end,
   
     calculate = function(self, card, context)

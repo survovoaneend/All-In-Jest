@@ -627,7 +627,8 @@ return {
                 name = "Void", 
                 text = { 
                     "{X:mult,C:white}X#1#{} Mult if no {C:planet}Planet{} Cards",
-                    "have been used this {C:attention}Ante" 
+                    "have been used this {C:attention}Ante",
+                    "{C:inactive}#2#"
                 } 
             },
             j_aij_kasperle = { 
@@ -636,6 +637,7 @@ return {
                     "{X:mult,C:white}X#1#{} Mult if you have",
                     "purchased a {C:attention}Voucher{}",
                     "this {C:attention}Ante",
+                    "{C:inactive}#2#"
                 } 
             },
             j_aij_tumbler = { name = "Tumbler", text = { "" } },
@@ -1407,8 +1409,8 @@ return {
             j_aij_fuzzy_joker = { 
                 name = "Fuzzy Joker",
                 text = { 
-                    "Rounds {C:chips}Chips{} upward to the",
-                    "next power of {C:attention}10" 
+                    "Rounds {C:mult}Mult{} upward to the",
+                    "next power of {C:attention}2" 
                 } 
             },
             j_aij_saucy_jacky = { name = "Saucy Jacky", text = { "" } },

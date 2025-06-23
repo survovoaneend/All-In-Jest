@@ -4,7 +4,7 @@ local carousel = {
 
     key = "carousel",
     config = {
-      
+
     },
     rarity = 2,
     pos = { x = 21, y = 0 },
@@ -14,33 +14,65 @@ local carousel = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
-  
+
     loc_vars = function(self, info_queue, card)
-  
+
     end,
-  
+
     calculate = function(self, card, context)
         if context.after and context.scoring_hand then
-            for i = 1, #context.scoring_hand do
+            for i, card in ipairs(context.scoring_hand) do
+                local percent = 1.15 - (i - 0.999) / (#context.scoring_hand - 0.998) * 0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.15,
+                    func = function()
+                        card:flip()
+                        play_sound('card1', percent)
+                        card:juice_up(0.3, 0.3)
+                        return true
+                    end
+                }))
+            end
+
+            delay(0.2)
+
+            for _, card in ipairs(context.scoring_hand) do
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     delay = 0.1,
                     func = function()
-                        if context.scoring_hand[i]:is_suit("Hearts") then
-                            assert(SMODS.change_base(context.scoring_hand[i], "Clubs"))
-                        elseif context.scoring_hand[i]:is_suit("Clubs") then
-                            assert(SMODS.change_base(context.scoring_hand[i], "Diamonds"))
-                        elseif context.scoring_hand[i]:is_suit("Diamonds") then
-                            assert(SMODS.change_base(context.scoring_hand[i], "Spades"))
-                        elseif context.scoring_hand[i]:is_suit("Spades") then
-                            assert(SMODS.change_base(context.scoring_hand[i], "Hearts"))
+                        if card:is_suit("Hearts") then
+                            card:change_suit("Clubs")
+                        elseif card:is_suit("Clubs") then
+                            card:change_suit("Diamonds")
+                        elseif card:is_suit("Diamonds") then
+                            card:change_suit("Spades")
+                        elseif card:is_suit("Spades") then
+                            card:change_suit("Hearts")
                         end
-                    return true
+                        return true
                     end
                 }))
             end
+
+            for i, card in ipairs(context.scoring_hand) do
+                local percent = 0.85 + (i - 0.999) / (#context.scoring_hand - 0.998) * 0.3
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.15,
+                    func = function()
+                        card:flip()
+                        play_sound('tarot2', percent, 0.6)
+                        card:juice_up(0.3, 0.3)
+                        return true
+                    end
+                }))
+            end
+
+            delay(0.5)
         end
     end
-  
+
 }
-return { name = {"Jokers"}, items = {carousel} }
+return { name = { "Jokers" }, items = { carousel } }
