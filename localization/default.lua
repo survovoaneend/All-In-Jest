@@ -575,7 +575,16 @@ return {
             j_aij_silver_screen = { name = "Silver Screen", text = { "" } },
             j_aij_pedrolino = { name = "Pedrolino", text = { "" } },
             j_aij_pierrette = { name = "Pierrette", text = { "" } },
-            j_aij_scaramouche = { name = "Scaramouche", text = { "" } },
+            j_aij_scaramouche = { 
+                name = "Scaramouche", 
+                text = { 
+                    "{C:attention}Retrigger{} all scored",
+                    "cards if {C:attention}played hand{} is",
+                    "{C:attention}#1#{}",
+                    "{C:inactive}(Hand changes at",
+                    "{C:inactive}end of round){}"
+                } 
+            },
             j_aij_clay_joker = { 
                 name = "Clay Joker", 
                 text = { 
@@ -639,7 +648,15 @@ return {
                     "number of cards"
                 },
             },
-            j_aij_columbina = { name = "Columbina", text = { "" } },
+            j_aij_columbina = { 
+                name = "Columbina", 
+                text = {
+                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of {C:mult}Mult{} and",
+                    "{C:chips}Chips{}, increases by {C:attention}#2#%{}",
+                    "when a {C:spectral}Spectral{} card is",
+                    "used"
+                } 
+            },
             j_aij_j_file = { name = "J-File", text = { "" } },
             j_aij_bumper_sticker = { 
                 name = "Bumper Sticker", 
@@ -949,7 +966,15 @@ return {
                 },
                 -- TODO use juice until
             },
-            j_aij_joka_lisa = { name = "Joka Lisa", text = { "" } },
+            j_aij_joka_lisa = { 
+                name = "Joka Lisa", 
+                text = { 
+                    "{X:mult,C:white}X#1#{} Mult per {C:attention}hand", 
+                    "{C:attention}size{} above {C:attention}7{}",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult){}",
+                    "{C:inactive}(Minimum {X:mult,C:white}X1{C:inactive} Mult){}"
+                } 
+            },
             j_aij_tonpraten = { name = "Tonpraten", text = { "" } },
             j_aij_rodeo_clown = { name = "Rodeo Clown", text = { "" } },
             j_aij_joculator = { name = "Joculator", text = { "" } },
@@ -1074,9 +1099,27 @@ return {
                     "{C:green}probability{} effect fails"
                 } 
             },
-            j_aij_animatronic = { name = "Animatronic", text = { "" } },
+            j_aij_animatronic = { 
+                name = "Animatronic", 
+                text = {
+                    "{C:attention}+#1#{} hand size if played",
+                    "hand contains a",
+                    "{C:attention}Straight",
+                    "{C:inactive}(Currently {C:attention}+#2#{C:inactive} hand size){}",
+                    "{C:inactive}(Resets when Blind",
+                    "{C:inactive}is defeated)"
+                } 
+            },
             j_aij_arecibo_message = { name = "Arecibo Message", text = { "" } },
-            j_aij_napkin = { name = "Napkin", text = { "" } },
+            j_aij_napkin = { 
+                name = "Napkin", 
+                text = { 
+                    "This Joker gains {X:mult,C:white}X#1#{}",
+                    "Mult when {C:attention}2{} Blinds are",
+                    "skipped {C:attention}in a row",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult){}",
+                }
+            },
             j_aij_lost_carcosa = { name = "Lost Carcosa", text = { "" } },
             j_aij_magic_mirror = { 
                 name = "Magic Mirror", 
@@ -1154,7 +1197,15 @@ return {
                     "can appear {C:attention}multiple{} times"
                 }
             },
-            j_aij_great_kraken = { name = "Great Kraken", text = { "" } },
+            j_aij_great_kraken = { 
+                name = "Great Kraken", 
+                text = { 
+                    "{X:mult,C:white}X#1#{} Mult for each",
+                    "{C:blue}hand{} remaining",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult)",
+                    "{C:inactive}(Minimum {X:mult,C:white}X1{C:inactive} Mult)"
+                } 
+            },
             j_aij_truhan = { 
                 name = "Truhan", 
                 text = { 
@@ -1181,7 +1232,14 @@ return {
                     "them and gives {X:mult,C:white}X#2#{} Mult"
                 },
             },
-            j_aij_histrio = { name = "Histrio", text = { "" } },
+            j_aij_histrio = { 
+                name = "Histrio", 
+                text = { 
+                    "Earn an additional {C:money}$#1#{}",
+                    "for each {C:attention}unused hand",
+                    "at end of round"
+                } 
+            },
             j_aij_loregg = { name = "Loregg", text = { "" } },
             j_aij_egg_cc = {
                 name = "\"egg\"",
@@ -1254,7 +1312,15 @@ return {
                 } 
             },
             j_aij_richie_rich = { name = "Richie Rich", text = { "" } },
-            j_aij_devil_deal = { name = "Devil Deal", text = { "" } },
+            j_aij_devil_deal = { 
+                name = "Devil Deal", 
+                text = { 
+                    "This Joker gains {X:mult,C:white}X#1#{}",
+                    "Mult when a {C:hearts}Heart{}",
+                    "card is {C:attention}destroyed",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult)",
+                } 
+            },
             j_aij_totally_nuts = { 
                 name = "Totally Nuts", 
                 text = { 
@@ -1362,7 +1428,13 @@ return {
                     "for purchase in {C:attention}Shop" 
             } 
             },
-            j_aij_whatsisname = { name = "Whatsisname", text = { "" } },
+            j_aij_whatsisname = { 
+                name = "Whatsisname", 
+                text = { 
+                    "{C:attention}Guess the Jest{} packs",
+                    "are more common"
+                } 
+            },
             j_aij_downing_street = { name = "Downing Street", text = { "" } },
             j_aij_one_little_duck = { name = "One Little Duck", text = { "" } },
             j_aij_four_leaf_clover = { name = "Four-leaf Clover", text = { "" } },
@@ -1496,7 +1568,14 @@ return {
                     "trigger their effects"
                 } 
             },
-            j_aij_interstate = { name = "Interstate", text = { "" } },
+            j_aij_interstate = { 
+                name = "Interstate", 
+                text = { 
+                    "{C:blue}+#1#{} Hand if the first",
+                    "hand of round",
+                    "contains a {C:attention}Straight{}"
+                } 
+            },
             j_aij_bowls_of_joy = { name = "Bowls of Joy", text = { "" } },
             j_aij_chips_n_dip = {
                 name = "Chips 'n Dip",
@@ -1522,7 +1601,14 @@ return {
                     "retrigger" 
                 } 
             },
-            j_aij_fish_fingers = { name = "Fish Fingers", text = { "" } },
+            j_aij_fish_fingers = { 
+                name = "Fish Fingers", 
+                text = { 
+                    "{C:blue}+#1#{} Hands per round,",
+                    "{C:blue}-#2#{} Hand when Blind is",
+                    "{C:attention}defeated"
+                } 
+            },
             j_aij_joker_png = { name = "Joker.png", text = { "" } },
             j_aij_kuruko = { name = "Kuruko", text = { "" } },
             j_aij_candy_floss = { 
