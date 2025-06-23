@@ -18,8 +18,11 @@ local joka_lisa = {
   eternal_compat = true,
   loc_vars = function(self, info_queue, card)
     local xmult = 1
+    if G.hand then
+    G.hand.config.card_limit = G.hand.config.card_limit or 8
     if G.hand.config.card_limit then 
       xmult = G.hand.config.card_limit - 7
+    end
     end
     if xmult < 1 then
       xmult = 1
@@ -30,6 +33,7 @@ local joka_lisa = {
         xmult
       }
     }
+
   end,
 
   calculate = function(self, card, context)
