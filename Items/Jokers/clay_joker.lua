@@ -18,6 +18,9 @@ local clay_joker = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
+        if G.GAME.jest_clay_last_destroyed then  
+            info_queue[#info_queue + 1] = G.P_CENTERS[G.GAME.jest_clay_last_destroyed.config.center.key] 
+        end
         return { vars = {  } }
     end,
   
