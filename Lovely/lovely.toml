@@ -75,13 +75,13 @@ end
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = "return new_card"
+pattern = "if not strip_edition then"
 position = "before"
 match_indent = true
 payload = '''
-if new_card.edition and new_card.edition.negative and not All_in_Jest.config.no_copy_neg then 
-    if new_card.ability.set == 'Enhanced' or new_card.ability.set == 'Default' then
-        new_card:set_edition(nil, nil, true)
+if other.edition and other.edition.negative and not All_in_Jest.config.no_copy_neg then 
+    if other.ability.set == 'Enhanced' or other.ability.set == 'Default' then
+        strip_edition = true
     end
 end
 '''
