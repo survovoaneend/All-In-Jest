@@ -22,7 +22,7 @@ local zerco = {
     end,
   
     calculate = function(self, card, context)
-      if context.after and G.GAME.current_round.hands_played == 0 then
+      if context.after and context.scoring_hand and G.GAME.current_round.hands_played == 0 then
         G.E_MANAGER:add_event(Event ( {
           trigger = 'before',
           delay = 1,
