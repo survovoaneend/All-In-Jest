@@ -27,13 +27,11 @@ local zerco = {
           trigger = 'before',
           delay = 1,
           func = function()
-            if context.scoring_hand then 
             local _card = context.scoring_hand[1]
             if not _card.edition then
               _card:set_edition({negative = true}, true)
             end
-          end
-          return true
+            return true
           end } ))
       end
     end
