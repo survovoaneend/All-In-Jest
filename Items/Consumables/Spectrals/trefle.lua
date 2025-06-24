@@ -97,6 +97,7 @@ local trefle_spectral = {
                         G.jokers:emplace(new_joker)
                     end
                     new_joker:start_materialize({ G.C.SPECTRAL, G.C.WHITE })
+                    new_joker:set_edition(victim_joker.edition)
                 end
 
                 card:juice_up(0.5, 0.5)
