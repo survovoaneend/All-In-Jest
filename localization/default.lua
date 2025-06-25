@@ -67,6 +67,13 @@ return {
             },
         },
         Edition = {
+            e_aij_negative_playing_card = {
+                name = "Negative",
+                text = {
+                    "{C:dark_edition}+#1#{} hand size",
+                    "{C:inactive}(Removed from copies)"
+                },
+            },
             e_aij_glimmer = {
                 name = "Glimmer",
                 text = {
