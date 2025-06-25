@@ -29,7 +29,6 @@ local the_clown_show = {
     calculate = function(self, card, context)
       if context.buying_card then
         if context.card.ability.set == "Joker" and context.cardarea == G.jokers then
-            G.GAME.jest_bought_jokers = G.GAME.jest_bought_jokers + 1
             return {
               message = localize('k_upgrade_ex')
             }
