@@ -119,6 +119,11 @@ if context.final_scoring_step and context.cardarea == G.play and context.full_ha
         end
     end
 end
+if context.buying_card then
+    if context.card.ability.set == "Joker" and context.cardarea == G.jokers then
+        G.GAME.jest_bought_jokers = G.GAME.jest_bought_jokers + 1
+    end
+end
 '''
 
 [[patches]]
@@ -139,6 +144,20 @@ position = "before"
 match_indent = true
 payload = '''
 if self.ability.jest_chaotic_card then badges[#badges + 1] = 'k_aij_jest_chaotic_card' end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "info_queue[#info_queue+1] = {key = 'e_'..v, set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit}}"
+position = "at"
+match_indent = true
+payload = '''
+if not All_in_Jest.config.no_copy_neg and v == 'negative_playing_card' then
+    info_queue[#info_queue+1] = {key = 'e_aij_negative_playing_card', set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit}}
+else
+    info_queue[#info_queue+1] = {key = 'e_'..v, set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit}}
+end
 '''
 
 [[patches]]
