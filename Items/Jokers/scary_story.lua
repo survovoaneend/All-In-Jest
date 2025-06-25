@@ -27,7 +27,7 @@ local scary_story = {
     end,
 
     calculate = function(self, card, context)
-      if context.open_booster and context.card.ability.name then
+      if context.open_booster and context.card.ability.name and not context.blueprint then
         if (context.open_booster and context.card.ability.name == 'Standard Pack' or
         context.open_booster and context.card.ability.name == 'Jumbo Standard Pack' or
         context.open_booster and context.card.ability.name == 'Mega Standard Pack') then

@@ -20,7 +20,7 @@ local carousel = {
     end,
 
     calculate = function(self, card, context)
-        if context.after and context.scoring_hand then
+        if context.after and context.scoring_hand and not context.blueprint then
             for i, card in ipairs(context.scoring_hand) do
                 local percent = 1.15 - (i - 0.999) / (#context.scoring_hand - 0.998) * 0.3
                 G.E_MANAGER:add_event(Event({

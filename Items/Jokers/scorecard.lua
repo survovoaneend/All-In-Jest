@@ -33,7 +33,7 @@ local scorecard = {
                 if v.visible and k ~= card.ability.scorecard_poker_hand then _poker_hands[#_poker_hands + 1] = k end
             end
 
-            --code from full_mood from paperback
+            --code from full_moon from paperback
             local hand = pseudorandom_element(_poker_hands, pseudoseed('scorecard'))
             local eff_card = context.blueprint_card or card
 

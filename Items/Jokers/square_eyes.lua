@@ -5,7 +5,7 @@ local square_eyes = {
     key = "square_eyes",
     config = {
       extra = {
-        mult_per_four = 2
+        mult_per_four = 4
       }
     },
     rarity = 1,

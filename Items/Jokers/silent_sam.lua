@@ -5,7 +5,7 @@ local silent_sam = {
     key = "silent_sam",
     config = {
       extra = {
-        xmult = 1.1
+        xmult = 1.2
       }
     },
     rarity = 2,
