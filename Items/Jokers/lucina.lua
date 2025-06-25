@@ -31,7 +31,7 @@ local lucina = {
                 G.E_MANAGER:add_event(Event({func = function()
                     G.GAME.joker_buffer = 0
                     if G.jokers.cards[my_pos+1] then
-                        local edition = poll_edition('lucina', nil, true, true)
+                        local edition = poll_edition('lucina', nil, false, true)
                         local right_card = G.jokers.cards[my_pos+1]
                         right_card:set_edition(edition, true)
                     end

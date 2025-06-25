@@ -17,6 +17,7 @@ return {
         labels = {
             aij_glimmer = "Glimmer",
             aij_stellar = "Stellar",
+            k_aij_jest_chaotic_card = "Chaotic",
         }
     },
     descriptions = {
@@ -66,6 +67,13 @@ return {
             },
         },
         Edition = {
+            e_aij_negative_playing_card = {
+                name = "Negative",
+                text = {
+                    "{C:dark_edition}+#1#{} hand size",
+                    "{C:inactive}(Removed from copies)"
+                },
+            },
             e_aij_glimmer = {
                 name = "Glimmer",
                 text = {

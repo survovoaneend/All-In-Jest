@@ -95,12 +95,12 @@ pattern = "-- TARGET: evaluate your own general effects"
 position = "before"
 match_indent = true
 payload = '''
-if context.after and context.cardarea == G.play then
+if context.final_scoring_step and context.cardarea == G.play and context.full_hand then
     for i = 1, #G.play.cards do
         if G.play.cards[i].ability.set == 'Enhanced' and G.play.cards[i].ability.jest_chaotic_card then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
-                delay = 0.3,
+                delay = 0.1,
                 func = function()
                     local cen_pool = {}
                     for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
@@ -111,7 +111,7 @@ if context.after and context.cardarea == G.play then
                     center = pseudorandom_element(cen_pool, pseudoseed('jest_chaotic_card'))
                 
                     G.play.cards[i]:juice_up(0.3, 0.3)
-                    G.play.cards[i]:set_ability(center, nil, true)
+                    G.play.cards[i]:set_ability(center)
                     G.play.cards[i].ability.jest_chaotic_card = true
                 return true
                 end
@@ -119,7 +119,100 @@ if context.after and context.cardarea == G.play then
         end
     end
 end
+if context.buying_card then
+    if context.card.ability.set == "Joker" and context.cardarea == G.jokers then
+        G.GAME.jest_bought_jokers = G.GAME.jest_bought_jokers + 1
+    end
+end
 '''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if v == 'eternal' then info_queue[#info_queue+1] = {key = 'eternal', set = 'Other'} end"
+position = "before"
+match_indent = true
+payload = '''
+if v == 'k_aij_jest_chaotic_card' then info_queue[#info_queue+1] = {key = 'aij_jest_chaotic_card', set = 'Other'} end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.eternal then badges[#badges + 1] = 'eternal' end"
+position = "before"
+match_indent = true
+payload = '''
+if self.ability.jest_chaotic_card then badges[#badges + 1] = 'k_aij_jest_chaotic_card' end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "info_queue[#info_queue+1] = {key = 'e_'..v, set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit}}"
+position = "at"
+match_indent = true
+payload = '''
+if not All_in_Jest.config.no_copy_neg and v == 'negative_playing_card' then
+    info_queue[#info_queue+1] = {key = 'e_aij_negative_playing_card', set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit}}
+else
+    info_queue[#info_queue+1] = {key = 'e_'..v, set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit}}
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = "for _, v in pairs(SMODS.Rarities) do"
+position = "before"
+payload = '''
+for _, v in pairs(SMODS.jest_Badges) do
+    self:inject(v)
+end
+'''
+match_indent = true 
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = "SMODS.Rarities = {}"
+position = "before"
+payload = '''
+SMODS.jest_Badges = {}
+SMODS.jest_Badge = SMODS.GameObject:extend {
+    obj_table = SMODS.jest_Badges,
+    obj_buffer = {},
+    set = 'jest_Badge',
+    required_params = {
+        'key',
+    },
+    badge_colour = HEX 'FFFFFF',
+    inject = function(self, center) 
+        if center.set ~= self.key then SMODS.insert_pool(SMODS.jest_Badges[self.key], center) end
+        if not center.pools then center.pools = {} end
+        center.pools[self.key] = true
+        G.C.jest_Badge[self.key] = self.badge_colour
+    end,
+    process_loc_text = function(self)
+        SMODS.process_loc_text(G.localization.misc.labels, "k_"..self.key:lower(), self.loc_txt, 'name')
+        SMODS.process_loc_text(G.localization.misc.dictionary, "k_"..self.key:lower(), self.loc_txt, 'name')
+    end,
+    get_badge = function(self, badge)
+        return localize("k_"..badge:lower())
+    end,
+}
+
+local game_init_game_object_ref = Game.init_game_object
+function Game:init_game_object()
+    local t = game_init_game_object_ref(self)
+    for _, v in pairs(SMODS.jest_Badges) do
+        local key = v.key:lower() .. '_mod'
+        t[key] = t[key] or 1
+    end
+    return t
+end
+'''
+match_indent = true 
 
 # Remove neg copy
 [[patches]]
