@@ -31,7 +31,7 @@ local croupier = {
         end
 
         if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-            if tonumber(card.ability.extra.total_chips) > (G.GAME.blind.chips * 2) then
+            if tonumber(card.ability.extra.total_chips) > (to_big(G.GAME.blind.chips) * 2) then
                 return {
                     card = card,
                     dollars = card.ability.extra.money,
@@ -49,7 +49,7 @@ function G.FUNCS.evaluate_play(self, e)
         local effects = eval_card(G.jokers.cards[i], {
             card = G.consumeables,
             after = true,
-            jest_scored_chips = hand_chips * mult
+            jest_scored_chips = to_big(hand_chips * mult)
         })
         if effects.jokers then
             card_eval_status_text(G.jokers.cards[i], "jokers", nil, 0.3, nil, effects.jokers)
