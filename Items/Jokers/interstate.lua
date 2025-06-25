@@ -5,7 +5,7 @@ local interstate = {
     key = "interstate",
     config = {
       extra = {
-        hands = 1
+        hands = 2
       }
     },
     rarity = 1,

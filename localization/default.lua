@@ -1583,8 +1583,8 @@ return {
             j_aij_interstate = { 
                 name = "Interstate", 
                 text = { 
-                    "{C:blue}+#1#{} Hand this round if",
-                    "hand of round",
+                    "{C:blue}+#1#{} Hands this round if",
+                    "{C:attention}first{} hand of round",
                     "contains a {C:attention}Straight{}"
                 } 
             },
