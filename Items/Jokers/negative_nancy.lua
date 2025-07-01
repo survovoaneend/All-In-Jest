@@ -28,11 +28,11 @@ local negative_nancy = {
 
 SMODS.Edition:take_ownership('e_negative', {
   get_weight = function(self)
-      local weight = (self.weight or 0.01) * (G.GAME and G.GAME.edition_rate or 1)
+      local weight = (self.weight) * (G.GAME and G.GAME.edition_rate or 1)
       local nancy_jokers = SMODS.find_card('j_aij_negative_nancy', false) -- false = don't count debuffed
 
       if #nancy_jokers > 0 then
-          weight = weight * (3 ^ #nancy_jokers)
+          weight = weight * (5 * #nancy_jokers)
       end
 
       return weight

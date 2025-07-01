@@ -5,7 +5,7 @@ local stock_broker = {
     config = {
       extra = {
           minvalue = 0.75,
-          maxvalue = 2
+          maxvalue = 3
       }
     },
     rarity = 2,

@@ -23,9 +23,10 @@ local party_streamers = {
     end,
   
   calculate = function(self, card, context)
+    if context.full_hand then
     if context.after and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 then
       for k, v in ipairs(context.scoring_hand) do
-        if not v.seal then
+        if not v.seal and not v.debuffed then
           G.E_MANAGER:add_event(Event ( {
             trigger = 'before',
             delay = 1,
@@ -45,6 +46,7 @@ local party_streamers = {
         end
       end
     end
+  end
   end
   
 }

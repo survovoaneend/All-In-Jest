@@ -8,10 +8,10 @@ local negative_space = {
             prev_handsize = "0"
         }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 12, y = 12},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
@@ -23,7 +23,7 @@ local negative_space = {
             for i = 1, #G.jokers.cards do
                 local v = G.jokers.cards[i]
                 if v.edition ~= nil and v.edition.negative ~= nil then 
-                    if v.edition.negative then
+                    if v.edition.negative and handsize <= 5 then
                         handsize = handsize + 1
                     end
                 end
