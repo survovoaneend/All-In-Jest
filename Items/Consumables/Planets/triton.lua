@@ -11,7 +11,7 @@ local triton_planet = {
 	discovered = false,
 	order = 7,
 	jest_spec_moon = true,
-	config = {hand_type = "Straight Flush", moon = true},
+	config = {hand_type = "Straight Flush", moon = true, mult = true},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
 		return {

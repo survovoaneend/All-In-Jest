@@ -12,7 +12,7 @@ local paper_namaka_planet = {
 	order = 25,
 	jest_rec_paperback = true,
 	jest_spec_moon = true,
-	config = { hand_type = "paperback_Straight Spectrum", softlock = true, moon = true },
+	config = { hand_type = "paperback_Straight Spectrum", softlock = true, moon = true, mult = true },
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
 		return {

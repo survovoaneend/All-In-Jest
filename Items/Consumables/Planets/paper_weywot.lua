@@ -12,7 +12,7 @@ local paper_weywot_planet = {
 	order = 24,
 	jest_rec_paperback = true,
 	jest_spec_moon = true,
-	config = { hand_type = "paperback_Spectrum", softlock = true, moon = true },
+	config = { hand_type = "paperback_Spectrum", softlock = true, moon = true, mult = true },
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
 		return {

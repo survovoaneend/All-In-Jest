@@ -11,7 +11,7 @@ local luna_planet = {
 	discovered = false,
 	order = 2,
 	jest_spec_moon = true,
-	config = {hand_type = "Full House", moon = true},
+	config = {hand_type = "Full House", moon = true, mult = true},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
 		return {
