@@ -2,7 +2,7 @@
 local invisible_man = {
     object_type = "Joker",
     order = 6,
-     
+    ignore = true,
     key = "invisible_man",
     config = {
       

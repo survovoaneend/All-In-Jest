@@ -1,12 +1,12 @@
-local headstone = {
+local skinsuit = {
     object_type = "Joker",
-    order = 329,
+    order = 353,
     ignore = true,
-    key = "headstone",
+    key = "skinsuit",
     config = {
     },
     rarity = 1,
-    pos = { x = 0, y = 13},
+    pos = { x = 24, y = 13},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
@@ -23,4 +23,4 @@ local headstone = {
     end
   
 }
-return { name = {"Jokers"}, items = {headstone} }
+return { name = {"Jokers"}, items = {skinsuit} }

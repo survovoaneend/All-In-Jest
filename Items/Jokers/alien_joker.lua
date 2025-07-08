@@ -1,22 +1,21 @@
-local le_fils_de_banane = {
+local alien_joker = {
     object_type = "Joker",
-    order = 277,
+    order = 338,
     ignore = true,
-    key = "le_fils_de_banane",
+    key = "alien_joker",
     config = {
-      
     },
     rarity = 1,
-    pos = { x = 0, y = 11},
+    pos = { x = 9, y = 13},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   
     loc_vars = function(self, info_queue, card)
-  
+
     end,
   
     calculate = function(self, card, context)
@@ -24,4 +23,4 @@ local le_fils_de_banane = {
     end
   
 }
-return { name = {"Jokers"}, items = {le_fils_de_banane} }
+return { name = {"Jokers"}, items = {alien_joker} }

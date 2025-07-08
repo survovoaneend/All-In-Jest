@@ -63,7 +63,7 @@ local overdesigned_joker = {
             local cardd = context.other_card
             local orig_suit = card.ability.suit
             local orig_amount = card.ability.amount
-            
+            if not context.blueprint then
             local suit_info, suffix_info, colour_info = jest_overdesigned_joker_cycle(card.ability.suit)
             card.ability.suit = suit_info[1]
             card.ability.amount = suit_info[2]
@@ -74,26 +74,27 @@ local overdesigned_joker = {
             card.ability.extra.colours.amount = colour_info[2]
             card.ability.extra.colours.background = colour_info[3] or G.C.WHITE
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = card.ability.suit, colour = G.C.FILTER})
+            end
             if cardd:is_suit(orig_suit.."s") then
                 if orig_suit == "Club" then
                     return {
                         mult = orig_amount,
-                        card = cardd
+                        card = card
                     }
                 elseif orig_suit == "Diamond" then
                     return {
                         dollars = orig_amount,
-                        card = cardd
+                        card = card
                     }
                 elseif orig_suit == "Spade" then
                     return {
                         chips = orig_amount,
-                        card = cardd
+                        card = card
                     }
                 elseif orig_suit == "Heart" then
                     return {
                         x_mult = orig_amount,
-                        card = cardd
+                        card = card
                     }
                 end
             end

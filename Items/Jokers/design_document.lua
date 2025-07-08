@@ -1,7 +1,7 @@
 local design_document = {
     object_type = "Joker",
     order = 197,
-
+    ignore = true,
     key = "design_document",
     config = {
         extra = {

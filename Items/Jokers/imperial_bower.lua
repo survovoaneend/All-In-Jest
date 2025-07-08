@@ -6,6 +6,7 @@ local imperial_bower = {
       
     },
     rarity = 2,
+    ignore = true,
     pos = { x = 17, y = 0 },
     atlas = 'joker_atlas',
     cost = 6,

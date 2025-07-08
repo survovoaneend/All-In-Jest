@@ -28,7 +28,7 @@ local hei_tiki = {
     end,
   
     calculate = function(self, card, context)
-        if context.final_scoring_step and context.cardarea == G.jokers then
+        if context.final_scoring_step and context.cardarea == G.jokers and not context.blueprint then
             if hand_chips > mult then
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
                 return {

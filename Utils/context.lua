@@ -29,12 +29,23 @@ function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_jui
   if G.jokers and self.ability.set == 'Joker' then
     SMODS.calculate_context({
       jest_destroying_or_selling_joker = true,
-      jest_destroyed_joker = self
+      jest_destroyed_joker = self,
     })
     if self.ability.jest_sold_self == nil then
       SMODS.calculate_context({
       jest_destroying_joker = true,
       jest_destroyed_joker = self
+     })
+    end
+  elseif (G.hand or G.play) and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
+    SMODS.calculate_context({
+      jest_destroying_or_selling_card = true,
+      jest_destroyed_card = self,
+    })
+    if self.ability.jest_sold_self == nil then
+      SMODS.calculate_context({
+      jest_destroying_card = true,
+      jest_destroyed_card = self
      })
     end
   end

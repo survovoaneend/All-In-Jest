@@ -1,0 +1,21 @@
+{
+    "Lua.diagnostics.globals": [
+        "G",
+        "Event",
+        "localize",
+        "SMODS",
+        "create_badge",
+        "update_hand_text",
+        "delay",
+        "play_sound",
+        "pseudorandom_element",
+        "pseudoseed",
+        "create_card",
+        "card_eval_status_text",
+        "level_up_hand",
+        "copy_card",
+        "ease_colour",
+        "attention_text",
+        "pseudorandom"
+    ]
+}
