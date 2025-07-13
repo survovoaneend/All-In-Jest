@@ -35,16 +35,25 @@ local headstone = {
 local shuffleref = CardArea.shuffle
 function CardArea:shuffle(_seed)
     local ref = shuffleref(self, _seed)
+
     local has_headstone = next(SMODS.find_card("j_aij_headstone"))
     if has_headstone then
+        
+        local face_cards = {}
+
         for i = #self.cards, 1, -1 do
             local card = self.cards[i]
             if card:is_face() then
+                table.insert(face_cards, card)
                 table.remove(self.cards, i)
-                table.insert(self.cards, 1, card)
             end
         end
+
+        for _, card in ipairs(face_cards) do
+            table.insert(self.cards, 1, card) 
+        end
     end
+
     return ref
 end
 return { name = {"Jokers"}, items = {headstone} }
