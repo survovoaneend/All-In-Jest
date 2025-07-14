@@ -8,7 +8,7 @@ local kamooalewa_planet = {
 	pos = { x = 2, y = 2 },
 	cost = 3,
 	unlocked = true,
-	config = {hand_type = "Full House", moon = true},
+	config = {hand_type = "Full House", moon = true, chips = true},
 	discovered = false,
 	order = 14,
 	jest_spec_moon = true,

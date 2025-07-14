@@ -11,7 +11,7 @@ local kuiper_planet = {
 	discovered = false,
 	order = 23,
 	jest_spec_moon = true,
-	config = { hand_type = "Flush Five", softlock = true, moon = true },
+	config = { hand_type = "Flush Five", softlock = true, moon = true, chips = true },
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
 		return {
