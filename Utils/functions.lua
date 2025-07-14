@@ -38,6 +38,16 @@ function next_palindrome(n)
         n = n + 1
     end
 end
+local original_emplace = CardArea.emplace
+
+function CardArea:emplace(card, ...)
+    local result = original_emplace(self, card, ...)
+    if self == G.jokers and card.ability.set == "Joker" and G.STATE == 5 then
+        G.GAME.jest_bought_jokers = (G.GAME.jest_bought_jokers or 0) + 1
+    end
+
+    return result
+end
 
 -- better temp values
 function apply_multiplier(t, key, factor, tag)

@@ -5,7 +5,7 @@ local the_clown_show = {
     key = "the_clown_show",
     config = {
       extra = {
-          chips = 5
+          chips = 6
       }
     },
     rarity = 2,
