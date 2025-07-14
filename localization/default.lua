@@ -245,7 +245,7 @@ return {
                 name = "Founding Father", 
                 text = { 
                     "{C:attention}Charged Cards{} are",
-                    "{C:attention}twice{} as effective" 
+                    "{C:attention}twice{} as effective"
                 } 
             },
             j_aij_scary_story = {

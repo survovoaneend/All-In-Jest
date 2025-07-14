@@ -17,6 +17,19 @@ end'''
 match_indent = true
 overwrite = false
 
+# generate_card_ui(): show permanent bonuses on enhanced playing cards
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "elseif _c.set == 'Booster' then"
+position = "before"
+payload = '''
+if specific_vars and specific_vars.bonus_retriggers then
+    localize{type = 'other', key = 'card_extra_retriggers', nodes = desc_nodes, vars = {specific_vars.bonus_retriggers}}
+end'''
+match_indent = true
+overwrite = false
+
 # generate_UIBox_ability_table(): prime specific_vars for playing cards
 [[patches]]
 [patches.pattern]

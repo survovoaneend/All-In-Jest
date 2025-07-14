@@ -38,6 +38,7 @@ function next_palindrome(n)
         n = n + 1
     end
 end
+
 local original_emplace = CardArea.emplace
 
 function CardArea:emplace(card, ...)
