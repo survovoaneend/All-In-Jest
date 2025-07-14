@@ -11,7 +11,7 @@ local callisto_planet = {
 	discovered = false,
 	order = 16,
 	jest_spec_moon = true,
-	config = {hand_type = "Flush", moon = true},
+	config = {hand_type = "Flush", moon = true, chips = true},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
 		return {

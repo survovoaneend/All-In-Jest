@@ -11,7 +11,7 @@ local europa_planet = {
 	discovered = false,
 	order = 4,
 	jest_spec_moon = true,
-	config = {hand_type = "Flush", moon = true},
+	config = {hand_type = "Flush", moon = true, mult = true},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
 		return {

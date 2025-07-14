@@ -11,7 +11,7 @@ local proteus_planet = {
 	discovered = false,
 	order = 19,
 	jest_spec_moon = true,
-	config = {hand_type = "Straight Flush", moon = true},
+	config = {hand_type = "Straight Flush", moon = true}, chips = true,
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
 		return {
