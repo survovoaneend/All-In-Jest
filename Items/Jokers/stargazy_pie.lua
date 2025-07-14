@@ -29,10 +29,13 @@ local stargazy_pie = {
                         tempcard:start_dissolve()
                     return true end }))
                 return true end }))
-                card.ability.extra.triggers = card.ability.extra.triggers - 1
-                if card.ability.extra.triggers == 0 and not context.blueprint then
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_eaten_ex'),colour = G.C.FILTER})
-                    card:start_dissolve()
+                if not context.blueprint then
+                    card.ability.extra.triggers = card.ability.extra.triggers - 1
+                    if card.ability.extra.triggers == 0 then
+                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_eaten_ex'),colour = G.C.FILTER})
+                        card.ability.extra.triggers = 1
+                        card:start_dissolve()
+                    end
                 end
             end
         end
