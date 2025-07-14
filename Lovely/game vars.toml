@@ -27,6 +27,7 @@ position = 'after'
 match_indent = true
 payload = '''
 reset_jest_magick_joker_card()
+reset_jest_you_broke_it_card()
 '''
 
 [[patches]] #G.GAME 
