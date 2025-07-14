@@ -2610,6 +2610,14 @@ return {
                     "after being played",
                 }
             },
+            palindrome = {
+                name = "Palindrome",
+                text = {
+                    "Multi-digit number that is",
+                    "{C:attention}unchanged{} when reversed",
+                    "{C:inactive}e.g 33, 151, 3003{}"
+                }
+            }
         }
     }
 }

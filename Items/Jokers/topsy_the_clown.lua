@@ -16,15 +16,18 @@ local topsy_the_clown = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+      info_queue[#info_queue+1] = {set = 'Other', key = 'palindrome'}
     end,
   
     calculate = function(self, card, context)
       if context.joker_main then
-        card:juice_up(0.4, 0.3)
-        hand_chips = next_palindrome(hand_chips)
-        mult = next_palindrome(mult)
-        update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
+        
+        local chip_mod = next_palindrome(to_number(hand_chips)) - to_number(hand_chips)
+        local mult_mod = next_palindrome(to_number(mult)) - to_number(mult)
+        return {
+          chips = chip_mod,
+          mult = mult_mod,
+        }
       end
     end
   

@@ -32,7 +32,7 @@ end
 function next_palindrome(n)
     while true do
         local s = tostring(n)
-        if s == s:reverse() then
+        if s == s:reverse() and #s > 1 then
             return n
         end
         n = n + 1
