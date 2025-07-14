@@ -19,11 +19,8 @@ local negative_space = {
     eternal_compat = true,
     in_pool = function(self, args)
         if G.jokers and G.jokers.cards then
-            -- Loop through each 'card' object in the G.jokers.cards table.
             for _, card in ipairs(G.jokers.cards) do
-                -- Check if the card has an 'edition' table and if its 'hey' key is 'e_negative'.
                 if card.edition and card.edition.key == 'e_negative' then
-                    -- If we find one, we can stop searching and return true immediately.
                     return true
                 end
             end
