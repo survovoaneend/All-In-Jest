@@ -1671,7 +1671,7 @@ return {
                     "{C:attention}+#1#{} Hand Size for every",
                     "{C:dark_edition}Negative{} joker held",
                     "{C:inactive}(Currently {C:attention}+#2#{} {C:inactive}Hand Size){}",
-                    "{C:inactive}(Max of {C:attention}+5{}{C:inactive})"
+                    "{C:inactive}(Max of {C:attention}+#3#{}{C:inactive})"
                 } 
             },
             j_aij_stargazer = { name = "Stargazer", text = { "" } },

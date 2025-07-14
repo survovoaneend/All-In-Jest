@@ -4,10 +4,10 @@ local negative_nancy = {
 
   key = "negative_nancy",
 
-  rarity = 1,
+  rarity = 2,
   pos = { x = 18, y = 0 },
   atlas = 'joker_atlas',
-  cost = 4,
+  cost = 6,
   unlocked = true,
   discovered = false,
   blueprint_compat = false,

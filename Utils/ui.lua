@@ -201,7 +201,6 @@ G.FUNCS.jest_select = function(e)
     if c1 and c1:is(Card) then
       G.E_MANAGER:add_event(Event({
         trigger = 'after',
-        delay = 0.1,
         func = function()
           local card = copy_card(c1)
           card:add_to_deck()

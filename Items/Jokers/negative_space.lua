@@ -33,7 +33,8 @@ local negative_space = {
         return {
             vars = {
                 card.ability.extra.hand_size,
-                handsize
+                handsize,
+                card.ability.extra.max_handsize
             }
         }
     end,
