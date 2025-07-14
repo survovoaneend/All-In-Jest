@@ -26,15 +26,24 @@ local angel_number = {
     end,
   
     calculate = function(self, card, context)
+        local sevens = 0
         if context.before and context.scoring_hand then
+            
             for i = 1, #context.scoring_hand do
                 if context.scoring_hand[i]:get_id() == 7 then
+                    sevens = sevens + 1
                     for k, v in pairs(G.GAME.probabilities) do 
                         G.GAME.probabilities[k] = v+card.ability.extra.numeratormod
                     end
                     card.ability.extra.curnumerator = tostring(tonumber(card.ability.extra.curnumerator) + card.ability.extra.numeratormod)
                 end
             end
+            if sevens > 0 then
+            card_eval_status_text(card, 'extra', nil, nil, nil, {
+                message = '+' .. sevens .. ' Odds',
+                colour = G.C.GREEN
+            })
+        end
         end
         if context.after then
             if card.ability.extra.curnumerator ~= "0" then
@@ -46,6 +55,7 @@ local angel_number = {
                             G.GAME.probabilities[k] = v-tonumber(card.ability.extra.curnumerator)
                         end
                         card.ability.extra.curnumerator = "0"
+                        sevens = 0
                     return true
                     end
                 }))

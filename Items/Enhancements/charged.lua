@@ -12,9 +12,9 @@ local charged = {
         local charged_text
         local has_founding_father = next(SMODS.find_card("j_aij_founding_father"))
         if has_founding_father then
-            charged_text = 2
+            charged_text = 100
         else
-            charged_text = 1.5
+            charged_text = 50
         end
         return { vars = {charged_text} }
     end,
@@ -58,8 +58,8 @@ function Card:update(dt)
   self.ability.jest_charged_applied = applied
   local prev_factor = applied.factor or 1
   local has_founding_father = next(SMODS.find_card("j_aij_founding_father"))
-  local b = (has_founding_father and 2 or 1.5) -- base of exponential
-  local factor = b^current_count
+  local b = (has_founding_father and 1 or 0.5) -- base of exponential
+  local factor = 1 + (b*current_count)
   local diff = factor/prev_factor
   -- NOTE concern about imprecision
   if diff ~= 1 then

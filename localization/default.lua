@@ -60,7 +60,7 @@ return {
             m_aij_charged = {
                 name = "Charged Card",
                 text = {
-                    "{C:attention}Enhancements{} give {C:attention}#1#X{} effect",
+                    "{C:attention}Enhancements{} give {C:attention}+#1#%{} effect",
                     "if {C:attention}played with{} or",
                     "{C:attention}held in hand with{} this card",
                 }
@@ -244,8 +244,8 @@ return {
             j_aij_founding_father = { 
                 name = "Founding Father", 
                 text = { 
-                    "{C:attention}Charged Cards{} now {C:attention}double{}",
-                    "other {C:attention}Enhancements'{} effects" 
+                    "{C:attention}Charged Cards{} are",
+                    "{C:attention}twice{} as effective" 
                 } 
             },
             j_aij_scary_story = {
