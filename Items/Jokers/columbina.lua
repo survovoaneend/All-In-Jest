@@ -6,7 +6,7 @@ local columbina = {
     config = {
       extra = {
         percent = 0,
-        percent_mod = 2
+        percent_mod = 5
       }
     },
     rarity = 2,

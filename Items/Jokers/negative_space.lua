@@ -5,7 +5,8 @@ local negative_space = {
     config = {
         extra = {
             hand_size = 1,
-            prev_handsize = "0"
+            prev_handsize = "0",
+            max_handsize = 5
         }
     },
     rarity = 2,
@@ -23,8 +24,8 @@ local negative_space = {
             for i = 1, #G.jokers.cards do
                 local v = G.jokers.cards[i]
                 if v.edition ~= nil and v.edition.negative ~= nil then 
-                    if v.edition.negative and handsize <= 5 then
-                        handsize = handsize + 1
+                    if v.edition.negative and handsize < card.ability.extra.max_handsize then
+                        handsize = handsize + card.ability.extra.hand_size
                     end
                 end
             end
@@ -42,7 +43,7 @@ local negative_space = {
             local handsize =  0
             for i = 1, #G.jokers.cards do
                 local v = G.jokers.cards[i]
-                if v.edition ~= nil and v.edition.negative ~= nil then 
+                if v.edition ~= nil and v.edition.negative ~= nil and handsize < card.ability.extra.max_handsize then 
                     if v.edition.negative then
                         handsize = handsize + card.ability.extra.hand_size
                     end
