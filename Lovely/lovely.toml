@@ -217,7 +217,7 @@ pattern = "if not strip_edition then"
 position = "before"
 match_indent = true
 payload = '''
-if other.edition and other.edition.negative and not All_in_Jest.config.no_copy_neg then 
+if other.edition and other.edition.negative and not All_in_Jest.config.no_copy_neg and not G.VIEWING_DECK then 
     if other.ability.set == 'Enhanced' or other.ability.set == 'Default' then
         strip_edition = true
     end
