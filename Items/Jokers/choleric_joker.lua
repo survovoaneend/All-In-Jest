@@ -20,8 +20,7 @@ local choleric_joker = {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                G.GAME.probabilities.normal,
-                card.ability.extra.odds
+                SMODS.get_probability_vars(card, G.GAME.probabilities.normal or 1, card.ability.extra.odds)
             }
         }
     end,
@@ -29,7 +28,7 @@ local choleric_joker = {
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if context.other_card:is_suit("Diamonds") and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                if pseudorandom('choleric_joker') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                if SMODS.pseudorandom_probability(card, 'choleric_joker', G.GAME.probabilities.normal or 1, card.ability.extra.odds) then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     return {
                         focus = card,

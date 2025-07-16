@@ -18,10 +18,11 @@ local doodle = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-      return { vars = { 
-        ''..(G.GAME and G.GAME.probabilities.normal or 1),
-        card.ability.extra.odds
-      } }
+      return { 
+          vars = { 
+             SMODS.get_probability_vars(card, G.GAME.probabilities.normal or 1, card.ability.extra.odds)
+          } 
+      }
     end,
   --thank you unstable
   calculate = function(self, card, context)
@@ -61,7 +62,7 @@ local doodle = {
     local effect_to_return = nil
     local did_probability_pass = false 
 
-    if pseudorandom('doodle' .. G.SEED) < G.GAME.probabilities.normal / card.ability.extra.odds then
+    if SMODS.pseudorandom_probability(card, 'doodle' .. G.SEED, G.GAME.probabilities.normal or 1, card.ability.extra.odds) then
       did_probability_pass = true 
 
       local effect1_def

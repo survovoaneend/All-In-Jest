@@ -18,7 +18,8 @@ local corpse_paint = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.odds, G.GAME.probabilities.normal or 1, card.ability.hand_size, card.ability.max_hand_size }}
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        return { vars = { numerator, denominator, card.ability.hand_size, card.ability.max_hand_size }}
     end,
 
     remove_from_deck = function(self, card, from_debuff)
@@ -29,7 +30,7 @@ local corpse_paint = {
         if context.individual and context.cardarea == G.play then
             if context.other_card.edition ~= nil and context.other_card.edition.negative then
                 context.other_card:set_edition(nil)
-                if pseudorandom('corpse_paint') < G.GAME.probabilities.normal/card.ability.odds then
+                if SMODS.pseudorandom_probability(card, 'corpse_paint', G.GAME.probabilities.normal or 1, card.ability.odds) then
                     G.hand:change_size(card.ability.hand_size)
                     card_eval_status_text(card, 'extra', nil, nil, nil, {message = "+"..card.ability.hand_size.." Hand size", colour = G.C.FILTER})
                     card.ability.max_hand_size = tostring(tonumber(card.ability.max_hand_size) + card.ability.hand_size)

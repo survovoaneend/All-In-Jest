@@ -19,8 +19,7 @@ local banana_man = {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                G.GAME.probabilities.normal,
-                card.ability.extra.odds
+                SMODS.get_probability_vars(card, G.GAME.probabilities.normal or 1, card.ability.extra.odds)
             }
         }
     end,
@@ -37,7 +36,7 @@ local banana_man = {
       end
       if context.after and context.cardarea == G.jokers then
         for i = 1, #G.jokers.cards do
-            if pseudorandom('banana_man') < G.GAME.probabilities.normal / card.ability.extra.odds and not G.jokers.cards[i].ability.eternal then
+            if SMODS.pseudorandom_probability(card, 'banana_man', G.GAME.probabilities.normal or 1, card.ability.extra.odds) and not G.jokers.cards[i].ability.eternal then
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         G.jokers.cards[i]:start_dissolve()

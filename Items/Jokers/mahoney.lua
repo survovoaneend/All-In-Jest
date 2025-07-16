@@ -21,14 +21,13 @@ local mahoney = {
         info_queue[#info_queue+1] = {set = 'Tag', key = 'tag_voucher'}
         return {
             vars = {
-                G.GAME.probabilities.normal,
-                card.ability.extra.odds
+                SMODS.get_probability_vars(card, G.GAME.probabilities.normal or 1, card.ability.extra.odds)
             }
         }
     end,
   
     calculate = function(self, card, context)
-        if context.skip_blind and pseudorandom('mahoney') < G.GAME.probabilities.normal / card.ability.extra.odds then
+        if context.skip_blind and SMODS.pseudorandom_probability(card, 'mahoney', G.GAME.probabilities.normal or 1, card.ability.extra.odds) then
             G.E_MANAGER:add_event(Event({
                 func = (function()
                     add_tag(Tag('tag_voucher'))

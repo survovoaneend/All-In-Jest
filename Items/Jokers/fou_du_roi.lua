@@ -18,12 +18,12 @@ local fou_du_roi = {
   eternal_compat = true,  
 
   loc_vars = function(self, info_queue, card)
-      return { vars = { card.ability.extra.odds, G.GAME.probabilities.normal } }
+      return { vars = { SMODS.get_probability_vars(card, G.GAME.probabilities.normal or 1, card.ability.extra.odds) } }
   end,
 
   calculate = function(self, card, context)
     if context.joker_main then
-      if pseudorandom('fou_du_rou') < G.GAME.probabilities.normal / card.ability.extra.odds and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+      if SMODS.pseudorandom_probability(card, 'fou_du_rou', G.GAME.probabilities.normal or 1, card.ability.extra.odds) and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
         local kq = 0
         for k, v in ipairs(context.full_hand) do
           if v:get_id() == 12 or v:get_id() == 13 then

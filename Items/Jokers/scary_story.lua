@@ -20,10 +20,11 @@ local scary_story = {
     loc_vars = function(self, info_queue, card)
       info_queue[#info_queue+1] = G.P_CENTERS.p_standard_normal_1
       info_queue[#info_queue+1] = {key = 'e_negative_playing_card', set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit} }
-      return { vars = {
-        ''..(G.GAME and G.GAME.probabilities.normal or 1),
-        card.ability.extra.chance
-      } }
+      return { 
+          vars = {
+            SMODS.get_probability_vars(card, G.GAME.probabilities.normal or 1, card.ability.extra.chance)
+          } 
+      }
     end,
 
     calculate = function(self, card, context)
@@ -35,7 +36,7 @@ local scary_story = {
             func = function()
                 if G.pack_cards and G.pack_cards.cards and G.pack_cards.cards[1] and G.pack_cards.VT.y < G.ROOM.T.h then
                     for _, v in ipairs(G.pack_cards.cards) do
-                        if pseudorandom('scary_story') < G.GAME.probabilities.normal/card.ability.extra.chance and not v.edition then
+                        if SMODS.pseudorandom_probability(card, 'scary_story', G.GAME.probabilities.normal or 1, card.ability.extra.chance) and not v.edition then
                             G.E_MANAGER:add_event(Event({
                               trigger = 'after',
                               delay = 1,

@@ -23,8 +23,7 @@ local penny = {
       info_queue[#info_queue+1] = G.P_SEALS['Gold']
       return {
         vars = {
-          G.GAME.probabilities.normal,
-          card.ability.extra.odds
+          SMODS.get_probability_vars(card, G.GAME.probabilities.normal or 1, card.ability.extra.odds)
         }
       }
       
@@ -33,7 +32,7 @@ local penny = {
     calculate = function(self, card, context)
       if context.repetition and context.other_card then
           if context.other_card.seal == 'Gold' then
-              if pseudorandom('penny'..G.SEED) < G.GAME.probabilities.normal / card.ability.extra.odds then
+              if SMODS.pseudorandom_probability(card, 'penny' .. G.SEED, G.GAME.probabilities.normal or 1, card.ability.extra.odds) then
                   return {
                       message = localize('k_again_ex'),
                       repetitions = 1,

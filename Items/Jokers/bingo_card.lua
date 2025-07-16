@@ -19,11 +19,12 @@ local bingo_card = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
+        local numerator1, denominator1 = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        local numerator2, denominator2 = SMODS.get_probability_vars(card, 1, card.ability.extra.odds2)
         return {
             vars = {
-                G.GAME.probabilities.normal,
-                card.ability.extra.odds,
-                card.ability.extra.odds2,
+                numerator1, denominator1,
+                numerator2, denominator2,
                 card.ability.extra.xmult
             }
         }
@@ -33,7 +34,7 @@ local bingo_card = {
         if context.repetition and context.cardarea == G.play then
             for i = 1, #context.scoring_hand do
                 if context.scoring_hand[i].config.center == G.P_CENTERS.m_lucky then
-                    if pseudorandom('bingo_card') < G.GAME.probabilities.normal / card.ability.extra.odds2 then
+                    if SMODS.pseudorandom_probability(card, 'bingo_card', G.GAME.probabilities.normal or 1, card.ability.extra.odds2) then
                         return {
                             repetitions = 1,
                             card = card,
@@ -45,7 +46,7 @@ local bingo_card = {
         end
         if context.individual and context.cardarea == G.play then
             if context.other_card.config.center == G.P_CENTERS.m_lucky then
-                if pseudorandom('bingo_card') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                if SMODS.pseudorandom_probability(card, 'bingo_card', G.GAME.probabilities.normal or 1, card.ability.extra.odds) then
                     return {
                         xmult = card.ability.extra.xmult,
                         card = context.other_card,

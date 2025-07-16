@@ -20,15 +20,14 @@ local sanguine_joker = {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                G.GAME.probabilities.normal,
-                card.ability.extra.odds
+                SMODS.get_probability_vars(card, G.GAME.probabilities.normal or 1, card.ability.extra.odds)
             }
         }
     end,
   
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            if context.other_card:is_suit("Hearts") and pseudorandom('sanguine_joker') < G.GAME.probabilities.normal/card.ability.extra.odds then
+            if context.other_card:is_suit("Hearts") and SMODS.pseudorandom_probability(card, 'sanguine_joker', G.GAME.probabilities.normal or 1, card.ability.extra.odds) then
                 return {
                     focus = card,
                     message = localize('aij_plus_tag'),
