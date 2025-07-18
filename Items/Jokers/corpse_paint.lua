@@ -18,7 +18,7 @@ local corpse_paint = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.odds)
         return { vars = { numerator, denominator, card.ability.hand_size, card.ability.max_hand_size }}
     end,
 
