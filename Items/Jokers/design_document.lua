@@ -1,7 +1,6 @@
 local design_document = {
     object_type = "Joker",
     order = 197,
-    ignore = true,
     key = "design_document",
     config = {
         extra = {
@@ -22,8 +21,8 @@ local design_document = {
     end,
   
     calculate = function(self, card, context)
-      if context.probability_trigger then  
-        if not context.probability_trigger.result then
+      if context.pseudorandom_result then  
+        if not context.result then
             return {
                 dollars = card.ability.extra.money,
             }

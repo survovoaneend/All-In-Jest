@@ -1,7 +1,6 @@
 local saltimbanco = {
     object_type = "Joker",
     order = 108,
-    ignore = true,
     key = "saltimbanco",
     config = {
       
@@ -12,7 +11,7 @@ local saltimbanco = {
     cost = 4,
     unlocked = true,
     discovered = true,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = false,
   
     loc_vars = function(self, info_queue, card)
@@ -20,9 +19,9 @@ local saltimbanco = {
     end,
   
     calculate = function(self, card, context)
-        if context.probability_trigger and G.play ~= nil then
-            if context.probability_trigger.numerator > 0 and context.probability_trigger.denominator > 0 then
-                local xmlt = 1 + (1 - (context.probability_trigger.numerator/context.probability_trigger.denominator))
+        if context.pseudorandom_result and G.play ~= nil and G.play.cards ~= nil then
+            if context.numerator > 0 and context.denominator > 0 and #G.play.cards > 0 then
+                local xmlt = 1 + (1 - (context.numerator/context.denominator))
                 return {
                     message = localize{type='variable',key='a_xmult',vars={xmlt}},
                     Xmult_mod = xmlt,
