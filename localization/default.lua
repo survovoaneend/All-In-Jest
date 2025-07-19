@@ -16,6 +16,7 @@ return {
         },
         labels = {
             aij_glimmer = "Glimmer",
+            aij_silver = "Silver",
             aij_stellar = "Stellar",
             k_aij_jest_chaotic_card = "Chaotic",
         }
