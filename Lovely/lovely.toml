@@ -34,6 +34,21 @@ for _, k in ipairs(to_remove) do
 end
 '''
 
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if card.ability.consumeable and not skip_materialize then card:start_materialize() end"
+position = "after"
+match_indent = true
+payload = '''
+if card.ability.consumeable and next(SMODS.find_card("j_aij_bartender")) then
+    if not SMODS.bypass_create_card_edition and not card.edition then
+        local edition = poll_edition('aura', nil, true)
+        card:set_edition(edition)
+    end
+end
+'''
+
 # Clay Joker and Visage Comapat visuals
 [[patches]]
 [patches.pattern]

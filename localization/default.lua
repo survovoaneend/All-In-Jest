@@ -1506,7 +1506,14 @@ return {
             },
             j_aij_tilty_joker = { name = "Tilty Joker", text = { "" } },
             j_aij_opening_move = { name = "Opening Move", text = { "" } },
-            j_aij_bartender = { name = "Bartender", text = { "" } },
+            j_aij_bartender = { 
+                name = "Bartender", 
+                text = { 
+                    "{C:attention}Consumable{} cards may be",
+                    "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
+                    "{C:dark_edition}Polychrome" 
+                } 
+            },
             j_aij_mahoney = { 
                 name = "Mahoney", 
                 text = { 
