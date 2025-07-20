@@ -52,6 +52,7 @@ jest_toothy_joker_tarots = 0,
 jest_jester_zombie_trigger = false,
 jest_omlette_appearence_eggs = 0,
 jest_free_stultor_rerolls = 0,
+jest_fairy_edition_rate = 1,
 '''
 
 [[patches]] #Colors

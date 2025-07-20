@@ -15,6 +15,25 @@ for i = #G.GAME.tags, 1, -1 do
 end
 '''
 
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = 'for k, v in pairs(tag_pool) do'
+position = "before"
+match_indent = true
+payload = '''
+local to_remove = {}
+for k, v in pairs(tag_pool) do
+    if v.upgrade then
+        table.insert(to_remove, k)
+    end
+end
+
+for _, k in ipairs(to_remove) do
+    tag_pool[k] = nil
+end
+'''
+
 # Clay Joker and Visage Comapat visuals
 [[patches]]
 [patches.pattern]
