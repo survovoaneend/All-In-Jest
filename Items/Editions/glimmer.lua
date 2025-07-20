@@ -29,7 +29,7 @@ local glimmer = {
     weight = 3,
     extra_cost = 3,
     get_weight = function(self)
-        return G.GAME.edition_rate * self.weight
+        return G.GAME.jest_fairy_edition_rate * self.weight
     end,
 
     shader = 'glimmer'
