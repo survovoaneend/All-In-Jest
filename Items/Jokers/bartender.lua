@@ -1,7 +1,6 @@
 local bartender = {
     object_type = "Joker",
     order = 275,
-    ignore = true,
     key = "bartender",
     config = {
       
@@ -11,9 +10,9 @@ local bartender = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
   
