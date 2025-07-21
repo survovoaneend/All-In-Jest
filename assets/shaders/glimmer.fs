@@ -132,43 +132,38 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     vec2 uv = (((texture_coords)*(image_details)) - texture_details.xy*texture_details.zw)/texture_details.zw;
     vec4 pixel = Texel(texture, texture_coords);
 
-    vec4 glimmer_color1 = vec4(255., 151., 255., 0.) / 255.;
+    vec4 glimmer_color1 = vec4(255., 151., 255., 255.) / 255.;
     vec4 dark_purple = vec4(190., 99., 255., 255.) / 255.;
 
     vec2 center = vec2(0.3 * glimmer.r, 1.2);
     float dist = distance(uv, center);
     float gradient = clamp(dist, 0.0, 1.0);
+    vec4 glitter_colour = vec4(1.0,1.0,1.0, 1.0);
 
     vec4 blended_color = mix(dark_purple, glimmer_color1, gradient);
+    vec4 lighter_blended_color = mix(mix(lighten(pixel, blended_color), blended_color, 0.8), glitter_colour, 0.2);
 
     float avg = (pixel.r + pixel.g + pixel.b) / 3.;
-    pixel = vec4(blended_color.rgb * avg, pixel.a);
+    float saturation = 2.7; 
+
+    float lum = (lighter_blended_color.r * 0.299 + lighter_blended_color.g * 0.587 + lighter_blended_color.b * 0.114);
+    vec3 gray = vec3(lum);
+    vec3 saturated_color = mix(gray, lighter_blended_color.rgb, saturation);
+
+    pixel = vec4(saturated_color * avg, pixel.a);
 
     float mod = glimmer.r * 2.0;
     float glitter_amount = 0.05; // 1.0 - no glitter, 0.0 - maximum glitter
-    float saturation_amount = 5.0;
     float glitter_brightness = 5.0;
-
-    vec4 glitter_colour = vec4(1.0,1.0,1.0, 1.0);
 
     float noise = cnoise(vec3(uv * 50.0, 3.0 * mod)); // Noise for the sparkles
     float antinoise = cnoise(vec3(uv * 30.0, 2.0 * mod)); // Bigger noise to remove the sparkles in some areas
 
     float spark = max(0.0, noise - antinoise - glitter_amount); // Sparkles 
 
-    vec4 saturated_colour = HSL(mix(pixel, glitter_colour, 0.2)); // Saturating default color
-
-    saturated_colour.g *= saturation_amount; // Saturating
-    saturated_colour.b = 0.3; 
-
-    saturated_colour = RGB(saturated_colour);
-
-    saturated_colour.r *= (saturated_colour.r * 0.9); 
-    saturated_colour = lighten(pixel, saturated_colour * 5.0) / glitter_brightness; 
-
     vec4 glitter_tint = mix(glimmer_color1, glitter_colour, gradient);
     colour = lighten(mix((colour - 0.4) + (glitter_tint * spark), glitter_tint, 0.03), glitter_colour);
-
+    
     return dissolve_mask(pixel*colour, texture_coords, uv);
 }
 

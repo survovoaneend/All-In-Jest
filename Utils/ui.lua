@@ -215,6 +215,13 @@ G.FUNCS.jest_select = function(e)
       }))
     end
 end
+G.FUNCS.jest_gold_tags = function(e)
+    if G.GAME.jest_upgrade_tab then
+        G.GAME.jest_upgrade_tab = false
+    else
+        G.GAME.jest_upgrade_tab = true
+    end
+end
 function jest_create_select_card_ui(card, area)
     local t2 =  {n=G.UIT.ROOT, config = {ref_table = card, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true, button = 'jest_select', data = {area}, hover = true}, nodes={
         {n=G.UIT.T, config={text = "Select",colour = G.C.WHITE, scale = 0.5}}

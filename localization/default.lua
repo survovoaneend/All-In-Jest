@@ -8,6 +8,7 @@ return {
             k_asteroid = "Asteroid",
             aij_requires_restart = "Requires Restart",
             aij_enable_moons = "Enable Moons",
+            aij_upgraded_tags = "Gold Tags",
             aij_alter_trypophobia = "Alter Trypophobia",
             aij_no_copy_neg = "Allow Copying Negative Playing Cards",
             k_aij_guess_the_jest = "Guess the Jest",
@@ -2498,7 +2499,69 @@ return {
                 text = {
                     "Has a {C:green}random{} effect"
                 }
-            }
+            },
+            -- Gold Tags
+            tag_aij_windfall = {
+                name = 'Windfall Tag',
+                text = {
+                    "{C:money}Triples{} your money"
+                }
+            },
+            tag_aij_unusual = {
+                name = 'Unusual Tag',
+                text = {
+                    "Shop has a free",
+                    "{C:uncommon}Uncommon Joker{} with",
+                    "{C:attention}doubled{} values"
+                }
+            },
+            tag_aij_recherche = {
+                name = 'Recherché Tag',
+                text = {
+                    "Shop has a free",
+                    "{C:rare}Rare Joker{} with",
+                    "{C:attention}doubled{} values"
+                }
+            },
+            tag_aij_hermetic = {
+                name = 'Hermetic Tag',
+                text = {
+                    'Choose {C:attention}any{} {C:spectral}Spectral{}',
+                    'card to create',
+                    '{C:inactive}(Must have room)'
+                }
+            },
+            tag_aij_dark_matter = {
+                name = 'Dark Matter Tag',
+                text = {
+                    'Apply {C:dark_edition}Negative{} to',
+                    'a {C:attention}random{} Joker',
+                }
+            },
+            tag_aij_crystal = {
+                name = 'Crystal Tag',
+                text = {
+                    'Apply {C:dark_edition}Foil{} to a',
+                    '{C:attention}random{} Joker and',
+                    '{C:attention}#1#{} cards in deck'
+                }
+            },
+            tag_aij_iridescent = {
+                name = 'Iridescent Tag',
+                text = {
+                    'Apply {C:dark_edition}Holographic{}',
+                    'to a {C:attention}random{} Joker',
+                    'and {C:attention}#1#{} cards in deck'
+                }
+            },
+            tag_aij_omnichrome = {
+                name = 'Omnichrome Tag',
+                text = {
+                    'Apply {C:dark_edition}Polychrome{} to',
+                    'the {C:attention}rightmost{} base',
+                    'edition Joker',
+                }
+            },
         },
         Tarot = {
             c_aij_magus = {

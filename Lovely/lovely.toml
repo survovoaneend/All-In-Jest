@@ -17,21 +17,79 @@ end
 
 [[patches]]
 [patches.pattern]
-target = "functions/UI_definitions.lua"
-pattern = 'for k, v in pairs(tag_pool) do'
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = 'for k, v in ipairs(tag_tab) do'
 position = "before"
 match_indent = true
 payload = '''
-local to_remove = {}
-for k, v in pairs(tag_pool) do
-    if v.upgrade then
-        table.insert(to_remove, k)
+for i = #tag_tab, 1, -1 do
+    local v = tag_tab[i]
+    if v.config.aij and v.config.aij.upgrade and not G.GAME.jest_upgrade_tab then
+        table.remove(tag_tab, i)
+    elseif G.GAME.jest_upgrade_tab then
+        if not (v.config.aij and v.config.aij.upgrade) then
+            table.remove(tag_tab, i)
+        end
     end
 end
-
-for _, k in ipairs(to_remove) do
-    tag_pool[k] = nil
+'''
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "for k, v in pairs(self.ANIMATIONS) do"
+position = "before"
+match_indent = true
+payload = '''
+if G.GAME.previous_jest_upgrade_tab ~= G.GAME.jest_upgrade_tab then
+    G.FUNCS.your_collection_tags_page({cycle_config = {current_option = 1}})
+    G.GAME.previous_jest_upgrade_tab = G.GAME.jest_upgrade_tab
 end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "tag.lua"
+pattern = 'local tag_sprite = Sprite(0,0,_size*1,_size*1,G.ASSET_ATLAS[(not self.hide_ability) and G.P_TAGS[self.key].atlas or "tags"], (self.hide_ability) and G.tag_undiscovered.pos or self.pos)'
+position = "after"
+match_indent = true
+payload = '''
+if self.config.aij and self.config.aij.upgrade then
+    tag_sprite = Sprite(0,0,_size*1,_size*1,G.ASSET_ATLAS[(not self.hide_ability) and G.P_TAGS[self.key].atlas or "aij_tag_atlas"], (self.hide_ability) and { x = 5, y = 4 } or self.pos)
+end
+''' 
+
+[[patches]]
+[patches.pattern]
+target = "tag.lua"
+pattern = "if self.name == 'Double Tag' and _context.tag.key ~= 'tag_double' then"
+position = "after"
+match_indent = true
+payload = '''
+    if _context.tag.config.aij and _context.tag.config.aij.upgrade then return end
+'''
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = '''
+create_option_cycle({
+	options = page_options,
+	w = 4.5,
+	cycle_shoulders = true,
+	opt_callback = 'your_collection_tags_page',
+	focus_args = { snap_to = true, nav = 'wide' },
+	current_option = page,
+	colour = G.ACTIVE_MOD_UI and (G.ACTIVE_MOD_UI.ui_config or {}).collection_option_cycle_colour or G.C.RED,
+	no_pips = true
+})'''
+position = "after"
+match_indent = true
+payload = ''',
+{n=G.UIT.R, config={align = "cm", r = 0.1, w = 0.2, minh = 0.9, hover = true, colour = G.C.GOLD, button = "jest_gold_tags", shadow = true, focus_args = {nav = 'wide', snap_to = true}}, nodes={
+    {n=G.UIT.R, config={align = "cm", padding = 0, no_fill = true, maxw = 4.8}, nodes={
+        {n=G.UIT.T, config={text = localize('aij_upgraded_tags'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT}}
+    }}
+}},
 '''
 
 [[patches]]
@@ -721,6 +779,7 @@ SMODS.calculate_context({
     entering_shop = true,
 })
 '''
+
 [[patches]]
 [patches.pattern]
 target = "card.lua"
