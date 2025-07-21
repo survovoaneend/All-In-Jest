@@ -55,6 +55,7 @@ jest_free_stultor_rerolls = 0,
 jest_fairy_edition_rate = 1,
 ['jest_upgrade_tab'] = false,
 previous_jest_upgrade_tab = false,
+jest_gold_tag_rate = 1,
 '''
 
 [[patches]] #Colors
