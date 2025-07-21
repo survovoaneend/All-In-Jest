@@ -6,6 +6,9 @@ local live_pixie = {
       rate = 4
     }
   },
+  requires = {
+    'v_aij_fairy_dust'
+  },
   atlas = 'vouchers_atlas',
   pos = { x = 1, y = 0 },
   discovered = false,
