@@ -5,6 +5,7 @@ local hermetic_tag = {
     atlas = 'tag_atlas',
     discovered = false,
     order = 16,
+    min_ante = 3,
     config = {
         aij = {
             upgrade = 'etheral',
