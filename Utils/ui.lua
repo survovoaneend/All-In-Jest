@@ -275,7 +275,7 @@ G.FUNCS.jest_continue_select = function(e)
                             if e.config.data[2].extra_function then
                                 e.config.data[2].extra_function(card, center, c1, e.config.data[2])
                             end
-                            if card.config.center.discovered and conditionals then
+                            if conditionals then
                                 jest_create_select_playing_card_ui(card, e.config.data[1], e.config.data[2])
                             end
                         end, 
@@ -297,8 +297,8 @@ G.FUNCS.jest_gold_tags = function(e)
     end
 end
 function jest_create_select_card_ui(card, area, extra_data)
-    if extra_data == nil then extra_data = {} end
-    if extra_data.copies == nil then extra_data.copies = 1 end
+    extra_data = extra_data or {}
+    extra_data.copies = extra_data.copies or 1 
     local t2 =  {n=G.UIT.ROOT, config = {ref_table = card, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true, button = 'jest_select', data = {area, extra_data}, hover = true}, nodes={
         {n=G.UIT.T, config={text = "Select",colour = G.C.WHITE, scale = 0.5}}
     }}
@@ -316,6 +316,7 @@ function jest_create_select_card_ui(card, area, extra_data)
 end
 function jest_create_select_playing_card_ui(card, area, extra_data)
     extra_data.times = extra_data.times or 0
+    extra_data.copies = extra_data.copies or 1 
     local t2 =  {n=G.UIT.ROOT, config = {ref_table = card, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true, button = 'jest_continue_select', data = {area, extra_data}, hover = true}, nodes={
         {n=G.UIT.T, config={text = "Select",colour = G.C.WHITE, scale = 0.5}}
     }}
