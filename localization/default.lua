@@ -101,6 +101,13 @@ return {
                     "{C:mult}Mult{} and {C:chips}Chips"
                 }
             },
+            e_aij_silver = {
+                name = "Silver",
+                text = {
+                    "",
+                    ""
+                }
+            },
             e_aij_stellar = {
                 name = "Stellar",
                 text = {
@@ -2462,6 +2469,14 @@ return {
                     'becomes {C:aij_plasma}Glimmer'
                 }
             },
+            tag_aij_silver = {
+                name = 'Silver Tag',
+                text = {
+                    'Next base edition shop',
+                    'Joker is free and',
+                    'becomes {C:aij_silver}Silver'
+                }
+            },
             tag_aij_stellar = {
                 name = 'Stellar Tag',
                 text = {
@@ -2560,6 +2575,60 @@ return {
                     'Apply {C:dark_edition}Polychrome{} to',
                     'the {C:attention}rightmost{} base',
                     'edition Joker',
+                }
+            },
+            tag_aij_circumplanetary = {
+                name = 'Circumplanetary Tag',
+                text = {
+                    'Upgrade {C:attention}#2#',
+                    'by {C:attention}#1# levels',
+                }
+            },
+            tag_aij_velocity = {
+                name = 'Velocity Tag',
+                text = {
+                    'Gives {C:money}$#1#{}, minus {C:money}$#2#',
+                    'per {C:attention}round',
+                    '{C:inactive}(Will give {C:money}$#3#{C:inactive})'
+                }
+            },
+            tag_aij_capital = {
+                name = 'Capital Tag',
+                text = {
+                    'After defeating',
+                    'the Boss Blind',
+                    'gain {C:money}$#1#'
+                }
+            },
+            tag_aij_bierstiefel = {
+                name = 'Bierstiefel Tag',
+                text = {
+                    'Fill all {C:attention}empty',
+                    'joker {C:attention}slots{} with',
+                    'random {C:common}common{} or',
+                    '{C:uncommon}uncommon{} jokers'
+                }
+            },
+            tag_aij_ticket = {
+                name = 'Ticket Tag',
+                text = {
+                    'Redeem a random',
+                    'Voucher and its',
+                    'upgraded version'
+                }
+            },
+            tag_aij_galloping_domino = {
+                name = 'Galloping Domino Tag',
+                text = {
+                    'All rerolls cost',
+                    '{C:money}$#1#{} next shop'
+                }
+            },
+            tag_aij_gioco = {
+                name = 'Gioco Tag',
+                text = {
+                    '{C:attention}Double{} hand size',
+                    'next round',
                 }
             },
         },

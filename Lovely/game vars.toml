@@ -14,7 +14,7 @@ match_indent = true
 payload = '''
 jest_magick_joker_card = {suit = 'Spades'},
 jest_highest_scored_mult = {amount = 0, trigger = true},
-jest_you_broke_it_card = {rank = nil, enhancement = nil, id = nil},
+jest_you_broke_it_card = {rank = nil, enhancement = nil, id = nil},	
 '''
 
 [[patches]]  
@@ -56,6 +56,7 @@ jest_fairy_edition_rate = 1,
 ['jest_upgrade_tab'] = false,
 previous_jest_upgrade_tab = false,
 jest_gold_tag_rate = 1,
+shop_galloping_dominoed = false,
 '''
 
 [[patches]] #Colors

@@ -143,6 +143,14 @@ SMODS.Gradient {
     interpolation = 'trig'
 }
 SMODS.Gradient {
+    key = 'silver',
+    colours = {
+        HEX('afbbca'), HEX('9cacbe')
+    },
+    cycle = 5,
+    interpolation = 'trig'
+}
+SMODS.Gradient {
     key = 'stellar',
     colours = {
         HEX('666694'), HEX('7a73bb')

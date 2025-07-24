@@ -49,17 +49,42 @@ end
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
+pattern = "if not skip_increment then G.GAME.current_round.reroll_cost_increase = G.GAME.current_round.reroll_cost_increase + 1 end"
+position = "before"
+match_indent = true
+payload = '''
+if G.GAME.shop_galloping_dominoed then skip_increment = true end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "local _pool, _pool_key = get_current_pool('Tag', nil, nil, append)"
+position = "before"
+match_indent = true
+payload = '''
+local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest Golden Tag', nil, nil, '_gold')
+_gold_pool = {}
+for i = 1, #_temp_gold_pool do
+     _gold_pool[i] = _temp_gold_pool[i]
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
 pattern = "local _tag = pseudorandom_element(_pool, pseudoseed(_pool_key))"
 position = "after"
 match_indent = true
 payload = '''
-local _gold_pool = {}
-for i = 1, #_pool do
-    if Tag(_pool[i]).config.aij and Tag(_pool[i]).config.aij.upgrade then
-        table.insert(_gold_pool, _pool[i])
+if #_gold_pool == #_pool and #_gold_pool ~= 1 then
+    for i = 1, #_pool do
+        if _gold_pool[i] ~= 'UNAVAILABLE' and _pool[i] == 'UNAVAILABLE' then
+            _pool[i] = _gold_pool[i]
+        end
     end
 end
-if #_gold_pool > 0 then
+if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
     if Tag(_tag).config.aij and Tag(_tag).config.aij.upgrade then
         local gt = 1
         local gold = false
@@ -73,7 +98,7 @@ if #_gold_pool > 0 then
         end
     else
         if pseudorandom('gold_tag_rate') < (1 * G.GAME.jest_gold_tag_rate) / 30 then
-            _tag = pseudorandom_element(_gold_pool, pseudoseed(_pool_key..'_resample_gold'))
+            _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
         end
     end
 end
@@ -82,11 +107,48 @@ end
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
+pattern = '''
+if (not v.requires or (G.P_CENTERS[v.requires] and G.P_CENTERS[v.requires].discovered)) and 
+(not v.min_ante or v.min_ante <= G.GAME.round_resets.ante) then
+    add = true
+end
+'''
+position = "after"
+match_indent = true
+payload = '''
+if v.config.aij and v.config.aij.upgrade then
+    if not jest_golden then
+        add = nil
+    end
+else
+    if jest_golden then
+        add = nil
+    end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''local _pool, _starting_pool, _pool_key, _pool_size = G.ARGS.TEMP_POOL, nil, '', 0'''
+position = "after"
+match_indent = true
+payload = '''
+local jest_golden = false
+if _type == 'Jest Golden Tag' then
+    jest_golden = true
+    _type = 'Tag'
+end
+''' 
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
 pattern = "_tag = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))"
 position = "after"
 match_indent = true
 payload = '''
-if #_gold_pool > 0 then
+if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
     if Tag(_tag).config.aij and Tag(_tag).config.aij.upgrade then
         local gt = 1
         local gold = false
@@ -100,7 +162,7 @@ if #_gold_pool > 0 then
         end
     else
         if pseudorandom('gold_tag_rate') < (1 * G.GAME.jest_gold_tag_rate) / 30 then
-            _tag = pseudorandom_element(_gold_pool, pseudoseed(_pool_key..'_resample_gold'))
+            _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
         end
     end
 end
