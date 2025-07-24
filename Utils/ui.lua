@@ -202,14 +202,88 @@ G.FUNCS.jest_select = function(e)
       G.E_MANAGER:add_event(Event({
         trigger = 'after',
         func = function()
-          local card = copy_card(c1)
-          card:add_to_deck()
-          e.config.data[1]:emplace(card)
+          if e.config.data[2].copies and e.config.data[2].copies > 1 then
+              for i = 1, e.config.data[2].copies do
+                  if e.config.data[2].playing_card == true then
+                      G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                  end
+                  local card = copy_card(c1)
+                  card:add_to_deck()
+                  e.config.data[1]:emplace(card)
+                  if e.config.data[2].playing_card == true then
+                      table.insert(G.playing_cards, card)
+                      e.config.data[1].config.card_limit = e.config.data[1].config.card_limit + 1
+                      card:start_materialize()
+                  end
+              end
+          else
+              if e.config.data[2].playing_card == true then
+                  G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+              end
+              local card = copy_card(c1)
+              card:add_to_deck()
+              e.config.data[1]:emplace(card)
+              if e.config.data[2].playing_card == true then
+                  table.insert(G.playing_cards, card)
+                  e.config.data[1].config.card_limit = e.config.data[1].config.card_limit + 1
+                  card:start_materialize()
+              end
+          end
           G.SETTINGS.paused = false
           if G.OVERLAY_MENU ~= nil then
               G.OVERLAY_MENU:remove()
               G.OVERLAY_MENU = nil
           end
+          return true
+        end
+      }))
+    end
+end
+G.FUNCS.jest_continue_select = function(e)
+    local c1 = e.config.ref_table
+    if c1 and c1:is(Card) then
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        func = function()
+          if e.config.data[2].following == 0 then
+            G.FUNCS.jest_select(e)
+            return true
+          end
+          e.config.data[2].following = e.config.data[2].following - 1
+          e.config.data[2].times = e.config.data[2].times + 1
+          if G.OVERLAY_MENU ~= nil then
+              G.OVERLAY_MENU:remove()
+              G.OVERLAY_MENU = nil
+          end
+          e.config.data[2].cards = e.config.data[2].cards or {}
+          table.insert(e.config.data[2].cards, c1)
+          G.FUNCS.overlay_menu{
+                config = {no_esc = true}, 
+                definition = SMODS.jest_no_back_card_collection_UIBox(
+                    e.config.data[2].pools[e.config.data[2].times], 
+                    {e.config.data[2].size.x[e.config.data[2].times],e.config.data[2].size.y[e.config.data[2].times]}, 
+                    {
+                        no_materialize = true, 
+                        hide_single_page = true,
+                        collapse_single_page = true,
+                        center = e.config.data[2].center,
+                        modify_card = function(card, center) 
+                            local conditionals = true
+                            if e.config.data[2].conditionals then
+                                conditionals = e.config.data[2].conditionals[e.config.data[2].times] or true
+                            end
+                            if e.config.data[2].extra_function then
+                                e.config.data[2].extra_function(card, center, c1, e.config.data[2])
+                            end
+                            if card.config.center.discovered and conditionals then
+                                jest_create_select_playing_card_ui(card, e.config.data[1], e.config.data[2])
+                            end
+                        end, 
+                        h_mod = 1.05,
+                    }
+                ),
+          }
+          
           return true
         end
       }))
@@ -222,8 +296,27 @@ G.FUNCS.jest_gold_tags = function(e)
         G.GAME.jest_upgrade_tab = true
     end
 end
-function jest_create_select_card_ui(card, area)
-    local t2 =  {n=G.UIT.ROOT, config = {ref_table = card, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true, button = 'jest_select', data = {area}, hover = true}, nodes={
+function jest_create_select_card_ui(card, area, extra_data)
+    if extra_data == nil then extra_data = {} end
+    if extra_data.copies == nil then extra_data.copies = 1 end
+    local t2 =  {n=G.UIT.ROOT, config = {ref_table = card, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true, button = 'jest_select', data = {area, extra_data}, hover = true}, nodes={
+        {n=G.UIT.T, config={text = "Select",colour = G.C.WHITE, scale = 0.5}}
+    }}
+
+    card.children.select_button = UIBox{
+        definition = t2,
+        config = {
+            align="bm",
+            offset = {x=-0,y=-0.15},
+            major = card,
+            bond = 'Weak',
+            parent = card
+        }
+    }
+end
+function jest_create_select_playing_card_ui(card, area, extra_data)
+    extra_data.times = extra_data.times or 0
+    local t2 =  {n=G.UIT.ROOT, config = {ref_table = card, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true, button = 'jest_continue_select', data = {area, extra_data}, hover = true}, nodes={
         {n=G.UIT.T, config={text = "Select",colour = G.C.WHITE, scale = 0.5}}
     }}
 

@@ -546,8 +546,6 @@ function reset_jest_magick_joker_card()
         local jest_magick_joker_card = pseudorandom_element(valid_jest_magick_joker_cards, pseudoseed('mag'..G.GAME.round_resets.ante))
         G.GAME.current_round.jest_magick_joker_card.suit = jest_magick_joker_card.base.suit
     end
-    --unrelated
-    G.GAME.current_round.shop_galloping_dominoed = false
 end
 
 function reset_jest_you_broke_it_card()
@@ -902,4 +900,5 @@ end
 
 function All_in_Jest.reset_game_globals(run_start)
 	G.GAME.shop_galloping_dominoed = false
+    G.GAME.jest_shop_perma_free = false
 end

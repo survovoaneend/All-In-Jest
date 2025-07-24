@@ -2631,6 +2631,37 @@ return {
                     'next round',
                 }
             },
+            tag_aij_stereoscopic = {
+                name = 'Stereoscopic Tag',
+                text = {
+                    'Gives a {C:money}gold{} copy of',
+                    'the next selected {C:attention}Tag',
+                    '{s:0.8,C:attention}Double Tag{s:0.8} excluded',
+                }
+            },
+            tag_aij_frugal = {
+                name = 'Frugal Tag',
+                text = {
+                    'All cards and',
+                    'booster packs in next',
+                    'shop are free',
+                }
+            },
+            tag_aij_dominus = {
+                name = 'Dominus Tag',
+                text = {
+                    'Disables the {C:attention}Boss blind{}',
+                    'score requirement equals',
+                    'that of {C:attention}Small blinds'
+                }
+            },
+            tag_aij_nonstandard = {
+                name = 'Nonstandard Tag',
+                text = {
+                    'Create any playing card',
+                    'Gain {C:attention}+2 copies{} of it'
+                }
+            },
         },
         Tarot = {
             c_aij_magus = {

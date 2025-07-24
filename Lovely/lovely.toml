@@ -44,6 +44,18 @@ if G.GAME.previous_jest_upgrade_tab ~= G.GAME.jest_upgrade_tab then
     G.FUNCS.your_collection_tags_page({cycle_config = {current_option = 1}})
     G.GAME.previous_jest_upgrade_tab = G.GAME.jest_upgrade_tab
 end
+if (G.shop and not G.GAME.shop_free and G.GAME.jest_shop_perma_free) then
+    if G.shop_jokers and G.shop_booster then 
+        for k, v in pairs(G.shop_jokers.cards) do
+            v.ability.couponed = true
+            v:set_cost()
+        end
+        for k, v in pairs(G.shop_booster.cards) do
+            v.ability.couponed = true
+            v:set_cost()
+        end
+    end
+end
 '''
 
 [[patches]]
