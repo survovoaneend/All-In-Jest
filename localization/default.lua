@@ -2659,7 +2659,96 @@ return {
                 name = 'Nonstandard Tag',
                 text = {
                     'Create any playing card',
-                    'Gain {C:attention}+2 copies{} of it'
+                    'Gain {C:attention}2 copies{} of it'
+                }
+            },
+            tag_aij_ignoramus = {
+                name = 'Ignoramus Tag',
+                text = {
+                    'Choose {C:attention}any{} {C:common}Common',
+                    'or {C:uncommon}Uncommon{} Joker',
+                    'to create',
+                    '{C:inactive}(Must have room)'
+                }
+            },
+            tag_aij_occult = {
+                name = 'Occult Tag',
+                text = {
+                    'Create {C:attention}3 {C:tarot}Tarot{} cards',
+                    'and {C:attention}2 {C:spectral}Spectral{} cards', 
+                    '{s:0.8}They are {s:0.8,C:dark_edition}Negative',
+                }
+            },
+            tag_aij_asteroid = {
+                name = 'Asteroid Tag',
+                text = {
+                    'Gives a free',
+                    '{C:planet}Celestial Pack', 
+                    '{s:0.6,C:inactive}(Contains {s:0.6,C:dark_edition}Black Hole{s:0.6}',
+                    '{s:0.6,C:dark_edition}Pulsar{s:0.6,C:inactive}, and {s:0.6,C:dark_edition}Gravastar{s:0.6,C:inactive})',
+                }
+            },
+            tag_aij_polydactyly = {
+                name = 'Polydactyly Tag',
+                text = {
+                    'Gives {C:blue}+1 hand{} per',
+                    'unused {C:blue}hand{} this run', 
+                    '{C:inactive}(Will give {C:blue}+#1# hands{C:inactive})',
+                }
+            },
+            tag_aij_landfill = {
+                name = 'Landfill Tag',
+                text = {
+                    'Gives {C:money}$1{} per card',
+                    '{C:red}discarded{} this run', 
+                    '{C:inactive}(Will give {C:money}$#1#{C:inactive})',
+                }
+            },
+            tag_aij_cinema = {
+                name = 'Cinema Tag',
+                text = {
+                    'Apply {C:aij_silver}Silver{} to',
+                    'the {C:attention}leftmost{} base',
+                    'edition Joker',
+                }
+            },
+            tag_aij_ventripotent = {
+                name = 'Ventripotent Tag',
+                text = {
+                    "Next {C:attention}Booster Pack{} opened",
+                    "contains twice the number of",
+                    "options and unlimited picks"
+                }
+            },
+            tag_aij_timelost = {
+                name = 'Timelost Tag',
+                text = {
+                    'Gives a free {C:purple}Guess',
+                    '{C:purple}the Jest Pack{} with',
+                    '{C:attention}5{} perishable options',
+                }
+            },
+            tag_aij_auspicious = {
+                name = 'Auspicious Tag',
+                text = {
+                    'Choose {C:attention}any{} {C:tarot}Tarot{}',
+                    'card, create {C:attention}3{} copies',
+                    '{s:0.8}They are {s:0.8,C:dark_edition}Negative',
+                }
+            },
+            tag_aij_glamour = {
+                name = 'Glamour Tag',
+                text = {
+                    'Apply {C:aij_plasma}Glimmer{} to',
+                    '{C:attention}2 random{} Jokers',
+                }
+            },
+            tag_aij_superlunary = {
+                name = 'Superlunary Tag',
+                text = {
+                    'Apply {C:aij_stellar}Stellar{}',
+                    'to a {C:attention}random{} Joker',
+                    'and {C:attention}#1#{} cards in deck'
                 }
             },
         },

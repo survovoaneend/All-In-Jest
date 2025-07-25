@@ -17,6 +17,16 @@ end
 
 [[patches]]
 [patches.pattern]
+target = "functions/state_events.lua"
+pattern = "add_round_eval_row({dollars = G.GAME.current_round.hands_left*(G.GAME.modifiers.money_per_hand or 1), disp = G.GAME.current_round.hands_left, bonus = true, name='hands', pitch = pitch})"
+position = "before"
+match_indent = true
+payload = '''
+G.GAME.jest_unused_hands = G.GAME.jest_unused_hands + G.GAME.current_round.hands_left
+'''
+
+[[patches]]
+[patches.pattern]
 target = '=[SMODS _ "src/overrides.lua"]'
 pattern = 'for k, v in ipairs(tag_tab) do'
 position = "before"
@@ -448,6 +458,7 @@ if other.edition and other.edition.negative and not All_in_Jest.config.no_copy_n
         strip_edition = true
     end
 end
+other.ability.jest_copy_edition = false
 '''
 
 [[patches]] 
@@ -829,45 +840,19 @@ payload = '''
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "G.GAME.pack_choices = self.ability.choose or self.config.center.config.choose or 1"
-position = "after" 
+pattern = "if G.GAME.modifiers.inflation then "
+position = "before" 
 match_indent = true
 payload = '''
-if G.GAME.jest_change_booster_options.trigger then
-    if G.GAME.jest_change_booster_options.option == "pick" or G.GAME.jest_change_booster_options.option == "both" then
-        -- Pemdas order
-        if G.GAME.jest_change_booster_options.op.mult ~= 0 then
-            G.GAME.pack_choices = G.GAME.pack_choices * G.GAME.jest_change_booster_options.op.mult
-            if G.GAME.jest_change_booster_options.option ~= "both" then
-                G.GAME.jest_change_booster_options.op.mult = 0
-            end
+G.E_MANAGER:add_event(Event({trigger = 'after', delay = 1.4*math.sqrt(G.SETTINGS.GAMESPEED), blockable = false, blocking = false, 
+    func = function()
+        if self.fake_create_card then
+            self.config.center.create_card = G.GAME.temp_create_card[1]
+            self.fake_create_card = false
+            G.GAME.temp_create_card = {}
         end
-        if G.GAME.jest_change_booster_options.op.div ~= 0 then
-            G.GAME.pack_choices = G.GAME.pack_choices / G.GAME.jest_change_booster_options.op.div
-            if G.GAME.jest_change_booster_options.option ~= "both" then
-                G.GAME.jest_change_booster_options.op.div = 0
-            end
-        end
-        if G.GAME.jest_change_booster_options.op.add ~= 0 then
-            G.GAME.pack_choices = G.GAME.pack_choices + G.GAME.jest_change_booster_options.op.add
-            if G.GAME.jest_change_booster_options.option ~= "both" then
-                G.GAME.jest_change_booster_options.op.add = 0
-            end
-        end
-        if G.GAME.jest_change_booster_options.op.sub ~= 0 then
-            G.GAME.pack_choices = G.GAME.pack_choices - G.GAME.jest_change_booster_options.op.sub
-            if G.GAME.jest_change_booster_options.option ~= "both" then
-                G.GAME.jest_change_booster_options.op.sub = 0
-            end
-        end
-        if G.GAME.jest_change_booster_options.option ~= "both" then
-            G.GAME.jest_change_booster_options.option = ""
-        end
-    end
-    if G.GAME.jest_change_booster_options.option ~= "both" then
-        G.GAME.jest_change_booster_options.trigger = false
-    end
-end
+    return true
+end}))
 '''
 
 [[patches]]
@@ -897,6 +882,9 @@ if G.GAME.jest_change_booster_options.trigger then
             G.GAME.jest_change_booster_options.op.sub = 0
         end
         G.GAME.jest_change_booster_options.option = ""
+    end
+    if G.GAME.jest_change_booster_options.pack_choices == "unlimited" then
+        G.GAME.pack_choices = _size
     end
     G.GAME.jest_change_booster_options.trigger = false
 end
