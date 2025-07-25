@@ -38,6 +38,9 @@ unused_discards = 0,'''
 position = 'after'
 match_indent = true 
 payload = '''
+all_in_jest = {
+	dizzard_shop = false,
+},
 jest_unused_hands = 0,
 jest_legendary_pool = {in_shop = false, rate = 0.99},
 jest_stored_memory_card = nil,
