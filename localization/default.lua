@@ -104,8 +104,7 @@ return {
             e_aij_silver = {
                 name = "Silver",
                 text = {
-                    "",
-                    ""
+                    "{C:attention}X#1#{} effects",
                 }
             },
             e_aij_stellar = {
