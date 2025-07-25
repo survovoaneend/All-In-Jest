@@ -50,13 +50,13 @@ function Card:update(dt)
 
     if diff > 0 then
       for _ = 1, diff do
-        jest_ability_calculate(self, "*", 2, nil, nil, true, nil, "edition")
+        jest_ability_calculate(self, "*", 2, nil, nil, false, nil, "edition")
       end
     end
 
     if diff < 0 then
       for _ = 1, -diff do
-        jest_ability_calculate(self, "/", 2, nil, nil, true, nil, "edition")
+        jest_ability_calculate(self, "/", 2, nil, nil, false, nil, "edition")
       end
     end
 
