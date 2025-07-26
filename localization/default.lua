@@ -2511,7 +2511,7 @@ return {
             tag_aij_chaos = {
                 name = 'Chaos Tag',
                 text = {
-                    "Has a {C:green}random{} effect"
+                    "Has a {C:red}random{} effect"
                 }
             },
             -- Gold Tags
@@ -2748,6 +2748,12 @@ return {
                     'Apply {C:aij_stellar}Stellar{}',
                     'to a {C:attention}random{} Joker',
                     'and {C:attention}#1#{} cards in deck'
+                }
+            },
+            tag_aij_anarchy = {
+                name = 'Anarchy Tag',
+                text = {
+                    'Has a {C:red}RANDOM{} effect{C:red}!!!'
                 }
             },
         },
