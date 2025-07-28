@@ -278,7 +278,8 @@ return {
                 text = {
                     "When {C:attention}skipping{} a {C:attention}Blind{},",
                     "create a {C:attention}Standard{}, {C:tarot}Charm{},",
-                    "{C:planet}Meteor{}, or {C:red}Buffoon {C:attention}Tag{}"
+                    "{C:planet}Meteor{}, {C:spectral}Ethereal{}, or",
+                    "{C:red}Buffoon {C:attention}Tag{}"
                 },
             },
             j_aij_pierrot = { name = "Pierrot", text = { "" } },
@@ -943,7 +944,7 @@ return {
             j_aij_giocoliere = {
                 name = "Giocoliere",
                 text = {
-                    "{C:attention}+2{} hand size{} during",
+                    "{C:attention}+#1#{} hand size{} during",
                     "each {C:attention}Boss Blind"
                 },
             },
@@ -1225,12 +1226,10 @@ return {
             j_aij_animatronic = { 
                 name = "Animatronic", 
                 text = {
-                    "{C:attention}+#1#{} hand size if played",
-                    "hand contains a",
-                    "{C:attention}Straight",
+                    "{C:attention}+#1#{} hand size per consecutive",
+                    "hand containing a {C:attention}Straight",
                     "{C:inactive}(Currently {C:attention}+#2#{C:inactive} hand size){}",
-                    "{C:inactive}(Resets when Blind",
-                    "{C:inactive}is defeated)"
+                    "{C:inactive}(Max of {C:attention}+#3#{C:inactive}){}"
                 } 
             },
             j_aij_arecibo_message = { name = "Arecibo Message", text = { "" } },
@@ -1448,8 +1447,8 @@ return {
             j_aij_totally_nuts = { 
                 name = "Totally Nuts", 
                 text = { 
-                    "{C:attention}+#1#{} Consumable Slots",
-                    "decreases by {C:attention}1{} when a",
+                    "{C:attention}+#1#{} Consumable Slots,",
+                    "{C:attention}consumed{} when a",
                     "{C:attention}consumable{} is {C:money}sold" 
                 } 
             },
@@ -1482,9 +1481,10 @@ return {
             j_aij_urchin = { 
                 name = "Urchin", 
                 text = { 
-                    "Earn {C:money}$#1#{} at end of",
-                    "round, increases by {C:money}$#2#{}",
-                    "when Blind is {C:attention}skipped",
+                    "Earn {C:money}$#2#{} at end of",
+                    "round for each {C:attention}Blind{}",
+                    "skipped this run",
+                    "{C:inactive}(Currently {C:money}$#1#{}{C:inactive}){}"
                 } 
             },
             j_aij_machine_intelligence = { name = "Machine Intelligence", text = { "" } },
