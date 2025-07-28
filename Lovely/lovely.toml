@@ -15,6 +15,91 @@ for i = #G.GAME.tags, 1, -1 do
 end
 '''
 
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "local flags = SMODS.calculate_context({drawing_cards = true, amount = hand_space})"
+position = "before"
+payload = '''
+if G.GAME.blind.config.blind.key == 'bl_aij_the_dragon' and not G.GAME.blind.disabled and (G.GAME.current_round.hands_played > 0 or G.GAME.current_round.discards_used > 0) then
+    if G.hand.config.card_count ~= 0 then
+        hand_space = 0
+    end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "if #G.hand.highlighted <= 0 or G.GAME.blind.block_play or #G.hand.highlighted > math.max(G.GAME.starting_params.play_limit, 1) then"
+position = "before"
+payload = '''
+for k, v in pairs(G.hand.highlighted) do
+    if v.ability.aij_marked then
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+        return
+    end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "if G.GAME.current_round.discards_left <= 0 or #G.hand.highlighted <= 0 or #G.hand.highlighted > math.max(G.GAME.starting_params.discard_limit, 0) then"
+position = "before"
+payload = '''
+for k, v in pairs(G.hand.highlighted) do
+    if v.ability.aij_marked then
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+        return
+    end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "game.lua"
+pattern = "local flags = SMODS.calculate_context({drawing_cards = true, amount = hand_space})"
+position = "before"
+payload = '''
+local marked_cards = 0
+for k, v in pairs(G.hand.cards) do
+    if v.ability.aij_marked then
+        marked_cards = marked_cards + 1
+    end
+end
+if marked_cards == #G.hand.cards and marked_cards >= G.hand.config.card_limit then
+    end_round()
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''G.GAME.bosses_used[boss] = G.GAME.bosses_used[boss] + 1'''
+position = "before"
+match_indent = true
+payload = '''
+if G.GAME.round_resets.ante == G.GAME.all_in_jest.pit_blind_ante then
+    if G.GAME.stake >= 5 then
+        local cen_pool = {}
+        for k, v in pairs(G.P_BLINDS) do
+            if v and v.boss and v.boss.all_in_jest and v.boss.all_in_jest.pit then 
+                cen_pool[#cen_pool+1] = k
+            end
+        end
+        local blind_key = pseudorandom_element(cen_pool, pseudoseed('jest_pit_blind'..G.GAME.round_resets.ante))
+        return blind_key
+    end
+end
+'''
+
 [[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"

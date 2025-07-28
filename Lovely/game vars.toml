@@ -40,6 +40,7 @@ match_indent = true
 payload = '''
 all_in_jest = {
 	dizzard_shop = false,
+	pit_blind_ante = 4,
 },
 jest_unused_hands = 0,
 jest_legendary_pool = {in_shop = false, rate = 0.99},

@@ -19,6 +19,7 @@ return {
             aij_glimmer = "Glimmer",
             aij_silver = "Silver",
             aij_stellar = "Stellar",
+            aij_marked = "Marked",
             k_aij_jest_chaotic_card = "Chaotic",
         }
     },
@@ -43,6 +44,84 @@ return {
                     '?????',
                 }
             }
+        },
+        Blind = {
+            bl_aij_the_heart = {
+                name = "The Heart",
+                text = {
+                    'Must play a hand',
+                    'containing a #1#',
+                    'before hands score'
+                },
+            },
+            bl_aij_the_rains = {
+                name = "The Rains",
+                text = {
+                    'Remove vanilla modifiers',
+                    'from all scored cards in',
+                    'the winning hand'
+                },
+            },
+            bl_aij_the_child = {
+                name = "The Child",
+                text = {
+                    'Reduce the rank of all',
+                    'scoring cards by 1'
+                },
+            },
+            bl_aij_the_moon = {
+                name = "The Moon",
+                text = {
+                    'All cards on odd numbered',
+                    'hands are debuffed'
+                },
+            },
+            bl_aij_the_shell = {
+                name = "The Shell",
+                text = {
+                    '#1# in #2# cards are debuffed',
+                    '#3# in #4# cards are drawn',
+                    'face down'
+                },
+            },
+            bl_aij_the_earth = {
+                name = "The Earth",
+                text = {
+                    'Turns all cards held in',
+                    'hand into Stone Cards',
+                    'after scoring'
+                },
+            },
+            bl_aij_the_dragon = {
+                name = "The Dragon",
+                text = {
+                    'Cannot not draw any',
+                    'cards until hand is',
+                    'empty'
+                },
+            },
+            bl_aij_the_mountain = {
+                name = "The Mountain",
+                text = {
+                    'Very large blind',
+                    '+1 Hand size'
+                },
+            },
+            bl_aij_the_umbilical = {
+                name = "The Umbilical",
+                text = {
+                    'Mark one random card each',
+                    'hand, These cards cannot',
+                    'be played or discarded'
+                },
+            },
+            bl_aij_the_divine = {
+                name = "The Divine",
+                text = {
+                    'Hand must contain',
+                    'an enhanced card'
+                },
+            },
         },
         Enhanced = {
             m_aij_fervent = {
@@ -83,6 +162,13 @@ return {
                     "{C:dark_edition}Glimmer{}, {C:dark_edition}Silver{}, and",
                     "{C:dark_edition}Stellar{} cards",
                     "appear {C:attention}#1#X{} more often",
+                },
+            },
+            v_aij_gold_medal ={
+                name = "Gold Medal",
+                text = {
+                    "{C:money}Gold{} Tags appear",
+                    "{C:attention}#1#X{} more often",
                 },
             },
         },
@@ -2901,7 +2987,15 @@ return {
                     "{C:attention}unchanged{} when reversed",
                     "{C:inactive}e.g 33, 151, 3003{}"
                 }
-            }
+            },
+            -- Stickers
+            aij_marked = {
+                name = "Marked",
+		        text = {
+                    'Cannot be {C:blue}played',
+                    'or {C:red}discarded'
+		        }
+            },
         }
     }
 }
