@@ -11,7 +11,7 @@ local planet_nine_planet = {
 	discovered = false,
 	order = 9,
 	jest_spec_moon = true,
-	config = { hand_type = "Five of a Kind", softlock = true, moon = true },
+	config = { hand_type = "Five of a Kind", softlock = true, moon = true, mult = true},
 	hand_type = 'Five of a Kind', -- Why is this here
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)

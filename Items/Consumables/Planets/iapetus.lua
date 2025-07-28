@@ -8,7 +8,7 @@ local iapetus_planet = {
 	pos = { x = 5, y = 2 },
 	cost = 3,
 	unlocked = true,
-	config = {hand_type = "Straight", moon = true},
+	config = {hand_type = "Straight", moon = true, chips = true},
 	discovered = false,
 	order = 17,
 	jest_spec_moon = true,

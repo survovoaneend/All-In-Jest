@@ -11,7 +11,7 @@ local zoozve_planet = {
 	discovered = false,
 	order = 1,
 	jest_spec_moon = true,
-	config = {hand_type = "Three of a Kind", moon = true},
+	config = {hand_type = "Three of a Kind", moon = true, mult = true},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
 		return {

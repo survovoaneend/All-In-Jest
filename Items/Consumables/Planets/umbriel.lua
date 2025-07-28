@@ -11,7 +11,7 @@ local umbriel_planet = {
 	discovered = false,
 	order = 6,
 	jest_spec_moon = true,
-	config = {hand_type = "Two Pair", moon = true},
+	config = {hand_type = "Two Pair", moon = true, mult = true},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
 		return {
