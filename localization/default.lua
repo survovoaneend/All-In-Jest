@@ -166,7 +166,8 @@ return {
                 text = {
                     "When {C:attention}skipping{} a {C:attention}Blind{},",
                     "create a {C:attention}Standard{}, {C:tarot}Charm{},",
-                    "{C:planet}Meteor{}, or {C:red}Buffoon {C:attention}Tag{}"
+                    "{C:planet}Meteor{}, {C:spectral}Ethereal{}, or",
+                    "{C:red}Buffoon {C:attention}Tag{}"
                 },
             },
             j_aij_pierrot = { name = "Pierrot", text = { "" } },
@@ -831,7 +832,7 @@ return {
             j_aij_giocoliere = {
                 name = "Giocoliere",
                 text = {
-                    "{C:attention}+2{} hand size{} during",
+                    "{C:attention}+#1#{} hand size{} during",
                     "each {C:attention}Boss Blind"
                 },
             },
@@ -1113,12 +1114,10 @@ return {
             j_aij_animatronic = { 
                 name = "Animatronic", 
                 text = {
-                    "{C:attention}+#1#{} hand size if played",
-                    "hand contains a",
-                    "{C:attention}Straight",
+                    "{C:attention}+#1#{} hand size per consecutive",
+                    "hand containing a {C:attention}Straight",
                     "{C:inactive}(Currently {C:attention}+#2#{C:inactive} hand size){}",
-                    "{C:inactive}(Resets when Blind",
-                    "{C:inactive}is defeated)"
+                    "{C:inactive}(Max of {C:attention}+#3#{C:inactive}){}"
                 } 
             },
             j_aij_arecibo_message = { name = "Arecibo Message", text = { "" } },

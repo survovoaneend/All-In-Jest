@@ -8,10 +8,10 @@ local pinhead = {
         money = 8
       }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 2, y = 4 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 8,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
