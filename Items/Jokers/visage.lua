@@ -8,7 +8,7 @@ local visage = {
 
       }
     },
-    rarity = 3,
+    rarity = 2,
     pos = { x = 21, y = 8},
     atlas = 'joker_atlas',
     cost = 8,

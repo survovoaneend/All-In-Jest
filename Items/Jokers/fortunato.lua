@@ -6,7 +6,7 @@ local fortunato = {
   config = {
     extra = {
       x_mult = 1,
-      xmult_mod = 0.15,
+      xmult_mod = 0.1,
       activated = false,
     }
   },

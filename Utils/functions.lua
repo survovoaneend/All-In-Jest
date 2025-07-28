@@ -31,7 +31,7 @@ end
 
 function next_palindrome(n)
     while true do
-        local s = tostring(n)
+        local s = tostring(math.floor(n))
         if s == s:reverse() and #s > 1 then
             return n
         end

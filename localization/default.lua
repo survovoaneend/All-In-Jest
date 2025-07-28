@@ -1335,8 +1335,8 @@ return {
             j_aij_totally_nuts = { 
                 name = "Totally Nuts", 
                 text = { 
-                    "{C:attention}+#1#{} Consumable Slots",
-                    "decreases by {C:attention}1{} when a",
+                    "{C:attention}+#1#{} Consumable Slots,",
+                    "{C:attention}consumed{} when a",
                     "{C:attention}consumable{} is {C:money}sold" 
                 } 
             },
@@ -1369,9 +1369,10 @@ return {
             j_aij_urchin = { 
                 name = "Urchin", 
                 text = { 
-                    "Earn {C:money}$#1#{} at end of",
-                    "round, increases by {C:money}$#2#{}",
-                    "when Blind is {C:attention}skipped",
+                    "Earn {C:money}$#2#{} at end of",
+                    "round for each {C:attention}Blind{}",
+                    "skipped this run",
+                    "{C:inactive}(Currently {C:money}$#1#{}{C:inactive}){}"
                 } 
             },
             j_aij_machine_intelligence = { name = "Machine Intelligence", text = { "" } },

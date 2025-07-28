@@ -5,7 +5,7 @@ local blood_artist = {
     key = "blood_artist",
     config = {
       extra = {
-          blind_reduction = 5
+          blind_reduction = 10
       }
     },
     rarity = 2,
