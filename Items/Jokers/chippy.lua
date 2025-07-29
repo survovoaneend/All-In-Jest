@@ -14,8 +14,9 @@ local chippy = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = false,
   
     loc_vars = function(self, info_queue, card)
         return {
@@ -26,7 +27,7 @@ local chippy = {
     end,
   
     calculate = function(self, card, context)
-      if context.jest_money_earned and context.jest_earned_sign == "-" then
+      if context.jest_money_earned and context.jest_earned_sign == "-" and not context.blueprint then
         card.ability.extra.chips = card.ability.extra.chips + -context.jest_earned_amount
         return {
           message = localize('k_upgrade_ex'),

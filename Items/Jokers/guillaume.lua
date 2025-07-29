@@ -18,6 +18,7 @@ local guillaume = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = false,
     soul_pos = { x = 5, y = 5},
   
     loc_vars = function(self, info_queue, card)

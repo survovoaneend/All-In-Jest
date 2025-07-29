@@ -15,8 +15,9 @@ local la_commedia_e_finita = {
   cost = 4,
   unlocked = true,
   discovered = false,
-  blueprint_compat = false,
-  eternal_compat = false,
+  blueprint_compat = true,
+  eternal_compat = true,
+  perishable_compat = false,
 
   loc_vars = function(self, info_queue, card)
     return {

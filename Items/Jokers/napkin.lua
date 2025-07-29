@@ -18,6 +18,7 @@ local napkin = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = false,
     pixel_size = { w = 69, h = 81 },
 
     loc_vars = function(self, info_queue, card)

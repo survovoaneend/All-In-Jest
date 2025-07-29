@@ -18,6 +18,7 @@ local lavatch = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = false,
     soul_pos = { x = 7, y = 9},
   
     loc_vars = function(self, info_queue, card)

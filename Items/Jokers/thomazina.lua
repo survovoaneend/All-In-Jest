@@ -16,6 +16,7 @@ local thomazina = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = false,
     soul_pos = { x = 3, y = 5},
   
     loc_vars = function(self, info_queue, card)
