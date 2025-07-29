@@ -38,6 +38,9 @@ local stock_broker = {
         remove_multiplier(G.GAME, "interest_amount", tostring(card).."stock_broker")
       end
     end, 
+    remove_from_deck = function(self, card, from_debuff)
+        remove_multiplier(G.GAME, "interest_amount", tostring(card).."stock_broker")
+    end,
   
 }
 return { name = {"Jokers"}, items = {stock_broker} }

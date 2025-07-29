@@ -26,31 +26,36 @@ local chef = {
         end
         return false
     end,
-    calculate = function(self, card, context)
+     calculate = function(self, card, context)
       if context.open_booster then
         card.ability.extra.trigger = true
       end
     end,
     update = function(self, card, dt)
-        if G.shop_jokers and G.shop_jokers.cards then 
-            for i = 1, #G.shop_jokers.cards do
-                if G.shop_jokers.cards[i].ability.set == "Joker" then
-                    if G.shop_jokers.cards[i].ability.perishable and G.shop_jokers.cards[i].edition == nil then
-                        G.shop_jokers.cards[i]:set_edition({negative = true})
-                        G.shop_jokers.cards[i]:set_cost()
-                    end 
+        if G.jokers then
+            local has_chef = next(SMODS.find_card("j_aij_chef"))
+            if has_chef then
+                if G.shop_jokers and G.shop_jokers.cards then 
+                    for i = 1, #G.shop_jokers.cards do
+                        if G.shop_jokers.cards[i].ability.set == "Joker" then
+                            if G.shop_jokers.cards[i].ability.perishable and G.shop_jokers.cards[i].edition == nil then
+                                G.shop_jokers.cards[i]:set_edition({negative = true})
+                                G.shop_jokers.cards[i]:set_cost()
+                            end 
+                        end
+                    end
                 end
-            end
-        end
-        if G.pack_cards and card.ability.extra.trigger then
-            if G.pack_cards.cards then
-                for i = 1, #G.pack_cards.cards do
-                    if G.pack_cards.cards[i].ability.set == "Joker" then
-                        if G.pack_cards.cards[i].ability.perishable and G.pack_cards.cards[i].edition == nil then
-                            G.pack_cards.cards[i]:set_edition({negative = true})
-                            G.pack_cards.cards[i]:set_cost()
-                            card.ability.extra.trigger = false
-                        end 
+                if G.pack_cards and card.ability.extra.trigger then
+                    if G.pack_cards.cards then
+                        for i = 1, #G.pack_cards.cards do
+                            if G.pack_cards.cards[i].ability.set == "Joker" then
+                                if G.pack_cards.cards[i].ability.perishable and G.pack_cards.cards[i].edition == nil then
+                                    G.pack_cards.cards[i]:set_edition({negative = true})
+                                    G.pack_cards.cards[i]:set_cost()
+                                    card.ability.extra.trigger = false
+                                end 
+                            end
+                        end
                     end
                 end
             end
