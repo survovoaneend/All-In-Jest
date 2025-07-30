@@ -37,7 +37,7 @@ local updateref = Card.update
 function Card:update(dt)
   local ref = updateref(self, dt)
 
-  if G.jokers and self.ability.set == 'Joker' and self.edition ~= nil then
+  if G.jokers and self.ability.set == 'Joker' and self.edition ~= nil and self.edition.key ~= 'e_negative' then
     local applied = self.edition.jest_dapper_dan_applied or {}
     self.edition.jest_dapper_dan_applied = applied
 
@@ -50,13 +50,13 @@ function Card:update(dt)
 
     if diff > 0 then
       for _ = 1, diff do
-        jest_ability_calculate(self, "*", 2, nil, nil, true, nil, "edition")
+        jest_ability_calculate(self, "*", 2, nil, nil, false, nil, "edition")
       end
     end
 
     if diff < 0 then
       for _ = 1, -diff do
-        jest_ability_calculate(self, "/", 2, nil, nil, true, nil, "edition")
+        jest_ability_calculate(self, "/", 2, nil, nil, false, nil, "edition")
       end
     end
 
