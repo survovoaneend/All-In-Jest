@@ -799,9 +799,13 @@ if toto_count > 0 and _tag.key ~= 'tag_double' and (not _tag.config.jest_tag_dup
                 trigger = 'after',
                 delay = 0.9,
                 func = function()
+                    if _tag.ability and _tag.ability.orbital_hand then
+                        G.orbital_hand = _tag.ability.orbital_hand
+                    end
                     local temptag = Tag(_tag.key)
                     temptag.config.jest_tag_duplicate_trigger = true
                     add_tag(temptag)
+                    G.orbital_hand = nil
                     return true
                 end
             }))
@@ -818,9 +822,13 @@ if taggart_count > 0 and _tag.key ~= 'tag_double' and (not _tag.config.jest_tag_
                 trigger = 'after',
                 delay = 0.9,
                 func = function()
+                    if _tag.ability and _tag.ability.orbital_hand then
+                        G.orbital_hand = _tag.ability.orbital_hand
+                    end
                     local temptag = Tag(_tag.key)
                     temptag.config.jest_tag_duplicate_trigger = true
                     add_tag(temptag)
+                    G.orbital_hand = nil
                     return true
                 end
             }))
