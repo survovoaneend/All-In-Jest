@@ -408,6 +408,40 @@ payload = '''
 UIBox_button({label = {localize('b_reroll_boss'), localize('$')..'0'}, button = "jest_free_reroll_boss", func = 'jest_free_reroll_boss_button'}) or
 '''
 
+[[patches]] 
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+if self.ability.effect == "Lucky Card" then
+        if SMODS.pseudorandom_probability(self, 'lucky_mult', 1, 5) then
+            self.lucky_trigger = true
+            ret = ret + self.ability.mult
+        end
+    else
+'''
+position = "at"
+payload = '''
+ local is_chip_mult = self.ability._saved_chip_values ~= nil
+
+    if self.ability.effect == "Lucky Card" then
+        local base_mult = 0
+        if is_chip_mult then
+            base_mult = (self.ability._saved_chip_values.nominal or 0) +
+                        (self.ability._saved_chip_values.bonus or 0) +
+                        (self.ability._saved_chip_values.perma_bonus or 0)
+        end
+        
+        local ret = base_mult + ((not self.ability.extra_enhancement and self.ability.perma_mult) or 0)
+
+        if SMODS.pseudorandom_probability(self, 'lucky_mult', 1, 5) then
+            self.lucky_trigger = true
+            ret = ret + self.ability.mult
+        end
+        return ret
+    else
+'''
+match_indent = true
+
 # Chaotic Card effect 
 [[patches]]
 [patches.pattern]
@@ -1099,9 +1133,13 @@ if toto_count > 0 and _tag.key ~= 'tag_double' and (not _tag.config.jest_tag_dup
                 trigger = 'after',
                 delay = 0.9,
                 func = function()
+                    if _tag.ability and _tag.ability.orbital_hand then
+                        G.orbital_hand = _tag.ability.orbital_hand
+                    end
                     local temptag = Tag(_tag.key)
                     temptag.config.jest_tag_duplicate_trigger = true
                     add_tag(temptag)
+                    G.orbital_hand = nil
                     return true
                 end
             }))
@@ -1118,9 +1156,13 @@ if taggart_count > 0 and _tag.key ~= 'tag_double' and (not _tag.config.jest_tag_
                 trigger = 'after',
                 delay = 0.9,
                 func = function()
+                    if _tag.ability and _tag.ability.orbital_hand then
+                        G.orbital_hand = _tag.ability.orbital_hand
+                    end
                     local temptag = Tag(_tag.key)
                     temptag.config.jest_tag_duplicate_trigger = true
                     add_tag(temptag)
+                    G.orbital_hand = nil
                     return true
                 end
             }))
