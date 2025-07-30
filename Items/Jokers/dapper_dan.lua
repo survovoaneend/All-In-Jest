@@ -37,7 +37,7 @@ local updateref = Card.update
 function Card:update(dt)
   local ref = updateref(self, dt)
 
-  if G.jokers and self.ability.set == 'Joker' and self.edition ~= nil then
+  if G.jokers and self.ability.set == 'Joker' and self.edition ~= nil and self.edition.key ~= 'e_negative' then
     local applied = self.edition.jest_dapper_dan_applied or {}
     self.edition.jest_dapper_dan_applied = applied
 
