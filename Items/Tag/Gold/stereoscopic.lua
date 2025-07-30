@@ -20,30 +20,35 @@ local stereoscopic_tag = {
 
     apply = function(self, tag, context)
         if context.type == 'tag_add' then 
-            if context.tag.key ~= 'tag_double' then
-                if context.tag.config.aij and context.tag.config.aij.upgrade then return end
-                local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest Golden Tag', nil, nil, '_gold')
-                _gold_pool = {}
-                for i = 1, #_temp_gold_pool do
-                     _gold_pool[i] = _temp_gold_pool[i]
-                end
-                local tag_key = nil
-                if #_gold_pool > 0 and _gold_pool[1] == 'tag_handy' then return end
-                for i = 1, #_gold_pool do
-                    if _gold_pool[i] ~= 'UNAVAILABLE' and Tag(_gold_pool[i]).config.aij then 
-                        if context.tag.key == ('tag_'.. Tag(_gold_pool[i]).config.aij.upgrade) then
-                            tag_key = _gold_pool[i]
+            if context.tag.key ~= 'tag_double' and context.tag.key ~= 'tag_aij_stereoscopic' then
+                if not (context.tag.config.aij and context.tag.config.aij.upgrade) then
+                    local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest Golden Tag', nil, nil, '_gold')
+                    _gold_pool = {}
+                    for i = 1, #_temp_gold_pool do
+                         _gold_pool[i] = _temp_gold_pool[i]
+                    end
+                    local tag_key = nil
+                    if #_gold_pool > 0 and _gold_pool[1] == 'tag_handy' then return end
+                    for i = 1, #_gold_pool do
+                        if _gold_pool[i] ~= 'UNAVAILABLE' and Tag(_gold_pool[i]).config.aij then 
+                            if context.tag.key == ('tag_'.. Tag(_gold_pool[i]).config.aij.upgrade) then
+                                tag_key = _gold_pool[i]
+                            end
                         end
                     end
+                    if tag_key == nil then return end
                 end
-                if tag_key == nil then return end
                 local lock = tag.ID
                 G.CONTROLLER.locks[lock] = true
                 tag:yep('+', G.C.BLUE,function()
                     if context.tag.ability and context.tag.ability.orbital_hand then
                         G.orbital_hand = context.tag.ability.orbital_hand
                     end
-                    add_tag(Tag(tag_key))
+                    if context.tag.config.aij and context.tag.config.aij.upgrade then
+                        add_tag(Tag(context.tag.key))
+                    else
+                        add_tag(Tag(tag_key))
+                    end
                     G.orbital_hand = nil
                     G.CONTROLLER.locks[lock] = nil
                     return true

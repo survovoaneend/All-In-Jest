@@ -29,6 +29,31 @@ local unusual_tag = {
             local card
             if #G.P_JOKER_RARITY_POOLS[2] > rares_in_posession[1] then 
                 card = create_card('Joker', context.area, nil, 0.9, nil, nil, nil, 'rta')
+                local function contains_number(table)
+                    for k, v in pairs(table) do
+                        if type(v) == "number" then
+                            return true
+                        elseif type(v) == "table" then
+                            if contains_number(v) then
+                                return true
+                            end
+                        end
+                    end
+                    return false
+                end
+                local modifyable = false
+                if contains_number(card.config.center.config) then
+                    modifyable = true
+                end
+                local ivalue = 1
+                while not modifyable do
+                    card:remove()
+                    card = create_card('Joker', context.area, nil, 1, nil, nil, nil, 'rta'..ivalue)
+                    if contains_number(card.config.center.config) then
+                        modifyable = true
+                    end
+                    ivalue = ivalue + 1
+                end
                 create_shop_card_ui(card, 'Joker', context.area)
                 card.states.visible = false
                 tag:yep('+', G.C.GREEN,function() 
