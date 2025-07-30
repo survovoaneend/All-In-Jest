@@ -49,7 +49,7 @@ local nonstandard_tag = {
                     cur_card:set_base(new_card)
                     cur_card.config.center.order = v.key
                     cards.Suits[v.key] = deep_copy(cur_card.config.center)
-                    cur_card:start_dissolve()
+                    cur_card:remove()
                 end
                 index = 0
                 for k, v in pairs(SMODS.Ranks) do
@@ -63,9 +63,9 @@ local nonstandard_tag = {
                     cur_card:set_base(new_card)
                     cur_card.config.center.order = v.key
                     cards.Ranks[v.key] = deep_copy(cur_card.config.center)
-                    cur_card:start_dissolve()
+                    cur_card:remove()
                 end
-                temp_card:start_dissolve()
+                temp_card:remove()
                 G.E_MANAGER:add_event(Event({
                     func = function() 
                         G.SETTINGS.paused = true
