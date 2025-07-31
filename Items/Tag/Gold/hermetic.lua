@@ -8,7 +8,7 @@ local hermetic_tag = {
     min_ante = 3,
     config = {
         aij = {
-            upgrade = 'etheral',
+            upgrade = 'ethereal',
         }
     },
 

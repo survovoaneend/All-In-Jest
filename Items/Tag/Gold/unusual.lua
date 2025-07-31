@@ -48,7 +48,7 @@ local unusual_tag = {
                 local ivalue = 1
                 while not modifyable do
                     card:remove()
-                    card = create_card('Joker', context.area, nil, 1, nil, nil, nil, 'rta'..ivalue)
+                    card = create_card('Joker', context.area, nil, 0.9, nil, nil, nil, 'rta'..ivalue)
                     if contains_number(card.config.center.config) then
                         modifyable = true
                     end

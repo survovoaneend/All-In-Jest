@@ -20,7 +20,7 @@ local bierstiefel_tag = {
     apply = function(self, tag, context)
         if context.type == 'immediate' then
             tag:jest_apply("+", G.C.ATTENTION, function()
-                local jokers_to_create = G.jokers.config.card_limit
+                local jokers_to_create = G.jokers.config.card_limit - #G.jokers.cards
                 G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
                 G.E_MANAGER:add_event(Event({
                     func = function() 

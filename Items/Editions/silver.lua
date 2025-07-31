@@ -21,21 +21,24 @@ local silver = {
         return {vars = {card.edition.mult}}
     end,
     on_apply = function(card)
-        if card.ability.set == 'Enhanced' or card.ability.set == 'Default' then
-            jest_ability_calculate(
-              card,
-              "*", card.edition.mult,
-              { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
-              nil, true, false, "ability"
-            )
-        elseif card.ability.set == 'Joker' then
-            jest_ability_calculate(
-                card,
-                "*", card.edition.mult,
-                { x_chips = 1, x_mult = 1, extra_value = true, rarity },
-                nil, true, "ability.extra"
-            )
+        if not card.ability.jest_siliver_active then
+            if card.ability.set == 'Enhanced' or card.ability.set == 'Default' then
+                jest_ability_calculate(
+                    card,
+                    "*", card.edition.mult,
+                    { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
+                    nil, true, false, "ability"
+                )
+            elseif card.ability.set == 'Joker' then
+                jest_ability_calculate(
+                    card,
+                    "*", card.edition.mult,
+                    { x_chips = 1, x_mult = 1, extra_value = true, rarity },
+                    nil, true, "ability.extra"
+                )
+            end
         end
+        card.ability.jest_siliver_active = true
     end,
     on_remove = function(card)
         if card.ability.set == 'Enhanced' or card.ability.set == 'Default' then
@@ -53,6 +56,7 @@ local silver = {
                 nil, true, "ability.extra"
             )
         end
+        card.ability.jest_siliver_active = nil
     end,
     in_shop = true,
     weight = 3,
