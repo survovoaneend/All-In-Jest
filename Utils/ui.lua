@@ -199,6 +199,11 @@ end
 G.FUNCS.jest_select = function(e)
     local c1 = e.config.ref_table
     if c1 and c1:is(Card) then
+      local edition = {}
+      for k, v in pairs(c1.edition) do
+        edition[k] = v
+      end
+      c1:set_edition(nil, true, true)
       G.E_MANAGER:add_event(Event({
         trigger = 'after',
         func = function()
@@ -209,6 +214,7 @@ G.FUNCS.jest_select = function(e)
                   end
                   local card = copy_card(c1)
                   card:add_to_deck()
+                  card:set_edition(edition.key, true, true)
                   e.config.data[1]:emplace(card)
                   if e.config.data[2].playing_card == true then
                       table.insert(G.playing_cards, card)
@@ -222,6 +228,7 @@ G.FUNCS.jest_select = function(e)
               end
               local card = copy_card(c1)
               card:add_to_deck()
+              card:set_edition(edition.key, true, true)
               e.config.data[1]:emplace(card)
               if e.config.data[2].playing_card == true then
                   table.insert(G.playing_cards, card)
