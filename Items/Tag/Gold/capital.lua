@@ -32,7 +32,6 @@ local capital_tag = {
                     dollars = tag.config.extra.dollars,
                     condition = localize('ph_defeat_the_boss'),
                     pos = tag.pos,
-                    atlas = 'aij_tag_atlas',
                     tag = tag
                 }
             end
