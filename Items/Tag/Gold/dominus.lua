@@ -27,7 +27,7 @@ local dominus_tag = {
             G.GAME.blind:disable()
             G.GAME.blind.mult = 1
             G.GAME.blind.chips = get_blind_amount(G.GAME.round_resets.ante)*G.GAME.blind.mult*G.GAME.starting_params.ante_scaling
-            G.GAME.blind.chip_text = G.GAME.blind.chips
+            G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
 
             tag.triggered = true
             return true

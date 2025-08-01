@@ -19,9 +19,9 @@ local polydactyly_tag = {
     end,
 
     apply = function(self, tag, context)
-        if context.type == 'new_blind_choice' then
+        if context.type == 'round_start_bonus' then
             tag:jest_apply('+', G.C.BLUE,function() 
-                G.GAME.round_bonus.next_hands = G.GAME.jest_unused_hands
+                ease_hands_played(G.GAME.jest_unused_hands)
                 return true
 			end,
             function() 
