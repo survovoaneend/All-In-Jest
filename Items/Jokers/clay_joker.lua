@@ -35,7 +35,11 @@ function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_jui
   local ref = start_dissolve_ref(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
   if G.jokers and self.ability.set == 'Joker' then
     if not self.ability.jest_sold_self then
-      G.GAME.jest_clay_last_destroyed = self
+      if self.ability.name == 'j_aij_visage' or self.ability.name == 'j_aij_clay_joker' then
+        G.GAME.jest_clay_last_destroyed = nil
+      else
+        G.GAME.jest_clay_last_destroyed = self
+      end
     end
   end
   return ref
