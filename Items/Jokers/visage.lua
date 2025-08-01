@@ -8,7 +8,7 @@ local visage = {
 
       }
     },
-    rarity = 3,
+    rarity = 2,
     pos = { x = 21, y = 8},
     atlas = 'joker_atlas',
     cost = 8,
@@ -34,7 +34,11 @@ local sell_card_ref = Card.sell_card
 function Card:sell_card()
   local ref = sell_card_ref(self)
   if G.jokers and self.ability.set == 'Joker' then
-    G.GAME.jest_visage_last_sold = self
+    if self.ability.name == 'j_aij_visage' or self.ability.name == 'j_aij_clay_joker' then
+        G.GAME.jest_visage_last_sold = nil
+    else
+        G.GAME.jest_visage_last_sold = self
+    end
   end
   return ref
 end
