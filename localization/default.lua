@@ -842,6 +842,7 @@ return {
                 text = { 
                     "Joker {C:dark_edition}Editions{} are",
                     "{C:attention}2X{} as effective",
+                    "{C:inactive}(Except Negative)"
                 } 
             },
             j_aij_average_joe = {
@@ -1319,7 +1320,8 @@ return {
                 text = { 
                     "Retriggers all {C:attention}scored{} cards",
                     "if a {C:attention}playing card{} has been",
-                    "{C:red}destroyed{} this round" 
+                    "{C:red}destroyed{} this round",
+                    "{C:inactive}#1#{}"
                 } 
             },
             j_aij_richie_rich = { name = "Richie Rich", text = { "" } },
@@ -1543,7 +1545,7 @@ return {
                 } 
             },
             j_aij_lucina = { 
-                name = "Lucina", 
+                name = "Reveling Jester", 
                 text = { 
                     "When Blind is {C:attention}selected",
                     "{C:red}destroy{} Joker to the {C:attention}left",
@@ -2502,7 +2504,8 @@ return {
             c_aij_master_arcanes = {
                 name = 'Master of the Arcanes',
                 text = {
-                    "Creates a random",
+                    "{C:green}#1# in #2#{} chance",
+                    "to create a random",
                     "{C:spectral}Spectral{} card",
                     '{C:inactive}(Must have room)'
                 }

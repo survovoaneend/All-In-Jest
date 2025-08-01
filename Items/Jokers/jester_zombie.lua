@@ -15,10 +15,19 @@ local jester_zombie = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+        local active_text = "(Inactive)"
+        if G.GAME.jest_jester_zombie_trigger then 
+            active_text = "(Active!)"
+        else
+            active_text = "(Inactive)"
+        end
+        return { vars = {
+            active_text
+        }}
     end,
   
     calculate = function(self, card, context)
+      print(G.GAME.jest_jester_zombie_trigger)
       if context.repetition and context.cardarea == G.play then
             for i = 1, #context.scoring_hand do
                 if G.GAME.jest_jester_zombie_trigger then

@@ -63,7 +63,7 @@ local candy_floss = {
             end
         end
         if context.joker_main then
-            balance_percent(card,(card.ability.extra.percent*0.01))
+            balance_percent(context.blueprint_card or card ,(card.ability.extra.percent*0.01))
         end
     end
   

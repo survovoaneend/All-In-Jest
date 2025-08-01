@@ -202,14 +202,15 @@ G.FUNCS.jest_select = function(e)
       G.E_MANAGER:add_event(Event({
         trigger = 'after',
         func = function()
-          local card = copy_card(c1)
-          card:add_to_deck()
-          e.config.data[1]:emplace(card)
           G.SETTINGS.paused = false
           if G.OVERLAY_MENU ~= nil then
               G.OVERLAY_MENU:remove()
               G.OVERLAY_MENU = nil
           end
+          SMODS.add_card {
+            key = c1.config.center_key,
+            area = e.config.data[1]
+          }
           return true
         end
       }))
