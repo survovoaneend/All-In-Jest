@@ -18,7 +18,7 @@ local dead_president = {
     pixel_size = { w = 46, h = 95 },
   
     loc_vars = function(self, info_queue, card)
-  
+        
     end,
   
     calculate = function(self, card, context)

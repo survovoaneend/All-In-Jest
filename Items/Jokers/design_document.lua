@@ -8,6 +8,7 @@ local design_document = {
         }
     },
     rarity = 2,
+    ignore = true,
     pos = { x = 11, y = 7},
     atlas = 'joker_atlas',
     cost = 6,
