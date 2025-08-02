@@ -53,7 +53,7 @@ local jumbo_joker = {
 local hoverref = Card.hover
 function Card:hover()
     hoverref(self)
-    if self.config.center.key == "j_aij_jumbo_joker" and self.discovered then
+    if self.config.center.key == "j_aij_jumbo_joker" and self.config.center.discovered then
         local _atlas, _pos = get_front_spriteinfo(self.config.card)
         _pos = { x = 1, y = 0 }
         _atlas = G.ASSET_ATLAS['aij_jumbo_joker']
@@ -82,7 +82,7 @@ end
 local stop_hoverref = Card.stop_hover
 function Card:stop_hover()
     stop_hoverref(self)
-    if self.config.center.key == "j_aij_jumbo_joker" and self.discovered then
+    if self.config.center.key == "j_aij_jumbo_joker" and self.config.center.discovered then
         local _atlas, _pos = get_front_spriteinfo(self.config.card)
         _pos = { x = 0, y = 0 }
         _atlas = G.ASSET_ATLAS['aij_jumbo_joker']

@@ -23,9 +23,11 @@ local morio = {
             card.ability.trigger = true
         end
         if context.cashing_out and card.ability.trigger then
-            if #G.consumeables.cards < G.consumeables.config.card_limit then
+            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 G.E_MANAGER:add_event(Event({
                     func = function() 
+                        G.SETTINGS.paused = true
 				        G.FUNCS.overlay_menu{
                             config = {no_esc = true},
                             definition = SMODS.jest_no_back_card_collection_UIBox(

@@ -19,7 +19,7 @@ local the_shell = {
     mult = 2,
     boss_colour = HEX("cca7b2"),
     atlas = 'blinds',
-    pos = {X = 0, y = 4 },
+    pos = { y = 4 },
     order = 505,
     dollars = 6,
 

@@ -210,6 +210,9 @@ G.FUNCS.jest_select = function(e)
                   local card = copy_card(c1)
                   card:add_to_deck()
                   e.config.data[1]:emplace(card)
+                  if not card.edition.negative and e.config.data[1] == G.consumeables then
+                      G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+                  end
                   if e.config.data[2].playing_card == true then
                       table.insert(G.playing_cards, card)
                       e.config.data[1].config.card_limit = e.config.data[1].config.card_limit + 1
@@ -223,6 +226,9 @@ G.FUNCS.jest_select = function(e)
               local card = copy_card(c1)
               card:add_to_deck()
               e.config.data[1]:emplace(card)
+              if ((card.edition and not card.edition.negative) or not card.edition) and e.config.data[1] == G.consumeables then
+                  G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+              end
               if e.config.data[2].playing_card == true then
                   table.insert(G.playing_cards, card)
                   e.config.data[1].config.card_limit = e.config.data[1].config.card_limit + 1

@@ -25,7 +25,7 @@ local the_divine = {
     mult = 2,
     boss_colour = HEX("d9d9d9"),
     atlas = 'blinds',
-    pos = {X = 0, y = 10 },
+    pos = { y = 10 },
     order = 511,
     dollars = 6,
 

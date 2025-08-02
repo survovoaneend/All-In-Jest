@@ -29,7 +29,20 @@ local glimmer = {
     weight = 3,
     extra_cost = 3,
     get_weight = function(self)
-        return G.GAME.jest_fairy_edition_rate * self.weight
+        if G.GAME then
+            if G.GAME.selected_back.effect.center.key ~= 'b_plasma' then
+                return G.GAME.jest_fairy_edition_rate * self.weight
+            end
+        end
+        return 0
+    end,
+    in_pool = function(self, args)
+        if G.GAME then
+            if G.GAME.selected_back.effect.center.key ~= 'b_plasma' then
+                return true
+            end
+        end
+        return false
     end,
 
     shader = 'glimmer'

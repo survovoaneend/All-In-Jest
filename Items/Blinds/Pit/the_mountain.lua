@@ -17,7 +17,7 @@ local the_mountain = {
     mult = 6,
     boss_colour = HEX("a7a5a3"),
     atlas = 'blinds',
-    pos = {X = 0, y = 7 },
+    pos = { y = 7 },
     order = 508,
     dollars = 6,
 

@@ -17,7 +17,7 @@ local the_child = {
     mult = 2,
     boss_colour = HEX("c1b297"),
     atlas = 'blinds',
-    pos = {X = 0, y = 2 },
+    pos = { y = 2 },
     order = 503,
     dollars = 6,
 

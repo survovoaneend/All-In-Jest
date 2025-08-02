@@ -17,7 +17,7 @@ local the_earth = {
     mult = 2,
     boss_colour = HEX("7b6a62"),
     atlas = 'blinds',
-    pos = {X = 0, y = 5 },
+    pos = { y = 5 },
     order = 506,
     dollars = 6,
 

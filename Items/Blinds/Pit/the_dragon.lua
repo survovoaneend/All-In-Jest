@@ -17,7 +17,7 @@ local the_dragon = {
     mult = 2,
     boss_colour = HEX("95a996"),
     atlas = 'blinds',
-    pos = {X = 0, y = 6 },
+    pos = { y = 6 },
     order = 507,
     dollars = 6,
 }
