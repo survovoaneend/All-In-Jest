@@ -29,7 +29,15 @@ local average_joe = {
       if context.joker_main then
         return balance_percent(card,(card.ability.extra.percent*0.01))
       end
-    end
+    end,
+    in_pool = function(self, args)
+        if G.GAME then
+            if G.GAME.selected_back.effect.center.key ~= 'b_plasma' then
+                return true
+            end
+        end
+        return false
+    end,
   
 }
 return { name = {"Jokers"}, items = {average_joe} }

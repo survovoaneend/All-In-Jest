@@ -15,8 +15,9 @@ local columbina = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
-    eternal_compat = false,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
   
     loc_vars = function(self, info_queue, card)
         return {
@@ -42,7 +43,15 @@ local columbina = {
         return balance_percent(card,(card.ability.extra.percent*0.01))
         end
       end
-    end
+    end,
+    in_pool = function(self, args)
+        if G.GAME then
+            if G.GAME.selected_back.effect.center.key ~= 'b_plasma' then
+                return true
+            end
+        end
+        return false
+    end,
   
 }
 return { name = {"Jokers"}, items = {columbina} }

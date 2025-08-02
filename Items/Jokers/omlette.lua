@@ -44,7 +44,7 @@ local omlette = {
     end,
     in_pool = function(self, args)
         if G.GAME then
-            if pseudorandom('omlette') < G.GAME.jest_omlette_appearence_eggs / 10 then
+            if G.GAME.jest_omlette_appearence_eggs >= 2 then
                 return true
             end
         end
