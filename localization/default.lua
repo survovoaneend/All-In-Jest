@@ -46,6 +46,7 @@ return {
             }
         },
         Blind = {
+            -- Pit Blinds
             bl_aij_the_heart = {
                 name = "The Heart",
                 text = {
@@ -120,6 +121,37 @@ return {
                 text = {
                     'Hand must contain',
                     'an enhanced card'
+                },
+            },
+            bl_aij_the_bird = {
+                name = "The Bird",
+                text = {
+                    'Shuffle 1 random',
+                    'Joker before scoring'
+                },
+            },
+            bl_aij_the_arrow = {
+                name = "The Arrow",
+                text = {
+                    'Played hands score must',
+                    'exceed the score of all',
+                    'previous played hands'
+                },
+            },
+            -- Finisher Blinds
+            bl_aij_obsidian_blade = {
+                name = "Obsidian Blade",
+                text = {
+                    '-1 Hand Size, -1 Discard,',
+                    '-1 Hand, Large Blind'
+                },
+            },
+            bl_aij_aureate_coin = {
+                name = "Aureate Coin",
+                text = {
+                    '+0.1X base for each $1',
+                    'you have when entering',
+                    'the ante'
                 },
             },
         },

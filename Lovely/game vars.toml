@@ -43,7 +43,7 @@ all_in_jest = {
 	pit_blind_ante = 4,
 },
 jest_unused_hands = 0,
-jest_legendary_pool = {in_shop = false, rate = 0.99},
+jest_legendary_pool = {in_shop = false, rate = 1.00},
 jest_stored_memory_card = nil,
 jest_change_booster_options = {op = {add = 0, mult = 0, div = 0, sub = 0}, trigger = false, option = "", pack_choices = 0}, -- both, pick, or size
 jest_void_planet_ante = false,
