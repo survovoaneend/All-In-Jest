@@ -46,6 +46,41 @@ return {
             }
         },
         Blind = {
+            bl_aij_the_beith = {
+                name = "The Beith",
+                text = {
+                    'All Diamonds',
+                    'are drawn last'
+                },
+            },
+            bl_aij_the_elm = {
+                name = "The Elm",
+                text = {
+                    'All Clubs',
+                    'are drawn last'
+                },
+            },
+            bl_aij_the_alder = {
+                name = "The Alder",
+                text = {
+                    'All Hearts',
+                    'are drawn last'
+                },
+            },
+            bl_aij_the_willow = {
+                name = "The Willow",
+                text = {
+                    'All Spades',
+                    'are drawn last'
+                },
+            },
+            bl_aij_the_branch = {
+                name = "The Branch",
+                text = {
+                    'All Face cards',
+                    'are drawn last'
+                },
+            },
             bl_aij_the_heart = {
                 name = "The Heart",
                 text = {
