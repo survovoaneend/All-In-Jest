@@ -82,6 +82,143 @@ return {
                     'are drawn last'
                 },
             },
+            bl_aij_the_horror = {
+                name = "The Horror",
+                text = {
+                    'Apply Perishable to a',
+                    "random Joker on",
+                    "final hand of round"
+                },
+            },
+            bl_aij_the_oak = {
+                name = "The Oak",
+                text = {
+                    'Disable the',
+                    'rightmost Joker'
+                },
+            },
+            bl_aij_the_ingot = {
+                name = "The Ingot",
+                text = {
+                    'Apply Eternal to all',
+                    'Jokers on final',
+                    'hand of round'
+                },
+            },
+            bl_aij_the_hazel = {
+                name = "The Hazel",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_apple = {
+                name = "The Apple",
+                text = {
+                    'Destroy leftmost Joker',
+                    "if Blind is won",
+                    "in one hand"
+                },
+            },
+            bl_aij_the_neck = {
+                name = "The Neck",
+                text = {
+                    'Can only discard',
+                    '1 card at a time'
+                },
+            },
+            bl_aij_the_field = {
+                name = "The Field",
+                text = {
+                    'All cards are',
+                    'debuffed until 10',
+                    'cards discarded'
+                },
+            },
+            bl_aij_the_wound = {
+                name = "The Wound",
+                text = {
+                    'Hands do not',
+                    'score until 0',
+                    'discard remain'
+                },
+            },
+            bl_aij_the_brimstone = {
+                name = "The Brimstone",
+                text = {
+                    'Lose half of',
+                    'your money',
+                    'each discard'
+                },
+            },
+            bl_aij_the_blush = {
+                name = "The Blush",
+                text = {
+                    'Must discard 5',
+                    'cards at a time'
+                },
+            },
+            bl_aij_the_groan = {
+                name = "The Groan",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_ash = {
+                name = "The Ash",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_clay = {
+                name = "The Clay",
+                text = {
+                    'Randomly large blind'
+                },
+            },
+            bl_aij_the_aspen = {
+                name = "The Aspen",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_evergreen = {
+                name = "The Evergreen",
+                text = {
+        
+                },
+            },
+            bl_aij_the_enigma = {
+                name = "The Enigma",
+                text = {
+                    'Enhanced cards',
+                    'are drawn last'
+                },
+            },
+            bl_aij_the_bullion = {
+                name = "The Bullion",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_elbow = {
+                name = "The Elbow",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_thorn = {
+                name = "The Thorn",
+                text = {
+                    'Debuffs all',
+                    'enhanced cards'
+                },
+            },
+            bl_aij_the_twin = {
+                name = "The Twin",
+                text = {
+                    
+                },
+            },
             --Pit Blinds
             bl_aij_the_heart = {
                 name = "The Heart",
