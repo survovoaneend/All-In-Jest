@@ -58,5 +58,13 @@ local glamour_tag = {
             return true
         end
     end,
+    in_pool = function(self, args)
+        if G.GAME then
+            if G.GAME.selected_back.effect.center.key ~= 'b_plasma' then
+                return true
+            end
+        end
+        return false
+    end,
 }
 return {name = "Tags", items = {glamour_tag}}
