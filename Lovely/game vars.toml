@@ -14,7 +14,7 @@ match_indent = true
 payload = '''
 jest_magick_joker_card = {suit = 'Spades'},
 jest_highest_scored_mult = {amount = 0, trigger = true},
-jest_you_broke_it_card = {rank = nil, enhancement = nil, id = nil},
+jest_you_broke_it_card = {rank = nil, enhancement = nil, id = nil},	
 '''
 
 [[patches]]  
@@ -40,10 +40,12 @@ match_indent = true
 payload = '''
 all_in_jest = {
 	dizzard_shop = false,
+	pit_blind_ante = 4,
 },
-jest_legendary_pool = {in_shop = false, rate = 0.99},
+jest_unused_hands = 0,
+jest_legendary_pool = {in_shop = false, rate = 1.00},
 jest_stored_memory_card = nil,
-jest_change_booster_options = {op = {add = 0, mult = 0, div = 0, sub = 0}, trigger = false, option = ""}, -- both, pick, or size
+jest_change_booster_options = {op = {add = 0, mult = 0, div = 0, sub = 0}, trigger = false, option = "", pack_choices = 0}, -- both, pick, or size
 jest_void_planet_ante = false,
 jest_kasperle_voucher_ante = false,
 jest_kilroy_sold = 0,
@@ -55,6 +57,12 @@ jest_toothy_joker_tarots = 0,
 jest_jester_zombie_trigger = false,
 jest_omlette_appearence_eggs = 0,
 jest_free_stultor_rerolls = 0,
+jest_fairy_edition_rate = 1,
+['jest_upgrade_tab'] = false,
+previous_jest_upgrade_tab = false,
+jest_gold_tag_rate = 1,
+shop_galloping_dominoed = false,
+temp_create_card = {},
 '''
 
 [[patches]] #Colors

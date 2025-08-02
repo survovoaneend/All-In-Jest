@@ -318,6 +318,9 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
   if do_round == nil then do_round = true end
   if only == nil then only = false end
 
+  -- Store original values before modification
+  local keys, original_values = jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
+
   local operators = {
     ["+"] = function(a, b) return a + b end,
     ["-"] = function(a, b) return a - b end,
@@ -326,7 +329,7 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
     ["%"] = function(a, b) return a % b end,
     ["="] = function(a, b) return b end,
   }
-  
+
   local function round_int(x)
     return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
   end
@@ -339,17 +342,18 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
     end
   end
 
-  local function process_value(val)
+  local function process_value(val, base_val)
     if type(val) == "number" then
-      local res = operators[equation](val, extra_value)
+      local delta = val - base_val
+      local result = operators[equation](base_val, extra_value) + delta
       if do_round then
-        if val % 1 ~= 0 then
-          return round_hundredth(res)
+        if base_val % 1 ~= 0 then
+          return round_hundredth(result)
         else
-          return round_int(res)
+          return round_int(result)
         end
       else
-        return res
+        return result
       end
     else
       return val
@@ -375,13 +379,13 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
     return true
   end
 
-  local function process_table(t)
+  local function process_table(t, base_table)
     for key, value in pairs(t) do
       if value ~= nil and should_process(key, value) then
         if type(value) == "number" then
-          t[key] = process_value(value)
-        elseif type(value) == "table" then
-          process_table(value)
+          t[key] = process_value(value, base_table[key] or 0)
+        elseif type(value) == "table" and type(base_table[key]) == "table" then
+          process_table(value, base_table[key])
         end
       end
     end
@@ -390,10 +394,13 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
   local search_table = extra_search and card[extra_search] or card.ability
 
   if search_table then
+    local _, base_values = jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
     if type(search_table) == "number" then
-      search_table = process_value(search_table)
+      search_table = process_value(search_table, base_values[1] or 0)
     elseif type(search_table) == "table" then
-      process_table(search_table)
+      local base_map = {}
+      for i, k in ipairs(keys) do base_map[k] = original_values[i] end
+      process_table(search_table, base_map)
     end
   end
 end
@@ -896,4 +903,12 @@ function All_in_Jest.counts_as_all_suits(card)
   if card.ability.jest_all_suit then
       return true
   end
+end
+
+function All_in_Jest.reset_game_globals(run_start)
+	G.GAME.shop_galloping_dominoed = false
+    G.GAME.jest_shop_perma_free = false
+    if run_start then
+        G.GAME.all_in_jest.pit_blind_ante = math.random(4,5)
+    end
 end

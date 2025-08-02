@@ -8,6 +8,7 @@ return {
             k_asteroid = "Asteroid",
             aij_requires_restart = "Requires Restart",
             aij_enable_moons = "Enable Moons",
+            aij_upgraded_tags = "Gold Tags",
             aij_alter_trypophobia = "Alter Trypophobia",
             aij_no_copy_neg = "Allow Copying Negative Playing Cards",
             k_aij_guess_the_jest = "Guess the Jest",
@@ -16,7 +17,9 @@ return {
         },
         labels = {
             aij_glimmer = "Glimmer",
+            aij_silver = "Silver",
             aij_stellar = "Stellar",
+            aij_marked = "Marked",
             k_aij_jest_chaotic_card = "Chaotic",
         }
     },
@@ -42,6 +45,116 @@ return {
                 }
             }
         },
+        Blind = {
+            -- Pit Blinds
+            bl_aij_the_heart = {
+                name = "The Heart",
+                text = {
+                    'Must play a hand',
+                    'containing a #1#',
+                    'before hands score'
+                },
+            },
+            bl_aij_the_rains = {
+                name = "The Rains",
+                text = {
+                    'Remove vanilla modifiers',
+                    'from all scored cards in',
+                    'the winning hand'
+                },
+            },
+            bl_aij_the_child = {
+                name = "The Child",
+                text = {
+                    'Reduce the rank of all',
+                    'scoring cards by 1'
+                },
+            },
+            bl_aij_the_moon = {
+                name = "The Moon",
+                text = {
+                    'All cards on odd numbered',
+                    'hands are debuffed'
+                },
+            },
+            bl_aij_the_shell = {
+                name = "The Shell",
+                text = {
+                    '#1# in #2# cards are debuffed',
+                    '#3# in #4# cards are drawn',
+                    'face down'
+                },
+            },
+            bl_aij_the_earth = {
+                name = "The Earth",
+                text = {
+                    'Turns all cards held in',
+                    'hand into Stone Cards',
+                    'after scoring'
+                },
+            },
+            bl_aij_the_dragon = {
+                name = "The Dragon",
+                text = {
+                    'Cannot not draw any',
+                    'cards until hand is',
+                    'empty'
+                },
+            },
+            bl_aij_the_mountain = {
+                name = "The Mountain",
+                text = {
+                    'Very large blind',
+                    '+1 Hand size'
+                },
+            },
+            bl_aij_the_umbilical = {
+                name = "The Umbilical",
+                text = {
+                    'Mark one random card each',
+                    'hand, These cards cannot',
+                    'be played or discarded'
+                },
+            },
+            bl_aij_the_divine = {
+                name = "The Divine",
+                text = {
+                    'Hand must contain',
+                    'an enhanced card'
+                },
+            },
+            bl_aij_the_bird = {
+                name = "The Bird",
+                text = {
+                    'Shuffle 1 random',
+                    'Joker before scoring'
+                },
+            },
+            bl_aij_the_arrow = {
+                name = "The Arrow",
+                text = {
+                    'Played hands score must',
+                    'exceed the score of all',
+                    'previous played hands'
+                },
+            },
+            -- Finisher Blinds
+            bl_aij_obsidian_blade = {
+                name = "Obsidian Blade",
+                text = {
+                    '-1 Hand Size, -1 Discard,',
+                    '-1 Hand, Large Blind'
+                },
+            },
+            bl_aij_aureate_coin = {
+                name = "Aureate Coin",
+                text = {
+                    '+0.1X base for each $1',
+                    'you have when entering',
+                    'the ante'
+                },
+            },
+        },
         Enhanced = {
             m_aij_fervent = {
                 name = "Fervent Card",
@@ -66,6 +179,31 @@ return {
                 }
             },
         },
+        Voucher = {
+            v_aij_fairy_dust ={
+                name = "Fairy Dust",
+                text = {
+                    "{C:dark_edition}Glimmer{}, {C:dark_edition}Silver{}, and",
+                    "{C:dark_edition}Stellar{} cards",
+                    "appear {C:attention}#1#X{} more often",
+                },
+            },
+            v_aij_live_pixie ={
+                name = "Live Pixie",
+                text = {
+                    "{C:dark_edition}Glimmer{}, {C:dark_edition}Silver{}, and",
+                    "{C:dark_edition}Stellar{} cards",
+                    "appear {C:attention}#1#X{} more often",
+                },
+            },
+            v_aij_gold_medal ={
+                name = "Gold Medal",
+                text = {
+                    "{C:money}Gold{} Tags appear",
+                    "{C:attention}#1#X{} more often",
+                },
+            },
+        },
         Edition = {
             e_aij_negative_playing_card = {
                 name = "Negative",
@@ -79,6 +217,12 @@ return {
                 text = {
                     "{C:aij_plasma}Balances{} {C:attention}#1#%{} of",
                     "{C:mult}Mult{} and {C:chips}Chips"
+                }
+            },
+            e_aij_silver = {
+                name = "Silver",
+                text = {
+                    "{C:attention}X#1#{} effects",
                 }
             },
             e_aij_stellar = {
@@ -1059,7 +1203,7 @@ return {
             j_aij_fou_du_roi = {
                 name = "Fou du Roi",
                 text = {
-                    '{C:green}#2# in #1#{} chance to create a',
+                    '{C:green}#1# in #2#{} chance to create a',
                     '{C:tarot}Tarot{} card if played hand',
                     'contains a {C:attention}King{} or {C:attention}Queen',
                     '{C:inactive}(Must have room)'
@@ -1168,7 +1312,7 @@ return {
                 text = { 
                     "Removes {C:dark_edition}Negative{} from",
                     "played cards. For each,",
-                    "{C:green}#2# in #1#{} chance this Joker",
+                    "{C:green}#1# in #2#{} chance this Joker",
                     "gains {C:attention}+#3# hand size",
                     "{C:inactive}(Currently {C:attention}+#4#{C:inactive} hand size)"
                 } 
@@ -1487,7 +1631,14 @@ return {
             },
             j_aij_tilty_joker = { name = "Tilty Joker", text = { "" } },
             j_aij_opening_move = { name = "Opening Move", text = { "" } },
-            j_aij_bartender = { name = "Bartender", text = { "" } },
+            j_aij_bartender = { 
+                name = "Bartender", 
+                text = { 
+                    "{C:attention}Consumable{} cards may be",
+                    "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
+                    "{C:dark_edition}Polychrome" 
+                } 
+            },
             j_aij_mahoney = { 
                 name = "Mahoney", 
                 text = { 
@@ -1608,8 +1759,8 @@ return {
                 name = "Bingo Card", 
                 text = { 
                     "Scoring {C:attention}lucky{} cards have a",
-                    "{C:green}#1# in #2#{} chance for {X:mult,C:white}X#4#{} Mult",
-                    "and a {C:green}#1# in #3#{} chance to",
+                    "{C:green}#1# in #2#{} chance for {X:mult,C:white}X#5#{} Mult",
+                    "and a {C:green}#3# in #4#{} chance to",
                     "retrigger" 
                 } 
             },
@@ -2435,6 +2586,14 @@ return {
                     'becomes {C:aij_plasma}Glimmer'
                 }
             },
+            tag_aij_silver = {
+                name = 'Silver Tag',
+                text = {
+                    'Next base edition shop',
+                    'Joker is free and',
+                    'becomes {C:aij_silver}Silver'
+                }
+            },
             tag_aij_stellar = {
                 name = 'Stellar Tag',
                 text = {
@@ -2470,9 +2629,251 @@ return {
             tag_aij_chaos = {
                 name = 'Chaos Tag',
                 text = {
-                    "Has a {C:green}random{} effect"
+                    "Has a {C:red}random{} effect"
                 }
-            }
+            },
+            -- Gold Tags
+            tag_aij_windfall = {
+                name = 'Windfall Tag',
+                text = {
+                    "{C:money}Triples{} your money"
+                }
+            },
+            tag_aij_unusual = {
+                name = 'Unusual Tag',
+                text = {
+                    "Shop has a free",
+                    "{C:uncommon}Uncommon Joker{} with",
+                    "{C:attention}doubled{} values"
+                }
+            },
+            tag_aij_recherche = {
+                name = 'Recherché Tag',
+                text = {
+                    "Shop has a free",
+                    "{C:rare}Rare Joker{} with",
+                    "{C:attention}doubled{} values"
+                }
+            },
+            tag_aij_hermetic = {
+                name = 'Hermetic Tag',
+                text = {
+                    'Choose {C:attention}any{} {C:spectral}Spectral{}',
+                    'card to create',
+                    '{C:inactive}(Must have room)'
+                }
+            },
+            tag_aij_dark_matter = {
+                name = 'Dark Matter Tag',
+                text = {
+                    'Apply {C:dark_edition}Negative{} to',
+                    'a {C:attention}random{} Joker',
+                }
+            },
+            tag_aij_crystal = {
+                name = 'Crystal Tag',
+                text = {
+                    'Apply {C:dark_edition}Foil{} to a',
+                    '{C:attention}random{} Joker and',
+                    '{C:attention}#1#{} cards in deck'
+                }
+            },
+            tag_aij_iridescent = {
+                name = 'Iridescent Tag',
+                text = {
+                    'Apply {C:dark_edition}Holographic{}',
+                    'to a {C:attention}random{} Joker',
+                    'and {C:attention}#1#{} cards in deck'
+                }
+            },
+            tag_aij_omnichrome = {
+                name = 'Omnichrome Tag',
+                text = {
+                    'Apply {C:dark_edition}Polychrome{} to',
+                    'the {C:attention}rightmost{} base',
+                    'edition Joker',
+                }
+            },
+            tag_aij_circumplanetary = {
+                name = 'Circumplanetary Tag',
+                text = {
+                    'Upgrade {C:attention}#2#',
+                    'by {C:attention}#1# levels',
+                }
+            },
+            tag_aij_velocity = {
+                name = 'Velocity Tag',
+                text = {
+                    'Gives {C:money}$#1#{}, minus {C:money}$#2#',
+                    'per {C:attention}round',
+                    '{C:inactive}(Will give {C:money}$#3#{C:inactive})'
+                }
+            },
+            tag_aij_capital = {
+                name = 'Capital Tag',
+                text = {
+                    'After defeating',
+                    'the Boss Blind',
+                    'gain {C:money}$#1#'
+                }
+            },
+            tag_aij_bierstiefel = {
+                name = 'Bierstiefel Tag',
+                text = {
+                    'Fill all {C:attention}empty',
+                    'joker {C:attention}slots{} with',
+                    'random {C:common}common{} or',
+                    '{C:uncommon}uncommon{} jokers'
+                }
+            },
+            tag_aij_ticket = {
+                name = 'Ticket Tag',
+                text = {
+                    'Redeem a random',
+                    'Voucher and its',
+                    'upgraded version'
+                }
+            },
+            tag_aij_galloping_domino = {
+                name = 'Galloping Domino Tag',
+                text = {
+                    'All rerolls cost',
+                    '{C:money}$#1#{} next shop'
+                }
+            },
+            tag_aij_gioco = {
+                name = 'Gioco Tag',
+                text = {
+                    '{C:attention}Double{} hand size',
+                    'next round',
+                }
+            },
+            tag_aij_stereoscopic = {
+                name = 'Stereoscopic Tag',
+                text = {
+                    'Gives a {C:money}gold{} copy of',
+                    'the next selected {C:attention}Tag',
+                    '{s:0.8,C:attention}Double Tag{s:0.8} excluded',
+                }
+            },
+            tag_aij_frugal = {
+                name = 'Frugal Tag',
+                text = {
+                    'All cards and',
+                    'booster packs in next',
+                    'shop are free',
+                }
+            },
+            tag_aij_dominus = {
+                name = 'Dominus Tag',
+                text = {
+                    'Disables the {C:attention}Boss blind{}',
+                    'score requirement equals',
+                    'that of {C:attention}Small blinds'
+                }
+            },
+            tag_aij_nonstandard = {
+                name = 'Nonstandard Tag',
+                text = {
+                    'Create any playing card',
+                    'Gain {C:attention}2 copies{} of it'
+                }
+            },
+            tag_aij_ignoramus = {
+                name = 'Ignoramus Tag',
+                text = {
+                    'Choose {C:attention}any{} {C:common}Common',
+                    'or {C:uncommon}Uncommon{} Joker',
+                    'to create',
+                    '{C:inactive}(Must have room)'
+                }
+            },
+            tag_aij_occult = {
+                name = 'Occult Tag',
+                text = {
+                    'Create {C:attention}3 {C:tarot}Tarot{} cards',
+                    'and {C:attention}2 {C:spectral}Spectral{} cards', 
+                    '{s:0.8}They are {s:0.8,C:dark_edition}Negative',
+                }
+            },
+            tag_aij_asteroid = {
+                name = 'Asteroid Tag',
+                text = {
+                    'Gives a free',
+                    '{C:planet}Celestial Pack', 
+                    '{s:0.6,C:inactive}(Contains {s:0.6,C:dark_edition}Black Hole{s:0.6}',
+                    '{s:0.6,C:dark_edition}Pulsar{s:0.6,C:inactive}, and {s:0.6,C:dark_edition}Gravastar{s:0.6,C:inactive})',
+                }
+            },
+            tag_aij_polydactyly = {
+                name = 'Polydactyly Tag',
+                text = {
+                    'Gives {C:blue}+1 hand{} per',
+                    'unused {C:blue}hand{} this run', 
+                    '{C:inactive}(Will give {C:blue}+#1# hands{C:inactive})',
+                }
+            },
+            tag_aij_landfill = {
+                name = 'Landfill Tag',
+                text = {
+                    'Gives {C:money}$1{} per card',
+                    '{C:red}discarded{} this run', 
+                    '{C:inactive}(Will give {C:money}$#1#{C:inactive})',
+                }
+            },
+            tag_aij_cinema = {
+                name = 'Cinema Tag',
+                text = {
+                    'Apply {C:aij_silver}Silver{} to',
+                    'the {C:attention}leftmost{} base',
+                    'edition Joker',
+                }
+            },
+            tag_aij_ventripotent = {
+                name = 'Ventripotent Tag',
+                text = {
+                    "Next {C:attention}Booster Pack{} opened",
+                    "contains twice the number of",
+                    "options and unlimited picks"
+                }
+            },
+            tag_aij_timelost = {
+                name = 'Timelost Tag',
+                text = {
+                    'Gives a free {C:purple}Guess',
+                    '{C:purple}the Jest Pack{} with',
+                    '{C:attention}5{} perishable options',
+                }
+            },
+            tag_aij_auspicious = {
+                name = 'Auspicious Tag',
+                text = {
+                    'Choose {C:attention}any{} {C:tarot}Tarot{}',
+                    'card, create {C:attention}3{} copies',
+                    '{s:0.8}They are {s:0.8,C:dark_edition}Negative',
+                }
+            },
+            tag_aij_glamour = {
+                name = 'Glamour Tag',
+                text = {
+                    'Apply {C:aij_plasma}Glimmer{} to',
+                    '{C:attention}2 random{} Jokers',
+                }
+            },
+            tag_aij_superlunary = {
+                name = 'Superlunary Tag',
+                text = {
+                    'Apply {C:aij_stellar}Stellar{}',
+                    'to a {C:attention}random{} Joker',
+                    'and {C:attention}#1#{} cards in deck'
+                }
+            },
+            tag_aij_anarchy = {
+                name = 'Anarchy Tag',
+                text = {
+                    'Has a {C:red}RANDOM{} effect{C:red}!!!'
+                }
+            },
         },
         Tarot = {
             c_aij_magus = {
@@ -2618,7 +3019,15 @@ return {
                     "{C:attention}unchanged{} when reversed",
                     "{C:inactive}e.g 33, 151, 3003{}"
                 }
-            }
+            },
+            -- Stickers
+            aij_marked = {
+                name = "Marked",
+		        text = {
+                    'Cannot be {C:blue}played',
+                    'or {C:red}discarded'
+		        }
+            },
         }
     }
 }
