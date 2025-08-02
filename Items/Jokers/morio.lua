@@ -23,23 +23,31 @@ local morio = {
             card.ability.trigger = true
         end
         if context.cashing_out and card.ability.trigger then
-            if #G.consumeables.cards < G.consumeables.config.card_limit then
-                G.FUNCS.overlay_menu{
-                    config = {no_esc = true},
-                    definition = SMODS.jest_no_back_card_collection_UIBox(
-                        G.P_CENTER_POOLS.Tarot, 
-                        {5,6}, 
-                        {
-                            no_materialize = true, 
-                            modify_card = function(card, center) 
-                                if card.config.center.discovered then
-                                jest_create_select_card_ui(card, G.consumeables)
-                                end
-                            end, 
-                            h_mod = 1.05,
+            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    func = function() 
+                        G.SETTINGS.paused = true
+				        G.FUNCS.overlay_menu{
+                            config = {no_esc = true},
+                            definition = SMODS.jest_no_back_card_collection_UIBox(
+                                G.P_CENTER_POOLS.Tarot, 
+                                {5,6}, 
+                                {
+                                    no_materialize = true, 
+                                    modify_card = function(card, center) 
+                                        if card.config.center.discovered then
+                                        jest_create_select_card_ui(card, G.consumeables)
+                                        end
+                                    end, 
+                                    h_mod = 1.05,
+                                }
+                            ),
                         }
-                    ),
-                }
+                        return true 
+                    end 
+                }))
+                
             end
             card.ability.trigger = false
         end

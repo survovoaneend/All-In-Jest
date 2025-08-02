@@ -19,11 +19,19 @@ local cosmological_constant = {
   
     end,
   
-  calculate = function(self, card, context)
-    if context.modify_hand then
-        return {balance = true}
-    end
-  end
+    calculate = function(self, card, context)
+        if context.modify_hand then
+            return {balance = true}
+        end
+    end,
+    in_pool = function(self, args)
+        if G.GAME then
+            if G.GAME.selected_back.effect.center.key ~= 'b_plasma' then
+                return true
+            end
+        end
+        return false
+    end,
 }
 return { name = {"Jokers"}, items = {cosmological_constant} }
 
