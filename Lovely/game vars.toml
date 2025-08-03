@@ -41,7 +41,11 @@ payload = '''
 all_in_jest = {
 	dizzard_shop = false,
 	pit_blind_ante = 4,
+	skip_tags = {has_multiple = false, amt = 1},
+	advanced_hand_usage = {},
+	reset_score = {chips = false, mult = false, chip_total = false, blind_total = false}
 },
+-- move these into all_in_jest at some point
 jest_unused_hands = 0,
 jest_legendary_pool = {in_shop = false, rate = 1.00},
 jest_stored_memory_card = nil,

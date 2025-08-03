@@ -31,6 +31,70 @@ match_indent = true
 
 [[patches]] 
 [patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+G.E_MANAGER:add_event(Event({
+    trigger = 'after',delay = 0.4,
+    func = (function()  update_hand_text({delay = 0, immediate = true}, {mult = 0, chips = 0, chip_total = math.floor(hand_chips*mult), level = '', handname = ''});play_sound('button', 0.9, 0.6);return true end)
+}))
+'''
+position = "before"
+payload = '''
+SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, all_in_jest = {before_after = true}, total_chips = math.floor(hand_chips*mult)})
+if G.GAME.all_in_jest.reset_score.chips then
+    hand_chips = 0
+    G.GAME.all_in_jest.reset_score.chips = false
+end
+if G.GAME.all_in_jest.reset_score.mult then
+    mult = 0
+    G.GAME.all_in_jest.reset_score.mult = false
+end
+if G.GAME.all_in_jest.reset_score.chip_total then
+    mult = 0
+    hand_chips = 0
+    G.GAME.all_in_jest.reset_score.chip_total = false
+end
+local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage + 1
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing] = {}
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].mult = mult
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].chips = hand_chips
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].total_chips = math.floor(hand_chips*mult)
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+G.E_MANAGER:add_event(Event({
+    trigger = 'ease',
+    blocking = false,
+    ref_table = G.GAME,
+    ref_value = 'chips',
+    ease_to = G.GAME.chips + math.floor(hand_chips*mult),
+    delay =  0.5,
+    func = (function(t) return math.floor(t) end)
+}))
+'''
+position = "after"
+payload = '''
+if G.GAME.all_in_jest.reset_score.blind_total then
+    G.E_MANAGER:add_event(Event({
+      trigger = 'ease',
+      blocking = false,
+      ref_table = G.GAME,
+      ref_value = 'chips',
+      ease_to = 0,
+      delay =  0.5,
+      func = (function(t) return math.floor(t) end)
+    }))
+    G.GAME.all_in_jest.reset_score.blind_total = false
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "if #G.hand.highlighted <= 0 or G.GAME.blind.block_play or #G.hand.highlighted > math.max(G.GAME.starting_params.play_limit, 1) then"
 position = "before"

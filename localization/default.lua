@@ -43,7 +43,35 @@ return {
                 unlock = {
                     '?????',
                 }
+            },
+            b_aij_branching = {
+                name = 'Branching Deck',
+                text = {
+                    'Skips offer a choice',
+                    'between {C:attention}3{} Tags',
+                },
+                unlock = {
+                    'Do a',
+                    'Something',
+                }
+            },
+            b_aij_branching_hidden = {
+                name = 'Branching Deck',
+                text = {},
+                unlock = {
+                    '?????',
+                }
             }
+        },
+        Stake = {
+            stake_blue = {
+                name = "Blue Stake",
+                text = {
+                    'Boss Blind on Ante',
+                    '{C:attention}4{} or {C:attention}5{} is a Pit Blind',
+                    '{s:0.8}Applies all previous Stakes'
+                }
+            },
         },
         Blind = {
             --Normal Blinds
@@ -309,6 +337,14 @@ return {
                     'Played hands score must',
                     'exceed the score of all',
                     'previous played hands'
+                },
+            },
+            bl_aij_the_brilliance = {
+                name = "The Brilliance",
+                text = {
+                    'Must meet the score',
+                    'requirement twice',
+                    '+2 Hands',
                 },
             },
             -- Finisher Blinds
