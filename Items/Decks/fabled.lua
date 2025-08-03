@@ -11,6 +11,7 @@ local fabled = {
         extra = {
             should_increase = true,
             remove_amt = 0,
+            counterbalance = 0
         }
     },
     loc_vars = function(self)
@@ -24,13 +25,13 @@ local fabled = {
     calculate = function(self, card, context)
         if context.end_of_round and not context.repetition and not context.individual and G.GAME.selected_back.effect.config.extra.should_increase then
              G.GAME.jest_legendary_pool.rate =  G.GAME.jest_legendary_pool.rate - 0.002
-             G.GAME.selected_back.effect.config.extra.remove_amt = G.GAME.selected_back.effect.config.extra.remove_amt + 0.002
+             G.GAME.selected_back.effect.config.extra.counterbalance = G.GAME.selected_back.effect.config.extra.counterbalance + 0.002
         end
         if context.buying_card then
             if context.card.ability.set == "Joker" and context.card.config.center.rarity == 4 then
                 G.GAME.selected_back.effect.config.extra.should_increase = false
-                G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate + G.GAME.selected_back.effect.config.extra
-                G.GAME.selected_back.effect.config.extra.remove_amt = 0
+                G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate + G.GAME.selected_back.effect.config.extra.counterbalance
+                G.GAME.selected_back.effect.config.extra.counterbalance = 0
             end
         end
     end,
