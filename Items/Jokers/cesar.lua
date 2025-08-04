@@ -1,6 +1,6 @@
 local cesar = {
     object_type = "Joker",
-    order = 184,
+    order = 182,
 
     key = "cesar",
     config = {
@@ -17,6 +17,7 @@ local cesar = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = false,
   
     loc_vars = function(self, info_queue, card)
         return {

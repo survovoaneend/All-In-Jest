@@ -24,7 +24,7 @@ local dim_bulb = {
           local only_common = true
           if G.jokers and G.jokers.cards then
               for _, joker_card in ipairs(G.jokers.cards) do
-                  if joker_card ~= card and joker_card.config.center.rarity ~= 1 then
+                  if joker_card ~= card and joker_card.config.center.rarity == 2 or joker_card.config.center.rarity == 3 then
                       only_common = false
                       break
                   end

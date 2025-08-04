@@ -1,7 +1,6 @@
 local hat_trick = {
     object_type = "Joker",
     order = 12,
-    ignore = true,
 
     key = "hat_trick",
     config = {
@@ -13,15 +12,23 @@ local hat_trick = {
     cost = 4,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
-    eternal_compat = false,
+    blueprint_compat = true,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+
     end,
   
     calculate = function(self, card, context)
-      
+      if context.individual and context.cardarea == G.play then
+        local multt = to_number(G.GAME.hands['Three of a Kind'].level)
+        if context.other_card:get_id() == 3 then 
+            return {
+                mult = multt,
+                card = card
+            }
+        end
+      end
     end
   
 }

@@ -12,7 +12,7 @@ local punk_joker = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
@@ -20,7 +20,7 @@ local punk_joker = {
     end,
   
     calculate = function(self, card, context)
-      if context.before and context.scoring_hand and not context.blueprint then
+      if context.before and context.scoring_hand then
           local has_wild = false
           for _, scoring_card in ipairs(context.scoring_hand) do
               if scoring_card.config.center.key == 'm_wild' then
@@ -46,18 +46,14 @@ local punk_joker = {
                         target_card:juice_up()
                         return true
                     end
-                })) 
-                  card_eval_status_text(card, 'extra', nil, nil, nil, {
-                      message = 'Wild!', 
+                  })) 
+                  card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
+                    message = 'Wild!', 
                   })
-                  return true 
               end
-          end
+            end
           end
       end
-
-     
-      return nil
     end,
     in_pool = function(self, args)
         local wild = 0

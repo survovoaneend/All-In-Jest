@@ -16,13 +16,14 @@ local tetraphobia = {
   discovered = false,
   blueprint_compat = true,
   eternal_compat = true,
+  perishable_compat = false,
 
   loc_vars = function(self, info_queue, card)
       return { vars = { card.ability.extra.mult or 0, card.ability.extra.mult_mod } }
   end,
 
   calculate = function(self, card, context)
-
+      
       if context.discard and context.other_card and context.other_card:get_id() == 4 and not context.other_card.debuff then
           card.ability.extra.mult = (card.ability.extra.mult or 0) + card.ability.extra.mult_mod
           card_eval_status_text(card, 'extra', nil, nil, nil, {

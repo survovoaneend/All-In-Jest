@@ -17,6 +17,7 @@ local jeff_the_joker = {
   discovered = false,
   blueprint_compat = true, 
   eternal_compat = true, 
+  perishable_compat = false,
 
   loc_vars = function(self, info_queue, card)
       -- Display the current multiplier stored in the card's ability table

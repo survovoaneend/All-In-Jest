@@ -12,7 +12,7 @@ local sleepy_joker = {
     rarity = 2,
     pos = { x = 6, y = 0 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 7,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

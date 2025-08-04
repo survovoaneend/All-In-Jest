@@ -6,7 +6,7 @@ local fortunato = {
   config = {
     extra = {
       x_mult = 1,
-      xmult_mod = 0.15,
+      xmult_mod = 0.1,
       activated = false,
     }
   },
@@ -19,6 +19,7 @@ local fortunato = {
   discovered = false,
   blueprint_compat = true,
   eternal_compat = true,
+  perishable_compat = false,
   soul_pos = { x = 5, y = 1 },
 
   loc_vars = function(self, info_queue, card)

@@ -11,7 +11,7 @@ local vulcanoid_planet = {
 	discovered = false,
 	order = 0,
 	jest_spec_moon = true,
-	config = {hand_type = "Pair", moon = true},
+	config = {hand_type = "Pair", moon = true, mult = true},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
 		return {

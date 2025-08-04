@@ -30,7 +30,7 @@ local the_jester = {
 
     calculate = function(self, card, context)
         if context.selling_card then
-            if not context.selling_self then
+            if context.card ~= card then
                 if context.card.ability.set == "Joker" and card.ability.extra.active then
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',

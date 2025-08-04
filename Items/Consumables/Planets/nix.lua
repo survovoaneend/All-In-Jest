@@ -11,7 +11,7 @@ local nix_planet = {
 	discovered = false,
 	order = 8,
 	jest_spec_moon = true,
-	config = {hand_type = "High Card", moon = true},
+	config = {hand_type = "High Card", moon = true, mult = true},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
 		return {

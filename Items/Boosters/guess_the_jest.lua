@@ -1,3 +1,5 @@
+
+
 local guess_the_jest = {
     object_type = "Booster",
     order = 67,
@@ -5,7 +7,7 @@ local guess_the_jest = {
     atlas = 'booster_atlas', 
     pos = { x = 0, y = 0 }, 
     cost = 20, 
-    weight = 0.05, 
+    weight =  0.05, 
     config = { extra = 3, choose = 1 }, 
     discovered = false, 
     unlocked = true, 
@@ -22,6 +24,15 @@ local guess_the_jest = {
         })
         G.booster_pack_sparkles.fade_alpha = 1
         G.booster_pack_sparkles:fade(1, 0)
+    end,
+    get_weight = function(self)
+        local has_whatsisname = next(SMODS.find_card("j_aij_whatsisname"))
+        if has_whatsisname then
+            return 0.15
+        else
+            return 0.05
+        end
+        
     end,
     create_card = function(self, card, i)
         local card_params = {

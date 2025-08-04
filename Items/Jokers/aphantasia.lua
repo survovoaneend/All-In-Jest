@@ -2,7 +2,6 @@ local aphantasia = {
     object_type = "Joker",
     order = 268,
     key = "aphantasia",
-    ignore = true,
     config = {
       
     },
@@ -16,7 +15,7 @@ local aphantasia = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+        info_queue[#info_queue + 1] = {set = 'Other', key = 'aij_jest_chaotic_card'}
     end,
   
     calculate = function(self, card, context)
@@ -27,6 +26,5 @@ local aphantasia = {
           end
         end
     end
-  
 }
 return { name = {"Jokers"}, items = {aphantasia} }

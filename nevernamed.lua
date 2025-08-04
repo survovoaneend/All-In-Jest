@@ -10,6 +10,9 @@ end
 to_number = to_number or function(n)
   return n
 end
+SMODS.current_mod.optional_features = {
+  retrigger_joker = true
+}
 SMODS.injectItems = function()
     injectitems_ref()
     G.AIJ.shared_mystery_sprites = G.AIJ.shared_mystery_sprites or {
@@ -36,6 +39,12 @@ SMODS.Atlas {
   path = "jokers.png",
   px = 71,
   py = 95
+}
+SMODS.Atlas {
+  key = "jumbo_joker",
+  path = "jumbo_joker.png",
+  px = 81,
+  py = 111
 }
 SMODS.Atlas {
     key = "deck_atlas",

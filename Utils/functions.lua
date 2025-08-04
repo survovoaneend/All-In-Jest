@@ -1,3 +1,101 @@
+--repurposd from paperback
+function jest_poll_tag(seed, options)
+  -- This part is basically a copy of how the base game does it
+  -- Look at get_next_tag_key in common_events.lua
+  local pool = options or get_current_pool('Tag')
+  local tag_key = pseudorandom_element(pool, pseudoseed(seed))
+
+  while tag_key == 'UNAVAILABLE' do
+    tag_key = pseudorandom_element(pool, pseudoseed(seed))
+  end
+
+  local tag = Tag(tag_key)
+
+  -- The way the hand for an orbital tag in the base game is selected could cause issues
+  -- with mods that modify blinds, so we randomly pick one from all visible hands
+  if tag_key == "tag_orbital" then
+    local available_hands = {}
+
+    for _, k in ipairs(G.handlist) do
+      local hand = G.GAME.hands[k]
+      if hand.visible then
+        available_hands[#available_hands + 1] = k
+      end
+    end
+
+    tag.ability.orbital_hand = pseudorandom_element(available_hands, pseudoseed(seed .. '_orbital'))
+  end
+
+  return tag
+end
+
+function next_palindrome(n)
+    while true do
+        local s = tostring(math.floor(n))
+        if s == s:reverse() and #s > 1 then
+            return n
+        end
+        n = n + 1
+    end
+end
+
+local original_emplace = CardArea.emplace
+
+function CardArea:emplace(card, ...)
+    local result = original_emplace(self, card, ...)
+    if self == G.jokers and card.ability.set == "Joker" and G.STATE == 5 then
+        G.GAME.jest_bought_jokers = (G.GAME.jest_bought_jokers or 0) + 1
+    end
+
+    return result
+end
+
+-- better temp values
+function apply_multiplier(t, key, factor, tag)
+    t.temp_mult_val = t.temp_mult_val or {}
+    t.temp_mult_val[key] = t.temp_mult_val[key] or {}
+    t.temp_mult_val[key][tag] = factor
+    update_multiplied_value(t, key)
+end
+
+function remove_multiplier(t, key, tag)
+    if t.temp_mult_val and t.temp_mult_val[key] then
+        t.temp_mult_val[key][tag] = nil
+        update_multiplied_value(t, key)
+    end
+end
+
+function update_multiplied_value(t, key)
+    local base = t["base_"..key] or t[key]
+    t["base_"..key] = base  -- Save original if not already
+    local result = base
+    for _, mult in pairs(t.temp_mult_val[key] or {}) do
+        result = result * mult
+    end
+    t[key] = result
+end
+
+
+--also repurposed from paperback
+function jest_add_tag(tag, event, silent)
+  local func = function()
+    add_tag(type(tag) == 'string' and Tag(tag) or tag)
+    if not silent then
+      play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
+      play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
+    end
+    return true
+  end
+
+  if event then
+    G.E_MANAGER:add_event(Event {
+      func = func
+    })
+  else
+    func()
+  end
+end
+
 function level_up_hand_chips(card, hand, instant, amount)
     if (G.GAME.hands[hand].level and G.GAME.hands[hand].chips) then
         amount = amount or 1
@@ -220,6 +318,9 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
   if do_round == nil then do_round = true end
   if only == nil then only = false end
 
+  -- Store original values before modification
+  local keys, original_values = jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
+
   local operators = {
     ["+"] = function(a, b) return a + b end,
     ["-"] = function(a, b) return a - b end,
@@ -228,7 +329,7 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
     ["%"] = function(a, b) return a % b end,
     ["="] = function(a, b) return b end,
   }
-  
+
   local function round_int(x)
     return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
   end
@@ -241,17 +342,18 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
     end
   end
 
-  local function process_value(val)
+  local function process_value(val, base_val)
     if type(val) == "number" then
-      local res = operators[equation](val, extra_value)
+      local delta = val - base_val
+      local result = operators[equation](base_val, extra_value) + delta
       if do_round then
-        if val % 1 ~= 0 then
-          return round_hundredth(res)
+        if base_val % 1 ~= 0 then
+          return round_hundredth(result)
         else
-          return round_int(res)
+          return round_int(result)
         end
       else
-        return res
+        return result
       end
     else
       return val
@@ -277,13 +379,13 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
     return true
   end
 
-  local function process_table(t)
+  local function process_table(t, base_table)
     for key, value in pairs(t) do
       if value ~= nil and should_process(key, value) then
         if type(value) == "number" then
-          t[key] = process_value(value)
-        elseif type(value) == "table" then
-          process_table(value)
+          t[key] = process_value(value, base_table[key] or 0)
+        elseif type(value) == "table" and type(base_table[key]) == "table" then
+          process_table(value, base_table[key])
         end
       end
     end
@@ -292,10 +394,13 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
   local search_table = extra_search and card[extra_search] or card.ability
 
   if search_table then
+    local _, base_values = jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
     if type(search_table) == "number" then
-      search_table = process_value(search_table)
+      search_table = process_value(search_table, base_values[1] or 0)
     elseif type(search_table) == "table" then
-      process_table(search_table)
+      local base_map = {}
+      for i, k in ipairs(keys) do base_map[k] = original_values[i] end
+      process_table(search_table, base_map)
     end
   end
 end
@@ -821,4 +926,12 @@ function All_in_Jest.counts_as_all_suits(card)
   if card.ability.jest_all_suit then
       return true
   end
+end
+
+function All_in_Jest.reset_game_globals(run_start)
+	G.GAME.shop_galloping_dominoed = false
+    G.GAME.jest_shop_perma_free = false
+    if run_start then
+        G.GAME.all_in_jest.pit_blind_ante = math.random(4,5)
+    end
 end

@@ -15,6 +15,56 @@ for i = #G.GAME.tags, 1, -1 do
 end
 '''
 
+# Clay Joker and Visage Comapat visuals
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.name == 'Blueprint' or self.ability.name == 'Brainstorm' then"
+position = "before"
+payload = '''
+if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage' then
+	local other_joker = nil
+    if self.ability.name == 'j_aij_visage' then
+        other_joker = G.GAME.jest_visage_last_sold
+    elseif self.ability.name == 'j_aij_clay_joker' then
+        other_joker = G.GAME.jest_clay_last_destroyed
+    end
+    if other_joker and other_joker ~= self and other_joker.config.center.blueprint_compat then
+        self.ability.blueprint_compat = 'compatible'
+    else
+        self.ability.blueprint_compat = 'incompatible'
+    end
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "elseif self.ability.name == 'Blueprint' then"
+position = "before"
+payload = '''
+elseif self.ability.name == 'j_aij_clay_joker' then
+    self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
+    main_end = (self.area and self.area == G.jokers) and {
+        {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+            {n=G.UIT.C, config={ref_table = self, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
+                {n=G.UIT.T, config={ref_table = self.ability, ref_value = 'blueprint_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            }}
+        }}
+    } or nil
+elseif self.ability.name == 'j_aij_visage' then
+    self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
+    main_end = (self.area and self.area == G.jokers) and {
+        {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+            {n=G.UIT.C, config={ref_table = self, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
+                {n=G.UIT.T, config={ref_table = self.ability, ref_value = 'blueprint_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            }}
+        }}
+    } or nil
+'''
+match_indent = true 
+
 [[patches]]
 [patches.pattern]
 target = "card.lua"
@@ -33,7 +83,7 @@ pattern = '(G.GAME.used_vouchers["v_retcon"] or G.GAME.used_vouchers["v_director
 position = "before"
 match_indent = true
 payload = '''
-((G.GAME.jest_free_stultor_rerolls or 0) > 0) and
+(G.GAME.jest_free_stultor_rerolls > 0) and
 UIBox_button({label = {localize('b_reroll_boss'), localize('$')..'0'}, button = "jest_free_reroll_boss", func = 'jest_free_reroll_boss_button'}) or
 '''
 
@@ -45,12 +95,12 @@ pattern = "-- TARGET: evaluate your own general effects"
 position = "before"
 match_indent = true
 payload = '''
-if context.after and context.cardarea == G.play then
+if context.final_scoring_step and context.cardarea == G.play and context.full_hand then
     for i = 1, #G.play.cards do
         if G.play.cards[i].ability.set == 'Enhanced' and G.play.cards[i].ability.jest_chaotic_card then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
-                delay = 0.3,
+                delay = 0.1,
                 func = function()
                     local cen_pool = {}
                     for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
@@ -61,7 +111,7 @@ if context.after and context.cardarea == G.play then
                     center = pseudorandom_element(cen_pool, pseudoseed('jest_chaotic_card'))
                 
                     G.play.cards[i]:juice_up(0.3, 0.3)
-                    G.play.cards[i]:set_ability(center, nil, true)
+                    G.play.cards[i]:set_ability(center)
                     G.play.cards[i].ability.jest_chaotic_card = true
                 return true
                 end
@@ -71,6 +121,94 @@ if context.after and context.cardarea == G.play then
 end
 '''
 
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if v == 'eternal' then info_queue[#info_queue+1] = {key = 'eternal', set = 'Other'} end"
+position = "before"
+match_indent = true
+payload = '''
+if v == 'k_aij_jest_chaotic_card' then info_queue[#info_queue+1] = {key = 'aij_jest_chaotic_card', set = 'Other'} end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.eternal then badges[#badges + 1] = 'eternal' end"
+position = "before"
+match_indent = true
+payload = '''
+if self.ability.jest_chaotic_card then badges[#badges + 1] = 'k_aij_jest_chaotic_card' end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "info_queue[#info_queue+1] = {key = 'e_'..v, set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit}}"
+position = "at"
+match_indent = true
+payload = '''
+if not All_in_Jest.config.no_copy_neg and v == 'negative_playing_card' then
+    info_queue[#info_queue+1] = {key = 'e_aij_negative_playing_card', set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit}}
+else
+    info_queue[#info_queue+1] = {key = 'e_'..v, set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit}}
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = "for _, v in pairs(SMODS.Rarities) do"
+position = "before"
+payload = '''
+for _, v in pairs(SMODS.jest_Badges) do
+    self:inject(v)
+end
+'''
+match_indent = true 
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = "SMODS.Rarities = {}"
+position = "before"
+payload = '''
+SMODS.jest_Badges = {}
+SMODS.jest_Badge = SMODS.GameObject:extend {
+    obj_table = SMODS.jest_Badges,
+    obj_buffer = {},
+    set = 'jest_Badge',
+    required_params = {
+        'key',
+    },
+    badge_colour = HEX 'FFFFFF',
+    inject = function(self, center) 
+        if center.set ~= self.key then SMODS.insert_pool(SMODS.jest_Badges[self.key], center) end
+        if not center.pools then center.pools = {} end
+        center.pools[self.key] = true
+        G.C.jest_Badge[self.key] = self.badge_colour
+    end,
+    process_loc_text = function(self)
+        SMODS.process_loc_text(G.localization.misc.labels, "k_"..self.key:lower(), self.loc_txt, 'name')
+        SMODS.process_loc_text(G.localization.misc.dictionary, "k_"..self.key:lower(), self.loc_txt, 'name')
+    end,
+    get_badge = function(self, badge)
+        return localize("k_"..badge:lower())
+    end,
+}
+
+local game_init_game_object_ref = Game.init_game_object
+function Game:init_game_object()
+    local t = game_init_game_object_ref(self)
+    for _, v in pairs(SMODS.jest_Badges) do
+        local key = v.key:lower() .. '_mod'
+        t[key] = t[key] or 1
+    end
+    return t
+end
+'''
+match_indent = true 
+
 # Remove neg copy
 [[patches]]
 [patches.pattern]
@@ -79,7 +217,7 @@ pattern = "if not strip_edition then"
 position = "before"
 match_indent = true
 payload = '''
-if other.edition and other.edition.negative and not All_in_Jest.config.no_copy_neg then 
+if other.edition and other.edition.negative and not All_in_Jest.config.no_copy_neg and not G.VIEWING_DECK then
     if other.ability.set == 'Enhanced' or other.ability.set == 'Default' then
         strip_edition = true
     end
@@ -661,9 +799,13 @@ if toto_count > 0 and _tag.key ~= 'tag_double' and (not _tag.config.jest_tag_dup
                 trigger = 'after',
                 delay = 0.9,
                 func = function()
+                    if _tag.ability and _tag.ability.orbital_hand then
+                        G.orbital_hand = _tag.ability.orbital_hand
+                    end
                     local temptag = Tag(_tag.key)
                     temptag.config.jest_tag_duplicate_trigger = true
                     add_tag(temptag)
+                    G.orbital_hand = nil
                     return true
                 end
             }))
@@ -680,9 +822,13 @@ if taggart_count > 0 and _tag.key ~= 'tag_double' and (not _tag.config.jest_tag_
                 trigger = 'after',
                 delay = 0.9,
                 func = function()
+                    if _tag.ability and _tag.ability.orbital_hand then
+                        G.orbital_hand = _tag.ability.orbital_hand
+                    end
                     local temptag = Tag(_tag.key)
                     temptag.config.jest_tag_duplicate_trigger = true
                     add_tag(temptag)
+                    G.orbital_hand = nil
                     return true
                 end
             }))
@@ -768,6 +914,40 @@ if has_blind_drawn then
     end
     blind_col = G.C.UI.TEXT_INACTIVE
 else
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+if self.ability.effect == "Lucky Card" then
+        if SMODS.pseudorandom_probability(self, 'lucky_mult', 1, 5) then
+            self.lucky_trigger = true
+            ret = ret + self.ability.mult
+        end
+    else
+'''
+position = "at"
+payload = '''
+ local is_chip_mult = self.ability._saved_chip_values ~= nil
+
+    if self.ability.effect == "Lucky Card" then
+        local base_mult = 0
+        if is_chip_mult then
+            base_mult = (self.ability._saved_chip_values.nominal or 0) +
+                        (self.ability._saved_chip_values.bonus or 0) +
+                        (self.ability._saved_chip_values.perma_bonus or 0)
+        end
+        
+        local ret = base_mult + ((not self.ability.extra_enhancement and self.ability.perma_mult) or 0)
+
+        if SMODS.pseudorandom_probability(self, 'lucky_mult', 1, 5) then
+            self.lucky_trigger = true
+            ret = ret + self.ability.mult
+        end
+        return ret
+    else
 '''
 match_indent = true
 

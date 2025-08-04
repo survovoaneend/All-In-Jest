@@ -17,6 +17,7 @@ local naiteh = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = false,
     soul_pos = { x = 7, y = 11},
   
     loc_vars = function(self, info_queue, card)

@@ -17,6 +17,7 @@ local executioner = {
   discovered = false,
   blueprint_compat = true,
   eternal_compat = true,
+  perishable_compat = false,
 
   loc_vars = function(self, info_queue, card)
     return {

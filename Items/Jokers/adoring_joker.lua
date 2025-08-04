@@ -24,7 +24,7 @@ local adoring_joker = {
     end,
       
     calculate = function(self, card, context)
-      if context.final_scoring_step and context.cardarea == G.jokers then
+      if context.final_scoring_step and context.cardarea == G.jokers and not context.blueprint then
         local Mult = mult
         table.insert(card.ability.jest_highest_scored_mult, Mult)
         for i = 1, #card.ability.jest_highest_scored_mult do
