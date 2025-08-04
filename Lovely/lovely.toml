@@ -33,6 +33,82 @@ match_indent = true
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
+G.GAME.hands[text].played = G.GAME.hands[text].played + 1
+'''
+position = "before"
+payload = '''
+if text == 'aij_Royal Flush' then
+    G.GAME.hands['Straight Flush'].played = G.GAME.hands['Straight Flush'].played + 1
+    G.GAME.hands['Straight Flush'].played_this_round = G.GAME.hands['Straight Flush'].played_this_round + 1
+    G.GAME.last_hand_played = 'Straight Flush'
+    set_hand_usage('Straight Flush')
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)'''
+position = "before"
+match_indent = true
+payload = '''
+if hand == 'Straight Flush' then
+    level_up_other_hand(nil, 'aij_Royal Flush', hand, true, amount)
+end
+'''
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+return {n=G.UIT.R, config={align = "cm", colour = G.C.WHITE, r = 0.1}, nodes={
+'''
+position = "before"
+payload = '''
+if handname == 'Straight Flush' then
+    return {n=G.UIT.R, config={align = "cm", r = 0.1}, nodes={
+        {n=G.UIT.R, config={align = "cm", colour = G.C.WHITE, r = 0.1}, nodes={
+          {n=G.UIT.C, config={align = "cm"}, nodes={
+            {n=G.UIT.O, config={object = cardarea}}
+          }}
+        }},
+        {n=G.UIT.R, config={align = "cm", padding = 0.05, r = 0.1, colour = darken(G.C.JOKER_GREY, 0.1), emboss = 0.05, hover = true, force_focus = true, on_demand_tooltip = {text = localize("aij_Royal Flush", 'poker_hand_descriptions'), filler = {func = create_UIBox_hand_tip, args = "aij_Royal Flush"}}}, nodes={
+          {n=G.UIT.C, config={align = "cl", padding = 0, minw = 5}, nodes={
+            {n=G.UIT.C, config={align = "cm", padding = 0.01, r = 0.1, colour = G.C.HAND_LEVELS[math.min(7, math.max(1,G.GAME.hands["aij_Royal Flush"].level-1))], minw = 1.5, outline = 0.8, outline_colour = G.C.WHITE}, nodes={
+              {n=G.UIT.T, config={text = '+'..localize('k_level_prefix')..(G.GAME.hands["aij_Royal Flush"].level-1), scale = 0.5, colour = G.C.UI.TEXT_DARK}}
+            }},
+            {n=G.UIT.C, config={align = "cm", minw = 4.5, maxw = 4.5}, nodes={
+              {n=G.UIT.T, config={text = ' '..localize("aij_Royal Flush",'poker_hands'), scale = 0.45, colour = G.C.UI.TEXT_LIGHT, shadow = true}}
+            }}
+          }},
+          {n=G.UIT.C, config={align = "cm", padding = 0.05, colour = G.C.BLACK,r = 0.1}, nodes={
+            {n=G.UIT.C, config={align = "cr", padding = 0.01, r = 0.1, colour = G.C.CHIPS, minw = 1.1}, nodes={
+              {n=G.UIT.T, config={text = '+'..number_format(G.GAME.hands["aij_Royal Flush"].l_chips*(G.GAME.hands["aij_Royal Flush"].level-1), 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}},
+              {n=G.UIT.B, config={w = 0.08, h = 0.01}}
+            }},
+            {n=G.UIT.T, config={text = "X", scale = 0.45, colour = G.C.MULT}},
+            {n=G.UIT.C, config={align = "cl", padding = 0.01, r = 0.1, colour = G.C.MULT, minw = 1.1}, nodes={
+              {n=G.UIT.B, config={w = 0.08,h = 0.01}},
+              {n=G.UIT.T, config={text = '+'..number_format(G.GAME.hands["aij_Royal Flush"].l_mult*(G.GAME.hands["aij_Royal Flush"].level-1), 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}}
+            }}
+          }},
+          {n=G.UIT.C, config={align = "cm"}, nodes={
+              {n=G.UIT.T, config={text = '  #', scale = 0.45, colour = G.C.UI.TEXT_LIGHT, shadow = true}}
+            }},
+          {n=G.UIT.C, config={align = "cm", padding = 0.05, colour = G.C.L_BLACK,r = 0.1, minw = 0.9}, nodes={
+            {n=G.UIT.T, config={text = G.GAME.hands["aij_Royal Flush"].played, scale = 0.45, colour = G.C.FILTER, shadow = true}},
+          }}
+        }},
+    }}
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
 G.E_MANAGER:add_event(Event({
     trigger = 'after',delay = 0.4,
     func = (function()  update_hand_text({delay = 0, immediate = true}, {mult = 0, chips = 0, chip_total = math.floor(hand_chips*mult), level = '', handname = ''});play_sound('button', 0.9, 0.6);return true end)

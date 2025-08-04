@@ -75,6 +75,24 @@ function update_multiplied_value(t, key)
     t[key] = result
 end
 
+function retrieve_joker_text(joker)
+    if not joker.ability_UIBox_table then
+        joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
+        joker.config.h_popup = G.UIDEF.card_h_popup(joker)
+        joker.config.h_popup_config = joker:align_h_popup()
+    end
+    local main = joker.ability_UIBox_table.main
+    local text = ""
+    for i = 1, #main do
+        for j = 1, #main[i] do
+            if main[i][j].config.text then
+                text = text .. main[i][j].config.text
+            end
+        end
+        text = text .. " "
+    end
+    return text
+end
 
 --also repurposed from paperback
 function jest_add_tag(tag, event, silent)
@@ -94,6 +112,26 @@ function jest_add_tag(tag, event, silent)
   else
     func()
   end
+end
+
+function level_up_other_hand(card, hand, other_hand, instant, amount)
+    amount = amount or 1
+     
+    if to_big(G.GAME.hands[other_hand].l_mult) >= to_big(1) then
+        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (G.GAME.hands[other_hand].l_mult * amount))
+    else
+        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (1 * amount))
+    end
+     
+    if to_big(G.GAME.hands[other_hand].l_chips) >= to_big(1) then
+        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (G.GAME.hands[other_hand].l_chips * amount))
+    else
+        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (1 * amount))
+    end
+    G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
+    }))
 end
 
 function level_up_hand_chips(card, hand, instant, amount)

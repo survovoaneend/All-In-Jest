@@ -21,7 +21,15 @@ return {
             aij_stellar = "Stellar",
             aij_marked = "Marked",
             k_aij_jest_chaotic_card = "Chaotic",
-        }
+        },
+        poker_hands = {
+            ['aij_Royal Flush'] = "Royal Flush",
+        },
+        poker_hand_descriptions = {
+            ['aij_Royal Flush'] = {
+            ""
+            },
+        },
     },
     descriptions = {
         Back = {
@@ -2686,6 +2694,23 @@ return {
                     "{C:chips}+#3#{} Chips",
                 }
             },
+            c_aij_rogue = {
+                name = "Rogue Planet",
+                text = {
+                    'Levels up {C:attention}all',
+                    '{C:attention}Hands{} mentioned',
+                    'by your {C:attention}Jokers'
+                }
+            },
+            c_aij_sol = {
+                name = "Sol",
+                text = {
+                    "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+                    "{C:attention}#2#{}",
+                    "{C:mult}+#4#{} Mult and",
+                    "{C:chips}+#3#{} Chips",
+                }
+            },
             c_aij_paper_weywot = {
                 name = "Weywot",
                 text = {
@@ -3109,10 +3134,11 @@ return {
                     "{C:attention}#2#{}"
                 }
             },
-            c_aij_master_arcanes = {
+            c_aij_master_arcanes = { 
                 name = 'Master of the Arcanes',
                 text = {
-                    "Creates a random",
+                    "{C:green}#1# in #2#{} chance",
+                    "to create a random",
                     "{C:spectral}Spectral{} card",
                     '{C:inactive}(Must have room)'
                 }
