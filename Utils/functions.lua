@@ -494,9 +494,16 @@ AllInJest.touchstone_deck_preview = function()
     for i = #G.deck.cards, #G.deck.cards - touchstone_card.ability.future_sense + 1, -1 do
         if i > 0 then
             local card = copy_card(G.deck.cards[i], nil, nil, G.playing_card)
-            if G.jokers and touchstone_card.area == G.jokers then
-                card.facing = 'front'
+
+            -- Re-adds negative to preview if it was stripped by the mod
+            if G.deck.cards[i].edition and G.deck.cards[i].edition.negative and not All_in_Jest.config.no_copy_neg then
+                card:set_edition({negative = true}, nil, true)
             end
+
+            if G.jokers and touchstone_card.area == G.jokers then
+                card.facing = 'front' -- Using .flip() here plays the flipping animation
+            end
+
             table.insert(cards, card)
         end
     end

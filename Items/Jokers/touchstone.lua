@@ -35,6 +35,12 @@ local touchstone = {
             for i = #G.deck.cards, #G.deck.cards - cardd.ability.future_sense + 1, -1 do
                 if i > 0 then
                     local card = copy_card(G.deck.cards[i], nil, nil, G.playing_card)
+
+                    -- Re-adds negative to preview if it was stripped by the mod
+                    if G.deck.cards[i].edition and G.deck.cards[i].edition.negative and not All_in_Jest.config.no_copy_neg then
+                        card:set_edition({negative = true}, nil, true)
+                    end
+
                     if G.jokers and self.area == G.jokers then
                         card:flip()
                     end
