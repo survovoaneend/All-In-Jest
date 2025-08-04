@@ -32,6 +32,7 @@ local eulenspiegel = {
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = "-"..card.ability.Xmult_mod.." XMult", colour = G.C.MULT})
             if card.ability.Xmult == 0 then
               card:start_dissolve()
+              card.ability.Xmult = 3
             end
         end
       end

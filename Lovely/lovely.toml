@@ -1329,6 +1329,40 @@ match_indent = true
 
 [[patches]] 
 [patches.pattern]
+target = "card.lua"
+pattern = '''
+if self.ability.effect == "Lucky Card" then
+        if SMODS.pseudorandom_probability(self, 'lucky_mult', 1, 5) then
+            self.lucky_trigger = true
+            ret = ret + self.ability.mult
+        end
+    else
+'''
+position = "at"
+payload = '''
+ local is_chip_mult = self.ability._saved_chip_values ~= nil
+
+    if self.ability.effect == "Lucky Card" then
+        local base_mult = 0
+        if is_chip_mult then
+            base_mult = (self.ability._saved_chip_values.nominal or 0) +
+                        (self.ability._saved_chip_values.bonus or 0) +
+                        (self.ability._saved_chip_values.perma_bonus or 0)
+        end
+        
+        local ret = base_mult + ((not self.ability.extra_enhancement and self.ability.perma_mult) or 0)
+
+        if SMODS.pseudorandom_probability(self, 'lucky_mult', 1, 5) then
+            self.lucky_trigger = true
+            ret = ret + self.ability.mult
+        end
+        return ret
+    else
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = '''
 for k, v in ipairs(text_table) do
@@ -1708,4 +1742,16 @@ payload = '''
                 end
             end
         end
+'''
+
+# Adds the touchstone forecast on the hover deck preview
+[[patches]]
+[patches.regex]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = '''(?<indent>[\t ]*)wheel_flipped_text and \{(.|\n)*?or nil,'''
+position = "after"
+line_prepend = "$indent"
+payload = '''
+
+next(SMODS.find_card('j_aij_touchstone')) and AllInJest.touchstone_deck_preview() or nil,
 '''

@@ -3,7 +3,7 @@ local totally_nuts = {
     order = 239,
     key = "totally_nuts",
     config = {
-      extra = { consumable_slots = "5" }
+      extra = { consumable_slots = "3" }
     },
     rarity = 1,
     pos = { x = 7, y = 9},
@@ -22,12 +22,8 @@ local totally_nuts = {
       if context.selling_card then
         for _, card_type in ipairs(SMODS.ConsumableType.ctype_buffer) do
             if context.card.ability.set == card_type then
-                card.ability.extra.consumable_slots = tostring(tonumber(card.ability.extra.consumable_slots) - 1)
-                G.consumeables.config.card_limit = G.consumeables.config.card_limit - 1
-                if tonumber(card.ability.extra.consumable_slots) == 0 then
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_eaten_ex'),colour = G.C.FILTER})
-                    card:start_dissolve()
-                end
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_eaten_ex'),colour = G.C.FILTER})
+                card:start_dissolve()
             end
         end
       end

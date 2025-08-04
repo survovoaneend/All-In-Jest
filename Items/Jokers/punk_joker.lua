@@ -47,7 +47,7 @@ local punk_joker = {
                         return true
                     end
                   })) 
-                  card_eval_status_text(card, 'extra', nil, nil, nil, {
+                  card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
                     message = 'Wild!', 
                   })
               end

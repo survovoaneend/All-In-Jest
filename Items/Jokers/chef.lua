@@ -26,7 +26,7 @@ local chef = {
         end
         return false
     end,
-    calculate = function(self, card, context)
+     calculate = function(self, card, context)
       if context.open_booster then
         card.ability.extra.trigger = true
       end

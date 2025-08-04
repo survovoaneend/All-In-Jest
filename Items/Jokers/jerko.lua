@@ -5,8 +5,8 @@ local jerko = {
     config = {
       extra = {
         mult = 4,
-        min = 10,
-        max = 30
+        min = 0,
+        max = 20
       }
     },
     rarity = 3,

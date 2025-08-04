@@ -11,7 +11,7 @@
   "description": "A vanilla-style mod made of content with art made by Nevernamed",
   "main_file": "nevernamed.lua",
   "badge_colour": "8b61ad",
-  "version": "0.5.0-pre",
+  "version": "0.5.2",
   "dependencies": [
     "Steamodded (>=1.0.0~ALPHA-1423h)",
     "Lovely (>=0.7.1)"

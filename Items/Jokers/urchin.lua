@@ -19,6 +19,7 @@ local urchin = {
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
+        card.ability.extra.money = G.GAME.skips * card.ability.extra.money_mod
         return {
             vars = {
                 card.ability.extra.money,
@@ -28,8 +29,8 @@ local urchin = {
     end,
 
     calculate = function(self, card, context)
+        card.ability.extra.money = G.GAME.skips * card.ability.extra.money_mod
         if context.skip_blind and not context.blueprint then
-            card.ability.extra.money = card.ability.extra.money + card.ability.extra.money_mod
             card_eval_status_text(card, 'extra', nil, nil, nil, {
                 message = localize('k_upgrade_ex')
             })

@@ -11,8 +11,8 @@ local saltimbanco = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
-    blueprint_compat = true,
+    discovered = false,
+    blueprint_compat = false,
     eternal_compat = false,
   
     loc_vars = function(self, info_queue, card)

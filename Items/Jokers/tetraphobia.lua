@@ -16,6 +16,7 @@ local tetraphobia = {
   discovered = false,
   blueprint_compat = true,
   eternal_compat = true,
+  perishable_compat = false,
 
   loc_vars = function(self, info_queue, card)
       return { vars = { card.ability.extra.mult or 0, card.ability.extra.mult_mod } }

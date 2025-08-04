@@ -5,6 +5,7 @@ local giocoliere = {
     key = "giocoliere",
     config = {
       extra = {
+        hand_size = 3
       },
     },
     rarity = 1,
@@ -17,7 +18,11 @@ local giocoliere = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+        return {
+            vars = {
+                card.ability.extra.hand_size
+            }
+        }
     end,
   
     calculate = function(self, card, context)
@@ -26,13 +31,13 @@ local giocoliere = {
       if context.setting_blind then
           if G.GAME.blind and G.GAME.blind.boss then
               if not card.ability.boss_bonus_active then
-                  G.hand:change_size(2)     
+                  G.hand:change_size(card.ability.extra.hand_size)     
                   card.ability.boss_bonus_active = true      
                   return nil, true 
               end
 
           elseif card.ability.boss_bonus_active then
-              G.hand:change_size(-2)                     
+              G.hand:change_size(-card.ability.extra.hand_size)                     
               card.ability.boss_bonus_active = false      
               return nil, true
           end
@@ -40,7 +45,7 @@ local giocoliere = {
 
       if context.blind_defeated then
           if card.ability.boss_bonus_active then
-              G.hand:change_size(-2)                     
+              G.hand:change_size(-card.ability.extra.hand_size)                     
               card.ability.boss_bonus_active = false   
               return nil, true
           end
@@ -51,7 +56,7 @@ local giocoliere = {
   add_to_deck = function(self, card, from_debuff)
       card.ability.boss_bonus_active = false 
       if G.GAME and G.GAME.blind and G.GAME.blind.boss and not card.debuff then
-           G.hand:change_size(2)
+           G.hand:change_size(card.ability.extra.hand_size)
            card.ability.boss_bonus_active = true
       end
   end,
@@ -60,7 +65,7 @@ local giocoliere = {
   remove_from_deck = function(self, card, from_debuff)
 
       if card.ability.boss_bonus_active then
-          G.hand:change_size(-2)
+          G.hand:change_size(-card.ability.extra.hand_size)
           card.ability.boss_bonus_active = false
       end
   end,

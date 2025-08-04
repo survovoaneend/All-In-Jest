@@ -5,7 +5,7 @@ local thomazina = {
     key = "thomazina",
     config = {
       chips = 0,
-      chip_mod = 5
+      chip_mod = 2
     },
     rarity = 4,
 	unlock_condition = {hidden = true},
@@ -16,6 +16,7 @@ local thomazina = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = false,
     soul_pos = { x = 3, y = 5},
   
     loc_vars = function(self, info_queue, card)
@@ -29,13 +30,13 @@ local thomazina = {
   
     calculate = function(self, card, context)
       if context.individual and context.cardarea == G.play then
-        if not context.other_card:is_face() and not context.other_card.no_rank and not context.blueprint then
-          card.ability.chips = card.ability.chips + card.ability.chip_mod
+        if not context.other_card:is_face() and not context.other_card.no_rank then
+          if not context.blueprint then
+            card.ability.chips = card.ability.chips + card.ability.chip_mod
+          end
           return {
-            message = localize('k_upgrade_ex'),
+            extra = not context.blueprint and {focus = card, message = localize('k_upgrade_ex')},
             chips = card.ability.chips,
-            card = card,
-            colour = G.C.CHIPS
           }
         end
       end

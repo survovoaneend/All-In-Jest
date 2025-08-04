@@ -6,7 +6,7 @@ local pantomimus = {
     config = {
         extra = {
             chips = 0,
-            chip_mod = 3
+            chip_mod = 2
         }
     },
     rarity = 1,
