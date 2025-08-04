@@ -29,7 +29,7 @@ local fabled = {
         if context.buying_card then
             if context.card.ability.set == "Joker" and context.card.config.center.rarity == 4 then
                 G.GAME.selected_back.effect.config.extra.should_increase = false
-                G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate + G.GAME.selected_back.effect.config.extra
+                G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate + G.GAME.selected_back.effect.config.extra.remove_amt
                 G.GAME.selected_back.effect.config.extra.remove_amt = 0
             end
         end
