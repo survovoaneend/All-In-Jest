@@ -1211,7 +1211,7 @@ return {
             j_aij_fou_du_roi = {
                 name = "Fou du Roi",
                 text = {
-                    '{C:green}#1# in #2#{} chance to create a',
+                    '{C:green}#2# in #1#{} chance to create a',
                     '{C:tarot}Tarot{} card if played hand',
                     'contains a {C:attention}King{} or {C:attention}Queen',
                     '{C:inactive}(Must have room)'
@@ -1320,7 +1320,7 @@ return {
                 text = { 
                     "Removes {C:dark_edition}Negative{} from",
                     "played cards. For each,",
-                    "{C:green}#1# in #2#{} chance this Joker",
+                    "{C:green}#2# in #1#{} chance this Joker",
                     "gains {C:attention}+#3# hand size",
                     "{C:inactive}(Currently {C:attention}+#4#{C:inactive} hand size)"
                 } 
@@ -1768,8 +1768,8 @@ return {
                 name = "Bingo Card", 
                 text = { 
                     "Scoring {C:attention}lucky{} cards have a",
-                    "{C:green}#1# in #2#{} chance for {X:mult,C:white}X#5#{} Mult",
-                    "and a {C:green}#3# in #4#{} chance to",
+                    "{C:green}#1# in #2#{} chance for {X:mult,C:white}X#4#{} Mult",
+                    "and a {C:green}#1# in #3#{} chance to",
                     "retrigger" 
                 } 
             },
