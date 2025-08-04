@@ -26,7 +26,7 @@ local landfill_tag = {
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',
                 func = function()
-                    ease_dollars(G.GAME.round_scores_cards.discarded.amt) 
+                    ease_dollars(G.GAME.round_scores.cards_discarded.amt) 
                     return true
                 end
             }))
