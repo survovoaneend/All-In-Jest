@@ -488,6 +488,36 @@ jest_ability_get_items = function(card, equation, extra_value, exclusions, inclu
   return keys, values
 end
 
+AllInJest.touchstone_deck_preview = function()
+    local touchstone_card = SMODS.find_card('j_aij_touchstone')[1]
+    local cards = {}
+    for i = #G.deck.cards, #G.deck.cards - touchstone_card.ability.future_sense + 1, -1 do
+        if i > 0 then
+            local card = copy_card(G.deck.cards[i], nil, nil, G.playing_card)
+
+            -- Re-adds negative to preview if it was stripped by the mod
+            if G.deck.cards[i].edition and G.deck.cards[i].edition.negative and not All_in_Jest.config.no_copy_neg then
+                card:set_edition({negative = true}, nil, true)
+            end
+
+            if G.jokers and touchstone_card.area == G.jokers then
+                card.facing = 'front' -- Using .flip() here plays the flipping animation
+            end
+
+            table.insert(cards, card)
+        end
+    end
+    return AllInJest.card_area_preview(nil, nil, {
+        override = true,
+        cards = cards,
+        w = 5,
+        h = 0.6,
+        ml = 0,
+        scale = 0.4,
+        padding = 0,
+    })
+end
+
 AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
     if not config then config = {} end
     local height = config.h or 1.25

@@ -1333,3 +1333,15 @@ payload = '''
             end
         end
 '''
+
+# Adds the touchstone forecast on the hover deck preview
+[[patches]]
+[patches.regex]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = '''(?<indent>[\t ]*)wheel_flipped_text and \{(.|\n)*?or nil,'''
+position = "after"
+line_prepend = "$indent"
+payload = '''
+
+next(SMODS.find_card('j_aij_touchstone')) and AllInJest.touchstone_deck_preview() or nil,
+'''

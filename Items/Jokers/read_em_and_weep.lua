@@ -12,7 +12,7 @@ local read_em_and_weep = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   

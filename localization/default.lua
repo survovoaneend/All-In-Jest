@@ -1586,7 +1586,7 @@ return {
                     "{C:inactive}(Except Double Tag)"
             } 
             },
-            j_aij_chitty = { 
+j_aij_chitty = { 
                 name = "Chitty", 
                 text = { 
                     "{C:attention}+#1#{} {C:attention}Voucher{} available",

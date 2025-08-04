@@ -29,6 +29,11 @@ local naiteh = {
         }
     end,
 
+    add_to_deck = function(self, card, from_debuff)
+        if card.ability.extra.h_size > 0 then
+            G.hand:change_size(card.ability.extra.h_size)
+        end
+    end,
     calculate = function(self, card, context)
         if context.end_of_round and G.GAME.blind.boss and context.main_eval and not context.blueprint then
             card.ability.extra.h_size = card.ability.extra.h_size + card.ability.extra.h_size_mod
