@@ -97,3 +97,89 @@ SMODS.PokerHand {
         return false
     end,
 }
+
+local init_game_object_ref = Game.init_game_object
+function Game.init_game_object(self)
+  local ret = init_game_object_ref(self)
+  local secrets = {}
+  for k, v in pairs(SMODS.PokerHands) do
+    if (type(v.visible) == 'function' and not v:visible()) or v.visible == false then 
+        if k ~= 'aij_Royal Flush' then
+            table.insert(secrets, k) 
+        end
+    end
+  end
+  ret.all_in_jest.secret_hands = secrets
+  return ret
+end
+
+-- Modified from Aura
+function All_in_Jest.update_frame(dt, k, obj, jkr)
+    local anim = G.GAME.all_in_jest.AIJAnimated[k]
+    if anim and obj and (anim.frames or anim.individual) then
+        local next_frame = false
+        local next_frame_extra = false
+        if not anim.t then anim.t = 0 end
+        anim.t = anim.t + dt
+        if anim.t > 1/(anim.fps or 10) then
+            anim.t = anim.t - 1/(anim.fps or 10)
+            next_frame = true
+        end
+        if anim.extra then
+            if not anim.extra.t then anim.extra.t = 0 end
+            anim.extra.t = anim.extra.t + dt
+            if anim.extra.t > 1/(anim.extra.fps or 10) then
+                anim.extra.t = anim.extra.t - 1/(anim.extra.fps or 10)
+                next_frame_extra = true
+            end
+        end
+        if next_frame then
+            local loc = obj.pos.y*(anim.frames_per_row or anim.frames)+obj.pos.x
+            if (not anim.individual) or (jkr and jkr.animation.target and loc ~= jkr.animation.target) then
+                loc = loc + 1
+                if anim.immediate and jkr and jkr.animation.target then
+                    loc = jkr.animation.target
+                end
+            end
+            if loc >= anim.frames then loc = anim.start_frame or 0 end
+            obj.pos.x = loc%(anim.frames_per_row or anim.frames)
+            obj.pos.y = math.floor(loc/(anim.frames_per_row or anim.frames))
+            if anim.hold then
+                local hold = anim.hold
+                hold.temp = hold.temp or 0
+                hold.temp = hold.temp + 1
+                if hold.hold_for_min then hold.cur_random = hold.cur_random or math.random(hold.hold_for_min, hold.hold_for_max) end
+                if hold.temp >= (hold.hold_for or hold.cur_random) then
+                    anim.frames = anim.frames + hold.frames
+                    anim.start_frame = anim.start_frame + hold.frames
+                    if anim.frames >= hold.max_frames then
+                        anim.frames = hold.min_frames
+                        anim.start_frame = hold.min_start_frames
+                        if hold.cur_random then hold.cur_random = nil end
+                    end
+                    hold.temp = 0
+                end
+            end
+        end
+        if next_frame_extra then
+            local loc = obj.pos.extra.y*(anim.extra.frames_per_row or anim.extra.frames)+obj.pos.extra.x
+            if (not anim.individual) or (jkr and jkr.animation.extra and jkr.animation.extra.target and loc ~= jkr.animation.extra.target) then
+                loc = loc + 1
+                if anim.extra.immediate and jkr and jkr.animation.extra and jkr.animation.extra.target then
+                    loc = jkr.animation.extra.target
+                end
+            end
+            if loc >= anim.extra.frames then loc = anim.extra.start_frame or 0 end
+            obj.pos.extra.x = loc%(anim.extra.frames_per_row or anim.extra.frames)
+            obj.pos.extra.y = math.floor(loc/(anim.extra.frames_per_row or anim.extra.frames))
+        end
+    end
+end
+
+local upd = Game.update
+function Game:update(dt)
+    upd(self, dt)
+    for k, v in pairs(G.GAME.all_in_jest.AIJAnimated) do
+        All_in_Jest.update_frame(dt, k, G.P_CENTERS[k])
+    end
+end

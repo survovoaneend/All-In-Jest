@@ -602,6 +602,11 @@ pattern = "-- TARGET: evaluate your own general effects"
 position = "before"
 match_indent = true
 payload = '''
+for i = 1, #G.handlist do
+    if G.handlist[i] == 'aij_Royal Flush' then
+        table.remove(G.handlist, i)
+    end
+end
 if context.final_scoring_step and context.cardarea == G.play and context.full_hand then
     for i = 1, #G.play.cards do
         if G.play.cards[i].ability.set == 'Enhanced' and G.play.cards[i].ability.jest_chaotic_card then

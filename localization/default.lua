@@ -6,6 +6,7 @@ return {
             k_star = "Star",
             k_star_q = "Star?",
             k_asteroid = "Asteroid",
+            k_tarot_q = "Tarot?",
             aij_requires_restart = "Requires Restart",
             aij_enable_moons = "Enable Moons",
             aij_upgraded_tags = "Gold Tags",
@@ -2702,6 +2703,14 @@ return {
                     'by your {C:attention}Jokers'
                 }
             },
+            c_aij_dark_star = {
+                name = "Dark Star",
+                text = {
+                    'Levels up {C:attention}all',
+                    "{C:attention}Hands{} that haven't",
+                    "been {C:attention}played{} yet"
+                }
+            },
             c_aij_sol = {
                 name = "Sol",
                 text = {
@@ -2808,6 +2817,33 @@ return {
                     'selected {C:attention}Joker',
                     "{C:inactive}(Cannot be{}",
                     "{C:inactive}eternal){}"
+                }
+            },
+            c_aij_scopophobia = {
+                name = 'Scopophobia',
+                text = {
+                    '{C:red}Destroys{} a random {C:attention}Joker',
+                    'and {C:attention}all cards{} held in',
+                    'hand'
+                }
+            },
+            c_aij_palmistry = {
+                name = 'Palmistry',
+                text = {
+                    'Gives all cards',
+                    'in hand a random',
+                    '{C:attention}enhancement,',
+                    '{C:red}-#1#{} hand size'
+                }
+            },
+            c_aij_gegenschein = {
+                name = "Gegenschein",
+                text = {
+                    'Sets the level of all',
+                    '{C:attention}played{} {C:dark_edition}secret hands{}',
+                    'to the {C:attention}number{} of',
+                    'times they have',
+                    'been {C:attention}played'
                 }
             },
         },

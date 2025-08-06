@@ -43,7 +43,11 @@ all_in_jest = {
 	pit_blind_ante = 4,
 	skip_tags = {has_multiple = false, amt = 1},
 	advanced_hand_usage = {},
-	reset_score = {chips = false, mult = false, chip_total = false, blind_total = false}
+	AIJAnimated = {
+		c_aij_scopophobia = { frames_per_row = 18, frames = 144, start_frame = 126, fps = 12, hold = { frames = 2, max_frames = 144, min_frames = 128, min_start_frames = 126, hold_for_min = 12, hold_for_max = 35 } },
+	},
+	reset_score = {chips = false, mult = false, chip_total = false, blind_total = false},
+	secret_hands = {},
 },
 -- move these into all_in_jest at some point
 jest_unused_hands = 0,
