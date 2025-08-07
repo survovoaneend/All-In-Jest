@@ -29,7 +29,10 @@ local stultor = {
       
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.jest_free_stultor_rerolls = G.GAME.jest_free_stultor_rerolls + 1
+        G.GAME.jest_free_stultor_rerolls = G.GAME.jest_free_stultor_rerolls + card.ability.extra.free_rerolls
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.jest_free_stultor_rerolls = G.GAME.jest_free_stultor_rerolls - card.ability.extra.free_rerolls
     end,
 }
 local ease_anteref = ease_ante
