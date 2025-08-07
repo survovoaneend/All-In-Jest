@@ -38,12 +38,10 @@ local stultor = {
 local ease_anteref = ease_ante
 function ease_ante(mod)
     if mod ~= 0 then
-        local has_stultor = next(SMODS.find_card("j_aij_stultor"))
-        if has_stultor then
-            for i = 1, has_stultor do
-                G.GAME.jest_free_stultor_rerolls = G.GAME.jest_free_stultor_rerolls + SMODS.find_card("j_aij_stultor")[i].ability.extra.free_rerolls
-            end
-        end
+        local sultors = SMODS.find_card("j_aij_stultor")
+            for i = 1, #sultors do
+                G.GAME.jest_free_stultor_rerolls = G.GAME.jest_free_stultor_rerolls + sultors[i].ability.extra.free_rerolls
+                    end
     end
     
     local ref = ease_anteref(mod)
