@@ -155,8 +155,8 @@ function All_in_Jest.update_frame(dt, k, obj, jkr)
                     if anim.frames >= hold.max_frames then
                         anim.frames = hold.min_frames
                         anim.start_frame = hold.min_start_frames
-                        if hold.cur_random then hold.cur_random = nil end
                     end
+                    if hold.cur_random then hold.cur_random = nil end
                     hold.temp = 0
                 end
             end

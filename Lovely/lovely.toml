@@ -31,6 +31,59 @@ match_indent = true
 
 [[patches]] 
 [patches.pattern]
+target = "cardarea.lua"
+pattern = '''
+if G.CONTROLLER.HID.controller then
+'''
+position = "before"
+payload = '''
+if self.config.type == 'hand' then
+    if SMODS.get_enhancements(card).m_aij_ice then
+        return true
+    end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "cardarea.lua"
+pattern = '''
+if #self.highlighted >= self.config.highlighted_limit then
+    card:highlight(false)
+else
+    self.highlighted[#self.highlighted+1] = card
+    card:highlight(true)
+    if not silent then play_sound('cardSlide1') end
+end
+'''
+position = "after"
+payload = '''
+local ice = {}
+for k, v in pairs(self.highlighted) do
+    if SMODS.get_enhancements(self.highlighted[k]).m_aij_ice then
+        ice[#ice+1] = v
+    end
+end
+if not card.highlighted and #ice >= 1 then
+    if (#self.highlighted - #ice) >= self.config.highlighted_limit then
+        card:highlight(false)
+    else
+        self.highlighted[#self.highlighted+1] = card
+        card:highlight(true)
+        if not silent then play_sound('cardSlide1') end
+    end
+end
+if (SMODS.get_enhancements(card).m_aij_ice) and not card.highlighted then
+    self.highlighted[#self.highlighted+1] = card
+    card:highlight(true)
+    if not silent then play_sound('cardSlide1') end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
 G.GAME.hands[text].played = G.GAME.hands[text].played + 1
@@ -107,6 +160,87 @@ match_indent = true
 
 [[patches]] 
 [patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+not run_info and {n=G.UIT.C, config={align = "cm", colour = G.C.UI.BACKGROUND_INACTIVE, minh = 0.6, minw = 2, maxw = 2, padding = 0.07, r = 0.1, shadow = true, hover = true, one_press = true, button = 'skip_blind', func = 'hover_tag_proxy', ref_table = _tag}, nodes={
+    {n=G.UIT.T, config={text = localize('b_skip_blind'), scale = 0.4, colour = G.C.UI.TEXT_INACTIVE}}
+}} or {n=G.UIT.C, config={align = "cm", padding = 0.1, emboss = 0.05, colour = mix_colours(G.C.BLUE, G.C.BLACK, 0.4), r = 0.1, maxw = 2}, nodes={
+    {n=G.UIT.T, config={text = localize('b_skip_reward'), scale = 0.35, colour = G.C.WHITE}},
+}},
+'''
+position = "after"
+payload = '''
+G.GAME.all_in_jest.skip_tags.has_multiple and not run_info and {n=G.UIT.C, config={align = "cm", colour = G.C.UI.BACKGROUND_INACTIVE, minh = 0.1, maxh = 0.1, minw = 0.2, maxw = 0.2, padding = 0.07, r = 0.2, shadow = true, hover = true, button = 'jest_next_tag', ref_table = _tag}, nodes={
+    {n=G.UIT.T, config={text = '>', scale = 0.4, colour = G.C.UI.TEXT_INACTIVE}}
+}} or nil,
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+local _tag_ui, _tag_sprite = _tag:generate_UI()
+'''
+position = "after"
+payload = '''
+if G.GAME.all_in_jest.skip_tags.has_multiple and G.GAME.all_in_jest.skip_tags.amt >= 2 then
+    local tag_key = G.GAME.round_resets.blind_tags[blind_choice]
+    local tag_key_2 = get_next_tag_key('_2')
+    local temp_index = 0
+    while tag_key_2 == tag_key do
+        temp_index = temp_index + 1
+        tag_key_2 = get_next_tag_key('_2_resample_'..temp_index)
+    end
+    temp_index = 0
+    local tag_key_3 = get_next_tag_key('_3')
+    while tag_key_2 == tag_key_3 do
+        temp_index = temp_index + 1
+        tag_key_3 = get_next_tag_key('_3_resample_'..temp_index)
+    end
+    local _tag_2 = Tag(tag_key_2)
+    local _tag_ui_2, _tag_sprite_2 = _tag_2:generate_UI()
+    local _tag_3 = Tag(tag_key_3)
+    local _tag_ui_3, _tag_sprite_3 = _tag_3:generate_UI()  
+    _tag_sprite_2.states.collide.can = not not run_info
+    _tag_sprite_3.states.collide.can = not not run_info
+    G.GAME.all_in_jest.skip_tags._tag_2 = G.GAME.all_in_jest.skip_tags._tag_2 or {}
+    if #G.GAME.all_in_jest.skip_tags._tag_2 == 0 then
+        G.GAME.all_in_jest.skip_tags._tag_2._tag = G.GAME.all_in_jest.skip_tags._tag_2._tag or {}
+        for k, v in pairs(_tag_2) do 
+            G.GAME.all_in_jest.skip_tags._tag_2._tag[k] = v
+        end
+    end
+    G.GAME.all_in_jest.skip_tags._tag_3 = G.GAME.all_in_jest.skip_tags._tag_3 or {}
+    if #G.GAME.all_in_jest.skip_tags._tag_3 == 0 then
+        G.GAME.all_in_jest.skip_tags._tag_3._tag = G.GAME.all_in_jest.skip_tags._tag_3._tag or {}
+        for k, v in pairs(_tag_3) do 
+            G.GAME.all_in_jest.skip_tags._tag_3._tag[k] = v
+        end
+    end
+elseif G.GAME.all_in_jest.skip_tags.has_multiple and G.GAME.all_in_jest.skip_tags.amt >= 1 then
+    local tag_key = G.GAME.round_resets.blind_tags[blind_choice]
+    local tag_key_2 = get_next_tag_key('_2')
+    local temp_index = 0
+    while tag_key_2 == tag_key do
+        temp_index = temp_index + 1
+        tag_key_2 = get_next_tag_key('_2_resample_'..temp_index)
+    end
+    local _tag_2 = Tag(tag_key_2)
+    local _tag_ui_2, _tag_sprite_2 = _tag_2:generate_UI()
+    _tag_sprite_2.states.collide.can = not not run_info
+    G.GAME.all_in_jest.skip_tags._tag_2 = G.GAME.all_in_jest.skip_tags._tag_2 or {}
+    if G.GAME.all_in_jest.skip_tags._tag_2 == {} then
+        G.GAME.all_in_jest.skip_tags._tag_2[#G.GAME.all_in_jest.skip_tags._tag_2 + 1] = _tag_2
+        G.GAME.all_in_jest.skip_tags._tag_2[#G.GAME.all_in_jest.skip_tags._tag_2 + 1] = _tag_ui_2
+        G.GAME.all_in_jest.skip_tags._tag_2[#G.GAME.all_in_jest.skip_tags._tag_2 + 1] = _tag_sprite_2
+    end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
 G.E_MANAGER:add_event(Event({
@@ -175,11 +309,52 @@ target = "functions/button_callbacks.lua"
 pattern = "if #G.hand.highlighted <= 0 or G.GAME.blind.block_play or #G.hand.highlighted > math.max(G.GAME.starting_params.play_limit, 1) then"
 position = "before"
 payload = '''
+local temp_var = nil
 for k, v in pairs(G.hand.highlighted) do
     if v.ability.aij_marked then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
         return
+    end
+    if SMODS.get_enhancements(v).m_aij_ice then
+        if not temp_var then temp_var = 0 end
+        temp_var = temp_var + 1
+    end
+end
+if temp_var and temp_var >= (#G.hand.highlighted - math.max(G.GAME.starting_params.play_limit, 1)) then
+    e.config.colour = G.C.BLUE
+    e.config.button = 'play_cards_from_highlighted'
+    return
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = "for _, v in ipairs(SMODS.PokerHandPart.obj_buffer) do"
+position = "before"
+payload = '''
+local ice = {}
+local non_ice = {}
+for k, v in pairs(hand) do
+    if SMODS.get_enhancements(hand[k]).m_aij_ice then
+        ice[#ice+1] = v
+    end
+    if not SMODS.get_enhancements(hand[k]).m_aij_ice then
+        non_ice[#non_ice+1] = v
+    end
+end
+hand = {}
+local temp_jest_var = 0
+for k, v in pairs(non_ice) do
+    hand[temp_jest_var+1] = v
+    temp_jest_var = temp_jest_var + 1
+end
+for k, v in pairs(ice) do
+    if (math.max(G.GAME.starting_params.play_limit, 1) - temp_jest_var) > 0 then
+        hand[temp_jest_var+1] = v
+        temp_jest_var = temp_jest_var + 1
     end
 end
 '''

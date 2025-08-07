@@ -396,6 +396,24 @@ return {
                     "{C:attention}held in hand with{} this card",
                 }
             },
+            m_aij_ice = {
+                name = "Ice Card",
+                text = {
+                    "{C:attention}Always{} scores",
+                    "{C:red}Ignores{} the selection limit",
+                    "Doesn't affect {C:attention}hand calculation",
+                    "if this card causes hand to",
+                    "exceed {C:attention}#1#{} cards"
+                }
+            },
+            m_aij_wood = {
+                name = "Wood Card",
+                text = {
+                    '{C:chips}+#1#{} chips when held in hand',
+                    'Increases by {C:chips}+#2#{} for every',
+                    'other {C:attention}Wood{} card held in hand'
+                }
+            },
         },
         Voucher = {
             v_aij_fairy_dust ={

@@ -1,0 +1,141 @@
+#if defined(VERTEX) || __VERSION__ > 100 || defined(GL_FRAGMENT_PRECISION_HIGH)
+	#define MY_HIGHP_OR_MEDIUMP highp
+#else
+	#define MY_HIGHP_OR_MEDIUMP mediump
+#endif
+
+
+extern MY_HIGHP_OR_MEDIUMP vec2 wood;
+extern MY_HIGHP_OR_MEDIUMP number dissolve;
+extern MY_HIGHP_OR_MEDIUMP number time;
+extern MY_HIGHP_OR_MEDIUMP vec4 texture_details;
+extern MY_HIGHP_OR_MEDIUMP vec2 image_details;
+extern bool shadow;
+extern MY_HIGHP_OR_MEDIUMP vec4 burn_colour_1;
+extern MY_HIGHP_OR_MEDIUMP vec4 burn_colour_2;
+
+vec4 wood_color = vec4(102., 66.3, 33.15, 0.) / (255. + wood.r);
+
+vec4 dissolve_mask(vec4 tex, vec2 texture_coords, vec2 uv)
+{
+    if (dissolve < 0.001) {
+        return vec4(shadow ? vec3(0.,0.,0.) : tex.xyz, shadow ? tex.a*0.3: tex.a);
+    }
+
+    float adjusted_dissolve = (dissolve*dissolve*(3.-2.*dissolve))*1.02 - 0.01; //Adjusting 0.0-1.0 to fall to -0.1 - 1.1 scale so the mask does not pause at extreme values
+
+	float t = time * 10.0 + 2003.;
+	vec2 floored_uv = (floor((uv*texture_details.ba)))/max(texture_details.b, texture_details.a);
+    vec2 uv_scaled_centered = (floored_uv - 0.5) * 2.3 * max(texture_details.b, texture_details.a);
+	
+	vec2 field_part1 = uv_scaled_centered + 50.*vec2(sin(-t / 143.6340), cos(-t / 99.4324));
+	vec2 field_part2 = uv_scaled_centered + 50.*vec2(cos( t / 53.1532),  cos( t / 61.4532));
+	vec2 field_part3 = uv_scaled_centered + 50.*vec2(sin(-t / 87.53218), sin(-t / 49.0000));
+
+    float field = (1.+ (
+        cos(length(field_part1) / 19.483) + sin(length(field_part2) / 33.155) * cos(field_part2.y / 15.73) +
+        cos(length(field_part3) / 27.193) * sin(field_part3.x / 21.92) ))/2.;
+    vec2 borders = vec2(0.2, 0.8);
+
+    float res = (.5 + .5* cos( (adjusted_dissolve) / 82.612 + ( field + -.5 ) *3.14))
+    - (floored_uv.x > borders.y ? (floored_uv.x - borders.y)*(5. + 5.*dissolve) : 0.)*(dissolve)
+    - (floored_uv.y > borders.y ? (floored_uv.y - borders.y)*(5. + 5.*dissolve) : 0.)*(dissolve)
+    - (floored_uv.x < borders.x ? (borders.x - floored_uv.x)*(5. + 5.*dissolve) : 0.)*(dissolve)
+    - (floored_uv.y < borders.x ? (borders.x - floored_uv.y)*(5. + 5.*dissolve) : 0.)*(dissolve);
+
+    if (tex.a > 0.01 && burn_colour_1.a > 0.01 && !shadow && res < adjusted_dissolve + 0.8*(0.5-abs(adjusted_dissolve-0.5)) && res > adjusted_dissolve) {
+        if (!shadow && res < adjusted_dissolve + 0.5*(0.5-abs(adjusted_dissolve-0.5)) && res > adjusted_dissolve) {
+            tex.rgba = burn_colour_1.rgba;
+        } else if (burn_colour_2.a > 0.01) {
+            tex.rgba = burn_colour_2.rgba;
+        }
+    }
+
+    return vec4(shadow ? vec3(0.,0.,0.) : tex.xyz, res > adjusted_dissolve ? (shadow ? tex.a*0.3: tex.a) : 0.0);
+}
+
+vec3 rgbToHsv(vec3 c) {
+    float maxC = max(c.r, max(c.g, c.b));
+    float minC = min(c.r, min(c.g, c.b));
+    float delta = maxC - minC;
+
+    float h = 0.0;
+    if (delta > 0.0) {
+        if (maxC == c.r) h = mod((c.g - c.b) / delta, 6.0);
+        else if (maxC == c.g) h = (c.b - c.r) / delta + 2.0;
+        else h = (c.r - c.g) / delta + 4.0;
+        h /= 6.0;
+    }
+    float s = maxC == 0.0 ? 0.0 : delta / maxC;
+    return vec3(h, s, maxC);
+}
+
+// Convert HSV to RGB
+vec3 hsvToRgb(vec3 hsv) {
+    float h = hsv.x * 6.0;
+    float s = hsv.y;
+    float v = hsv.z;
+
+    float c = v * s;
+    float x = c * (1.0 - abs(mod(h, 2.0) - 1.0));
+    vec3 rgb;
+
+    if (h < 1.0) rgb = vec3(c, x, 0.0);
+    else if (h < 2.0) rgb = vec3(x, c, 0.0);
+    else if (h < 3.0) rgb = vec3(0.0, c, x);
+    else if (h < 4.0) rgb = vec3(0.0, x, c);
+    else if (h < 5.0) rgb = vec3(x, 0.0, c);
+    else rgb = vec3(c, 0.0, x);
+
+    return rgb + (v - c);
+}
+
+vec3 hue_shift(vec3 color, float dhue) {
+	float s = sin(dhue);
+	float c = cos(dhue);
+	return (color * c) + (color * s) * mat3(
+		vec3(0.167444, 0.329213, -0.496657),
+		vec3(-0.327948, 0.035669, 0.292279),
+		vec3(1.250268, -1.047561, -0.202707)
+	) + dot(vec3(0.299, 0.587, 0.114), color) * (1.0 - c);
+}
+
+vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords )
+{
+    vec2 uv = (((texture_coords)*(image_details)) - texture_details.xy*texture_details.zw)/texture_details.zw;
+    vec4 pixel = Texel(texture, texture_coords);
+
+    vec4 tex = vec4(1., 1., 1., 0.1);
+    vec2 adjusted_uv = uv - vec2(0.5, 0.5);
+    adjusted_uv.x = adjusted_uv.x*texture_details.b/texture_details.a;
+
+    pixel.a = pixel.a;
+    if (uv.y + wood.y == uv.y)
+        uv.y = wood.y; // I don't know why but it doesn't crash with this
+    vec3 hsv = rgbToHsv(pixel.rgb);
+    hsv.r = 26.90/255;
+    pixel.rgb = hsvToRgb(hsv);
+
+    pixel = vec4(pixel.rgb, pixel.a);
+
+    return dissolve_mask(pixel, texture_coords, uv);
+}
+
+extern MY_HIGHP_OR_MEDIUMP vec2 mouse_screen_pos;
+extern MY_HIGHP_OR_MEDIUMP float hovering;
+extern MY_HIGHP_OR_MEDIUMP float screen_scale;
+
+#ifdef VERTEX
+vec4 position( mat4 transform_projection, vec4 vertex_position )
+{
+    if (hovering <= 0.){
+        return transform_projection * vertex_position;
+    }
+    float mid_dist = length(vertex_position.xy - 0.5*love_ScreenSize.xy)/length(love_ScreenSize.xy);
+    vec2 mouse_offset = (vertex_position.xy - mouse_screen_pos.xy)/screen_scale;
+    float scale = 0.2*(-0.03 - 0.3*max(0., 0.3-mid_dist))
+                *hovering*(length(mouse_offset)*length(mouse_offset))/(2. -mid_dist);
+
+    return transform_projection * vertex_position + vec4(0,0,0,scale);
+}
+#endif

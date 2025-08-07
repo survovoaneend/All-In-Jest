@@ -302,6 +302,39 @@ G.FUNCS.jest_gold_tags = function(e)
         G.GAME.jest_upgrade_tab = true
     end
 end
+G.FUNCS.jest_next_tag = function(e)
+    local _tag = e.UIBox:get_UIE_by_ID('tag_container')
+    if _tag then
+      print(_tag)
+      local _tag_sprite = _tag.children[2]
+      local _tag_ui = _tag_sprite.children[1].children[1]
+      if G.GAME.all_in_jest.skip_tags._tag_2 and G.GAME.all_in_jest.skip_tags._tag_3 then
+        if _tag.config.ref_table.key ~= G.GAME.all_in_jest.skip_tags._tag_2._tag.key and _tag.config.ref_table.key ~= G.GAME.all_in_jest.skip_tags._tag_3._tag.key then
+            G.GAME.all_in_jest.skip_tags._tag_1 = G.GAME.all_in_jest.skip_tags._tag_1 or {}
+            if #G.GAME.all_in_jest.skip_tags._tag_1 == 0 then
+                G.GAME.all_in_jest.skip_tags._tag_1._tag = G.GAME.all_in_jest.skip_tags._tag_1._tag or {}
+                for k, v in pairs(_tag.config.ref_table) do 
+                    G.GAME.all_in_jest.skip_tags._tag_1._tag[k] = v
+                end
+            end
+            local temp_tag = Tag(G.GAME.all_in_jest.skip_tags._tag_2._tag.key)
+            _tag.config.ref_table = temp_tag
+            _tag_ui, _tag_sprite.config.ref_table = temp_tag:generate_UI()
+            G.GAME.all_in_jest.skip_tags._tag_ui, G.GAME.all_in_jest.skip_tags._tag_sprite = temp_tag:generate_UI()
+        elseif _tag.config.ref_table.key == G.GAME.all_in_jest.skip_tags._tag_2._tag.key then
+            local temp_tag = Tag(G.GAME.all_in_jest.skip_tags._tag_3._tag.key)
+            _tag.config.ref_table = temp_tag
+            _tag_ui, _tag_sprite.config.ref_table = temp_tag:generate_UI()
+            G.GAME.all_in_jest.skip_tags._tag_ui, G.GAME.all_in_jest.skip_tags._tag_sprite = temp_tag:generate_UI()
+        elseif _tag.config.ref_table.key == G.GAME.all_in_jest.skip_tags._tag_3._tag.key and G.GAME.all_in_jest.skip_tags._tag_1 then
+            local temp_tag = Tag(G.GAME.all_in_jest.skip_tags._tag_1._tag.key)
+            _tag.config.ref_table = temp_tag
+            _tag_ui, _tag_sprite.config.ref_table = temp_tag:generate_UI()
+            G.GAME.all_in_jest.skip_tags._tag_ui, G.GAME.all_in_jest.skip_tags._tag_sprite = temp_tag:generate_UI()
+        end
+      end
+    end
+end
 function jest_create_select_card_ui(card, area, extra_data)
     extra_data = extra_data or {}
     extra_data.copies = extra_data.copies or 1 
