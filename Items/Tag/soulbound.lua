@@ -34,9 +34,7 @@ local soulbound_tag = {
             function() 
                 return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
             end)
-            if tag.HUD_tag.states.visible == false then
-                tag.triggered = true
-            end
+            tag.triggered = true
             return true
         end
     end,
