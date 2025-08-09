@@ -48,9 +48,7 @@ local hermetic_tag = {
             function() 
                 return #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
             end)
-            if tag.HUD_tag.states.visible == false then
-                tag.triggered = true
-            end
+            tag.triggered = true
             return true
         end
     end,

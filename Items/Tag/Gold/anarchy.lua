@@ -323,9 +323,7 @@ local anarchy_tag = {
                 end
                 return true
             end)
-            if tag.HUD_tag.states.visible == false then
-                tag.triggered = true
-            end
+            tag.triggered = true
             return true
         end
     end,
