@@ -75,21 +75,30 @@ function update_multiplied_value(t, key)
     t[key] = result
 end
 
-function retrieve_joker_text(joker)
-    if not joker.ability_UIBox_table then
-        joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
-        joker.config.h_popup = G.UIDEF.card_h_popup(joker)
-        joker.config.h_popup_config = joker:align_h_popup()
-    end
-    local main = joker.ability_UIBox_table.main
+function retrieve_joker_text(joker, descip)
     local text = ""
-    for i = 1, #main do
-        for j = 1, #main[i] do
-            if main[i][j].config.text then
-                text = text .. main[i][j].config.text
+    if descip and G.localization.descriptions['Joker'][joker] then
+        local main = G.localization.descriptions['Joker'][joker].text
+        for i = 1, #main do
+            if main[i] then
+                text = text .. main[i]
             end
+            text = text .. " "
         end
-        text = text .. " "
+        if text and type(text) == 'string' then text = string.gsub(text, "{.-}", "") end
+    else
+        if not joker.ability_UIBox_table then
+            joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
+        end
+        local main = joker.ability_UIBox_table.main
+        for i = 1, #main do
+            for j = 1, #main[i] do
+                if main[i][j].config.text then
+                    text = text .. main[i][j].config.text
+                end
+            end
+            text = text .. " "
+        end
     end
     return text
 end

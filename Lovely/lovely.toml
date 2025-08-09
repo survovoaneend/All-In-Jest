@@ -663,6 +663,16 @@ if card.ability.consumeable and next(SMODS.find_card("j_aij_bartender")) then
 end
 '''
 
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''elseif _type == 'Joker' then _pool[#_pool + 1] = "j_joker"'''
+position = "before"
+match_indent = true
+payload = '''
+elseif _type == 'Joker' and next(SMODS.find_card("j_aij_little_boy_blue")) then _pool[#_pool + 1] = "j_aij_simple_simon"
+'''
+
 # Clay Joker and Visage Comapat visuals
 [[patches]]
 [patches.pattern]

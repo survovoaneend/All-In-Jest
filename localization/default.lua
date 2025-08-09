@@ -1122,8 +1122,22 @@ return {
                     "for purchase in {C:attention}Shop{}"
                 },
             },
-            j_aij_little_boy_blue = { name = "Little boy Blue", text = { "" } },
-            j_aij_big_red = { name = "Big red", text = { "" } },
+            j_aij_little_boy_blue = { 
+                name = "Little boy Blue", 
+                text = { 
+                    "{C:chips}+#1#{} Chips",
+                    "Only {C:chips}Chip{} Jokers may",
+                    "appear"
+                } 
+            },
+            j_aij_big_red = { 
+                name = "Big red", 
+                text = { 
+                    "{C:mult}+#1#{} Mult",
+                    "Only {C:mult}Mult{} Jokers may",
+                    "appear" 
+                } 
+            },
             j_aij_party_streamers = {
                 name = "Party Streamers",
                 text = {
