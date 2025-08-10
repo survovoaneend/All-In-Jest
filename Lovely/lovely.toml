@@ -25,9 +25,9 @@ payload = '''
 if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage' then
 	local other_joker = nil
     if self.ability.name == 'j_aij_visage' then
-        other_joker = G.GAME.jest_visage_last_sold
+        other_joker = G.jest_visage_last_sold.cards[1]
     elseif self.ability.name == 'j_aij_clay_joker' then
-        other_joker = G.GAME.jest_clay_last_destroyed
+        other_joker = G.jest_clay_last_destroyed.cards[1]
     end
     if other_joker and other_joker ~= self and other_joker.config.center.blueprint_compat then
         self.ability.blueprint_compat = 'compatible'
@@ -1344,4 +1344,23 @@ line_prepend = "$indent"
 payload = '''
 
 next(SMODS.find_card('j_aij_touchstone')) and AllInJest.touchstone_deck_preview() or nil,
+'''
+
+# Add CardAreas used to store the jokers that Clay Joker and Visage will copy
+# Using CardAreas so that reloading a run works properly
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "self.discard = CardArea("
+position = "before"
+match_indent = true
+payload = '''
+self.jest_clay_last_destroyed = CardArea(
+        -10, -10,
+        CAI.discard_W,CAI.discard_H,
+        {card_limit = 1, type = 'joker'})
+self.jest_visage_last_sold = CardArea(
+        -10, -10,
+        CAI.discard_W,CAI.discard_H,
+        {card_limit = 1, type = 'joker'})
 '''
