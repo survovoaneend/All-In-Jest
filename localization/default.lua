@@ -353,6 +353,12 @@ return {
                     
                 },
             },
+            bl_aij_the_birch = {
+                name = "The Birch",
+                text = {
+                    
+                },
+            },
             bl_aij_the_sun = {
                 name = "The Sun",
                 text = {
@@ -412,68 +418,6 @@ return {
                 text = {
                     'Must discard 5',
                     'cards at a time'
-                },
-            },
-            bl_aij_the_groan = {
-                name = "The Groan",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_ash = {
-                name = "The Ash",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_clay = {
-                name = "The Clay",
-                text = {
-                    'Randomly large blind'
-                },
-            },
-            bl_aij_the_aspen = {
-                name = "The Aspen",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_evergreen = {
-                name = "The Evergreen",
-                text = {
-        
-                },
-            },
-            bl_aij_the_enigma = {
-                name = "The Enigma",
-                text = {
-                    'Enhanced cards',
-                    'are drawn last'
-                },
-            },
-            bl_aij_the_bullion = {
-                name = "The Bullion",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_elbow = {
-                name = "The Elbow",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_thorn = {
-                name = "The Thorn",
-                text = {
-                    'Debuffs all',
-                    'enhanced cards'
-                },
-            },
-            bl_aij_the_twin = {
-                name = "The Twin",
-                text = {
-                    
                 },
             },
             --Pit Blinds
