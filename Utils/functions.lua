@@ -80,8 +80,14 @@ function retrieve_joker_text(joker, descip)
     if descip and G.localization.descriptions['Joker'][joker] then
         local main = G.localization.descriptions['Joker'][joker].text
         for i = 1, #main do
-            if main[i] then
+            if type(main[i]) == "string" then
                 text = text .. main[i]
+            elseif type(main[i]) == "table" then
+                for j = 1, #main[i] do
+                    if type(main[i][j]) == "string" then
+                        text = text .. main[i][j]
+                    end
+                end
             end
             text = text .. " "
         end
@@ -98,6 +104,19 @@ function retrieve_joker_text(joker, descip)
                 end
             end
             text = text .. " "
+        end
+        local multi_box = joker.ability_UIBox_table.multi_box
+        if multi_box then
+            for i = 1, #multi_box do
+                for j = 1, #multi_box[i] do
+                    for l = 1, #multi_box[i][j] do
+                        if multi_box[i][j][l].config.text then
+                            text = text .. multi_box[i][j][l].config.text
+                        end
+                    end
+                end
+                text = text .. " "
+            end
         end
     end
     return text
@@ -560,36 +579,6 @@ jest_ability_get_items = function(card, equation, extra_value, exclusions, inclu
   end
 
   return keys, values
-end
-
-AllInJest.touchstone_deck_preview = function()
-    local touchstone_card = SMODS.find_card('j_aij_touchstone')[1]
-    local cards = {}
-    for i = #G.deck.cards, #G.deck.cards - touchstone_card.ability.future_sense + 1, -1 do
-        if i > 0 then
-            local card = copy_card(G.deck.cards[i], nil, nil, G.playing_card)
-
-            -- Re-adds negative to preview if it was stripped by the mod
-            if G.deck.cards[i].edition and G.deck.cards[i].edition.negative and not All_in_Jest.config.no_copy_neg then
-                card:set_edition({negative = true}, nil, true)
-            end
-
-            if G.jokers and touchstone_card.area == G.jokers then
-                card.facing = 'front' -- Using .flip() here plays the flipping animation
-            end
-
-            table.insert(cards, card)
-        end
-    end
-    return AllInJest.card_area_preview(nil, nil, {
-        override = true,
-        cards = cards,
-        w = 5,
-        h = 0.6,
-        ml = 0,
-        scale = 0.4,
-        padding = 0,
-    })
 end
 
 AllInJest.card_area_preview = function(cardArea, desc_nodes, config)

@@ -16,7 +16,7 @@ local wood = {
     order = 4,
     pos = { x = 4, y = 0 },
     config = {
-        h_chips = 0,
+        h_chips = 20,
         extra = {
             base_h_chips = 20,
             h_chips_mod = 5,

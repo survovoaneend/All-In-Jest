@@ -20,10 +20,10 @@ local dongtong = {
   
     end,
 }
-local updateref = Card.update
+local updateref = Card.update 
 function Card:update(dt)
   local ref = updateref(self, dt)
-  if G.jokers and self.ability.set == 'Joker' then
+  if G.jokers and self.ability.set == 'Joker' and (self.config.center.dongtong_compat == nil or self.config.center.dongtong_compat) then
     local applied = self.ability.jest_applied or {}
     self.ability.jest_applied = applied
 

@@ -15,6 +15,48 @@ for i = #G.GAME.tags, 1, -1 do
 end
 '''
 
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if delay_sprites == 'quantum' then self.from_quantum = true end"
+position = "before"
+match_indent = true
+payload = '''
+local aij_silver_reapply = false
+if self.edition and self.edition.aij_silver then
+    if old_center ~= center and self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
+        jest_ability_calculate(
+        self,
+        "/", tonumber(self.edition.pervmult),
+        { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
+        nil, true, false, "ability"
+        )
+        aij_silver_reapply = true
+    end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = 'if not initial and delay_sprites ~= "quantum" and G.GAME.blind then G.GAME.blind:debuff_card(self) end'
+position = "before"
+match_indent = true
+payload = '''
+if self.edition and self.edition.aij_silver then
+    if aij_silver_reapply and self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
+        jest_ability_calculate(
+        self,
+        "*", self.edition.mult,
+        { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
+        nil, true, false, "ability"
+        )
+    end
+end
+'''
+
+
+
 [[patches]] 
 [patches.pattern]
 target = "functions/state_events.lua"
@@ -352,6 +394,71 @@ elseif area == G.shop_booster then
 '''
 match_indent = true
 
+# Activated Ability Button UI
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+{n=G.UIT.R, config={align = 'cl'}, nodes={
+    sell
+}},
+'''
+position = 'before'
+payload = '''
+{n=G.UIT.R, config={align = 'cl'}, nodes={
+    aij_activate_ability
+}},
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+local use = nil
+'''
+position = 'after'
+payload = '''
+local aij_activate_ability = nil
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+if card.area and card.area.config.type == 'joker' then
+'''
+position = 'after'
+payload = '''
+if card.config.center.all_in_jest and card.config.center.all_in_jest.use_ability then 
+    aij_activate_ability = {n=G.UIT.C, config={align = "cr"}, nodes={
+        {n=G.UIT.C, config={ref_table = card, align = "cr",maxw = 1.25, padding = 0.1, r=0.08, minw = 1.25, minh = (card.area and card.area.config.type == 'joker') and 0 or 1, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, button = 'All_in_Jest_use_active_ability_button', func = 'All_in_Jest_can_use_active_ability_button'}, nodes={
+        {n=G.UIT.B, config = {w=0.1,h=0.6}},
+        {n=G.UIT.T, config={text = localize('b_use'),colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true}}
+        }}
+    }}
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+if (card.area == G.pack_cards and G.pack_cards) and not card.ability.consumeable then --Add a use button
+'''
+position = 'after'
+payload = '''
+if card.config.center.all_in_jest and card.config.center.all_in_jest.use_ability then 
+    base_attach.children.aij_activate_ability = G.UIDEF.card_focus_button{
+        card = card, parent = base_attach, type = 'use',
+        func = 'All_in_Jest_can_use_active_ability_button', button = 'All_in_Jest_use_active_ability_button', card_width = card_width
+    }
+end
+'''
+match_indent = true
+
 [[patches]] 
 [patches.pattern]
 target = "functions/state_events.lua"
@@ -466,6 +573,18 @@ for k, v in pairs(G.hand.highlighted) do
         e.config.button = nil
         return
     end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.GAME.round_resets.blind_tags.Big = get_next_tag_key()"
+position = "after"
+payload = '''
+if G.GAME.used_vouchers.v_aij_trophy then
+    G.GAME.round_resets.blind_tags.Big = get_next_tag_key('all_in_jest_guarrented_gold_tag')
 end
 '''
 match_indent = true
@@ -591,7 +710,7 @@ pattern = "local _pool, _pool_key = get_current_pool('Tag', nil, nil, append)"
 position = "before"
 match_indent = true
 payload = '''
-local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest Golden Tag', nil, nil, '_gold')
+local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest Golden Tag', nil, nil, append and append..'_gold' or '_gold')
 _gold_pool = {}
 for i = 1, #_temp_gold_pool do
      _gold_pool[i] = _temp_gold_pool[i]
@@ -693,8 +812,13 @@ if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
             _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
         end
     end
+    if append and append == 'all_in_jest_guarrented_gold_tag' then
+        _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
+    end
 end
 '''
+
+
 
 [[patches]]
 [patches.pattern]
@@ -1236,6 +1360,11 @@ if has_beanstalk then
         return true
     end
 end
+if next(SMODS.find_card("j_aij_punch_and_judy")) then
+    if card:get_id() == 12 or card:get_id() == 13 then
+        return true
+    end
+end
 '''
 match_indent = true 
 
@@ -1736,40 +1865,6 @@ match_indent = true
 
 [[patches]] 
 [patches.pattern]
-target = "card.lua"
-pattern = '''
-if self.ability.effect == "Lucky Card" then
-        if SMODS.pseudorandom_probability(self, 'lucky_mult', 1, 5) then
-            self.lucky_trigger = true
-            ret = ret + self.ability.mult
-        end
-    else
-'''
-position = "at"
-payload = '''
- local is_chip_mult = self.ability._saved_chip_values ~= nil
-
-    if self.ability.effect == "Lucky Card" then
-        local base_mult = 0
-        if is_chip_mult then
-            base_mult = (self.ability._saved_chip_values.nominal or 0) +
-                        (self.ability._saved_chip_values.bonus or 0) +
-                        (self.ability._saved_chip_values.perma_bonus or 0)
-        end
-        
-        local ret = base_mult + ((not self.ability.extra_enhancement and self.ability.perma_mult) or 0)
-
-        if SMODS.pseudorandom_probability(self, 'lucky_mult', 1, 5) then
-            self.lucky_trigger = true
-            ret = ret + self.ability.mult
-        end
-        return ret
-    else
-'''
-match_indent = true
-
-[[patches]] 
-[patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = '''
 for k, v in ipairs(text_table) do
@@ -2175,16 +2270,4 @@ payload = '''
                 end
             end
         end
-'''
-
-# Adds the touchstone forecast on the hover deck preview
-[[patches]]
-[patches.regex]
-target = '=[SMODS _ "src/overrides.lua"]'
-pattern = '''(?<indent>[\t ]*)wheel_flipped_text and \{(.|\n)*?or nil,'''
-position = "after"
-line_prepend = "$indent"
-payload = '''
-
-next(SMODS.find_card('j_aij_touchstone')) and AllInJest.touchstone_deck_preview() or nil,
 '''

@@ -5,7 +5,8 @@ local silly_sausage = {
     key = "silly_sausage",
     config = {
         extra = {
-        current_discount = 5,
+            current_discount = 5,
+            prev_discount = "0"
         }
     },
     rarity = 1,
@@ -26,24 +27,26 @@ local silly_sausage = {
     end,
 
     add_to_deck = function(self, card, from_debuff)
-        if not from_debuff and G.GAME and G.GAME.round_resets then
-            G.GAME.round_resets.reroll_cost = math.max(0, (G.GAME.round_resets.reroll_cost or 0) - card.ability.extra.current_discount)
-            calculate_reroll_cost(true) 
-        end
+        G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.current_discount
+        G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - card.ability.extra.current_discount)
+        card.ability.extra.prev_discount = tostring(card.ability.extra.current_discount)
     end,
-
     remove_from_deck = function(self, card, from_debuff)
-        if not from_debuff and not card.ability.extra.was_eaten and G.GAME and G.GAME.round_resets then
-            G.GAME.round_resets.reroll_cost = (G.GAME.round_resets.reroll_cost or 0) + card.ability.extra.current_discount
-            calculate_reroll_cost(true)
-        end
+        G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + card.ability.extra.current_discount
+        G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost + card.ability.extra.current_discount)
     end,
   
     calculate = function(self, card, context)
         if context.end_of_round and not context.blueprint and context.main_eval then
             local discount_this_round = card.ability.extra.current_discount
             if card.ability.extra.current_discount > 0 then
-                G.GAME.round_resets.reroll_cost = (G.GAME.round_resets.reroll_cost or 0) + discount_this_round
+                if tonumber(card.ability.extra.prev_discount) ~= card.ability.extra.current_discount then
+                    local removeamt = card.ability.extra.current_discount - tonumber(card.ability.extra.prev_discount) 
+                    G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - removeamt
+                    G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - removeamt)
+                end
+                G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + discount_this_round
+                G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost + discount_this_round)
                 card.ability.extra.current_discount = card.ability.extra.current_discount - 1
 
                 if card.ability.extra.current_discount <= 0 then
@@ -74,8 +77,9 @@ local silly_sausage = {
                     }
                 else
                     card_eval_status_text(card, 'extra', nil, nil, nil, { message = "-$1 Discount", colour = G.C.RED })
-                    G.GAME.round_resets.reroll_cost = math.max(0,
-                        (G.GAME.round_resets.reroll_cost or 0) - card.ability.extra.current_discount)
+                    G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.current_discount
+                    G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - card.ability.extra.current_discount)
+                    card.ability.extra.prev_discount = tostring(card.ability.extra.current_discount)
                 end
                 calculate_reroll_cost(true)
             end
