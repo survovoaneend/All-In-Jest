@@ -24,6 +24,10 @@ local dizzard = {
         stop_use()
             G.deck:shuffle('cashout'..G.GAME.round_resets.ante)
             G.deck:hard_set_T()
+            G.GAME.current_round.reroll_cost_increase = 0
+            G.GAME.current_round.used_packs = {}
+            G.GAME.current_round.free_rerolls = G.GAME.round_resets.free_rerolls
+            calculate_reroll_cost(true)
             if context.skip_blind then
                 G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext1').config.object.pop_delay = 0
                 G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext1').config.object:pop_out(5)
