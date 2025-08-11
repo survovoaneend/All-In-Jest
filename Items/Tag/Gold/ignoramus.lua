@@ -50,9 +50,7 @@ local ignoramus_tag = {
             function() 
                 return #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
             end)
-            if tag.HUD_tag.states.visible == false then
-                tag.triggered = true
-            end
+            tag.triggered = true
             return true
         end
     end,

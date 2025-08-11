@@ -29,9 +29,7 @@ local ventripotent_tag = {
             function() 
                 return G.GAME.jest_change_booster_options.op.mult ~= 2
             end)
-            if tag.HUD_tag.states.visible == false then
-                tag.triggered = true
-            end
+            tag.triggered = true
             return true
         end
     end,

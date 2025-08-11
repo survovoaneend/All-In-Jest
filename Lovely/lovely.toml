@@ -31,6 +31,229 @@ match_indent = true
 
 [[patches]] 
 [patches.pattern]
+target = "cardarea.lua"
+pattern = '''
+if G.CONTROLLER.HID.controller then
+'''
+position = "before"
+payload = '''
+if self.config.type == 'hand' then
+    if SMODS.get_enhancements(card).m_aij_ice then
+        return true
+    end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "cardarea.lua"
+pattern = '''
+if #self.highlighted >= self.config.highlighted_limit then
+    card:highlight(false)
+else
+    self.highlighted[#self.highlighted+1] = card
+    card:highlight(true)
+    if not silent then play_sound('cardSlide1') end
+end
+'''
+position = "after"
+payload = '''
+local ice = {}
+for k, v in pairs(self.highlighted) do
+    if SMODS.get_enhancements(self.highlighted[k]).m_aij_ice then
+        ice[#ice+1] = v
+    end
+end
+if not card.highlighted and #ice >= 1 then
+    if (#self.highlighted - #ice) >= self.config.highlighted_limit then
+        card:highlight(false)
+    else
+        self.highlighted[#self.highlighted+1] = card
+        card:highlight(true)
+        if not silent then play_sound('cardSlide1') end
+    end
+end
+if (SMODS.get_enhancements(card).m_aij_ice) and not card.highlighted then
+    self.highlighted[#self.highlighted+1] = card
+    card:highlight(true)
+    if not silent then play_sound('cardSlide1') end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
+'''
+position = "before"
+payload = '''
+local fake_text,fake_disp_text,fake_poker_hands,fake_scoring_hand,fake_non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
+SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = fake_scoring_hand, scoring_name = fake_text, poker_hands = fake_poker_hands, aij_before_before = true})
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+G.GAME.hands[text].played = G.GAME.hands[text].played + 1
+'''
+position = "before"
+payload = '''
+if text == 'aij_Royal Flush' then
+    G.GAME.hands['Straight Flush'].played = G.GAME.hands['Straight Flush'].played + 1
+    G.GAME.hands['Straight Flush'].played_this_round = G.GAME.hands['Straight Flush'].played_this_round + 1
+    G.GAME.last_hand_played = 'Straight Flush'
+    set_hand_usage('Straight Flush')
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)'''
+position = "before"
+match_indent = true
+payload = '''
+if hand == 'Straight Flush' then
+    level_up_other_hand(nil, 'aij_Royal Flush', hand, true, amount)
+end
+'''
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+return {n=G.UIT.R, config={align = "cm", colour = G.C.WHITE, r = 0.1}, nodes={
+'''
+position = "before"
+payload = '''
+if handname == 'Straight Flush' and G.GAME.hands["aij_Royal Flush"] then
+    return {n=G.UIT.R, config={align = "cm", r = 0.1}, nodes={
+        {n=G.UIT.R, config={align = "cm", colour = G.C.WHITE, r = 0.1}, nodes={
+          {n=G.UIT.C, config={align = "cm"}, nodes={
+            {n=G.UIT.O, config={object = cardarea}}
+          }}
+        }},
+        {n=G.UIT.R, config={align = "cm", padding = 0.05, r = 0.1, colour = darken(G.C.JOKER_GREY, 0.1), emboss = 0.05, hover = true, force_focus = true, on_demand_tooltip = {text = localize("aij_Royal Flush", 'poker_hand_descriptions'), filler = {func = create_UIBox_hand_tip, args = "aij_Royal Flush"}}}, nodes={
+          {n=G.UIT.C, config={align = "cl", padding = 0, minw = 5}, nodes={
+            {n=G.UIT.C, config={align = "cm", padding = 0.01, r = 0.1, colour = G.C.HAND_LEVELS[math.min(7, math.max(1,G.GAME.hands["aij_Royal Flush"].level-1))], minw = 1.5, outline = 0.8, outline_colour = G.C.WHITE}, nodes={
+              {n=G.UIT.T, config={text = '+'..localize('k_level_prefix')..(G.GAME.hands["aij_Royal Flush"].level-1), scale = 0.5, colour = G.C.UI.TEXT_DARK}}
+            }},
+            {n=G.UIT.C, config={align = "cm", minw = 4.5, maxw = 4.5}, nodes={
+              {n=G.UIT.T, config={text = ' '..localize("aij_Royal Flush",'poker_hands'), scale = 0.45, colour = G.C.UI.TEXT_LIGHT, shadow = true}}
+            }}
+          }},
+          {n=G.UIT.C, config={align = "cm", padding = 0.05, colour = G.C.BLACK,r = 0.1}, nodes={
+            {n=G.UIT.C, config={align = "cr", padding = 0.01, r = 0.1, colour = G.C.CHIPS, minw = 1.1}, nodes={
+              {n=G.UIT.T, config={text = '+'..number_format(G.GAME.hands["aij_Royal Flush"].l_chips*(G.GAME.hands["aij_Royal Flush"].level-1), 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}},
+              {n=G.UIT.B, config={w = 0.08, h = 0.01}}
+            }},
+            {n=G.UIT.T, config={text = "X", scale = 0.45, colour = G.C.MULT}},
+            {n=G.UIT.C, config={align = "cl", padding = 0.01, r = 0.1, colour = G.C.MULT, minw = 1.1}, nodes={
+              {n=G.UIT.B, config={w = 0.08,h = 0.01}},
+              {n=G.UIT.T, config={text = '+'..number_format(G.GAME.hands["aij_Royal Flush"].l_mult*(G.GAME.hands["aij_Royal Flush"].level-1), 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}}
+            }}
+          }},
+          {n=G.UIT.C, config={align = "cm"}, nodes={
+              {n=G.UIT.T, config={text = '  #', scale = 0.45, colour = G.C.UI.TEXT_LIGHT, shadow = true}}
+            }},
+          {n=G.UIT.C, config={align = "cm", padding = 0.05, colour = G.C.L_BLACK,r = 0.1, minw = 0.9}, nodes={
+            {n=G.UIT.T, config={text = G.GAME.hands["aij_Royal Flush"].played, scale = 0.45, colour = G.C.FILTER, shadow = true}},
+          }}
+        }},
+    }}
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+not run_info and {n=G.UIT.C, config={align = "cm", colour = G.C.UI.BACKGROUND_INACTIVE, minh = 0.6, minw = 2, maxw = 2, padding = 0.07, r = 0.1, shadow = true, hover = true, one_press = true, button = 'skip_blind', func = 'hover_tag_proxy', ref_table = _tag}, nodes={
+    {n=G.UIT.T, config={text = localize('b_skip_blind'), scale = 0.4, colour = G.C.UI.TEXT_INACTIVE}}
+}} or {n=G.UIT.C, config={align = "cm", padding = 0.1, emboss = 0.05, colour = mix_colours(G.C.BLUE, G.C.BLACK, 0.4), r = 0.1, maxw = 2}, nodes={
+    {n=G.UIT.T, config={text = localize('b_skip_reward'), scale = 0.35, colour = G.C.WHITE}},
+}},
+'''
+position = "after"
+payload = '''
+G.GAME.all_in_jest.skip_tags.has_multiple and not run_info and {n=G.UIT.C, config={align = "cm", colour = G.C.UI.BACKGROUND_INACTIVE, minh = 0.1, maxh = 0.1, minw = 0.2, maxw = 0.2, padding = 0.07, r = 0.2, shadow = true, hover = true, button = 'jest_next_tag', ref_table = _tag}, nodes={
+    {n=G.UIT.T, config={text = '>', scale = 0.4, colour = G.C.UI.TEXT_INACTIVE}}
+}} or nil,
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+local _tag_ui, _tag_sprite = _tag:generate_UI()
+'''
+position = "after"
+payload = '''
+if G.GAME.all_in_jest.skip_tags.has_multiple and G.GAME.all_in_jest.skip_tags.amt >= 2 then
+    local tag_key = G.GAME.round_resets.blind_tags[blind_choice]
+    local tag_key_2 = get_next_tag_key('_2')
+    local temp_index = 0
+    while tag_key_2 == tag_key do
+        temp_index = temp_index + 1
+        tag_key_2 = get_next_tag_key('_2_resample_'..temp_index)
+    end
+    temp_index = 0
+    local tag_key_3 = get_next_tag_key('_3')
+    while tag_key_2 == tag_key_3 do
+        temp_index = temp_index + 1
+        tag_key_3 = get_next_tag_key('_3_resample_'..temp_index)
+    end
+    local _tag_2 = Tag(tag_key_2)
+    local _tag_ui_2, _tag_sprite_2 = _tag_2:generate_UI()
+    local _tag_3 = Tag(tag_key_3)
+    local _tag_ui_3, _tag_sprite_3 = _tag_3:generate_UI()  
+    _tag_sprite_2.states.collide.can = not not run_info
+    _tag_sprite_3.states.collide.can = not not run_info
+    G.GAME.all_in_jest.skip_tags._tag_2 = G.GAME.all_in_jest.skip_tags._tag_2 or {}
+    if #G.GAME.all_in_jest.skip_tags._tag_2 == 0 then
+        G.GAME.all_in_jest.skip_tags._tag_2._tag = G.GAME.all_in_jest.skip_tags._tag_2._tag or {}
+        for k, v in pairs(_tag_2) do 
+            G.GAME.all_in_jest.skip_tags._tag_2._tag[k] = v
+        end
+    end
+    G.GAME.all_in_jest.skip_tags._tag_3 = G.GAME.all_in_jest.skip_tags._tag_3 or {}
+    if #G.GAME.all_in_jest.skip_tags._tag_3 == 0 then
+        G.GAME.all_in_jest.skip_tags._tag_3._tag = G.GAME.all_in_jest.skip_tags._tag_3._tag or {}
+        for k, v in pairs(_tag_3) do 
+            G.GAME.all_in_jest.skip_tags._tag_3._tag[k] = v
+        end
+    end
+elseif G.GAME.all_in_jest.skip_tags.has_multiple and G.GAME.all_in_jest.skip_tags.amt >= 1 then
+    local tag_key = G.GAME.round_resets.blind_tags[blind_choice]
+    local tag_key_2 = get_next_tag_key('_2')
+    local temp_index = 0
+    while tag_key_2 == tag_key do
+        temp_index = temp_index + 1
+        tag_key_2 = get_next_tag_key('_2_resample_'..temp_index)
+    end
+    local _tag_2 = Tag(tag_key_2)
+    local _tag_ui_2, _tag_sprite_2 = _tag_2:generate_UI()
+    _tag_sprite_2.states.collide.can = not not run_info
+    G.GAME.all_in_jest.skip_tags._tag_2 = G.GAME.all_in_jest.skip_tags._tag_2 or {}
+    if G.GAME.all_in_jest.skip_tags._tag_2 == {} then
+        G.GAME.all_in_jest.skip_tags._tag_2[#G.GAME.all_in_jest.skip_tags._tag_2 + 1] = _tag_2
+        G.GAME.all_in_jest.skip_tags._tag_2[#G.GAME.all_in_jest.skip_tags._tag_2 + 1] = _tag_ui_2
+        G.GAME.all_in_jest.skip_tags._tag_2[#G.GAME.all_in_jest.skip_tags._tag_2 + 1] = _tag_sprite_2
+    end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
 G.E_MANAGER:add_event(Event({
@@ -54,11 +277,92 @@ if G.GAME.all_in_jest.reset_score.chip_total then
     hand_chips = 0
     G.GAME.all_in_jest.reset_score.chip_total = false
 end
+local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_run + 1
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing] = {}
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].mult = mult
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].chips = hand_chips
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].total_chips = math.floor(hand_chips*mult)
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].full_hand = G.play.cards
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_hand = scoring_hand  
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].poker_hands = poker_hands
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage + 1
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing] = {}
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].mult = mult
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].chips = hand_chips
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].total_chips = math.floor(hand_chips*mult)
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].full_hand = G.play.cards
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].scoring_hand = scoring_hand  
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].poker_hands = poker_hands
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "for i = #G.shop_jokers.cards,1, -1 do"
+position = "before"
+payload = '''
+if next(SMODS.find_card("j_aij_scapino")) then
+    for i = #G.shop_booster.cards,1, -1 do
+        local c = G.shop_booster:remove_card(G.shop_booster.cards[i])
+        c:remove()
+        c = nil
+    end
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "for i = 1, G.GAME.shop.joker_max - #G.shop_jokers.cards do"
+position = "before"
+payload = '''
+if next(SMODS.find_card("j_aij_scapino")) then
+    for i = 1, ((G.GAME.modifiers.extra_boosters or 0) + 2) - #G.shop_booster.cards do
+        local new_shop_card = create_card_for_shop(G.shop_booster)
+        G.shop_booster:emplace(new_shop_card)
+        new_shop_card:juice_up()
+    end
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+if area == G.shop_jokers and G.SETTINGS.tutorial_progress and G.SETTINGS.tutorial_progress.forced_shop and G.SETTINGS.tutorial_progress.forced_shop[#G.SETTINGS.tutorial_progress.forced_shop] then
+        local t = G.SETTINGS.tutorial_progress.forced_shop
+        local _center = G.P_CENTERS[t[#t]] or G.P_CENTERS.c_empress
+        local card = Card(area.T.x + area.T.w/2, area.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, _center, {bypass_discovery_center = true, bypass_discovery_ui = true})
+        t[#t] = nil
+        if not t[1] then G.SETTINGS.tutorial_progress.forced_shop = nil end
+        
+        create_shop_card_ui(card)
+        return card
+'''
+position = 'after'
+payload = '''
+elseif area == G.shop_booster then
+    local card = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
+    G.shop_booster.T.y, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS[get_pack('shop_pack').key], {bypass_discovery_center = true, bypass_discovery_ui = true})
+    create_shop_card_ui(card, 'Booster', G.shop_booster)
+    return card
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+SMODS.calculate_context({setting_blind = true, blind = G.GAME.round_resets.blind})
+'''
+position = "before"
+payload = '''
+for k, v in pairs(G.GAME.all_in_jest.advanced_hand_usage) do
+    G.GAME.all_in_jest.advanced_hand_usage[k] = nil
+end
 '''
 match_indent = true
 
@@ -99,11 +403,52 @@ target = "functions/button_callbacks.lua"
 pattern = "if #G.hand.highlighted <= 0 or G.GAME.blind.block_play or #G.hand.highlighted > math.max(G.GAME.starting_params.play_limit, 1) then"
 position = "before"
 payload = '''
+local temp_var = nil
 for k, v in pairs(G.hand.highlighted) do
     if v.ability.aij_marked then
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
         e.config.button = nil
         return
+    end
+    if SMODS.get_enhancements(v).m_aij_ice then
+        if not temp_var then temp_var = 0 end
+        temp_var = temp_var + 1
+    end
+end
+if temp_var and temp_var >= (#G.hand.highlighted - math.max(G.GAME.starting_params.play_limit, 1)) then
+    e.config.colour = G.C.BLUE
+    e.config.button = 'play_cards_from_highlighted'
+    return
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = "for _, v in ipairs(SMODS.PokerHandPart.obj_buffer) do"
+position = "before"
+payload = '''
+local ice = {}
+local non_ice = {}
+for k, v in pairs(hand) do
+    if SMODS.get_enhancements(hand[k]).m_aij_ice then
+        ice[#ice+1] = v
+    end
+    if not SMODS.get_enhancements(hand[k]).m_aij_ice then
+        non_ice[#non_ice+1] = v
+    end
+end
+hand = {}
+local temp_jest_var = 0
+for k, v in pairs(non_ice) do
+    hand[temp_jest_var+1] = v
+    temp_jest_var = temp_jest_var + 1
+end
+for k, v in pairs(ice) do
+    if (math.max(G.GAME.starting_params.play_limit, 1) - temp_jest_var) > 0 then
+        hand[temp_jest_var+1] = v
+        temp_jest_var = temp_jest_var + 1
     end
 end
 '''
@@ -272,7 +617,7 @@ if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
         local gt = 1
         local gold = false
         while Tag(_tag).config.aij and Tag(_tag).config.aij.upgrade and not gold do
-            if not (pseudorandom('gold_tag_rate') < (1 * G.GAME.jest_gold_tag_rate) / 30) then
+            if not (pseudorandom('gold_tag_rate') < (1 * G.GAME.all_in_jest.gold_tag_rate) / 30) then
                 gt = gt + 1
                 _tag = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample_gold'..gt))
             else
@@ -280,7 +625,7 @@ if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
             end
         end
     else
-        if pseudorandom('gold_tag_rate') < (1 * G.GAME.jest_gold_tag_rate) / 30 then
+        if pseudorandom('gold_tag_rate') < (1 * G.GAME.all_in_jest.gold_tag_rate) / 30 then
             _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
         end
     end
@@ -336,7 +681,7 @@ if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
         local gt = 1
         local gold = false
         while Tag(_tag).config.aij and Tag(_tag).config.aij.upgrade and not gold do
-            if not (pseudorandom('gold_tag_rate') < (1 * G.GAME.jest_gold_tag_rate) / 30) then
+            if not (pseudorandom('gold_tag_rate') < (1 * G.GAME.all_in_jest.gold_tag_rate) / 30) then
                 gt = gt + 1
                 _tag = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample_gold'..gt))
             else
@@ -344,7 +689,7 @@ if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
             end
         end
     else
-        if pseudorandom('gold_tag_rate') < (1 * G.GAME.jest_gold_tag_rate) / 30 then
+        if pseudorandom('gold_tag_rate') < (1 * G.GAME.all_in_jest.gold_tag_rate) / 30 then
             _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
         end
     end
@@ -410,6 +755,16 @@ if card.ability.consumeable and next(SMODS.find_card("j_aij_bartender")) then
         card:set_edition(edition)
     end
 end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''elseif _type == 'Joker' then _pool[#_pool + 1] = "j_joker"'''
+position = "before"
+match_indent = true
+payload = '''
+elseif _type == 'Joker' and next(SMODS.find_card("j_aij_little_boy_blue")) then _pool[#_pool + 1] = "j_aij_simple_simon"
 '''
 
 # Clay Joker and Visage Comapat visuals
@@ -786,7 +1141,7 @@ G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].s_chips + G.GAME.hands[ha
 position = "at"
 payload = ''' 
 if to_big(G.GAME.hands[hand].l_chips) >= to_big(1) then
-    G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (G.GAME.hands[hand].l_chips * amount))
+    G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + math.floor((G.GAME.hands[hand].l_chips * amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1))))
 else
     G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (1 * amount))
 end
@@ -802,7 +1157,7 @@ G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].s_mult + G.GAME.hands[hand
 position = "at"
 payload = ''' 
 if to_big(G.GAME.hands[hand].l_mult) >= to_big(1) then
-    G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (G.GAME.hands[hand].l_mult * amount))
+    G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + math.floor((G.GAME.hands[hand].l_mult * amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1))))
 else
     G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (1 * amount))
 end
@@ -818,6 +1173,28 @@ if _type == 'Joker' then
 position = "before"
 match_indent = true
 payload = '''
+if key_append and card then
+    if key_append == '8ba' or key_append == 'blusl' then
+        local has_the_grim_joker = next(SMODS.find_card("j_aij_the_grim_joker"))
+        if has_the_grim_joker then
+            for i = 1, #SMODS.find_card("j_aij_the_grim_joker") do
+                local denomiator = SMODS.find_card("j_aij_the_grim_joker")[i].ability.extra.odds
+                if SMODS.pseudorandom_probability(SMODS.find_card("j_aij_the_grim_joker")[i], 'the_grim_joker', 1, denomiator) then 
+                    local edition = {negative = true}
+                    card:set_edition(edition, true)
+                end
+            end
+        end
+    end
+end
+
+if _type == 'Planet' then
+    local has_lost_carcosa = next(SMODS.find_card("j_aij_lost_carcosa"))
+    if has_lost_carcosa and card then
+        card.ability.lost_carcosa_mult = math.random(5,20) * 0.1
+    end
+end
+
 if G.GAME.jest_legendary_pool ~= nil and _type == 'Joker' then
     if G.GAME.jest_legendary_pool.in_shop then
         local rary = _rarity or pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) 
@@ -828,6 +1205,22 @@ if G.GAME.jest_legendary_pool ~= nil and _type == 'Joker' then
             end
         end
     end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = '''
+if obj.debuff_hand and type(obj.debuff_hand) == 'function' then
+'''
+position = "before"
+match_indent = true
+payload = '''
+local has_opening_move = next(SMODS.find_card("j_aij_opening_move"))
+if G.GAME.current_round.hands_played <= 0 and has_opening_move then
+    self.triggered = true
+    return true
 end
 '''
 
@@ -1057,7 +1450,7 @@ pattern = "local _size = self.ability.extra"
 position = "after" 
 match_indent = true
 payload = '''
-if G.GAME.jest_change_booster_options.trigger then
+if G.GAME.jest_change_booster_options.trigger or G.GAME.jest_change_booster_options.pack_choices == "unlimited" then
     if G.GAME.jest_change_booster_options.option == "size" or G.GAME.jest_change_booster_options.option == "both" then
         -- Pemdas order
         if G.GAME.jest_change_booster_options.op.mult ~= 0 then
@@ -1082,6 +1475,20 @@ if G.GAME.jest_change_booster_options.trigger then
         G.GAME.pack_choices = _size
     end
     G.GAME.jest_change_booster_options.trigger = false
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "if G.GAME.chips - G.GAME.blind.chips >= 0 or G.GAME.current_round.hands_left < 1 then"
+position = "before"
+match_indent = true
+payload = '''
+if next(SMODS.find_card("j_aij_electric_snow")) and not (G.GAME.current_round.hands_left < 1) then
+    G.STATE = G.STATES.DRAW_TO_HAND
+    G.STATE_COMPLETE = false
+    return true
 end
 '''
 
@@ -1678,6 +2085,32 @@ pattern = '''(?<indent>[\t ]*)if v.config.hand_type == G.GAME.last_hand_played (
 position = "at"
 line_prepend = '$indent'
 payload = '''if v.config.hand_type == G.GAME.last_hand_played and not v.config.moon $post'''
+
+[[patches]] 
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+if _planet == 0 then _planet = nil end
+'''
+position = "before"
+payload = '''
+if next(SMODS.find_card("j_aij_sky_trees")) then
+    local _other_planet = 0
+    for k, v in pairs(G.P_CENTER_POOLS.Planet) do
+        if v.config.moon and v.config.hand_type == G.GAME.last_hand_played and v.config.mult then
+            _planet = v.key
+        end
+        if v.config.moon and v.config.hand_type == G.GAME.last_hand_played and v.config.chips then
+            _other_planet = v.key
+        end
+    end
+    if _other_planet == 0 then _other_planet = nil end
+    local cardt = create_card(card_type,G.consumeables, nil, nil, nil, nil, _other_planet, 'blusl')
+    cardt:add_to_deck()
+    G.consumeables:emplace(cardt)
+end
+'''
+match_indent = true
 
 #planets that aren't in this list are 3x 
 [[patches]]

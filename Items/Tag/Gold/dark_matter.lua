@@ -41,9 +41,7 @@ local dark_matter_tag = {
                 end
                 return false
             end)
-            if tag.HUD_tag.states.visible == false then
-                tag.triggered = true
-            end
+            tag.triggered = true
             return true
         end
     end,

@@ -72,3 +72,4 @@ local master_arcanes = {
 	end,
 }
 return { name = { "Tarots" }, items = { master_arcanes } }
+

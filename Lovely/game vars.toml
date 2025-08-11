@@ -42,8 +42,16 @@ all_in_jest = {
 	dizzard_shop = false,
 	pit_blind_ante = 4,
 	skip_tags = {has_multiple = false, amt = 1},
+	advanced_hand_usage_run = {},
 	advanced_hand_usage = {},
-	reset_score = {chips = false, mult = false, chip_total = false, blind_total = false}
+	AIJAnimated = {
+		c_aij_scopophobia = { frames_per_row = 18, frames = 144, start_frame = 126, fps = 12, hold = { frames = 2, max_frames = 144, min_frames = 128, min_start_frames = 126, hold_for_min = 12, hold_for_max = 35 } },
+		j_aij_electric_snow = { frames_per_row = 25, frames = 382, start_frame = 375, fps = 16, },
+	},
+	reset_score = {chips = false, mult = false, chip_total = false, blind_total = false},
+	secret_hands = {},
+	gold_tag_rate = 1,
+	v_aij_gold_medal_been_used = false,
 },
 -- move these into all_in_jest at some point
 jest_unused_hands = 0,
@@ -64,7 +72,6 @@ jest_free_stultor_rerolls = 0,
 jest_fairy_edition_rate = 1,
 ['jest_upgrade_tab'] = false,
 previous_jest_upgrade_tab = false,
-jest_gold_tag_rate = 1,
 shop_galloping_dominoed = false,
 temp_create_card = {},
 '''

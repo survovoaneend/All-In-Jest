@@ -1,7 +1,6 @@
 local fall_of_count_chaligny = {
     object_type = "Joker",
     order = 342,
-    ignore = true,
     key = "fall_of_count_chaligny",
     config = {
     },
@@ -10,16 +9,20 @@ local fall_of_count_chaligny = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
 
     end,
   
     calculate = function(self, card, context)
-        
+        if context.setting_blind then
+            G.GAME.blind.mult = 1
+            G.GAME.blind.chips = get_blind_amount(G.GAME.round_resets.ante)*G.GAME.blind.mult*G.GAME.starting_params.ante_scaling
+            G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+        end
     end
   
 }
