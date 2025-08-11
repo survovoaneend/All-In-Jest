@@ -124,14 +124,16 @@ return {
                 text = {
                     'Apply Perishable to a',
                     "random Joker on",
-                    "final hand of round"
+                    "final hand of round",
+                    "(todo)"
                 },
             },
             bl_aij_the_oak = {
                 name = "The Oak",
                 text = {
                     'Disable the',
-                    'rightmost Joker'
+                    'rightmost Joker',
+                    '(todo)'
                 },
             },
             bl_aij_the_ingot = {
@@ -139,13 +141,17 @@ return {
                 text = {
                     'Apply Eternal to all',
                     'Jokers on final',
-                    'hand of round'
+                    'hand of round',
+                    "(todo)"
                 },
             },
             bl_aij_the_hazel = {
                 name = "The Hazel",
                 text = {
-                    
+                    "Apply Rental to a",
+                    "random Joker when",
+                    "Blind is defeated",
+                    "(todo)"
                 },
             },
             bl_aij_the_apple = {
@@ -153,7 +159,8 @@ return {
                 text = {
                     'Destroy leftmost Joker',
                     "if Blind is won",
-                    "in one hand"
+                    "in one hand",
+                    "(todo)"
                 },
             },
             bl_aij_the_neck = {
@@ -161,6 +168,219 @@ return {
                 text = {
                     'Can only discard',
                     '1 card at a time'
+                },
+            },
+            bl_aij_the_groan = {
+                name = "The Groan",
+                text = {
+                    'Increase the blind',
+                    'by 1X base after',
+                    'each hand played',
+                    '(todo)'
+                },
+            },
+            bl_aij_the_ash = {
+                name = "The Ash",
+                text = {
+                    '+0.25X Base requirement per',
+                    'card below #1# in',
+                    'full deck',
+                    '(todo)'
+                },
+            },
+            bl_aij_the_clay = {
+                name = "The Clay",
+                text = {
+                    'Randomly large blind',
+                    '(todo)'
+                },
+            },
+            bl_aij_the_aspen = {
+                name = "The Aspen",
+                text = {
+                    'idk',
+                    '(todo)'
+                },
+            },
+            bl_aij_the_evergreen = {
+                name = "The Evergreen",
+                text = {
+                    '+0.2X Base requirement per',
+                    'card above #1# in',
+                    'full deck',
+                    '(todo)'
+                },
+            },
+            bl_aij_the_enigma = {
+                name = "The Enigma",
+                text = {
+                    'Enhanced cards',
+                    'are drawn last',
+                    '(todo)'
+                },
+            },
+            bl_aij_the_bullion = {
+                name = "The Bullion",
+                text = {
+                    '-$5 per played',
+                    'enhanced card',
+                    '(todo)'
+                },
+            },
+            bl_aij_the_elbow = {
+                name = "The Elbow",
+                text = {
+                    'Played enhancements',
+                    'are randomized',
+                    '(todo)'
+                },
+            },
+            bl_aij_the_thorn = {
+                name = "The Thorn",
+                text = {
+                    'Debuffs all',
+                    'enhanced cards',
+                    '(todo)'
+                },
+            },
+            bl_aij_the_twin = {
+                name = "The Twin",
+                text = {
+                    'Enhanced cards are',
+                    'drawn face down',
+                    '(todo)'
+                },
+            },
+            bl_aij_the_giant = {
+                name = "The Giant",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_auroch = {
+                name = "The Auroch",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_journey = {
+                name = "The Journey",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_gift = {
+                name = "The Gift",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_ancestor = {
+                name = "The Ancestor",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_god = {
+                name = "The God",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_beast = {
+                name = "The Beast",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_ulcer = {
+                name = "The Ulcer",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_need = {
+                name = "The Need",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_day = {
+                name = "The Day",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_celebration = {
+                name = "The Celebration",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_storm = {
+                name = "The Storm",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_frost = {
+                name = "The Frost",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_yew = {
+                name = "The Yew",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_hoard = {
+                name = "The Hoard",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_pear = {
+                name = "The Pear",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_elk = {
+                name = "The Elk",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_sun = {
+                name = "The Sun",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_spear = {
+                name = "The Spear",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_steed = {
+                name = "The Steed",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_figure = {
+                name = "The Figure",
+                text = {
+                    
+                },
+            },
+            bl_aij_the_lake = {
+                name = "The Lake",
+                text = {
+
                 },
             },
             bl_aij_the_field = {
