@@ -15,6 +15,48 @@ for i = #G.GAME.tags, 1, -1 do
 end
 '''
 
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if delay_sprites == 'quantum' then self.from_quantum = true end"
+position = "before"
+match_indent = true
+payload = '''
+local aij_silver_reapply = false
+if self.edition and self.edition.aij_silver then
+    if old_center ~= center and self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
+        jest_ability_calculate(
+        self,
+        "/", tonumber(self.edition.pervmult),
+        { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
+        nil, true, false, "ability"
+        )
+        aij_silver_reapply = true
+    end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = 'if not initial and delay_sprites ~= "quantum" and G.GAME.blind then G.GAME.blind:debuff_card(self) end'
+position = "before"
+match_indent = true
+payload = '''
+if self.edition and self.edition.aij_silver then
+    if aij_silver_reapply and self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
+        jest_ability_calculate(
+        self,
+        "*", self.edition.mult,
+        { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
+        nil, true, false, "ability"
+        )
+    end
+end
+'''
+
+
+
 [[patches]] 
 [patches.pattern]
 target = "functions/state_events.lua"
