@@ -124,16 +124,14 @@ return {
                 text = {
                     'Apply Perishable to a',
                     "random Joker on",
-                    "final hand of round",
-                    "(todo)"
+                    "final hand of round"
                 },
             },
             bl_aij_the_oak = {
                 name = "The Oak",
                 text = {
                     'Disable the',
-                    'rightmost Joker',
-                    '(todo)'
+                    'rightmost Joker'
                 },
             },
             bl_aij_the_ingot = {
@@ -141,17 +139,13 @@ return {
                 text = {
                     'Apply Eternal to all',
                     'Jokers on final',
-                    'hand of round',
-                    "(todo)"
+                    'hand of round'
                 },
             },
             bl_aij_the_hazel = {
                 name = "The Hazel",
                 text = {
-                    "Apply Rental to a",
-                    "random Joker when",
-                    "Blind is defeated",
-                    "(todo)"
+                    
                 },
             },
             bl_aij_the_apple = {
@@ -159,8 +153,7 @@ return {
                 text = {
                     'Destroy leftmost Joker',
                     "if Blind is won",
-                    "in one hand",
-                    "(todo)"
+                    "in one hand"
                 },
             },
             bl_aij_the_neck = {
@@ -204,212 +197,61 @@ return {
             bl_aij_the_groan = {
                 name = "The Groan",
                 text = {
-                    'Increase the blind',
-                    'by 1X base after',
-                    'each hand played',
-                    '(todo)'
+                    
                 },
             },
             bl_aij_the_ash = {
                 name = "The Ash",
                 text = {
-                    '+0.25X Base requirement per',
-                    'card below #1# in',
-                    'full deck',
-                    '(todo)'
+                    
                 },
             },
             bl_aij_the_clay = {
                 name = "The Clay",
                 text = {
-                    'Randomly large blind',
-                    '(todo)'
+                    'Randomly large blind'
                 },
             },
             bl_aij_the_aspen = {
                 name = "The Aspen",
                 text = {
-                    'idk',
-                    '(todo)'
+                    
                 },
             },
             bl_aij_the_evergreen = {
                 name = "The Evergreen",
                 text = {
-                    '+0.2X Base requirement per',
-                    'card above #1# in',
-                    'full deck',
-                    '(todo)'
+        
                 },
             },
             bl_aij_the_enigma = {
                 name = "The Enigma",
                 text = {
                     'Enhanced cards',
-                    'are drawn last',
-                    '(todo)'
+                    'are drawn last'
                 },
             },
             bl_aij_the_bullion = {
                 name = "The Bullion",
                 text = {
-                    '-$5 per played',
-                    'enhanced card',
-                    '(todo)'
+                    
                 },
             },
             bl_aij_the_elbow = {
                 name = "The Elbow",
                 text = {
-                    'Played enhancements',
-                    'are randomized',
-                    '(todo)'
+                    
                 },
             },
             bl_aij_the_thorn = {
                 name = "The Thorn",
                 text = {
                     'Debuffs all',
-                    'enhanced cards',
-                    '(todo)'
+                    'enhanced cards'
                 },
             },
             bl_aij_the_twin = {
                 name = "The Twin",
-                text = {
-                    'Enhanced cards are',
-                    'drawn face down',
-                    '(todo)'
-                },
-            },
-            bl_aij_the_giant = {
-                name = "The Giant",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_auroch = {
-                name = "The Auroch",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_journey = {
-                name = "The Journey",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_gift = {
-                name = "The Gift",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_ancestor = {
-                name = "The Ancestor",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_god = {
-                name = "The God",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_beast = {
-                name = "The Beast",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_ulcer = {
-                name = "The Ulcer",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_need = {
-                name = "The Need",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_day = {
-                name = "The Day",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_celebration = {
-                name = "The Celebration",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_storm = {
-                name = "The Storm",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_frost = {
-                name = "The Frost",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_yew = {
-                name = "The Yew",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_hoard = {
-                name = "The Hoard",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_pear = {
-                name = "The Pear",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_elk = {
-                name = "The Elk",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_sun = {
-                name = "The Sun",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_spear = {
-                name = "The Spear",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_steed = {
-                name = "The Steed",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_figure = {
-                name = "The Figure",
-                text = {
-                    
-                },
-            },
-            bl_aij_the_lake = {
-                name = "The Lake",
                 text = {
                     
                 },
@@ -595,6 +437,13 @@ return {
                 text = {
                     "{C:money}Gold{} Tags appear",
                     "{C:attention}#1#X{} more often",
+                },
+            },
+            v_aij_trophy ={
+                name = "Trophy",
+                text = {
+                    "{C:attention}Large Blind{} skip",
+                    "Tag is always {C:money}Gold"
                 },
             },
         },
@@ -1029,10 +878,25 @@ return {
                 } 
             },
             j_aij_joker_sighting = { name = "Joker Sighting", text = { "" } },
-            j_aij_pencil_drawing = { name = "Pencil Drawing", text = { "" } },
+            j_aij_pencil_drawing = { 
+                name = {
+                    "Pencil Drawing",
+                },
+                text = { 
+                    "{B:1,C:white,s:0.8}Activated Ability",
+                    "Pay {C:money}$2{} to add a {C:attention}random",
+                    "{C:attention}playing card{} to your hand"
+                } 
+            },
             j_aij_holy_bible = { name = "Holy Bible", text = { "" } },
             j_aij_great_white_north = { name = "Great white North", text = { "" } },
-            j_aij_right_angle = { name = "Right Angle", text = { "" } },
+            j_aij_right_angle = { 
+                name = "Right Angle", 
+                text = { 
+                    "Trigger all {C:attention}10s{} held in hand",
+                    "when a {C:attention}9{} is scored" 
+                } 
+            },
             j_aij_adoring_joker = {
                 name = "Adoring Joker",
                 text = {
@@ -1057,7 +921,21 @@ return {
                     "{C:attention}poker hand{} by {C:attention}#1#"
                 } 
             },
-            j_aij_punch_and_judy = { name = "Punch and Judy", text = { "" } },
+            j_aij_punch_and_judy = { 
+                name = "Punch and Judy", 
+                text = { 
+                    {
+                        "If {C:attention}played hand{} contains",
+                        "exactly {C:attention}#1# King{} and {C:attention}#1#",
+                        "{C:attention}Queen{}, retrigger all scoring",
+                        "cards"
+                    },
+                    {
+                        "{C:attention}Kings{} and {C:attention}Queens{} always",
+                        "score"
+                    }
+                } 
+            },
             j_aij_nature_tapes = { 
                 name = "Nature Tapes", 
                 text = { 
@@ -1187,13 +1065,6 @@ return {
                 text = {
                     "{C:legendary}Legendary{} Jokers may",
                     "appear in the {C:attention}Shop{}",
-                },
-            },
-            j_aij_privelege_fabled = {
-                name = "Jester's Privilege",
-                text = {
-                    "{C:legendary}Legendary{} Jokers are",
-                    "{C:attention}more common{}",
                 },
             },
             j_aij_quark = {
@@ -1524,7 +1395,6 @@ return {
                 text = { 
                     "Joker {C:dark_edition}Editions{} are",
                     "{C:attention}2X{} as effective",
-                    "{C:inactive}(Except Negative)"
                 } 
             },
             j_aij_average_joe = {
@@ -1636,7 +1506,16 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
             } 
             },
-            j_aij_gnasher = { name = "Gnasher", text = { "" } },
+            j_aij_gnasher = { 
+                name = "Gnasher", 
+                text = { 
+                    "{B:1,C:white,s:0.8}Activated Ability",
+                    "Once per Ante, {C:attention}copy{} and",
+                    "{C:attention}immediately{} use a random",
+                    "held {C:attention}consumable",
+                    "{C:inactive}#1#"
+                } 
+            },
             j_aij_executioner = {
                 name = "Executioner",
                 text = {
@@ -2048,8 +1927,7 @@ return {
                 text = { 
                     "Retriggers all {C:attention}scored{} cards",
                     "if a {C:attention}playing card{} has been",
-                    "{C:red}destroyed{} this round",
-                    "{C:inactive}#1#{}"
+                    "{C:red}destroyed{} this round" 
                 } 
             },
             j_aij_richie_rich = { name = "Richie Rich", text = { "" } },
@@ -2163,7 +2041,7 @@ return {
                     "{C:inactive}(Except Double Tag)"
             } 
             },
-j_aij_chitty = { 
+            j_aij_chitty = { 
                 name = "Chitty", 
                 text = { 
                     "{C:attention}+#1#{} {C:attention}Voucher{} available",
@@ -2301,7 +2179,7 @@ j_aij_chitty = {
                 } 
             },
             j_aij_lucina = { 
-                name = "Reveling Jester", 
+                name = "Lucina", 
                 text = { 
                     "When Blind is {C:attention}selected",
                     "{C:red}destroy{} Joker to the {C:attention}left",
@@ -2661,7 +2539,14 @@ j_aij_chitty = {
                     "{C:inactive}(Must have room){}"
                 } 
             },
-            j_aij_majordomo = { name = "Majordomo", text = { "" } },
+            j_aij_majordomo = { 
+                name = "Majordomo", 
+                text = { 
+                    "All {C:attention}Jokers{} in the {C:money}shop",
+                    "which cost more than {C:money}$#1#",
+                    "gain the {C:money}Rental{} sticker" 
+                }
+            },
             j_aij_skinsuit = { name = "Skinsuit", text = { "" } },
             j_aij_shock_humor = { name = "Shock Humor", text = { "" } },
             j_aij_the_house_that_jack_built = { name = "The House that Jack Built", text = { "" } },
@@ -3698,6 +3583,14 @@ j_aij_chitty = {
                     "{C:attention}#2#{}"
                 }
             },
+            c_aij_sanctuary_gate = {
+                name = 'The Sanctuary Gate',
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#{}"
+                }
+            },
             c_aij_isis_urania = {
                 name = 'Isis-Urania',
                 text = {
@@ -3740,6 +3633,14 @@ j_aij_chitty = {
                     "Joker and earn triple",
                     "its {C:money}sell value",
                     "{C:inactive}(Currently{} {C:money}$#1#{}{C:inactive}){}"
+                }
+            },
+            c_aij_veiled_lamp = {
+                name = 'The Veiled Lamp',
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#{}"
                 }
             },
             c_aij_broken_fate = {
