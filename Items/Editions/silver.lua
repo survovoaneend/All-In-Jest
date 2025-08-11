@@ -48,7 +48,7 @@ local silver = {
               { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
               nil, true, false, "ability"
             )
-        elseif card.ability.set == 'Joker' then
+        elseif card.ability.set == 'Joker' and (card.config.center.dongtong_compat == nil or card.config.center.dongtong_compat) then
             jest_ability_calculate(
                 card,
                 "/", card.edition.mult,
