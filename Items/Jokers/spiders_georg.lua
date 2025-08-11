@@ -1,27 +1,74 @@
 local spiders_georg = {
     object_type = "Joker",
     order = 205,
-    ignore = true,
 
     key = "spiders_georg",
     config = {
       
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 19, y = 7},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
-    discovered = true,
-    blueprint_compat = false,
-    eternal_compat = false,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+        local eights = 0
+        local hands = 0
+        for i = 1, #G.GAME.all_in_jest.advanced_hand_usage_run do
+            local hand = G.GAME.all_in_jest.advanced_hand_usage_run[i]
+            local scoring_hand = hand['scoring_hand']
+            for j = 1, #scoring_hand do
+                local cur_card = scoring_hand[j]
+                if scoring_hand[j]:get_id() == 8 then
+                    eights = eights + 1
+                end
+            end
+            hands = hands + 1
+        end
+        if hands == 0 or eights == 0 then
+            return {
+                vars = {
+                    1
+                }
+            }
+        else
+            return {
+                vars = {
+                    1 + (eights/hands)
+                }
+            }
+        end
     end,
   
     calculate = function(self, card, context)
-      
+        if context.joker_main then
+            local eights = 0
+            local hands = 0
+            for i = 1, #G.GAME.all_in_jest.advanced_hand_usage_run do
+                local hand = G.GAME.all_in_jest.advanced_hand_usage_run[i]
+                local scoring_hand = hand['scoring_hand']
+                for j = 1, #scoring_hand do
+                    local cur_card = scoring_hand[j]
+                    if scoring_hand[j]:get_id() == 8 then
+                        eights = eights + 1
+                    end
+                end
+                hands = hands + 1
+            end
+            if hands == 0 or eights == 0 then
+                return {
+                    Xmult = 1
+                }
+            else
+                return {
+                    Xmult = 1 + (eights/hands)
+                }
+            end
+        end
     end
   
 }

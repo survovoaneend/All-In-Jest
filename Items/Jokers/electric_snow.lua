@@ -1,11 +1,11 @@
-local sky_trees = {
+local electric_snow = {
     object_type = "Joker",
-    order = 318,
-    key = "sky_trees",
+    order = 292,
+    key = "electric_snow",
     config = {
     },
     rarity = 2,
-    pos = { x = 14, y = 12},
+    pos = { x = 0, y = 15},
     atlas = 'joker_atlas',
     cost = 6,
     unlocked = true,
@@ -22,4 +22,4 @@ local sky_trees = {
     end
   
 }
-return { name = {"Jokers"}, items = {sky_trees} }
+return { name = {"Jokers"}, items = {electric_snow} }

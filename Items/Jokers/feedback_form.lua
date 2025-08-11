@@ -1,27 +1,50 @@
 local feedback_form = {
     object_type = "Joker",
     order = 180,
-    ignore = true,
 
     key = "feedback_form",
     config = {
-      
+      extra = {
+          mult = 7
+      }
     },
     rarity = 1,
     pos = { x = 23, y = 6},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
-    blueprint_compat = false,
-    eternal_compat = false,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+        return {
+            vars = {
+                card.ability.extra.mult,
+            }
+        }
     end,
   
     calculate = function(self, card, context)
-      
+        if context.joker_main then
+            local temp_val = true
+            local enhancements = {}
+            for i = 1, #context.scoring_hand do
+                for k, v in pairs(enhancements) do
+                    if SMODS.get_enhancements(context.scoring_hand[i]).k then
+                        temp_val = false
+                    end
+                end
+                for k, v in pairs(SMODS.get_enhancements(context.scoring_hand[i])) do
+                    enhancements[k] = v
+                end
+            end
+            if temp_val then
+                return {
+                    mult = card.ability.extra.mult
+                }
+            end
+        end
     end
   
 }

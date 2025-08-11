@@ -2,7 +2,6 @@ local saltimbanco = {
     object_type = "Joker",
     order = 108,
     key = "saltimbanco",
-    ignore = true,
     config = {
       
     },
@@ -11,7 +10,7 @@ local saltimbanco = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = true,
     eternal_compat = false,
   

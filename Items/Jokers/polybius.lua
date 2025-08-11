@@ -1,27 +1,51 @@
 local polybius = {
     object_type = "Joker",
     order = 61,
-    ignore = true,
 
     key = "polybius",
     config = {
       
     },
-    rarity = 1,
+    rarity = 3,
     pos = { x = 7, y = 2 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 8,
     unlocked = true,
-    discovered = true,
-    blueprint_compat = false,
-    eternal_compat = false,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
   
     end,
   
     calculate = function(self, card, context)
-      
+        if context.initial_scoring_step then
+            local chip_total = 0
+            local mult_total = 0
+            if context.scoring_name and context.poker_hands then
+                for k, v in pairs(context.poker_hands) do
+                    if next(context.poker_hands[k]) then
+                        chip_total = chip_total + G.GAME.hands[k].chips
+                        mult_total = mult_total + G.GAME.hands[k].mult
+                    end
+                end
+            end
+            if chip_total > 0 and mult_total > 0 then
+                return {
+                    mult = mult_total,
+                    chips = chip_total
+                }
+            elseif chip_total > 0 then
+                return {
+                    chips = chip_total
+                }
+            elseif mult_total > 0 then
+                return {
+                    mult = mult_total
+                }
+            end
+        end
     end
   
 }

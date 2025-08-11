@@ -1,27 +1,37 @@
 local fulehung = {
     object_type = "Joker",
     order = 207,
-    ignore = true,
 
     key = "fulehung",
     config = {
-      
+      extra = {
+          odds = 3,
+      }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 21, y = 7},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
-    discovered = true,
-    blueprint_compat = false,
-    eternal_compat = false,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        return {
+            vars = {
+                numerator, denominator,
+            }
+        }
     end,
   
     calculate = function(self, card, context)
-      
+        if context.setting_blind then
+            if SMODS.pseudorandom_probability(card, 'fulehung', 1, card.ability.extra.odds) then
+                add_tag(Tag(G.GAME.round_resets.blind_tags[G.GAME.blind_on_deck]))
+            end
+        end
     end
   
 }
