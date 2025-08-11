@@ -9,10 +9,10 @@ local big_red = {
           banned_cards = {}
       }
     },
-    rarity = 1,
+    rarity = 3,
     pos = { x = 24, y = 4 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 8,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
