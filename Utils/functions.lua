@@ -125,7 +125,7 @@ end
 
 function level_up_other_hand(card, hand, other_hand, instant, amount)
     amount = amount or 1
-     
+    
     if to_big(G.GAME.hands[other_hand].l_mult) >= to_big(1) then
         G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (G.GAME.hands[other_hand].l_mult * amount))
     else
@@ -146,9 +146,15 @@ end
 function level_up_hand_chips(card, hand, instant, amount)
     if (G.GAME.hands[hand].level and G.GAME.hands[hand].chips) then
         amount = amount or 1
+        local extra_chips = 0
+        if card.ability.extra_planetarium_chips then
+            for k, v in pairs(card.ability.extra_planetarium_chips) do
+                extra_chips = extra_chips + v
+            end
+        end
         G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
 
-        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (G.GAME.hands[hand].l_chips * amount * 2))
+        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + math.floor((G.GAME.hands[hand].l_chips * amount * 2 * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1) + (extra_chips > 0 and extra_chips or 0))))
         if not instant then 
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
                 play_sound('tarot1')
@@ -174,9 +180,15 @@ end
 function level_up_hand_mult(card, hand, instant, amount)
     if (G.GAME.hands[hand].level and G.GAME.hands[hand].mult) then
         amount = amount or 1
+        local extra_mult = 0
+        if card.ability.extra_planetarium_mult then
+            for k, v in pairs(card.ability.extra_planetarium_mult) do
+                extra_mult = extra_mult + v
+            end
+        end
         G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
 
-        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (G.GAME.hands[hand].l_mult * amount * 2))
+        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + math.floor((G.GAME.hands[hand].l_mult * amount * 2 * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1) + (extra_mult > 0 and extra_mult or 0))))
         if not instant then 
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
                 play_sound('tarot1')
@@ -365,9 +377,6 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
   if do_round == nil then do_round = true end
   if only == nil then only = false end
 
-  -- Store original values before modification
-  local keys, original_values = jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
-
   local operators = {
     ["+"] = function(a, b) return a + b end,
     ["-"] = function(a, b) return a - b end,
@@ -376,7 +385,7 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
     ["%"] = function(a, b) return a % b end,
     ["="] = function(a, b) return b end,
   }
-
+  
   local function round_int(x)
     return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
   end
@@ -389,18 +398,17 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
     end
   end
 
-  local function process_value(val, base_val)
+  local function process_value(val)
     if type(val) == "number" then
-      local delta = val - base_val
-      local result = operators[equation](base_val, extra_value) + delta
+      local res = operators[equation](val, extra_value)
       if do_round then
-        if base_val % 1 ~= 0 then
-          return round_hundredth(result)
+        if val % 1 ~= 0 then
+          return round_hundredth(res)
         else
-          return round_int(result)
+          return round_int(res)
         end
       else
-        return result
+        return res
       end
     else
       return val
@@ -426,28 +434,36 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
     return true
   end
 
-  local function process_table(t, base_table)
+  local function process_table(t)
     for key, value in pairs(t) do
       if value ~= nil and should_process(key, value) then
         if type(value) == "number" then
-          t[key] = process_value(value, base_table[key] or 0)
-        elseif type(value) == "table" and type(base_table[key]) == "table" then
-          process_table(value, base_table[key])
+          t[key] = process_value(value)
+        elseif type(value) == "table" then
+          process_table(value)
         end
       end
     end
   end
 
-  local search_table = extra_search and card[extra_search] or card.ability
+  function nested_tables(temcard, index)
+      local current = temcard
+      for key in string.gmatch(index, "[^%.]+") do
+          if type(current) ~= "table" then
+              return current
+          end
+          current = current[key]
+      end
+      return current
+  end
+
+  local search_table = extra_search and nested_tables(card, extra_search) or card.ability
 
   if search_table then
-    local _, base_values = jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
     if type(search_table) == "number" then
-      search_table = process_value(search_table, base_values[1] or 0)
+      search_table = process_value(search_table)
     elseif type(search_table) == "table" then
-      local base_map = {}
-      for i, k in ipairs(keys) do base_map[k] = original_values[i] end
-      process_table(search_table, base_map)
+      process_table(search_table)
     end
   end
 end
@@ -516,7 +532,18 @@ jest_ability_get_items = function(card, equation, extra_value, exclusions, inclu
     return true
   end
 
-  local search_table = extra_search and card[extra_search] or card.ability
+  function nested_tables(temcard, index)
+      local current = temcard
+      for key in string.gmatch(index, "[^%.]+") do
+          if type(current) ~= "table" then
+              return current
+          end
+          current = current[key]
+      end
+      return current
+  end
+
+  local search_table = extra_search and nested_tables(card, extra_search) or card.ability
 
   if search_table then
     if type(search_table) == "number" then
