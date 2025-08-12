@@ -23,7 +23,7 @@ local mummer = {
     if G.deck then
         if #G.deck.cards > 0 then
             for i = 1, #G.deck.cards do
-                if G.deck.cards[i].config.center == G.P_CENTERS["m_steel"] then
+                if SMODS.has_enhancement(G.deck.cards[i], 'm_steel') then
                     return true
                 end
             end
@@ -34,12 +34,12 @@ local mummer = {
 
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then
-        if context.other_card.config.center == G.P_CENTERS["m_steel"] then
+        if SMODS.has_enhancement(context.other_card, 'm_steel') then
             if G.hand then
                 if #G.hand.cards > 0 then
                     for i = 1, #G.hand.cards do
-                        if G.hand.cards[i].config.center == G.P_CENTERS["m_steel"] then
-                            SMODS.calculate_effect({xmult = G.hand.cards[i].config.center.config.h_x_mult}, G.hand.cards[i])
+                        if SMODS.has_enhancement(G.hand.cards[i], 'm_steel') then
+                            SMODS.score_card(G.hand.cards[i], {cardarea = G.hand, main_scoring = true})
                         end
                     end
                 end
