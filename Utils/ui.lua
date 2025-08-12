@@ -396,3 +396,18 @@ G.FUNCS.All_in_Jest_use_active_ability_button = function(e, mute, nosave)
     e.config.ref_table.config.center.all_in_jest:use_ability(card)
     SMODS.calculate_context({all_in_jest = {using_ability = true, card = card, area = card.from_area}})
 end
+
+G.FUNCS.All_in_Jest_select_tag = function(e)
+    local number = e.config.ref_table[1]
+    local tag = e.config.ref_table[2]
+    local other_tags = e.parent.parent.config.ref_table
+    for i = 1, #other_tags do
+        if i ~= number then
+            other_tags[i].T.scale = 0.7
+        else
+            other_tags[i].T.scale = 1
+        end
+    end
+    tag:juice_up()
+    G.GAME.all_in_jest.blind_tags.selected_index = number
+end

@@ -88,6 +88,7 @@ function retrieve_joker_text(joker, descip)
                         text = text .. main[i][j]
                     end
                 end
+                text = text .. " "
             end
             text = text .. " "
         end
@@ -107,6 +108,7 @@ function retrieve_joker_text(joker, descip)
         end
         local multi_box = joker.ability_UIBox_table.multi_box
         if multi_box then
+            text = text .. " "
             for i = 1, #multi_box do
                 for j = 1, #multi_box[i] do
                     for l = 1, #multi_box[i][j] do
@@ -114,8 +116,8 @@ function retrieve_joker_text(joker, descip)
                             text = text .. multi_box[i][j][l].config.text
                         end
                     end
+                    text = text .. " "
                 end
-                text = text .. " "
             end
         end
     end
