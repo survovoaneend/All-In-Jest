@@ -2,7 +2,6 @@ local branching = {
     object_type = "Back",
     key = 'branching',
     atlas = 'deck_atlas',
-    ignore = true,
     order = 1,
     pos = { x = 1, y = 0 },
     unlocked = false,
@@ -21,8 +20,7 @@ local branching = {
         end
 	end,
     apply = function(self, back)
-        G.GAME.all_in_jest.skip_tags.has_multiple = true
-        G.GAME.all_in_jest.skip_tags.amt = G.GAME.all_in_jest.skip_tags.amt + 2
+        G.GAME.all_in_jest.blind_tags.has_multiple = true
     end
 }
 return {name = {"Decks"}, items = {branching}}
