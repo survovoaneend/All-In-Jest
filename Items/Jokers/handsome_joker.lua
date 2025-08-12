@@ -26,13 +26,15 @@ local handsome_joker = {
         local card_text = "card"
         if card.ability.extra.card.suit ~= "" then
             local mult = 1
+            local trigger = false
             local enhancement = (G.P_CENTER_POOLS.Enhanced[tonumber(card.ability.extra.card.enhancement)].original_key or G.P_CENTER_POOLS.Enhanced[tonumber(card.ability.extra.card.enhancement)].name):gsub("^(%a)", string.upper)
             local rank = SMODS.Ranks[card.ability.extra.card.rank].original_key
             local suit = SMODS.Suits[card.ability.extra.card.suit].original_key:gsub("^(%a)", string.upper)
             card_text = enhancement:gsub(" [Cc][Aa][Rr][Dd]", "").." "..rank.." of "..suit
+            mult = 1
             for k, v in ipairs(G.playing_cards) do
                 if v:is_suit(card.ability.extra.card.suit) and v:get_id() == SMODS.Ranks[card.ability.extra.card.rank].id then
-                    local trigger = false
+                    trigger = false
                     for ke, va in pairs(SMODS.get_enhancements(v)) do
                         if ke == G.P_CENTER_POOLS.Enhanced[tonumber(card.ability.extra.card.enhancement)].key then
                             trigger = true
