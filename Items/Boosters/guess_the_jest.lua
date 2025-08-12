@@ -50,6 +50,11 @@ local guess_the_jest = {
             _card.ability = _card.ability or {}
             _card.ability.from_guess_the_jest = true
             _card.ability.background = tostring(math.random(1,4))
+            for k, v in pairs(G.shared_stickers) do
+                if _card.ability[k] then
+                    _card.ability[k] = false
+                end
+            end
         end
         return _card
     end,
