@@ -78,6 +78,14 @@ G.FUNCS.jest_free_reroll_boss = function(e)
         local par = G.blind_select_opts.boss.parent
         G.GAME.round_resets.blind_choices.Boss = get_new_boss()
         G.GAME.jest_free_stultor_rerolls = G.GAME.jest_free_stultor_rerolls - 1
+        local tem_trigger = false
+        local has_stultor = next(SMODS.find_card("j_aij_stultor"))
+        if has_stultor and not tem_trigger then
+            for i = 1, has_stultor do
+                SMODS.find_card("j_aij_stultor")[i].ability.extra.trigger = false
+                tem_trigger = true
+            end
+        end
 
         G.blind_select_opts.boss:remove()
         G.blind_select_opts.boss = UIBox{
