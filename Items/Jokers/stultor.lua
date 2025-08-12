@@ -5,7 +5,8 @@ local stultor = {
     key = "stultor",
     config = {
       extra = {
-          free_rerolls = 1
+          free_rerolls = 1,
+          trigger = true,
       }
     },
     rarity = 2,
@@ -30,6 +31,13 @@ local stultor = {
     end,
     add_to_deck = function(self, card, from_debuff)
         G.GAME.jest_free_stultor_rerolls = G.GAME.jest_free_stultor_rerolls + 1
+        card.ability.extra.trigger = true
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        if card.ability.extra.trigger then
+            G.GAME.jest_free_stultor_rerolls = G.GAME.jest_free_stultor_rerolls - 1
+            card.ability.extra.trigger = false
+        end
     end,
 }
 local ease_anteref = ease_ante
@@ -39,6 +47,7 @@ function ease_ante(mod)
         if has_stultor then
             for i = 1, has_stultor do
                 G.GAME.jest_free_stultor_rerolls = G.GAME.jest_free_stultor_rerolls + SMODS.find_card("j_aij_stultor")[i].ability.extra.free_rerolls
+                SMODS.find_card("j_aij_stultor")[i].ability.extra.trigger = true
             end
         end
     end
