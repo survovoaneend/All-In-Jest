@@ -55,8 +55,6 @@ if self.edition and self.edition.aij_silver then
 end
 '''
 
-
-
 [[patches]] 
 [patches.pattern]
 target = "functions/state_events.lua"
@@ -217,17 +215,22 @@ match_indent = true
 [patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = '''
-not run_info and {n=G.UIT.C, config={align = "cm", colour = G.C.UI.BACKGROUND_INACTIVE, minh = 0.6, minw = 2, maxw = 2, padding = 0.07, r = 0.1, shadow = true, hover = true, one_press = true, button = 'skip_blind', func = 'hover_tag_proxy', ref_table = _tag}, nodes={
-    {n=G.UIT.T, config={text = localize('b_skip_blind'), scale = 0.4, colour = G.C.UI.TEXT_INACTIVE}}
-}} or {n=G.UIT.C, config={align = "cm", padding = 0.1, emboss = 0.05, colour = mix_colours(G.C.BLUE, G.C.BLACK, 0.4), r = 0.1, maxw = 2}, nodes={
-    {n=G.UIT.T, config={text = localize('b_skip_reward'), scale = 0.35, colour = G.C.WHITE}},
-}},
+_tag_sprite.states.collide.can = not not run_info
 '''
 position = "after"
 payload = '''
-G.GAME.all_in_jest.skip_tags.has_multiple and not run_info and {n=G.UIT.C, config={align = "cm", colour = G.C.UI.BACKGROUND_INACTIVE, minh = 0.1, maxh = 0.1, minw = 0.2, maxw = 0.2, padding = 0.07, r = 0.2, shadow = true, hover = true, button = 'jest_next_tag', ref_table = _tag}, nodes={
-    {n=G.UIT.T, config={text = '>', scale = 0.4, colour = G.C.UI.TEXT_INACTIVE}}
-}} or nil,
+local _tag_2 = Tag(G.GAME.round_resets.blind_tags[blind_choice], nil, blind_choice)
+local _tag_ui_2, _tag_sprite_2 = _tag_2:generate_UI()
+local _tag_3 = Tag(G.GAME.round_resets.blind_tags[blind_choice], nil, blind_choice)
+local _tag_ui_3, _tag_sprite_3 = _tag_3:generate_UI()
+if G.GAME.all_in_jest.blind_tags.has_multiple then
+    _tag_2 = Tag(G.GAME.all_in_jest.blind_tags[blind_choice].two, nil, blind_choice)
+    _tag_ui_2, _tag_sprite_2 = _tag_2:generate_UI()
+    _tag_3 = Tag(G.GAME.all_in_jest.blind_tags[blind_choice].three, nil, blind_choice)
+    _tag_ui_3, _tag_sprite_3 = _tag_3:generate_UI()
+    _tag_sprite_2.states.collide.can = not not run_info
+    _tag_sprite_3.states.collide.can = not not run_info
+end
 '''
 match_indent = true
 
@@ -235,62 +238,28 @@ match_indent = true
 [patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = '''
-local _tag_ui, _tag_sprite = _tag:generate_UI()
+{n=G.UIT.R, config={id = 'tag_'..blind_choice, align = "cm", r = 0.1, padding = 0.1, minw = 1, can_collide = true, ref_table = _tag_sprite}, nodes={
 '''
-position = "after"
+position = "before"
 payload = '''
-if G.GAME.all_in_jest.skip_tags.has_multiple and G.GAME.all_in_jest.skip_tags.amt >= 2 then
-    local tag_key = G.GAME.round_resets.blind_tags[blind_choice]
-    local tag_key_2 = get_next_tag_key('_2')
-    local temp_index = 0
-    while tag_key_2 == tag_key do
-        temp_index = temp_index + 1
-        tag_key_2 = get_next_tag_key('_2_resample_'..temp_index)
-    end
-    temp_index = 0
-    local tag_key_3 = get_next_tag_key('_3')
-    while tag_key_2 == tag_key_3 do
-        temp_index = temp_index + 1
-        tag_key_3 = get_next_tag_key('_3_resample_'..temp_index)
-    end
-    local _tag_2 = Tag(tag_key_2)
-    local _tag_ui_2, _tag_sprite_2 = _tag_2:generate_UI()
-    local _tag_3 = Tag(tag_key_3)
-    local _tag_ui_3, _tag_sprite_3 = _tag_3:generate_UI()  
-    _tag_sprite_2.states.collide.can = not not run_info
-    _tag_sprite_3.states.collide.can = not not run_info
-    G.GAME.all_in_jest.skip_tags._tag_2 = G.GAME.all_in_jest.skip_tags._tag_2 or {}
-    if #G.GAME.all_in_jest.skip_tags._tag_2 == 0 then
-        G.GAME.all_in_jest.skip_tags._tag_2._tag = G.GAME.all_in_jest.skip_tags._tag_2._tag or {}
-        for k, v in pairs(_tag_2) do 
-            G.GAME.all_in_jest.skip_tags._tag_2._tag[k] = v
-        end
-    end
-    G.GAME.all_in_jest.skip_tags._tag_3 = G.GAME.all_in_jest.skip_tags._tag_3 or {}
-    if #G.GAME.all_in_jest.skip_tags._tag_3 == 0 then
-        G.GAME.all_in_jest.skip_tags._tag_3._tag = G.GAME.all_in_jest.skip_tags._tag_3._tag or {}
-        for k, v in pairs(_tag_3) do 
-            G.GAME.all_in_jest.skip_tags._tag_3._tag[k] = v
-        end
-    end
-elseif G.GAME.all_in_jest.skip_tags.has_multiple and G.GAME.all_in_jest.skip_tags.amt >= 1 then
-    local tag_key = G.GAME.round_resets.blind_tags[blind_choice]
-    local tag_key_2 = get_next_tag_key('_2')
-    local temp_index = 0
-    while tag_key_2 == tag_key do
-        temp_index = temp_index + 1
-        tag_key_2 = get_next_tag_key('_2_resample_'..temp_index)
-    end
-    local _tag_2 = Tag(tag_key_2)
-    local _tag_ui_2, _tag_sprite_2 = _tag_2:generate_UI()
-    _tag_sprite_2.states.collide.can = not not run_info
-    G.GAME.all_in_jest.skip_tags._tag_2 = G.GAME.all_in_jest.skip_tags._tag_2 or {}
-    if G.GAME.all_in_jest.skip_tags._tag_2 == {} then
-        G.GAME.all_in_jest.skip_tags._tag_2[#G.GAME.all_in_jest.skip_tags._tag_2 + 1] = _tag_2
-        G.GAME.all_in_jest.skip_tags._tag_2[#G.GAME.all_in_jest.skip_tags._tag_2 + 1] = _tag_ui_2
-        G.GAME.all_in_jest.skip_tags._tag_2[#G.GAME.all_in_jest.skip_tags._tag_2 + 1] = _tag_sprite_2
-    end
-end
+G.GAME.all_in_jest.blind_tags.has_multiple and {n=G.UIT.R, config={id = 'tag_'..blind_choice, align = "cm", r = 0.1, padding = 0.1, minw = 1, can_collide = true, ref_table = {_tag_sprite, _tag_sprite_2, _tag_sprite_3}}, nodes={
+        {n=G.UIT.R, config={align = "cm", r = 0.1}, nodes={
+            {n=G.UIT.C, config={id = 'tag_desc', align = "cm", minh = 1, hover = true, button = 'All_in_Jest_select_tag', ref_table = {1, _tag}}, nodes={
+                _tag_ui
+            }},
+            {n=G.UIT.C, config={id = 'tag_desc_2', align = "cm", minh = 1, hover = true, button = 'All_in_Jest_select_tag', ref_table = {2, _tag_2}}, nodes={
+                _tag_ui_2
+            }},
+            {n=G.UIT.C, config={id = 'tag_desc_3', align = "cm", minh = 1, button = 'All_in_Jest_select_tag', ref_table = {3, _tag_3}}, nodes={
+                _tag_ui_3
+            }},
+        }},
+        not run_info and {n=G.UIT.R, config={align = "cm", colour = G.C.UI.BACKGROUND_INACTIVE, minh = 0.8, minw = 2, maxw = 2, padding = 0.07, r = 0.1, shadow = true, hover = true, one_press = true, button = 'skip_blind', func = 'hover_tag_proxy', ref_table = {_tag, _tag_2, _tag_3}}, nodes={
+            {n=G.UIT.T, config={text = localize('b_skip_blind'), scale = 0.4, colour = G.C.UI.TEXT_INACTIVE}}
+        }} or {n=G.UIT.R, config={align = "cm", padding = 0.1, emboss = 0.05, colour = mix_colours(G.C.BLUE, G.C.BLACK, 0.4), r = 0.1, maxw = 2}, nodes={
+            {n=G.UIT.T, config={text = localize('b_skip_reward'), scale = 0.35, colour = G.C.WHITE}},
+        }},
+    }} or
 '''
 match_indent = true
 
@@ -583,8 +552,272 @@ target = "functions/button_callbacks.lua"
 pattern = "G.GAME.round_resets.blind_tags.Big = get_next_tag_key()"
 position = "after"
 payload = '''
+G.GAME.all_in_jest.blind_tags.Small.two = get_next_tag_key()
+local temp_index = 0
+while G.GAME.all_in_jest.blind_tags.Small.two == G.GAME.round_resets.blind_tags.Small do
+    temp_index = temp_index + 1
+    G.GAME.all_in_jest.blind_tags.Small.two = get_next_tag_key('_resample_'..temp_index)
+end
+G.GAME.all_in_jest.blind_tags.Small.three = get_next_tag_key()
+temp_index = 0
+while G.GAME.all_in_jest.blind_tags.Small.three == G.GAME.round_resets.blind_tags.Small or G.GAME.all_in_jest.blind_tags.Small.three == G.GAME.all_in_jest.blind_tags.Small.two do
+    temp_index = temp_index + 1
+    G.GAME.all_in_jest.blind_tags.Small.three = get_next_tag_key('_resample_'..temp_index)
+end
+G.GAME.all_in_jest.blind_tags.Big.two = get_next_tag_key()
+local temp_index = 0
+while G.GAME.all_in_jest.blind_tags.Big.two == G.GAME.round_resets.blind_tags.Big do
+    temp_index = temp_index + 1
+    G.GAME.all_in_jest.blind_tags.Big.two = get_next_tag_key('_resample_'..temp_index)
+end
+G.GAME.all_in_jest.blind_tags.Big.three = get_next_tag_key()
+temp_index = 0
+while G.GAME.all_in_jest.blind_tags.Big.three == G.GAME.round_resets.blind_tags.Big or G.GAME.all_in_jest.blind_tags.Big.three == G.GAME.all_in_jest.blind_tags.Big.two do
+    temp_index = temp_index + 1
+    G.GAME.all_in_jest.blind_tags.Big.three = get_next_tag_key('_resample_'..temp_index)
+end
 if G.GAME.used_vouchers.v_aij_trophy then
     G.GAME.round_resets.blind_tags.Big = get_next_tag_key('all_in_jest_guarrented_gold_tag')
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "if not e.config.ref_table.run_info and G.blind_select and G.blind_select.VT.y < 10 and e.config.id and G.blind_select_opts[string.lower(e.config.id)] then"
+position = "before"
+payload = '''
+if G.GAME.all_in_jest.blind_tags.has_multiple then
+    if not e.config.ref_table.run_info and G.blind_select and G.blind_select.VT.y < 10 and e.config.id and G.blind_select_opts[string.lower(e.config.id)] then 
+      if e.UIBox.role.xy_bond ~= 'Weak' then e.UIBox:set_role({xy_bond = 'Weak'}) end
+      if (e.config.ref_table.deck ~= 'on' and e.config.id == G.GAME.blind_on_deck) or
+         (e.config.ref_table.deck ~= 'off' and e.config.id ~= G.GAME.blind_on_deck) then
+
+          local _blind_choice = G.blind_select_opts[string.lower(e.config.id)]
+          local _top_button = e.UIBox:get_UIE_by_ID('select_blind_button')
+          local _border = e.UIBox.UIRoot.children[1].children[1]
+          local _tag = e.UIBox:get_UIE_by_ID('tag_'..e.config.id)
+          local _tag_container = e.UIBox:get_UIE_by_ID('tag_container')
+          if _tag_container and not G.SETTINGS.tutorial_complete and not G.SETTINGS.tutorial_progress.completed_parts['shop_1'] then _tag_container.states.visible = false
+          elseif _tag_container then  _tag_container.states.visible = true end
+          if e.config.id == G.GAME.blind_on_deck then
+            e.config.ref_table.deck = 'on'
+            e.config.draw_after = false
+            e.config.colour = G.C.CLEAR
+            _border.parent.config.outline = 2
+            _border.parent.config.outline_colour = G.C.UI.TRANSPARENT_DARK
+            _border.config.outline_colour = _border.config.outline and _border.config.outline_colour or get_blind_main_colour(e.config.id)
+            _border.config.outline = 1.5
+            _blind_choice.alignment.offset.y = -0.9
+            if _tag and _tag_container then 
+              _tag_container.children[2].config.draw_after = false
+              _tag_container.children[2].config.colour = G.C.BLACK
+              _tag.config.outline_colour = adjust_alpha(G.C.BLUE, 0.5)
+              _tag.children[2].config.button = nil
+              _tag.children[2].config.hover = false
+              _tag.children[2].config.colour = G.C.UI.BACKGROUND_INACTIVE
+              _tag.children[2].children[1].config.colour = G.C.UI.TEXT_INACTIVE
+              local _sprite = _tag.config.ref_table[1]
+              _sprite.config.force_focus = nil
+              local _sprite_2 = _tag.config.ref_table[2]
+              _sprite_2.config.force_focus = nil
+              local _sprite_3 = _tag.config.ref_table[3]
+              _sprite_3.config.force_focus = nil
+              _tag.children[1].children[1].config.button = 'All_in_Jest_select_tag'
+              _tag.children[1].children[2].config.button = 'All_in_Jest_select_tag'
+              _tag.children[1].children[3].config.button = 'All_in_Jest_select_tag'
+            end
+            if _top_button then
+              G.E_MANAGER:add_event(Event({func = function()
+                G.CONTROLLER:snap_to({node = _top_button})
+              return true end }))
+              _top_button.config.button = 'select_blind'
+              _top_button.config.colour = G.C.FILTER
+              _top_button.config.hover = true
+              _top_button.children[1].config.colour = G.C.WHITE
+            end
+          elseif e.config.id ~= G.GAME.blind_on_deck then 
+            e.config.ref_table.deck = 'off'
+            e.config.draw_after = true
+            e.config.colour = adjust_alpha(G.GAME.round_resets.blind_states[e.config.id] == 'Skipped' and mix_colours(G.C.BLUE, G.C.L_BLACK, 0.1) or G.C.L_BLACK, 0.5)
+            _border.parent.config.outline = nil
+            _border.parent.config.outline_colour = nil
+            _border.config.outline_colour = nil
+            _border.config.outline = nil
+            _blind_choice.alignment.offset.y = -0.2
+            if _tag and _tag_container then 
+              if G.GAME.round_resets.blind_states[e.config.id] == 'Skipped' or
+                 G.GAME.round_resets.blind_states[e.config.id] == 'Defeated' then
+                _tag_container.children[2]:set_role({xy_bond = 'Weak'})
+                _tag_container.children[2]:align(0, 10)
+                _tag_container.children[1]:set_role({xy_bond = 'Weak'})
+                _tag_container.children[1]:align(0, 10)
+              end
+              if G.GAME.round_resets.blind_states[e.config.id] == 'Skipped' then
+                _blind_choice.children.alert = UIBox{
+                  definition = create_UIBox_card_alert({text_rot = -0.35, no_bg = true,text = localize('k_skipped_cap'), bump_amount = 1, scale = 0.9, maxw = 3.4}),
+                  config = {
+                    align="tmi",
+                    offset = {x = 0, y = 2.2},
+                    major = _blind_choice, parent = _blind_choice}
+                }
+              end
+              _tag.children[2].config.button = nil
+              _tag.config.outline_colour = G.C.UI.BACKGROUND_INACTIVE
+              _tag.children[2].config.hover = false
+              _tag.children[2].config.colour = G.C.UI.BACKGROUND_INACTIVE
+              _tag.children[2].children[1].config.colour = G.C.UI.TEXT_INACTIVE
+              _tag.children[1].children[1].config.button = nil
+              _tag.children[1].children[2].config.button = nil
+              _tag.children[1].children[3].config.button = nil
+              local _sprite = _tag.config.ref_table[1]
+              _sprite.config.force_focus = true
+              local _sprite_2 = _tag.config.ref_table[2]
+              _sprite_2.config.force_focus = true
+              local _sprite_3 = _tag.config.ref_table[3]
+              _sprite_3.config.force_focus = true
+            end
+            if _top_button then 
+              _top_button.config.colour = G.C.UI.BACKGROUND_INACTIVE
+              _top_button.config.button = nil
+              _top_button.config.hover = false
+              _top_button.children[1].config.colour = G.C.UI.TEXT_INACTIVE
+            end
+          end
+      end
+    end
+    return
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "if (e.states.hover.is or e.parent.states.hover.is) and (e.created_on_pause == G.SETTINGS.paused) and"
+position = "before"
+payload = '''
+if G.GAME.all_in_jest.blind_tags.has_multiple then
+    if (e.states.hover.is or e.parent.states.hover.is) and (e.created_on_pause == G.SETTINGS.paused) and not e.parent.children.alert and G.GAME.all_in_jest.blind_tags.selected_index and e.parent.config.id == 'tag_'..G.GAME.blind_on_deck then
+      local _sprite = e.config.ref_table[G.GAME.all_in_jest.blind_tags.selected_index]:get_uibox_table()
+      e.parent.children.alert = UIBox{
+          definition = G.UIDEF.card_h_popup(_sprite),
+          config = {align="tm", offset = {x = 0, y = -0.1},
+          major = e.parent,
+          instance_type = 'POPUP'},
+      }
+      _sprite:juice_up(0.05, 0.02)
+      play_sound('paper1', math.random()*0.1 + 0.55, 0.42)
+      play_sound('tarot2', math.random()*0.1 + 0.55, 0.09)
+      e.parent.children.alert.states.collide.can = false
+    elseif e.parent.children.alert and ((not e.states.collide.is and not e.parent.states.collide.is) or (e.created_on_pause ~= G.SETTINGS.paused)) then
+          e.parent.children.alert:remove()
+          e.parent.children.alert = nil
+    end
+    if e.parent.config.id == 'tag_'..G.GAME.blind_on_deck and G.GAME.all_in_jest.blind_tags.selected_index then
+        e.config.button = 'skip_blind'
+        e.config.hover = true
+        e.config.colour = G.C.RED
+        e.children[1].config.colour = G.C.UI.TEXT_LIGHT
+    else  
+        e.config.button = nil
+        e.config.hover = false
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.children[1].config.colour = G.C.UI.TEXT_INACTIVE
+    end
+    return
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "SMODS.calculate_context({ending_shop = true})"
+position = "after"
+payload = '''
+G.GAME.all_in_jest.blind_tags.selected_index = nil
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.deck:shuffle('cashout'..G.GAME.round_resets.ante)"
+position = "after"
+payload = '''
+G.GAME.all_in_jest.blind_tags.selected_index = nil
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.GAME.skips = (G.GAME.skips or 0) + 1"
+position = "after"
+payload = '''
+if G.GAME.all_in_jest.blind_tags.has_multiple then
+    _tag = e.UIBox:get_UIE_by_ID('tag_'..G.GAME.blind_on_deck)
+    if _tag then 
+      add_tag(_tag.children[2].config.ref_table[G.GAME.all_in_jest.blind_tags.selected_index])
+      G.GAME.all_in_jest.blind_tags.selected_index = nil
+      local skipped, skip_to = G.GAME.blind_on_deck or 'Small', 
+      G.GAME.blind_on_deck == 'Small' and 'Big' or G.GAME.blind_on_deck == 'Big' and 'Boss' or 'Boss'
+      G.GAME.round_resets.blind_states[skipped] = 'Skipped'
+      G.GAME.round_resets.blind_states[skip_to] = 'Select'
+      G.GAME.blind_on_deck = skip_to
+      play_sound('generic1')
+      G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+          delay(0.3)
+          SMODS.calculate_context({skip_blind = true})
+          save_run()
+          for i = 1, #G.GAME.tags do
+            G.GAME.tags[i]:apply_to_run({type = 'immediate'})
+          end
+          for i = 1, #G.GAME.tags do
+            if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
+          end
+          return true
+        end
+      }))
+    end
+    return
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "game.lua"
+pattern = "self.GAME.round_resets.blind_tags.Big = G.SETTINGS.tutorial_progress and G.SETTINGS.tutorial_progress.forced_tags and G.SETTINGS.tutorial_progress.forced_tags[2] or get_next_tag_key()"
+position = "after"
+payload = '''
+self.GAME.all_in_jest.blind_tags.Small.two = get_next_tag_key()
+local temp_index = 0
+while self.GAME.all_in_jest.blind_tags.Small.two == self.GAME.round_resets.blind_tags.Small do
+    temp_index = temp_index + 1
+    self.GAME.all_in_jest.blind_tags.Small.two = get_next_tag_key('_resample_'..temp_index)
+end
+self.GAME.all_in_jest.blind_tags.Small.three = get_next_tag_key()
+temp_index = 0
+while self.GAME.all_in_jest.blind_tags.Small.three == self.GAME.round_resets.blind_tags.Small or self.GAME.all_in_jest.blind_tags.Small.three == self.GAME.all_in_jest.blind_tags.Small.two do
+    temp_index = temp_index + 1
+    self.GAME.all_in_jest.blind_tags.Small.three = get_next_tag_key('_resample_'..temp_index)
+end
+self.GAME.all_in_jest.blind_tags.Big.two = get_next_tag_key()
+local temp_index = 0
+while self.GAME.all_in_jest.blind_tags.Big.two == self.GAME.round_resets.blind_tags.Big do
+    temp_index = temp_index + 1
+    self.GAME.all_in_jest.blind_tags.Big.two = get_next_tag_key('_resample_'..temp_index)
+end
+self.GAME.all_in_jest.blind_tags.Big.three = get_next_tag_key()
+temp_index = 0
+while self.GAME.all_in_jest.blind_tags.Big.three == self.GAME.round_resets.blind_tags.Big or self.GAME.all_in_jest.blind_tags.Big.three == self.GAME.all_in_jest.blind_tags.Big.two do
+    temp_index = temp_index + 1
+    self.GAME.all_in_jest.blind_tags.Big.three = get_next_tag_key('_resample_'..temp_index)
 end
 '''
 match_indent = true

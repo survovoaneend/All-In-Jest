@@ -41,7 +41,7 @@ payload = '''
 all_in_jest = {
 	dizzard_shop = false,
 	pit_blind_ante = 4,
-	skip_tags = {has_multiple = false, amt = 1},
+	blind_tags = {has_multiple = false, Small = {two = nil, three = nil}, Big = {two = nil, three = nil}, selected_index = nil},
 	advanced_hand_usage_run = {},
 	advanced_hand_usage = {},
 	AIJAnimated = {
