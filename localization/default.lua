@@ -1623,8 +1623,9 @@ return {
             j_aij_mummer = { 
                 name = "Mummer", 
                 text = { 
-                    "Trigger all {C:attention}Steel{} cards held in hand",
-                    "when a {C:attention}Steel{} card is scored",
+                    "Trigger all {C:aij_silver}Steel{} cards",
+                    "{C:attention}held in hand{} when a {C:aij_silver}Steel",
+                    "card is {C:attention}scored",
                 } 
             },
             j_aij_tipteerer = {
