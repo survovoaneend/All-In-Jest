@@ -1506,8 +1506,8 @@ return {
             j_aij_pellucid_joker = { 
                 name = "Pellucid Joker", 
                 text = { 
-                    "When a joker with an {C:dark_edition}edition{} is {C:money}sold",
-                    "or {C:red}destroyed{}, create a",
+                    "When a {C:attention}Joker{} with an {C:dark_edition}edition{} is",
+                    "{C:money}sold{} or {C:red}destroyed{}, create a",
                     "random playing card with the",
                     "same {C:dark_edition}edition{} and add it",
                     "to deck" 
