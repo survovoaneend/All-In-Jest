@@ -6,7 +6,7 @@ local truhan = {
     config = {
       extra = {
         xmult = 1,
-        xmult_mod = 0.05
+        xmult_mod = 0.1
       }
     },
     rarity = 2,
