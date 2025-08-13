@@ -1005,6 +1005,6 @@ function All_in_Jest.reset_game_globals(run_start)
     G.GAME.jest_shop_perma_free = false
     if run_start then
         local index = {4,5}
-        G.GAME.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed(seed))
+        G.GAME.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
     end
 end
