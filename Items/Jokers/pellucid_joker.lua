@@ -28,18 +28,20 @@ local start_dissolve_ref = Card.start_dissolve
 function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice)
   local ref = start_dissolve_ref(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
   if G.jokers and self.ability.set == 'Joker' and self.edition ~= nil then
-    local has_pellucid_joker = next(SMODS.find_card("j_aij_pellucid_joker"))
+    local has_pellucid_joker = SMODS.find_card("j_aij_pellucid_joker")
     if has_pellucid_joker then
-        for i = 1, has_pellucid_joker do
+        for k, v in pairs(has_pellucid_joker) do
             local _card = create_playing_card({
-                front = pseudorandom_element(G.P_CARDS, pseudoseed('cert_fr')),
-                center = G.P_CENTERS.c_base}, G.discard, true, nil, {G.C.SECONDARY_SET.Enhanced}, true)
+                front = pseudorandom_element(G.P_CARDS, pseudoseed('pellucid_joker')),
+                center = G.P_CENTERS.c_base}, v, true, nil, {G.C.SECONDARY_SET.Enhanced}, true)
             _card:set_edition(self.edition)
+            _card:start_materialize()
             G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.3,
                 func = function()
                     G.deck:emplace(_card)
                     G.deck.config.card_limit = G.deck.config.card_limit + 1
-                    _card:start_materialize()
                     return true
                 end}))
             playing_card_joker_effects({_card})
