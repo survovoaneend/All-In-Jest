@@ -2196,7 +2196,7 @@ return {
             j_aij_taggart = { 
                 name = "Taggart", 
                 text = { 
-                    "Create a {C:attention}copy{} of",
+                    "Create {C:attention}#1# copy{} of",
                     "each {C:attention}Tag{} acquired",
                     "{C:inactive}(Except Double Tag)"
             } 
@@ -2831,7 +2831,7 @@ return {
             j_aij_toto = { 
                 name = "Toto", 
                 text = { 
-                    "Create {C:attention}2{} copies of",
+                    "Create {C:attention}#1#{} copies of",
                     "each {C:attention}Tag{} acquired",
                     "{C:inactive}(Except Double Tag)" 
                 }, 

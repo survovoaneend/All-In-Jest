@@ -1969,51 +1969,7 @@ target = "functions/UI_definitions.lua"
 pattern = "G.GAME.tags[#G.GAME.tags+1] = _tag"
 position = "after"
 payload = '''
-local toto_count = #SMODS.find_card("j_aij_toto")
-
-if toto_count > 0 and _tag.key ~= 'tag_double' and (not _tag.config.jest_tag_duplicate_trigger) then
-    for i = 1, toto_count do
-        for i = 1, 2 do
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.9,
-                func = function()
-                    if _tag.ability and _tag.ability.orbital_hand then
-                        G.orbital_hand = _tag.ability.orbital_hand
-                    end
-                    local temptag = Tag(_tag.key)
-                    temptag.config.jest_tag_duplicate_trigger = true
-                    add_tag(temptag)
-                    G.orbital_hand = nil
-                    return true
-                end
-            }))
-        end
-    end
-end
-
-local taggart_count = #SMODS.find_card("j_aij_taggart")
-
-if taggart_count > 0 and _tag.key ~= 'tag_double' and (not _tag.config.jest_tag_duplicate_trigger) then
-    for i = 1, taggart_count do
-        for i = 1, 1 do
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.9,
-                func = function()
-                    if _tag.ability and _tag.ability.orbital_hand then
-                        G.orbital_hand = _tag.ability.orbital_hand
-                    end
-                    local temptag = Tag(_tag.key)
-                    temptag.config.jest_tag_duplicate_trigger = true
-                    add_tag(temptag)
-                    G.orbital_hand = nil
-                    return true
-                end
-            }))
-        end
-    end
-end
+SMODS.calculate_context({all_in_jest = {tag_added = true, tag = _tag, duplicate_tag = _tag.config.jest_tag_duplicate_trigger }})
 '''
 match_indent = true
 
