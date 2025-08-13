@@ -1366,7 +1366,8 @@ return {
                 text = {
                     "Sell this {C:attention}Joker{} to",
                     "{C:attention}double{} the {C:money}sell value{}",
-                    "of adjacent {C:attention}Jokers"
+                    "of adjacent {C:attention}Jokers",
+                    "{C:inactive}(Max of {C:money}$#1#{}{C:inactive})"
                 },
             },
             j_aij_second_tier_meme = { name = "Second tier Meme", text = { "" } },
