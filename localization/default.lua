@@ -237,7 +237,6 @@ return {
                 text = {
                     'Debuffs all',
                     'enhanced cards',
-                    '(todo)'
                 },
             },
             bl_aij_the_twin = {
