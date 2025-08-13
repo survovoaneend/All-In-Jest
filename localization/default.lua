@@ -215,7 +215,6 @@ return {
                 text = {
                     'Enhanced cards',
                     'are drawn last',
-                    '(todo)'
                 },
             },
             bl_aij_the_bullion = {
@@ -223,7 +222,6 @@ return {
                 text = {
                     '-$5 per played',
                     'enhanced card',
-                    '(todo)'
                 },
             },
             bl_aij_the_elbow = {
