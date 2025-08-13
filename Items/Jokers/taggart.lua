@@ -4,7 +4,9 @@ local taggart = {
     
     key = "taggart",
     config = {
-      
+      extra = {
+          tags = 1,
+      }
     },
     rarity = 3,
     pos = { x = 10, y = 10},
@@ -12,15 +14,39 @@ local taggart = {
     cost = 8,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+        return {
+            vars = {
+                card.ability.extra.tags,
+            }
+        }
     end,
   
     calculate = function(self, card, context)
-        
+        if context.all_in_jest and context.all_in_jest.tag_added then 
+            local _tag = context.all_in_jest.tag
+            if _tag.key ~= 'tag_double' and (not context.all_in_jest.duplicate_tag) then
+                for i = 1, card.ability.extra.tags do
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.9,
+                        func = function()
+                            if _tag.ability and _tag.ability.orbital_hand then
+                                G.orbital_hand = _tag.ability.orbital_hand
+                            end
+                            local temptag = Tag(_tag.key)
+                            temptag.config.jest_tag_duplicate_trigger = true
+                            add_tag(temptag)
+                            G.orbital_hand = nil
+                            return true
+                        end
+                    }))
+                end
+            end
+        end
     end
   
 }
