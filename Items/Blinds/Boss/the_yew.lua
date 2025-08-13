@@ -1,6 +1,7 @@
 local the_yew = {
     object_type = "Blind",
     key = 'the_yew',
+    ignore = true,
     boss = {
         min = 3,
     },

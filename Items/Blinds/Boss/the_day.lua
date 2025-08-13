@@ -1,6 +1,7 @@
 local the_day = {
     object_type = "Blind",
     key = 'the_day',
+    ignore = true,
     boss = {
         min = 3,
     },

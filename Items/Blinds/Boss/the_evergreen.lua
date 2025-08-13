@@ -1,6 +1,7 @@
 local the_evergreen = {
     object_type = "Blind",
     key = 'the_evergreen',
+    ignore = true,
     boss = {
         min = 5,
     },

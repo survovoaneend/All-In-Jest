@@ -1,6 +1,7 @@
 local the_oak = {
     object_type = "Blind",
     key = 'the_oak',
+    ignore = true,
     boss = {
       min = 3,
     },

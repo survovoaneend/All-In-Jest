@@ -1,6 +1,7 @@
 local the_sun = {
     object_type = "Blind",
     key = 'the_sun',
+    ignore = true,
     boss = {
         min = 3,
     },

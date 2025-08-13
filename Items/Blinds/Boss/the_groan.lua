@@ -1,6 +1,7 @@
 local the_groan = {
     object_type = "Blind",
     key = 'the_groan',
+    ignore = true,
     boss = {
         min = 4,
     },

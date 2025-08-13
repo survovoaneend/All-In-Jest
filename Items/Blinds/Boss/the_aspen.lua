@@ -1,6 +1,7 @@
 local the_aspen = {
     object_type = "Blind",
     key = 'the_aspen',
+    ignore = true,
     boss = {
         min = 3,
     },

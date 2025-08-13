@@ -1,6 +1,7 @@
 local the_frost = {
     object_type = "Blind",
     key = 'the_frost',
+    ignore = true,
     boss = {
         min = 3,
     },

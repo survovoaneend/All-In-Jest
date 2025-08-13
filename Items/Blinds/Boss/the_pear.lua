@@ -1,6 +1,7 @@
 local the_pear = {
     object_type = "Blind",
     key = 'the_pear',
+    ignore = true,
     boss = {
         min = 3,
     },

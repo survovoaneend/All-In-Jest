@@ -1,6 +1,7 @@
 local the_apple = {
     object_type = "Blind",
     key = 'the_apple',
+    ignore = true,
     boss = {
       min = 3,
     },

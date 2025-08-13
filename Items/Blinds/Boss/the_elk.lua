@@ -1,6 +1,7 @@
 local the_elk = {
     object_type = "Blind",
     key = 'the_elk',
+    ignore = true,
     boss = {
         min = 3,
     },

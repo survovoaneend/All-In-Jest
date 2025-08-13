@@ -1,6 +1,7 @@
 local the_hazel = {
     object_type = "Blind",
     key = 'the_hazel',
+    ignore = true,
     boss = {
       min = 2,
     },

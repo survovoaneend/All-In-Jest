@@ -1,6 +1,7 @@
 local the_spear = {
     object_type = "Blind",
     key = 'the_spear',
+    ignore = true,
     boss = {
         min = 3,
     },

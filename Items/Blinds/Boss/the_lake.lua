@@ -1,6 +1,7 @@
 local the_lake = {
     object_type = "Blind",
     key = 'the_lake',
+    ignore = true,
     boss = {
         min = 3,
     },

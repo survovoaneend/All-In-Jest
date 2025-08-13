@@ -1,6 +1,7 @@
 local the_figure = {
     object_type = "Blind",
     key = 'the_figure',
+    ignore = true,
     boss = {
         min = 3,
     },

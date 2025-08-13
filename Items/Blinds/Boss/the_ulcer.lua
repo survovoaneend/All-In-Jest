@@ -1,6 +1,7 @@
 local the_ulcer = {
     object_type = "Blind",
     key = 'the_ulcer',
+    ignore = true,
     boss = {
         min = 3,
     },

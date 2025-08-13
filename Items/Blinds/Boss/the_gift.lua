@@ -1,6 +1,7 @@
 local the_gift = {
     object_type = "Blind",
     key = 'the_gift',
+    ignore = true,
     boss = {
         min = 3,
     },

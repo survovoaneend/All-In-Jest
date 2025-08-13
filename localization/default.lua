@@ -244,7 +244,6 @@ return {
                 text = {
                     'Enhanced cards are',
                     'drawn face down',
-                    '(todo)'
                 },
             },
             bl_aij_the_giant = {

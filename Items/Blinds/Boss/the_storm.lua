@@ -1,6 +1,7 @@
 local the_storm = {
     object_type = "Blind",
     key = 'the_storm',
+    ignore = true,
     boss = {
         min = 3,
     },

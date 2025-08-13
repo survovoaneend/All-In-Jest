@@ -1,6 +1,7 @@
 local the_auroch = {
     object_type = "Blind",
     key = 'the_auroch',
+    ignore = true,
     boss = {
         min = 3,
     },

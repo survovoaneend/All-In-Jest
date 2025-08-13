@@ -1,6 +1,7 @@
 local the_celebration = {
     object_type = "Blind",
     key = 'the_celebration',
+    ignore = true,
     boss = {
         min = 3,
     },

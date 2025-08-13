@@ -1,6 +1,7 @@
 local the_ash = {
     object_type = "Blind",
     key = 'the_ash',
+    ignore = true,
     boss = {
         min = 5,
     },

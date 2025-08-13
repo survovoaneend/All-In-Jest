@@ -1,6 +1,7 @@
 local the_ancestor = {
     object_type = "Blind",
     key = 'the_ancestor',
+    ignore = true,
     boss = {
         min = 3,
     },

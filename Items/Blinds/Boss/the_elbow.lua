@@ -1,6 +1,7 @@
 local the_elbow = {
     object_type = "Blind",
     key = 'the_elbow',
+    ignore = true,
     boss = {
         min = 3,
     },

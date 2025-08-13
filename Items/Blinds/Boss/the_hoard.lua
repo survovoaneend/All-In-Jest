@@ -1,6 +1,7 @@
 local the_hoard = {
     object_type = "Blind",
     key = 'the_hoard',
+    ignore = true,
     boss = {
         min = 3,
     },

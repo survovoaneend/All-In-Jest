@@ -1,6 +1,7 @@
 local the_ingot = {
     object_type = "Blind",
     key = 'the_ingot',
+    ignore = true,
     boss = {
       min = 5,
     },
