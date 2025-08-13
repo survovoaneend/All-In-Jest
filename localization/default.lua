@@ -192,7 +192,6 @@ return {
                 name = "The Clay",
                 text = {
                     'Randomly large blind',
-                    '(todo)'
                 },
             },
             bl_aij_the_aspen = {
