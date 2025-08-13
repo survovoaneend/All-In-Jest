@@ -176,7 +176,7 @@ AllInJest = {}
 assert(SMODS.load_file('Utils/context.lua'))()
 assert(SMODS.load_file('Utils/draw.lua'))()
 assert(SMODS.load_file('Utils/functions.lua'))()
-assert(SMODS.load_file('Utils/overrides.lua'))()
+assert(SMODS.load_file('Utils/hooks.lua'))()
 assert(SMODS.load_file('Utils/ui.lua'))()
 
 local folders = NFS.getDirectoryItems(mod_path.."Items")

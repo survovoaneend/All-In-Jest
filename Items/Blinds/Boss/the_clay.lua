@@ -4,7 +4,7 @@ local the_clay = {
     boss = {
         min = 3,
     },
-    mult = 2,
+    mult = 1,
     boss_colour = HEX("95a4a9"),
     atlas = 'blinds',
     pos = { X = 0, y = 39},
@@ -17,4 +17,5 @@ local the_clay = {
     end,
 
 }
+-- code in aureate coin
 return { name = {"Blinds"}, items = {the_clay} }

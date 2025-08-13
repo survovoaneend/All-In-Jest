@@ -35,13 +35,5 @@ local aureate_coin = {
         end
     end
 }
-local ease_anteref = ease_ante
-function ease_ante(mod)
-    if mod ~= 0 then
-        G.P_BLINDS['bl_aij_aureate_coin'].mult = (G.GAME.dollars * 0.1) + 2
-    end
-    
-    local ref = ease_anteref(mod)
-    return ref
-end
+
 return { name = {"Finisher Blinds"}, items = {aureate_coin} }
