@@ -16,9 +16,9 @@ local gold_medal = {
   end,
 
   redeem = function(self)
-    if not G.GAME.all_in_jest.v_aij_gold_medal_been_used then
+    if not G.GAME.all_in_jest.apply.v_aij_gold_medal_been_used then
         G.GAME.all_in_jest.gold_tag_rate = G.GAME.all_in_jest.gold_tag_rate + self.config.extra.rate
-        G.GAME.all_in_jest.v_aij_gold_medal_been_used = true
+        G.GAME.all_in_jest.apply.v_aij_gold_medal_been_used = true
     end
   end,
 
