@@ -1134,11 +1134,11 @@ payload = '''
 if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage' then
 	local other_joker = nil
     if self.ability.name == 'j_aij_visage' then
-        other_joker = G.GAME.jest_visage_last_sold
+        other_joker = G.GAME.all_in_jest.apply.visage_last_sold
     elseif self.ability.name == 'j_aij_clay_joker' then
-        other_joker = G.GAME.jest_clay_last_destroyed
+        other_joker = G.GAME.all_in_jest.apply.clay_last_destroyed
     end
-    if other_joker and other_joker ~= self and other_joker.config.center.blueprint_compat then
+    if other_joker and other_joker ~= self and other_joker.config and other_joker.config.center.blueprint_compat then
         self.ability.blueprint_compat = 'compatible'
     else
         self.ability.blueprint_compat = 'incompatible'

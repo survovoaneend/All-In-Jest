@@ -39,6 +39,12 @@ position = 'after'
 match_indent = true 
 payload = '''
 all_in_jest = {
+	apply = { -- Specific triggers for cards
+		v_aij_gold_medal_been_used = false,
+		ticket_trigger = true,
+		visage_last_sold = nil,
+		clay_last_destroyed = nil,
+	}, 
 	dizzard_shop = false,
 	pit_blind_ante = 4,
 	blind_tags = {has_multiple = false, Small = {two = nil, three = nil}, Big = {two = nil, three = nil}, selected_index = nil},
@@ -51,7 +57,6 @@ all_in_jest = {
 	reset_score = {chips = false, mult = false, chip_total = false, blind_total = false},
 	secret_hands = {},
 	gold_tag_rate = 1,
-	v_aij_gold_medal_been_used = false,
 },
 -- move these into all_in_jest at some point
 jest_unused_hands = 0,
@@ -61,8 +66,6 @@ jest_change_booster_options = {op = {add = 0, mult = 0, div = 0, sub = 0}, trigg
 jest_void_planet_ante = false,
 jest_kasperle_voucher_ante = false,
 jest_kilroy_sold = 0,
-jest_visage_last_sold = nil,
-jest_clay_last_destroyed = nil,
 jest_bought_jokers = 0,
 jest_magic_mirror_trigger = true,
 jest_toothy_joker_tarots = 0,
