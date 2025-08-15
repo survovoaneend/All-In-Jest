@@ -18,7 +18,7 @@ local clay_joker = {
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        if G.jest_clay_last_destroyed.cards[1] then
+        if G.jest_clay_last_destroyed and G.jest_clay_last_destroyed.cards[1] then
             local other_joker = G.jest_clay_last_destroyed.cards[1]
             info_queue[#info_queue + 1] = G.P_CENTERS[other_joker.config.center.key]
         end

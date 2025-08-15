@@ -18,7 +18,7 @@ local visage = {
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        if G.jest_visage_last_sold.cards[1] then
+        if G.jest_visage_last_sold and G.jest_visage_last_sold.cards[1] then
             local other_joker = G.jest_visage_last_sold.cards[1]
             info_queue[#info_queue + 1] = G.P_CENTERS[other_joker.config.center.key]
         end
