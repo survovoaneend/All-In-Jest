@@ -246,57 +246,76 @@ function redeemed_voucher_count()
     return 0
 end
 
-function balance_percent(card, percent)
-  local chip_mod = percent * hand_chips
-  local mult_mod = percent * mult
-  local avg = (chip_mod + mult_mod)/2
-  hand_chips = hand_chips + (avg - chip_mod)
-  mult = mult + (avg - mult_mod)
-  local text = localize('k_balanced')
-  
-  update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
-  card_eval_status_text(card, 'extra', nil, nil, nil, {
-    message = text,
-    colour = { 0.8, 0.45, 0.85, 1 },
-    sound = 'gong'
- })
-  
-  G.E_MANAGER:add_event(Event({
-    trigger = 'immediate',
-    func = (function()
-      ease_colour(G.C.UI_CHIPS, { 0.8, 0.45, 0.85, 1 })
-      ease_colour(G.C.UI_MULT, { 0.8, 0.45, 0.85, 1 })
-      G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        blockable = false,
-        blocking = false,
-        delay = 4.3,
-        func = (function()
-          ease_colour(G.C.UI_CHIPS, G.C.BLUE, 2)
-          ease_colour(G.C.UI_MULT, G.C.RED, 2)
-          return true
-        end)
-      }))
-      G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        blockable = false,
-        blocking = false,
-        no_delete = true,
-        delay = 6.3,
-        func = (function()
-          G.C.UI_CHIPS[1], G.C.UI_CHIPS[2], G.C.UI_CHIPS[3], G.C.UI_CHIPS[4] = G.C.BLUE[1], G.C.BLUE[2], G.C.BLUE[3],
-              G.C.BLUE[4]
-          G.C.UI_MULT[1], G.C.UI_MULT[2], G.C.UI_MULT[3], G.C.UI_MULT[4] = G.C.RED[1], G.C.RED[2], G.C.RED[3], G.C.RED
-          [4]
-          return true
-        end)
-      }))
-      return true
-    end)
-  }))
+table.insert(SMODS.calculation_keys, "aij_balance_percent")
+-- table.insert(SMODS.calculation_keys, 1, "aij_balance_percent") -- This version would put the effect at the start, making it go before chip/mult/etc. effects.
+local aij_original_smods_calculate_individal_effect = SMODS.calculate_individual_effect
+SMODS.calculate_individual_effect = function(effect, scored_card, key, amount, from_edition)
+    if key == "aij_balance_percent" then
+        if amount > 1 then
+            amount = 1
+        end
+        if effect.card and effect.card ~= scored_card then juice_card(effect.card) end
+        hand_chips, mult = balance_percent(hand_chips, mult, amount)
 
-  delay(0.6)
-  return hand_chips, mult
+        local text = (amount * 100) .. "%"
+        update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
+
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = (function()
+                ease_colour(G.C.UI_CHIPS, { 0.8, 0.45, 0.85, 1 })
+                ease_colour(G.C.UI_MULT, { 0.8, 0.45, 0.85, 1 })
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    blockable = false,
+                    blocking = false,
+                    delay = 4.3,
+                    func = (function()
+                    ease_colour(G.C.UI_CHIPS, G.C.BLUE, 2)
+                    ease_colour(G.C.UI_MULT, G.C.RED, 2)
+                    return true
+                    end)
+                }))
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    blockable = false,
+                    blocking = false,
+                    no_delete = true,
+                    delay = 6.3,
+                    func = (function()
+                    G.C.UI_CHIPS[1], G.C.UI_CHIPS[2], G.C.UI_CHIPS[3], G.C.UI_CHIPS[4] = G.C.BLUE[1], G.C.BLUE[2], G.C.BLUE[3],
+                        G.C.BLUE[4]
+                    G.C.UI_MULT[1], G.C.UI_MULT[2], G.C.UI_MULT[3], G.C.UI_MULT[4] = G.C.RED[1], G.C.RED[2], G.C.RED[3], G.C.RED
+                    [4]
+                    return true
+                    end)
+                }))
+                return true
+            end)
+        }))
+
+        if not effect.remove_default_message then
+            if from_edition then
+                card_eval_status_text(scored_card, 'jokers', nil, percent, nil, {message = text, colour = { 0.8, 0.45, 0.85, 1 }, sound = 'gong', edition = true})
+            else
+                card_eval_status_text(effect.message_card or effect.juice_card or scored_card or effect.card or effect.focus, 'extra', nil, percent, nil, {message = text, colour = { 0.8, 0.45, 0.85, 1 }, sound = 'gong', edition = true})
+            end
+        end
+
+        return true
+    end
+
+    return aij_original_smods_calculate_individal_effect(effect, scored_card, key, amount, from_edition)
+end
+
+function balance_percent(input_hand_chips, input_mult, percent)
+  local chip_mod = percent * input_hand_chips
+  local mult_mod = percent * input_mult
+  local avg = (chip_mod + mult_mod)/2
+  local new_hand_chips = input_hand_chips + (avg - chip_mod)
+  local new_mult = input_mult + (avg - mult_mod)
+
+  return new_hand_chips, new_mult
 end
 
 to_big = to_big or function(num)
