@@ -51,6 +51,21 @@ SMODS.current_mod.config_tab = function()
           }
         }
       },
+      {
+        n = G.UIT.R,
+        nodes = {
+          {
+            n = G.UIT.C,
+            nodes = {
+              create_toggle {
+                label = localize('aij_blue_stake_rework'),
+                ref_table = All_in_Jest.config,
+                ref_value = 'blue_stake_rework'
+              },
+            },
+          },
+        }
+      },
     }
   }
 end

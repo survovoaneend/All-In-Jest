@@ -12,6 +12,7 @@ return {
             aij_upgraded_tags = "Gold Tags",
             aij_alter_trypophobia = "Alter Trypophobia",
             aij_no_copy_neg = "Allow Copying Negative Playing Cards",
+            aij_blue_stake_rework = 'Blue Stake Rework',
             k_aij_guess_the_jest = "Guess the Jest",
             k_aij_memory_card = "Memorized!",
             aij_plus_tag = "+1 Tag",
@@ -72,7 +73,7 @@ return {
                 }
             }
         },
-        Stake = {
+        Stake = All_in_Jest.config.blue_stake_rework and {
             stake_blue = {
                 name = "Blue Stake",
                 text = {
@@ -81,7 +82,7 @@ return {
                     '{s:0.8}Applies all previous Stakes'
                 }
             },
-        },
+        } or {},
         Blind = {
             --Normal Blinds
             bl_aij_the_beith = {

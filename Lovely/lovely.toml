@@ -848,7 +848,7 @@ position = "before"
 match_indent = true
 payload = '''
 if G.GAME.round_resets.ante == G.GAME.all_in_jest.pit_blind_ante then
-    if G.GAME.stake >= 5 then
+    if G.GAME.stake >= 5 or not All_in_Jest.config.blue_stake_rework then
         local cen_pool = {}
         for k, v in pairs(G.P_BLINDS) do
             if v and v.boss and v.boss.all_in_jest and v.boss.all_in_jest.pit then 

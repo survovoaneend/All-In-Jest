@@ -51,11 +51,13 @@ SMODS.Booster:take_ownership_by_kind('Celestial', {
     loc_vars = pack_loc_vars,
 },true)
 
-SMODS.Stake:take_ownership('stake_blue', { 
-    modifiers = function()
-        return
-    end,
-},true)
+if All_in_Jest.config.blue_stake_rework then
+    SMODS.Stake:take_ownership('stake_blue', { 
+        modifiers = function()
+            return
+        end,
+    },true)
+end
 
 local has_any_suit_ref = SMODS.has_any_suit
 function SMODS.has_any_suit(card)
