@@ -18,7 +18,7 @@ local stellar = {
     order = 2,
     config = { chips = 5, mult = 1 },
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.edition.chips, card.edition.mult}}
+        return {vars = {(card.edition or {}).chips or self.config.chips, (card.edition or {}).mult or self.config.mult}}
     end,
     calculate = function(self, card, context)
 		if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
