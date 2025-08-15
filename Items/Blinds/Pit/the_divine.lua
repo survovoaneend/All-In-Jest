@@ -9,7 +9,7 @@ local the_divine = {
     },
     in_pool = function(self)
         if G.GAME.round_resets.ante == G.GAME.all_in_jest.pit_blind_ante or G.GAME.won then
-            if G.GAME.stake >= 5 or G.GAME.won then
+            if G.GAME.stake >= 5 or G.GAME.won or not All_in_Jest.config.blue_stake_rework then
                 if G.playing_cards then
                     local count = 0
                     for k, v in ipairs(G.playing_cards) do
