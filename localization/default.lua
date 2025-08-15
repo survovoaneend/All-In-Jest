@@ -216,7 +216,7 @@ return {
                 name = "Glimmer",
                 text = {
                     "{C:aij_plasma}Balances{} {C:attention}#1#%{} of",
-                    "{C:mult}Mult{} and {C:chips}Chips"
+                    "{C:chips}Chips{} and {C:mult}Mult{}"
                 }
             },
             e_aij_silver = {
@@ -812,13 +812,13 @@ return {
                 },
             },
             j_aij_columbina = { 
-                name = "Columbina", 
+                name = "Columbina",
                 text = {
-                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of {C:mult}Mult{} and",
-                    "{C:chips}Chips{}, increases by {C:attention}#2#%{}",
+                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of {C:chips}Chips{} and",
+                    "{C:mult}Mult{}, increases by {C:attention}#2#%{}",
                     "when a {C:spectral}Spectral{} card is",
                     "used"
-                } 
+                }
             },
             j_aij_j_file = { name = "J-File", text = { "" } },
             j_aij_bumper_sticker = { 
@@ -1458,9 +1458,8 @@ return {
             j_aij_goofball = { 
                 name = "Goofball", 
                 text = { 
-                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of {C:mult}Mult",
-                    "and {C:chips}Chips{} when any",
-                    "{C:attention}face{} card is {C:attention}scored"
+                    "Scored {C:attention}face{} cards {C:aij_plasma}balance{}",
+                    "{C:attention}#1#%{} of {C:chips}Chips{} and {C:mult}Mult{}"
                 } 
             },
             j_aij_heyokha = { name = "Heyókȟa", text = { "" } },
@@ -1786,8 +1785,8 @@ j_aij_chitty = {
             j_aij_candy_floss = { 
                 name = "Candy Floss", 
                 text = { 
-                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of {C:mult}Mult",
-                    "and {C:chips}Chips{}, decreases",
+                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of {C:chips}Chips{}",
+                    "and {C:mult}Mult{}, decreases",
                     "by {C:attention}#2#%{} at end of round"
                 } 
             },

@@ -22,7 +22,10 @@ local glimmer = {
     end,
     calculate = function(self, card, context)
 		if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
-			balance_percent(card, (card.edition.percent*0.01))
+			-- balance_percent(card, (card.edition.percent*0.01))
+            return {
+                aij_balance_percent = card.edition.percent * 0.01
+            }
 		end
 	end,
     in_shop = true,
