@@ -374,7 +374,7 @@ pattern = '''
 '''
 position = 'before'
 payload = '''
-{n=G.UIT.R, config={align = 'cl'}, nodes={
+{n=G.UIT.R, config={align = 'cr'}, nodes={
     aij_activate_ability
 }},
 '''
@@ -415,9 +415,9 @@ match_indent = true
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
 pattern = '''
-if (card.area == G.pack_cards and G.pack_cards) and not card.ability.consumeable then --Add a use button
+base_attach.children.sell = G.UIDEF.card_focus_button{
 '''
-position = 'after'
+position = 'before'
 payload = '''
 if card.config.center.all_in_jest and card.config.center.all_in_jest.use_ability then 
     base_attach.children.aij_activate_ability = G.UIDEF.card_focus_button{

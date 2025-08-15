@@ -838,9 +838,10 @@ return {
             j_aij_doodle = {
                 name = "Doodle",
                 text = {
-                    "{C:green}#1# in #2#{} chance to copy",
-                    "the {C:attention}abilities{} of both",
-                    "adjacent {C:attention}Jokers{}"
+                    "{C:attention}Copies{} the {C:attention}abilities{} of",
+                    "both adjacent {C:attention}Jokers{} on",
+                    "{C:blue}odd{} antes",
+                    "{C:inactive}#1#"
                 },
             },
             j_aij_joqr = { name = "Joqr", text = { "" } },
