@@ -954,7 +954,15 @@ return {
                     "{C:dark_edition}Edition{} to the left card"
                 }
             },
-            j_aij_cool_joker = { name = "Cool Joker", text = { "" } },
+            j_aij_cool_joker = { 
+                name = "Cool Joker", 
+                text = { 
+                    "{B:1,C:white,s:0.8}Activated Ability",
+                    "{V:1}Activate{} this {C:attention}Joker{} when it",
+                    "would {C:attention}normally{} score for",
+                    "{X:mult,C:white}X#1#{} Mult" 
+                } 
+            },
             j_aij_square_eyes = { 
                 name = "Square Eyes", 
                 text = {
@@ -1247,7 +1255,13 @@ return {
                 } 
             },
             j_aij_pedrolino = { name = "Pedrolino", text = { "" } },
-            j_aij_pierrette = { name = "Pierrette", text = { "" } },
+            j_aij_pierrette = { 
+                name = "Pierrette", 
+                text = { 
+                    "Retrigger all {C:attention}card",
+                    "{C:attention}discarded{} effects" 
+                } 
+            },
             j_aij_scaramouche = { 
                 name = "Scaramouche", 
                 text = { 
@@ -2544,7 +2558,14 @@ return {
                 } 
             },
             j_aij_the_freezer = { name = "The Freezer", text = { "" } },
-            j_aij_twisted_pair = { name = "Twisted Pair", text = { "" } },
+            j_aij_twisted_pair = { 
+                name = "Twisted Pair", 
+                text = { 
+                    "If hand is a {C:attention}Pair{}, each card",
+                    "gains a suit {C:attention}patch{} corresponding",
+                    "to the suit of the {C:attention}other card" 
+                } 
+            },
             j_aij_the_grim_joker = { 
                 name = "The Grim Joker", 
                 text = { 
@@ -2710,7 +2731,14 @@ return {
                     "gain the {C:money}Rental{} sticker" 
                 }
             },
-            j_aij_skinsuit = { name = "Skinsuit", text = { "" } },
+            j_aij_skinsuit = { 
+                name = "Skinsuit", 
+                text = { 
+                    "When a card is {C:red}destroyed{},",
+                    "patch its {C:attention}suit{} onto a {C:attention}random",
+                    "{C:attention}card{} held in hand" 
+                } 
+            },
             j_aij_shock_humor = { name = "Shock Humor", text = { "" } },
             j_aij_the_house_that_jack_built = { name = "The House that Jack Built", text = { "" } },
             j_aij_clownbug = { name = "Clownbug", text = { "" } },

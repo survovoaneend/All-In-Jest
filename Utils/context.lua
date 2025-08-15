@@ -6,6 +6,13 @@ G.FUNCS.cash_out = function(e)
 
   cash_out_ref(e)
 end
+local ease_anteref = ease_ante
+function ease_ante(mod)
+    SMODS.calculate_context({all_in_jest = {ease_ante = true, mod = mod}})
+    
+    local ref = ease_anteref(mod)
+    return ref
+end
 
 local ease_dollars_ref = ease_dollars
 function ease_dollars(mod, instant)

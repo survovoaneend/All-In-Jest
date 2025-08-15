@@ -14,3 +14,21 @@ SMODS.DrawStep {
     end,
     conditions = { vortex = false, facing = 'front' },
 }
+SMODS.DrawStep {
+    key = 'temp_patches',
+    order = 34,
+    func = function(self, layer)
+        if self.ability.patches then
+            for k, v in pairs(self.ability.patches) do
+                if G.GAME.all_in_jest.patches_sprites[k] then
+                    G.GAME.all_in_jest.patches_sprites[k].role.draw_major = self
+                    G.GAME.all_in_jest.patches_sprites[k]:draw_shader('dissolve', nil, nil, nil, self.children.center)
+                else
+                    G.GAME.all_in_jest.patches_sprites['Other'].role.draw_major = self
+                    G.GAME.all_in_jest.patches_sprites['Other']:draw_shader('dissolve', nil, nil, nil, self.children.center)
+                end
+            end
+        end
+    end,
+    conditions = { vortex = false, facing = 'front' },
+} 

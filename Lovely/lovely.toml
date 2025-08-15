@@ -55,6 +55,22 @@ if self.edition and self.edition.aij_silver then
 end
 '''
 
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+if SMODS.has_no_suit(self) then
+    return false
+end
+'''
+position = "before"
+match_indent = true
+payload = '''
+if All_in_Jest.has_patches(self, suit) then
+    return All_in_Jest.has_patches(self, suit)
+end
+'''
+
 [[patches]] 
 [patches.pattern]
 target = "functions/state_events.lua"
