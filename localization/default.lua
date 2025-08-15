@@ -1458,9 +1458,8 @@ return {
             j_aij_goofball = { 
                 name = "Goofball", 
                 text = { 
-                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of {C:mult}Mult",
-                    "and {C:chips}Chips{} when any",
-                    "{C:attention}face{} card is {C:attention}scored"
+                    "Scored {C:attention}face{} cards {C:aij_plasma}balance{}",
+                    "{C:attention}#1#%{} of {C:chips}Chips{} and {C:mult}Mult{}"
                 } 
             },
             j_aij_heyokha = { name = "Heyókȟa", text = { "" } },
