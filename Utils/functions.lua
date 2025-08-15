@@ -256,7 +256,7 @@ SMODS.calculate_individual_effect = function(effect, scored_card, key, amount, f
             amount = 1
         end
         if effect.card and effect.card ~= scored_card then juice_card(effect.card) end
-        hand_chips, mult = balance_percent(hand_chips, mult, amount)
+        hand_chips, mult = calculate_balance_percent_values(hand_chips, mult, amount)
 
         local text = (amount * 100) .. "%"
         update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
@@ -302,7 +302,7 @@ SMODS.calculate_individual_effect = function(effect, scored_card, key, amount, f
     return aij_original_smods_calculate_individal_effect(effect, scored_card, key, amount, from_edition)
 end
 
-function balance_percent(input_hand_chips, input_mult, percent)
+function calculate_balance_percent_values(input_hand_chips, input_mult, percent)
   local chip_mod = percent * input_hand_chips
   local mult_mod = percent * input_mult
   local avg = (chip_mod + mult_mod)/2
