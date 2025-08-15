@@ -15,6 +15,9 @@ local banana_man = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    -- pools = {
+    --     Food = true
+    -- },
   
     loc_vars = function(self, info_queue, card)
         return {

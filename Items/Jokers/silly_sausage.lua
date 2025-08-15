@@ -17,6 +17,9 @@ local silly_sausage = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
+    pools = {
+        Food = true
+    },
   
     loc_vars = function(self, info_queue, card)
         return {
