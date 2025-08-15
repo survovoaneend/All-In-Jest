@@ -3826,6 +3826,13 @@ return {
                     "{C:inactive}(Currently{} {C:money}$#1#{}{C:inactive}){}"
                 }
             },
+            c_aij_balance_and_blade = {
+                name = 'The Balance and The Blade',
+                text = {
+                    "{C:attention}Patch{} a random suit",
+                    "to {C:attention}#1#{} selected cards"
+                }
+            },
             c_aij_veiled_lamp = {
                 name = 'The Veiled Lamp',
                 text = {

@@ -1007,10 +1007,20 @@ function All_in_Jest.has_patches(card, suit)
   end
 end
 
-function All_in_Jest.add_patch(card, suit)
-  card.ability.patches = card.ability.patches or {}
-  card.ability.patches[suit] = true
-  card:juice_up(0.3, 0.4)
+function All_in_Jest.add_patch(card, suit, instant)
+  instant = instant or false
+  if not instant then
+      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() 
+	    card.ability.patches = card.ability.patches or {}
+        card.ability.patches[suit] = true
+        play_sound('tarot1')
+        card:juice_up(0.3, 0.5)
+      return true end }))
+  else
+    card.ability.patches = card.ability.patches or {}
+    card.ability.patches[suit] = true
+    card:juice_up(0.3, 0.4)
+  end
 end
 
 function All_in_Jest.reset_game_globals(run_start)
