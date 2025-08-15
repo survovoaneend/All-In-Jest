@@ -17,6 +17,9 @@ local fortune_cookie = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = false,
+    pools = {
+        Food = true
+    },
 
     pixel_size = { w = 51, h = 95 },
   
