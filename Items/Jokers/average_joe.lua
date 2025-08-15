@@ -27,7 +27,7 @@ local average_joe = {
   
     calculate = function(self, card, context)
       if context.joker_main then
-        -- balance_percent(context.blueprint_card or card,(card.ability.extra.percent*0.01))\
+        -- balance_percent(context.blueprint_card or card,(card.ability.extra.percent*0.01))
         return {
             aij_balance_percent = card.ability.extra.percent * 0.01
         }
