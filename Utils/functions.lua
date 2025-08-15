@@ -248,6 +248,7 @@ end
 
 table.insert(SMODS.calculation_keys, "aij_balance_percent")
 -- table.insert(SMODS.calculation_keys, 1, "aij_balance_percent") -- This version would put the effect at the start, making it go before chip/mult/etc. effects.
+local aij_balance_mixed = false
 local aij_original_smods_calculate_individal_effect = SMODS.calculate_individual_effect
 SMODS.calculate_individual_effect = function(effect, scored_card, key, amount, from_edition)
     if key == "aij_balance_percent" then
@@ -263,33 +264,26 @@ SMODS.calculate_individual_effect = function(effect, scored_card, key, amount, f
         G.E_MANAGER:add_event(Event({
             trigger = 'immediate',
             func = (function()
-                ease_colour(G.C.UI_CHIPS, { 0.8, 0.45, 0.85, 1 })
-                ease_colour(G.C.UI_MULT, { 0.8, 0.45, 0.85, 1 })
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    blockable = false,
-                    blocking = false,
-                    delay = 4.3,
-                    func = (function()
-                    ease_colour(G.C.UI_CHIPS, G.C.BLUE, 2)
-                    ease_colour(G.C.UI_MULT, G.C.RED, 2)
-                    return true
-                    end)
-                }))
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    blockable = false,
-                    blocking = false,
-                    no_delete = true,
-                    delay = 6.3,
-                    func = (function()
-                    G.C.UI_CHIPS[1], G.C.UI_CHIPS[2], G.C.UI_CHIPS[3], G.C.UI_CHIPS[4] = G.C.BLUE[1], G.C.BLUE[2], G.C.BLUE[3],
-                        G.C.BLUE[4]
-                    G.C.UI_MULT[1], G.C.UI_MULT[2], G.C.UI_MULT[3], G.C.UI_MULT[4] = G.C.RED[1], G.C.RED[2], G.C.RED[3], G.C.RED
-                    [4]
-                    return true
-                    end)
-                }))
+                -- Mixes the chip and mult colours by the balance%
+                ease_colour(G.C.UI_CHIPS, mix_colours({ 0.8, 0.45, 0.85, 1 }, G.C.UI_CHIPS, amount))
+                ease_colour(G.C.UI_MULT, mix_colours({ 0.8, 0.45, 0.85, 1 }, G.C.UI_MULT, amount))
+                if not aij_balance_mixed then
+                    aij_balance_mixed = true
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        blockable = false,
+                        blocking = false,
+                        delay = 6.3,
+                        func = (function()
+                            if G.STATE ~= 2 then
+                                ease_colour(G.C.UI_CHIPS, G.C.BLUE, 2)
+                                ease_colour(G.C.UI_MULT, G.C.RED, 2)
+                                aij_balance_mixed = false
+                                return true
+                            end
+                        end)
+                    }))
+                end
                 return true
             end)
         }))
