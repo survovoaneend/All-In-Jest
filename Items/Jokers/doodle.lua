@@ -4,9 +4,7 @@ local doodle = {
 
     key = "doodle",
     config = {
-      extra = {
-        odds = 2
-      }
+      
     },
     rarity = 3,
     pos = { x = 24, y = 0 },
@@ -18,16 +16,22 @@ local doodle = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-      return { 
-          vars = { 
-             SMODS.get_probability_vars(card, G.GAME.probabilities.normal or 1, card.ability.extra.odds)
-          } 
-      }
+        local active_text = ""
+        if not (G.GAME.round_resets.ante % 2) == 1 then 
+            active_text = "(Inactive)"
+        else
+            active_text = "(Active!)"
+        end
+        return {
+            vars = {
+                active_text,
+            }
+        }
     end,
   --thank you unstable
   calculate = function(self, card, context)
     if card.is_doodle_calculating then
-        return nil, true
+        return
     end
     card.is_doodle_calculating = true 
 
@@ -62,7 +66,7 @@ local doodle = {
     local effect_to_return = nil
     local did_probability_pass = false 
 
-    if SMODS.pseudorandom_probability(card, 'doodle' .. G.SEED, G.GAME.probabilities.normal or 1, card.ability.extra.odds) then
+    if (G.GAME.round_resets.ante % 2) == 1 then
       did_probability_pass = true 
 
       local effect1_def
@@ -92,7 +96,7 @@ local doodle = {
     if did_probability_pass then
         return effect_to_return 
     else
-        return nil, true
+        return 
     end
 end
   
