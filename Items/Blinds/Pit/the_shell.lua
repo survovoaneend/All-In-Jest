@@ -24,8 +24,8 @@ local the_shell = {
     dollars = 6,
 
     loc_vars = function(self)
-        local numerator, denominator = SMODS.get_probability_vars(self, G.GAME.probabilities.normal or 1, self.boss.odds)
-        local numerator2, denominator2 = SMODS.get_probability_vars(self, G.GAME.probabilities.normal or 1, self.boss.odds2)
+        local numerator, denominator = SMODS.get_probability_vars(self, 1, self.boss.odds)
+        local numerator2, denominator2 = SMODS.get_probability_vars(self, 1, self.boss.odds2)
 
         return {
             vars = {numerator, denominator, numerator2, denominator2}
@@ -33,8 +33,8 @@ local the_shell = {
     end,
 
     collection_loc_vars = function(self)
-        local numerator, denominator = SMODS.get_probability_vars(self, G.GAME.probabilities.normal or 1, self.boss.odds)
-        local numerator2, denominator2 = SMODS.get_probability_vars(self, G.GAME.probabilities.normal or 1, self.boss.odds2)
+        local numerator, denominator = SMODS.get_probability_vars(self, 1, self.boss.odds)
+        local numerator2, denominator2 = SMODS.get_probability_vars(self, 1, self.boss.odds2)
 
         return {
             vars = {numerator, denominator, numerator2, denominator2}
@@ -43,7 +43,7 @@ local the_shell = {
 
     set_blind = function(self)
         for k, v in pairs(G.playing_cards) do
-            if SMODS.pseudorandom_probability(self, 'the_shell', G.GAME.probabilities.normal or 1, G.GAME.blind.config.blind.boss.odds) then
+            if SMODS.pseudorandom_probability(self, 'the_shell', 1, G.GAME.blind.config.blind.boss.odds) then
                 SMODS.debuff_card(v, true, 'the_shell')
             end
         end
@@ -51,7 +51,7 @@ local the_shell = {
 
     stay_flipped = function(self, area, card)
         if area == G.hand then
-            if SMODS.pseudorandom_probability(self, 'the_shell', G.GAME.probabilities.normal or 1, G.GAME.blind.config.blind.boss.odds2) then
+            if SMODS.pseudorandom_probability(self, 'the_shell', 1, G.GAME.blind.config.blind.boss.odds2) then
                 return true
             end
         end
