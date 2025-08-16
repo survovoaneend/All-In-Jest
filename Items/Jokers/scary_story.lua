@@ -20,10 +20,11 @@ local scary_story = {
     loc_vars = function(self, info_queue, card)
       info_queue[#info_queue+1] = G.P_CENTERS.p_standard_normal_1
       info_queue[#info_queue+1] = {key = 'e_negative_playing_card', set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit} }
-      return { 
-          vars = {
-            SMODS.get_probability_vars(card, G.GAME.probabilities.normal or 1, card.ability.extra.chance)
-          } 
+      local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+      return {
+        vars = {
+            numerator, denominator,
+        }
       }
     end,
 

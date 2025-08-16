@@ -18,7 +18,12 @@ local fou_du_roi = {
   eternal_compat = true,  
 
   loc_vars = function(self, info_queue, card)
-      return { vars = { SMODS.get_probability_vars(card, G.GAME.probabilities.normal or 1, card.ability.extra.odds) } }
+      local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        return {
+            vars = {
+                numerator, denominator,
+            }
+        }
   end,
 
   calculate = function(self, card, context)

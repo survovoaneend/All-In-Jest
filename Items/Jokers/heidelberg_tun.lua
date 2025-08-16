@@ -19,9 +19,10 @@ local heidelberg_tun = {
 
     loc_vars = function(self, info_queue, card)
       info_queue[#info_queue+1] = {key = 'e_negative_consumable', set = 'Edition', config = {extra = 1}}
+      local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
       return {
         vars = {
-          SMODS.get_probability_vars(card, G.GAME.probabilities.normal or 1, card.ability.extra.odds)
+            numerator, denominator,
         }
       }
     end,

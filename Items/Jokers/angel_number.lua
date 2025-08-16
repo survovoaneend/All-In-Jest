@@ -14,7 +14,7 @@ local angel_number = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = true,
+    blueprint_compat = false, -- Potental problems
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
@@ -43,6 +43,12 @@ local angel_number = {
         if context.mod_probability and context.trigger_obj then
             return {
                 numerator = context.numerator + tonumber(card.ability.extra.sevens),
+                denominator = context.denominator
+            }
+        end
+        if context.all_in_jest and context.all_in_jest.drew_cards then
+            return {
+                numerator = context.numerator - tonumber(card.ability.extra.sevens),
                 denominator = context.denominator
             }
         end
