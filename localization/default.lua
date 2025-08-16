@@ -987,7 +987,14 @@ return {
                     "in played hand",
                 } 
             },
-            j_aij_wireframe = { name = "Wireframe", text = { "" } },
+            j_aij_wireframe = { 
+                name = "Wireframe", 
+                text = { 
+                    "{C:attention}First{} played hand each",
+                    "round {C:attention}returns{} to your {C:attention}hand",
+                    "after being {C:attention}played" 
+                } 
+            },
             j_aij_soviet = { 
                 name = "Soviet", 
                 text = { 
@@ -2771,6 +2778,15 @@ return {
                     "create a {C:attention}random{} Rare Joker"
                 } 
             },
+            j_aij_tool = { 
+                name = "Tool", 
+                text = {
+                    "When {C:attention}any{} card changes",
+                    "suit, it gains a {C:attention}suit patch",
+                    "{C:attention}corresponding{} to its old",
+                    "suit"
+                } 
+            },
             j_aij_youve_got_mail = { 
                 name = "You've Got Mail", 
                 text = {
@@ -2783,6 +2799,14 @@ return {
                     {
                         "{V:1}{B:3,V:2}#1##2#{}{V:1}#3#",
                     }
+                } 
+            },
+            j_aij_fleshgait = { 
+                name = "Fleshgait", 
+                text = {
+                    "{C:attention}Scoring{} cards without a",
+                    "suit {C:attention}patch{} gain a {C:attention}random",
+                    "suit {C:attention}patch"
                 } 
             },
 

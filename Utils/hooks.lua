@@ -59,9 +59,43 @@ if All_in_Jest.config.blue_stake_rework then
     },true)
 end
 
+--SMODS.Voucher:take_ownership('v_petroglyph', {
+--    calculate = function(self, card, context)
+--        ease_ante(-card.ability.extra)
+--        G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
+--        G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante-card.ability.extra
+--        if next(SMODS.find_card('j_aij_aluzinnu')) then
+--        else
+--            G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra
+--            ease_discard(-card.ability.extra)
+--        end
+--    end,
+--}, true)
+--
+--SMODS.Voucher:take_ownership('v_hieroglyph', {
+--    calculate = function(self, card, context)
+--        ease_ante(-card.ability.extra)
+--        G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
+--        G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante-card.ability.extra
+--        if next(SMODS.find_card('j_aij_aluzinnu')) then
+--        else
+--            G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra
+--            ease_hands_played(-card.ability.extra)
+--        end
+--    end,
+--}, true)
+
 local has_any_suit_ref = SMODS.has_any_suit
 function SMODS.has_any_suit(card)
     return has_any_suit_ref(card) or All_in_Jest.counts_as_all_suits(card)
+end
+
+local has_showman_ref = SMODS.showman
+function SMODS.showman(card_key)
+    --if next(SMODS.find_card('j_aij_aluzinnu')) and (card_key == "v_petroglyph" or card_key == "v_hieroglyph") then
+    --    return true
+    --end
+    return has_showman_ref(card_key)
 end
 
 --Aureate Coin, The Clay
