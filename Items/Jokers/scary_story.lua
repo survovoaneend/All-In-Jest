@@ -37,7 +37,7 @@ local scary_story = {
             func = function()
                 if G.pack_cards and G.pack_cards.cards and G.pack_cards.cards[1] and G.pack_cards.VT.y < G.ROOM.T.h then
                     for _, v in ipairs(G.pack_cards.cards) do
-                        if SMODS.pseudorandom_probability(card, 'scary_story', G.GAME.probabilities.normal or 1, card.ability.extra.chance) and not v.edition then
+                        if SMODS.pseudorandom_probability(card, 'scary_story', 1, card.ability.extra.chance) and not v.edition then
                             G.E_MANAGER:add_event(Event({
                               trigger = 'after',
                               delay = 1,

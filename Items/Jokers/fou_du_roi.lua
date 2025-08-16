@@ -28,7 +28,7 @@ local fou_du_roi = {
 
   calculate = function(self, card, context)
     if context.joker_main then
-      if SMODS.pseudorandom_probability(card, 'fou_du_rou', G.GAME.probabilities.normal or 1, card.ability.extra.odds) and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+      if SMODS.pseudorandom_probability(card, 'fou_du_rou', 1, card.ability.extra.odds) and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
         local kq = 0
         for k, v in ipairs(context.full_hand) do
           if v:get_id() == 12 or v:get_id() == 13 then

@@ -29,7 +29,7 @@ local melancholic_joker = {
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if context.other_card:is_suit("Spades") and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                if SMODS.pseudorandom_probability(card, 'melancholic_joker', G.GAME.probabilities.normal or 1, card.ability.extra.odds) then
+                if SMODS.pseudorandom_probability(card, 'melancholic_joker', 1, card.ability.extra.odds) then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     return {
                         focus = card,

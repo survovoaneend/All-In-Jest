@@ -31,7 +31,7 @@ local heidelberg_tun = {
       if context.buying_card and context.card and context.card.ability.consumeable and not context.blueprint then
           local bought_card = context.card
           if not bought_card.edition and not bought_card.volatile_processed then
-              if SMODS.pseudorandom_probability(card, 'heidelberg' .. G.SEED, G.GAME.probabilities.normal or 1, card.ability.extra.odds) then
+              if SMODS.pseudorandom_probability(card, 'heidelberg' .. G.SEED, 1, card.ability.extra.odds) then
                   bought_card.volatile_processed = true
                   G.E_MANAGER:add_event(Event({
                     func = function()
