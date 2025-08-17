@@ -17,7 +17,7 @@ local master_arcanes = {
 	loc_vars = function(self, info_queue, card)
 		return {
             vars = {
-                SMODS.get_probability_vars(card, G.GAME.probabilities.normal or 1, card.ability.extra.odds)
+                SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
             }
         }
 	end,
@@ -27,7 +27,7 @@ local master_arcanes = {
 		end
 	end,
 	use = function(self, card)
-		if SMODS.pseudorandom_probability(card, 'master_arcanes', G.GAME.probabilities.normal or 1, card.ability.extra.odds) then
+		if SMODS.pseudorandom_probability(card, 'master_arcanes', 1, card.ability.extra.odds) then
 			create_consumable("Spectral", nil, nil, nil)
 		else
 			G.E_MANAGER:add_event(Event({
