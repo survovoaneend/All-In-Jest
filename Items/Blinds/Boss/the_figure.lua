@@ -26,9 +26,9 @@ local the_figure = {
             end
         end
         if faces and faces >= 3 then
-            return false
-        else
             return true
+        else
+            return false
         end
     end
 

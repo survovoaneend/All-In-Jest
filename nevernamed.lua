@@ -188,7 +188,10 @@ for _, data in ipairs(AllInJest.deck_skins) do
 
     -- Common ranks used in both palettes
     local ranks = { 'King', 'Queen', 'Jack' }
-    local display_ranks = ranks
+    local display_ranks = {}
+    for i = #ranks, 1, -1 do
+    table.insert(display_ranks, ranks[i])
+    end
 
     local atlas_lc = SMODS.Atlas {
       key = key .. '_lc',

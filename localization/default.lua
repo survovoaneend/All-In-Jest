@@ -2804,7 +2804,104 @@ j_aij_chitty = {
             j_aij_shock_humor = { name = "Shock Humor", text = { "" } },
             j_aij_the_house_that_jack_built = { name = "The House that Jack Built", text = { "" } },
             j_aij_clownbug = { name = "Clownbug", text = { "" } },
-
+            j_aij_infamous_machine = { 
+                name = "Infamous Machine", 
+                text = {
+                
+                } 
+            },
+            j_aij_weatherman = { 
+                name = "Weatherman", 
+                text = {
+                
+                } 
+            },
+            j_aij_headfooter = { 
+                name = "Headfooter", 
+                text = {
+                
+                } 
+            },
+            j_aij_rudolph = { 
+                name = "Rudolph", 
+                text = {
+                
+                } 
+            },
+            j_aij_cut_here = { 
+                name = "Cut Here", 
+                text = {
+                    "When this Joker is {C:red}Destroyed",
+                    "create a {C:attention}random{} Rare Joker"
+                } 
+            },
+            j_aij_a_young_hamlet = { 
+                name = "A Young Hamlet", 
+                text = {
+                
+                } 
+            },
+            j_aij_mike_check = { 
+                name = "A Young Hamlet", 
+                text = {
+                
+                } 
+            },
+            j_aij_pure_baseball_card = { 
+                name = "Pure Baseball Card", 
+                text = {
+                
+                } 
+            },
+            j_aij_rock_n_roll_clown = { 
+                name = "Rock n' Roll Clown", 
+                text = {
+                
+                } 
+            },
+            j_aij_vecchio_dolore = { 
+                name = "Vecchio Dolore", 
+                text = {
+                
+                } 
+            },
+            j_aij_firework = { 
+                name = "Firework", 
+                text = {
+                
+                } 
+            },
+             j_aij_bad_guy = { 
+                name = "Bad Guy", 
+                text = {
+                
+                } 
+            },
+            
+            j_aij_tool = { 
+                name = "Tool", 
+                text = {
+                    "When {C:attention}any{} card changes",
+                    "suit, it gains a {C:attention}suit patch",
+                    "{C:attention}corresponding{} to its old",
+                    "suit"
+                } 
+            },
+            
+            j_aij_fleshgait = { 
+                name = "Fleshgait", 
+                text = {
+                    "{C:attention}Scoring{} cards without a",
+                    "suit {C:attention}patch{} gain a {C:attention}random",
+                    "suit {C:attention}patch"
+                } 
+            },
+            j_aij_baddata = {
+                name = "BAD_DATA", 
+                text = {
+                    "???"
+                } 
+            },
 
 
             j_aij_prototype = { name = "Prototype", text = {
@@ -2826,44 +2923,7 @@ j_aij_chitty = {
                 "{C:inactive}for the sake of game balance\""
             } },
             j_aij_cheddar = { name = "Cheddar", text = {""} },
-            j_aij_cut_here = { 
-                name = "Cut Here", 
-                text = {
-                    "When this Joker is {C:red}Destroyed",
-                    "create a {C:attention}random{} Rare Joker"
-                } 
-            },
-            j_aij_tool = { 
-                name = "Tool", 
-                text = {
-                    "When {C:attention}any{} card changes",
-                    "suit, it gains a {C:attention}suit patch",
-                    "{C:attention}corresponding{} to its old",
-                    "suit"
-                } 
-            },
-            j_aij_youve_got_mail = { 
-                name = "You've Got Mail", 
-                text = {
-                    {
-                        "If not {C:dark_edition}Negative{} on",
-                        "selecting {C:attention}blind{}, create a",
-                        "{C:dark_edition}Negative {C:attention}copy{} of this",
-                        "Joker"
-                    },
-                    {
-                        "{V:1}{B:3,V:2}#1##2#{}{V:1}#3#",
-                    }
-                } 
-            },
-            j_aij_fleshgait = { 
-                name = "Fleshgait", 
-                text = {
-                    "{C:attention}Scoring{} cards without a",
-                    "suit {C:attention}patch{} gain a {C:attention}random",
-                    "suit {C:attention}patch"
-                } 
-            },
+            
 
 
 

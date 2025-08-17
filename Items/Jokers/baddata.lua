@@ -1,6 +1,7 @@
 local baddata = {
     object_type = "Joker",
     order = 373,
+	ignore = true,
     key = "baddata",
     config = {
     },
