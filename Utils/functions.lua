@@ -697,6 +697,13 @@ AllInJest.deck_skins = {
       'Hearts',
     }
   },
+  {
+    id = 'king_in_yellow',
+    name = 'King in Yellow',
+    suits = {
+      'Diamonds',
+    }
+  },
 
 }
 
