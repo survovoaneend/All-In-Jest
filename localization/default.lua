@@ -335,7 +335,8 @@ return {
             bl_aij_the_yew = {
                 name = "The Yew",
                 text = {
-                    
+                    'All odd ranks',
+                    'are debuffed'
                 },
             },
             bl_aij_the_hoard = {
@@ -359,7 +360,8 @@ return {
             bl_aij_the_birch = {
                 name = "The Birch",
                 text = {
-                    
+                    'All even ranks',
+                    'are debuffed'
                 },
             },
             bl_aij_the_sun = {
