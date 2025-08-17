@@ -163,21 +163,26 @@ end
 -- Modified from Aura
 function All_in_Jest.update_frame(dt, k, obj, jkr)
     local anim = G.GAME.all_in_jest.AIJAnimated[k]
+    local layers = anim.layers
     if anim and obj and (anim.frames or anim.individual) then
         local next_frame = false
-        local next_frame_extra = false
+        local next_soul_frames = {}
         if not anim.t then anim.t = 0 end
         anim.t = anim.t + dt
         if anim.t > 1/(anim.fps or 10) then
             anim.t = anim.t - 1/(anim.fps or 10)
             next_frame = true
         end
-        if anim.extra then
-            if not anim.extra.t then anim.extra.t = 0 end
-            anim.extra.t = anim.extra.t + dt
-            if anim.extra.t > 1/(anim.extra.fps or 10) then
-                anim.extra.t = anim.extra.t - 1/(anim.extra.fps or 10)
-                next_frame_extra = true
+        if layers then
+            for key, v in pairs(layers) do
+                if not v.t then v.t = 0 end
+                if not next_soul_frames[key] then next_soul_frames[key] = false end
+                next_soul_frames[key] = false
+                v.t = v.t + dt
+                if v.t > 1/(v.fps or anim.fps or 10) then
+                    v.t = v.t - 1/(v.fps or anim.fps or 10)
+                    next_soul_frames[key] = true
+                end
             end
         end
         if next_frame then
@@ -189,8 +194,11 @@ function All_in_Jest.update_frame(dt, k, obj, jkr)
                 end
             end
             if loc >= anim.frames then loc = anim.start_frame or 0 end
-            obj.pos.x = loc%(anim.frames_per_row or anim.frames)
-            obj.pos.y = math.floor(loc/(anim.frames_per_row or anim.frames))
+            obj.pos.x = (anim.held_frame or loc)%(anim.frames_per_row or anim.frames)
+            obj.pos.y = math.floor((anim.held_frame or loc)/(anim.frames_per_row or anim.frames))
+            if anim.func and type(anim.func) == "function" then
+                anim.func(anim, obj, loc)
+            end
             if anim.hold then
                 local hold = anim.hold
                 hold.temp = hold.temp or 0
@@ -208,17 +216,54 @@ function All_in_Jest.update_frame(dt, k, obj, jkr)
                 end
             end
         end
-        if next_frame_extra then
-            local loc = obj.pos.extra.y*(anim.extra.frames_per_row or anim.extra.frames)+obj.pos.extra.x
-            if (not anim.individual) or (jkr and jkr.animation.extra and jkr.animation.extra.target and loc ~= jkr.animation.extra.target) then
-                loc = loc + 1
-                if anim.extra.immediate and jkr and jkr.animation.extra and jkr.animation.extra.target then
-                    loc = jkr.animation.extra.target
+        if layers then
+            for key, v in pairs(layers) do
+                if next_soul_frames[key] then
+                    local loc = nil
+                    if key == 'soul_pos' then
+                        loc = obj.soul_pos.y*(v.frames_per_row or v.frames)+obj.soul_pos.x
+                        if (not v.individual) or (jkr and jkr.animation.target and loc ~= jkr.animation.target) then
+                            loc = loc + 1
+                            if v.immediate and jkr and jkr.animation.target then
+                                loc = jkr.animation.target
+                            end
+                        end
+                        if loc >= v.frames then loc = v.start_frame or 0 end
+                        obj.soul_pos.x = (v.held_frame or loc)%(v.frames_per_row or v.frames)
+                        obj.soul_pos.y = math.floor((v.held_frame or loc)/(v.frames_per_row or v.frames))
+                    else
+                        loc = obj.all_in_jest.soul_layers[key].pos.y*(v.frames_per_row or v.frames)+obj.all_in_jest.soul_layers[key].pos.x
+                        if (not v.individual) or (jkr and jkr.animation.target and loc ~= jkr.animation.target) then
+                            loc = loc + 1
+                            if v.immediate and jkr and jkr.animation.target then
+                                loc = jkr.animation.target
+                            end
+                        end
+                        if loc >= v.frames then loc = v.start_frame or 0 end
+                        obj.all_in_jest.soul_layers[key].pos.x = (v.held_frame or loc)%(v.frames_per_row or v.frames)
+                        obj.all_in_jest.soul_layers[key].pos.y = math.floor((v.held_frame or loc)/(v.frames_per_row or v.frames))
+                    end
+                    if v.func and type(v.func) == "function" then
+                        v.func(v, obj, loc)
+                    end
+                    if v.hold then
+                        local hold = v.hold
+                        hold.temp = hold.temp or 0
+                        hold.temp = hold.temp + 1
+                        if hold.hold_for_min then hold.cur_random = hold.cur_random or math.random(hold.hold_for_min, hold.hold_for_max) end
+                        if hold.temp >= (hold.hold_for or hold.cur_random) then
+                            v.frames = v.frames + hold.frames
+                            v.start_frame = v.start_frame + hold.frames
+                            if v.frames >= hold.max_frames then
+                                v.frames = hold.min_frames
+                                v.start_frame = hold.min_start_frames
+                            end
+                            if hold.cur_random then hold.cur_random = nil end
+                            hold.temp = 0
+                        end
+                    end
                 end
             end
-            if loc >= anim.extra.frames then loc = anim.extra.start_frame or 0 end
-            obj.pos.extra.x = loc%(anim.extra.frames_per_row or anim.extra.frames)
-            obj.pos.extra.y = math.floor(loc/(anim.extra.frames_per_row or anim.extra.frames))
         end
     end
 end
@@ -227,6 +272,39 @@ local upd = Game.update
 function Game:update(dt)
     upd(self, dt)
     for k, v in pairs(G.GAME.all_in_jest.AIJAnimated) do
-        All_in_Jest.update_frame(dt, k, G.P_CENTERS[k])
+        if string.sub(k, 1, 2) == "m_" then
+            for n, val in pairs(G.P_CENTER_POOLS.Enhanced) do
+                if G.P_CENTER_POOLS.Enhanced[n].key == k then
+                    All_in_Jest.update_frame(dt, k, G.P_CENTER_POOLS.Enhanced[n])
+                end
+            end
+        else
+            All_in_Jest.update_frame(dt, k, G.P_CENTERS[k])
+        end
+    end
+end
+
+local set_spritesref = Card.set_sprites
+function Card:set_sprites(_center, _front)
+	set_spritesref(self, _center, _front)
+    if _center and _center.all_in_jest and _center.all_in_jest.soul_layers then
+        for k, v in pairs(_center.all_in_jest.soul_layers) do
+            if _center.all_in_jest.soul_layers[k] and not self.children[k] then
+                local scale_mod = _center.all_in_jest.soul_layers[k].moving and 0.07 + 0.02*math.cos(1.8*G.TIMERS.REAL) + 0.00*math.cos((G.TIMERS.REAL - math.floor(G.TIMERS.REAL))*math.pi*14)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^3 or 0.07
+				local rotate_mod = _center.all_in_jest.soul_layers[k].moving and 0.05*math.cos(1.219*G.TIMERS.REAL) + 0.00*math.cos((G.TIMERS.REAL)*math.pi*5)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^2 or 0
+				self.children[k] = Sprite(
+					self.T.x,
+					self.T.y,
+					self.T.w,
+					self.T.h,
+					G.ASSET_ATLAS[_center.all_in_jest.soul_layers.atlas or _center.atlas or _center.set],
+					_center.all_in_jest.soul_layers[k].pos
+				)
+				self.children[k].role.draw_major = self
+				self.children[k].states.hover.can = false
+				self.children[k].states.click.can = false
+			end
+            self.children[k]:set_sprite_pos(_center.all_in_jest.soul_layers[k].pos)
+        end
     end
 end
