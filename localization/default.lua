@@ -283,7 +283,8 @@ return {
             bl_aij_the_god = {
                 name = "The God",
                 text = {
-                    
+                    'All cards',
+                    'must score'
                 },
             },
             bl_aij_the_beast = {
@@ -367,7 +368,9 @@ return {
             bl_aij_the_sun = {
                 name = "The Sun",
                 text = {
-                    
+                    'Spades and Clubs',
+                    'are drawn face',
+                    'down'
                 },
             },
             bl_aij_the_spear = {
@@ -391,7 +394,9 @@ return {
             bl_aij_the_lake = {
                 name = "The Lake",
                 text = {
-
+                    'Cards played this',
+                    'Ante are drawn',
+                    'last'
                 },
             },
             bl_aij_the_field = {
