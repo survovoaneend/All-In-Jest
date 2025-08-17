@@ -268,7 +268,9 @@ return {
             bl_aij_the_gift = {
                 name = "The Gift",
                 text = {
-                    
+                    "Sets money to $0",
+                    "Earn $1 per card",
+                    "played or discarded"
                 },
             },
             bl_aij_the_ancestor = {
@@ -292,7 +294,8 @@ return {
             bl_aij_the_ulcer = {
                 name = "The Ulcer",
                 text = {
-                    
+                    "-1 Hand",
+                    "-1 Discard"
                 },
             },
             bl_aij_the_need = {
