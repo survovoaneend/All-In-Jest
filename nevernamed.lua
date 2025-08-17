@@ -182,6 +182,54 @@ assert(SMODS.load_file('Utils/ui.lua'))()
 local folders = NFS.getDirectoryItems(mod_path.."Items")
 local objects = {}
 
+for _, data in ipairs(AllInJest.deck_skins) do
+  for _, suit in ipairs(data.suits) do
+    local key = data.id .. "_" .. suit:lower()
+
+    -- Common ranks used in both palettes
+    local ranks = { 'King', 'Queen', 'Jack' }
+    local display_ranks = ranks
+
+    local atlas_lc = SMODS.Atlas {
+      key = key .. '_lc',
+      path = 'collabs/lc/' .. key .. '_lc.png',
+      px = 71,
+      py = 95
+    }
+
+    local atlas_hc = SMODS.Atlas {
+      key = key .. '_hc',
+      path = 'collabs/hc/' .. key .. '_hc.png',
+      px = 71,
+      py = 95
+    }
+
+    SMODS.DeckSkin {
+      key = key,
+      suit = suit,
+      loc_txt = {
+        ['en-us'] = data.name
+      },
+      palettes = {
+        {
+          key = 'lc',
+          ranks = ranks,
+          display_ranks = display_ranks,
+          pos_style = 'ranks',
+          atlas = atlas_lc.key
+        },
+        {
+          key = 'hc',
+          ranks = ranks,
+          display_ranks = display_ranks,
+          pos_style = 'ranks',
+          atlas = atlas_hc.key,
+          hc_default = true
+        }
+      }
+    }
+  end
+end
 local function collect_item_files(base_fs, rel, out)
     for _, name in ipairs(NFS.getDirectoryItems(base_fs)) do
         local abs = base_fs.."/"..name

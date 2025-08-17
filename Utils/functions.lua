@@ -689,6 +689,17 @@ AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
     return uiEX
 end
 
+AllInJest.deck_skins = {
+  {
+    id = 'double_king',
+    name = 'Double King',
+    suits = {
+      'Hearts',
+    }
+  },
+
+}
+
 function reset_jest_magick_joker_card()
     G.GAME.current_round.jest_magick_joker_card.suit = 'Spades'
     local valid_jest_magick_joker_cards = {}
