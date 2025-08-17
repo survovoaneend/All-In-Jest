@@ -247,7 +247,7 @@ function redeemed_voucher_count()
 end
 
 table.insert(SMODS.calculation_keys, "aij_balance_percent")
-table.insert(SMODS.other_calculation_keys, "aij_balance_percent")
+
 -- table.insert(SMODS.calculation_keys, 1, "aij_balance_percent") -- This version would put the effect at the start, making it go before chip/mult/etc. effects.
 local aij_balance_mixed = false
 local aij_original_smods_calculate_individal_effect = SMODS.calculate_individual_effect
