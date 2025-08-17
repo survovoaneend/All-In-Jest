@@ -196,8 +196,8 @@ function All_in_Jest.update_frame(dt, k, obj, jkr)
             if loc >= anim.frames then loc = anim.start_frame or 0 end
             obj.pos.x = (anim.held_frame or loc)%(anim.frames_per_row or anim.frames)
             obj.pos.y = math.floor((anim.held_frame or loc)/(anim.frames_per_row or anim.frames))
-            if anim.func and type(anim.func) == "function" then
-                anim.func(anim, obj, loc)
+            if obj.all_in_jest and obj.all_in_jest.layer_funcs and obj.all_in_jest.layer_funcs.pos and type(obj.all_in_jest.layer_funcs.pos) == "function" then
+                obj.all_in_jest.layer_funcs.pos(anim, obj, loc)
             end
             if anim.hold then
                 local hold = anim.hold
@@ -231,6 +231,9 @@ function All_in_Jest.update_frame(dt, k, obj, jkr)
                         if loc >= v.frames then loc = v.start_frame or 0 end
                         obj.soul_pos.x = (v.held_frame or loc)%(v.frames_per_row or v.frames)
                         obj.soul_pos.y = math.floor((v.held_frame or loc)/(v.frames_per_row or v.frames))
+                        if obj.all_in_jest and obj.all_in_jest.layer_funcs and obj.all_in_jest.layer_funcs.soul_pos and type(obj.all_in_jest.layer_funcs.soul_pos) == "function" then
+                            obj.all_in_jest.layer_funcs.soul_pos(v, obj, loc)
+                        end
                     else
                         loc = obj.all_in_jest.soul_layers[key].pos.y*(v.frames_per_row or v.frames)+obj.all_in_jest.soul_layers[key].pos.x
                         if (not v.individual) or (jkr and jkr.animation.target and loc ~= jkr.animation.target) then
@@ -242,9 +245,9 @@ function All_in_Jest.update_frame(dt, k, obj, jkr)
                         if loc >= v.frames then loc = v.start_frame or 0 end
                         obj.all_in_jest.soul_layers[key].pos.x = (v.held_frame or loc)%(v.frames_per_row or v.frames)
                         obj.all_in_jest.soul_layers[key].pos.y = math.floor((v.held_frame or loc)/(v.frames_per_row or v.frames))
-                    end
-                    if v.func and type(v.func) == "function" then
-                        v.func(v, obj, loc)
+                        if obj.all_in_jest.layer_funcs and obj.all_in_jest.layer_funcs[key] and type(obj.all_in_jest.layer_funcs[key]) == "function" then
+                            obj.all_in_jest.layer_funcs[key](v, obj, loc)
+                        end
                     end
                     if v.hold then
                         local hold = v.hold
@@ -272,14 +275,13 @@ local upd = Game.update
 function Game:update(dt)
     upd(self, dt)
     for k, v in pairs(G.GAME.all_in_jest.AIJAnimated) do
-        if string.sub(k, 1, 2) == "m_" then
+        All_in_Jest.update_frame(dt, k, G.P_CENTERS[k])
+        if not G.P_CENTERS[k] then
             for n, val in pairs(G.P_CENTER_POOLS.Enhanced) do
                 if G.P_CENTER_POOLS.Enhanced[n].key == k then
                     All_in_Jest.update_frame(dt, k, G.P_CENTER_POOLS.Enhanced[n])
                 end
             end
-        else
-            All_in_Jest.update_frame(dt, k, G.P_CENTERS[k])
         end
     end
 end
