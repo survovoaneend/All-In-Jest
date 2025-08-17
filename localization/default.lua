@@ -250,7 +250,8 @@ return {
             bl_aij_the_giant = {
                 name = "The Giant",
                 text = {
-                    
+                    'Very large blind',
+                    '+2 Hands'
                 },
             },
             bl_aij_the_auroch = {
@@ -301,13 +302,16 @@ return {
             bl_aij_the_need = {
                 name = "The Need",
                 text = {
-                    
+                    "Must have at",
+                    "least $20 for",
+                    "hands to score"
                 },
             },
             bl_aij_the_day = {
                 name = "The Day",
                 text = {
-                    
+                    'Hand must contain',
+                    'a Heart or Diamond'
                 },
             },
             bl_aij_the_celebration = {
