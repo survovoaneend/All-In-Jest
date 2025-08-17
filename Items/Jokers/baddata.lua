@@ -5,12 +5,98 @@ local baddata = {
     config = {
     },
     rarity = 1,
-    pos = {x = 15, y = 17},
-    soul_pos = {x = 6, y = 18},
+    pos = { x = 15, y = 17},
+    soul_pos = { x = 6, y = 18},
     all_in_jest = {
-        soul_layers = {
-            aij_floating_sprite_1 = { pos = {x = 15, y = 19}, moving = false}
-        }
+		soul_layers = {
+            aij_floating_sprite_1 = {pos = {x = 15, y = 19}, moving = false,}
+        },
+		layer_funcs = {
+			pos = function(anim, obj, loc)
+				-- Runs every frame
+				anim.temp_hold = anim.temp_hold or (anim.fps * math.random(3,6))
+				anim.cur_frame = anim.cur_frame or 0 
+				anim.cur_frame = anim.cur_frame + 1
+				anim.cur_frames = anim.cur_frames or {}
+				anim.cur_frames[#anim.cur_frames+1] = loc
+				if anim.cur_frame >= anim.temp_hold then
+					anim.fps = math.random(7,12)
+					anim.temp_hold = (anim.fps * math.random(3,6))
+					anim.cur_frame = 0
+					local temp_loc = anim.cur_frames[math.random(1,#anim.cur_frames)]
+					obj.pos.x = temp_loc%(anim.frames_per_row or anim.frames)
+					obj.pos.y = math.floor(temp_loc/(anim.frames_per_row or anim.frames))
+					anim.cur_frames = nil
+				end
+			end,
+			soul_pos = function(anim, obj, loc)
+				-- Runs every frame
+				anim.temp_hold = anim.temp_hold or (anim.fps * math.random(3,6))
+				anim.other_temp_hold = anim.other_temp_hold or anim.temp_hold + (anim.fps * math.random(1,2))
+				anim.cur_frame = anim.cur_frame or 0 
+				anim.cur_frame = anim.cur_frame + 1
+				anim.other_cur_frame = anim.other_cur_frame or 0 
+				anim.other_cur_frame = anim.other_cur_frame + 1
+				anim.cur_frames = anim.cur_frames or {}
+				anim.cur_frames[#anim.cur_frames+1] = loc
+				anim.special_frames = anim.special_frames or {
+					{2,19}, {3,19}, {4,19}, {5,19}, {6,19}, {7,19}, {8,19}, {9,19},
+				}
+				if anim.cur_frame >= anim.temp_hold and not (anim.other_cur_frame >= anim.other_temp_hold) then
+					anim.fps = math.random(7,12)
+					anim.temp_hold = (anim.fps * math.random(3,6))
+					anim.cur_frame = 0
+					local temp_loc = anim.cur_frames[math.random(1,#anim.cur_frames)]
+					obj.soul_pos.x = temp_loc%(anim.frames_per_row or anim.frames)
+					obj.soul_pos.y = math.floor(temp_loc/(anim.frames_per_row or anim.frames))
+					anim.cur_frames = nil
+				end
+				if anim.other_cur_frame >= anim.other_temp_hold then
+					if not anim.temp_hold_2 then
+						anim.soul_pos_pos = anim.special_frames[math.random(1, #anim.special_frames)]
+						anim.held_frame = anim.soul_pos_pos[2]*(anim.frames_per_row or anim.frames)+anim.soul_pos_pos[1]
+					end
+					anim.temp_hold_2 = anim.temp_hold_2 or math.random(1,3)
+					anim.hold_2_cur_frame = anim.hold_2_cur_frame or 0
+					anim.hold_2_cur_frame = anim.hold_2_cur_frame + 1
+					if anim.hold_2_cur_frame >= anim.temp_hold_2 then
+						anim.hold_2_cur_frame = nil
+						anim.soul_pos_pos = nil
+						anim.held_frame = nil
+						anim.temp_hold_2 = nil
+						anim.other_cur_frame = 0
+						anim.other_temp_hold = anim.temp_hold + (anim.fps * math.random(1,2))
+					end
+				end
+			end,
+			aij_floating_sprite_1 = function(anim, obj, loc)
+				-- Runs every frame
+				anim.temp_hold = anim.temp_hold or (anim.fps * math.random(3,6))
+				anim.cur_frame = anim.cur_frame or 0 
+				anim.cur_frame = anim.cur_frame + 1
+				anim.held_frame = 19*(anim.frames_per_row or anim.frames)+15
+				anim.special_frames = anim.special_frames or {
+					{10,19}, {11,19}, {12,19}, {13,19}, {14,19}, 
+				}
+				if anim.cur_frame >= anim.temp_hold then
+					if not anim.temp_hold_2 then
+						anim.soul_pos_pos = anim.special_frames[math.random(1, #anim.special_frames)]
+						anim.held_frame = anim.soul_pos_pos[2]*(anim.frames_per_row or anim.frames)+anim.soul_pos_pos[1]
+					end
+					anim.temp_hold_2 = anim.temp_hold_2 or math.random(1,3)
+					anim.hold_2_cur_frame = anim.hold_2_cur_frame or 0
+					anim.hold_2_cur_frame = anim.hold_2_cur_frame + 1
+					if anim.hold_2_cur_frame >= anim.temp_hold_2 then
+						anim.hold_2_cur_frame = nil
+						anim.soul_pos_pos = nil
+						anim.held_frame = 19*(anim.frames_per_row or anim.frames)+15
+						anim.temp_hold_2 = nil
+						anim.cur_frame = 0
+						anim.temp_hold = anim.temp_hold or (anim.fps * math.random(3,6))
+					end
+				end
+			end,
+		},
     },
     atlas = 'joker_atlas',
     cost = 4,
