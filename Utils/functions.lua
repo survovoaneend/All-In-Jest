@@ -704,6 +704,14 @@ AllInJest.deck_skins = {
       'Diamonds',
     }
   },
+  {
+    id = 'inscryption',
+    name = 'Inscryption',
+    suits = {
+      'Clubs',
+      'Spades',
+    }
+  },
 
 }
 
