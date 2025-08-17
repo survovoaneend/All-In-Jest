@@ -15,10 +15,9 @@ local master_arcanes = {
 	},
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
-		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
-        return {
+		return {
             vars = {
-                numerator, denominator,
+                SMODS.get_probability_vars(card, G.GAME.probabilities.normal or 1, card.ability.extra.odds)
             }
         }
 	end,
@@ -28,7 +27,7 @@ local master_arcanes = {
 		end
 	end,
 	use = function(self, card)
-		if SMODS.pseudorandom_probability(card, 'master_arcanes', 1, card.ability.extra.odds) then
+		if SMODS.pseudorandom_probability(card, 'master_arcanes', G.GAME.probabilities.normal or 1, card.ability.extra.odds) then
 			create_consumable("Spectral", nil, nil, nil)
 		else
 			G.E_MANAGER:add_event(Event({
@@ -73,4 +72,3 @@ local master_arcanes = {
 	end,
 }
 return { name = { "Tarots" }, items = { master_arcanes } }
-

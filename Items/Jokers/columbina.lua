@@ -40,7 +40,10 @@ local columbina = {
 
       if context.joker_main then
         if card.ability.extra.percent > 0 then
-        return balance_percent(card,(card.ability.extra.percent*0.01))
+            -- return balance_percent(card,(card.ability.extra.percent*0.01))
+            return {
+                aij_balance_percent = card.ability.extra.percent * 0.01
+            }
         end
       end
     end,

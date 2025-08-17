@@ -1217,9 +1217,9 @@ payload = '''
 if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage' then
 	local other_joker = nil
     if self.ability.name == 'j_aij_visage' then
-        other_joker = G.GAME.all_in_jest.apply.visage_last_sold
+        other_joker = G.jest_visage_last_sold.cards[1]
     elseif self.ability.name == 'j_aij_clay_joker' then
-        other_joker = G.GAME.all_in_jest.apply.clay_last_destroyed
+        other_joker = G.jest_clay_last_destroyed.cards[1]
     end
     if other_joker and other_joker ~= self and other_joker.config and other_joker.config.center.blueprint_compat then
         self.ability.blueprint_compat = 'compatible'
@@ -2137,6 +2137,40 @@ match_indent = true
 
 [[patches]] 
 [patches.pattern]
+target = "card.lua"
+pattern = '''
+if self.ability.effect == "Lucky Card" then
+        if SMODS.pseudorandom_probability(self, 'lucky_mult', 1, 5) then
+            self.lucky_trigger = true
+            ret = ret + self.ability.mult
+        end
+    else
+'''
+position = "at"
+payload = '''
+ local is_chip_mult = self.ability._saved_chip_values ~= nil
+
+    if self.ability.effect == "Lucky Card" then
+        local base_mult = 0
+        if is_chip_mult then
+            base_mult = (self.ability._saved_chip_values.nominal or 0) +
+                        (self.ability._saved_chip_values.bonus or 0) +
+                        (self.ability._saved_chip_values.perma_bonus or 0)
+        end
+        
+        local ret = base_mult + ((not self.ability.extra_enhancement and self.ability.perma_mult) or 0)
+
+        if SMODS.pseudorandom_probability(self, 'lucky_mult', 1, 5) then
+            self.lucky_trigger = true
+            ret = ret + self.ability.mult
+        end
+        return ret
+    else
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = '''
 for k, v in ipairs(text_table) do
@@ -2445,4 +2479,35 @@ payload = '''
                 end
             end
         end
+'''
+
+# Adds the touchstone forecast on the hover deck preview
+[[patches]]
+[patches.regex]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = '''(?<indent>[\t ]*)wheel_flipped_text and \{(.|\n)*?or nil,'''
+position = "after"
+line_prepend = "$indent"
+payload = '''
+
+next(SMODS.find_card('j_aij_touchstone')) and AllInJest.touchstone_deck_preview() or nil,
+'''
+
+# Add CardAreas used to store the jokers that Clay Joker and Visage will copy
+# Using CardAreas so that reloading a run works properly
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "self.discard = CardArea("
+position = "before"
+match_indent = true
+payload = '''
+self.jest_clay_last_destroyed = CardArea(
+        -10, -10,
+        CAI.discard_W,CAI.discard_H,
+        {card_limit = 1, type = 'joker'})
+self.jest_visage_last_sold = CardArea(
+        -10, -10,
+        CAI.discard_W,CAI.discard_H,
+        {card_limit = 1, type = 'joker'})
 '''

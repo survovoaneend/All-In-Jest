@@ -610,6 +610,31 @@ return {
                 },
             },
         },
+        Voucher = {
+            v_aij_fairy_dust ={
+                name = "Fairy Dust",
+                text = {
+                    "{C:dark_edition}Glimmer{}, {C:dark_edition}Silver{}, and",
+                    "{C:dark_edition}Stellar{} cards",
+                    "appear {C:attention}#1#X{} more often",
+                },
+            },
+            v_aij_live_pixie ={
+                name = "Live Pixie",
+                text = {
+                    "{C:dark_edition}Glimmer{}, {C:dark_edition}Silver{}, and",
+                    "{C:dark_edition}Stellar{} cards",
+                    "appear {C:attention}#1#X{} more often",
+                },
+            },
+            v_aij_gold_medal ={
+                name = "Gold Medal",
+                text = {
+                    "{C:money}Gold{} Tags appear",
+                    "{C:attention}#1#X{} more often",
+                },
+            },
+        },
         Edition = {
             e_aij_negative_playing_card = {
                 name = "Negative",
@@ -622,7 +647,13 @@ return {
                 name = "Glimmer",
                 text = {
                     "{C:aij_plasma}Balances{} {C:attention}#1#%{} of",
-                    "{C:mult}Mult{} and {C:chips}Chips"
+                    "{C:chips}Chips{} and {C:mult}Mult{}"
+                }
+            },
+            e_aij_silver = {
+                name = "Silver",
+                text = {
+                    "{C:attention}X#1#{} effects",
                 }
             },
             e_aij_silver = {
@@ -1246,6 +1277,13 @@ return {
                     "appear in the {C:attention}Shop{}",
                 },
             },
+            j_aij_privelege_fabled = {
+                name = "Jester's Privilege",
+                text = {
+                    "{C:legendary}Legendary{} Jokers are",
+                    "{C:attention}more common{}",
+                },
+            },
             j_aij_quark = {
                 name = "Quark",
                 text = {
@@ -1369,13 +1407,13 @@ return {
                 },
             },
             j_aij_columbina = { 
-                name = "Columbina", 
+                name = "Columbina",
                 text = {
-                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of {C:mult}Mult{} and",
-                    "{C:chips}Chips{}, increases by {C:attention}#2#%{}",
+                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of {C:chips}Chips{} and",
+                    "{C:mult}Mult{}, increases by {C:attention}#2#%{}",
                     "when a {C:spectral}Spectral{} card is",
                     "used"
-                } 
+                }
             },
             j_aij_j_file = { name = "J-File", text = { "" } },
             j_aij_bumper_sticker = { 
@@ -1581,6 +1619,7 @@ return {
                 text = { 
                     "Joker {C:dark_edition}Editions{} are",
                     "{C:attention}2X{} as effective",
+                    "{C:inactive}(Except Negative)"
                 } 
             },
             j_aij_average_joe = {
@@ -2101,9 +2140,8 @@ return {
             j_aij_goofball = { 
                 name = "Goofball", 
                 text = { 
-                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of {C:mult}Mult",
-                    "and {C:chips}Chips{} when any",
-                    "{C:attention}face{} card is {C:attention}scored"
+                    "Scored {C:attention}face{} cards {C:aij_plasma}balance{}",
+                    "{C:attention}#1#%{} of {C:chips}Chips{} and {C:mult}Mult{}"
                 } 
             },
             j_aij_heyokha = { name = "Heyókȟa", text = { "" } },
@@ -2114,7 +2152,8 @@ return {
                 text = { 
                     "Retriggers all {C:attention}scored{} cards",
                     "if a {C:attention}playing card{} has been",
-                    "{C:red}destroyed{} this round" 
+                    "{C:red}destroyed{} this round",
+                    "{C:inactive}#1#{}"
                 } 
             },
             j_aij_richie_rich = { name = "Richie Rich", text = { "" } },
@@ -2228,7 +2267,7 @@ return {
                     "{C:inactive}(Except Double Tag)"
             } 
             },
-            j_aij_chitty = { 
+j_aij_chitty = { 
                 name = "Chitty", 
                 text = { 
                     "{C:attention}+#1#{} {C:attention}Voucher{} available",
@@ -2366,7 +2405,7 @@ return {
                 } 
             },
             j_aij_lucina = { 
-                name = "Lucina", 
+                name = "Reveling Jester", 
                 text = { 
                     "When Blind is {C:attention}selected",
                     "{C:red}destroy{} Joker to the {C:attention}left",
@@ -2464,8 +2503,8 @@ return {
             j_aij_candy_floss = { 
                 name = "Candy Floss", 
                 text = { 
-                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of {C:mult}Mult",
-                    "and {C:chips}Chips{}, decreases",
+                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of {C:chips}Chips{}",
+                    "and {C:mult}Mult{}, decreases",
                     "by {C:attention}#2#%{} at end of round"
                 } 
             },

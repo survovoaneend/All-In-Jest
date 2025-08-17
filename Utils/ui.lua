@@ -263,6 +263,10 @@ G.FUNCS.jest_select = function(e)
               G.OVERLAY_MENU:remove()
               G.OVERLAY_MENU = nil
           end
+          SMODS.add_card {
+            key = c1.config.center_key,
+            area = e.config.data[1]
+          }
           return true
         end
       }))

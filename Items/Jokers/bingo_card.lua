@@ -33,7 +33,7 @@ local bingo_card = {
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
             if SMODS.get_enhancements(context.other_card).m_lucky then
-                if SMODS.pseudorandom_probability(card, 'bingo_card', 1, card.ability.extra.odds2) then
+                if SMODS.pseudorandom_probability(card, 'bingo_card', G.GAME.probabilities.normal or 1, card.ability.extra.odds2) then
                     return {
                         repetitions = 1,
                         card = context.other_card,
@@ -44,7 +44,7 @@ local bingo_card = {
         end
         if context.individual and context.cardarea == G.play then
             if SMODS.get_enhancements(context.other_card).m_lucky then
-                if SMODS.pseudorandom_probability(card, 'bingo_card', 1, card.ability.extra.odds) then
+                if SMODS.pseudorandom_probability(card, 'bingo_card', G.GAME.probabilities.normal or 1, card.ability.extra.odds) then
                     return {
                         xmult = card.ability.extra.xmult,
                         card = context.other_card,

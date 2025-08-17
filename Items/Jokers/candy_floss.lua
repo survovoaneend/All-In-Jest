@@ -17,6 +17,9 @@ local candy_floss = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = false,
+    pools = {
+        Food = true
+    },
   
     loc_vars = function(self, info_queue, card)
         return {
@@ -63,7 +66,10 @@ local candy_floss = {
             end
         end
         if context.joker_main then
-            balance_percent(context.blueprint_card or card ,(card.ability.extra.percent*0.01))
+            -- balance_percent(context.blueprint_card or card ,(card.ability.extra.percent*0.01))
+            return {
+                aij_balance_percent = card.ability.extra.percent * 0.01
+            }
         end
     end,
     in_pool = function(self, args)

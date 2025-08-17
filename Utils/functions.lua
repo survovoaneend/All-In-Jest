@@ -326,57 +326,70 @@ function redeemed_voucher_count()
     return 0
 end
 
-function balance_percent(card, percent)
-  local chip_mod = percent * hand_chips
-  local mult_mod = percent * mult
-  local avg = (chip_mod + mult_mod)/2
-  hand_chips = hand_chips + (avg - chip_mod)
-  mult = mult + (avg - mult_mod)
-  local text = localize('k_balanced')
-  
-  update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
-  card_eval_status_text(card, 'extra', nil, nil, nil, {
-    message = text,
-    colour = { 0.8, 0.45, 0.85, 1 },
-    sound = 'gong'
- })
-  
-  G.E_MANAGER:add_event(Event({
-    trigger = 'immediate',
-    func = (function()
-      ease_colour(G.C.UI_CHIPS, { 0.8, 0.45, 0.85, 1 })
-      ease_colour(G.C.UI_MULT, { 0.8, 0.45, 0.85, 1 })
-      G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        blockable = false,
-        blocking = false,
-        delay = 4.3,
-        func = (function()
-          ease_colour(G.C.UI_CHIPS, G.C.BLUE, 2)
-          ease_colour(G.C.UI_MULT, G.C.RED, 2)
-          return true
-        end)
-      }))
-      G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        blockable = false,
-        blocking = false,
-        no_delete = true,
-        delay = 6.3,
-        func = (function()
-          G.C.UI_CHIPS[1], G.C.UI_CHIPS[2], G.C.UI_CHIPS[3], G.C.UI_CHIPS[4] = G.C.BLUE[1], G.C.BLUE[2], G.C.BLUE[3],
-              G.C.BLUE[4]
-          G.C.UI_MULT[1], G.C.UI_MULT[2], G.C.UI_MULT[3], G.C.UI_MULT[4] = G.C.RED[1], G.C.RED[2], G.C.RED[3], G.C.RED
-          [4]
-          return true
-        end)
-      }))
-      return true
-    end)
-  }))
+table.insert(SMODS.calculation_keys, "aij_balance_percent")
+-- table.insert(SMODS.calculation_keys, 1, "aij_balance_percent") -- This version would put the effect at the start, making it go before chip/mult/etc. effects.
+local aij_balance_mixed = false
+local aij_original_smods_calculate_individal_effect = SMODS.calculate_individual_effect
+SMODS.calculate_individual_effect = function(effect, scored_card, key, amount, from_edition)
+    if key == "aij_balance_percent" then
+        if amount > 1 then
+            amount = 1
+        end
+        if effect.card and effect.card ~= scored_card then juice_card(effect.card) end
+        hand_chips, mult = calculate_balance_percent_values(hand_chips, mult, amount)
 
-  delay(0.6)
-  return hand_chips, mult
+        local text = (amount * 100) .. "%"
+        update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
+
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = (function()
+                -- Mixes the chip and mult colours by the balance%
+                ease_colour(G.C.UI_CHIPS, mix_colours({ 0.8, 0.45, 0.85, 1 }, G.C.UI_CHIPS, amount))
+                ease_colour(G.C.UI_MULT, mix_colours({ 0.8, 0.45, 0.85, 1 }, G.C.UI_MULT, amount))
+                if not aij_balance_mixed then
+                    aij_balance_mixed = true
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        blockable = false,
+                        blocking = false,
+                        delay = 6.3,
+                        func = (function()
+                            if G.STATE ~= 2 then
+                                ease_colour(G.C.UI_CHIPS, G.C.BLUE, 2)
+                                ease_colour(G.C.UI_MULT, G.C.RED, 2)
+                                aij_balance_mixed = false
+                                return true
+                            end
+                        end)
+                    }))
+                end
+                return true
+            end)
+        }))
+
+        if not effect.remove_default_message then
+            if from_edition then
+                card_eval_status_text(scored_card, 'jokers', nil, percent, nil, {message = text, colour = { 0.8, 0.45, 0.85, 1 }, sound = 'gong', edition = true})
+            else
+                card_eval_status_text(effect.message_card or effect.juice_card or scored_card or effect.card or effect.focus, 'extra', nil, percent, nil, {message = text, colour = { 0.8, 0.45, 0.85, 1 }, sound = 'gong', edition = true})
+            end
+        end
+
+        return true
+    end
+
+    return aij_original_smods_calculate_individal_effect(effect, scored_card, key, amount, from_edition)
+end
+
+function calculate_balance_percent_values(input_hand_chips, input_mult, percent)
+  local chip_mod = percent * input_hand_chips
+  local mult_mod = percent * input_mult
+  local avg = (chip_mod + mult_mod)/2
+  local new_hand_chips = input_hand_chips + (avg - chip_mod)
+  local new_mult = input_mult + (avg - mult_mod)
+
+  return new_hand_chips, new_mult
 end
 
 to_big = to_big or function(num)
@@ -398,6 +411,9 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
   if do_round == nil then do_round = true end
   if only == nil then only = false end
 
+  -- Store original values before modification
+  local keys, original_values = jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
+
   local operators = {
     ["+"] = function(a, b) return a + b end,
     ["-"] = function(a, b) return a - b end,
@@ -406,7 +422,7 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
     ["%"] = function(a, b) return a % b end,
     ["="] = function(a, b) return b end,
   }
-  
+
   local function round_int(x)
     return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
   end
@@ -419,17 +435,18 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
     end
   end
 
-  local function process_value(val)
+  local function process_value(val, base_val)
     if type(val) == "number" then
-      local res = operators[equation](val, extra_value)
+      local delta = val - base_val
+      local result = operators[equation](base_val, extra_value) + delta
       if do_round then
-        if val % 1 ~= 0 then
-          return round_hundredth(res)
+        if base_val % 1 ~= 0 then
+          return round_hundredth(result)
         else
-          return round_int(res)
+          return round_int(result)
         end
       else
-        return res
+        return result
       end
     else
       return val
@@ -455,13 +472,13 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
     return true
   end
 
-  local function process_table(t)
+  local function process_table(t, base_table)
     for key, value in pairs(t) do
       if value ~= nil and should_process(key, value) then
         if type(value) == "number" then
-          t[key] = process_value(value)
-        elseif type(value) == "table" then
-          process_table(value)
+          t[key] = process_value(value, base_table[key] or 0)
+        elseif type(value) == "table" and type(base_table[key]) == "table" then
+          process_table(value, base_table[key])
         end
       end
     end
@@ -481,10 +498,13 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
   local search_table = extra_search and nested_tables(card, extra_search) or card.ability
 
   if search_table then
+    local _, base_values = jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
     if type(search_table) == "number" then
-      search_table = process_value(search_table)
+      search_table = process_value(search_table, base_values[1] or 0)
     elseif type(search_table) == "table" then
-      process_table(search_table)
+      local base_map = {}
+      for i, k in ipairs(keys) do base_map[k] = original_values[i] end
+      process_table(search_table, base_map)
     end
   end
 end
@@ -581,6 +601,36 @@ jest_ability_get_items = function(card, equation, extra_value, exclusions, inclu
   end
 
   return keys, values
+end
+
+AllInJest.touchstone_deck_preview = function()
+    local touchstone_card = SMODS.find_card('j_aij_touchstone')[1]
+    local cards = {}
+    for i = #G.deck.cards, #G.deck.cards - touchstone_card.ability.future_sense + 1, -1 do
+        if i > 0 then
+            local card = copy_card(G.deck.cards[i], nil, nil, G.playing_card)
+
+            -- Re-adds negative to preview if it was stripped by the mod
+            if G.deck.cards[i].edition and G.deck.cards[i].edition.negative and not All_in_Jest.config.no_copy_neg then
+                card:set_edition({negative = true}, nil, true)
+            end
+
+            if G.jokers and touchstone_card.area == G.jokers then
+                card.facing = 'front' -- Using .flip() here plays the flipping animation
+            end
+
+            table.insert(cards, card)
+        end
+    end
+    return AllInJest.card_area_preview(nil, nil, {
+        override = true,
+        cards = cards,
+        w = 5,
+        h = 0.6,
+        ml = 0,
+        scale = 0.4,
+        padding = 0,
+    })
 end
 
 AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
