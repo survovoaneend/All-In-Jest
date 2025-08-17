@@ -388,7 +388,9 @@ return {
             bl_aij_the_figure = {
                 name = "The Figure",
                 text = {
-                    
+                    'Hand cannot contain',
+                    'more than 3 face',
+                    'cards'
                 },
             },
             bl_aij_the_lake = {
