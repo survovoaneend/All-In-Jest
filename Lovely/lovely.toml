@@ -113,7 +113,7 @@ local jest_to_hand = {}
             
 if G.jokers ~= nil then
     for _, joker in ipairs(G.jokers.cards) do
-        if joker.ability.extra and joker.ability.extra.all_in_jest and joker.ability.extra.all_in_jest.to_hand and joker.ability.extra.all_in_jest.to_hand.cards and not joker.debuff then
+        if type(joker.ability.extra) == 'table' and joker.ability.extra and joker.ability.extra.all_in_jest and joker.ability.extra.all_in_jest.to_hand and joker.ability.extra.all_in_jest.to_hand.cards and not joker.debuff then
             for __, card in ipairs(joker.ability.extra.all_in_jest.to_hand.cards) do
                 table.insert(jest_to_hand, card)
             end
