@@ -497,6 +497,14 @@ return {
                     '+1 Hand size'
                 },
             },
+            bl_aij_the_conflagration = {
+                name = "The Conflagration",
+                text = {
+                    'If played hand defeats the',
+                    'Blind, destroy all cards',
+                    'played and held in hand'
+                },
+            },
             bl_aij_the_umbilical = {
                 name = "The Umbilical",
                 text = {
