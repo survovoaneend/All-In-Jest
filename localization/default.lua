@@ -382,7 +382,9 @@ return {
             bl_aij_the_steed = {
                 name = "The Steed",
                 text = {
-                    
+                    'Debuff cards held',
+                    'in hand when',
+                    'hand is played'
                 },
             },
             bl_aij_the_figure = {
