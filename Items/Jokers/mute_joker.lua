@@ -38,16 +38,21 @@ local mute_joker = {
                 message = localize('k_reset')
             }
         end
-        if context.after and not card.ability.extra.trigger and card.ability.extra.poker_hand ~= "(hand)" then
+        if context.after and context.full_hand and not card.ability.extra.trigger and card.ability.extra.poker_hand ~= "(hand)" then
             if context.scoring_name == card.ability.extra.poker_hand then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        for i = 1, #context.full_hand do
+                local total_cards = {}
+                for i = 1, #context.full_hand do
+                    table.insert(total_cards, context.full_hand[i])
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'before',
+                        func = function()
                             context.full_hand[i]:start_dissolve()
+                            return true
                         end
-                        return true
-                    end
-                }))
+                    })) 
+                    context.full_hand[i].destroyed = true
+                end
+                SMODS.calculate_context({remove_playing_cards = true, removed = total_cards})
                 card.ability.extra.trigger = true
             end
         end
