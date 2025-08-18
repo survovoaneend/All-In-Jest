@@ -21,6 +21,7 @@ SMODS.Sound {
 local torn = {
     object_type = "Edition",
     key = 'torn', 
+    ignore = true,
     sound = {
         sound = 'aij_torn',
         per = 1,

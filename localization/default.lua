@@ -21,7 +21,6 @@ return {
             aij_glimmer = "Glimmer",
             aij_silver = "Silver",
             aij_stellar = "Stellar",
-            aij_torn = "Torn",
             aij_marked = "Marked",
             k_aij_jest_chaotic_card = "Chaotic",
         },
@@ -591,14 +590,6 @@ return {
                     'other {C:attention}Wood{} card held in hand'
                 }
             },
-            m_aij_simulated = {
-                name = "Simulated Card",
-                text = {
-                    'This card {C:attention}returns{} to your',
-                    'hand {C:attention}after{} the first time',
-                    'it is {C:attention}played'
-                }
-            },
         },
         Voucher = {
             v_aij_fairy_dust ={
@@ -629,6 +620,31 @@ return {
                 text = {
                     "{C:attention}Large Blind{} skip",
                     "Tag is always {C:money}Gold"
+                },
+            },
+        },
+        Voucher = {
+            v_aij_fairy_dust ={
+                name = "Fairy Dust",
+                text = {
+                    "{C:dark_edition}Glimmer{}, {C:dark_edition}Silver{}, and",
+                    "{C:dark_edition}Stellar{} cards",
+                    "appear {C:attention}#1#X{} more often",
+                },
+            },
+            v_aij_live_pixie ={
+                name = "Live Pixie",
+                text = {
+                    "{C:dark_edition}Glimmer{}, {C:dark_edition}Silver{}, and",
+                    "{C:dark_edition}Stellar{} cards",
+                    "appear {C:attention}#1#X{} more often",
+                },
+            },
+            v_aij_gold_medal ={
+                name = "Gold Medal",
+                text = {
+                    "{C:money}Gold{} Tags appear",
+                    "{C:attention}#1#X{} more often",
                 },
             },
         },
@@ -665,12 +681,6 @@ return {
                     "{C:chips}+#1#{} Chips and",
                     "{C:mult}+#2#{} Mult per {C:attention}level{}",
                     "of played hand"
-                }
-            },
-            e_aij_torn = {
-                name = "Torn",
-                text = {
-                    
                 }
             },
         },
@@ -2268,14 +2278,14 @@ return {
                     "Create {C:attention}#1# copy{} of",
                     "each {C:attention}Tag{} acquired",
                     "{C:inactive}(Except Double Tag)"
-                } 
+            } 
             },
-            j_aij_chitty = { 
+j_aij_chitty = { 
                 name = "Chitty", 
                 text = { 
                     "{C:attention}+#1#{} {C:attention}Voucher{} available",
                     "for purchase in {C:attention}Shop" 
-                } 
+            } 
             },
             j_aij_whatsisname = { 
                 name = "Whatsisname", 
@@ -2867,7 +2877,6 @@ return {
                 
                 } 
             },
-            
             j_aij_tool = { 
                 name = "Tool", 
                 text = {
@@ -2877,7 +2886,20 @@ return {
                     "suit"
                 } 
             },
-            
+            j_aij_youve_got_mail = { 
+                name = "You've Got Mail", 
+                text = {
+                    {
+                        "If not {C:dark_edition}Negative{} on",
+                        "selecting {C:attention}blind{}, create a",
+                        "{C:dark_edition}Negative {C:attention}copy{} of this",
+                        "Joker"
+                    },
+                    {
+                        "{V:1}{B:3,V:2}#1##2#{}{V:1}#3#",
+                    }
+                } 
+            },
             j_aij_fleshgait = { 
                 name = "Fleshgait", 
                 text = {
