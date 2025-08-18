@@ -901,6 +901,7 @@ target = "functions/button_callbacks.lua"
 pattern = "G.GAME.skips = (G.GAME.skips or 0) + 1"
 position = "after"
 payload = '''
+check_for_unlock({type = 'skip_count'})
 if G.GAME.all_in_jest.blind_tags.has_multiple then
     _tag = e.UIBox:get_UIE_by_ID('tag_'..G.GAME.blind_on_deck)
     if _tag then 
@@ -1052,6 +1053,29 @@ pattern = "for k, v in pairs(self.ANIMATIONS) do"
 position = "before"
 match_indent = true
 payload = '''
+if G.GAME.selected_back and G.GAME.selected_back.name == 'b_aij_patchwork' then
+    if G then
+        for k, v in pairs(G) do
+            if G[k] and type(G[k]) == 'table' and G[k].cards then
+                for _, cur_card in pairs(G[k].cards) do
+                    if cur_card.ability and not cur_card.ability.patches and cur_card.ability.set and (cur_card.ability.set == 'Default' or cur_card.ability.set == 'Enhanced') then
+                        local keys = {}
+		                for key, val in pairs(SMODS.Suits) do
+			                keys[#keys+1] = key
+		                end
+		                local cur_suit = pseudorandom_element(keys, pseudoseed('patchwork'))
+                        local temp_index = 0
+                        while cur_suit == cur_card.base.suit do
+                            cur_suit = pseudorandom_element(keys, pseudoseed('patchwork_resample'..temp_index))
+                            temp_index = temp_index + 1
+                        end
+			            All_in_Jest.add_patch(cur_card, cur_suit, true);
+                    end
+                end
+            end
+        end
+    end
+end
 if G.GAME.previous_jest_upgrade_tab ~= G.GAME.jest_upgrade_tab then
     G.FUNCS.your_collection_tags_page({cycle_config = {current_option = 1}})
     G.GAME.previous_jest_upgrade_tab = G.GAME.jest_upgrade_tab
@@ -1641,8 +1665,11 @@ G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].s_chips + G.GAME.hands[ha
 '''
 position = "at"
 payload = ''' 
+local valc = G.GAME.hands[hand].l_chips * amount
+local extra_amountc = (valc * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1)) - valc
+extra_amountc = extra_amountc * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)
 if to_big(G.GAME.hands[hand].l_chips) >= to_big(1) then
-    G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + math.floor((G.GAME.hands[hand].l_chips * amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1))))
+    G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + math.floor((G.GAME.hands[hand].l_chips * amount + extra_amountc)))
 else
     G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (1 * amount))
 end
@@ -1657,13 +1684,26 @@ G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].s_mult + G.GAME.hands[hand
 '''
 position = "at"
 payload = ''' 
+local valm = G.GAME.hands[hand].l_mult * amount
+local extra_amountm = (valm * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1)) - valm
+extra_amountm = extra_amountm * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)
 if to_big(G.GAME.hands[hand].l_mult) >= to_big(1) then
-    G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + math.floor((G.GAME.hands[hand].l_mult * amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1))))
+    G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + math.floor((G.GAME.hands[hand].l_mult * amount + extra_amountm)))
 else
     G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (1 * amount))
 end
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "local used_tarot = copier or self"
+position = "after" 
+match_indent = true
+payload = '''
+SMODS.calculate_context({all_in_jest = {before_using_consumeable = true, consumeable = self, area = area }})
+'''
 
 [[patches]]
 [patches.pattern]
@@ -1686,13 +1726,6 @@ if key_append and card then
                 end
             end
         end
-    end
-end
-
-if _type == 'Planet' then
-    local has_lost_carcosa = next(SMODS.find_card("j_aij_lost_carcosa"))
-    if has_lost_carcosa and card then
-        card.ability.lost_carcosa_mult = math.random(5,20) * 0.1
     end
 end
 

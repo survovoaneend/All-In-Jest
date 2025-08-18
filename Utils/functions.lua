@@ -174,8 +174,10 @@ function level_up_hand_chips(card, hand, instant, amount)
             end
         end
         G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
-
-        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + math.floor((G.GAME.hands[hand].l_chips * amount * 2 * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1) + (extra_chips > 0 and extra_chips or 0))))
+        local val = G.GAME.hands[hand].l_chips * amount * 2
+        local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1)) - val
+        extra_amount = (extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)) + (extra_chips > 0 and extra_chips or 0)
+        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + math.floor((G.GAME.hands[hand].l_chips * amount * 2 + extra_amount)))
         if not instant then 
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
                 play_sound('tarot1')
@@ -208,8 +210,10 @@ function level_up_hand_mult(card, hand, instant, amount)
             end
         end
         G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
-
-        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + math.floor((G.GAME.hands[hand].l_mult * amount * 2 * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1) + (extra_mult > 0 and extra_mult or 0))))
+        local val = G.GAME.hands[hand].l_mult * amount * 2
+        local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1)) - val
+        extra_amount = (extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)) + (extra_mult > 0 and extra_mult or 0)
+        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + math.floor((G.GAME.hands[hand].l_mult * amount * 2 + extra_amount)))
         if not instant then 
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
                 play_sound('tarot1')
@@ -1100,8 +1104,8 @@ function All_in_Jest.add_patch(card, suit, instant)
   else
     card.ability.patches = card.ability.patches or {}
     card.ability.patches[suit] = true
-    card:juice_up(0.3, 0.4)
   end
+  check_for_unlock({type = 'add_patch'})
 end
 
 function All_in_Jest.reset_game_globals(run_start)

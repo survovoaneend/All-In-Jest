@@ -1,6 +1,8 @@
 return {
     misc = {
         dictionary = {
+            k_coder_badge = "Coder",
+            k_artist_badge = "Artist",
             k_moon = "Moon",
             k_moon_q = "Moon?",
             k_star = "Star",
@@ -8,6 +10,7 @@ return {
             k_asteroid = "Asteroid",
             k_tarot_q = "Tarot?",
             aij_requires_restart = "Requires Restart",
+            aij_doesnt_requires_restart = "Doesn't Require Restart",
             aij_enable_moons = "Enable Moons",
             aij_upgraded_tags = "Gold Tags",
             aij_alter_trypophobia = "Alter Trypophobia",
@@ -52,7 +55,8 @@ return {
                 name = 'Fabled Deck',
                 text = {},
                 unlock = {
-                    '?????',
+                    'Unlock a {C:legendary,E:1}Legendary{}',
+                    'Joker',
                 }
             },
             b_aij_branching = {
@@ -62,15 +66,37 @@ return {
                     'between {C:attention}3{} Tags',
                 },
                 unlock = {
-                    'Do a',
-                    'Something',
+                    'Skip at least {C:attention}5{}',
+                    'blinds in a run',
                 }
             },
             b_aij_branching_hidden = {
                 name = 'Branching Deck',
                 text = {},
                 unlock = {
-                    '?????',
+                    'Skip at least {C:attention}5{}',
+                    'blinds in a run',
+                }
+            },
+            b_aij_patchwork = {
+                name = 'Patchwork Deck',
+                text = {
+                    'All playing cards {C:attention}appear',
+                    'with a {C:attention}random{} suit patch'
+                },
+                unlock = {
+                    'Have at least {C:attention}13',
+                    'cards with a suit',
+                    '{C:attention}patch{} at once'
+                }
+            },
+            b_aij_patchwork_hidden = {
+                name = 'Patchwork Deck',
+                text = {},
+                unlock = {
+                    'Have at least {C:attention}13',
+                    'cards with ?????',
+                    'at once'
                 }
             }
         },
@@ -685,6 +711,26 @@ return {
             },
         },
         Joker = {
+            -- Credit stuff
+            j_aij_nevernamed_credits_joker = {
+                name = "Nevernamed",
+                text = {
+                    '{C:inactive}"Some quote or something"',
+                },
+            },
+            j_aij_survivalaren_credits_joker = {
+                name = "Survivalaren",
+                text = {
+                    '{C:inactive}"Some quote or something"',
+                },
+            },
+            j_aij_rattling_snow_credits_joker = {
+                name = "RattlingSnow353",
+                text = {
+                    '{C:inactive}"Some quote or something"',
+                },
+            },
+            -- Jokers
             j_aij_flying_ace = {
                 name = "Flying Ace",
                 text = {
