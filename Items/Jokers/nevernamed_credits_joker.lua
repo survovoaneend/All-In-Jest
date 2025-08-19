@@ -3,7 +3,7 @@ local nevernamed_credits_joker = {
     order = 1362,
     key = "nevernamed_credits_joker",
     set_card_type_badge = function(self, card, badges)
-		badges[#badges+1] = create_badge(localize('k_artist_badge'), HEX('f890ae'), G.C.WHITE, 1.2 )
+		badges[#badges+1] = create_badge(localize('k_artist_badge'), G.C.RARITY.Legendary, G.C.WHITE, 1.2 )
 	end,
     config = {
     },
@@ -23,7 +23,10 @@ local nevernamed_credits_joker = {
   
     calculate = function(self, card, context)
         
-    end
+    end,
+    in_pool = function(self)
+        return false
+    end,
   
 }
 return { name = {"Jokers"}, items = {nevernamed_credits_joker} }

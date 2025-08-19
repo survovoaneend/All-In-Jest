@@ -3,7 +3,7 @@ local survivalaren = {
     order = 1362,
     key = "survivalaren_credits_joker",
     set_card_type_badge = function(self, card, badges)
-		badges[#badges+1] = create_badge(localize('k_coder_badge'), HEX('8fd092'), G.C.WHITE, 1.2 )
+		badges[#badges+1] = create_badge(localize('k_coder_badge'), HEX('007dcc'), G.C.WHITE, 1.2 )
 	end,
     config = {
     },
@@ -23,7 +23,10 @@ local survivalaren = {
   
     calculate = function(self, card, context)
         
-    end
+    end,
+    in_pool = function(self)
+        return false
+    end,
   
 }
 return { name = {"Jokers"}, items = {survivalaren} }
