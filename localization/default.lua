@@ -382,7 +382,9 @@ return {
             bl_aij_the_elk = {
                 name = "The Elk",
                 text = {
-                    
+                    'Poker hands played',
+                    'this Ante are',
+                    'debuffed'
                 },
             },
             bl_aij_the_birch = {

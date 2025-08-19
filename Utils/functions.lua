@@ -709,6 +709,20 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'talos_principle',
+    name = 'Talos Principle',
+    suits = {
+      'Spades',
+    }
+  },
+  {
+    id = 'we_happy_few',
+    name = 'We Happy Few',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
     id = 'inscryption',
     name = 'Inscryption',
     suits = {
