@@ -160,7 +160,6 @@ return {
                 text = {
                     'Disable the',
                     'rightmost Joker',
-                    '(todo)'
                 },
             },
             bl_aij_the_ingot = {
@@ -208,7 +207,6 @@ return {
                     '+0.25X Base requirement per',
                     'card below #1# in',
                     'full deck',
-                    '(todo)'
                 },
             },
             bl_aij_the_clay = {
@@ -230,7 +228,6 @@ return {
                     '+0.2X Base requirement per',
                     'card above #1# in',
                     'full deck',
-                    '(todo)'
                 },
             },
             bl_aij_the_enigma = {
@@ -285,7 +282,9 @@ return {
             bl_aij_the_journey = {
                 name = "The Journey",
                 text = {
-                    
+                    '+1 Win Ante when',
+                    'this boss blind',
+                    'is defeated'
                 },
             },
             bl_aij_the_gift = {
@@ -351,13 +350,16 @@ return {
             bl_aij_the_storm = {
                 name = "The Storm",
                 text = {
-                    
+                    'Destroy all non-scoring',
+                    'played cards'
                 },
             },
             bl_aij_the_frost = {
                 name = "The Frost",
                 text = {
-                    
+                    'Destroy one random card',
+                    'in hand after hand is',
+                    'played'
                 },
             },
             bl_aij_the_yew = {

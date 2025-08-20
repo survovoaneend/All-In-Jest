@@ -39,6 +39,9 @@ position = 'after'
 match_indent = true 
 payload = '''
 all_in_jest = {
+	starting_prams = {
+		deck_size = 52
+	},
 	apply = { -- Specific triggers for cards
 		v_aij_gold_medal_been_used = false,
 		ticket_trigger = true,
