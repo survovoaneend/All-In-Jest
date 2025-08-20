@@ -33,7 +33,7 @@ local pierrot = {
             local val = context.other_card:get_chip_bonus()
             local id = context.other_card:get_id()
             local rank = SMODS.Ranks[context.other_card.base.value]
-            if context.other_card:get_chip_bonus() > 0 and (id > 0 and rank and not rank.face) then
+            if context.other_card and context.other_card:get_chip_bonus() > 0 and (id > 0 and rank and not rank.face) then
                 SMODS.calculate_effect({chip_mod = val, message = localize{type='variable',key='a_chips',vars={val}}}, context.other_card)
             end
             
