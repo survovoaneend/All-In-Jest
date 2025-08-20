@@ -4051,6 +4051,14 @@ return {
                     "{C:attention}#2#{}"
                 }
             },
+            c_aij_sphinx = {
+                name = 'Sphinx',
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#{}"
+                }
+            },
             c_aij_broken_fate = {
                 name = 'Broken Fate',
                 text = {

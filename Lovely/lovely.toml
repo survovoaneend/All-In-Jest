@@ -1486,6 +1486,13 @@ if context.final_scoring_step and context.cardarea == G.play and context.full_ha
         end
     end
 end
+if context.end_of_round then
+    for k, v in ipairs(G.playing_cards) do
+        if SMODS.has_enhancement(v, 'm_aij_simulated') then
+            v.ability.extra.all_in_jest.to_hand.trigger = false
+        end
+    end
+end
 '''
 
 [[patches]]
