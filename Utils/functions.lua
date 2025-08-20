@@ -1122,6 +1122,26 @@ function All_in_Jest.add_patch(card, suit, instant)
   check_for_unlock({type = 'add_patch'})
 end
 
+function All_in_Jest.set_debuff(card)
+	if card.ability and card.ability.all_in_jest and card.ability.all_in_jest.perma_debuff then
+		return true
+	end
+end
+
+function All_in_Jest.is_food(card)
+  local center = type(card) == "string" and G.P_CENTERS[card] or (card.config and card.config.center)
+
+  if not center then
+    return false
+  end
+
+  if center.pools and center.pools.Food then
+    return true
+  end
+
+  return All_in_Jest.vanilla_food[center.key]
+end
+
 function All_in_Jest.reset_game_globals(run_start)
 	G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false

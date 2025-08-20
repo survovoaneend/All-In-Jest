@@ -387,6 +387,10 @@ if G.GAME.all_in_jest.reset_score.chip_total then
     hand_chips = 0
     G.GAME.all_in_jest.reset_score.chip_total = false
 end
+local blind = {}
+for k, v in pairs(G.GAME.blind) do
+    blind[k] = v
+end
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_run + 1
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing] = {}
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].mult = mult
@@ -395,7 +399,7 @@ G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].total_chips = math.fl
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].full_hand = G.play.cards
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_hand = text 
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_name = scoring_name 
-G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].blind = G.GAME.blind
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].poker_hands = poker_hands
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_ante + 1
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing] = {}
@@ -405,7 +409,7 @@ G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].total_chips = math.f
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].full_hand = G.play.cards
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_hand = scoring_hand  
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_name = text
-G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].blind = G.GAME.blind
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].poker_hands = poker_hands
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage + 1
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing] = {}
@@ -415,7 +419,7 @@ G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].total_chips = math.floor(
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].full_hand = G.play.cards
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].scoring_hand = scoring_hand  
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].scoring_name = text
-G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].blind = G.GAME.blind
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].poker_hands = poker_hands
 '''
 match_indent = true
@@ -446,6 +450,10 @@ if G.GAME.all_in_jest.reset_score.chip_total then
     hand_chips = 0
     G.GAME.all_in_jest.reset_score.chip_total = false
 end
+local blind = {}
+for k, v in pairs(G.GAME.blind) do
+    blind[k] = v
+end
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_run + 1
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing] = {}
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].mult = mult
@@ -454,7 +462,7 @@ G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].total_chips = math.fl
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].full_hand = G.play.cards
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_hand = scoring_hand  
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_name = text 
-G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].blind = G.GAME.blind
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].poker_hands = poker_hands
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_ante + 1
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing] = {}
@@ -464,7 +472,7 @@ G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].total_chips = math.f
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].full_hand = G.play.cards
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_hand = scoring_hand  
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_name = text
-G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].blind = G.GAME.blind
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].poker_hands = poker_hands
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage + 1
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing] = {}
@@ -474,7 +482,7 @@ G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].total_chips = math.floor(
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].full_hand = G.play.cards
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].scoring_hand = scoring_hand 
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].scoring_name = text 
-G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].blind = G.GAME.blind
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].poker_hands = poker_hands
 '''
 match_indent = true
@@ -1070,6 +1078,8 @@ position = "before"
 match_indent = true
 payload = '''
 G.GAME.jest_unused_hands = G.GAME.jest_unused_hands + G.GAME.current_round.hands_left
+G.GAME.all_in_jest.unused_hands.ante = G.GAME.all_in_jest.unused_hands.ante + G.GAME.current_round.hands_left
+G.GAME.all_in_jest.unused_discards.ante = G.GAME.all_in_jest.unused_discards.ante + G.GAME.current_round.discards_left
 '''
 
 [[patches]]
@@ -1452,7 +1462,7 @@ match_indent = true
 payload = '''
 if context.final_scoring_step and context.cardarea == G.play and context.full_hand then
     for i = 1, #G.play.cards do
-        if G.play.cards[i].ability.set == 'Enhanced' and G.play.cards[i].ability.jest_chaotic_card then
+        if G.play.cards[i].ability.set == 'Enhanced' and (G.play.cards[i].ability.jest_chaotic_card or (G.GAME.blind.config.blind.key == 'bl_aij_the_elbow' and not G.GAME.blind.disabled)) then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.1,
@@ -1467,7 +1477,9 @@ if context.final_scoring_step and context.cardarea == G.play and context.full_ha
                 
                     G.play.cards[i]:juice_up(0.3, 0.3)
                     G.play.cards[i]:set_ability(center)
-                    G.play.cards[i].ability.jest_chaotic_card = true
+                    if G.play.cards[i].ability.jest_chaotic_card then
+                        G.play.cards[i].ability.jest_chaotic_card = true
+                    end
                 return true
                 end
             }))

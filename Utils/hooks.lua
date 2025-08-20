@@ -98,12 +98,63 @@ function SMODS.showman(card_key)
     return has_showman_ref(card_key)
 end
 
+All_in_Jest.vanilla_food = {
+  j_gros_michel = true,
+  j_egg = true,
+  j_ice_cream = true,
+  j_cavendish = true,
+  j_turtle_bean = true,
+  j_diet_cola = true,
+  j_popcorn = true,
+  j_ramen = true,
+  j_selzer = true,
+}
+
+if not SMODS.ObjectTypes.Food then
+  SMODS.ObjectType {
+    key = 'Food',
+    default = 'j_egg',
+    cards = {},
+    inject = function(self)
+      SMODS.ObjectType.inject(self)
+      for k, _ in pairs(All_in_Jest.vanilla_food) do
+        self:inject_card(G.P_CENTERS[k])
+      end
+    end
+  }
+end
+
 --Aureate Coin, The Clay
 local ease_anteref = ease_ante
 function ease_ante(mod)
     if mod ~= 0 then
         G.P_BLINDS['bl_aij_aureate_coin'].mult = (G.GAME.dollars * 0.1) + 2
+        local common_suit, common_rank = nil, nil
+        local temp_suit_val, temp_rank_val = 0, 0
+        local suit_table, rank_table = {}, {}
+        for k, v in pairs(G.deck.cards) do
+            suit_table[v.base.suit] = suit_table[v.base.suit] or 0 
+            suit_table[v.base.suit] = suit_table[v.base.suit] + 1
+            rank_table[v.base.value] = rank_table[v.base.value] or 0 
+            rank_table[v.base.value] = rank_table[v.base.value] + 1
+        end
+        for k, v in pairs(suit_table) do
+            if v >= temp_suit_val then
+                temp_suit_val = v
+                common_suit = k
+            end
+        end
+        for k, v in pairs(rank_table) do
+            if v >= temp_rank_val then
+                temp_rank_val = v
+                common_rank = k
+            end
+        end
+        G.P_BLINDS['bl_aij_the_auroch'].boss.suit = common_suit
+        G.P_BLINDS['bl_aij_the_auroch'].boss.rank = common_rank
         G.P_BLINDS['bl_aij_the_clay'].mult = math.floor(100*pseudorandom("clay"))/100 + pseudorandom("clay", 1, 4)
+        G.GAME.all_in_jest.unused_hands.ante = 0
+        G.GAME.all_in_jest.unused_discards.ante = 0
     end
     
     local ref = ease_anteref(mod)

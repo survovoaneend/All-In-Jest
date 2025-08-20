@@ -101,6 +101,9 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     float avg = (pixel.r + pixel.g + pixel.b) / 3.;
     pixel = vec4(silver_color.rgb * avg + tex.rgb * tex.a, pixel.a);
 
+    if (uv.y + silver.y == uv.y)
+        uv.y = silver.y;
+
     if (pixel.a <= 0.001) {
         return vec4(0.0);
     }
@@ -108,7 +111,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     float flicker = 1.0 + (rand(vec2(floor(time*12.0), 0.0)) - 0.5) * (0.35 * flicker_strength);
     pixel.rgb = pixel.rgb * flicker;
 
-    float g = noise(uv * vec2(640.0, 360.0) + time * 60.0 + silver.r);
+    float g = noise(uv * vec2(640.0, 360.0) + time * 60.0);
     float luma = dot(pixel.rgb, vec3(0.299, 0.587, 0.114));
     float grain_power = mix(0.6, 1.2, 1.0 - luma); 
     pixel.rgb += (g - 0.5) * (0.15 * grain_power * grain_amount);

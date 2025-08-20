@@ -153,7 +153,6 @@ return {
                     'Apply Perishable to a',
                     "random Joker on",
                     "final hand of round",
-                    "(todo)"
                 },
             },
             bl_aij_the_oak = {
@@ -170,7 +169,6 @@ return {
                     'Apply Eternal to all',
                     'Jokers on final',
                     'hand of round',
-                    "(todo)"
                 },
             },
             bl_aij_the_hazel = {
@@ -179,7 +177,6 @@ return {
                     "Apply Rental to a",
                     "random Joker when",
                     "Blind is defeated",
-                    "(todo)"
                 },
             },
             bl_aij_the_apple = {
@@ -188,7 +185,6 @@ return {
                     'Destroy leftmost Joker',
                     "if Blind is won",
                     "in one hand",
-                    "(todo)"
                 },
             },
             bl_aij_the_neck = {
@@ -204,7 +200,6 @@ return {
                     'Increase the blind',
                     'by 1X base after',
                     'each hand played',
-                    '(todo)'
                 },
             },
             bl_aij_the_ash = {
@@ -225,8 +220,8 @@ return {
             bl_aij_the_aspen = {
                 name = "The Aspen",
                 text = {
-                    'idk',
-                    '(todo)'
+                    '+2X Base per Blind',
+                    'defeated this Ante',
                 },
             },
             bl_aij_the_evergreen = {
@@ -257,7 +252,6 @@ return {
                 text = {
                     'Played enhancements',
                     'are randomized',
-                    '(todo)'
                 },
             },
             bl_aij_the_thorn = {
@@ -284,7 +278,8 @@ return {
             bl_aij_the_auroch = {
                 name = "The Auroch",
                 text = {
-                    
+                    'All #1# and #2#s',
+                    'are drawn face down'
                 },
             },
             bl_aij_the_journey = {
@@ -304,7 +299,9 @@ return {
             bl_aij_the_ancestor = {
                 name = "The Ancestor",
                 text = {
-                    
+                    'Poker hands that you',
+                    'have discarded this',
+                    'round cannot be played'  
                 },
             },
             bl_aij_the_god = {
@@ -317,7 +314,9 @@ return {
             bl_aij_the_beast = {
                 name = "The Beast",
                 text = {
-                    
+                    'Destroy all Food Jokers',
+                    'when this blind is',
+                    'defeated'
                 },
             },
             bl_aij_the_ulcer = {
@@ -345,7 +344,8 @@ return {
             bl_aij_the_celebration = {
                 name = "The Celebration",
                 text = {
-                    
+                    '+0.2X Base per unused',
+                    'hand/discard this Ante'
                 },
             },
             bl_aij_the_storm = {
@@ -370,13 +370,17 @@ return {
             bl_aij_the_hoard = {
                 name = "The Hoard",
                 text = {
-                    
+                    'Excess score this Ante',
+                    'is added to this blind',
+                    'when selected'
                 },
             },
             bl_aij_the_pear = {
                 name = "The Pear",
                 text = {
-                    
+                    'Randomize the suit and',
+                    'rank of cards held in',
+                    'hand after scoring'
                 },
             },
             bl_aij_the_elk = {
@@ -405,7 +409,9 @@ return {
             bl_aij_the_spear = {
                 name = "The Spear",
                 text = {
-                    
+                    'All played cards in the',
+                    'winning hand are permanently',
+                    'debuffed'
                 },
             },
             bl_aij_the_steed = {
@@ -723,7 +729,9 @@ return {
             j_aij_survivalaren_credits_joker = {
                 name = "Survivalaren",
                 text = {
-                    '{C:inactive}"Some quote or something"',
+                    '{C:inactive}"I started this because I wanted',
+                    '{C:inactive}to get better at programming and',
+                    '{C:inactive}I still suck at programming"'
                 },
             },
             j_aij_rattling_snow_credits_joker = {
