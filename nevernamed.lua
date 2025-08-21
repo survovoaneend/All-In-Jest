@@ -283,7 +283,6 @@ local function load_items(curr_obj)
         if SMODS[item.object_type] and not item.ignore then
             SMODS[item.object_type](item)
         elseif item.object_loader and not item.ignore then
-            print(item.object_loader)
             item.object_loader[item.object_type](item)
         elseif not item.ignore then
             print("Error loading item "..item.key.." of unknown type "..item.object_type)
