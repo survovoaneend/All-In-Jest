@@ -1,11 +1,10 @@
 local baddata = {
     object_type = "Joker",
     order = 373,
-	ignore = true,
     key = "baddata",
     config = {
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 15, y = 17},
     soul_pos = { x = 6, y = 18},
     all_in_jest = {
@@ -100,18 +99,63 @@ local baddata = {
 		},
     },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
+		local chars = "abcdefghijklmnopqrstuvwxyz" ..
+              "ABCDEFGHIJKLMNOPQRSTUVWXYZ" ..
+              "0123456789" ..
+              "!@#$%^&*()-_=+[]{};:,.<>?/|"
 
+		local result = {}
+		local how_many = 20
+
+		for n = 1, how_many do
+			local s = {}
+			for i = 1, 9 do
+				local index = math.random(#chars)
+				s[#s+1] = string.sub(chars, index, index)
+			end
+			result[#result+1] = table.concat(s)
+		end
+        return {main_start =
+        {{n = G.UIT.R, config = {align = "cm"}, nodes = {
+            {n = G.UIT.C, config = {align = "cm", padding = 0.02}, nodes = {
+                {n = G.UIT.O, config = {object = DynaText({string = result, colours = {G.C.L_BLACK}, random_element = true, pop_in_rate = 9999999, silent = true, pop_delay = 0.2, scale = 0.32, min_cycle_time = 0})}},
+            }}
+        }}}
+        }
     end,
   
     calculate = function(self, card, context)
-        
+		local effect = math.random(1,5)
+        if context.joker_main then
+			if effect == 1 then
+				return {
+					mult = math.random(0,23),
+				}
+			elseif effect == 2 then
+				return {
+					chips = math.random(0,151),
+				}
+			elseif effect == 3 then
+				return {
+					xchips = math.random(10,23) * 0.1,
+				}
+			elseif effect == 4 then
+				return {
+					Xmult = math.random(10,23) * 0.1,
+				}
+			elseif effect == 5 then
+				return {
+					dollars = math.random(0,11),
+				}
+			end
+		end
     end,
 
     update = function(self, card, dt)
