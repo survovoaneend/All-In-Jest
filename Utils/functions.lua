@@ -88,9 +88,8 @@ function retrieve_joker_text(joker, descip, name)
             elseif main[i].config and main[i].config.text and type(main[i].config.text) == "string" then
                 text = text .. main[i].config.text
             elseif type(main[i]) == "table" then
+                text = text .. " "
                 text = text .. get_text(main[i])
-            end
-            if i < #main then
                 text = text .. " "
             end
         end
