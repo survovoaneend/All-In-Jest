@@ -39,6 +39,39 @@ local anarchy_tag = {
     apply = function(self, tag, context)
         local effect_index = math.random(1, #self.config.effects) 
         local effect = self.config.effects[effect_index]
+        local trigger = false
+        while not trigger do
+            if effect == "create_jokers" then
+                trigger = #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
+            elseif effect == "apply_edition" then
+                if #G.jokers.cards > 0 then
+                    for i = 1, #G.jokers.cards do
+                        if G.jokers.cards[i].edition == nil then
+                            trigger = true
+                        end
+                    end
+                end
+                trigger = false
+            elseif effect == "dupe_joker" then
+                trigger = #G.jokers.cards > 0
+            elseif effect == "ran_gold_tag" then
+                local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest Golden Tag', nil, nil, '_gold')
+                _gold_pool = {}
+                for i = 1, #_temp_gold_pool do
+                        _gold_pool[i] = _temp_gold_pool[i]
+                end
+                if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
+                    trigger = true
+                end
+                trigger = false
+            else
+                trigger = true
+            end
+            if not trigger then
+                effect_index = math.random(1, #self.config.effects) 
+                effect = self.config.effects[effect_index]
+            end
+        end
         if context.type == 'new_blind_choice' then
             tag:jest_apply("+", G.C.ATTENTION, function()
                 if effect == "money" then

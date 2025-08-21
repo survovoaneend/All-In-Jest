@@ -25,6 +25,31 @@ local chaos = {
     apply = function(self, tag, context)
         local effect_index = math.random(1, #self.config.effects) 
         local effect = self.config.effects[effect_index]
+        local trigger = false
+        while not trigger do
+            if effect == "create_consumables" then
+                trigger = #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+            elseif effect == "create_jokers" then
+                trigger = #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
+            elseif effect == "dupe_joker" then
+                trigger = (#G.jokers.cards <= G.jokers.config.card_limit and #G.jokers.cards > 0)
+            elseif effect == "apply_edition" then
+                if #G.jokers.cards > 0 then
+                    for i = 1, #G.jokers.cards do
+                        if G.jokers.cards[i].edition == nil then
+                            trigger = true
+                        end
+                    end
+                end
+                trigger = false
+            else
+                trigger = true
+            end
+            if not trigger then
+                effect_index = math.random(1, #self.config.effects) 
+                effect = self.config.effects[effect_index]
+            end
+        end
         if context.type == 'new_blind_choice' then
             tag:jest_apply("+", G.C.ATTENTION, function()
                 if effect == "money" then

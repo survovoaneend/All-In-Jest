@@ -5,22 +5,6 @@ SMODS.current_mod.config_tab = function()
     nodes = {
       {
         n = G.UIT.R,
-        config = { align = 'cm'},
-        nodes = {
-          {
-            n = G.UIT.C,
-            nodes = {
-              create_toggle {
-                label = localize('aij_no_copy_neg'),
-                ref_table = All_in_Jest.config,
-                ref_value = 'no_copy_neg'
-              },
-            },
-          },
-        }
-      },
-      {
-        n = G.UIT.R,
         config = { align = 'cm', minh = 1 },
         nodes = {
           { n = G.UIT.T, config = { text = localize('aij_requires_restart'), colour = G.C.RED, scale = 0.5 } }
@@ -66,8 +50,95 @@ SMODS.current_mod.config_tab = function()
           },
         }
       },
+      {
+        n = G.UIT.R,
+        config = { align = 'cm', minh = 1 },
+        nodes = {
+          {
+            n = G.UIT.T,
+            config = {
+              text = localize('aij_doesnt_requires_restart'),
+              colour = G.C.GREEN,
+              scale = 0.5
+            }
+          }
+        }
+      },
+      {
+        n = G.UIT.R,
+        config = { align = 'cm'},
+        nodes = {
+          {
+            n = G.UIT.C,
+            nodes = {
+              create_toggle {
+                label = localize('aij_no_copy_neg'),
+                ref_table = All_in_Jest.config,
+                ref_value = 'no_copy_neg'
+              },
+            },
+          },
+        }
+      },
     }
   }
+end
+local joker_listing = {
+	{"j_aij_nevernamed_credits_joker", "j_aij_survivalaren_credits_joker", "j_aij_rattling_snow_credits_joker"},
+}
+-- Modify main page
+All_in_Jest.custom_ui = function(mod_nodes)
+	local set = joker_listing[1]
+	G.aij_main_jokers_list = CardArea(
+		G.ROOM.T.x + 0.2 * G.ROOM.T.w / 2, G.ROOM.T.h,
+		5.25 * G.CARD_W,
+		0.95 * G.CARD_H,
+		{ card_limit = #set, type = 'title', highlight_limit = 0, collection = true }
+	)
+	local silent = false
+	for i, center in pairs(set) do
+		G.GAME.viewed_back = Back(G.P_CENTERS.b_aij_fabled)
+		local card = Card(G.aij_main_jokers_list.T.x + (G.aij_main_jokers_list.T.w / 2), G.aij_main_jokers_list.T.y,
+			G.CARD_W, G.CARD_H, G.P_CARDS.empty, G.P_CENTERS[center] or All_in_Jest.DescriptionDummies[center],
+			{
+				bypass_discovery_center = true,
+				bypass_discovery_ui = true,
+				bypass_lock = true,
+				playing_card = i,
+				viewing_back = false,
+				bypass_back =
+					G.P_CENTERS["b_aij_fabled"].pos
+			})
+		G.aij_main_jokers_list:emplace(card)
+		card:hard_set_T(G.aij_main_jokers_list.T.x + (G.aij_main_jokers_list.T.w / 2))
+		card.sprite_facing = 'front'
+		card.facing = 'front'
+		card:start_materialize({ G.C.RED }, silent)
+		silent = true
+	end
+	mod_nodes[#mod_nodes + 1] = {
+		n = G.UIT.R,
+		config = { minh = 0.2, padding = 0.2 }
+	}
+	mod_nodes[#mod_nodes + 1] = {
+		n = G.UIT.R,
+		nodes = {
+			{
+				n = G.UIT.C,
+				config = { align = "cm", padding = 0.5, colour = darken(G.C.BLACK, 0.2), emboss = 0.05, r = 0.1 },
+				nodes = {
+					{
+						n = G.UIT.R,
+						config = { align = "cm", no_fill = true },
+						nodes = {
+							{ n = G.UIT.O, config = { object = G.aij_main_jokers_list } },
+						}
+					},
+				}
+			},
+		}
+	}
+	return mod_nodes
 end
 G.FUNCS.jest_free_reroll_boss = function(e) 
     stop_use()
@@ -230,11 +301,17 @@ G.FUNCS.jest_select = function(e)
                   if e.config.data[2].playing_card == true then
                       G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                   end
-                  local card = copy_card(c1)
+                  local card = SMODS.add_card {
+                    key = c1.config.center_key,
+                    area = e.config.data[1]
+                  }
+                  card = copy_card(c1, card)
                   card:add_to_deck()
-                  e.config.data[1]:emplace(card)
-                  if not card.edition.negative and e.config.data[1] == G.consumeables then
-                      G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+                  if c1.edition and c1.edition.negative then
+                    card:set_edition({negative = true}, true)
+                  end
+                  if (not card.edition or (card.edition and not card.edition.negative)) and e.config.data[1] == G.consumeables then
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
                   end
                   if e.config.data[2].playing_card == true then
                       table.insert(G.playing_cards, card)
@@ -244,13 +321,19 @@ G.FUNCS.jest_select = function(e)
               end
           else
               if e.config.data[2].playing_card == true then
-                  G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
               end
-              local card = copy_card(c1)
+              local card = SMODS.add_card {
+                key = c1.config.center_key,
+                area = e.config.data[1]
+              }
+              card = copy_card(c1, card)
               card:add_to_deck()
-              e.config.data[1]:emplace(card)
-              if ((card.edition and not card.edition.negative) or not card.edition) and e.config.data[1] == G.consumeables then
-                  G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+              if c1.edition and c1.edition.negative then
+                card:set_edition({negative = true}, true)
+              end
+              if (not card.edition or (card.edition and not card.edition.negative)) and e.config.data[1] == G.consumeables then
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
               end
               if e.config.data[2].playing_card == true then
                   table.insert(G.playing_cards, card)
@@ -263,10 +346,6 @@ G.FUNCS.jest_select = function(e)
               G.OVERLAY_MENU:remove()
               G.OVERLAY_MENU = nil
           end
-          SMODS.add_card {
-            key = c1.config.center_key,
-            area = e.config.data[1]
-          }
           return true
         end
       }))

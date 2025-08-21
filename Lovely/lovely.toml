@@ -113,9 +113,20 @@ local jest_to_hand = {}
             
 if G.jokers ~= nil then
     for _, joker in ipairs(G.jokers.cards) do
-        if type(joker.ability.extra) == 'table' and joker.ability.extra and joker.ability.extra.all_in_jest and joker.ability.extra.all_in_jest.to_hand and joker.ability.extra.all_in_jest.to_hand.cards and not joker.debuff then
+        if joker.ability.extra and type(joker.ability.extra) == 'table' and joker.ability.extra.all_in_jest and joker.ability.extra.all_in_jest.to_hand and joker.ability.extra.all_in_jest.to_hand.cards and not joker.debuff then
             for __, card in ipairs(joker.ability.extra.all_in_jest.to_hand.cards) do
                 table.insert(jest_to_hand, card)
+            end
+            break
+        end
+    end
+end
+
+if G.play ~= nil then
+    for _, play_card in ipairs(G.play.cards) do
+        if play_card.ability.extra and type(play_card.ability.extra) == 'table' and play_card.ability.extra.all_in_jest and play_card.ability.extra.all_in_jest.to_hand and play_card.ability.extra.all_in_jest.to_hand.cards and not play_card.debuff then
+            if play_card.ability.extra.all_in_jest.to_hand.cards == true then
+                table.insert(jest_to_hand, play_card)
             end
             break
         end
@@ -131,6 +142,10 @@ if jest_to_hand ~= {} then
     end
     if trigger then
         draw_card(G.play,G.hand, it*100/play_count,'up', true, v)
+        if v.ability.extra.all_in_jest.to_hand.cards == true then
+            v.ability.extra.all_in_jest.to_hand.cards = false
+            
+        end
     else
         draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
     end
@@ -346,6 +361,7 @@ G.GAME.all_in_jest.blind_tags.has_multiple and {n=G.UIT.R, config={id = 'tag_'..
 '''
 match_indent = true
 
+# 711a Smods
 [[patches]] 
 [patches.pattern]
 target = "functions/state_events.lua"
@@ -371,14 +387,30 @@ if G.GAME.all_in_jest.reset_score.chip_total then
     hand_chips = 0
     G.GAME.all_in_jest.reset_score.chip_total = false
 end
+local blind = {}
+for k, v in pairs(G.GAME.blind) do
+    blind[k] = v
+end
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_run + 1
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing] = {}
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].mult = mult
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].chips = hand_chips
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].total_chips = math.floor(hand_chips*mult)
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].full_hand = G.play.cards
-G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_hand = scoring_hand  
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_hand = text 
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_name = scoring_name 
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].poker_hands = poker_hands
+local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_ante + 1
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing] = {}
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].mult = mult
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].chips = hand_chips
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].total_chips = math.floor(hand_chips*mult)
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].full_hand = G.play.cards
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_hand = scoring_hand  
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_name = text
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].blind = blind
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].poker_hands = poker_hands
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage + 1
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing] = {}
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].mult = mult
@@ -386,6 +418,71 @@ G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].chips = hand_chips
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].total_chips = math.floor(hand_chips*mult)
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].full_hand = G.play.cards
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].scoring_hand = scoring_hand  
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].scoring_name = text
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].blind = blind
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].poker_hands = poker_hands
+'''
+match_indent = true
+
+# Newest Smods
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+G.E_MANAGER:add_event(Event({
+    trigger = 'after',delay = 0.4,
+    func = (function()  update_hand_text({delay = 0, immediate = true}, {mult = 0, chips = 0, chip_total = math.floor( SMODS.calculate_round_score() ), level = '', handname = ''});play_sound('button', 0.9, 0.6);return true end)
+}))
+'''
+position = "before"
+payload = '''
+SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, all_in_jest = {before_after = true}, total_chips = math.floor(hand_chips*mult)})
+if G.GAME.all_in_jest.reset_score.chips then
+    hand_chips = 0
+    G.GAME.all_in_jest.reset_score.chips = false
+end
+if G.GAME.all_in_jest.reset_score.mult then
+    mult = 0
+    G.GAME.all_in_jest.reset_score.mult = false
+end
+if G.GAME.all_in_jest.reset_score.chip_total then
+    mult = 0
+    hand_chips = 0
+    G.GAME.all_in_jest.reset_score.chip_total = false
+end
+local blind = {}
+for k, v in pairs(G.GAME.blind) do
+    blind[k] = v
+end
+local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_run + 1
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing] = {}
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].mult = mult
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].chips = hand_chips
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].total_chips = math.floor(hand_chips*mult)
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].full_hand = G.play.cards
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_hand = scoring_hand  
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_name = text 
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].blind = blind
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].poker_hands = poker_hands
+local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_ante + 1
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing] = {}
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].mult = mult
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].chips = hand_chips
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].total_chips = math.floor(hand_chips*mult)
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].full_hand = G.play.cards
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_hand = scoring_hand  
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_name = text
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].blind = blind
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].poker_hands = poker_hands
+local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage + 1
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing] = {}
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].mult = mult
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].chips = hand_chips
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].total_chips = math.floor(hand_chips*mult)
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].full_hand = G.play.cards
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].scoring_hand = scoring_hand 
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].scoring_name = text 
+G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage[hand_amt_thing].poker_hands = poker_hands
 '''
 match_indent = true
@@ -521,6 +618,22 @@ position = "before"
 payload = '''
 for k, v in pairs(G.GAME.all_in_jest.advanced_hand_usage) do
     G.GAME.all_in_jest.advanced_hand_usage[k] = nil
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+SMODS.calculate_context({end_of_round = true, game_over = game_over, beat_boss = G.GAME.blind.boss })
+'''
+position = "before"
+payload = '''
+if G.GAME.blind.boss then
+    for k, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_ante) do
+        G.GAME.all_in_jest.advanced_hand_usage_ante[k] = nil
+    end
 end
 '''
 match_indent = true
@@ -840,6 +953,7 @@ target = "functions/button_callbacks.lua"
 pattern = "G.GAME.skips = (G.GAME.skips or 0) + 1"
 position = "after"
 payload = '''
+check_for_unlock({type = 'skip_count'})
 if G.GAME.all_in_jest.blind_tags.has_multiple then
     _tag = e.UIBox:get_UIE_by_ID('tag_'..G.GAME.blind_on_deck)
     if _tag then 
@@ -964,6 +1078,8 @@ position = "before"
 match_indent = true
 payload = '''
 G.GAME.jest_unused_hands = G.GAME.jest_unused_hands + G.GAME.current_round.hands_left
+G.GAME.all_in_jest.unused_hands.ante = G.GAME.all_in_jest.unused_hands.ante + G.GAME.current_round.hands_left
+G.GAME.all_in_jest.unused_discards.ante = G.GAME.all_in_jest.unused_discards.ante + G.GAME.current_round.discards_left
 '''
 
 [[patches]]
@@ -991,6 +1107,29 @@ pattern = "for k, v in pairs(self.ANIMATIONS) do"
 position = "before"
 match_indent = true
 payload = '''
+if G.GAME.selected_back and G.GAME.selected_back.name == 'b_aij_patchwork' then
+    if G then
+        for k, v in pairs(G) do
+            if G[k] and type(G[k]) == 'table' and G[k].cards then
+                for _, cur_card in pairs(G[k].cards) do
+                    if cur_card.ability and not cur_card.ability.patches and cur_card.ability.set and (cur_card.ability.set == 'Default' or cur_card.ability.set == 'Enhanced') then
+                        local keys = {}
+		                for key, val in pairs(SMODS.Suits) do
+			                keys[#keys+1] = key
+		                end
+		                local cur_suit = pseudorandom_element(keys, pseudoseed('patchwork'))
+                        local temp_index = 0
+                        while cur_suit == cur_card.base.suit do
+                            cur_suit = pseudorandom_element(keys, pseudoseed('patchwork_resample'..temp_index))
+                            temp_index = temp_index + 1
+                        end
+			            All_in_Jest.add_patch(cur_card, cur_suit, true);
+                    end
+                end
+            end
+        end
+    end
+end
 if G.GAME.previous_jest_upgrade_tab ~= G.GAME.jest_upgrade_tab then
     G.FUNCS.your_collection_tags_page({cycle_config = {current_option = 1}})
     G.GAME.previous_jest_upgrade_tab = G.GAME.jest_upgrade_tab
@@ -1323,7 +1462,7 @@ match_indent = true
 payload = '''
 if context.final_scoring_step and context.cardarea == G.play and context.full_hand then
     for i = 1, #G.play.cards do
-        if G.play.cards[i].ability.set == 'Enhanced' and G.play.cards[i].ability.jest_chaotic_card then
+        if G.play.cards[i].ability.set == 'Enhanced' and (G.play.cards[i].ability.jest_chaotic_card or (G.GAME.blind.config.blind.key == 'bl_aij_the_elbow' and not G.GAME.blind.disabled)) then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.1,
@@ -1338,10 +1477,19 @@ if context.final_scoring_step and context.cardarea == G.play and context.full_ha
                 
                     G.play.cards[i]:juice_up(0.3, 0.3)
                     G.play.cards[i]:set_ability(center)
-                    G.play.cards[i].ability.jest_chaotic_card = true
+                    if G.play.cards[i].ability.jest_chaotic_card then
+                        G.play.cards[i].ability.jest_chaotic_card = true
+                    end
                 return true
                 end
             }))
+        end
+    end
+end
+if context.end_of_round then
+    for k, v in ipairs(G.playing_cards) do
+        if SMODS.has_enhancement(v, 'm_aij_simulated') then
+            v.ability.extra.all_in_jest.to_hand.trigger = false
         end
     end
 end
@@ -1580,8 +1728,11 @@ G.GAME.hands[hand].chips = math.max(G.GAME.hands[hand].s_chips + G.GAME.hands[ha
 '''
 position = "at"
 payload = ''' 
+local valc = G.GAME.hands[hand].l_chips * amount
+local extra_amountc = (valc * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1)) - valc
+extra_amountc = extra_amountc * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)
 if to_big(G.GAME.hands[hand].l_chips) >= to_big(1) then
-    G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + math.floor((G.GAME.hands[hand].l_chips * amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1))))
+    G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + math.floor((G.GAME.hands[hand].l_chips * amount + extra_amountc)))
 else
     G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (1 * amount))
 end
@@ -1596,13 +1747,26 @@ G.GAME.hands[hand].mult = math.max(G.GAME.hands[hand].s_mult + G.GAME.hands[hand
 '''
 position = "at"
 payload = ''' 
+local valm = G.GAME.hands[hand].l_mult * amount
+local extra_amountm = (valm * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1)) - valm
+extra_amountm = extra_amountm * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)
 if to_big(G.GAME.hands[hand].l_mult) >= to_big(1) then
-    G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + math.floor((G.GAME.hands[hand].l_mult * amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1))))
+    G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + math.floor((G.GAME.hands[hand].l_mult * amount + extra_amountm)))
 else
     G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (1 * amount))
 end
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "local used_tarot = copier or self"
+position = "after" 
+match_indent = true
+payload = '''
+SMODS.calculate_context({all_in_jest = {before_using_consumeable = true, consumeable = self, area = area }})
+'''
 
 [[patches]]
 [patches.pattern]
@@ -1625,13 +1789,6 @@ if key_append and card then
                 end
             end
         end
-    end
-end
-
-if _type == 'Planet' then
-    local has_lost_carcosa = next(SMODS.find_card("j_aij_lost_carcosa"))
-    if has_lost_carcosa and card then
-        card.ability.lost_carcosa_mult = math.random(5,20) * 0.1
     end
 end
 
@@ -1888,6 +2045,7 @@ G.E_MANAGER:add_event(Event({trigger = 'after', delay = 1.4*math.sqrt(G.SETTINGS
 end}))
 '''
 
+# 711a Smods
 [[patches]]
 [patches.pattern]
 target = "card.lua"
@@ -1918,6 +2076,44 @@ if G.GAME.jest_change_booster_options.trigger or G.GAME.jest_change_booster_opti
     end
     if G.GAME.jest_change_booster_options.pack_choices == "unlimited" then
         G.GAME.pack_choices = _size
+        G.GAME.jest_change_booster_options.pack_choices = ""
+    end
+    G.GAME.jest_change_booster_options.trigger = false
+end
+'''
+
+# Newest Smods
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "local _size = math.max(1, self.ability.extra + (G.GAME.modifiers.booster_size_mod or 0))"
+position = "after" 
+match_indent = true
+payload = '''
+if G.GAME.jest_change_booster_options.trigger or G.GAME.jest_change_booster_options.pack_choices == "unlimited" then
+    if G.GAME.jest_change_booster_options.option == "size" or G.GAME.jest_change_booster_options.option == "both" then
+        -- Pemdas order
+        if G.GAME.jest_change_booster_options.op.mult ~= 0 then
+            _size = _size * G.GAME.jest_change_booster_options.op.mult
+            G.GAME.jest_change_booster_options.op.mult = 0
+        end
+        if G.GAME.jest_change_booster_options.op.div ~= 0 then
+            _size = _size / G.GAME.jest_change_booster_options.op.div
+            G.GAME.jest_change_booster_options.op.div = 0
+        end
+        if G.GAME.jest_change_booster_options.op.add ~= 0 then
+            _size = _size + G.GAME.jest_change_booster_options.op.add
+            G.GAME.jest_change_booster_options.op.add = 0
+        end
+        if G.GAME.jest_change_booster_options.op.sub ~= 0 then
+            _size = _size - G.GAME.jest_change_booster_options.op.sub
+            G.GAME.jest_change_booster_options.op.sub = 0
+        end
+        G.GAME.jest_change_booster_options.option = ""
+    end
+    if G.GAME.jest_change_booster_options.pack_choices == "unlimited" then
+        G.GAME.pack_choices = _size
+        G.GAME.jest_change_booster_options.pack_choices = ""
     end
     G.GAME.jest_change_booster_options.trigger = false
 end

@@ -1,6 +1,8 @@
 return {
     misc = {
         dictionary = {
+            k_coder_badge = "Coder",
+            k_artist_badge = "Artist",
             k_moon = "Moon",
             k_moon_q = "Moon?",
             k_star = "Star",
@@ -8,6 +10,7 @@ return {
             k_asteroid = "Asteroid",
             k_tarot_q = "Tarot?",
             aij_requires_restart = "Requires Restart",
+            aij_doesnt_requires_restart = "Doesn't Require Restart",
             aij_enable_moons = "Enable Moons",
             aij_upgraded_tags = "Gold Tags",
             aij_alter_trypophobia = "Alter Trypophobia",
@@ -52,7 +55,8 @@ return {
                 name = 'Fabled Deck',
                 text = {},
                 unlock = {
-                    '?????',
+                    'Unlock a {C:legendary,E:1}Legendary{}',
+                    'Joker',
                 }
             },
             b_aij_branching = {
@@ -62,15 +66,37 @@ return {
                     'between {C:attention}3{} Tags',
                 },
                 unlock = {
-                    'Do a',
-                    'Something',
+                    'Skip at least {C:attention}5{}',
+                    'blinds in a run',
                 }
             },
             b_aij_branching_hidden = {
                 name = 'Branching Deck',
                 text = {},
                 unlock = {
-                    '?????',
+                    'Skip at least {C:attention}5{}',
+                    'blinds in a run',
+                }
+            },
+            b_aij_patchwork = {
+                name = 'Patchwork Deck',
+                text = {
+                    'All playing cards {C:attention}appear',
+                    'with a {C:attention}random{} suit patch'
+                },
+                unlock = {
+                    'Have at least {C:attention}13',
+                    'cards with a suit',
+                    '{C:attention}patch{} at once'
+                }
+            },
+            b_aij_patchwork_hidden = {
+                name = 'Patchwork Deck',
+                text = {},
+                unlock = {
+                    'Have at least {C:attention}13',
+                    'cards with ?????',
+                    'at once'
                 }
             }
         },
@@ -127,7 +153,6 @@ return {
                     'Apply Perishable to a',
                     "random Joker on",
                     "final hand of round",
-                    "(todo)"
                 },
             },
             bl_aij_the_oak = {
@@ -135,7 +160,6 @@ return {
                 text = {
                     'Disable the',
                     'rightmost Joker',
-                    '(todo)'
                 },
             },
             bl_aij_the_ingot = {
@@ -144,7 +168,6 @@ return {
                     'Apply Eternal to all',
                     'Jokers on final',
                     'hand of round',
-                    "(todo)"
                 },
             },
             bl_aij_the_hazel = {
@@ -153,7 +176,6 @@ return {
                     "Apply Rental to a",
                     "random Joker when",
                     "Blind is defeated",
-                    "(todo)"
                 },
             },
             bl_aij_the_apple = {
@@ -162,7 +184,6 @@ return {
                     'Destroy leftmost Joker',
                     "if Blind is won",
                     "in one hand",
-                    "(todo)"
                 },
             },
             bl_aij_the_neck = {
@@ -178,7 +199,6 @@ return {
                     'Increase the blind',
                     'by 1X base after',
                     'each hand played',
-                    '(todo)'
                 },
             },
             bl_aij_the_ash = {
@@ -187,7 +207,6 @@ return {
                     '+0.25X Base requirement per',
                     'card below #1# in',
                     'full deck',
-                    '(todo)'
                 },
             },
             bl_aij_the_clay = {
@@ -199,8 +218,8 @@ return {
             bl_aij_the_aspen = {
                 name = "The Aspen",
                 text = {
-                    'idk',
-                    '(todo)'
+                    '+2X Base per Blind',
+                    'defeated this Ante',
                 },
             },
             bl_aij_the_evergreen = {
@@ -209,7 +228,6 @@ return {
                     '+0.2X Base requirement per',
                     'card above #1# in',
                     'full deck',
-                    '(todo)'
                 },
             },
             bl_aij_the_enigma = {
@@ -231,7 +249,6 @@ return {
                 text = {
                     'Played enhancements',
                     'are randomized',
-                    '(todo)'
                 },
             },
             bl_aij_the_thorn = {
@@ -258,13 +275,16 @@ return {
             bl_aij_the_auroch = {
                 name = "The Auroch",
                 text = {
-                    
+                    'All #1# and #2#s',
+                    'are drawn face down'
                 },
             },
             bl_aij_the_journey = {
                 name = "The Journey",
                 text = {
-                    
+                    '+1 Win Ante when',
+                    'this boss blind',
+                    'is defeated'
                 },
             },
             bl_aij_the_gift = {
@@ -278,7 +298,9 @@ return {
             bl_aij_the_ancestor = {
                 name = "The Ancestor",
                 text = {
-                    
+                    'Poker hands that you',
+                    'have discarded this',
+                    'round cannot be played'  
                 },
             },
             bl_aij_the_god = {
@@ -291,7 +313,9 @@ return {
             bl_aij_the_beast = {
                 name = "The Beast",
                 text = {
-                    
+                    'Destroy all Food Jokers',
+                    'when this blind is',
+                    'defeated'
                 },
             },
             bl_aij_the_ulcer = {
@@ -319,19 +343,23 @@ return {
             bl_aij_the_celebration = {
                 name = "The Celebration",
                 text = {
-                    
+                    '+0.2X Base per unused',
+                    'hand/discard this Ante'
                 },
             },
             bl_aij_the_storm = {
                 name = "The Storm",
                 text = {
-                    
+                    'Destroy all non-scoring',
+                    'played cards'
                 },
             },
             bl_aij_the_frost = {
                 name = "The Frost",
                 text = {
-                    
+                    'Destroy one random card',
+                    'in hand after hand is',
+                    'played'
                 },
             },
             bl_aij_the_yew = {
@@ -344,19 +372,25 @@ return {
             bl_aij_the_hoard = {
                 name = "The Hoard",
                 text = {
-                    
+                    'Excess score this Ante',
+                    'is added to this blind',
+                    'when selected'
                 },
             },
             bl_aij_the_pear = {
                 name = "The Pear",
                 text = {
-                    
+                    'Randomize the suit and',
+                    'rank of cards held in',
+                    'hand after scoring'
                 },
             },
             bl_aij_the_elk = {
                 name = "The Elk",
                 text = {
-                    
+                    'Poker hands played',
+                    'this Ante are',
+                    'debuffed'
                 },
             },
             bl_aij_the_birch = {
@@ -377,7 +411,9 @@ return {
             bl_aij_the_spear = {
                 name = "The Spear",
                 text = {
-                    
+                    'All played cards in the',
+                    'winning hand are permanently',
+                    'debuffed'
                 },
             },
             bl_aij_the_steed = {
@@ -495,6 +531,14 @@ return {
                 text = {
                     'Very large blind',
                     '+1 Hand size'
+                },
+            },
+            bl_aij_the_conflagration = {
+                name = "The Conflagration",
+                text = {
+                    'If played hand defeats the',
+                    'Blind, destroy all cards',
+                    'played and held in hand'
                 },
             },
             bl_aij_the_umbilical = {
@@ -677,6 +721,28 @@ return {
             },
         },
         Joker = {
+            -- Credit stuff
+            j_aij_nevernamed_credits_joker = {
+                name = "Nevernamed",
+                text = {
+                    '{C:inactive}"Some quote or something"',
+                },
+            },
+            j_aij_survivalaren_credits_joker = {
+                name = "Survivalaren",
+                text = {
+                    '{C:inactive}"I started this because I wanted',
+                    '{C:inactive}to get better at programming and',
+                    '{C:inactive}I still suck at programming"'
+                },
+            },
+            j_aij_rattling_snow_credits_joker = {
+                name = "RattlingSnow353",
+                text = {
+                    '{C:inactive}"Some quote or something"',
+                },
+            },
+            -- Jokers
             j_aij_flying_ace = {
                 name = "Flying Ace",
                 text = {
@@ -3979,6 +4045,14 @@ return {
             },
             c_aij_veiled_lamp = {
                 name = 'The Veiled Lamp',
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#{}"
+                }
+            },
+            c_aij_sphinx = {
+                name = 'Sphinx',
                 text = {
                     "Enhances {C:attention}#1#{} selected",
                     "card into a",

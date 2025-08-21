@@ -39,6 +39,9 @@ position = 'after'
 match_indent = true 
 payload = '''
 all_in_jest = {
+	starting_prams = {
+		deck_size = 52
+	},
 	apply = { -- Specific triggers for cards
 		v_aij_gold_medal_been_used = false,
 		ticket_trigger = true,
@@ -47,6 +50,7 @@ all_in_jest = {
 	pit_blind_ante = 4,
 	blind_tags = {has_multiple = false, Small = {two = nil, three = nil}, Big = {two = nil, three = nil}, selected_index = nil},
 	advanced_hand_usage_run = {},
+	advanced_hand_usage_ante = {},
 	advanced_hand_usage = {},
 	AIJAnimated = {
 		c_aij_scopophobia = { frames_per_row = 18, frames = 144, start_frame = 126, fps = 12, hold = { frames = 2, max_frames = 144, min_frames = 128, min_start_frames = 126, hold_for_min = 12, hold_for_max = 35 } },
@@ -78,9 +82,15 @@ all_in_jest = {
 	reset_score = {chips = false, mult = false, chip_total = false, blind_total = false},
 	secret_hands = {},
 	gold_tag_rate = 1,
+	unused_hands = {
+		ante = 0,
+	},
+	unused_discards = {
+		ante = 0,
+	},
 },
 -- move these into all_in_jest at some point
-jest_unused_hands = 0,
+jest_unused_hands = 0, -- move to all_in_jest.unused_hands.run
 jest_legendary_pool = {in_shop = false, rate = 1.00},
 jest_stored_memory_card = nil,
 jest_change_booster_options = {op = {add = 0, mult = 0, div = 0, sub = 0}, trigger = false, option = "", pack_choices = 0}, -- both, pick, or size

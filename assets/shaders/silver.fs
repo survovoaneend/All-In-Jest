@@ -14,6 +14,10 @@ extern bool shadow;
 extern MY_HIGHP_OR_MEDIUMP vec4 burn_colour_1;
 extern MY_HIGHP_OR_MEDIUMP vec4 burn_colour_2;
 
+float grain_amount = 0.9;
+float flicker_strength = 0.2;
+float weave_amount = 0.75;
+
 vec4 RGB(vec4 c);
 
 vec4 HSL(vec4 c);
@@ -58,6 +62,27 @@ vec4 dissolve_mask(vec4 tex, vec2 texture_coords, vec2 uv)
     return vec4(shadow ? vec3(0.,0.,0.) : tex.xyz, res > adjusted_dissolve ? (shadow ? tex.a*0.3: tex.a) : .0);
 }
 
+vec2 hash22(vec2 p) {
+    p = vec2(dot(p, vec2(127.1, 311.7)),
+             dot(p, vec2(269.5, 183.3)));
+    return -1.0 + 2.0 * fract(sin(p) * 43758.5453123);
+}
+
+float noise(vec2 uv) {
+    vec2 i = floor(uv);
+    vec2 f = fract(uv);
+    vec2 u = f*f*(3.0 - 2.0*f);
+    float a = dot(hash22(i + vec2(0.0,0.0)), f - vec2(0.0,0.0));
+    float b = dot(hash22(i + vec2(1.0,0.0)), f - vec2(1.0,0.0));
+    float c = dot(hash22(i + vec2(0.0,1.0)), f - vec2(0.0,1.0));
+    float d = dot(hash22(i + vec2(1.0,1.0)), f - vec2(1.0,1.0));
+    return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+}
+
+float rand(vec2 n) {
+    return fract(sin(dot(n, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
 vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords )
 {
     vec2 uv = (((texture_coords)*(image_details)) - texture_details.xy*texture_details.zw)/texture_details.zw;
@@ -67,14 +92,29 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     vec2 adjusted_uv = uv - vec2(0.5, 0.5);
     adjusted_uv.x = adjusted_uv.x*texture_details.b/texture_details.a;
 
-    vec2 dir = normalize(vec2(1.0, 1.0));
-    float wave = sin(dot(adjusted_uv, dir) * 30.0 + silver.r * 5.0); 
-    float fac = max(wave, 0.0);
-
-    tex.rgb *= 1.0 + fac * 0.6;
+    //vec2 dir = normalize(vec2(1.0, 0.3));
+    //float wave = sin(dot(adjusted_uv, dir) * 90.0 + silver.r * 5.0); 
+    //float fac = max(wave, 0.0);
+    //
+    //tex.rgb *= 1.0 + fac * 0.3;
 
     float avg = (pixel.r + pixel.g + pixel.b) / 3.;
     pixel = vec4(silver_color.rgb * avg + tex.rgb * tex.a, pixel.a);
+
+    if (uv.y + silver.y == uv.y)
+        uv.y = silver.y;
+
+    if (pixel.a <= 0.001) {
+        return vec4(0.0);
+    }
+
+    float flicker = 1.0 + (rand(vec2(floor(time*12.0), 0.0)) - 0.5) * (0.35 * flicker_strength);
+    pixel.rgb = pixel.rgb * flicker;
+
+    float g = noise(uv * vec2(640.0, 360.0) + time * 60.0);
+    float luma = dot(pixel.rgb, vec3(0.299, 0.587, 0.114));
+    float grain_power = mix(0.6, 1.2, 1.0 - luma); 
+    pixel.rgb += (g - 0.5) * (0.15 * grain_power * grain_amount);
 
     return dissolve_mask(pixel, texture_coords, uv);
 }

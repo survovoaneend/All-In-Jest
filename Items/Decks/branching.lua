@@ -19,6 +19,14 @@ local branching = {
             return {key = "b_aij_branching_hidden"}
         end
 	end,
+    check_for_unlock = function(self, args)
+        if args.type == 'skip_count' and G.GAME then
+            if G.GAME.skips and G.GAME.skips >= 5 then
+                return true
+            end
+        end
+        return false
+    end,
     apply = function(self, back)
         G.GAME.all_in_jest.blind_tags.has_multiple = true
     end

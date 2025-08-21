@@ -2,7 +2,7 @@ local the_elk = {
     object_type = "Blind",
     key = 'the_elk',
     boss = {
-        min = 3,
+        min = 1,
     },
     mult = 1,
     boss_colour = HEX("b575e8"),

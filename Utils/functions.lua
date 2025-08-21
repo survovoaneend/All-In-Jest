@@ -174,8 +174,10 @@ function level_up_hand_chips(card, hand, instant, amount)
             end
         end
         G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
-
-        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + math.floor((G.GAME.hands[hand].l_chips * amount * 2 * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1) + (extra_chips > 0 and extra_chips or 0))))
+        local val = G.GAME.hands[hand].l_chips * amount * 2
+        local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1)) - val
+        extra_amount = (extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)) + (extra_chips > 0 and extra_chips or 0)
+        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + math.floor((G.GAME.hands[hand].l_chips * amount * 2 + extra_amount)))
         if not instant then 
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
                 play_sound('tarot1')
@@ -208,8 +210,10 @@ function level_up_hand_mult(card, hand, instant, amount)
             end
         end
         G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
-
-        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + math.floor((G.GAME.hands[hand].l_mult * amount * 2 * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1) + (extra_mult > 0 and extra_mult or 0))))
+        local val = G.GAME.hands[hand].l_mult * amount * 2
+        local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and card.ability.lost_carcosa_mult or 1)) - val
+        extra_amount = (extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)) + (extra_mult > 0 and extra_mult or 0)
+        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + math.floor((G.GAME.hands[hand].l_mult * amount * 2 + extra_amount)))
         if not instant then 
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
                 play_sound('tarot1')
@@ -705,6 +709,20 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'talos_principle',
+    name = 'Talos Principle',
+    suits = {
+      'Spades',
+    }
+  },
+  {
+    id = 'we_happy_few',
+    name = 'We Happy Few',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
     id = 'inscryption',
     name = 'Inscryption',
     suits = {
@@ -1100,14 +1118,35 @@ function All_in_Jest.add_patch(card, suit, instant)
   else
     card.ability.patches = card.ability.patches or {}
     card.ability.patches[suit] = true
-    card:juice_up(0.3, 0.4)
   end
+  check_for_unlock({type = 'add_patch'})
+end
+
+function All_in_Jest.set_debuff(card)
+	if card.ability and card.ability.all_in_jest and card.ability.all_in_jest.perma_debuff then
+		return true
+	end
+end
+
+function All_in_Jest.is_food(card)
+  local center = type(card) == "string" and G.P_CENTERS[card] or (card.config and card.config.center)
+
+  if not center then
+    return false
+  end
+
+  if center.pools and center.pools.Food then
+    return true
+  end
+
+  return All_in_Jest.vanilla_food[center.key]
 end
 
 function All_in_Jest.reset_game_globals(run_start)
 	G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
     if run_start then
+        G.GAME.all_in_jest.starting_prams.deck_size = #G.deck.cards
         local index = {4,5}
         G.GAME.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
         G.GAME.all_in_jest.patches_sprites["Other"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=0,y=2})
