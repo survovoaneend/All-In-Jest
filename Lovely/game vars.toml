@@ -55,7 +55,7 @@ all_in_jest = {
 	advanced_hand_usage_ante = {},
 	advanced_hand_usage = {},
 	AIJAnimated = {
-		c_aij_scopophobia = { frames_per_row = 'atlas_size', extra_yrows = 7, frames = 18, start_frame = 0, fps = 12, hold = { frames = 2, max_frames = 18, min_frames = 2, min_start_frames = 0, hold_for_min = 12, hold_for_max = 35 } },
+		c_aij_scopophobia = { frames_per_row = 'atlas_size', extra_yrows = 7, frames = 18, start_frame = 0, fps = 12, hold = { frames_per_row = 'atlas_size', frames = 2, max_frames = 18, min_frames = 2, min_start_frames = 0, hold_for_min = 12, hold_for_max = 35 } },
 		j_aij_electric_snow = { frames_per_row = 'atlas_size', extra_yrows = 15, frames = 7, start_frame = 0, fps = 16, },
 		j_aij_wireframe = { frames_per_row = 'atlas_size', extra_yrows = 17, frames = 15, start_frame = 5, fps = 10, },
 		j_aij_baddata = { 
