@@ -2,7 +2,9 @@ local trophy = {
   object_type = "Voucher",
   key = 'trophy',
   config = {
-    
+    extra = {
+      odds = 3,
+    }
   },
   requires = {
     'v_aij_gold_medal'
@@ -13,11 +15,18 @@ local trophy = {
   order = 4,
 
   loc_vars = function(self, info_queue)
-    
+    local numerator, denominator = SMODS.get_probability_vars(self, 1, self.config.extra.odds)
+    return {
+        vars = {
+            numerator, denominator,
+        }
+    }
   end,
 
-  redeem = function(self)
-    
+  calculate = function(self, card, context)
+    if context.end_of_round and not context.individual and not context.repetition then
+        G.GAME.all_in_jest.apply.v_aij_trophy_chance = SMODS.pseudorandom_probability(card, 'v_aij_trophy', 1, 3)
+    end
   end,
 
   in_pool = function(self, args)
