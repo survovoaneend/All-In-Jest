@@ -1915,7 +1915,14 @@ return {
             },
             j_aij_tonpraten = { name = "Tonpraten", text = { "" } },
             j_aij_rodeo_clown = { name = "Rodeo Clown", text = { "" } },
-            j_aij_joculator = { name = "Joculator", text = { "" } },
+            j_aij_joculator = { 
+                name = "Joculator", 
+                text = { 
+                    "Draw up to {C:attention}twice{} your hand",
+                    "size if you have {C:attention}0{} {C:red}discards",
+                    "and {C:attention}#1#{} {C:blue}hand{} remaining" 
+                } 
+            },
             j_aij_scurra = {
                 name = "Scurra",
                 text = {
@@ -2755,11 +2762,32 @@ return {
                     "{C:dark_edition}Negative"
                 } 
             },
-            j_aij_lexicon = { name = "Lexicon", text = { "" } },
+            j_aij_lexicon = { 
+                name = "Lexicon", 
+                text = { 
+                    "Adds {C:mult}Mult{} equal to the",
+                    "{C:attention}combined total{} of all",
+                    "numerical values of",
+                    "owned {C:attention}Jokers" ,
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
+                } 
+            },
             j_aij_dendroglpyh = { name = "Dendroglyph", text = { "" } },
             j_aij_prank_caller = { name = "Prank Caller", text = { "" } },
             j_aij_arngren = { name = "Arngren", text = { "" } },
-            j_aij_blacklist = { name = "Blacklist", text = { "" } },
+            j_aij_blacklist = { 
+                name = "Blacklist", 
+                text = { 
+                    {
+                        "{C:money}Sold{} jokers can no longer",
+                        "reappear",
+                    },
+                    {
+                        "Currently Blacklisted Jokers:",
+                        
+                    }
+                } 
+            },
             j_aij_croupier = { 
                 name = "Croupier", 
                 text = { 
@@ -4130,6 +4158,14 @@ return {
             },
             c_aij_sphinx = {
                 name = 'Sphinx',
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "card into a",
+                    "{C:attention}#2#{}"
+                }
+            },
+            c_aij_tamed_lion = {
+                name = 'The Tamed Lion',
                 text = {
                     "Enhances {C:attention}#1#{} selected",
                     "card into a",
