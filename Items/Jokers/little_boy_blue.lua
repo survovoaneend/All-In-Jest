@@ -37,9 +37,9 @@ local little_boy_blue = {
     add_to_deck = function(self, card, from_debuff)
         if #SMODS.find_card("j_aij_little_boy_blue") <= 0 then
             for k, joker in pairs(G.P_CENTER_POOLS['Joker']) do
-                local joker = G.P_CENTER_POOLS['Joker'][k]
-                local key = joker.key
-                local text = retrieve_joker_text(key, true)
+                local joker_temp = G.P_CENTER_POOLS['Joker'][k]
+                local key = joker_temp.key
+                local text = retrieve_joker_text(joker_temp, true)
                 if (text:find('Mult') or text:find('mult')) or not (text:find('Chip') or text:find('chip')) then
                     G.GAME.banned_keys[key] = true
                     table.insert(card.ability.extra.banned_cards, key)
