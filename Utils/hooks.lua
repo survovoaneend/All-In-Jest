@@ -370,6 +370,17 @@ function All_in_Jest.update_frame(dt, k, obj, jkr)
             end
         end
         if next_frame then
+            local xrows, yrows = nil
+            if anim.frames_per_row and anim.frames_per_row == 'atlas_size' then
+                xrows, yrows = SMODS.Atlas.obj_table[obj.atlas].image:getDimensions()
+                xrows = xrows / SMODS.Atlas.obj_table[obj.atlas].px
+                yrows = yrows / SMODS.Atlas.obj_table[obj.atlas].py
+                anim.frames_per_row = xrows
+                if anim.start_frame then
+                    anim.start_frame = anim.start_frame + (xrows * anim.extra_yrows)
+                end
+                anim.frames = anim.frames + (xrows * anim.extra_yrows)
+            end
             local loc = obj.pos.y*(anim.frames_per_row or anim.frames)+obj.pos.x
             if (not anim.individual) or (jkr and jkr.animation.target and loc ~= jkr.animation.target) then
                 loc = loc + 1
@@ -404,6 +415,17 @@ function All_in_Jest.update_frame(dt, k, obj, jkr)
             for key, v in pairs(layers) do
                 if next_soul_frames[key] then
                     local loc = nil
+                    local xrows, yrows = nil
+                    if v.frames_per_row and v.frames_per_row == 'atlas_size' then
+                        xrows, yrows = SMODS.Atlas.obj_table[obj.atlas].image:getDimensions()
+                        xrows = xrows / SMODS.Atlas.obj_table[obj.atlas].px
+                        yrows = yrows / SMODS.Atlas.obj_table[obj.atlas].py
+                        v.frames_per_row = xrows
+                        if v.start_frame then
+                            v.start_frame = v.start_frame + (xrows * v.extra_yrows)
+                        end
+                        v.frames = v.frames + (xrows * v.extra_yrows)
+                    end
                     if key == 'soul_pos' then
                         loc = obj.soul_pos.y*(v.frames_per_row or v.frames)+obj.soul_pos.x
                         if (not v.individual) or (jkr and jkr.animation.target and loc ~= jkr.animation.target) then
