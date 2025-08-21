@@ -75,50 +75,46 @@ function update_multiplied_value(t, key)
     t[key] = result
 end
 
-function retrieve_joker_text(joker, descip)
-    local text = ""
-    if descip and G.localization.descriptions['Joker'][joker] then
-        local main = G.localization.descriptions['Joker'][joker].text
+function retrieve_joker_text(joker, descip, name)
+    local function get_text(main)
+        local text = ""
+        if type(main) == "string" then
+            text = text .. main
+            return text
+        end
         for i = 1, #main do
             if type(main[i]) == "string" then
                 text = text .. main[i]
+            elseif main[i].config and main[i].config.text and type(main[i].config.text) == "string" then
+                text = text .. main[i].config.text
             elseif type(main[i]) == "table" then
-                for j = 1, #main[i] do
-                    if type(main[i][j]) == "string" then
-                        text = text .. main[i][j]
-                    end
-                end
+                text = text .. get_text(main[i])
+            end
+            if i < #main then
                 text = text .. " "
             end
-            text = text .. " "
         end
+        return text
+    end
+    local text = ""
+    if name and descip and G.localization.descriptions['Joker'][joker.key] then
+        local main = G.localization.descriptions['Joker'][joker.key].name
+        text = text .. get_text(main)
+        if text and type(text) == 'string' then text = string.gsub(text, "{.-}", "") end
+    elseif descip and G.localization.descriptions['Joker'][joker.key] then
+        local main = G.localization.descriptions['Joker'][joker.key].text
+        text = text .. get_text(main)
         if text and type(text) == 'string' then text = string.gsub(text, "{.-}", "") end
     else
         if not joker.ability_UIBox_table then
             joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
         end
         local main = joker.ability_UIBox_table.main
-        for i = 1, #main do
-            for j = 1, #main[i] do
-                if main[i][j].config.text then
-                    text = text .. main[i][j].config.text
-                end
-            end
-            text = text .. " "
-        end
+        text = text .. get_text(main)
         local multi_box = joker.ability_UIBox_table.multi_box
         if multi_box then
             text = text .. " "
-            for i = 1, #multi_box do
-                for j = 1, #multi_box[i] do
-                    for l = 1, #multi_box[i][j] do
-                        if multi_box[i][j][l].config.text then
-                            text = text .. multi_box[i][j][l].config.text
-                        end
-                    end
-                    text = text .. " "
-                end
-            end
+            text = text .. get_text(multi_box)
         end
     end
     return text
