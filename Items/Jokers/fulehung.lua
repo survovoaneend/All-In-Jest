@@ -30,6 +30,11 @@ local fulehung = {
         if context.setting_blind then
             if SMODS.pseudorandom_probability(card, 'fulehung', 1, card.ability.extra.odds) then
                 add_tag(Tag(G.GAME.round_resets.blind_tags[G.GAME.blind_on_deck]))
+                card:juice_up(0.4, 0.4)
+                play_sound('tarot1')
+                card_eval_status_text(card, 'extra', nil, nil, nil, {
+                      message = '+Skip Tag!'
+                })
             end
         end
     end
