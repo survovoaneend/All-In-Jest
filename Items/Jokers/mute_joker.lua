@@ -26,6 +26,15 @@ local mute_joker = {
         }
     end,
 
+    add_to_deck = function(self, card, from_debuff)
+        local _poker_hands = {}
+        for k, v in pairs(G.GAME.hands) do
+            if v.visible and k ~= card.ability.extra.poker_hand then _poker_hands[#_poker_hands + 1] = k end
+        end
+        card.ability.extra.poker_hand = pseudorandom_element(_poker_hands, pseudoseed('mute_joker'))
+        card.ability.extra.trigger = false
+    end,
+
     calculate = function(self, card, context)
         if context.setting_blind and not context.blueprint then
             local _poker_hands = {}
