@@ -17,7 +17,7 @@ local doodle = {
   
     loc_vars = function(self, info_queue, card)
         local active_text = ""
-        if not (G.GAME.round_resets.ante % 2) == 1 then 
+        if not (G.GAME.round % 2) == 0 then 
             active_text = "(Inactive)"
         else
             active_text = "(Active!)"
@@ -66,7 +66,7 @@ local doodle = {
     local effect_to_return = nil
     local did_probability_pass = false 
 
-    if (G.GAME.round_resets.ante % 2) == 1 then
+    if (G.GAME.round % 2) == 0 then
       did_probability_pass = true 
 
       local effect1_def
