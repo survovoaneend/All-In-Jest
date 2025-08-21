@@ -396,6 +396,18 @@ function All_in_Jest.update_frame(dt, k, obj, jkr)
             end
             if anim.hold then
                 local hold = anim.hold
+                local xrows, yrows = nil
+                if hold.frames_per_row and hold.frames_per_row == 'atlas_size' then
+                    xrows, yrows = SMODS.Atlas.obj_table[obj.atlas].image:getDimensions()
+                    xrows = xrows / SMODS.Atlas.obj_table[obj.atlas].px
+                    yrows = yrows / SMODS.Atlas.obj_table[obj.atlas].py
+                    hold.frames_per_row = xrows
+                    if hold.min_start_frames then
+                        hold.min_start_frames = hold.min_start_frames + (xrows * anim.extra_yrows)
+                    end
+                    hold.min_frames = hold.min_frames + (xrows * anim.extra_yrows)
+                    hold.max_frames = hold.max_frames + (xrows * anim.extra_yrows)
+                end
                 hold.temp = hold.temp or 0
                 hold.temp = hold.temp + 1
                 if hold.hold_for_min then hold.cur_random = hold.cur_random or math.random(hold.hold_for_min, hold.hold_for_max) end
