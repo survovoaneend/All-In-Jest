@@ -110,6 +110,57 @@ return {
                 }
             },
         } or {},
+        Partner = {
+            pnr_aij_simply = {
+                name = "Simply",
+                text = {
+                    "Gains {C:mult}+#1#{} Mult at",
+                    "end of round",
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
+                },
+                unlock={
+                    "Win a run with",
+                    "{C:attention}Simple Simon{} on",
+                    "{C:attention}Gold Stake{} difficulty",
+                },
+            },
+            pnr_aij_fourwarning = {
+                name = "Fourwarning",
+                text = {
+                    "Gains {C:chips}+#1#{} Chips if",
+                    "discard contains a {C:attention}4",
+                    "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
+                },
+                unlock={
+                    "Win a run with",
+                    "{C:attention}Simple Simon{} on",
+                    "{C:attention}Gold Stake{} difficulty",
+                },
+            },
+            pnr_aij_nellie = {
+                name = "Nellie",
+                text = {
+                    "{C:dark_edition}Negative{} Jokers are",
+                    "{C:attention}#1#X{} more common",
+                },
+                unlock={
+                    "Win a run with",
+                    "{C:attention}Negative Nancy{} on",
+                    "{C:attention}Gold Stake{} difficulty",
+                },
+            },
+            pnr_aij_banger = {
+                name = "Banger",
+                text = {
+                    'Rerolls cost {C:money}$#1#{} less'
+                },
+                unlock={
+                    "Win a run with",
+                    "{C:attention}Silly Sausage{} on",
+                    "{C:attention}Gold Stake{} difficulty",
+                },
+            },
+        },
         Blind = {
             --Normal Blinds
             bl_aij_the_beith = {
@@ -645,6 +696,14 @@ return {
                     'it is {C:attention}played'
                 }
             },
+            m_aij_canvas = {
+                name = "Canvas Card",
+                text = {
+                    '{C:attention}Copies{} the rank and suit',
+                    'of card to the {C:attention}right'
+                }
+            },
+            
         },
         Voucher = {
             v_aij_fairy_dust ={
@@ -674,7 +733,8 @@ return {
                 name = "Trophy",
                 text = {
                     "{C:attention}Large Blind{} skip",
-                    "Tag is always {C:money}Gold"
+                    "Tag has a {C:green}#1# in #2#",
+                    "chance to be {C:money}Gold"
                 },
             },
         },
@@ -2967,10 +3027,18 @@ return {
                     "suit {C:attention}patch"
                 } 
             },
+            j_aij_stage_production = { 
+                name = "Stage Production", 
+                text = {
+                    "{B:1,C:white,s:0.8}Activated Ability",
+                    "Once per round, {C:attention}temporarily",
+                    "{C:attention}reroll{} Joker to the right",
+                    "{C:inactive}#1#"
+                } 
+            },
             j_aij_baddata = {
                 name = "BAD_DATA", 
                 text = {
-                    "???"
                 } 
             },
 
@@ -3655,6 +3723,15 @@ return {
                     '{C:red}Destroys{} a random {C:attention}Joker',
                     'and {C:attention}all cards{} held in',
                     'hand'
+                }
+            },
+            c_aij_reshape = {
+                name = 'Reshape',
+                text = {
+                    'Turn all {C:attention}Jokers{} into copies',
+                    'of a random held {C:attention}Joker',
+                    '{C:inactive}(Jokers keep their original',
+                    '{C:inactive}stickers and editions)'
                 }
             },
             c_aij_palmistry = {

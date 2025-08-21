@@ -105,6 +105,13 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+  key = 'partner_atlas',
+  path = 'partner_atlas.png',
+  px = 46,
+  py = 58,
+}
+
+SMODS.Atlas {
     key = 'booster_atlas',
     path = 'boosters.png',
     px = 71,
@@ -190,7 +197,6 @@ for _, data in ipairs(AllInJest.deck_skins) do
     local ranks = { 'King', 'Queen', 'Jack' }
     local display_ranks = ranks
     
-
     local atlas_lc = SMODS.Atlas {
       key = key .. '_lc',
       path = 'collabs/lc/' .. key .. '_lc.png',
@@ -276,8 +282,9 @@ local function load_items(curr_obj)
         end
         if SMODS[item.object_type] and not item.ignore then
             SMODS[item.object_type](item)
-        elseif CardSleeves and CardSleeves[item.object_type] and not item.ignore then
-            CardSleeves[item.object_type](item)
+        elseif item.object_loader and not item.ignore then
+            print(item.object_loader)
+            item.object_loader[item.object_type](item)
         elseif not item.ignore then
             print("Error loading item "..item.key.." of unknown type "..item.object_type)
         end

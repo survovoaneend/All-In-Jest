@@ -1122,12 +1122,6 @@ function All_in_Jest.add_patch(card, suit, instant)
   check_for_unlock({type = 'add_patch'})
 end
 
-function All_in_Jest.set_debuff(card)
-	if card.ability and card.ability.all_in_jest and card.ability.all_in_jest.perma_debuff then
-		return true
-	end
-end
-
 function All_in_Jest.is_food(card)
   local center = type(card) == "string" and G.P_CENTERS[card] or (card.config and card.config.center)
 
@@ -1140,6 +1134,97 @@ function All_in_Jest.is_food(card)
   end
 
   return All_in_Jest.vanilla_food[center.key]
+end
+
+function All_in_Jest.reroll_joker(card, key, append, temp_key)
+    local victim_joker = card
+      
+    local victim_rarity = victim_joker.config.center.rarity or 1
+    local is_legendary = victim_rarity == 4
+    local victim_key = victim_joker.config.center.key
+
+    
+    local replacement_pool = {}
+    for _, center_data in ipairs(G.P_CENTER_POOLS.Joker) do
+        local current_rarity = center_data.rarity or 1
+        if current_rarity == victim_rarity then
+            if center_data.key ~= victim_key then
+                if not center_data.demo and not center_data.wip and (center_data.unlocked or G.GAME.modifiers.all_jokers_unlocked or center_data.rarity == 4) then
+                    local can_add = true
+                    if center_data.in_pool and type(center_data.in_pool) == 'function' then
+                        if not center_data:in_pool() then can_add = false end
+                    end
+                    if can_add then table.insert(replacement_pool, center_data.key) end
+                end
+            end
+        end
+    end
+
+      
+    if #replacement_pool == 0 then
+        card_eval_status_text(card, 'extra', nil, nil, nil, { message = 'No replacement found!', colour = G.C.RED })
+        return false
+    end
+
+    
+    local replacement_key = key or pseudorandom_element(replacement_pool, pseudoseed(append..'_replacement'))
+    local victim_index
+    for i, jkr in ipairs(G.jokers.cards) do
+        if jkr == victim_joker then
+            victim_index = i
+            break
+        end
+    end
+
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.1,
+        func = function()
+            if victim_joker and not victim_joker.removed then
+                victim_joker:start_dissolve({ G.C.SPECTRAL, G.C.WHITE })
+                victim_joker:remove_from_deck(true)
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.5,
+                    func = function()
+                        if victim_joker and victim_joker.area then victim_joker.area:remove_card(victim_joker) end
+                        return true
+                    end
+                }))
+            end
+
+            local new_joker = create_card('Joker', G.jokers, is_legendary, victim_rarity, true, nil,
+                replacement_key, 'apex_swap')
+            if new_joker then
+                new_joker:add_to_deck()
+                if victim_index and victim_index <= #G.jokers.cards + 1 then
+                    G.jokers:emplace(new_joker, victim_index)
+                else
+                    G.jokers:emplace(new_joker)
+                end
+                for k, v in pairs(G.shared_stickers) do
+                    if victim_joker.ability[k] then
+                        new_joker.ability[k] = true
+                    end
+                end
+                new_joker:start_materialize({ G.C.SPECTRAL, G.C.WHITE })
+                new_joker:set_edition(victim_joker.edition)
+                if temp_key then
+                    new_joker.ability.all_in_jest = new_joker.ability.all_in_jest or {}
+                    new_joker.ability.all_in_jest.has_been_rerolled = temp_key
+                end
+            end
+
+            card:juice_up(0.5, 0.5)
+            return true
+        end
+    }))
+end
+
+function All_in_Jest.set_debuff(card)
+	if card.ability and card.ability.all_in_jest and card.ability.all_in_jest.perma_debuff then
+		return true
+	end
 end
 
 function All_in_Jest.reset_game_globals(run_start)

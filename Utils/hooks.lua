@@ -90,6 +90,139 @@ function SMODS.has_any_suit(card)
     return has_any_suit_ref(card) or All_in_Jest.counts_as_all_suits(card)
 end
 
+local has_no_suit_ref = SMODS.has_no_suit
+function SMODS.has_no_suit(card)
+    if SMODS.has_enhancement(card, 'm_aij_canvas') then
+        if card.area == G.hand or card.area == G.play then
+            for k, v in pairs(G.play.cards) do
+                if v == card and v ~= G.play.cards[#G.play.cards] then
+                    card.front_hidden = G.play.cards[k+1]:should_hide_front()
+                    return SMODS.has_no_suit(G.play.cards[k+1])
+                end
+            end
+            local highlighted = false
+            local highlighted_cards = {}
+            for k, v in pairs(G.hand.cards) do
+                for key, val in pairs(G.hand.highlighted) do
+                    if v == val then
+                        highlighted_cards[#highlighted_cards+1] = v
+                    end
+                end
+            end
+            for k, v in pairs(highlighted_cards) do
+                if v == card then
+                    highlighted = true
+                    if v ~= highlighted_cards[#highlighted_cards] then
+                        card.front_hidden = highlighted_cards[k+1]:should_hide_front()
+                        return SMODS.has_no_suit(highlighted_cards[k+1])
+                    end
+                end
+            end
+            if not highlighted then
+                for k, v in pairs(G.hand.cards) do
+                    if v == card and v ~= G.hand.cards[#G.hand.cards] then
+                        card.front_hidden = G.hand.cards[k+1]:should_hide_front()
+                        return SMODS.has_no_suit(G.hand.cards[k+1])
+                    end
+                end
+            end
+            card.front_hidden = card:should_hide_front()
+            return true
+        else
+            card.front_hidden = card:should_hide_front()
+            return true
+        end
+    end
+    return has_no_suit_ref(card)
+end
+
+local has_no_rank_ref = SMODS.has_no_rank
+function SMODS.has_no_rank(card)
+    if SMODS.has_enhancement(card, 'm_aij_canvas') then
+        if card.area == G.hand or card.area == G.play then
+            for k, v in pairs(G.play.cards) do
+                if v == card and v ~= G.play.cards[#G.play.cards] then
+                    card.front_hidden = G.play.cards[k+1]:should_hide_front()
+                    return SMODS.has_no_rank(G.play.cards[k+1])
+                end
+            end
+            local highlighted = false
+            local highlighted_cards = {}
+            for k, v in pairs(G.hand.cards) do
+                for key, val in pairs(G.hand.highlighted) do
+                    if v == val then
+                        highlighted_cards[#highlighted_cards+1] = v
+                    end
+                end
+            end
+            for k, v in pairs(highlighted_cards) do
+                if v == card then
+                    highlighted = true
+                    if v ~= highlighted_cards[#highlighted_cards] then
+                        card.front_hidden = highlighted_cards[k+1]:should_hide_front()
+                        return SMODS.has_no_rank(highlighted_cards[k+1])
+                    end
+                end
+            end
+            if not highlighted then
+                for k, v in pairs(G.hand.cards) do
+                    if v == card and v ~= G.hand.cards[#G.hand.cards] then
+                        card.front_hidden = G.hand.cards[k+1]:should_hide_front()
+                        return SMODS.has_no_rank(G.hand.cards[k+1])
+                    end
+                end
+            end
+            card.front_hidden = card:should_hide_front()
+            return true
+        else
+            card.front_hidden = card:should_hide_front()
+            return true
+        end
+    end
+    return has_no_rank_ref(card)
+end
+
+local should_hide_front_ref = Card.should_hide_front
+function Card:should_hide_front()
+  if SMODS.has_enhancement(self, 'm_aij_canvas') then
+    if self.area == G.hand or self.area == G.play then
+        for k, v in pairs(G.play.cards) do
+            if v == self and v ~= G.play.cards[#G.play.cards] then
+                return G.play.cards[k+1]:should_hide_front()
+            end
+        end
+        local highlighted = false
+        local highlighted_cards = {}
+        for k, v in pairs(G.hand.cards) do
+            for key, val in pairs(G.hand.highlighted) do
+                if v == val then
+                    highlighted_cards[#highlighted_cards+1] = v
+                end
+            end
+        end
+        for k, v in pairs(highlighted_cards) do
+            if v == self then
+                highlighted = true
+                if v == self and v ~= highlighted_cards[#highlighted_cards] then
+                    return highlighted_cards[k+1]:should_hide_front()
+                end
+            end
+        end
+        if not highlighted then
+            for k, v in pairs(G.hand.cards) do
+                if v == self and v ~= G.hand.cards[#G.hand.cards] then
+                    return G.hand.cards[k+1]:should_hide_front()
+                end
+            end
+        end
+        return true
+    else
+        return true
+    end
+  end
+  return should_hide_front_ref(self)
+end
+
 local has_showman_ref = SMODS.showman
 function SMODS.showman(card_key)
     --if next(SMODS.find_card('j_aij_aluzinnu')) and (card_key == "v_petroglyph" or card_key == "v_hieroglyph") then
@@ -324,7 +457,7 @@ end
 
 local upd = Game.update
 function Game:update(dt)
-    upd(self, dt)
+    local ref = upd(self, dt)
     for k, v in pairs(G.GAME.all_in_jest.AIJAnimated) do
         All_in_Jest.update_frame(dt, k, G.P_CENTERS[k])
         if not G.P_CENTERS[k] then
@@ -335,11 +468,12 @@ function Game:update(dt)
             end
         end
     end
+    return ref
 end
 
 local set_spritesref = Card.set_sprites
 function Card:set_sprites(_center, _front)
-	set_spritesref(self, _center, _front)
+	local ref = set_spritesref(self, _center, _front)
     if _center and _center.all_in_jest and _center.all_in_jest.soul_layers then
         for k, v in pairs(_center.all_in_jest.soul_layers) do
             if _center.all_in_jest.soul_layers[k] and not self.children[k] then
@@ -360,4 +494,5 @@ function Card:set_sprites(_center, _front)
             self.children[k]:set_sprite_pos(_center.all_in_jest.soul_layers[k].pos)
         end
     end
+    return ref
 end

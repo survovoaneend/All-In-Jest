@@ -34,6 +34,14 @@ if self.edition and self.edition.aij_silver then
         aij_silver_reapply = true
     end
 end
+if self.ability and SMODS.has_enhancement(self, 'm_aij_canvas') then
+    if self.ability.aij_canvas_temp_suit and self.ability.aij_canvas_temp_rank and self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
+        SMODS.change_base(self, self.ability.aij_canvas_temp_suit, self.ability.aij_canvas_temp_rank)
+        self.front_hidden = self:should_hide_front()
+        self.ability.aij_canvas_temp_suit = nil
+        self.ability.aij_canvas_temp_rank = nil
+    end
+end
 '''
 
 [[patches]]
@@ -772,7 +780,7 @@ while G.GAME.all_in_jest.blind_tags.Big.three == G.GAME.round_resets.blind_tags.
     temp_index = temp_index + 1
     G.GAME.all_in_jest.blind_tags.Big.three = get_next_tag_key('_resample_'..temp_index)
 end
-if G.GAME.used_vouchers.v_aij_trophy then
+if G.GAME.used_vouchers.v_aij_trophy and G.GAME.all_in_jest.apply.v_aij_trophy_chance then
     G.GAME.round_resets.blind_tags.Big = get_next_tag_key('all_in_jest_guarrented_gold_tag')
 end
 '''
@@ -1203,6 +1211,9 @@ if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
             _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
         end
     end
+    if append and append == 'all_in_jest_guarrented_gold_tag' then
+        _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
+    end
 end
 '''
 
@@ -1490,6 +1501,15 @@ if context.end_of_round then
     for k, v in ipairs(G.playing_cards) do
         if SMODS.has_enhancement(v, 'm_aij_simulated') then
             v.ability.extra.all_in_jest.to_hand.trigger = false
+        end
+    end
+end
+if context.setting_blind then
+    for k, v in pairs(G.jokers.cards) do
+        if v.ability and v.ability.all_in_jest and v.ability.all_in_jest.has_been_rerolled then
+            card_eval_status_text(card, "extra", nil, nil, nil, {message = localize("k_reset"), colour = G.C.FILTER})
+            All_in_Jest.reroll_joker(v, v.ability.all_in_jest.has_been_rerolled, 'stage_production')
+            v.ability.all_in_jest.has_been_rerolled = nil
         end
     end
 end

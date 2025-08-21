@@ -44,6 +44,7 @@ all_in_jest = {
 	},
 	apply = { -- Specific triggers for cards
 		v_aij_gold_medal_been_used = false,
+		v_aij_trophy_chance = false,
 		ticket_trigger = true,
 	}, 
 	dizzard_shop = false,
