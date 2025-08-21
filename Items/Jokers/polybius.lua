@@ -20,7 +20,7 @@ local polybius = {
     end,
   
     calculate = function(self, card, context)
-        if context.initial_scoring_step then
+        if context.joker_main then
             local chip_total = 0
             local mult_total = 0
             if context.scoring_name and context.poker_hands then
