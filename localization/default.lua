@@ -1006,7 +1006,7 @@ return {
                 text = {
                     "{C:attention}Copies{} the {C:attention}abilities{} of",
                     "both adjacent {C:attention}Jokers{} on",
-                    "{C:blue}odd{} antes",
+                    "{C:red}even{} rounds",
                     "{C:inactive}#1#"
                 },
             },
