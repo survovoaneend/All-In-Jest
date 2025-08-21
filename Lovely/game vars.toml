@@ -30,6 +30,7 @@ reset_jest_magick_joker_card()
 reset_jest_you_broke_it_card()
 '''
 
+
 [[patches]] #G.GAME 
 [patches.pattern]
 target = 'game.lua'
@@ -54,30 +55,33 @@ all_in_jest = {
 	advanced_hand_usage_ante = {},
 	advanced_hand_usage = {},
 	AIJAnimated = {
-		c_aij_scopophobia = { frames_per_row = 18, frames = 144, start_frame = 126, fps = 12, hold = { frames = 2, max_frames = 144, min_frames = 128, min_start_frames = 126, hold_for_min = 12, hold_for_max = 35 } },
-		j_aij_electric_snow = { frames_per_row = 25, frames = 382, start_frame = 375, fps = 16, },
-		j_aij_wireframe = { frames_per_row = 25, frames = 440, start_frame = 430, fps = 10, },
+		c_aij_scopophobia = { frames_per_row = 'atlas_size', extra_yrows = 7, frames = 18, start_frame = 0, fps = 12, hold = { frames = 2, max_frames = 18, min_frames = 2, min_start_frames = 0, hold_for_min = 12, hold_for_max = 35 } },
+		j_aij_electric_snow = { frames_per_row = 'atlas_size', extra_yrows = 15, frames = 7, start_frame = 0, fps = 16, },
+		j_aij_wireframe = { frames_per_row = 'atlas_size', extra_yrows = 17, frames = 15, start_frame = 5, fps = 10, },
 		j_aij_baddata = { 
-			frames_per_row = 25, 
-			frames = 456, 
-			start_frame = 441,
+			frames_per_row = 'atlas_size', 
+			extra_yrows = 17,
+			frames = 31, 
+			start_frame = 16,
 			fps = 10,
 			layers = {
 				soul_pos = {
-					frames_per_row = 25, 
-					frames = 477, 
-					start_frame = 456,
+					frames_per_row = 'atlas_size', 
+					extra_yrows = 18,
+					frames = 21, 
+					start_frame = 6,
 					fps = 10,
 				},
 				aij_floating_sprite_1 = {
-					frames_per_row = 25, 
-					frames = 491, 
-					start_frame = 485,
+					frames_per_row = 'atlas_size', 
+					extra_yrows = 19,
+					frames = 16, 
+					start_frame = 10,
 					fps = 10,
 				}
 			}
 		},
-		m_aij_simulated = {frames_per_row = 10, frames = 20, start_frame = 10, fps = 10,}
+		m_aij_simulated = {frames_per_row = 'atlas_size', extra_yrows = 1, frames = 10, start_frame = 0, fps = 10,}
 	},
 	patches_sprites = {},
 	reset_score = {chips = false, mult = false, chip_total = false, blind_total = false},
