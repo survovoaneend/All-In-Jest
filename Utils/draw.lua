@@ -16,7 +16,7 @@ SMODS.DrawStep {
 }
 SMODS.DrawStep {
     key = 'temp_patches',
-    order = 34,
+    order = 21,
     func = function(self, layer)
         if self.ability.patches then
             for k, v in pairs(self.ability.patches) do
