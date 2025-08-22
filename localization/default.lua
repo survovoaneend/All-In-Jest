@@ -22,11 +22,16 @@ return {
             aij_plus_tag = "+1 Tag",
         },
         labels = {
+            -- Editions
             aij_glimmer = "Glimmer",
             aij_silver = "Silver",
             aij_stellar = "Stellar",
             aij_torn = "Torn",
+            -- Stickers
             aij_marked = "Marked",
+            -- Seals
+            aij_smiley_seal = "Smiley Seal",
+            -- Other
             k_aij_jest_chaotic_card = "Chaotic",
         },
         poker_hands = {
@@ -704,7 +709,9 @@ return {
                     'of card to the {C:attention}right'
                 }
             },
-            
+        },
+        Seal = {
+
         },
         Voucher = {
             v_aij_fairy_dust ={
@@ -1226,7 +1233,7 @@ return {
                 },
                 text = { 
                     "{B:1,C:white,s:0.8}Activated Ability",
-                    "Pay {C:money}$2{} to add a {C:attention}random",
+                    "Pay {C:money}$#1#{} to add a {C:attention}random",
                     "{C:attention}playing card{} to your hand"
                 } 
             },
@@ -1301,7 +1308,14 @@ return {
                     "{C:attention}hand{}" 
                 }
             },
-            j_aij_haruspex = { name = "Haruspex", text = { "" } },
+            j_aij_haruspex = { 
+                name = "Haruspex", 
+                text = { 
+                    "Spend {C:attention}#1# {C:red}Discard{} to search {C:attention}#2#{}",
+                    "cards from your {C:attention}deck{} to",
+                    "your hand"
+                } 
+            },
             j_aij_bobblehead = { name = "Bobblehead", text = { "" } },
             j_aij_topsy_the_clown = { 
                 name = "Topsy the Clown", 
@@ -1547,7 +1561,14 @@ return {
                     "used"
                 }
             },
-            j_aij_j_file = { name = "J-File", text = { "" } },
+            j_aij_j_file = { 
+                name = "J-File", 
+                text = { 
+                    "At the start of the {C:attention}round,",
+                    "search {C:attention}#1#{} card from your",
+                    "{C:attention}deck{} to your hand" 
+                } 
+            },
             j_aij_bumper_sticker = { 
                 name = "Bumper Sticker", 
                 text = { 
@@ -3071,6 +3092,14 @@ return {
                     "{C:inactive}#1#"
                 } 
             },
+            j_aij_death_of_a_salesman = { 
+                name = "Death of a Salesman", 
+                text = {
+                    "{C:attention}#1#{} {C:red}Chaos{} or {C:red}Anarchy {C:attention}Tag",
+                    "available for purchase in",
+                    "every {C:money}Shop"
+                } 
+            },
             j_aij_baddata = {
                 name = "BAD_DATA", 
                 text = {
@@ -4189,6 +4218,7 @@ return {
             },
         },
         Other = {
+            -- Other
             card_extra_retriggers = {
                 text={
                     "Retrigger this card {C:attention}#1#{} additional times",
@@ -4278,6 +4308,16 @@ return {
 		        text = {
                     'Cannot be {C:blue}played',
                     'or {C:red}discarded'
+		        }
+            },
+            -- Seals
+            aij_smiley_seal = {
+                name = "Smiley Seal",
+		        text = {
+                    'When this {C:attention}card{} is',
+                    '{C:red}destroyed{} apply an',
+                    'edition to {C:attention}#1#{} random',
+                    '{C:attention}Joker'
 		        }
             },
         }
