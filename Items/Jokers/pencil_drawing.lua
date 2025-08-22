@@ -44,6 +44,7 @@ local pencil_drawing = {
     loc_vars = function(self, info_queue, card) 
         return {
             vars = {
+                card.ability.extra.cost,
                 colours = { 
                     G.C.SECONDARY_SET.Enhanced
                 }
