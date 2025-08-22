@@ -69,12 +69,4 @@ local gnasher = {
     end
   end
 }
-local ease_anteref = ease_ante
-function ease_ante(mod)
-    SMODS.calculate_context({all_in_jest = {ease_ante = true, mod = mod}})
-    
-    local ref = ease_anteref(mod)
-    return ref
-end
-
 return { name = {"Jokers"}, items = {gnasher} }
