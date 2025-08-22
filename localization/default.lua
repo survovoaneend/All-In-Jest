@@ -6,6 +6,7 @@ return {
             k_moon = "Moon",
             k_moon_q = "Moon?",
             k_star = "Star",
+            k_tag = "Tag",
             k_star_q = "Star?",
             k_asteroid = "Asteroid",
             k_tarot_q = "Tarot?",
@@ -2128,7 +2129,13 @@ return {
             },
             j_aij_skomorokh = { name = "Skomorokh", text = { "" } },
             j_aij_silly_billy = { name = "Silly Billy", text = { "" } },
-            j_aij_ijoker_co = { name = "iJoker.co", text = { "" } },
+            j_aij_ijoker_co = { 
+                name = "iJoker.co", 
+                text = { 
+                    "{C:attention}#1#{} random {C:attention}Tags{} available",
+                    "for purchase each {C:money}shop" 
+                } 
+            },
             j_aij_corpse_paint = { 
                 name = "Corpse Paint", 
                 text = { 

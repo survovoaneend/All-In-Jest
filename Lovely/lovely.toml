@@ -514,6 +514,30 @@ match_indent = true
 [[patches]] 
 [patches.pattern]
 target = "functions/button_callbacks.lua"
+pattern = "if card.ability.set ~= 'Voucher' and"
+position = "before"
+payload = '''
+if card.ability.set == 'Tag' then
+    return true
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "elseif e.config.id ~= 'buy_and_use' then"
+position = "before"
+payload = '''
+elseif c1.ability.set == 'Tag' then
+    add_tag(Tag(c1.config.center.key))
+    c1:remove()
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
 pattern = "for i = 1, G.GAME.shop.joker_max - #G.shop_jokers.cards do"
 position = "before"
 payload = '''

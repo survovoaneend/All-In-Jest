@@ -1117,6 +1117,23 @@ function All_in_Jest.add_patch(card, suit, instant)
   check_for_unlock({type = 'add_patch'})
 end
 
+function All_in_Jest.add_tag_to_shop(key, price)
+    local center = G.P_TAGS[key]
+    center.atlas = center.atlas or 'tags'
+    local card = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
+    G.shop_booster.T.y, G.CARD_W*0.7, G.CARD_W*0.7, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
+    create_shop_card_ui(card, 'Tag', G.shop_booster)
+    card.ability.booster_pos = #G.shop_booster.cards + 1
+    card:start_materialize()
+    card.edition = nil
+    card.cost = price or 1
+    card.config.center.set_card_type_badge = function(self, card, badges)
+		badges[#badges+1] = create_badge(localize('k_tag'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2 )
+	end
+    G.shop_booster:emplace(card)
+    return card
+end
+
 function All_in_Jest.is_food(card)
   local center = type(card) == "string" and G.P_CENTERS[card] or (card.config and card.config.center)
 
