@@ -1542,6 +1542,18 @@ end
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
+pattern = "local edition = card:calculate_edition(context)"
+position = "after"
+match_indent = true
+payload = '''
+if edition then
+    SMODS.calculate_context({all_in_jest = {calculating_edition = true, other_card = card, edition = card.edition, area = card.area }})
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
 pattern = "if v == 'eternal' then info_queue[#info_queue+1] = {key = 'eternal', set = 'Other'} end"
 position = "before"
 match_indent = true

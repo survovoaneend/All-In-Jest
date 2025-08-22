@@ -1311,6 +1311,7 @@ return {
             j_aij_haruspex = { 
                 name = "Haruspex", 
                 text = { 
+                    "{B:1,C:white,s:0.8}Activated Ability",
                     "Spend {C:attention}#1# {C:red}Discard{} to search {C:attention}#2#{}",
                     "cards from your {C:attention}deck{} to",
                     "your hand"
@@ -3083,6 +3084,16 @@ return {
                     "suit {C:attention}patch"
                 } 
             },
+            j_aij_czar = { 
+                name = "Czar", 
+                text = {
+                    "Copies the {C:attention}effect{} of a",
+                    "{C:attention}random{} discovered joker",
+                    "from your {C:attention}collection",
+                    "{C:inactive}(Changes when the Shop",
+                    "{C:inactive}is rerolled)"
+                } 
+            },
             j_aij_stage_production = { 
                 name = "Stage Production", 
                 text = {
@@ -3090,6 +3101,21 @@ return {
                     "Once per round, {C:attention}temporarily",
                     "{C:attention}reroll{} Joker to the right",
                     "{C:inactive}#1#"
+                } 
+            },
+            j_aij_pink_slip = { 
+                name = "Pink Slip", 
+                text = {
+                    "{C:attention}+#1# Selection Limit{} for",
+                    "{C:red}Discards"
+                } 
+            },
+            j_aij_chromatist = { 
+                name = "Chromatist", 
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult when a",
+                    "{C:attention}Polychrome{} edition",
+                    "triggers"
                 } 
             },
             j_aij_death_of_a_salesman = { 
