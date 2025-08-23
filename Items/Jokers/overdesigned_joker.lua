@@ -1,12 +1,12 @@
 local function jest_overdesigned_joker_cycle(suit)
-    if suit == "Heart" then
-        return {"Club", 14}, {localize('k_aij_overdesigned_give_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_plus_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_mult_text', 'extra_joker_dictionary').." "}, {G.C.SUITS.Clubs, G.C.MULT}
-    elseif suit == "Club" then
-        return {"Diamond", 2}, {localize('k_aij_overdesigned_earn_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_dollars_text', 'extra_joker_dictionary'), " "}, {G.C.SUITS.Diamonds, G.C.MONEY}
-    elseif suit == "Diamond" then
-        return {"Spade", 100}, {localize('k_aij_overdesigned_give_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_plus_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_chip_text', 'extra_joker_dictionary').." "}, {G.C.SUITS.Spades, G.C.CHIPS}
-    elseif suit == "Spade" then
-        return {"Heart", 1.5}, {localize('k_aij_overdesigned_give_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_xmult_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_mult_text', 'extra_joker_dictionary').." "}, {G.C.SUITS.Hearts, G.C.WHITE, G.C.MULT}
+    if suit == localize('k_aij_overdesigned_heart', 'extra_joker_dictionary') then
+        return {localize('k_aij_overdesigned_club', 'extra_joker_dictionary'), 14}, {localize('k_aij_overdesigned_give_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_plus_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_mult_text', 'extra_joker_dictionary').." "}, {G.C.SUITS.Clubs, G.C.MULT}
+    elseif suit == localize('k_aij_overdesigned_club', 'extra_joker_dictionary') then
+        return {localize('k_aij_overdesigned_diamond', 'extra_joker_dictionary'), 2}, {localize('k_aij_overdesigned_earn_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_dollars_text', 'extra_joker_dictionary'), " "}, {G.C.SUITS.Diamonds, G.C.MONEY}
+    elseif suit == localize('k_aij_overdesigned_diamond', 'extra_joker_dictionary') then
+        return {localize('k_aij_overdesigned_spade', 'extra_joker_dictionary'), 100}, {localize('k_aij_overdesigned_give_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_plus_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_chip_text', 'extra_joker_dictionary').." "}, {G.C.SUITS.Spades, G.C.CHIPS}
+    elseif suit == localize('k_aij_overdesigned_spade', 'extra_joker_dictionary') then
+        return {localize('k_aij_overdesigned_heart', 'extra_joker_dictionary'), 1.5}, {localize('k_aij_overdesigned_give_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_xmult_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_mult_text', 'extra_joker_dictionary').." "}, {G.C.SUITS.Hearts, G.C.WHITE, G.C.MULT}
     end
 end
 local overdesigned_joker = {
@@ -15,7 +15,7 @@ local overdesigned_joker = {
     
     key = "overdesigned_joker",
     config = {
-      suit = "Heart",
+      suit = nil,
       amount = 1.5,
       extra = {
           prefix = nil,
@@ -43,6 +43,7 @@ local overdesigned_joker = {
           info_queue[#info_queue+1] = {set = 'Other', key = key}
         end
         if not card.ability.extra.prefix then
+            card.ability.suit = localize('k_aij_overdesigned_heart', 'extra_joker_dictionary')
             card.ability.extra.prefix = localize('k_aij_overdesigned_give_prefix', 'extra_joker_dictionary')
             card.ability.extra.symbol = localize('k_aij_youve_got_mail_xmult_prefix', 'extra_joker_dictionary')
             card.ability.extra.suffix = localize('k_aij_youve_got_mail_mult_text', 'extra_joker_dictionary').." "
