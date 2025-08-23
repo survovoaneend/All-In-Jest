@@ -954,7 +954,4 @@ end
 function All_in_Jest.reset_game_globals(run_start)
 	G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
-    if run_start then
-        G.GAME.all_in_jest.pit_blind_ante = math.random(4,5)
-    end
 end
