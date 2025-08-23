@@ -10,6 +10,8 @@ return {
             k_star_q = "Star?",
             k_asteroid = "Asteroid",
             k_tarot_q = "Tarot?",
+            k_active = "(Active!)",
+            k_inactive = "(Inactive)",
             aij_requires_restart = "Requires Restart",
             aij_doesnt_requires_restart = "Doesn't Require Restart",
             aij_enable_moons = "Enable Moons",
@@ -20,6 +22,23 @@ return {
             k_aij_guess_the_jest = "Guess the Jest",
             k_aij_memory_card = "Memorized!",
             aij_plus_tag = "+1 Tag",
+        },
+        extra_joker_dictionary = {
+            -- You've got Mail
+            k_aij_youve_got_mail = "You've Got Mail!",
+            k_aij_youve_got_mail_none = "Does nothing...",
+            k_aij_youve_got_mail_plus_prefix = "+",
+            k_aij_youve_got_mail_dollar_prefix = "$",
+            k_aij_youve_got_mail_xmult_prefix = "X",
+            k_aij_youve_got_mail_mult_text = " Mult",
+            k_aij_youve_got_mail_chip_text = " Chips",
+            k_aij_youve_got_mail_dollars_text = " each hand played",
+            -- Overdesigned
+            k_aij_overdesigned_give_prefix = "give",
+            k_aij_overdesigned_earn_prefix = "earn",
+            -- Jerko
+            k_aij_jerko_retrigger = "Retrigger",
+            k_aij_jerko_times = "times",
         },
         labels = {
             -- Editions
