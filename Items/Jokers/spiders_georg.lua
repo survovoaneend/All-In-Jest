@@ -55,7 +55,7 @@ local spiders_georg = {
                 local scoring_hand = hand['scoring_hand']
                 for j = 1, #scoring_hand do
                     local cur_card = scoring_hand[j]
-                    if scoring_hand[j]:get_id() and scoring_hand[j]:get_id() == 8 then
+                    if scoring_hand and scoring_hand[j] and scoring_hand[j]:get_id() and scoring_hand[j]:get_id() == 8 then
                         eights = eights + 1
                     end
                 end
