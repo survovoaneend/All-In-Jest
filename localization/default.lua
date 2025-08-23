@@ -36,6 +36,10 @@ return {
             -- Overdesigned
             k_aij_overdesigned_give_prefix = "give",
             k_aij_overdesigned_earn_prefix = "earn",
+            k_aij_overdesigned_heart = "Heart",
+            k_aij_overdesigned_club = "Club",
+            k_aij_overdesigned_spade = "Spade",
+            k_aij_overdesigned_diamond = "Diamond",
             -- Jerko
             k_aij_jerko_retrigger = "Retrigger",
             k_aij_jerko_times = "times",
