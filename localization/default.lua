@@ -155,6 +155,19 @@ return {
                     "{C:attention}Gold Stake{} difficulty",
                 },
             },
+            pnr_aij_scratch = {
+                name = "Scratch",
+                text = {
+                    '{C:attention}Retriggers{} leftmost',
+                    '{C:attention}#1#{} rightmost Joker',
+                    'on odd {C:attention}rounds'
+                },
+                unlock={
+                    "Win a run with",
+                    "{C:attention}Doodle{} on",
+                    "{C:attention}Gold Stake{} difficulty",
+                },
+            },
             pnr_aij_banger = {
                 name = "Banger",
                 text = {
@@ -163,6 +176,18 @@ return {
                 unlock={
                     "Win a run with",
                     "{C:attention}Silly Sausage{} on",
+                    "{C:attention}Gold Stake{} difficulty",
+                },
+            },
+            pnr_aij_flub = {
+                name = "Flub",
+                text = {
+                    '{C:attention}Eternal{} Jokers are',
+                    '{C:money}#1#{}'
+                },
+                unlock={
+                    "Win a run with",
+                    "{C:attention}Mistake{} on",
                     "{C:attention}Gold Stake{} difficulty",
                 },
             },
@@ -709,9 +734,6 @@ return {
                     'of card to the {C:attention}right'
                 }
             },
-        },
-        Seal = {
-
         },
         Voucher = {
             v_aij_fairy_dust ={
