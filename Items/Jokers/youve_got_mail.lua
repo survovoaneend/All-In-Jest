@@ -10,7 +10,7 @@ local youve_got_mail = {
             xmult = 1.25,
             effect = "none",
             prefix = "",
-            text = "Does nothing...",
+            text = localize('k_aij_youve_got_mail_none', 'extra_joker_dictionary'),
             colours = {
                 main = G.C.UI.TEXT_INACTIVE,
                 other = G.C.UI.TEXT_INACTIVE,
@@ -33,24 +33,25 @@ local youve_got_mail = {
         if card.ability.extra.effect ~= "none" then
             num = card.ability.extra[card.ability.extra.effect]
         else
+            card.ability.extra.text = localize('k_aij_youve_got_mail_none', 'extra_joker_dictionary')
             card.ability.extra.colours.main = G.C.UI.TEXT_INACTIVE
         end
         card.ability.extra.colours.background = G.C.WHITE
         if card.ability.extra.effect == "mult" then
-            card.ability.extra.prefix = "+"
-            card.ability.extra.text = " Mult"
+            card.ability.extra.prefix = localize('k_aij_youve_got_mail_plus_prefix', 'extra_joker_dictionary')
+            card.ability.extra.text = localize('k_aij_youve_got_mail_mult_text', 'extra_joker_dictionary')
             card.ability.extra.colours.other = G.C.MULT
         elseif card.ability.extra.effect == "chips" then
-            card.ability.extra.prefix = "+"
-            card.ability.extra.text = " Chips"
+            card.ability.extra.prefix = localize('k_aij_youve_got_mail_plus_prefix', 'extra_joker_dictionary')
+            card.ability.extra.text = localize('k_aij_youve_got_mail_chip_text', 'extra_joker_dictionary')
             card.ability.extra.colours.other = G.C.CHIPS
         elseif card.ability.extra.effect == "dollars" then
-            card.ability.extra.prefix = "+$"
-            card.ability.extra.text = " each hand played"
+            card.ability.extra.prefix = localize('k_aij_youve_got_mail_dollar_prefix', 'extra_joker_dictionary')
+            card.ability.extra.text = localize('k_aij_youve_got_mail_plus_prefix', 'extra_joker_dictionary')..localize('k_aij_youve_got_mail_dollars_text', 'extra_joker_dictionary')
             card.ability.extra.colours.other = G.C.MONEY
         elseif card.ability.extra.effect == "xmult" then
-            card.ability.extra.prefix = "X"
-            card.ability.extra.text = " Mult"
+            card.ability.extra.prefix = localize('k_aij_youve_got_mail_xmult_prefix', 'extra_joker_dictionary')
+            card.ability.extra.text = localize('k_aij_youve_got_mail_mult_text', 'extra_joker_dictionary')
             card.ability.extra.colours.other = G.C.WHITE
             card.ability.extra.colours.background = G.C.MULT
         end
@@ -84,7 +85,7 @@ local youve_got_mail = {
             G.jokers:emplace(temp_card)
             temp_card:set_edition(edition, true)
             temp_card:start_materialize()
-            card_eval_status_text(temp_card, 'extra', nil, nil, nil, {message = "You've Got Mail!", colour = G.C.FILTER})
+            card_eval_status_text(temp_card, 'extra', nil, nil, nil, {message = localize('k_aij_youve_got_mail', 'extra_joker_dictionary'), colour = G.C.FILTER})
         end
         if context.joker_main then
             if card.ability.extra.effect == "mult" then

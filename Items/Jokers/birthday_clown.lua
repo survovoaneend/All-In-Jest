@@ -19,9 +19,9 @@ local birthday_clown = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-      local active_text = "Active!"
+      local active_text = localize('k_active')
       if not card.ability.extra.active then 
-        active_text = "Inactive"
+        active_text = localize('k_inactive')
       end
       return {
         vars = {

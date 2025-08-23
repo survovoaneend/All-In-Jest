@@ -33,7 +33,7 @@ local fulehung = {
                 card:juice_up(0.4, 0.4)
                 play_sound('tarot1')
                 card_eval_status_text(card, 'extra', nil, nil, nil, {
-                      message = '+Skip Tag!'
+                      message = localize('aij_plus_tag')
                 })
             end
         end

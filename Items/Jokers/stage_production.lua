@@ -45,9 +45,9 @@ local stage_production = {
     loc_vars = function(self, info_queue, card) 
         local active_text = ""
         if not card.ability.extra.trigger then 
-            active_text = "(Inactive)"
+            active_text = localize('k_inactive')
         else
-            active_text = "(Active!)"
+            active_text = localize('k_active')
         end
         return {
             vars = {

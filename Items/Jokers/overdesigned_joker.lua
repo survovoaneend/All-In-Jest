@@ -1,12 +1,12 @@
 local function jest_overdesigned_joker_cycle(suit)
     if suit == "Heart" then
-        return {"Club", 14}, {"give", "+", " Mult "}, {G.C.SUITS.Clubs, G.C.MULT}
+        return {"Club", 14}, {localize('k_aij_overdesigned_give_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_plus_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_mult_text', 'extra_joker_dictionary').." "}, {G.C.SUITS.Clubs, G.C.MULT}
     elseif suit == "Club" then
-        return {"Diamond", 2}, {"earn", "$", " "}, {G.C.SUITS.Diamonds, G.C.MONEY}
+        return {"Diamond", 2}, {localize('k_aij_overdesigned_earn_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_dollars_text', 'extra_joker_dictionary'), " "}, {G.C.SUITS.Diamonds, G.C.MONEY}
     elseif suit == "Diamond" then
-        return {"Spade", 100}, {"give", "+", " Chips "}, {G.C.SUITS.Spades, G.C.CHIPS}
+        return {"Spade", 100}, {localize('k_aij_overdesigned_give_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_plus_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_chip_text', 'extra_joker_dictionary').." "}, {G.C.SUITS.Spades, G.C.CHIPS}
     elseif suit == "Spade" then
-        return {"Heart", 1.5}, {"give", "X", " Mult "}, {G.C.SUITS.Hearts, G.C.WHITE, G.C.MULT}
+        return {"Heart", 1.5}, {localize('k_aij_overdesigned_give_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_xmult_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_mult_text', 'extra_joker_dictionary').." "}, {G.C.SUITS.Hearts, G.C.WHITE, G.C.MULT}
     end
 end
 local overdesigned_joker = {
@@ -18,9 +18,9 @@ local overdesigned_joker = {
       suit = "Heart",
       amount = 1.5,
       extra = {
-          prefix = "give",
-          symbol = "X",
-          suffix = " Mult ",
+          prefix = nil,
+          symbol = nil,
+          suffix = nil,
           colours = {
               suit = G.C.SUITS.Hearts,
               amount = G.C.WHITE,
@@ -41,6 +41,11 @@ local overdesigned_joker = {
         local suits = {'overdesigned_spade', 'overdesigned_heart', 'overdesigned_club', 'overdesigned_diamond'}
         for _, key in ipairs(suits) do
           info_queue[#info_queue+1] = {set = 'Other', key = key}
+        end
+        if not card.ability.extra.prefix then
+            card.ability.extra.prefix = localize('k_aij_overdesigned_give_prefix', 'extra_joker_dictionary')
+            card.ability.extra.symbol = localize('k_aij_youve_got_mail_xmult_prefix', 'extra_joker_dictionary')
+            card.ability.extra.suffix = localize('k_aij_youve_got_mail_mult_text', 'extra_joker_dictionary').." "
         end
         return {
             vars = {

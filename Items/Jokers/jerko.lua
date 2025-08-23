@@ -24,10 +24,10 @@ local jerko = {
             r_retriggers[#r_retriggers + 1] = string.format("%d", i)
         end
         local text = {
-            [1] = "+",
-            [2] = " Mult",
-            [3] = "Retrigger ",
-            [4] = " times",
+            [1] = localize('k_aij_youve_got_mail_plus_prefix', 'extra_joker_dictionary'),
+            [2] = localize('k_aij_youve_got_mail_mult_text', 'extra_joker_dictionary'),
+            [3] = localize('k_aij_jerko_retrigger', 'extra_joker_dictionary').." ",
+            [4] = " "..localize('k_aij_jerko_times', 'extra_joker_dictionary'),
         }
         return {main_start =
         {{n = G.UIT.R, config = {align = "cm"}, nodes = {

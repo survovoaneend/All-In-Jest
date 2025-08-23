@@ -18,9 +18,9 @@ local doodle = {
     loc_vars = function(self, info_queue, card)
         local active_text = ""
         if not (G.GAME.round % 2) == 0 then 
-            active_text = "(Inactive)"
+            active_text = localize('k_inactive')
         else
-            active_text = "(Active!)"
+            active_text = localize('k_active')
         end
         return {
             vars = {

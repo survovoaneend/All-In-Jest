@@ -16,11 +16,11 @@ local void = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-        local active_text = "(Active!)"
+        local active_text = localize('k_active')
         if G.GAME.jest_void_planet_ante then 
-            active_text = "(Inactive)"
+            active_text = localize('k_inactive')
         else
-            active_text = "(Active!)"
+            active_text = localize('k_active')
         end
         return { vars = {card.ability.extra.xmult, active_text}}
     end,
