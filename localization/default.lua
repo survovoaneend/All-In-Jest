@@ -49,6 +49,7 @@ return {
             aij_glimmer = "Glimmer",
             aij_silver = "Silver",
             aij_stellar = "Stellar",
+            aij_aureate = "Aureate",
             aij_torn = "Torn",
             -- Stickers
             aij_marked = "Marked",
@@ -813,18 +814,19 @@ return {
                     "{C:attention}X#1#{} effects",
                 }
             },
-            e_aij_silver = {
-                name = "Silver",
-                text = {
-                    "{C:attention}X#1#{} effects",
-                }
-            },
             e_aij_stellar = {
                 name = "Stellar",
                 text = {
                     "{C:chips}+#1#{} Chips and",
                     "{C:mult}+#2#{} Mult per {C:attention}level{}",
                     "of played hand"
+                }
+            },
+            e_aij_aureate = {
+                name = "Aureate",
+                text = {
+                    "{C:money}X$#1#",
+                    "{C:inactive}(Max of {C:money}$#2#{}{C:inactive})"
                 }
             },
             e_aij_torn = {
@@ -1654,15 +1656,18 @@ return {
             j_aij_rising_sun = { 
                 name = "Rising Sun", 
                 text = { 
-                    "Retrigger {C:attention}first{} and {C:attention}last{} scored cards",
-                    "on {C:attention}first{} and {C:attention}last hand{} of round",
+                    "Retrigger {C:attention}first{} and {C:attention}last{}",
+                    "scored cards on {C:attention}first{} and",
+                    "{C:attention}last hand{} of round",
                 }
              },
             j_aij_red_sky = {
                 name = "Red Sky",
                 text = {
-                    "Scored cards in {C:attention}first{} and {C:attention}last hand{}",
-                    "of round give their {C:chips}+Chips{} as {C:mult}+Mult{} instead"
+                    "Scored cards in {C:attention}first{} and",
+                    "{C:attention}last hand{} of round give",
+                    "their {C:chips}+Chips{} as {C:mult}+Mult{}",
+                    "instead"
                 }
             },
             j_aij_blind_drawn = {
@@ -2321,7 +2326,8 @@ return {
             j_aij_stained_glass_joker = {
                 name = "Stained Glass Joker",
                 text = {
-                    "{C:attention}Glass Cards{} count as any {C:attention}suit{}",
+                    "{C:attention}Glass Cards{} count as any",
+                    "{C:attention}suit{}",
                 },
             },
             j_aij_mushroom_cloud = { name = "Mushroom Cloud", text = { "" } },
@@ -2338,8 +2344,9 @@ return {
             j_aij_morio = {
                 name = "Morio",
                 text = {
-                    "When {C:attention}Boss Blind{} is defeated,",
-                    "choose {C:attention}any{} {C:tarot}Tarot{} card to create",
+                    "When {C:attention}Boss Blind{} is",
+                    "defeated, choose {C:attention}any{}",
+                    "{C:tarot}Tarot{} card to create",
                     "{C:inactive}(Must have room)"
                 }
             },
@@ -2391,7 +2398,8 @@ return {
             j_aij_mistake = {
                 name = "Mistake",
                 text = {
-                    "{C:attention}Eternal{} Jokers can be {C:attention}sold",
+                    "{C:attention}Eternal{} Jokers can be",
+                    "{C:attention}sold",
                 }
             },
             j_aij_depth_of_delusion = { name = "Depth of Delusion", text = { "" } },
@@ -2724,8 +2732,8 @@ return {
             j_aij_stargazy_pie = { 
                 name = "Stargazy Pie", 
                 text = { 
-                    "Retrigger the next {C:attention}#1#{} {C:planet}Planet",
-                    "cards used" 
+                    "Retrigger the next {C:attention}#1#{}",
+                    "{C:planet}Planet{} cards used" 
                 } 
             },
             j_aij_electric_snow = { 
@@ -3065,8 +3073,9 @@ return {
             j_aij_cut_here = { 
                 name = "Cut Here", 
                 text = {
-                    "When this Joker is {C:red}Destroyed",
-                    "create a {C:attention}random{} Rare Joker"
+                    "When this Joker is",
+                    "{C:red}Destroyed{} create a",
+                    "{C:attention}random{} Rare Joker"
                 } 
             },
             j_aij_a_young_hamlet = { 
@@ -3257,8 +3266,9 @@ return {
             j_aij_pellesini = { 
                 name = "Pellesini", 
                 text = { 
-                    "When a Joker is {C:red}destroyed,",
-                    "create an {C:attention}exact{} copy" 
+                    "When this Joker is",
+                    "{C:red}Destroyed{} create an",
+                    "{C:attention}exact{} copy" 
                 },
                 unlock = { 
                     "?????" 
@@ -3302,8 +3312,8 @@ return {
                 name = "Eulenspiegel", 
                 text = { 
                     "When {C:attention}Boss Blind{} is defeated,",
-                    "{C:attention}-#1#{} Ante and",
-                    "this Joker loses {X:mult,C:white}X#2#{} Mult",
+                    "{C:attention}-#1#{} Ante and this Joker",
+                    "loses {X:mult,C:white}X#2#{} Mult",
                     "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
                 }, 
                 unlock = { 
@@ -3525,7 +3535,8 @@ return {
             j_aij_dongtong = {
                 name = "Dongtong",
                 text = {
-                    "{C:green}Doubles{} most {C:attention}Joker{} values",
+                    "{C:green}Doubles{} most {C:attention}Joker{}",
+                    "values",
                 },
                 unlock = { "?????" }
             },
