@@ -33,9 +33,11 @@ local aureate = {
 		if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
             local money = ((card.edition or {}).money or self.config.money) + 1
             local max = (card.edition or {}).max or self.config.max
-			return {
-                dollars = math.floor(math.min((G.GAME.dollars*money)-G.GAME.dollars, max)),
-            }
+            if (G.GAME.dollars*money)-G.GAME.dollars > 0 then
+			    return {
+                    dollars = math.floor(math.min((G.GAME.dollars*money)-G.GAME.dollars, max)),
+                }
+            end
 		end
 	end,
     in_shop = true,
