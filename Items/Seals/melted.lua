@@ -8,6 +8,7 @@ local melted = {
     pos = { x = 8, y = 2 },
     badge_colour = HEX("a28b8b"),
     order = 1,
+    discovered = true,
     loc_vars = function(self, info_queue, card)
         return { 
             vars = { 
@@ -25,6 +26,9 @@ local melted = {
                 index = index + 1
                 if context.scoring_hand[index] and context.scoring_hand[index].seal then
                     temp_card = context.scoring_hand[index]
+                    break
+                end
+                if index > #context.scoring_hand then
                     break
                 end
             end
