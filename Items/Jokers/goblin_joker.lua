@@ -6,7 +6,6 @@ local goblin_joker = {
     config = {
       extra = {
           draw_extra = 2,
-          trigger = false
       }
     },
     rarity = 3,
@@ -27,21 +26,16 @@ local goblin_joker = {
     end,
   
     calculate = function(self, card, context)
-      if context.pre_discard and context.cardarea ~= G.play then
-        card.ability.extra.trigger = true
-      end
-      if (context.hand_drawn or G.hand.config.card_limit < G.hand.config.card_count) and card.ability.extra.trigger then
-        for i = 1, card.ability.extra.draw_extra do
-            if #G.deck.cards > 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                    draw_card(G.deck,G.hand, 90,'up', nil)
+      if context.pre_discard then
+        G.E_MANAGER:add_event(Event({
+            blocking = false,
+            func = function()
+                if G.STATE == G.STATES.SELECTING_HAND then
+                    SMODS.draw_cards(card.ability.extra.draw_extra)
                     return true
-                    end
-                }))
+                end
             end
-        end
-        card.ability.extra.trigger = false
+        }))
       end
     end
   
