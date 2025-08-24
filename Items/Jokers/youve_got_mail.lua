@@ -7,7 +7,7 @@ local youve_got_mail = {
             mult = 4,
             chips = 20,
             dollars = 1,
-            xmult = 1.25,
+            xmult = 0.25,
             effect = "none",
             prefix = "",
             text = localize('k_aij_youve_got_mail_none', 'extra_joker_dictionary'),
@@ -52,6 +52,7 @@ local youve_got_mail = {
         elseif card.ability.extra.effect == "xmult" then
             card.ability.extra.prefix = localize('k_aij_youve_got_mail_xmult_prefix', 'extra_joker_dictionary')
             card.ability.extra.text = localize('k_aij_youve_got_mail_mult_text', 'extra_joker_dictionary')
+            num = num + 1
             card.ability.extra.colours.other = G.C.WHITE
             card.ability.extra.colours.background = G.C.MULT
         end
