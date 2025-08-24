@@ -18,6 +18,7 @@ SMODS.DrawStep {
     key = 'temp_patches',
     order = 21,
     func = function(self, layer)
+		--Patches
         if self.ability.patches then
             for k, v in pairs(self.ability.patches) do
                 if G.GAME.all_in_jest.patches_sprites[k] then
@@ -29,6 +30,13 @@ SMODS.DrawStep {
                 end
             end
         end
+		--Mark of the Spear
+		if self.ability and self.ability.all_in_jest and self.ability.all_in_jest.perma_debuff then
+			if G.GAME.all_in_jest.extra_card_sprites['Mark_of_the_Spear'].role then
+				G.GAME.all_in_jest.extra_card_sprites['Mark_of_the_Spear'].role.draw_major = self
+				G.GAME.all_in_jest.extra_card_sprites['Mark_of_the_Spear']:draw_shader('dissolve', nil, nil, nil, self.children.center)
+			end
+		end
     end,
     conditions = { vortex = false, facing = 'front' },
 } 

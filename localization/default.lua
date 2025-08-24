@@ -4323,6 +4323,14 @@ return {
         },
         Other = {
             -- Other
+            aij_jest_mark_of_the_spear = {
+                name = "Mark of the Spear",
+                text = {
+                    'This {C:attention}card{} has been',
+                    'permanently {C:red}debuffed',
+                    'by {C:attention}The Spear'
+                }
+            },
             card_extra_retriggers = {
                 text={
                     "Retrigger this card {C:attention}#1#{} additional times",
