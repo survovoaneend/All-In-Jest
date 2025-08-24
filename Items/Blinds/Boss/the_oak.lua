@@ -45,6 +45,7 @@ local the_oak = {
     end,
 
     defeat = function(self)
+        G.GAME.blind.disabled = true
         for k, v in pairs(G.jokers.cards) do
             SMODS.debuff_card(v, false, 'the_oak')
         end
