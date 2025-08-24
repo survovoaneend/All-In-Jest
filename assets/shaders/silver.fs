@@ -14,9 +14,62 @@ extern bool shadow;
 extern MY_HIGHP_OR_MEDIUMP vec4 burn_colour_1;
 extern MY_HIGHP_OR_MEDIUMP vec4 burn_colour_2;
 
-float grain_amount = 0.9;
+float grain_amount = 0.1;
 float flicker_strength = 0.2;
-float weave_amount = 0.75;
+float weave_amount = 0.35;
+
+float NoiseValue = 0.3;
+float BrightnessNoiseScale = 0.06;
+float ScratchValue = 0.8;
+float InnerVignetting = 0.2;
+float OuterVignetting = 2.0;
+float RandomValue = 100.0;
+
+vec3 Overlay (vec3 src, vec3 dst)
+{
+	return vec3((dst.x <= 0.5) ? (2.0 * src.x * dst.x) : (1.0 - 2.0 * (1.0 - dst.x) * (1.0 - src.x)),
+			(dst.y <= 0.5) ? (2.0 * src.y * dst.y) : (1.0 - 2.0 * (1.0 - dst.y) * (1.0 - src.y)),
+			(dst.z <= 0.5) ? (2.0 * src.z * dst.z) : (1.0 - 2.0 * (1.0 - dst.z) * (1.0 - src.z)));
+}
+
+vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
+float snoise (vec2 v)
+{
+	const vec4 C = vec4(0.211324865405187,
+				0.366025403784439,	
+				-0.577350269189626,
+				0.024390243902439);	
+
+	vec2 i  = floor(v + dot(v, C.yy) );
+	vec2 x0 = v -   i + dot(i, C.xx);
+
+	vec2 i1;
+	i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+	vec4 x12 = x0.xyxy + C.xxzz;
+	x12.xy -= i1;
+
+	i = mod289(i); 
+	vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+		+ i.x + vec3(0.0, i1.x, 1.0 ));
+
+	vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+	m = m*m ;
+	m = m*m ;
+
+	vec3 x = 2.0 * fract(p * C.www) - 1.0;
+	vec3 h = abs(x) - 0.5;
+	vec3 ox = floor(x + 0.5);
+	vec3 a0 = x - ox;
+
+	m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+
+	vec3 g;
+	g.x  = a0.x  * x0.x  + h.x  * x0.y;
+	g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+	return 130.0 * dot(m, g);
+}
 
 vec4 RGB(vec4 c);
 
@@ -92,11 +145,14 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     vec2 adjusted_uv = uv - vec2(0.5, 0.5);
     adjusted_uv.x = adjusted_uv.x*texture_details.b/texture_details.a;
 
-    //vec2 dir = normalize(vec2(1.0, 0.3));
-    //float wave = sin(dot(adjusted_uv, dir) * 90.0 + silver.r * 5.0); 
-    //float fac = max(wave, 0.0);
-    //
-    //tex.rgb *= 1.0 + fac * 0.3;
+    vec2 dir = normalize(vec2(1.0, 0.0));
+    float thickness = 80.0;  
+	float spacing = 30.0;   
+
+	float wave = sin(dot(adjusted_uv, dir) * (spacing) + silver.r * (time/15));
+	float fac  = pow(max(wave, 0.0), thickness);
+    
+    tex.rgb *= 1.0 + fac * 0.5;
 
     float avg = (pixel.r + pixel.g + pixel.b) / 3.;
     pixel = vec4(silver_color.rgb * avg + tex.rgb * tex.a, pixel.a);
@@ -108,13 +164,46 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
         return vec4(0.0);
     }
 
-    float flicker = 1.0 + (rand(vec2(floor(time*12.0), 0.0)) - 0.5) * (0.35 * flicker_strength);
-    pixel.rgb = pixel.rgb * flicker;
-
+    //float flicker = 1.0 + (rand(vec2(floor(time*12.0), 0.0)) - 0.5) * (0.35 * flicker_strength);
+    //pixel.rgb = pixel.rgb * flicker;
+	
     float g = noise(uv * vec2(640.0, 360.0) + time * 60.0);
     float luma = dot(pixel.rgb, vec3(0.299, 0.587, 0.114));
     float grain_power = mix(0.6, 1.2, 1.0 - luma); 
     pixel.rgb += (g - 0.5) * (0.15 * grain_power * grain_amount);
+
+    float brightness = dot(pixel.rgb, vec3(0.299, 0.587, 0.114)); 
+
+	float noise = snoise(uv * vec2(1024.0 + RandomValue * 512.0, 1024.0 + RandomValue * 512.0)) * 0.5;
+
+	float scaledNoise = noise * BrightnessNoiseScale * min(brightness+0.7,1.0);
+
+	pixel.rgb += scaledNoise;
+
+	vec3 noiseOverlay = Overlay(pixel.rgb, vec3(noise));
+	pixel.rgb = mix(pixel.rgb, noiseOverlay, BrightnessNoiseScale * min(brightness+0.7,1.0));
+	
+	if ( RandomValue < ScratchValue )
+	{
+		float dist = 1.0 / ScratchValue;
+		float d = distance(uv, vec2(RandomValue * dist, RandomValue * dist));
+		if ( d < 0.4 )
+		{
+			float xPeriod = 8.0;
+			float yPeriod = 1.0;
+			float pi = 3.141592;
+			float phase = silver.r;
+			float turbulence = snoise(uv * 2.5);
+			float vScratch = 0.5 + (sin(((uv.x * xPeriod + uv.y * yPeriod + turbulence)) * pi + phase) * 0.5);
+			vScratch = clamp((vScratch * 10000.0) + 0.35, 0.0, 1.0);
+
+			pixel.rgb *= vScratch;
+		}
+	}
+	
+	float d = distance(vec2(0.5, 0.5), uv) * 1.414213;
+	float vignetting = clamp((OuterVignetting - d) / (OuterVignetting - InnerVignetting), 0.0, 1.0);
+	pixel.rgb *= vignetting;
 
     return dissolve_mask(pixel, texture_coords, uv);
 }
