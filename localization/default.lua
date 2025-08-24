@@ -54,6 +54,7 @@ return {
             aij_marked = "Marked",
             -- Seals
             aij_smiley_seal = "Smiley Seal",
+            aij_melted_seal = "Melted Seal",
             -- Other
             k_aij_jest_chaotic_card = "Chaotic",
         },
@@ -3888,6 +3889,14 @@ return {
                     'been {C:attention}played'
                 }
             },
+            c_aij_mirth = {
+                name = 'Mirth',
+                text = {
+                    'Add a {V:1}#2#',
+                    'to {C:attention}#1#{} selected',
+                    'card in your hand'
+                }
+            },
         },
         Tag = {
             tag_aij_glimmer = {
@@ -4389,6 +4398,15 @@ return {
                     '{C:red}destroyed{} apply an',
                     'edition to {C:attention}#1#{} random',
                     '{C:attention}Joker'
+		        }
+            },
+            aij_melted_seal = {
+                name = "Melted Seal",
+		        text = {
+                    'When held in {C:attention}hand{},',
+                    'will {C:attention}transform{} itself',
+                    'into the first non',
+                    '{V:1}melted{} seal {C:attention}scored'
 		        }
             },
         }
