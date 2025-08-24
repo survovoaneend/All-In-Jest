@@ -4419,7 +4419,7 @@ return {
                 name = "Smiley Seal",
 		        text = {
                     'When this {C:attention}card{} is',
-                    '{C:red}destroyed{} apply an',
+                    '{C:red}destroyed{} apply a',
                     'edition to {C:attention}#1#{} random',
                     '{C:attention}Joker'
 		        }
