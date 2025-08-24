@@ -46,6 +46,9 @@ local handsome_joker = {
                 end
             end
         end
+        if card_text == 'card' then
+            mult = 1
+        end
         return {
             vars = {
                 card.ability.extra.xmult_mod,
