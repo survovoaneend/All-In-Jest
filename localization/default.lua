@@ -2781,7 +2781,20 @@ return {
             } 
             },
             j_aij_jack_o_lantern = { name = "Jack o' Lantern", text = { "" } },
-            j_aij_astrologer = { name = "Astrologer", text = { "" } },
+            j_aij_astrologer = { 
+                name = "Astrologer", 
+                text = { 
+                    {
+                        "{C:attention}+#1#{} pick in {C:planet}Celestial Packs" 
+                    },
+                    {
+                        "{C:planet}Planet{} cards are replaced",
+                        "by their {C:mult}Mult{} variant in {C:attention}odd",
+                        "antes and their {C:chips}Chips",
+                        "variant in {C:attention}even{} antes"
+                    },
+                } 
+            },
             j_aij_planetarium = { 
                 name = "Planetarium", 
                 text = { 
