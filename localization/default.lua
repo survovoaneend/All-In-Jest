@@ -2326,8 +2326,8 @@ return {
             j_aij_stained_glass_joker = {
                 name = "Stained Glass Joker",
                 text = {
-                    "{C:attention}Glass Cards{} count as any",
-                    "{C:attention}suit{}",
+                    "{C:attention}Glass Cards{} count",
+                    "as any {C:attention}suit{}",
                 },
             },
             j_aij_mushroom_cloud = { name = "Mushroom Cloud", text = { "" } },
