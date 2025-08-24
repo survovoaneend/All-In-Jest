@@ -84,8 +84,6 @@ all_in_jest = {
 		m_aij_simulated = {frames_per_row = 'atlas_size', extra_yrows = 1, frames = 10, start_frame = 0, fps = 10,},
 		j_aij_chromatist = { frames_per_row = 'atlas_size', extra_yrows = 15, frames = 25, start_frame = 8, fps = 10, },
 	},
-	patches_sprites = {},
-	extra_card_sprites = {},
 	reset_score = {chips = false, mult = false, chip_total = false, blind_total = false},
 	secret_hands = {},
 	gold_tag_rate = 1,

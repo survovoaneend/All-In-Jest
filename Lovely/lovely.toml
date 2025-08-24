@@ -2716,7 +2716,8 @@ if _type == 'Planet' then
         ['c_bunc_haumea'] = true, ['c_bunc_sedna'] = true, ['c_bunc_makemake'] = true,
         ['c_aij_bunc_weywot'] = true, ['c_aij_bunc_namaka'] = true, ['c_aij_bunc_ilmare'] = true,
         ['c_aij_bunc_salacia'] = true, ['c_aij_bunc_ixion'] = true, ['c_aij_bunc_hiiaka'] = true,
-        ['c_aij_bunc_varda'] = true, ['c_aij_bunc_mk2'] = true,
+        ['c_aij_bunc_varda'] = true, ['c_aij_bunc_mk2'] = true, ['c_aij_dark_star'] = true, 
+        ['c_aij_sol'] = true, ['c_aij_rogue'] = true,
                
     }
     local weighted_pool = {}
@@ -2804,6 +2805,16 @@ position = "before"
 match_indent = true
 payload = '''
 self.all_in_jest = self.all_in_jest or {}
+self.all_in_jest.patches_sprites = {}
+self.all_in_jest.extra_card_sprites = {}
+G.all_in_jest.extra_card_sprites['Mark_of_the_Spear'] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=9,y=2})
+G.all_in_jest.patches_sprites["Other"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=0,y=2})
+G.all_in_jest.patches_sprites["Hearts"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=2,y=2})
+G.all_in_jest.patches_sprites["Clubs"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=1,y=2})
+G.all_in_jest.patches_sprites["Diamonds"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=3,y=2})
+G.all_in_jest.patches_sprites["Spades"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=4,y=2})
+G.all_in_jest.patches_sprites["paperback_Stars"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=5,y=2})
+G.all_in_jest.patches_sprites["paperback_Crowns"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=6,y=2})
 self.all_in_jest.czar = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
