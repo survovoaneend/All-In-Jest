@@ -43,6 +43,7 @@ local stage_production = {
     },
   
     loc_vars = function(self, info_queue, card) 
+        info_queue[#info_queue + 1] = { set = 'Other', key = 'reroll_joker' }
         local active_text = ""
         if not card.ability.extra.trigger then 
             active_text = localize('k_inactive')
