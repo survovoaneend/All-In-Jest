@@ -150,10 +150,6 @@ if jest_to_hand ~= {} then
     end
     if trigger then
         draw_card(G.play,G.hand, it*100/play_count,'up', true, v)
-        if v.ability.extra.all_in_jest.to_hand.cards == true then
-            v.ability.extra.all_in_jest.to_hand.cards = false
-            
-        end
     else
         draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
     end
