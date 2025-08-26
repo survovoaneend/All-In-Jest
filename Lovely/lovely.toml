@@ -1578,6 +1578,17 @@ position = "before"
 match_indent = true
 payload = '''
 if (card and card.ability and card.ability.all_in_jest and card.ability.all_in_jest.perma_debuff) then info_queue[#info_queue+1] = {key = 'aij_jest_mark_of_the_spear', set = 'Other'} end
+if card and card.ability and card.ability.patches then
+    for k, v in pairs(card.ability.patches) do
+        if G.C.SUITS[k] then
+            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {SMODS.Suits[k].original_key, colours = {G.C.SUITS[k]}}}
+        elseif G.SETTINGS.colour_palettes[k] == 'hc' then
+            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {SMODS.Suits[k].original_key, colours = {SMODS.Suits[k].hc_colour}}}
+        else
+            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {SMODS.Suits[k].original_key, colours = {SMODS.Suits[k].lc_colour}}}
+        end
+    end
+end
 '''
 
 [[patches]]

@@ -2247,8 +2247,8 @@ return {
             j_aij_the_artist = { 
                 name = "The Artist", 
                 text = { 
-                    "{C:attention}+#1#{} Selection limit for {C:tarot}Tarot",
-                    "Cards" 
+                    "{C:attention}+#1#{} Selection limit for",
+                    "{C:tarot}Tarot{} Cards" 
                 } 
             },
             j_aij_toynbee_joker = { name = "Toynbee Joker", text = { "" } },
@@ -2398,8 +2398,8 @@ return {
             j_aij_mistake = {
                 name = "Mistake",
                 text = {
-                    "{C:attention}Eternal{} Jokers can be",
-                    "{C:attention}sold",
+                    "{C:attention}Eternal{} Jokers can",
+                    "be {C:attention}sold",
                 }
             },
             j_aij_depth_of_delusion = { name = "Depth of Delusion", text = { "" } },
@@ -4323,6 +4323,12 @@ return {
         },
         Other = {
             -- Other
+            aij_patches_suit = {
+                name = "Patches",
+                text = {
+                    "{C:attention}Patched{} with {V:1}#1#"
+                }
+            },
             aij_jest_mark_of_the_spear = {
                 name = "Mark of the Spear",
                 text = {

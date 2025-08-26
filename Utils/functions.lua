@@ -1099,6 +1099,7 @@ function All_in_Jest.has_patches(card, suit)
   if card.ability.patches and card.ability.patches[suit] then
     return true
   end
+  return false
 end
 
 function All_in_Jest.add_patch(card, suit, instant)
