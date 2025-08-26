@@ -730,6 +730,49 @@ AllInJest.deck_skins = {
 
 }
 
+--Taken from paperback
+function jest_get_unique_suits(scoring_hand, bypass_debuff, flush_calc)
+  -- Set each suit's count to 0
+  local suits = {}
+
+  for k, _ in pairs(SMODS.Suits) do
+    suits[k] = 0
+  end
+
+  -- First we cover all the non Wild Cards in the hand
+  for _, card in ipairs(scoring_hand) do
+    if not SMODS.has_any_suit(card) then
+      for suit, count in pairs(suits) do
+        if card:is_suit(suit, bypass_debuff, flush_calc) and count == 0 then
+          suits[suit] = count + 1
+          break
+        end
+      end
+    end
+  end
+
+  -- Then we cover Wild Cards, filling the missing suits
+  for _, card in ipairs(scoring_hand) do
+    if SMODS.has_any_suit(card) then
+      for suit, count in pairs(suits) do
+        if card:is_suit(suit, bypass_debuff, flush_calc) and count == 0 then
+          suits[suit] = count + 1
+          break
+        end
+      end
+    end
+  end
+
+  -- Count the amount of suits that were found
+  local num_suits = 0
+
+  for _, v in pairs(suits) do
+    if v > 0 then num_suits = num_suits + 1 end
+  end
+
+  return num_suits
+end
+
 function reset_jest_magick_joker_card()
     G.GAME.current_round.jest_magick_joker_card.suit = 'Spades'
     local valid_jest_magick_joker_cards = {}

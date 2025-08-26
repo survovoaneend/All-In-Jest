@@ -1115,7 +1115,16 @@ return {
                     "{C:attention}held{} hand into a glass card" 
                 } 
             },
-            j_aij_pell_mel = { name = "Pell mel", text = { "" } },
+            j_aij_pell_mel = { 
+                name = "Pell Mel", 
+                text = { 
+                    "{X:mult,C:white}X1{} Mult, gains {X:mult,C:white}X#1#{} Mult",
+                    "per {C:attention}unique{} suit in",
+                    "{C:attention}played hand",
+                    "{C:inactive,s:0.8}(Resets after hand scored)"
+
+                } 
+            },
             j_aij_pput_together = { name = "Put Together", text = { "" } },
             j_aij_krampus = {
                 name = "Krampus",
