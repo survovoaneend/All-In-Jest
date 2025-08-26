@@ -14,7 +14,7 @@ local the_hoard = {
     set_blind = function(self)
         local cur_blind_amt = get_blind_amount(G.GAME.round_resets.ante) * G.GAME.blind.mult
         local blinds = {}
-        for k, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_ante) do
+        for k, v in pairs(G.all_in_jest.advanced_hand_usage_ante) do
             if v.blind ~= G.GAME.blind then
                 local name = v.blind.name
                 blinds[name] = blinds[name] or {}
@@ -36,7 +36,7 @@ local the_hoard = {
 
     disable = function(self)
         local blinds = {}
-        for k, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_ante) do
+        for k, v in pairs(G.all_in_jest.advanced_hand_usage_ante) do
             if v.blind ~= G.GAME.blind then
                 local name = v.blind.name
                 blinds[name] = blinds[name] or {}
@@ -63,7 +63,7 @@ local the_hoard = {
         end
         if not temp then
             local blinds = {}
-            for k, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_ante) do
+            for k, v in pairs(G.all_in_jest.advanced_hand_usage_ante) do
                 if v.blind ~= G.GAME.blind then
                     local name = v.blind.name
                     blinds[name] = blinds[name] or {}
