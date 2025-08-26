@@ -22,10 +22,12 @@ local saltimbanco = {
         if context.pseudorandom_result and G.play ~= nil and G.play.cards ~= nil then
             if context.numerator > 0 and context.denominator > 0 and #G.play.cards > 0 then
                 local xmlt = 1 + (1 - (context.numerator/context.denominator))
-                return {
-                    message = localize{type='variable',key='a_xmult',vars={xmlt}},
-                    Xmult_mod = xmlt,
-                }
+                if context.trigger_obj and (context.trigger_obj.config and context.trigger_obj.config.center and (context.trigger_obj.config.center.set == 'Joker' or context.trigger_obj.config.center.set == 'Default' or context.trigger_obj.config.center.set == 'Enhanced' or context.trigger_obj.config.center.consumeable)) then
+                    return {
+                        message = localize{type='variable',key='a_xmult',vars={xmlt}},
+                        Xmult_mod = xmlt,
+                    }
+                end
             end
         end
     end
