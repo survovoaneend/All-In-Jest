@@ -10,32 +10,38 @@ local the_field = {
     pos = { X = 0, y = 20 },
     order = 12,
     dollars = 5,
-    config = { extra = { cards = 0, triggered = false } },
-
-    recalc_debuff = function(self, card, from_blind)
-        if card.area ~= G.jokers then
-            return true
-        end
-    end,
+    config = { extra = { cards = 0 } },
 
     calculate = function(self, card, context)
-        if context.discard then
+        local temp = G.GAME.blind and G.GAME.blind.disabled
+        if temp then
+            return
+        end
+        if context.discard and not temp then
             self.config.extra.cards = self.config.extra.cards + 1    
-            if self.config.extra.cards >= 10 and not self.config.extra.triggered then
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'immediate',
-                    func = function()
-                        self.config.extra.triggered = true
-                        G.GAME.blind:disable()
-                        return true
-                    end
-                }))
+            if self.config.extra.cards >= 10 then
+                for k, v in pairs(G.playing_cards) do
+                    SMODS.debuff_card(v, false, 'the_field')
+                end
+            end
+        end
+        if self.config.extra.cards < 10 and not temp then
+            for k, v in pairs(G.playing_cards) do
+                SMODS.debuff_card(v, true, 'the_field')
             end
         end
     end,
+
+    disable = function(self)
+        for k, v in pairs(G.playing_cards) do
+            SMODS.debuff_card(v, false, 'the_field')
+        end
+    end,
+
     defeat = function(self)
-        self.config.extra.triggered = false
-        self.config.extra.cards = 0
+        for k, v in pairs(G.playing_cards) do
+            SMODS.debuff_card(v, false, 'the_field')
+        end
     end
 
 }
