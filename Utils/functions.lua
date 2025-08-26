@@ -96,12 +96,12 @@ function retrieve_joker_text(joker, descip, name)
         return text
     end
     local text = ""
-    if name and descip and G.localization.descriptions['Joker'][joker.key] then
-        local main = G.localization.descriptions['Joker'][joker.key].name
+    if name and descip and G.localization.descriptions['Joker'][joker.key or joker] then
+        local main = G.localization.descriptions['Joker'][joker.key or joker].name
         text = text .. get_text(main)
         if text and type(text) == 'string' then text = string.gsub(text, "{.-}", "") end
-    elseif descip and G.localization.descriptions['Joker'][joker.key] then
-        local main = G.localization.descriptions['Joker'][joker.key].text
+    elseif descip and G.localization.descriptions['Joker'][joker.key or joker] then
+        local main = G.localization.descriptions['Joker'][joker.key or joker].text
         text = text .. get_text(main)
         if text and type(text) == 'string' then text = string.gsub(text, "{.-}", "") end
     else

@@ -43,6 +43,10 @@ return {
             -- Jerko
             k_aij_jerko_retrigger = "Retrigger",
             k_aij_jerko_times = "times",
+            -- Blacklist
+            k_aij_blacklist_empty = 'None',
+            k_aij_blacklist_and = 'And',
+            k_aij_blacklist_more = 'more',
         },
         labels = {
             -- Editions
@@ -2117,6 +2121,7 @@ return {
             j_aij_jerko = { 
                 name = "Jerko", 
                 text = { 
+                    '{C:mult}+#1#{} Mult'
                 } 
             },
             j_aij_design_document = { 
@@ -2874,14 +2879,9 @@ return {
             j_aij_blacklist = { 
                 name = "Blacklist", 
                 text = { 
-                    {
-                        "{C:money}Sold{} jokers can no longer",
-                        "reappear",
-                    },
-                    {
-                        "Currently Blacklisted Jokers:",
-                        
-                    }
+                    "{C:money}Sold{} jokers can no longer",
+                    "reappear",
+                    "Currently Blacklisted Jokers:",
                 } 
             },
             j_aij_croupier = { 
