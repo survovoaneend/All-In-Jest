@@ -24,23 +24,20 @@ local jerko = {
             r_retriggers[#r_retriggers + 1] = string.format("%d", i)
         end
         local text = {
-            [1] = localize('k_aij_youve_got_mail_plus_prefix', 'extra_joker_dictionary'),
-            [2] = localize('k_aij_youve_got_mail_mult_text', 'extra_joker_dictionary'),
             [3] = localize('k_aij_jerko_retrigger', 'extra_joker_dictionary').." ",
             [4] = " "..localize('k_aij_jerko_times', 'extra_joker_dictionary'),
         }
-        return {main_start =
+        return {main_end =
         {{n = G.UIT.R, config = {align = "cm"}, nodes = {
-            {n = G.UIT.R, config = {align = "cm", padding = 0.02}, nodes = {
-                {n = G.UIT.T, config = {text = text[1]..card.ability.extra.mult, colour = G.C.MULT, scale = 0.32}},
-                {n = G.UIT.T, config = {text = text[2], colour = G.C.L_BLACK, scale = 0.32}},
-            }},
             {n = G.UIT.R, config = {align = "cm", padding = 0.02}, nodes = {
                 {n = G.UIT.T, config = {text = text[3], colour = G.C.L_BLACK, scale = 0.32}},
                 {n = G.UIT.O, config = {object = DynaText({string = r_retriggers, colours = {G.C.FILTER}, random_element = true, pop_in_rate = 9999999, silent = true, pop_delay = 0.2, scale = 0.32, min_cycle_time = 0})}},
                 {n = G.UIT.T, config = {text = text[4], colour = G.C.L_BLACK, scale = 0.32}}
             }}
-        }}}
+        }}}, 
+        vars = {
+            card.ability.extra.mult
+        }
         }
     end,
     calculate = function(self, card, context)

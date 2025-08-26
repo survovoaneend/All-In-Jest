@@ -40,9 +40,11 @@ local little_boy_blue = {
                 local joker_temp = G.P_CENTER_POOLS['Joker'][k]
                 local key = joker_temp.key
                 local text = retrieve_joker_text(joker_temp, true)
-                if (text:find('Mult') or text:find('mult')) or not (text:find('Chip') or text:find('chip')) then
-                    G.GAME.banned_keys[key] = true
-                    table.insert(card.ability.extra.banned_cards, key)
+                if text ~= "" then
+                    if (text:find('Mult') or text:find('mult')) or not (text:find('Chip') or text:find('chip')) then
+                        G.GAME.banned_keys[key] = true
+                        table.insert(card.ability.extra.banned_cards, key)
+                    end
                 end
             end
         end
