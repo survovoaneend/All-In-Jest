@@ -97,8 +97,13 @@ local trefle_spectral = {
                     for k, v in pairs(G.shared_stickers) do
                         if victim_joker.ability[k] then
                             new_joker.ability[k] = true
+                            -- ensure perish_tally is initialized correctly
+                            if k == "perishable" and new_joker.ability.perish_tally == nil then
+                                new_joker.ability.perish_tally = G.GAME.perishable_rounds or 5
+                            end
                         end
                     end
+                    
                     new_joker:start_materialize({ G.C.SPECTRAL, G.C.WHITE })
                     new_joker:set_edition(victim_joker.edition)
                 end
