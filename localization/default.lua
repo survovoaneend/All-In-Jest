@@ -1177,7 +1177,13 @@ return {
                     "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)" 
                 } 
             },
-            j_aij_fruity_joker = { name = "Fruity Joker", text = { "" } },
+            j_aij_fruity_joker = { 
+                name = "Fruity Joker", 
+                text = { 
+                    "{C:attention}Polychrome{} cards and",
+                    "Jokers give {C:mult}+#1#{} Mult",
+                } 
+            },
             j_aij_jokia = { name = "Jokia", text = { "" } },
             j_aij_the_mycologists = {
                 name = "The Mycologists",
