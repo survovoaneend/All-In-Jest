@@ -1469,7 +1469,14 @@ return {
                     '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive})'
                 },
             },
-            j_aij_zanni = { name = "Zanni", text = { "" } },
+            j_aij_zanni = { 
+                name = "Zanni", 
+                text = { 
+                    "{C:attention}Numbered{} cards have a {C:green}#1# in #2#{}",
+                    "chance to create a {C:tarot}Tarot{} card",
+                    "when {C:attention}scored"
+                } 
+            },
             j_aij_furbo_e_stupido = { 
                 name = "Furbo e Stupido", 
                 text = { 
