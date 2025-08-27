@@ -25,10 +25,10 @@ local branching = {
                 return true
             end
         end
-        return false
     end,
     apply = function(self, back)
         G.GAME.all_in_jest.blind_tags.has_multiple = true
+        G.GAME.all_in_jest.blind_tags.amt = G.GAME.all_in_jest.blind_tags.amt + 2
     end
 }
 return {name = {"Decks"}, items = {branching}}

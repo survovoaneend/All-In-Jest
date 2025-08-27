@@ -29,7 +29,6 @@ local patchwork = {
                 return true
             end
         end
-        return false
     end,
 }
 return {name = {"Decks"}, items = {patchwork}}
