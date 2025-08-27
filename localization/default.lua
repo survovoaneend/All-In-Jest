@@ -1417,7 +1417,16 @@ return {
                     "of this Joker by {C:money}$#1#{}"
                 },
             },
-            j_aij_bad_apple = { name = "Bad Apple", text = { "" } },
+            j_aij_bad_apple = { 
+                name = "Bad Apple", 
+                text = { 
+                    "This Joker gains {X:mult,C:white}X#2#{} Mult",
+                    "if {C:attention}scored hand{} contains ",
+                    "{C:attention}#4#{} {C:spades}Dark{} suits and {C:attention}#3#{} {C:hearts}Light{} suits",
+                    "{C:inactive,s:0.8}(Proportion changes at end of round)",
+                    "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
+                } 
+            },
             j_aij_dim_bulb = {
                 name = "Dim Bulb",
                 text = {
