@@ -1361,7 +1361,14 @@ return {
                     "{C:inactive}(Currently {C:mult}+#2# {C:inactive}Mult)",
                 } 
             },
-            j_aij_low_priest = { name = "Low Priest", text = { "" } },
+            j_aij_low_priest = { 
+                name = "Low Priest", 
+                text = { 
+                    "{C:mult}+#1#{} Mult,",
+                    "{C:mult}-#2#{} Mult per {C:attention}level{}",
+                    "of played hand"
+                } 
+            },
             j_aij_oil_and_water = { name = "Oil and Water", text = { "" } },
             j_aij_big_ears = { name = "Big-Ears", text = { "" } },
             j_aij_causal_absent_paranoia = { name = "Causal Absent Paranoia", text = { "" } },
