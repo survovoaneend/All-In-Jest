@@ -11,7 +11,7 @@ local cinema_tag = {
     },
 
     discovered = false,
-    order = 27,
+    order = 28,
     min_ante = 3,
 
     loc_vars = function(self, info_queue)

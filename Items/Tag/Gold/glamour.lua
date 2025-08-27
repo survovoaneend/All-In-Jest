@@ -11,7 +11,7 @@ local glamour_tag = {
     },
 
     discovered = false,
-    order = 28,
+    order = 27,
     min_ante = 3,
 
     loc_vars = function(self, info_queue)
