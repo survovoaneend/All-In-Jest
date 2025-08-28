@@ -711,6 +711,13 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'alan_wake',
+    name = 'Alan Wake',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
     id = 'we_happy_few',
     name = 'We Happy Few',
     suits = {
