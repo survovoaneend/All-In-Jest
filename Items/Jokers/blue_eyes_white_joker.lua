@@ -21,7 +21,7 @@ local blue_eyes_white_joker = {
     calculate = function(self, card, context)
         if context.after and context.full_hand and G.GAME.current_round.hands_left == 0 then
             if #context.full_hand == 1 then
-                context.full_hand[1].ability.perma_retriggers = context.full_hand[1].ability.perma_retriggers + card.ability.extra.retriggers
+                context.full_hand[1].ability.perma_repetitions = context.full_hand[1].ability.perma_repetitions + card.ability.extra.retriggers
                 return {
                     extra = {message = localize('k_upgrade_ex'), focus = context.full_hand[1], colour = G.C.FILTER},
                     colour = G.C.FILTER,
