@@ -46,11 +46,13 @@ local angel_number = {
                 denominator = context.denominator
             }
         end
-        if context.all_in_jest and context.all_in_jest.drew_cards then
-            return {
-                numerator = context.numerator - tonumber(card.ability.extra.sevens),
-                denominator = context.denominator
-            }
+        if context.all_in_jest and context.all_in_jest.drew_cards or context.end_of_round then
+            G.E_MANAGER:add_event(Event({
+                func = function() 
+				    card.ability.extra.sevens = "0"
+                    return true 
+                end 
+            }))
         end
     end
   
