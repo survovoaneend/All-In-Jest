@@ -23,6 +23,15 @@ return {
             k_aij_memory_card = "Memorized!",
             aij_plus_tag = "+1 Tag",
         },
+        challenge_names = {
+            c_aij_bananarama = "Bananarama",
+        },
+        v_text = {
+            -- Challenges
+            ch_c_aij_challenge_key = {
+                'challenge text'
+            },
+        },
         extra_joker_dictionary = {
             -- You've got Mail
             k_aij_youve_got_mail = "You've Got Mail!",
