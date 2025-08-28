@@ -6,7 +6,7 @@ local patchwork = {
     atlas = "sleeve_atlas",
     pos = { x = 3, y = 0 },
     unlocked = false,
-    unlock_condition = { deck = "b_aij_patchwork", stake = "stake_blue" },
+    unlock_condition = { deck = "b_aij_patchwork", stake = "stake_orange" },
     loc_vars = function(self)
         local key
         local vars = {}
