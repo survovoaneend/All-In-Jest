@@ -1114,7 +1114,7 @@ pattern = "for k, v in pairs(self.ANIMATIONS) do"
 position = "before"
 match_indent = true
 payload = '''
-if G.GAME.selected_back and G.GAME.selected_back.name == 'b_aij_patchwork' then
+if (G.GAME.selected_back and G.GAME.selected_back.name == 'b_aij_patchwork') or (G.GAME.selected_sleeve and G.GAME.selected_sleeve == 'sleeve_aij_patchwork') then
     if G then
         for k, v in pairs(G) do
             if G[k] and type(G[k]) == 'table' and G[k].cards then
@@ -1131,6 +1131,19 @@ if G.GAME.selected_back and G.GAME.selected_back.name == 'b_aij_patchwork' then
                             temp_index = temp_index + 1
                         end
 			            All_in_Jest.add_patch(cur_card, cur_suit, true);
+                        if (G.GAME.selected_back and G.GAME.selected_back.name == 'b_aij_patchwork') and (G.GAME.selected_sleeve and G.GAME.selected_sleeve == 'sleeve_aij_patchwork') then
+                            local keys = {}
+		                    for key, val in pairs(SMODS.Suits) do
+			                    keys[#keys+1] = key
+		                    end
+		                    local cur_suit = pseudorandom_element(keys, pseudoseed('patchwork'))
+                            local temp_index = 0
+                            while cur_suit == cur_card.base.suit or cur_card.ability.patches[cur_suit] do
+                                cur_suit = pseudorandom_element(keys, pseudoseed('patchwork_resample'..temp_index))
+                                temp_index = temp_index + 1
+                            end
+			                All_in_Jest.add_patch(cur_card, cur_suit, true);
+                        end
                     end
                 end
             end

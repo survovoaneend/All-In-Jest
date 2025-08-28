@@ -221,6 +221,37 @@ return {
                 },
             },
         },
+        Sleeve = {
+            sleeve_aij_fabled = {
+                name = "Fabled Sleeve",
+                text = {
+                    '{C:legendary,E:1}Legendary{} Jokers may',
+                    'appear in the {C:attention}Shop',
+                    '{C:attention}-1{} Joker Slot'
+                }
+            },
+            sleeve_aij_fabled_alt = {
+                name = "Fabled Sleeve",
+                text = {
+                    '{C:legendary,E:1}Legendary{} Jokers appear',
+                    'more {C:attention}frequently'
+                },
+            },
+            sleeve_aij_patchwork = {
+                name = "Patchwork Sleeve",
+                text = {
+                    'All playing cards {C:attention}appear',
+                    'with a {C:attention}random{} suit patch'
+                }
+            },
+            sleeve_aij_patchwork_alt = {
+                name = "Patchwork Sleeve",
+                text = {
+                    'All playing cards {C:attention}appear',
+                    'with {C:attention}2 random{} suit patches'
+                },
+            },
+        },
         Blind = {
             --Normal Blinds
             bl_aij_the_beith = {
@@ -3983,6 +4014,14 @@ return {
                     'Next base edition shop',
                     'Joker is free and',
                     'becomes {C:aij_stellar}Stellar'
+                }
+            },
+            tag_aij_aureate = {
+                name = 'Aureate Tag',
+                text = {
+                    'Next base edition shop',
+                    'Joker is free and',
+                    'becomes {C:money}Aureate'
                 }
             },
             tag_aij_soulbound = {
