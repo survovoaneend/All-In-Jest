@@ -47,7 +47,8 @@ local youve_got_mail = {
             card.ability.extra.colours.other = G.C.CHIPS
         elseif card.ability.extra.effect == "dollars" then
             card.ability.extra.prefix =  localize('k_aij_youve_got_mail_plus_prefix', 'extra_joker_dictionary')
-            card.ability.extra.text = localize('k_aij_youve_got_mail_dollar_prefix', 'extra_joker_dictionary')..localize('k_aij_youve_got_mail_dollars_text', 'extra_joker_dictionary')
+            card.ability.extra.text = localize('k_aij_youve_got_mail_dollars_text', 'extra_joker_dictionary')
+            num = num..localize('k_aij_youve_got_mail_dollar_prefix', 'extra_joker_dictionary')
             card.ability.extra.colours.other = G.C.MONEY
         elseif card.ability.extra.effect == "xmult" then
             card.ability.extra.prefix = localize('k_aij_youve_got_mail_xmult_prefix', 'extra_joker_dictionary')
@@ -103,7 +104,7 @@ local youve_got_mail = {
                 }
             elseif card.ability.extra.effect == "xmult" then
                 return {
-                    xmult = card.ability.extra[card.ability.extra.effect]
+                    xmult = card.ability.extra[card.ability.extra.effect] + 1
                 }
             end
 
