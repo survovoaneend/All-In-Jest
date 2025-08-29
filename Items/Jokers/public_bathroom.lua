@@ -42,12 +42,17 @@ local public_bathroom = {
             end
 
             if twos_in_flush > 0 then
-                local mult_to_add = card.ability.extra.mult_mod * twos_in_flush
-
-                card.ability.extra.mult = card.ability.extra.mult + mult_to_add
-
-                card_eval_status_text(card, 'extra', nil, nil, nil, {
-                    message = localize('k_upgrade_ex'),
+                SMODS.scale_card(card, {
+	                ref_table = card.ability.extra,
+                    ref_value = "mult",
+	                scalar_value = "mult_mod",
+                    operation = function(ref_table, ref_value, initial, change)
+	                    ref_table[ref_value] = initial + (change * twos_in_flush)
+                    end,
+                    scaling_message = {
+	                    message = localize('k_upgrade_ex'),
+	                    colour = G.C.FILTER
+                    }
                 })
                 return true 
             end

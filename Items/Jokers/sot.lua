@@ -18,7 +18,13 @@ local sot = {
     loc_vars = function(self, info_queue, card)
         card.ability.extra.curmult = 0
         for i = 1, #G.GAME.tags do
-            card.ability.extra.curmult = card.ability.extra.curmult + card.ability.extra.modmult
+            SMODS.scale_card(card, {
+	            ref_table = card.ability.extra,
+                ref_value = "curmult",
+	            scalar_value = "modmult",
+                operation = '+',
+                no_message = true,
+            })
         end
         return { vars = {card.ability.extra.modmult, card.ability.extra.curmult}}
     end,
@@ -27,7 +33,13 @@ local sot = {
       if context.joker_main then
         card.ability.extra.curmult = 0
         for i = 1, #G.GAME.tags do
-            card.ability.extra.curmult = card.ability.extra.curmult + card.ability.extra.modmult
+            SMODS.scale_card(card, {
+	            ref_table = card.ability.extra,
+                ref_value = "curmult",
+	            scalar_value = "modmult",
+                operation = '+',
+                no_message = true,
+            })
         end
         if card.ability.extra.curmult ~= 0 then
             return {

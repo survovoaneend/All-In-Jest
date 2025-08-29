@@ -33,11 +33,15 @@ local straight_to_hell = {
             if G.hand and G.hand.highlighted and #G.hand.highlighted > 0 then
                 local hand_info, disp_text ,poker_hands = G.FUNCS.get_poker_hand_info(G.hand.highlighted)
                 if next(poker_hands['Straight']) then
-                    card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_mod
-
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {
-                        message = 'X'..number_format(card.ability.extra.xmult).. ' Mult',
-                        colour = G.C.MULT
+                    SMODS.scale_card(card, {
+	                    ref_table = card.ability.extra,
+                        ref_value = "xmult",
+	                    scalar_value = "xmult_mod",
+                        operation = '+',
+                        scaling_message = {
+	                        message = 'X'..number_format(card.ability.extra.xmult).. ' Mult',
+                            colour = G.C.MULT
+                        }
                     })
 
                     return nil, true

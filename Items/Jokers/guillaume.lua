@@ -39,7 +39,7 @@ local guillaume = {
 	        scalar_value = "joker_slots_mod",
             operation = '+',
             scaling_message = {
-	            message = message='+'..card.ability.extra.joker_slots_mod..' Joker Slot', 
+	            message = '+'..card.ability.extra.joker_slots_mod..' Joker Slot', 
                 colour = G.C.FILTER
             }
         })

@@ -40,15 +40,9 @@ local void = {
                 G.GAME.jest_void_planet_ante = true
             end
         end
+        if context.ante_end then
+            G.GAME.jest_void_planet_ante = false
+        end
     end
 }
-local ease_anteref = ease_ante
-function ease_ante(mod)
-    if mod ~= 0 then
-        G.GAME.jest_void_planet_ante = false
-    end
-    
-    local ref = ease_anteref(mod)
-    return ref
-end
 return { name = {"Jokers"}, items = {void} }

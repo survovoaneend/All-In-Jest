@@ -32,7 +32,13 @@ local whiteface_grotesque = {
             if G.hand and #G.hand.cards > 0 then
                 for i = 1, #G.hand.cards do
                     if G.hand.cards[i]:is_face() then
-                        card.ability.extra.cur_chips = card.ability.extra.cur_chips + card.ability.extra.chip_mod
+                        SMODS.scale_card(card, {
+	                        ref_table = card.ability.extra,
+                            ref_value = "cur_chips",
+	                        scalar_value = "chip_mod",
+                            operation = '+',
+                            no_message = true,
+                        })
                     end
                 end
             end

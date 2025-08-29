@@ -37,7 +37,16 @@ local square_eyes = {
                     end
                 end
                 if fours_in_played_hand > 0 then
-                    local total_mult = fours_in_played_hand * card.ability.extra.mult_per_four
+                    local total_mult = 0
+                    SMODS.scale_card(card, {
+	                    ref_table = card.ability.extra,
+                        ref_value = "initial_mult",
+	                    scalar_value = "mult_mod",
+                        operation = function(ref_table, ref_value, initial, change)
+	                        total_mult = fours_in_played_hand * change
+                        end,
+                        no_message = true,
+                    })
                     return {
                         mult = total_mult
                     }

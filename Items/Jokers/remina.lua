@@ -33,14 +33,50 @@ local remina = {
                     local hand = G.consumeables.cards[i].config.center.config.hand_type or nil
                     if hand then
                         if G.consumeables.cards[i].config.center.config.mult then
-                            card.ability.extra.mult = card.ability.extra.mult + G.GAME.hands[hand].l_mult * 2
+                            SMODS.scale_card(card, {
+	                            ref_table = card.ability.extra,
+                                ref_value = "mult",
+                                scalar_table = G.GAME.hands[hand],
+	                            scalar_value = "l_mult",
+                                operation = '+',
+                                scaling_message = {
+	                               message = localize('k_upgrade_ex'), 
+                                   colour = G.C.FILTER
+                                },
+                            })
                         elseif G.consumeables.cards[i].config.center.config.chips then
-                            card.ability.extra.chips = card.ability.extra.chips + G.GAME.hands[hand].l_chips * 2
+                            SMODS.scale_card(card, {
+	                            ref_table = card.ability.extra,
+                                ref_value = "chips",
+                                scalar_table = G.GAME.hands[hand],
+	                            scalar_value = "l_chips",
+                                operation = '+',
+                                scaling_message = {
+	                               message = localize('k_upgrade_ex'), 
+                                   colour = G.C.FILTER
+                                },
+                            })
                         else
-                            card.ability.extra.mult = card.ability.extra.mult + G.GAME.hands[hand].l_mult
-                            card.ability.extra.chips = card.ability.extra.chips + G.GAME.hands[hand].l_chips
+                            SMODS.scale_card(card, {
+	                            ref_table = card.ability.extra,
+                                ref_value = "mult",
+                                scalar_table = G.GAME.hands[hand],
+	                            scalar_value = "l_mult",
+                                operation = '+',
+                                no_message = true,
+                            })
+                            SMODS.scale_card(card, {
+	                            ref_table = card.ability.extra,
+                                ref_value = "chips",
+                                scalar_table = G.GAME.hands[hand],
+	                            scalar_value = "l_chips",
+                                operation = '+',
+                                scaling_message = {
+	                               message = localize('k_upgrade_ex'), 
+                                   colour = G.C.FILTER
+                                },
+                            })
                         end
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), colour = G.C.FILTER})
                     end
                     G.consumeables.cards[i]:start_dissolve()
                 end

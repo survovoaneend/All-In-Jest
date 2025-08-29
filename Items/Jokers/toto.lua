@@ -28,9 +28,9 @@ local toto = {
     end,
   
     calculate = function(self, card, context)
-        if context.all_in_jest and context.all_in_jest.tag_added then 
-            local _tag = context.all_in_jest.tag
-            if _tag.key ~= 'tag_double' and (not context.all_in_jest.duplicate_tag) then
+        if context.tag_added then 
+            local _tag = context.tag_added
+            if _tag.key ~= 'tag_double' and (not _tag.config.jest_tag_duplicate_trigger) then
                 for i = 1, card.ability.extra.tags do
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',

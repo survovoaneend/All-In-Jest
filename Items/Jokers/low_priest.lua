@@ -35,7 +35,7 @@ local low_priest = {
             ref_value = "mult",
 	        scalar_value = "mult_mod",
             operation = function(ref_table, ref_value, initial, change)
-	            ref_table[ref_value] = ref_table['initial_mult'] - change * to_number(G.GAME.hands[context.scoring_name].level))
+	            ref_table[ref_value] = ref_table['initial_mult'] - change * to_number(G.GAME.hands[context.scoring_name].level)
             end,
             no_message = true,
         })

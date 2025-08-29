@@ -75,8 +75,6 @@ local fortune_cookie = {
                     }
                 })
             end
-            
-            card.ability.extra. = card.ability.extra.packs_remaining - 1
             if card.ability.extra.packs_remaining <= 0 then
                 G.E_MANAGER:add_event(Event({
                     func = function()
