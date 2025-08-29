@@ -52,8 +52,18 @@ local jeff_the_joker = {
           end
 
           if destroyed_count > 0 then
-              card.ability.extra.x_mult = card.ability.extra.x_mult + (destroyed_count * card.ability.extra.x_mult_per_destroy)
-              card_eval_status_text(card, 'extra', nil, nil, nil, {message = 'X'..card.ability.extra.x_mult..' Mult', colour = G.C.RED})
+              SMODS.scale_card(card, {
+	            ref_table = card.ability.extra,
+                ref_value = "x_mult",
+	            scalar_value = "x_mult_per_destroy",
+                operation = function(ref_table, ref_value, initial, change)
+	                ref_table[ref_value] = initial + (destroyed_count * change)
+                end,
+                scaling_message = {
+	                message = 'X'..card.ability.extra.x_mult..' Mult', 
+                    colour = G.C.RED
+                }
+              })
               card:juice_up(0.6, 0.6)
           end
       end

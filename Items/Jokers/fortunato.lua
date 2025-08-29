@@ -68,11 +68,16 @@ local fortunato = {
     end
     if context.individual and context.cardarea == G.play then
       if context.other_card.ability.name == 'Stone Card' and not context.blueprint then
-        card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.xmult_mod
-        return {
-          extra = { focus = card, message = localize('k_upgrade_ex') },
-          card = card,
-        }
+        SMODS.scale_card(card, {
+	        ref_table = card.ability.extra,
+            ref_value = "x_mult",
+	        scalar_value = "xmult_mod",
+            operation = '+',
+            scaling_message = {
+	            message = localize('k_upgrade_ex'),
+	            colour = G.C.FILTER
+            }
+        })
       end
     end
 

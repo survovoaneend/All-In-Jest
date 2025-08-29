@@ -53,6 +53,11 @@ local egg_cc = {
 	            scalar_value = "sell_value",
                 operation = '+',
                 no_message = true,
+                block_overrides = {
+	                value = true,
+	                scalar = true,
+	                message = true,
+                }
               })
               card:set_cost()
               return true

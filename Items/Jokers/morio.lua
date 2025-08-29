@@ -19,7 +19,7 @@ local morio = {
     end,
   
     calculate = function(self, card, context)
-        if context.end_of_round and G.GAME.blind.boss then
+        if context.end_of_round and context.beat_boss then
             card.ability.trigger = true
         end
         if context.cashing_out and card.ability.trigger then

@@ -48,9 +48,6 @@ local alexandre = {
 	            colour = G.C.FILTER
             }
         })
-        return {
-          message = localize('k_upgrade_ex')
-        }
       end
     end
     if context.joker_main then

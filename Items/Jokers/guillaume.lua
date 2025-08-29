@@ -31,10 +31,25 @@ local guillaume = {
     end,
   
     calculate = function(self, card, context)
-      if context.end_of_round and G.jokers and not context.blueprint and G.GAME.blind.boss and #G.jokers.cards < 5 and context.main_eval then
-        card_eval_status_text(card,'extra',nil,nil,nil,{message='+1 Joker Slot'})
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.joker_slots_mod
-        card.ability.extra.joker_slots = card.ability.extra.joker_slots + card.ability.extra.joker_slots_mod
+      if context.end_of_round and G.jokers and not context.blueprint and context.beat_boss and #G.jokers.cards < 5 and context.main_eval then
+        SMODS.scale_card(card, {
+	        ref_table = G.jokers.config,
+            ref_value = "card_limit",
+            scalar_table = card.ability.extra,
+	        scalar_value = "joker_slots_mod",
+            operation = '+',
+            scaling_message = {
+	            message = message='+'..card.ability.extra.joker_slots_mod..' Joker Slot', 
+                colour = G.C.FILTER
+            }
+        })
+        SMODS.scale_card(card, {
+	        ref_table = card.ability.extra,
+            ref_value = "joker_slots", 
+	        scalar_value = "joker_slots_mod",
+            operation = '+',
+            no_message = true,
+        })
       end
     end,
     add_to_deck = function(self, card, from_debuff)

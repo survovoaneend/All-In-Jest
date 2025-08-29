@@ -30,10 +30,18 @@ local paper_bag = {
     calculate = function(self, card, context)
         if context.pre_discard and not context.blueprint then
             local text,disp_text = G.FUNCS.get_poker_hand_info(G.hand.highlighted)
-            card.ability.extra.cur_chips = card.ability.extra.cur_chips + (G.GAME.hands[text].level * card.ability.extra.chip_mod)
-            return {
-                message = localize('k_upgrade_ex')
-            }
+            SMODS.scale_card(card, {
+	            ref_table = card.ability.extra,
+                ref_value = "cur_chips",
+	            scalar_value = "chip_mod",
+                operation = function(ref_table, ref_value, initial, change)
+	                ref_table[ref_value] = initial + (G.GAME.hands[text].level * change)
+                end,
+                scaling_message = {
+	                message = localize('k_upgrade_ex'), 
+                    colour = G.C.FILTER
+                }
+            })
         end
         if context.joker_main then
             if card.ability.extra.cur_chips > 0 then

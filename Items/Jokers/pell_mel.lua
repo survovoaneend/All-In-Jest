@@ -28,7 +28,15 @@ local pell_mel = {
   
     calculate = function(self, card, context)
       if context.joker_main then
-        card.ability.extra.xmult = 1 + jest_get_unique_suits(context.full_hand, nil, true) * card.ability.extra.xmult_mod
+        SMODS.scale_card(card, {
+	        ref_table = card.ability.extra,
+            ref_value = "xmult",
+	        scalar_value = "xmult_mod",
+            operation = function(ref_table, ref_value, initial, change)
+	            ref_table[ref_value] = 1 + jest_get_unique_suits(context.full_hand, nil, true) * change
+            end,
+            no_message = true,
+        })
         return {
           xmult = card.ability.extra.xmult
         }

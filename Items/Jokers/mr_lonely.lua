@@ -37,8 +37,15 @@ local mr_lonely = {
       G.E_MANAGER:add_event(Event({
         func = function()
           if (G.jokers.config.card_limit - #G.jokers.cards) > 0 then
-            card.ability.extra.chips = card.ability.extra.chips +
-                card.ability.extra.chip_mod * (G.jokers.config.card_limit - #G.jokers.cards)
+            SMODS.scale_card(card, {
+	            ref_table = card.ability.extra,
+                ref_value = "chips",
+	            scalar_value = "chip_mod",
+                operation = function(ref_table, ref_value, initial, change)
+	                ref_table[ref_value] = initial + change * (G.jokers.config.card_limit - #G.jokers.cards)
+                end,
+                no_message = true,
+            })
             return true
           else
             return true

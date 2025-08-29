@@ -35,11 +35,17 @@ local napkin = {
         if context.skip_blind then
             print('skipping')
             if card.ability.extra.state then
-                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_mod
+                SMODS.scale_card(card, {
+	                ref_table = card.ability.extra,
+                    ref_value = "xmult",
+	                scalar_value = "xmult_mod",
+                    operation = '+',
+                    scaling_message = {
+	                    message = localize('k_upgrade_ex'), 
+                        colour = G.C.FILTER
+                    }
+                })
                 card.ability.extra.state = false
-                return {
-                    message = localize('k_upgrade_ex'),
-                }
             end
             if not card.ability.extra.state then
                 card.ability.extra.state = true

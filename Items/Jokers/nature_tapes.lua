@@ -30,10 +30,16 @@ local nature_tapes = {
     calculate = function(self, card, context)
         if context.using_consumeable and not context.blueprint then
             if context.consumeable.ability.set == 'Planet' and context.consumeable.config.center.config.mult then
-                card.ability.extra.cur_mult = card.ability.extra.cur_mult + card.ability.extra.mult_mod
-                return {
-                    message = localize('k_upgrade_ex')
-                }
+                SMODS.scale_card(card, {
+	                ref_table = card.ability.extra,
+                    ref_value = "cur_mult",
+	                scalar_value = "mult_mod",
+                    operation = '+',
+                    scaling_message = {
+	                    message = localize('k_upgrade_ex'), 
+                        colour = G.C.FILTER
+                    }
+                })
             end
         end
         if context.joker_main then

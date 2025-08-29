@@ -33,13 +33,29 @@ local chips_n_dip = {
     calculate = function(self, card, context)
         if context.end_of_round and not context.blueprint and context.main_eval then
             if card.ability.extra.xchips > 0 then
-                SMODS.scale_card(card, {
-	                ref_table = card.ability.extra,
-                    ref_value = "xchips",
-	                scalar_value = "xchips_mod",
-                    operation = '-',
-                    no_message = true,
-                })
+                if (card.ability.extra.xchips - card.ability.extra.xchips_mod) <= 1 then
+                    SMODS.scale_card(card, {
+	                    ref_table = card.ability.extra,
+                        ref_value = "xchips",
+	                    scalar_value = "xchips_mod",
+                        operation = '-',
+                        scaling_message = {
+	                        message = localize('k_eaten_ex'),
+                            colour = G.C.RED
+                        }
+                    })
+                else
+                    SMODS.scale_card(card, {
+	                    ref_table = card.ability.extra,
+                        ref_value = "xchips",
+	                    scalar_value = "xchips_mod",
+                        operation = '-',
+                        scaling_message = {
+	                        message = "-"..card.ability.extra.xchips_mod.."X", 
+                            colour = G.C.BLUE
+                        }
+                    })
+                end
                 if card.ability.extra.xchips <= 1 then
                     G.E_MANAGER:add_event(Event({
                         func = function()
@@ -62,12 +78,6 @@ local chips_n_dip = {
                             return true
                         end
                     }))
-                    return {
-                        message = localize('k_eaten_ex'),
-                        colour = G.C.RED
-                    }
-                else
-                    card_eval_status_text(card, 'extra', nil, nil, nil, { message = "-0.5X", colour = G.C.BLUE})
                 end
             end
         end

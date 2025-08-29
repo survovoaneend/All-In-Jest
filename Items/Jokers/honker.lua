@@ -30,11 +30,17 @@ local honker = {
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if SMODS.get_enhancements(context.other_card).m_mult then
-                card.ability.extra.cur_mult = card.ability.extra.cur_mult + card.ability.extra.mult_mod
+                SMODS.scale_card(card, {
+	                ref_table = card.ability.extra,
+                    ref_value = "cur_mult",
+	                scalar_value = "mult_mod",
+                    operation = '+',
+                    scaling_message = {
+	                    message = localize('k_upgrade_ex'), 
+                        colour = G.C.FILTER
+                    }
+                })
             end
-            return {
-                message = localize('k_upgrade_ex')
-            }
         end
         if context.joker_main then
             if card.ability.extra.cur_mult > 0 then

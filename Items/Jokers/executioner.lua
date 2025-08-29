@@ -35,11 +35,18 @@ local executioner = {
         if val:is_face() then face_cards = face_cards + 1 end
       end
       if face_cards > 0 then
-        card.ability.extra.chips = card.ability.extra.chips + (face_cards * card.ability.extra.chip_gain)
-        return {
-          message = '+' .. card.ability.extra.chips,
-          colour = G.C.BLUE
-        }
+        SMODS.scale_card(card, {
+	        ref_table = card.ability.extra,
+            ref_value = "chips",
+	        scalar_value = "chip_gain",
+            operation = function(ref_table, ref_value, initial, change)
+	            ref_table[ref_value] = initial + (face_cards * change)
+            end,
+            scaling_message = {
+	           message = '+' .. card.ability.extra.chips,
+               colour = G.C.BLUE
+            }
+        })
       end
       return
     end
@@ -49,11 +56,18 @@ local executioner = {
         if val:is_face() then face_cards = face_cards + 1 end
       end
       if face_cards > 0 then
-        card.ability.extra.chips = card.ability.extra.chips + (face_cards * card.ability.extra.chip_gain)
-        return {
-          message = '+' .. card.ability.extra.chips,
-          colour = G.C.BLUE
-        }
+        SMODS.scale_card(card, {
+	        ref_table = card.ability.extra,
+            ref_value = "chips",
+	        scalar_value = "chip_gain",
+            operation = function(ref_table, ref_value, initial, change)
+	            ref_table[ref_value] = initial + (face_cards * change)
+            end,
+            scaling_message = {
+	           message = '+' .. card.ability.extra.chips,
+               colour = G.C.BLUE
+            }
+        })
       end
       return
     end

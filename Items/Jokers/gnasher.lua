@@ -62,10 +62,8 @@ local gnasher = {
   end,
 
   calculate = function(self, card, context)
-    if context.all_in_jest and context.all_in_jest.ease_ante then
-        if context.all_in_jest.mod ~= 0 then
-            card.ability.extra.trigger = true
-        end
+    if context.ante_end then
+        card.ability.extra.trigger = true
     end
   end
 }

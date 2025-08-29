@@ -33,13 +33,29 @@ local candy_floss = {
     calculate = function(self, card, context)
         if context.end_of_round and not context.blueprint and context.main_eval then
             if card.ability.extra.percent > 0 then
-                SMODS.scale_card(card, {
-	                ref_table = card.ability.extra,
-                    ref_value = "percent",
-	                scalar_value = "percent_mod",
-                    operation = '-',
-                    no_message = true,
-                })
+                if (card.ability.extra.percent - card.ability.extra.percent_mod) <= 0 then
+                    SMODS.scale_card(card, {
+	                    ref_table = card.ability.extra,
+                        ref_value = "percent",
+	                    scalar_value = "percent_mod",
+                        operation = '-',
+                        scaling_message = {
+	                        message = localize('k_eaten_ex'),
+                            colour = G.C.RED
+                        }
+                    })
+                else
+                    SMODS.scale_card(card, {
+	                    ref_table = card.ability.extra,
+                        ref_value = "percent",
+	                    scalar_value = "percent_mod",
+                        operation = '-',
+                        scaling_message = {
+	                        message = "-"..card.ability.extra.percent_mod.."%",
+	                        colour = G.C.FILTER
+                        }
+                    })
+                end
                 if card.ability.extra.percent <= 0 then
                     G.E_MANAGER:add_event(Event({
                         func = function()
@@ -62,12 +78,6 @@ local candy_floss = {
                             return true
                         end
                     }))
-                    return {
-                        message = localize('k_eaten_ex'),
-                        colour = G.C.RED
-                    }
-                else
-                    card_eval_status_text(card, 'extra', nil, nil, nil, { message = "-5%"})
                 end
             end
         end
