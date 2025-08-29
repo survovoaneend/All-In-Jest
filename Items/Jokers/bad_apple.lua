@@ -51,11 +51,16 @@ local bad_apple = {
                 end
             end
             if dark_count == card.ability.extra.dark_suits and light_count == card.ability.extra.light_suits then
-                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_mod
-                return {
-                    message = localize('k_upgrade_ex'),
-                    card = card
-                }
+                SMODS.scale_card(card, {
+	                ref_table = card.ability.extra,
+                    ref_value = "xmult",
+	                scalar_value = "xmult_mod",
+                    operation = '+',
+                    scaling_message = {
+	                    message = localize('k_upgrade_ex'),
+	                    colour = G.C.FILTER
+                    }
+                })
             end
         end
         if context.joker_main then 

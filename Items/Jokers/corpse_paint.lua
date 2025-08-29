@@ -32,8 +32,20 @@ local corpse_paint = {
                 context.other_card:set_edition(nil)
                 if SMODS.pseudorandom_probability(card, 'corpse_paint', 1, card.ability.odds) then
                     G.hand:change_size(card.ability.hand_size)
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = "+"..card.ability.hand_size.." Hand size", colour = G.C.FILTER})
-                    card.ability.max_hand_size = tostring(tonumber(card.ability.max_hand_size) + card.ability.hand_size)
+                    local hand_size = tonumber(card.ability.max_hand_size)
+                    SMODS.scale_card(card, {
+	                    ref_table = card.ability,
+                        ref_value = "max_hand_size",
+	                    scalar_value = "hand_size",
+                        operation = function(ref_table, ref_value, initial, change)
+	                        ref_table[ref_value] = tostring(tonumber(initial) + change)
+                        end,
+                        scaling_message = {
+	                        message = localize('a_handsize', 'v_dictionary'), 
+                            vars = {card.ability.extra.handsize_mod},
+	                        colour = G.C.FILTER
+                        },
+                    })
                 end
             end
         end

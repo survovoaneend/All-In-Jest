@@ -33,7 +33,13 @@ local candy_floss = {
     calculate = function(self, card, context)
         if context.end_of_round and not context.blueprint and context.main_eval then
             if card.ability.extra.percent > 0 then
-                card.ability.extra.percent = card.ability.extra.percent - card.ability.extra.percent_mod
+                SMODS.scale_card(card, {
+	                ref_table = card.ability.extra,
+                    ref_value = "percent",
+	                scalar_value = "percent_mod",
+                    operation = '-',
+                    no_message = true,
+                })
                 if card.ability.extra.percent <= 0 then
                     G.E_MANAGER:add_event(Event({
                         func = function()

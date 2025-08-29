@@ -33,7 +33,7 @@ local birthday_clown = {
   
     calculate = function(self, card, context)
       if context.end_of_round then
-        if G.GAME.blind.boss then
+        if context.beat_boss then
           card.ability.extra.active = true
         else
           card.ability.extra.active = false

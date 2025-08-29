@@ -36,8 +36,16 @@ local coulrorachne = {
                 card.ability.extra.eight_count = card.ability.extra.eight_count + 1
                 if card.ability.extra.eight_count >= card.ability.extra.amt_mod then
                     card.ability.extra.eight_count = 0
-                    card.ability.extra.cur_mult = card.ability.extra.cur_mult + card.ability.extra.mult_mod
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), colour = G.C.FILTER})
+                    SMODS.scale_card(card, {
+	                    ref_table = card.ability.extra,
+                        ref_value = "cur_mult",
+	                    scalar_value = "mult_mod",
+                        operation = '+',
+                        scaling_message = {
+	                        message = localize('k_upgrade_ex'),
+	                        colour = G.C.FILTER
+                        }
+                    })
                 end
             end
         end

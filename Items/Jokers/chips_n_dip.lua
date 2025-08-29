@@ -33,8 +33,14 @@ local chips_n_dip = {
     calculate = function(self, card, context)
         if context.end_of_round and not context.blueprint and context.main_eval then
             if card.ability.extra.xchips > 0 then
-                card.ability.extra.xchips = card.ability.extra.xchips - card.ability.extra.xchips_mod
-                 if card.ability.extra.xchips <= 1 then
+                SMODS.scale_card(card, {
+	                ref_table = card.ability.extra,
+                    ref_value = "xchips",
+	                scalar_value = "xchips_mod",
+                    operation = '-',
+                    no_message = true,
+                })
+                if card.ability.extra.xchips <= 1 then
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             play_sound('tarot1')
