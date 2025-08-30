@@ -8,7 +8,6 @@ local melted = {
     pos = { x = 8, y = 2 },
     badge_colour = HEX("a28b8b"),
     order = 1,
-    discovered = true,
     loc_vars = function(self, info_queue, card)
         return { 
             vars = { 
