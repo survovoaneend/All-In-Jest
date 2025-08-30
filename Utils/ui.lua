@@ -66,7 +66,7 @@ SMODS.current_mod.config_tab = function()
       },
       {
         n = G.UIT.R,
-        config = { align = 'cm'},
+        config = { align = 'cl'},
         nodes = {
           {
             n = G.UIT.C,

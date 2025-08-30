@@ -47,6 +47,7 @@ all_in_jest = {
 		v_aij_gold_medal_been_used = false,
 		v_aij_trophy_chance = false,
 		ticket_trigger = true,
+		lost_carcosa_mult = 1,
 	}, 
 	dizzard_shop = false,
 	pit_blind_ante = 4,
