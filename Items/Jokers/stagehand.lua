@@ -1,27 +1,43 @@
 local stagehand = {
     object_type = "Joker",
     order = 290,
-    ignore = true,
+
     key = "stagehand",
     config = {
-      
+        extra = {
+            xmult = 1.1
+        }
     },
     rarity = 1,
-    pos = { x = 13, y = 11},
+    pos = { x = 13, y = 11 },
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
-    blueprint_compat = false,
-    eternal_compat = false,
-  
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
+
     loc_vars = function(self, info_queue, card)
-  
+        return {
+            vars = {
+                card.ability.extra.xmult
+            }
+        }
     end,
-  
+
     calculate = function(self, card, context)
-        
+        if context.other_joker then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    context.other_joker:juice_up(0.5, 0.5)
+                    return true
+                end
+            }))
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
     end
-  
+
 }
-return { name = {"Jokers"}, items = {stagehand} }
+return { name = { "Jokers" }, items = { stagehand } }

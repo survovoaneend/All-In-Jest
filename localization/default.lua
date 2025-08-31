@@ -24,6 +24,7 @@ return {
             aij_plus_tag = "+1 Tag",
             aij_refreshed = 'Refreshed',
             aij_paid_off = 'Paid Off',
+            k_aij_polychrome_ex = 'Polychrome!'
         },
         challenge_names = {
             c_aij_bananarama = "Bananarama",
@@ -1083,7 +1084,15 @@ return {
                     "more often in the {C:attention}Shop{}"
                 },
             },
-            j_aij_old_joker = { name = "Old Joker", text = { "" } },
+            j_aij_old_joker = { 
+                name = "Old Joker", 
+                text = { 
+                    "This Joker gains {C:chips}+#2#{} Chips",
+                    "and {C:mult}+#4#{} Mult when {C:attention}Boss",
+                    "{C:attention}Blind{} is defeated",
+                    "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips and {C:mult,s:0.8}+#3#{}{C:inactive,s:0.8} Mult)",
+                } 
+            },
             j_aij_imageboard = { 
                 name = "Imageboard", 
                 text = { 
@@ -2466,7 +2475,15 @@ return {
             },
             j_aij_heyokha = { name = "Heyókȟa", text = { "" } },
             j_aij_casual_absent_paranoia = { name = "Casual-Absent Paranoia", text = { "" } },
-            j_aij_mandrake = { name = "Mandrake", text = { "" } },
+            j_aij_mandrake = { 
+                name = "Mandrake", 
+                text = { 
+                    "After {C:attention}#2#{} rounds, {C:money}sell",
+                    "this Joker to {C:red}destroy{}",
+                    "all cards {C:attention}held in hand",
+                    "{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#)"
+                } 
+            },
             j_aij_jester_zombie = { 
                 name = "Jester Zombie", 
                 text = { 
@@ -2532,7 +2549,12 @@ return {
             },
             j_aij_machine_intelligence = { name = "Machine Intelligence", text = { "" } },
             j_aij_grandma = { name = "Grandma", text = { "" } },
-            j_aij_funny_money = { name = "Funny Money", text = { "" } },
+            j_aij_funny_money = { 
+                name = "Funny Money", 
+                text = { 
+                    "Earn {C:money}$#1#{} when",
+                    "{C:attention}skipping{} a Blind"
+                } },
             j_aij_witchfinder = { name = "Witchfinder", text = { "" } },
             j_aij_trophy_kill = { name = "Trophy Kill", text = { "" } },
             j_aij_tract = { 
@@ -2705,7 +2727,13 @@ return {
                     "themselves" 
                 } 
             },
-            j_aij_mr_catfish = { name = "Mr Catfish", text = { "" } },
+            j_aij_mr_catfish = { 
+                name = "Mr. Catfish", 
+                text = { 
+                    "Earn {C:money}$#1#{} every {C:attention}#2#{C:inactive} [#3#]{}",
+                    "cards discarded"
+                } 
+            },
             j_aij_angel_number = { 
                 name = "Angel Number", 
                 text = { 
@@ -2715,7 +2743,14 @@ return {
                     "each hand" 
                 } 
             },
-            j_aij_doctors_orders = { name = "Doctors Orders", text = { "" } },
+            j_aij_doctors_orders = { 
+                name = "Doctor's Orders", 
+                text = { 
+                    "{X:mult,C:white}X#1#{} Mult per {C:attention}9{} in the played",
+                    "hand, {C:red}self-destructs{} if no",
+                    "{C:attention}9s{} were played"
+                } 
+            },
             j_aij_blue_eyes_white_joker = { 
                 name = "Blue-Eyes White Joker", 
                 text = { 
@@ -2767,10 +2802,22 @@ return {
                     }
                 } 
             },
-            j_aij_stagehand = { name = "Stagehand", text = { "" } },
+            j_aij_stagehand = { 
+                name = "Stagehand", 
+                text = { 
+                    "All {C:attention}Jokers{} give",
+                    "{X:mult,C:white}X#1#{} Mult"
+                } 
+            },
             j_aij_the_mermaid = { name = "The Mermaid", text = { "" } },
-            j_aij_electric_snow = { name = "Electric Snow", text = { "" } },
-            j_aij_colour_test = { name = "Colour Test", text = { "" } },
+            j_aij_colour_test = { 
+                name = "Colour Test", 
+                text = { 
+                    "If {C:attention}last hand{} of round",
+                    "has only {C:attention}1{} card, give",
+                    "it {C:attention}Polychrome{}"
+                } 
+            },
             j_aij_test_card = { 
                 name = "Test Card", 
                 text = { 
@@ -2978,7 +3025,14 @@ return {
             },
             j_aij_dendroglpyh = { name = "Dendroglyph", text = { "" } },
             j_aij_prank_caller = { name = "Prank Caller", text = { "" } },
-            j_aij_arngren = { name = "Arngren", text = { "" } },
+            j_aij_arngren = { 
+                name = "Arngren", 
+                text = { 
+                    "{C:attention}+#1#{} Card Slot, {C:attention}+#1#{} Booster",
+                    "Slot, and {C:attention}+#1#{} Voucher Slot",
+                    "in the {C:money}shop"
+                } 
+            },
             j_aij_blacklist = { 
                 name = "Blacklist", 
                 text = { 
@@ -3214,7 +3268,9 @@ return {
             j_aij_firework = { 
                 name = "Firework", 
                 text = {
-                
+                    "First played {C:attention}Mult",
+                    "card gives {X:mult,C:white} X#1# {} Mult",
+                    "when scored",
                 } 
             },
              j_aij_bad_guy = { 
