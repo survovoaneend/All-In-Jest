@@ -66,6 +66,13 @@ local office_assistant = {
     loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { set = 'Other', key = 'office_assistant_perishable' }
         info_queue[#info_queue + 1] = { set = 'Other', key = 'office_assistant_rental' }
+        return {
+            vars = {
+                colours = { 
+                    G.C.SECONDARY_SET.Enhanced
+                }
+            }
+        }
     end,
   
     calculate = function(self, card, context)
