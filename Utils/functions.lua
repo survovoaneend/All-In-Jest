@@ -704,6 +704,13 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'balatro',
+    name = 'Balatro',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
     id = 'king_in_yellow',
     name = 'The King in Yellow',
     suits = {
