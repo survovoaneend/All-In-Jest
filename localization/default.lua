@@ -3302,8 +3302,8 @@ return {
                 text = {
                     {
                         '{B:1,C:white,s:0.8}Activated Ability',
-                        'Pay {C:attention}$#1#{} to recieve a random',
-                        '{C:attention}Tag'
+                        'Pay {C:money}$#1#{} to recieve a',
+                        'random {C:attention}Tag'
                     },
                     {
                         '{C:money}Cost{} increases by {C:red}X#2#',
