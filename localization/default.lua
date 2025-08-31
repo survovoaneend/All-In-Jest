@@ -2822,10 +2822,10 @@ return {
             j_aij_joker_png = { 
                 name = "Joker.png", 
                 text = { 
-                    "Once per {C:attention}round,",
-                    "{C:attention}temporarily{} turn into a",
-                    "random {C:attention}Joker{} from your",
-                    "collection" 
+                    '{B:1,C:white,s:0.8}Activated Ability',
+                    'This Joker {C:attention}copies{} the',
+                    '{C:attention}effect{} of a random {C:attention}Joker',
+                    'Pay {C:money}$#1#{} to reroll'
                 } 
             },
             j_aij_kuruko = { name = "Kuruko", text = { "" } },
@@ -3295,6 +3295,21 @@ return {
                     "{C:attention}#1#{} {C:red}Chaos{} or {C:red}Anarchy {C:attention}Tag",
                     "available for purchase in",
                     "every {C:money}Shop"
+                } 
+            },
+            j_aij_graffiti = { 
+                name = "Graffiti", 
+                text = {
+                    {
+                        '{B:1,C:white,s:0.8}Activated Ability',
+                        'Pay {C:attention}$#1#{} to recieve a random',
+                        '{C:attention}Tag'
+                    },
+                    {
+                        '{C:money}Cost{} increases by {C:red}X#2#',
+                        'after use. Resets after',
+                        '{C:attention}Boss Blind{} is defeated'
+                    }
                 } 
             },
             j_aij_baddata = {
