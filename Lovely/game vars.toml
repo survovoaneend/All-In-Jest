@@ -49,6 +49,10 @@ all_in_jest = {
 		ticket_trigger = true,
 		lost_carcosa_mult = 1,
 	}, 
+	sticker_effects = {
+      ['rental'] = 1,
+      ['perishable'] = 2
+    },
 	dizzard_shop = false,
 	pit_blind_ante = 4,
 	blind_tags = {has_multiple = false, selected_index = nil, amt = 1},
