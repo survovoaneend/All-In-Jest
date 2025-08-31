@@ -1607,7 +1607,14 @@ return {
                     "random card in {C:attention}hand" 
                 } 
             },
-            j_aij_pedrolino = { name = "Pedrolino", text = { "" } },
+            j_aij_pedrolino = { 
+                name = "Pedrolino", 
+                text = { 
+                    "{C:money}Sell{} this card to reduce",
+                    "the {C:attention}score requirement{} of",
+                    "the current {C:attention}Blind{} by {C:attention}#1#%"
+                } 
+            },
             j_aij_pierrette = { 
                 name = "Pierrette", 
                 text = { 
@@ -2310,7 +2317,15 @@ return {
                     "{C:inactive}(Currently {C:mult}+#2#{} {C:inactive}Mult)"
                 } 
             },
-            j_aij_skomorokh = { name = "Skomorokh", text = { "" } },
+            j_aij_skomorokh = { 
+                name = "Skomorokh", 
+                text = { 
+                    "This Joker gains {X:mult,C:white}X#1#{} Mult", 
+                    "for each {C:attention}editioned{} card in your",
+                    "{C:attention}full deck",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult)"
+                } 
+            },
             j_aij_silly_billy = { name = "Silly Billy", text = { "" } },
             j_aij_ijoker_co = { 
                 name = "iJoker.co", 
@@ -2625,7 +2640,14 @@ return {
                     "are more common"
                 } 
             },
-            j_aij_downing_street = { name = "Downing Street", text = { "" } },
+            j_aij_downing_street = { 
+                name = "Downing Street", 
+                text = { 
+                    "Scoring {C:attention}10s{} have a {C:green}#1# in #2#{}",
+                    "chance to create a random",
+                    "{C:attention}Tag"
+                } 
+            },
             j_aij_one_little_duck = { name = "One Little Duck", text = { "" } },
             j_aij_four_leaf_clover = { name = "Four-leaf Clover", text = { "" } },
             j_aij_aphantasia = { 
