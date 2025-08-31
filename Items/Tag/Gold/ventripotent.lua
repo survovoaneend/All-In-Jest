@@ -11,7 +11,7 @@ local ventripotent_tag = {
     },
 
     discovered = false,
-    order = 30,
+    order = 31,
     min_ante = 3,
 
     loc_vars = function(self, info_queue)

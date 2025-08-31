@@ -3,7 +3,7 @@ local silver = {
     key = 'silver', 
     pos = { x = 1, y = 1},
     atlas = 'tag_atlas',
-    order = 2, -- Works because of alphabectical sorting of those with same order
+    order = 3, -- Works because of alphabectical sorting of those with same order
     min_ante = 2,
     config = {type = 'store_joker_modify', edition = 'aij_silver'},
     loc_vars = function(self, info_queue)
