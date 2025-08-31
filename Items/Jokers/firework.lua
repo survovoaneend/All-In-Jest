@@ -8,10 +8,10 @@ local firework = {
             xmult = 3
         }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 0, y = 20},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 7,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

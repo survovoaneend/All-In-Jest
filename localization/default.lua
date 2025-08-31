@@ -24,7 +24,8 @@ return {
             aij_plus_tag = "+1 Tag",
             aij_refreshed = 'Refreshed',
             aij_paid_off = 'Paid Off',
-            k_aij_polychrome_ex = 'Polychrome!'
+            k_aij_polychrome_ex = 'Polychrome!',
+            k_aij_foiled_again = 'Foiled Again!',
         },
         challenge_names = {
             c_aij_bananarama = "Bananarama",
@@ -3276,7 +3277,9 @@ return {
              j_aij_bad_guy = { 
                 name = "Bad Guy", 
                 text = {
-                
+                    "Apply {C:attention}Foil{} to a random",
+                    "card {C:attention}held in hand{} when",
+                    "{C:attention}Boss Blind{} is defeated"
                 } 
             },
             
