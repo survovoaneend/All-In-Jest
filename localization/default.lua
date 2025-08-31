@@ -2803,7 +2803,15 @@ return {
                     "{C:attention}defeated"
                 } 
             },
-            j_aij_joker_png = { name = "Joker.png", text = { "" } },
+            j_aij_joker_png = { 
+                name = "Joker.png", 
+                text = { 
+                    "Once per {C:attention}round,",
+                    "{C:attention}temporarily{} turn into a",
+                    "random {C:attention}Joker{} from your",
+                    "collection" 
+                } 
+            },
             j_aij_kuruko = { name = "Kuruko", text = { "" } },
             j_aij_candy_floss = { 
                 name = "Candy Floss", 
@@ -4307,6 +4315,13 @@ return {
                     'Apply {C:aij_stellar}Stellar{}',
                     'to a {C:attention}random{} Joker',
                     'and {C:attention}#1#{} cards in deck'
+                }
+            },
+            tag_aij_gold_dust = {
+                name = 'Gold Dust Tag',
+                text = {
+                    'Apply {C:money}Aureate{} to',
+                    '{C:attention}#1#{} cards in deck'
                 }
             },
             tag_aij_anarchy = {
