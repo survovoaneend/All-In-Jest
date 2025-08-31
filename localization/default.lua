@@ -838,6 +838,22 @@ return {
                     "chance to be {C:money}Gold"
                 },
             },
+            v_aij_sticker_sheet ={
+                name = "Sticker Sheet",
+                text = {
+                    '{C:attention}Lessens{} the effect',
+                    'of {C:red}detrimental',
+                    '{C:attention}stickers'
+                },
+            },
+            v_aij_polkadot ={
+                name = "Polkadot",
+                text = {
+                    '{C:attention}Lessens{} the effect',
+                    'of {C:red}detrimental',
+                    '{C:attention}stickers'
+                },
+            },
         },
         Edition = {
             e_aij_negative_playing_card = {
