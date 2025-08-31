@@ -3281,6 +3281,7 @@ return {
             j_aij_office_assistant = {
                 name = "Office Assistant", 
                 text = {
+                    "{B:1,C:white,s:0.8}Activated Ability",
                     'Repairs {C:attention}Perishable{} or',
                     '{C:attention}Rental{} Joker to the',
                     '{C:attention}right'
