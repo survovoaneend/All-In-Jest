@@ -17,6 +17,10 @@ local pencil_drawing = {
     blueprint_compat = false,
     eternal_compat = true,
     all_in_jest = {
+        ability_cost = function(self, card)
+             return card.ability.extra.cost
+        end,
+        
         can_use_ability = function(self, card, context)
             if to_big(G.GAME.dollars) >= to_big(card.ability.extra.cost) and G.STATE == G.STATES.SELECTING_HAND then
                 return true
@@ -40,6 +44,12 @@ local pencil_drawing = {
             }))
         end,
     },
+
+    update = function(self, card, dt)
+        if not card.aij_ability_cost_label or card.config.center.all_in_jest:ability_cost(card) ~= card.aij_ability_cost_label then
+            card.aij_ability_cost_label = card.config.center.all_in_jest:ability_cost(card) or 0
+        end
+    end,
   
     loc_vars = function(self, info_queue, card) 
         return {
