@@ -11,6 +11,14 @@ local polkadot = {
   requires = {
     'v_aij_sticker_sheet'
   },
+
+  in_pool = function(self, args)
+        if G.GAME.stake >= 7 then
+            return true
+        end
+        return false
+  end,
+
   loc_vars = function(self, info_queue)
       if self.config.sticker_effects ~= G.GAME.all_in_jest.sticker_effects then
           self.config.sticker_effects = G.GAME.all_in_jest.sticker_effects
