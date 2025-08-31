@@ -22,6 +22,8 @@ return {
             k_aij_guess_the_jest = "Guess the Jest",
             k_aij_memory_card = "Memorized!",
             aij_plus_tag = "+1 Tag",
+            aij_refreshed = 'Refreshed',
+            aij_paid_off = 'Paid Off',
         },
         challenge_names = {
             c_aij_bananarama = "Bananarama",
@@ -1640,10 +1642,9 @@ return {
                 name = "Saltimbanco", 
                 text = { 
                     "When any {C:green}probability",
-                    "effect triggers multiply",
-                    "{C:mult}Mult{} by its chance of not",
-                    "occurring" 
-                    -- TODO revise this
+                    "effect {C:green}succeeds{} multiply",
+                    "{C:mult}Mult{} by its chance of {C:attention}not",
+                    "{C:attention}occurring" 
                 } 
             },
             j_aij_pulcinella = { name = "Pulcinella", text = { "" } },
@@ -3277,6 +3278,14 @@ return {
                 text = {
                 } 
             },
+            j_aij_office_assistant = {
+                name = "Office Assistant", 
+                text = {
+                    'Repairs {C:attention}Perishable{} or',
+                    '{C:attention}Rental{} Joker to the',
+                    '{C:attention}right'
+                } 
+            },
 
 
             j_aij_prototype = { name = "Prototype", text = {
@@ -4442,6 +4451,22 @@ return {
                     'Replaces Joker with',
                     'a random Joker of',
                     'the same rarity'
+                }
+            },
+            office_assistant_perishable = {
+                name = "Perishable",
+                text = {
+                    '{C:attention}Resets{} the counter',
+                    'on {C:attention}Perishable{} Jokers',
+                    'for {C:money}$3'
+                }
+            },
+            office_assistant_rental = {
+                name = "Rental",
+                text = {
+                    'Removes {C:attention}Rental',
+                    '{C:attention}sticker{} for the',
+                    'Jokers {C:money}base price'
                 }
             },
             overdesigned_club = {
