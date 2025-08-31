@@ -544,8 +544,16 @@ payload = '''
 if card.config.center.all_in_jest and card.config.center.all_in_jest.use_ability then 
     aij_activate_ability = {n=G.UIT.C, config={align = "cr"}, nodes={
         {n=G.UIT.C, config={ref_table = card, align = "cr",maxw = 1.25, padding = 0.1, r=0.08, minw = 1.25, minh = (card.area and card.area.config.type == 'joker') and 0 or 1, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, button = 'All_in_Jest_use_active_ability_button', func = 'All_in_Jest_can_use_active_ability_button'}, nodes={
-        {n=G.UIT.B, config = {w=0.1,h=0.6}},
-        {n=G.UIT.T, config={text = localize('b_use'),colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true}}
+            {n=G.UIT.B, config = {w=0.1,h=0.6}},
+            {n=G.UIT.C, config={align = "tm"}, nodes={
+                {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
+                    {n=G.UIT.T, config={text = localize('b_use'),colour = G.C.UI.TEXT_LIGHT, scale = card.config.center.all_in_jest.ability_cost and card.aij_ability_cost_label and 0.4 or 0.55, shadow = true}},
+                }},
+                card.config.center.all_in_jest.ability_cost and card.aij_ability_cost_label and {n=G.UIT.R, config={align = "cm"}, nodes={
+                    {n=G.UIT.T, config={text = '-'..localize('$'),colour = G.C.WHITE, scale = 0.4, shadow = true}},
+                    {n=G.UIT.T, config={ref_table = card, ref_value = 'aij_ability_cost_label',colour = G.C.WHITE, scale = 0.55, shadow = true}}
+                }} or nil
+            }}
         }}
     }}
 end
@@ -1300,14 +1308,14 @@ target = "card.lua"
 pattern = "if self.ability.name == 'Blueprint' or self.ability.name == 'Brainstorm' then"
 position = "before"
 payload = '''
-if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage' or self.ability.name == 'j_aij_czar' then
+if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage' or (self.ability.name == 'j_aij_czar' or self.ability.name == 'j_aij_joker_png') then
 	local other_joker = nil
     if self.ability.name == 'j_aij_visage' then
         other_joker = G.jest_visage_last_sold.cards[1]
     elseif self.ability.name == 'j_aij_clay_joker' then
         other_joker = G.jest_clay_last_destroyed.cards[1]
     end
-    if (other_joker and other_joker ~= self and other_joker.config and other_joker.config.center.blueprint_compat) or self.ability.name == 'j_aij_czar' then
+    if (other_joker and other_joker ~= self and other_joker.config and other_joker.config.center.blueprint_compat) or (self.ability.name == 'j_aij_czar' or self.ability.name == 'j_aij_joker_png') then
         self.ability.blueprint_compat = 'compatible'
     else
         self.ability.blueprint_compat = 'incompatible'
@@ -1341,6 +1349,15 @@ elseif self.ability.name == 'j_aij_visage' then
         }}
     } or nil
 elseif self.ability.name == 'j_aij_czar' then
+    self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
+    main_end = (self.area and self.area == G.jokers) and {
+        {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+            {n=G.UIT.C, config={ref_table = self, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
+                {n=G.UIT.T, config={ref_table = self.ability, ref_value = 'blueprint_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            }}
+        }}
+    } or nil
+elseif self.ability.name == 'j_aij_joker_png' then
     self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
     main_end = (self.area and self.area == G.jokers) and {
         {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
@@ -2550,6 +2567,10 @@ G.all_in_jest.patches_sprites["Spades"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_A
 G.all_in_jest.patches_sprites["paperback_Stars"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=5,y=2})
 G.all_in_jest.patches_sprites["paperback_Crowns"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=6,y=2})
 self.all_in_jest.czar = CardArea(
+        -10, -10,
+        CAI.discard_W,CAI.discard_H,
+        {card_limit = 99999999, type = 'joker'})
+self.all_in_jest.joker_png = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
         {card_limit = 99999999, type = 'joker'})

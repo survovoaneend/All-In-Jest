@@ -9,6 +9,13 @@ local sticker_sheet = {
   discovered = false,
   order = 5,
 
+  in_pool = function(self, args)
+        if G.GAME.stake >= 7 then
+            return true
+        end
+        return false
+  end,
+
   loc_vars = function(self, info_queue)
       if self.config.sticker_effects ~= G.GAME.all_in_jest.sticker_effects then
           self.config.sticker_effects = G.GAME.all_in_jest.sticker_effects

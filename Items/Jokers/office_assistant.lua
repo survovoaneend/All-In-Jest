@@ -15,11 +15,33 @@ local office_assistant = {
     eternal_compat = true,
 
     all_in_jest = {
+        ability_cost = function(self, card)
+            local right_card = nil
+            if G.jokers then
+                for k, v in pairs(G.jokers.cards) do
+                    if v == card and G.jokers.cards[k+1] then
+                        right_card = G.jokers.cards[k+1]
+                    end
+                end
+            end
+            if right_card then
+                if right_card.ability.rental and right_card.ability.perishable and to_big(G.GAME.dollars) >= to_big(right_card.config.center.cost) then
+                    return right_card.config.center.cost
+                elseif right_card.ability.rental and right_card.ability.perishable and (right_card.ability.perish_tally < G.GAME.perishable_rounds or 5) then
+                    return 3
+                elseif right_card.ability.rental then
+                    return right_card.config.center.cost
+                elseif right_card.ability.perishable and (right_card.ability.perish_tally < G.GAME.perishable_rounds or 5) then
+                    return 3
+                end
+            end
+        end,
+
         can_use_ability = function(self, card, context)
             local viable_options = {}
             for k, v in pairs(G.jokers.cards) do
                 if v == card and G.jokers.cards[k+1] and G.jokers.cards[k+1].ability then
-                    if ((G.jokers.cards[k+1].ability.perishable and to_big(G.GAME.dollars) >= to_big(3)) or (G.jokers.cards[k+1].ability.rental and to_big(G.GAME.dollars) >= to_big(G.jokers.cards[k+1].config.center.cost))) then
+                    if ((G.jokers.cards[k+1].ability.perishable and to_big(G.GAME.dollars) >= to_big(3) and G.jokers.cards[k+1].ability.perish_tally < G.GAME.perishable_rounds or 5) or (G.jokers.cards[k+1].ability.rental and to_big(G.GAME.dollars) >= to_big(G.jokers.cards[k+1].config.center.cost))) then
                         viable_options[#viable_options+1] = k+1
                     end
                 end
@@ -51,6 +73,12 @@ local office_assistant = {
             end
         end,
     },
+
+    update = function(self, card, dt)
+        if not card.aij_ability_cost_label or card.config.center.all_in_jest:ability_cost(card) ~= card.aij_ability_cost_label then
+            card.aij_ability_cost_label = card.config.center.all_in_jest:ability_cost(card) or 0
+        end
+    end,
 
     in_pool = function(self, args)
         for k, v in pairs(G.jokers.cards) do
