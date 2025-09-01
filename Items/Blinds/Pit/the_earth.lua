@@ -29,9 +29,11 @@ local the_earth = {
 
         if context.after and G.hand.cards and not temp then
             for k, v in pairs(G.hand.cards) do
-                v:set_ability(G.P_CENTERS.m_stone, nil, true)
                 G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.1,
                     func = function()
+                        v:set_ability(G.P_CENTERS.m_stone, nil, true)
                         v:juice_up()
                         return true
                     end
