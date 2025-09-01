@@ -1,14 +1,13 @@
 local blarney_stone = {
   object_type = "Joker",
   order = 178,
-  ignore = true,
 
   key = "blarney_stone",
   config = {
-    
+
   },
   rarity = 1,
-  pos = { x = 21, y = 6},
+  pos = { x = 21, y = 6 },
   atlas = 'joker_atlas',
   cost = 4,
   unlocked = true,
@@ -17,11 +16,32 @@ local blarney_stone = {
   eternal_compat = false,
 
   loc_vars = function(self, info_queue, card)
+    local num = tonumber(G.GAME.chips)
+    local absNum = math.abs(num)
 
+    local numStr = tostring(absNum)
+
+    local firstChar = string.sub(numStr, 1, 1)
+
+    return {
+      vars = {
+        tonumber(firstChar) * 2
+      }
+    }
   end,
 
   calculate = function(self, card, context)
-    
+    local num = tonumber(G.GAME.chips)
+    local absNum = math.abs(num)
+
+    local numStr = tostring(absNum)
+
+    local firstChar = string.sub(numStr, 1, 1)
+    if context.joker_main then
+      return {
+        mult = tonumber(firstChar) * 2
+      }
+    end
   end
 }
-return { name = {"Jokers"}, items = {blarney_stone} }
+return { name = { "Jokers" }, items = { blarney_stone } }

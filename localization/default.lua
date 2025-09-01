@@ -26,6 +26,8 @@ return {
             aij_paid_off = 'Paid Off',
             k_aij_polychrome_ex = 'Polychrome!',
             k_aij_foiled_again = 'Foiled Again!',
+            k_aij_p_arcana = "+1 Arcana",
+            k_aij_merry_christmas = "Merry Christmas!",
         },
         challenge_names = {
             c_aij_bananarama = "Bananarama",
@@ -2104,7 +2106,15 @@ return {
                 } 
             },
             j_aij_tonpraten = { name = "Tonpraten", text = { "" } },
-            j_aij_rodeo_clown = { name = "Rodeo Clown", text = { "" } },
+            j_aij_rodeo_clown = { 
+                name = "Rodeo Clown", 
+                text = { 
+                    "This Joker gains {C:mult}+#1#{} Mult",
+                    "if {C:attention}Blind{} is defeated on",
+                    "the {C:attention}final hand{} of round",
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
+                } 
+            },
             j_aij_joculator = { 
                 name = "Joculator", 
                 text = { 
@@ -2123,7 +2133,15 @@ return {
             },
             j_aij_pigpen = { name = "Pigpen", text = { "" } },
             j_aij_cyclops = { name = "Cyclops", text = { "" } },
-            j_aij_blarney_stone = { name = "Blarney Stone", text = { "" } },
+            j_aij_blarney_stone = { 
+                name = "Blarney Stone", 
+                text = { 
+                    "Adds {C:mult}Mult{} equal to",
+                    "{C:attention}double{} the {C:attention}first digit{}",
+                    "of current {C:attention}score{}",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult){}"
+                } 
+            },
             j_aij_sticker = { 
                 name = "Sticker", 
                 text = { 
@@ -2208,7 +2226,18 @@ return {
                 },
             },
             j_aij_enraging_photo = { name = "Enraging Photo", text = { "" } },
-            j_aij_infuriating_note = { name = "Infuriating Note", text = { "" } },
+            j_aij_infuriating_note = { 
+                name = "Infuriating Note", 
+                text = {{ 
+                    "{X:mult,C:white}X#1#{} Mult", 
+                },
+                {
+                    "{C:dark_edition}Negative{} duplicates of this",
+                    "Joker may appear in the",
+                    "{C:attention}Shop{} and {C:attention}Buffoon Packs{}",
+                }
+            }
+            },
             j_aij_magic_hat = { name = "Magic hat", text = { "" } },
             j_aij_anagraph = { 
                 name = "Anagraph", 
@@ -2571,7 +2600,13 @@ return {
                     "Earn {C:money}$#1#{} when",
                     "{C:attention}skipping{} a Blind"
                 } },
-            j_aij_witchfinder = { name = "Witchfinder", text = { "" } },
+            j_aij_witchfinder = { 
+                name = "Witchfinder", 
+                text = { 
+                    "{C:attention}1{} additional {C:tarot}Arcana{}",
+                    "{C:tarot}Pack{} available in {C:money}Shop"
+                } 
+            },
             j_aij_trophy_kill = { name = "Trophy Kill", text = { "" } },
             j_aij_tract = { 
                 name = "Tract", 
@@ -3114,7 +3149,13 @@ return {
                 } 
             },
             j_aij_jpeg = { name = ".jpeg", text = { "" } },
-            j_aij_sherrif = { name = "Sherrif", text = { "" } },
+            j_aij_sherrif = { 
+                name = "Sherrif",
+                text = { 
+                    "First scored {C:attention}Wild Card{}",
+                    "each hand earns {C:money}$#1#{}"
+                } 
+            },
             j_aij_alien_joker = { 
                 name = "Alien Joker", 
                 text = { 
@@ -3131,7 +3172,15 @@ return {
                 } 
             },
             j_aij_broken_dreams = { name = "Broken Dreams", text = { "" } },
-            j_aij_elf = { name = "Elf", text = { "" } },
+            j_aij_elf = { 
+                name = "Elf", 
+                text = { 
+                    "After skipping {C:attention}#2#{} Blinds,",
+                    "{C:money}sell{} this Joker to create",
+                    "{C:attention}#3# Investment Tags",
+                    "{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#)"
+                } 
+            },
             j_aij_fall_of_count_chaligny = { 
                 name = "Fall of Count Chaligny", 
                 text = { 
@@ -3261,7 +3310,9 @@ return {
             j_aij_a_young_hamlet = { 
                 name = "A Young Hamlet", 
                 text = {
-                
+                    "This Joker gains {C:mult}+#2#{} Mult",
+                    "every {C:attention}#3#{C:inactive} [#4#]{} cards {C:red}discarded{}",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 } 
             },
             j_aij_mike_check = { 
