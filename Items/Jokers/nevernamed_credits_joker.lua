@@ -8,7 +8,7 @@ local nevernamed_credits_joker = {
     config = {
     },
     rarity = 1,
-    pos = { x = 3, y = 0},
+    pos = { x = 5, y = 2},
     atlas = 'familiar_atlas',
     cost = 4,
     unlocked = true,
