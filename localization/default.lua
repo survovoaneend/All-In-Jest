@@ -375,9 +375,9 @@ return {
             bl_aij_the_groan = {
                 name = "The Groan",
                 text = {
-                    'Increase the blind',
-                    'by 1X base after',
-                    'each hand played',
+                    'Increase the score ',
+                    'requirement by 50%',
+                    'after each hand',
                 },
             },
             bl_aij_the_ash = {
