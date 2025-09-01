@@ -1,0 +1,28 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "self.discard = CardArea("
+position = "before"
+match_indent = true
+payload = '''
+self.SETTINGS.all_in_jest = self.SETTINGS.all_in_jest or {}
+self.SETTINGS.all_in_jest.Collabs = self.SETTINGS.all_in_jest.Collabs or {}
+for k, v in pairs(G.SETTINGS.CUSTOM_DECK.Collabs) do
+	self.SETTINGS.all_in_jest.Collabs[k] = self.SETTINGS.all_in_jest.Collabs[k] or {}
+	--for ke, va in pairs(SMODS.Ranks) do
+	--	self.SETTINGS.all_in_jest.Collabs[k][ke] = self.SETTINGS.all_in_jest.Collabs[k][ke] or nil
+	--end
+end
+self.SETTINGS.all_in_jest.colour_palettes = self.SETTINGS.all_in_jest.colour_palettes or {}
+for k, v in pairs(G.SETTINGS.colour_palettes) do
+	self.SETTINGS.all_in_jest.colour_palettes[k] = self.SETTINGS.all_in_jest.colour_palettes[k] or {}
+	for ke, va in pairs(SMODS.Ranks) do
+		self.SETTINGS.all_in_jest.colour_palettes[k][ke] = self.SETTINGS.all_in_jest.colour_palettes[k][ke] or 'lc'
+	end
+end
+'''
