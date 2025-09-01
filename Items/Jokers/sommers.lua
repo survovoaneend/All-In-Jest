@@ -1,11 +1,12 @@
 local sommers = {
     object_type = "Joker",
     order = 1022,
-    ignore = true,
 
     key = "sommers",
     config = {
-      
+      extra = {
+        levels = 2
+      }
     },
     rarity = 4,
 	unlock_condition = {hidden = true},
@@ -14,8 +15,8 @@ local sommers = {
     cost = 4,
     unlocked = false,
     discovered = false,
-    blueprint_compat = false,
-    eternal_compat = false,
+    blueprint_compat = true,
+    eternal_compat = true,
     soul_pos = { x = 1, y = 5},
   
     loc_vars = function(self, info_queue, card)
@@ -23,7 +24,12 @@ local sommers = {
     end,
   
     calculate = function(self, card, context)
-      
+      if context.before and context.main_eval then
+            return {
+                level_up = true,
+                message = localize('k_level_up_ex')
+            }
+        end
     end
   
 }

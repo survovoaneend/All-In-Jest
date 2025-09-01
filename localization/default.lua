@@ -3576,7 +3576,16 @@ return {
                     "?????"
                 }
             },
-            j_aij_biancolelli = { name = "Biancolelli", text = { "" }, unlock = { "?????" } },
+            j_aij_biancolelli = { 
+                name = "Biancolelli", 
+                text = { 
+                    "{C:aij_plasma}Balance{} {C:chips}Chips{} and {C:mult}Mult{}", 
+                    "after Jokers trigger"
+                }, 
+                unlock = { 
+                    "?????" 
+                } 
+            },
             j_aij_toto = { 
                 name = "Toto", 
                 text = { 
@@ -3618,7 +3627,18 @@ return {
                 }
             },
             j_aij_fleeman = { name = "Fleeman", text = { "" }, unlock = { "?????" } },
-            j_aij_calquhoun = { name = "Calquhoun", text = { "" }, unlock = { "?????" } },
+            j_aij_colquhoun = { 
+                name = "Colquhoun", 
+                text = { 
+                    "All cards earn {C:money}$#1#{}",
+                    "when {C:attention}scored{}, increases",
+                    "by {C:money}$#2#{} when {C:attention}Boss Blind{}",
+                    "is defeated"
+                }, 
+                unlock = { 
+                    "?????"
+                } 
+            },
             j_aij_dor = { 
                 name = "D'or", 
                 text = { 
@@ -3640,7 +3660,16 @@ return {
                     "?????" 
                 } 
             },
-            j_aij_sommers = { name = "Sommers", text = { "" }, unlock = { "?????" } },
+            j_aij_sommers = { 
+                name = "Sommers", 
+                text = { 
+                    "{C:attention}Levels up{} all",
+                    "played hands" 
+                }, 
+                unlock = { 
+                    "?????" 
+                } 
+            },
             j_aij_pace = {
                 name = "Pace",
                 text = {
@@ -3837,6 +3866,26 @@ return {
                     "defeated, choose {C:attention}any{}",
                     "{C:spectral}Spectral{} card to create",
                     "{C:inactive}(Must have room)"
+                },
+                unlock = { "?????" }
+            },
+            j_aij_bozo = {
+                name = "Bozo",
+                text = {
+                    "When {C:attention}Boss Blind{} is",
+                    "defeated, create {C:attention}#1#{}",
+                    "random {C:dark_edition}Negative{} Jokers",
+                },
+                unlock = { "?????" }
+            },
+            j_aij_thalia = {
+                name = "Thalia",
+                text = {
+                    "If {C:attention}first discard{} of round",
+                    "contains exactly {C:attention}1{} card, it",
+                    "permanently gains {C:attention}1{}",
+                    "additional {C:attention}retrigger"
+
                 },
                 unlock = { "?????" }
             },
