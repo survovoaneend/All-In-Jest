@@ -18,17 +18,19 @@ local spiders_georg = {
     loc_vars = function(self, info_queue, card)
         local eights = 0
         local hands = 0
-        for i = 1, #G.all_in_jest.advanced_hand_usage_run do
-            local hand = G.all_in_jest.advanced_hand_usage_run[i]
-            local scoring_hand = hand['scoring_hand']
-            if scoring_hand then
-                for j = 1, #scoring_hand do
-                    local cur_card = scoring_hand[j]
-                    if scoring_hand[j] and scoring_hand[j]:get_id() and scoring_hand[j]:get_id() == 8 then
-                        eights = eights + 1
+        if G.all_in_jest and G.all_in_jest.advanced_hand_usage_run then
+            for i = 1, #G.all_in_jest.advanced_hand_usage_run do
+                local hand = G.all_in_jest.advanced_hand_usage_run[i]
+                local scoring_hand = hand['scoring_hand']
+                if scoring_hand then
+                    for j = 1, #scoring_hand do
+                        local cur_card = scoring_hand[j]
+                        if scoring_hand[j] and scoring_hand[j]:get_id() and scoring_hand[j]:get_id() == 8 then
+                            eights = eights + 1
+                        end
                     end
+                    hands = hands + 1
                 end
-                hands = hands + 1
             end
         end
         if hands == 0 or eights == 0 then
