@@ -14,11 +14,33 @@ return {
             k_inactive = "(Inactive)",
             aij_requires_restart = "Requires Restart",
             aij_doesnt_requires_restart = "Doesn't Require Restart",
-            aij_enable_moons = "Enable Moons",
             aij_upgraded_tags = "Gold Tags",
+            aij_enable_moons = "Enable Moons",
+            aij_enable_moons_tooltip = {
+                'Enables {C:chips}Chips{} and {C:mult}Mult{} type',
+                '{C:planet}Planet cards{} to show up in',
+                'addition to normal {C:planet}Planet',
+                '{C:planet}cards'
+            },
             aij_alter_trypophobia = "Alter Trypophobia",
-            aij_no_copy_neg = "Allow Copying Negative Playing Cards",
+            aij_alter_trypophobia_tooltip = {
+                '{C:attention}Changes{} the sprite of',
+                '{C:attention}Trypophobia{} to be {C:attention}less',
+                'disturbing'
+            },
+            aij_no_copy_neg = "No Negative Copies",
+            aij_no_copy_neg_tooltip = {
+                'Allows the {C:dark_edition}Negative{} edition',
+                'on {C:attention}playing cards{} to be copied.',
+                'While {C:attention}off{}, copied {C:dark_edition}Negative',
+                'cards {C:red}lose{} their edition'
+            },
             aij_blue_stake_rework = 'Blue Stake Rework',
+            aij_blue_stake_rework_tooltip = {
+                '{C:attention}Changes{} blue stake to use',
+                'the new {C:attention}Pit Blinds{} instead',
+                'of {C:red}-1{} Discard'
+            },
             k_aij_guess_the_jest = "Guess the Jest",
             k_aij_memory_card = "Memorized!",
             aij_plus_tag = "+1 Tag",
