@@ -91,9 +91,6 @@ SMODS.current_mod.config_tab = function()
           },
         }},
       }},
-      --{ n = G.UIT.R, config = {align = 'cm', emboss = 0.05, r = 0.1, colour = HEX('465255')}, nodes = {
-      --
-      --}},
     }   
   }
 end
