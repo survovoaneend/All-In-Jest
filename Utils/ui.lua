@@ -3,84 +3,98 @@ SMODS.current_mod.config_tab = function()
     n = G.UIT.ROOT,
     config = { align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = G.C.BLACK },
     nodes = {
-      {
-        n = G.UIT.R,
-        config = { align = 'cm', minh = 1 },
-        nodes = {
-          { n = G.UIT.T, config = { text = localize('aij_requires_restart'), colour = G.C.RED, scale = 0.5 } }
-        }
-      },
-      {
-        n = G.UIT.R,
-        nodes = {
-          {
-            n = G.UIT.C,
-            nodes = {
-              create_toggle {
-                label = localize('aij_enable_moons'),
-                ref_table = All_in_Jest.config,
-                ref_value = 'moons_enabled'
-              },
-            },
-          },
-          {
-            n = G.UIT.C,
-            nodes = {
-              create_toggle {
-                label = localize('aij_alter_trypophobia'),
-                ref_table = All_in_Jest.config,
-                ref_value = 'alter_trypophobia'
-              },
-            },
+      { n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('465255')}, nodes = {
+        {
+          n = G.UIT.R,
+          config = { align = 'cm', minh = 1 },
+          nodes = {
+            { n = G.UIT.T, config = { text = localize('aij_requires_restart'), colour = G.C.RED, scale = 0.5 } }
           }
-        }
-      },
-      {
-        n = G.UIT.R,
-        nodes = {
+        },
+        {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('4a6972'), minw = 8.5}, nodes = {
           {
-            n = G.UIT.C,
+            n = G.UIT.R,
             nodes = {
-              create_toggle {
-                label = localize('aij_blue_stake_rework'),
-                ref_table = All_in_Jest.config,
-                ref_value = 'blue_stake_rework'
+              {
+                n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_enable_moons_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_enable_moons'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'moons_enabled'
+                  },
+                },
               },
-            },
+              {
+                n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_alter_trypophobia_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_alter_trypophobia'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'alter_trypophobia'
+                  },
+                },
+              }
+            }
           },
-        }
-      },
-      {
-        n = G.UIT.R,
-        config = { align = 'cm', minh = 1 },
-        nodes = {
           {
-            n = G.UIT.T,
-            config = {
-              text = localize('aij_doesnt_requires_restart'),
-              colour = G.C.GREEN,
-              scale = 0.5
+            n = G.UIT.R,
+            nodes = {
+              {
+                n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_blue_stake_rework_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_blue_stake_rework'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'blue_stake_rework'
+                  },
+                },
+              },
+            }
+          },
+        }},
+      }},
+      { n = G.UIT.R, config = {align = 'cm', emboss = 0.05, r = 0.1, colour = HEX('465255')}, nodes = {
+        {
+          n = G.UIT.R,
+          config = { align = 'cm', minh = 1 },
+          nodes = {
+            {
+              n = G.UIT.T,
+              config = {
+                text = localize('aij_doesnt_requires_restart'),
+                colour = G.C.GREEN,
+                scale = 0.5
+              }
             }
           }
-        }
-      },
-      {
-        n = G.UIT.R,
-        config = { align = 'cl'},
-        nodes = {
+        },
+        {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('4a6972'), minw = 8.5}, nodes = {
           {
-            n = G.UIT.C,
+            n = G.UIT.R,
             nodes = {
-              create_toggle {
-                label = localize('aij_no_copy_neg'),
-                ref_table = All_in_Jest.config,
-                ref_value = 'no_copy_neg'
+              {
+                n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_no_copy_neg_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_no_copy_neg'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'no_copy_neg'
+                  },
+                },
               },
-            },
+            }
           },
-        }
-      },
-    }
+        }},
+      }},
+      --{ n = G.UIT.R, config = {align = 'cm', emboss = 0.05, r = 0.1, colour = HEX('465255')}, nodes = {
+      --
+      --}},
+    }   
   }
 end
 local joker_listing = {
