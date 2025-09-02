@@ -42,7 +42,7 @@ local czar = {
     end,
 
     loc_vars = function(self, info_queue, card)
-        if G.all_in_jest and G.all_in_jest.czar then
+        if G.all_in_jest and G.all_in_jest.czar and G.all_in_jest.czar.cards then
             for k,v in pairs(G.all_in_jest.czar.cards) do
                 if v.ability.all_in_jest and v.ability.all_in_jest.czar == tostring(card) then
                     local other_joker = v
