@@ -33,7 +33,9 @@ local chippy = {
             ref_value = "chips",
             scalar_table = context,
 	        scalar_value = "amount",
-            operation = '+',
+            operation = function(ref_table, ref_value, initial, change)
+	            ref_table[ref_value] = initial + -change
+            end,
             scaling_message = {
 	            message = localize('k_upgrade_ex'),
 	            colour = G.C.FILTER

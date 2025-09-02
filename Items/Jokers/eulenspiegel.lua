@@ -29,7 +29,7 @@ local eulenspiegel = {
             ease_ante(-card.ability.ante_mod)
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = "-"..card.ability.ante_mod.." Ante", colour = G.C.FILTER})
             SMODS.scale_card(card, {
-	            ref_table = card.ability.extra,
+	            ref_table = card.ability,
                 ref_value = "Xmult",
 	            scalar_value = "Xmult_mod",
                 operation = '-',
