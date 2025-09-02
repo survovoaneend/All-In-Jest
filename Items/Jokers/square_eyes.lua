@@ -41,7 +41,7 @@ local square_eyes = {
                     SMODS.scale_card(card, {
 	                    ref_table = card.ability.extra,
                         ref_value = "initial_mult",
-	                    scalar_value = "mult_mod",
+	                    scalar_value = "mult_per_four",
                         operation = function(ref_table, ref_value, initial, change)
 	                        total_mult = fours_in_played_hand * change
                         end,
