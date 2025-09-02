@@ -21,21 +21,24 @@ local aureate = {
         max = 30
     },
     loc_vars = function(self, info_queue, card)
-        local money = ((card.edition or {}).money or self.config.money) + 1
+        local money = to_big(((card.edition or {}).money or self.config.money) + 1)
         return {
             vars = {
                 money,
-                (card.edition or {}).max or self.config.max
+                to_big((card.edition or {}).max or self.config.max)
             }
         }
     end,
     calculate = function(self, card, context)
 		if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
-            local money = ((card.edition or {}).money or self.config.money) + 1
-            local max = (card.edition or {}).max or self.config.max
-            if (G.GAME.dollars*money)-G.GAME.dollars > 0 then
+            local mod = to_big(((card.edition or {}).money or self.config.money) + 1)
+            local max = to_big((card.edition or {}).max or self.config.max)
+            local total_money = to_big(G.GAME.dollars)
+            local money = (total_money*mod)-total_money
+            if total_money > to_big(0) then
 			    return {
-                    dollars = math.floor(math.min((G.GAME.dollars*money)-G.GAME.dollars, max)),
+                    dollars = math.floor(math.min(total_money, max)),
+                    card = card,
                 }
             end
 		end
