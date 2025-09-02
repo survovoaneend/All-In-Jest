@@ -93,9 +93,28 @@ local greasepaint = {
                         end
                     end
                 end
+            else
+                for i = 1, #G.jokers.cards do
+                    if G.jokers.cards[i].ability.aij_greasepaint_debuff then
+                        if G.jokers.cards[i].debuff then
+                            G.jokers.cards[i].debuff = false
+                            G.jokers.cards[i].ability.aij_greasepaint_debuff = false
+                        end
+                    end
+                end
             end
         end
     end,
-  
+
+    remove_from_deck = function(self, card, from_debuff)
+        for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i].ability.aij_greasepaint_debuff then
+                if G.jokers.cards[i].debuff then
+                    G.jokers.cards[i].debuff = false
+                    G.jokers.cards[i].ability.aij_greasepaint_debuff = false
+                end
+            end
+        end
+	end,
 }
 return { name = {"Jokers"}, items = {greasepaint} }
