@@ -16,7 +16,10 @@ local blarney_stone = {
   eternal_compat = false,
 
   loc_vars = function(self, info_queue, card)
-    local num = tonumber(G.GAME.chips)
+    local num = 0
+    if G.GAME.chips and tonumber(G.GAME.chips) then
+        num = tonumber(G.GAME.chips)
+    end
     local absNum = math.abs(num)
 
     local numStr = tostring(absNum)

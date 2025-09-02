@@ -4,7 +4,8 @@ local croupier = {
     key = "croupier",
     config = {
         extra = {
-            money = 10,
+            money = 0,
+            mod_money = 10
         }
     },
     rarity = 1,
@@ -19,7 +20,7 @@ local croupier = {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.money,
+                card.ability.extra.mod_money,
             }
         }
     end,
@@ -27,11 +28,17 @@ local croupier = {
     calculate = function(self, card, context)
         if context.all_in_jest and context.all_in_jest.before_after then
             if (context.total_chips + G.GAME.chips > (G.GAME.blind.chips * 2)) then
-                return {
-                    dollars = card.ability.extra.money, 
-                    card = card,
-                }
+                card.ability.extra.money = 10
+            else
+                card.ability.extra.money = 0
             end
+        end
+    end,
+
+    calc_dollar_bonus = function(self, card)
+        if card.ability.extra.money > 0 then
+            local dollar_bonus = card.ability.extra.mod_money
+            return dollar_bonus
         end
     end
 
