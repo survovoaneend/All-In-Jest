@@ -33,7 +33,7 @@ local thomazina = {
         if not context.other_card:is_face() and not context.other_card.no_rank then
           if not context.blueprint then
             SMODS.scale_card(card, {
-	            ref_table = card.ability.extra,
+	            ref_table = card.ability,
                 ref_value = "chips",
 	            scalar_value = "chip_mod",
                 operation = '+',
