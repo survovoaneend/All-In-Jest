@@ -151,6 +151,21 @@ All_in_Jest.custom_ui = function(mod_nodes)
 	}
 	return mod_nodes
 end
+G.FUNCS.change_collab_rank = function(args)
+  if args.cycle_config.current_option ~= 1 then
+      local rank = args.cycle_config.options[args.cycle_config.current_option]
+      if G.SETTINGS.all_in_jest.Collabs[args.cycle_config.curr_suit][rank] == G.COLLABS.options[args.cycle_config.curr_suit][args.cycle_config.other_option] then
+        args.cycle_config.other_option = 1
+      end
+      G.SETTINGS.all_in_jest.Collabs[args.cycle_config.curr_suit][rank] = G.COLLABS.options[args.cycle_config.curr_suit][args.cycle_config.other_option] or 'default'
+      for k, v in pairs(G.I.CARD) do
+        if v.config and v.config.card and v.children.front and v.ability.effect ~= 'Stone Card' then 
+          v:set_sprites(nil, v.config.card)
+        end
+      end
+  end
+  G:save_settings()
+end
 G.FUNCS.jest_free_reroll_boss = function(e) 
     stop_use()
     if G.GAME.jest_free_stultor_rerolls == 0 then

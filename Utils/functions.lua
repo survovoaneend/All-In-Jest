@@ -90,7 +90,6 @@ function retrieve_joker_text(joker, descip, name)
             elseif type(main[i]) == "table" then
                 text = text .. " "
                 text = text .. get_text(main[i])
-                text = text .. " "
             end
         end
         return text

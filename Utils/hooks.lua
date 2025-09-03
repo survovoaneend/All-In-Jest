@@ -63,7 +63,7 @@ local get_front_spriteinfo_ref = get_front_spriteinfo
 function get_front_spriteinfo(_front)
     if _front and _front.suit and _front.value and G.SETTINGS.all_in_jest and G.SETTINGS.all_in_jest.Collabs then
         local collab = G.SETTINGS.all_in_jest.Collabs[_front.suit][_front.value]
-        if collab then
+        if collab and collab ~= 'default_'.._front.suit and collab ~= 'default' then
             local deckSkin = SMODS.DeckSkins[collab]
             if deckSkin then
                 if deckSkin.outdated then
@@ -135,6 +135,141 @@ function get_front_spriteinfo(_front)
         end
     end
     return get_front_spriteinfo_ref(_front) 
+end
+
+--Overriding Deck Skins
+G.FUNCS.change_collab = function(args)
+  if args.cycle_config.rank_table.cycle_config.current_option == 1 then
+    G.SETTINGS.CUSTOM_DECK.Collabs[args.cycle_config.curr_suit] = G.COLLABS.options[args.cycle_config.curr_suit][args.to_key] or 'default'
+  end
+  args.cycle_config.rank_table.cycle_config.other_option = args.to_key
+  G.FUNCS.change_collab_rank(args.cycle_config.rank_table)
+  for k, v in pairs(G.I.CARD) do
+    if v.config and v.config.card and v.children.front and v.ability.effect ~= 'Stone Card' then 
+      v:set_sprites(nil, v.config.card)
+    end
+  end
+  G:save_settings()
+end
+
+local custom_deck_tab_ref = G.UIDEF.custom_deck_tab
+function G.UIDEF.custom_deck_tab(_suit)
+  local t = {}
+
+  local rankCount = 0
+  local lookup = {}
+  for i, s in ipairs(SMODS.Suit:obj_list(true)) do
+      local options = G.COLLABS.options[s.key]
+      for i = 1, #options do
+          local skin = SMODS.DeckSkins[options[i]]
+          if skin.palettes and not (skin.display_ranks or skin.ranks) then
+              for _, p in ipairs(skin.palettes) do
+                  local p_ranks = p.display_ranks or p.ranks
+                  for j = 1, #p_ranks do
+                      if not lookup[p_ranks[j]] then
+                          lookup[p_ranks[j]] = true
+                          rankCount = rankCount + 1
+                      end
+                  end
+              end
+          elseif not skin.palettes and (skin.display_ranks or skin.ranks) then
+              local ranks = skin.display_ranks or skin.ranks
+              for j = 1, #ranks do
+                  if not lookup[skin.ranks[j]] then
+                      lookup[skin.ranks[j]] = true
+                      rankCount = rankCount + 1
+                  end
+              end
+          end
+
+      end
+  end
+
+  G.cdds_cards = CardArea(
+      0,0,
+      math.min(math.max(rankCount*G.CARD_W*0.6, 4*G.CARD_W), 10*G.CARD_W),
+      1.4*G.CARD_H,
+      {card_limit = rankCount, type = 'title', highlight_limit = 0})
+
+  G.cdds_cards.rankCount = rankCount
+
+
+
+  table.insert(t, 
+    {n=G.UIT.R, config={align = "cm", colour = G.C.BLACK, r = 0.1, padding = 0.07, no_fill = true}, nodes={
+      {n=G.UIT.O, config={object = G.cdds_cards}}
+    }}
+  )
+
+  local loc_options = localize(_suit, 'collabs')
+  local conv_loc_options = {}
+  for k, v in pairs(loc_options) do
+    conv_loc_options[tonumber(k)] = v
+  end
+
+  loc_options = conv_loc_options
+
+  local current_option = 1
+  for k, v in pairs(G.COLLABS.options[_suit]) do
+    if current_rank_option ~= 1 then
+        if G.SETTINGS.all_in_jest.Collabs[_suit][k] == v then current_option = k end
+    else
+        if G.SETTINGS.CUSTOM_DECK.Collabs[_suit] == v then current_option = k end
+    end
+  end
+
+  local loc_rank_options = {}
+  local index = 2
+  loc_rank_options[1] = localize('k_default')
+  for k, v in pairs(lookup) do
+      local cur_rank_option = localize(k, 'ranks')
+      loc_rank_options[index] = cur_rank_option
+      index = index + 1
+  end
+
+  local current_rank_option = 1
+  local index = 1
+  for k, v in pairs(lookup) do
+    index = index + 1
+    for ke, va in pairs(G.COLLABS.options[_suit]) do
+        if G.SETTINGS.all_in_jest.Collabs[_suit][k] == v then current_rank_option = index end
+    end
+  end
+
+  local rank_table = {options = loc_rank_options, w = 5.5, cycle_shoulders = true, curr_suit = _suit, opt_callback = 'change_collab_rank', current_option = current_rank_option, other_option = current_option, colour = G.C.RED, focus_args = {snap_to = true, nav = 'wide'}}
+  table.insert(t, 
+    {n=G.UIT.R, config={align = "cm"}, nodes={
+      create_option_cycle(rank_table),
+    }}
+  )
+
+  table.insert(t, 
+    {n=G.UIT.R, config={align = "cm"}, nodes={
+      create_option_cycle({options = loc_options, w = 5.5, rank_table = {cycle_config = rank_table}, cycle_shoulders = true, curr_suit = _suit, opt_callback = 'change_collab', current_option = current_option, colour = G.C.RED, focus_args = {snap_to = true, nav = 'wide'}}),
+    }}
+  )
+  local deckskin_key = G.COLLABS.options[_suit][current_option]
+  
+  local palette_loc_options = SMODS.DeckSkin.get_palette_loc_options(deckskin_key, _suit)
+  
+  local selected_palette = 1
+  for i, v in ipairs(G.COLLABS.colour_palettes[deckskin_key]) do
+      if G.SETTINGS.colour_palettes[_suit] == v then
+          selected_palette = i
+      end
+  end
+  
+  table.insert(t,
+      {n=G.UIT.R, config={align = "cm", id = 'palette_selector'}, nodes={
+        create_option_cycle({options = palette_loc_options, w = 5.5, cycle_shoulders = false, curr_suit = _suit, curr_skin = deckskin_key, opt_callback = 'change_colour_palette', current_option = selected_palette, colour = G.C.ORANGE, focus_args = {snap_to = true, nav = 'wide'}}),
+      }}
+    )
+
+  local faces = {'K','Q','J'}
+  G.FUNCS.update_collab_cards(current_option, _suit, true)
+
+
+  return {n=G.UIT.ROOT, config={align = "cm", padding = 0, colour = G.C.CLEAR, r = 0.1, minw = 7, minh = 4.2}, nodes=t}
 end
 
 --SMODS.Voucher:take_ownership('v_petroglyph', {
@@ -567,9 +702,9 @@ function All_in_Jest.update_frame(dt, k, obj, jkr)
     end
 end
 
-local upd = Game.update
+local gameupdateref = Game.update
 function Game:update(dt)
-    local ref = upd(self, dt)
+    local ref = gameupdateref(self, dt)
     for k, v in pairs(G.GAME.all_in_jest.AIJAnimated) do
         All_in_Jest.update_frame(dt, k, G.P_CENTERS[k])
         if not G.P_CENTERS[k] then

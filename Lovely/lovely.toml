@@ -2533,6 +2533,56 @@ if _type == 'Planet' then
 end
 '''
 
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''if _pool_size == 0 then'''
+position = "before"
+match_indent = true
+payload = '''
+local aij_contains = function(item, list)
+    for i = 1, #list do
+        if list[i] == item then
+            return true
+        end
+    end
+    return false
+end
+local temp_pool = {}
+for k, v in ipairs(_starting_pool) do
+    if aij_contains(v.key, _pool) and not G.GAME.banned_keys[v.key] then
+        if (v.set == 'Planet' or _type == 'Joker') then
+            if v.get_weight and type(v.get_weight) == 'function' then
+                v.weight = v:get_weight() or 0
+            end
+            if not v.weight then v.weight = 0 end
+            local weight = math.abs(v.weight) - 1
+            if type(weight) == 'number' and weight >= 1 then
+                for i = 1, weight do
+                    _pool[#_pool + 1] = v.key
+                    _pool_size = _pool_size + 1
+                end
+            elseif type(weight) == 'number' and weight <= -1 then
+                for key, val in pairs(_pool) do
+                    if val ~= v.key then
+                        for i = 1, weight do
+                            temp_pool[#temp_pool + 1] = val
+                        end
+                    end
+                end
+                
+            end
+        end
+    end
+end
+for key, val in pairs(temp_pool) do
+    if val ~= 'UNAVAILABLE' then
+        _pool[#_pool + 1] = val
+        _pool_size = _pool_size + 1
+    end
+end
+'''
+
 # Adds the touchstone forecast on the hover deck preview
 [[patches]]
 [patches.regex]
