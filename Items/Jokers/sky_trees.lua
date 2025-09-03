@@ -19,7 +19,16 @@ local sky_trees = {
   
     calculate = function(self, card, context)
         
-    end
-  
+    end,
+    in_pool = function(self, args)
+        if G.GAME and G.playing_cards then
+            for _, card in ipairs(G.playing_cards) do
+                if card.seal and card.seal == 'Blue' then
+                    return true
+                end
+            end
+        end
+        return false
+    end,
 }
 return { name = {"Jokers"}, items = {sky_trees} }
