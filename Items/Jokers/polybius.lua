@@ -26,21 +26,21 @@ local polybius = {
             if context.scoring_name and context.poker_hands then
                 for k, v in pairs(context.poker_hands) do
                     if next(context.poker_hands[k]) then
-                        chip_total = chip_total + G.GAME.hands[k].chips
-                        mult_total = mult_total + G.GAME.hands[k].mult
+                        chip_total = chip_total + to_big(G.GAME.hands[k].chips)
+                        mult_total = mult_total + to_big(G.GAME.hands[k].mult)
                     end
                 end
             end
-            if chip_total > 0 and mult_total > 0 then
+            if chip_total > to_big(0) and mult_total > to_big(0) then
                 return {
                     mult = mult_total,
                     chips = chip_total
                 }
-            elseif chip_total > 0 then
+            elseif chip_total > to_big(0) then
                 return {
                     chips = chip_total
                 }
-            elseif mult_total > 0 then
+            elseif mult_total > to_big(0) then
                 return {
                     mult = mult_total
                 }
