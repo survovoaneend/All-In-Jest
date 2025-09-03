@@ -47,5 +47,8 @@ local dark_star = {
 		end
 		return false
     end,
+	get_weight = function(self)
+        return -3
+    end,
 }
 return {name = {"Planets"}, items = {dark_star}}
