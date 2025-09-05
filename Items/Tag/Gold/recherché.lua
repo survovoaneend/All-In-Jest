@@ -31,7 +31,7 @@ local recherché_tag = {
                 card = create_card('Joker', context.area, nil, 1, nil, nil, nil, 'rta')
                 local function contains_number(table)
                     for k, v in pairs(table) do
-                        if type(v) == "number" then
+                        if type(v) == "number" and v ~= 0 then
                             return true
                         elseif type(v) == "table" then
                             if contains_number(v) then
