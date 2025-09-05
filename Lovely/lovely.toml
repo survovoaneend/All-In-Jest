@@ -459,7 +459,8 @@ pattern = "elseif e.config.id ~= 'buy_and_use' then"
 position = "before"
 payload = '''
 elseif c1.ability.set == 'Tag' then
-    add_tag(Tag(c1.config.center.key))
+    local temptag = c1.config.tag
+    add_tag(temptag)
     c1:remove()
 '''
 match_indent = true
@@ -1373,13 +1374,13 @@ match_indent = true
 [patches.pattern]
 target = "card.lua"
 pattern = "self.extra_cost = self.extra_cost + v.extra_cost"
-position = "at"
+position = "after"
 match_indent = true
 payload = '''
 local has_chef = next(SMODS.find_card("j_aij_chef"))
-if has_chef and self.ability.perishable then self.extra_cost = 0 else self.extra_cost = self.extra_cost + v.extra_cost end
+if has_chef and self.ability.perishable then self.extra_cost = 0 end
 local has_note = next(SMODS.find_card("j_aij_infuriating_note"))
-if has_note and self.config.center_key == 'j_aij_infuriating_note' then self.extra_cost = 0 else self.extra_cost = self.extra_cost + v.extra_cost end
+if has_note and self.config.center_key == 'j_aij_infuriating_note' then self.extra_cost = 0 end
 '''
 
 [[patches]]
