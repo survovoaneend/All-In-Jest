@@ -27,7 +27,9 @@ local czar = {
             end
         end
         local joker_center = pseudorandom_element(jokers, pseudoseed('czar'))
+        SMODS.bypass_create_card_edition = true
         local joker = create_card('Joker', G.all_in_jest.czar, nil, nil, true, nil, joker_center.key, 'czar')
+        SMODS.bypass_create_card_edition = nil
         G.all_in_jest.czar:emplace(joker)
         joker.ability.all_in_jest = joker.ability.all_in_jest or {}
         joker.ability.all_in_jest.czar = tostring(card)
@@ -73,7 +75,9 @@ local czar = {
                     v:remove()
                 end
             end
+            SMODS.bypass_create_card_edition = true
             local joker = create_card('Joker', G.all_in_jest.czar, nil, nil, true, nil, joker_center.key, 'czar')
+            SMODS.bypass_create_card_edition = nil
             G.all_in_jest.czar:emplace(joker)
             joker.ability.all_in_jest = joker.ability.all_in_jest or {}
             joker.ability.all_in_jest.czar = tostring(card)

@@ -49,7 +49,9 @@ local joker_png = {
                     v:remove()
                 end
             end
+            SMODS.bypass_create_card_edition = true
             local joker = create_card('Joker', G.all_in_jest.joker_png, nil, nil, true, nil, joker_center.key, 'joker_png')
+            SMODS.bypass_create_card_edition = nil
             G.all_in_jest.joker_png:emplace(joker)
             joker.ability.all_in_jest = joker.ability.all_in_jest or {}
             joker.ability.all_in_jest.joker_png = tostring(card)
@@ -72,7 +74,9 @@ local joker_png = {
             end
         end
         local joker_center = pseudorandom_element(jokers, pseudoseed('joker_png'))
+        SMODS.bypass_create_card_edition = true
         local joker = create_card('Joker', G.all_in_jest.joker_png, nil, nil, true, nil, joker_center.key, 'joker_png')
+        SMODS.bypass_create_card_edition = nil
         G.all_in_jest.joker_png:emplace(joker)
         joker.ability.all_in_jest = joker.ability.all_in_jest or {}
         joker.ability.all_in_jest.joker_png = tostring(card)
