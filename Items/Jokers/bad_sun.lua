@@ -34,12 +34,16 @@ local bad_sun = {
             end
             if heart_count >= card.ability.extra.suit_count then
                 local temp_card = pseudorandom_element(context.full_hand, pseudoseed('bad_sun'))
+                local total_cards = {}
+                table.insert(total_cards, temp_card)
+                temp_card.destroyed = true
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         temp_card:start_dissolve()
                         return true
                     end
                 }))
+                SMODS.calculate_context({remove_playing_cards = true, removed = total_cards})
             end
         end
     end
