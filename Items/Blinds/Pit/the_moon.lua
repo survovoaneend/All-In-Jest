@@ -26,12 +26,12 @@ local the_moon = {
         if temp then
             return
         end
-        if context.after and not temp then
+        if (context.after or context.setting_blind) and not temp then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 func = (function()
                     for k, v in pairs(G.playing_cards) do
-                        if context.after then
+                        if (context.after or context.setting_blind) then
                             if G.GAME.current_round.hands_left %2 == 1 then
                                 SMODS.debuff_card(v, true, 'the_moon')
                             else
