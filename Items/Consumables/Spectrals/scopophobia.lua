@@ -11,14 +11,26 @@ local scopophobia = {
 	config ={},
     can_use = function(self, card)
         if G.hand and G.hand.cards and #G.hand.cards > 0 then
-            if G.jokers and G.jokers.cards and #G.jokers.cards > 0 then 
-                return true 
+            local viable_options = {}
+            for k, v in pairs(G.jokers.cards) do
+                if G.jokers.cards[k] and not SMODS.is_eternal(G.jokers.cards[k]) then
+                    viable_options[#viable_options+1] = v
+                end
+            end
+            if #viable_options > 0 then
+                return true
             end
         end
         return false
     end,
 	use = function(self, card, area, copier)
-        local _card = pseudorandom_element(G.jokers.cards, pseudoseed('scopophobia'))
+        local viable_options = {}
+        for k, v in pairs(G.jokers.cards) do
+            if G.jokers.cards[k] and not SMODS.is_eternal(G.jokers.cards[k]) then
+                viable_options[#viable_options+1] = v
+            end
+        end
+        local _card = pseudorandom_element(viable_options, pseudoseed('scopophobia'))
         for k, v in ipairs(G.hand.cards) do
             v:start_dissolve()
         end
