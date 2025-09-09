@@ -45,7 +45,7 @@ local infuriating_note = {
                 if G.shop_jokers and G.shop_jokers.cards then
                     for i = 1, #G.shop_jokers.cards do
                         if G.shop_jokers.cards[i].ability.set == "Joker" then
-                            if G.shop_jokers.cards[i].config.center_key == 'j_aij_infuriating_note' and G.shop_jokers.cards[i].edition == nil then
+                            if G.shop_jokers.cards[i].config.center_key == 'j_aij_infuriating_note' and ((G.shop_jokers.cards[i].edition and G.shop_jokers.cards[i].edition.key ~= 'e_negative') or G.shop_jokers.cards[i].edition == nil) then
                                 G.shop_jokers.cards[i]:set_edition({ negative = true })
                                 G.shop_jokers.cards[i]:set_cost()
                             end
@@ -56,7 +56,7 @@ local infuriating_note = {
                     if G.pack_cards.cards then
                         for i = 1, #G.pack_cards.cards do
                             if G.pack_cards.cards[i].ability.set == "Joker" then
-                                if G.pack_cards.cards[i].config.center_key == 'j_aij_infuriating_note' and G.shop_jokers.cards[i].edition == nil then
+                                if G.pack_cards.cards[i].config.center_key == 'j_aij_infuriating_note' and ((G.shop_jokers.cards[i].edition and G.shop_jokers.cards[i].edition.key ~= 'e_negative') or G.shop_jokers.cards[i].edition == nil) then
                                     G.pack_cards.cards[i]:set_edition({ negative = true })
                                     G.pack_cards.cards[i]:set_cost()
                                     card.ability.extra.trigger = false
