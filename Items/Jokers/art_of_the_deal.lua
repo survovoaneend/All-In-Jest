@@ -24,7 +24,7 @@ local art_of_the_deal = {
     end,
   
     calculate = function(self, card, context)
-      if context.money_altered and context.amount >= 1 and to_big(G.GAME.dollars) > to_big(0) and not context.blueprint then
+      if context.money_altered and to_big(context.amount) >= to_big(1) and to_big(G.GAME.dollars) > to_big(0) and not context.blueprint then
         SMODS.scale_card(card, {
 	        ref_table = card.ability.extra,
             ref_value = "mult",
