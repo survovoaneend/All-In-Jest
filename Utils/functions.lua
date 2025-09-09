@@ -1209,7 +1209,24 @@ function All_in_Jest.add_tag_to_shop(key, price)
     local card = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
     G.shop_booster.T.y, G.CARD_W*0.7, G.CARD_W*0.7, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
     create_shop_card_ui(card, 'Tag', G.shop_booster)
+    local temp_config = {}
+    for k, v in pairs(center.config) do
+        card.config[k] = v
+    end
     card.ability.booster_pos = #G.shop_booster.cards + 1
+    card.config.tag = Tag(card.config.center.key)
+    if card.config.center.key == "tag_orbital" then
+        local available_hands = {}
+
+        for _, k in ipairs(G.handlist) do
+          local hand = G.GAME.hands[k]
+          if hand.visible then
+            available_hands[#available_hands + 1] = k
+          end
+        end
+
+        card.config.tag.ability.orbital_hand = pseudorandom_element(available_hands, pseudoseed(card.ability.booster_pos .. '_orbital'))
+    end
     card:start_materialize()
     card.edition = nil
     card.cost = price or 1
