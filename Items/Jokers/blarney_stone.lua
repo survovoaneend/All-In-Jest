@@ -35,7 +35,9 @@ local blarney_stone = {
 
   calculate = function(self, card, context)
     local num = tonumber(G.GAME.chips)
-    local absNum = math.abs(num)
+    if G.GAME.chips and tonumber(G.GAME.chips) then
+        num = tonumber(G.GAME.chips)
+    end
 
     local numStr = tostring(absNum)
 
