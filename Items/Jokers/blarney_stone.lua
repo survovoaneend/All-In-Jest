@@ -38,6 +38,7 @@ local blarney_stone = {
     if G.GAME.chips and tonumber(G.GAME.chips) then
         num = tonumber(G.GAME.chips)
     end
+    local absNum = math.abs(num)
 
     local numStr = tostring(absNum)
 
