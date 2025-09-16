@@ -16,7 +16,7 @@ local czar = {
     add_to_deck = function(self, card, from_debuff)
         local jokers = {}
         for k,v in pairs(G.P_CENTER_POOLS["Joker"]) do
-            if v.discovered and v.blueprint_compat then
+            if v.discovered and v.blueprint_compat and v.perishable_compat then
                 if v.in_pool and type(v.in_pool) == 'function' then
                     if v:in_pool() then
                         jokers[#jokers+1] = v

@@ -33,7 +33,7 @@ local joker_png = {
             ease_dollars(-card.ability.extra.cost)
             local jokers = {}
             for k,v in pairs(G.P_CENTER_POOLS["Joker"]) do
-                if v.discovered and v.blueprint_compat and v.rarity ~= 4 then
+                if v.discovered and v.blueprint_compat and v.perishable_compat and v.rarity ~= 4 then
                     if v.in_pool and type(v.in_pool) == 'function' then
                         if v:in_pool() then
                             jokers[#jokers+1] = v
