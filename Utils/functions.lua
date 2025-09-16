@@ -1187,7 +1187,16 @@ function All_in_Jest.has_patches(card, suit)
   return false
 end
 
-function All_in_Jest.add_patch(card, suit, instant)
+function All_in_Jest.add_patch(card, suit, instant, append)
+  if not suit then
+      local keys = {}
+	  for k, v in pairs(SMODS.Suits) do
+          if card.base.suit ~= k and All_in_Jest.has_suit_in_deck(k, true) then
+	         keys[#keys+1] = k
+          end
+	  end
+	  suit = pseudorandom_element(keys, pseudoseed(append or ''))
+  end
   instant = instant or false
   if not instant then
       G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() 
@@ -1201,6 +1210,15 @@ function All_in_Jest.add_patch(card, suit, instant)
     card.ability.patches[suit] = true
   end
   check_for_unlock({type = 'add_patch'})
+end
+
+function All_in_Jest.has_suit_in_deck(suit, ignore_wild)
+  for _, v in ipairs(G.playing_cards or {}) do
+    if not SMODS.has_no_suit(v) and (v.base.suit == suit or (not ignore_wild and v:is_suit(suit))) then
+      return true
+    end
+  end
+  return false
 end
 
 function All_in_Jest.add_tag_to_shop(key, price)
