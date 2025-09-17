@@ -375,16 +375,16 @@ position = "before"
 payload = '''
 SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, all_in_jest = {before_after = true}, total_chips = math.floor(hand_chips*mult)})
 if G.GAME.all_in_jest.reset_score.chips then
-    hand_chips = 0
+    SMODS.Scoring_Parameters.chips:modify(-hand_chips)
     G.GAME.all_in_jest.reset_score.chips = false
 end
 if G.GAME.all_in_jest.reset_score.mult then
-    mult = 0
+    SMODS.Scoring_Parameters.mult:modify(-mult)
     G.GAME.all_in_jest.reset_score.mult = false
 end
 if G.GAME.all_in_jest.reset_score.chip_total then
-    mult = 0
-    hand_chips = 0
+    SMODS.Scoring_Parameters.chips:modify(-hand_chips)
+    SMODS.Scoring_Parameters.mult:modify(-mult)
     G.GAME.all_in_jest.reset_score.chip_total = false
 end
 local blind = {}
@@ -617,7 +617,7 @@ G.E_MANAGER:add_event(Event({
     blocking = false,
     ref_table = G.GAME,
     ref_value = 'chips',
-    ease_to = G.GAME.chips + math.floor(hand_chips*mult),
+    ease_to = G.GAME.chips + math.floor( SMODS.calculate_round_score() ),
     delay =  0.5,
     func = (function(t) return math.floor(t) end)
 }))
@@ -696,18 +696,28 @@ end
 '''
 match_indent = true
 
+#Why doesn't this work T_T
 [[patches]] 
 [patches.pattern]
 target = "functions/button_callbacks.lua"
-pattern = "if G.GAME.current_round.discards_left <= 0 or #G.hand.highlighted <= 0 or #G.hand.highlighted > math.max(G.GAME.starting_params.discard_limit, 0) then"
-position = "before"
+pattern = '''
+e.config.colour = G.C.RED
+e.config.button = 'discard_cards_from_highlighted'
+'''
+position = "at"
 payload = '''
+local aij_should_return = false
 for k, v in pairs(G.hand.highlighted) do
     if v.ability.aij_marked then
-        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-        e.config.button = nil
-        return
+        aij_should_return = true
     end
+end
+if aij_should_return then
+    e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+    e.config.button = nil
+else
+    e.config.colour = G.C.RED
+    e.config.button = 'discard_cards_from_highlighted'
 end
 '''
 match_indent = true
@@ -961,7 +971,7 @@ match_indent = true
 
 [[patches]] 
 [patches.pattern]
-target = "game.lua"
+target = "functions/state_events.lua"
 pattern = "local flags = SMODS.calculate_context({drawing_cards = true, amount = hand_space})"
 position = "before"
 payload = '''
@@ -1536,14 +1546,12 @@ if self.ability.jest_chaotic_card then badges[#badges + 1] = 'k_aij_jest_chaotic
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = "info_queue[#info_queue+1] = {key = 'e_'..v, set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit}}"
-position = "at"
+pattern = "local t = {key = 'e_'..v, set = 'Edition', config = {}}"
+position = "after"
 match_indent = true
 payload = '''
 if not All_in_Jest.config.no_copy_neg and v == 'negative_playing_card' then
-    info_queue[#info_queue+1] = {key = 'e_aij_negative_playing_card', set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit}}
-else
-    info_queue[#info_queue+1] = {key = 'e_'..v, set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit}}
+    t = {key = 'e_aij_negative_playing_card', set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit}}
 end
 '''
 
@@ -1994,6 +2002,21 @@ end
 [patches.pattern]
 target = "game.lua"
 pattern = "if G.GAME.chips - G.GAME.blind.chips >= 0 or G.GAME.current_round.hands_left < 1 then"
+position = "before"
+match_indent = true
+payload = '''
+if next(SMODS.find_card("j_aij_electric_snow")) and not (G.GAME.current_round.hands_left < 1) then
+    G.STATE = G.STATES.DRAW_TO_HAND
+    G.STATE_COMPLETE = false
+    return true
+end
+'''
+
+#Talisman (why tho)
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "if to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) or G.GAME.current_round.hands_left < 1 then"
 position = "before"
 match_indent = true
 payload = '''
