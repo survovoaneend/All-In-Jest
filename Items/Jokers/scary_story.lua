@@ -41,6 +41,7 @@ local scary_story = {
                                 v:set_edition({negative = true}, true, true)
                                 play_sound('negative', 1.5, 0.4)
                                 v:juice_up(0.3, 0.2)
+card:juice_up(0.3, 0.2)
                                 return true
                               end
                             }))
