@@ -22,22 +22,36 @@ local stargazy_pie = {
     end,
   
     calculate = function(self, card, context)
-        if context.using_consumeable then
+        if context.using_consumeable and not context.aij_stargazy_pie then
             if context.consumeable.ability.set == 'Planet' and card.ability.extra.triggers >= 1 then
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.6, func = function()
-                    card_eval_status_text(context.consumeable, 'extra', nil, nil, nil, {message = localize('k_again_ex'),colour = G.C.FILTER})
-                    local tempcard = copy_card(context.consumeable)
-                    tempcard:use_consumeable(context.area)
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                        tempcard:start_dissolve()
-                    return true end }))
-                return true end }))
+                -- Doing calculate "early" to maintain intuitive order of animations
+                SMODS.calculate_context({using_consumeable = true, consumeable = context.consumeable, area = context.from_area, aij_stargazy_pie = true})
+
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_again_ex'), colour = G.C.FILTER})
+                context.consumeable:use_consumeable(context.area)
                 if not context.blueprint then
                     card.ability.extra.triggers = card.ability.extra.triggers - 1
                     if card.ability.extra.triggers == 0 then
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_eaten_ex'),colour = G.C.FILTER})
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                play_sound('tarot1')
+                                card.T.r = -0.2
+                                card:juice_up(0.3, 0.4)
+                                card.states.drag.is = true
+                                card.children.center.pinch.x = true
+                                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
+                                    func = function()
+                                            G.jokers:remove_card(card)
+                                            card:remove()
+                                            card = nil
+                                        return true; end}))
+                                return true
+                            end
+                        }))
                         card.ability.extra.triggers = 1
-                        card:start_dissolve()
+                        return {
+                            message = localize('k_eaten_ex'),
+                        }
                     end
                 end
             end
