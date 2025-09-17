@@ -22,11 +22,12 @@ local visage = {
             local other_joker = G.jest_visage_last_sold.cards[1]
             local other_vars
             if other_joker.config.center.loc_vars then
-                other_vars = other_joker.config.center:loc_vars(info_queue, other_joker)
+                other_vars = other_joker.config.center:loc_vars(info_queue, other_joker).vars
             else
                 other_vars, _, _ = other_joker:generate_UIBox_ability_table(true)
             end
             other_joker.config.center.specific_vars = other_vars
+            other_joker.config.center.specific_vars.aij_visage = true
             info_queue[#info_queue + 1] = other_joker.config.center
         end
         return { vars = {} }

@@ -1366,6 +1366,7 @@ self.jest_visage_last_sold = CardArea(
 '''
 
 # Patch related to better Clay Joker and Visage Info Queue
+# For vanilla jokers
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -1374,4 +1375,15 @@ position = "after"
 match_indent = true
 payload = '''
 specific_vars = _c.specific_vars or specific_vars
+'''
+# For modded jokers
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/game_object.lua"]'''
+pattern = "if target.vars.is_info_queue then target.is_info_queue = true; target.vars.is_info_queue = nil end"
+position = "after"
+match_indent = true
+payload = '''
+if target.vars.aij_visage then card = G.jest_visage_last_sold.cards[1]; target.vars.aij_visage = nil end -- All in Jest
+if target.vars.aij_clay then card = G.jest_clay_last_destroyed.cards[1]; target.vars.aij_clay = nil end -- All in Jest
 '''
