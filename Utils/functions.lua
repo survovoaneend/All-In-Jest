@@ -1366,6 +1366,7 @@ end
 function All_in_Jest.reset_game_globals(run_start)
 	G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
+
     if run_start then
         G.GAME.all_in_jest.starting_prams.deck_size = #G.deck.cards
         local index = {4,5}
