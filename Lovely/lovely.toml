@@ -1364,3 +1364,14 @@ self.jest_visage_last_sold = CardArea(
         CAI.discard_W,CAI.discard_H,
         {card_limit = 1, type = 'joker'})
 '''
+
+# Patch related to better Clay Joker and Visage Info Queue
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "specific_vars = ret[1]"
+position = "after"
+match_indent = true
+payload = '''
+specific_vars = _c.specific_vars or specific_vars
+'''
