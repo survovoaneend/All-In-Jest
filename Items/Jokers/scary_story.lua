@@ -28,9 +28,7 @@ local scary_story = {
 
     calculate = function(self, card, context)
       if context.open_booster and context.card.ability.name and not context.blueprint then
-        if (context.open_booster and context.card.ability.name == 'Standard Pack' or
-        context.open_booster and context.card.ability.name == 'Jumbo Standard Pack' or
-        context.open_booster and context.card.ability.name == 'Mega Standard Pack') then
+        if (context.open_booster and context.card.config.center.kind == 'Standard') then
           G.E_MANAGER:add_event(Event({
             func = function()
                 if G.pack_cards and G.pack_cards.cards and G.pack_cards.cards[1] and G.pack_cards.VT.y < G.ROOM.T.h then
