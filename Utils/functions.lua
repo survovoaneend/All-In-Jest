@@ -1269,7 +1269,81 @@ function All_in_Jest.is_food(card)
   return All_in_Jest.vanilla_food[center.key]
 end
 
-function All_in_Jest.reroll_joker(card, key, append, temp_key)
+function Card:All_in_Jest_start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice) -- For not triggering on destroy effects
+    if self.skip_destroy_animation then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                play_sound('tarot1')
+                self.T.r = -0.2
+                self:juice_up(0.3, 0.4)
+                self.states.drag.is = true
+                self.children.center.pinch.x = true
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
+                    func = function()
+                            G.jokers:remove_card(self)
+                            self:remove()
+                            self = nil
+                        return true; end})) 
+                return true
+            end
+        })) 
+        return
+    end
+    dissolve_colours = dissolve_colours or (type(self.destroyed) == 'table' and self.destroyed.colours) or nil
+    dissolve_time_fac = dissolve_time_fac or (type(self.destroyed) == 'table' and self.destroyed.time) or nil
+    local dissolve_time = 0.7*(dissolve_time_fac or 1)
+    self.dissolve = 0
+    self.dissolve_colours = dissolve_colours
+        or {G.C.BLACK, G.C.ORANGE, G.C.RED, G.C.GOLD, G.C.JOKER_GREY}
+    if not no_juice then self:juice_up() end
+    local childParts = Particles(0, 0, 0,0, {
+        timer_type = 'TOTAL',
+        timer = 0.01*dissolve_time,
+        scale = 0.1,
+        speed = 2,
+        lifespan = 0.7*dissolve_time,
+        attach = self,
+        colours = self.dissolve_colours,
+        fill = true
+    })
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        blockable = false,
+        delay =  0.7*dissolve_time,
+        func = (function() childParts:fade(0.3*dissolve_time) return true end)
+    }))
+    if not silent then 
+        G.E_MANAGER:add_event(Event({
+            blockable = false,
+            func = (function()
+                    play_sound('whoosh2', math.random()*0.2 + 0.9,0.5)
+                    play_sound('crumple'..math.random(1, 5), math.random()*0.2 + 0.9,0.5)
+                return true end)
+        }))
+    end
+    G.E_MANAGER:add_event(Event({
+        trigger = 'ease',
+        blockable = false,
+        ref_table = self,
+        ref_value = 'dissolve',
+        ease_to = 1,
+        delay =  1*dissolve_time,
+        func = (function(t) return t end)
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        blockable = false,
+        delay =  1.05*dissolve_time,
+        func = (function() self:remove() return true end)
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        blockable = false,
+        delay =  1.051*dissolve_time,
+    }))
+end
+
+function All_in_Jest.reroll_joker(card, key, append, temp_key, _card)
     local victim_joker = card
       
     local victim_rarity = victim_joker.config.center.rarity or 1
@@ -1294,7 +1368,7 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key)
     end
 
       
-    if #replacement_pool == 0 then
+    if #replacement_pool == 0 and not key then
         card_eval_status_text(card, 'extra', nil, nil, nil, { message = 'No replacement found!', colour = G.C.RED })
         return false
     end
@@ -1314,7 +1388,7 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key)
         delay = 0.1,
         func = function()
             if victim_joker and not victim_joker.removed then
-                victim_joker:start_dissolve({ G.C.SPECTRAL, G.C.WHITE })
+                victim_joker:All_in_Jest_start_dissolve({ G.C.SPECTRAL, G.C.WHITE })
                 victim_joker:remove_from_deck(true)
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
@@ -1326,7 +1400,7 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key)
                 }))
             end
 
-            local new_joker = create_card('Joker', G.jokers, is_legendary, victim_rarity, true, nil,
+            local new_joker = _card and copy_card(_card) or create_card('Joker', G.jokers, is_legendary, victim_rarity, true, nil,
                 replacement_key, 'apex_swap')
             if new_joker then
                 new_joker:add_to_deck()
@@ -1339,15 +1413,22 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key)
                     if victim_joker.ability[k] then
                         new_joker.ability[k] = true
                         if k == "perishable" and new_joker.ability.perish_tally == nil then
-							new_joker.ability.perish_tally = G.GAME.perishable_rounds or 5
+							new_joker.ability.perish_tally = victim_joker.ability.perish_tally or G.GAME.perishable_rounds or 5
 						end
                     end
                 end
                 new_joker:start_materialize({ G.C.SPECTRAL, G.C.WHITE })
-                new_joker:set_edition(victim_joker.edition)
+                new_joker:set_edition(victim_joker.edition, true, true)
+                if victim_joker.ability.all_in_jest and victim_joker.ability.all_in_jest.has_been_rerolled_data then
+                    new_joker.ability = victim_joker.ability.all_in_jest.has_been_rerolled_data
+                    if new_joker.ability.all_in_jest and new_joker.ability.all_in_jest.has_been_rerolled_data then
+                        new_joker.ability.all_in_jest.has_been_rerolled_data = nil
+                    end
+                end
                 if temp_key then
                     new_joker.ability.all_in_jest = new_joker.ability.all_in_jest or {}
                     new_joker.ability.all_in_jest.has_been_rerolled = temp_key
+                    new_joker.ability.all_in_jest.has_been_rerolled_data = victim_joker.ability
                 end
             end
 
@@ -1366,7 +1447,6 @@ end
 function All_in_Jest.reset_game_globals(run_start)
 	G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
-
     if run_start then
         G.GAME.all_in_jest.starting_prams.deck_size = #G.deck.cards
         local index = {4,5}
