@@ -34,10 +34,9 @@ local stellar = {
     weight = 10,
     extra_cost = 2,
     get_weight = function(self)
-        return G.GAME.edition_rate * self.weight
+        return G.GAME.jest_fairy_edition_rate * self.weight
     end,
 
     shader = 'stellar'
 }
-
 return {name = "Editions", items = {stellar, stellar_shader}}

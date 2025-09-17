@@ -37,7 +37,7 @@ local aureate = {
             local money = (total_money*mod)-total_money
             if total_money > to_big(0) then
 			    return {
-                    dollars = math.floor(math.min(total_money, max)),
+                    dollars = to_big(math.floor(math.min(total_money, max))),
                     card = card,
                 }
             end
