@@ -1,25 +1,93 @@
 local remina = {
     object_type = "Joker",
     order = 335,
-    ignore = true,
     key = "remina",
     config = {
+      extra = {
+          mult = 0,
+          chips = 0,
+      }
     },
-    rarity = 1,
+    rarity = 3,
     pos = { x = 6, y = 13},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 8,
     unlocked = true,
-    discovered = true,
-    blueprint_compat = false,
-    eternal_compat = false,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-
+        return {
+            vars = {
+                card.ability.extra.mult,
+                card.ability.extra.chips,
+            }
+        }
     end,
   
     calculate = function(self, card, context)
-        
+        if context.setting_blind and not G.GAME.blind.boss then
+            for i = 1, #G.consumeables.cards do
+                if G.consumeables.cards[i].config.center.set == "Planet" then
+                    local hand = G.consumeables.cards[i].config.center.config.hand_type or nil
+                    if hand then
+                        if G.consumeables.cards[i].config.center.config.mult then
+                            SMODS.scale_card(card, {
+	                            ref_table = card.ability.extra,
+                                ref_value = "mult",
+                                scalar_table = G.GAME.hands[hand],
+	                            scalar_value = "l_mult",
+                                operation = '+',
+                                scaling_message = {
+	                               message = localize('k_upgrade_ex'), 
+                                   colour = G.C.FILTER
+                                },
+                            })
+                        elseif G.consumeables.cards[i].config.center.config.chips then
+                            SMODS.scale_card(card, {
+	                            ref_table = card.ability.extra,
+                                ref_value = "chips",
+                                scalar_table = G.GAME.hands[hand],
+	                            scalar_value = "l_chips",
+                                operation = '+',
+                                scaling_message = {
+	                               message = localize('k_upgrade_ex'), 
+                                   colour = G.C.FILTER
+                                },
+                            })
+                        else
+                            SMODS.scale_card(card, {
+	                            ref_table = card.ability.extra,
+                                ref_value = "mult",
+                                scalar_table = G.GAME.hands[hand],
+	                            scalar_value = "l_mult",
+                                operation = '+',
+                                no_message = true,
+                            })
+                            SMODS.scale_card(card, {
+	                            ref_table = card.ability.extra,
+                                ref_value = "chips",
+                                scalar_table = G.GAME.hands[hand],
+	                            scalar_value = "l_chips",
+                                operation = '+',
+                                scaling_message = {
+	                               message = localize('k_upgrade_ex'), 
+                                   colour = G.C.FILTER
+                                },
+                            })
+                        end
+                    end
+                    G.consumeables.cards[i]:start_dissolve()
+                end
+            end
+        end
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult,
+                chips = card.ability.extra.chips
+            }
+        end
     end
   
 }

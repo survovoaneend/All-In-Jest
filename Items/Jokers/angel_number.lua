@@ -4,8 +4,8 @@ local angel_number = {
     key = "angel_number",
     config = {
       extra = {
-          curnumerator = "0",
-          numeratormod = 1
+          numeratormod = 1,
+          sevens = "0"
       }
     },
     rarity = 2,
@@ -14,7 +14,7 @@ local angel_number = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = true,
+    blueprint_compat = false, -- Potental problems
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
@@ -26,40 +26,33 @@ local angel_number = {
     end,
   
     calculate = function(self, card, context)
-        local sevens = 0
         if context.before and context.scoring_hand then
-            
+            card.ability.extra.sevens = "0"
             for i = 1, #context.scoring_hand do
                 if context.scoring_hand[i]:get_id() == 7 then
-                    sevens = sevens + 1
-                    for k, v in pairs(G.GAME.probabilities) do 
-                        G.GAME.probabilities[k] = v+card.ability.extra.numeratormod
-                    end
-                    card.ability.extra.curnumerator = tostring(tonumber(card.ability.extra.curnumerator) + card.ability.extra.numeratormod)
+                    card.ability.extra.sevens = tostring(tonumber(card.ability.extra.sevens) + card.ability.extra.numeratormod)
                 end
             end
-            if sevens > 0 then
-            card_eval_status_text(card, 'extra', nil, nil, nil, {
-                message = '+' .. sevens .. ' Odds',
-                colour = G.C.GREEN
-            })
-        end
-        end
-        if context.after then
-            if card.ability.extra.curnumerator ~= "0" then
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.1,
-                    func = function()
-                        for k, v in pairs(G.GAME.probabilities) do 
-                            G.GAME.probabilities[k] = v-tonumber(card.ability.extra.curnumerator)
-                        end
-                        card.ability.extra.curnumerator = "0"
-                        sevens = 0
-                    return true
-                    end
-                }))
+            if tonumber(card.ability.extra.sevens) > 0 then
+                card_eval_status_text(card, 'extra', nil, nil, nil, {
+                    message = '+' .. card.ability.extra.sevens .. ' Odds',
+                    colour = G.C.GREEN
+                })
             end
+        end
+        if context.mod_probability and context.trigger_obj then
+            return {
+                numerator = context.numerator + tonumber(card.ability.extra.sevens),
+                denominator = context.denominator
+            }
+        end
+        if context.all_in_jest and context.all_in_jest.drew_cards or context.end_of_round then
+            G.E_MANAGER:add_event(Event({
+                func = function() 
+				    card.ability.extra.sevens = "0"
+                    return true 
+                end 
+            }))
         end
     end
   

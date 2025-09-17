@@ -5,7 +5,7 @@ local overstuffed = {
     atlas = 'tag_atlas',
 
     discovered = false,
-    order = 4,
+    order = 5,
     config = {},
 
     loc_vars = function(self, info_queue)

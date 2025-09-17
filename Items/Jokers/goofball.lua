@@ -50,6 +50,5 @@ local goofball = {
         end
         return false
     end,
-
 }
 return { name = { "Jokers" }, items = { goofball } }

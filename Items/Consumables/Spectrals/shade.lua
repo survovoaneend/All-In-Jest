@@ -27,14 +27,22 @@ local shade_spectral = {
         local cards = {}
         for k, v in ipairs(G.hand.cards) do
             if not v.edition then cards[#cards + 1] = v end
-          end
+        end
         local _card = pseudorandom_element(cards, pseudoseed('shade_card'))
-        local edition = {negative = true}
-    
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.1, func = function()
-                _card:set_edition(edition, true)
-            return true end }))
-        card:juice_up(0.3, 0.5)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'before', 
+            delay = 0.2,
+            func = function()
+                card:juice_up(0.6, 0.2)
+                _card:juice_up(0.6, 0.2)
+                play_sound('negative', 1.5, 0.4)
+                _card:set_edition({negative = true}, true, true) 
+                if G.deck and #G.deck.cards > 0 then
+                    draw_card(G.deck,G.hand, nil,'up', nil, nil)
+                end
+                return true
+            end
+        }))
     end,
 }
 return {name = {"Spectrals"}, items = {shade_spectral}}

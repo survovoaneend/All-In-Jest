@@ -1,16 +1,15 @@
 local spectre = {
     object_type = "Joker",
     order = 148,
-    ignore = true,
 
     key = "spectre",
     config = {
       
     },
-    rarity = 1,
+    rarity = 3,
     pos = { x = 17, y = 5 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 8,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
@@ -21,7 +20,13 @@ local spectre = {
     end,
   
     calculate = function(self, card, context)
-      
+        if context.end_of_round and context.beat_boss and not context.individual and not context.repetition then
+            for i = 1, #G.consumeables.cards do
+                G.consumeables.cards[i]:start_dissolve()
+                create_consumable('Spectral', nil, nil, nil)
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral')})
+            end
+        end
     end
   
 }

@@ -21,12 +21,23 @@ local realty_sign = {
   
     calculate = function(self, card, context)
         if not context.blueprint and context.before and context.scoring_name == 'Full House' then 
-            card.ability.extra_value = (card.ability.extra_value or 0) + card.ability.extra.sell_increase
-            card:set_cost()
-            card_eval_status_text(card, 'extra', nil, nil, nil, {
-              message = localize('k_val_up'),
-                colour = G.C.MONEY
+            SMODS.scale_card(card, {
+	            ref_table = card.ability,
+                ref_value = "extra_value",
+                scalar_table = card.ability.extra,
+	            scalar_value = "sell_increase",
+                operation = '+',
+                scaling_message = {
+	                message = localize('k_val_up'),
+                    colour = G.C.MONEY
+                },
+                block_overrides = {
+	                value = true,
+	                scalar = true,
+	                message = true,
+                }
             })
+            card:set_cost()
           end
     end
   

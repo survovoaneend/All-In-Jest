@@ -16,13 +16,29 @@ local kilroy = {
     eternal_compat = false,
   
     loc_vars = function(self, info_queue, card)
-        card.ability.extra.curchips = card.ability.extra.modchips * G.GAME.jest_kilroy_sold
+        SMODS.scale_card(card, {
+	        ref_table = card.ability.extra,
+            ref_value = "curchips",
+	        scalar_value = "modchips",
+            operation = function(ref_table, ref_value, initial, change)
+	            ref_table[ref_value] = change * G.GAME.jest_kilroy_sold
+            end,
+            no_message = true,
+        })
         return { vars = {card.ability.extra.modchips, card.ability.extra.curchips}}
     end,
   
     calculate = function(self, card, context)
         if context.joker_main then
-            card.ability.extra.curchips = card.ability.extra.modchips * G.GAME.jest_kilroy_sold
+            SMODS.scale_card(card, {
+	            ref_table = card.ability.extra,
+                ref_value = "curchips",
+	            scalar_value = "modchips",
+                operation = function(ref_table, ref_value, initial, change)
+	                ref_table[ref_value] = change * G.GAME.jest_kilroy_sold
+                end,
+                no_message = true,
+            })
             if card.ability.extra.curchips ~= 0 then
                 return {
                   chips = card.ability.extra.curchips,

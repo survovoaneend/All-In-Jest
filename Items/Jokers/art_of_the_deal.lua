@@ -24,11 +24,17 @@ local art_of_the_deal = {
     end,
   
     calculate = function(self, card, context)
-      if context.jest_money_earned and context.jest_earned_sign == "+" and to_big(G.GAME.dollars) > to_big(0) and not context.blueprint then
-        card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
-        return {
-          message = localize('k_upgrade_ex')
-        }
+      if context.money_altered and to_big(context.amount) >= to_big(1) and to_big(G.GAME.dollars) > to_big(0) and not context.blueprint then
+        SMODS.scale_card(card, {
+	        ref_table = card.ability.extra,
+            ref_value = "mult",
+	        scalar_value = "mult_mod",
+            operation = '+',
+            scaling_message = {
+	            message = localize('k_upgrade_ex'),
+	            colour = G.C.FILTER
+            }
+        })
       end
       if to_big(G.GAME.dollars) <= to_big(0) and card.ability.extra.mult ~= 0 and not context.blueprint then
         card.ability.extra.mult = 0

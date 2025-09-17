@@ -4,7 +4,9 @@ local dead_president = {
 
     key = "dead_president",
     config = {
-      
+      extra = {
+        max = 50,
+      }
     },
     rarity = 1,
     pos = { x = 15, y = 4 },
@@ -18,7 +20,11 @@ local dead_president = {
     pixel_size = { w = 46, h = 95 },
   
     loc_vars = function(self, info_queue, card)
-  
+        return {
+            vars = {
+                card.ability.extra.max,
+            }
+        }
     end,
   
     calculate = function(self, card, context)
@@ -38,7 +44,7 @@ local dead_president = {
 
               if left_joker then
                   if left_joker.sell_cost > 0 and left_joker ~= card then
-                      left_joker.ability.extra_value = (left_joker.ability.extra_value or 0) + left_joker.sell_cost 
+                      left_joker.ability.extra_value = (left_joker.ability.extra_value or 0) + math.min(left_joker.sell_cost, card.ability.extra.max)
                       left_joker:set_cost() 
                       left_joker:juice_up(0.5, 0.3) 
                       card_eval_status_text(left_joker, 'extra', nil, nil, nil, {
@@ -51,7 +57,7 @@ local dead_president = {
 
               if right_joker then
                   if right_joker.sell_cost > 0 and right_joker ~= card then
-                      right_joker.ability.extra_value = (right_joker.ability.extra_value or 0) + right_joker.sell_cost
+                      right_joker.ability.extra_value = (right_joker.ability.extra_value or 0) + math.min(right_joker.sell_cost, card.ability.extra.max)
                       right_joker:set_cost()
                       right_joker:juice_up(0.5, 0.3)
                        card_eval_status_text(right_joker, 'extra', nil, nil, nil, {

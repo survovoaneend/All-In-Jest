@@ -29,7 +29,7 @@ local glimmer = {
 		end
 	end,
     in_shop = true,
-    weight = 3,
+    weight = 6,
     extra_cost = 3,
     get_weight = function(self)
         if G.GAME then

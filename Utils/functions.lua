@@ -75,6 +75,48 @@ function update_multiplied_value(t, key)
     t[key] = result
 end
 
+function retrieve_joker_text(joker, descip, name)
+    local function get_text(main)
+        local text = ""
+        if type(main) == "string" then
+            text = text .. main
+            return text
+        end
+        for i = 1, #main do
+            if type(main[i]) == "string" then
+                text = text .. main[i]
+            elseif main[i].config and main[i].config.text and type(main[i].config.text) == "string" then
+                text = text .. main[i].config.text
+            elseif type(main[i]) == "table" then
+                text = text .. " "
+                text = text .. get_text(main[i])
+            end
+        end
+        return text
+    end
+    local text = ""
+    if name and descip and G.localization.descriptions['Joker'][joker.key or joker] then
+        local main = G.localization.descriptions['Joker'][joker.key or joker].name
+        text = text .. get_text(main)
+        if text and type(text) == 'string' then text = string.gsub(text, "{.-}", "") end
+    elseif descip and G.localization.descriptions['Joker'][joker.key or joker] then
+        local main = G.localization.descriptions['Joker'][joker.key or joker].text
+        text = text .. get_text(main)
+        if text and type(text) == 'string' then text = string.gsub(text, "{.-}", "") end
+    else
+        if not joker.ability_UIBox_table then
+            joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
+        end
+        local main = joker.ability_UIBox_table.main
+        text = text .. get_text(main)
+        local multi_box = joker.ability_UIBox_table.multi_box
+        if multi_box then
+            text = text .. " "
+            text = text .. get_text(multi_box)
+        end
+    end
+    return text
+end
 
 --also repurposed from paperback
 function jest_add_tag(tag, event, silent)
@@ -96,12 +138,40 @@ function jest_add_tag(tag, event, silent)
   end
 end
 
+function level_up_other_hand(card, hand, other_hand, instant, amount)
+    amount = amount or 1
+    
+    if to_big(G.GAME.hands[other_hand].l_mult) >= to_big(1) then
+        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (G.GAME.hands[other_hand].l_mult * amount))
+    else
+        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (1 * amount))
+    end
+     
+    if to_big(G.GAME.hands[other_hand].l_chips) >= to_big(1) then
+        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (G.GAME.hands[other_hand].l_chips * amount))
+    else
+        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (1 * amount))
+    end
+    G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
+    }))
+end
+
 function level_up_hand_chips(card, hand, instant, amount)
     if (G.GAME.hands[hand].level and G.GAME.hands[hand].chips) then
         amount = amount or 1
+        local extra_chips = 0
+        if card.ability.extra_planetarium_chips then
+            for k, v in pairs(card.ability.extra_planetarium_chips) do
+                extra_chips = extra_chips + v
+            end
+        end
         G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
-
-        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (G.GAME.hands[hand].l_chips * amount * 2))
+        local val = G.GAME.hands[hand].l_chips * amount * 2
+        local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - val
+        extra_amount = (extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)) + (extra_chips > 0 and extra_chips or 0)
+        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + math.floor((G.GAME.hands[hand].l_chips * amount * 2 + extra_amount)))
         if not instant then 
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
                 play_sound('tarot1')
@@ -127,9 +197,17 @@ end
 function level_up_hand_mult(card, hand, instant, amount)
     if (G.GAME.hands[hand].level and G.GAME.hands[hand].mult) then
         amount = amount or 1
+        local extra_mult = 0
+        if card.ability.extra_planetarium_mult then
+            for k, v in pairs(card.ability.extra_planetarium_mult) do
+                extra_mult = extra_mult + v
+            end
+        end
         G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
-
-        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (G.GAME.hands[hand].l_mult * amount * 2))
+        local val = G.GAME.hands[hand].l_mult * amount * 2
+        local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - val
+        extra_amount = (extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)) + (extra_mult > 0 and extra_mult or 0)
+        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + math.floor((G.GAME.hands[hand].l_mult * amount * 2 + extra_amount)))
         if not instant then 
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
                 play_sound('tarot1')
@@ -407,7 +485,18 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
     end
   end
 
-  local search_table = extra_search and card[extra_search] or card.ability
+  function nested_tables(temcard, index)
+      local current = temcard
+      for key in string.gmatch(index, "[^%.]+") do
+          if type(current) ~= "table" then
+              return current
+          end
+          current = current[key]
+      end
+      return current
+  end
+
+  local search_table = extra_search and nested_tables(card, extra_search) or card.ability
 
   if search_table then
     local _, base_values = jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
@@ -485,7 +574,18 @@ jest_ability_get_items = function(card, equation, extra_value, exclusions, inclu
     return true
   end
 
-  local search_table = extra_search and card[extra_search] or card.ability
+  function nested_tables(temcard, index)
+      local current = temcard
+      for key in string.gmatch(index, "[^%.]+") do
+          if type(current) ~= "table" then
+              return current
+          end
+          current = current[key]
+      end
+      return current
+  end
+
+  local search_table = extra_search and nested_tables(card, extra_search) or card.ability
 
   if search_table then
     if type(search_table) == "number" then
@@ -585,6 +685,134 @@ AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
         end
     end
     return uiEX
+end
+
+AllInJest.deck_skins = {
+  {
+    id = 'double_king',
+    name = 'Double King',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'wuppo',
+    name = 'Wuppo',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'balatro',
+    name = 'Balatro',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'king_in_yellow',
+    name = 'The King in Yellow',
+    suits = {
+      'Diamonds',
+      'Clubs',
+    }
+  },
+  {
+    id = 'spelunky',
+    name = 'Spelunky',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
+    id = 'talos_principle',
+    name = 'Talos Principle',
+    suits = {
+      'Spades',
+    }
+  },
+  {
+    id = 'off',
+    name = 'OFF',
+    suits = {
+      'Spades',
+    }
+  },
+  {
+    id = 'alan_wake',
+    name = 'Alan Wake',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'we_happy_few',
+    name = 'We Happy Few',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'petscop',
+    name = 'Petscop',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'inscryption',
+    name = 'Inscryption',
+    suits = {
+      'Clubs',
+      'Spades',
+      'Hearts',
+      'Diamonds'
+    }
+  },
+
+}
+
+--Taken from paperback
+function jest_get_unique_suits(scoring_hand, bypass_debuff, flush_calc)
+  -- Set each suit's count to 0
+  local suits = {}
+
+  for k, _ in pairs(SMODS.Suits) do
+    suits[k] = 0
+  end
+
+  -- First we cover all the non Wild Cards in the hand
+  for _, card in ipairs(scoring_hand) do
+    if not SMODS.has_any_suit(card) then
+      for suit, count in pairs(suits) do
+        if card:is_suit(suit, bypass_debuff, flush_calc) and count == 0 then
+          suits[suit] = count + 1
+          break
+        end
+      end
+    end
+  end
+
+  -- Then we cover Wild Cards, filling the missing suits
+  for _, card in ipairs(scoring_hand) do
+    if SMODS.has_any_suit(card) then
+      for suit, count in pairs(suits) do
+        if card:is_suit(suit, bypass_debuff, flush_calc) and count == 0 then
+          suits[suit] = count + 1
+          break
+        end
+      end
+    end
+  end
+
+  -- Count the amount of suits that were found
+  local num_suits = 0
+
+  for _, v in pairs(suits) do
+    if v > 0 then num_suits = num_suits + 1 end
+  end
+
+  return num_suits
 end
 
 function reset_jest_magick_joker_card()
@@ -951,7 +1179,197 @@ function All_in_Jest.counts_as_all_suits(card)
   end
 end
 
+function All_in_Jest.has_patches(card, suit)
+  --Patches
+  if card.ability.patches and card.ability.patches[suit] then
+    return true
+  end
+  return false
+end
+
+function All_in_Jest.add_patch(card, suit, instant, append)
+  if not suit then
+      local keys = {}
+	  for k, v in pairs(SMODS.Suits) do
+          if card.base.suit ~= k and All_in_Jest.has_suit_in_deck(k, true) then
+	         keys[#keys+1] = k
+          end
+	  end
+	  suit = pseudorandom_element(keys, pseudoseed(append or ''))
+  end
+  instant = instant or false
+  if not instant then
+      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() 
+	    card.ability.patches = card.ability.patches or {}
+        card.ability.patches[suit] = true
+        play_sound('tarot1')
+        card:juice_up(0.3, 0.5)
+      return true end }))
+  else
+    card.ability.patches = card.ability.patches or {}
+    card.ability.patches[suit] = true
+  end
+  check_for_unlock({type = 'add_patch'})
+end
+
+function All_in_Jest.has_suit_in_deck(suit, ignore_wild)
+  for _, v in ipairs(G.playing_cards or {}) do
+    if not SMODS.has_no_suit(v) and (v.base.suit == suit or (not ignore_wild and v:is_suit(suit))) then
+      return true
+    end
+  end
+  return false
+end
+
+function All_in_Jest.add_tag_to_shop(key, price)
+    local center = G.P_TAGS[key]
+    center.atlas = center.atlas or 'tags'
+    local card = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
+    G.shop_booster.T.y, G.CARD_W*0.7, G.CARD_W*0.7, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
+    create_shop_card_ui(card, 'Tag', G.shop_booster)
+    local temp_config = {}
+    for k, v in pairs(center.config) do
+        card.config[k] = v
+    end
+    card.ability.booster_pos = #G.shop_booster.cards + 1
+    card.config.tag = Tag(card.config.center.key)
+    if card.config.center.key == "tag_orbital" then
+        local available_hands = {}
+
+        for _, k in ipairs(G.handlist) do
+          local hand = G.GAME.hands[k]
+          if hand.visible then
+            available_hands[#available_hands + 1] = k
+          end
+        end
+
+        card.config.tag.ability.orbital_hand = pseudorandom_element(available_hands, pseudoseed(card.ability.booster_pos .. '_orbital'))
+    end
+    card:start_materialize()
+    card.edition = nil
+    card.cost = price or 1
+    card.config.center.set_card_type_badge = function(self, card, badges)
+		badges[#badges+1] = create_badge(localize('k_tag'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2 )
+	end
+    G.shop_booster:emplace(card)
+    return card
+end
+
+function All_in_Jest.is_food(card)
+  local center = type(card) == "string" and G.P_CENTERS[card] or (card.config and card.config.center)
+
+  if not center then
+    return false
+  end
+
+  if center.pools and center.pools.Food then
+    return true
+  end
+
+  return All_in_Jest.vanilla_food[center.key]
+end
+
+function All_in_Jest.reroll_joker(card, key, append, temp_key)
+    local victim_joker = card
+      
+    local victim_rarity = victim_joker.config.center.rarity or 1
+    local is_legendary = victim_rarity == 4
+    local victim_key = victim_joker.config.center.key
+
+    
+    local replacement_pool = {}
+    for _, center_data in ipairs(G.P_CENTER_POOLS.Joker) do
+        local current_rarity = center_data.rarity or 1
+        if current_rarity == victim_rarity then
+            if center_data.key ~= victim_key then
+                if not center_data.demo and not center_data.wip and (center_data.unlocked or G.GAME.modifiers.all_jokers_unlocked or center_data.rarity == 4) then
+                    local can_add = true
+                    if center_data.in_pool and type(center_data.in_pool) == 'function' then
+                        if not center_data:in_pool() then can_add = false end
+                    end
+                    if can_add then table.insert(replacement_pool, center_data.key) end
+                end
+            end
+        end
+    end
+
+      
+    if #replacement_pool == 0 then
+        card_eval_status_text(card, 'extra', nil, nil, nil, { message = 'No replacement found!', colour = G.C.RED })
+        return false
+    end
+
+    
+    local replacement_key = key or pseudorandom_element(replacement_pool, pseudoseed(append..'_replacement'))
+    local victim_index
+    for i, jkr in ipairs(G.jokers.cards) do
+        if jkr == victim_joker then
+            victim_index = i
+            break
+        end
+    end
+
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.1,
+        func = function()
+            if victim_joker and not victim_joker.removed then
+                victim_joker:start_dissolve({ G.C.SPECTRAL, G.C.WHITE })
+                victim_joker:remove_from_deck(true)
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.5,
+                    func = function()
+                        if victim_joker and victim_joker.area then victim_joker.area:remove_card(victim_joker) end
+                        return true
+                    end
+                }))
+            end
+
+            local new_joker = create_card('Joker', G.jokers, is_legendary, victim_rarity, true, nil,
+                replacement_key, 'apex_swap')
+            if new_joker then
+                new_joker:add_to_deck()
+                if victim_index and victim_index <= #G.jokers.cards + 1 then
+                    G.jokers:emplace(new_joker, victim_index)
+                else
+                    G.jokers:emplace(new_joker)
+                end
+                for k, v in pairs(G.shared_stickers) do
+                    if victim_joker.ability[k] then
+                        new_joker.ability[k] = true
+                        if k == "perishable" and new_joker.ability.perish_tally == nil then
+							new_joker.ability.perish_tally = G.GAME.perishable_rounds or 5
+						end
+                    end
+                end
+                new_joker:start_materialize({ G.C.SPECTRAL, G.C.WHITE })
+                new_joker:set_edition(victim_joker.edition)
+                if temp_key then
+                    new_joker.ability.all_in_jest = new_joker.ability.all_in_jest or {}
+                    new_joker.ability.all_in_jest.has_been_rerolled = temp_key
+                end
+            end
+
+            card:juice_up(0.5, 0.5)
+            return true
+        end
+    }))
+end
+
+function All_in_Jest.set_debuff(card)
+	if card.ability and card.ability.all_in_jest and card.ability.all_in_jest.perma_debuff then
+		return true
+	end
+end
+
 function All_in_Jest.reset_game_globals(run_start)
 	G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
+
+    if run_start then
+        G.GAME.all_in_jest.starting_prams.deck_size = #G.deck.cards
+        local index = {4,5}
+        G.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
+    end
 end

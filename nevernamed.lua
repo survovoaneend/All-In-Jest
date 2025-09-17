@@ -51,7 +51,27 @@ SMODS.Atlas {
     path = "decks.png",
     px = 71,
     py = 95
-  }
+}
+SMODS.Atlas {
+    key = "sleeve_atlas",
+    path = "sleeves.png",
+    px = 73,
+    py = 95
+}
+SMODS.Atlas {
+    key = "stickers_atlas",
+    path = "stickers.png",
+    px = 71,
+    py = 95
+}
+SMODS.Atlas { 
+    key = 'blinds', 
+    path = 'blinds.png', 
+    px = 34, 
+    py = 34, 
+    frames = 21, 
+    atlas_table = 'ANIMATION_ATLAS' 
+}
 SMODS.Atlas {
   key = "legendary_atlas",
   path = "legendaries.png",
@@ -67,6 +87,12 @@ SMODS.Atlas {
 SMODS.Atlas {
   key = "enhancements_atlas",
   path = "enhancements.png",
+  px = 71, 
+  py = 95
+}
+SMODS.Atlas {
+  key = "vouchers_atlas",
+  path = "vouchers.png",
   px = 71,
   py = 95
 }
@@ -82,6 +108,13 @@ SMODS.Atlas {
   path = 'familiar.png',
   px = 71,
   py = 95
+}
+
+SMODS.Atlas {
+  key = 'partner_atlas',
+  path = 'partner_atlas.png',
+  px = 46,
+  py = 58,
 }
 
 SMODS.Atlas {
@@ -137,6 +170,14 @@ SMODS.Gradient {
     interpolation = 'trig'
 }
 SMODS.Gradient {
+    key = 'silver',
+    colours = {
+        HEX('afbbca'), HEX('9cacbe')
+    },
+    cycle = 5,
+    interpolation = 'trig'
+}
+SMODS.Gradient {
     key = 'stellar',
     colours = {
         HEX('666694'), HEX('7a73bb')
@@ -148,12 +189,60 @@ AllInJest = {}
 assert(SMODS.load_file('Utils/context.lua'))()
 assert(SMODS.load_file('Utils/draw.lua'))()
 assert(SMODS.load_file('Utils/functions.lua'))()
-assert(SMODS.load_file('Utils/overrides.lua'))()
+assert(SMODS.load_file('Utils/hooks.lua'))()
 assert(SMODS.load_file('Utils/ui.lua'))()
 
 local folders = NFS.getDirectoryItems(mod_path.."Items")
 local objects = {}
 
+for _, data in ipairs(AllInJest.deck_skins) do
+  for _, suit in ipairs(data.suits) do
+    local key = data.id .. "_" .. suit:lower()
+
+    -- Common ranks used in both palettes
+    local ranks = { 'King', 'Queen', 'Jack' }
+    local display_ranks = ranks
+    
+    local atlas_lc = SMODS.Atlas {
+      key = key .. '_lc',
+      path = 'collabs/lc/' .. key .. '_lc.png',
+      px = 71,
+      py = 95
+    }
+
+    local atlas_hc = SMODS.Atlas {
+      key = key .. '_hc',
+      path = 'collabs/hc/' .. key .. '_hc.png',
+      px = 71,
+      py = 95
+    }
+
+    SMODS.DeckSkin {
+      key = key,
+      suit = suit,
+      loc_txt = {
+        ['en-us'] = data.name
+      },
+      palettes = {
+        {
+          key = 'lc',
+          ranks = ranks,
+          display_ranks = display_ranks,
+          pos_style = 'ranks',
+          atlas = atlas_lc.key
+        },
+        {
+          key = 'hc',
+          ranks = ranks,
+          display_ranks = display_ranks,
+          pos_style = 'ranks',
+          atlas = atlas_hc.key,
+          hc_default = true
+        }
+      }
+    }
+  end
+end
 local function collect_item_files(base_fs, rel, out)
     for _, name in ipairs(NFS.getDirectoryItems(base_fs)) do
         local abs = base_fs.."/"..name
@@ -199,8 +288,8 @@ local function load_items(curr_obj)
         end
         if SMODS[item.object_type] and not item.ignore then
             SMODS[item.object_type](item)
-        elseif CardSleeves and CardSleeves[item.object_type] and not item.ignore then
-            CardSleeves[item.object_type](item)
+        elseif item.object_loader and not item.ignore then
+            item.object_loader[item.object_type](item)
         elseif not item.ignore then
             print("Error loading item "..item.key.." of unknown type "..item.object_type)
         end

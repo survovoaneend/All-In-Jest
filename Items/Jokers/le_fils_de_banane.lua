@@ -16,15 +16,12 @@ local le_fils_de_banane = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
-    -- pools = {
-    --     Food = true
-    -- },
   
     loc_vars = function(self, info_queue, card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
         return {
             vars = {
-                G.GAME.probabilities.normal,
-                card.ability.extra.odds,
+                numerator, denominator,
                 card.ability.extra.mult
             }
         }
@@ -35,7 +32,7 @@ local le_fils_de_banane = {
             local total_cards = {}
             for i = 1, #context.scoring_hand do
                 if context.scoring_hand[i]:is_face() then
-                    if pseudorandom('le_fils_de_banane') < G.GAME.probabilities.normal / card.ability.extra.odds and not context.scoring_hand[i].destroyed then
+                    if SMODS.pseudorandom_probability(card, 'le_fils_de_banane', 1, card.ability.extra.odds) and not context.scoring_hand[i].destroyed then
                         card_eval_status_text(context.scoring_hand[i], 'extra', nil, nil, nil, {message = localize('k_extinct_ex'),colour = G.C.FILTER})
                         table.insert(total_cards, context.scoring_hand[i])
                         G.E_MANAGER:add_event(Event({

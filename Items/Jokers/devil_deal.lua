@@ -35,10 +35,18 @@ local devil_deal = {
         if val:is_suit("Hearts") then hearts = hearts + 1 end
       end
       if hearts > 0 then
-        card.ability.extra.xmult = card.ability.extra.xmult + (hearts * card.ability.extra.xmult_mod)
-        return {
-          message = "X"..card.ability.extra.xmult.. " Mult",
-        }
+        SMODS.scale_card(card, {
+	        ref_table = card.ability.extra,
+            ref_value = "xmult",
+	        scalar_value = "xmult_mod",
+            operation = function(ref_table, ref_value, initial, change)
+	            ref_table[ref_value] = initial + (hearts*change)
+            end,
+            scaling_message = {
+	            message = "X"..card.ability.extra.xmult.. " Mult",
+	            colour = G.C.MULT
+            }
+        })
       end
       return
     end

@@ -5,6 +5,7 @@ local mondrian_joker = {
     key = "mondrian_joker",
     config = {
       extra = {
+        mult = 0,
         mult_mod = 4
       }
     },
@@ -26,7 +27,16 @@ local mondrian_joker = {
                 end
             end
         end
-        local current_mult = four_count * card.ability.extra.mult_mod
+        SMODS.scale_card(card, {
+	        ref_table = card.ability.extra,
+            ref_value = "mult",
+	        scalar_value = "mult_mod",
+            operation = function(ref_table, ref_value, initial, change)
+	            ref_table[ref_value] = four_count * change
+            end,
+            no_message = true,
+        })
+        local current_mult = card.ability.extra.mult
         return { vars = {card.ability.extra.mult_mod, current_mult} }
     end,
   
@@ -41,7 +51,16 @@ local mondrian_joker = {
               end
           end
 
-          local total_mult = four_count * card.ability.extra.mult_mod
+          SMODS.scale_card(card, {
+	            ref_table = card.ability.extra,
+                ref_value = "mult",
+	            scalar_value = "mult_mod",
+                operation = function(ref_table, ref_value, initial, change)
+	                ref_table[ref_value] = four_count * change
+                end,
+                no_message = true,
+          })
+          local total_mult = card.ability.extra.mult
 
           if total_mult > 0 then
               return {

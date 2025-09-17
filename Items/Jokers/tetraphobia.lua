@@ -25,10 +25,15 @@ local tetraphobia = {
   calculate = function(self, card, context)
       
       if context.discard and context.other_card and context.other_card:get_id() == 4 and not context.other_card.debuff then
-          card.ability.extra.mult = (card.ability.extra.mult or 0) + card.ability.extra.mult_mod
-          card_eval_status_text(card, 'extra', nil, nil, nil, {
-              message = '+'..(card.ability.extra.mult or 0)..' Mult',
-              colour = G.C.MULT
+          SMODS.scale_card(card, {
+	          ref_table = card.ability.extra,
+              ref_value = "mult",
+	          scalar_value = "mult_mod",
+              operation = '+',
+              scaling_message = {
+	              message = '+'..(card.ability.extra.mult or 0)..' Mult',
+                  colour = G.C.MULT
+              }
           })
           return { card = card }
       end

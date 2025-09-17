@@ -43,24 +43,30 @@ local martellino = {
         local eval = function(card) return (card.ability.loyalty_remaining == 0) and not G.RESET_JIGGLES end
                             juice_card_until(cardd, eval, true)
         if #G.jokers.cards <= G.jokers.config.card_limit then 
-            G.SETTINGS.paused = true
-            G.FUNCS.overlay_menu{
-              config = {no_esc = true},
-              definition = SMODS.jest_no_back_card_collection_UIBox(
-                  G.P_CENTER_POOLS.Joker, 
-                  {5,5,5}, 
-                  {
-                      no_materialize = true, 
-                      modify_card = function(card, center) 
-                          card.sticker = get_joker_win_sticker(center) 
-                          if card.config.center.discovered then
-                            jest_create_select_card_ui(card, G.jokers)
-                          end
-                      end, 
-                      h_mod = 1.05,
-                  }
-              ),
-            }
+            G.E_MANAGER:add_event(Event({
+                func = function() 
+				    G.SETTINGS.paused = true
+                    G.FUNCS.overlay_menu{
+                      config = {no_esc = true},
+                      definition = SMODS.jest_no_back_card_collection_UIBox(
+                          G.P_CENTER_POOLS.Joker, 
+                          {5,5,5}, 
+                          {
+                              no_materialize = true, 
+                              modify_card = function(card, center) 
+                                  card.sticker = get_joker_win_sticker(center) 
+                                  if card.config.center.discovered then
+                                    jest_create_select_card_ui(card, G.jokers)
+                                  end
+                              end, 
+                              h_mod = 1.05,
+                          }
+                      ),
+                    }
+                    return true 
+                end 
+            }))
+            
             if cardd.ability.marte_rounds then cardd.ability.marte_rounds = 0 end
         else
             card_eval_status_text(context.blueprint_card or cardd, 'extra', nil, nil, nil, {message = localize('k_no_room_ex')})

@@ -17,10 +17,10 @@ local tetrominoker = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
         return {
             vars = {
-                G.GAME.probabilities.normal,
-                card.ability.extra.odds,
+                numerator, denominator,
             }
         }
     end,
@@ -28,7 +28,7 @@ local tetrominoker = {
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.blueprint then
             if context.other_card:get_id() == 4 then
-                if pseudorandom('tetrominoker') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                if SMODS.pseudorandom_probability(card, 'tetrominoker', 1, card.ability.extra.odds) then
                         G.playing_card = (G.playing_card and G.playing_card + 1) or 1
                 local copied_card = copy_card(context.other_card, nil, nil, G.playing_card)
                 copied_card:add_to_deck()

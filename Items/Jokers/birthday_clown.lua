@@ -19,9 +19,9 @@ local birthday_clown = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-      local active_text = "Active!"
+      local active_text = localize('k_active')
       if not card.ability.extra.active then 
-        active_text = "Inactive"
+        active_text = localize('k_inactive')
       end
       return {
         vars = {
@@ -33,7 +33,7 @@ local birthday_clown = {
   
     calculate = function(self, card, context)
       if context.end_of_round then
-        if G.GAME.blind.boss then
+        if context.beat_boss then
           card.ability.extra.active = true
         else
           card.ability.extra.active = false

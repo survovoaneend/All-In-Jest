@@ -47,13 +47,16 @@ all_in_jest = {
 		v_aij_gold_medal_been_used = false,
 		v_aij_trophy_chance = false,
 		ticket_trigger = true,
+
+		lost_carcosa_mult = 1,
 	}, 
+	sticker_effects = {
+      ['rental'] = 1,
+      ['perishable'] = 2
+    },
 	dizzard_shop = false,
 	pit_blind_ante = 4,
-	blind_tags = {has_multiple = false, Small = {two = nil, three = nil}, Big = {two = nil, three = nil}, selected_index = nil},
-	advanced_hand_usage_run = {},
-	advanced_hand_usage_ante = {},
-	advanced_hand_usage = {},
+	blind_tags = {has_multiple = false, selected_index = nil, amt = 1},
 	AIJAnimated = {
 		c_aij_scopophobia = { frames_per_row = 'atlas_size', extra_yrows = 7, frames = 18, start_frame = 0, fps = 12, hold = { frames_per_row = 'atlas_size', frames = 2, max_frames = 18, min_frames = 2, min_start_frames = 0, hold_for_min = 12, hold_for_max = 35 } },
 		j_aij_electric_snow = { frames_per_row = 'atlas_size', extra_yrows = 15, frames = 7, start_frame = 0, fps = 16, },
@@ -84,7 +87,9 @@ all_in_jest = {
 		m_aij_simulated = {frames_per_row = 'atlas_size', extra_yrows = 1, frames = 10, start_frame = 0, fps = 10,},
 		j_aij_chromatist = { frames_per_row = 'atlas_size', extra_yrows = 15, frames = 25, start_frame = 8, fps = 10, },
 	},
+
 	patches_sprites = {},
+
 	reset_score = {chips = false, mult = false, chip_total = false, blind_total = false},
 	secret_hands = {},
 	gold_tag_rate = 1,

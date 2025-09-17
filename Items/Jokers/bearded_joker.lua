@@ -5,7 +5,8 @@ local bearded_joker = {
     key = "bearded_joker",
     config = {
       extra = {
-        mult_mod = 1,
+        mult = 0,
+        mult_mod = 2,
       }
     },
     rarity = 1,
@@ -22,14 +23,22 @@ local bearded_joker = {
         if G.GAME and G.playing_cards then
             for _, card in ipairs(G.playing_cards) do
                 if card.config.center ~= G.P_CENTERS.c_base then
-                 enhancement_tally = enhancement_tally + 1
+                   enhancement_tally = enhancement_tally + 1
                 end
             end
         end
+        card.ability.extra.mult = enhancement_tally
+        SMODS.scale_card(card, {
+	        ref_table = card.ability.extra,
+            ref_value = "mult",
+	        scalar_value = "mult_mod",
+            operation = '+',
+            no_message = true,
+        })
         return {
             vars = {
                 card.ability.extra.mult_mod,
-                enhancement_tally * card.ability.extra.mult_mod,
+                card.ability.extra.mult,
             }
         }
     end,
@@ -43,9 +52,17 @@ local bearded_joker = {
                 end
             end
         end
+        card.ability.extra.mult = enhancement_tally
+        SMODS.scale_card(card, {
+	        ref_table = card.ability.extra,
+            ref_value = "mult",
+	        scalar_value = "mult_mod",
+            operation = '+',
+            no_message = true,
+        })
         if context.joker_main then
             return {
-                mult = card.ability.extra.mult_mod * enhancement_tally,
+                mult = card.ability.extra.mult,
                 card = card
             }
         end

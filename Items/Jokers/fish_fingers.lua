@@ -37,8 +37,30 @@ local fish_fingers = {
         end
         if context.end_of_round and context.main_eval and not context.blueprint then
             if card.ability.extra.hands > 0 then
-                card.ability.extra.hands = card.ability.extra.hands - card.ability.extra.hand_mod
-                 if card.ability.extra.hands <= 0 then
+                if (card.ability.extra.hands - card.ability.extra.hand_mod) <= 0 then
+                    SMODS.scale_card(card, {
+	                    ref_table = card.ability.extra,
+                        ref_value = "hands",
+	                    scalar_value = "hand_mod",
+                        operation = '-',
+                        scaling_message = {
+	                        message = localize('k_eaten_ex'),
+                            colour = G.C.RED
+                        }
+                    })
+                else
+                    SMODS.scale_card(card, {
+	                    ref_table = card.ability.extra,
+                        ref_value = "hands",
+	                    scalar_value = "hand_mod",
+                        operation = '-',
+                        scaling_message = {
+	                       message = "-"..card.ability.extra.hand_mod.." Hand", 
+                           colour = G.C.BLUE
+                        }
+                    })
+                end
+                if card.ability.extra.hands <= 0 then
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             play_sound('tarot1')
@@ -60,12 +82,6 @@ local fish_fingers = {
                             return true
                         end
                     }))
-                    return {
-                        message = localize('k_eaten_ex'),
-                        colour = G.C.RED
-                    }
-                else
-                    card_eval_status_text(card, 'extra', nil, nil, nil, { message = "-1 Hand", colour = G.C.BLUE})
                 end
             end
         end

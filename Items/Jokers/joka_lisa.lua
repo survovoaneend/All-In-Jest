@@ -40,7 +40,7 @@ local joka_lisa = {
     if context.joker_main then
       local xmult = 1
       if G.hand.config.card_limit then
-        xmult = G.hand.config.card_limit - 7
+        xmult = (G.hand.config.card_limit - 7) * card.ability.extra.xmult_mod
       end
       if xmult < 1 then
         xmult = 1

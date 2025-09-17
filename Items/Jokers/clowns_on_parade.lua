@@ -37,10 +37,16 @@ local clowns_on_parade = {
         end
       end
       if twos >= 3 then
-        card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
-        return {
-          message = localize('k_upgrade_ex'),
-        }
+        SMODS.scale_card(card, {
+	        ref_table = card.ability.extra,
+            ref_value = "chips",
+	        scalar_value = "chip_mod",
+            operation = '+',
+            scaling_message = {
+	            message = localize('k_upgrade_ex'),
+	            colour = G.C.FILTER
+            }
+        })
       end
     end
     if context.joker_main then

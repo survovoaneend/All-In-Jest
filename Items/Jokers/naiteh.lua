@@ -35,13 +35,18 @@ local naiteh = {
         end
     end,
     calculate = function(self, card, context)
-        if context.end_of_round and G.GAME.blind.boss and context.main_eval and not context.blueprint then
-            card.ability.extra.h_size = card.ability.extra.h_size + card.ability.extra.h_size_mod
+        if context.end_of_round and context.beat_boss and context.main_eval and not context.blueprint then
+            SMODS.scale_card(card, {
+	            ref_table = card.ability.extra,
+                ref_value = "h_size",
+	            scalar_value = "h_size_mod",
+                operation = '+',
+                scaling_message = {
+	                message = localize('k_upgrade_ex'),
+	                colour = G.C.FILTER
+                }
+            })
             G.hand:change_size(card.ability.extra.h_size_mod)
-            return {
-                message = localize('k_upgrade_ex'),
-                card = card
-            }
         end
     end,
     remove_from_deck = function(self, card, from_debuff)

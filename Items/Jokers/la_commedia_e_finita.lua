@@ -35,11 +35,18 @@ local la_commedia_e_finita = {
         if val:is_face() then face_cards = face_cards + 1 end
       end
       if face_cards > 0 then
-        card.ability.extra.mult = card.ability.extra.mult + (face_cards * card.ability.extra.mult_gain)
-        return {
-          message = '+' .. card.ability.extra.mult .. ' Mult',
-          colour = G.C.RED
-        }
+        SMODS.scale_card(card, {
+	        ref_table = card.ability.extra,
+            ref_value = "mult",
+	        scalar_value = "mult_gain",
+            operation = function(ref_table, ref_value, initial, change)
+	            ref_table[ref_value] = initial + (face_cards * change)
+            end,
+            scaling_message = {
+	            message = '+' .. card.ability.extra.mult .. ' Mult',
+                colour = G.C.RED
+            }
+        })
       end
       return
     end
@@ -49,11 +56,18 @@ local la_commedia_e_finita = {
         if val:is_face() then face_cards = face_cards + 1 end
       end
       if face_cards > 0 then
-        card.ability.extra.mult = card.ability.extra.mult + (face_cards * card.ability.extra.mult_gain)
-        return {
-          message = '+' .. card.ability.extra.mult .. ' Mult',
-          colour = G.C.RED
-        }
+        SMODS.scale_card(card, {
+	        ref_table = card.ability.extra,
+            ref_value = "mult",
+	        scalar_value = "mult_gain",
+            operation = function(ref_table, ref_value, initial, change)
+	            ref_table[ref_value] = initial + (face_cards * change)
+            end,
+            scaling_message = {
+	            message = '+' .. card.ability.extra.mult .. ' Mult',
+                colour = G.C.RED
+            }
+        })
       end
       return
     end
