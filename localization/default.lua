@@ -2510,11 +2510,15 @@ return {
             j_aij_overdesigned_joker = {
                 name = "Overdesigned Joker",
                 text = {
-                    "Played cards with {V:1}#1#{} suit",
-                    "#3# {B:3,V:2}#4##2#{}#5#when scored,",
-                    "suit and effect {C:attention}rotate{}",
-                    "when a card is {C:attention}scored",
-                    "{C:inactive}(Hearts->Clubs->Diamonds->Spades)"
+                    {
+                        "Played cards with {V:1}#1#{} suit",
+                        "#3# {B:3,V:2}#4##2#{}#5#when scored,",
+                    },
+                    {
+                        "suit and effect {C:attention}rotate{}",
+                        "when a card is {C:attention}scored",
+                        "{C:inactive}(Hearts->Clubs->Diamonds->Spades)"
+                    }
                 }
             },
             j_aij_morio = {
