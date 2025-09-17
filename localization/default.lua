@@ -205,7 +205,7 @@ return {
                 },
                 unlock={
                     "Win a run with",
-                    "{C:attention}Simple Simon{} on",
+                    "{C:attention}Tetraphobia{} on",
                     "{C:attention}Gold Stake{} difficulty",
                 },
             },
@@ -1835,7 +1835,7 @@ return {
                 },
             },
             j_aij_little_boy_blue = { 
-                name = "Little boy Blue", 
+                name = "Little Boy Blue", 
                 text = { 
                     "{C:chips}+#1#{} Chips",
                     "Only {C:chips}Chip{} Jokers may",
@@ -1843,7 +1843,7 @@ return {
                 } 
             },
             j_aij_big_red = { 
-                name = "Big red", 
+                name = "Big Red", 
                 text = { 
                     "{C:mult}+#1#{} Mult",
                     "Only {C:mult}Mult{} Jokers may",
