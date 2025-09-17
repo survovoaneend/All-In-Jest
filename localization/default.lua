@@ -1123,9 +1123,9 @@ return {
             j_aij_the_jester = {
                 name = "The Jester",
                 text = {
-                    "Selling a {C:attention}Joker{} creates",
-                    "{C:tarot}The Fool{} card",
-                    "{C:inactive}(Works once per round){C:inactive}",
+                    "The first {C:attention}Joker{}",
+                    "sold each round",
+                    "creates {C:tarot}The Fool{}",
                     "{C:inactive}#1#{}"
                 },
                 -- TODO use juice until
