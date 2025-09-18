@@ -32,15 +32,7 @@ local slim_joker = {
     calculate = function(self, card, context)
         if context.joker_main then
             local _mult = 0
-            SMODS.scale_card(card, {
-	            ref_table = card.ability.extra,
-                ref_value = "initial_mult",
-	            scalar_value = "mult_mod",
-                operation = function(ref_table, ref_value, initial, change)
-	                _mult = initial - change * #context.full_hand
-                end,
-                no_message = true,
-            })
+            _mult = card.ability.extra.initial_mult - card.ability.extra.mult_mod * #context.full_hand
             if _mult > 0 then 
                 return {
                     mult = _mult
