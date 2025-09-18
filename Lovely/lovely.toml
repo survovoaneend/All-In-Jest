@@ -1726,16 +1726,16 @@ end
 [patches.pattern]
 target = "blind.lua"
 pattern = '''
-if obj.debuff_hand and type(obj.debuff_hand) == 'function' then
+function Blind:debuff_hand(cards, hand, handname, check)
 '''
-position = "before"
+position = "after"
 match_indent = true
 payload = '''
-local has_opening_move = next(SMODS.find_card("j_aij_opening_move"))
-if G.GAME.current_round.hands_played <= 0 and has_opening_move then
-    self.triggered = true
-    return true
-end
+    local has_opening_move = next(SMODS.find_card("j_aij_opening_move"))
+    if G.GAME.current_round.hands_played <= 0 and has_opening_move then
+        self.triggered = true
+        return true
+    end
 '''
 
 [[patches]]
