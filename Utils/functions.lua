@@ -739,6 +739,13 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'portal_two',
+    name = 'Portal 2',
+    suits = {
+      'Spades',
+    }
+  },
+  {
     id = 'alan_wake',
     name = 'Alan Wake',
     suits = {
