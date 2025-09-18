@@ -40,7 +40,7 @@ local void = {
                 G.GAME.jest_void_planet_ante = true
             end
         end
-        if context.ante_end then
+        if context.ante_change and context.ante_change ~= 0 then
             G.GAME.jest_void_planet_ante = false
         end
     end
