@@ -21,7 +21,12 @@ local aureate = {
         max = 30
     },
     loc_vars = function(self, info_queue, card)
-        local money = to_big(((card.edition or {}).money or self.config.money) + 1)
+        local money
+        if card and card.ability and (card.ability.set == 'Enhanced' or card.ability.set == 'Default') then
+            money = to_big((((card.edition or {}).money or self.config.money)/(3/2)) + 1)
+        else
+            money = to_big(((card.edition or {}).money or self.config.money) + 1)
+        end
         return {
             vars = {
                 money,
@@ -30,18 +35,29 @@ local aureate = {
         }
     end,
     calculate = function(self, card, context)
-		if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
+        if (card.ability.set == 'Enhanced' or card.ability.set == 'Default') and (context.main_scoring and context.cardarea == G.play) then
+            local mod = to_big((((card.edition or {}).money or self.config.money)/(3/2)) + 1)
+            local max = to_big((card.edition or {}).max or self.config.max)
+            local total_money = to_big(G.GAME.dollars)
+            local money = (total_money*mod)-total_money
+            if total_money > to_big(0) then
+			    return {
+                    dollars = to_big(math.floor(math.min(money, max))),
+                    card = card,
+                }
+            end
+        elseif context.end_of_round and card.ability.set == 'Joker' and context.main_eval then
             local mod = to_big(((card.edition or {}).money or self.config.money) + 1)
             local max = to_big((card.edition or {}).max or self.config.max)
             local total_money = to_big(G.GAME.dollars)
             local money = (total_money*mod)-total_money
             if total_money > to_big(0) then
 			    return {
-                    dollars = to_big(math.floor(math.min(total_money, max))),
+                    dollars = to_big(math.floor(math.min(money, max))),
                     card = card,
                 }
             end
-		end
+        end
 	end,
     in_shop = true,
     weight = 3,
