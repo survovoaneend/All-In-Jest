@@ -28,7 +28,7 @@ local bearded_joker = {
             end
         end
         card.ability.extra.mult = enhancement_tally
-        card.ability.extra.mult = card.ability.extra.mult * mult_mod
+        card.ability.extra.mult = card.ability.extra.mult * card.ability.extra.mult_mod
         return {
             vars = {
                 card.ability.extra.mult_mod,
@@ -47,7 +47,7 @@ local bearded_joker = {
             end
         end
         card.ability.extra.mult = enhancement_tally
-        card.ability.extra.mult = card.ability.extra.mult * mult_mod
+        card.ability.extra.mult = card.ability.extra.mult * card.ability.extra.mult_mod
         if context.joker_main then
             return {
                 mult = card.ability.extra.mult,
