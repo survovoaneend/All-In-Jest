@@ -87,9 +87,31 @@ function retrieve_joker_text(joker, descip, name)
                 text = text .. main[i]
             elseif main[i].config and main[i].config.text and type(main[i].config.text) == "string" then
                 text = text .. main[i].config.text
+
+            -- Parses any Dynatext objects
+            elseif main[i].config and main[i].config.object and main[i].config.object.config and type(main[i].config.object.config) == "table" then
+                local options = main[i].config.object.config.string
+                local random_element = main[i].config.object.config.random_element
+                local chosen_option = nil
+                if random_element then
+                    chosen_option = options[math.random(1, #options)]
+                else
+                    chosen_option = options[math.floor((G.TIMERS.REAL or math.random(1, 60)) * love.timer.getFPS( ) % #options) + 1]
+                end
+                if type(chosen_option) == "table" then
+                    text = text .. chosen_option.string or get_text(chosen_option)
+                else
+                    text = text .. chosen_option
+                end
             elseif type(main[i]) == "table" then
-                text = text .. " "
-                text = text .. get_text(main[i])
+                -- Parses any text in XMult/XChip/similar blocks
+                if main[i].nodes and type(main[i].nodes) == "table" then
+                    text = text .. " "
+                    text = text .. get_text(main[i].nodes)
+                else
+                    text = text .. " "
+                    text = text .. get_text(main[i])
+                end
             end
         end
         return text
@@ -104,7 +126,7 @@ function retrieve_joker_text(joker, descip, name)
         text = text .. get_text(main)
         if text and type(text) == 'string' then text = string.gsub(text, "{.-}", "") end
     else
-        if not joker.ability_UIBox_table then
+        if not joker.ability_UIBox_table then -- Removing this check causes memory leaks
             joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
         end
         local main = joker.ability_UIBox_table.main
