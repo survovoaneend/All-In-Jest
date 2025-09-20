@@ -4,9 +4,18 @@ local calculate_lexicon_mult = function(card)
         for i = 1, #G.jokers.cards do
             if G.jokers.cards[i] ~= card and G.jokers.cards[i].config.center.key ~= 'j_aij_lexicon' then
                 local text = retrieve_joker_text(G.jokers.cards[i])
+ 
+                -- Consecutive spaces usually indicates some sort of missing dynatext
+                if string.match(text, "  ") then
+                    G.jokers.cards[i].ability_UIBox_table = G.jokers.cards[i]:generate_UIBox_ability_table()
+                    text = retrieve_joker_text(G.jokers.cards[i])
+                end
 
                 local new_mult = 0 -- For dynatext check
-                for num in string.gmatch(text, "%d*%.?%d+") do
+
+                -- If you want to sum each digit instead, use following regex: "%d"
+                local number_regex = "%d*%.?%d+"
+                for num in string.gmatch(text, number_regex) do
                     new_mult = new_mult + tonumber(num)
                 end
 
@@ -15,7 +24,7 @@ local calculate_lexicon_mult = function(card)
                 if new_mult == 0 then
                     G.jokers.cards[i].ability_UIBox_table = G.jokers.cards[i]:generate_UIBox_ability_table()
                     text = retrieve_joker_text(G.jokers.cards[i])
-                    for num in string.gmatch(text, "%d*%.?%d+") do
+                    for num in string.gmatch(text, number_regex) do
                         new_mult = new_mult + tonumber(num)
                     end
                 end
