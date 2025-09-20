@@ -87,6 +87,8 @@ function retrieve_joker_text(joker, descip, name)
                 text = text .. main[i]
             elseif main[i].config and main[i].config.text and type(main[i].config.text) == "string" then
                 text = text .. main[i].config.text
+
+            -- Parses any Dynatext objects
             elseif main[i].config and main[i].config.object and main[i].config.object.config and type(main[i].config.object.config) == "table" then
                 local options = main[i].config.object.config.string
                 local random_element = main[i].config.object.config.random_element
@@ -102,6 +104,7 @@ function retrieve_joker_text(joker, descip, name)
                     text = text .. chosen_option
                 end
             elseif type(main[i]) == "table" then
+                -- Parses any text in XMult/XChip/similar blocks
                 if main[i].nodes and type(main[i].nodes) == "table" then
                     text = text .. " "
                     text = text .. get_text(main[i].nodes)
