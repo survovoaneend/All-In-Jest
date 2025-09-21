@@ -1,6 +1,11 @@
 local bananarama = {
     object_type = "Challenge",
     key = 'bananarama',
+    unlocked = function(self) 
+        if G and G.P_CENTERS and G.P_CENTERS['j_gros_michel'].discovered == true and G.P_CENTERS['j_cavendish'].discovered == true and G.P_CENTERS['j_aij_le_fils_de_banane'].discovered == true and G.P_CENTERS['j_aij_banana_man'].discovered == true then
+            return true 
+        end
+    end,
     jokers = {
         { id = 'j_aij_banana_man', eternal = true, edition = 'negative' },
         { id = 'j_oops', eternal = true, edition = 'negative' },
