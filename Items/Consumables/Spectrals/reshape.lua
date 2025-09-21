@@ -19,7 +19,7 @@ local reshape = {
         local _card = pseudorandom_element(G.jokers.cards, pseudoseed('reshape'))
         for k, v in ipairs(G.jokers.cards) do
             if v ~= _card then
-                All_in_Jest.reroll_joker(v, _card.config.center.key, 'reshape')
+                All_in_Jest.reroll_joker(v, _card.config.center.key, 'reshape', nil, _card)
             end
         end
     end,

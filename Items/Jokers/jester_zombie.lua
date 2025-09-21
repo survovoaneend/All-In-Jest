@@ -27,18 +27,20 @@ local jester_zombie = {
     end,
   
     calculate = function(self, card, context)
-      print(G.GAME.jest_jester_zombie_trigger)
       if context.repetition and context.cardarea == G.play then
-            for i = 1, #context.scoring_hand do
-                if G.GAME.jest_jester_zombie_trigger then
-                    return {
-                        repetitions = 1,
-                        card = card,
-                        message = localize('k_again_ex')
-                    }  
-                end
-            end
-        end
+          for i = 1, #context.scoring_hand do
+              if G.GAME.jest_jester_zombie_trigger then
+                  return {
+                      repetitions = 1,
+                      card = card,
+                      message = localize('k_again_ex')
+                  }  
+              end
+          end
+      end
+      if context.remove_playing_cards then
+          G.GAME.jest_jester_zombie_trigger = true
+      end
     end
   
 }
@@ -50,13 +52,5 @@ function ease_round(mod)
     
     local ref = ease_roundref(mod)
     return ref
-end
-local start_dissolve_ref = Card.start_dissolve
-function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice)
-  local ref = start_dissolve_ref(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
-  if G.jokers and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
-      G.GAME.jest_jester_zombie_trigger = true
-  end
-  return ref
 end
 return { name = {"Jokers"}, items = {jester_zombie} }

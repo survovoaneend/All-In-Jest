@@ -28,13 +28,7 @@ local bearded_joker = {
             end
         end
         card.ability.extra.mult = enhancement_tally
-        SMODS.scale_card(card, {
-	        ref_table = card.ability.extra,
-            ref_value = "mult",
-	        scalar_value = "mult_mod",
-            operation = '+',
-            no_message = true,
-        })
+        card.ability.extra.mult = card.ability.extra.mult * card.ability.extra.mult_mod
         return {
             vars = {
                 card.ability.extra.mult_mod,
@@ -53,13 +47,7 @@ local bearded_joker = {
             end
         end
         card.ability.extra.mult = enhancement_tally
-        SMODS.scale_card(card, {
-	        ref_table = card.ability.extra,
-            ref_value = "mult",
-	        scalar_value = "mult_mod",
-            operation = '+',
-            no_message = true,
-        })
+        card.ability.extra.mult = card.ability.extra.mult * card.ability.extra.mult_mod
         if context.joker_main then
             return {
                 mult = card.ability.extra.mult,

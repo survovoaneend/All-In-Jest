@@ -36,18 +36,18 @@ local graffiti = {
 	            ref_table = card.ability.extra,
                 ref_value = "cost",
 	            scalar_value = "cost_increase",
-                operation = '*',
+                operation = 'X',
                 no_message = true,
             })
             card.ability.extra.cost = math.ceil(card.ability.extra.cost)
-            local _pool, _pool_key = get_current_pool('Tag', nil, nil, 'graffiti')
-            local _tag = pseudorandom_element(_pool, pseudoseed(_pool_key))
-            local it = 1
-            while _tag == 'UNAVAILABLE' do
-                it = it + 1
-                _tag = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
-            end
-            add_tag(Tag(_tag))
+            G.E_MANAGER:add_event(Event({
+                trigger = 'before',
+                delay = 0.0,
+                func = (function()
+                    jest_add_tag(jest_poll_tag("graffiti"))
+                    return true
+                end)
+            }))
             card:juice_up(0.4, 0.4)
             play_sound('tarot1')
         end,

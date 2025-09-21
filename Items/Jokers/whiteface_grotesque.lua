@@ -5,7 +5,7 @@ local whiteface_grotesque = {
     key = "whiteface_grotesque",
     config = {
       extra = {
-          chip_mod = 1,
+          chip_mod = 3,
           cur_chips = 0
       }
     },
@@ -54,3 +54,4 @@ local whiteface_grotesque = {
   
 }
 return { name = {"Jokers"}, items = {whiteface_grotesque} }
+

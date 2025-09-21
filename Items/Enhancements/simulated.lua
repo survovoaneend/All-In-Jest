@@ -22,9 +22,13 @@ local simulated = {
         }
     end,
     calculate = function(self, card, context)
-        if context.aij_before_before and not card.ability.extra.all_in_jest.to_hand.trigger then
-            card.ability.extra.all_in_jest.to_hand.cards = true
-            card.ability.extra.all_in_jest.to_hand.trigger = true
+        if context.aij_before_before then
+            if not card.ability.extra.all_in_jest.to_hand.trigger then
+                card.ability.extra.all_in_jest.to_hand.cards = true
+                card.ability.extra.all_in_jest.to_hand.trigger = true
+            else
+                card.ability.extra.all_in_jest.to_hand.cards = false
+            end
         end
     end
 }

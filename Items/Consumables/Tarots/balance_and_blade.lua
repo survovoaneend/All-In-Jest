@@ -37,7 +37,7 @@ local balance_and_blade = {
 			keys = {}
 			for key, val in pairs(SMODS.Suits) do
 				for k, v in pairs(G.hand.highlighted) do
-					if v.base.suit ~= key and not All_in_Jest.has_patches(v, key) then
+					if v.base.suit ~= key and not All_in_Jest.has_patches(v, key) and All_in_Jest.has_suit_in_deck(key, true) then
 						keys[#keys+1] = key
 					end
 				end 
@@ -46,7 +46,9 @@ local balance_and_blade = {
 			if #keys <= 0 then
 				keys = {}
 				for key, val in pairs(SMODS.Suits) do
-					keys[#keys+1] = key
+					if All_in_Jest.has_suit_in_deck(key, true) then
+						keys[#keys+1] = key
+					end
 				end
 				cur_suit = pseudorandom_element(keys, pseudoseed('balance_and_blade_resample_2'))
 			end

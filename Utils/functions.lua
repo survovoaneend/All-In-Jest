@@ -87,9 +87,31 @@ function retrieve_joker_text(joker, descip, name)
                 text = text .. main[i]
             elseif main[i].config and main[i].config.text and type(main[i].config.text) == "string" then
                 text = text .. main[i].config.text
+
+            -- Parses any Dynatext objects
+            elseif main[i].config and main[i].config.object and main[i].config.object.config and type(main[i].config.object.config) == "table" then
+                local options = main[i].config.object.config.string
+                local random_element = main[i].config.object.config.random_element
+                local chosen_option = nil
+                if random_element then
+                    chosen_option = options[math.random(1, #options)]
+                else
+                    chosen_option = options[math.floor((G.TIMERS.REAL or math.random(1, 60)) * love.timer.getFPS( ) % #options) + 1]
+                end
+                if type(chosen_option) == "table" then
+                    text = text .. chosen_option.string or get_text(chosen_option)
+                else
+                    text = text .. chosen_option
+                end
             elseif type(main[i]) == "table" then
-                text = text .. " "
-                text = text .. get_text(main[i])
+                -- Parses any text in XMult/XChip/similar blocks
+                if main[i].nodes and type(main[i].nodes) == "table" then
+                    text = text .. " "
+                    text = text .. get_text(main[i].nodes)
+                else
+                    text = text .. " "
+                    text = text .. get_text(main[i])
+                end
             end
         end
         return text
@@ -104,7 +126,7 @@ function retrieve_joker_text(joker, descip, name)
         text = text .. get_text(main)
         if text and type(text) == 'string' then text = string.gsub(text, "{.-}", "") end
     else
-        if not joker.ability_UIBox_table then
+        if not joker.ability_UIBox_table then -- Removing this check causes memory leaks
             joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
         end
         local main = joker.ability_UIBox_table.main
@@ -739,6 +761,13 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'portal_two',
+    name = 'Portal 2',
+    suits = {
+      'Spades',
+    }
+  },
+  {
     id = 'alan_wake',
     name = 'Alan Wake',
     suits = {
@@ -1187,7 +1216,16 @@ function All_in_Jest.has_patches(card, suit)
   return false
 end
 
-function All_in_Jest.add_patch(card, suit, instant)
+function All_in_Jest.add_patch(card, suit, instant, append)
+  if not suit then
+      local keys = {}
+	  for k, v in pairs(SMODS.Suits) do
+          if card.base.suit ~= k and All_in_Jest.has_suit_in_deck(k, true) then
+	         keys[#keys+1] = k
+          end
+	  end
+	  suit = pseudorandom_element(keys, pseudoseed(append or ''))
+  end
   instant = instant or false
   if not instant then
       G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() 
@@ -1201,6 +1239,15 @@ function All_in_Jest.add_patch(card, suit, instant)
     card.ability.patches[suit] = true
   end
   check_for_unlock({type = 'add_patch'})
+end
+
+function All_in_Jest.has_suit_in_deck(suit, ignore_wild)
+  for _, v in ipairs(G.playing_cards or {}) do
+    if not SMODS.has_no_suit(v) and (v.base.suit == suit or (not ignore_wild and v:is_suit(suit))) then
+      return true
+    end
+  end
+  return false
 end
 
 function All_in_Jest.add_tag_to_shop(key, price)
@@ -1251,7 +1298,81 @@ function All_in_Jest.is_food(card)
   return All_in_Jest.vanilla_food[center.key]
 end
 
-function All_in_Jest.reroll_joker(card, key, append, temp_key)
+function Card:All_in_Jest_start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice) -- For not triggering on destroy effects
+    if self.skip_destroy_animation then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                play_sound('tarot1')
+                self.T.r = -0.2
+                self:juice_up(0.3, 0.4)
+                self.states.drag.is = true
+                self.children.center.pinch.x = true
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
+                    func = function()
+                            G.jokers:remove_card(self)
+                            self:remove()
+                            self = nil
+                        return true; end})) 
+                return true
+            end
+        })) 
+        return
+    end
+    dissolve_colours = dissolve_colours or (type(self.destroyed) == 'table' and self.destroyed.colours) or nil
+    dissolve_time_fac = dissolve_time_fac or (type(self.destroyed) == 'table' and self.destroyed.time) or nil
+    local dissolve_time = 0.7*(dissolve_time_fac or 1)
+    self.dissolve = 0
+    self.dissolve_colours = dissolve_colours
+        or {G.C.BLACK, G.C.ORANGE, G.C.RED, G.C.GOLD, G.C.JOKER_GREY}
+    if not no_juice then self:juice_up() end
+    local childParts = Particles(0, 0, 0,0, {
+        timer_type = 'TOTAL',
+        timer = 0.01*dissolve_time,
+        scale = 0.1,
+        speed = 2,
+        lifespan = 0.7*dissolve_time,
+        attach = self,
+        colours = self.dissolve_colours,
+        fill = true
+    })
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        blockable = false,
+        delay =  0.7*dissolve_time,
+        func = (function() childParts:fade(0.3*dissolve_time) return true end)
+    }))
+    if not silent then 
+        G.E_MANAGER:add_event(Event({
+            blockable = false,
+            func = (function()
+                    play_sound('whoosh2', math.random()*0.2 + 0.9,0.5)
+                    play_sound('crumple'..math.random(1, 5), math.random()*0.2 + 0.9,0.5)
+                return true end)
+        }))
+    end
+    G.E_MANAGER:add_event(Event({
+        trigger = 'ease',
+        blockable = false,
+        ref_table = self,
+        ref_value = 'dissolve',
+        ease_to = 1,
+        delay =  1*dissolve_time,
+        func = (function(t) return t end)
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        blockable = false,
+        delay =  1.05*dissolve_time,
+        func = (function() self:remove() return true end)
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        blockable = false,
+        delay =  1.051*dissolve_time,
+    }))
+end
+
+function All_in_Jest.reroll_joker(card, key, append, temp_key, _card)
     local victim_joker = card
       
     local victim_rarity = victim_joker.config.center.rarity or 1
@@ -1276,7 +1397,7 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key)
     end
 
       
-    if #replacement_pool == 0 then
+    if #replacement_pool == 0 and not key then
         card_eval_status_text(card, 'extra', nil, nil, nil, { message = 'No replacement found!', colour = G.C.RED })
         return false
     end
@@ -1296,7 +1417,7 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key)
         delay = 0.1,
         func = function()
             if victim_joker and not victim_joker.removed then
-                victim_joker:start_dissolve({ G.C.SPECTRAL, G.C.WHITE })
+                victim_joker:All_in_Jest_start_dissolve({ G.C.SPECTRAL, G.C.WHITE })
                 victim_joker:remove_from_deck(true)
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
@@ -1308,7 +1429,7 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key)
                 }))
             end
 
-            local new_joker = create_card('Joker', G.jokers, is_legendary, victim_rarity, true, nil,
+            local new_joker = _card and copy_card(_card) or create_card('Joker', G.jokers, is_legendary, victim_rarity, true, nil,
                 replacement_key, 'apex_swap')
             if new_joker then
                 new_joker:add_to_deck()
@@ -1321,15 +1442,22 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key)
                     if victim_joker.ability[k] then
                         new_joker.ability[k] = true
                         if k == "perishable" and new_joker.ability.perish_tally == nil then
-							new_joker.ability.perish_tally = G.GAME.perishable_rounds or 5
+							new_joker.ability.perish_tally = victim_joker.ability.perish_tally or G.GAME.perishable_rounds or 5
 						end
                     end
                 end
                 new_joker:start_materialize({ G.C.SPECTRAL, G.C.WHITE })
-                new_joker:set_edition(victim_joker.edition)
+                new_joker:set_edition(victim_joker.edition, true, true)
+                if victim_joker.ability.all_in_jest and victim_joker.ability.all_in_jest.has_been_rerolled_data then
+                    new_joker.ability = victim_joker.ability.all_in_jest.has_been_rerolled_data
+                    if new_joker.ability.all_in_jest and new_joker.ability.all_in_jest.has_been_rerolled_data then
+                        new_joker.ability.all_in_jest.has_been_rerolled_data = nil
+                    end
+                end
                 if temp_key then
                     new_joker.ability.all_in_jest = new_joker.ability.all_in_jest or {}
                     new_joker.ability.all_in_jest.has_been_rerolled = temp_key
+                    new_joker.ability.all_in_jest.has_been_rerolled_data = victim_joker.ability
                 end
             end
 

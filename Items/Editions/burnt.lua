@@ -1,30 +1,31 @@
-local torn_shader = {
+local burnt_shader = {
     object_type = "Shader",
-    ignore = true,
-    key = 'torn', 
-    path = 'torn.fs',
+    key = 'burnt', 
+    path = 'burnt.fs',
     send_vars = function(sprite)
         local atlas = G.ASSET_ATLAS["aij_enhancements_atlas"]
-        local pos = {x = 9, y = 0}
+        local pos = {x = 8, y = 0}
+        local postwo = {x = 7, y = 0}
         local w, h = 71, 95 
         local texW, texH = atlas.image:getDimensions()
     
         return {
             maskTex = atlas.image,
             maskUV = { pos.x * atlas.px / texW, pos.y * atlas.py / texH, w / texW, h / texH },
+            otherUV = { postwo.x * atlas.px / texW, postwo.y * atlas.py / texH, w / texW, h / texH },
         }
     end
 } 
 SMODS.Sound {
-  key = 'torn',
+  key = 'burnt',
   path = 'glimmer.mp3'
 }
-local torn = {
+local burnt = {
     object_type = "Edition",
-    key = 'torn', 
+    key = 'burnt', 
     ignore = true,
     sound = {
-        sound = 'aij_torn',
+        sound = 'aij_burnt',
         per = 1,
         vol = 1
     },
@@ -48,6 +49,6 @@ local torn = {
         return self.weight
     end,
 
-    shader = 'torn'
+    shader = 'burnt'
 }
-return {name = "Editions", items = {torn, torn_shader}}
+return {name = "Editions", items = {burnt, burnt_shader}}

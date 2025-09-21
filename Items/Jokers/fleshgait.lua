@@ -19,16 +19,19 @@ local fleshgait = {
   
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            if not card.ability.patches or (card.ability.patches and next(card.ability.patches) == nil) then
-                local keys = {}
-		        for k, v in pairs(SMODS.Suits) do
-			        keys[#keys+1] = k
-		        end
-		        local cur_suit = pseudorandom_element(keys, pseudoseed('fleshgait'))
-                All_in_Jest.add_patch(context.other_card, cur_suit)
+            if not card.ability.patches then
+                All_in_Jest.add_patch(context.other_card, nil, nil, 'fleshgait')
             end
         end
-    end
-  
+    end,
+
+    in_pool = function(self, args)
+        if G.GAME then
+            if (G.GAME.selected_back and G.GAME.selected_back.name == 'b_aij_patchwork') or (G.GAME.selected_sleeve and G.GAME.selected_sleeve == 'sleeve_aij_patchwork') then
+                return false 
+            end
+        end
+        return true
+    end,
 }
 return { name = {"Jokers"}, items = {fleshgait} }

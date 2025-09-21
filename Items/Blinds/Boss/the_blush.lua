@@ -26,9 +26,7 @@ function G.FUNCS.can_discard(e)
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
     else
-        e.config.colour = G.C.RED
-        e.config.button = 'discard_cards_from_highlighted'
+        return ref
     end
-    return ref
 end
 return { name = {"Blinds"}, items = {the_blush} }

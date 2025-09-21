@@ -25,9 +25,8 @@ local trefle_spectral = {
 
     
     use = function(self, card, area, copier)
-      
+     
         All_in_Jest.reroll_joker(G.jokers.highlighted[1], nil, 'trefle')
-
         return true 
     end
 }

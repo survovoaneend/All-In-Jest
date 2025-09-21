@@ -205,7 +205,7 @@ return {
                 },
                 unlock={
                     "Win a run with",
-                    "{C:attention}Simple Simon{} on",
+                    "{C:attention}Tetraphobia{} on",
                     "{C:attention}Gold Stake{} difficulty",
                 },
             },
@@ -1835,7 +1835,7 @@ return {
                 },
             },
             j_aij_little_boy_blue = { 
-                name = "Little boy Blue", 
+                name = "Little Boy Blue", 
                 text = { 
                     "{C:chips}+#1#{} Chips",
                     "Only {C:chips}Chip{} Jokers may",
@@ -1843,7 +1843,7 @@ return {
                 } 
             },
             j_aij_big_red = { 
-                name = "Big red", 
+                name = "Big Red", 
                 text = { 
                     "{C:mult}+#1#{} Mult",
                     "Only {C:mult}Mult{} Jokers may",
@@ -2111,9 +2111,9 @@ return {
             j_aij_the_jester = {
                 name = "The Jester",
                 text = {
-                    "Selling a {C:attention}Joker{} creates",
-                    "{C:tarot}The Fool{} card",
-                    "{C:inactive}(Works once per round){C:inactive}",
+                    "The first {C:attention}Joker{}",
+                    "sold each round",
+                    "creates {C:tarot}The Fool{}",
                     "{C:inactive}#1#{}"
                 },
                 -- TODO use juice until
@@ -2510,11 +2510,15 @@ return {
             j_aij_overdesigned_joker = {
                 name = "Overdesigned Joker",
                 text = {
-                    "Played cards with {V:1}#1#{} suit",
-                    "#3# {B:3,V:2}#4##2#{}#5#when scored,",
-                    "suit and effect {C:attention}rotate{}",
-                    "when a card is {C:attention}scored",
-                    "{C:inactive}(Hearts->Clubs->Diamonds->Spades)"
+                    {
+                        "Played cards with {V:1}#1#{} suit",
+                        "#3# {B:3,V:2}#4##2#{}#5#when scored,",
+                    },
+                    {
+                        "suit and effect {C:attention}rotate{}",
+                        "when a card is {C:attention}scored",
+                        "{C:inactive}(Hearts->Clubs->Diamonds->Spades)"
+                    }
                 }
             },
             j_aij_morio = {

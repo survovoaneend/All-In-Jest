@@ -1,11 +1,10 @@
-local torn_shader = {
+local engraved_shader = {
     object_type = "Shader",
-    ignore = true,
-    key = 'torn', 
-    path = 'torn.fs',
+    key = 'engraved', 
+    path = 'engraved.fs',
     send_vars = function(sprite)
         local atlas = G.ASSET_ATLAS["aij_enhancements_atlas"]
-        local pos = {x = 9, y = 0}
+        local pos = {x = 6, y = 0}
         local w, h = 71, 95 
         local texW, texH = atlas.image:getDimensions()
     
@@ -16,15 +15,15 @@ local torn_shader = {
     end
 } 
 SMODS.Sound {
-  key = 'torn',
+  key = 'engraved',
   path = 'glimmer.mp3'
 }
-local torn = {
+local engraved = {
     object_type = "Edition",
-    key = 'torn', 
+    key = 'engraved', 
     ignore = true,
     sound = {
-        sound = 'aij_torn',
+        sound = 'aij_engraved',
         per = 1,
         vol = 1
     },
@@ -48,6 +47,6 @@ local torn = {
         return self.weight
     end,
 
-    shader = 'torn'
+    shader = 'engraved'
 }
-return {name = "Editions", items = {torn, torn_shader}}
+return {name = "Editions", items = {engraved, engraved_shader}}
