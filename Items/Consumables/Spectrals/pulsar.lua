@@ -9,7 +9,7 @@ local pulsar_spectral = {
     soul_set = 'Planet',
 	unlocked = true,
 	discovered = false,
-    order = 2,
+    order = 20,
 	config = {moon = true},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)

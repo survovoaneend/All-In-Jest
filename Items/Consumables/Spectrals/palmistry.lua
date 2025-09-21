@@ -7,7 +7,7 @@ local palmistry = {
 	cost = 4,
 	unlocked = true,
 	discovered = false,
-    order = 7,
+    order = 0,
 	config ={ hand_size = 1 },
     loc_vars = function(self, info_queue, card)
 		return {

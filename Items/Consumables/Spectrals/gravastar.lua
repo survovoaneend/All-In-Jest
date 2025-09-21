@@ -9,7 +9,7 @@ local gravastar_spectral = {
     soul_set = 'Planet',
 	unlocked = true,
 	discovered = false,
-    order = 3,
+    order = 30,
 	config = {moon = true},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
