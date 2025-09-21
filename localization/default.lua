@@ -53,11 +53,15 @@ return {
         },
         challenge_names = {
             c_aij_bananarama = "Bananarama",
+            c_aij_sharpest_tool = "Sharpest Tool",
         },
         v_text = {
             -- Challenges
-            ch_c_aij_challenge_key = {
-                'challenge text'
+            ch_c_aij_sharpest_tool_1 = {
+                'Only {C:common}Common{} Jokers may appear',
+            },
+            ch_c_aij_sharpest_tool_2 = {
+                'in the {C:attention}Shop{} or in {C:attention}Buffoon packs'
             },
         },
         extra_joker_dictionary = {
@@ -978,7 +982,7 @@ return {
                 text = {
                     "{X:mult,C:white}X#1#{} Mult for",
                     "{C:attention}1{} round each {C:attention}Ante{}",
-                    "{C:inactive}(#2#)"
+                    "{C:inactive}#2#"
                 },
             },
             j_aij_memory_card = { 
