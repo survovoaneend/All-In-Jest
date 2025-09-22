@@ -20,14 +20,19 @@ local clay_joker = {
     loc_vars = function(self, info_queue, card)
         if G.all_in_jest and G.all_in_jest.clay_last_destroyed and G.all_in_jest.clay_last_destroyed.cards[1] then
             local other_joker = G.all_in_jest.clay_last_destroyed.cards[1]
-            local other_vars
+            local other_vars = nil
             if other_joker.config.center.loc_vars then
-                other_vars = other_joker.config.center:loc_vars(info_queue, other_joker).vars
+                local ret = other_joker.config.center:loc_vars(info_queue, other_joker)
+                if ret then
+                    other_vars = ret.vars
+                end
             else
                 other_vars, _, _ = other_joker:generate_UIBox_ability_table(true)
             end
-            other_joker.config.center.specific_vars = other_vars
-            other_joker.config.center.specific_vars.aij_clay = true
+            if other_vars then
+                other_joker.config.center.specific_vars = other_vars
+                other_joker.config.center.specific_vars.aij_clay = true
+            end
             info_queue[#info_queue + 1] = other_joker.config.center
         end
         return { vars = {} }
