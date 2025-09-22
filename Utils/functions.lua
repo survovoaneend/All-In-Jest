@@ -878,6 +878,36 @@ function reset_jest_you_broke_it_card()
       G.GAME.current_round.jest_you_broke_it_card.enhancement = jest_ybi_enhancement
     end
 end
+function reset_handsome_joker_card()
+  G.GAME.current_round.jest_handsome_joker_card.rank = 'Ace'
+  G.GAME.current_round.jest_handsome_joker_card.suit = 'Spades'
+  G.GAME.current_round.jest_handsome_joker_card.enhancement = 'm_bonus'
+  local all_enhancements = get_current_pool("Enhanced")
+  local valid_enhancements = {}
+
+  -- Loop through the original list of all enhancements
+  for _, enhancement in ipairs(all_enhancements) do
+    if enhancement ~= 'm_stone' and enhancement ~= 'm_aij_canvas' then
+      valid_enhancements[#valid_enhancements + 1] = enhancement
+    end
+  end
+  local valid_jest_handsome_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        if v.ability.effect ~= 'Stone Card' and v.ability.effect ~= 'Canvas Card'then
+            valid_jest_handsome_cards[#valid_jest_handsome_cards+1] = v
+        end
+    end
+    if valid_jest_handsome_cards[1] then 
+        local jest_handsome_card = pseudorandom_element(valid_jest_handsome_cards, pseudoseed('handsome'..G.GAME.round_resets.ante))
+        G.GAME.current_round.jest_handsome_joker_card.suit = jest_handsome_card.base.suit
+        G.GAME.current_round.jest_handsome_joker_card.rank = jest_handsome_card.base.value
+        G.GAME.current_round.jest_handsome_joker_card.id = jest_handsome_card.base.id
+    end
+    if valid_enhancements[1] then
+      local jest_handsome_card_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('handsome'..G.GAME.round_resets.ante))
+      G.GAME.current_round.jest_handsome_joker_card.enhancement = jest_handsome_card_enhancement
+    end
+end
 -- card predict begin
 --------------------------------
 --------------------------------

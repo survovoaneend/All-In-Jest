@@ -971,7 +971,7 @@ return {
             j_aij_you_broke_it = {
                 name = "You Broke It!",
                 text = {
-                    "Turn every scored {C:attention}#1#{}",
+                    "Turn every scored unenhanced {C:attention}#1#{}",
                     "into a {C:attention}#2#{}",
                     "{s:0.8}Rank and Enhancement",
                     "{s:0.8}change at end of round"
@@ -1015,9 +1015,10 @@ return {
                 name = "Handsome Joker", 
                 text = { 
                     "{X:mult,C:white}X#1#{} Mult for each",
-                    "{C:inactive}(#2#){}",
+                    "{C:attention}#2#{}",
                     "in your {C:attention}full deck",
-                    "{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult)"
+                    "{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult)",
+                    "{C:inactive}(Minimum {X:mult,C:white}X1{} {C:inactive}Mult)"
                 } 
             },
             j_aij_whiteface_grotesque = { 
