@@ -18,8 +18,8 @@ local clay_joker = {
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        if G.jest_clay_last_destroyed and G.jest_clay_last_destroyed.cards[1] then
-            local other_joker = G.jest_clay_last_destroyed.cards[1]
+        if G.all_in_jest and G.all_in_jest.clay_last_destroyed and G.all_in_jest.clay_last_destroyed.cards[1] then
+            local other_joker = G.all_in_jest.clay_last_destroyed.cards[1]
             local other_vars
             if other_joker.config.center.loc_vars then
                 other_vars = other_joker.config.center:loc_vars(info_queue, other_joker).vars
@@ -34,8 +34,10 @@ local clay_joker = {
     end,
 
     calculate = function(self, card, context)
-        local other_joker = G.jest_clay_last_destroyed.cards[1]
-        return SMODS.blueprint_effect(card, other_joker, context)
+        if G.all_in_jest and G.all_in_jest.clay_last_destroyed and G.all_in_jest.clay_last_destroyed.cards[1] then
+            local other_joker = G.all_in_jest.clay_last_destroyed.cards[1]
+            return SMODS.blueprint_effect(card, other_joker, context)
+        end
     end
 
 }
@@ -44,10 +46,10 @@ function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_jui
     local ref = start_dissolve_ref(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
     if G.jokers and self.ability.set == 'Joker' then
         if not self.ability.jest_sold_self then
-            G.jest_clay_last_destroyed.cards = {}
+            G.all_in_jest.clay_last_destroyed.cards = {}
             if not (self.ability.name == 'j_aij_visage' or self.ability.name == 'j_aij_clay_joker') then
                 local copied_card = copy_card(self, nil, 0) -- Creates a copy with 0 scale
-                G.jest_clay_last_destroyed:emplace(copied_card)
+                G.all_in_jest.clay_last_destroyed:emplace(copied_card)
             end
         end
     end

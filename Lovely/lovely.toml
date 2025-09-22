@@ -1322,9 +1322,9 @@ payload = '''
 if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage' or (self.ability.name == 'j_aij_czar' or self.ability.name == 'j_aij_joker_png') then
 	local other_joker = nil
     if self.ability.name == 'j_aij_visage' then
-        other_joker = G.jest_visage_last_sold.cards[1]
+        other_joker = G.all_in_jest.visage_last_sold.cards[1]
     elseif self.ability.name == 'j_aij_clay_joker' then
-        other_joker = G.jest_clay_last_destroyed.cards[1]
+        other_joker = G.all_in_jest.clay_last_destroyed.cards[1]
     end
     if (other_joker and other_joker ~= self and other_joker.config and other_joker.config.center.blueprint_compat) or (self.ability.name == 'j_aij_czar' or self.ability.name == 'j_aij_joker_png') then
         self.ability.blueprint_compat = 'compatible'
@@ -2650,11 +2650,11 @@ self.all_in_jest.joker_png = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
         {card_limit = 99999999, type = 'joker'})
-self.jest_clay_last_destroyed = CardArea(
+self.all_in_jest.clay_last_destroyed = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
         {card_limit = 1, type = 'joker'})
-self.jest_visage_last_sold = CardArea(
+self.all_in_jest.visage_last_sold = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
         {card_limit = 1, type = 'joker'})
@@ -2679,6 +2679,6 @@ pattern = "if target.vars.is_info_queue then target.is_info_queue = true; target
 position = "after"
 match_indent = true
 payload = '''
-if target.vars.aij_visage then card = G.jest_visage_last_sold.cards[1]; target.vars.aij_visage = nil end -- All in Jest
-if target.vars.aij_clay then card = G.jest_clay_last_destroyed.cards[1]; target.vars.aij_clay = nil end -- All in Jest
+if target.vars.aij_visage then card = G.all_in_jest.visage_last_sold.cards[1]; target.vars.aij_visage = nil end -- All in Jest
+if target.vars.aij_clay then card = G.all_in_jest.clay_last_destroyed.cards[1]; target.vars.aij_clay = nil end -- All in Jest
 '''
