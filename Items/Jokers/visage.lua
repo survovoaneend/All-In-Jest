@@ -22,7 +22,7 @@ local visage = {
             local other_joker = G.all_in_jest.visage_last_sold.cards[1]
             local other_vars = nil
             if other_joker.config.center.loc_vars then
-                local ret = other_joker.config.center:loc_vars(info_queue, other_joker)
+                local ret = other_joker.config.center:loc_vars({}, other_joker)
                 if ret then
                     other_vars = ret.vars
                 end
