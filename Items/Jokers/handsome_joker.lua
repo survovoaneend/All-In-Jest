@@ -19,10 +19,10 @@ local handsome_joker = {
 
     loc_vars = function(self, info_queue, card)
         local handsome_card = G.GAME.current_round.jest_handsome_joker_card
-        local card_text = "card"
+        local card_text = "[enhancement] [card]"
         local mult = 0
-
-        if handsome_card and handsome_card.suit ~= "" then
+        if G.playing_cards then 
+        if handsome_card and handsome_card.suit and handsome_card.rank and handsome_card.enhancement then
             local enhancement_name = localize { type = 'name_text', set = 'Enhanced', key = handsome_card.enhancement }
             enhancement_name = enhancement_name:gsub(" [Cc]ard$", "")
             card_text = enhancement_name ..
@@ -42,11 +42,12 @@ local handsome_joker = {
                 end
             end
         end
+    end
 
         return {
             vars = {
                 card.ability.extra.xmult_mod,
-                card_text,
+                card_text or "[enhancement] [card]",
                 (mult < 1 and 1) or mult*card.ability.extra.xmult_mod,
             }
         }
