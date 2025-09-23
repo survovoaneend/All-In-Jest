@@ -45,11 +45,10 @@ local silver_screen = {
 
                     local playing_card, chosen_index = pseudorandom_element(hand_cards, pseudoseed('jest_silver_screen'))
                     table.remove(hand_cards, chosen_index) -- Should prevent one card being enhanced multiple times
-                    
+
                     local edition = {aij_silver = true}
                     G.E_MANAGER:add_event(Event({
                         func = function()
-                            card:juice_up(0.3, 0.5)
                             playing_card:set_edition(edition, true)
                             return true
                         end
