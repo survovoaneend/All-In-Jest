@@ -21,6 +21,8 @@ local silver_screen = {
   
     calculate = function(self, card, context)
         if context.remove_playing_cards then
+
+            -- Get array of valid cards to apply silver to
             local hand_cards = {}
             for i = 1, #G.hand.cards do
                 if G.hand.cards[i].edition == nil then
@@ -36,13 +38,14 @@ local silver_screen = {
                 end
             end
             
-            local enhanced = 0
+            local enhanced = 0 -- Count so "Silver!" only pops up if a face card was destroyed
             for k, v in pairs(context.removed) do
-                if v:is_face() then
+                if v:is_face() and #hand_cards > 0 then
                     enhanced = enhanced + 1
 
                     local playing_card, chosen_index = pseudorandom_element(hand_cards, pseudoseed('jest_silver_screen'))
                     table.remove(hand_cards, chosen_index) -- Should prevent one card being enhanced multiple times
+                    
                     local edition = {aij_silver = true}
                     G.E_MANAGER:add_event(Event({
                         func = function()
