@@ -44,17 +44,17 @@ local joker_png = {
                 end
             end
             local joker_center = pseudorandom_element(jokers, pseudoseed('joker_png'))
-            for k,v in pairs(G.all_in_jest.joker_png.cards) do
-                if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == tostring(card) then
+            for k,v in pairs(G.all_in_jest_joker_png.cards) do
+                if v.ability.all_in_jest and v.ability.all_in_jest_joker_png == tostring(card) then
                     v:remove()
                 end
             end
             SMODS.bypass_create_card_edition = true
-            local joker = create_card('Joker', G.all_in_jest.joker_png, nil, nil, true, nil, joker_center.key, 'joker_png')
+            local joker = create_card('Joker', G.all_in_jest_joker_png, nil, nil, true, nil, joker_center.key, 'joker_png')
             SMODS.bypass_create_card_edition = nil
-            G.all_in_jest.joker_png:emplace(joker)
+            G.all_in_jest_joker_png:emplace(joker)
             joker.ability.all_in_jest = joker.ability.all_in_jest or {}
-            joker.ability.all_in_jest.joker_png = tostring(card)
+            joker.ability.all_in_jest_joker_png = tostring(card)
             card:juice_up(0.3, 0.5)
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_reset')})
         end,
@@ -75,11 +75,11 @@ local joker_png = {
         end
         local joker_center = pseudorandom_element(jokers, pseudoseed('joker_png'))
         SMODS.bypass_create_card_edition = true
-        local joker = create_card('Joker', G.all_in_jest.joker_png, nil, nil, true, nil, joker_center.key, 'joker_png')
+        local joker = create_card('Joker', G.all_in_jest_joker_png, nil, nil, true, nil, joker_center.key, 'joker_png')
         SMODS.bypass_create_card_edition = nil
-        G.all_in_jest.joker_png:emplace(joker)
+        G.all_in_jest_joker_png:emplace(joker)
         joker.ability.all_in_jest = joker.ability.all_in_jest or {}
-        joker.ability.all_in_jest.joker_png = tostring(card)
+        joker.ability.all_in_jest_joker_png = tostring(card)
     end,
 
     update = function(self, card, dt)
@@ -89,9 +89,9 @@ local joker_png = {
     end,
   
     loc_vars = function(self, info_queue, card)
-        if G.all_in_jest and G.all_in_jest.joker_png then
-            for k,v in pairs(G.all_in_jest.joker_png.cards) do
-                if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == tostring(card) then
+        if G.all_in_jest and G.all_in_jest_joker_png then
+            for k,v in pairs(G.all_in_jest_joker_png.cards) do
+                if v.ability.all_in_jest and v.ability.all_in_jest_joker_png == tostring(card) then
                     local other_joker = v
                     info_queue[#info_queue + 1] = G.P_CENTERS[other_joker.config.center.key]
                 end
@@ -108,8 +108,8 @@ local joker_png = {
     end,
   
     calculate = function(self, card, context)
-        for k,v in pairs(G.all_in_jest.joker_png.cards) do
-            if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == tostring(card) then
+        for k,v in pairs(G.all_in_jest_joker_png.cards) do
+            if v.ability.all_in_jest and v.ability.all_in_jest_joker_png == tostring(card) then
                 local other_joker = v
                 return SMODS.blueprint_effect(card, other_joker, context)
             end

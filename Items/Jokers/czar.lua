@@ -28,25 +28,25 @@ local czar = {
         end
         local joker_center = pseudorandom_element(jokers, pseudoseed('czar'))
         SMODS.bypass_create_card_edition = true
-        local joker = create_card('Joker', G.all_in_jest.czar, nil, nil, true, nil, joker_center.key, 'czar')
+        local joker = create_card('Joker', G.all_in_jest_czar, nil, nil, true, nil, joker_center.key, 'czar')
         SMODS.bypass_create_card_edition = nil
-        G.all_in_jest.czar:emplace(joker)
+        G.all_in_jest_czar:emplace(joker)
         joker.ability.all_in_jest = joker.ability.all_in_jest or {}
-        joker.ability.all_in_jest.czar = tostring(card)
+        joker.ability.all_in_jest_czar = tostring(card)
     end,
 
     remove_from_deck = function(self, card, from_debuff)
-        for k,v in pairs(G.all_in_jest.czar.cards) do
-            if v.ability.all_in_jest and v.ability.all_in_jest.czar == tostring(card) then
+        for k,v in pairs(G.all_in_jest_czar.cards) do
+            if v.ability.all_in_jest and v.ability.all_in_jest_czar == tostring(card) then
                 v:remove()
             end
         end
     end,
 
     loc_vars = function(self, info_queue, card)
-        if G.all_in_jest and G.all_in_jest.czar and G.all_in_jest.czar.cards then
-            for k,v in pairs(G.all_in_jest.czar.cards) do
-                if v.ability.all_in_jest and v.ability.all_in_jest.czar == tostring(card) then
+        if G.all_in_jest and G.all_in_jest_czar and G.all_in_jest_czar.cards then
+            for k,v in pairs(G.all_in_jest_czar.cards) do
+                if v.ability.all_in_jest and v.ability.all_in_jest_czar == tostring(card) then
                     local other_joker = v
                     info_queue[#info_queue + 1] = G.P_CENTERS[other_joker.config.center.key]
                 end
@@ -70,25 +70,25 @@ local czar = {
                 end
             end
             local joker_center = pseudorandom_element(jokers, pseudoseed('czar'))
-            for k,v in pairs(G.all_in_jest.czar.cards) do
-                if v.ability.all_in_jest and v.ability.all_in_jest.czar == tostring(card) then
+            for k,v in pairs(G.all_in_jest_czar.cards) do
+                if v.ability.all_in_jest and v.ability.all_in_jest_czar == tostring(card) then
                     v:remove()
                 end
             end
             SMODS.bypass_create_card_edition = true
-            local joker = create_card('Joker', G.all_in_jest.czar, nil, nil, true, nil, joker_center.key, 'czar')
+            local joker = create_card('Joker', G.all_in_jest_czar, nil, nil, true, nil, joker_center.key, 'czar')
             SMODS.bypass_create_card_edition = nil
-            G.all_in_jest.czar:emplace(joker)
+            G.all_in_jest_czar:emplace(joker)
             joker.ability.all_in_jest = joker.ability.all_in_jest or {}
-            joker.ability.all_in_jest.czar = tostring(card)
+            joker.ability.all_in_jest_czar = tostring(card)
             if not context.blueprint then
                 return {
                     message = localize('k_reset'),
                 }
             end
         end
-        for k,v in pairs(G.all_in_jest.czar.cards) do
-            if v.ability.all_in_jest and v.ability.all_in_jest.czar == tostring(card) then
+        for k,v in pairs(G.all_in_jest_czar.cards) do
+            if v.ability.all_in_jest and v.ability.all_in_jest_czar == tostring(card) then
                 local other_joker = v
                 return SMODS.blueprint_effect(card, other_joker, context)
             end
