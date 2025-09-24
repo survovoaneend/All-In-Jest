@@ -28,7 +28,7 @@ local negative_nancy = {
 
 SMODS.Edition:take_ownership('e_negative', {
   get_weight = function(self)
-      local weight = (self.weight) * (G.GAME and G.GAME.edition_rate or 1)
+      local weight = self.weight
       local nancy_jokers = SMODS.find_card('j_aij_negative_nancy', false) -- false = don't count debuffed
       local nellie_amt = 0
       local link_level = 0
