@@ -8,6 +8,11 @@ local negative_nancy = {
   pos = { x = 18, y = 0 },
   atlas = 'joker_atlas',
   cost = 6,
+  config = {
+      extra = {
+          amt = 5
+      }
+  },
   unlocked = true,
   discovered = false,
   blueprint_compat = false,
@@ -18,7 +23,11 @@ local negative_nancy = {
     if not card.edition or (card.edition and not card.edition.negative) then
       info_queue[#info_queue+1] = G.P_CENTERS.e_negative
     end
-    return {}
+    return {
+        vars = {
+            card.ability.extra.amt,
+        }
+    }
   end,
 
   calculate = function(self, card, context)
@@ -29,7 +38,10 @@ local negative_nancy = {
 SMODS.Edition:take_ownership('e_negative', {
   get_weight = function(self)
       local weight = self.weight
-      local nancy_jokers = SMODS.find_card('j_aij_negative_nancy', false) -- false = don't count debuffed
+      local nancy_joker_values = 0
+      for k, v in pairs(SMODS.find_card('j_aij_negative_nancy', false)) do
+          nancy_joker_values = nancy_joker_values + v.ability.extra.amt
+      end
       local nellie_amt = 0
       local link_level = 0
       if G.GAME.selected_partner_card then
@@ -39,8 +51,8 @@ SMODS.Edition:take_ownership('e_negative', {
       local benefits = 1
       if link_level == 1 then benefits = 2.5 end
 
-      if #nancy_jokers > 0 or nellie_amt > 0 then
-          weight = weight * ((5 * #nancy_jokers) + (nellie_amt * benefits))
+      if nancy_joker_values > 0 or nellie_amt > 0 then
+          weight = weight * (nancy_joker_values + (nellie_amt * benefits))
       end
       
       return weight
