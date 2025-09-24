@@ -18,7 +18,7 @@ local clay_joker = {
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        if G.all_in_jest and G.all_in_jest_clay_last_destroyed and G.all_in_jest_clay_last_destroyed.cards[1] then
+        if G.all_in_jest_clay_last_destroyed and G.all_in_jest_clay_last_destroyed.cards[1] then
             local other_joker = G.all_in_jest_clay_last_destroyed.cards[1]
             local other_vars = nil
             if other_joker.config.center.loc_vars then
@@ -39,7 +39,7 @@ local clay_joker = {
     end,
 
     calculate = function(self, card, context)
-        if G.all_in_jest and G.all_in_jest_clay_last_destroyed and G.all_in_jest_clay_last_destroyed.cards[1] then
+        if G.all_in_jest_clay_last_destroyed and G.all_in_jest_clay_last_destroyed.cards[1] then
             local other_joker = G.all_in_jest_clay_last_destroyed.cards[1]
             return SMODS.blueprint_effect(card, other_joker, context)
         end
