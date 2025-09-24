@@ -24,34 +24,6 @@ local greasepaint = {
             }
         }
     end,
-  
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            if context.other_card.debuff then
-                SMODS.calculate_effect({xmult = card.ability.extra.xmult}, context.other_card)
-            end
-        end
-        if context.initial_scoring_step then
-            if G.hand then
-                if #G.hand.cards > 0 then
-                    for i = 1, #G.hand.cards do
-                        if G.hand.cards[i].debuff then
-                            SMODS.calculate_effect({xmult = card.ability.extra.xmult}, G.hand.cards[i])
-                        end
-                    end
-                end
-            end
-            if G.jokers then
-                if #G.jokers.cards > 0 then
-                    for i = 1, #G.jokers.cards do
-                        if G.jokers.cards[i].debuff then
-                            SMODS.calculate_effect({xmult = card.ability.extra.xmult}, G.jokers.cards[i])
-                        end
-                    end
-                end
-            end
-        end
-    end,
 
     update = function(self, card, dt)
         if G.jokers then

@@ -22,10 +22,12 @@ local pierrot = {
     calculate = function(self, card, context)
         if context.before then
             for i = 1, #G.hand.cards do
-                local id = G.hand.cards[i]:get_id()
-                local rank = SMODS.Ranks[G.hand.cards[i].base.value]
-                if G.hand.cards[i]:get_chip_bonus() > 0 and (id > 0 and rank and not rank.face) and not G.hand.cards[i].highlighted then
-                    highlight_card(G.hand.cards[i])
+                if not G.hand.cards[i].debuff then
+                    local id = G.hand.cards[i]:get_id()
+                    local rank = SMODS.Ranks[G.hand.cards[i].base.value]
+                    if G.hand.cards[i]:get_chip_bonus() > 0 and (id > 0 and rank and not rank.face) and not G.hand.cards[i].highlighted then
+                        highlight_card(G.hand.cards[i])
+                    end
                 end
             end
         end
