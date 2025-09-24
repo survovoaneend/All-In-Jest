@@ -14,7 +14,7 @@ local colquhoun = {
     unlock_condition = { hidden = true },
     pos = { x = 8, y = 2 },
     atlas = 'legendary_atlas',
-    cost = 4,
+    cost = 20,
     unlocked = false,
     discovered = false,
     blueprint_compat = true,

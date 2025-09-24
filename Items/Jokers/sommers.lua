@@ -12,7 +12,7 @@ local sommers = {
 	unlock_condition = {hidden = true},
     pos = { x = 1, y = 4},
     atlas = 'legendary_atlas',
-    cost = 4,
+    cost = 20,
     unlocked = false,
     discovered = false,
     blueprint_compat = true,
