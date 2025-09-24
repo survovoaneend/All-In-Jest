@@ -12,7 +12,7 @@ local pierrot = {
     cost = 4,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
@@ -34,9 +34,8 @@ local pierrot = {
             local id = context.other_card:get_id()
             local rank = SMODS.Ranks[context.other_card.base.value]
             if context.other_card and context.other_card:get_chip_bonus() > 0 and (id > 0 and rank and not rank.face) then
-                SMODS.calculate_effect({chip_mod = val, message = localize{type='variable',key='a_chips',vars={val}}}, context.other_card)
+                SMODS.score_card(context.other_card, {cardarea = G.play, all_in_jest = { main_scoring_chip_vaules = true }})
             end
-            
         end
         if context.after then
             for i = 1, #G.hand.cards do
