@@ -41,6 +41,11 @@ return {
                 'the new {C:attention}Pit Blinds{} instead',
                 'of {C:red}-1{} Discard'
             },
+            aij_random_deck_skins = 'Randomized Deck Skins',
+            aij_random_deck_skins_tooltip = {
+                '{C:attention}Playing cards{} added to the',
+                'deck have random {C:attention}deck skins'
+            },
             k_aij_guess_the_jest = "Guess the Jest",
             k_aij_memory_card = "Memorized!",
             aij_plus_tag = "+1 Tag",
