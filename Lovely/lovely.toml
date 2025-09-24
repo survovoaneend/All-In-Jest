@@ -2681,4 +2681,6 @@ match_indent = true
 payload = '''
 if target.vars.aij_visage then card = G.all_in_jest_visage_last_sold.cards[1]; target.vars.aij_visage = nil end -- All in Jest
 if target.vars.aij_clay then card = G.all_in_jest_clay_last_destroyed.cards[1]; target.vars.aij_clay = nil end -- All in Jest
+if target.vars.aij_joker_png then card = target.vars.aij_joker_png; target.vars.aij_joker_png = nil end -- All in Jest
+if target.vars.aij_czar then card = target.vars.aij_czar; target.vars.aij_czar = nil end -- All in Jest
 '''

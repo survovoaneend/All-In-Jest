@@ -84,7 +84,20 @@ local joker_png = {
             for k,v in pairs(G.all_in_jest_joker_png.cards) do
                 if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == card.unique_val then
                     local other_joker = v
-                    info_queue[#info_queue + 1] = G.P_CENTERS[other_joker.config.center.key]
+                    local other_vars = nil
+                    if other_joker.config.center.loc_vars then
+                        local ret = other_joker.config.center:loc_vars({}, other_joker)
+                        if ret then
+                            other_vars = ret.vars
+                        end
+                    else
+                        other_vars, _, _ = other_joker:generate_UIBox_ability_table(true)
+                    end
+                    if other_vars then
+                        other_joker.config.center.specific_vars = other_vars
+                        other_joker.config.center.specific_vars.aij_joker_png = other_joker
+                    end
+                    info_queue[#info_queue + 1] = other_joker.config.center
                 end
             end
         end
