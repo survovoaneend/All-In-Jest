@@ -905,6 +905,11 @@ function reset_handsome_joker_card()
     end
     if valid_enhancements[1] then
       local jest_handsome_card_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('handsome'..G.GAME.round_resets.ante))
+      local it = 1
+      while jest_handsome_card_enhancement == 'UNAVAILABLE' do
+        it = it + 1
+        jest_handsome_card_enhancement = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
+      end
       G.GAME.current_round.jest_handsome_joker_card.enhancement = jest_handsome_card_enhancement
     end
 end
