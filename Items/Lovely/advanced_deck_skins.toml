@@ -1,0 +1,86 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "self.discard = CardArea("
+position = "before"
+match_indent = true
+payload = '''
+self.SETTINGS.all_in_jest = self.SETTINGS.all_in_jest or {}
+self.SETTINGS.all_in_jest.Collabs = self.SETTINGS.all_in_jest.Collabs or {}
+for k, v in pairs(G.SETTINGS.CUSTOM_DECK.Collabs) do
+	self.SETTINGS.all_in_jest.Collabs[k] = self.SETTINGS.all_in_jest.Collabs[k] or {}
+	for ke, va in pairs(SMODS.Ranks) do
+		self.SETTINGS.all_in_jest.Collabs[k][ke] = self.SETTINGS.all_in_jest.Collabs[k][ke] or 'default_'..k
+	end
+end
+self.SETTINGS.all_in_jest.colour_palettes = self.SETTINGS.all_in_jest.colour_palettes or {}
+for k, v in pairs(G.SETTINGS.colour_palettes) do
+	self.SETTINGS.all_in_jest.colour_palettes[k] = self.SETTINGS.all_in_jest.colour_palettes[k] or {}
+	for ke, va in pairs(SMODS.Ranks) do
+		self.SETTINGS.all_in_jest.colour_palettes[k][ke] = self.SETTINGS.all_in_jest.colour_palettes[k][ke] or 'lc'
+	end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = "local _atlas, _pos = get_front_spriteinfo(_front)"
+position = "at"
+match_indent = true
+payload = '''
+local _false_front = {}
+for k, v in pairs(_front) do
+    _false_front[k] = v
+end
+_false_front.card = self
+local _atlas, _pos = get_front_spriteinfo(_false_front)
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+if card.ability.consumeable and not skip_materialize then card:start_materialize() end
+'''
+position = "before"
+match_indent = true
+payload = '''
+if (area == G.shop_jokers) or (area == G.pack_cards) then
+    if card.ability and (card.ability.set == 'Default' or card.ability.set == 'Enhanced') then
+        card.ability.all_in_jest = card.ability.all_in_jest or {}
+        card.ability.all_in_jest.random_aij_deck_skin = card.ability.all_in_jest.random_aij_deck_skin or {}
+        if #card.ability.all_in_jest.random_aij_deck_skin <= 0 then
+            local options = {}
+            for i, suit in ipairs(SMODS.Suit:obj_list(true)) do
+                options[suit.key] = options[suit.key] or {}
+                if G.COLLABS.options[suit.key] then
+                    options[suit.key] = G.COLLABS.options[suit.key]
+                end
+            end
+            for k, v in pairs(options) do
+                local random_skin = pseudorandom_element(v, pseudoseed(k..'random_deck_skin'..G.GAME.round_resets.ante))
+                card.ability.all_in_jest.random_aij_deck_skin[k] = card.ability.all_in_jest.random_aij_deck_skin[k] or random_skin
+            end
+        end
+        card:set_sprites(card.config.center, card.config.card)
+    end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if not strip_edition then"
+position = "before"
+match_indent = true
+payload = '''
+if new_card.ability and (new_card.ability.set == 'Default' or new_card.ability.set == 'Enhanced') then
+    new_card:set_sprites(new_card.config.center, new_card.config.card)
+end
+'''
