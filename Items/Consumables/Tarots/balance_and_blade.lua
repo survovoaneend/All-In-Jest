@@ -58,6 +58,7 @@ local balance_and_blade = {
 				All_in_Jest.add_patch(v, cur_suit);
 			end
         end 
+		G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4,func = function() G.hand:unhighlight_all(); return true end }))
 	end,
 }
 return {name = {"Tarots"}, items = {balance_and_blade}}
