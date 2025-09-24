@@ -26,17 +26,21 @@ local feedback_form = {
     end,
   
     calculate = function(self, card, context)
-        if context.joker_main then
+        if context.individual and context.cardarea == G.play then
             local temp_val = true
             local enhancements = {}
             for i = 1, #context.scoring_hand do
-                for k, v in pairs(enhancements) do
-                    if SMODS.get_enhancements(context.scoring_hand[i]).k then
+                local has_enhancement = false
+                for k, v in pairs(SMODS.get_enhancements(context.scoring_hand[i])) do
+                    if enhancements[k] then
                         temp_val = false
+                    else
+                        enhancements[k] = v
+                        has_enhancement = true
                     end
                 end
-                for k, v in pairs(SMODS.get_enhancements(context.scoring_hand[i])) do
-                    enhancements[k] = v
+                if not has_enhancement then
+                    temp_val = false
                 end
             end
             if temp_val then
@@ -46,6 +50,5 @@ local feedback_form = {
             end
         end
     end
-  
 }
 return { name = {"Jokers"}, items = {feedback_form} }
