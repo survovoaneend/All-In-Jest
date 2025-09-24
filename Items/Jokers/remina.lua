@@ -38,7 +38,9 @@ local remina = {
                                 ref_value = "mult",
                                 scalar_table = G.GAME.hands[hand],
 	                            scalar_value = "l_mult",
-                                operation = '+',
+                                operation = function(ref_table, ref_value, initial, change)
+	                                ref_table[ref_value] = initial + (change * 2)
+                                end,
                                 scaling_message = {
 	                               message = localize('k_upgrade_ex'), 
                                    colour = G.C.FILTER
@@ -50,7 +52,9 @@ local remina = {
                                 ref_value = "chips",
                                 scalar_table = G.GAME.hands[hand],
 	                            scalar_value = "l_chips",
-                                operation = '+',
+                                operation = function(ref_table, ref_value, initial, change)
+	                                ref_table[ref_value] = initial + (change * 2)
+                                end,
                                 scaling_message = {
 	                               message = localize('k_upgrade_ex'), 
                                    colour = G.C.FILTER
