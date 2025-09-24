@@ -1115,7 +1115,7 @@ return {
             j_aij_negative_nancy = {
                 name = "Negative Nancy",
                 text = {
-                    "{C:dark_edition}Negative{} Jokers appear {C:attention}5X{}",
+                    "{C:dark_edition}Negative{} Jokers appear {C:attention}#1#X{}",
                     "more often in the {C:attention}Shop{}"
                 },
             },
