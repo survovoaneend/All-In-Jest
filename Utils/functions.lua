@@ -875,6 +875,11 @@ function reset_jest_you_broke_it_card()
     end
     if valid_enhancements[1] then
       local jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..G.GAME.round_resets.ante))
+      local it = 1
+      while jest_ybi_enhancement == 'UNAVAILABLE' do
+        it = it + 1
+        jest_ybi_enhancement = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
+      end
       G.GAME.current_round.jest_you_broke_it_card.enhancement = jest_ybi_enhancement
     end
 end
