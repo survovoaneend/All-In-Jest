@@ -30,25 +30,28 @@ local le_fils_de_banane = {
     calculate = function(self, card, context)
         if context.after and context.scoring_hand then
             local total_cards = {}
-            for i = 1, #context.scoring_hand do
-                if context.scoring_hand[i]:is_face() then
-                    if SMODS.pseudorandom_probability(card, 'le_fils_de_banane', 1, card.ability.extra.odds) and not context.scoring_hand[i].destroyed then
-                        card_eval_status_text(context.scoring_hand[i], 'extra', nil, nil, nil, {message = localize('k_extinct_ex'),colour = G.C.FILTER})
-                        table.insert(total_cards, context.scoring_hand[i])
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'before',
-                            func = function()
-                                context.scoring_hand[i]:start_dissolve()
-                                return true
-                            end
-                        })) 
-                        context.scoring_hand[i].destroyed = true
-                    else
-                        card_eval_status_text(context.scoring_hand[i], 'extra', nil, nil, nil, {message = localize('k_safe_ex'),colour = G.C.FILTER})
+            local text,disp_text,poker_hands = G.FUNCS.get_poker_hand_info(G.play.cards)
+            if not G.GAME.blind:debuff_hand(G.play.cards, poker_hands, text, true) then
+                for i = 1, #context.scoring_hand do
+                    if context.scoring_hand[i]:is_face() then
+                        if SMODS.pseudorandom_probability(card, 'le_fils_de_banane', 1, card.ability.extra.odds) and not context.scoring_hand[i].destroyed then
+                            card_eval_status_text(context.scoring_hand[i], 'extra', nil, nil, nil, {message = localize('k_extinct_ex'),colour = G.C.FILTER})
+                            table.insert(total_cards, context.scoring_hand[i])
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'before',
+                                func = function()
+                                    context.scoring_hand[i]:start_dissolve()
+                                    return true
+                                end
+                            })) 
+                            context.scoring_hand[i].destroyed = true
+                        else
+                            card_eval_status_text(context.scoring_hand[i], 'extra', nil, nil, nil, {message = localize('k_safe_ex'),colour = G.C.FILTER})
+                        end
                     end
                 end
+                SMODS.calculate_context({remove_playing_cards = true, removed = total_cards})
             end
-            SMODS.calculate_context({remove_playing_cards = true, removed = total_cards})
         end
         if context.individual and context.cardarea == G.play then
             if context.other_card:is_face() then
