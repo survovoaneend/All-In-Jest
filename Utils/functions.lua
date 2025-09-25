@@ -1316,7 +1316,8 @@ function All_in_Jest.add_tag_to_shop(key, price)
     end
     card:start_materialize()
     card.edition = nil
-    card.cost = price or 1
+    card.base_cost = price or 1
+    card:set_cost()
     card.config.center.set_card_type_badge = function(self, card, badges)
 		badges[#badges+1] = create_badge(localize('k_tag'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2 )
 	end
