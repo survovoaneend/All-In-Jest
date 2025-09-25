@@ -1513,20 +1513,23 @@ function All_in_Jest.reset_game_globals(run_start)
     end
 end
 
--- Set from_base to true for jokers that copy a joker from collection and therefore has their base values
-function All_in_Jest.expanded_copier_compat(center, from_base)
+-- Function to allow for filtering joker-copy effects and applying blacklists to copiable jokers
+-- Used by: Visage, Clay Joker, Joker.png, and Czar
+--  from_collection - set true for jokers that copy a joker from collection, rather than a joker that was previously in-play
+function All_in_Jest.expanded_copier_compat(center, from_collection)
     if not (center and type(center) == "table") then
         return
     end
     local blacklist = {
-        'j_blueprint'
+        'j_blueprint',
+        'j_aij_lexicon' -- Crashes the game for some reason, temporary fix
     }
-    if from_base then
+    if from_collection then
         table.insert(blacklist, 'j_campfire')
     end
 
     if center.blueprint_compat and 
-        (not from_base or (center.discovered and 
+        (not from_collection or (center.discovered and 
         center.perishable_compat and 
         center.rarity ~= 4 and 
         not G.GAME.banned_keys[center.key]))
@@ -1536,9 +1539,28 @@ function All_in_Jest.expanded_copier_compat(center, from_base)
                 return false
             end
         end
-        if center.in_pool and type(center.in_pool) == 'function' then
-            return center:in_pool()
-        end
+
+        -- if from_collection then
+        --     if center.in_pool and type(center.in_pool) == 'function' then
+        --         return center:in_pool()
+        --     end
+
+        --     if center.yes_pool_flag and not G.GAME.pool_flags[center.yes_pool_flag] then
+        --         return false
+        --     end
+        --     if center.no_pool_flag and G.GAME.pool_flags[center.no_pool_flag] then
+        --         return false
+        --     end
+
+        --     if center.enhancement_gate then
+        --         for _, v in pairs(G.playing_cards) do
+        --             if SMODS.has_enhancement(v, center.enhancement_gate) then
+        --                 return true
+        --             end
+        --         end
+        --     end
+        -- end
+
         return true
     else
         return false

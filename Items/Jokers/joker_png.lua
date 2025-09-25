@@ -1,10 +1,14 @@
 local spawn_joker_png_joker = function (card)
     local jokers = {}
-    for _,v in pairs(G.P_CENTER_POOLS["Joker"]) do
-        if v.key ~= "j_aij_joker_png" and All_in_Jest.expanded_copier_compat(v, true) then
-            jokers[#jokers+1] = v
+    -- for rarity, _ in pairs(SMODS.Rarity.obj_table) do
+        -- for _, key in pairs(get_current_pool("Joker"), rarity) do
+        for _, key in pairs(get_current_pool("Joker")) do
+            local center = G.P_CENTERS[key]
+            if key ~= "j_aij_joker_png" and key ~= "UNAVAILABLE" and All_in_Jest.expanded_copier_compat(center, true) then
+                jokers[#jokers+1] = center
+            end
         end
-    end
+    -- end
     local joker_center, index = pseudorandom_element(jokers, pseudoseed('joker_png'))
     SMODS.bypass_create_card_edition = true
     local joker = create_card('Joker', G.all_in_jest_joker_png, nil, nil, true, nil, joker_center.key, 'joker_png')

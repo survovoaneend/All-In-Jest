@@ -1312,7 +1312,7 @@ payload = '''
 elseif _type == 'Joker' and next(SMODS.find_card("j_aij_little_boy_blue")) then _pool[#_pool + 1] = "j_aij_simple_simon"
 '''
 
-# Clay Joker and Visage Comapat visuals
+# Copy joker Comapat visuals
 [[patches]]
 [patches.pattern]
 target = "card.lua"
