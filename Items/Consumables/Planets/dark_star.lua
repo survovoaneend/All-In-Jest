@@ -41,7 +41,7 @@ local dark_star = {
 	in_pool = function(self, args)
 		for _, k in ipairs(G.handlist) do
 		    local hand = G.GAME.hands[k]
-		    if hand.visible and hand.played > 0 then
+		    if hand.visible and hand.played > 0 and G.GAME.round_resets.ante then
 				return true
 		    end
 		end
