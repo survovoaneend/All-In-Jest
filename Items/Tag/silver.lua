@@ -12,6 +12,39 @@ local silver = {
     end,
 
     apply = function(self, tag, context)
+        if context.type == 'store_joker_create' then
+            local card
+            card = create_card('Joker', context.area, nil, nil, nil, nil, nil, 'silverta')
+            local function contains_number(table)
+                for k, v in pairs(table) do
+                    if type(v) == "number" and v ~= 0 then
+                        return true
+                    elseif type(v) == "table" then
+                        if contains_number(v) then
+                            return true
+                        end
+                    end
+                end
+                return false
+            end
+            local modifyable = false
+            if contains_number(card.config.center.config) then
+                modifyable = true
+            end
+            local ivalue = 1
+            while not modifyable do
+                card:remove()
+                card = create_card('Joker', context.area, nil, nil, nil, nil, nil, 'silverta'..ivalue)
+                if contains_number(card.config.center.config) then
+                    modifyable = true
+                end
+                ivalue = ivalue + 1
+            end
+            create_shop_card_ui(card, 'Joker', context.area)
+            card.states.visible = false
+            card:start_materialize()
+            return card
+        end
         if context.type == 'store_joker_modify' then
             local applied = nil
             if not context.card.edition and not context.card.temp_edition and context.card.ability.set == 'Joker' then
