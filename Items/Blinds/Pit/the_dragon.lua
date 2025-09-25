@@ -22,6 +22,10 @@ local the_dragon = {
     dollars = 6,
 
     calculate = function(self, card, context)
+        local temp = G.GAME.blind and G.GAME.blind.disabled
+        if temp then
+            return
+        end
         if (G.GAME.current_round.hands_played > 0 or G.GAME.current_round.discards_used > 0) and G.hand.config.card_count ~= 0 then
             return {
                 cards_to_draw = 0,
