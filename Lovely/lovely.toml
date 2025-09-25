@@ -113,7 +113,6 @@ if G.jokers ~= nil then
             for __, card in ipairs(joker.ability.extra.all_in_jest.to_hand.cards) do
                 table.insert(jest_to_hand, card)
             end
-            break
         end
     end
 end
@@ -124,7 +123,6 @@ if G.play ~= nil then
             if play_card.ability.extra.all_in_jest.to_hand.cards == true then
                 table.insert(jest_to_hand, play_card)
             end
-            break
         end
     end
 end
