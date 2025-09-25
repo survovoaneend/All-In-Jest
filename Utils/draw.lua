@@ -97,8 +97,8 @@ SMODS.DrawStep({
 						self.T.y,
 						self.T.w,
 						self.T.h,
-						G.ASSET_ATLAS[_center.all_in_jest.soul_layers[k].atlas or _center.atlas or _center.set],
-						_center.all_in_jest.soul_layers[k].pos
+						G.ASSET_ATLAS[center.all_in_jest.soul_layers[k].atlas or center.atlas or center.set],
+						center.all_in_jest.soul_layers[k].pos
 					)
 					self.children[k].role.draw_major = self
 					self.children[k].states.hover.can = false
