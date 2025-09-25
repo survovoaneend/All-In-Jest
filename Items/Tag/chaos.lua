@@ -23,8 +23,7 @@ local chaos = {
     end,
 
     apply = function(self, tag, context)
-        local effect_index = math.random(1, #self.config.effects) 
-        local effect = self.config.effects[effect_index]
+        local effect = pseudorandom_element(self.config.effects, pseudoseed('jest_chaos_tag'))
         local trigger = false
         while not trigger do
             if effect == "create_consumables" then
@@ -46,8 +45,7 @@ local chaos = {
                 trigger = true
             end
             if not trigger then
-                effect_index = math.random(1, #self.config.effects) 
-                effect = self.config.effects[effect_index]
+                effect = pseudorandom_element(self.config.effects, pseudoseed('jest_chaos_tag'))
             end
         end
         if context.type == 'new_blind_choice' then
