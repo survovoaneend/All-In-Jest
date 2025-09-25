@@ -1271,7 +1271,7 @@ return {
                 },
             },
             j_aij_paper_bag = { 
-                name = "Paper bag", 
+                name = "Paper Bag", 
                 text = { 
                     "This Joker gains {C:chips}+#1#{} Chips",
                     "per {C:attention}level{} of each {C:red}discarded",
