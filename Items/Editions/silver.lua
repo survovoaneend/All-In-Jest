@@ -33,7 +33,7 @@ local silver = {
                 jest_ability_calculate(
                     card,
                     "*", card.edition.mult,
-                    { x_chips = 1, x_mult = 1, extra_value = true, rarity },
+                    { x_chips = 1, x_mult = 1, xmult = 1, extra_value = true, rarity },
                     nil, true, "ability.extra"
                 )
             end
@@ -52,7 +52,7 @@ local silver = {
             jest_ability_calculate(
                 card,
                 "/", card.edition.mult,
-                { x_chips = 1, x_mult = 1, extra_value = true, rarity },
+                { x_chips = 1, x_mult = 1, xmult = 1, extra_value = true, rarity },
                 nil, true, "ability.extra"
             )
         end
