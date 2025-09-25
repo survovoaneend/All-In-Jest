@@ -1,14 +1,8 @@
 local spawn_czar_joker = function (card)
     local jokers = {}
-    for k,v in pairs(G.P_CENTER_POOLS["Joker"]) do
-        if v.discovered and v.blueprint_compat and v.perishable_compat and not G.GAME.banned_keys[v.key] then
-            if v.in_pool and type(v.in_pool) == 'function' then
-                if v:in_pool() then
-                    jokers[#jokers+1] = v
-                end
-            else
-                jokers[#jokers+1] = v
-            end
+    for _,v in pairs(G.P_CENTER_POOLS["Joker"]) do
+        if v.key ~= "j_aij_czar" and All_in_Jest.expanded_copier_compat(v, true) then
+            jokers[#jokers+1] = v
         end
     end
     local joker_center = pseudorandom_element(jokers, pseudoseed('czar'))
@@ -40,7 +34,7 @@ local czar = {
     end,
 
     remove_from_deck = function(self, card, from_debuff)
-        for k,v in pairs(G.all_in_jest_czar.cards) do
+        for _,v in pairs(G.all_in_jest_czar.cards) do
             if v.ability.all_in_jest and v.ability.all_in_jest.czar == card.unique_val then
                 v:remove()
             end
@@ -49,7 +43,7 @@ local czar = {
 
     loc_vars = function(self, info_queue, card)
         if G.all_in_jest_czar.cards then
-            for k,v in pairs(G.all_in_jest_czar.cards) do
+            for _,v in pairs(G.all_in_jest_czar.cards) do
                 if v.ability.all_in_jest and v.ability.all_in_jest.czar == card.unique_val then
                     local other_joker = v
                     local other_vars = nil
@@ -74,7 +68,7 @@ local czar = {
 
     calculate = function(self, card, context)
         if context.reroll_shop then
-            for k,v in pairs(G.all_in_jest_czar.cards) do
+            for _,v in pairs(G.all_in_jest_czar.cards) do
                 if v.ability.all_in_jest and v.ability.all_in_jest.czar == card.unique_val then
                     v:remove()
                 end
@@ -86,8 +80,8 @@ local czar = {
                 }
             end
         end
-        for k,v in pairs(G.all_in_jest_czar.cards) do
-            if v.ability.all_in_jest.czar == card.unique_val then
+        for _,v in pairs(G.all_in_jest_czar.cards) do
+            if v.ability.all_in_jest and v.ability.all_in_jest.czar == card.unique_val then
                 local other_joker = v
                 return SMODS.blueprint_effect(card, other_joker, context)
             end

@@ -1512,3 +1512,35 @@ function All_in_Jest.reset_game_globals(run_start)
         G.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
     end
 end
+
+-- Set from_base to true for jokers that copy a joker from collection and therefore has their base values
+function All_in_Jest.expanded_copier_compat(center, from_base)
+    if not (center and type(center) == "table") then
+        return
+    end
+    local blacklist = {
+        'j_blueprint'
+    }
+    if from_base then
+        table.insert(blacklist, 'j_campfire')
+    end
+
+    if center.blueprint_compat and 
+        (not from_base or (center.discovered and 
+        center.perishable_compat and 
+        center.rarity ~= 4 and 
+        not G.GAME.banned_keys[center.key]))
+    then
+        for _, v in ipairs(blacklist) do
+            if center.key == v then
+                return false
+            end
+        end
+        if center.in_pool and type(center.in_pool) == 'function' then
+            return center:in_pool()
+        end
+        return true
+    else
+        return false
+    end
+end

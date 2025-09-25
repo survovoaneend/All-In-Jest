@@ -1,25 +1,21 @@
 local spawn_joker_png_joker = function (card)
     local jokers = {}
-    for k,v in pairs(G.P_CENTER_POOLS["Joker"]) do
-        if v.discovered and v.blueprint_compat and v.perishable_compat and v.rarity ~= 4 and not G.GAME.banned_keys[v.key] then
-            if v.in_pool and type(v.in_pool) == 'function' then
-                if v:in_pool() then
-                    jokers[#jokers+1] = v
-                end
-            else
-                jokers[#jokers+1] = v
-            end
+    for _,v in pairs(G.P_CENTER_POOLS["Joker"]) do
+        if v.key ~= "j_aij_joker_png" and All_in_Jest.expanded_copier_compat(v, true) then
+            jokers[#jokers+1] = v
         end
     end
     local joker_center, index = pseudorandom_element(jokers, pseudoseed('joker_png'))
-    sendDebugMessage(joker_center.key, "AIJ")
-    sendDebugMessage(index, "AIJ")
     SMODS.bypass_create_card_edition = true
     local joker = create_card('Joker', G.all_in_jest_joker_png, nil, nil, true, nil, joker_center.key, 'joker_png')
     SMODS.bypass_create_card_edition = nil
     G.all_in_jest_joker_png:emplace(joker)
     joker.ability.all_in_jest = joker.ability.all_in_jest or {}
     joker.ability.all_in_jest.joker_png = card.unique_val
+
+    -- Useful debugging
+    -- sendDebugMessage(index, "AIJ")
+    -- sendDebugMessage(joker_center.key, "AIJ")
 end
 
 local joker_png = {
@@ -56,7 +52,7 @@ local joker_png = {
         use_ability = function(self, card)
             ease_dollars(-card.ability.extra.cost)
 
-            for k,v in pairs(G.all_in_jest_joker_png.cards) do
+            for _,v in pairs(G.all_in_jest_joker_png.cards) do
                 if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == card.unique_val then
                     v:remove()
                 end
@@ -81,7 +77,7 @@ local joker_png = {
   
     loc_vars = function(self, info_queue, card)
         if G.all_in_jest_joker_png then
-            for k,v in pairs(G.all_in_jest_joker_png.cards) do
+            for _,v in pairs(G.all_in_jest_joker_png.cards) do
                 if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == card.unique_val then
                     local other_joker = v
                     local other_vars = nil
@@ -112,7 +108,7 @@ local joker_png = {
     end,
   
     calculate = function(self, card, context)
-        for k,v in pairs(G.all_in_jest_joker_png.cards) do
+        for _,v in pairs(G.all_in_jest_joker_png.cards) do
             if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == card.unique_val then
                 local other_joker = v
                 return SMODS.blueprint_effect(card, other_joker, context)
