@@ -28,6 +28,11 @@ local pedrolino = {
            
             local final_chips = G.GAME.blind.chips -
             math.ceil(G.GAME.blind.chips * card.ability.extra.blind_reduction * 0.01)
+            if final_chips == math.abs(final_chips) then
+                final_chips = math.min(final_chips, G.GAME.blind.chips - 1)
+            else
+                final_chips = 1
+            end
             local chip_mod -- iterate over ~120 ticks
             if type(G.GAME.blind.chips) ~= 'table' then
                 chip_mod = math.ceil((G.GAME.blind.chips - final_chips) / 120)
