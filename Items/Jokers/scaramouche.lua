@@ -22,7 +22,7 @@ local scaramouche = {
     loc_vars = function(self, info_queue, card)
         local _poker_hands = {}
         for k, v in pairs(G.GAME.hands) do
-            if v.visible and k ~= card.ability.scorecard_poker_hand then _poker_hands[#_poker_hands + 1] = k end
+            if SMODS.is_poker_hand_visible(k) and k ~= card.ability.scaramouche_poker_hand then _poker_hands[#_poker_hands + 1] = k end
         end
 
         if not card.ability.extra.scaramouche_poker_hand then
@@ -39,12 +39,12 @@ local scaramouche = {
         if context.end_of_round and context.main_eval and not context.blueprint then
             local _poker_hands = {}
             for k, v in pairs(G.GAME.hands) do
-                if v.visible and k ~= card.ability.extra.scaramouche_poker_hand then _poker_hands[#_poker_hands + 1] = k end
+                if SMODS.is_poker_hand_visible(k) and k ~= card.ability.extra.scaramouche_poker_hand then _poker_hands[#_poker_hands + 1] = k end
             end
             card.ability.extra.scaramouche_poker_hand = pseudorandom_element(_poker_hands, pseudoseed('scaramouche'))
             return {
                 message = localize('k_reset')
-        }
+            }
         end
         if context.repetition and context.cardarea == G.play then
             if context.scoring_name == card.ability.extra.scaramouche_poker_hand then
