@@ -4,9 +4,10 @@ local goblin_joker = {
 
     key = "goblin_joker",
     config = {
-      extra = {
-          draw_extra = 2,
-      }
+        extra = {
+            draw_extra = 2,
+            active = false
+        }
     },
     rarity = 3,
     pos = { x = 13, y = 3 },
@@ -16,7 +17,7 @@ local goblin_joker = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
-  
+
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
@@ -24,20 +25,24 @@ local goblin_joker = {
             }
         }
     end,
-  
+
     calculate = function(self, card, context)
-      if context.pre_discard then
-        G.E_MANAGER:add_event(Event({
-            blocking = false,
-            func = function()
-                if G.STATE == G.STATES.SELECTING_HAND then
-                    SMODS.draw_cards(card.ability.extra.draw_extra)
-                    return true
-                end
-            end
-        }))
-      end
+        if context.pre_discard then
+            card.ability.extra.active = true
+        end
+
+        if context.drawing_cards and card.ability.extra.active then
+            return {
+                cards_to_draw = context.amount + card.ability.extra.draw_extra,
+                message = "+" .. card.ability.extra.draw_extra
+            }
+        end
+
+        if context.hand_drawn then
+            card.ability.extra.active = false
+        end
     end
-  
+
 }
-return { name = {"Jokers"}, items = {goblin_joker} }
+
+return { name = { "Jokers" }, items = { goblin_joker } }

@@ -145,20 +145,6 @@ match_indent = true
 
 [[patches]] 
 [patches.pattern]
-target = "functions/state_events.lua"
-pattern = "local flags = SMODS.calculate_context({drawing_cards = true, amount = hand_space})"
-position = "before"
-payload = '''
-if G.GAME.blind.config.blind.key == 'bl_aij_the_dragon' and not G.GAME.blind.disabled and (G.GAME.current_round.hands_played > 0 or G.GAME.current_round.discards_used > 0) then
-    if G.hand.config.card_count ~= 0 then
-        hand_space = 0
-    end
-end
-'''
-match_indent = true
-
-[[patches]] 
-[patches.pattern]
 target = "cardarea.lua"
 pattern = '''
 if G.CONTROLLER.HID.controller then

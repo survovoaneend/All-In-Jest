@@ -20,5 +20,13 @@ local the_dragon = {
     pos = { y = 6 },
     order = 507,
     dollars = 6,
+
+    calculate = function(self, card, context)
+        if (G.GAME.current_round.hands_played > 0 or G.GAME.current_round.discards_used > 0) and G.hand.config.card_count ~= 0 then
+            return {
+                cards_to_draw = 0,
+            }
+        end
+    end
 }
 return { name = {"Pit Blinds"}, items = {the_dragon} }
