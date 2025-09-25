@@ -229,9 +229,9 @@ end
 local has_no_suit_ref = SMODS.has_no_suit
 function SMODS.has_no_suit(card)
     if SMODS.has_enhancement(card, 'm_aij_canvas') then
-        if card.area == G.hand or card.area == G.play then
+        if (card.area == G.hand or card.area == G.play) and not card.debuff then
             for k, v in pairs(G.play.cards) do
-                if v == card and v ~= G.play.cards[#G.play.cards] then
+                if v == card and v ~= G.play.cards[#G.play.cards] and not G.play.cards[k+1].debuff then
                     card.front_hidden = G.play.cards[k+1]:should_hide_front()
                     return SMODS.has_no_suit(G.play.cards[k+1])
                 end
@@ -248,7 +248,7 @@ function SMODS.has_no_suit(card)
             for k, v in pairs(highlighted_cards) do
                 if v == card then
                     highlighted = true
-                    if v ~= highlighted_cards[#highlighted_cards] then
+                    if v ~= highlighted_cards[#highlighted_cards] and not highlighted_cards[k+1].debuff then
                         card.front_hidden = highlighted_cards[k+1]:should_hide_front()
                         return SMODS.has_no_suit(highlighted_cards[k+1])
                     end
@@ -256,7 +256,7 @@ function SMODS.has_no_suit(card)
             end
             if not highlighted then
                 for k, v in pairs(G.hand.cards) do
-                    if v == card and v ~= G.hand.cards[#G.hand.cards] then
+                    if v == card and v ~= G.hand.cards[#G.hand.cards] and not G.hand.cards[k+1].debuff then
                         card.front_hidden = G.hand.cards[k+1]:should_hide_front()
                         return SMODS.has_no_suit(G.hand.cards[k+1])
                     end
@@ -275,9 +275,9 @@ end
 local has_no_rank_ref = SMODS.has_no_rank
 function SMODS.has_no_rank(card)
     if SMODS.has_enhancement(card, 'm_aij_canvas') then
-        if card.area == G.hand or card.area == G.play then
+        if (card.area == G.hand or card.area == G.play) and not card.debuff then
             for k, v in pairs(G.play.cards) do
-                if v == card and v ~= G.play.cards[#G.play.cards] then
+                if v == card and v ~= G.play.cards[#G.play.cards] and not G.play.cards[k+1].debuff then
                     card.front_hidden = G.play.cards[k+1]:should_hide_front()
                     return SMODS.has_no_rank(G.play.cards[k+1])
                 end
@@ -294,7 +294,7 @@ function SMODS.has_no_rank(card)
             for k, v in pairs(highlighted_cards) do
                 if v == card then
                     highlighted = true
-                    if v ~= highlighted_cards[#highlighted_cards] then
+                    if v ~= highlighted_cards[#highlighted_cards] and not highlighted_cards[k+1].debuff then
                         card.front_hidden = highlighted_cards[k+1]:should_hide_front()
                         return SMODS.has_no_rank(highlighted_cards[k+1])
                     end
@@ -302,7 +302,7 @@ function SMODS.has_no_rank(card)
             end
             if not highlighted then
                 for k, v in pairs(G.hand.cards) do
-                    if v == card and v ~= G.hand.cards[#G.hand.cards] then
+                    if v == card and v ~= G.hand.cards[#G.hand.cards] and not G.hand.cards[k+1].debuff then
                         card.front_hidden = G.hand.cards[k+1]:should_hide_front()
                         return SMODS.has_no_rank(G.hand.cards[k+1])
                     end
@@ -472,9 +472,9 @@ end
 local should_hide_front_ref = Card.should_hide_front
 function Card:should_hide_front()
   if SMODS.has_enhancement(self, 'm_aij_canvas') then
-    if self.area == G.hand or self.area == G.play then
+    if (self.area == G.hand or self.area == G.play) and not self.debuff then
         for k, v in pairs(G.play.cards) do
-            if v == self and v ~= G.play.cards[#G.play.cards] then
+            if v == self and v ~= G.play.cards[#G.play.cards] and not G.play.cards[k+1].debuff then
                 return G.play.cards[k+1]:should_hide_front()
             end
         end
@@ -490,14 +490,14 @@ function Card:should_hide_front()
         for k, v in pairs(highlighted_cards) do
             if v == self then
                 highlighted = true
-                if v == self and v ~= highlighted_cards[#highlighted_cards] then
+                if v == self and v ~= highlighted_cards[#highlighted_cards] and not highlighted_cards[k+1].debuff then
                     return highlighted_cards[k+1]:should_hide_front()
                 end
             end
         end
         if not highlighted then
             for k, v in pairs(G.hand.cards) do
-                if v == self and v ~= G.hand.cards[#G.hand.cards] then
+                if v == self and v ~= G.hand.cards[#G.hand.cards] and not G.hand.cards[k+1].debuff then
                     return G.hand.cards[k+1]:should_hide_front()
                 end
             end
