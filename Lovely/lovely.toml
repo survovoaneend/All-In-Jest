@@ -233,12 +233,45 @@ G.GAME.hands[text].played = G.GAME.hands[text].played + 1
 '''
 position = "before"
 payload = '''
+local calulated_text = nil
 if text == 'aij_Royal Flush' then
-    G.GAME.hands['Straight Flush'].played = G.GAME.hands['Straight Flush'].played + 1
-    G.GAME.hands['Straight Flush'].played_this_round = G.GAME.hands['Straight Flush'].played_this_round + 1
-    G.GAME.last_hand_played = 'Straight Flush'
-    set_hand_usage('Straight Flush')
+    calulated_text = 'aij_Royal Flush'
+    G.GAME.hands[calulated_text].played = G.GAME.hands[calulated_text].played + 1
+    G.GAME.hands[calulated_text].played_this_round = G.GAME.hands[calulated_text].played_this_round + 1
+    G.GAME.last_hand_played = calulated_text
+    set_hand_usage(calulated_text)
+    text = 'Straight Flush'
 end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+mult = mod_mult(G.GAME.hands[text].mult)
+hand_chips = mod_chips(G.GAME.hands[text].chips)
+'''
+position = "at"
+payload = '''
+mult = mod_mult(G.GAME.hands[calulated_text or text].mult)
+hand_chips = mod_chips(G.GAME.hands[calulated_text or text].chips)
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+update_hand_text({sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, volume = 0.4, immediate = true, nopulse = nil,
+            delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, {handname=disp_text, level=G.GAME.hands[text].level, mult = G.GAME.hands[text].mult, chips = G.GAME.hands[text].chips})
+SMODS.displayed_hand = text; SMODS.displaying_scoring = true
+'''
+position = "at"
+payload = '''
+update_hand_text({sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, volume = 0.4, immediate = true, nopulse = nil,
+            delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, {handname=disp_text, level=G.GAME.hands[calulated_text or text].level, mult = G.GAME.hands[calulated_text or text].mult, chips = G.GAME.hands[calulated_text or text].chips})
+SMODS.displayed_hand = calulated_text or text; SMODS.displaying_scoring = true
 '''
 match_indent = true
 
