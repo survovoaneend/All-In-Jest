@@ -1275,7 +1275,7 @@ return {
                 text = { 
                     "This Joker gains {C:chips}+#1#{} Chips",
                     "per {C:attention}level{} of each {C:red}discarded",
-                    "poker hand",
+                    "hand",
                     "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)" 
                 } 
             },
