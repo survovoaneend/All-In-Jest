@@ -46,9 +46,9 @@ local stage_production = {
         info_queue[#info_queue + 1] = { set = 'Other', key = 'reroll_joker' }
         local active_text = ""
         if not card.ability.extra.trigger then 
-            active_text = localize('k_inactive')
+            active_text = "("..localize('k_inactive')..")"
         else
-            active_text = localize('k_active')
+            active_text = "("..localize('k_active')..")"
         end
         return {
             vars = {
