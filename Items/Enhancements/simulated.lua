@@ -32,4 +32,4 @@ local simulated = {
         end
     end
 }
-return {name = {"Enhance+ents"}, items = {simulated}}
+return {name = {"Enhancements"}, items = {simulated}}
