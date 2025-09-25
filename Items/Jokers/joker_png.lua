@@ -37,7 +37,7 @@ local joker_png = {
     cost = 4,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
 
     pixel_size = { w = 31, h = 40 },

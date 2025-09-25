@@ -1526,6 +1526,11 @@ function All_in_Jest.expanded_copier_compat(center, from_collection)
     }
     if from_collection then
         table.insert(blacklist, 'j_campfire')
+
+        -- can remove these if they are made un-perishable
+        table.insert(blacklist, 'j_aij_egg_cc')
+        table.insert(blacklist, 'j_aij_toothy_joker')
+        table.insert(blacklist, 'j_aij_coulrorachne')
     end
 
     if center.blueprint_compat and 
