@@ -39,5 +39,11 @@ local velocity_tag = {
             return true
         end
     end,
+    in_pool = function(self, args)
+        if G.GAME.round <= 19 then
+            return true
+        end
+        return false
+    end,
 }
 return {name = "Tags", items = {velocity_tag}}
