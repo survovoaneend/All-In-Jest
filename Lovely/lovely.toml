@@ -1140,6 +1140,10 @@ if (G.shop and not G.GAME.shop_free and G.GAME.jest_shop_perma_free) then
         end
     end
 end
+-- updates for blinds
+if G.GAME.blind and G.GAME.blind.config.blind.update and type(G.GAME.blind.config.blind.update) == 'function' then
+    G.GAME.blind.config.blind.update(G.GAME.blind, G.GAME.blind, dt)
+end
 '''
 
 [[patches]]
