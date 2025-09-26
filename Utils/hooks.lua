@@ -585,8 +585,8 @@ function ease_ante(mod)
                 common_rank = k
             end
         end
-        G.P_BLINDS['bl_aij_the_auroch'].boss.suit = common_suit
-        G.P_BLINDS['bl_aij_the_auroch'].boss.rank = common_rank
+        G.P_BLINDS['bl_aij_the_auroch'].boss.suit = common_suit or G.P_BLINDS['bl_aij_the_auroch'].boss.suit
+        G.P_BLINDS['bl_aij_the_auroch'].boss.rank = common_rank or G.P_BLINDS['bl_aij_the_auroch'].boss.rank
         G.P_BLINDS['bl_aij_the_clay'].mult = math.floor(100*pseudorandom("clay"))/100 + pseudorandom("clay", 1, 4)
         G.GAME.all_in_jest.unused_hands.ante = 0
         G.GAME.all_in_jest.unused_discards.ante = 0

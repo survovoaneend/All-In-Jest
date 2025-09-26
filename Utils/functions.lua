@@ -1518,6 +1518,29 @@ function All_in_Jest.reset_game_globals(run_start)
 	G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
     if run_start then
+        local common_suit, common_rank = nil, nil
+        local temp_suit_val, temp_rank_val = 0, 0
+        local suit_table, rank_table = {}, {}
+        for k, v in pairs(G.deck.cards) do
+            suit_table[v.base.suit] = suit_table[v.base.suit] or 0 
+            suit_table[v.base.suit] = suit_table[v.base.suit] + 1
+            rank_table[v.base.value] = rank_table[v.base.value] or 0 
+            rank_table[v.base.value] = rank_table[v.base.value] + 1
+        end
+        for k, v in pairs(suit_table) do
+            if v >= temp_suit_val then
+                temp_suit_val = v
+                common_suit = k
+            end
+        end
+        for k, v in pairs(rank_table) do
+            if v >= temp_rank_val then
+                temp_rank_val = v
+                common_rank = k
+            end
+        end
+        G.P_BLINDS['bl_aij_the_auroch'].boss.suit = common_suit
+        G.P_BLINDS['bl_aij_the_auroch'].boss.rank = common_rank
         G.GAME.all_in_jest.starting_prams.deck_size = #G.deck.cards
         local index = {4,5}
         G.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
