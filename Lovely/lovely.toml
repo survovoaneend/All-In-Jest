@@ -1348,7 +1348,7 @@ payload = '''
 elseif _type == 'Joker' and next(SMODS.find_card("j_aij_little_boy_blue")) then _pool[#_pool + 1] = "j_aij_simple_simon"
 '''
 
-# Clay Joker and Visage Comapat visuals
+# Copy joker Comapat visuals
 [[patches]]
 [patches.pattern]
 target = "card.lua"
@@ -1358,11 +1358,27 @@ payload = '''
 if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage' or (self.ability.name == 'j_aij_czar' or self.ability.name == 'j_aij_joker_png') then
 	local other_joker = nil
     if self.ability.name == 'j_aij_visage' then
-        other_joker = G.all_in_jest.visage_last_sold.cards[1]
+        other_joker = G.all_in_jest_visage_last_sold.cards[1]
     elseif self.ability.name == 'j_aij_clay_joker' then
-        other_joker = G.all_in_jest.clay_last_destroyed.cards[1]
+        other_joker = G.all_in_jest_clay_last_destroyed.cards[1]
+    elseif self.ability.name == 'j_aij_joker_png' then
+        for _,v in pairs(G.all_in_jest_joker_png.cards) do
+            if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == self.unique_val then
+                other_joker = v
+                break
+            end
+        end
+    elseif self.ability.name == 'j_aij_czar' then
+        for _,v in pairs(G.all_in_jest_czar.cards) do
+            if v.ability.all_in_jest and v.ability.all_in_jest.czar == self.unique_val then
+                other_joker = v
+                break
+            end
+        end
     end
-    if (other_joker and other_joker ~= self and other_joker.config and other_joker.config.center.blueprint_compat) or (self.ability.name == 'j_aij_czar' or self.ability.name == 'j_aij_joker_png') then
+    if 
+        other_joker and other_joker ~= self and other_joker.config and All_in_Jest.expanded_copier_compat(other_joker.config.center, (self.ability.name == 'j_aij_czar' or self.ability.name == 'j_aij_joker_png'))
+    then
         self.ability.blueprint_compat = 'compatible'
     else
         self.ability.blueprint_compat = 'incompatible'
@@ -2626,19 +2642,19 @@ G.all_in_jest.patches_sprites["Diamonds"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET
 G.all_in_jest.patches_sprites["Spades"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=4,y=2})
 G.all_in_jest.patches_sprites["paperback_Stars"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=5,y=2})
 G.all_in_jest.patches_sprites["paperback_Crowns"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=6,y=2})
-self.all_in_jest.czar = CardArea(
+self.all_in_jest_czar = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
         {card_limit = 99999999, type = 'joker'})
-self.all_in_jest.joker_png = CardArea(
+self.all_in_jest_joker_png = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
         {card_limit = 99999999, type = 'joker'})
-self.all_in_jest.clay_last_destroyed = CardArea(
+self.all_in_jest_clay_last_destroyed = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
         {card_limit = 1, type = 'joker'})
-self.all_in_jest.visage_last_sold = CardArea(
+self.all_in_jest_visage_last_sold = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
         {card_limit = 1, type = 'joker'})
@@ -2663,6 +2679,8 @@ pattern = "if target.vars.is_info_queue then target.is_info_queue = true; target
 position = "after"
 match_indent = true
 payload = '''
-if target.vars.aij_visage then card = G.all_in_jest.visage_last_sold.cards[1]; target.vars.aij_visage = nil end -- All in Jest
-if target.vars.aij_clay then card = G.all_in_jest.clay_last_destroyed.cards[1]; target.vars.aij_clay = nil end -- All in Jest
+if target.vars.aij_visage then card = G.all_in_jest_visage_last_sold.cards[1]; target.vars.aij_visage = nil end -- All in Jest
+if target.vars.aij_clay then card = G.all_in_jest_clay_last_destroyed.cards[1]; target.vars.aij_clay = nil end -- All in Jest
+if target.vars.aij_joker_png then card = target.vars.aij_joker_png; target.vars.aij_joker_png = nil end -- All in Jest
+if target.vars.aij_czar then card = target.vars.aij_czar; target.vars.aij_czar = nil end -- All in Jest
 '''
