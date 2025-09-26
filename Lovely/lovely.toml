@@ -1140,9 +1140,24 @@ if (G.shop and not G.GAME.shop_free and G.GAME.jest_shop_perma_free) then
         end
     end
 end
--- updates for blinds
+-- updates for blinds & abilitys for blinds
 if G.GAME.blind and G.GAME.blind.config.blind.update and type(G.GAME.blind.config.blind.update) == 'function' then
     G.GAME.blind.config.blind.update(G.GAME.blind, G.GAME.blind, dt)
+end
+if G.GAME.blind and G.GAME.blind.config.blind.config and type(G.GAME.blind.config.blind.config) == 'table' then
+    if not G.GAME.blind.ability and G.GAME.blind.in_blind then
+        G.GAME.blind.ability = G.GAME.blind.ability or {}
+        for k,v in pairs(G.GAME.blind.config.blind.config) do
+            if type(v) == 'table' then
+                G.GAME.blind.ability[k] = copy_table(v)
+            else
+                G.GAME.blind.ability[k] = v
+            end
+        end
+    end
+    if not G.GAME.blind.in_blind then
+        G.GAME.blind.ability = nil
+    end
 end
 '''
 
