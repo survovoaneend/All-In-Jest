@@ -26,7 +26,7 @@ local the_dragon = {
         if temp then
             return
         end
-        if (G.GAME.current_round.hands_played > 0 or G.GAME.current_round.discards_used > 0) and G.hand.config.card_count ~= 0 then
+        if (G.GAME.current_round.hands_played > 0 or G.GAME.current_round.discards_used > 0) and G.hand.config.card_count ~= 0 and not context.repetition then
             return {
                 cards_to_draw = 0,
             }
