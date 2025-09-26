@@ -41,8 +41,11 @@ local fortunate_tag = {
             function() 
                 return #G.consumeables.cards < G.consumeables.config.card_limit
             end)
-            tag.triggered = true
-            return true
+            if #G.consumeables.cards < G.consumeables.config.card_limit then
+                tag.triggered = true
+                return true
+            end
+            return
         end
     end,
 }
