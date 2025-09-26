@@ -52,6 +52,8 @@ local ticket_tag = {
                     delay = 0,
                     func = function()
                         voucher_card = create_card('Voucher',G.play, nil, nil, nil, nil, _voucher, 'ticket')
+                        G.hand.states.visible = false
+                        G.GAME.aij_show_hand = true
                         voucher_card.cost = 0
                         voucher_card:redeem()
                         G.E_MANAGER:add_event(Event({
@@ -79,7 +81,7 @@ local ticket_tag = {
                                             upgrade_voucher_card:start_dissolve()
                                             return true 
                                         end 
-                                        }))
+                                    }))
                                 end
                                 return true 
                             end 
