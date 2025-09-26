@@ -14,18 +14,18 @@ local the_field = {
 
     calculate = function(self, card, context)
         local temp = G.GAME.blind and G.GAME.blind.disabled
-        if temp or self.config.extra.defeated then
+        if temp or (not G.GAME.blind.in_blind) then
             return
         end
-        if context.discard and not temp and not self.config.extra.defeated then
-            self.config.extra.cards = self.config.extra.cards + 1    
-            if self.config.extra.cards >= 10 then
+        if G.GAME.blind.ability and context.discard and not temp and not G.GAME.blind.ability.extra.defeated then
+            G.GAME.blind.ability.extra.cards = G.GAME.blind.ability.extra.cards + 1    
+            if G.GAME.blind.ability.extra.cards >= 10 then
                 for k, v in pairs(G.playing_cards) do
                     SMODS.debuff_card(v, false, 'the_field')
                 end
             end
         end
-        if self.config.extra.cards < 10 and not temp and not self.config.extra.defeated then
+        if G.GAME.blind.ability and G.GAME.blind.ability.extra.cards < 10 and not temp and not G.GAME.blind.ability.extra.defeated then
             for k, v in pairs(G.playing_cards) do
                 SMODS.debuff_card(v, true, 'the_field')
             end
@@ -39,7 +39,6 @@ local the_field = {
     end,
 
     defeat = function(self)
-        self.config.extra.defeated = true
         for k, v in pairs(G.playing_cards) do
             SMODS.debuff_card(v, false, 'the_field')
         end
