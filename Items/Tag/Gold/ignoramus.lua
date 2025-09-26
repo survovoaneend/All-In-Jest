@@ -50,8 +50,11 @@ local ignoramus_tag = {
             function() 
                 return #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
             end)
-            tag.triggered = true
-            return true
+            if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+                tag.triggered = true
+                return true
+            end
+            return
         end
     end,
 }
