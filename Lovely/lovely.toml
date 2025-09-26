@@ -1149,6 +1149,27 @@ end
 
 [[patches]]
 [patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "local cardAreas = {}"
+position = "before"
+match_indent = true
+payload = '''
+if G.all_in_jest then
+    for k, v in pairs(G) do
+        if string.sub(k, 1, 13) == 'G_all_in_jest' then
+            local key = string.gsub(k, 'G_all_in_jest', '')
+            G.all_in_jest = G.all_in_jest or {}
+            G.all_in_jest[key] = v
+        end
+    end
+    for k, v in pairs(G.all_in_jest) do
+        G['G_all_in_jest'..k] = v
+    end
+end
+'''
+
+[[patches]]
+[patches.pattern]
 target = "functions/common_events.lua"
 pattern = "if not skip_increment then G.GAME.current_round.reroll_cost_increase = G.GAME.current_round.reroll_cost_increase + 1 end"
 position = "before"
@@ -2658,6 +2679,13 @@ self.all_in_jest_visage_last_sold = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
         {card_limit = 1, type = 'joker'})
+for k, v in pairs(G) do
+    if string.sub(k, 13) == 'G_all_in_jest' then
+        local key = string.gsub(k, 'G_all_in_jest', '')
+        G.all_in_jest = G.all_in_jest or {}
+        G.all_in_jest[key] = v
+    end
+end
 '''
 
 # Patch related to better Clay Joker and Visage Info Queue
