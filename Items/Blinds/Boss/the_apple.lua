@@ -16,7 +16,8 @@ local the_apple = {
         if temp then
             return
         end
-        if context.end_of_round and G.GAME.current_round.hands_played <= 1 and not temp then
+        local contexts = not context.individual and not context.repetition and not context.blueprint
+        if context.end_of_round and G.GAME.current_round.hands_played <= 1 and not temp and contexts then
             local jokers = {}
             for i = 1, #G.jokers.cards do
                 if not SMODS.is_eternal(G.jokers.cards[i]) then

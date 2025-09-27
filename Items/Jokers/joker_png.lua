@@ -28,6 +28,7 @@ local joker_png = {
     key = "joker_png",
     config = {
       extra = {
+          base_cost = 1,
           cost = 1
       }
     },
@@ -65,6 +66,7 @@ local joker_png = {
             spawn_joker_png_joker(card)
 
             card:juice_up(0.3, 0.5)
+            card.ability.extra.cost = card.ability.extra.cost + 1
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_reset')})
         end,
     },
@@ -112,6 +114,10 @@ local joker_png = {
     end,
   
     calculate = function(self, card, context)
+        if context.ante_change and context.ante_change ~= 0 then
+            card.ability.extra.cost = card.ability.extra.base_cost
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_reset')})
+        end
         for _,v in pairs(G.all_in_jest_joker_png.cards) do
             if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == card.unique_val then
                 local other_joker = v

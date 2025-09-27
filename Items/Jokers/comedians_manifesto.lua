@@ -22,32 +22,28 @@ local comedians_manifesto = {
     end,
   
     calculate = function(self, card, context)
-      if context.open_booster then
-        if context.card.ability.name:find('Standard') then
-            card.ability.extra.trigger = true
-        else
-            card.ability.extra.trigger = false
-        end
-      end
-    end,
-    update = function(self, card, dt)
-        if G.pack_cards and card.ability.extra.trigger then
-            if G.pack_cards.cards then
-                for i = 1, #G.pack_cards.cards do
-                    local v = G.pack_cards.cards[i]
-                    if v:get_id() == 12 or v:get_id() == 13 then
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.1,
-                            func = function()
-                            assert(SMODS.change_base(v, nil, 'Jack'))
-                            return true
-                            end
-                        }))
-                    end
+      if context.all_in_jest and context.all_in_jest.modify_booster_cards and not context.all_in_jest.before_added then
+        if context.all_in_jest.card.ability.name:find('Standard') then
+            for k, v in pairs(context.all_in_jest.pack_cards) do
+                if v:get_id() == 12 or v:get_id() == 13 then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.2,
+                        func = function()
+                        v:flip()
+                        delay(0.3)
+                        play_sound('tarot1')
+                        v:juice_up(0.3, 0.5)
+                        card:juice_up(0.3, 0.5)
+                        assert(SMODS.change_base(v, nil, 'Jack'))
+                        v:flip()
+                        return true
+                        end
+                    }))
                 end
             end
         end
-    end
+      end
+    end,
 }
 return { name = {"Jokers"}, items = {comedians_manifesto} }
