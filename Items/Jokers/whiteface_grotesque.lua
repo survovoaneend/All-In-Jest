@@ -30,9 +30,11 @@ local whiteface_grotesque = {
   
     calculate = function(self, card, context)
         if context.before then
+            local face_cards = 0
             if G.hand and #G.hand.cards > 0 then
                 for i = 1, #G.hand.cards do
                     if G.hand.cards[i]:is_face() and not context.blueprint then
+                        face_cards = face_cards + 1
                         SMODS.scale_card(card, {
 	                        ref_table = card.ability.extra,
                             ref_value = "cur_chips",
@@ -42,6 +44,12 @@ local whiteface_grotesque = {
                         })
                     end
                 end
+            end
+            if face_cards > 0 and not context.blueprint then
+                return {
+                    message = localize('k_upgrade_ex'),
+                    card = card
+                }
             end
         end
         if context.joker_main then
