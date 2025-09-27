@@ -32,7 +32,6 @@ local the_god = {
             
             if card.config.center.always_scores and not contains(scoring_hand, card) then always_scores_count = always_scores_count + 1 end
         end
-        print(#scoring_hand + always_scores_count)
         if #scoring_hand + always_scores_count ~= #cards then return true end
     end,
 
