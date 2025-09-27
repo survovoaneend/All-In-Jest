@@ -30,18 +30,20 @@ local truhan = {
   
     calculate = function(self, card, context)
       if context.jest_destroying_or_selling_joker then
-        SMODS.scale_card(card, {
-	        ref_table = card.ability.extra,
-            ref_value = "xmult",
-	        scalar_value = "xmult_mod",
-            operation = function(ref_table, ref_value, initial, change)
-	            ref_table[ref_value] = initial + (change * (context.jest_destroyed_joker.ability.jest_held_for or 0))
-            end,
-            scaling_message = {
-	            message = localize('k_upgrade_ex'),
-	            colour = G.C.FILTER
-            }
-        })
+        if context.jest_destroyed_joker.ability.jest_held_for and context.jest_destroyed_joker.ability.jest_held_for > 0 then
+            SMODS.scale_card(card, {
+	            ref_table = card.ability.extra,
+                ref_value = "xmult",
+	            scalar_value = "xmult_mod",
+                operation = function(ref_table, ref_value, initial, change)
+	                ref_table[ref_value] = initial + (change * (context.jest_destroyed_joker.ability.jest_held_for or 0))
+                end,
+                scaling_message = {
+	                message = localize('k_upgrade_ex'),
+	                colour = G.C.FILTER
+                }
+            })
+        end
       end
       if context.joker_main then
         return {
