@@ -31,7 +31,7 @@ local whiteface_grotesque = {
         if context.before then
             if G.hand and #G.hand.cards > 0 then
                 for i = 1, #G.hand.cards do
-                    if G.hand.cards[i]:is_face() then
+                    if G.hand.cards[i]:is_face() and not context.blueprint then
                         SMODS.scale_card(card, {
 	                        ref_table = card.ability.extra,
                             ref_value = "cur_chips",
