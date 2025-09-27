@@ -35,6 +35,15 @@ local alien_joker = {
                 context.other_card.ability.alien_joker_highlight = nil
             end
         end
+        if context.end_of_round then
+            if G.hand then
+                for i = 1, #G.hand.cards do
+                    if G.hand.cards[i].ability.alien_joker_highlight then
+                        G.hand.cards[i].ability.alien_joker_highlight = nil
+                    end
+                end
+            end
+        end
         if context.discard then
             if context.other_card.ability.alien_joker_highlight then
                 context.other_card.ability.alien_joker_highlight = nil

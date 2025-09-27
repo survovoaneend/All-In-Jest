@@ -36,8 +36,11 @@ local asteroid_tag = {
                         tmp_key = 'c_aij_gravastar'
                     elseif self.card_index == 3 then
                         tmp_key = 'c_aij_pulsar'
+                        self.card_index = nil
                     end
-                    self.card_index = self.card_index + 1
+                    if self.card_index then
+                        self.card_index = self.card_index + 1
+                    end
 		            return create_card("Spectral", G.pack_cards, nil, nil, true, true, tmp_key, 'ast')
 	            end,
                 G.FUNCS.use_card({config = {ref_table = card}})

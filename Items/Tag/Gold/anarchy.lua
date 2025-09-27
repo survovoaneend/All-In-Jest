@@ -37,8 +37,7 @@ local anarchy_tag = {
     end,
 
     apply = function(self, tag, context)
-        local effect_index = math.random(1, #self.config.effects) 
-        local effect = self.config.effects[effect_index]
+        local effect = pseudorandom_element(self.config.effects, pseudoseed('jest_anarchy_tag'))
         local trigger = false
         while not trigger do
             if effect == "create_jokers" then
@@ -67,9 +66,8 @@ local anarchy_tag = {
             else
                 trigger = true
             end
-            if not trigger then
-                effect_index = math.random(1, #self.config.effects) 
-                effect = self.config.effects[effect_index]
+            if not trigger then 
+                effect = pseudorandom_element(self.config.effects, pseudoseed('jest_anarchy_tag'))
             end
         end
         if context.type == 'new_blind_choice' then
@@ -218,6 +216,8 @@ local anarchy_tag = {
                         _voucher = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..iv))
                     end
                     voucher_card = create_card('Voucher',G.play, nil, nil, nil, nil, _voucher, 'ticket')
+                    G.hand.states.visible = false
+                    G.GAME.aij_show_hand = true
                     voucher_card.cost = 0
                     voucher_card:redeem()
                     G.E_MANAGER:add_event(Event({

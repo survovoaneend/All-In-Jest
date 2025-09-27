@@ -22,13 +22,13 @@ local the_jester = {
         if card.ability.extra.active then
           return {
             vars = {
-              'Active!'
+              "("..localize('k_active')..")"
             }
           }
         else
           return {
             vars = {
-              'Inactive'
+              "("..localize('k_inactive')..")"
             }
           }
         end

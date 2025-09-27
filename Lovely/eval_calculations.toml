@@ -44,6 +44,10 @@ if context.end_of_round then
     end
 end
 if context.setting_blind then
+    if G.GAME.aij_show_hand then
+        G.hand.states.visible = true
+        G.GAME.aij_show_hand = nil
+    end
     for k, v in pairs(G.jokers.cards) do
         if v.ability and v.ability.all_in_jest and v.ability.all_in_jest.has_been_rerolled then
             card_eval_status_text(card, "extra", nil, nil, nil, {message = localize("k_reset"), colour = G.C.FILTER})

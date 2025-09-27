@@ -113,7 +113,6 @@ if G.jokers ~= nil then
             for __, card in ipairs(joker.ability.extra.all_in_jest.to_hand.cards) do
                 table.insert(jest_to_hand, card)
             end
-            break
         end
     end
 end
@@ -124,7 +123,6 @@ if G.play ~= nil then
             if play_card.ability.extra.all_in_jest.to_hand.cards == true then
                 table.insert(jest_to_hand, play_card)
             end
-            break
         end
     end
 end
@@ -142,20 +140,6 @@ if jest_to_hand ~= {} then
         draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
     end
 else
-'''
-match_indent = true
-
-[[patches]] 
-[patches.pattern]
-target = "functions/state_events.lua"
-pattern = "local flags = SMODS.calculate_context({drawing_cards = true, amount = hand_space})"
-position = "before"
-payload = '''
-if G.GAME.blind.config.blind.key == 'bl_aij_the_dragon' and not G.GAME.blind.disabled and (G.GAME.current_round.hands_played > 0 or G.GAME.current_round.discards_used > 0) then
-    if G.hand.config.card_count ~= 0 then
-        hand_space = 0
-    end
-end
 '''
 match_indent = true
 
@@ -1142,6 +1126,46 @@ if (G.shop and not G.GAME.shop_free and G.GAME.jest_shop_perma_free) then
         end
     end
 end
+-- updates for blinds & abilitys for blinds
+if G.GAME.blind and G.GAME.blind.config.blind.update and type(G.GAME.blind.config.blind.update) == 'function' then
+    G.GAME.blind.config.blind.update(G.GAME.blind, G.GAME.blind, dt)
+end
+if G.GAME.blind and G.GAME.blind.config.blind.config and type(G.GAME.blind.config.blind.config) == 'table' then
+    if not G.GAME.blind.ability and G.GAME.blind.in_blind then
+        G.GAME.blind.ability = G.GAME.blind.ability or {}
+        for k,v in pairs(G.GAME.blind.config.blind.config) do
+            if type(v) == 'table' then
+                G.GAME.blind.ability[k] = copy_table(v)
+            else
+                G.GAME.blind.ability[k] = v
+            end
+        end
+    end
+    if not G.GAME.blind.in_blind then
+        G.GAME.blind.ability = nil
+    end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "local cardAreas = {}"
+position = "before"
+match_indent = true
+payload = '''
+if G.all_in_jest then
+    for k, v in pairs(G) do
+        if string.sub(k, 1, 13) == 'G_all_in_jest' then
+            local key = string.gsub(k, 'G_all_in_jest', '')
+            G.all_in_jest = G.all_in_jest or {}
+            G.all_in_jest[key] = v
+        end
+    end
+    for k, v in pairs(G.all_in_jest) do
+        G['G_all_in_jest'..k] = v
+    end
+end
 '''
 
 [[patches]]
@@ -1345,7 +1369,7 @@ payload = '''
 elseif _type == 'Joker' and next(SMODS.find_card("j_aij_little_boy_blue")) then _pool[#_pool + 1] = "j_aij_simple_simon"
 '''
 
-# Clay Joker and Visage Comapat visuals
+# Copy joker Comapat visuals
 [[patches]]
 [patches.pattern]
 target = "card.lua"
@@ -1355,11 +1379,27 @@ payload = '''
 if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage' or (self.ability.name == 'j_aij_czar' or self.ability.name == 'j_aij_joker_png') then
 	local other_joker = nil
     if self.ability.name == 'j_aij_visage' then
-        other_joker = G.all_in_jest.visage_last_sold.cards[1]
+        other_joker = G.all_in_jest_visage_last_sold.cards[1]
     elseif self.ability.name == 'j_aij_clay_joker' then
-        other_joker = G.all_in_jest.clay_last_destroyed.cards[1]
+        other_joker = G.all_in_jest_clay_last_destroyed.cards[1]
+    elseif self.ability.name == 'j_aij_joker_png' then
+        for _,v in pairs(G.all_in_jest_joker_png.cards) do
+            if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == self.unique_val then
+                other_joker = v
+                break
+            end
+        end
+    elseif self.ability.name == 'j_aij_czar' then
+        for _,v in pairs(G.all_in_jest_czar.cards) do
+            if v.ability.all_in_jest and v.ability.all_in_jest.czar == self.unique_val then
+                other_joker = v
+                break
+            end
+        end
     end
-    if (other_joker and other_joker ~= self and other_joker.config and other_joker.config.center.blueprint_compat) or (self.ability.name == 'j_aij_czar' or self.ability.name == 'j_aij_joker_png') then
+    if 
+        other_joker and other_joker ~= self and other_joker.config and All_in_Jest.expanded_copier_compat(other_joker.config.center, (self.ability.name == 'j_aij_czar' or self.ability.name == 'j_aij_joker_png'))
+    then
         self.ability.blueprint_compat = 'compatible'
     else
         self.ability.blueprint_compat = 'incompatible'
@@ -1845,7 +1885,7 @@ payload = '''
         if has_anchor then
             local left  = location - 1
             local right = location + 1 
-            local nearby = (left >= 1 and G.jokers.cards[left].config.center_key == self.config.center_key) or (right <= #G.jokers.cards and G.jokers.cards[right].config.center_key == self.config.center_key)
+            local is_nearby = (left >= 1 and G.jokers.cards[left] == self) or (right <= #G.jokers.cards and G.jokers.cards[right] == self)
             local is_anchor_itself = (self.config.center_key == "j_aij_anchor")
             if (is_nearby or is_anchor_itself) and self.ability.jest_sold_self == nil then
                 self.getting_sliced = false
@@ -1893,37 +1933,6 @@ if has_circuit_diagram then
 end
 '''
 match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice)"
-position = "after" 
-match_indent = true
-payload = '''
-    local has_anchor = false
-    local location = 0
-    if G.jokers and self.ability.set == 'Joker' then
-        if G.jokers and G.jokers.cards then
-            for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i].config and G.jokers.cards[i].config.center_key == "j_aij_anchor" and not G.jokers.cards[i].debuff then
-                    has_anchor = true
-                    location = i
-                end
-            end
-        end
-        if has_anchor then
-            local left  = location - 1
-            local right = location + 1
-            local nearby = (left >= 1 and G.jokers.cards[left].config.center_key == self.config.center_key) or (right <= #G.jokers.cards and G.jokers.cards[right].config.center_key == self.config.center_key)
-
-            if nearby and self.ability.jest_sold_self == nil then
-                self.getting_sliced = false
-                return
-            end
-        end
-    end
-'''
 
 [[patches]]
 [patches.pattern]
@@ -2623,22 +2632,29 @@ G.all_in_jest.patches_sprites["Diamonds"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET
 G.all_in_jest.patches_sprites["Spades"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=4,y=2})
 G.all_in_jest.patches_sprites["paperback_Stars"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=5,y=2})
 G.all_in_jest.patches_sprites["paperback_Crowns"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=6,y=2})
-self.all_in_jest.czar = CardArea(
+self.all_in_jest_czar = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
         {card_limit = 99999999, type = 'joker'})
-self.all_in_jest.joker_png = CardArea(
+self.all_in_jest_joker_png = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
         {card_limit = 99999999, type = 'joker'})
-self.all_in_jest.clay_last_destroyed = CardArea(
+self.all_in_jest_clay_last_destroyed = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
         {card_limit = 1, type = 'joker'})
-self.all_in_jest.visage_last_sold = CardArea(
+self.all_in_jest_visage_last_sold = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
         {card_limit = 1, type = 'joker'})
+for k, v in pairs(G) do
+    if string.sub(k, 13) == 'G_all_in_jest' then
+        local key = string.gsub(k, 'G_all_in_jest', '')
+        G.all_in_jest = G.all_in_jest or {}
+        G.all_in_jest[key] = v
+    end
+end
 '''
 
 # Patch related to better Clay Joker and Visage Info Queue
@@ -2660,6 +2676,8 @@ pattern = "if target.vars.is_info_queue then target.is_info_queue = true; target
 position = "after"
 match_indent = true
 payload = '''
-if target.vars.aij_visage then card = G.all_in_jest.visage_last_sold.cards[1]; target.vars.aij_visage = nil end -- All in Jest
-if target.vars.aij_clay then card = G.all_in_jest.clay_last_destroyed.cards[1]; target.vars.aij_clay = nil end -- All in Jest
+if target.vars.aij_visage then card = G.all_in_jest_visage_last_sold.cards[1]; target.vars.aij_visage = nil end -- All in Jest
+if target.vars.aij_clay then card = G.all_in_jest_clay_last_destroyed.cards[1]; target.vars.aij_clay = nil end -- All in Jest
+if target.vars.aij_joker_png then card = target.vars.aij_joker_png; target.vars.aij_joker_png = nil end -- All in Jest
+if target.vars.aij_czar then card = target.vars.aij_czar; target.vars.aij_czar = nil end -- All in Jest
 '''

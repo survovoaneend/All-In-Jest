@@ -1316,7 +1316,8 @@ function All_in_Jest.add_tag_to_shop(key, price)
     end
     card:start_materialize()
     card.edition = nil
-    card.cost = price or 1
+    card.base_cost = price or 1
+    card:set_cost()
     card.config.center.set_card_type_badge = function(self, card, badges)
 		badges[#badges+1] = create_badge(localize('k_tag'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2 )
 	end
@@ -1517,8 +1518,90 @@ function All_in_Jest.reset_game_globals(run_start)
 	G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
     if run_start then
+        local common_suit, common_rank = nil, nil
+        local temp_suit_val, temp_rank_val = 0, 0
+        local suit_table, rank_table = {}, {}
+        for k, v in pairs(G.deck.cards) do
+            suit_table[v.base.suit] = suit_table[v.base.suit] or 0 
+            suit_table[v.base.suit] = suit_table[v.base.suit] + 1
+            rank_table[v.base.value] = rank_table[v.base.value] or 0 
+            rank_table[v.base.value] = rank_table[v.base.value] + 1
+        end
+        for k, v in pairs(suit_table) do
+            if v >= temp_suit_val then
+                temp_suit_val = v
+                common_suit = k
+            end
+        end
+        for k, v in pairs(rank_table) do
+            if v >= temp_rank_val then
+                temp_rank_val = v
+                common_rank = k
+            end
+        end
+        G.P_BLINDS['bl_aij_the_auroch'].boss.suit = common_suit
+        G.P_BLINDS['bl_aij_the_auroch'].boss.rank = common_rank
         G.GAME.all_in_jest.starting_prams.deck_size = #G.deck.cards
         local index = {4,5}
         G.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
+    end
+end
+
+-- Function to allow for filtering joker-copy effects and applying blacklists to copiable jokers
+-- Used by: Visage, Clay Joker, Joker.png, and Czar
+--  from_collection - set true for jokers that copy a joker from collection, rather than a joker that was previously in-play
+function All_in_Jest.expanded_copier_compat(center, from_collection)
+    if not (center and type(center) == "table") then
+        return
+    end
+    local blacklist = {
+        'j_blueprint',
+        'j_aij_lexicon' -- Crashes the game for some reason, temporary fix
+    }
+    if from_collection then
+        table.insert(blacklist, 'j_campfire')
+
+        -- can remove these if they are made un-perishable
+        table.insert(blacklist, 'j_aij_egg_cc')
+        table.insert(blacklist, 'j_aij_toothy_joker')
+        table.insert(blacklist, 'j_aij_coulrorachne')
+    end
+
+    if center.blueprint_compat and 
+        (not from_collection or (center.discovered and 
+        center.perishable_compat and 
+        center.rarity ~= 4 and 
+        not G.GAME.banned_keys[center.key]))
+    then
+        for _, v in ipairs(blacklist) do
+            if center.key == v then
+                return false
+            end
+        end
+
+        -- if from_collection then
+        --     if center.in_pool and type(center.in_pool) == 'function' then
+        --         return center:in_pool()
+        --     end
+
+        --     if center.yes_pool_flag and not G.GAME.pool_flags[center.yes_pool_flag] then
+        --         return false
+        --     end
+        --     if center.no_pool_flag and G.GAME.pool_flags[center.no_pool_flag] then
+        --         return false
+        --     end
+
+        --     if center.enhancement_gate then
+        --         for _, v in pairs(G.playing_cards) do
+        --             if SMODS.has_enhancement(v, center.enhancement_gate) then
+        --                 return true
+        --             end
+        --         end
+        --     end
+        -- end
+
+        return true
+    else
+        return false
     end
 end

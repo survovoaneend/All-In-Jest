@@ -10,8 +10,8 @@ return {
             k_star_q = "Star?",
             k_asteroid = "Asteroid",
             k_tarot_q = "Tarot?",
-            k_active = "(Active!)",
-            k_inactive = "(Inactive)",
+            k_active = "Active",
+            k_inactive = "Inactive",
             aij_requires_restart = "Requires Restart",
             aij_doesnt_requires_restart = "Doesn't Require Restart",
             aij_upgraded_tags = "Gold Tags",
@@ -1271,11 +1271,11 @@ return {
                 },
             },
             j_aij_paper_bag = { 
-                name = "Paper bag", 
+                name = "Paper Bag", 
                 text = { 
                     "This Joker gains {C:chips}+#1#{} Chips",
                     "per {C:attention}level{} of each {C:red}discarded",
-                    "poker hand",
+                    "hand",
                     "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)" 
                 } 
             },

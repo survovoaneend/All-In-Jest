@@ -3,7 +3,6 @@ local the_brilliance = {
     key = 'the_brilliance',
     boss = {
       min = 4,
-      score_met = false,
       all_in_jest = {
           pit = true
       }
@@ -21,6 +20,7 @@ local the_brilliance = {
     pos = { y = 13 },
     order = 514,
     dollars = 6,
+    config = {extra = {score_met = false,}},
 
     set_blind = function(self)
         ease_hands_played(2)
@@ -46,13 +46,13 @@ local the_brilliance = {
             return
         end
         if context.all_in_jest and context.all_in_jest.before_after and not temp then
-            if (context.total_chips + G.GAME.chips >= G.GAME.blind.chips) and not G.GAME.blind.config.blind.boss.score_met then 
+            if G.GAME.blind.ability and (context.total_chips + G.GAME.chips >= G.GAME.blind.chips) and not G.GAME.blind.ability.extra.score_met then 
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',delay = 0.4,
                     func = (function()  update_hand_text({delay = 0}, {mult = 0, chips = 0, chip_total = 0, level = '', handname = "Again!"});play_sound('button', 0.9, 0.6);return true end)
                 }))
                 G.GAME.all_in_jest.reset_score.blind_total = true
-                G.GAME.blind.config.blind.boss.score_met = true
+                G.GAME.blind.ability.extra.score_met = true
             end
         end
     end

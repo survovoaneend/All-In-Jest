@@ -16,11 +16,11 @@ local kasperle = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-        local active_text = localize('k_inactive')
+        local active_text = "("..localize('k_inactive')..")"
         if G.GAME.jest_kasperle_voucher_ante then 
-            active_text = localize('k_active')
+            active_text = "("..localize('k_active')..")"
         else
-            active_text = localize('k_inactive')
+            active_text = "("..localize('k_inactive')..")"
         end
         return { vars = {
             card.ability.extra.xmult,

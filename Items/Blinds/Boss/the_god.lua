@@ -20,9 +20,19 @@ local the_god = {
     debuff_hand = function(self, cards, hand, handname, check)
         local _,_,_,scoring_hand,_ = G.FUNCS.get_poker_hand_info(cards)
         local always_scores_count = 0
-        for _, card in pairs(cards) do
-            if card.config.center.always_scores then always_scores_count = always_scores_count + 1 end
+        local function contains(table, item) 
+            for k, v in pairs(table) do
+                if v == item then
+                    return true
+                end
+            end
+            return false
         end
+        for _, card in pairs(cards) do
+            
+            if card.config.center.always_scores and not contains(scoring_hand, card) then always_scores_count = always_scores_count + 1 end
+        end
+        print(#scoring_hand + always_scores_count)
         if #scoring_hand + always_scores_count ~= #cards then return true end
     end,
 

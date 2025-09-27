@@ -39,9 +39,8 @@ local animatronic = {
 	            scalar_value = "handsize_mod",
                 operation = '+',
                 scaling_message = {
-	                message = localize('a_handsize', 'v_dictionary'), 
-                    vars = {card.ability.extra.handsize_mod},
-	                colour = G.C.FILTER
+                    message = localize{type='variable',key='a_handsize',vars={card.ability.extra.handsize_mod}},
+                    colour = G.C.FILTER,
                 }
           })
           G.hand:change_size(card.ability.extra.handsize_mod)

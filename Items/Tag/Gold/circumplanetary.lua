@@ -22,7 +22,7 @@ local circumplanetary_tag = {
         local _hand, _tally = nil, 0
         if G.GAME.hands and G.handlist then 
             for k, v in ipairs(G.handlist) do
-                if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
+                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played > _tally then
                     _hand = v
                     _tally = G.GAME.hands[v].played
                 end
@@ -36,7 +36,7 @@ local circumplanetary_tag = {
             local _hand, _tally = nil, 0
             if G.GAME.hands and G.handlist then 
                 for k, v in ipairs(G.handlist) do
-                    if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
+                    if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played > _tally then
                         _hand = v
                         _tally = G.GAME.hands[v].played
                     end
@@ -56,7 +56,7 @@ local circumplanetary_tag = {
     set_ability = function(self)
         local _hand, _tally = nil, 0
         for k, v in ipairs(G.handlist) do
-            if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
+            if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played > _tally then
                 _hand = v
                 _tally = G.GAME.hands[v].played
             end
