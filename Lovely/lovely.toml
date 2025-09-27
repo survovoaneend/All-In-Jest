@@ -1421,6 +1421,11 @@ if card.ability.consumeable and next(SMODS.find_card("j_aij_bartender")) then
         end
     end
 end
+if card.config.center and card.config.center_key == 'j_aij_infuriating_note' and next(SMODS.find_card("j_aij_infuriating_note")) then
+    if (area == G.shop_jokers or area == G.pack_cards) then
+        card:set_edition({ negative = true })
+    end
+end
 '''
 
 [[patches]]
