@@ -4,7 +4,7 @@ local quark = {
 
     key = "quark",
     config = {
-      
+
     },
     rarity = 2,
     pos = { x = 16, y = 3 },
@@ -14,11 +14,11 @@ local quark = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
-  
+
     loc_vars = function(self, info_queue, card)
-  
+
     end,
-  
+
     calculate = function(self, card, context)
         if context.before and context.scoring_hand then
             if context.poker_hands and next(context.poker_hands['Three of a Kind']) then
@@ -29,7 +29,7 @@ local quark = {
                         if scoring_card.base.suit then
                             if suits_present[scoring_card.base.suit] then
                                 all_different_suits = false
-                                break 
+                                break
                             else
                                 suits_present[scoring_card.base.suit] = true
                             end
@@ -40,14 +40,14 @@ local quark = {
                     end
                     if all_different_suits then
                         local text = "Three of a Kind"
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
                         level_up_hand(context.blueprint_card or card, text, nil, 1)
                     end
                 end
             end
         end
-
         return nil
     end
-  
+
 }
-return { name = {"Jokers"}, items = {quark} }
+return { name = { "Jokers" }, items = { quark } }

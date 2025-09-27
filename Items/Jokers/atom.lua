@@ -1,32 +1,34 @@
 local atom = {
-    object_type = "Joker",
-    order = 42,
+  object_type = "Joker",
+  order = 42,
 
-    key = "atom",
-    config = {
-      
-    },
-    rarity = 2,
-    pos = { x = 14, y = 1 },
-    atlas = 'joker_atlas',
-    cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-  
-    end,
-  
-    calculate = function(self, card, context)
-      if context.before then
-        if #context.full_hand == 1 and context.full_hand[1]:get_id() == 14 then
-          local text = "High Card"
-          level_up_hand(context.blueprint_card or card, text, nil, 1)
-        end
+  key = "atom",
+  config = {
+
+  },
+  rarity = 2,
+  pos = { x = 14, y = 1 },
+  atlas = 'joker_atlas',
+  cost = 6,
+  unlocked = true,
+  discovered = false,
+  blueprint_compat = true,
+  eternal_compat = true,
+
+  loc_vars = function(self, info_queue, card)
+
+  end,
+
+  calculate = function(self, card, context)
+    if context.before then
+      if #context.full_hand == 1 and context.full_hand[1]:get_id() == 14 then
+        local text = "High Card"
+        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
+        level_up_hand(context.blueprint_card or card, text, nil, 1)
       end
     end
-  
+    return nil
+  end
+
 }
-return { name = {"Jokers"}, items = {atom} }
+return { name = { "Jokers" }, items = { atom } }
