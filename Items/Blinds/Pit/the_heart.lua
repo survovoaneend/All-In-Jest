@@ -4,7 +4,6 @@ local the_heart = {
     boss = {
       min = 4,
       hand = "[hand]",
-      trigger = false,
       all_in_jest = {
           pit = true
       }
@@ -22,6 +21,7 @@ local the_heart = {
     pos = { y = 0 },
     order = 501,
     dollars = 6,
+    config = {extra = {trigger = false,  hand = "[hand]"}},
 
     loc_vars = function(self)
         local hands = {
@@ -49,12 +49,20 @@ local the_heart = {
         }
     end,
 
+    defeat = function(self)
+        self.boss.hand = "[hand]"
+    end,
+
     debuff_hand = function(self, cards, poker_hands, text, mult, hand_chips)
-        if G.GAME.hands[self.boss.hand].played_this_round > 0 then
-            self.boss.trigger = true
-        end
-        if next(poker_hands[self.boss.hand]) or self.boss.trigger then
-            return false     
+        local blind_exists = G.GAME.blind and G.GAME.blind.ability
+        if blind_exists then
+            G.GAME.blind.ability.extra.hand = self.boss.hand
+            if G.GAME.hands[G.GAME.blind.ability.extra.hand].played_this_round > 0 then
+                G.GAME.blind.ability.extra.trigger = true
+            end
+            if next(poker_hands[G.GAME.blind.ability.extra.hand]) or G.GAME.blind.ability.extra.trigger then
+                return false     
+            end
         end
         return true
     end,
