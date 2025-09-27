@@ -34,8 +34,15 @@ local infuriating_note = {
                 xmult = card.ability.extra.xmult
             }
         end
-        if context.open_booster then
-            card.ability.extra.trigger = true
+        if context.all_in_jest and context.all_in_jest.modify_booster_cards and context.all_in_jest.before_added then
+            for k, v in pairs(context.all_in_jest.pack_cards) do
+                if v.ability.set == "Joker" and v.config.center then
+                    if v.config.center_key == 'j_aij_infuriating_note' and ((v.edition and v.edition.key ~= 'e_negative') or v.edition == nil) then
+                        v:set_edition({ negative = true }, true)
+                        v:set_cost()
+                    end
+                end
+            end
         end
     end,
     update = function(self, card, dt)
@@ -44,23 +51,10 @@ local infuriating_note = {
             if has_note then
                 if G.shop_jokers and G.shop_jokers.cards then
                     for i = 1, #G.shop_jokers.cards do
-                        if G.shop_jokers.cards[i].ability.set == "Joker" then
+                        if G.shop_jokers.cards[i].ability.set == "Joker" and G.shop_jokers.cards[i].config.center then
                             if G.shop_jokers.cards[i].config.center_key == 'j_aij_infuriating_note' and ((G.shop_jokers.cards[i].edition and G.shop_jokers.cards[i].edition.key ~= 'e_negative') or G.shop_jokers.cards[i].edition == nil) then
-                                G.shop_jokers.cards[i]:set_edition({ negative = true }, true, true)
+                                G.shop_jokers.cards[i]:set_edition({ negative = true }, true)
                                 G.shop_jokers.cards[i]:set_cost()
-                            end
-                        end
-                    end
-                end
-                if G.pack_cards and card.ability.extra.trigger then
-                    if G.pack_cards.cards then
-                        for i = 1, #G.pack_cards.cards do
-                            if G.pack_cards.cards[i].ability.set == "Joker" then
-                                if G.pack_cards.cards[i].config.center_key == 'j_aij_infuriating_note' and ((G.pack_cards.cards[i].edition and G.pack_cards.cards[i].edition.key ~= 'e_negative') or G.pack_cards.cards[i].edition == nil) then
-                                    G.pack_cards.cards[i]:set_edition({ negative = true }, true, true)
-                                    G.pack_cards.cards[i]:set_cost()
-                                    card.ability.extra.trigger = false
-                                end
                             end
                         end
                     end
