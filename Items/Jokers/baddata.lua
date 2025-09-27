@@ -2,8 +2,6 @@ local baddata = {
     object_type = "Joker",
     order = 412,
     key = "baddata",
-    config = {
-    },
     rarity = 2,
     pos = { x = 15, y = 17},
     soul_pos = { x = 6, y = 18},
@@ -104,55 +102,106 @@ local baddata = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+	config = {
+		extra = {
+			num1 = 23,
+			num2 = 151,
+			num3 = 11,
+			effect = ''
+		}
+    },
   
     loc_vars = function(self, info_queue, card)
-		local chars = "abcdefghijklmnopqrstuvwxyz" ..
-              "ABCDEFGHIJKLMNOPQRSTUVWXYZ" ..
-              "0123456789" ..
-              "!@#$%^&*()-_=+[]{};:,.<>?/|"
-
-		local result = {}
-		local how_many = 20
-
-		for n = 1, how_many do
-			local s = {}
-			for i = 1, 9 do
-				local index = math.random(#chars)
-				s[#s+1] = string.sub(chars, index, index)
-			end
-			result[#result+1] = table.concat(s)
+		local effects = {
+			'mult',
+			'chips',
+			'xchips',
+			'Xmult',
+			'dollars'
+		}
+		if card.ability.extra.effect == '' then
+			card.ability.extra.effect =  pseudorandom_element(effects, pseudoseed('baddata'))
 		end
-        return {main_start =
-        {{n = G.UIT.R, config = {align = "cm"}, nodes = {
-            {n = G.UIT.C, config = {align = "cm", padding = 0.02}, nodes = {
-                {n = G.UIT.O, config = {object = DynaText({string = result, colours = {G.C.L_BLACK}, random_element = true, pop_in_rate = 9999999, silent = true, pop_delay = 0.2, scale = 0.32, min_cycle_time = 0})}},
-            }}
-        }}}
+		local prefix = ' +'
+		local colour = G.C.MULT
+		local r_mults = {}
+		local loc_mult = ' '..(localize('k_mult'))..' '
+		if card.ability.extra.effect == 'mult' then
+			for i = 0, card.ability.extra.num1 do
+				r_mults[#r_mults+1] = tostring(i)
+			end
+		elseif card.ability.extra.effect == 'chips' then
+			colour = G.C.CHIPS
+			for i = 0, card.ability.extra.num2 do
+				r_mults[#r_mults+1] = tostring(i)
+			end
+			loc_mult = (localize('k_aij_youve_got_mail_chip_text', 'extra_joker_dictionary'))..' '
+		elseif card.ability.extra.effect == 'xchips' then
+			prefix = ' X'
+			colour = G.C.CHIPS
+			for i = 1.0, card.ability.extra.num1 do
+				r_mults[#r_mults+1] = tostring(i * 0.1)
+			end
+			loc_mult = (localize('k_aij_youve_got_mail_chip_text', 'extra_joker_dictionary'))..' '
+		elseif card.ability.extra.effect == 'Xmult' then
+			prefix = ' X'
+			for i = 1.0, card.ability.extra.num1 do
+				r_mults[#r_mults+1] = tostring(i * 0.1)
+			end
+		elseif card.ability.extra.effect == 'dollars' then
+			prefix = ' '..localize('$')
+			colour = G.C.MONEY
+			for i = 0, card.ability.extra.num3 do
+				r_mults[#r_mults+1] = tostring(i)
+			end
+			loc_mult = string.upper(string.sub(localize('k_aij_overdesigned_earn_prefix', 'extra_joker_dictionary'),1,1))..string.sub(localize('k_aij_overdesigned_earn_prefix', 'extra_joker_dictionary'),2)
+		end
+        return {
+			main_start = card.ability.extra.effect == 'dollars' and {
+				{n=G.UIT.O, config={object = DynaText({string = {
+					{string = 'rand()', colour = G.C.JOKER_GREY},{string = "#@"..(G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards].base.id or 11)..(G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards].base.suit:sub(1,1) or 'D'), colour = colour},
+					loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult},
+				colours = {G.C.UI.TEXT_DARK},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.2011, scale = 0.32, min_cycle_time = 0})}},
+				{n=G.UIT.T, config={text = prefix,colour = colour, scale = 0.32}},
+				{n=G.UIT.O, config={object = DynaText({string = r_mults, colours = {colour},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = 0.32, min_cycle_time = 0})}},
+			} or {
+				{n=G.UIT.T, config={text = prefix,colour = colour, scale = 0.32}},
+				{n=G.UIT.O, config={object = DynaText({string = r_mults, colours = {colour},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = 0.32, min_cycle_time = 0})}},
+				{n=G.UIT.O, config={object = DynaText({string = {
+					{string = 'rand()', colour = G.C.JOKER_GREY},{string = "#@"..(G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards].base.id or 11)..(G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards].base.suit:sub(1,1) or 'D'), colour = colour},
+					loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult},
+				colours = {G.C.UI.TEXT_DARK},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.2011, scale = 0.32, min_cycle_time = 0})}},
+			}
         }
     end,
   
     calculate = function(self, card, context)
-		local effect = math.random(1,5)
         if context.joker_main then
-			if effect == 1 then
+			G.E_MANAGER:add_event(Event({
+                func = function()
+                    card.ability.extra.effect = ''
+                    return true
+                end
+            }))
+			if card.ability.extra.effect == 'mult' then
 				return {
-					mult = math.random(0,23),
+					mult = pseudorandom('baddata', 0, card.ability.extra.num1),
 				}
-			elseif effect == 2 then
+			elseif card.ability.extra.effect == 'chips' then
 				return {
-					chips = math.random(0,151),
+					chips = pseudorandom('baddata', 0, card.ability.extra.num2),
 				}
-			elseif effect == 3 then
+			elseif card.ability.extra.effect == 'xchips' then
 				return {
-					xchips = math.random(10,23) * 0.1,
+					xchips = pseudorandom('baddata', 10, card.ability.extra.num1) * 0.1,
 				}
-			elseif effect == 4 then
+			elseif card.ability.extra.effect == 'Xmult' then
 				return {
-					Xmult = math.random(10,23) * 0.1,
+					Xmult = pseudorandom('baddata', 10, card.ability.extra.num1) * 0.1,
 				}
-			elseif effect == 5 then
+			elseif card.ability.extra.effect == 'dollars' then
 				return {
-					dollars = math.random(0,11),
+					dollars = pseudorandom('baddata', 0, card.ability.extra.num3),
 				}
 			end
 		end
