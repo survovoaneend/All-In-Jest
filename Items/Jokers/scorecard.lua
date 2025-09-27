@@ -63,6 +63,7 @@ local scorecard = {
                     { mult = 0, chips = 0, handname = '', level = '' }
                 )
             end
+            return nil, true
         end
 
 }
