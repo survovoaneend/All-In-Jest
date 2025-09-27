@@ -22,11 +22,16 @@ local the_thorn = {
     order = 24,
     dollars = 5,
 
-
-    calculate = function(self, card, context)
-        
+    recalc_debuff = function(self, card, from_blind)
+        local temp = G.GAME.blind and G.GAME.blind.disabled
+        if temp then
+            return false
+        end
+        if next(SMODS.get_enhancements(card)) then
+            return true
+        end
+        return false
     end,
-
     set_blind = function(self)
         for k, v in pairs(G.playing_cards) do
             if next(SMODS.get_enhancements(v)) then
@@ -41,7 +46,7 @@ local the_thorn = {
         end
     end,
 
-     defeat = function(self)
+    defeat = function(self)
         for k, v in pairs(G.playing_cards) do
             SMODS.debuff_card(v, false, 'the_thorn')
         end
