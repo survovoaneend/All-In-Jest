@@ -184,11 +184,6 @@ function level_up_hand_chips(card, hand, instant, amount)
     if (G.GAME.hands[hand].level and G.GAME.hands[hand].chips) then
         amount = amount or 1
         local extra_chips = 0
-        if card.ability.extra_planetarium_chips then
-            for k, v in pairs(card.ability.extra_planetarium_chips) do
-                extra_chips = extra_chips + v
-            end
-        end
         G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
         local val = G.GAME.hands[hand].l_chips * amount * 2
         local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - val
@@ -220,11 +215,6 @@ function level_up_hand_mult(card, hand, instant, amount)
     if (G.GAME.hands[hand].level and G.GAME.hands[hand].mult) then
         amount = amount or 1
         local extra_mult = 0
-        if card.ability.extra_planetarium_mult then
-            for k, v in pairs(card.ability.extra_planetarium_mult) do
-                extra_mult = extra_mult + v
-            end
-        end
         G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
         local val = G.GAME.hands[hand].l_mult * amount * 2
         local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - val
