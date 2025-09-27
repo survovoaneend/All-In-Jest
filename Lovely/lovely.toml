@@ -1387,7 +1387,9 @@ payload = '''
 if card.ability.consumeable and next(SMODS.find_card("j_aij_bartender")) then
     if not SMODS.bypass_create_card_edition and not card.edition then
         local edition = poll_edition('aura', nil, true)
-        card:set_edition(edition)
+        if edition then
+            card:set_edition(edition)
+        end
     end
 end
 '''
