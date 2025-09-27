@@ -31,9 +31,34 @@ local scopophobia = {
             end
         end
         local _card = pseudorandom_element(viable_options, pseudoseed('scopophobia'))
-        for k, v in ipairs(G.hand.cards) do
-            v:start_dissolve()
+
+        local destroyed_cards = {}
+        for k, v in ipairs(G.hand.cards) do 
+            destroyed_cards[#destroyed_cards+1] = v
         end
+
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            play_sound('tarot1')
+            card:juice_up(0.3, 0.5)
+            return true end 
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.1,
+            func = function() 
+                for i=#destroyed_cards, 1, -1 do
+                    local card = destroyed_cards[i]
+                    if SMODS.shatters(card) then
+                        card:shatter()
+                    else
+                        card:start_dissolve(nil, i == #destroyed_cards)
+                    end
+                end
+                return true
+            end 
+        }))
+        delay(0.3)
+        SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
         _card:start_dissolve()
     end,
 }

@@ -2,7 +2,10 @@ local old_joker = {
     object_type = "Joker",
     order = 21,
 
-
+    all_in_jest = {
+        only_shop_pool = true,
+        only_booster_pool = true
+    },
     key = "old_joker",
     config = {
         extra = {

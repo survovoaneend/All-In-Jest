@@ -1007,6 +1007,39 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
+pattern = '''if forced_key and not G.GAME.banned_keys[forced_key] then'''
+position = "before"
+match_indent = true
+payload = '''
+if _type == 'Joker' then
+    local _pool, _pool_key = get_current_pool(_type, _rarity, legendary, key_append)
+    for k, v in pairs(_pool) do
+        if G.P_CENTERS[v] and G.P_CENTERS[v].all_in_jest then
+            local appear = false
+            if (G.P_CENTERS[v].all_in_jest.only_shop_pool and area == G.shop_jokers) then
+                appear = true
+            elseif (G.P_CENTERS[v].all_in_jest.only_booster_pool and area == G.pack_cards) then
+                appear = true
+            end
+            if G.P_CENTERS[v].all_in_jest.only_shop_pool or G.P_CENTERS[v].all_in_jest.only_booster_pool then
+                if appear then
+                    G.P_CENTERS[v].in_pool = function(self, args)
+    		            return true
+                    end
+                else
+                    G.P_CENTERS[v].in_pool = function(self, args)
+    		            return false
+                    end
+                end
+            end
+        end
+    end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
 pattern = '''G.GAME.bosses_used[boss] = G.GAME.bosses_used[boss] + 1'''
 position = "before"
 match_indent = true
@@ -1354,7 +1387,9 @@ payload = '''
 if card.ability.consumeable and next(SMODS.find_card("j_aij_bartender")) then
     if not SMODS.bypass_create_card_edition and not card.edition then
         local edition = poll_edition('aura', nil, true)
-        card:set_edition(edition)
+        if edition then
+            card:set_edition(edition)
+        end
     end
 end
 '''

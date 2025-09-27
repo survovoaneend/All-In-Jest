@@ -13,8 +13,17 @@ local the_birch = {
     dollars = 5,
 
 
-    calculate = function(self, card, context)
-        
+    recalc_debuff = function(self, card, from_blind)
+        local temp = G.GAME.blind and G.GAME.blind.disabled
+        if temp then
+            return false
+        end
+        if card:get_id() <= 10 and 
+            card:get_id() >= 0 and
+            card:get_id()%2 == 0 then
+            return true
+        end
+        return false
     end,
     set_blind = function(self)
         for k, v in pairs(G.playing_cards) do
@@ -32,7 +41,7 @@ local the_birch = {
         end
     end,
 
-     defeat = function(self)
+    defeat = function(self)
         for k, v in pairs(G.playing_cards) do
             SMODS.debuff_card(v, false, 'the_birch')
         end
