@@ -18,6 +18,35 @@ end
 [[patches]]
 [patches.pattern]
 target = "card.lua"
+pattern = '''
+for k, v in ipairs(pack_cards) do
+    G.pack_cards:emplace(v)
+end
+'''
+position = "before"
+match_indent = true
+payload = '''
+SMODS.calculate_context({all_in_jest = {modify_booster_cards = true, card = self, before_added = true, pack_cards = pack_cards}})
+'''
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+for k, v in ipairs(pack_cards) do
+    G.pack_cards:emplace(v)
+end
+'''
+position = "after"
+match_indent = true
+payload = '''
+SMODS.calculate_context({all_in_jest = {modify_booster_cards = true, card = self, pack_cards = pack_cards}})
+'''
+
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
 pattern = "if delay_sprites == 'quantum' then self.from_quantum = true end"
 position = "before"
 match_indent = true
