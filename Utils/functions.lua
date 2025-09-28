@@ -1240,8 +1240,14 @@ end
 
 function All_in_Jest.has_patches(card, suit)
   --Patches
-  if card.ability.patches and card.ability.patches[suit] then
-    return true
+  if card.ability.patches then
+      for k, v in pairs(card.ability.patches) do
+         if suit and suit == k and v == true then
+            return true
+         elseif suit == nil and v == true then
+            return true
+         end
+      end
   end
   return false
 end
