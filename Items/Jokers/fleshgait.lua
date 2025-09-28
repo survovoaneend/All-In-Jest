@@ -19,7 +19,7 @@ local fleshgait = {
   
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            if not card.ability.patches then
+            if not All_in_Jest.has_patches(context.other_card) and SMODS.find_card("j_aij_fleshgait")[1] == card then
                 All_in_Jest.add_patch(context.other_card, nil, nil, 'fleshgait')
             end
         end
