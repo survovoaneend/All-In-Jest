@@ -34,7 +34,7 @@ local blank_card = {
       end
       
       if context.playing_card_added and context.cards and context.cards[1] and G.STATE == 999 and type(context.cards[1]) == 'table' and card.ability.extra.can_copy then
-        if card.is_duplicating then --bit of a monkey brain fix
+        if card.is_duplicating or context.cards[1].is_duplicating then --bit of a monkey brain fix
             return
         end
         local card_to_copy = context.cards[1]
@@ -47,8 +47,10 @@ local blank_card = {
                 G.deck.config.card_limit = G.deck.config.card_limit + 1
                 table.insert(G.playing_cards, _card)
                 card.is_duplicating = true 
+                _card.is_duplicating = true 
                 playing_card_joker_effects({ _card })
                 card.is_duplicating = false
+                _card.is_duplicating = false 
                 G.hand:emplace(_card)
                 _card.states.visible = nil
                 G.E_MANAGER:add_event(Event({
