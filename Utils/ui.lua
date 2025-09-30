@@ -306,10 +306,11 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
         end
         for j = 1, #rows do
             for i = 1, rows[j] do
-            local center = pool[i+row_totals[j] + (cards_per_page*(e.cycle_config.current_option - 1))]
+            local index = i+row_totals[j] + (cards_per_page*(e.cycle_config.current_option - 1))
+            local center = pool[index]
             if not center then break end
-            local card = Card(G.your_collection[j].T.x + G.your_collection[j].T.w/2, G.your_collection[j].T.y, G.CARD_W*args.card_scale, G.CARD_H*args.card_scale, G.P_CARDS.empty, (args.center and G.P_CENTERS[args.center]) or center)
-            if args.modify_card then args.modify_card(card, center, i, j) end
+            local card = args.from_area and copy_card(center) or Card(G.your_collection[j].T.x + G.your_collection[j].T.w/2, G.your_collection[j].T.y, G.CARD_W*args.card_scale, G.CARD_H*args.card_scale, G.P_CARDS.empty, (args.center and G.P_CENTERS[args.center]) or center)
+            if args.modify_card then args.modify_card(card, center, i, j, index) end
             if not args.no_materialize then card:start_materialize(nil, i>1 or j>1) end
             G.your_collection[j]:emplace(card)
             end
@@ -335,9 +336,6 @@ G.FUNCS.jest_select = function(e)
         func = function()
           if e.config.data[2].copies and e.config.data[2].copies > 1 then
               for i = 1, e.config.data[2].copies do
-                  if e.config.data[2].playing_card == true then
-                      G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                  end
                   local card = SMODS.add_card {
                     key = c1.config.center_key,
                     area = e.config.data[1]
@@ -355,11 +353,12 @@ G.FUNCS.jest_select = function(e)
                       e.config.data[1].config.card_limit = e.config.data[1].config.card_limit + 1
                       card:start_materialize()
                   end
+                  if e.config.data[2].insert_index and e.config.data[2].insert_index > 0 then
+                      local item = table.remove(e.config.data[1], 1)
+                      table.insert(e.config.data[1], e.config.data[2].insert_index, item)
+                  end
               end
           else
-              if e.config.data[2].playing_card == true then
-                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-              end
               local card = SMODS.add_card {
                 key = c1.config.center_key,
                 area = e.config.data[1]
@@ -377,7 +376,16 @@ G.FUNCS.jest_select = function(e)
                   e.config.data[1].config.card_limit = e.config.data[1].config.card_limit + 1
                   card:start_materialize()
               end
+              if e.config.data[2].insert_index and e.config.data[2].insert_index > 0 then
+                  local item = table.remove(e.config.data[1].cards, 1)
+                  table.insert(e.config.data[1].cards, e.config.data[2].insert_index, item)
+              end
           end
+          if e.config.data[2].remove_orginal and e.config.data[2].index then
+            local c = e.config.data[2].remove_orginal[e.config.data[2].index]
+            c:remove()
+            c = nil
+          end 
           G.SETTINGS.paused = false
           if G.OVERLAY_MENU ~= nil then
               G.OVERLAY_MENU:remove()
