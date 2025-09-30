@@ -11,6 +11,9 @@ local spawn_joker_png_joker = function (card)
     -- end
     local joker_center, index = pseudorandom_element(jokers, pseudoseed('joker_png'))
     SMODS.bypass_create_card_edition = true
+    if not (joker_center ~= nil and joker_center.key) then
+        joker_center = G.P_CENTERS['j_joker']
+    end
     local joker = create_card('Joker', G.all_in_jest_joker_png, nil, nil, true, nil, joker_center.key, 'joker_png')
     SMODS.bypass_create_card_edition = nil
     G.all_in_jest_joker_png:emplace(joker)
