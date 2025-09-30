@@ -1466,8 +1466,25 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, _card)
                 }))
             end
 
-            local new_joker = _card and copy_card(_card) or create_card('Joker', G.jokers, is_legendary, victim_rarity, true, nil,
+            local new_joker = create_card('Joker', G.jokers, is_legendary, victim_rarity, true, nil,
                 replacement_key, 'apex_swap')
+            if _card then
+                new_joker:set_ability(_card.config.center)
+                new_joker.ability.type = _card.ability.type
+                new_joker:set_base(_card.config.card)
+                for k, v in pairs(_card.ability) do
+                    if type(v) == 'table' then 
+                        new_joker.ability[k] = copy_table(v)
+                    else
+                        new_joker.ability[k] = v
+                    end
+                end
+                for k, v in pairs(G.shared_stickers) do
+                    if new_joker.ability[k] and not card.ability[k] then
+                        new_joker.ability[k] = nil
+                    end
+                end
+            end
             if new_joker then
                 new_joker:add_to_deck()
                 if victim_index and victim_index <= #G.jokers.cards + 1 then
