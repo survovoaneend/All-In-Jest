@@ -577,9 +577,9 @@ return {
             bl_aij_the_elk = {
                 name = "The Elk",
                 text = {
-                    'Poker hands played',
-                    'this Ante are',
-                    'debuffed'
+                    'Cannot play poker hands',
+                    'that were played',
+                    'previously this ante'
                 },
             },
             bl_aij_the_birch = {
