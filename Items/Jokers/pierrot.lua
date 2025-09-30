@@ -25,7 +25,7 @@ local pierrot = {
                 if not G.hand.cards[i].debuff then
                     local id = G.hand.cards[i]:get_id()
                     local rank = SMODS.Ranks[G.hand.cards[i].base.value]
-                    if G.hand.cards[i]:get_chip_bonus() > 0 and (id > 0 and rank and not rank.face) and not G.hand.cards[i].highlighted then
+                    if to_big(G.hand.cards[i]:get_chip_bonus()) > to_big(0) and (to_big(id) > to_big(0) and rank and not rank.face) and not G.hand.cards[i].highlighted then
                         highlight_card(G.hand.cards[i])
                     end
                 end
@@ -35,7 +35,7 @@ local pierrot = {
             local val = context.other_card:get_chip_bonus()
             local id = context.other_card:get_id()
             local rank = SMODS.Ranks[context.other_card.base.value]
-            if context.other_card and context.other_card:get_chip_bonus() > 0 and (id > 0 and rank and not rank.face) then
+            if context.other_card and to_big(context.other_card:get_chip_bonus()) > to_big(0) and (to_big(id) > to_big(0) and rank and not rank.face) then
                 SMODS.score_card(context.other_card, {cardarea = G.play, all_in_jest = { main_scoring_chip_vaules = true }})
             end
         end
