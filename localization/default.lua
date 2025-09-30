@@ -617,7 +617,7 @@ return {
                 name = "The Figure",
                 text = {
                     'Hand cannot contain',
-                    'more than 3 face',
+                    '3 or more than face',
                     'cards'
                 },
             },
