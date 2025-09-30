@@ -91,7 +91,7 @@ local rogue_planet = {
         return false
     end,
 	get_weight = function(self)
-        return -3
+        return -6
     end,
 }
 return {name = {"Planets"}, items = {rogue_planet}}
