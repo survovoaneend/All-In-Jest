@@ -32,7 +32,7 @@ local zanni = {
                 if SMODS.pseudorandom_probability(card, 'zanni', 1, card.ability.extra.odds) then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     return {
-                        focus = card,
+                        focus = context.blueprint_card or card,
                         message = localize('k_plus_tarot'),
                         func = function()
                             G.E_MANAGER:add_event(Event({
@@ -48,7 +48,7 @@ local zanni = {
                             }))
                         end,
                         colour = G.C.SECONDARY_SET.Tarot,
-                        card = card
+                        card = context.blueprint_card or card
                     }
                 end
             end
