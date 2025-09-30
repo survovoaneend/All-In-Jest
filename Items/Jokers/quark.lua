@@ -39,9 +39,14 @@ local quark = {
                         end
                     end
                     if all_different_suits then
-                        local text = "Three of a Kind"
-                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
-                        level_up_hand(context.blueprint_card or card, text, nil, 1)
+                        local card_to_juice = context.blueprint_card or card
+                        return {
+                            message = localize('k_upgrade_ex'),
+                            func = function ()
+                                local text = "Three of a Kind"
+                                level_up_hand(card_to_juice, text, nil, 1)
+                            end
+                        }
                     end
                 end
             end
