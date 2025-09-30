@@ -91,9 +91,9 @@ local read_em_and_weep = {
                                 func = function()
                                     local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
 
-                                    local calulated_text = nil
+                                    local calculated_text = nil
                                     if text == 'aij_Royal Flush' then
-                                        calulated_text = 'aij_Royal Flush'
+                                        calculated_text = 'aij_Royal Flush'
                                         text = 'Straight Flush'
                                     end
 
@@ -103,9 +103,9 @@ local read_em_and_weep = {
                                         immediate = true, 
                                         nopulse = nil,
                                         delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, 
-                                        {handname=disp_text, level=G.GAME.hands[calulated_text or text].level, 
-                                        mult = G.GAME.hands[calulated_text or text].mult, 
-                                        chips = G.GAME.hands[calulated_text or text].chips})
+                                        {handname=disp_text, level=G.GAME.hands[calculated_text or text].level, 
+                                        mult = G.GAME.hands[calculated_text or text].mult, 
+                                        chips = G.GAME.hands[calculated_text or text].chips})
                                     return true
                                 end
                             }))
