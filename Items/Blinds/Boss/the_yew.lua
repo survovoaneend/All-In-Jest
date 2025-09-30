@@ -29,7 +29,7 @@ local the_yew = {
     end,
     set_blind = function(self)
         for _, card in pairs(G.playing_cards) do
-            if not SMODS.has_no_rank(card) and
+            if not SMODS.has_no_rank(card) and card:get_id() and
                 ((card:get_id() <= 10 and
                 card:get_id() >= 0 and
                 card:get_id()%2 == 1) or
