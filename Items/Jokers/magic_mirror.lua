@@ -28,7 +28,7 @@ local magic_mirror = {
     end,
   
     calculate = function(self, card, context)
-      if context.ante_end then
+      if context.ante_change and context.ante_change ~= 0 then
           G.GAME.jest_magic_mirror_trigger = false
       end
       if context.individual and context.cardarea == G.play then
