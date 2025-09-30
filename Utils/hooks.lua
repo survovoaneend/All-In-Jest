@@ -226,6 +226,11 @@ function SMODS.has_any_suit(card)
     return has_any_suit_ref(card) or All_in_Jest.counts_as_all_suits(card)
 end
 
+local always_scores_ref = SMODS.always_scores
+function SMODS.always_scores(card)
+    return always_scores_ref(card)
+end
+
 local has_no_suit_ref = SMODS.has_no_suit
 function SMODS.has_no_suit(card)
     if SMODS.has_enhancement(card, 'm_aij_canvas') then
@@ -642,6 +647,7 @@ function Game.init_game_object(self)
         end
     end
   end
+  ret.all_in_jest = ret.all_in_jest or {}
   ret.all_in_jest.secret_hands = secrets
   return ret
 end
