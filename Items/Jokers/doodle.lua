@@ -81,7 +81,11 @@ local doodle = {
  
       if effect1_def then
         if effect2_def then
-          effect1_def.extra = effect2_def 
+          if effect1_def.extra and type(effect1_def.extra) == "table" then
+            effect1_def.extra.extra = effect2_def
+          else
+            effect1_def.extra = effect2_def
+          end
         end
         effect_to_return = effect1_def
       elseif effect2_def then
