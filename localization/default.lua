@@ -1185,7 +1185,7 @@ return {
                 name = "Public Bathroom",
                 text = {
                     "This Joker gains {C:mult}+#1#{} Mult",
-                    "per played {C:attention}2{} in a {C:attention}Flush{}",
+                    "per scored {C:attention}2{} in a {C:attention}Flush{}",
                     "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
                 },
             },
