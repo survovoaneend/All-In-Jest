@@ -349,10 +349,13 @@ SMODS.calculate_individual_effect = function(effect, scored_card, key, amount, f
             amount = 1
         end
         if effect.card and effect.card ~= scored_card then juice_card(effect.card) end
-        hand_chips, mult = calculate_balance_percent_values(hand_chips, mult, amount)
+        new_hand_chips, new_mult = calculate_balance_percent_values(hand_chips, mult, amount)
+
+        SMODS.Scoring_Parameters.chips:modify(new_hand_chips - hand_chips)
+        SMODS.Scoring_Parameters.mult:modify(new_mult - mult)
 
         local text = (amount * 100) .. "%"
-        update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
+        -- update_hand_text({ delay = 0 }, { mult = new_mult, chips = new_hand_chips })
 
         G.E_MANAGER:add_event(Event({
             trigger = 'immediate',
