@@ -32,14 +32,11 @@ local birthday_clown = {
     end,
   
     calculate = function(self, card, context)
-      if context.end_of_round then
-        if context.beat_boss then
+      if context.ante_change and context.ante_change ~= 0 then
           card.ability.extra.active = true
-        else
-          card.ability.extra.active = false
-        end
       end
       if card.ability.extra.active and context.joker_main then
+        card.ability.extra.active = false
         return {
           xmult = card.ability.extra.xmult
         }
