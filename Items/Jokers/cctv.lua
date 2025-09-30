@@ -14,7 +14,7 @@ local cctv = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
@@ -43,7 +43,7 @@ local cctv = {
     end,
   
     calculate = function(self, card, context)
-      if context.removed and not context.blueprint then
+      if context.removed then
         local glass_shattered = 0
         for d = 1, #context.removed do
             if context.removed[d].config.center == G.P_CENTERS.m_glass and context.removed[d].shattered then
