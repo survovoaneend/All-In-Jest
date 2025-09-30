@@ -15,35 +15,37 @@ local the_birch = {
 
     recalc_debuff = function(self, card, from_blind)
         local temp = G.GAME.blind and G.GAME.blind.disabled
-        if temp then
+        if temp or SMODS.has_no_rank(card) or not card:get_id() then
             return false
         end
-        if card:get_id() <= 10 and 
+        if not SMODS.has_no_rank(card) and
+            (card:get_id() <= 10 and
             card:get_id() >= 0 and
-            card:get_id()%2 == 0 then
+            card:get_id()%2 == 0) then
             return true
         end
         return false
     end,
     set_blind = function(self)
-        for k, v in pairs(G.playing_cards) do
-            if v:get_id() <= 10 and 
-                v:get_id() >= 0 and
-                v:get_id()%2 == 0 then
-                SMODS.debuff_card(v, true, 'the_birch')
+        for _, card in pairs(G.playing_cards) do
+            if not SMODS.has_no_rank(card) and
+                (card:get_id() <= 10 and
+                card:get_id() >= 0 and
+                card:get_id()%2 == 0) then
+                SMODS.debuff_card(card, true, 'the_birch')
             end
         end
     end,
 
     disable = function(self)
-        for k, v in pairs(G.playing_cards) do
-            SMODS.debuff_card(v, false, 'the_birch')
+        for _, card in pairs(G.playing_cards) do
+            SMODS.debuff_card(card, false, 'the_birch')
         end
     end,
 
     defeat = function(self)
-        for k, v in pairs(G.playing_cards) do
-            SMODS.debuff_card(v, false, 'the_birch')
+        for _, card in pairs(G.playing_cards) do
+            SMODS.debuff_card(card, false, 'the_birch')
         end
     end
 
