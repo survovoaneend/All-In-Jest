@@ -12,20 +12,20 @@ local the_steed = {
     order = 46,
     dollars = 5,
 
-    press_play = function(self)
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+    calculate = function(self, card, context)
+        local temp = G.GAME.blind and G.GAME.blind.disabled
+        if temp then
+            return
+        end
+        if context.after and not temp then
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
             for i = 1, #G.hand.cards do
                 if not G.hand.cards[i].debuffed then
                     G.E_MANAGER:add_event(Event({func = function() SMODS.debuff_card(G.hand.cards[i], true, 'the_steed') G.hand.cards[i]:juice_up(); return true end })) 
                 end
             end
-        return true end })) 
-        self.triggered = true
-        return true
-    end,
-
-    calculate = function(self, card, context)
-        
+            return true end })) 
+        end
     end,
     disable = function(self)
         for k, v in pairs(G.playing_cards) do
