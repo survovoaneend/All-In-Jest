@@ -35,7 +35,8 @@ local mute_joker = {
     end,
 
     calculate = function(self, card, context)
-        if context.setting_blind and not context.blueprint then
+        local contexts = not context.individual and not context.repetition and not context.blueprint
+        if context.end_of_round and contexts then
             local _poker_hands = {}
             for k, v in pairs(G.GAME.hands) do
                 if SMODS.is_poker_hand_visible(k) and k ~= card.ability.extra.poker_hand then _poker_hands[#_poker_hands + 1] = k end
