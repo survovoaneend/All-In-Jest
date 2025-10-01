@@ -549,7 +549,7 @@ if not SMODS.ObjectTypes.Food then
   }
 end
 
---Sharpest Tool, Deck Skin Thing
+--Sharpest Tool
 local temp_create_card = create_card
 function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
     local card = nil
@@ -590,6 +590,7 @@ function ease_ante(mod)
                 common_rank = k
             end
         end
+        G.P_BLINDS['bl_aij_the_journey'].boss.selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey'))
         G.P_BLINDS['bl_aij_the_auroch'].boss.suit = common_suit or G.P_BLINDS['bl_aij_the_auroch'].boss.suit
         G.P_BLINDS['bl_aij_the_auroch'].boss.rank = common_rank or G.P_BLINDS['bl_aij_the_auroch'].boss.rank
         G.P_BLINDS['bl_aij_the_clay'].mult = math.floor(100*pseudorandom("clay"))/100 + pseudorandom("clay", 1, 4)

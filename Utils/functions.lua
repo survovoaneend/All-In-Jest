@@ -355,7 +355,7 @@ SMODS.calculate_individual_effect = function(effect, scored_card, key, amount, f
         SMODS.Scoring_Parameters.mult:modify(new_mult - mult)
 
         local text = (amount * 100) .. "%"
-        -- update_hand_text({ delay = 0 }, { mult = new_mult, chips = new_hand_chips })
+        -- update_hand_text({ delay = 0 }, { mult = mult, chips = hand_chips })
 
         G.E_MANAGER:add_event(Event({
             trigger = 'immediate',
@@ -1528,6 +1528,34 @@ function All_in_Jest.set_debuff(card)
 	if card.ability and card.ability.all_in_jest and card.ability.all_in_jest.perma_debuff then
 		return true
 	end
+end
+
+function All_in_Jest.get_suits(type, base)
+    local suits = {}
+	for k, v in pairs(G.playing_cards) do
+        for key, val in pairs(SMODS.Suits) do
+            if not base and v:is_suit(key) then
+                suits[key] = suits[key] or 0
+                suits[key] = suits[key] + 1
+            elseif base and v:is_suit(key) then
+                suits[key] = suits[key] or val
+            end
+        end
+    end
+    if not type then
+        return suits
+    end
+    local return_table = {}
+    if type == 'suit' or type == 'key' then
+        for k, v in pairs(suits) do
+            return_table[#return_table+1] = k
+        end
+    elseif type == 'count' or type == 'val' then
+        for k, v in pairs(suits) do
+            return_table[#return_table+1] = v
+        end
+    end
+    return return_table
 end
 
 function All_in_Jest.reset_game_globals(run_start)

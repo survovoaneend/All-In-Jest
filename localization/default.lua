@@ -471,9 +471,9 @@ return {
             bl_aij_the_journey = {
                 name = "The Journey",
                 text = {
-                    '+1 Win Ante when',
-                    'this boss blind',
-                    'is defeated'
+                    '+1 Win Ante if a',
+                    '#1# suit card is',
+                    'scored this round',
                 },
             },
             bl_aij_the_gift = {
