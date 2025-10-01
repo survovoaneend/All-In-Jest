@@ -21,7 +21,7 @@ local balance_and_blade = {
 		local index = 0
 		local cur_suit
 		local keys = {}
-		for key, val in pairs(SMODS.Suits) do
+		for key, val in pairs(All_in_Jest.get_suits(nil, true)) do
 			local temp_tally = 0
 			for k, v in pairs(G.hand.highlighted) do
 				if v.base.suit ~= key and not All_in_Jest.has_patches(v, key) then
@@ -35,7 +35,7 @@ local balance_and_blade = {
 		cur_suit = pseudorandom_element(keys, pseudoseed('balance_and_blade'))
 		if #keys <= 0 then
 			keys = {}
-			for key, val in pairs(SMODS.Suits) do
+			for key, val in pairs(All_in_Jest.get_suits(nil, true)) do
 				for k, v in pairs(G.hand.highlighted) do
 					if v.base.suit ~= key and not All_in_Jest.has_patches(v, key) and All_in_Jest.has_suit_in_deck(key, true) then
 						keys[#keys+1] = key
@@ -45,7 +45,7 @@ local balance_and_blade = {
 			cur_suit = pseudorandom_element(keys, pseudoseed('balance_and_blade_resample'))
 			if #keys <= 0 then
 				keys = {}
-				for key, val in pairs(SMODS.Suits) do
+				for key, val in pairs(All_in_Jest.get_suits(nil, true)) do
 					if All_in_Jest.has_suit_in_deck(key, true) then
 						keys[#keys+1] = key
 					end
