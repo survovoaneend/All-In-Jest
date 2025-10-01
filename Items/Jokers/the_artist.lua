@@ -1,5 +1,6 @@
 local the_artist = {
     object_type = "Joker",
+    ignore = true,
     order = 216,
 
     key = "the_artist",
