@@ -267,6 +267,7 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
     args.card_scale = args.card_scale or 1
     local deck_tables = {}
     local pool = SMODS.collection_pool(_pool)
+    if args.sort then args.sort(pool) end
 
     G.your_collection = {}
     local cards_per_page = 0
@@ -349,9 +350,9 @@ G.FUNCS.jest_select = function(e)
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
                   end
                   if e.config.data[2].playing_card == true then
+                      G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                      card.playing_card = G.playing_card
                       table.insert(G.playing_cards, card)
-                      e.config.data[1].config.card_limit = e.config.data[1].config.card_limit + 1
-                      card:start_materialize()
                   end
                   if e.config.data[2].insert_index and e.config.data[2].insert_index > 0 then
                       local item = table.remove(e.config.data[1], 1)
@@ -372,9 +373,9 @@ G.FUNCS.jest_select = function(e)
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
               end
               if e.config.data[2].playing_card == true then
+                  G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                  card.playing_card = G.playing_card
                   table.insert(G.playing_cards, card)
-                  e.config.data[1].config.card_limit = e.config.data[1].config.card_limit + 1
-                  card:start_materialize()
               end
               if e.config.data[2].insert_index and e.config.data[2].insert_index > 0 then
                   local item = table.remove(e.config.data[1].cards, 1)
