@@ -84,9 +84,7 @@ local fortunato = {
     if context.joker_main then
       if card.ability.extra.x_mult > 1 then
         return {
-          message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.x_mult } },
-          Xmult_mod = card.ability.extra.x_mult,
-          card = card
+          xmult = card.ability.extra.x_mult,
         }
       end
     end

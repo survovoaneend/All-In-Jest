@@ -29,9 +29,7 @@ local void = {
         if context.joker_main then
             if not G.GAME.jest_void_planet_ante then
                 return {
-                    Xmult_mod = card.ability.extra.xmult,
-                    card = card,
-                    message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult}}
+                    xmult = card.ability.extra.xmult,
                 }
             end
         end

@@ -32,8 +32,7 @@ local saltimbanco = {
                 local xmlt = 1 + (1 - (context.numerator/context.denominator))
                 if context.result and context.trigger_obj and (context.trigger_obj.config and context.trigger_obj.config.center and (context.trigger_obj.config.center.set == 'Joker' or context.trigger_obj.config.center.set == 'Default' or context.trigger_obj.config.center.set == 'Enhanced' or context.trigger_obj.config.center.consumeable)) and xmlt > 1 then
                     return {
-                        message = localize{type='variable',key='a_xmult',vars={xmlt}},
-                        Xmult_mod = xmlt,
+                        xmult = xmlt
                     }
                 end
             end

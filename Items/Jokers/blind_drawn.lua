@@ -23,10 +23,8 @@ local blind_drawn = {
   
     calculate = function(self, card, context)
         if context.joker_main then
-            local xmlt = card.ability.extra.Xmult
             return {
-                message = localize{type='variable',key='a_xmult',vars={xmlt}},
-                Xmult_mod = xmlt,
+                xmult = card.ability.extra.Xmult,
             }
         end
     end

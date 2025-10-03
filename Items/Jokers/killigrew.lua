@@ -37,8 +37,7 @@ local killigrew = {
             local xmlt = redeemed_voucher_count() * card.ability.extra.Xmult_mod
             if xmlt > 1 then
                 return {
-                    message = localize{type='variable',key='a_xmult',vars={xmlt}},
-                    Xmult_mod = xmlt,
+                    xmult = xmlt
                 }
             end
         end

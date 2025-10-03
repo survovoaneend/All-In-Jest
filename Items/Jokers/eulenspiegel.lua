@@ -45,10 +45,8 @@ local eulenspiegel = {
         end
       end
       if context.joker_main then
-        local xmlt = card.ability.Xmult
         return {
-            message = localize{type='variable',key='a_xmult',vars={xmlt}},
-            Xmult_mod = xmlt,
+            xmult = card.ability.Xmult,
         }
       end
       

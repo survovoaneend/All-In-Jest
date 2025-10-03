@@ -71,9 +71,7 @@ local jeff_the_joker = {
       if context.joker_main then
           if card.ability.extra.x_mult and card.ability.extra.x_mult > 1 then
               return {
-                  message = 'X'..card.ability.extra.x_mult..' Mult', 
-                  Xmult_mod = card.ability.extra.x_mult,
-                  card = card           
+                  xmult = card.ability.extra.x_mult,
               }
           end
       end
