@@ -1059,14 +1059,7 @@ end
 local _click = Card.click
 function Card:click(...)
     if self.area and self.area.config and self.area.config.type == "shop" then
-        local has_ultrasound = false
-        if G.jokers ~= nil and G.jokers.cards then
-            for _, j in ipairs(G.jokers.cards) do
-                if j.config and j.config.center_key == "j_aij_ultrasound" then
-                    has_ultrasound = true
-                end
-            end
-        end
+        local has_ultrasound = next(SMODS.find_card("j_aij_ultrasound"))
         if has_ultrasound then
             if self.highlighted then
                 self:remove_prediction_card()
