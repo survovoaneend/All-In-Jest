@@ -2129,11 +2129,10 @@ target = "functions/state_events.lua"
 pattern = "local discard_count = #G.discard.cards"
 position = "before"
 payload = '''
-local has_line_in_the_sand = next(SMODS.find_card("j_aij_line_in_the_sand"))
-if has_line_in_the_sand and G.GAME.blind.boss then
-    local discard_count = #G.jest_super_discard.cards
-    for i=1, discard_count do --draw cards from deck
-        draw_card(G.jest_super_discard, G.deck, i*100/discard_count,'up', nil ,nil, 0.005, i%2==0, nil, math.max((21-i)/20,0.7))
+if #G.jest_super_discard.cards > 0 and G.GAME.blind.boss then
+    local super_discard_count = #G.jest_super_discard.cards
+    for i=1, super_discard_count do --draw cards from deck
+        draw_card(G.jest_super_discard, G.deck, i*100/super_discard_count,'up', nil ,nil, 0.005, i%2==0, nil, math.max((21-i)/20,0.7))
     end
 end
 '''
@@ -2161,14 +2160,7 @@ target = "functions/state_events.lua"
 pattern = "draw_card(G.hand, G.discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])"
 position = "before"
 payload = '''
-local has_line_in_the_sand = false
-if G.jokers ~= nil and G.jokers.cards then
-    for _, j in ipairs(G.jokers.cards) do
-        if j.config and j.config.center_key == "j_aij_line_in_the_sand" then
-            has_line_in_the_sand = true
-        end
-    end
-end
+local has_line_in_the_sand = next(SMODS.find_card("j_aij_line_in_the_sand"))
 if has_line_in_the_sand then
     draw_card(G.hand, G.jest_super_discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])
 else
