@@ -30,12 +30,13 @@ function jest_poll_tag(seed, options)
 end
 
 function next_palindrome(n)
+    n = math.ceil(n)
     while true do
-        local s = tostring(math.floor(n))
+        local s = tostring(n)
         if s == s:reverse() and #s > 1 then
             return n
         end
-        n = n + 1
+        n = math.floor(n + 1)
     end
 end
 
