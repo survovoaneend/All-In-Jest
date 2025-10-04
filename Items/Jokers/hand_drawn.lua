@@ -75,6 +75,17 @@ local hand_drawn = {
                         break
                     end
                 end
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                save_run()
+                                return true
+                            end
+                        }))
+                        return true
+                    end
+                }))
             end
         end
     end
