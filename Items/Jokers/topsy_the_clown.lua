@@ -28,7 +28,7 @@ local topsy_the_clown = {
         end
         local mult_mod = next_palindrome(to_number(mult)) - to_number(mult)
         if next_palindrome(to_number(mult)) == to_number(mult) then
-            chip_mod = next_palindrome(to_number(mult)+1) - to_number(mult)
+            mult_mod = next_palindrome(to_number(mult)+1) - to_number(mult)
         end
         return {
           chips = chip_mod,
