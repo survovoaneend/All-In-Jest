@@ -1,4 +1,4 @@
-local recherché_tag = {
+local recherche_tag = {
     object_type = "Tag",
     key = 'recherche',
 
@@ -76,4 +76,4 @@ local recherché_tag = {
 		end
     end,
 }
-return {name = "Tags", items = {recherché_tag}}
+return {name = "Tags", items = {recherche_tag}}
