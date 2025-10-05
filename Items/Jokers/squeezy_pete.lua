@@ -67,6 +67,28 @@ local squeezy_pete = {
       end
 
       return nil
-  end
+  end,
+  
+  joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.ability.extra", ref_value = "xmult", retrigger_type = "exp" }
+                    }
+                }
+            },
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+                { text = ")" }
+            },
+            calc_function = function(card)
+                card.joker_display_values.localized_text = localize('Full House', 'poker_hands')
+            end
+        }
+    end
 }
 return { name = {"Jokers"}, items = {squeezy_pete} }

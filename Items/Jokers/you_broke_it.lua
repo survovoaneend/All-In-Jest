@@ -62,6 +62,23 @@ local you_broke_it = {
       }
     end
   end,
+  
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "rank", colour = G.C.FILTER },
+                { text = " > " },
+                { ref_table = "card.joker_display_values", ref_value = "enhancement", colour = G.C.FILTER },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                card.joker_display_values.rank = localize(G.GAME.current_round.jest_you_broke_it_card and G.GAME.current_round.jest_you_broke_it_card.rank or 'Ace', 'ranks')
+                card.joker_display_values.enhancement = localize { type = 'name_text', set = 'Enhanced', key = G.GAME.current_round.jest_you_broke_it_card and G.GAME.current_round.jest_you_broke_it_card.enhancement or 'm_bonus' }
+            end,
+        }
+    end
 
 
 }
