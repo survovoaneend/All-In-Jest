@@ -4,7 +4,9 @@ local hat_trick = {
 
     key = "hat_trick",
     config = {
-      
+      extra = {
+        mod = 1
+      }
     },
     rarity = 1,
     pos = { x = 11, y = 0 },
@@ -16,12 +18,16 @@ local hat_trick = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-
+      return {
+          vars = {
+              card.ability.extra.mod,
+          }
+      }
     end,
   
     calculate = function(self, card, context)
       if context.individual and context.cardarea == G.play then
-        local multt = to_number(G.GAME.hands['Three of a Kind'].level)
+        local multt = to_number(G.GAME.hands['Three of a Kind'].level) * card.ability.extra.mod
         if context.other_card:get_id() == 3 then 
             return {
                 mult = multt,

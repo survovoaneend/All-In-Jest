@@ -5,14 +5,14 @@ local little_boy_blue = {
     key = "little_boy_blue",
     config = {
       extra = {
-          chips = 200,
+          chips = 100,
           banned_cards = {}
       }
     },
-    rarity = 3,
+    rarity = 1,
     pos = { x = 23, y = 4 },
     atlas = 'joker_atlas',
-    cost = 8,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

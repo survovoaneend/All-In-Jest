@@ -7,7 +7,7 @@ local egg_cc = {
       extra = {
         chips = 0,
         chip_mod = 9,
-        sell_value = 2
+        sell_value = 1
       }
     },
     rarity = 1,

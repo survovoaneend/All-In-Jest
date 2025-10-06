@@ -10,7 +10,11 @@ local shade_spectral = {
 	config ={},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = {key = 'e_negative_playing_card', set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit} }
+        if All_in_Jest.config and All_in_Jest.config.no_copy_neg then
+            info_queue[#info_queue+1] = {key = 'e_negative_playing_card', set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit} }
+        else
+            info_queue[#info_queue+1] = G.P_CENTERS.e_aij_negative_playing_card
+        end
 	end,
     can_use = function(self, card)
         if G.hand and G.hand.cards and #G.hand.cards > 0 then

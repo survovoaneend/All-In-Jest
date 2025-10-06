@@ -4,7 +4,7 @@ local corpse_paint = {
     
     key = "corpse_paint",
     config = {
-      odds = 3,
+      odds = 2,
       hand_size = 1,
       max_hand_size = "0"
     },
@@ -18,6 +18,11 @@ local corpse_paint = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
+        if All_in_Jest.config and All_in_Jest.config.no_copy_neg then
+            info_queue[#info_queue+1] = {key = 'e_negative_playing_card', set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit} }
+        else
+            info_queue[#info_queue+1] = G.P_CENTERS.e_aij_negative_playing_card
+        end
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.odds)
         return { vars = { numerator, denominator, card.ability.hand_size, card.ability.max_hand_size }}
     end,

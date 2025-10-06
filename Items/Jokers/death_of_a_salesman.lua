@@ -18,6 +18,8 @@ local death_of_a_salesman = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Tag', key = 'tag_aij_chaos'}
+        info_queue[#info_queue+1] = {set = 'Tag', key = 'tag_aij_anarchy'}
         return {
             vars = {
                 card.ability.extra.tags,

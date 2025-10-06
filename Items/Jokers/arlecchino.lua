@@ -16,7 +16,8 @@ local arlecchino = {
   eternal_compat = true,
 
   loc_vars = function(self, info_queue, card)
-
+    info_queue[#info_queue+1] = G.P_CENTERS.p_standard_normal_1
+    info_queue[#info_queue+1] = G.P_CENTERS.p_buffoon_normal_1
   end,
 
   calculate = function(self, card, context)

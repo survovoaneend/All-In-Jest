@@ -7,8 +7,8 @@ local a_young_hamlet = {
         extra = {
             mult = 0,
             mult_mod = 1,
-            discards = 4,
-            discards_remaining = 4,
+            discards = 6,
+            discards_remaining = 6,
         }
     },
     rarity = 1,
