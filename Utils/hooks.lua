@@ -477,7 +477,7 @@ end
 local should_hide_front_ref = Card.should_hide_front
 function Card:should_hide_front()
   if SMODS.has_enhancement(self, 'm_aij_canvas') then
-    if (self.area == G.hand or self.area == G.play) and not self.debuff then
+    if ((G.hand and self.area == G.hand) or (G.play and self.area == G.play)) and not self.debuff then
         for k, v in pairs(G.play.cards) do
             if v == self and v ~= G.play.cards[#G.play.cards] and not G.play.cards[k+1].debuff then
                 return G.play.cards[k+1]:should_hide_front()
@@ -568,7 +568,7 @@ end
 local ease_anteref = ease_ante
 function ease_ante(mod)
     if mod ~= 0 then
-        G.P_BLINDS['bl_aij_aureate_coin'].mult = (G.GAME.dollars * 0.1) + 2
+        G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = 0
         local common_suit, common_rank = nil, nil
         local temp_suit_val, temp_rank_val = 0, 0
         local suit_table, rank_table = {}, {}
