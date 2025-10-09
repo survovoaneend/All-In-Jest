@@ -40,7 +40,7 @@ local haruspex = {
         use_ability = function(self, card)
             ease_discard(-1)
             local triggers = math.min(card.ability.extra.cards_to_draw, #G.deck.cards)
-            for i = 1, card.ability.extra.cards_to_draw do
+            for i = 1, triggers do
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     func = function() 
