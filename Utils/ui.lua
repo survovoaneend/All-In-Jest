@@ -311,6 +311,12 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
             local center = pool[index]
             if not center then break end
             local card = args.from_area and copy_card(center) or Card(G.your_collection[j].T.x + G.your_collection[j].T.w/2, G.your_collection[j].T.y, G.CARD_W*args.card_scale, G.CARD_H*args.card_scale, G.P_CARDS.empty, (args.center and G.P_CENTERS[args.center]) or center)
+
+            -- Re-adds negative to preview if it was stripped by the mod
+            if center.edition and center.edition.negative and not All_in_Jest.config.no_copy_neg then
+                card:set_edition({negative = true}, nil, true)
+            end
+
             if args.modify_card then args.modify_card(card, center, i, j, pool, index) end
             if not args.no_materialize then card:start_materialize(nil, i>1 or j>1) end
             G.your_collection[j]:emplace(card)
