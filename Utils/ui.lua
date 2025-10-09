@@ -311,7 +311,7 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
             local center = pool[index]
             if not center then break end
             local card = args.from_area and copy_card(center) or Card(G.your_collection[j].T.x + G.your_collection[j].T.w/2, G.your_collection[j].T.y, G.CARD_W*args.card_scale, G.CARD_H*args.card_scale, G.P_CARDS.empty, (args.center and G.P_CENTERS[args.center]) or center)
-            if args.modify_card then args.modify_card(card, center, i, j, index) end
+            if args.modify_card then args.modify_card(card, center, i, j, pool, index) end
             if not args.no_materialize then card:start_materialize(nil, i>1 or j>1) end
             G.your_collection[j]:emplace(card)
             end
@@ -335,6 +335,10 @@ G.FUNCS.jest_select = function(e)
       G.E_MANAGER:add_event(Event({
         trigger = 'after',
         func = function()
+          local c_to_remove = nil
+          if e.config.data[2].remove_orginal and e.config.data[2].index then
+            c_to_remove = e.config.data[2].remove_orginal[e.config.data[2].index]
+          end 
           if e.config.data[2].copies and e.config.data[2].copies > 1 then
               for i = 1, e.config.data[2].copies do
                   local card = SMODS.add_card {
@@ -382,10 +386,9 @@ G.FUNCS.jest_select = function(e)
                   table.insert(e.config.data[1].cards, e.config.data[2].insert_index, item)
               end
           end
-          if e.config.data[2].remove_orginal and e.config.data[2].index then
-            local c = e.config.data[2].remove_orginal[e.config.data[2].index]
-            c:remove()
-            c = nil
+          if c_to_remove then
+            c_to_remove:remove()
+            c_to_remove = nil
           end 
           G.SETTINGS.paused = false
           if G.OVERLAY_MENU ~= nil then

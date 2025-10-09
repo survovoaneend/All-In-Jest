@@ -56,10 +56,10 @@ local haruspex = {
                                     from_area = true,
                                     hide_single_page = true,
                                     collapse_single_page = true,
-                                    modify_card = function(card, center, i, j, index) 
+                                    modify_card = function(card, center, i, j, pool, index) 
                                         jest_create_select_card_ui(card, G.hand, {
                                             playing_card = true,
-                                            remove_orginal = G.deck.cards,
+                                            remove_orginal = pool,
                                             index = index,
                                         })
                                     end, 
