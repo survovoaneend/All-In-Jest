@@ -26,6 +26,7 @@ local comedians_manifesto = {
         if context.all_in_jest.card.ability.name:find('Standard') then
             for k, v in pairs(context.all_in_jest.pack_cards) do
                 if v:get_id() == 12 or v:get_id() == 13 then
+                    SMODS.change_base(v, nil, 'Jack', true) -- Changes rank without changing visual
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
                         delay = 0.2,
@@ -35,7 +36,7 @@ local comedians_manifesto = {
                         play_sound('tarot1')
                         v:juice_up(0.3, 0.5)
                         card:juice_up(0.3, 0.5)
-                        assert(SMODS.change_base(v, nil, 'Jack'))
+                        assert(SMODS.change_base(v, nil, 'Jack')) -- Changes rank sprite
                         v:flip()
                         return true
                         end
