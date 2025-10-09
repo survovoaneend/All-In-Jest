@@ -5,6 +5,7 @@ local haruspex = {
     key = "haruspex",
     config = {
       extra = {
+          discards_to_spend = 1,
           cards_to_draw = 3
       }
     },
@@ -21,7 +22,7 @@ local haruspex = {
         local to_draw = G.deck and #G.deck.cards > 0 and math.min(card.ability.extra.cards_to_draw, #G.deck.cards) or card.ability.extra.cards_to_draw
         return {
             vars = {
-                1,
+                card.ability.extra.discards_to_spend,
                 to_draw,
                 colours = { 
                     G.C.SECONDARY_SET.Enhanced
@@ -32,13 +33,13 @@ local haruspex = {
 
     all_in_jest = {
         can_use_ability = function(self, card, context)
-            if G.deck and G.deck.cards and #G.deck.cards > 0 and G.GAME.current_round.discards_left >= 1 and G.STATE == G.STATES.SELECTING_HAND then
+            if G.deck and G.deck.cards and #G.deck.cards > 0 and G.GAME.current_round.discards_left >= card.ability.extra.discards_to_spend and G.STATE == G.STATES.SELECTING_HAND then
                 return true
             end
         end,
 
         use_ability = function(self, card)
-            ease_discard(-1)
+            ease_discard(-1 * card.ability.extra.discards_to_spend)
             local triggers = math.min(card.ability.extra.cards_to_draw, #G.deck.cards)
             for i = 1, triggers do
                 G.E_MANAGER:add_event(Event({

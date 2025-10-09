@@ -1490,7 +1490,7 @@ return {
                 name = "Haruspex", 
                 text = { 
                     "{B:1,C:white,s:0.8}Activated Ability",
-                    "Spend {C:attention}#1# {C:red}Discard{} to choose {C:attention}#2#{}",
+                    "Spend {C:attention}#1#{} {C:red}Discard{} to choose {C:attention}#2#{}",
                     "cards from your {C:attention}deck{} to",
                     "{C:attention}draw{} to your hand"
                 } 
