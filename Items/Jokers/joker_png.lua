@@ -70,7 +70,7 @@ local joker_png = {
 
             card:juice_up(0.3, 0.5)
             card.ability.extra.cost = card.ability.extra.cost + 1
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_reset')})
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_reroll')})
         end,
     },
 
