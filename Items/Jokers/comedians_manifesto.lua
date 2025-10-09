@@ -31,14 +31,14 @@ local comedians_manifesto = {
                         trigger = 'after',
                         delay = 0.2,
                         func = function()
-                        v:flip()
-                        delay(0.3)
-                        play_sound('tarot1')
-                        v:juice_up(0.3, 0.5)
-                        card:juice_up(0.3, 0.5)
-                        assert(SMODS.change_base(v, nil, 'Jack')) -- Changes rank sprite
-                        v:flip()
-                        return true
+                            v:flip()
+                            delay(0.3)
+                            play_sound('tarot1')
+                            v:juice_up(0.3, 0.5)
+                            card:juice_up(0.3, 0.5)
+                            assert(SMODS.change_base(v, nil, 'Jack')) -- Changes rank sprite
+                            v:flip()
+                            return true
                         end
                     }))
                 end
