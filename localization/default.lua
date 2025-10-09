@@ -710,9 +710,8 @@ return {
             bl_aij_the_dragon = {
                 name = "The Dragon",
                 text = {
-                    'Cannot not draw any',
-                    'cards until hand is',
-                    'empty'
+                    'Cannot draw any cards',
+                    'until hand is empty',
                 },
             },
             bl_aij_the_mountain = {
