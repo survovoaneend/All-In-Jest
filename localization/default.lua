@@ -753,7 +753,7 @@ return {
             bl_aij_the_arrow = {
                 name = "The Arrow",
                 text = {
-                    'Played hands score must',
+                    'Played hand\'s score must',
                     'exceed the score of all',
                     'previous played hands'
                 },
