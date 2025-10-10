@@ -63,8 +63,9 @@ local haruspex = {
                                             index = index,
                                         })
                                     end, 
-                                    sort = function(table)
-                                        pseudoshuffle(table, pseudoseed('haruspex'))
+                                    sort = function(table_to_sort)
+                                        pseudoshuffle(table_to_sort, pseudoseed('haruspex'))
+                                        table.sort(table_to_sort, function (a, b) return a:get_nominal('suit') > b:get_nominal('suit') end )
                                     end,
                                     h_mod = 1.05,
                                 }
