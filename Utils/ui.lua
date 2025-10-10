@@ -496,10 +496,11 @@ G.FUNCS.jest_next_tag = function(e)
       end
     end
 end
-function jest_create_select_card_ui(card, area, extra_data)
+function jest_create_select_card_ui(card, area, extra_data, select_func)
+    select_func = select_func or "jest_select"
     extra_data = extra_data or {}
     extra_data.copies = extra_data.copies or 1 
-    local t2 =  {n=G.UIT.ROOT, config = {ref_table = card, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true, button = 'jest_select', data = {area, extra_data}, hover = true}, nodes={
+    local t2 =  {n=G.UIT.ROOT, config = {ref_table = card, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true, button = select_func, data = {area, extra_data}, hover = true}, nodes={
         {n=G.UIT.T, config={text = "Select",colour = G.C.WHITE, scale = 0.5}}
     }}
 
