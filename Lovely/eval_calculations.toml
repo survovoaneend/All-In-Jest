@@ -96,7 +96,10 @@ if context.cardarea == G.play and context.all_in_jest and context.all_in_jest.ma
         ret.playing_card.chips = chips
     end
 end
-
+if context.money_altered and to_big(context.amount) < to_big(0) and not context.blueprint and not context.repetition then
+    print(context)
+    G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money + context.amount
+end
 '''
 
 [[patches]] #For debuffed joker cards
