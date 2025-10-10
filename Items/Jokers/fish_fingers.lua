@@ -36,53 +36,23 @@ local fish_fingers = {
             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_hands', vars = {card.ability.extra.hands}}})
         end
         if context.end_of_round and context.main_eval and not context.blueprint then
-            if card.ability.extra.hands > 0 then
-                if (card.ability.extra.hands - card.ability.extra.hand_mod) <= 0 then
-                    SMODS.scale_card(card, {
-	                    ref_table = card.ability.extra,
-                        ref_value = "hands",
-	                    scalar_value = "hand_mod",
-                        operation = '-',
-                        scaling_message = {
-	                        message = localize('k_eaten_ex'),
-                            colour = G.C.RED
-                        }
-                    })
-                else
-                    SMODS.scale_card(card, {
-	                    ref_table = card.ability.extra,
-                        ref_value = "hands",
-	                    scalar_value = "hand_mod",
-                        operation = '-',
-                        scaling_message = {
-	                       message = "-"..card.ability.extra.hand_mod.." Hand", 
-                           colour = G.C.BLUE
-                        }
-                    })
-                end
-                if card.ability.extra.hands <= 0 then
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            play_sound('tarot1')
-                            card.T.r = -0.2
-                            card:juice_up(0.3, 0.4)
-                            card.states.drag.is = true
-                            card.children.center.pinch.x = true
-                            G.E_MANAGER:add_event(Event({
-                                trigger = 'after',
-                                delay = 0.3,
-                                blockable = false,
-                                func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                    return true;
-                                end
-                            }))
-                            return true
-                        end
-                    }))
-                end
+            if (card.ability.extra.hands - card.ability.extra.hand_mod) <= 0 then
+                SMODS.destroy_cards(card, nil, nil, true)
+                return {
+                    message = localize('k_eaten_ex'),
+                    colour = G.C.RED
+                }
+            else
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "hands",
+                    scalar_value = "hand_mod",
+                    operation = '-',
+                    scaling_message = {
+                        message = "-"..card.ability.extra.hand_mod.." Hand", 
+                        colour = G.C.BLUE
+                    }
+                })
             end
         end
     end
