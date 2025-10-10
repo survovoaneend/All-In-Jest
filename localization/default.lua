@@ -1364,7 +1364,7 @@ return {
                 name = "Silly Sausage", 
                 text = { 
                     "{C:green}Rerolls{} cost {C:money}$#1#{} less",
-                    "{C:attention}Decreases{} by {C:money}$1{}",
+                    "{C:attention}Decreases{} by {C:money}$#2#{}",
                     "at end of round"
                 } 
             },
