@@ -18,7 +18,7 @@ local anchor = {
 
     end,
 
-    calculate = function(self, anchor_card, context)
+    calculate = function(self, card, context)
         -- I probably don't need to use both joker_type_destroyed and check_eternal
         -- Limited testing suggested joker_type_destroyed didn't even work in SMODS~BETA-0827c
         -- But I'm using both anyways
@@ -28,7 +28,7 @@ local anchor = {
                 -- Do not trigger on sold cards
             else
                 -- Do not destroy anchors
-                if (card_to_be_destroyed == anchor_card) then
+                if (card_to_be_destroyed == card) then
                     return {
                         no_destroy = { override_compat = true }
                     }
@@ -44,7 +44,7 @@ local anchor = {
                     end
                     local left      = index_of_destroyed_card - 1
                     local right     = index_of_destroyed_card + 1
-                    local is_nearby = (G.jokers.cards[left] == anchor_card) or (G.jokers.cards[right] == anchor_card)
+                    local is_nearby = (G.jokers.cards[left] == card) or (G.jokers.cards[right] == card)
                     if is_nearby then
                         return {
                             no_destroy = { override_compat = true }
