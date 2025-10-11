@@ -43,7 +43,7 @@ local la_commedia_e_finita = {
 	            ref_table[ref_value] = initial + (face_cards * change)
             end,
             scaling_message = {
-	            message = '+' .. card.ability.extra.mult .. ' Mult',
+	            message = '+' .. (card.ability.extra.mult + face_cards * card.ability.extra.mult_gain) .. ' Mult',
                 colour = G.C.RED
             }
         })
@@ -64,7 +64,7 @@ local la_commedia_e_finita = {
 	            ref_table[ref_value] = initial + (face_cards * change)
             end,
             scaling_message = {
-	            message = '+' .. card.ability.extra.mult .. ' Mult',
+	            message = '+' .. (card.ability.extra.mult + face_cards * card.ability.extra.mult_gain) .. ' Mult',
                 colour = G.C.RED
             }
         })

@@ -37,7 +37,7 @@ local columbina = {
 	            scalar_value = "percent_mod",
                 operation = '+',
                 scaling_message = {
-	                message = card.ability.extra.percent .. "%",
+	                message = (card.ability.extra.percent + card.ability.extra.percent_mod) .. "%",
 	                colour = G.C.FILTER
                 }
             })

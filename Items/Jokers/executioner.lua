@@ -43,7 +43,7 @@ local executioner = {
 	            ref_table[ref_value] = initial + (face_cards * change)
             end,
             scaling_message = {
-	           message = '+' .. card.ability.extra.chips,
+	           message = '+' .. (card.ability.extra.chips + face_cards * card.ability.extra.chip_gain),
                colour = G.C.BLUE
             }
         })
@@ -64,7 +64,7 @@ local executioner = {
 	            ref_table[ref_value] = initial + (face_cards * change)
             end,
             scaling_message = {
-	           message = '+' .. card.ability.extra.chips,
+	           message = '+' .. (card.ability.extra.chips + card.ability.extra.chip_gain),
                colour = G.C.BLUE
             }
         })

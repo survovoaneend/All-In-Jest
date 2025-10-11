@@ -31,7 +31,7 @@ local tetraphobia = {
 	          scalar_value = "mult_mod",
               operation = '+',
               scaling_message = {
-	              message = '+'..(card.ability.extra.mult or 0)..' Mult',
+	              message = '+'..((card.ability.extra.mult or 0) + card.ability.extra.mult_mod)..' Mult',
                   colour = G.C.MULT
               }
           })

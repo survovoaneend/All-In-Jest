@@ -59,10 +59,7 @@ local jeff_the_joker = {
                     operation = function(ref_table, ref_value, initial, change)
                         ref_table[ref_value] = initial + (destroyed_count * change)
                     end,
-                    scaling_message = {
-                        message = 'X' .. card.ability.extra.x_mult .. ' Mult',
-                        colour = G.C.RED
-                    }
+                    message_key = 'a_xmult'
                 })
                 card:juice_up(0.6, 0.6)
                 return nil, true
