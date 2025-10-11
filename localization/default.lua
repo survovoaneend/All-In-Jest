@@ -57,6 +57,15 @@ return {
             k_aij_merry_christmas = "Merry Christmas!",
             k_aij_change_ex = 'Change!',
         },
+        v_dictionary = {
+            a_aij_percent_balance = "+%#1#",
+            a_aij_percent_balance_minus = "-%#1#",
+            
+            a_aij_hands_minus = "-#1# Hands",
+
+            a_aij_joker_slots = '+#1# Joker Slot',
+            a_aij_joker_slots_minus = '-#1# Joker Slot',
+        },
         challenge_names = {
             c_aij_bananarama = "Bananarama",
             c_aij_sharpest_tool = "Sharpest Tool",

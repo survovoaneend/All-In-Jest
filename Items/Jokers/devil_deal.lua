@@ -42,10 +42,7 @@ local devil_deal = {
             operation = function(ref_table, ref_value, initial, change)
 	            ref_table[ref_value] = initial + (hearts*change)
             end,
-            scaling_message = {
-	            message = "X"..(card.ability.extra.xmult + hearts * card.ability.extra.xmult_mod).. " Mult",
-	            colour = G.C.MULT
-            }
+            message_key = 'a_xmult'
         })
       end
       return

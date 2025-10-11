@@ -33,10 +33,7 @@ local eulenspiegel = {
                 ref_value = "Xmult",
 	            scalar_value = "Xmult_mod",
                 operation = '-',
-                scaling_message = {
-	               message = "-"..card.ability.Xmult_mod.." XMult", 
-                   colour = G.C.MULT
-                }
+                message_key = 'a_xmult_minus'
             })
             if card.ability.Xmult == 0 then
               card:start_dissolve()

@@ -48,10 +48,7 @@ local fish_fingers = {
                     ref_value = "hands",
                     scalar_value = "hand_mod",
                     operation = '-',
-                    scaling_message = {
-                        message = "-"..card.ability.extra.hand_mod.." Hand", 
-                        colour = G.C.BLUE
-                    }
+                    message_key = 'a_aij_hands_minus'
                 })
             end
         end
