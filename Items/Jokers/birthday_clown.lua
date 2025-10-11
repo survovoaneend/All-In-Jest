@@ -36,10 +36,12 @@ local birthday_clown = {
           card.ability.extra.active = true
       end
       if card.ability.extra.active and context.joker_main then
-        card.ability.extra.active = false
         return {
           xmult = card.ability.extra.xmult
         }
+      end
+      if card.ability.extra.active and context.end_of_round and context.game_over == false and context.main_eval then
+        card.ability.extra.active = false
       end
     end
   
