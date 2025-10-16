@@ -1253,7 +1253,7 @@ function All_in_Jest.add_patch(card, suit, instant, append)
   if not suit then
       local keys = {}
 	  for k, v in pairs(SMODS.Suits) do
-          if card.base.suit ~= k and All_in_Jest.has_suit_in_deck(k, true) then
+          if card.base.suit ~= k and All_in_Jest.has_suit_in_deck(k, true) and ((v.in_pool and v.in_pool(val, nil)) or not v.in_pool) then
 	         keys[#keys+1] = k
           end
 	  end
