@@ -56,6 +56,7 @@ return {
             k_aij_p_arcana = "+1 Arcana",
             k_aij_merry_christmas = "Merry Christmas!",
             k_aij_change_ex = 'Change!',
+            k_aij_blood_spilt_ex = 'Blood Spilt!',
         },
         challenge_names = {
             c_aij_bananarama = "Bananarama",

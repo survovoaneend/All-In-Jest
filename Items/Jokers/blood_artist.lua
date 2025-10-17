@@ -36,6 +36,9 @@ local blood_artist = {
                         return true
                     end
                 }))
+                return {
+                    message = localize("k_aij_blood_spilt_ex"),
+                }
             end
 
             -- Removing playing cards
@@ -48,6 +51,9 @@ local blood_artist = {
                         return true
                     end
                 }))
+                return {
+                    message = localize("k_aij_blood_spilt_ex"),
+                }
             end
 
             -- return nil, true
