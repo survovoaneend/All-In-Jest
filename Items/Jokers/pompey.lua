@@ -57,9 +57,7 @@ local pompey = {
         local final_xmult = math.max(card.ability.extra.xmult, (jokers_to_right*card.ability.extra.xmult)) 
         if final_xmult > 1 then
             return {
-                message = localize{type='variable',key='a_xmult',vars={final_xmult}},
-                Xmult_mod = final_xmult,
-                card = card
+                xmult = final_xmult
             }
         end
     end
