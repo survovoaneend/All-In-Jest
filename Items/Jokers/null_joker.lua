@@ -20,10 +20,9 @@ local null_joker = {
   end,
 
   calculate = function(self, card, context)
-    if context.mod_probability and context.trigger_obj then
+    if context.fix_probability then
         return {
-            numerator = context.numerator * 0,
-            denominator = context.denominator
+            numerator = 0
         }
     end
   end
