@@ -39,6 +39,21 @@ local slim_joker = {
                 }
             end
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "+" },
+                { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
+            },
+            text_config = { colour = G.C.MULT },
+            calc_function = function(card)
+                local played_hand = JokerDisplay.current_hand
+                card.joker_display_values.mult = card.ability.extra.initial_mult - card.ability.extra.mult_mod * #played_hand
+            end
+        }
     end
   
 }

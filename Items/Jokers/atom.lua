@@ -28,6 +28,23 @@ local atom = {
       end
     end
     return nil
+  end,
+
+  joker_display_def = function(JokerDisplay)
+      ---@type JDJokerDefinition
+      return {
+          reminder_text = {
+              { text = "(" },
+              { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+              { text = " " },
+              { ref_table = "card.joker_display_values", ref_value = "localized_text_2", colour = G.C.ORANGE },
+              { text = ")" },
+          },
+          calc_function = function(card)
+              card.joker_display_values.localized_text = localize('High Card', 'poker_hands')
+              card.joker_display_values.localized_text_2 = localize('Ace', 'ranks')
+          end
+      }
   end
 
 }
