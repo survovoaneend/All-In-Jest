@@ -78,6 +78,32 @@ local cctv = {
             }
         end
       end
-    end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { ref_table = "card.joker_display_values", ref_value = "active" }
+            },
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE, retrigger_type = "mult" },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                local active = false
+                local played_hand = JokerDisplay.current_hand
+                for _, played_card in pairs(played_hand) do
+                    if played_card.ability.name and played_card.ability.name == 'Glass Card' then
+                        active = true
+                        break
+                    end
+                end
+                card.joker_display_values.active = active and localize("k_active_ex") or localize("jdis_inactive")
+                card.joker_display_values.localized_text = localize { type = 'name_text', set = 'Enhanced', key = 'm_glass' }
+            end
+        }
+    end,
 }
 return { name = {"Jokers"}, items = {cctv} }
