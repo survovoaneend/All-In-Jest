@@ -102,6 +102,19 @@ local doodle = {
     else
         return 
     end
+end,
+joker_display_def = function(JokerDisplay)
+    ---@type JDJokerDefinition
+    return {
+        reminder_text = {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "active" },
+            { text = ")" },
+        },
+        calc_function = function(card)
+            card.joker_display_values.active = (G.GAME.round % 2) == 0 and localize('k_active') or localize('k_inactive')
+        end,
+    }
 end
   
 }

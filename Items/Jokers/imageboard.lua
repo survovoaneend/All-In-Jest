@@ -35,6 +35,32 @@ local imageboard = {
         if context.after then
             card.ability.extra.has_been_played = nil
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "+" },
+                { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
+            },
+            text_config = { colour = G.C.MULT },
+            calc_function = function(card)
+                local mult = 0
+                local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+                local has_been_played = nil
+                if text ~= 'Unknown' then
+                    for _, scoring_card in pairs(scoring_hand) do
+                        has_been_played = has_been_played or {}
+                        local compare_id = scoring_card:get_id()
+                        has_been_played[compare_id] = has_been_played[compare_id] or 0
+                        has_been_played[compare_id] = has_been_played[compare_id] + 1
+                        mult = mult + has_been_played[compare_id]
+                    end
+                end
+                card.joker_display_values.mult = mult
+            end
+        }
     end
   
 }
