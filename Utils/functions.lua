@@ -1554,9 +1554,16 @@ function All_in_Jest.get_suits(type, base)
 end
 
 function All_in_Jest.reset_game_globals(run_start)
+    -- Globals for a single blind (like Idol)
+    reset_jest_magick_joker_card()
+    reset_jest_you_broke_it_card()
 	G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
+
     if run_start then
+    -- Globals for a whole run (like Fortune Teller)
+        reset_handsome_joker_card()
+
         local common_suit, common_rank = nil, nil
         local temp_suit_val, temp_rank_val = 0, 0
         local suit_table, rank_table = {}, {}

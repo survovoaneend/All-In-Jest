@@ -80,9 +80,6 @@ local magick_joker = {
         end
       end
     end
-    if context.end_of_round then
-      reset_jest_magick_joker_card()
-    end
   end
 
 }
