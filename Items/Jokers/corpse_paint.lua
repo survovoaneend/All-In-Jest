@@ -45,11 +45,7 @@ local corpse_paint = {
                         operation = function(ref_table, ref_value, initial, change)
 	                        ref_table[ref_value] = tostring(tonumber(initial) + change)
                         end,
-                        scaling_message = {
-	                        message = localize('a_handsize', 'v_dictionary'), 
-                            vars = {card.ability.extra.handsize_mod},
-	                        colour = G.C.FILTER
-                        },
+                        message_key = 'a_handsize'
                     })
                 end
             end

@@ -64,9 +64,9 @@ local fortune_cookie = {
 	                scalar_value = "num",
                     operation = '-',
                     scaling_message = {
-	                    message = card.ability.extra.packs_remaining.."/"..card.ability.extra.packs, 
+                        message = localize{key='a_remaining', type='variable', vars={card.ability.extra.packs_remaining-1}},
                         colour = G.C.FILTER
-                    }
+                    },
                 })
             end
         end

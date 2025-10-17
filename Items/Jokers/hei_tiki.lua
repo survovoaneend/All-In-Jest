@@ -35,11 +35,6 @@ local hei_tiki = {
 	                ref_table = card.ability.extra,
                     ref_value = "mult",
 	                scalar_value = "mult_mod",
-                    operation = '+',
-                    scaling_message = {
-	                    message = localize('k_upgrade_ex'), 
-                        colour = G.C.FILTER
-                    }
                 })
             end
         end

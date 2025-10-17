@@ -12,33 +12,37 @@ local kilroy = {
     cost = 4,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = false,
   
     loc_vars = function(self, info_queue, card)
-        SMODS.scale_card(card, {
-	        ref_table = card.ability.extra,
-            ref_value = "curchips",
-	        scalar_value = "modchips",
-            operation = function(ref_table, ref_value, initial, change)
-	            ref_table[ref_value] = change * G.GAME.jest_kilroy_sold
-            end,
-            no_message = true,
-        })
         return { vars = {card.ability.extra.modchips, card.ability.extra.curchips}}
     end,
   
     calculate = function(self, card, context)
+
+        if context.selling_card and not context.blueprint then
+            if (context.card == card) then
+                SMODS.scale_card(card, {
+                    ref_table = G.P_CENTERS["j_aij_kilroy"].config.extra,
+                    ref_value = "curchips",
+                    scalar_value = "modchips",
+                    no_message = true,
+                })
+            else
+                -- If this card was not sold, copy current values with config
+                -- In case a duplicate Kilroy was sold
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        card.ability.extra.modchips = G.P_CENTERS["j_aij_kilroy"].config.extra.modchips
+                        card.ability.extra.curchips = G.P_CENTERS["j_aij_kilroy"].config.extra.curchips
+                        return true
+                    end
+                }))
+            end
+        end
+
         if context.joker_main then
-            SMODS.scale_card(card, {
-	            ref_table = card.ability.extra,
-                ref_value = "curchips",
-	            scalar_value = "modchips",
-                operation = function(ref_table, ref_value, initial, change)
-	                ref_table[ref_value] = change * G.GAME.jest_kilroy_sold
-                end,
-                no_message = true,
-            })
             if card.ability.extra.curchips ~= 0 then
                 return {
                   chips = card.ability.extra.curchips,
@@ -47,12 +51,4 @@ local kilroy = {
         end
     end
 }
-local sell_card_ref = Card.sell_card
-function Card:sell_card()
-  local ref = sell_card_ref(self)
-  if self.config.center_key == "j_aij_kilroy" then
-    G.GAME.jest_kilroy_sold = G.GAME.jest_kilroy_sold + 1
-  end
-  return ref
-end
 return { name = {"Jokers"}, items = {kilroy} }

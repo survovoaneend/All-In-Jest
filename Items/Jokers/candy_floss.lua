@@ -44,10 +44,7 @@ local candy_floss = {
                     ref_value = "percent",
                     scalar_value = "percent_mod",
                     operation = '-',
-                    scaling_message = {
-                        message = "-"..card.ability.extra.percent_mod.."%",
-                        colour = G.C.FILTER
-                    }
+                    message_key = 'a_aij_percent_balance_minus'
                 })
             end
         end

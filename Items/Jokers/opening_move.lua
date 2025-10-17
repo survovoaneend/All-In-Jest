@@ -37,10 +37,6 @@ local opening_move = {
                 operation = function(ref_table, ref_value, initial, change)
 	                ref_table[ref_value] = 1 + #context.scoring_hand * change
                 end,
-                scaling_message = {
-	                message = localize('k_upgrade_ex'), 
-                    colour = G.C.FILTER
-                }
             })
         end
         if context.end_of_round and context.cardarea == G.jokers then

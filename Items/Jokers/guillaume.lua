@@ -37,17 +37,12 @@ local guillaume = {
             ref_value = "card_limit",
             scalar_table = card.ability.extra,
 	        scalar_value = "joker_slots_mod",
-            operation = '+',
-            scaling_message = {
-	            message = '+'..card.ability.extra.joker_slots_mod..' Joker Slot', 
-                colour = G.C.FILTER
-            }
+            message_key = 'a_aij_joker_slots'
         })
         SMODS.scale_card(card, {
 	        ref_table = card.ability.extra,
             ref_value = "joker_slots", 
 	        scalar_value = "joker_slots_mod",
-            operation = '+',
             no_message = true,
         })
       end

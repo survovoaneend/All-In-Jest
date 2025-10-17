@@ -44,10 +44,7 @@ local chips_n_dip = {
                     ref_value = "xchips",
                     scalar_value = "xchips_mod",
                     operation = '-',
-                    scaling_message = {
-                        message = "-"..card.ability.extra.xchips_mod.."X", 
-                        colour = G.C.BLUE
-                    }
+                    message_key = 'a_xchips_minus'
                 })
             end
         end

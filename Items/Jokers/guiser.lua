@@ -33,7 +33,6 @@ local guiser = {
             ref_value = "extra_value",
             scalar_table = card.ability.extra,
 	        scalar_value = "money",
-            operation = '+',
             scaling_message = {
 	            message = localize('k_val_up'),
                 colour = G.C.MONEY

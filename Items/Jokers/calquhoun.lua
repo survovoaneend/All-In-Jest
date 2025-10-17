@@ -36,7 +36,6 @@ local colquhoun = {
                 ref_table = card.ability.extra,
                 ref_value = "dollars",
                 scalar_value = "dollar_mod",
-                operation = '+',
             })
         end
         if context.individual and context.cardarea == G.play then
