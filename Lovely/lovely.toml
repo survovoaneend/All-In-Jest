@@ -288,18 +288,6 @@ SMODS.displayed_hand = calculated_text or text; SMODS.displaying_scoring = true
 '''
 match_indent = true
 
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = '''G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)'''
-position = "before"
-match_indent = true
-payload = '''
-if hand == 'Straight Flush' then
-    level_up_other_hand(nil, 'aij_Royal Flush', hand, true, amount)
-end
-'''
-
 [[patches]] 
 [patches.pattern]
 target = "functions/UI_definitions.lua"
@@ -1758,6 +1746,9 @@ local aij_val = hand['l_'..self.key] * amount
 local aij_extra_amount = (aij_val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - aij_val
 aij_extra_amount = aij_extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)
 hand['l_'..self.key] = math.floor(aij_val + aij_extra_amount)/amount
+if hand == G.GAME.hands['Straight Flush'] then
+    level_up_other_hand(nil, 'aij_Royal Flush', hand, true, math.max(hand['l_'..self.key]*amount, 0), self.key)
+end
 '''
 match_indent = true
 
