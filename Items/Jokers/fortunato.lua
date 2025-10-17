@@ -73,10 +73,6 @@ local fortunato = {
             ref_value = "x_mult",
 	        scalar_value = "xmult_mod",
             operation = '+',
-            scaling_message = {
-	            message = localize('k_upgrade_ex'),
-	            colour = G.C.FILTER
-            }
         })
       end
     end

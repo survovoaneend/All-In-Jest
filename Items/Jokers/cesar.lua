@@ -43,10 +43,6 @@ local cesar = {
                 ref_value = "money",
 	            scalar_value = "money_mod",
                 operation = '+',
-                scaling_message = {
-	                message = localize('k_upgrade_ex'),
-	                colour = G.C.FILTER
-                }
           })
         end
       end

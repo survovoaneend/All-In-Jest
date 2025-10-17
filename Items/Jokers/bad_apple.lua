@@ -57,10 +57,6 @@ local bad_apple = {
                     ref_value = "xmult",
 	                scalar_value = "xmult_mod",
                     operation = '+',
-                    scaling_message = {
-	                    message = localize('k_upgrade_ex'),
-	                    colour = G.C.FILTER
-                    }
                 })
             end
         end

@@ -41,10 +41,6 @@ local remina = {
                                 operation = function(ref_table, ref_value, initial, change)
 	                                ref_table[ref_value] = initial + (change * 2)
                                 end,
-                                scaling_message = {
-	                               message = localize('k_upgrade_ex'), 
-                                   colour = G.C.FILTER
-                                },
                             })
                         elseif G.consumeables.cards[i].config.center.config.chips then
                             SMODS.scale_card(card, {
@@ -55,10 +51,6 @@ local remina = {
                                 operation = function(ref_table, ref_value, initial, change)
 	                                ref_table[ref_value] = initial + (change * 2)
                                 end,
-                                scaling_message = {
-	                               message = localize('k_upgrade_ex'), 
-                                   colour = G.C.FILTER
-                                },
                             })
                         else
                             SMODS.scale_card(card, {
@@ -75,10 +67,6 @@ local remina = {
                                 scalar_table = G.GAME.hands[hand],
 	                            scalar_value = "l_chips",
                                 operation = '+',
-                                scaling_message = {
-	                               message = localize('k_upgrade_ex'), 
-                                   colour = G.C.FILTER
-                                },
                             })
                         end
                     end

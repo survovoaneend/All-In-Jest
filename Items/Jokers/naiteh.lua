@@ -41,10 +41,6 @@ local naiteh = {
                 ref_value = "h_size",
 	            scalar_value = "h_size_mod",
                 operation = '+',
-                scaling_message = {
-	                message = localize('k_upgrade_ex'),
-	                colour = G.C.FILTER
-                }
             })
             G.hand:change_size(card.ability.extra.h_size_mod)
         end

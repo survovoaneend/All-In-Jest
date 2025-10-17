@@ -37,10 +37,6 @@ local thomazina = {
                 ref_value = "chips",
 	            scalar_value = "chip_mod",
                 operation = '+',
-                scaling_message = {
-	                message = localize('k_upgrade_ex'),
-	                colour = G.C.FILTER
-                }
             })
           end
           return {
