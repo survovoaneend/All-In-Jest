@@ -29,44 +29,18 @@ local executioner = {
   end,
 
   calculate = function(self, card, context)
-    if context.remove_playing_cards and not context.blueprint then
+    if (context.remove_playing_cards or context.cards_destroyed) and not context.blueprint then
+      local removed_cards = context.glass_shattered or context.removed
       local face_cards = 0
-      for k, val in ipairs(context.removed) do
+      for k, val in ipairs(removed_cards) do
         if val:is_face() then face_cards = face_cards + 1 end
       end
-      if face_cards > 0 then
+      for _ = 1, face_cards do
         SMODS.scale_card(card, {
 	        ref_table = card.ability.extra,
             ref_value = "chips",
 	        scalar_value = "chip_gain",
-            operation = function(ref_table, ref_value, initial, change)
-	            ref_table[ref_value] = initial + (face_cards * change)
-            end,
-            scaling_message = {
-	           message = '+' .. (card.ability.extra.chips + face_cards * card.ability.extra.chip_gain),
-               colour = G.C.BLUE
-            }
-        })
-      end
-      return
-    end
-    if context.cards_destroyed and not context.blueprint then
-      local face_cards = 0
-      for k, val in ipairs(context.glass_shattered) do
-        if val:is_face() then face_cards = face_cards + 1 end
-      end
-      if face_cards > 0 then
-        SMODS.scale_card(card, {
-	        ref_table = card.ability.extra,
-            ref_value = "chips",
-	        scalar_value = "chip_gain",
-            operation = function(ref_table, ref_value, initial, change)
-	            ref_table[ref_value] = initial + (face_cards * change)
-            end,
-            scaling_message = {
-	           message = '+' .. (card.ability.extra.chips + card.ability.extra.chip_gain),
-               colour = G.C.BLUE
-            }
+            message_key = 'a_chips'
         })
       end
       return

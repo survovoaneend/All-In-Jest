@@ -38,30 +38,36 @@ local jeff_the_joker = {
                     G.GAME.joker_buffer = G.GAME.joker_buffer - 1
                 end
             end
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    G.GAME.joker_buffer = 0
-                    card:juice_up(0.8, 0.8)
-                    for _, v in ipairs(cards_to_destroy) do
+
+            for _, v in ipairs(cards_to_destroy) do
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        card:juice_up(0.8, 0.8)
                         v:start_dissolve(nil, true, 1.6)
+                        play_sound('slice1', 0.96+math.random()*0.08)
+                        return true
                     end
-
-                    play_sound('slice1', 0.96+math.random()*0.08)
-                    return true
-                end
-            }))
-
-            if destroyed_count > 0 then
+                }))
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
                     ref_value = "x_mult",
                     scalar_value = "x_mult_per_destroy",
-                    operation = function(ref_table, ref_value, initial, change)
-                        ref_table[ref_value] = initial + (destroyed_count * change)
-                    end,
                     message_key = 'a_xmult'
                 })
-                card:juice_up(0.6, 0.6)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                        return true
+                    end
+                }))
+            end
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.GAME.joker_buffer = 0
+                    return true
+                end
+            }))
+            if destroyed_count > 0 then
                 return nil, true
             end
         end
