@@ -18,7 +18,7 @@ local silver = {
     order = 1,
     config = { extra = { mult = 1.5, pervmult = "1.5" } },
     loc_vars = function(self, info_queue, card)
-        return {vars = {(card.edition or {}).mult or self.config.mult}}
+        return {vars = {(card.edition or {}).extra.mult or self.config.extra.mult}}
     end,
     on_apply = function(card)
         if not card.ability.jest_siliver_active then
