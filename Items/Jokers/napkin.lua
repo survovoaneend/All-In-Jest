@@ -39,7 +39,6 @@ local napkin = {
 	                ref_table = card.ability.extra,
                     ref_value = "xmult",
 	                scalar_value = "xmult_mod",
-                    operation = '+',
                 })
                 card.ability.extra.state = false
             end

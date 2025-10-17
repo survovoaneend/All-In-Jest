@@ -39,7 +39,6 @@ local whiteface_grotesque = {
 	                        ref_table = card.ability.extra,
                             ref_value = "cur_chips",
 	                        scalar_value = "chip_mod",
-                            operation = '+',
                             no_message = true,
                         })
                     end

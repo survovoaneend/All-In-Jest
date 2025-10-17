@@ -41,7 +41,6 @@ local coulrorachne = {
 	                    ref_table = card.ability.extra,
                         ref_value = "cur_mult",
 	                    scalar_value = "mult_mod",
-                        operation = '+',
                     })
                 end
             end

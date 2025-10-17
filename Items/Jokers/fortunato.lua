@@ -72,7 +72,6 @@ local fortunato = {
 	        ref_table = card.ability.extra,
             ref_value = "x_mult",
 	        scalar_value = "xmult_mod",
-            operation = '+',
         })
       end
     end

@@ -36,7 +36,6 @@ local thomazina = {
 	            ref_table = card.ability,
                 ref_value = "chips",
 	            scalar_value = "chip_mod",
-                operation = '+',
             })
           end
           return {

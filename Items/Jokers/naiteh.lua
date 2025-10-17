@@ -40,7 +40,6 @@ local naiteh = {
 	            ref_table = card.ability.extra,
                 ref_value = "h_size",
 	            scalar_value = "h_size_mod",
-                operation = '+',
             })
             G.hand:change_size(card.ability.extra.h_size_mod)
         end

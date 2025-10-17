@@ -39,7 +39,6 @@ local squeezy_pete = {
 	                  ref_table = card.ability.extra,
                       ref_value = "xmult",
 	                  scalar_value = "bonus",
-                      operation = '+',
                   })
                   return nil, true
               else

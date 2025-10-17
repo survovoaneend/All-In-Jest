@@ -29,7 +29,6 @@ local tetraphobia = {
 	          ref_table = card.ability.extra,
               ref_value = "mult",
 	          scalar_value = "mult_mod",
-              operation = '+',
               message_key = 'a_mult'
           })
           return { card = card }

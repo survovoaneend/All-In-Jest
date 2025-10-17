@@ -35,7 +35,6 @@ local columbina = {
 	            ref_table = card.ability.extra,
                 ref_value = "percent",
 	            scalar_value = "percent_mod",
-                operation = '+',
                 message_key = 'a_aij_percent_balance'
             })
         end

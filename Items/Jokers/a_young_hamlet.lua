@@ -40,7 +40,6 @@ local a_young_hamlet = {
                     ref_table = card.ability.extra,
                     ref_value = "mult",
                     scalar_value = "mult_mod",
-                    operation = '+',
                 })
             else
                 card.ability.extra.discards_remaining = card.ability.extra.discards_remaining - 1

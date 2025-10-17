@@ -58,7 +58,6 @@ local remina = {
                                 ref_value = "mult",
                                 scalar_table = G.GAME.hands[hand],
 	                            scalar_value = "l_mult",
-                                operation = '+',
                                 no_message = true,
                             })
                             SMODS.scale_card(card, {
@@ -66,7 +65,6 @@ local remina = {
                                 ref_value = "chips",
                                 scalar_table = G.GAME.hands[hand],
 	                            scalar_value = "l_chips",
-                                operation = '+',
                             })
                         end
                     end

@@ -29,7 +29,6 @@ local art_of_the_deal = {
 	        ref_table = card.ability.extra,
             ref_value = "mult",
 	        scalar_value = "mult_mod",
-            operation = '+',
         })
       end
       if to_big(G.GAME.dollars) <= to_big(0) and card.ability.extra.mult ~= 0 and not context.blueprint then

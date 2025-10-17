@@ -39,7 +39,6 @@ local lavatch = {
 	        ref_table = card.ability.extra,
             ref_value = "xmult",
 	        scalar_value = "xmult_mod",
-            operation = '+',
           })
         end
         return {

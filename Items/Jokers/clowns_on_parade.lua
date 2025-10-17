@@ -41,7 +41,6 @@ local clowns_on_parade = {
 	        ref_table = card.ability.extra,
             ref_value = "chips",
 	        scalar_value = "chip_mod",
-            operation = '+',
         })
       end
     end

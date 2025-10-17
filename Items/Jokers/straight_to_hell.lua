@@ -37,7 +37,6 @@ local straight_to_hell = {
 	                    ref_table = card.ability.extra,
                         ref_value = "xmult",
 	                    scalar_value = "xmult_mod",
-                        operation = '+',
                         message_key = 'a_xmult'
                     })
 

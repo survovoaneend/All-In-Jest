@@ -42,7 +42,6 @@ local cesar = {
 	            ref_table = card.ability.extra,
                 ref_value = "money",
 	            scalar_value = "money_mod",
-                operation = '+',
           })
         end
       end
