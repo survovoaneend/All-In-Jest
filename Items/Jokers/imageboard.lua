@@ -51,11 +51,13 @@ local imageboard = {
                 local has_been_played = nil
                 if text ~= 'Unknown' then
                     for _, scoring_card in pairs(scoring_hand) do
-                        has_been_played = has_been_played or {}
-                        local compare_id = scoring_card:get_id()
-                        has_been_played[compare_id] = has_been_played[compare_id] or 0
-                        has_been_played[compare_id] = has_been_played[compare_id] + 1
-                        mult = mult + has_been_played[compare_id]
+                        for i=1, JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand) do
+                            has_been_played = has_been_played or {}
+                            local compare_id = scoring_card:get_id()
+                            has_been_played[compare_id] = has_been_played[compare_id] or 0
+                            has_been_played[compare_id] = has_been_played[compare_id] + 1
+                            mult = mult + has_been_played[compare_id]
+                        end
                     end
                 end
                 card.joker_display_values.mult = mult
