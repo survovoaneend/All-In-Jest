@@ -2704,8 +2704,18 @@ specific_vars = _c.specific_vars or specific_vars
 # For modded jokers
 [[patches]]
 [patches.pattern]
-target = '''=[SMODS _ "src/game_object.lua"]'''
-pattern = "if target.vars.is_info_queue then target.is_info_queue = true; target.vars.is_info_queue = nil end"
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''
+local target = {
+    type = 'descriptions',
+    key = self.key,
+    set = self.set,
+    nodes = desc_nodes,
+    AUT = full_UI_table,
+    vars =
+        specific_vars or {}
+}
+'''
 position = "after"
 match_indent = true
 payload = '''
