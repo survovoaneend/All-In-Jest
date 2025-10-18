@@ -3068,16 +3068,16 @@ return {
                 name = "Planetarium", 
                 text = { 
                     {
-                        "{C:chips}Chip{} type {C:planet}planet{} cards in",
+                        "{C:chips}Chips{}-type {C:planet}Planet{} cards in",
                         "your {C:attention}consumable{} area give",
-                        "{C:chips}+#1#{} Chips for their specified",
-                        "{C:attention}poker hand" 
+                        "{C:chips}+#1#{} Chips for their",
+                        "specified {C:attention}poker hand" 
                     },
                     {
-                        "{C:mult}Mult{} type {C:planet}planet{} cards in",
+                        "{C:mult}Mult{}-type {C:planet}Planet{} cards in",
                         "your {C:attention}consumable{} area give",
-                        "{C:mult}+#2#{} Mult for their specified",
-                        "{C:attention}poker hand" 
+                        "{C:mult}+#2#{} Mult for their",
+                        "specified {C:attention}poker hand" 
                     },
                 } 
             },
@@ -3095,10 +3095,10 @@ return {
             j_aij_sky_trees = { 
                 name = "Sky Trees", 
                 text = { 
-                    "{C:attention}Blue Seals{} give both {C:mult}Mult",
-                    "and {C:chips}Chips{} type {C:planet}Planet",
-                    "cards instead of {C:attention}base",
-                    "type {C:planet}Planet{} cards" 
+                    "{C:attention}Blue Seals{} give both",
+                    "{C:mult}Mult{} and {C:chips}Chips{}-type",
+                    "{C:planet}Planet{} cards instead of",
+                    "{C:attention}base{}-type {C:planet}Planet{} cards" 
                 } 
             },
             j_aij_the_freezer = { name = "The Freezer", text = { "" } },
