@@ -31,7 +31,7 @@ local toothy_joker = {
                     }
                 end
             end
-            if context.ante_change and context.ante_change ~= 0 and G.GAME.jest_toothy_joker_tarots > 0 then
+            if context.ante_change and context.ante_change ~= 0 and context.ante_end and G.GAME.jest_toothy_joker_tarots > 0 then
                 G.GAME.jest_toothy_joker_tarots = 0
                 return {
                     message = localize('k_reset')
