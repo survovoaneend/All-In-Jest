@@ -3200,8 +3200,8 @@ return {
             j_aij_alien_joker = { 
                 name = "Alien Joker", 
                 text = { 
-                    "{C:attention}Forces 1{} card to be",
-                    "selected each hand",
+                    "{C:attention}Forces 1{} card",
+                    "to be selected",
                     "{C:attention}Force-selected{} card gives",
                     "{X:mult,C:white}X#1#{} Mult when scored" 
                 } 
