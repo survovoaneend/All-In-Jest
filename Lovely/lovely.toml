@@ -2054,17 +2054,6 @@ if next(SMODS.find_card("j_aij_electric_snow")) and not (G.GAME.current_round.ha
 end
 '''
 
-[[patches]]
-[patches.pattern]
-target = "game.lua"
-pattern = "G.CONTROLLER:snap_to({node = G.shop:get_UIE_by_ID('next_round_button')})"
-position = "before"
-match_indent = true
-payload = '''
-SMODS.calculate_context({
-    entering_shop = true,
-})
-'''
 
 [[patches]]
 [patches.pattern]

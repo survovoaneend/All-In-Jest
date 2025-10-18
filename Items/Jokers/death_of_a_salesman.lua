@@ -28,7 +28,7 @@ local death_of_a_salesman = {
     end,
   
     calculate = function(self, card, context)
-        if context.entering_shop then
+        if context.starting_shop then
             for i = 1, card.ability.extra.tags do
                 local price = math.random(3, 7)
                 local tag_chance = math.random(1,4)
