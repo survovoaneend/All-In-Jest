@@ -33,7 +33,7 @@ local cesar = {
       if context.before then
         for k, v in ipairs(context.full_hand) do
           all_cards = all_cards + 1
-          if v:get_id() == 13 and v:is_suit('Diamonds') then
+          if v:get_id() == 13 and v:is_suit('Diamonds', false, true) then
             diamond_kings = diamond_kings + 1
           end
         end
