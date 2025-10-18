@@ -24,7 +24,6 @@ local polybius = {
             local chip_total = 0
             local mult_total = 0
             if context.scoring_name and context.poker_hands then
-                sendDebugMessage(tprint(context.poker_hands), "AIJ")
                 for k, v in pairs(context.poker_hands) do
                     if G.GAME.hands[k] and next(context.poker_hands[k]) then
                         chip_total = chip_total + to_big(G.GAME.hands[k].chips)
