@@ -407,7 +407,7 @@ G.E_MANAGER:add_event(Event({
 '''
 position = "before"
 payload = '''
-SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, all_in_jest = {before_after = true}, total_chips = math.floor(hand_chips*mult)})
+SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, all_in_jest = {before_after = true}, total_chips = math.floor(SMODS.calculate_round_score())})
 if G.GAME.all_in_jest.reset_score.chips then
     SMODS.Scoring_Parameters.chips:modify(-hand_chips)
     G.GAME.all_in_jest.reset_score.chips = false
@@ -429,7 +429,7 @@ local hand_amt_thing = #G.all_in_jest.advanced_hand_usage_run + 1
 G.all_in_jest.advanced_hand_usage_run[hand_amt_thing] = {}
 G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].mult = mult
 G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].chips = hand_chips
-G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].total_chips = math.floor(hand_chips*mult)
+G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].total_chips = math.floor(SMODS.calculate_round_score())
 G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].full_hand = G.play.cards
 G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_hand = scoring_hand  
 G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_name = text 
@@ -439,7 +439,7 @@ local hand_amt_thing = #G.all_in_jest.advanced_hand_usage_ante + 1
 G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing] = {}
 G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].mult = mult
 G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].chips = hand_chips
-G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].total_chips = math.floor(hand_chips*mult)
+G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].total_chips = math.floor(SMODS.calculate_round_score())
 G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].full_hand = G.play.cards
 G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_hand = scoring_hand  
 G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_name = text
@@ -449,7 +449,7 @@ local hand_amt_thing = #G.all_in_jest.advanced_hand_usage + 1
 G.all_in_jest.advanced_hand_usage[hand_amt_thing] = {}
 G.all_in_jest.advanced_hand_usage[hand_amt_thing].mult = mult
 G.all_in_jest.advanced_hand_usage[hand_amt_thing].chips = hand_chips
-G.all_in_jest.advanced_hand_usage[hand_amt_thing].total_chips = math.floor(hand_chips*mult)
+G.all_in_jest.advanced_hand_usage[hand_amt_thing].total_chips = math.floor(SMODS.calculate_round_score())
 G.all_in_jest.advanced_hand_usage[hand_amt_thing].full_hand = G.play.cards
 G.all_in_jest.advanced_hand_usage[hand_amt_thing].scoring_hand = scoring_hand 
 G.all_in_jest.advanced_hand_usage[hand_amt_thing].scoring_name = text 
