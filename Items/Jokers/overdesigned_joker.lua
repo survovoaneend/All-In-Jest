@@ -1,4 +1,7 @@
 local function jest_overdesigned_joker_cycle(suit)
+    -- BUG: this is unsafe with language changes.
+    -- should have better style: use the actual suit internally, don't localize
+    -- except in loc_vars return
     if suit == localize('k_aij_overdesigned_heart', 'extra_joker_dictionary') then
         return {localize('k_aij_overdesigned_club', 'extra_joker_dictionary'), 14}, {localize('k_aij_overdesigned_give_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_plus_prefix', 'extra_joker_dictionary'), localize('k_aij_youve_got_mail_mult_text', 'extra_joker_dictionary').." "}, {G.C.SUITS.Clubs, G.C.MULT}
     elseif suit == localize('k_aij_overdesigned_club', 'extra_joker_dictionary') then
@@ -81,7 +84,7 @@ local overdesigned_joker = {
             card.ability.extra.colours.background = colour_info[3] or G.C.WHITE
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = card.ability.suit, colour = G.C.FILTER})
             end
-            if cardd:is_suit(orig_suit.."s") then
+            if cardd:is_suit(orig_suit) then
                 if orig_suit == "Club" then
                     return {
                         mult = orig_amount,

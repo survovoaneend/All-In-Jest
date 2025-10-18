@@ -25,7 +25,7 @@ local coulrorachne = {
             vars = {
                 card.ability.extra.mult_mod,
                 card.ability.extra.cur_mult,
-                card.ability.extra.eight_count,
+                card.ability.extra.amt_mod - card.ability.extra.eight_count,
                 card.ability.extra.amt_mod,
             }
         }

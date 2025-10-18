@@ -28,6 +28,7 @@ local opening_move = {
     end,
   
     calculate = function(self, card, context)
+        -- TODO looks like this can use debuff_hand context?
         if context.aij_before_before and G.GAME.current_round.hands_played <= 0 and not context.blueprint then
             G.GAME.blind:debuff_hand(context.full_hand, G.GAME.hands[context.scoring_name], context.scoring_name, context)
             SMODS.scale_card(card, {

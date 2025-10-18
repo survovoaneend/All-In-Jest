@@ -17,6 +17,7 @@ local majordomo = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = { key = 'rental', set = 'Other' }
         return {
             vars = {
                 card.ability.extra.more_than,
