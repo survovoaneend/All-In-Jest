@@ -2534,7 +2534,7 @@ return {
                 name = "Overdesigned Joker",
                 text = {
                     {
-                        "{V:1}#1#{} #3# {B:3,V:2}#4##2#{}#5#when scored",
+                        "Scored {V:1}#1#{} #3# {B:3,V:2}#4##2#{}#5#",
                     },
                     {
                         "Suit and effect {C:attention}rotate{}",
@@ -4749,7 +4749,7 @@ return {
             overdesigned_spade = {
                 name = "Spades",
                 text = {
-                    "Scored {C:spades}Spades{} give",
+                    "Scored {C:spades}Spades{}",
                     "give {C:chips}+100{} Chips",
                 }
             },
