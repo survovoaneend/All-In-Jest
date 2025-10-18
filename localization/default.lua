@@ -4597,8 +4597,8 @@ return {
             c_aij_sanctuary_gate = {
                 name = 'The Sanctuary Gate',
                 text = {
-                    "Enhances {C:attention}#1#{} selected",
-                    "card into a",
+                    "Enhances {C:attention}#1#{}",
+                    "selected cards to",
                     "{C:attention}#2#{}"
                 }
             },
