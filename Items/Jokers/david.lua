@@ -33,7 +33,7 @@ local david = {
       if context.before then
         for k, v in ipairs(context.full_hand) do
           all_cards = all_cards + 1
-          if v:get_id() == 13 and v:is_suit('Spades') then
+          if v:get_id() == 13 and v:is_suit('Spades', false, true) then
             spade_kings = spade_kings + 1
           end
         end
