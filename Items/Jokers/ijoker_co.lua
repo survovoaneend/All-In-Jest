@@ -28,7 +28,7 @@ local ijoker_co = {
     calculate = function(self, card, context)
         if context.starting_shop then
             for i = 1, card.ability.extra.tags do
-                local price = math.random(5, 10)
+                local price = pseudorandom('aij_ijoker_co', 5, 10)
                 local tag = get_next_tag_key()
                 All_in_Jest.add_tag_to_shop(tag, price)
             end

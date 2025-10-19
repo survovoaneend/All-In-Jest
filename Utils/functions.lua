@@ -95,9 +95,9 @@ function retrieve_joker_text(joker, descip, name)
                 local random_element = main[i].config.object.config.random_element
                 local chosen_option = nil
                 if random_element then
-                    chosen_option = options[math.random(1, #options)]
+                    chosen_option = options[pseudorandom('aij_retrieve_joker_text', 1, #options)]
                 else
-                    chosen_option = options[math.floor((G.TIMERS.REAL or math.random(1, 60)) * love.timer.getFPS( ) % #options) + 1]
+                    chosen_option = options[math.floor((G.TIMERS.REAL or pseudorandom('aij_retrieve_joker_text', 1, 60)) * love.timer.getFPS( ) % #options) + 1]
                 end
                 if type(chosen_option) == "table" then
                     text = text .. chosen_option.string or get_text(chosen_option)

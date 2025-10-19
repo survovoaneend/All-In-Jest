@@ -82,7 +82,7 @@ local youve_got_mail = {
                 "dollars",
                 "xmult",
             }
-            temp_card.ability.extra.effect = effects[math.random(1, #effects)]
+            temp_card.ability.extra.effect = effects[pseudorandom('aij_youve_got_mail', 1, #effects)]
             temp_card:add_to_deck()
             G.jokers:emplace(temp_card)
             temp_card:set_edition(edition, true)

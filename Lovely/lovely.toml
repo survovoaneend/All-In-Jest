@@ -2297,7 +2297,7 @@ end
 #match_indent = true
 #payload = '''            
 #if next(SMODS.find_card("j_aij_aluzinnu")) and pseudorandom('aluzinnu_rate') < 1 + next(SMODS.find_card("j_aij_aluzinnu")) / 4 + next(SMODS.find_card("j_aij_aluzinnu")) then
-#    local ran = math.random(1,2)
+#    local ran = pseudorandom('aij_aluzinnu',1,2)
 #    if ran == 1 then 
 #        center = "v_petroglyph"
 #    else
