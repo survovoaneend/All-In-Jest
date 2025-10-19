@@ -1290,7 +1290,6 @@ function All_in_Jest.add_tag_to_shop(key, price)
     local card = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
     G.shop_booster.T.y, G.CARD_W*0.7, G.CARD_W*0.7, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
     create_shop_card_ui(card, 'Tag', G.shop_booster)
-    local temp_config = {}
     for k, v in pairs(center.config) do
         card.config[k] = v
     end
