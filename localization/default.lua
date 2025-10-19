@@ -4425,7 +4425,7 @@ return {
                     'Fill all empty',
                     '{C:attention}Joker slots{} with',
                     'random {C:common}Common{} or',
-                    '{C:uncommon}uncommon{} jokers'
+                    '{C:uncommon}Uncommon{} Jokers'
                 }
             },
             tag_aij_ticket = {
