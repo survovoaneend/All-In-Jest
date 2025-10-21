@@ -2220,8 +2220,8 @@ return {
             j_aij_cesar = {
                 name = "Cesar",
                 text = {
-                    'Earn {C:money}$#1#{} at end of',
-                    'round. Increases by {C:money}$#2#{}',
+                    'Earn {C:money}$#1#{} each hand',
+                    'played. Increases by {C:money}$#2#{}',
                     'if {C:attention}played hand{} is only',
                     '{C:diamonds}Diamond {C:attention}Kings'
                 },
@@ -2910,9 +2910,9 @@ return {
             j_aij_colour_test = { 
                 name = "Colour Test", 
                 text = { 
-                    "If {C:attention}last hand{} of round",
-                    "has only {C:attention}1{} card, give",
-                    "it {C:attention}Polychrome{}"
+                    "Apply {C:attention}Polychrome{} to first",
+                    "scoring card on {C:attention}final",
+                    "{C:attention}hand{} of round"
                 } 
             },
             j_aij_test_card = { 
@@ -3114,8 +3114,8 @@ return {
                 name = "Lexicon", 
                 text = { 
                     "Adds {C:mult}Mult{} equal to the",
-                    "{C:attention}combined total{} of all",
-                    "numerical values of",
+                    "{C:attention}sum{} of all digits",
+                    "in the values of",
                     "owned {C:attention}Jokers" ,
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 } 

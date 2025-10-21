@@ -14,7 +14,7 @@ local calculate_lexicon_mult = function(card)
                 local new_mult = 0 -- For dynatext check
 
                 -- If you want to sum each digit instead, use following regex: "%d"
-                local number_regex = "%d*%.?%d+"
+                local number_regex = "%d"
                 for num in string.gmatch(text, number_regex) do
                     new_mult = new_mult + tonumber(num)
                 end
@@ -42,10 +42,10 @@ local lexicon = {
     order = 322,
     key = "lexicon",
     config = {},
-    rarity = 3,
+    rarity = 1,
     pos = { x = 18, y = 12},
     atlas = 'joker_atlas',
-    cost = 8,
+    cost = 5,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

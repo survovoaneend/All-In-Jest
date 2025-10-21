@@ -8,10 +8,10 @@ local square_eyes = {
         mult_per_four = 4
       }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 20, y = 1 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

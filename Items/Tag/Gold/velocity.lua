@@ -10,7 +10,7 @@ local velocity_tag = {
         },
         extra = {
             money = 100,
-            money_mod = 5
+            money_mod = 2
         }
     },
 
