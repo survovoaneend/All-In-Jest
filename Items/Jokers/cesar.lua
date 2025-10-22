@@ -48,18 +48,18 @@ local cesar = {
             colour = G.C.FILTER
           }
         })
+  
       end
     end
     if context.after and card.ability.extra.money > 0 then
-      ease_dollars(card.ability.extra.money)
-      return {
-        message = localize('$') .. card.ability.extra.money,
-        colour = G.C.MONEY,
-        card = card
-      }
-    end
-  end,
-
+          ease_dollars(card.ability.extra.money)
+          return {
+            message = localize('$') .. card.ability.extra.money,
+            colour = G.C.MONEY,
+            card = card
+          }
+        end
+  end
 
 }
 return { name = { "Jokers" }, items = { cesar } }

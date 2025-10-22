@@ -288,18 +288,6 @@ SMODS.displayed_hand = calculated_text or text; SMODS.displaying_scoring = true
 '''
 match_indent = true
 
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = '''G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)'''
-position = "before"
-match_indent = true
-payload = '''
-if hand == 'Straight Flush' then
-    level_up_other_hand(nil, 'aij_Royal Flush', hand, true, amount)
-end
-'''
-
 [[patches]] 
 [patches.pattern]
 target = "functions/UI_definitions.lua"
@@ -419,7 +407,7 @@ G.E_MANAGER:add_event(Event({
 '''
 position = "before"
 payload = '''
-SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, all_in_jest = {before_after = true}, total_chips = math.floor(hand_chips*mult)})
+SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, all_in_jest = {before_after = true}, total_chips = math.floor(SMODS.calculate_round_score())})
 if G.GAME.all_in_jest.reset_score.chips then
     SMODS.Scoring_Parameters.chips:modify(-hand_chips)
     G.GAME.all_in_jest.reset_score.chips = false
@@ -441,7 +429,7 @@ local hand_amt_thing = #G.all_in_jest.advanced_hand_usage_run + 1
 G.all_in_jest.advanced_hand_usage_run[hand_amt_thing] = {}
 G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].mult = mult
 G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].chips = hand_chips
-G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].total_chips = math.floor(hand_chips*mult)
+G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].total_chips = math.floor(SMODS.calculate_round_score())
 G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].full_hand = G.play.cards
 G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_hand = scoring_hand  
 G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_name = text 
@@ -451,7 +439,7 @@ local hand_amt_thing = #G.all_in_jest.advanced_hand_usage_ante + 1
 G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing] = {}
 G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].mult = mult
 G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].chips = hand_chips
-G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].total_chips = math.floor(hand_chips*mult)
+G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].total_chips = math.floor(SMODS.calculate_round_score())
 G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].full_hand = G.play.cards
 G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_hand = scoring_hand  
 G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_name = text
@@ -461,7 +449,7 @@ local hand_amt_thing = #G.all_in_jest.advanced_hand_usage + 1
 G.all_in_jest.advanced_hand_usage[hand_amt_thing] = {}
 G.all_in_jest.advanced_hand_usage[hand_amt_thing].mult = mult
 G.all_in_jest.advanced_hand_usage[hand_amt_thing].chips = hand_chips
-G.all_in_jest.advanced_hand_usage[hand_amt_thing].total_chips = math.floor(hand_chips*mult)
+G.all_in_jest.advanced_hand_usage[hand_amt_thing].total_chips = math.floor(SMODS.calculate_round_score())
 G.all_in_jest.advanced_hand_usage[hand_amt_thing].full_hand = G.play.cards
 G.all_in_jest.advanced_hand_usage[hand_amt_thing].scoring_hand = scoring_hand 
 G.all_in_jest.advanced_hand_usage[hand_amt_thing].scoring_name = text 
@@ -1144,7 +1132,11 @@ if (G.GAME.selected_back and G.GAME.selected_back.name == 'b_aij_patchwork') or 
                     if cur_card.ability and not cur_card.ability.patches and cur_card.ability.set and (cur_card.ability.set == 'Default' or cur_card.ability.set == 'Enhanced') then
                         local keys = {}
 		                for key, val in pairs(SMODS.Suits) do
-			                keys[#keys+1] = key
+                            if val.in_pool and val.in_pool(val, nil) then
+                                keys[#keys+1] = key
+                            elseif not val.in_pool then
+			                    keys[#keys+1] = key
+                            end
 		                end
 		                local cur_suit = pseudorandom_element(keys, pseudoseed('patchwork'))
                         local temp_index = 0
@@ -1156,7 +1148,11 @@ if (G.GAME.selected_back and G.GAME.selected_back.name == 'b_aij_patchwork') or 
                         if (G.GAME.selected_back and G.GAME.selected_back.name == 'b_aij_patchwork') and (G.GAME.selected_sleeve and G.GAME.selected_sleeve == 'sleeve_aij_patchwork') then
                             local keys = {}
 		                    for key, val in pairs(SMODS.Suits) do
-			                    keys[#keys+1] = key
+                                if val.in_pool and val.in_pool(val, nil) then
+                                    keys[#keys+1] = key
+                                elseif not val.in_pool then
+			                        keys[#keys+1] = key
+                                end
 		                    end
 		                    local cur_suit = pseudorandom_element(keys, pseudoseed('patchwork'))
                             local temp_index = 0
@@ -1750,6 +1746,9 @@ local aij_val = hand['l_'..self.key] * amount
 local aij_extra_amount = (aij_val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - aij_val
 aij_extra_amount = aij_extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)
 hand['l_'..self.key] = math.floor(aij_val + aij_extra_amount)/amount
+if hand == G.GAME.hands['Straight Flush'] then
+    level_up_other_hand(nil, 'aij_Royal Flush', hand, true, math.max(hand['l_'..self.key]*amount, 0), self.key)
+end
 '''
 match_indent = true
 
@@ -2055,17 +2054,6 @@ if next(SMODS.find_card("j_aij_electric_snow")) and not (G.GAME.current_round.ha
 end
 '''
 
-[[patches]]
-[patches.pattern]
-target = "game.lua"
-pattern = "G.CONTROLLER:snap_to({node = G.shop:get_UIE_by_ID('next_round_button')})"
-position = "before"
-match_indent = true
-payload = '''
-SMODS.calculate_context({
-    entering_shop = true,
-})
-'''
 
 [[patches]]
 [patches.pattern]
@@ -2224,11 +2212,9 @@ end
 position = "before"
 payload = '''
 if has_blind_drawn then
-    for k, v in ipairs(text_table) do
-        blind_desc_nodes[#blind_desc_nodes+1] = {n=G.UIT.R, config={align = "cm", maxw = 2.8}, nodes={
-            {n=G.UIT.T, config={text = "???", scale = 0.32, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE, shadow = not disabled}}
-        }}
-    end
+    blind_desc_nodes[#blind_desc_nodes+1] = {n=G.UIT.R, config={align = "cm", maxw = 2.8}, nodes={
+        {n=G.UIT.T, config={text = "???", scale = 0.32, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE, shadow = not disabled}}
+    }}
     blind_col = G.C.UI.TEXT_INACTIVE
 else
 '''
@@ -2311,7 +2297,7 @@ end
 #match_indent = true
 #payload = '''            
 #if next(SMODS.find_card("j_aij_aluzinnu")) and pseudorandom('aluzinnu_rate') < 1 + next(SMODS.find_card("j_aij_aluzinnu")) / 4 + next(SMODS.find_card("j_aij_aluzinnu")) then
-#    local ran = math.random(1,2)
+#    local ran = pseudorandom('aij_aluzinnu',1,2)
 #    if ran == 1 then 
 #        center = "v_petroglyph"
 #    else
@@ -2657,11 +2643,17 @@ self.all_in_jest.advanced_hand_usage = {}
 G.all_in_jest.extra_card_sprites['Mark_of_the_Spear'] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=9,y=2})
 G.all_in_jest.patches_sprites["Other"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=0,y=2})
 G.all_in_jest.patches_sprites["Hearts"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=2,y=2})
+G.all_in_jest.patches_sprites["hc_Hearts"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=1,y=3})
 G.all_in_jest.patches_sprites["Clubs"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=1,y=2})
+G.all_in_jest.patches_sprites["hc_Clubs"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=0,y=3})
 G.all_in_jest.patches_sprites["Diamonds"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=3,y=2})
+G.all_in_jest.patches_sprites["hc_Diamonds"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=2,y=3})
 G.all_in_jest.patches_sprites["Spades"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=4,y=2})
+G.all_in_jest.patches_sprites["Spades"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=3,y=3})
 G.all_in_jest.patches_sprites["paperback_Stars"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=5,y=2})
+G.all_in_jest.patches_sprites["hc_paperback_Stars"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=4,y=3})
 G.all_in_jest.patches_sprites["paperback_Crowns"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=6,y=2})
+G.all_in_jest.patches_sprites["hc_paperback_Crowns"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=5,y=3})
 self.all_in_jest_czar = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
@@ -2701,8 +2693,18 @@ specific_vars = _c.specific_vars or specific_vars
 # For modded jokers
 [[patches]]
 [patches.pattern]
-target = '''=[SMODS _ "src/game_object.lua"]'''
-pattern = "if target.vars.is_info_queue then target.is_info_queue = true; target.vars.is_info_queue = nil end"
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''
+local target = {
+    type = 'descriptions',
+    key = self.key,
+    set = self.set,
+    nodes = desc_nodes,
+    AUT = full_UI_table,
+    vars =
+        specific_vars or {}
+}
+'''
 position = "after"
 match_indent = true
 payload = '''

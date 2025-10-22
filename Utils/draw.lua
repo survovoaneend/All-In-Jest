@@ -21,7 +21,10 @@ SMODS.DrawStep {
 		--Patches
         if self.ability.patches then
             for k, v in pairs(self.ability.patches) do
-                if G.all_in_jest.patches_sprites[k] then
+                if G.all_in_jest.patches_sprites['hc_'..k] and G.SETTINGS.colour_palettes[k] == 'hc' then
+                    G.all_in_jest.patches_sprites['hc_'..k].role.draw_major = self
+                    G.all_in_jest.patches_sprites['hc_'..k]:draw_shader('dissolve', nil, nil, nil, self.children.center)
+				elseif G.all_in_jest.patches_sprites[k] then
                     G.all_in_jest.patches_sprites[k].role.draw_major = self
                     G.all_in_jest.patches_sprites[k]:draw_shader('dissolve', nil, nil, nil, self.children.center)
                 else

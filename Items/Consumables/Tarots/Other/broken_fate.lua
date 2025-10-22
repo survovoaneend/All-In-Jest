@@ -21,7 +21,7 @@ local broken_fate = {
         end
     end,
     use = function(self, card)
-		local ran_amount = 0.75 + (math.random(0, math.floor(((2.5 - 0.75) / 0.05) + 0.5)) * 0.05)
+		local ran_amount = 0.75 + (pseudorandom('aij_broken_fate', 0, math.floor(((2.5 - 0.75) / 0.05) + 0.5)) * 0.05)
         local string = "X"..tostring(ran_amount)
 		G.consumeables.cards[1].ability.consumeable = copy_table(G.consumeables.cards[1].ability.consumeable)
         jest_ability_calculate(G.consumeables.cards[1],"*", ran_amount, nil, nil, true, false, "ability")

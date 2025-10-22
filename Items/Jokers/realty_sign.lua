@@ -26,7 +26,6 @@ local realty_sign = {
                 ref_value = "extra_value",
                 scalar_table = card.ability.extra,
 	            scalar_value = "sell_increase",
-                operation = '+',
                 scaling_message = {
 	                message = localize('k_val_up'),
                     colour = G.C.MONEY

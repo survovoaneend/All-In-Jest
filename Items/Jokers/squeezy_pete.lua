@@ -39,11 +39,6 @@ local squeezy_pete = {
 	                  ref_table = card.ability.extra,
                       ref_value = "xmult",
 	                  scalar_value = "bonus",
-                      operation = '+',
-                      scaling_message = {
-	                      message = localize('k_upgrade_ex'),
-	                      colour = G.C.FILTER
-                      }
                   })
                   return nil, true
               else

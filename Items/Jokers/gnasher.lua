@@ -62,7 +62,7 @@ local gnasher = {
   end,
 
   calculate = function(self, card, context)
-    if context.ante_change and context.ante_change ~= 0 then
+    if context.ante_change and context.ante_change ~= 0 and context.ante_end then
         card.ability.extra.trigger = true
     end
   end

@@ -29,11 +29,7 @@ local tetraphobia = {
 	          ref_table = card.ability.extra,
               ref_value = "mult",
 	          scalar_value = "mult_mod",
-              operation = '+',
-              scaling_message = {
-	              message = '+'..(card.ability.extra.mult or 0)..' Mult',
-                  colour = G.C.MULT
-              }
+              message_key = 'a_mult'
           })
           return { card = card }
       end

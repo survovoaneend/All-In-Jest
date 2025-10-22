@@ -38,10 +38,6 @@ local paper_bag = {
                 operation = function(ref_table, ref_value, initial, change)
 	                ref_table[ref_value] = initial + (G.GAME.hands[text].level * change)
                 end,
-                scaling_message = {
-	                message = localize('k_upgrade_ex'), 
-                    colour = G.C.FILTER
-                }
             })
         end
         if context.joker_main then

@@ -14,7 +14,7 @@ local blood_artist = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
@@ -36,6 +36,9 @@ local blood_artist = {
                         return true
                     end
                 }))
+                return {
+                    message = localize("k_aij_blood_spilt_ex"),
+                }
             end
 
             -- Removing playing cards
@@ -48,6 +51,9 @@ local blood_artist = {
                         return true
                     end
                 }))
+                return {
+                    message = localize("k_aij_blood_spilt_ex"),
+                }
             end
 
             -- return nil, true

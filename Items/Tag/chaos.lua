@@ -51,7 +51,7 @@ local chaos = {
         if context.type == 'new_blind_choice' then
             tag:jest_apply("+", G.C.ATTENTION, function()
                 if effect == "money" then
-                    local money = math.random(1,50)
+                    local money = pseudorandom('jest_chaos_tag',1,50)
                     ease_dollars(money)
                 elseif effect == "boss_reroll" then
                     local bosses = {}
@@ -105,24 +105,24 @@ local chaos = {
                             table.insert(boosters, k)
                         end
                     end
-                    local key = boosters[math.random(1, #boosters)]
+                    local key = boosters[pseudorandom('jest_chaos_tag', 1, #boosters)]
                     local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
                     G.play.T.y + G.play.T.h/2-G.CARD_H*1.27/2, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS[key], {bypass_discovery_center = true, bypass_discovery_ui = true})
-                    card.ability.choose = math.random(1, 2)
-                    card.ability.extra = math.random(3, 5)
+                    card.ability.choose = pseudorandom('jest_chaos_tag', 1, 2)
+                    card.ability.extra = pseudorandom('jest_chaos_tag', 3, 5)
                     card.cost = 0
                     card.from_tag = true
                     G.FUNCS.use_card({config = {ref_table = card}})
                     card:start_materialize()
                 elseif effect == "level_hands" then
-                    local times = math.random(1, 2)
+                    local times = pseudorandom('jest_chaos_tag', 1, 2)
                     for i = 1, times do
                         local _poker_hands = {}
                         for k, v in pairs(G.GAME.hands) do
                             if v.visible then _poker_hands[#_poker_hands+1] = k end
                         end
                         local poker_hand = pseudorandom_element(_poker_hands, pseudoseed('jest_chaos_tag'))
-                        local levels = math.random(1,3)
+                        local levels = pseudorandom('jest_chaos_tag',1,3)
                         for j = 1, levels do 
                             update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(poker_hand, 'poker_hands'),chips = G.GAME.hands[poker_hand].chips, mult = G.GAME.hands[poker_hand].mult, level=G.GAME.hands[poker_hand].level})
                             level_up_hand(nil, poker_hand)
@@ -130,7 +130,7 @@ local chaos = {
                         end
                     end
                 elseif effect == "create_jokers" then
-                    local jokers_to_create = math.min(math.random(1, 4), G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
+                    local jokers_to_create = math.min(pseudorandom('jest_chaos_tag', 1, 4), G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
                     G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
                     G.E_MANAGER:add_event(Event({
                         func = function() 
@@ -152,7 +152,7 @@ local chaos = {
                         G.jokers:emplace(card)
                         return true end }))
                 elseif effect == "create_consumables" then
-                    local consumeables_to_create = math.min(math.random(2, 3), G.consumeables.config.card_limit - (#G.consumeables.cards + G.GAME.consumeable_buffer))
+                    local consumeables_to_create = math.min(pseudorandom('jest_chaos_tag', 2, 3), G.consumeables.config.card_limit - (#G.consumeables.cards + G.GAME.consumeable_buffer))
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + consumeables_to_create
                     for i = 1, consumeables_to_create do
                         create_consumable("Consumeables", nil, nil, nil)

@@ -233,6 +233,7 @@ end
 
 local has_no_suit_ref = SMODS.has_no_suit
 function SMODS.has_no_suit(card)
+    if card.base.suit == nil then return true end
     if SMODS.has_enhancement(card, 'm_aij_canvas') then
         if (card.area == G.hand or card.area == G.play) and not card.debuff then
             for k, v in pairs(G.play.cards) do
@@ -279,6 +280,7 @@ end
 
 local has_no_rank_ref = SMODS.has_no_rank
 function SMODS.has_no_rank(card)
+    if card.base.id == nil then return true end
     if SMODS.has_enhancement(card, 'm_aij_canvas') then
         if (card.area == G.hand or card.area == G.play) and not card.debuff then
             for k, v in pairs(G.play.cards) do

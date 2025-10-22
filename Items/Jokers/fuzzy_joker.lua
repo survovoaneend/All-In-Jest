@@ -20,13 +20,12 @@ local fuzzy_joker = {
   
     calculate = function(self, card, context)
         if context.joker_main then
-            if to_number(mult) <= 0 then return 1 end
-            local power = math.ceil(math.log(to_number(mult), 2))
-            hand_chips = to_number(hand_chips)
-            Mult = 2 ^ power
-            if Mult - to_number(mult) > 0 then
+            if to_big(mult) <= to_big(0) then return 1 end
+            local power = math.ceil(math.log(mult, 2))
+            local Mult = 2 ^ power
+            if Mult - mult > to_big(0) then
             return {
-                mult = Mult - to_number(mult),
+                mult = Mult - mult,
                 remove_default_message = true,
                 message = '=' .. Mult .. ' Mult',
                 colour = G.C.RED,

@@ -20,7 +20,7 @@ local magick_joker = {
       vars = {
         localize(
         G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit or "Spades",
-          "suits_singular"),
+          "suits_plural"),
         colours = { G.C.SUITS[G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit or "Spades"] },
       }
     }
@@ -79,9 +79,6 @@ local magick_joker = {
           end
         end
       end
-    end
-    if context.end_of_round then
-      reset_jest_magick_joker_card()
     end
   end
 

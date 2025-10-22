@@ -38,10 +38,6 @@ local truhan = {
                 operation = function(ref_table, ref_value, initial, change)
 	                ref_table[ref_value] = initial + (change * (context.jest_destroyed_joker.ability.jest_held_for or 0))
                 end,
-                scaling_message = {
-	                message = localize('k_upgrade_ex'),
-	                colour = G.C.FILTER
-                }
             })
         end
       end

@@ -32,6 +32,7 @@ local sleepy_joker = {
                 local all_dark_suits = true
                 for _, played_card in ipairs(context.full_hand) do
                     if not (played_card:is_suit('Spades', true) or played_card:is_suit('Clubs', true)) then
+                        -- BUG: debuffed cards/wilds not handled correctly
                         all_dark_suits = false
                         break
                     end

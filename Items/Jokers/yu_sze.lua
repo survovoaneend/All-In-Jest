@@ -22,12 +22,16 @@ local yu_sze = {
     end,
   
     calculate = function(self, card, context)
-        if context.joker_main then
-            for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i].edition == nil then
-                    SMODS.calculate_effect({xmult = card.ability.xmult}, G.jokers.cards[i])
+        if context.other_joker and context.other_joker.edition == nil then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    context.other_joker:juice_up(0.5, 0.5)
+                    return true
                 end
-            end
+            }))
+            return {
+                xmult = card.ability.xmult
+            }
         end
     end
   

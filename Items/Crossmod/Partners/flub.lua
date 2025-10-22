@@ -34,7 +34,7 @@ local flub = {
   end,
 
   calculate = function(self, card, context)
-    if context.reroll_shop or context.entering_shop then
+    if context.reroll_shop or context.starting_shop then
         for k, v in pairs(G.shop_jokers.cards) do
             if SMODS.is_eternal(v) then
                 local link_level = self:get_link_level()

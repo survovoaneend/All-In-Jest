@@ -22,7 +22,7 @@ local lost_carcosa = {
     calculate = function(self, card, context)
         if context.all_in_jest and context.all_in_jest.before_using_consumeable then
             if context.all_in_jest.consumeable.ability.set == 'Planet' then
-                G.GAME.all_in_jest.apply.lost_carcosa_mult = math.random(5,20) * 0.1
+                G.GAME.all_in_jest.apply.lost_carcosa_mult = pseudorandom('aij_lost_carcosa',5,20) * 0.1
                 local ran_amount = G.GAME.all_in_jest.apply.lost_carcosa_mult * 100
 		        local string = tostring(ran_amount).."%"
 		        card_eval_status_text(card, 'extra', nil, nil, nil, {message = string, colour = G.C.SECONDARY_SET.Planet})

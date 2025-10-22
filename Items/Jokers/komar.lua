@@ -32,8 +32,8 @@ local komar = {
             context.other_card.ability.perma_bonus = context.other_card.ability.perma_bonus + added_chips
             if added_chips > 0 then
                 return {
-                    extra = { message = localize('k_upgrade_ex'), colour = G.C.CHIPS },
-                    card = context.other_card
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.CHIPS
                 }
             end
         end

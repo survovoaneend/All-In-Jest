@@ -25,7 +25,7 @@ local coulrorachne = {
             vars = {
                 card.ability.extra.mult_mod,
                 card.ability.extra.cur_mult,
-                card.ability.extra.eight_count,
+                card.ability.extra.amt_mod - card.ability.extra.eight_count,
                 card.ability.extra.amt_mod,
             }
         }
@@ -41,11 +41,6 @@ local coulrorachne = {
 	                    ref_table = card.ability.extra,
                         ref_value = "cur_mult",
 	                    scalar_value = "mult_mod",
-                        operation = '+',
-                        scaling_message = {
-	                        message = localize('k_upgrade_ex'),
-	                        colour = G.C.FILTER
-                        }
                     })
                 end
             end
