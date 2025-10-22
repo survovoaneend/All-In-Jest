@@ -4324,7 +4324,7 @@ return {
                 text = {
                     "Next {C:attention}Booster Pack{} opened",
                     "contains twice the number of",
-                    "options and avaliable picks"
+                    "options and available picks"
                 }
             },
             tag_aij_chaos = {
