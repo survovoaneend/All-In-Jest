@@ -5,7 +5,7 @@ local candy_floss = {
     key = "candy_floss",
     config = {
       extra = {
-        percent = 30,
+        percent = 40,
         percent_mod = 5
       }
     },

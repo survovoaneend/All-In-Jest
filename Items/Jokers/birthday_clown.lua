@@ -5,7 +5,7 @@ local birthday_clown = {
     key = "birthday_clown",
     config = {
       extra = {
-        xmult = 2,
+        xmult = 3,
         active = true
       }
     },
