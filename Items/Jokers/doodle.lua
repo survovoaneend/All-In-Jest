@@ -99,19 +99,10 @@ local doodle = {
         effect2_def = SMODS.blueprint_effect(card, target_joker2, context)
       end
 
-      if effect1_def then
-        if effect2_def then
-          if effect1_def.extra and type(effect1_def.extra) == "table" then
-            effect1_def.extra.extra = effect2_def
-          else
-            effect1_def.extra = effect2_def
-          end
-        end
-        effect_to_return = effect1_def
-      elseif effect2_def then
-        effect_to_return = effect2_def
+      if effect1_def and effect2_def then
+        effect_to_return = SMODS.merge_effects(effect1_def, effect2_def)
       else
-        effect_to_return = nil
+        effect_to_return = effect1_def or effect2_def
       end
     end
 
