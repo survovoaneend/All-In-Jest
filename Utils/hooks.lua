@@ -841,3 +841,12 @@ function Card:set_sprites(_center, _front)
     end
     return ref
 end
+
+local generate_UAT_ref = Card.generate_UIBox_ability_table
+function Card:generate_UIBox_ability_table(...)
+    -- For tags in shop
+    if self.tag_as_card_aij then
+        return self.tag_as_card_aij:get_uibox_table({}).ability_UIBox_table
+    end
+    return generate_UAT_ref(self, ...)
+end

@@ -474,26 +474,29 @@ end
 '''
 match_indent = true
 
+# Make buying tags from shop work
+## G.FUNCS.check_for_buy_space()
 [[patches]] 
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "if card.ability.set ~= 'Voucher' and"
 position = "before"
 payload = '''
-if card.ability.set == 'Tag' then
+if card.tag_as_card_aij then
     return true
 end
 '''
 match_indent = true
 
+## G.FUNCS.buy_from_shop()
 [[patches]] 
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "elseif e.config.id ~= 'buy_and_use' then"
 position = "before"
 payload = '''
-elseif c1.ability.set == 'Tag' then
-    local temptag = c1.config.tag
+elseif c1.tag_as_card_aij then
+    local temptag = c1.tag_as_card_aij
     add_tag(temptag)
     c1:remove()
 '''
