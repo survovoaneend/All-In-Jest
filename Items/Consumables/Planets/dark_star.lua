@@ -31,10 +31,14 @@ local dark_star = {
 	use = function(self, card, area, copier)
 		for _, k in ipairs(G.handlist) do
 		    local hand = G.GAME.hands[k]
-		    if SMODS.is_poker_hand_visible(k) and hand.played == 0 then
-				update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(k, 'poker_hands'),chips = hand.chips, mult = hand.mult, level=hand.level})
-				level_up_hand(card, k)
-				update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
+		    if hand.played == 0 then
+				if SMODS.is_poker_hand_visible(k) then
+					update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(k, 'poker_hands'),chips = hand.chips, mult = hand.mult, level=hand.level})
+					level_up_hand(card, k)
+					update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
+				else
+					level_up_hand(card, k, true)
+				end
 		    end
 		end
 	end,
