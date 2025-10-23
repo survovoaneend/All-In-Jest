@@ -1176,10 +1176,11 @@ return {
             j_aij_doodle = {
                 name = "Doodle",
                 text = {
-                    "{C:attention}Copies{} the {C:attention}abilities{} of",
-                    "both adjacent {C:attention}Jokers{}",
-                    "on {C:red}even{} rounds",
-                    "{C:inactive}#1#"
+                    "At start of each {C:attention}round{}, {C:green}#1# in #2#{}",
+                    "chance to copy {C:attention}both adjacent{}",
+                    "Jokers for the rest of",
+                    "the {C:attention}round",
+                    "{C:inactive}#3#"
                 },
             },
             j_aij_joqr = { name = "Joqr", text = { "" } },
