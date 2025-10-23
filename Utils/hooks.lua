@@ -841,3 +841,15 @@ function Card:set_sprites(_center, _front)
     end
     return ref
 end
+
+-- Save/Load for tags in shop as cards
+-- A lovely patch for Card:load() is also needed
+local card_save_ref = Card.save
+function Card:save()
+    local saveTable = card_save_ref(self)
+    saveTable.aij = saveTable.aij or {}
+    if self.config.tag and self.config.tag.is and self.config.tag:is(Tag) then
+        saveTable.aij.tag = self.config.tag:save()
+    end
+    return saveTable
+end

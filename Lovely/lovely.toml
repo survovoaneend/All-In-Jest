@@ -2713,3 +2713,36 @@ if target.vars.aij_clay then card = G.all_in_jest_clay_last_destroyed.cards[1]; 
 if target.vars.aij_joker_png then card = target.vars.aij_joker_png; target.vars.aij_joker_png = nil end -- All in Jest
 if target.vars.aij_czar then card = target.vars.aij_czar; target.vars.aij_czar = nil end -- All in Jest
 '''
+
+## Correctly load tags in shop as cards
+# Card:load()
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'self.config.center = G.P_CENTERS[self.config.center_key]'
+position = "after"
+match_indent = true
+payload = '''
+if cardTable.aij and cardTable.aij.tag then
+    self.config.tag = Tag('tag_uncommon')
+    self.config.tag:load(cardTable.aij.tag)
+    self.config.tag.from_load = nil
+    self.config.center_key = self.config.tag.key
+    self.config.center = G.P_TAGS[self.config.tag.key]
+
+    self.config.center.set_card_type_badge = function(self, card, badges)
+        badges[#badges+1] = create_badge(localize('k_tag'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2 )
+    end
+end
+'''
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'if self.config.center.display_size and self.config.center.display_size.h then'
+position = "before"
+match_indent = true
+payload = '''
+if cardTable.aij and cardTable.aij.tag then
+    self.T.w, self.T.h = G.CARD_W*0.7, G.CARD_W*0.7
+end
+'''
