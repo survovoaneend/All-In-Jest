@@ -33,7 +33,6 @@ local napkin = {
     calculate = function(self, card, context)
         
         if context.skip_blind then
-            print('skipping')
             if card.ability.extra.state then
                 SMODS.scale_card(card, {
 	                ref_table = card.ability.extra,
