@@ -1629,6 +1629,23 @@ payload = '''
 if self.ability.jest_chaotic_card then badges[#badges + 1] = 'k_aij_jest_chaotic_card' end
 '''
 
+# Proper Shop Tag Text Generation
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "return generate_card_ui(self.config.center, nil, loc_vars, card_type, badges, hide_desc, main_start, main_end, self)"
+position = "before"
+match_indent = true
+payload = '''
+if self.ability.is_aij_shop_tag then 
+    local name_to_check, alt_loc_vars = self.name, nil
+    if name_to_check == 'Orbital Tag' then alt_loc_vars = {
+        (self.ability.orbital_hand == '['..localize('k_poker_hand')..']') and self.ability.orbital_hand or localize(self.ability.orbital_hand, 'poker_hands'), self.ability.levels}
+    end
+    return generate_card_ui(G.P_TAGS[self.config.center.key], nil, alt_loc_vars or loc_vars, (self.hide_ability) and 'Undiscovered' or 'Tag', badges, (self.hide_ability), nil, nil, self) 
+end
+'''
+
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
