@@ -828,9 +828,10 @@ return {
             m_aij_wood = {
                 name = "Wood Card",
                 text = {
-                    '{C:chips}+#1#{} chips when held in hand',
-                    'Increases by {C:chips}+#2#{} for every',
-                    'other {C:attention}Wood{} card held in hand'
+                    'When held in hand, {C:chips}+#3#{} chips,',
+                    '{C:chips}+#2#{} more for each other',
+                    '{C:attention}Wood{} card held in hand',
+                    '{C:inactive}(Currently {C:chips}+#1#{C:inactive} chips)'
                 }
             },
             m_aij_simulated = {
@@ -1547,8 +1548,8 @@ return {
             j_aij_dim_bulb = {
                 name = "Dim Bulb",
                 text = {
-                    "{X:mult,C:white}X#1#{} Mult if you have",
-                    "no {C:uncommon}Uncommon{} or {C:red}Rare{} {C:attention}Jokers{}",
+                    "{X:mult,C:white}X#1#{} Mult if you have no",
+                    "{C:uncommon}Uncommon{} or {C:red}Rare{} {C:attention}Jokers{}",
                 },
             },
             j_aij_blood_artist = { 
