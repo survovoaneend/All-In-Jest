@@ -33,7 +33,7 @@ local devil_deal = {
         local removed_cards = context.glass_shattered or context.removed
         local hearts = 0
         for k, val in ipairs(removed_cards) do
-            if val:is_suit("Hearts") then hearts = hearts + 1 end
+            if val:is_suit("Hearts", false, true) then hearts = hearts + 1 end
         end
         for _ = 1, hearts do
             SMODS.scale_card(card, {

@@ -38,6 +38,7 @@ local carousel = {
             delay(0.2)
 
             for _, card in ipairs(context.scoring_hand) do
+                -- unnecessary delay, scales wrongly with the number of scoring cards?
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     delay = 0.1,

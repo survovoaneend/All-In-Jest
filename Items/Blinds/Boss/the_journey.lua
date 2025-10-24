@@ -38,6 +38,7 @@ local the_journey = {
         if temp then
             return
         end
+        -- BUG, this isn't saved
         local ability = G.GAME.blind.ability
         if ability and context.individual and context.cardarea == G.play and not temp then
             if context.other_card:is_suit(self.boss.selected_suit) and not ability.trigger then

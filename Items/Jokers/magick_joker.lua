@@ -32,7 +32,7 @@ local magick_joker = {
       for _, card in ipairs(G.play.cards) do
         if context.before then
           local saved = card.ability._saved_chip_values
-          if saved == nil and not card.debuff and card:is_suit(G.GAME.current_round.jest_magick_joker_card.suit) then
+          if saved == nil and card:is_suit(G.GAME.current_round.jest_magick_joker_card.suit) then
             local _, cval                   = jest_ability_get_items(card, "nil", 2, { extra_value = true }, { "nominal" },
               false, true, "base")
             local _, hval                   = jest_ability_get_items(card, "nil", 2, { extra_value = true }, { "h_chips" },

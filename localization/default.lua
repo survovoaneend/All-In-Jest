@@ -3224,11 +3224,11 @@ return {
                     "{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#)"
                 } 
             },
-            j_aij_fall_of_count_chaligny = { 
-                name = "Fall of Count Chaligny", 
+            j_aij_fall_of_count_chaligny = {
+                name = "Fall of Count Chaligny",
                 text = { 
-                    "Set the {C:attention}required{} score of all",
-                    "{C:attention}Blinds{} to {C:attention}1X{} Base"
+                    "Set the {C:attention}required{} score",
+                    "of all {C:attention}Blinds{} to {C:attention}1X{} Base"
                 } 
             },
             j_aij_coulrorachne = { 

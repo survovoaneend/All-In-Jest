@@ -28,7 +28,7 @@ local bad_sun = {
         if context.after and context.full_hand then
             local heart_count = 0
             for i = 1, #context.full_hand do
-                if context.full_hand[i]:is_suit('Hearts') then
+                if context.full_hand[i]:is_suit('Hearts', false, true) then
                     heart_count = heart_count + 1
                 end
             end

@@ -7,6 +7,7 @@ local bad_apple = {
         extra = {
         xmult = 1,
         xmult_mod = 0.2,
+        -- BUG: not initially randomized
         light_suits = 3,
         dark_suits = 2
         }
@@ -45,9 +46,9 @@ local bad_apple = {
         if context.before and not context.blueprint then
             local dark_count, light_count = 0, 0
             for _, card in ipairs(context.scoring_hand) do
-                if card:is_suit('Spades') or card:is_suit('Clubs') or (PB_UTIL and PB_UTIL.is_suit(card, 'dark')) then
+                if card:is_suit('Spades', false, true) or card:is_suit('Clubs', false, true) or (PB_UTIL and PB_UTIL.is_suit(card, 'dark', false, true)) then
                     dark_count = dark_count + 1
-                elseif card:is_suit('Hearts') or card:is_suit('Diamonds') or (PB_UTIL and PB_UTIL.is_suit(card, 'light')) then
+                elseif card:is_suit('Hearts', false, true) or card:is_suit('Diamonds', false, true) or (PB_UTIL and PB_UTIL.is_suit(card, 'light', false, true)) then
                     light_count = light_count + 1
                 end
             end
