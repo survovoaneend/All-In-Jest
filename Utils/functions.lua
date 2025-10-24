@@ -1294,8 +1294,11 @@ function All_in_Jest.add_tag_to_shop(key, price)
         card.config[k] = v
     end
     card.ability.booster_pos = #G.shop_booster.cards + 1
-    card.config.tag = Tag(card.config.center.key)
-    if card.config.center.key == "tag_orbital" then
+    card.ability.is_aij_shop_tag = true
+    local pool = options or get_current_pool('Tag')
+    local tag_key = key
+    local tag = Tag(tag_key)
+    if tag_key == "tag_orbital" then
         local available_hands = {}
 
         for _, k in ipairs(G.handlist) do
@@ -1305,8 +1308,11 @@ function All_in_Jest.add_tag_to_shop(key, price)
           end
         end
 
-        card.config.tag.ability.orbital_hand = pseudorandom_element(available_hands, pseudoseed(card.ability.booster_pos .. '_orbital'))
+        tag.ability.orbital_hand = pseudorandom_element(available_hands, pseudoseed(card.ability.booster_pos .. '_orbital'))
+        card.ability.orbital_hand = tag.ability.orbital_hand
     end
+    card.config.tag = tag
+    card.name = card.config.tag.name
     card:start_materialize()
     card.edition = nil
     card.base_cost = price or 1
