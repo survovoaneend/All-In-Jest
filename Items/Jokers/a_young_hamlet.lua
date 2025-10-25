@@ -43,8 +43,8 @@ local a_young_hamlet = {
                 })
             else
                 card.ability.extra.discards_remaining = card.ability.extra.discards_remaining - 1
-                return nil, true
             end
+            return nil, true
         end
         if context.joker_main then
             return {
