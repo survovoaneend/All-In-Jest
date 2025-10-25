@@ -2788,3 +2788,30 @@ if cardTable.aij and cardTable.aij.tag then
     self.T.w, self.T.h = G.CARD_W*0.7, G.CARD_W*0.7
 end
 '''
+
+# Save ability table of bosses
+[[patches]]
+[patches.pattern]
+target = '''blind.lua'''
+pattern = '''
+function Blind:save()
+    local blindTable = {
+'''
+position = "after"
+match_indent = true
+payload = '''
+ability = self.ability,
+'''
+
+# Load ability table of bosses
+[[patches]]
+[patches.pattern]
+target = '''blind.lua'''
+pattern = '''
+function Blind:load(blindTable)
+'''
+position = "after"
+match_indent = true
+payload = '''
+self.ability = blindTable.ability
+'''
