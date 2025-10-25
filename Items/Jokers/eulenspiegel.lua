@@ -35,9 +35,8 @@ local eulenspiegel = {
                 operation = '-',
                 message_key = 'a_xmult_minus'
             })
-            if card.ability.Xmult == 0 then
-              card:start_dissolve()
-              card.ability.Xmult = 3
+            if card.ability.Xmult <= 0 then
+              SMODS.destroy_cards(self, false, true)
             end
         end
       end

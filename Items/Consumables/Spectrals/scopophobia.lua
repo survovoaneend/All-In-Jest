@@ -59,7 +59,7 @@ local scopophobia = {
         }))
         delay(0.3)
         SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
-        _card:start_dissolve()
+        SMODS.destroy_card(_card, false, true)
     end,
 }
 return {name = {"Spectrals"}, items = {scopophobia}}

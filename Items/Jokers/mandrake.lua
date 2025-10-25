@@ -30,9 +30,7 @@ local mandrake = {
     calculate = function(self, card, context)
         if context.selling_self and (card.ability.extra.rounds >= card.ability.extra.total_rounds) and not context.blueprint then
             if G.hand and G.hand.cards then
-                for k, v in ipairs(G.hand.cards) do
-                    v:start_dissolve()
-                end
+                SMODS.destroy_cards(G.hand.cards, nil, true)
             end
         end
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then

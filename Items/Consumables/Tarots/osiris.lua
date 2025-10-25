@@ -32,7 +32,7 @@ local osiris = {
             card:juice_up(0.3, 0.5)
             ease_dollars(card.ability.money, true)
             return true end }))
-        self_card:start_dissolve()
+        SMODS.destroy_cards(self_card, false, true)
         delay(0.6)
     end,
 }

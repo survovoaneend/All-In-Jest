@@ -36,13 +36,8 @@ local evil_joker = {
             end
         end
         if #jokers > 0 then
-            local temp_card = pseudorandom_element(jokers, pseudoseed('bad_sun'))
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    temp_card:start_dissolve()
-                    return true
-                end
-            }))
+            local temp_card = pseudorandom_element(jokers, pseudoseed('aij_evil_joker'))
+            SMODS.destroy_cards(temp_card)
         end
     end,
   

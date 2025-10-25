@@ -26,7 +26,7 @@ local alien_joker = {
   
     calculate = function(self, card, context)
         if context.hand_drawn and G.STATE == G.STATES.DRAW_TO_HAND then
-            local temp_card = pseudorandom_element(G.hand.cards, pseudoseed('bad_sun'))
+            local temp_card = pseudorandom_element(G.hand.cards, pseudoseed('aij_alien_joker'))
             temp_card.ability.alien_joker_highlight = true
         end
         if context.individual and context.cardarea == G.play then
