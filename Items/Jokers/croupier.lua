@@ -14,7 +14,7 @@ local croupier = {
     cost = 4,
     unlocked = true,
     discovered = false,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
