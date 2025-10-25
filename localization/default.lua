@@ -1887,10 +1887,9 @@ return {
             j_aij_kilroy = { 
                 name = "Kilroy", 
                 text = { 
-                    "This Joker {C:attention}permanently",
-                    "gains {C:chips}+#1#{} Chips whenever",
-                    "it is {C:money}sold",
-                    "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
+                    "{C:attention}Double{} this Jokers",
+                    "{C:chips}Chip{} vaule when {C:money}sold",
+                    "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
                 } 
             },
             j_aij_janus = { 
@@ -3696,9 +3695,15 @@ return {
             j_aij_pace = {
                 name = "Pace",
                 text = {
-                    "All {C:uncommon}Uncommon{} and",
-                    "{C:rare}Rare{} Jokers are",
-                    "considered {C:common}Common"
+                    {
+                        "All Joker {C:red}Rarities",
+                        "have an {C:green}equal{} chance",
+                        "of appearing in the {C:money}Shop",
+                        "{C:inactive}(except Legendary)"
+                    },
+                    {
+                        "All Jokers cost {C:money}$#1#"
+                    }
                 },
                 unlock = { "?????" }
                 -- TODO discuss: are these rarities inclusive,
