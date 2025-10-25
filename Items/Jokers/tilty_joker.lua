@@ -27,18 +27,19 @@ local tilty_joker = {
     end,
   
     calculate = function(self, card, context)
-        local has_tilty_joker = next(SMODS.find_card("j_aij_tilty_joker"))
-        if G.play ~= nil and has_tilty_joker then
-            for _, temp_card in ipairs(G.play.cards) do
-              if context.before then
-                jest_ability_calculate(temp_card, "*", card.ability.extra.semi_x_chips, nil, {"nominal"}, false, true, "base")
-              end
-
-              if context.final_scoring_step then
-                jest_ability_calculate(temp_card, "/", card.ability.extra.semi_x_chips, nil, {"nominal"}, false, true, "base")
-              end
-            end
+      if context.before and G.play then
+        for _, temp_card in ipairs(G.play.cards) do
+          jest_ability_calculate(temp_card, "*", card.ability.extra.semi_x_chips, nil, {"nominal"}, false, true, "base")
         end
+        return nil, true
+      end
+
+      if context.after and G.play then
+        for _, temp_card in ipairs(G.play.cards) do
+          jest_ability_calculate(temp_card, "/", card.ability.extra.semi_x_chips, nil, {"nominal"}, false, true, "base")
+        end
+        return nil, true
+      end
     end
   
 }
