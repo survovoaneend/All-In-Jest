@@ -23,11 +23,12 @@ local canvas = {
                     card.ability.aij_canvas_temp_suit = card.base.suit
                     card.ability.aij_canvas_temp_rank = card.base.value
                 end
+                local new_suit, new_rank
                 if not card.debuff then
                     for k, v in pairs(G.play.cards) do
                         if v == card and v ~= G.play.cards[#G.play.cards] then
-                            if (card.base.suit ~= G.play.cards[k+1].base.suit or card.base.value ~= G.play.cards[k+1].base.value) and not G.play.cards[k+1].debuff then
-                                SMODS.change_base(card, G.play.cards[k+1].base.suit, G.play.cards[k+1].base.value)
+                            if (card.base.suit ~= G.play.cards[k+1].base.suit or card.base.value ~= G.play.cards[k+1].base.value) then
+                                new_suit, new_rank = G.play.cards[k+1].base.suit, G.play.cards[k+1].base.value
                             end
                         end
                     end
@@ -44,9 +45,8 @@ local canvas = {
                         if v == card then
                             highlighted = true
                             if v ~= highlighted_cards[#highlighted_cards] then
-                                if (card.base.suit ~= highlighted_cards[k+1].base.suit or card.base.value ~= highlighted_cards[k+1].base.value) and not highlighted_cards[k+1].debuff  then
-                                    SMODS.change_base(card, highlighted_cards[k+1].base.suit, highlighted_cards[k+1].base.value)
-                                    card.front_hidden = card:should_hide_front()
+                                if (card.base.suit ~= highlighted_cards[k+1].base.suit or card.base.value ~= highlighted_cards[k+1].base.value) then
+                                    new_suit, new_rank = highlighted_cards[k+1].base.suit, highlighted_cards[k+1].base.value
                                 end
                             end
                         end
@@ -54,12 +54,15 @@ local canvas = {
                     if not highlighted then
                         for k, v in pairs(G.hand.cards) do
                             if v == card and v ~= G.hand.cards[#G.hand.cards] then
-                                if (card.base.suit ~= G.hand.cards[k+1].base.suit or card.base.value ~= G.hand.cards[k+1].base.value) and not G.hand.cards[k+1].debuff then
-                                    SMODS.change_base(card, G.hand.cards[k+1].base.suit, G.hand.cards[k+1].base.value)
+                                if (card.base.suit ~= G.hand.cards[k+1].base.suit or card.base.value ~= G.hand.cards[k+1].base.value) then
+                                    new_suit, new_rank = G.hand.cards[k+1].base.suit, G.hand.cards[k+1].base.value
                                 end
                             end
                         end
                     end
+                end
+                if new_suit or new_rank then
+                    assert(SMODS.change_base(card, new_suit, new_rank))
                 end
                 card.front_hidden = card:should_hide_front()
                 if card:get_id() <= -50 then
