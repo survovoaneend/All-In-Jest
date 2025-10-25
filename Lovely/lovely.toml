@@ -1885,7 +1885,7 @@ pattern = "self.cost = math.max(1, math.floor((self.base_cost + self.extra_cost 
 position = "after" 
 match_indent = true
 payload = '''
-if next(SMODS.find_card("j_aij_pace")) then
+if next(SMODS.find_card("j_aij_pace")) and self.ability.set == 'Joker' then
     self.cost = math.max(1, math.floor((SMODS.find_card("j_aij_pace")[1].ability.extra.price + self.extra_cost + 0.5)*(100-G.GAME.discount_percent)/100))
 end
 '''
@@ -2787,4 +2787,31 @@ payload = '''
 if cardTable.aij and cardTable.aij.tag then
     self.T.w, self.T.h = G.CARD_W*0.7, G.CARD_W*0.7
 end
+'''
+
+# Save ability table of bosses
+[[patches]]
+[patches.pattern]
+target = '''blind.lua'''
+pattern = '''
+function Blind:save()
+    local blindTable = {
+'''
+position = "after"
+match_indent = true
+payload = '''
+ability = self.ability,
+'''
+
+# Load ability table of bosses
+[[patches]]
+[patches.pattern]
+target = '''blind.lua'''
+pattern = '''
+function Blind:load(blindTable)
+'''
+position = "after"
+match_indent = true
+payload = '''
+self.ability = blindTable.ability
 '''

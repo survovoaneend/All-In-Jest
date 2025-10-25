@@ -2055,7 +2055,7 @@ return {
             j_aij_tipteerer = {
                 name = "Tipteerer",
                 text = {
-                    "Earn {C:attention}20%{} of the {C:money}sell value{}",
+                    "Earn {C:attention}#2#%{} of the {C:money}sell value{}",
                     "of other {C:attention}Jokers{}, rounded up,",
                     "at end of {C:attention}round{}",
                     "{C:inactive}(Currently{} {C:money}$#1#{}{C:inactive}){}"
