@@ -32,7 +32,7 @@ local coulrorachne = {
     end,
   
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
+        if context.individual and context.cardarea == G.play and not context.blueprint then
             if context.other_card:get_id() == 8 then
                 card.ability.extra.eight_count = card.ability.extra.eight_count + 1
                 if card.ability.extra.eight_count >= card.ability.extra.amt_mod then
