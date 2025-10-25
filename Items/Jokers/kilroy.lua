@@ -4,7 +4,7 @@ local kilroy = {
 
     key = "kilroy",
     config = {
-      extra = {modchips = 50, curchips = 0}
+      extra = {curchips = 25}
     },
     rarity = 1,
     pos = { x = 1, y = 5 },
@@ -16,7 +16,7 @@ local kilroy = {
     eternal_compat = false,
   
     loc_vars = function(self, info_queue, card)
-        return { vars = {card.ability.extra.modchips, card.ability.extra.curchips}}
+        return { vars = {card.ability.extra.curchips}}
     end,
   
     calculate = function(self, card, context)
@@ -26,7 +26,7 @@ local kilroy = {
                 SMODS.scale_card(card, {
                     ref_table = G.P_CENTERS["j_aij_kilroy"].config.extra,
                     ref_value = "curchips",
-                    scalar_value = "modchips",
+                    scalar_value = "curchips",
                     no_message = true,
                 })
             else
@@ -34,7 +34,6 @@ local kilroy = {
                 -- In case a duplicate Kilroy was sold
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        card.ability.extra.modchips = G.P_CENTERS["j_aij_kilroy"].config.extra.modchips
                         card.ability.extra.curchips = G.P_CENTERS["j_aij_kilroy"].config.extra.curchips
                         return true
                     end
