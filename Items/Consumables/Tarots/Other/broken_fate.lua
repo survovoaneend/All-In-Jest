@@ -27,5 +27,11 @@ local broken_fate = {
         jest_ability_calculate(G.consumeables.cards[1],"*", ran_amount, nil, nil, true, false, "ability")
 		card_eval_status_text(G.consumeables.cards[1], 'extra', nil, nil, nil, {message = string, colour = G.C.FILTER})
     end,
+	in_pool = function(self, args)
+        if G.consumeables and #G.consumeables.cards > 0 and G.consumeables.cards[1].config.center.key ~= "c_aij_broken_fate" then
+            return true 
+        end
+        return false
+    end,
 }
 return {name = {"Tarots"}, items = {broken_fate}}
