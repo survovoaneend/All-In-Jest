@@ -24,8 +24,8 @@ local fabled = {
 	end,
     calculate = function(self, card, context)
         if context.end_of_round and not context.repetition and not context.individual and G.GAME.selected_back.effect.config.extra.should_increase then
-             G.GAME.jest_legendary_pool.rate =  G.GAME.jest_legendary_pool.rate - 0.002
-             G.GAME.selected_back.effect.config.extra.remove_amt = G.GAME.selected_back.effect.config.extra.remove_amt + 0.002
+             G.GAME.jest_legendary_pool.rate =  G.GAME.jest_legendary_pool.rate - 0.003
+             G.GAME.selected_back.effect.config.extra.remove_amt = G.GAME.selected_back.effect.config.extra.remove_amt + 0.003
         end
         if context.buying_card then
             if context.card.ability.set == "Joker" and context.card.config.center.rarity == 4 then
@@ -47,7 +47,7 @@ local fabled = {
     end,
     apply = function(self, back)
         G.GAME.jest_legendary_pool.in_shop = true
-        G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate - 0.008 -- 0.08%
+        G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate - 0.008 -- 0.8%
     end
 }
 return {name = {"Decks"}, items = {fabled}}
