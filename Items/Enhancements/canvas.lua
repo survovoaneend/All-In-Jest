@@ -25,39 +25,22 @@ local canvas = {
                 end
                 local new_suit, new_rank
                 if not card.debuff then
-                    for k, v in pairs(G.play.cards) do
-                        if v == card and v ~= G.play.cards[#G.play.cards] then
-                            if (card.base.suit ~= G.play.cards[k+1].base.suit or card.base.value ~= G.play.cards[k+1].base.value) then
-                                new_suit, new_rank = G.play.cards[k+1].base.suit, G.play.cards[k+1].base.value
-                            end
+                    if card.area == G.play and G.play then
+                        local k = card.rank
+                        if k < #G.play.cards and (card.base.suit ~= G.play.cards[k+1].base.suit or card.base.value ~= G.play.cards[k+1].base.value) then
+                            new_suit, new_rank = G.play.cards[k+1].base.suit, G.play.cards[k+1].base.value
                         end
-                    end
-                    local highlighted = false
-                    local highlighted_cards = {}
-                    for k, v in pairs(G.hand.cards) do
-                        for key, val in pairs(G.hand.highlighted) do
-                            if v == val then
-                                highlighted_cards[#highlighted_cards+1] = v
-                            end
-                        end
-                    end
-                    for k, v in pairs(highlighted_cards) do
-                        if v == card then
-                            highlighted = true
-                            if v ~= highlighted_cards[#highlighted_cards] then
-                                if (card.base.suit ~= highlighted_cards[k+1].base.suit or card.base.value ~= highlighted_cards[k+1].base.value) then
-                                    new_suit, new_rank = highlighted_cards[k+1].base.suit, highlighted_cards[k+1].base.value
+                    elseif card.area == G.hand and G.hand then
+                        local k = card.rank
+                        local k2 = k+1
+                        while k2 <= #G.hand.cards do
+                            if card.highlighted == G.hand.cards[k2].highlighted then
+                                if (card.base.suit ~= G.hand.cards[k2].base.suit or card.base.value ~= G.hand.cards[k2].base.value) then
+                                    new_suit, new_rank = G.hand.cards[k2].base.suit, G.hand.cards[k2].base.value
                                 end
+                                break
                             end
-                        end
-                    end
-                    if not highlighted then
-                        for k, v in pairs(G.hand.cards) do
-                            if v == card and v ~= G.hand.cards[#G.hand.cards] then
-                                if (card.base.suit ~= G.hand.cards[k+1].base.suit or card.base.value ~= G.hand.cards[k+1].base.value) then
-                                    new_suit, new_rank = G.hand.cards[k+1].base.suit, G.hand.cards[k+1].base.value
-                                end
-                            end
+                            k2 = k2 + 1
                         end
                     end
                 end
