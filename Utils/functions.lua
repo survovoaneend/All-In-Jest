@@ -784,6 +784,14 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'yume_nikki',
+    name = 'Yume Nikki',
+    suits = {
+      'Spades',
+      'Hearts',
+    }
+  },
+  {
     id = 'inscryption',
     name = 'Inscryption',
     suits = {
