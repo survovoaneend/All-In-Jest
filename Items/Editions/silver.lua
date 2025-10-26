@@ -21,42 +21,74 @@ local silver = {
         return {vars = {(card.edition or {}).mult or self.config.mult}}
     end,
     on_apply = function(card)
-        if not card.ability.jest_siliver_active then
+        if not card.ability.jest_silver_active then
             if card.ability.set == 'Enhanced' or card.ability.set == 'Default' then
+                if card.added_to_deck then
+                    card:remove_from_deck(card, true)
+                    card.added_to_deck = true
+                end
                 jest_ability_calculate(
                     card,
                     "*", card.edition.mult,
                     { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
                     nil, true, false, "ability"
                 )
-            elseif card.ability.set == 'Joker' then
+                if card.added_to_deck then
+                    card.added_to_deck = false
+                    card:add_to_deck(card, true)
+                end
+            elseif card.ability.set == 'Joker' and (card.config.center.dongtong_compat == nil or card.config.center.dongtong_compat) then
+                if card.added_to_deck then
+                    card:remove_from_deck(card, true)
+                    card.added_to_deck = true
+                end
                 jest_ability_calculate(
                     card,
                     "*", card.edition.mult,
-                    { x_chips = 1, x_mult = 1, xmult = 1, extra_value = true, rarity },
-                    nil, true, "ability.extra"
+                    { x_chips = 1, x_mult = 1, xmult = 1, extra_value = true, rarity = true },
+                    nil, true, false, "ability.extra"
                 )
+                if card.added_to_deck then
+                    card.added_to_deck = false
+                    card:add_to_deck(card, true)
+                end
             end
         end
-        card.ability.jest_siliver_active = true
+        card.ability.jest_silver_active = true
     end,
     on_remove = function(card)
         if card.ability.set == 'Enhanced' or card.ability.set == 'Default' then
+            if card.added_to_deck then
+                card:remove_from_deck(card, true)
+                card.added_to_deck = true
+            end
             jest_ability_calculate(
               card,
               "/", card.edition.mult,
               { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
               nil, true, false, "ability"
             )
+            if card.added_to_deck then
+                card.added_to_deck = false
+                card:add_to_deck(card, true)
+            end
         elseif card.ability.set == 'Joker' and (card.config.center.dongtong_compat == nil or card.config.center.dongtong_compat) then
+            if card.added_to_deck then
+                card:remove_from_deck(card, true)
+                card.added_to_deck = true
+            end
             jest_ability_calculate(
                 card,
                 "/", card.edition.mult,
-                { x_chips = 1, x_mult = 1, xmult = 1, extra_value = true, rarity },
-                nil, true, "ability.extra"
+                { x_chips = 1, x_mult = 1, xmult = 1, extra_value = true, rarity = true },
+                nil, true, false, "ability.extra"
             )
+            if card.added_to_deck then
+                card.added_to_deck = false
+                card:add_to_deck(card, true)
+            end
         end
-        card.ability.jest_siliver_active = nil
+        card.ability.jest_silver_active = nil
     end,
     in_shop = true,
     weight = 3,
@@ -90,14 +122,14 @@ function Card:update(dt)
               jest_ability_calculate(
                 self,
                 "/", tonumber(self.edition.pervmult),
-                { x_chips = 1, x_mult = 1, extra_value = true, rarity },
-                nil, true, "ability.extra"
+                { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
+                nil, true, false, "ability.extra"
               )
               jest_ability_calculate(
                 self,
                 "*", self.edition.mult,
-                { x_chips = 1, x_mult = 1, extra_value = true, rarity },
-                nil, true, "ability.extra"
+                { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
+                nil, true, false, "ability.extra"
               )
           end
           self.edition.pervmult = tostring(self.edition.mult)
