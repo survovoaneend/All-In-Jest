@@ -44,7 +44,7 @@ local public_bathroom = {
 	                colour = G.C.FILTER
                 }
             })
-            return true 
+            return nil, true
         end
     end
     if context.joker_main then 
