@@ -29,15 +29,17 @@ local evil_joker = {
     end,
 
     add_to_deck = function(self, card, from_debuff)
-        local jokers = {}
-        for i = 1, #G.jokers.cards do
-            if G.jokers.cards[i] ~= card and not SMODS.is_eternal(G.jokers.cards[i], card) then
-                jokers[i] = G.jokers.cards[i]
+        if not from_debuff then
+            local jokers = {}
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i] ~= card and not SMODS.is_eternal(G.jokers.cards[i], card) then
+                    jokers[i] = G.jokers.cards[i]
+                end
             end
-        end
-        if #jokers > 0 then
-            local temp_card = pseudorandom_element(jokers, pseudoseed('aij_evil_joker'))
-            SMODS.destroy_cards(temp_card)
+            if #jokers > 0 then
+                local temp_card = pseudorandom_element(jokers, pseudoseed('aij_evil_joker'))
+                SMODS.destroy_cards(temp_card)
+            end
         end
     end,
   
