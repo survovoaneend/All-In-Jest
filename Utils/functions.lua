@@ -1272,7 +1272,7 @@ function All_in_Jest.add_patch(card, suit, instant, append)
     card.ability.patches = card.ability.patches or {}
     card.ability.patches[suit] = true
   end
-  check_for_unlock({type = 'add_patch'})
+  check_for_unlock({type = 'modify_deck'})
 end
 
 function All_in_Jest.has_suit_in_deck(suit, ignore_wild)
