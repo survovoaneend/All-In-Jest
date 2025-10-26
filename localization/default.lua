@@ -821,10 +821,10 @@ return {
                 name = "Ice Card",
                 text = {
                     "{C:attention}Always{} scores",
-                    "{C:red}Ignores{} the selection limit",
-                    "Doesn't affect {C:attention}hand calculation",
-                    "if this card causes hand to",
-                    "exceed {C:attention}#1#{} cards"
+                    "{C:red}Ignores{} Play selection limit",
+                    "If played hand exceeds {C:attention}#1#{} cards,",
+                    "excess {C:attention}Ice Cards{} don't",
+                    "affect {C:attention}poker hand",
                 }
                 -- Description is definitely confusing
             },
