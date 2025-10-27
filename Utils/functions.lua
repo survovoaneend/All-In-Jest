@@ -713,13 +713,6 @@ AllInJest.deck_skins = {
     }
   },
   {
-    id = 'wuppo',
-    name = 'Wuppo',
-    suits = {
-      'Hearts',
-    }
-  },
-  {
     id = 'balatro',
     name = 'Balatro',
     suits = {
@@ -727,11 +720,10 @@ AllInJest.deck_skins = {
     }
   },
   {
-    id = 'king_in_yellow',
-    name = 'The King in Yellow',
+    id = 'wuppo',
+    name = 'Wuppo',
     suits = {
-      'Diamonds',
-      'Clubs',
+      'Hearts',
     }
   },
   {
@@ -739,13 +731,6 @@ AllInJest.deck_skins = {
     name = 'Spelunky',
     suits = {
       'Diamonds',
-    }
-  },
-  {
-    id = 'talos_principle',
-    name = 'Talos Principle',
-    suits = {
-      'Spades',
     }
   },
   {
@@ -763,6 +748,13 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'talos_principle',
+    name = 'Talos Principle',
+    suits = {
+      'Spades',
+    }
+  },
+  {
     id = 'alan_wake',
     name = 'Alan Wake',
     suits = {
@@ -770,8 +762,8 @@ AllInJest.deck_skins = {
     }
   },
   {
-    id = 'we_happy_few',
-    name = 'We Happy Few',
+    id = 'minecraft',
+    name = 'Minecraft',
     suits = {
       'Clubs',
     }
@@ -784,11 +776,18 @@ AllInJest.deck_skins = {
     }
   },
   {
-    id = 'yume_nikki',
-    name = 'Yume Nikki',
+    id = 'we_happy_few',
+    name = 'We Happy Few',
     suits = {
-      'Spades',
-      'Hearts',
+      'Clubs',
+    }
+  },
+  {
+    id = 'king_in_yellow',
+    name = 'The King in Yellow',
+    suits = {
+      'Diamonds',
+      'Clubs',
     }
   },
   {
@@ -801,7 +800,16 @@ AllInJest.deck_skins = {
       'Diamonds'
     }
   },
-
+  {
+    id = 'yume_nikki',
+    name = 'Yume Nikki',
+    suits = {
+      'Clubs',
+      'Spades',
+      'Hearts',
+      'Diamonds'
+    }
+  },
 }
 
 --Taken from paperback
