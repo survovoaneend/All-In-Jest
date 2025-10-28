@@ -57,6 +57,8 @@ return {
             k_aij_blood_spilt_ex = 'Blood Spilt!',
         },
         v_dictionary = {
+            a_aij_mult_equal="=#1# Mult",
+
             a_aij_percent_balance = "+%#1#",
             a_aij_percent_balance_minus = "-%#1#",
             

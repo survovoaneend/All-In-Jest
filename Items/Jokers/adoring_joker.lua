@@ -31,7 +31,7 @@ local adoring_joker = {
             return {
                 mult = card.ability.highest_mult - mult,
                 remove_default_message = true,
-                message = '=' .. card.ability.highest_mult .. ' Mult',
+                message = localize{type='variable',key='a_aij_mult_equal',vars={card.ability.highest_mult}},
                 colour = G.C.RED,
                 sound = 'multhit1'
             }
