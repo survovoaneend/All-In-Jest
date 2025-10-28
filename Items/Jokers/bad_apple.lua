@@ -8,8 +8,8 @@ local bad_apple = {
         xmult = 1,
         xmult_mod = 0.2,
         -- BUG: not initially randomized
-        light_suits = 3,
-        dark_suits = 2
+        light_suits = "3",
+        dark_suits = "2"
         }
     },
     rarity = 3,
@@ -34,10 +34,10 @@ local bad_apple = {
     end,
 
     calculate = function(self, card, context)
-        
         if context.end_of_round and context.main_eval and not context.blueprint then
-            card.ability.extra.light_suits = pseudorandom("bad_apple", 0, 5)
-            card.ability.extra.dark_suits = 5 - card.ability.extra.light_suits 
+            local random_value = pseudorandom("bad_apple", 0, 5)
+            card.ability.extra.light_suits = tostring(random_value)
+            card.ability.extra.dark_suits = tostring(5 - random_value)
             return {
                 message = localize('k_reset'),
                 card = card
@@ -52,7 +52,7 @@ local bad_apple = {
                     light_count = light_count + 1
                 end
             end
-            if dark_count == card.ability.extra.dark_suits and light_count == card.ability.extra.light_suits then
+            if dark_count == tonumber(card.ability.extra.dark_suits) and light_count == tonumber(card.ability.extra.light_suits) then
                 SMODS.scale_card(card, {
 	                ref_table = card.ability.extra,
                     ref_value = "xmult",
