@@ -12,7 +12,7 @@ local right_angle = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
@@ -55,7 +55,7 @@ local right_angle = {
         end
         if context.individual and context.cardarea == G.play then
             if context.other_card:get_id() == 9 then
-                local juiced_card = card;
+                local juiced_card = context.blueprint_card or card;
                 return {
                     card = juiced_card,
                     func = function ()
