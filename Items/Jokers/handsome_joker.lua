@@ -1,3 +1,5 @@
+-- Card selection in functions.lua as reset_handsome_joker_card()
+
 local handsome_joker_calc_mult = function(xmult_mod)
     local handsome_card = G.GAME.current_round.jest_handsome_joker_card
     local mult = 0

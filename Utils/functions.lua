@@ -903,13 +903,14 @@ function reset_handsome_joker_card()
 
   -- Loop through the original list of all enhancements
   for _, enhancement in ipairs(all_enhancements) do
-    if enhancement ~= 'm_stone' and enhancement ~= 'm_aij_canvas' then
+    if not (enhancement == 'm_stone' or enhancement == 'm_aij_canvas' or G.P_CENTERS[enhancement].no_rank or G.P_CENTERS[enhancement].no_suit) then
       valid_enhancements[#valid_enhancements + 1] = enhancement
     end
   end
   local valid_jest_handsome_cards = {}
     for k, v in ipairs(G.playing_cards) do
-        if v.ability.effect ~= 'Stone Card' and v.ability.effect ~= 'Canvas Card'then
+        local enhancement = v.ability.effect
+        if not (SMODS.has_no_rank(v) or SMODS.has_no_suit(v) or enhancement == 'm_aij_canvas') then
             valid_jest_handsome_cards[#valid_jest_handsome_cards+1] = v
         end
     end
