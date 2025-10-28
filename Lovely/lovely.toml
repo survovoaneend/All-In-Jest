@@ -2817,6 +2817,7 @@ self.ability = blindTable.ability
 '''
 
 # Patch to fix already highlighted cards being re-highlighted and making erroneous sound
+# Can't do this in the calculation code because then it would be too early or too late to stop the sound without messing something else up
 # Done for Right Angle joker
 [[patches]]
 [patches.pattern]
