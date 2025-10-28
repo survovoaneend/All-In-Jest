@@ -7,7 +7,6 @@ local bad_apple = {
         extra = {
         xmult = 1,
         xmult_mod = 0.2,
-        -- BUG: not initially randomized
         light_suits = "3",
         dark_suits = "2"
         }
@@ -31,6 +30,14 @@ local bad_apple = {
                 card.ability.extra.dark_suits
             }
         }
+    end,
+
+    set_ability = function(self, card, initial, delay_sprites)
+        if initial then
+            local random_value = pseudorandom("bad_apple", 0, 5)
+            card.ability.extra.light_suits = tostring(random_value)
+            card.ability.extra.dark_suits = tostring(5 - random_value)
+        end
     end,
 
     calculate = function(self, card, context)
