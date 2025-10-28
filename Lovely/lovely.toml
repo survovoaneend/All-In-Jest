@@ -2815,3 +2815,27 @@ match_indent = true
 payload = '''
 self.ability = blindTable.ability
 '''
+
+# Patch to fix already highlighted cards being re-highlighted and making erroneous sound
+# Done for Right Angle joker
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = """func = function()
+    card:highlight(highlight)
+    play_sound('cardSlide1', 0.85 + percent*0.2)
+    return true
+end"""
+position = 'at'
+match_indent = true
+payload = '''
+-- All in Jest overriden
+func = function()
+    local aij_sound_should_play = (highlight and not card.highlighted) or (not highlight and card.highlighted)
+    card:highlight(highlight)
+    if aij_sound_should_play then
+        play_sound('cardSlide1', 0.85 + percent*0.2)
+    end
+    return true
+end
+'''
