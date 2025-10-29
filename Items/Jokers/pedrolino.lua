@@ -25,9 +25,7 @@ local pedrolino = {
 
     calculate = function(self, card, context)
         if context.selling_self and not context.blueprint and G.GAME.blind.in_blind then
-           
-            local final_chips = G.GAME.blind.chips -
-            math.ceil(G.GAME.blind.chips * card.ability.extra.blind_reduction * 0.01)
+            local final_chips = G.GAME.blind.chips - math.ceil(G.GAME.blind.chips * card.ability.extra.blind_reduction * 0.01)
             if final_chips == math.abs(final_chips) then
                 final_chips = math.min(final_chips, G.GAME.blind.chips - 1)
             else
@@ -57,6 +55,18 @@ local pedrolino = {
                         G.GAME.blind:wiggle()
                         return true
                     end
+                end
+            }))
+            -- Ends blind if blind requirement is now met
+            -- Copied from blind:disable()
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                func = function()
+                    if G.GAME.chips - G.GAME.blind.chips >= 0 then
+                        G.STATE = G.STATES.NEW_ROUND
+                        G.STATE_COMPLETE = false
+                    end
+                    return true
                 end
             }))
         end
