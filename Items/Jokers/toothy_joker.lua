@@ -20,7 +20,7 @@ local toothy_joker = {
     end,
   
     calculate = function(self, card, context)
-        if not context.bueprint then
+        if not context.blueprint then
             if context.using_consumeable then
                 if context.consumeable.ability.set == 'Tarot' then
                     G.GAME.jest_toothy_joker_tarots = G.GAME.jest_toothy_joker_tarots + 1
