@@ -2851,9 +2851,14 @@ pattern = """-- TARGET: main scoring on played cards"""
 position = 'before'
 match_indent = true
 payload = '''
-do -- All in Jest Magick Joker
+do -- All in Jest - Magick Joker and Red Sky
     local has_magick_joker = next(SMODS.find_card("j_aij_magick_joker"))
-    if G.play ~= nil and has_magick_joker then
+    local has_red_sky = next(SMODS.find_card("j_aij_red_sky"))
+    if has_red_sky and (G.GAME.current_round.hands_played == 0 or G.GAME.current_round.hands_left == 0) then
+        ret.playing_card.mult = ret.playing_card.mult or 0
+        ret.playing_card.mult = ret.playing_card.mult + ret.playing_card.chips
+        ret.playing_card.chips = 0
+    elseif G.play ~= nil and has_magick_joker then
         local required_suit = G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit
         if card:is_suit(required_suit) then
             ret.playing_card.mult = ret.playing_card.mult or 0
@@ -2861,5 +2866,5 @@ do -- All in Jest Magick Joker
             ret.playing_card.chips = 0
         end
     end
-end -- end All in Jest Magick Joker
+end -- end All in Jest
 '''
