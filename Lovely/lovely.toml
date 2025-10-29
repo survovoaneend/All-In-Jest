@@ -2840,3 +2840,26 @@ func = function()
     return true
 end
 '''
+
+
+# Patch for Magick Joker
+# Turns +chips into +mult within the score_card function, rather than trying to do it with a calculation function
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = """-- TARGET: main scoring on played cards"""
+position = 'before'
+match_indent = true
+payload = '''
+do -- All in Jest Magick Joker
+    local has_magick_joker = next(SMODS.find_card("j_aij_magick_joker"))
+    if G.play ~= nil and has_magick_joker then
+        local required_suit = G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit
+        if card:is_suit(required_suit) then
+            ret.playing_card.mult = ret.playing_card.mult or 0
+            ret.playing_card.mult = ret.playing_card.mult + ret.playing_card.chips
+            ret.playing_card.chips = 0
+        end
+    end
+end -- end All in Jest Magick Joker
+'''
