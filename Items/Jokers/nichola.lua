@@ -22,7 +22,7 @@ local nichola = {
     end,
   
     calculate = function(self, card, context)
-      if context.setting_blind and not context.blueprint then
+      if context.setting_blind then
           G.E_MANAGER:add_event(Event({
               func = function()
                   local created_cards = {}

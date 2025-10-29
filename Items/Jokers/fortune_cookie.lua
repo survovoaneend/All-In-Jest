@@ -50,24 +50,26 @@ local fortune_cookie = {
             end
             local remaining_mod = {}
             remaining_mod.num = 1
-            if (card.ability.extra.packs_remaining - 1) <= 0 then
-                SMODS.destroy_cards(card, nil, nil, true)
-                return {
-                    message = localize('k_eaten_ex'),
-                    colour = G.C.RED
-                }
-            else
-                SMODS.scale_card(card, {
-	                ref_table = card.ability.extra,
-                    ref_value = "packs_remaining",
-                    scalar_table = remaining_mod,
-	                scalar_value = "num",
-                    operation = '-',
-                    scaling_message = {
-                        message = localize{key='a_remaining', type='variable', vars={card.ability.extra.packs_remaining-1}},
-                        colour = G.C.FILTER
-                    },
-                })
+            if not context.blueprint then
+                if (card.ability.extra.packs_remaining - 1) <= 0 then
+                    SMODS.destroy_cards(card, nil, nil, true)
+                    return {
+                        message = localize('k_eaten_ex'),
+                        colour = G.C.RED
+                    }
+                else
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "packs_remaining",
+                        scalar_table = remaining_mod,
+                        scalar_value = "num",
+                        operation = '-',
+                        scaling_message = {
+                            message = localize{key='a_remaining', type='variable', vars={card.ability.extra.packs_remaining-1}},
+                            colour = G.C.FILTER
+                        },
+                    })
+                end
             end
         end
     end

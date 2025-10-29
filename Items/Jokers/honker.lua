@@ -29,7 +29,7 @@ local honker = {
     end,
   
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
+        if context.individual and context.cardarea == G.play and not context.blueprint then
             if SMODS.get_enhancements(context.other_card).m_mult then
                 SMODS.scale_card(card, {
 	                ref_table = card.ability.extra,

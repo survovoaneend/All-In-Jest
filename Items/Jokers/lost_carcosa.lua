@@ -20,7 +20,7 @@ local lost_carcosa = {
     end,
   
     calculate = function(self, card, context)
-        if context.all_in_jest and context.all_in_jest.before_using_consumeable then
+        if context.all_in_jest and context.all_in_jest.before_using_consumeable and not context.blueprint then
             if context.all_in_jest.consumeable.ability.set == 'Planet' then
                 G.GAME.all_in_jest.apply.lost_carcosa_mult = pseudorandom('aij_lost_carcosa',5,20) * 0.1
                 local ran_amount = G.GAME.all_in_jest.apply.lost_carcosa_mult * 100
