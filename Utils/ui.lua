@@ -380,7 +380,7 @@ G.FUNCS.jest_select = function(e)
                 card:set_edition({negative = true}, true)
               end
               if (not card.edition or (card.edition and not card.edition.negative)) and e.config.data[1] == G.consumeables then
-                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+                G.GAME.consumeable_buffer = 0
               end
               if e.config.data[2].playing_card == true then
                   G.playing_card = (G.playing_card and G.playing_card + 1) or 1
