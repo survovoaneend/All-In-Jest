@@ -1,3 +1,6 @@
+-- Can apply dongtong_compat to a joker to make it not affected by Dongtong, Silver, and similar future effects
+
+
 -- Calculates the number of dongtongs, saves how many dongtongs were owned last time this was called,
 -- then doubles/halves card values accordingly
 local dong_tong_double = function (card)

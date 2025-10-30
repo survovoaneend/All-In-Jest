@@ -16,7 +16,6 @@ local arngren = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
-    dongtong_compat = false,
 
     add_to_deck = function(self, card, from_debuff)
 		change_shop_size(card.ability.extra.bonus_slots)
