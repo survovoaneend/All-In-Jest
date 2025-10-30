@@ -28,7 +28,7 @@ local guess_the_jest = {
     get_weight = function(self)
         local has_whatsisname = next(SMODS.find_card("j_aij_whatsisname"))
         if has_whatsisname then
-            return 0.15
+            return 0.05 + 0.1 * #SMODS.find_card("j_aij_whatsisname")
         else
             return 0.05
         end
