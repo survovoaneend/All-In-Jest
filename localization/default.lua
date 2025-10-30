@@ -81,7 +81,7 @@ return {
             },
         },
         extra_joker_dictionary = {
-            -- You've got Mail
+            -- You've got Mail (also reused in overdesigned)
             k_aij_youve_got_mail = "You've Got Mail!",
             k_aij_youve_got_mail_none = "Does nothing...",
             k_aij_youve_got_mail_plus_prefix = "+",
