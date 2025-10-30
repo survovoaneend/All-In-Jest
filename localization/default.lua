@@ -2362,7 +2362,7 @@ return {
             j_aij_spiders_georg = { 
                 name = "Spiders Georg", 
                 text = { 
-                    "Multiply {C:mult}Mult{} by {C:attention}1{} plus the",
+                    "Multiply {C:mult}Mult{} by {C:attention}#2#{} plus the",
                     "{C:attention}average{} number of {C:attention}8s{}",
                     "{C:attention}scored{} per hand this run",
                     "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)",
