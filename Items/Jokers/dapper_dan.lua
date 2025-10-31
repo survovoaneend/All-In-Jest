@@ -49,13 +49,13 @@ function Card:update(dt)
     --local last_card_limit = (self.edition and self.edition.card_limit) or 0
 
     if diff > 0 then
-      for _ = 1, diff do
+      for _ = 1, math.abs(diff) do
         jest_ability_calculate(self, "*", 2, nil, nil, false, nil, "edition")
       end
     end
 
     if diff < 0 then
-      for _ = 1, -diff do
+      for _ = 1, math.abs(diff) do
         jest_ability_calculate(self, "/", 2, nil, nil, false, nil, "edition")
       end
     end

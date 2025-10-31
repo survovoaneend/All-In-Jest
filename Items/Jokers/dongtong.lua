@@ -13,7 +13,7 @@ local dong_tong_double = function (card)
         local diff = current_count - prev_count
 
         if diff > 0 then
-            for i = 1, diff do
+            for i = 1, math.abs(diff) do
                 jest_ability_calculate(
                 card,
                 "*", 2,
@@ -22,7 +22,7 @@ local dong_tong_double = function (card)
                 )
             end
         elseif diff < 0 then
-            for i = 1, -diff do
+            for i = 1, math.abs(diff) do
                 jest_ability_calculate(
                 card,
                 "/", 2,
