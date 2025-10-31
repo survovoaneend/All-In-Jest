@@ -1891,7 +1891,7 @@ return {
                 name = "Kilroy", 
                 text = { 
                     "{C:attention}Double{} this Jokers",
-                    "{C:chips}Chip{} vaule when {C:money}sold",
+                    "{C:chips}Chip{} value when {C:money}sold",
                     "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
                 } 
             },
