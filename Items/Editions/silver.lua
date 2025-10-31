@@ -24,7 +24,7 @@ local silver = {
     if not card.ability.jest_silver_active then
       if card.ability.set == 'Enhanced' or card.ability.set == 'Default' then
         if card.added_to_deck then
-          card:remove_from_deck(card, true)
+          card:remove_from_deck(true)
           card.added_to_deck = true
         end
         jest_ability_calculate(
@@ -35,11 +35,11 @@ local silver = {
         )
         if card.added_to_deck then
           card.added_to_deck = false
-          card:add_to_deck(card, true)
+          card:add_to_deck(true)
         end
       elseif card.ability.set == 'Joker' and (card.config.center.dongtong_compat == nil or card.config.center.dongtong_compat) then
         if card.added_to_deck then
-          card:remove_from_deck(card, true)
+          card:remove_from_deck(true)
           card.added_to_deck = true
         end
         jest_ability_calculate(
@@ -50,7 +50,7 @@ local silver = {
         )
         if card.added_to_deck then
           card.added_to_deck = false
-          card:add_to_deck(card, true)
+          card:add_to_deck(true)
         end
       end
     end
@@ -59,7 +59,7 @@ local silver = {
   on_remove = function(card)
     if card.ability.set == 'Enhanced' or card.ability.set == 'Default' then
       if card.added_to_deck then
-        card:remove_from_deck(card, true)
+        card:remove_from_deck(true)
         card.added_to_deck = true
       end
       jest_ability_calculate(
@@ -70,11 +70,11 @@ local silver = {
       )
       if card.added_to_deck then
         card.added_to_deck = false
-        card:add_to_deck(card, true)
+        card:add_to_deck(true)
       end
     elseif card.ability.set == 'Joker' and (card.config.center.dongtong_compat == nil or card.config.center.dongtong_compat) then
       if card.added_to_deck then
-        card:remove_from_deck(card, true)
+        card:remove_from_deck(true)
         card.added_to_deck = true
       end
       jest_ability_calculate(
@@ -85,7 +85,7 @@ local silver = {
       )
       if card.added_to_deck then
         card.added_to_deck = false
-        card:add_to_deck(card, true)
+        card:add_to_deck(true)
       end
     end
     card.ability.jest_silver_active = nil
@@ -107,7 +107,7 @@ function Card:update(dt)
     if tonumber(self.edition.pervmult) ~= self.edition.mult then
       if self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
         if self.added_to_deck then
-          self:remove_from_deck(self, true)
+          self:remove_from_deck(true)
           self.added_to_deck = true
         end
         jest_ability_calculate(
@@ -124,11 +124,11 @@ function Card:update(dt)
         )
         if self.added_to_deck then
           self.added_to_deck = false
-          self:add_to_deck(self, true)
+          self:add_to_deck(true)
         end
       elseif self.ability.set == 'Joker' then
         if self.added_to_deck then
-          self:remove_from_deck(self, true)
+          self:remove_from_deck(true)
           self.added_to_deck = true
         end
         jest_ability_calculate(
@@ -145,7 +145,7 @@ function Card:update(dt)
         )
         if self.added_to_deck then
           self.added_to_deck = false
-          self:add_to_deck(self, true)
+          self:add_to_deck(true)
         end
       end
       self.edition.pervmult = tostring(self.edition.mult)

@@ -64,7 +64,7 @@ local dongtong = {
                     if v and type(v) == 'table' and v.ability.set == "Joker" and (v.config.center.dongtong_compat == nil or v.config.center.dongtong_compat) then
                         if v.added_to_deck then
                             v.added_to_deck = false
-                            v:add_to_deck(v, true)
+                            v:add_to_deck(true)
                         end
                     end
                 end
@@ -81,7 +81,7 @@ local dongtong = {
                             if v and type(v) == 'table' and v.ability.set == "Joker" and (v.config.center.dongtong_compat == nil or v.config.center.dongtong_compat) then
                                 if v.added_to_deck then
                                     dong_tong_double(v) -- Required for debuffs to work
-                                    v:remove_from_deck(v, true)
+                                    v:remove_from_deck(true)
                                     v.added_to_deck = true
                                 end
                             end
