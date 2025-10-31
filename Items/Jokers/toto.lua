@@ -31,10 +31,11 @@ local toto = {
         if context.tag_added then 
             local _tag = context.tag_added
             if _tag.key ~= 'tag_double' and (not _tag.config.jest_tag_duplicate_trigger) then
+                delay(0.9)
                 for i = 1, card.ability.extra.tags do
                     G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.9,
+                        -- trigger = 'after',
+                        -- delay = 0.9,
                         func = function()
                             if _tag.ability and _tag.ability.orbital_hand then
                                 G.orbital_hand = _tag.ability.orbital_hand
@@ -47,6 +48,9 @@ local toto = {
                         end
                     }))
                 end
+                return {
+                    message = localize("k_aij_triple_ex")
+                }
             end
         end
     end
