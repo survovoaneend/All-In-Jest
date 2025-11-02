@@ -44,6 +44,27 @@ local pell_mel = {
       if context.after then
         card.ability.extra.xmult = 1
       end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
+                    }
+                }
+            },
+            calc_function = function(card)
+                card.joker_display_values.x_mult = 1
+                local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+                if text ~= 'Unknown' then
+                    card.joker_display_values.x_mult = 1 + jest_get_unique_suits(scoring_hand, nil, true) * card.ability.extra.xmult_mod
+                end
+            end
+        }
     end
   
 }
