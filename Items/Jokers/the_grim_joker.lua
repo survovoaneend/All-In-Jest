@@ -19,6 +19,9 @@ local the_grim_joker = {
     pixel_size = { w = 63, h = 95 },
   
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {set = 'Other', key = 'blue_seal'}
+        info_queue[#info_queue+1] = {set = 'Other', key = 'purple_seal'}
+        info_queue[#info_queue+1] = {key = 'e_negative_consumable', set = 'Edition', config = {extra = 1}}
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
         return {
             vars = {

@@ -5,7 +5,6 @@ local bearded_joker = {
     key = "bearded_joker",
     config = {
       extra = {
-        mult = 0,
         mult_mod = 2,
       }
     },
@@ -27,12 +26,10 @@ local bearded_joker = {
                 end
             end
         end
-        card.ability.extra.mult = enhancement_tally
-        card.ability.extra.mult = card.ability.extra.mult * card.ability.extra.mult_mod
         return {
             vars = {
                 card.ability.extra.mult_mod,
-                card.ability.extra.mult,
+                card.ability.extra.mult_mod * enhancement_tally,
             }
         }
     end,
@@ -46,11 +43,9 @@ local bearded_joker = {
                 end
             end
         end
-        card.ability.extra.mult = enhancement_tally
-        card.ability.extra.mult = card.ability.extra.mult * card.ability.extra.mult_mod
         if context.joker_main then
             return {
-                mult = card.ability.extra.mult,
+                mult = card.ability.extra.mult_mod * enhancement_tally,
                 card = card
             }
         end

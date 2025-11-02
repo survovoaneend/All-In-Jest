@@ -12,7 +12,7 @@ local thalia = {
     cost = 20,
     unlocked = false,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     soul_pos = { x = 9, y = 11 },
 
@@ -21,11 +21,11 @@ local thalia = {
     end,
 
     calculate = function(self, card, context)
-        if context.first_hand_drawn then
+        if context.first_hand_drawn and not context.blueprint then
             local eval = function() return G.GAME.current_round.discards_used == 0 and not G.RESET_JIGGLES end
             juice_card_until(card, eval, true)
         end
-        if context.discard and not context.blueprint and
+        if context.discard and
             G.GAME.current_round.discards_used <= 0 and #context.full_hand == 1 then
             context.full_hand[1].ability.perma_repetitions = context.full_hand[1].ability.perma_repetitions + 1
             return {

@@ -27,11 +27,14 @@ local killigrew = {
     end,
 
     calculate = function(self, card, context)
-        if context.buying_card and context.card.ability.set == "Voucher" then
+        if context.buying_card and context.card.ability.set == "Voucher" and not context.blueprint then
+            -- In an event so the message appears after the voucher redeem animation
             G.E_MANAGER:add_event(Event({
-                func = function() card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_xmult',vars={redeemed_voucher_count() * card.ability.extra.Xmult_mod}}}); return true
-                end}))
-            return
+                func = function() 
+                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_xmult',vars={redeemed_voucher_count() * card.ability.extra.Xmult_mod}}})
+                    return true
+                end
+            }))
         end
         if context.joker_main then
             local xmlt = redeemed_voucher_count() * card.ability.extra.Xmult_mod

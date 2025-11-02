@@ -50,53 +50,26 @@ local fortune_cookie = {
             end
             local remaining_mod = {}
             remaining_mod.num = 1
-            if (card.ability.extra.packs_remaining - 1) <= 0 then
-                SMODS.scale_card(card, {
-	                ref_table = card.ability.extra,
-                    ref_value = "packs_remaining",
-                    scalar_table = remaining_mod,
-	                scalar_value = "num",
-                    operation = '-',
-                    scaling_message = {
-	                    message = localize('k_eaten_ex'),
+            if not context.blueprint then
+                if (card.ability.extra.packs_remaining - 1) <= 0 then
+                    SMODS.destroy_cards(card, nil, nil, true)
+                    return {
+                        message = localize('k_eaten_ex'),
                         colour = G.C.RED
                     }
-                })
-            else
-                SMODS.scale_card(card, {
-	                ref_table = card.ability.extra,
-                    ref_value = "packs_remaining",
-                    scalar_table = remaining_mod,
-	                scalar_value = "num",
-                    operation = '-',
-                    scaling_message = {
-	                    message = card.ability.extra.packs_remaining.."/"..card.ability.extra.packs, 
-                        colour = G.C.FILTER
-                    }
-                })
-            end
-            if card.ability.extra.packs_remaining <= 0 then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        play_sound('tarot1')
-                        card.T.r = -0.2
-                        card:juice_up(0.3, 0.4)
-                        card.states.drag.is = true
-                        card.children.center.pinch.x = true
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'after',
-                            delay = 0.3,
-                            blockable = false,
-                            func = function()
-                                G.jokers:remove_card(card)
-                                card:remove()
-                                card = nil
-                                return true;
-                            end
-                        }))
-                        return true
-                    end
-                }))
+                else
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "packs_remaining",
+                        scalar_table = remaining_mod,
+                        scalar_value = "num",
+                        operation = '-',
+                        scaling_message = {
+                            message = localize{key='a_remaining', type='variable', vars={card.ability.extra.packs_remaining-1}},
+                            colour = G.C.FILTER
+                        },
+                    })
+                end
             end
         end
     end

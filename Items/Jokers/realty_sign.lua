@@ -13,7 +13,7 @@ local realty_sign = {
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
-    eternal_compat = true,
+    eternal_compat = true, -- Egg can be eternal, so should this
   
     loc_vars = function(self, info_queue, card)
       return { vars = {card.ability.extra.sell_increase} }
@@ -26,7 +26,6 @@ local realty_sign = {
                 ref_value = "extra_value",
                 scalar_table = card.ability.extra,
 	            scalar_value = "sell_increase",
-                operation = '+',
                 scaling_message = {
 	                message = localize('k_val_up'),
                     colour = G.C.MONEY

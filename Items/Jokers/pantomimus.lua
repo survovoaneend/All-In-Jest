@@ -37,10 +37,6 @@ local pantomimus = {
             operation = function(ref_table, ref_value, initial, change)
 	            ref_table[ref_value] = initial + #G.hand.cards * change
             end,
-            scaling_message = {
-	            message = localize('k_upgrade_ex'), 
-                colour = G.C.FILTER
-            }
         })
       end
       if context.joker_main then 

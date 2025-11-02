@@ -5,7 +5,7 @@ local mixel_perfect = {
     key = "mixel_perfect",
     config = {
       extra = {
-        mult = 10
+        mult = 9
       }
     },
     rarity = 1,

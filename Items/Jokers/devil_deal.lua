@@ -29,38 +29,20 @@ local devil_deal = {
     end,
   
     calculate = function(self, card, context)
-      if context.remove_playing_cards and not context.blueprint then
-      local hearts = 0
-      for k, val in ipairs(context.removed) do
-        if val:is_suit("Hearts") then hearts = hearts + 1 end
-      end
-      if hearts > 0 then
-        SMODS.scale_card(card, {
-	        ref_table = card.ability.extra,
-            ref_value = "xmult",
-	        scalar_value = "xmult_mod",
-            operation = function(ref_table, ref_value, initial, change)
-	            ref_table[ref_value] = initial + (hearts*change)
-            end,
-            scaling_message = {
-	            message = "X"..card.ability.extra.xmult.. " Mult",
-	            colour = G.C.MULT
-            }
-        })
-      end
-      return
-    end
-    if context.cards_destroyed and not context.blueprint then
-      local hearts = 0
-      for k, val in ipairs(context.glass_shattered) do
-        if val:is_suit("Hearts") then hearts = hearts + 1 end
-      end
-      if hearts > 0 then
-        card.ability.extra.xmult = card.ability.extra.xmult + (hearts * card.ability.extra.xmult_mod)
-        return {
-          message = "X"..card.ability.extra.xmult.. " Mult"
-        }
-      end
+      if (context.remove_playing_cards or context.cards_destroyed) and not context.blueprint then
+        local removed_cards = context.glass_shattered or context.removed
+        local hearts = 0
+        for k, val in ipairs(removed_cards) do
+            if val:is_suit("Hearts", false, true) then hearts = hearts + 1 end
+        end
+        for _ = 1, hearts do
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "xmult",
+                scalar_value = "xmult_mod",
+                message_key = 'a_xmult'
+            })
+        end
       return
     end
     if context.joker_main then

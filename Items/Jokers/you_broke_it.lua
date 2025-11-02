@@ -55,12 +55,6 @@ local you_broke_it = {
         }
       end
     end
-    if context.end_of_round and context.game_over == false and context.main_eval then
-      reset_jest_you_broke_it_card()
-      return {
-          message = localize('k_reset')
-      }
-    end
   end,
   
     joker_display_def = function(JokerDisplay)

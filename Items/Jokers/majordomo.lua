@@ -17,6 +17,7 @@ local majordomo = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {key = 'rental', set = 'Other', vars = {G.GAME.rental_rate or 1}}
         return {
             vars = {
                 card.ability.extra.more_than,
@@ -25,7 +26,7 @@ local majordomo = {
     end,
   
     calculate = function(self, card, context) 
-        if context.reroll_shop or context.entering_shop then
+        if context.reroll_shop or context.starting_shop then
             for k, v in pairs(G.shop_jokers.cards) do
                 if v.cost > card.ability.extra.more_than then
                     v:add_sticker('rental', true)

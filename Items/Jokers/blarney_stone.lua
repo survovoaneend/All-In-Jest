@@ -28,7 +28,7 @@ local blarney_stone = {
 
     return {
       vars = {
-        tonumber(firstChar) * 2
+        tonumber(firstChar) * 3
       }
     }
   end,
@@ -45,7 +45,7 @@ local blarney_stone = {
     local firstChar = string.sub(numStr, 1, 1)
     if context.joker_main then
       return {
-        mult = tonumber(firstChar) * 2
+        mult = tonumber(firstChar) * 3
       }
     end
   end

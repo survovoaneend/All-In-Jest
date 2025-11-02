@@ -46,6 +46,7 @@ local infinite_jest = {
             level_up_hand(eff_card, k, true)
         end
         update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
+        return nil, true
       end
     end
   

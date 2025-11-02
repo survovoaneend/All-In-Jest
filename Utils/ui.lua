@@ -311,7 +311,13 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
             local center = pool[index]
             if not center then break end
             local card = args.from_area and copy_card(center) or Card(G.your_collection[j].T.x + G.your_collection[j].T.w/2, G.your_collection[j].T.y, G.CARD_W*args.card_scale, G.CARD_H*args.card_scale, G.P_CARDS.empty, (args.center and G.P_CENTERS[args.center]) or center)
-            if args.modify_card then args.modify_card(card, center, i, j, index) end
+
+            -- Re-adds negative to preview if it was stripped by the mod
+            if center.edition and center.edition.negative and not All_in_Jest.config.no_copy_neg then
+                card:set_edition({negative = true}, nil, true)
+            end
+
+            if args.modify_card then args.modify_card(card, center, i, j, pool, index) end
             if not args.no_materialize then card:start_materialize(nil, i>1 or j>1) end
             G.your_collection[j]:emplace(card)
             end
@@ -335,6 +341,10 @@ G.FUNCS.jest_select = function(e)
       G.E_MANAGER:add_event(Event({
         trigger = 'after',
         func = function()
+          local c_to_remove = nil
+          if e.config.data[2].remove_orginal and e.config.data[2].index then
+            c_to_remove = e.config.data[2].remove_orginal[e.config.data[2].index]
+          end 
           if e.config.data[2].copies and e.config.data[2].copies > 1 then
               for i = 1, e.config.data[2].copies do
                   local card = SMODS.add_card {
@@ -370,7 +380,7 @@ G.FUNCS.jest_select = function(e)
                 card:set_edition({negative = true}, true)
               end
               if (not card.edition or (card.edition and not card.edition.negative)) and e.config.data[1] == G.consumeables then
-                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+                G.GAME.consumeable_buffer = 0
               end
               if e.config.data[2].playing_card == true then
                   G.playing_card = (G.playing_card and G.playing_card + 1) or 1
@@ -382,10 +392,9 @@ G.FUNCS.jest_select = function(e)
                   table.insert(e.config.data[1].cards, e.config.data[2].insert_index, item)
               end
           end
-          if e.config.data[2].remove_orginal and e.config.data[2].index then
-            local c = e.config.data[2].remove_orginal[e.config.data[2].index]
-            c:remove()
-            c = nil
+          if c_to_remove then
+            c_to_remove:remove()
+            c_to_remove = nil
           end 
           G.SETTINGS.paused = false
           if G.OVERLAY_MENU ~= nil then
@@ -487,10 +496,11 @@ G.FUNCS.jest_next_tag = function(e)
       end
     end
 end
-function jest_create_select_card_ui(card, area, extra_data)
+function jest_create_select_card_ui(card, area, extra_data, select_func)
+    select_func = select_func or "jest_select"
     extra_data = extra_data or {}
     extra_data.copies = extra_data.copies or 1 
-    local t2 =  {n=G.UIT.ROOT, config = {ref_table = card, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true, button = 'jest_select', data = {area, extra_data}, hover = true}, nodes={
+    local t2 =  {n=G.UIT.ROOT, config = {ref_table = card, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true, button = select_func, data = {area, extra_data}, hover = true}, nodes={
         {n=G.UIT.T, config={text = "Select",colour = G.C.WHITE, scale = 0.5}}
     }}
 

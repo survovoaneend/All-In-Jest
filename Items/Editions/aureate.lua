@@ -17,8 +17,8 @@ local aureate = {
     },
     order = 3,
     config = { 
-        money = 0.3,
-        max = 30
+        money = 0.1,
+        max = 10
     },
     loc_vars = function(self, info_queue, card)
         local money

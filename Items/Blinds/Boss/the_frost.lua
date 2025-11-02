@@ -19,15 +19,7 @@ local the_frost = {
         end
         if context.after and not temp then
             local hand_card = pseudorandom_element(G.hand.cards, pseudoseed('jest_the_frost'..G.GAME.round_resets.ante))
-            G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                func = function()
-                    hand_card:start_dissolve()
-                    return true
-                end
-            })) 
-            hand_card.destroyed = true
-            SMODS.calculate_context({remove_playing_cards = true, removed = hand_card})
+            SMODS.destroy_cards(hand_card)
         end
     end
 

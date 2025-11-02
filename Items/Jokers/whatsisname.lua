@@ -16,7 +16,7 @@ local whatsisname = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+        info_queue[#info_queue+1] = G.P_CENTERS.p_aij_guess_the_jest
     end,
 
     add_to_deck = function(self, card, from_debuff)

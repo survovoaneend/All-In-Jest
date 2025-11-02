@@ -27,7 +27,7 @@ local comedy_of_errors = {
   
     calculate = function(self, card, context)
         if context.discard then 
-            if not context.other_card.debuff and context.other_card:is_suit("Hearts") then
+            if context.other_card:is_suit("Hearts") then
                 ease_dollars(card.ability.extra.dollars)
                 return {
                     message = localize('$')..card.ability.extra.dollars,

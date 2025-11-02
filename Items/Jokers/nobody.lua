@@ -27,7 +27,7 @@ local nobody = {
                 local temp_card = create_card('Joker', G.jokers, true, 1, nil, nil, nil, 'nobody')
                 temp_card:start_materialize()
                 G.jokers:emplace(temp_card)
-                card:start_dissolve()
+                SMODS.destroy_cards(card, nil, true)
             end
         end
     end

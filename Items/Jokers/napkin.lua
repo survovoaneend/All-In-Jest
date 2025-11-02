@@ -31,29 +31,24 @@ local napkin = {
     end,
 
     calculate = function(self, card, context)
-        
-        if context.skip_blind then
-            print('skipping')
-            if card.ability.extra.state then
-                SMODS.scale_card(card, {
-	                ref_table = card.ability.extra,
-                    ref_value = "xmult",
-	                scalar_value = "xmult_mod",
-                    operation = '+',
-                    scaling_message = {
-	                    message = localize('k_upgrade_ex'), 
-                        colour = G.C.FILTER
-                    }
-                })
+        if not context.blueprint then
+            if context.skip_blind then
+                if card.ability.extra.state then
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "xmult",
+                        scalar_value = "xmult_mod",
+                    })
+                    card.ability.extra.state = false
+                end
+                if not card.ability.extra.state then
+                    card.ability.extra.state = true
+                end
+                
+            end
+            if context.setting_blind then
                 card.ability.extra.state = false
             end
-            if not card.ability.extra.state then
-                card.ability.extra.state = true
-            end
-            
-        end
-        if context.setting_blind then
-            card.ability.extra.state = false
         end
         if context.joker_main then
             return {

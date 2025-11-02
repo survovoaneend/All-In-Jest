@@ -36,9 +36,9 @@ local the_bird = {
                         old_index = i
                     end
                 end
-                local new_index = math.random(1, #G.jokers.cards)
+                local new_index = pseudorandom('bl_aij_the_bird', 1, #G.jokers.cards)
                 while joker == G.jokers.cards[new_index] do
-                    new_index = math.random(1, #G.jokers.cards)
+                    new_index = pseudorandom('bl_aij_the_bird', 1, #G.jokers.cards)
                 end
                 table.remove(G.jokers.cards, old_index)
                 table.insert(G.jokers.cards, new_index, joker)

@@ -7,8 +7,8 @@ local bad_apple = {
         extra = {
         xmult = 1,
         xmult_mod = 0.2,
-        light_suits = 3,
-        dark_suits = 2
+        light_suits = "3",
+        dark_suits = "2"
         }
     },
     rarity = 3,
@@ -32,11 +32,19 @@ local bad_apple = {
         }
     end,
 
+    set_ability = function(self, card, initial, delay_sprites)
+        if initial then
+            local random_value = pseudorandom("bad_apple", 0, 5)
+            card.ability.extra.light_suits = tostring(random_value)
+            card.ability.extra.dark_suits = tostring(5 - random_value)
+        end
+    end,
+
     calculate = function(self, card, context)
-        
         if context.end_of_round and context.main_eval and not context.blueprint then
-            card.ability.extra.light_suits = pseudorandom("bad_apple", 0, 5)
-            card.ability.extra.dark_suits = 5 - card.ability.extra.light_suits 
+            local random_value = pseudorandom("bad_apple", 0, 5)
+            card.ability.extra.light_suits = tostring(random_value)
+            card.ability.extra.dark_suits = tostring(5 - random_value)
             return {
                 message = localize('k_reset'),
                 card = card
@@ -45,22 +53,17 @@ local bad_apple = {
         if context.before and not context.blueprint then
             local dark_count, light_count = 0, 0
             for _, card in ipairs(context.scoring_hand) do
-                if card:is_suit('Spades') or card:is_suit('Clubs') or (PB_UTIL and PB_UTIL.is_suit(card, 'dark')) then
+                if card:is_suit('Spades', false, true) or card:is_suit('Clubs', false, true) or (PB_UTIL and PB_UTIL.is_suit(card, 'dark', false, true)) then
                     dark_count = dark_count + 1
-                elseif card:is_suit('Hearts') or card:is_suit('Diamonds') or (PB_UTIL and PB_UTIL.is_suit(card, 'light')) then
+                elseif card:is_suit('Hearts', false, true) or card:is_suit('Diamonds', false, true) or (PB_UTIL and PB_UTIL.is_suit(card, 'light', false, true)) then
                     light_count = light_count + 1
                 end
             end
-            if dark_count == card.ability.extra.dark_suits and light_count == card.ability.extra.light_suits then
+            if dark_count == tonumber(card.ability.extra.dark_suits) and light_count == tonumber(card.ability.extra.light_suits) then
                 SMODS.scale_card(card, {
 	                ref_table = card.ability.extra,
                     ref_value = "xmult",
 	                scalar_value = "xmult_mod",
-                    operation = '+',
-                    scaling_message = {
-	                    message = localize('k_upgrade_ex'),
-	                    colour = G.C.FILTER
-                    }
                 })
             end
         end

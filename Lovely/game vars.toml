@@ -18,19 +18,6 @@ jest_you_broke_it_card = {rank = nil, enhancement = nil, id = nil},
 jest_handsome_joker_card = {rank = nil, suit = nil, enhancement = nil, id = nil},	
 '''
 
-[[patches]]  
-[patches.pattern]
-target = 'game.lua'
-pattern = '''
-reset_castle_card()
-'''
-position = 'after'
-match_indent = true
-payload = '''
-reset_jest_magick_joker_card()
-reset_jest_you_broke_it_card()
-reset_handsome_joker_card()
-'''
 
 
 [[patches]] #G.GAME 

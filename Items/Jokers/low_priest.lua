@@ -7,13 +7,13 @@ local low_priest = {
     extra = {
       mult = 0,
       initial_mult = 20,
-      mult_mod = 2
+      mult_mod = 5
     }
   },
-  rarity = 2,
+  rarity = 1,
   pos = { x = 1, y = 9 },
   atlas = 'joker_atlas',
-  cost = 7,
+  cost = 5,
   unlocked = true,
   discovered = false,
   blueprint_compat = true,

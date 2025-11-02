@@ -6,6 +6,7 @@ local silly_sausage = {
     config = {
         extra = {
             current_discount = 5,
+            discount_loss = 1,
             prev_discount = "0"
         }
     },
@@ -24,7 +25,8 @@ local silly_sausage = {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.current_discount
+                card.ability.extra.current_discount,
+                card.ability.extra.discount_loss
             }
         }
     end,
@@ -50,36 +52,16 @@ local silly_sausage = {
                 end
                 G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + discount_this_round
                 G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost + discount_this_round)
-                card.ability.extra.current_discount = card.ability.extra.current_discount - 1
 
-                if card.ability.extra.current_discount <= 0 then
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            play_sound('tarot1')
-                            card.T.r = -0.2
-                            card:juice_up(0.3, 0.4)
-                            card.states.drag.is = true
-                            card.children.center.pinch.x = true
-                            G.E_MANAGER:add_event(Event({
-                                trigger = 'after',
-                                delay = 0.3,
-                                blockable = false,
-                                func = function()
-                                    G.jokers:remove_card(card)
-                                    card:remove()
-                                    card = nil
-                                    return true;
-                                end
-                            }))
-                            return true
-                        end
-                    }))
+                if card.ability.extra.current_discount - card.ability.extra.discount_loss <= 0 then
+                    SMODS.destroy_cards(card, nil, nil, true)
                     return {
                         message = localize('k_eaten_ex'),
                         colour = G.C.RED
                     }
                 else
-                    card_eval_status_text(card, 'extra', nil, nil, nil, { message = "-$1 Discount", colour = G.C.RED })
+                    card.ability.extra.current_discount = card.ability.extra.current_discount - card.ability.extra.discount_loss
+                    card_eval_status_text(card, 'extra', nil, nil, nil, { message = "-$" .. card.ability.extra.discount_loss .. " Discount", colour = G.C.RED })
                     G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.current_discount
                     G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - card.ability.extra.current_discount)
                     card.ability.extra.prev_discount = tostring(card.ability.extra.current_discount)

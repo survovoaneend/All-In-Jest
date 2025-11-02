@@ -5,7 +5,7 @@ local tipteerer = {
   key = "tipteerer",
   config = {
     extra = {
-      money = 0
+      percent = 20,
     }
   },
   rarity = 2,
@@ -19,17 +19,19 @@ local tipteerer = {
 
   loc_vars = function(self, info_queue, card)
     local sell_cost = 0
+    local money = 0
     if G.jokers and G.jokers.cards then
       for i = 1, #G.jokers.cards do
         if G.jokers.cards[i] ~= card and (G.jokers.cards[i].area and G.jokers.cards[i].area == G.jokers) then
           sell_cost = sell_cost + G.jokers.cards[i].sell_cost
         end
       end
-      card.ability.extra.money = math.ceil(sell_cost / 5)
+      money = math.ceil(sell_cost * card.ability.extra.percent/100)
     end
     return {
       vars = {
-        card.ability.extra.money
+        money,
+        card.ability.extra.percent
       }
     }
   end,
@@ -38,6 +40,7 @@ local tipteerer = {
   end,
   calc_dollar_bonus = function(self, card)
     local sell_cost = 0
+    local money = 0
     if G.jokers and G.jokers.cards then
       for i = 1, #G.jokers.cards do
         if G.jokers.cards[i] ~= card and (G.jokers.cards[i].area and G.jokers.cards[i].area == G.jokers) then
@@ -45,12 +48,9 @@ local tipteerer = {
         end
       end
     end
-    card.ability.extra.money = math.ceil(sell_cost / 5)
-    if card.ability.extra.money > 0 then
-      local dollar_bonus = card.ability.extra.money or 0
-      return 
-        dollar_bonus
-      
+    money = math.ceil(sell_cost * card.ability.extra.percent/100)
+    if to_big(money) > to_big(0) then
+      return money
     end
   end
 }

@@ -26,12 +26,7 @@ local the_apple = {
             end
             local joker = jokers[1] or nil
             if joker then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        joker:start_dissolve()
-                        return true
-                    end
-                }))
+                SMODS.destroy_cards(joker)
             end
         end
     end

@@ -23,7 +23,7 @@ local paracosm = {
                 most_played_hand = k
             end
         end
-        card.ability.extra.hand = most_played_hand or "[Most played poker hand]"
+        card.ability.extra.hand = most_played_hand or "None"
         return { vars = {card.ability.extra.hand}}
     end,
   

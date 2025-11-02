@@ -33,7 +33,7 @@ local alexandre = {
     if context.before then
       for k, v in ipairs(context.full_hand) do
         all_cards = all_cards + 1
-        if v:get_id() == 13 and v:is_suit('Clubs') then
+        if v:get_id() == 13 and v:is_suit('Clubs', false, true) then
           club_kings = club_kings + 1
         end
       end
@@ -42,11 +42,6 @@ local alexandre = {
 	        ref_table = card.ability.extra,
             ref_value = "mult",
 	        scalar_value = "mult_mod",
-            operation = '+',
-            scaling_message = {
-	            message = localize('k_upgrade_ex'),
-	            colour = G.C.FILTER
-            }
         })
       end
     end

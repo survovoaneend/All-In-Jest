@@ -28,22 +28,13 @@ local bad_sun = {
         if context.after and context.full_hand then
             local heart_count = 0
             for i = 1, #context.full_hand do
-                if context.full_hand[i]:is_suit('Hearts') then
+                if context.full_hand[i]:is_suit('Hearts', false, true) then
                     heart_count = heart_count + 1
                 end
             end
             if heart_count >= card.ability.extra.suit_count then
                 local temp_card = pseudorandom_element(context.full_hand, pseudoseed('bad_sun'))
-                local total_cards = {}
-                table.insert(total_cards, temp_card)
-                temp_card.destroyed = true
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        temp_card:start_dissolve()
-                        return true
-                    end
-                }))
-                SMODS.calculate_context({remove_playing_cards = true, removed = total_cards})
+                SMODS.destroy_cards(temp_card)
             end
         end
     end

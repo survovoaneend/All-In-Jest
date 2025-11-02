@@ -28,19 +28,16 @@ local eulenspiegel = {
         if G.GAME.blind.boss and not context.blueprint then
             ease_ante(-card.ability.ante_mod)
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = "-"..card.ability.ante_mod.." Ante", colour = G.C.FILTER})
-            SMODS.scale_card(card, {
-	            ref_table = card.ability,
-                ref_value = "Xmult",
-	            scalar_value = "Xmult_mod",
-                operation = '-',
-                scaling_message = {
-	               message = "-"..card.ability.Xmult_mod.." XMult", 
-                   colour = G.C.MULT
-                }
-            })
-            if card.ability.Xmult == 0 then
-              card:start_dissolve()
-              card.ability.Xmult = 3
+            if (card.ability.Xmult - card.ability.Xmult_mod <= 0) then
+              SMODS.destroy_cards(card, false, true)
+            else
+              SMODS.scale_card(card, {
+                ref_table = card.ability,
+                  ref_value = "Xmult",
+                scalar_value = "Xmult_mod",
+                  operation = '-',
+                  message_key = 'a_xmult_minus'
+              })
             end
         end
       end

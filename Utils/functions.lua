@@ -95,9 +95,9 @@ function retrieve_joker_text(joker, descip, name)
                 local random_element = main[i].config.object.config.random_element
                 local chosen_option = nil
                 if random_element then
-                    chosen_option = options[math.random(1, #options)]
+                    chosen_option = options[pseudorandom('aij_retrieve_joker_text', 1, #options)]
                 else
-                    chosen_option = options[math.floor((G.TIMERS.REAL or math.random(1, 60)) * love.timer.getFPS( ) % #options) + 1]
+                    chosen_option = options[math.floor((G.TIMERS.REAL or pseudorandom('aij_retrieve_joker_text', 1, 60)) * love.timer.getFPS( ) % #options) + 1]
                 end
                 if type(chosen_option) == "table" then
                     text = text .. chosen_option.string or get_text(chosen_option)
@@ -161,19 +161,14 @@ function jest_add_tag(tag, event, silent)
   end
 end
 
-function level_up_other_hand(card, hand, other_hand, instant, amount)
-    amount = amount or 1
+function level_up_other_hand(card, hand, other_hand, instant, amount, type)
+    local level = 1
     
-    if to_big(G.GAME.hands[other_hand].l_mult) >= to_big(1) then
-        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (G.GAME.hands[other_hand].l_mult * amount))
-    else
-        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + (1 * amount))
+    if not type or type == 'mult' then
+        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + amount)
     end
-     
-    if to_big(G.GAME.hands[other_hand].l_chips) >= to_big(1) then
-        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (G.GAME.hands[other_hand].l_chips * amount))
-    else
-        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + (1 * amount))
+    if not type or type == 'chips' then
+        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + amount)
     end
     G.E_MANAGER:add_event(Event({
         trigger = 'immediate',
@@ -189,6 +184,9 @@ function level_up_hand_chips(card, hand, instant, amount)
         local val = G.GAME.hands[hand].l_chips * amount * 2
         local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - val
         extra_amount = (extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)) + (extra_chips > 0 and extra_chips or 0)
+        if hand == 'Straight Flush' then
+            level_up_other_hand(nil, 'aij_Royal Flush', hand, true, amount * 2 + extra_amount, 'chips')
+        end
         G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + math.floor((G.GAME.hands[hand].l_chips * amount * 2 + extra_amount)))
         if not instant then 
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
@@ -220,6 +218,9 @@ function level_up_hand_mult(card, hand, instant, amount)
         local val = G.GAME.hands[hand].l_mult * amount * 2
         local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - val
         extra_amount = (extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)) + (extra_mult > 0 and extra_mult or 0)
+        if hand == 'Straight Flush' then
+            level_up_other_hand(nil, 'aij_Royal Flush', hand, true, amount * 2 + extra_amount, 'mult')
+        end
         G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + math.floor((G.GAME.hands[hand].l_mult * amount * 2 + extra_amount)))
         if not instant then 
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
@@ -712,13 +713,6 @@ AllInJest.deck_skins = {
     }
   },
   {
-    id = 'wuppo',
-    name = 'Wuppo',
-    suits = {
-      'Hearts',
-    }
-  },
-  {
     id = 'balatro',
     name = 'Balatro',
     suits = {
@@ -726,11 +720,10 @@ AllInJest.deck_skins = {
     }
   },
   {
-    id = 'king_in_yellow',
-    name = 'The King in Yellow',
+    id = 'wuppo',
+    name = 'Wuppo',
     suits = {
-      'Diamonds',
-      'Clubs',
+      'Hearts',
     }
   },
   {
@@ -738,13 +731,6 @@ AllInJest.deck_skins = {
     name = 'Spelunky',
     suits = {
       'Diamonds',
-    }
-  },
-  {
-    id = 'talos_principle',
-    name = 'Talos Principle',
-    suits = {
-      'Spades',
     }
   },
   {
@@ -762,8 +748,29 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'talos_principle',
+    name = 'Talos Principle',
+    suits = {
+      'Spades',
+    }
+  },
+  {
     id = 'alan_wake',
     name = 'Alan Wake',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'minecraft',
+    name = 'Minecraft',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'petscop',
+    name = 'Petscop',
     suits = {
       'Clubs',
     }
@@ -776,9 +783,10 @@ AllInJest.deck_skins = {
     }
   },
   {
-    id = 'petscop',
-    name = 'Petscop',
+    id = 'king_in_yellow',
+    name = 'The King in Yellow',
     suits = {
+      'Diamonds',
       'Clubs',
     }
   },
@@ -792,7 +800,16 @@ AllInJest.deck_skins = {
       'Diamonds'
     }
   },
-
+  {
+    id = 'yume_nikki',
+    name = 'Yume Nikki',
+    suits = {
+      'Clubs',
+      'Spades',
+      'Hearts',
+      'Diamonds'
+    }
+  },
 }
 
 --Taken from paperback
@@ -886,13 +903,14 @@ function reset_handsome_joker_card()
 
   -- Loop through the original list of all enhancements
   for _, enhancement in ipairs(all_enhancements) do
-    if enhancement ~= 'm_stone' and enhancement ~= 'm_aij_canvas' then
+    if not (enhancement == 'm_stone' or enhancement == 'm_aij_canvas' or G.P_CENTERS[enhancement].no_rank or G.P_CENTERS[enhancement].no_suit) then
       valid_enhancements[#valid_enhancements + 1] = enhancement
     end
   end
   local valid_jest_handsome_cards = {}
     for k, v in ipairs(G.playing_cards) do
-        if v.ability.effect ~= 'Stone Card' and v.ability.effect ~= 'Canvas Card'then
+        local enhancement = v.ability.effect
+        if not (SMODS.has_no_rank(v) or SMODS.has_no_suit(v) or enhancement == 'm_aij_canvas') then
             valid_jest_handsome_cards[#valid_jest_handsome_cards+1] = v
         end
     end
@@ -1253,7 +1271,7 @@ function All_in_Jest.add_patch(card, suit, instant, append)
   if not suit then
       local keys = {}
 	  for k, v in pairs(SMODS.Suits) do
-          if card.base.suit ~= k and All_in_Jest.has_suit_in_deck(k, true) then
+          if card.base.suit ~= k and All_in_Jest.has_suit_in_deck(k, true) and ((v.in_pool and v.in_pool(val, nil)) or not v.in_pool) then
 	         keys[#keys+1] = k
           end
 	  end
@@ -1271,7 +1289,7 @@ function All_in_Jest.add_patch(card, suit, instant, append)
     card.ability.patches = card.ability.patches or {}
     card.ability.patches[suit] = true
   end
-  check_for_unlock({type = 'add_patch'})
+  check_for_unlock({type = 'modify_deck'})
 end
 
 function All_in_Jest.has_suit_in_deck(suit, ignore_wild)
@@ -1289,13 +1307,15 @@ function All_in_Jest.add_tag_to_shop(key, price)
     local card = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
     G.shop_booster.T.y, G.CARD_W*0.7, G.CARD_W*0.7, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
     create_shop_card_ui(card, 'Tag', G.shop_booster)
-    local temp_config = {}
     for k, v in pairs(center.config) do
         card.config[k] = v
     end
     card.ability.booster_pos = #G.shop_booster.cards + 1
-    card.config.tag = Tag(card.config.center.key)
-    if card.config.center.key == "tag_orbital" then
+    card.ability.is_aij_shop_tag = true
+    local pool = options or get_current_pool('Tag')
+    local tag_key = key
+    local tag = Tag(tag_key)
+    if tag_key == "tag_orbital" then
         local available_hands = {}
 
         for _, k in ipairs(G.handlist) do
@@ -1305,8 +1325,11 @@ function All_in_Jest.add_tag_to_shop(key, price)
           end
         end
 
-        card.config.tag.ability.orbital_hand = pseudorandom_element(available_hands, pseudoseed(card.ability.booster_pos .. '_orbital'))
+        tag.ability.orbital_hand = pseudorandom_element(available_hands, pseudoseed(card.ability.booster_pos .. '_orbital'))
+        card.ability.orbital_hand = tag.ability.orbital_hand
     end
+    card.config.tag = tag
+    card.name = card.config.tag.name
     card:start_materialize()
     card.edition = nil
     card.base_cost = price or 1
@@ -1553,9 +1576,16 @@ function All_in_Jest.get_suits(type, base)
 end
 
 function All_in_Jest.reset_game_globals(run_start)
+    -- Globals for a single blind (like Idol)
+    reset_jest_magick_joker_card()
+    reset_jest_you_broke_it_card()
 	G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
+
     if run_start then
+    -- Globals for a whole run (like Fortune Teller)
+        reset_handsome_joker_card()
+
         local common_suit, common_rank = nil, nil
         local temp_suit_val, temp_rank_val = 0, 0
         local suit_table, rank_table = {}, {}

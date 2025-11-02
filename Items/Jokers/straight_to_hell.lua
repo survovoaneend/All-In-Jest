@@ -37,11 +37,7 @@ local straight_to_hell = {
 	                    ref_table = card.ability.extra,
                         ref_value = "xmult",
 	                    scalar_value = "xmult_mod",
-                        operation = '+',
-                        scaling_message = {
-	                        message = 'X'..number_format(card.ability.extra.xmult).. ' Mult',
-                            colour = G.C.MULT
-                        }
+                        message_key = 'a_xmult'
                     })
 
                     return nil, true

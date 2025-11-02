@@ -73,7 +73,7 @@ local anarchy_tag = {
         if context.type == 'new_blind_choice' then
             tag:jest_apply("+", G.C.ATTENTION, function()
                 if effect == "money" then
-                    local money = math.random(1,150)
+                    local money = pseudorandom('jest_chaos_tag',1,150)
                     ease_dollars(money)
                 elseif effect == "boss_reroll" then
                     local bosses = {}
@@ -87,7 +87,7 @@ local anarchy_tag = {
                         if v and v.boss then
                             table.insert(bosses, v)
                             if not v.boss.showdown then
-                                local ran = math.random(1, #showdown_bosses)
+                                local ran = pseudorandom('jest_chaos_tag', 1, #showdown_bosses)
                                 table.insert(bosses, showdown_bosses[ran])
                             end
                         end
@@ -137,11 +137,11 @@ local anarchy_tag = {
                             table.insert(boosters, k)
                         end
                     end
-                    local key = boosters[math.random(1, #boosters)]
+                    local key = boosters[pseudorandom('jest_chaos_tag', 1, #boosters)]
                     local card = Card(G.play.T.x + G.play.T.w/2 - G.CARD_W*1.27/2,
                     G.play.T.y + G.play.T.h/2-G.CARD_H*1.27/2, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS[key], {bypass_discovery_center = true, bypass_discovery_ui = true})
-                    card.ability.choose = math.random(1, 4)
-                    card.ability.extra = math.random(1, 7)
+                    card.ability.choose = pseudorandom('jest_chaos_tag', 1, 4)
+                    card.ability.extra = pseudorandom('jest_chaos_tag', 1, 7)
                     if card.ability.choose > card.ability.extra then
                         card.ability.choose = card.ability.extra
                     end
@@ -150,7 +150,7 @@ local anarchy_tag = {
                     G.FUNCS.use_card({config = {ref_table = card}})
                     card:start_materialize()
                 elseif effect == "create_jokers" then
-                    local jokers_to_create = math.min(math.random(1, 4), G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
+                    local jokers_to_create = math.min(pseudorandom('jest_chaos_tag', 1, 4), G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
                     G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
                     G.E_MANAGER:add_event(Event({
                         func = function() 
@@ -179,7 +179,7 @@ local anarchy_tag = {
                             return true
                         end})) 
                 elseif effect == "create_consumables" then
-                    local consumeables_to_create = math.random(3, 4)
+                    local consumeables_to_create = pseudorandom('jest_chaos_tag', 3, 4)
                     local c_edition = {negative = true}
                     for i = 1, consumeables_to_create do
                         local card_to_create = create_consumable("Consumeables", nil, nil, {edition = c_edition})
@@ -239,7 +239,7 @@ local anarchy_tag = {
                     G.GAME.round_resets.discards = G.GAME.round_resets.discards + 1
                     ease_discard(1)
                 elseif effect == "plus_ran_enhance" then
-                    local ran_amt = math.random(2, 4)
+                    local ran_amt = pseudorandom('jest_anarchy_tag', 2, 4)
                     local temp_card = create_card("Base", G.play, nil, nil, true, nil, nil, 'nonsta')
                     for i = 1, ran_amt do
                         local new_code = pseudorandom_element(SMODS.Suits, pseudoseed('jest_anarchy_tag'..G.GAME.round_resets.ante)).card_key
@@ -265,7 +265,7 @@ local anarchy_tag = {
                     end
                     temp_card:start_dissolve()
                 elseif effect == "give_ran_enhance" then
-                    local cur_ran = math.random(3, 8)
+                    local cur_ran = pseudorandom('jest_anarchy_tag', 3, 8)
                     local cen_pool = {}
                     for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
                         if v.key ~= 'm_stone' then 
@@ -282,7 +282,7 @@ local anarchy_tag = {
                         playing_card:set_ability(G.P_CENTERS[enhance])
                     end
                 elseif effect == "ran_tag" then
-                    local num_ran = math.random(1, 5)
+                    local num_ran = pseudorandom('jest_anarchy_tag', 1, 5)
                     G.E_MANAGER:add_event(Event({
                         func = (function()
                             for i = 1, num_ran do
@@ -303,7 +303,7 @@ local anarchy_tag = {
                         end)
                     }))
                 elseif effect == "ran_gold_tag" then
-                    local num_ran = math.random(1, 2)
+                    local num_ran = pseudorandom('jest_anarchy_tag', 1, 2)
                     G.E_MANAGER:add_event(Event({
                         func = (function()
                             for i = 1, num_ran do

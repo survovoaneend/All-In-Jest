@@ -27,7 +27,7 @@ local bozo = {
     end,
 
     calculate = function(self, card, context)
-        if context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss then
+        if context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss and not context.blueprint then
             for i = 1, card.ability.extra.jokers do
                 SMODS.add_card { set = "Joker", edition = 'e_negative' }
             end

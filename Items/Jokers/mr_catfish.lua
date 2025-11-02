@@ -26,25 +26,23 @@ local mr_catfish = {
 
     calculate = function(self, card, context)
         if context.discard then
-            if card.ability.extra.discards_remaining <= 1 then
-                card.ability.extra.discards_remaining = card.ability.extra.discards
-                return {
-                    dollars = card.ability.extra.dollars,
-                    func = function()
-                        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
-                        G.E_MANAGER:add_event(Event({
-                            func = function()
-                                G.GAME.dollar_buffer = 0
-                                return true
-                            end
-                        }))
-                    end
-                }
-            else
-                if not context.blueprint then
+            -- Putting these in events so copying cards can correctly give money
+            if not context.blueprint then
+                G.E_MANAGER:add_event(Event({func = (function() 
                     card.ability.extra.discards_remaining = card.ability.extra.discards_remaining - 1
-                    return nil, true
-                end
+                    if card.ability.extra.discards_remaining <= 0 then
+                        card.ability.extra.discards_remaining = card.ability.extra.discards
+                    end
+                    return true
+                end)}))
+            end
+
+            if (card.ability.extra.discards_remaining - 1) <= 0 then
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
+                G.E_MANAGER:add_event(Event({func = (function() G.GAME.dollar_buffer = 0; return true end)}))
+                return {
+                    dollars = card.ability.extra.dollars
+                }
             end
         end
     end

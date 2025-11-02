@@ -5,7 +5,7 @@ local paper_bag = {
     key = "paper_bag",
     config = {
       extra = {
-          chip_mod = 1,
+          chip_mod = 2,
           cur_chips = 0
       }
     },
@@ -38,10 +38,6 @@ local paper_bag = {
                 operation = function(ref_table, ref_value, initial, change)
 	                ref_table[ref_value] = initial + (G.GAME.hands[text].level * change)
                 end,
-                scaling_message = {
-	                message = localize('k_upgrade_ex'), 
-                    colour = G.C.FILTER
-                }
             })
         end
         if context.joker_main then

@@ -16,73 +16,17 @@ local magick_joker = {
   eternal_compat = true,
 
   loc_vars = function(self, info_queue, card)
+    local suit = G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit or "Spades"
     return {
       vars = {
-        localize(
-        G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit or "Spades",
-          "suits_singular"),
-        colours = { G.C.SUITS[G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit or "Spades"] },
+        localize(suit, "suits_plural"),
+        colours = { G.C.SUITS[suit] },
       }
     }
   end,
 
   calculate = function(self, card, context)
-    local has_magick_joker = next(SMODS.find_card("j_aij_magick_joker"))
-    if G.play ~= nil and has_magick_joker then
-      for _, card in ipairs(G.play.cards) do
-        if context.before then
-          local saved = card.ability._saved_chip_values
-          if saved == nil and not card.debuff and card:is_suit(G.GAME.current_round.jest_magick_joker_card.suit) then
-            local _, cval                   = jest_ability_get_items(card, "nil", 2, { extra_value = true }, { "nominal" },
-              false, true, "base")
-            local _, hval                   = jest_ability_get_items(card, "nil", 2, { extra_value = true }, { "h_chips" },
-              false, true, "ability.extra")
-            local _, bval                   = jest_ability_get_items(card, "nil", 2, { extra_value = true }, { "bonus" },
-              false, true, "ability.extra")
-            local _, pbval                  = jest_ability_get_items(card, "nil", 2, { extra_value = true },
-              { "perma_bonus" }, false, true, "ability.extra")
-
-            card.ability._saved_chip_values = {
-              nominal = cval[1] or 0,
-              h_chips = hval[1] or 0,
-              bonus = bval[1] or 0,
-              perma_bonus = pbval[1] or 0,
-            }
-            saved                           = card.ability._saved_chip_values
-          end
-
-          if saved ~= nil then
-            jest_ability_calculate(card, "=", 0, nil, { "nominal" }, false, true, "base")
-            jest_ability_calculate(card, "=", 0, nil, { "h_chips", "bonus", "perma_bonus" }, false, true, "ability")
-            if card.ability.effect ~= 'Lucky Card' then
-              jest_ability_calculate(card, "+", saved.nominal + saved.bonus, nil, { "mult" }, false, true, "ability")
-              jest_ability_calculate(card, "+", saved.perma_bonus, nil, { "perma_mult" }, false, true, "ability")
-              jest_ability_calculate(card, "+", saved.h_chips, nil, { "h_mult" }, false, true, "ability")
-            end
-          end
-        end
-
-        if context.final_scoring_step then
-          local saved = card.ability._saved_chip_values
-          if saved ~= nil then
-            jest_ability_calculate(card, "+", saved.nominal, nil, { "nominal" }, false, true, "base")
-              jest_ability_calculate(card, "+", saved.h_chips, nil, { "h_chips" }, false, true, "ability")
-              jest_ability_calculate(card, "+", saved.bonus, nil, { "bonus" }, false, true, "ability")
-              jest_ability_calculate(card, "+", saved.perma_bonus, nil, { "perma_bonus" }, false, true, "ability")
-
-              if card.ability.effect ~= 'Lucky Card' then
-                jest_ability_calculate(card, "-", saved.nominal + saved.bonus, nil, { "mult" }, false, true, "ability")
-                jest_ability_calculate(card, "-", saved.perma_bonus, nil, { "perma_mult" }, false, true, "ability")
-                jest_ability_calculate(card, "-", saved.h_chips, nil, { "h_mult" }, false, true, "ability")
-              end
-            card.ability._saved_chip_values = nil
-          end
-        end
-      end
-    end
-    if context.end_of_round then
-      reset_jest_magick_joker_card()
-    end
+    -- Effect is in lovely patch on eval_card() in common_events.lua
   end
 
 }

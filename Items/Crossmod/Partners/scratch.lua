@@ -67,7 +67,7 @@ local scratch = {
         end
     end
     if context.before then
-        card.ability.extra.joker_index = math.random(1,2)
+        card.ability.extra.joker_index = pseudorandom('aij_scratch_partner',1,2)
     end
   end
 }

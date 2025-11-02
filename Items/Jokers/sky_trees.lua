@@ -14,7 +14,7 @@ local sky_trees = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-
+        info_queue[#info_queue+1] = {set = 'Other', key = 'blue_seal'}
     end,
   
     calculate = function(self, card, context)

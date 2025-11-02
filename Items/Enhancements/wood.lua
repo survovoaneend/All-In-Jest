@@ -23,7 +23,11 @@ local wood = {
         }
     },
     loc_vars = function(self, info_queue, card)
-        return { vars = {card.ability.h_chips, card.ability.extra.h_chips_mod} }
+        return { vars = {
+            card.ability.h_chips,
+            card.ability.extra.h_chips_mod,
+            card.ability.extra.base_h_chips
+        } }
     end,
     update = function(self, card, dt)
         if G.hand and G.hand.cards then

@@ -18,7 +18,7 @@ local patchwork = {
         end
 	end,
     check_for_unlock = function(self, args)
-        if args.type == 'add_patch' and G.playing_cards then
+        if args.type == 'modify_deck' and G.playing_cards then
             local count = 0
             for k, v in pairs(G.playing_cards) do
                 if v.ability and v.ability.patches then

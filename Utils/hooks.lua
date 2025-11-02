@@ -233,6 +233,7 @@ end
 
 local has_no_suit_ref = SMODS.has_no_suit
 function SMODS.has_no_suit(card)
+    if card.base.suit == nil then return true end
     if SMODS.has_enhancement(card, 'm_aij_canvas') then
         if (card.area == G.hand or card.area == G.play) and not card.debuff then
             for k, v in pairs(G.play.cards) do
@@ -279,6 +280,7 @@ end
 
 local has_no_rank_ref = SMODS.has_no_rank
 function SMODS.has_no_rank(card)
+    if card.base.id == nil then return true end
     if SMODS.has_enhancement(card, 'm_aij_canvas') then
         if (card.area == G.hand or card.area == G.play) and not card.debuff then
             for k, v in pairs(G.play.cards) do
@@ -477,7 +479,7 @@ end
 local should_hide_front_ref = Card.should_hide_front
 function Card:should_hide_front()
   if SMODS.has_enhancement(self, 'm_aij_canvas') then
-    if (self.area == G.hand or self.area == G.play) and not self.debuff then
+    if ((G.hand and self.area == G.hand) or (G.play and self.area == G.play)) and not self.debuff then
         for k, v in pairs(G.play.cards) do
             if v == self and v ~= G.play.cards[#G.play.cards] and not G.play.cards[k+1].debuff then
                 return G.play.cards[k+1]:should_hide_front()
@@ -568,7 +570,7 @@ end
 local ease_anteref = ease_ante
 function ease_ante(mod)
     if mod ~= 0 then
-        G.P_BLINDS['bl_aij_aureate_coin'].mult = (G.GAME.dollars * 0.1) + 2
+        G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = 0
         local common_suit, common_rank = nil, nil
         local temp_suit_val, temp_rank_val = 0, 0
         local suit_table, rank_table = {}, {}
@@ -838,4 +840,16 @@ function Card:set_sprites(_center, _front)
         end
     end
     return ref
+end
+
+-- Save/Load for tags in shop as cards
+-- A lovely patch for Card:load() is also needed
+local card_save_ref = Card.save
+function Card:save()
+    local saveTable = card_save_ref(self)
+    saveTable.aij = saveTable.aij or {}
+    if self.config.tag and self.config.tag.is and self.config.tag:is(Tag) then
+        saveTable.aij.tag = self.config.tag:save()
+    end
+    return saveTable
 end

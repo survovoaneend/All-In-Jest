@@ -16,7 +16,7 @@ local arlecchino = {
   eternal_compat = true,
 
   loc_vars = function(self, info_queue, card)
-
+    
   end,
 
   calculate = function(self, card, context)

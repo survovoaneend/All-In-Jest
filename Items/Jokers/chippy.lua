@@ -36,10 +36,6 @@ local chippy = {
             operation = function(ref_table, ref_value, initial, change)
 	            ref_table[ref_value] = initial + -change
             end,
-            scaling_message = {
-	            message = localize('k_upgrade_ex'),
-	            colour = G.C.FILTER
-            },
             block_overrides = {
 	            value = true,
 	            scalar = true,

@@ -5,7 +5,7 @@ local planetarium = {
     config = {
       extra = {
           chips = 100,
-          mult = 20,
+          mult = 15,
       }
     },
     rarity = 2,

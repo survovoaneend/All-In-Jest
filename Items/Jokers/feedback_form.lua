@@ -32,6 +32,9 @@ local feedback_form = {
             for i = 1, #context.scoring_hand do
                 local has_enhancement = false
                 for k, v in pairs(SMODS.get_enhancements(context.scoring_hand[i])) do
+                    -- BUG technical issue with multi-enhancements:
+                    -- should work like Flower Pot & Wild Cards,
+                    -- so a Stone/Steel + a Steel, the first can count as Stone
                     if enhancements[k] then
                         temp_val = false
                     else

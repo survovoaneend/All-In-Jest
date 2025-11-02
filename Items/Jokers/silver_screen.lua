@@ -16,7 +16,9 @@ local silver_screen = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+        if not card.edition or (card.edition and not card.edition.key == 'e_aij_silver') then
+        info_queue[#info_queue+1] = G.P_CENTERS.e_aij_silver
+        end
     end,
   
     calculate = function(self, card, context)

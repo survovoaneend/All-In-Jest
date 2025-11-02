@@ -12,7 +12,7 @@ local fabled = {
         local vars = {}
         if self.get_current_deck_key() == "b_aij_fabled" then
             key = self.key .. "_alt"
-            self.config = { increase_legendary_pool_rate = 0.008}
+            self.config = { increase_legendary_pool_rate = 0.008, extra = {}}
             vars = { }
         else
             key = self.key
@@ -43,16 +43,19 @@ local fabled = {
         end
     end,
     calculate = function(self, sleeve, context)
+
+        local deck_or_sleeve = (sleeve.config.extra and sleeve.config.extra.should_increase and sleeve) or G.GAME.selected_back.effect
+
         if not sleeve.config.increase_legendary_pool_rate then
-            if context.end_of_round and not context.repetition and not context.individual and G.GAME.selected_back.effect.config.extra.should_increase then
+            if context.end_of_round and not context.repetition and not context.individual and deck_or_sleeve.config.extra.should_increase then
                  G.GAME.jest_legendary_pool.rate =  G.GAME.jest_legendary_pool.rate - 0.002
-                 G.GAME.selected_back.effect.config.extra.remove_amt = G.GAME.selected_back.effect.config.extra.remove_amt + 0.002
+                 deck_or_sleeve.config.extra.remove_amt = deck_or_sleeve.config.extra.remove_amt + 0.002
             end
             if context.buying_card then
                 if context.card.ability.set == "Joker" and context.card.config.center.rarity == 4 then
-                    G.GAME.selected_back.effect.config.extra.should_increase = false
-                    G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate + G.GAME.selected_back.effect.config.extra.remove_amt
-                    G.GAME.selected_back.effect.config.extra.remove_amt = 0
+                    deck_or_sleeve.config.extra.should_increase = false
+                    G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate + deck_or_sleeve.config.extra.remove_amt
+                    deck_or_sleeve.config.extra.remove_amt = 0
                 end
             end
         end

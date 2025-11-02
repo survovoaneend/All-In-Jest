@@ -5,14 +5,14 @@ local little_boy_blue = {
     key = "little_boy_blue",
     config = {
       extra = {
-          chips = 200,
+          chips = 100,
           banned_cards = {}
       }
     },
-    rarity = 3,
+    rarity = 1,
     pos = { x = 23, y = 4 },
     atlas = 'joker_atlas',
-    cost = 8,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
@@ -53,6 +53,10 @@ local little_boy_blue = {
     remove_from_deck = function(self, card, from_debuff)
         if #SMODS.find_card("j_aij_little_boy_blue") <= 0 then
 		    for _, key in ipairs(card.ability.extra.banned_cards) do
+                -- BUG: by the time this unbans cards, the list of cards to unban
+                -- can be inaccurate. (applies to the mult joker too)
+                -- plan: probably just patch instead of utilizing the existing banned_keys
+                -- table
                 G.GAME.banned_keys[key] = nil
             end
         end

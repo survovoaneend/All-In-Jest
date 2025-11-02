@@ -25,14 +25,14 @@ local coulrorachne = {
             vars = {
                 card.ability.extra.mult_mod,
                 card.ability.extra.cur_mult,
-                card.ability.extra.eight_count,
+                card.ability.extra.amt_mod - card.ability.extra.eight_count,
                 card.ability.extra.amt_mod,
             }
         }
     end,
   
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
+        if context.individual and context.cardarea == G.play and not context.blueprint then
             if context.other_card:get_id() == 8 then
                 card.ability.extra.eight_count = card.ability.extra.eight_count + 1
                 if card.ability.extra.eight_count >= card.ability.extra.amt_mod then
@@ -41,11 +41,6 @@ local coulrorachne = {
 	                    ref_table = card.ability.extra,
                         ref_value = "cur_mult",
 	                    scalar_value = "mult_mod",
-                        operation = '+',
-                        scaling_message = {
-	                        message = localize('k_upgrade_ex'),
-	                        colour = G.C.FILTER
-                        }
                     })
                 end
             end

@@ -16,6 +16,11 @@ local magic_mirror = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
+        if All_in_Jest.config and All_in_Jest.config.no_copy_neg then
+            info_queue[#info_queue+1] = {key = 'e_negative_playing_card', set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit} }
+        else
+            info_queue[#info_queue+1] = G.P_CENTERS.e_aij_negative_playing_card
+        end
         local active_text = "("..localize('k_inactive')..")"
         if G.GAME.jest_magic_mirror_trigger then 
             active_text = "("..localize('k_active')..")"
@@ -28,8 +33,8 @@ local magic_mirror = {
     end,
   
     calculate = function(self, card, context)
-      if context.ante_change and context.ante_change ~= 0 then
-          G.GAME.jest_magic_mirror_trigger = false
+      if context.ante_change and context.ante_change ~= 0 and context.ante_end then
+          G.GAME.jest_magic_mirror_trigger = true
       end
       if context.individual and context.cardarea == G.play then
         if G.GAME.jest_magic_mirror_trigger then
@@ -37,8 +42,8 @@ local magic_mirror = {
             if cardd:is_face() then
                 G.GAME.jest_magic_mirror_trigger = false
                  G.E_MANAGER:add_event(Event({
-                trigger = 'before', -- 'before' is good for effects during scoring
-                delay = 0.2,      -- A small delay to let other effects resolve first
+                trigger = 'before',
+                delay = 0.2,      
                 func = function()
                     card:juice_up(0.6, 0.2)
                     cardd:juice_up(0.6, 0.2)

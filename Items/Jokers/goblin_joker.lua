@@ -27,7 +27,7 @@ local goblin_joker = {
     end,
 
     calculate = function(self, card, context)
-        if context.pre_discard then
+        if context.pre_discard and not context.hook then
             card.ability.extra.active = true
         end
 

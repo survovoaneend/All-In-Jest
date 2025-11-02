@@ -19,25 +19,15 @@ local pinhead = {
   
     loc_vars = function(self, info_queue, card)
       return {
-          vars = {
-            card.ability.extra.money
-          }
+        vars = { card.ability.extra.money }
       }
     end,
-  
-    calculate = function(self, card, context)
-      if context.end_of_round then
-        if G.GAME.current_round.hands_played == 1 then
-          card.ability.extra.money = 8
-        end
-      end
-    end,
+
     calc_dollar_bonus = function(self, card)
-      if card.ability.extra.money > 0 and G.GAME.current_round.hands_played == 1 then
-          local dollar_bonus = card.ability.extra.money
-          return dollar_bonus
+      if G.GAME.current_round.hands_played == 1 then
+        local dollar_bonus = card.ability.extra.money
+        return dollar_bonus
       end
-  end
-  
+    end
 }
 return { name = {"Jokers"}, items = {pinhead} }

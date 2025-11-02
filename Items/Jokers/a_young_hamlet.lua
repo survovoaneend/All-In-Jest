@@ -7,8 +7,8 @@ local a_young_hamlet = {
         extra = {
             mult = 0,
             mult_mod = 1,
-            discards = 4,
-            discards_remaining = 4,
+            discards = 6,
+            discards_remaining = 6,
         }
     },
     rarity = 1,
@@ -40,12 +40,11 @@ local a_young_hamlet = {
                     ref_table = card.ability.extra,
                     ref_value = "mult",
                     scalar_value = "mult_mod",
-                    operation = '+',
                 })
             else
                 card.ability.extra.discards_remaining = card.ability.extra.discards_remaining - 1
-                return nil, true
             end
+            return nil, true
         end
         if context.joker_main then
             return {
