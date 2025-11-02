@@ -1143,7 +1143,7 @@ return {
                     "This Joker gains {C:chips}+#2#{} Chips",
                     "and {C:mult}+#4#{} Mult when {C:attention}Boss",
                     "{C:attention}Blind{} is defeated",
-                    "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips and {C:mult,s:0.8}+#3#{}{C:inactive,s:0.8} Mult)",
+                    "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#3#{}{C:inactive,s:0.8} Mult)",
                 } 
             },
             j_aij_imageboard = { 
