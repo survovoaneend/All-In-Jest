@@ -44,7 +44,7 @@ local fabled = {
     end,
     calculate = function(self, sleeve, context)
 
-        local deck_or_sleeve = sleeve.config.extra.should_increase and sleeve or G.GAME.selected_back.effect
+        local deck_or_sleeve = (sleeve.config.extra and sleeve.config.extra.should_increase and sleeve) or G.GAME.selected_back.effect
 
         if not sleeve.config.increase_legendary_pool_rate then
             if context.end_of_round and not context.repetition and not context.individual and deck_or_sleeve.config.extra.should_increase then
