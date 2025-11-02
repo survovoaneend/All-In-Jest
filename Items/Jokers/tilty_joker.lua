@@ -4,7 +4,7 @@ local tilty_joker = {
     key = "tilty_joker",
     config = {
       extra = {
-          semi_x_chips = 2.5
+          semi_x_chips = 2
       }
     },
     rarity = 1,

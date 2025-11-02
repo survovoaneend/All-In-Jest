@@ -5,7 +5,7 @@ local columbina = {
     key = "columbina",
     config = {
       extra = {
-        percent = 0,
+        percent = 5,
         percent_mod = 5
       }
     },

@@ -4,10 +4,10 @@ local honker = {
 
     key = "honker",
     config = {
-      extra = {
-          mult_mod = 1,
-          cur_mult = 0
-      }
+        extra = {
+            mult_mod = 1,
+            cur_mult = 0
+        }
     },
     rarity = 2,
     pos = { x = 3, y = 5 },
@@ -15,9 +15,9 @@ local honker = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
-  
+
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
         return {
@@ -27,15 +27,20 @@ local honker = {
             }
         }
     end,
-  
+
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.blueprint then
             if SMODS.get_enhancements(context.other_card).m_mult then
                 SMODS.scale_card(card, {
-	                ref_table = card.ability.extra,
+                    ref_table = card.ability.extra,
                     ref_value = "cur_mult",
-	                scalar_value = "mult_mod",
+                    scalar_value = "mult_mod",
+                    no_message = true
                 })
+                return {
+                    extra = { focus = card, message = localize('k_upgrade_ex') },
+                    card = card
+                }
             end
         end
         if context.joker_main then
@@ -59,6 +64,6 @@ local honker = {
         end
         return false
     end,
-  
+
 }
-return { name = {"Jokers"}, items = {honker} }
+return { name = { "Jokers" }, items = { honker } }
