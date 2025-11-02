@@ -5,7 +5,7 @@ local silver_shader = {
 }
 SMODS.Sound {
   key = 'silver',
-  path = 'silver.mp3'
+  path = 'glimmer.mp3'
 }
 local silver = {
   object_type = "Edition",
@@ -16,9 +16,9 @@ local silver = {
     vol = 1
   },
   order = 1,
-  config = { mult = 1.5, prevmult = "1.5" },
+  config = { extra = { mult = 1.5, pervmult = "1.5" } },
   loc_vars = function(self, info_queue, card)
-    return { vars = { (card.edition or {}).mult or self.config.mult } }
+    return { vars = { (card.edition or {}).extra.mult or self.config.extra.mult } }
   end,
   on_apply = function(card)
     if not card.ability.jest_silver_active then
@@ -29,7 +29,7 @@ local silver = {
         end
         jest_ability_calculate(
           card,
-          "*", card.edition.mult,
+          "*", card.edition.extra.mult,
           { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
           nil, true, false, "ability"
         )
@@ -44,9 +44,9 @@ local silver = {
         end
         jest_ability_calculate(
           card,
-          "*", card.edition.mult,
-          { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
-          nil, true, false, "ability"
+          "*", card.edition.extra.mult,
+          { x_chips = 1, x_mult = 1, xmult = 1, extra_value = true, rarity = true, jest_applied = true },
+          nil, true, false, "ability.extra"
         )
         if card.added_to_deck then
           card.added_to_deck = false
@@ -64,7 +64,7 @@ local silver = {
       end
       jest_ability_calculate(
         card,
-        "/", card.edition.mult,
+        "/", card.edition.extra.mult,
         { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
         nil, true, false, "ability"
       )
@@ -79,9 +79,9 @@ local silver = {
       end
       jest_ability_calculate(
         card,
-        "/", card.edition.mult,
-        { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
-        nil, true, false, "ability"
+        "/", card.edition.extra.mult,
+        { x_chips = 1, x_mult = 1, xmult = 1, extra_value = true, rarity = true, jest_applied = true },
+        nil, true, false, "ability.extra"
       )
       if card.added_to_deck then
         card.added_to_deck = false
@@ -99,14 +99,12 @@ local silver = {
 
   shader = 'silver'
 }
-
--- Reapply silver whenever the current multiplier changes
-local aij_card_update_ref = Card.update
+local updateref = Card.update
 function Card:update(dt)
-  local ref = aij_card_update_ref(self, dt)
+  local ref = updateref(self, dt)
 
   if self.edition and self.edition.aij_silver and (self.ability.set == 'Enhanced' or self.ability.set == 'Default' or self.ability.set == 'Joker') then
-    if tonumber(self.edition.prevmult) ~= self.edition.mult then
+    if tonumber(self.edition.extra.pervmult) ~= self.edition.extra.mult then
       if self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
         if self.added_to_deck then
           self:remove_from_deck(true)
@@ -114,13 +112,13 @@ function Card:update(dt)
         end
         jest_ability_calculate(
           self,
-          "/", tonumber(self.edition.prevmult),
+          "/", tonumber(self.edition.extra.pervmult),
           { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
           nil, true, false, "ability"
         )
         jest_ability_calculate(
           self,
-          "*", self.edition.mult,
+          "*", self.edition.extra.mult,
           { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
           nil, true, false, "ability"
         )
@@ -135,39 +133,41 @@ function Card:update(dt)
         end
         jest_ability_calculate(
           self,
-          "/", tonumber(self.edition.prevmult),
-          { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
-          nil, true, false, "ability"
+          "/", tonumber(self.edition.extra.pervmult),
+          { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, jest_applied = true },
+          nil, true, false, "ability.extra"
         )
         jest_ability_calculate(
           self,
-          "*", self.edition.mult,
-          { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
-          nil, true, false, "ability"
+          "*", self.edition.extra.mult,
+          { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, jest_applied = true },
+          nil, true, false, "ability.extra"
         )
         if self.added_to_deck then
           self.added_to_deck = false
           self:add_to_deck(true)
         end
       end
-      self.edition.prevmult = tostring(self.edition.mult)
+      self.edition.extra.pervmult = tostring(self.edition.extra.mult)
     end
   end
 
   return ref
 end
 
--- Setting a new ability will set base values without triggering silver's multiplication
--- We set prevmult to 1 to trigger the Card:update() routine
-local aij_card_set_ability_ref = Card.set_ability
-function Card:set_ability(center, initial, delay_sprites)
-    local ret = aij_card_set_ability_ref(self, center, initial, delay_sprites)
+if JokerDisplay then
+    local jd_edition_def = JokerDisplay.Edition_Definitions
 
-    if self.edition and self.edition.aij_silver and self.ability.set == "Joker" then
-        self.edition.prevmult = tostring(1)
-    end
-
-    return ret
+    jd_edition_def["e_aij_silver"] = {
+        condition_function = function(card)
+            local edition = card.edition
+            return not card.debuff and edition and card.edition.key and card.edition.key == "e_aij_silver"
+        end,
+        mod_function = function(card)
+            
+            return { }
+        end
+    }
 end
 
-return { name = "Editions", items = { silver, silver_shader } }
+return {name = "Editions", items = {silver, silver_shader}}
