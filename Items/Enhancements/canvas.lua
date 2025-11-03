@@ -33,7 +33,7 @@ local canvas = {
                                 new_suit, new_rank = G.play.cards[k+1].base.suit, G.play.cards[k+1].base.value
                             end
                             if G.play.cards[k+1].ability.all_in_jest and G.play.cards[k+1].ability.all_in_jest.random_aij_deck_skin then
-                                if not (card.ability.all_in_jest and card.ability.all_in_jest.random_aij_deck_skin == G.play.cards[k+1].ability.all_in_jest.random_aij_deck_skin) then
+                                  if not (card.ability.all_in_jest.random_aij_deck_skin and (G.play.cards[k+1].ability.all_in_jest.random_aij_deck_skin[new_suit] == card.ability.all_in_jest.random_aij_deck_skin[new_suit])) then
                                     card.ability.all_in_jest = card.ability.all_in_jest or {}
                                     card.ability.all_in_jest.random_aij_deck_skin = G.play.cards[k+1].ability.all_in_jest.random_aij_deck_skin
                                     changed_random_aij_deck_skin = true
@@ -58,7 +58,7 @@ local canvas = {
                                 end
                                 if G.hand.cards[k2].ability.all_in_jest and G.hand.cards[k2].ability.all_in_jest.random_aij_deck_skin then
                                     card.ability.all_in_jest = card.ability.all_in_jest or {}
-                                    if not (card.ability.all_in_jest and card.ability.all_in_jest.random_aij_deck_skin == G.hand.cards[k2].ability.all_in_jest.random_aij_deck_skin) then
+                                    if not (card.ability.all_in_jest.random_aij_deck_skin and (G.hand.cards[k2].ability.all_in_jest.random_aij_deck_skin[new_suit] == card.ability.all_in_jest.random_aij_deck_skin[new_suit])) then
                                         card.ability.all_in_jest = card.ability.all_in_jest or {}
                                         card.ability.all_in_jest.random_aij_deck_skin = G.hand.cards[k2].ability.all_in_jest.random_aij_deck_skin
                                         changed_random_aij_deck_skin = true
