@@ -88,6 +88,27 @@ local hand_drawn = {
                 }))
             end
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "hand", retrigger_type = "exp" },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                local _hand, _tally = nil, 0
+                for k, v in ipairs(G.handlist) do
+                    if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
+                        _hand = v
+                        _tally = G.GAME.hands[v].played
+                    end
+                end
+                card.joker_display_values.hand = localize(_hand or 'High Card', 'poker_hands')
+            end
+        }
     end
   
 }
