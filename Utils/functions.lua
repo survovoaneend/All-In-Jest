@@ -889,7 +889,7 @@ function reset_jest_you_broke_it_card()
       local it = 1
       while jest_ybi_enhancement == 'UNAVAILABLE' do
         it = it + 1
-        jest_ybi_enhancement = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
+        jest_ybi_enhancement = pseudorandom_element(_pool, pseudoseed('ybi'..'_resample'..it))
       end
       G.GAME.current_round.jest_you_broke_it_card.enhancement = jest_ybi_enhancement
     end
@@ -925,7 +925,7 @@ function reset_handsome_joker_card()
       local it = 1
       while jest_handsome_card_enhancement == 'UNAVAILABLE' do
         it = it + 1
-        jest_handsome_card_enhancement = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
+        jest_handsome_card_enhancement = pseudorandom_element(_pool, pseudoseed('handsome'..'_resample'..it))
       end
       G.GAME.current_round.jest_handsome_joker_card.enhancement = jest_handsome_card_enhancement
     end
