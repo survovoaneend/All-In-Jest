@@ -34,7 +34,9 @@ local canvas = {
                         local k = card.rank
                         local k2 = k+1
                         while k2 <= #G.hand.cards do
-                            if card.highlighted == G.hand.cards[k2].highlighted then
+                            -- card.highlighted can be nil, and in lua (false == nil) is false where we want it to be true
+                            -- So using 'not not' to force boolean value
+                            if (not not card.highlighted) == (not not G.hand.cards[k2].highlighted) then
                                 if (card.base.suit ~= G.hand.cards[k2].base.suit or card.base.value ~= G.hand.cards[k2].base.value) then
                                     new_suit, new_rank = G.hand.cards[k2].base.suit, G.hand.cards[k2].base.value
                                 end
