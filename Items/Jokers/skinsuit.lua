@@ -42,8 +42,10 @@ local skinsuit = {
                         end
                     end    
                 end
-                local cur_card = pseudorandom_element(vaild_cards, pseudoseed('skinsuit'))
-                All_in_Jest.add_patch(cur_card, context.removed[j].base.suit)
+                if #vaild_cards > 0 then
+                    local cur_card = pseudorandom_element(vaild_cards, pseudoseed('skinsuit'))
+                    All_in_Jest.add_patch(cur_card, context.removed[j].base.suit)
+                end
             end
         end
     end
