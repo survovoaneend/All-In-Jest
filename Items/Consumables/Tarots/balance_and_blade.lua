@@ -53,11 +53,13 @@ local balance_and_blade = {
 				cur_suit = pseudorandom_element(keys, pseudoseed('balance_and_blade_resample_2'))
 			end
 		end
+  
 		for k, v in pairs(G.hand.highlighted) do
-			if v.base.suit ~= cur_suit and not All_in_Jest.has_patches(v, cur_suit) then
+			if (v.base.suit ~= cur_suit or SMODS.has_no_suit(v)) and not All_in_Jest.has_patches(v, cur_suit) then
 				All_in_Jest.add_patch(v, cur_suit);
 			end
     end 
+
 		G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4,func = function() G.hand:unhighlight_all(); return true end }))
 	end,
 }
