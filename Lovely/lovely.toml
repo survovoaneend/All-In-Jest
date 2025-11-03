@@ -1791,6 +1791,8 @@ payload = '''
 SMODS.calculate_context({all_in_jest = {before_using_consumeable = true, consumeable = self, area = area }})
 '''
 
+# TODO: fix this
+# This patch is weird, applies to too many places and creates dead code
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
