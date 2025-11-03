@@ -1,5 +1,5 @@
 local balance_and_blade = {
-    object_type = "Consumable",
+  object_type = "Consumable",
 	key = 'balance_and_blade',
 	set = 'Tarot',
 	 
@@ -57,7 +57,7 @@ local balance_and_blade = {
 			if v.base.suit ~= cur_suit and not All_in_Jest.has_patches(v, cur_suit) then
 				All_in_Jest.add_patch(v, cur_suit);
 			end
-        end 
+    end 
 		G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4,func = function() G.hand:unhighlight_all(); return true end }))
 	end,
 }
