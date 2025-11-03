@@ -45,7 +45,39 @@ local punch_and_judy = {
                 }
             end
         end
-    end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "active" },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                local king_count = 0
+                local queen_count = 0
+                local played_hand = JokerDisplay.current_hand
+                active = false
+                local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+                if text ~= 'Unknown' then
+                    for _, scoring_card in pairs(scoring_hand) do
+                        if scoring_card:get_id() == 12 then
+                            queen_count = queen_count + 1
+                        end
+                        if scoring_card:get_id() == 13 then
+                            king_count = king_count + 1
+                        end
+                    end
+                end
+                if king_count == card.ability.extra.count and queen_count == card.ability.extra.count then
+                    active = true
+                end
+                card.joker_display_values.active = active and localize("k_active_ex") or localize("jdis_inactive")
+            end
+        }
+    end,
   
 }
 return { name = {"Jokers"}, items = {punch_and_judy} }
