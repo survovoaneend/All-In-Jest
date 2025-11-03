@@ -69,6 +69,17 @@ local silly_sausage = {
                 calculate_reroll_cost(true)
             end
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "$" },
+                { ref_table = "card.ability.extra", ref_value = "current_discount" },
+            },
+            text_config = { colour = G.C.GOLD },
+        }
     end
   
 }
