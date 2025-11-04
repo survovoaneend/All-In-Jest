@@ -937,7 +937,7 @@ return {
             e_aij_aureate = {
                 name = "Aureate",
                 text = {
-                    "{C:money}X$#1#",
+                    "{X:money,C:white}X#1#{} {C:money}${}",
                     "{C:inactive}(Max of {C:money}$#2#{}{C:inactive})"
                 }
             },
