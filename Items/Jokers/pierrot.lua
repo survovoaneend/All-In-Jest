@@ -51,7 +51,7 @@ local pierrot = {
                         local rank = SMODS.Ranks[playing_card.base.value]
                         local id = playing_card:get_id()
                         if not (playing_card.facing == 'back') and not playing_card.debuff and to_big(playing_card:get_chip_bonus()) > to_big(0) and (to_big(id) > to_big(0) and rank and not rank.face) then
-                            card.joker_display_values.chips = card.joker_display_values.chips + playing_card:get_chip_bonus()
+                            card.joker_display_values.chips = card.joker_display_values.chips + playing_card:get_chip_bonus() * JokerDisplay.calculate_card_triggers(playing_card, nil, true)
                         end
                     end
                 end
