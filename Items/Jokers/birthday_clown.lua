@@ -43,6 +43,22 @@ local birthday_clown = {
       if card.ability.extra.active and context.end_of_round and context.main_eval then
         card.ability.extra.active = false
       end
+    end,
+    joker_display_def = function(JokerDisplay)
+      ---@type JDJokerDefinition
+      return {
+        text = {
+          {
+            border_nodes = {
+              { text = "X" },
+              { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
+            }
+          }
+        },
+        calc_function = function(card)
+          card.joker_display_values.x_mult = card.ability.extra.active and card.ability.extra.xmult or 1
+        end
+      }
     end
   
 }

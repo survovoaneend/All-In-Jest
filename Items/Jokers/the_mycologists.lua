@@ -49,6 +49,20 @@ local the_mycologists = {
         if context.hand_drawn then
             card.ability.added = false
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                card.joker_display_values.localized_text = localize('Pair', 'poker_hands')
+            end
+        }
     end
 }
 return { name = {"Jokers"}, items = {the_mycologists} }

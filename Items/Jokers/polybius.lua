@@ -46,6 +46,34 @@ local polybius = {
                 }
             end
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "+",                              colour = G.C.CHIPS },
+                { ref_table = "card.joker_display_values",        ref_value = "chips", colour = G.C.CHIPS, retrigger_type = "mult" },
+                { text = " +",                             colour = G.C.MULT },
+                { ref_table = "card.joker_display_values",        ref_value = "mult",  colour = G.C.MULT,  retrigger_type = "mult" }
+            },
+            text_config = { colour = G.C.MULT },
+            calc_function = function(card)
+                local chip_total = 0
+                local mult_total = 0
+                local text, poker_hands, scoring_hand = JokerDisplay.evaluate_hand()
+                if poker_hands then
+                    for k, v in pairs(poker_hands) do
+                        if G.GAME.hands[k] and next(poker_hands[k]) then
+                            chip_total = chip_total + to_big(G.GAME.hands[k].chips)
+                            mult_total = mult_total + to_big(G.GAME.hands[k].mult)
+                        end
+                    end
+                end
+                card.joker_display_values.mult = mult_total
+                card.joker_display_values.chips = chip_total
+            end
+        }
     end
   
 }

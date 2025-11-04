@@ -50,6 +50,19 @@ local flying_ace = {
             local dollar_bonus = card.ability.extra.dollars
             return dollar_bonus
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "+$", colour = G.C.GOLD },
+                { ref_table = "card.ability.extra", ref_value = "dollars", colour = G.C.GOLD }
+            },
+            -- calc_function = function(card)
+            --     card.joker_display_values.money = card.ability.extra.dollars
+            -- end
+        }
     end
 }
 return { name = {"Jokers"}, items = {flying_ace} }

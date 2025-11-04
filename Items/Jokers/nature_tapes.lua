@@ -44,6 +44,17 @@ local nature_tapes = {
                 }
             end
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "+" },
+                { ref_table = "card.ability.extra", ref_value = "cur_mult", retrigger_type = "mult" }
+            },
+            text_config = { colour = G.C.MULT },
+        }
     end
   
 }

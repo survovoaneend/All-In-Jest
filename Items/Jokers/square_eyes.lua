@@ -54,6 +54,42 @@ local square_eyes = {
             end
         end
         return nil
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "+" },
+                { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
+            },
+            text_config = { colour = G.C.MULT },
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                local mult = 0
+                local hand = JokerDisplay.current_hand
+                local text, _, scoring_hand = JokerDisplay.evaluate_hand(hand)
+                if text ~= 'Unknown' then
+                    local fours_played = 0
+                    local fours_scored = 0
+
+                    for _, scoring_card in pairs(scoring_hand) do
+                        if scoring_card:get_id() == 4 then
+                            fours_played = fours_played + 1
+                            fours_scored = fours_scored + JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+                        end
+                    end
+
+                    mult = card.ability.extra.mult_per_four * fours_played * fours_scored
+                end
+                card.joker_display_values.mult = mult
+                card.joker_display_values.localized_text = localize('4', 'ranks')
+            end
+        }
     end
   
 }

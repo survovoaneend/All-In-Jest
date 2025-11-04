@@ -37,6 +37,31 @@ local dim_bulb = {
               }
           end
       end
-  end
+  end,
+
+  joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
+                    }
+                }
+            },
+            calc_function = function(card)
+                card.joker_display_values.x_mult = card.ability.extra.xmult
+                if G.jokers and G.jokers.cards then
+                    for _, joker_card in ipairs(G.jokers.cards) do
+                        if joker_card ~= card and joker_card.config.center.rarity == 2 or joker_card.config.center.rarity == 3 then
+                            card.joker_display_values.x_mult = 1
+                            break
+                        end
+                    end
+                end
+            end
+        }
+    end
 }
 return { name = {"Jokers"}, items = {dim_bulb} }

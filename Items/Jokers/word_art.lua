@@ -40,6 +40,30 @@ local word_art = {
                 mult = card.ability.extra.mult_per_card * _cards
             }
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "+" },
+                { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
+            },
+            text_config = { colour = G.C.MULT },
+            reminder_text = {
+                { text = "(8)" },
+            },
+            calc_function = function(card)
+                local words = 0
+                local played_hand = JokerDisplay.current_hand
+                for _, scoring_card in pairs(played_hand) do
+                    if scoring_card:get_id() == 11 or scoring_card:get_id() == 12 or scoring_card:get_id() == 13 or scoring_card:get_id() == 14 then
+                        words = words + 1
+                    end
+                end
+                card.joker_display_values.mult = card.ability.extra.mult_per_card * words
+            end
+        }
     end
   
 }

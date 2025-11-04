@@ -88,5 +88,39 @@ local greasepaint = {
             end
         end
 	end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
+                    }
+                }
+            },
+            calc_function = function(card)
+                card.joker_display_values.x_mult = 0
+                local count = 0
+                local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+                if text ~= 'Unknown' then
+                    for _, scoring_card in pairs(scoring_hand) do
+                        if scoring_card.debuff then
+                            count = count + 1
+                        end
+                    end
+                end
+                if G.jokers then
+                    for _, joker_card in ipairs(G.jokers.cards) do
+                        if joker_card.debuff then
+                            count = count + 1
+                        end
+                    end
+                end
+                card.joker_display_values.x_mult = card.ability.extra.xmult ^ count
+            end
+        }
+    end
 }
 return { name = {"Jokers"}, items = {greasepaint} }

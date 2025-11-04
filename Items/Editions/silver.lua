@@ -16,9 +16,9 @@ local silver = {
     vol = 1
   },
   order = 1,
-  config = { mult = 1.5, pervmult = "1.5" },
+  config = { extra = { mult = 1.5, pervmult = "1.5" } },
   loc_vars = function(self, info_queue, card)
-    return { vars = { (card.edition or {}).mult or self.config.mult } }
+    return { vars = { (card.edition or {}).extra.mult or self.config.extra.mult } }
   end,
   on_apply = function(card)
     if not card.ability.jest_silver_active then
@@ -29,7 +29,7 @@ local silver = {
         end
         jest_ability_calculate(
           card,
-          "*", card.edition.mult,
+          "*", card.edition.extra.mult,
           { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
           nil, true, false, "ability"
         )
@@ -44,7 +44,7 @@ local silver = {
         end
         jest_ability_calculate(
           card,
-          "*", card.edition.mult,
+          "*", card.edition.extra.mult,
           { x_chips = 1, x_mult = 1, xmult = 1, extra_value = true, rarity = true, jest_applied = true },
           nil, true, false, "ability.extra"
         )
@@ -64,7 +64,7 @@ local silver = {
       end
       jest_ability_calculate(
         card,
-        "/", card.edition.mult,
+        "/", card.edition.extra.mult,
         { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
         nil, true, false, "ability"
       )
@@ -79,7 +79,7 @@ local silver = {
       end
       jest_ability_calculate(
         card,
-        "/", card.edition.mult,
+        "/", card.edition.extra.mult,
         { x_chips = 1, x_mult = 1, xmult = 1, extra_value = true, rarity = true, jest_applied = true },
         nil, true, false, "ability.extra"
       )
@@ -104,7 +104,7 @@ function Card:update(dt)
   local ref = updateref(self, dt)
 
   if self.edition and self.edition.aij_silver and (self.ability.set == 'Enhanced' or self.ability.set == 'Default' or self.ability.set == 'Joker') then
-    if tonumber(self.edition.pervmult) ~= self.edition.mult then
+    if tonumber(self.edition.extra.pervmult) ~= self.edition.extra.mult then
       if self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
         if self.added_to_deck then
           self:remove_from_deck(true)
@@ -112,13 +112,13 @@ function Card:update(dt)
         end
         jest_ability_calculate(
           self,
-          "/", tonumber(self.edition.pervmult),
+          "/", tonumber(self.edition.extra.pervmult),
           { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
           nil, true, false, "ability"
         )
         jest_ability_calculate(
           self,
-          "*", self.edition.mult,
+          "*", self.edition.extra.mult,
           { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
           nil, true, false, "ability"
         )
@@ -133,13 +133,13 @@ function Card:update(dt)
         end
         jest_ability_calculate(
           self,
-          "/", tonumber(self.edition.pervmult),
+          "/", tonumber(self.edition.extra.pervmult),
           { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, jest_applied = true },
           nil, true, false, "ability.extra"
         )
         jest_ability_calculate(
           self,
-          "*", self.edition.mult,
+          "*", self.edition.extra.mult,
           { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, jest_applied = true },
           nil, true, false, "ability.extra"
         )
@@ -148,11 +148,26 @@ function Card:update(dt)
           self:add_to_deck(true)
         end
       end
-      self.edition.pervmult = tostring(self.edition.mult)
+      self.edition.extra.pervmult = tostring(self.edition.extra.mult)
     end
   end
 
   return ref
 end
 
-return { name = "Editions", items = { silver, silver_shader } }
+if JokerDisplay then
+    local jd_edition_def = JokerDisplay.Edition_Definitions
+
+    jd_edition_def["e_aij_silver"] = {
+        condition_function = function(card)
+            local edition = card.edition
+            return not card.debuff and edition and card.edition.key and card.edition.key == "e_aij_silver"
+        end,
+        mod_function = function(card)
+            
+            return { }
+        end
+    }
+end
+
+return {name = "Editions", items = {silver, silver_shader}}
