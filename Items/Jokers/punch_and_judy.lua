@@ -58,7 +58,6 @@ local punch_and_judy = {
             calc_function = function(card)
                 local king_count = 0
                 local queen_count = 0
-                local played_hand = JokerDisplay.current_hand
                 active = false
                 local text, _, scoring_hand = JokerDisplay.evaluate_hand()
                 if text ~= 'Unknown' then
