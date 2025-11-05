@@ -3191,13 +3191,12 @@ return {
             j_aij_remina = { 
                 name = "Remina", 
                 text = { 
-                        "When {C:attention}Small Blind{} or {C:attention}Big",
-                        "Blind{C:attention} selected, this Joker",
-                        "{C:red}destroys{} all {C:planet}Planet Cards",
-                        "in your{C:attention}consumable{} area",
-                        "and gains their {C:chips}Chips{} and {C:mult}Mult{}",
-                        "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#2#{} {C:inactive,s:0.8}Chips and {C:mult,s:0.8}+#1#{C:inactive,s:0.8} Mult)"
-            
+                    "When {C:attention}Small Blind{} or {C:attention}Big Blind",
+                    "is selected, this Joker",
+                    "{C:red}destroys{} all {C:planet}Planet Cards{}",
+                    "in your {C:attention}consumable{} area and",
+                    "gains their {C:chips}Chips{} and {C:mult}Mult{}",
+                    "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#2#{} {C:inactive,s:0.8}Chips, {C:mult,s:0.8}+#1#{C:inactive,s:0.8} Mult)"
                 } 
             },
             j_aij_jpeg = { name = ".jpeg", text = { "" } },
