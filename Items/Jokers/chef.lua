@@ -21,10 +21,7 @@ local chef = {
     end,
 
     in_pool = function(self, args)
-        if G.GAME.stake >= 7 then
-            return true
-        end
-        return false
+        return G.GAME.modifiers.enable_perishables_in_shop or false
     end,
      calculate = function(self, card, context)
       if context.open_booster then
