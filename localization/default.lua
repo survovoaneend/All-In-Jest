@@ -3173,12 +3173,16 @@ return {
             j_aij_full_monty = { name = "Full Monty", text = { "" } },
             j_aij_chef = { 
                 name = "Chef", 
-                text = { 
-                    "Base-edition {C:enhanced}perishable{}",
-                    "jokers become {C:dark_edition}Negative",
-                    "{C:attention}Editions{} on {C:enhanced}perishable",
-                    "jokers no longer come with",
-                    "a mark-up in the {C:money}shop " 
+                text = {
+                    {
+                        "Base-edition {C:attention}Perishable{}",
+                        "Jokers become {C:dark_edition}Negative",
+                    },
+                    {
+                        "{C:attention}Editions{} on {C:attention}Perishable",
+                        "Jokers no longer come with",
+                        "a mark-up in the {C:money}shop" 
+                    }
                 } 
             },
             j_aij_screamer = { name = "Screamer", text = { "" } },
