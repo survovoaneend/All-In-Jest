@@ -23,10 +23,10 @@ local chef = {
     in_pool = function(self, args)
         return G.GAME.modifiers.enable_perishables_in_shop or false
     end,
-     calculate = function(self, card, context)
-      if context.open_booster then
-        card.ability.extra.trigger = true
-      end
+    calculate = function(self, card, context)
+        if context.open_booster then
+            card.ability.extra.trigger = true
+        end
     end,
     update = function(self, card, dt)
         if G.jokers then
@@ -38,7 +38,7 @@ local chef = {
                             if G.shop_jokers.cards[i].ability.perishable and G.shop_jokers.cards[i].edition == nil then
                                 G.shop_jokers.cards[i]:set_edition({negative = true})
                                 G.shop_jokers.cards[i]:set_cost()
-                            end 
+                            end
                         end
                     end
                 end
@@ -50,7 +50,7 @@ local chef = {
                                     G.pack_cards.cards[i]:set_edition({negative = true})
                                     G.pack_cards.cards[i]:set_cost()
                                     card.ability.extra.trigger = false
-                                end 
+                                end
                             end
                         end
                     end
