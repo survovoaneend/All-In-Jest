@@ -16,7 +16,7 @@ local elf = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = false,
 
     loc_vars = function(self, info_queue, card)
@@ -33,7 +33,7 @@ local elf = {
         if context.skip_blind and not context.blueprint then
             card.ability.extra.current_skips = card.ability.extra.current_skips + 1
             if card.ability.extra.current_skips == card.ability.extra.skips then
-                local eval = function(card) return not card.REMOVED end
+                local eval = function(cardd) return not cardd.REMOVED end
                 juice_card_until(card, eval, true)
             end
             return {
@@ -43,18 +43,23 @@ local elf = {
                 colour = G.C.FILTER
             }
         end
-        if context.selling_self and (card.ability.extra.current_skips >= card.ability.extra.skips) and not context.blueprint then
-            for i = 1, card.ability.extra.tags do
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.9,
-                        func = function()
-                            local temptag = Tag('tag_investment')
-                            add_tag(temptag)
-                            return true
-                        end
-                    }))
-                end
+        if context.selling_self and (card.ability.extra.current_skips >= card.ability.extra.skips) then
+            local eval = function(cardd) return false end
+            juice_card_until(card, eval, true) -- Removes previous "juice until" effect
+
+            for _ = 1, card.ability.extra.tags do
+                local juiced_card = context.blueprint_card or card
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        juiced_card:juice_up()
+                        add_tag(Tag('tag_investment'))
+                        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                        play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+                        return true
+                    end
+                }))
+                delay(0.9)
+            end
             return {
                 message = localize('k_aij_merry_christmas')
             }
