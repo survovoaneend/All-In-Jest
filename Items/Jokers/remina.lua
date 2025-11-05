@@ -27,7 +27,7 @@ local remina = {
   end,
 
   calculate = function(self, card, context)
-    if context.setting_blind and not G.GAME.blind.boss then
+    if context.setting_blind and not G.GAME.blind.boss and not context.blueprint then
       for i = 1, #G.consumeables.cards do
         if G.consumeables.cards[i].config.center.set == "Planet" then
           local hand = G.consumeables.cards[i].config.center.config.hand_type or nil
