@@ -30,6 +30,7 @@ local remina = {
     if context.setting_blind and not G.GAME.blind.boss and not context.blueprint then
       for i = 1, #G.consumeables.cards do
         if G.consumeables.cards[i].config.center.set == "Planet" then
+          SMODS.destroy_cards(G.consumeables.cards[i])
           local hand = G.consumeables.cards[i].config.center.config.hand_type or nil
           if hand then
             if G.consumeables.cards[i].config.center.config.mult then
@@ -68,7 +69,6 @@ local remina = {
               })
             end
           end
-          G.consumeables.cards[i]:start_dissolve()
         end
       end
     end
