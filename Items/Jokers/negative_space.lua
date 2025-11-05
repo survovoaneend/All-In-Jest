@@ -47,6 +47,10 @@ local negative_space = {
         }
     end,
 
+    add_to_deck = function(self, card, from_debuff)
+        G.hand:change_size(tonumber(card.ability.extra.prev_handsize))
+    end,
+
     update = function(self, card, dt)
         if G.jokers and G.jokers.cards then
             local handsize = 0
@@ -65,6 +69,7 @@ local negative_space = {
             end
         end
     end,
+    
     remove_from_deck = function(self, card, from_debuff)
         G.hand:change_size(-tonumber(card.ability.extra.prev_handsize))
     end,

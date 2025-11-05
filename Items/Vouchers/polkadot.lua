@@ -13,10 +13,7 @@ local polkadot = {
   },
 
   in_pool = function(self, args)
-        if G.GAME.stake >= 7 then
-            return true
-        end
-        return false
+      return (G.GAME.modifiers.enable_perishables_in_shop or G.GAME.modifiers.enable_rentals_in_shop) or false
   end,
 
   loc_vars = function(self, info_queue)

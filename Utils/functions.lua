@@ -903,7 +903,7 @@ function reset_handsome_joker_card()
 
   -- Loop through the original list of all enhancements
   for _, enhancement in ipairs(all_enhancements) do
-    if not (enhancement == 'm_stone' or enhancement == 'm_aij_canvas' or G.P_CENTERS[enhancement].no_rank or G.P_CENTERS[enhancement].no_suit) then
+    if enhancement ~= "UNAVAILABLE" and not (enhancement == 'm_stone' or enhancement == 'm_aij_canvas' or G.P_CENTERS[enhancement].no_rank or G.P_CENTERS[enhancement].no_suit) then
       valid_enhancements[#valid_enhancements + 1] = enhancement
     end
   end

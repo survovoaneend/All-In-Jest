@@ -937,7 +937,7 @@ return {
             e_aij_aureate = {
                 name = "Aureate",
                 text = {
-                    "{C:money}X$#1#",
+                    "{X:money,C:white}X#1#{} {C:money}${}",
                     "{C:inactive}(Max of {C:money}$#2#{}{C:inactive})"
                 }
             },
@@ -1143,7 +1143,7 @@ return {
                     "This Joker gains {C:chips}+#2#{} Chips",
                     "and {C:mult}+#4#{} Mult when {C:attention}Boss",
                     "{C:attention}Blind{} is defeated",
-                    "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips and {C:mult,s:0.8}+#3#{}{C:inactive,s:0.8} Mult)",
+                    "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#3#{}{C:inactive,s:0.8} Mult)",
                 } 
             },
             j_aij_imageboard = { 
@@ -2705,7 +2705,7 @@ return {
                 name = "Fuzzy Joker",
                 text = { 
                     "Rounds {C:mult}Mult{} up to",
-                    "nearest power of {C:attention}2" 
+                    "the next power of {C:attention}#1#" 
                     -- QOL, discuss, TODO
                     -- "next" would mean the following power of 2 if
                     -- Mult happens to be a power of 2.
@@ -3173,12 +3173,16 @@ return {
             j_aij_full_monty = { name = "Full Monty", text = { "" } },
             j_aij_chef = { 
                 name = "Chef", 
-                text = { 
-                    "Base-edition {C:enhanced}perishable{}",
-                    "jokers become {C:dark_edition}Negative",
-                    "{C:attention}Editions{} on {C:enhanced}perishable",
-                    "jokers no longer come with",
-                    "a mark-up in the {C:money}shop " 
+                text = {
+                    {
+                        "Base-edition {C:attention}Perishable{}",
+                        "Jokers become {C:dark_edition}Negative",
+                    },
+                    {
+                        "{C:attention}Editions{} on {C:attention}Perishable",
+                        "Jokers no longer come with",
+                        "a mark-up in the {C:money}shop" 
+                    }
                 } 
             },
             j_aij_screamer = { name = "Screamer", text = { "" } },
@@ -3187,13 +3191,12 @@ return {
             j_aij_remina = { 
                 name = "Remina", 
                 text = { 
-                        "When {C:attention}Small Blind{} or {C:attention}Big",
-                        "Blind{C:attention} selected, this Joker",
-                        "{C:red}destroys{} all {C:planet}Planet Cards",
-                        "in your{C:attention}consumable{} area",
-                        "and gains their {C:chips}Chips{} and {C:mult}Mult{}",
-                        "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#2#{} {C:inactive,s:0.8}Chips and {C:mult,s:0.8}+#1#{C:inactive,s:0.8} Mult)"
-            
+                    "When {C:attention}Small Blind{} or {C:attention}Big Blind",
+                    "is selected, this Joker",
+                    "{C:red}destroys{} all {C:planet}Planet Cards{}",
+                    "in your {C:attention}consumable{} area and",
+                    "gains their {C:chips}Chips{} and {C:mult}Mult{}",
+                    "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#2#{} {C:inactive,s:0.8}Chips, {C:mult,s:0.8}+#1#{C:inactive,s:0.8} Mult)"
                 } 
             },
             j_aij_jpeg = { name = ".jpeg", text = { "" } },

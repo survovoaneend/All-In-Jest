@@ -30,7 +30,7 @@ local skinsuit = {
             for j = 1, #context.removed do
                 local vaild_cards = {}
                 for i = 1, #G.hand.cards do
-                    if not (G.hand.cards[i].ability.patches and #G.hand.cards[i].ability.patches > 0 and All_in_Jest.has_patches(G.hand.cards[i], context.removed[j].base.suit)) then
+                    if not All_in_Jest.has_patches(G.hand.cards[i], context.removed[j].base.suit) then
                         local remove = false
                         for l = 1, #being_removed do
                             if G.hand.cards[i] == being_removed[l] then
@@ -42,8 +42,10 @@ local skinsuit = {
                         end
                     end    
                 end
-                local cur_card = pseudorandom_element(vaild_cards, pseudoseed('skinsuit'))
-                All_in_Jest.add_patch(cur_card, context.removed[j].base.suit)
+                if #vaild_cards > 0 then
+                    local cur_card = pseudorandom_element(vaild_cards, pseudoseed('skinsuit'))
+                    All_in_Jest.add_patch(cur_card, context.removed[j].base.suit)
+                end
             end
         end
     end

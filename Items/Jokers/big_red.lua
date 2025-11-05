@@ -52,11 +52,11 @@ local big_red = {
 
     remove_from_deck = function(self, card, from_debuff)
         if #SMODS.find_card("j_aij_big_red") <= 0 then
-		    for _, key in ipairs(card.ability.extra.banned_cards) do
+            for _, key in ipairs(card.ability.extra.banned_cards) do
                 G.GAME.banned_keys[key] = nil
             end
         end
-	end,
+    end,
   
 }
 return { name = {"Jokers"}, items = {big_red} }

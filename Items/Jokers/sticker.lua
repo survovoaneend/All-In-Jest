@@ -30,9 +30,24 @@ local sticker = {
   end,
 
   in_pool = function(self, args)
-    if G.GAME.stake >= 4 then
+
+    -- Check vanilla stickers
+    if G.GAME.modifiers.enable_eternals_in_shop or G.GAME.modifiers.enable_perishables_in_shop or G.GAME.modifiers.enable_rentals_in_shop then
         return true
     end
+
+    
+    -- Check non-vanilla stickers
+    local fake_card = SMODS.Joker:create_fake_card()
+    local fake_center = SMODS.Center:create_fake_card()
+    fake_center.set = "Joker"
+    for _, v in ipairs(SMODS.Sticker.obj_buffer) do
+        local sticker = SMODS.Stickers[v]
+        if sticker.should_apply and type(sticker.should_apply) == 'function' and sticker:should_apply(fake_card, fake_center, nil, true) then
+            return true
+        end
+    end
+
     return false
   end,
 
