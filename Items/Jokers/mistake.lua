@@ -16,10 +16,7 @@ local mistake = {
   eternal_compat = true,
 
   in_pool = function(self, args)
-    if G.GAME.stake >= 4 then
-        return true
-    end
-    return false
+    return G.GAME.modifiers.enable_eternals_in_shop or false
   end,
 
   calculate = function(self, card, context)
