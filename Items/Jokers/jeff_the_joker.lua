@@ -79,6 +79,26 @@ local jeff_the_joker = {
                 }
             end
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.ability.extra", ref_value = "x_mult", retrigger_type = "exp" }
+                    }
+                }
+            },
+            reminder_text = {
+                { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+            },
+            calc_function = function(card)
+                card.joker_display_values.localized_text = "(" .. localize{type ='name_text', key = 'bl_small', set = 'Blind'} .. ")"
+            end
+        }
     end
 }
 return { name = { "Jokers" }, items = { jeff_the_joker } }
