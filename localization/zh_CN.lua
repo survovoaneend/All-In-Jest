@@ -1341,7 +1341,7 @@ return {
                 name = "含糊小丑",
                 text = {
                     "每回合将{C:mult}倍率{}向上取整",
-                    "至{C:attention}2的整数次幂"
+                    "至{C:attention}#1#的整数次幂"
                 }
             },
             j_aij_saucy_jacky = { name = "风骚杰基", text = { "" } },

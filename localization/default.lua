@@ -2705,7 +2705,7 @@ return {
                 name = "Fuzzy Joker",
                 text = { 
                     "Rounds {C:mult}Mult{} up to",
-                    "nearest power of {C:attention}2" 
+                    "the next power of {C:attention}#1#" 
                     -- QOL, discuss, TODO
                     -- "next" would mean the following power of 2 if
                     -- Mult happens to be a power of 2.
