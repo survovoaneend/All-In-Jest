@@ -1802,21 +1802,6 @@ if _type == 'Joker' then
 position = "before"
 match_indent = true
 payload = '''
-if key_append and card then
-    if key_append == '8ba' or key_append == 'blusl' then
-        local has_the_grim_joker = next(SMODS.find_card("j_aij_the_grim_joker"))
-        if has_the_grim_joker then
-            for i = 1, #SMODS.find_card("j_aij_the_grim_joker") do
-                local denomiator = SMODS.find_card("j_aij_the_grim_joker")[i].ability.extra.odds
-                if SMODS.pseudorandom_probability(SMODS.find_card("j_aij_the_grim_joker")[i], 'the_grim_joker', 1, denomiator) then 
-                    local edition = {negative = true}
-                    card:set_edition(edition, true)
-                end
-            end
-        end
-    end
-end
-
 if G.GAME.jest_legendary_pool ~= nil and _type == 'Joker' then
     if G.GAME.jest_legendary_pool.in_shop then
         local rary = _rarity or pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) 
@@ -1828,6 +1813,115 @@ if G.GAME.jest_legendary_pool ~= nil and _type == 'Joker' then
         end
     end
 end
+'''
+
+# The Grim Joker (Purple Seals) (1/3)
+# Adds chance for negative tarots to be created by purple seals
+# and forces card creation even if it "exceeds" the card limit
+[[patches]]
+[patches.regex]
+target = "card.lua"
+pattern = '''
+(?<indent>[\t ]*)if self\.seal == 'Purple' and #G\.consumeables\.cards \+ G\.GAME\.consumeable_buffer < G\.consumeables\.config\.card_limit (?<post>.*)
+'''
+position = "at"
+line_prepend = '$indent'
+payload = '''
+-- All in Jest patch
+local aij_purple_seal_is_negative = false
+if self.seal == 'Purple' then
+    local ret = SMODS.calculate_context({
+        aij_grim_joker_bluepurple_seal = true
+    })
+    aij_purple_seal_is_negative = ret.aij_grim_joker_bluepurple_seal_negative_mod
+end
+-- End All in Jest patch
+if self.seal == 'Purple' and (aij_purple_seal_is_negative or #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit) $post
+'''
+# The Grim Joker (Purple Seals) (2/3)
+# Undo buffer change so that non-negative consumables aren't prevented from spawning
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = """if self.seal == 'Purple'*
+    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1"""
+position = "after"
+match_indent = true
+payload = '''
+    -- All in Jest patch
+    if aij_purple_seal_is_negative then
+        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+    end
+    -- End All in Jest patch
+'''
+# The Grim Joker (Purple Seals) (3/3)
+# Applies negative to card if set to be negative
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, '8ba')"
+position = "after"
+match_indent = true
+payload = '''
+-- All in Jest patch
+if aij_purple_seal_is_negative then -- Will always be faled in 8-ball calc
+    card:set_edition({negative = true}, true)
+end
+-- End All in Jest patch
+'''
+# The Grim Joker (Blue Seals) (1/3)
+# Adds chance for negative planets to be created by blue seals
+# and forces card creation even if it "exceeds" the card limit
+[[patches]]
+[patches.regex]
+target = "card.lua"
+pattern = '''
+(?<indent>[\t ]*)if self\.seal == 'Blue' and #G\.consumeables\.cards \+ G\.GAME\.consumeable_buffer < G\.consumeables\.config\.card_limit (?<post>.*)
+'''
+position = "at"
+line_prepend = '$indent'
+payload = '''
+-- All in Jest patch
+local aij_blue_seal_is_negative = false
+if self.seal == 'Blue' then
+    local ret = SMODS.calculate_context({
+        aij_grim_joker_bluepurple_seal = true
+    })
+    aij_blue_seal_is_negative = ret.aij_grim_joker_bluepurple_seal_negative_mod
+end
+-- End All in Jest patch
+if self.seal == 'Blue' and (aij_blue_seal_is_negative or #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit) $post
+'''
+# The Grim Joker (Blue Seals) (2/3)
+# Undo buffer change so that non-negative consumables aren't prevented from spawning
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = """local card_type = 'Planet'
+G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1"""
+position = "after"
+match_indent = true
+payload = '''
+-- All in Jest patch
+if aij_blue_seal_is_negative then
+    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+end
+-- End All in Jest patch
+'''
+# The Grim Joker (Blue Seals) (3/3)
+# Applies negative to card if set to be negative
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "local card = create_card(card_type,G.consumeables, nil, nil, nil, nil, _planet, 'blusl')"
+position = "after"
+match_indent = true
+payload = '''
+-- All in Jest patch
+if aij_blue_seal_is_negative then
+    card:set_edition({negative = true}, true)
+end
+-- End All in Jest patch
 '''
 
 [[patches]]
