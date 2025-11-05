@@ -25,7 +25,8 @@ local bad_sun = {
     end,
   
     calculate = function(self, card, context)
-        if context.after and context.full_hand then
+        -- Select which card to destroy early, since context.destroy_card triggers once per card
+        if context.before and context.full_hand then
             local heart_count = 0
             for i = 1, #context.full_hand do
                 if context.full_hand[i]:is_suit('Hearts', false, true) then
@@ -33,9 +34,27 @@ local bad_sun = {
                 end
             end
             if heart_count >= card.ability.extra.suit_count then
-                local temp_card = pseudorandom_element(context.full_hand, pseudoseed('bad_sun'))
-                SMODS.destroy_cards(temp_card)
+                local can_destroy = {}
+                for _, v in ipairs(context.full_hand) do
+                    if not v.aij_bad_sun_marked_for_destruction then -- This doesnt work at the moment?
+                        table.insert(can_destroy, v)
+                    end
+                end
+                if #can_destroy > 0 then
+                    local temp_card = pseudorandom_element(can_destroy, pseudoseed('bad_sun'))
+                    temp_card.ability.aij_bad_sun_marked_for_destruction = true
+                end
             end
+        end
+
+        -- Destroy the card
+        -- Should this have a message?
+        if context.destroy_card and context.destroy_card.ability.aij_bad_sun_marked_for_destruction then
+            context.destroy_card.ability.aij_bad_sun_marked_for_destruction = nil
+            return {
+              juice_card = card,
+              remove = true
+            }
         end
     end
   
