@@ -37,6 +37,14 @@ local magick_joker = {
                 { ref_table = "card.joker_display_values", ref_value = "mult" },
             },
             text_config = { colour = G.C.MULT },
+            reminder_text = {
+                { text = "(" },
+                {
+                    ref_table = "card.joker_display_values",
+                    ref_value = "localized_text",
+                },
+                { text = ")" },
+            },
             calc_function = function(card)
                 local suit = G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit or "Spades"
                 local count = 0
@@ -50,6 +58,7 @@ local magick_joker = {
                     end
                 end
                 card.joker_display_values.mult = count
+                card.joker_display_values.localized_text = localize(suit, 'suits_plural')
             end
         }
     end,
