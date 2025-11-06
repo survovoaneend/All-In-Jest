@@ -18,15 +18,15 @@ local arngren = {
     eternal_compat = true,
 
     add_to_deck = function(self, card, from_debuff)
-		change_shop_size(card.ability.extra.bonus_slots)
+        change_shop_size(card.ability.extra.bonus_slots)
         SMODS.change_booster_limit(card.ability.extra.bonus_slots)
         SMODS.change_voucher_limit(card.ability.extra.bonus_slots)
-	end,
-	remove_from_deck = function(self, card, from_debuff)
-		change_shop_size(-card.ability.extra.bonus_slots)
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        change_shop_size(-card.ability.extra.bonus_slots)
         SMODS.change_booster_limit(-card.ability.extra.bonus_slots)
         SMODS.change_voucher_limit(-card.ability.extra.bonus_slots)
-	end,
+    end,
   
     loc_vars = function(self, info_queue, card)
         return {
