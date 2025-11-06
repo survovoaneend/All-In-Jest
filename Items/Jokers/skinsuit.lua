@@ -18,7 +18,7 @@ local skinsuit = {
     end,
   
     calculate = function(self, card, context)
-        if context.remove_playing_cards and not context.blueprint then
+        if context.remove_playing_cards then
             local being_removed = {}
             for j = 1, #context.removed do
                 for i = 1, #G.hand.cards do
@@ -28,25 +28,36 @@ local skinsuit = {
                 end
             end
             for j = 1, #context.removed do
-                local vaild_cards = {}
-                for i = 1, #G.hand.cards do
-                    if not All_in_Jest.has_patches(G.hand.cards[i], context.removed[j].base.suit) then
-                        local remove = false
-                        for l = 1, #being_removed do
-                            if G.hand.cards[i] == being_removed[l] then
-                                remove = true
+                if not SMODS.has_no_suit(context.removed[j]) then
+                    local vaild_cards = {}
+                    for i = 1, #G.hand.cards do
+                        if not All_in_Jest.has_patches(G.hand.cards[i], context.removed[j].base.suit) then
+                            local remove = false
+                            for l = 1, #being_removed do
+                                if G.hand.cards[i] == being_removed[l] then
+                                    remove = true
+                                end
                             end
-                        end
-                        if not remove then
-                            vaild_cards[#vaild_cards+1] = G.hand.cards[i]
-                        end
-                    end    
-                end
-                if #vaild_cards > 0 then
-                    local cur_card = pseudorandom_element(vaild_cards, pseudoseed('skinsuit'))
-                    All_in_Jest.add_patch(cur_card, context.removed[j].base.suit)
+                            if not remove then
+                                vaild_cards[#vaild_cards+1] = G.hand.cards[i]
+                            end
+                        end    
+                    end
+                    if #vaild_cards > 0 then
+                        local cur_card = pseudorandom_element(vaild_cards, pseudoseed('skinsuit'))
+                        All_in_Jest.add_patch(cur_card, context.removed[j].base.suit)
+                        local juice_card = context.blueprint_card or card
+                        G.E_MANAGER:add_event(Event({
+                            func = (function()
+                                juice_card:juice_up()
+                                return true
+                            end)
+                        }))
+                        delay(0.6)
+                    end
                 end
             end
+            return nil, true
         end
     end
   
