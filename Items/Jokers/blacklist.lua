@@ -46,25 +46,35 @@ local blacklist = {
   
     calculate = function(self, card, context)
         if context.jest_destroying_or_selling_joker and not context.jest_destroying_card then 
-		    G.GAME.banned_keys[context.jest_destroyed_joker.config.center_key] = true
+		        G.GAME.banned_keys[context.jest_destroyed_joker.config.center_key] = true
             table.insert(card.ability.extra.banned_cards, context.jest_destroyed_joker.config.center_key)
         end
     end,
+
+    add_to_deck = function (self, card, from_debuff)
+        for _, key in ipairs(card.ability.extra.banned_cards) do
+            G.GAME.banned_keys[key] = true
+        end
+    end,
     remove_from_deck = function(self, card, from_debuff)
-        for i = 1, #SMODS.find_card("j_aij_blacklist") do
-            local banned_cards = SMODS.find_card("j_aij_blacklist")[i].ability.extra.banned_cards
-            for _i, key in ipairs(card.ability.extra.banned_cards) do
-                local remove = true
-                for _, k in ipairs(banned_cards) do
-                    if key == k then
-                        remove = false
+        local blacklists = SMODS.find_card("j_aij_blacklist")
+        local cards_to_remain_banned = {}
+        if not (#blacklists == 1 and blacklists[1] == card) then -- Check if there are any duplicate blacklists
+            for _, other_blacklist in ipairs(blacklists) do
+                if other_blacklist ~= card then
+                    local banned_cards = other_blacklist.ability.extra.banned_cards
+                    for _, key in ipairs(banned_cards) do
+                        cards_to_remain_banned[key] = true
                     end
                 end
-                if remove then
-                    G.GAME.banned_keys[key] = nil
-                end
             end
-		end
-	end,
+        end
+
+        for _, key in ipairs(card.ability.extra.banned_cards) do
+            if not cards_to_remain_banned[key] then
+                G.GAME.banned_keys[key] = nil
+            end
+        end
+    end,
 }
 return { name = {"Jokers"}, items = {blacklist} }
