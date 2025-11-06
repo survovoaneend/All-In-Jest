@@ -43,7 +43,7 @@ local jeff_the_joker = {
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         card:juice_up(0.8, 0.8)
-                        v:start_dissolve(nil, true, 1.6)
+                        SMODS.destroy_cards(v, false, true)
                         play_sound('slice1', 0.96+math.random()*0.08)
                         return true
                     end
