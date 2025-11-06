@@ -29,8 +29,9 @@ local sanguine_joker = {
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             if context.other_card:is_suit("Hearts") and SMODS.pseudorandom_probability(card, 'sanguine_joker', 1, card.ability.extra.odds) then
+                local juiced_card = context.blueprint_card or card
                 return {
-                    focus = card,
+                    focus = juiced_card,
                     message = localize('aij_plus_tag'),
                     func = function()
                         G.E_MANAGER:add_event(Event({
@@ -42,7 +43,7 @@ local sanguine_joker = {
                             end)
                         }))
                     end,
-                    card = card
+                    card = juiced_card
                 }
             end
         end
