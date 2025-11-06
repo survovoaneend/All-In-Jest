@@ -31,6 +31,7 @@ local majordomo = {
                 if v.cost > card.ability.extra.more_than then
                     v:add_sticker('rental', true)
                     v:juice_up(0.3, 0.5)
+                    card:juice_up()
                 end
             end
         end
