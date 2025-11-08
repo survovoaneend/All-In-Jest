@@ -22,17 +22,17 @@ local topsy_the_clown = {
     calculate = function(self, card, context)
       if context.joker_main then
         
-        local chip_mod = next_palindrome(to_number(hand_chips)) - to_number(hand_chips)
+        local new_chips = next_palindrome(to_number(hand_chips))
         if next_palindrome(to_number(hand_chips)) == to_number(hand_chips) then
-            chip_mod = next_palindrome(to_number(hand_chips)+1) - to_number(hand_chips)
+            new_chips = next_palindrome(to_number(hand_chips)+1)
         end
-        local mult_mod = next_palindrome(to_number(mult)) - to_number(mult)
+        local new_mult = next_palindrome(to_number(mult))
         if next_palindrome(to_number(mult)) == to_number(mult) then
-            mult_mod = next_palindrome(to_number(mult)+1) - to_number(mult)
+            new_mult = next_palindrome(to_number(mult)+1)
         end
         return {
-          chips = chip_mod,
-          mult = mult_mod,
+          chips = new_chips - to_number(hand_chips),
+          mult = new_mult - to_number(mult),
         }
       end
     end
