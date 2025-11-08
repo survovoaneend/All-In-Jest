@@ -5,7 +5,7 @@ local silent_sam = {
     key = "silent_sam",
     config = {
       extra = {
-        xmult = 1.2
+        xmult = 0.2
       }
     },
     rarity = 2,
@@ -20,7 +20,7 @@ local silent_sam = {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.xmult
+                1 + card.ability.extra.xmult
             }
         }
     end,
@@ -35,7 +35,7 @@ local silent_sam = {
             }
         else
         return {
-            Xmult = card.ability.extra.xmult,
+            Xmult = 1 + card.ability.extra.xmult,
             card = card
         }
     end
