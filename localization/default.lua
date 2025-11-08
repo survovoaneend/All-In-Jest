@@ -55,7 +55,8 @@ return {
             k_aij_merry_christmas = "Merry Christmas!",
             k_aij_change_ex = 'Change!',
             k_aij_blood_spilt_ex = 'Blood Spilt!',
-            k_aij_triple_ex = 'Triple!'
+            k_aij_double_ex = 'Doubled!',
+            k_aij_triple_ex = 'Tripled!'
         },
         v_dictionary = {
             a_aij_mult_equal="=#1# Mult",
