@@ -1707,7 +1707,7 @@ return {
                 text = { 
                     "This round, first {C:attention}#1#{} played",
                     "{C:red}destroys{} all played cards",
-                    -- needs "Changes ... each round"
+                    "{C:inactive}(Poker hand changes at end of round)"
                 } 
             },
             j_aij_scapino = { 

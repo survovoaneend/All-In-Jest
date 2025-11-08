@@ -55,6 +55,7 @@ local mute_joker = {
                     G.E_MANAGER:add_event(Event({
                         trigger = 'before',
                         func = function()
+                            card:juice_up()
                             context.full_hand[i]:start_dissolve()
                             return true
                         end
