@@ -45,7 +45,7 @@ local chromatist = {
     calculate = function(self, card, context)
         if context.all_in_jest and context.all_in_jest.calculating_edition then
             if context.all_in_jest.edition.key == 'e_polychrome' then
-                SMODS.calculate_effect({xmult = card.ability.extra.xmult}, context.all_in_jest.other_card)
+                SMODS.calculate_effect({xmult = card.ability.extra.xmult}, card)
             end
         end
     end

@@ -26,7 +26,7 @@ local angel_number = {
     end,
   
     calculate = function(self, card, context)
-        if context.before and context.scoring_hand then
+        if context.before and context.scoring_hand and not context.blueprint then
             card.ability.extra.sevens = "0"
             for i = 1, #context.scoring_hand do
                 if context.scoring_hand[i]:get_id() == 7 then

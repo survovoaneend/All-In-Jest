@@ -27,7 +27,7 @@ local stock_broker = {
     end,
   
     calculate = function(self, card, context)
-      if context.end_of_round and context.cardarea == G.jokers then
+      if context.end_of_round and context.cardarea == G.jokers and not context.blueprint then
         local room_saver = pseudorandom('aij_stock_broker') * (card.ability.extra.maxvalue - card.ability.extra.minvalue) + card.ability.extra.minvalue
         local ran_amount = math.floor(room_saver / 0.05 + 0.5) * 0.05
         apply_multiplier(G.GAME, "interest_amount", ran_amount, tostring(card).."stock_broker")

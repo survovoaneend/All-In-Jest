@@ -28,7 +28,7 @@ local omlette = {
     end,
   
     calculate = function(self, card, context)
-          if context.pre_discard and context.cardarea ~= G.play then
+          if context.pre_discard and context.cardarea ~= G.play and not context.blueprint then
                 SMODS.scale_card(card, {
 	                ref_table = card.ability,
                     ref_value = "extra_value",

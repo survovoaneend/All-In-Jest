@@ -13,7 +13,7 @@ local banana_man = {
     cost = 8,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     -- pools = {
     --     Food = true
@@ -38,7 +38,7 @@ local banana_man = {
             }  
         end
       end
-      if context.after and context.cardarea == G.jokers then
+      if context.after and context.cardarea == G.jokers and not context.blueprint then
         for i = 1, #G.jokers.cards do
             if SMODS.pseudorandom_probability(card, 'banana_man', 1, card.ability.extra.odds) and not SMODS.is_eternal(G.jokers.cards[i]) then
                 G.E_MANAGER:add_event(Event({
