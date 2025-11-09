@@ -37,7 +37,6 @@ local homemade_comic = {
         if context.individual and context.cardarea == G.play then
             if context.other_card.config.center == G.P_CENTERS["m_aij_charged"] then
                 return {
-                  card = context.other_card,
                   xmult = card.ability.xmult,
                 }
             end
