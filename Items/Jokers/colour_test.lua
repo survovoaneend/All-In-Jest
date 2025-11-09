@@ -22,7 +22,7 @@ local colour_test = {
     end,
 
     calculate = function(self, card, context)
-        if context.before and context.scoring_hand and G.GAME.current_round.hands_left == 0 then
+        if context.before and context.scoring_hand and G.GAME.current_round.hands_left == 0 and not context.blueprint then
             local poly = context.scoring_hand[1]
             poly:set_edition('e_polychrome')
             return {
