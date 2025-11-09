@@ -1,14 +1,14 @@
-local nevernamed_credits_joker = {
+local jumbocarrot_credits_joker = {
     object_type = "Joker",
-    order = 1362,
-    key = "nevernamed_credits_joker",
+    order = 1363,
+    key = "jumbocarrot_credits_joker",
     set_card_type_badge = function(self, card, badges)
-		badges[#badges+1] = create_badge(localize('k_artist_badge'), G.C.RARITY.Legendary, G.C.WHITE, 1.2 )
+		badges[#badges+1] = create_badge(localize('k_coder_badge'), HEX('007dcc'), G.C.WHITE, 1.2 )
 	end,
     config = {
     },
     rarity = 1,
-    pos = { x = 5, y = 2},
+    pos = { x = 5, y = 3},
     atlas = 'familiar_atlas',
     cost = 4,
     unlocked = true,
@@ -18,7 +18,7 @@ local nevernamed_credits_joker = {
     no_collection = true,
   
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = {set = 'Other', key = 'nevernamed_credits_info'}
+        info_queue[#info_queue+1] = {set = 'Other', key = 'jumbocarrot_credits_info'}
     end,
   
     calculate = function(self, card, context)
@@ -29,4 +29,4 @@ local nevernamed_credits_joker = {
     end,
   
 }
-return { name = {"Jokers"}, items = {nevernamed_credits_joker} }
+return { name = {"Jokers"}, items = {jumbocarrot_credits_joker} }

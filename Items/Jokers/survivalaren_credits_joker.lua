@@ -18,7 +18,7 @@ local survivalaren = {
     no_collection = true,
   
     loc_vars = function(self, info_queue, card)
-
+        info_queue[#info_queue+1] = {set = 'Other', key = 'survivalaren_credits_info'}
     end,
   
     calculate = function(self, card, context)

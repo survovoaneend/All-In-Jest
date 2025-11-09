@@ -25,9 +25,9 @@ local atom = {
         local text = "High Card"
         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
         level_up_hand(context.blueprint_card or card, text, nil, 1)
+        return nil, true
       end
     end
-    return nil
   end
 
 }

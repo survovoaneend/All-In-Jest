@@ -57,6 +57,7 @@ return {
             k_aij_blood_spilt_ex = 'Blood Spilt!',
             k_aij_double_ex = 'Doubled!',
             k_aij_triple_ex = 'Tripled!'
+
         },
         v_dictionary = {
             a_aij_mult_equal="=#1# Mult",
@@ -954,21 +955,28 @@ return {
             j_aij_nevernamed_credits_joker = {
                 name = "Nevernamed",
                 text = {
-                    '{C:inactive}"Some quote or something"',
+                    '{C:inactive}"This space intentionally',
+                    '{C:inactive}left blank"',
                 },
             },
             j_aij_survivalaren_credits_joker = {
                 name = "Survivalaren",
                 text = {
-                    '{C:inactive}"I started this because I wanted',
-                    '{C:inactive}to get better at programming and',
-                    '{C:inactive}I still suck at programming"'
+                    '{C:inactive}"Take it sleazy"'
                 },
             },
             j_aij_rattling_snow_credits_joker = {
                 name = "RattlingSnow353",
                 text = {
-                    '{C:inactive}"Some quote or something"',
+                    '{C:inactive}"Jack of all trades, master of',
+                    '{C:inactive}none, though oftentimes better',
+                    '{C:inactive}than a master of one."'
+                },
+            },
+            j_aij_jumbocarrot_credits_joker = {
+                name = "Jumbocarrot",
+                text = {
+                    '{C:inactive}"Hi Alex"'
                 },
             },
             -- Jokers
@@ -4837,6 +4845,41 @@ return {
                     '{C:attention}transforms{} into first',
                     'non-{V:1}Melted{} {C:attention}seal{} scored'
 		        }
+            },
+            nevernamed_credits_info = {
+                name = "Info",
+                text = {
+                    "{s:0.8}-Made all of the art", 
+                    "{s:0.8}-Concepted around half of the effects",
+                    "{s:0.8}-Started Balatro Art in December 2024"
+                    
+                }
+            },
+            survivalaren_credits_info = {
+                name = "Info",
+                text = {
+                    "{s:0.8}-Coded around half of the content", 
+                    "{s:0.8}-Concepted around half of the effects",
+                    "{s:0.8}-Started the mod in the first place",
+                    "{s:0.8}-Created the mod in early April 2025"
+                }
+            },
+            rattling_snow_credits_info = {
+                name = "Info",
+                text = {
+                    "{s:0.8}-Coded most of the advanced stuff",
+                    "{s:0.8}-Coded almost all of the UI",
+                    "{s:0.8}-Coded all of the shaders",
+                    "{s:0.8}-Joined the team in late April 2025"
+                }
+            },
+            jumbocarrot_credits_info = {
+                name = "Info",
+                text = {
+                    "{s:0.8}-Helped a ton with bugfixing and polish",
+                    "{s:0.8}-Primary playtester",
+                    "{s:0.8}-Joined the team in September 2025"
+                }
             },
         }
     }

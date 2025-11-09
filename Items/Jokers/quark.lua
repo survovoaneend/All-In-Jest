@@ -51,7 +51,6 @@ local quark = {
                 end
             end
         end
-        return nil
     end
 
 }

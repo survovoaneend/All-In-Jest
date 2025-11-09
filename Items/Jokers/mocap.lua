@@ -19,7 +19,7 @@ local mocap = {
     end,
   
     calculate = function(self, card, context)
-        if context.selling_card then 
+        if context.selling_card and not context.blueprint then 
             if context.card ~= card then
                 if context.card.ability.set == "Joker" then
                     local rarity = context.card.config.center.rarity
@@ -28,6 +28,7 @@ local mocap = {
                             trigger = 'before',
                             delay = 0.2,
                             func = function()
+                              card:juice_up()
                               local temp_card = create_card('Joker', G.jokers, nil, 1, nil, nil, nil, 'mocap')
                               temp_card:start_materialize()
                               G.jokers:emplace(temp_card)
@@ -39,6 +40,7 @@ local mocap = {
                             trigger = 'before',
                             delay = 0.2,
                             func = function()
+                              card:juice_up()
                               local temp_card = create_card('Joker', G.jokers, nil, 0.9, nil, nil, nil, 'mocap')
                               temp_card:start_materialize()
                               G.jokers:emplace(temp_card)
@@ -50,6 +52,7 @@ local mocap = {
                             trigger = 'before',
                             delay = 0.2,
                             func = function()
+                              card:juice_up()
                               local temp_card = create_card('Joker', G.jokers, nil, 0.6, nil, nil, nil, 'mocap')
                               temp_card:start_materialize()
                               G.jokers:emplace(temp_card)

@@ -57,7 +57,6 @@ local le_fils_de_banane = {
             if context.other_card:is_face() then
                 return {
                     mult = card.ability.extra.mult,
-                    card = context.other_card
                 }
             end
         end
