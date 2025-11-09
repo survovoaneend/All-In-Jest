@@ -56,31 +56,25 @@ local pierrette = {
       -- Remember to update this when SMODS inevitably fixes this
       local _, calculated = context.other_card:calculate_seal(context)
       if calculated then
-        -- card_eval_status_text(context.blueprint_card or card, 'extra', nil, percent, nil, {message = localize('k_again_ex'), colour = G.C.FILTER})
-        -- percent = (percent or 0) + (percent_delta or 0.08)
-        return {
-          message = localize("k_again_ex"),
-          colour = G.C.FILTER,
-          card = context.blueprint_card or card
-        }
+        card_eval_status_text(context.blueprint_card or card, 'extra', nil, percent, nil, {message = localize('k_again_ex'), colour = G.C.FILTER})
+        percent = (percent or 0) + (percent_delta or 0.08)
+        -- return {
+        --   message = localize("k_again_ex"),
+        --   colour = G.C.FILTER,
+        --   card = context.blueprint_card or card
+        -- }
       end
     end
     if context.retrigger_joker_check and not context.retrigger_joker then
       local other_context = context.other_context
       if other_context.discard then
         return {
-          message = localize("k_again_ex"),
-          colour = G.C.FILTER,
           repetitions = 1,
-          card = context.blueprint_card or card,
         }
       end
       if other_context.pre_discard then
         return {
-          message = localize("k_again_ex"),
-          colour = G.C.FILTER,
           repetitions = 1,
-          card = context.blueprint_card or card,
         }
       end
     end
