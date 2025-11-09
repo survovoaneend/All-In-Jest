@@ -3426,8 +3426,8 @@ return {
                 name = "You've Got Mail", 
                 text = {
                     {
-                        "If not {C:dark_edition}Negative{} on",
-                        "selecting {C:attention}Blind{}, create a",
+                        "If {C:red}Not{} {C:dark_edition}Negative{}, when",
+                        "{C:attention}Blind{} is selected, create a",
                         "{C:dark_edition}Negative {C:attention}copy{} of this Joker",
                         "with {C:money}$0{} sell value"
                     },
@@ -3439,9 +3439,9 @@ return {
             j_aij_fleshgait = { 
                 name = "Fleshgait", 
                 text = {
-                    "{C:attention}Scoring{} cards with no",
-                    "{C:attention}suit patch{} get a",
-                    "random {C:attention}suit patch"
+                    "{C:attention}Scoring{} cards with",
+                    "{C:red}no{} {C:attention}suit patch{} get",
+                    "a random {C:attention}suit patch"
                 } 
             },
             j_aij_czar = { 
