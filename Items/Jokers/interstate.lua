@@ -32,7 +32,7 @@ local interstate = {
             if G.GAME.current_round.hands_played == 0 and context.poker_hands and next(context.poker_hands['Straight']) then
                 ease_hands_played(card.ability.extra.hands)
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_hands', vars = {card.ability.extra.hands}}})
-                return true
+                return nil, true
             end
         end
     end

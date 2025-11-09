@@ -8,10 +8,10 @@ local bonus_bob = {
             xchips = 1.5
         }
     },
-    rarity = 2,
+    rarity = 3,
     pos = { x = 7, y = 12},
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 8,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
@@ -30,7 +30,6 @@ local bonus_bob = {
         if context.individual and context.cardarea == G.play then
             if context.other_card.config.center == G.P_CENTERS["m_bonus"] then
                 return {
-                    card = context.other_card,
                     xchips = card.ability.extra.xchips,
                 }
             end

@@ -30,7 +30,6 @@ local bonus_pay = {
         if context.individual and context.cardarea == G.play then
             if context.other_card.config.center == G.P_CENTERS["m_bonus"] then
                 return {
-                    card = context.other_card,
                     dollars = card.ability.extra.money,
                 }
             end

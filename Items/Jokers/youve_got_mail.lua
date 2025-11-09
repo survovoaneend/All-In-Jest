@@ -1,3 +1,12 @@
+SMODS.Sound {
+  key = 'ygm_youve_got_mail',
+  path = "You've Got Mail.wav"
+}
+SMODS.Sound {
+  key = 'ygm_goodbye',
+  path = 'Goodbye.wav'
+}
+
 local youve_got_mail = {
     object_type = "Joker",
     order = 361,
@@ -87,6 +96,9 @@ local youve_got_mail = {
             G.jokers:emplace(temp_card)
             temp_card:set_edition(edition, true)
             temp_card:start_materialize()
+            temp_card.ability.extra_value = (temp_card.ability.extra_value or 0) - temp_card.sell_cost
+            temp_card:set_cost()
+            play_sound('aij_ygm_youve_got_mail', 1, 1)
             card_eval_status_text(temp_card, 'extra', nil, nil, nil, {message = localize('k_aij_youve_got_mail', 'extra_joker_dictionary'), colour = G.C.FILTER})
         end
         if context.joker_main then
@@ -108,6 +120,9 @@ local youve_got_mail = {
                 }
             end
 
+        end
+        if context.selling_self then
+            play_sound('aij_ygm_goodbye', 1, 1)
         end
     end
 }

@@ -28,7 +28,6 @@ local bonus_round = {
                 return {
                     message = localize('k_again_ex'),
                     repetitions = card.ability.extra.retriggers,
-                    card = context.other_card,
                 }
             end
         end

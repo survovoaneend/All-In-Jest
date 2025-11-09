@@ -20,7 +20,7 @@ local gameshow = {
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
         info_queue[#info_queue+1] = G.P_CENTERS.e_foil
-        info_queue[#info_queue+1] = G.P_CENTERS.e_holographic
+        info_queue[#info_queue+1] = G.P_CENTERS.e_holo
         info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome
         return {
             vars = {

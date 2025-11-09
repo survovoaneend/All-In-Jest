@@ -3166,8 +3166,8 @@ return {
             j_aij_croupier = { 
                 name = "Croupier", 
                 text = { 
-                    "Earn {C:money}$#1#{} if played hand",
-                    "scores over {C:attention}twice{} the blind",
+                    "Earn {C:money}$#1#{} if final score",
+                    "is over {C:attention}twice{} the blind",
                     "requirement" 
                 } 
             },
@@ -3428,7 +3428,8 @@ return {
                     {
                         "If not {C:dark_edition}Negative{} on",
                         "selecting {C:attention}Blind{}, create a",
-                        "{C:dark_edition}Negative {C:attention}copy{} of this Joker"
+                        "{C:dark_edition}Negative {C:attention}copy{} of this Joker",
+                        "with {C:money}$0{} sell value"
                     },
                     {
                         "{V:1}{B:3,V:2}#1##2#{}{V:1}#3#",

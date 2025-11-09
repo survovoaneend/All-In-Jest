@@ -15,7 +15,7 @@ local fish_fingers = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = false,
     pools = {
         Food = true
@@ -31,9 +31,10 @@ local fish_fingers = {
     end,
   
     calculate = function(self, card, context)
-        if context.setting_blind and not context.blueprint then 
+        if context.setting_blind then 
             ease_hands_played(card.ability.extra.hands)
             card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_hands', vars = {card.ability.extra.hands}}})
+            return nil, true
         end
         if context.end_of_round and context.main_eval and not context.blueprint then
             if (card.ability.extra.hands - card.ability.extra.hand_mod) <= 0 then
