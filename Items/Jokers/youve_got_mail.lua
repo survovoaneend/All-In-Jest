@@ -98,8 +98,13 @@ local youve_got_mail = {
             temp_card:start_materialize()
             temp_card.ability.extra_value = (temp_card.ability.extra_value or 0) - temp_card.sell_cost
             temp_card:set_cost()
-            play_sound('aij_ygm_youve_got_mail', 1, 1)
-            card_eval_status_text(temp_card, 'extra', nil, nil, nil, {message = localize('k_aij_youve_got_mail', 'extra_joker_dictionary'), colour = G.C.FILTER})
+            return {
+                message_card = temp_card,
+                message = localize('k_aij_youve_got_mail', 'extra_joker_dictionary'),
+                sound = 'aij_ygm_youve_got_mail',
+                pitch = 1,
+                volume = 1
+            }
         end
         if context.joker_main then
             if card.ability.extra.effect == "mult" then
@@ -122,7 +127,12 @@ local youve_got_mail = {
 
         end
         if context.selling_self then
-            play_sound('aij_ygm_goodbye', 1, 1)
+            return {
+                message = localize('k_aij_youve_got_mail_goodbye', 'extra_joker_dictionary'),
+                sound = 'aij_ygm_goodbye',
+                pitch = 1,
+                volume = 1
+            }
         end
     end
 }
