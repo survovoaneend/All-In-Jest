@@ -7,13 +7,13 @@ local animatronic = {
     extra = {
       handsize_mod = 1,
       handsize = 0,
-      cap = 3
+      cap = 4
     }
   },
-  rarity = 1,
+  rarity = 2,
   pos = { x = 12, y = 7 },
   atlas = 'joker_atlas',
-  cost = 4,
+  cost = 6,
   unlocked = true,
   discovered = false,
   blueprint_compat = false,

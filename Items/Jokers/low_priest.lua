@@ -5,15 +5,15 @@ local low_priest = {
   key = "low_priest",
   config = {
     extra = {
-      mult = 0,
-      initial_mult = 20,
-      mult_mod = 5
+      xmult = 1,
+      initial_xmult = 3,
+      xmult_mod = 0.2
     }
   },
-  rarity = 1,
+  rarity = 2,
   pos = { x = 1, y = 9 },
   atlas = 'joker_atlas',
-  cost = 5,
+  cost = 6,
   unlocked = true,
   discovered = false,
   blueprint_compat = true,
@@ -22,17 +22,17 @@ local low_priest = {
   loc_vars = function(self, info_queue, card)
     return {
       vars = {
-        card.ability.extra.initial_mult,
-        card.ability.extra.mult_mod
+        card.ability.extra.initial_xmult,
+        card.ability.extra.xmult_mod
       }
     }
   end,
 
   calculate = function(self, card, context)
     if context.joker_main then
-      card.ability.extra.mult = card.ability.extra.initial_mult - card.ability.extra.mult_mod * to_number(G.GAME.hands[context.scoring_name].level)
+      card.ability.extra.xmult = card.ability.extra.initial_xmult - card.ability.extra.xmult_mod * to_number(G.GAME.hands[context.scoring_name].level)
       return {
-        mult = math.max(0, card.ability.extra.mult)
+        xmult = math.max(1, card.ability.extra.xmult)
       }
     end
   end

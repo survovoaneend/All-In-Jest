@@ -6,10 +6,10 @@ local pierrette = {
   config = {
 
   },
-  rarity = 1,
+  rarity = 2,
   pos = { x = 20, y = 3 },
   atlas = 'joker_atlas',
-  cost = 4,
+  cost = 5,
   unlocked = true,
   discovered = false,
   blueprint_compat = true,

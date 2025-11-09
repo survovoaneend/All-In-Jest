@@ -9,10 +9,10 @@ local mandrake = {
             total_rounds = 2
         }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 3, y = 9 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 5,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

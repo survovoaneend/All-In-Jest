@@ -1284,9 +1284,9 @@ return {
             j_aij_word_art = { 
                 name = "Word Art", 
                 text = { 
-                    "{C:mult}+#1#{} Mult per {C:attention}Ace{},",
-                    "{C:attention}King{}, {C:attention}Queen{}, or {C:attention}Jack{}",
-                    "in played hand"
+                    "{X:mult,C:white}X1{} Mult, plus {X:mult,C:white}X#1#{} Mult",
+                    " per {C:attention}Ace{}, {C:attention}King{}, {C:attention}Queen{},",
+                    "or {C:attention}Jack{} in played hand"
                 } 
             },
             j_aij_atom = {
@@ -1498,8 +1498,8 @@ return {
             j_aij_low_priest = { 
                 name = "Low Priest", 
                 text = { 
-                    "{C:mult}+#1#{} Mult,",
-                    "{C:mult}-#2#{} Mult per {C:attention}level{}",
+                    "{X:mult,C:white}X#1#{} Mult,",
+                    "{X:mult,C:white}-X#2#{} Mult per {C:attention}level{}",
                     "of played hand"
                 } 
             },
@@ -1860,9 +1860,10 @@ return {
             j_aij_heidelberg_tun = {
                 name = "Heidelberg Tun",
                 text = {
-                    "{C:green}#1# in #2#{} chance for",
-                    "purchased {C:attention}consumables{}",
-                    "to become {C:dark_edition}Negative"
+                    "Applies {C:dark_edition}Negative{} to the",
+                    "first purchased {C:attention}consumable{}",
+                    "each shop",
+                    "{C:inactive}#1#"
                 },
             },
             j_aij_open_mind = {
@@ -3317,9 +3318,14 @@ return {
             j_aij_majordomo = { 
                 name = "Majordomo", 
                 text = { 
-                    "All {C:attention}Jokers{} in the {C:money}shop",
-                    "which cost more than {C:money}$#1#",
-                    "gain the {C:money}Rental{} sticker" 
+                    {
+                        "All {C:attention}Jokers{} in the {C:money}shop",
+                        "which cost more than {C:money}$#1#",
+                        "gain the {C:money}Rental{} sticker" 
+                    },
+                    {
+                        "{C:attention}Rental{} subtracts {C:money}$2{} less"
+                    }
                 }
             },
             j_aij_skinsuit = { 
@@ -3418,8 +3424,7 @@ return {
                 name = "Tool", 
                 text = {
                     "Cards that change {C:attention}suit{}",
-                    "get the {C:attention}suit patch{}",
-                    "for their {C:attention}old suit{}"
+                    "permanently gain {C:mult}+#1#{} Mult"
                 } 
             },
             j_aij_youve_got_mail = { 

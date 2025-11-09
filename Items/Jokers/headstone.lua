@@ -4,10 +4,10 @@ local headstone = {
     key = "headstone",
     config = {
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 0, y = 13},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 5,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

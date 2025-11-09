@@ -6,13 +6,13 @@ local word_art = {
     key = "word_art",
     config = {
       extra = {
-        mult_per_card = 5
+        xmult_per_card = 0.5
       }
     },
-    rarity = 1,
+    rarity = 3,
     pos = { x = 13, y = 1 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 8,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
@@ -21,7 +21,7 @@ local word_art = {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.mult_per_card
+                card.ability.extra.xmult_per_card
             }
         }
     end,
@@ -37,7 +37,7 @@ local word_art = {
         end
         if context.joker_main then
             return {
-                mult = card.ability.extra.mult_per_card * _cards
+                xmult = 1 + card.ability.extra.xmult_per_card * _cards
             }
         end
     end

@@ -5,12 +5,13 @@ local majordomo = {
     config = {
       extra = {
           more_than = 5,
+          rental_reduce = 2
       }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 23, y = 13},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 7,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
@@ -35,7 +36,15 @@ local majordomo = {
                 end
             end
         end
-    end
+    end,
+
+    add_to_deck = function(self, card, from_debuff)
+      G.GAME.rental_rate = math.max(G.GAME.rental_rate - card.ability.extra.rental_reduce, 0)
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+      G.GAME.rental_rate = math.max(G.GAME.rental_rate + card.ability.extra.rental_reduce, 0)
+    end,
   
 }
 return { name = {"Jokers"}, items = {majordomo} }
