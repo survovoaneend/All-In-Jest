@@ -37,7 +37,6 @@ local bingo_card = {
                 if SMODS.pseudorandom_probability(card, 'bingo_card', 1, card.ability.extra.odds2) then
                     return {
                         repetitions = 1,
-                        card = context.other_card,
                         message = localize('k_again_ex')
                     }  
                 end
@@ -48,7 +47,6 @@ local bingo_card = {
                 if SMODS.pseudorandom_probability(card, 'bingo_card', 1, card.ability.extra.odds) then
                     return {
                         xmult = card.ability.extra.xmult,
-                        card = context.other_card,
                     }
                 end
             end
