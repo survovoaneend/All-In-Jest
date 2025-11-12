@@ -18,9 +18,19 @@ local fleshgait = {
     end,
   
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            if not All_in_Jest.has_patches(context.other_card) and SMODS.find_card("j_aij_fleshgait")[1] == card then
-                All_in_Jest.add_patch(context.other_card, nil, nil, 'fleshgait')
+        if context.after and context.cardarea == G.jokers and not context.blueprint then
+            for _, other_card in ipairs(context.scoring_hand) do
+                if not All_in_Jest.has_patches(other_card) and SMODS.find_card("j_aij_fleshgait")[1] == card then
+                    All_in_Jest.add_patch(other_card, nil, nil, 'fleshgait')
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            card:juice_up()
+                            return true
+                        end
+                    }))
+                    delay(0.75 * 1.25)
+                    -- card_eval_status_text(card, 'extra', nil, nil, nil, {message = "patched"})
+                end
             end
         end
     end,
