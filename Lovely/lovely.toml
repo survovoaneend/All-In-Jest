@@ -2601,6 +2601,9 @@ if next(SMODS.find_card("j_aij_sky_trees")) then
     end
     if _other_planet == 0 then _other_planet = nil end
     local cardt = create_card(card_type,G.consumeables, nil, nil, nil, nil, _other_planet, 'blusl')
+    if aij_blue_seal_is_negative then -- For The Grim Joker
+        card:set_edition({negative = true}, true)
+    end
     cardt:add_to_deck()
     G.consumeables:emplace(cardt)
 end
