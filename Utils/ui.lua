@@ -466,7 +466,6 @@ end
 G.FUNCS.jest_next_tag = function(e)
     local _tag = e.UIBox:get_UIE_by_ID('tag_container')
     if _tag then
-      print(_tag)
       local _tag_sprite = _tag.children[2]
       local _tag_ui = _tag_sprite.children[1].children[1]
       if G.GAME.all_in_jest.skip_tags._tag_2 and G.GAME.all_in_jest.skip_tags._tag_3 then
