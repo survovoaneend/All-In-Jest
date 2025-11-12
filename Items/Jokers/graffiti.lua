@@ -33,9 +33,9 @@ local graffiti = {
         use_ability = function(self, card)
             ease_dollars(-card.ability.extra.cost)
             SMODS.scale_card(card, {
-	            ref_table = card.ability.extra,
+                ref_table = card.ability.extra,
                 ref_value = "cost",
-	            scalar_value = "cost_increase",
+                scalar_value = "cost_increase",
                 operation = 'X',
                 no_message = true,
             })
