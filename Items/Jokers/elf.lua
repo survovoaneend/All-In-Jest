@@ -52,13 +52,11 @@ local elf = {
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         juiced_card:juice_up()
-                        add_tag(Tag('tag_investment'))
-                        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
-                        play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+                        jest_add_tag('tag_investment')
                         return true
                     end
                 }))
-                delay(0.9)
+                delay(0.75 * 1.25)
             end
             return {
                 message = localize('k_aij_merry_christmas')
