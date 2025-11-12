@@ -536,10 +536,14 @@ end
 G.FUNCS.All_in_Jest_can_use_active_ability_button = function(e)
     local obj = e.config.ref_table.config.center
     local can_use = false
-    if obj.all_in_jest and obj.all_in_jest.can_use_ability and type(obj.all_in_jest.can_use_ability) == 'function' then
+    if obj.all_in_jest and obj.all_in_jest.can_use_ability and type(obj.all_in_jest.can_use_ability) == 'function' and
+            G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT then
         can_use = obj.all_in_jest:can_use_ability(e.config.ref_table)
     end
     if e.config.ref_table.debuff then
+        can_use = false
+    end
+    if (G.play and #G.play.cards > 0) or (G.CONTROLLER.locked) or (G.GAME.STOP_USE and G.GAME.STOP_USE > 0) then 
         can_use = false
     end
     if can_use then 
