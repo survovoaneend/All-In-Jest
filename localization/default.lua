@@ -86,6 +86,7 @@ return {
         extra_joker_dictionary = {
             -- You've got Mail (also reused in overdesigned)
             k_aij_youve_got_mail = "You've Got Mail!",
+            k_aij_youve_got_mail_goodbye = "Goodbye",
             k_aij_youve_got_mail_none = "Does nothing...",
             k_aij_youve_got_mail_plus_prefix = "+",
             k_aij_youve_got_mail_dollar_prefix = "$",
@@ -748,7 +749,7 @@ return {
                 name = "The Umbilical",
                 text = {
                     'Mark one random card each',
-                    'hand, These cards cannot',
+                    'hand, marked cards cannot',
                     'be played or discarded'
                 },
             },
@@ -1060,10 +1061,7 @@ return {
                     "for each {C:attention}face{} card {C:attention}held in",
                     "{C:attention}hand{} when hand is played",
                     "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
-                } 
-                -- known BUG: does not work with mime
-                -- plan: use context.individual and
-                -- Whiteface Grotesque scales on each held in hand card.
+                }
             },
             j_aij_the_clown_show = { 
                 name = "The Clown Show", 
@@ -1529,7 +1527,7 @@ return {
                 name = "Topsy the Clown", 
                 text = { 
                     "Rounds {C:chips}Chips{} and {C:mult}Mult",
-                    "upwards to closest",
+                    "upwards to the next closest",
                     "{C:attention}palindrome" 
                 } 
             },
@@ -2635,12 +2633,13 @@ return {
                 name = "Banana Man", 
                 text = { 
                     {
-                        "{C:attention}Retrigger{} all Jokers",
+                        "{C:attention}Retrigger{} all",
+                        "other Jokers",
                     },
                     {
                         "Each Joker has a {C:green}#1# in #2#{}",
                         "chance to be {C:red}destroyed",
-                        "each hand"
+                        "after each hand"
                     }
                 } 
             },
@@ -2992,10 +2991,15 @@ return {
             j_aij_joker_png = { 
                 name = "Joker.png", 
                 text = { 
+                    {
                     '{B:1,C:white,s:0.8}Activated Ability',
                     'This Joker {C:attention}copies{} the',
                     '{C:attention}effect{} of a random {C:attention}Joker',
-                    'Pay {C:money}$#1#{} to reroll'
+                    },
+                    {
+                    'Pay {C:money}$#1#{} to reroll, increases',
+                    'by {C:money}$#1#{} per reroll this ante'
+                    }
                 } 
             },
             j_aij_kuruko = { name = "Kuruko", text = { "" } },
@@ -3465,6 +3469,7 @@ return {
                     "{B:1,C:white,s:0.8}Activated Ability",
                     "Once per round, {C:attention}temporarily",
                     "{C:attention}reroll{} Joker to the right",
+                    "until the next blind is selected",
                     "{C:inactive}#1#"
                 } 
             },
