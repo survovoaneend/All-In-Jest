@@ -548,7 +548,7 @@ pattern = '''
     sell
 }},
 '''
-position = 'before'
+position = 'after'
 payload = '''
 {n=G.UIT.R, config={align = 'cr'}, nodes={
     aij_activate_ability
@@ -595,6 +595,7 @@ end
 '''
 match_indent = true
 
+# Attaches the "Use" button to activated ability patches
 [[patches]]
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
