@@ -2942,7 +2942,7 @@ end
 '''
 
 
-# Patch for Magick Joker
+# Patch for Magick Joker and Red Sky
 # Turns +chips into +mult within the score_card function, rather than trying to do it with a calculation function
 [[patches]]
 [patches.pattern]
