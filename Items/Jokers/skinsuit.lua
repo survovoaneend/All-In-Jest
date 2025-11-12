@@ -44,8 +44,8 @@ local skinsuit = {
                         end    
                     end
                     if #vaild_cards > 0 then
+                        delay(0.75 * 1.25 / 3)
                         local cur_card = pseudorandom_element(vaild_cards, pseudoseed('skinsuit'))
-                        delay(0.75 * 1.25 / 2)
                         All_in_Jest.add_patch(cur_card, context.removed[j].base.suit)
                         local juice_card = context.blueprint_card or card
                         G.E_MANAGER:add_event(Event({
@@ -54,7 +54,7 @@ local skinsuit = {
                                 return true
                             end)
                         }))
-                        delay(0.75 * 1.25 / 2)
+                        delay(0.75 * 1.25 / 3)
                     end
                 end
             end
