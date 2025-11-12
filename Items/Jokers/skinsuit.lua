@@ -38,7 +38,7 @@ local skinsuit = {
                                     remove = true
                                 end
                             end
-                            if not remove then
+                            if not remove and G.hand.cards[i].base.suit ~= context.removed[j].base.suit then
                                 vaild_cards[#vaild_cards+1] = G.hand.cards[i]
                             end
                         end    
