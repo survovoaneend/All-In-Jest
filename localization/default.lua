@@ -830,13 +830,12 @@ return {
             m_aij_ice = {
                 name = "Ice Card",
                 text = {
-                    "{C:attention}Always{} scores",
+                    "{C:attention}Always{} scores and",
                     "{C:red}Ignores{} Play selection limit",
-                    "If played hand exceeds {C:attention}#1#{} cards,",
-                    "excess {C:attention}Ice Cards{} don't",
-                    "affect {C:attention}poker hand",
+                    "(C:inactive}Excess Ice Cards don't effect",
+					"{C:inactive}hand type"
                 }
-                -- Description is definitely confusing
+                -- Hope this works a little better
             },
             m_aij_wood = {
                 name = "Wood Card",
@@ -1742,7 +1741,8 @@ return {
                     "During scoring,",
                     "successful {C:green}probabilities{}",
                     "give {X:mult,C:white}XMult{} equal to {X:mult,C:white}X1{}",
-                    "plus their {C:red}fail{} chance"
+                    "plus their {C:red}fail{} chance",
+					"{C:inactive}(Ex: {C:green}1 in 4{} {C:inactive} -> {X:mult,C:white}X1.75{C:inactive})"
                 } 
                 -- Lots of "X1, plus XA Mult" wording, which feels awkward.
                 -- Maybe "+XA" is shorter?
