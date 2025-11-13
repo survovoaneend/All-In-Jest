@@ -10,9 +10,9 @@ local old_joker = {
     config = {
         extra = {
             chips = 0,
-            chips_mod = 35,
+            chips_mod = 25,
             mult = 0,
-            mult_mod = 6
+            mult_mod = 5
         }
     },
     rarity = 1,
@@ -63,3 +63,4 @@ local old_joker = {
 
 }
 return { name = { "Jokers" }, items = { old_joker } }
+
