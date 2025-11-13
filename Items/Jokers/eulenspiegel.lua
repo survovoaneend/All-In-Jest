@@ -27,7 +27,7 @@ local eulenspiegel = {
       if context.end_of_round and context.cardarea == G.jokers and context.main_eval then
         if G.GAME.blind.boss and not context.blueprint then
             ease_ante(-card.ability.ante_mod)
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = "-"..card.ability.ante_mod.." Ante", colour = G.C.FILTER})
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize { type = 'variable', key = "a_aij_ante_minus", vars = { card.ability.ante_mod } }, colour = G.C.FILTER})
             if (card.ability.Xmult - card.ability.Xmult_mod <= 0) then
               SMODS.destroy_cards(card, false, true)
             else

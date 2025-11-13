@@ -36,14 +36,14 @@ local sudoku = {
               if context.poker_hands and next(context.poker_hands['Straight']) then
                   card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.bonus
                   card_eval_status_text(card, 'extra', nil, nil, nil, {
-                      message = 'Upgrade!',
+                      message = localize('k_upgrade_ex'),
                   })
                   return nil, true
               else
                   if card.ability.extra.xmult > 1 then
                       card.ability.extra.xmult = 1
                       card_eval_status_text(card, 'extra', nil, nil, nil, {
-                          message = 'Reset!',
+                          message = localize('k_reset'),
                       })
                       return nil, true
                   end

@@ -29,7 +29,6 @@ local fleshgait = {
                         end
                     }))
                     delay(0.75 * 1.25)
-                    -- card_eval_status_text(card, 'extra', nil, nil, nil, {message = "patched"})
                 end
             end
         end

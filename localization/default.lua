@@ -60,7 +60,11 @@ return {
 
         },
         v_dictionary = {
+            a_aij_exp_mult="^#1# Mult",
+
             a_aij_mult_equal="=#1# Mult",
+
+            a_aij_ante_minus="-#1# Ante",
 
             a_aij_percent_balance = "+%#1#",
             a_aij_percent_balance_minus = "-%#1#",
