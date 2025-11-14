@@ -2475,13 +2475,10 @@ return {
                 text = { 
                     "{X:mult,C:white}X#1#{} Mult for each",
                     "{C:blue}hand{} remaining",
-                    "{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult)",
+                    "{C:inactive}(Will give {X:mult,C:white}X#2#{} {C:inactive}Mult)",
                     "{C:inactive}(Minimum {X:mult,C:white}X1{C:inactive} Mult)"
                     -- QOL seeing lots of "Minimum X1", could make those really small and short
                     -- to be less intrusive
-                    -- BUG wrong description, since the hand you use will
-                    -- get subtracted first. Probably should use hands left + 1
-                    -- in the joker's code, to match description
                 } 
             },
             j_aij_truhan = { 
