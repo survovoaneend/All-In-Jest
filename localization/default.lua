@@ -832,8 +832,8 @@ return {
                 text = {
                     "{C:attention}Always{} scores and",
                     "{C:red}Ignores{} Play selection limit",
-                    "(C:inactive}Excess Ice Cards don't effect",
-					"{C:inactive}hand type"
+                    "{C:inactive}Excess Ice Cards do not",
+					          "{C:inactive}affect hand type"
                 }
                 -- Hope this works a little better
             },
@@ -1742,7 +1742,7 @@ return {
                     "successful {C:green}probabilities{}",
                     "give {X:mult,C:white}XMult{} equal to {X:mult,C:white}X1{}",
                     "plus their {C:red}fail{} chance",
-					"{C:inactive}(Ex: {C:green}1 in 4{} {C:inactive} -> {X:mult,C:white}X1.75{C:inactive})"
+					          "{C:inactive}(Ex: {C:green}1 in 4{} {C:inactive} -> {X:mult,C:white}X1.75{C:inactive})"
                 } 
                 -- Lots of "X1, plus XA Mult" wording, which feels awkward.
                 -- Maybe "+XA" is shorter?
