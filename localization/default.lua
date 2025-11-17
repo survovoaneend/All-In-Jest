@@ -3596,9 +3596,10 @@ return {
             j_aij_pellesini = { 
                 name = "Pellesini", 
                 text = { 
-                    "When this Joker is",
+                    "When any Joker is",
                     "{C:red}destroyed{}, create an",
-                    "{C:attention}exact{} copy" 
+                    "{C:attention}exact{} copy",
+					"{C:inactive}(Including itself)"
                 },
                 unlock = { 
                     "?????" 
