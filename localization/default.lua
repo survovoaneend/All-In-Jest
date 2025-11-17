@@ -1902,7 +1902,7 @@ return {
             j_aij_kilroy = { 
                 name = "Kilroy", 
                 text = { 
-                    "{C:attention}Double{} this Jokers",
+                    "{C:attention}Double{} this Joker's",
                     "{C:chips}Chip{} value when {C:money}sold",
                     "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
                 } 
