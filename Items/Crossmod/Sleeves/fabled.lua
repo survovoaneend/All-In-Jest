@@ -23,7 +23,8 @@ local fabled = {
     end,
     apply = function(self, sleeve)
         CardSleeves.Sleeve.apply(self)
-        if sleeve.config.increase_legendary_pool_rate then
+        if self.get_current_deck_key() == "b_aij_fabled" then
+            self.config = { increase_legendary_pool_rate = 0.008, extra = {}}
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 func = (function()
@@ -32,6 +33,7 @@ local fabled = {
                 end)
             }))
         else
+            self.config = {joker_slot = -1, extra = {should_increase = true, remove_amt = 0, counterbalance = 0}}
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 func = (function()

@@ -60,7 +60,11 @@ return {
 
         },
         v_dictionary = {
+            a_aij_exp_mult="^#1# Mult",
+
             a_aij_mult_equal="=#1# Mult",
+
+            a_aij_ante_minus="-#1# Ante",
 
             a_aij_percent_balance = "+%#1#",
             a_aij_percent_balance_minus = "-%#1#",
@@ -86,6 +90,7 @@ return {
         extra_joker_dictionary = {
             -- You've got Mail (also reused in overdesigned)
             k_aij_youve_got_mail = "You've Got Mail!",
+            k_aij_youve_got_mail_goodbye = "Goodbye",
             k_aij_youve_got_mail_none = "Does nothing...",
             k_aij_youve_got_mail_plus_prefix = "+",
             k_aij_youve_got_mail_dollar_prefix = "$",
@@ -748,7 +753,7 @@ return {
                 name = "The Umbilical",
                 text = {
                     'Mark one random card each',
-                    'hand, These cards cannot',
+                    'hand, marked cards cannot',
                     'be played or discarded'
                 },
             },
@@ -825,13 +830,12 @@ return {
             m_aij_ice = {
                 name = "Ice Card",
                 text = {
-                    "{C:attention}Always{} scores",
+                    "{C:attention}Always{} scores and",
                     "{C:red}Ignores{} Play selection limit",
-                    "If played hand exceeds {C:attention}#1#{} cards,",
-                    "excess {C:attention}Ice Cards{} don't",
-                    "affect {C:attention}poker hand",
+                    "{C:inactive}Excess Ice Cards do not",
+					          "{C:inactive}affect hand type"
                 }
-                -- Description is definitely confusing
+                -- Hope this works a little better
             },
             m_aij_wood = {
                 name = "Wood Card",
@@ -1060,10 +1064,7 @@ return {
                     "for each {C:attention}face{} card {C:attention}held in",
                     "{C:attention}hand{} when hand is played",
                     "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
-                } 
-                -- known BUG: does not work with mime
-                -- plan: use context.individual and
-                -- Whiteface Grotesque scales on each held in hand card.
+                }
             },
             j_aij_the_clown_show = { 
                 name = "The Clown Show", 
@@ -1529,7 +1530,7 @@ return {
                 name = "Topsy the Clown", 
                 text = { 
                     "Rounds {C:chips}Chips{} and {C:mult}Mult",
-                    "upwards to closest",
+                    "upwards to the next closest",
                     "{C:attention}palindrome" 
                 } 
             },
@@ -1740,7 +1741,8 @@ return {
                     "During scoring,",
                     "successful {C:green}probabilities{}",
                     "give {X:mult,C:white}XMult{} equal to {X:mult,C:white}X1{}",
-                    "plus their {C:red}fail{} chance"
+                    "plus their {C:red}fail{} chance",
+					          "{C:inactive}(Ex: {C:green}1 in 4{} {C:inactive} -> {X:mult,C:white}X1.75{C:inactive})"
                 } 
                 -- Lots of "X1, plus XA Mult" wording, which feels awkward.
                 -- Maybe "+XA" is shorter?
@@ -1900,7 +1902,7 @@ return {
             j_aij_kilroy = { 
                 name = "Kilroy", 
                 text = { 
-                    "{C:attention}Double{} this Jokers",
+                    "{C:attention}Double{} this Joker's",
                     "{C:chips}Chip{} value when {C:money}sold",
                     "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
                 } 
@@ -2473,13 +2475,10 @@ return {
                 text = { 
                     "{X:mult,C:white}X#1#{} Mult for each",
                     "{C:blue}hand{} remaining",
-                    "{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult)",
+                    "{C:inactive}(Will give {X:mult,C:white}X#2#{} {C:inactive}Mult)",
                     "{C:inactive}(Minimum {X:mult,C:white}X1{C:inactive} Mult)"
                     -- QOL seeing lots of "Minimum X1", could make those really small and short
                     -- to be less intrusive
-                    -- BUG wrong description, since the hand you use will
-                    -- get subtracted first. Probably should use hands left + 1
-                    -- in the joker's code, to match description
                 } 
             },
             j_aij_truhan = { 
@@ -2635,12 +2634,13 @@ return {
                 name = "Banana Man", 
                 text = { 
                     {
-                        "{C:attention}Retrigger{} all Jokers",
+                        "{C:attention}Retrigger{} all",
+                        "other Jokers",
                     },
                     {
                         "Each Joker has a {C:green}#1# in #2#{}",
                         "chance to be {C:red}destroyed",
-                        "each hand"
+                        "after each hand"
                     }
                 } 
             },
@@ -2992,10 +2992,15 @@ return {
             j_aij_joker_png = { 
                 name = "Joker.png", 
                 text = { 
+                    {
                     '{B:1,C:white,s:0.8}Activated Ability',
                     'This Joker {C:attention}copies{} the',
                     '{C:attention}effect{} of a random {C:attention}Joker',
-                    'Pay {C:money}$#1#{} to reroll'
+                    },
+                    {
+                    'Pay {C:money}$#1#{} to reroll, increases',
+                    'by {C:money}$#1#{} per reroll this ante'
+                    }
                 } 
             },
             j_aij_kuruko = { name = "Kuruko", text = { "" } },
@@ -3465,6 +3470,7 @@ return {
                     "{B:1,C:white,s:0.8}Activated Ability",
                     "Once per round, {C:attention}temporarily",
                     "{C:attention}reroll{} Joker to the right",
+                    "until the next blind is selected",
                     "{C:inactive}#1#"
                 } 
             },
@@ -3590,9 +3596,10 @@ return {
             j_aij_pellesini = { 
                 name = "Pellesini", 
                 text = { 
-                    "When this Joker is",
+                    "When any Joker is",
                     "{C:red}destroyed{}, create an",
-                    "{C:attention}exact{} copy" 
+                    "{C:attention}exact{} copy",
+					"{C:inactive}(Including itself)"
                 },
                 unlock = { 
                     "?????" 

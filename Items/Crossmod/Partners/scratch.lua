@@ -41,12 +41,9 @@ local scratch = {
         local link_level = self:get_link_level()
         local benefits = false
         if link_level == 1 then benefits = true end
-        print(G.GAME.round % 2)
         if (G.GAME.round % 2) == 1 then 
-            print(context.other_card)
             if card.ability.extra.joker_index == 1 or benefits then
                 if context.other_card == G.jokers.cards[1] then
-                    print('left')
                     return {
                         repetitions = 1,
                         card = context.other_card,
@@ -56,7 +53,6 @@ local scratch = {
             end
             if card.ability.extra.joker_index == 2 or benefits then
                 if context.other_card == G.jokers.cards[#G.jokers.cards] then
-                    print('right')
                     return {
                         repetitions = 1,
                         card = context.other_card,

@@ -548,7 +548,7 @@ pattern = '''
     sell
 }},
 '''
-position = 'before'
+position = 'after'
 payload = '''
 {n=G.UIT.R, config={align = 'cr'}, nodes={
     aij_activate_ability
@@ -577,24 +577,27 @@ if card.area and card.area.config.type == 'joker' then
 position = 'after'
 payload = '''
 if card.config.center.all_in_jest and card.config.center.all_in_jest.use_ability then 
+    local use_button = {n=G.UIT.T, config={text = localize('b_use'),colour = G.C.UI.TEXT_LIGHT, scale = card.config.center.all_in_jest.ability_cost and card.aij_ability_cost_label and 0.4 or 0.55, shadow = true}}
     aij_activate_ability = {n=G.UIT.C, config={align = "cr"}, nodes={
         {n=G.UIT.C, config={ref_table = card, align = "cr",maxw = 1.25, padding = 0.1, r=0.08, minw = 1.25, minh = (card.area and card.area.config.type == 'joker') and 0 or 1, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, button = 'All_in_Jest_use_active_ability_button', func = 'All_in_Jest_can_use_active_ability_button'}, nodes={
             {n=G.UIT.B, config = {w=0.1,h=0.6}},
-            {n=G.UIT.C, config={align = "tm"}, nodes={
-                {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
-                    {n=G.UIT.T, config={text = localize('b_use'),colour = G.C.UI.TEXT_LIGHT, scale = card.config.center.all_in_jest.ability_cost and card.aij_ability_cost_label and 0.4 or 0.55, shadow = true}},
-                }},
-                card.config.center.all_in_jest.ability_cost and card.aij_ability_cost_label and {n=G.UIT.R, config={align = "cm"}, nodes={
-                    {n=G.UIT.T, config={text = '-'..localize('$'),colour = G.C.WHITE, scale = 0.4, shadow = true}},
-                    {n=G.UIT.T, config={ref_table = card, ref_value = 'aij_ability_cost_label',colour = G.C.WHITE, scale = 0.55, shadow = true}}
-                }} or nil
-            }}
+                card.config.center.all_in_jest.ability_cost and card.aij_ability_cost_label and {n=G.UIT.C, config={align = "tm"}, nodes={
+                    {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
+                        use_button,
+                    }},
+                    {n=G.UIT.R, config={align = "cm"}, nodes={
+                        {n=G.UIT.T, config={text = '-'..localize('$'),colour = G.C.WHITE, scale = 0.4, shadow = true}},
+                        {n=G.UIT.T, config={ref_table = card, ref_value = 'aij_ability_cost_label',colour = G.C.WHITE, scale = 0.55, shadow = true}}
+                    }
+                } 
+            }} or use_button
         }}
     }}
 end
 '''
 match_indent = true
 
+# Attaches the "Use" button to activated ability patches
 [[patches]]
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
@@ -2600,6 +2603,9 @@ if next(SMODS.find_card("j_aij_sky_trees")) then
     end
     if _other_planet == 0 then _other_planet = nil end
     local cardt = create_card(card_type,G.consumeables, nil, nil, nil, nil, _other_planet, 'blusl')
+    if aij_blue_seal_is_negative then -- For The Grim Joker
+        card:set_edition({negative = true}, true)
+    end
     cardt:add_to_deck()
     G.consumeables:emplace(cardt)
 end
@@ -2938,7 +2944,7 @@ end
 '''
 
 
-# Patch for Magick Joker
+# Patch for Magick Joker and Red Sky
 # Turns +chips into +mult within the score_card function, rather than trying to do it with a calculation function
 [[patches]]
 [patches.pattern]

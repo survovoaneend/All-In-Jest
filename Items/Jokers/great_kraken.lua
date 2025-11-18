@@ -18,7 +18,7 @@ local great_kraken = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-        local xmult = G.GAME.current_round.hands_left
+        local xmult = G.GAME.current_round.hands_left - 1
         if xmult < 1 then
             xmult = 1
         end

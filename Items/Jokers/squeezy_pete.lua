@@ -45,7 +45,7 @@ local squeezy_pete = {
                   if card.ability.extra.xmult > 1 then
                       card.ability.extra.xmult = 1
                       card_eval_status_text(card, 'extra', nil, nil, nil, {
-                          message = 'Reset!',
+                          message = localize('k_reset'),
                       })
                       return nil, true
                   end

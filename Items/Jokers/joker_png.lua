@@ -18,7 +18,7 @@ local spawn_joker_png_joker = function (card)
     SMODS.bypass_create_card_edition = nil
     G.all_in_jest_joker_png:emplace(joker)
     joker.ability.all_in_jest = joker.ability.all_in_jest or {}
-    joker.ability.all_in_jest.joker_png = card.unique_val
+    joker.ability.all_in_jest.joker_png = tostring(card.unique_val) -- Prevents dongtong from messing with it
 
     -- Useful debugging
     -- sendDebugMessage(index, "AIJ")
@@ -32,7 +32,8 @@ local joker_png = {
     config = {
       extra = {
           base_cost = 1,
-          cost = 1
+          cost = 1,
+          cost_increase = 1
       }
     },
     rarity = 1,
@@ -61,7 +62,7 @@ local joker_png = {
             ease_dollars(-card.ability.extra.cost)
 
             for _,v in pairs(G.all_in_jest_joker_png.cards) do
-                if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == card.unique_val then
+                if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == tostring(card.unique_val) then
                     v:remove()
                 end
             end
@@ -69,13 +70,25 @@ local joker_png = {
             spawn_joker_png_joker(card)
 
             card:juice_up(0.3, 0.5)
-            card.ability.extra.cost = card.ability.extra.cost + 1
+            card.ability.extra.cost = card.ability.extra.cost + cost.ability.extra.cost_increase
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_reroll')})
         end,
     },
 
     add_to_deck = function(self, card, from_debuff)
-        spawn_joker_png_joker(card)
+        if not from_debuff then
+            spawn_joker_png_joker(card)
+        end
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        if not from_debuff then
+            for _,v in pairs(G.all_in_jest_joker_png.cards) do
+                if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == tostring(card.unique_val) then
+                    v:remove()
+                end
+            end
+        end
     end,
 
     update = function(self, card, dt)
@@ -87,7 +100,7 @@ local joker_png = {
     loc_vars = function(self, info_queue, card)
         if G.all_in_jest_joker_png then
             for _,v in pairs(G.all_in_jest_joker_png.cards) do
-                if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == card.unique_val then
+                if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == tostring(card.unique_val) then
                     local other_joker = v
                     local other_vars = nil
                     if other_joker.config.center.loc_vars then
@@ -109,6 +122,7 @@ local joker_png = {
         return {
             vars = {
                 card.ability.extra.cost,
+                card.ability.extra.cost_increase,
                 colours = { 
                     G.C.SECONDARY_SET.Enhanced
                 }
@@ -122,7 +136,7 @@ local joker_png = {
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_reset')})
         end
         for _,v in pairs(G.all_in_jest_joker_png.cards) do
-            if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == card.unique_val then
+            if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == tostring(card.unique_val) then
                 local other_joker = v
                 return SMODS.blueprint_effect(card, other_joker, context)
             end

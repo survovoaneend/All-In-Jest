@@ -15,7 +15,7 @@ local spawn_czar_joker = function (card)
     SMODS.bypass_create_card_edition = nil
     G.all_in_jest_czar:emplace(joker)
     joker.ability.all_in_jest = joker.ability.all_in_jest or {}
-    joker.ability.all_in_jest.czar = card.unique_val
+    joker.ability.all_in_jest.czar = tostring(card.unique_val)
 end
 
 local czar = {
@@ -34,13 +34,17 @@ local czar = {
     eternal_compat = true,
     
     add_to_deck = function(self, card, from_debuff)
-        spawn_czar_joker(card)
+        if not from_debuff then
+            spawn_czar_joker(card)
+        end
     end,
 
     remove_from_deck = function(self, card, from_debuff)
-        for _,v in pairs(G.all_in_jest_czar.cards) do
-            if v.ability.all_in_jest and v.ability.all_in_jest.czar == card.unique_val then
-                v:remove()
+        if not from_debuff then
+            for _,v in pairs(G.all_in_jest_czar.cards) do
+                if v.ability.all_in_jest and v.ability.all_in_jest.czar == tostring(card.unique_val) then
+                    v:remove()
+                end
             end
         end
     end,
@@ -48,7 +52,7 @@ local czar = {
     loc_vars = function(self, info_queue, card)
         if G.all_in_jest_czar and G.all_in_jest_czar.cards then
             for _,v in pairs(G.all_in_jest_czar.cards) do
-                if v.ability.all_in_jest and v.ability.all_in_jest.czar == card.unique_val then
+                if v.ability.all_in_jest and v.ability.all_in_jest.czar == tostring(card.unique_val) then
                     local other_joker = v
                     local other_vars = nil
                     if other_joker.config.center.loc_vars then
@@ -73,7 +77,7 @@ local czar = {
     calculate = function(self, card, context)
         if context.reroll_shop then
             for _,v in pairs(G.all_in_jest_czar.cards) do
-                if v.ability.all_in_jest and v.ability.all_in_jest.czar == card.unique_val then
+                if v.ability.all_in_jest and v.ability.all_in_jest.czar == tostring(card.unique_val) then
                     v:remove()
                 end
             end
@@ -85,7 +89,7 @@ local czar = {
             end
         end
         for _,v in pairs(G.all_in_jest_czar.cards) do
-            if v.ability.all_in_jest and v.ability.all_in_jest.czar == card.unique_val then
+            if v.ability.all_in_jest and v.ability.all_in_jest.czar == tostring(card.unique_val) then
                 local other_joker = v
                 return SMODS.blueprint_effect(card, other_joker, context)
             end

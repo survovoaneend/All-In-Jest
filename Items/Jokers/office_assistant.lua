@@ -41,7 +41,7 @@ local office_assistant = {
             local viable_options = {}
             for k, v in pairs(G.jokers.cards) do
                 if v == card and G.jokers.cards[k+1] and G.jokers.cards[k+1].ability then
-                    if ((G.jokers.cards[k+1].ability.perishable and to_big(G.GAME.dollars) >= to_big(3) and G.jokers.cards[k+1].ability.perish_tally < G.GAME.perishable_rounds or 5) or (G.jokers.cards[k+1].ability.rental and to_big(G.GAME.dollars) >= to_big(G.jokers.cards[k+1].config.center.cost))) then
+                    if ((G.jokers.cards[k+1].ability.perishable and to_big(G.GAME.dollars) >= to_big(3) and G.jokers.cards[k+1].ability.perish_tally < (G.GAME.perishable_rounds or 5)) or (G.jokers.cards[k+1].ability.rental and to_big(G.GAME.dollars) >= to_big(G.jokers.cards[k+1].config.center.cost))) then
                         viable_options[#viable_options+1] = k+1
                     end
                 end
@@ -61,14 +61,25 @@ local office_assistant = {
             if right_card.ability.rental and to_big(G.GAME.dollars) >= to_big(right_card.config.center.cost) then
                 ease_dollars(-right_card.config.center.cost)
                 card_eval_status_text(card, 'dollars', -right_card.config.center.cost)
-                right_card:remove_sticker('rental')
-                right_card:juice_up(0.3, 0.5)
+                G.E_MANAGER:add_event(Event({
+                    func = (function()
+                        right_card:juice_up(0.3, 0.5)
+                        right_card:remove_sticker('rental')
+                        return true
+                    end)
+                }))
                 card_eval_status_text(right_card, 'extra', nil, nil, nil, {message = localize('aij_paid_off')..'!'})
             elseif right_card.ability.perishable and to_big(G.GAME.dollars) >= to_big(3) then
                 ease_dollars(-3)
                 card_eval_status_text(card, 'dollars', -3)
-                right_card.ability.perish_tally = G.GAME.perishable_rounds or 5
-                right_card:juice_up(0.3, 0.5)
+                G.E_MANAGER:add_event(Event({
+                    func = (function()
+                        right_card:juice_up(0.3, 0.5)
+                        right_card.ability.perish_tally = G.GAME.perishable_rounds or 5
+                        right_card:set_debuff()
+                        return true
+                    end)
+                }))
                 card_eval_status_text(right_card, 'extra', nil, nil, nil, {message = localize('aij_refreshed')..'!'})
             end
         end,
@@ -76,7 +87,7 @@ local office_assistant = {
 
     update = function(self, card, dt)
         if not card.aij_ability_cost_label or card.config.center.all_in_jest:ability_cost(card) ~= card.aij_ability_cost_label then
-            card.aij_ability_cost_label = card.config.center.all_in_jest:ability_cost(card) or 0
+            card.aij_ability_cost_label = card.config.center.all_in_jest:ability_cost(card) or "??"
         end
     end,
 
@@ -92,7 +103,7 @@ local office_assistant = {
     end,
   
     loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { set = 'Other', key = 'office_assistant_perishable' }
+		    info_queue[#info_queue + 1] = { set = 'Other', key = 'office_assistant_perishable' }
         info_queue[#info_queue + 1] = { set = 'Other', key = 'office_assistant_rental' }
         return {
             vars = {

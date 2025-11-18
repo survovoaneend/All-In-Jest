@@ -466,7 +466,6 @@ end
 G.FUNCS.jest_next_tag = function(e)
     local _tag = e.UIBox:get_UIE_by_ID('tag_container')
     if _tag then
-      print(_tag)
       local _tag_sprite = _tag.children[2]
       local _tag_ui = _tag_sprite.children[1].children[1]
       if G.GAME.all_in_jest.skip_tags._tag_2 and G.GAME.all_in_jest.skip_tags._tag_3 then
@@ -536,10 +535,14 @@ end
 G.FUNCS.All_in_Jest_can_use_active_ability_button = function(e)
     local obj = e.config.ref_table.config.center
     local can_use = false
-    if obj.all_in_jest and obj.all_in_jest.can_use_ability and type(obj.all_in_jest.can_use_ability) == 'function' then
+    if obj.all_in_jest and obj.all_in_jest.can_use_ability and type(obj.all_in_jest.can_use_ability) == 'function' and
+            G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT then
         can_use = obj.all_in_jest:can_use_ability(e.config.ref_table)
     end
     if e.config.ref_table.debuff then
+        can_use = false
+    end
+    if (G.play and #G.play.cards > 0) or (G.CONTROLLER.locked) or (G.GAME.STOP_USE and G.GAME.STOP_USE > 0) then 
         can_use = false
     end
     if can_use then 

@@ -56,14 +56,13 @@ local the_jester = {
                                 G.consumeables:emplace(_card)
                                 card:juice_up(0.3, 0.3)
                             end
-                            return {
-                                true,
-                                message = 'The Fool'
-                            }
+                            return true
                         end
                     }))
                     card.ability.extra.active = false
-                    delay(0.6)
+                    return {
+                        message = localize{type = 'name_text', set = 'Tarot', key = "c_fool"}
+                    }
                 end
             end
         end

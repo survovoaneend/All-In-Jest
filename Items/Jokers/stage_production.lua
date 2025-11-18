@@ -37,8 +37,10 @@ local stage_production = {
                 end
             end
             
-            All_in_Jest.reroll_joker(right_card, nil, 'stage_production', right_card.config.center.key)
-            card.ability.extra.trigger = false
+            if right_card then
+                All_in_Jest.reroll_joker(right_card, nil, 'stage_production', right_card.config.center.key)
+                card.ability.extra.trigger = false
+            end
         end,
     },
   
