@@ -5,7 +5,7 @@ local silly_sausage = {
     key = "silly_sausage",
     config = {
         extra = {
-            current_discount = 5,
+            current_discount = 4,
             discount_loss = 1,
             prev_discount = "0"
         }

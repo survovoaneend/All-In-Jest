@@ -5,7 +5,7 @@ local goofball = {
     key = "goofball",
     config = {
         extra = {
-            percent = 5
+            percent = 8
         }
     },
     rarity = 3,

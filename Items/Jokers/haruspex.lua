@@ -30,7 +30,7 @@ local haruspex = {
     config = {
         extra = {
             discards_to_spend = 1,
-            cards_to_draw = 3
+            cards_to_draw = 1
         }
     },
     rarity = 2,

@@ -5,8 +5,8 @@ local hei_tiki = {
     key = "hei_tiki",
     config = {
       extra = {
-        mult = 0,
-        mult_mod = 2
+        xmult = 0,
+        xmult_mod = 0.1
       }
     },
     rarity = 3,
@@ -22,8 +22,8 @@ local hei_tiki = {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.mult,
-                card.ability.extra.mult_mod
+                1 + card.ability.extra.xmult,
+                card.ability.extra.xmult_mod
             }
         }
     end,
@@ -33,14 +33,14 @@ local hei_tiki = {
             if hand_chips > mult then
                 SMODS.scale_card(card, {
 	                ref_table = card.ability.extra,
-                    ref_value = "mult",
-	                scalar_value = "mult_mod",
+                    ref_value = "xmult",
+	                scalar_value = "xmult_mod",
                 })
             end
         end
         if context.joker_main then
             return {
-                mult = card.ability.extra.mult,
+                xmult = 1 + card.ability.extra.xmult,
             }
         end
     end

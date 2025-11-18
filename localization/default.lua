@@ -1049,11 +1049,10 @@ return {
             j_aij_handsome_joker = { 
                 name = "Handsome Joker", 
                 text = { 
-                    "{X:mult,C:white}X#1#{} Mult for each",
-                    "{C:attention}#2#{}",
+                    "Gains {X:mult,C:white}X#1#{} Mult for",
+                    "each {C:attention}#2#{}",
                     "in your {C:attention}full deck",
                     "{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult)",
-                    "{C:inactive}(Minimum {X:mult,C:white}X1{} {C:inactive}Mult)"
                     -- BUG: Fails to mention how it changes
                 } 
             },
@@ -1414,18 +1413,18 @@ return {
             j_aij_hei_tiki = { 
                 name = "Hei-tiki", 
                 text = { 
-                    "This {C:attention}Joker{} gains {C:mult}+#2#{} Mult",
+                    "This {C:attention}Joker{} gains {X:mult,C:white}X#2#{} Mult",
                     "if played hand's final",
                     "{C:chips}Chips{} exceeds {C:mult}Mult{}",
-                    "{C:inactive}(Currently {C:mult}+#1#{} {C:inactive}Mult)"
+                    "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
                 } 
             },
             j_aij_polybius = { 
                 name = "Polybius", 
                 text = { 
                     "Gives the {C:mult}Mult{} and {C:chips}Chips{} of",
-                    "all hand types contained",
-                    "within {C:attention}played hand" 
+                    "all hand types {C:attention}contained{}",
+                    "{C:attention}within{} played hand", 
                     -- TODO Needs "Currently"; tough to calculate
                 } 
             },
@@ -1521,7 +1520,7 @@ return {
                 text = { 
                     "{B:1,C:white,s:0.8}Activated Ability",
                     "Spend {C:attention}#1#{} {C:red}Discard{} to choose {C:attention}#2#{}",
-                    "cards from your {C:attention}deck{} to",
+                    "card from your {C:attention}deck{} to",
                     "{C:attention}draw{} to hand"
                 } 
             },
@@ -1716,7 +1715,7 @@ return {
                 name = "Mute Joker", 
                 text = { 
                     "This round, first {C:attention}#1#{} played",
-                    "{C:red}destroys{} all played cards",
+                    "{C:red}destroys{} all scored cards",
                     "{C:inactive}(Poker hand changes at end of round)"
                 } 
             },
@@ -2532,9 +2531,9 @@ return {
             j_aij_sot = { 
                 name = "Sot", 
                 text = { 
-                    "{C:mult}+#1#{} Mult for",
+                    "Gains {X:mult,C:white}X#1#{} Mult for",
                     "each {C:attention}Tag{} held",
-                    "{C:inactive}(Currently {C:mult}+#2#{} {C:inactive}Mult)"
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult)"
                 } 
             },
             j_aij_fat_ed = { name = "Fat 'Ed", text = { "" } },

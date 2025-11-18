@@ -4,7 +4,7 @@ local sot = {
 
     key = "sot",
     config = {
-      extra = {modmult = 15, curmult = 0}
+      extra = {modxmult = 1, curxmult = 1}
     },
     rarity = 2,
     pos = { x = 15, y = 8},
@@ -16,22 +16,22 @@ local sot = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-        card.ability.extra.curmult = 0
+        card.ability.extra.curxmult = 1
         for i = 1, #G.GAME.tags do
-            card.ability.extra.curmult = card.ability.extra.curmult + card.ability.extra.modmult 
+            card.ability.extra.curxmult = card.ability.extra.curxmult + card.ability.extra.modxmult 
         end
-        return { vars = {card.ability.extra.modmult, card.ability.extra.curmult}}
+        return { vars = {card.ability.extra.modxmult, card.ability.extra.curxmult}}
     end,
   
     calculate = function(self, card, context)
       if context.joker_main then
-        card.ability.extra.curmult = 0
+        card.ability.extra.curxmult = 1
         for i = 1, #G.GAME.tags do
-            card.ability.extra.curmult = card.ability.extra.curmult + card.ability.extra.modmult 
+            card.ability.extra.curxmult = card.ability.extra.curxmult + card.ability.extra.modxmult 
         end
-        if card.ability.extra.curmult ~= 0 then
+        if card.ability.extra.curxmult ~= 1 then
             return {
-                mult = card.ability.extra.curmult
+                xmult = card.ability.extra.curxmult
             }
         end
       end

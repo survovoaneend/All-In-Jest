@@ -8,10 +8,10 @@ local scapino = {
             reroll_sale = 2
         }
     },
-    rarity = 2,
+    rarity = 3,
     pos = { x = 1, y = 4 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 8,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

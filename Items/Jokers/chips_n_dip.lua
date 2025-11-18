@@ -6,7 +6,7 @@ local chips_n_dip = {
     config = {
         extra = {
             xchips = 3,
-            xchips_mod = 0.5
+            xchips_mod = 0.25
         }
     },
     rarity = 2,

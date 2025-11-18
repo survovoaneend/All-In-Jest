@@ -17,7 +17,7 @@ local the_grim_joker = {
     key = "the_grim_joker",
     config = {
       extra = {
-          odds = 2,
+          odds = 3,
       }
     },
     rarity = 2,

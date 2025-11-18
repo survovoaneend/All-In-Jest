@@ -9,7 +9,7 @@ local skomorokh = {
             xmult_mod = 0.2,
         }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 23, y = 7 },
     atlas = 'joker_atlas',
     cost = 5,

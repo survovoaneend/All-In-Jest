@@ -4,7 +4,7 @@ local dim_bulb = {
 
   key = "dim_bulb",
   config = {
-    extra = { xmult = 3 }
+    extra = { xmult = 2 }
   },
   rarity = 1,
   pos = { x = 5, y = 3 },
