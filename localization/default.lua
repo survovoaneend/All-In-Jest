@@ -1277,7 +1277,7 @@ return {
                     "Gains {C:mult}+#2#{} Mult when",
                     "{C:money}money{} is earned",
                     "Resets if you have",
-                    "{C:money}$0{} or less",
+                    "{C:money}$#3#{} or less",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 } 
             },
