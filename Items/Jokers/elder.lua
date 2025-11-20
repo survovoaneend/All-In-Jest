@@ -1,20 +1,3 @@
-local get_longest_held = function()
-    local longest_joker = nil
-    local max_rounds = -1
-    if G.jokers and G.jokers.cards then
-        for _, v in ipairs(G.jokers.cards) do
-            local is_elder = (v.config.center.key == "j_aij_elder")
-            if not is_elder and v.ability.jest_held_for then
-                if v.ability.jest_held_for > max_rounds then
-                    max_rounds = v.ability.jest_held_for
-                    longest_joker = v
-                end
-            end
-        end
-    end
-    return longest_joker
-end
-
 local elder = {
     object_type = "Joker",
     order = 513,
@@ -35,7 +18,7 @@ local elder = {
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        local target_joker = get_longest_held()
+        local target_joker = All_in_Jest.get_longest_held_joker()
 
 
         if target_joker then
@@ -63,10 +46,28 @@ local elder = {
     end,
 
     calculate = function(self, card, context)
-        local target_joker = get_longest_held()
+        local target_joker = All_in_Jest.get_longest_held_joker()
         if target_joker then
             return SMODS.blueprint_effect(card, target_joker, context)
         end
     end
 }
+
+local card_add_to_deck_ref = Card.add_to_deck
+function Card:add_to_deck(from_debuff)
+    if not from_debuff and not self.added_to_deck then
+        local max_index = -1
+        if G.jokers and G.jokers.cards then
+            for _, v in ipairs(G.jokers.cards) do
+                if v.ability.jest_held_order then
+                    if tonumber(v.ability.jest_held_order) > max_index then
+                        max_index = tonumber(v.ability.jest_held_order)
+                    end
+                end
+            end
+        end
+        self.ability.jest_held_order = tostring(max_index + 1)
+    end
+    return card_add_to_deck_ref(self, from_debuff)
+end
 return { name = { "Jokers" }, items = { elder } }
