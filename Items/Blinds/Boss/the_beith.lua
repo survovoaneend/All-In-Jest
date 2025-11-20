@@ -11,6 +11,10 @@ local the_beith = {
     order = 1,
     dollars = 5,
 
+    disable = function(self)
+        G.deck:shuffle('nr'..G.GAME.round_resets.ante)
+    end,
+
     calculate = function(self, card, context)
         
     end

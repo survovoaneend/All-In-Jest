@@ -11,12 +11,15 @@ local the_alder = {
     order = 3,
     dollars = 5,
 
+    disable = function(self)
+        G.deck:shuffle('nr'..G.GAME.round_resets.ante)
+    end,
+
     calculate = function(self, card, context)
         local temp = G.GAME.blind and G.GAME.blind.disabled
         if temp then
             return
         end
-
     end
 }
 local shuffleref = CardArea.shuffle
