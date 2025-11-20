@@ -31,17 +31,7 @@ local the_storm = {
                 end
             end
             if #total_cards > 0 then
-                for i = 1, #total_cards do
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'before',
-                        func = function()
-                            total_cards[i]:start_dissolve()
-                            return true
-                        end
-                    })) 
-                    total_cards[i].destroyed = true
-                end
-                SMODS.calculate_context({remove_playing_cards = true, removed = total_cards})
+                SMODS.destroy_cards(total_cards)
             end
         end
     end

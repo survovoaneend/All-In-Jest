@@ -32,30 +32,14 @@ local the_conflagration = {
                 for i = 1, #context.full_hand do
                     if not context.full_hand[i].destroyed then
                         table.insert(total_cards, context.full_hand[i])
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'before',
-                            func = function()
-                                context.full_hand[i]:start_dissolve()
-                                return true
-                            end
-                        })) 
-                        context.full_hand[i].destroyed = true
                     end
                 end
                 for i = 1, #G.hand.cards do
                     if not G.hand.cards[i].destroyed then
                         table.insert(total_cards, G.hand.cards[i])
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'before',
-                            func = function()
-                                G.hand.cards[i]:start_dissolve()
-                                return true
-                            end
-                        })) 
-                        G.hand.cards[i].destroyed = true
                     end
                 end
-                SMODS.calculate_context({remove_playing_cards = true, removed = total_cards})
+                SMODS.destroy_cards(total_cards)
             end
         end
     end

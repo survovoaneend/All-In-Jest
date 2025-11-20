@@ -21,7 +21,7 @@ local the_beast = {
                 func = function()
                     for i = 1, #G.jokers.cards do
                         if All_in_Jest.is_food(G.jokers.cards[i]) then
-                            G.jokers.cards[i]:start_dissolve()
+                            SMODS.destroy_cards(G.jokers.cards[i])
                         end
                     end
                     return true
