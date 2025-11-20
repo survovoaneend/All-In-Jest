@@ -16,17 +16,16 @@ local the_apple = {
         if temp then
             return
         end
-        local contexts = not context.individual and not context.repetition and not context.blueprint
-        if context.end_of_round and G.GAME.current_round.hands_played <= 1 and not temp and contexts then
-            local jokers = {}
+        local exclude_contexts = context.individual or context.repetition or context.blueprint
+        if context.end_of_round and G.GAME.current_round.hands_played <= 1 and not temp and not exclude_contexts then
+            local destroyable_jokers = {}
             for i = 1, #G.jokers.cards do
                 if not SMODS.is_eternal(G.jokers.cards[i]) then
-                    jokers[i] = G.jokers.cards[i]
+                    table.insert(destroyable_jokers, G.jokers.cards[i])
                 end
             end
-            local joker = jokers[1] or nil
-            if joker then
-                SMODS.destroy_cards(joker)
+            if #destroyable_jokers > 0 then
+                SMODS.destroy_cards(destroyable_jokers[1])
             end
         end
     end
