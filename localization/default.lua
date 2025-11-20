@@ -368,7 +368,7 @@ return {
             bl_aij_the_oak = {
                 name = "The Oak",
                 text = {
-                    'Disable the',
+                    'Debuffs the',
                     'rightmost Joker',
                 },
             },
