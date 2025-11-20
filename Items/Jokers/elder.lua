@@ -56,7 +56,7 @@ local elder = {
 
             info_queue[#info_queue + 1] = target_joker.config.center
 
-            return { vars = { target_joker.config.center.name } }
+            return { vars = { localize{type="name_text", set="Joker", key = target_joker.config.center.key} } }
         end
 
         return { vars = { "None" } }
