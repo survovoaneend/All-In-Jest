@@ -11,7 +11,7 @@ local the_neck = {
     order = 11,
     dollars = 5,
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
         
     end
     

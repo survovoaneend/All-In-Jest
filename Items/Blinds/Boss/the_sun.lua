@@ -13,7 +13,7 @@ local the_sun = {
     dollars = 5,
 
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
         
     end,
     stay_flipped = function(self, area, card)

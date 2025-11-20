@@ -13,7 +13,7 @@ local the_lake = {
     dollars = 5,
 
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
         
     end,
 

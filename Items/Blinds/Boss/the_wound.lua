@@ -13,7 +13,7 @@ local the_wound = {
     dollars = 5,
 
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
         
     end,
     debuff_hand = function(self, cards, poker_hands, text, mult, hand_chips)

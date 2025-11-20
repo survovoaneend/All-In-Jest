@@ -31,7 +31,7 @@ local the_gift = {
         self.triggered = true
         return true
     end,
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
         local temp = G.GAME.blind and G.GAME.blind.disabled
         if temp then
             return

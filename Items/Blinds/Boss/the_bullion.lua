@@ -23,7 +23,7 @@ local the_bullion = {
     dollars = 5,
 
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
         
     end,
 

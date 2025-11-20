@@ -12,7 +12,7 @@ local the_field = {
     dollars = 5,
     config = { extra = { cards = 0, defeated = false } },
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
         local temp = G.GAME.blind and G.GAME.blind.disabled
         if temp or (not G.GAME.blind.in_blind) then
             return

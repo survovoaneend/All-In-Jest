@@ -22,7 +22,7 @@ local the_rains = {
     order = 502,
     dollars = 6,
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
         if context.all_in_jest and context.all_in_jest.before_after then
             local chipsthing = G.GAME.chips + context.total_chips >= G.GAME.blind.chips
             if chipsthing then

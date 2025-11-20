@@ -13,7 +13,7 @@ local the_day = {
     dollars = 5,
 
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
         
     end,
     debuff_hand = function(self, cards, hand, handname, check)

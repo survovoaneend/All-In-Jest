@@ -12,7 +12,7 @@ local the_clay = {
     dollars = 5,
 
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
         
     end,
 

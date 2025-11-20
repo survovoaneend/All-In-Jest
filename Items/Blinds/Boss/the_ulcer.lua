@@ -13,7 +13,7 @@ local the_ulcer = {
     dollars = 5,
 
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
         
     end,
 

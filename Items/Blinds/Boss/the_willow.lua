@@ -15,7 +15,7 @@ local the_willow = {
         G.deck:shuffle('nr'..G.GAME.round_resets.ante)
     end,
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
 
     end
 }

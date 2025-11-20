@@ -13,7 +13,7 @@ local the_god = {
     dollars = 5,
 
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
         
     end,
     -- just ortalab's The Tarot

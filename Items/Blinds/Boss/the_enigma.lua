@@ -23,7 +23,7 @@ local the_enigma = {
     dollars = 5,
 
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
 
     end,
 

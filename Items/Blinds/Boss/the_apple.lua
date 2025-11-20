@@ -11,7 +11,7 @@ local the_apple = {
     order = 10,
     dollars = 5,
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
         local temp = G.GAME.blind and G.GAME.blind.disabled
         if temp then
             return

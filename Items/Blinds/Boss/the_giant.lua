@@ -13,7 +13,7 @@ local the_giant = {
     dollars = 5,
 
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
         
     end,
     set_blind = function(self)

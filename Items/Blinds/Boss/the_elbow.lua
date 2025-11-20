@@ -12,7 +12,7 @@ local the_elbow = {
     dollars = 5,
 
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
         
     end,
     in_pool = function(self)

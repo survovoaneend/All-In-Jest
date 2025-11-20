@@ -21,7 +21,7 @@ local the_bird = {
     order = 512,
     dollars = 6,
 
-    calculate = function(self, card, context)
+    calculate = function(self, blind, context)
         local temp = G.GAME.blind and G.GAME.blind.disabled
         if temp then
             return
