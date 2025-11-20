@@ -16,13 +16,18 @@ local the_beast = {
         if temp then
             return
         end
-        if context.end_of_round and not temp then
+        local exclude_contexts = context.individual or context.repetition or context.blueprint
+        if context.end_of_round and not temp and not exclude_contexts then
             G.E_MANAGER:add_event(Event({
                 func = function()
+                    local jokers_to_destroy = {}
                     for i = 1, #G.jokers.cards do
                         if All_in_Jest.is_food(G.jokers.cards[i]) then
-                            SMODS.destroy_cards(G.jokers.cards[i])
+                            table.insert(jokers_to_destroy, G.jokers.cards[i])
                         end
+                    end
+                    if #jokers_to_destroy > 0 then
+                        SMODS.destroy_cards(jokers_to_destroy)
                     end
                     return true
                 end

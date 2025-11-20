@@ -16,7 +16,8 @@ local the_hazel = {
         if temp then
             return
         end
-        if context.end_of_round and not temp then
+        local exclude_contexts = context.individual or context.repetition or context.blueprint
+        if context.end_of_round and not temp and not exclude_contexts then
             local jokers = {}
             for i = 1, #G.jokers.cards do
                 if not G.jokers.cards[i].ability.rental and not context.individual and not context.repetition then
