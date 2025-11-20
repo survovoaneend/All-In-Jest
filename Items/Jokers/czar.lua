@@ -21,6 +21,7 @@ end
 local czar = {
     object_type = "Joker",
     order = 365,
+    ignore = true,
     key = "czar",
     config = {
     },

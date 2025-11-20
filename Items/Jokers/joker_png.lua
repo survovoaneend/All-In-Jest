@@ -28,6 +28,7 @@ end
 local joker_png = {
     object_type = "Joker",
     order = 302,
+    ignore = true,
     key = "joker_png",
     config = {
       extra = {

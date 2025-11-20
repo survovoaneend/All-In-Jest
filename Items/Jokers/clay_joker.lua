@@ -1,7 +1,7 @@
 local clay_joker = {
     object_type = "Joker",
     order = 102,
-
+    ignore = true,
     key = "clay_joker",
     config = {
         extra = {

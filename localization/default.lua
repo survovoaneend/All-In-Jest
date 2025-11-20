@@ -3496,6 +3496,14 @@ return {
                     "every {C:money}Shop"
                 } 
             },
+            j_aij_parking_space = { 
+                name = "Parking Space", 
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult if this Joker",
+                    "is in {C:attention}Joker Slot #2#{}",
+                    "{C:inactive}(Slot changes at end of round)"
+                } 
+            },
             j_aij_graffiti = { 
                 name = "Graffiti", 
                 text = {
@@ -3511,6 +3519,15 @@ return {
                     }
                 } 
             },
+            j_aij_historian = {
+                name = "Historian", 
+                text = {
+                    "Adds {C:mult}Mult{} equal to",
+                    "{C:attention}triple{} the {C:money}Sell Value{}",
+                    "last sold Joker",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
+                } 
+            },
             j_aij_baddata = {
                 name = "BAD_DATA", 
                 text = {
@@ -3522,6 +3539,23 @@ return {
                     "{B:1,C:white,s:0.8}Activated Ability",
                     'Repairs {C:attention}Perishable{} or',
                     '{C:attention}Rental{} Joker to the {C:attention}right'
+                } 
+            },
+            j_aij_cavalier = {
+                name = "Cavalier", 
+                text = {
+                    "{C:mult}+#2#{} Mult for each {C:attention}hand",
+                    "previously scored this {C:attention}round",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
+                } 
+            },
+            j_aij_elder = {
+                name = "Elder", 
+                text = {
+                    'Copies the effect of',
+                    'the {C:attention}Joker{}, you have',
+                    "owned the {C:attention}longest{}",
+                    "{C:inactive}(Currently #1#)"
                 } 
             },
 

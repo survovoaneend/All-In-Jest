@@ -1,7 +1,7 @@
 local visage = {
     object_type = "Joker",
     order = 232,
-
+    ignore = true,
     key = "visage",
     config = {
         extra = {
