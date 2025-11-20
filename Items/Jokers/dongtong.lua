@@ -17,7 +17,7 @@ local dong_tong_double = function (card)
                 jest_ability_calculate(
                 card,
                 "*", 2,
-                { x_chips = 1, x_mult = 1, extra_value = true, jest_applied = true },
+                { x_chips = 1, x_mult = 1, extra_value = true, jest_applied = true, card_limit=true },
                 nil, true, "ability.extra"
                 )
             end
@@ -26,7 +26,7 @@ local dong_tong_double = function (card)
                 jest_ability_calculate(
                 card,
                 "/", 2,
-                { x_chips = 1, x_mult = 1, extra_value = true, jest_applied = true },
+                { x_chips = 1, x_mult = 1, extra_value = true, jest_applied = true, card_limit=true },
                 nil, true, "ability.extra"
                 )
             end

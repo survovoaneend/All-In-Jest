@@ -66,7 +66,7 @@ function Card:update(dt)
     jest_ability_calculate(
       self,
       "*", diff,
-      { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
+      { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true, card_limit=true },
       nil, true, false, "ability"
     )
     applied.factor = factor
