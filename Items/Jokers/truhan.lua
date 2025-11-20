@@ -30,13 +30,13 @@ local truhan = {
   
     calculate = function(self, card, context)
       if context.jest_destroying_or_selling_joker then
-        if context.jest_destroyed_joker.ability.jest_held_for and context.jest_destroyed_joker.ability.jest_held_for > 0 then
+        if context.jest_destroyed_joker.ability.jest_held_for and tonumber(context.jest_destroyed_joker.ability.jest_held_for) > 0 then
             SMODS.scale_card(card, {
 	            ref_table = card.ability.extra,
                 ref_value = "xmult",
 	            scalar_value = "xmult_mod",
                 operation = function(ref_table, ref_value, initial, change)
-	                ref_table[ref_value] = initial + (change * (context.jest_destroyed_joker.ability.jest_held_for or 0))
+	                ref_table[ref_value] = initial + (change * (tonumber(context.jest_destroyed_joker.ability.jest_held_for) or 0))
                 end,
             })
         end
@@ -48,16 +48,26 @@ local truhan = {
       end
     end
 }
+
 local ease_roundref = ease_round
 function ease_round(mod)
     local ref = ease_roundref(mod)
     for i = 1, #G.jokers.cards do
         if G.jokers.cards[i].ability.jest_held_for ~= nil then
-            G.jokers.cards[i].ability.jest_held_for = G.jokers.cards[i].ability.jest_held_for + mod
+            G.jokers.cards[i].ability.jest_held_for = tostring(mod + tonumber(G.jokers.cards[i].ability.jest_held_for))
         else
-            G.jokers.cards[i].ability.jest_held_for = mod
+            G.jokers.cards[i].ability.jest_held_for = tostring(mod)
         end
     end
     return ref
+end
+-- Unnecessary for Truhan, but needed for other effects
+local card_set_ability_ref = Card.set_ability
+function Card:set_ability(center, initial, delay_sprites)
+    local ret = card_set_ability_ref(self, center, initial, delay_sprites)
+
+    self.ability.jest_held_for = "0"
+
+    return ret
 end
 return { name = {"Jokers"}, items = {truhan} }
