@@ -77,6 +77,7 @@ return {
         challenge_names = {
             c_aij_bananarama = "Bananarama",
             c_aij_sharpest_tool = "Sharpest Tool",
+            c_aij_the_pit = "The Pit",
         },
         v_text = {
             -- Challenges
@@ -85,6 +86,9 @@ return {
             },
             ch_c_aij_sharpest_tool_2 = {
                 'in the {C:attention}Shop{} or in {C:attention}Buffoon packs'
+            },
+            ch_c_aij_all_pit_blinds = {
+                'All regular boss blinds after Ante 1 are {C:attention}Pit Blinds{}'
             },
         },
         extra_joker_dictionary = {
