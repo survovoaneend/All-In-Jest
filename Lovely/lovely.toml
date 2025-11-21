@@ -2815,6 +2815,10 @@ G.all_in_jest.patches_sprites["paperback_Stars"] = Sprite(0,0,G.CARD_W,G.CARD_H,
 G.all_in_jest.patches_sprites["hc_paperback_Stars"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=4,y=3})
 G.all_in_jest.patches_sprites["paperback_Crowns"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=6,y=2})
 G.all_in_jest.patches_sprites["hc_paperback_Crowns"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=5,y=3})
+G.all_in_jest.patches_sprites["bunc_Halberds"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=6,y=3})
+G.all_in_jest.patches_sprites["hc_bunc_Halberds"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=8,y=3})
+G.all_in_jest.patches_sprites["bunc_Fleurons"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=7,y=3})
+G.all_in_jest.patches_sprites["hc_bunc_Fleurons"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=9,y=3})
 self.all_in_jest_czar = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
