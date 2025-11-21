@@ -8,11 +8,7 @@ local the_brilliance = {
       }
     },
     in_pool = function(self)
-        if G.GAME.round_resets.ante == G.GAME.all_in_jest.pit_blind_ante or G.GAME.won then
-            if G.GAME.stake >= 5 or G.GAME.won or not All_in_Jest.config.blue_stake_rework then
-                return true
-            end
-        end
+        return All_in_Jest.pit_blinds_in_play()
     end,
     mult = 2,
     boss_colour = HEX("e8dd9d"),

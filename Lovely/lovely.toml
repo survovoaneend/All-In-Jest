@@ -1057,25 +1057,23 @@ if _type == 'Joker' then
 end
 '''
 
+# Patch to force pit blind on ante 4/5 or during the all pit blinds challenge
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = '''G.GAME.bosses_used[boss] = G.GAME.bosses_used[boss] + 1'''
+pattern = '''for k, v in pairs(G.GAME.bosses_used) do'''
 position = "before"
 match_indent = true
 payload = '''
-if G.GAME.round_resets.ante == G.GAME.all_in_jest.pit_blind_ante then
-    if G.GAME.stake >= 5 or not All_in_Jest.config.blue_stake_rework then
-        local cen_pool = {}
-        for k, v in pairs(G.P_BLINDS) do
-            if v and v.boss and v.boss.all_in_jest and v.boss.all_in_jest.pit then 
-                cen_pool[#cen_pool+1] = k
-            end
+-- AIJ Patch
+if All_in_Jest.force_pit_blind() then
+    for k, v in pairs(eligible_bosses) do
+        if eligible_bosses[k] and not (G.P_BLINDS[k] and G.P_BLINDS[k].boss and G.P_BLINDS[k].boss.all_in_jest and G.P_BLINDS[k].boss.all_in_jest.pit) then
+            eligible_bosses[k] = nil
         end
-        local blind_key = pseudorandom_element(cen_pool, pseudoseed('jest_pit_blind'..G.GAME.round_resets.ante))
-        return blind_key
     end
 end
+-- end AIJ patch
 '''
 
 [[patches]]
