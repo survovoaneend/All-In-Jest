@@ -1706,3 +1706,64 @@ function All_in_Jest.force_pit_blind()
     local not_showdown_blind = not ((G.GAME.round_resets.ante)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2)
     return (blue_stake_replacement_blind or all_pit_blinds_challenge) and not_showdown_blind
 end
+
+-- Increases blind requirement while making the score tick up with an animation
+-- mod_add increases the mult of the blind (so mod_add = 1 makes a blind go from x2 to x3)
+-- mod_add increases the blind requirement directly. This occurs after mod_add
+-- Code copied from Bunco
+function All_in_Jest.ease_blind_requirement(mod_mult, mod_add)
+    local original_chips = G.GAME.blind.original_chips > 0 and G.GAME.blind.original_chips or G.GAME.blind.chips
+
+    mod_mult = mod_mult ~= nil and mod_mult or 0
+    mod_add = mod_add ~= nil and mod_add or 0
+    local current_mult = G.GAME.blind.chips / (original_chips / G.GAME.blind.mult) -- Takes into account previous ease_blind_requirement calls
+    local final_chips = (original_chips / G.GAME.blind.mult) * (current_mult + mod_mult) + mod_add
+    local chip_mod -- iterate over ~120 ticks
+    if type(G.GAME.blind.chips) ~= 'table' then
+        chip_mod = math.ceil(math.abs(final_chips - G.GAME.blind.chips) / 120)
+    else
+        chip_mod = ((final_chips - G.GAME.blind.chips):abs() / 120):ceil()
+    end
+    local step = 0
+    if G.GAME.blind.chips < final_chips then
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            blocking = true,
+            func = function()
+                G.GAME.blind.chips = G.GAME.blind.chips + G.SETTINGS.GAMESPEED * chip_mod
+                if G.GAME.blind.chips < final_chips then
+                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                    if step % 5 == 0 then
+                        play_sound('chips1', 0.8 + (step * 0.005))
+                    end
+                    step = step + 1
+                else
+                    G.GAME.blind.chips = final_chips
+                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                    G.GAME.blind:wiggle()
+                    return true
+                end
+            end
+        }))
+    else
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            blocking = true,
+            func = function()
+                G.GAME.blind.chips = G.GAME.blind.chips - G.SETTINGS.GAMESPEED * chip_mod
+                if G.GAME.blind.chips > final_chips then
+                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                    if step % 5 == 0 then
+                        play_sound('chips1', 0.8 + (step * 0.005))
+                    end
+                    step = step - 1
+                else
+                    G.GAME.blind.chips = final_chips
+                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                    G.GAME.blind:wiggle()
+                    return true
+                end
+            end
+        }))
+    end
+end

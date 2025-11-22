@@ -853,3 +853,27 @@ function Card:save()
     end
     return saveTable
 end
+
+-- Automatically saves G.GAME.blind.original_chips when blind is loaded
+local aij_blind_set_blind_ref = Blind.set_blind
+function Blind:set_blind(blind, reset, silent)
+    local ret = aij_blind_set_blind_ref(self, blind, reset, silent)
+    if not reset then
+        self.original_chips = self.chips
+    end
+    return ret
+end
+
+-- Handle original chips when game is saved and reloaded
+local aij_blind_save_ref = Blind.save
+function Blind:save()
+    local blindTable = aij_blind_save_ref(self)
+    blindTable.original_chips = self.original_chips
+    return blindTable
+end
+local aij_blind_load_ref = Blind.load
+function Blind:load(blindTable)
+    local ret = aij_blind_load_ref(self, blindTable)
+    self.original_chips = blindTable.original_chips
+    return blindTable
+end
