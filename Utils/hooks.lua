@@ -569,7 +569,7 @@ end
 --Aureate Coin, The Clay
 local ease_anteref = ease_ante
 function ease_ante(mod)
-    if mod ~= 0 then
+    if mod > 0 then
         G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = 0
         local common_suit, common_rank = nil, nil
         local temp_suit_val, temp_rank_val = 0, 0
