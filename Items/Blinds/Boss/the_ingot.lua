@@ -20,9 +20,11 @@ local the_ingot = {
         if G.jokers and context.end_of_round and G.GAME.current_round.hands_left == 0 and not temp and not exclude_contexts then
             local jokers = {}
             for i = 1, #G.jokers.cards do
-                if not context.individual and not context.repetition then
+                if not context.individual and not context.repetition and not G.jokers.cards[i].ability.perishable and not SMODS.is_eternal(G.jokers.cards[i]) then
                     G.jokers.cards[i]:add_sticker('eternal', true)
                     G.jokers.cards[i]:juice_up(0.3, 0.5)
+                    blind.triggered = true
+                    blind:wiggle()
                 end
             end
         end

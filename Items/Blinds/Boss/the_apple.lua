@@ -26,6 +26,8 @@ local the_apple = {
             end
             if #destroyable_jokers > 0 then
                 SMODS.destroy_cards(destroyable_jokers[1])
+                blind.triggered = true
+                blind:wiggle()
             end
         end
     end

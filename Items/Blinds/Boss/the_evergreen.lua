@@ -92,7 +92,7 @@ local the_evergreen = {
     end,
 
     in_pool = function(self)
-        if G.deck and #G.deck.cards >= G.GAME.all_in_jest.starting_prams.deck_size then
+        if G.deck and #G.deck.cards > G.GAME.all_in_jest.starting_prams.deck_size then
             return (#G.deck.cards - G.GAME.all_in_jest.starting_prams.deck_size) >= 2
         end
     end,

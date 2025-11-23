@@ -28,6 +28,7 @@ local the_horror = {
                 local temp_card = pseudorandom_element(jokers, pseudoseed('the_horror'))
                 temp_card:add_sticker('perishable', true)
                 temp_card:juice_up(0.3, 0.5)
+                blind.triggered = true
                 blind:wiggle()
             end
         end
