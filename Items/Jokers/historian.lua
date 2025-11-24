@@ -17,11 +17,11 @@ local historian = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-            return {
-                vars = {
-                    card.ability.extra.mult
-                }
+        return {
+            vars = {
+                card.ability.extra.mult
             }
+        }
     end,
   
     calculate = function(self, card, context)
