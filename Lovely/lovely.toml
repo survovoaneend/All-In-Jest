@@ -3009,3 +3009,12 @@ if All_in_Jest.aij_alias_type(blind_choice.config.aij_blind_amount_display) == '
 end
 
 '''
+
+# Make blind display randomly change with The Clay blind
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "{n=G.UIT.T, config={text = number_format(blind_amt)*"
+position = 'before'
+match_indent = true
+payload = '''(blind_choice.config.name == "bl_aij_the_clay" and {n=G.UIT.O, config={object = DynaText({string = getRandomClayBlindReqs(blind_amt), colours = {disabled and G.C.UI.TEXT_INACTIVE or G.C.RED},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = score_number_scale(0.9, blind_amt), shadow = not disabled, min_cycle_time = 0})}}) or'''

@@ -1272,22 +1272,27 @@ end
 
 function All_in_Jest.add_patch(card, suit, instant, append)
   if not suit then
-      local keys = {}
+    local keys = {}
 	  for k, v in pairs(SMODS.Suits) do
-          if card.base.suit ~= k and All_in_Jest.has_suit_in_deck(k, true) and ((v.in_pool and v.in_pool(val, nil)) or not v.in_pool) then
-	         keys[#keys+1] = k
-          end
+      if card.base.suit ~= k and All_in_Jest.has_suit_in_deck(k, true) and ((v.in_pool and v.in_pool(val, nil)) or not v.in_pool) then
+        keys[#keys+1] = k
+      end
 	  end
 	  suit = pseudorandom_element(keys, pseudoseed(append or ''))
   end
   instant = instant or false
   if not instant then
-      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() 
-	    card.ability.patches = card.ability.patches or {}
-        card.ability.patches[suit] = true
-        play_sound('tarot1')
-        card:juice_up(0.3, 0.5)
-      return true end }))
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.1,
+        func = function() 
+          card.ability.patches = card.ability.patches or {}
+          card.ability.patches[suit] = true
+          play_sound('tarot1')
+          card:juice_up(0.3, 0.5)
+          return true
+        end
+      }))
   else
     card.ability.patches = card.ability.patches or {}
     card.ability.patches[suit] = true
@@ -1519,8 +1524,8 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, _card)
                     if victim_joker.ability[k] then
                         new_joker.ability[k] = true
                         if k == "perishable" and new_joker.ability.perish_tally == nil then
-							new_joker.ability.perish_tally = victim_joker.ability.perish_tally or G.GAME.perishable_rounds or 5
-						end
+                            new_joker.ability.perish_tally = victim_joker.ability.perish_tally or G.GAME.perishable_rounds or 5
+                        end
                     end
                 end
                 new_joker:start_materialize({ G.C.SPECTRAL, G.C.WHITE })

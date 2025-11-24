@@ -595,7 +595,7 @@ function ease_ante(mod)
         G.P_BLINDS['bl_aij_the_journey'].boss.selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey'))
         G.P_BLINDS['bl_aij_the_auroch'].boss.suit = common_suit or G.P_BLINDS['bl_aij_the_auroch'].boss.suit
         G.P_BLINDS['bl_aij_the_auroch'].boss.rank = common_rank or G.P_BLINDS['bl_aij_the_auroch'].boss.rank
-        G.P_BLINDS['bl_aij_the_clay'].mult = pseudorandom("clay", 2, 4) + math.floor(100*pseudorandom("clay"))/100 -- Randomises an integer part (1-4) and a decimal part (0.00 to 0.99) before adding both together
+        -- G.P_BLINDS['bl_aij_the_clay'].mult = pseudorandom("clay", 2, 4) + math.floor(100*pseudorandom("clay"))/100 -- Randomises an integer part (1-4) and a decimal part (0.00 to 0.99) before adding both together
         G.GAME.all_in_jest.unused_hands.ante = 0
         G.GAME.all_in_jest.unused_discards.ante = 0
     end
