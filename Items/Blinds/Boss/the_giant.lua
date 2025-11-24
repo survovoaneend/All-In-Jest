@@ -22,6 +22,14 @@ local the_giant = {
 
     disable = function(self)
         ease_hands_played(-2)
+        G.E_MANAGER:add_event(Event({
+            func = function() 
+                if G.GAME.current_round.hands_left <= 0 then
+                    G.GAME.current_round.hands_left = 1
+                end
+                return true
+            end
+        }))
         G.GAME.blind.chips = G.GAME.blind.chips/3
         G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
     end,
@@ -30,9 +38,6 @@ local the_giant = {
         local temp = G.GAME.blind and G.GAME.blind.disabled
         if temp then
             return
-        end
-        if not temp then
-            ease_hands_played(-2)
         end
     end,
 
