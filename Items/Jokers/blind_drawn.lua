@@ -16,6 +16,30 @@ local blind_drawn = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+
+    add_to_deck = function(self, card, from_debuff)
+        if not from_debuff then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                func = function()
+                    All_in_Jest.aij_refresh_boss_blind() -- Updates dynamic score requirement
+                    return true
+                end
+            }))
+        end
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        if not from_debuff then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                func = function()
+                    All_in_Jest.aij_refresh_boss_blind() -- Updates dynamic score requirement
+                    return true
+                end
+            }))
+        end
+    end,
   
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.Xmult}}
