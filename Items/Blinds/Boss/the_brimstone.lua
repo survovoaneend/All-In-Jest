@@ -14,7 +14,8 @@ local the_brimstone = {
 
     calculate = function(self, blind, context)
         if context.pre_discard and not G.GAME.blind.disabled and to_number(G.GAME.dollars) > 0 then
-            self.triggered = true
+            blind.triggered = true
+            blind:wiggle()
             ease_dollars(-math.ceil(G.GAME.dollars/2), true)
         end
     end,
