@@ -282,7 +282,7 @@ local has_no_rank_ref = SMODS.has_no_rank
 function SMODS.has_no_rank(card)
     if card.base.id == nil then return true end
     if SMODS.has_enhancement(card, 'm_aij_canvas') then
-        if (card.area == G.hand or card.area == G.play) and not card.debuff then
+        if (card.area == G.hand or card.area == G.play) and card.area ~= nil and not card.debuff then
             for k, v in pairs(G.play.cards) do
                 if v == card and v ~= G.play.cards[#G.play.cards] and not G.play.cards[k+1].debuff then
                     card.front_hidden = G.play.cards[k+1]:should_hide_front()
