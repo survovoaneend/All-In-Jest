@@ -17,6 +17,11 @@ local aureate_coin = {
     dollars = 8,
     config = {extra = {trigger = false}},
 
+    aij_blind_amount_display = function(self, blind, base_blind_amount, mult)
+        local extra_mult = math.abs(self.boss.spent_money) * 0.1
+        return base_blind_amount * (mult + extra_mult)
+    end,
+
     set_blind = function(self)
         if math.abs(self.boss.spent_money) > 0 then
             All_in_Jest.ease_blind_requirement(math.abs(self.boss.spent_money) * 0.1, 0)

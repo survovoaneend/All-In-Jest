@@ -23,6 +23,14 @@ local the_ash = {
         }
     end,
 
+    aij_blind_amount_display = function(self, blind, base_blind_amount, mult)
+        local extra_mult = 0
+        if #G.deck.cards <= G.GAME.all_in_jest.starting_prams.deck_size then
+            extra_mult = (G.GAME.all_in_jest.starting_prams.deck_size - #G.deck.cards) * 0.20
+        end
+        return base_blind_amount * (mult + extra_mult)
+    end,
+
     set_blind = function(self)
         local extra_mult = 0
         if #G.deck.cards <= G.GAME.all_in_jest.starting_prams.deck_size then

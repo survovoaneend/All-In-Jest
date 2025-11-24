@@ -1,3 +1,6 @@
+-- Used in Vanilla functions where 'type' is overridden
+All_in_Jest.aij_alias_type = type
+
 --repurposd from paperback
 function jest_poll_tag(seed, options)
   -- This part is basically a copy of how the base game does it
@@ -1765,5 +1768,35 @@ function All_in_Jest.ease_blind_requirement(mod_mult, mod_add)
                 end
             end
         }))
+    end
+end
+
+-- Redisplays the blind info on the blind select screen
+-- Used to update dynamic score requirements
+function All_in_Jest.aij_refresh_boss_blind()
+    if G.GAME.blind.boss or not G.blind_select_opts then return end
+
+    local par = G.blind_select_opts.boss.parent
+    if par and par.config.object then
+        G.blind_select_opts.boss:remove()
+        G.blind_select_opts.boss = UIBox{
+            T = {par.T.x, 0, 0, 0},
+            definition = { n = G.UIT.ROOT, config = { align = "cm", colour = G.C.CLEAR }, nodes = {
+              UIBox_dyn_container({ create_UIBox_blind_choice('Boss') }, false, get_blind_main_colour('Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Boss'), 0.8))
+            } },
+            config = {
+                align = "bmi",
+                offset = {
+                    x = 0,
+                    y = G.blind_select_opts.boss.alignment.offset.y
+                },
+                major = par,
+                xy_bond = 'Weak'
+            }
+        }
+        par.config.object = G.blind_select_opts.boss
+        par.config.object:recalculate()
+        G.blind_select_opts.boss.parent = par
+        -- G.blind_select_opts.boss.alignment.offset.y = -0.2
     end
 end

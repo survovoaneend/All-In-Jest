@@ -11,6 +11,27 @@ local the_hoard = {
     order = 40,
     dollars = 5,
 
+    aij_blind_amount_display = function(self, blind, base_blind_amount, mult)
+        local blinds = {}
+        for _, v in pairs(G.all_in_jest.advanced_hand_usage_ante) do
+            if v.blind ~= G.GAME.blind then
+                local name = v.blind.name
+                blinds[name] = blinds[name] or {}
+                blinds[name].chips = v.blind.chips
+                blinds[name].chip_total = blinds[name].chip_total or 0
+                blinds[name].chip_total = blinds[name].chip_total + v.total_chips
+            end
+        end
+        local add_val = 0
+        for k, v in pairs(blinds) do
+            if v.chip_total > v.chips then
+                add_val = add_val + (v.chip_total - v.chips)
+            end
+        end
+
+        return base_blind_amount * mult + add_val
+    end,
+
     set_blind = function(self)
         local blinds = {}
         for _, v in pairs(G.all_in_jest.advanced_hand_usage_ante) do

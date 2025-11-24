@@ -11,6 +11,16 @@ local the_aspen = {
     order = 19,
     dollars = 5,
 
+    aij_blind_amount_display = function(self, blind, base_blind_amount, mult)
+        local blinds_defeated = 0
+        for _, v in pairs(G.GAME.round_resets.blind_states) do
+            if v == 'Defeated' then
+                blinds_defeated = blinds_defeated + 1
+            end
+        end
+        return base_blind_amount * (mult + blinds_defeated * 2)
+    end,
+
     set_blind = function(self)
         local blinds_defeated = 0
         for _, v in pairs(G.GAME.round_resets.blind_states) do

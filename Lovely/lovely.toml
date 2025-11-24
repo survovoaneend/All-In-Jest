@@ -2989,3 +2989,23 @@ do -- All in Jest - Magick Joker and Red Sky
     end
 end -- end All in Jest
 '''
+
+# create_UIBox_blind_choice
+# Allow for modification to displayed blind amount without changing mult
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "local blind_amt = *"
+position = 'after'
+match_indent = true
+payload = '''
+
+if All_in_Jest.aij_alias_type(blind_choice.config.aij_blind_amount_display) == 'function' then
+    ret = blind_choice.config:aij_blind_amount_display(blind_choice.config, get_blind_amount(G.GAME.round_resets.blind_ante), blind_choice.config.mult)
+    if All_in_Jest.aij_alias_type(ret) == "number" then
+        blind_amt = ret * G.GAME.starting_params.ante_scaling
+        blind_amt = blind_amt 
+    end
+end
+
+'''

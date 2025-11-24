@@ -11,6 +11,10 @@ local the_celebration = {
     order = 36,
     dollars = 5,
 
+    aij_blind_amount_display = function(self, blind, base_blind_amount, mult)
+        local unused = (G.GAME.all_in_jest.unused_discards.ante + G.GAME.all_in_jest.unused_hands.ante)
+        return base_blind_amount * (mult + unused * 0.2)
+    end,
 
     set_blind = function(self)
         local unused = (G.GAME.all_in_jest.unused_discards.ante + G.GAME.all_in_jest.unused_hands.ante)
