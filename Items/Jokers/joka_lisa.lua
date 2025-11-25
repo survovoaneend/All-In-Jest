@@ -21,7 +21,7 @@ local joka_lisa = {
     if G.hand then
     G.hand.config.card_limit = G.hand.config.card_limit or 8
     if G.hand.config.card_limit then 
-      xmult = G.hand.config.card_limit - 7
+      xmult = (G.hand.config.card_limit - 7) * card.ability.extra.xmult_mod
     end
     end
     if xmult < 1 then
