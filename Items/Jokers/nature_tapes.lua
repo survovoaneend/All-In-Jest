@@ -1,7 +1,7 @@
 local nature_tapes = {
     object_type = "Joker",
     order = 71,
-
+    ignore = not All_in_Jest.config.moons_enabled,
     key = "nature_tapes",
     config = {
       extra = {

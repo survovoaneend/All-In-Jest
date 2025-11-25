@@ -1,6 +1,7 @@
 local sky_trees = {
     object_type = "Joker",
     order = 318,
+    ignore = not All_in_Jest.config.moons_enabled,
     key = "sky_trees",
     config = {
     },

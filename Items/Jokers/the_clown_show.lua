@@ -5,10 +5,10 @@ local the_clown_show = {
     key = "the_clown_show",
     config = {
       extra = {
-          chips = 6
+          chips = 8
       }
     },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 8, y = 0 },
     atlas = 'joker_atlas',
     cost = 6,

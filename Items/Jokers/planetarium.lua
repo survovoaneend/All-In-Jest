@@ -1,6 +1,7 @@
 local planetarium = {
     object_type = "Joker",
     order = 314,
+    ignore = not All_in_Jest.config.moons_enabled,
     key = "planetarium",
     config = {
       extra = {

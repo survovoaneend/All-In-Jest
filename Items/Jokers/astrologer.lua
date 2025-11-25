@@ -1,6 +1,7 @@
 local astrologer = {
     object_type = "Joker",
     order = 313,
+    ignore = not All_in_Jest.config.moons_enabled,
     key = "astrologer",
     config = {
         extra = {
