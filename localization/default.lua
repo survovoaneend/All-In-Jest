@@ -199,11 +199,8 @@ return {
                 text = {},
                 unlock = {
                     'Have at least {C:attention}13',
-                    'cards with ?????',
-                    -- QOL: this should become the above description
-                    -- if the player has ever had any suit patch
-                    -- Also, suit patches should have a collection category in Other
-                    'at once'
+                    'cards with a {C:attention}suit',
+                    '{C:attention}patch{} at once'
                 }
             }
         },

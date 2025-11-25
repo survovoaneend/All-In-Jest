@@ -61,7 +61,7 @@ local aureate = {
 	end,
     in_shop = true,
     weight = 3,
-    extra_cost = 10,
+    extra_cost = 4,
     get_weight = function(self)
         return self.weight
     end,
