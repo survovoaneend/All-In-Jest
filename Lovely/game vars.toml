@@ -84,6 +84,9 @@ all_in_jest = {
 	unused_discards = {
 		ante = 0,
 	},
+  advanced_hand_usage_run = {},
+  advanced_hand_usage_ante = {},
+  advanced_hand_usage_blind = {},
 },
 -- move these into all_in_jest at some point
 jest_unused_hands = 0, -- move to all_in_jest.unused_hands.run

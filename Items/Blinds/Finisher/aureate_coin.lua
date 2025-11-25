@@ -17,109 +17,26 @@ local aureate_coin = {
     dollars = 8,
     config = {extra = {trigger = false}},
 
-    calculate = function(self, blind, context)
-        local temp = G.GAME.blind and G.GAME.blind.disabled
-        if temp then
-            return
-        end
-        local ability = G.GAME.blind and G.GAME.blind.ability
-        if not temp and math.abs(self.boss.spent_money) > 0 and ability and not ability.trigger then
-            self.boss.orginal_score = G.GAME.blind.chips
-            local final_chips = G.GAME.blind.chips + math.ceil(G.GAME.blind.chips * math.abs(self.boss.spent_money) * 0.01)
-            local chip_mod -- iterate over ~120 ticks
-            if type(G.GAME.blind.chips) ~= 'table' then
-                chip_mod = math.ceil((G.GAME.blind.chips + final_chips) / 120)
-            else
-                chip_mod = (( G.GAME.blind.chips + final_chips) / 120):ceil()
-            end
-            local step = 0
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                blocking = true,
-                func = function()
-                    G.GAME.blind.chips = G.GAME.blind.chips + G.SETTINGS.GAMESPEED * chip_mod
-                    if G.GAME.blind.chips < final_chips then
-                        G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-                        if step % 5 == 0 then
-                            play_sound('chips1', 0.8 + (step * 0.005))
-                        end
-                        step = step + 1
-                    else
-                        G.GAME.blind.chips = final_chips
-                        G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-                        return true
-                    end
-                end
-            }))
-            ability.trigger = true
+    aij_blind_amount_display = function(self, blind, base_blind_amount, mult)
+        local extra_mult = math.abs(self.boss.spent_money) * 0.1
+        return base_blind_amount * (mult + extra_mult)
+    end,
+
+    set_blind = function(self)
+        if math.abs(self.boss.spent_money) > 0 then
+            All_in_Jest.ease_blind_requirement(math.abs(self.boss.spent_money) * 0.1, 0)
         end
     end,
 
-    disable = function(self)
-        if G.GAME.blind.chips ~= self.boss.orginal_score and math.abs(self.boss.spent_money) > 0 then
-            local final_chips = self.boss.orginal_score or G.GAME.blind.chips
-            local chip_mod -- iterate over ~120 ticks
-            if type(G.GAME.blind.chips) ~= 'table' then
-                chip_mod = math.ceil((G.GAME.blind.chips - final_chips) / 120)
-            else
-                chip_mod = (( G.GAME.blind.chips - final_chips) / 120):ceil()
-            end
-            local step = 0
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                blocking = true,
-                func = function()
-                    G.GAME.blind.chips = G.GAME.blind.chips - G.SETTINGS.GAMESPEED * chip_mod
-                    if G.GAME.blind.chips > final_chips then
-                        G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-                        if step % 5 == 0 then
-                            play_sound('chips1', 0.8 + (step * 0.005))
-                        end
-                        step = step - 1
-                    else
-                        G.GAME.blind.chips = final_chips
-                        G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-                        return true
-                    end
-                end
-            }))
-        end
+    disable = function()
+        G.GAME.blind.chips = G.GAME.blind.original_chips
+        G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
     end,
 
     defeat = function(self)
         local temp = G.GAME.blind and G.GAME.blind.disabled
         if temp then
             return
-        end
-        if not temp and math.abs(self.boss.spent_money) > 0 then
-            if G.GAME.blind.chips ~= self.boss.orginal_score then
-                local final_chips = self.boss.orginal_score or G.GAME.blind.chips
-                local chip_mod -- iterate over ~120 ticks
-                if type(G.GAME.blind.chips) ~= 'table' then
-                    chip_mod = math.ceil((G.GAME.blind.chips - final_chips) / 120)
-                else
-                    chip_mod = (( G.GAME.blind.chips - final_chips) / 120):ceil()
-                end
-                local step = 0
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    blocking = true,
-                    func = function()
-                        G.GAME.blind.chips = G.GAME.blind.chips - G.SETTINGS.GAMESPEED * chip_mod
-                        if G.GAME.blind.chips > final_chips then
-                            G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-                            if step % 5 == 0 then
-                                play_sound('chips1', 0.8 + (step * 0.005))
-                            end
-                            step = step - 1
-                        else
-                            G.GAME.blind.chips = final_chips
-                            G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-                            return true
-                        end
-                    end
-                }))
-            end
         end
     end
 }

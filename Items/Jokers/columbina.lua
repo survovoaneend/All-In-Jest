@@ -1,62 +1,61 @@
 local columbina = {
-    object_type = "Joker",
-    order = 116,
+  object_type = "Joker",
+  order = 116,
 
-    key = "columbina",
-    config = {
-      extra = {
-        percent = 5,
-        percent_mod = 5
+  key = "columbina",
+  config = {
+    extra = {
+      percent = 5,
+      percent_mod = 5
+    }
+  },
+  rarity = 2,
+  pos = { x = 11, y = 4 },
+  atlas = 'joker_atlas',
+  cost = 6,
+  unlocked = true,
+  discovered = false,
+  blueprint_compat = true,
+  eternal_compat = true,
+  perishable_compat = false,
+
+  loc_vars = function(self, info_queue, card)
+    return {
+      vars = {
+        card.ability.extra.percent,
+        card.ability.extra.percent_mod
       }
-    },
-    rarity = 2,
-    pos = { x = 11, y = 4 },
-    atlas = 'joker_atlas',
-    cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = false,
-  
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.percent,
-                card.ability.extra.percent_mod
-            }
-        }
-    end,
-  
-    calculate = function(self, card, context)
-      if context.using_consumeable and not context.blueprint then
-        if context.consumeable.ability.set == 'Spectral' then
-            SMODS.scale_card(card, {
-	            ref_table = card.ability.extra,
-                ref_value = "percent",
-	            scalar_value = "percent_mod",
-                message_key = 'a_aij_percent_balance'
-            })
-        end
-      end
+    }
+  end,
 
-      if context.joker_main then
-        if card.ability.extra.percent > 0 then
-            -- return balance_percent(card,(card.ability.extra.percent*0.01))
-            return {
-                aij_balance_percent = card.ability.extra.percent * 0.01
-            }
-        end
+  calculate = function(self, card, context)
+    if context.using_consumeable and not context.blueprint then
+      if context.consumeable.ability.set == 'Spectral' then
+        SMODS.scale_card(card, {
+          ref_table = card.ability.extra,
+          ref_value = "percent",
+          scalar_value = "percent_mod",
+          message_key = 'a_aij_percent_balance'
+        })
       end
-    end,
-    in_pool = function(self, args)
-        if G.GAME then
-            if G.GAME.selected_back.effect.center.key ~= 'b_plasma' then
-                return true
-            end
-        end
-        return false
-    end,
-  
+    end
+
+    if context.joker_main then
+      if card.ability.extra.percent > 0 then
+        return {
+          aij_balance_percent = card.ability.extra.percent * 0.01
+        }
+      end
+    end
+  end,
+  in_pool = function(self, args)
+    if G.GAME then
+      if G.GAME.selected_back.effect.center.key ~= 'b_plasma' then
+        return true
+      end
+    end
+    return false
+  end,
+
 }
-return { name = {"Jokers"}, items = {columbina} }
+return { name = { "Jokers" }, items = { columbina } }

@@ -24,8 +24,8 @@ local the_arrow = {
         end
         if context.all_in_jest and context.all_in_jest.before_after and not temp then
             local bool = false
-            for i = 1, #G.all_in_jest.advanced_hand_usage do
-                if context.total_chips <= G.all_in_jest.advanced_hand_usage[i].total_chips then
+            for i = 1, #G.GAME.all_in_jest.advanced_hand_usage_blind do
+                if context.total_chips <= G.GAME.all_in_jest.advanced_hand_usage_blind[i].total_chips then
                     bool = true
                 end
             end

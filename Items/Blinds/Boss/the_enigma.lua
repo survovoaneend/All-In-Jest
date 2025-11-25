@@ -22,18 +22,24 @@ local the_enigma = {
     order = 21,
     dollars = 5,
 
+    disable = function(self)
+        G.deck:shuffle('nr'..G.GAME.round_resets.ante)
+    end,
 
     calculate = function(self, blind, context)
+        local temp = G.GAME.blind and G.GAME.blind.disabled
+        if temp then
+            return
+        end
 
-    end,
+    end
 
 }
 local shuffleref = CardArea.shuffle
 function CardArea:shuffle(_seed)
     local ref = shuffleref(self, _seed)
 
-    local the_enigma = G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_aij_the_enigma' and
-    not G.GAME.blind.disabled
+    local the_enigma = G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_aij_the_enigma' and not G.GAME.blind.disabled
     if the_enigma then
         local enhanced_cards = {}
 

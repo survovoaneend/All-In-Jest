@@ -282,7 +282,7 @@ local has_no_rank_ref = SMODS.has_no_rank
 function SMODS.has_no_rank(card)
     if card.base.id == nil then return true end
     if SMODS.has_enhancement(card, 'm_aij_canvas') then
-        if (card.area == G.hand or card.area == G.play) and not card.debuff then
+        if (card.area == G.hand or card.area == G.play) and card.area ~= nil and not card.debuff then
             for k, v in pairs(G.play.cards) do
                 if v == card and v ~= G.play.cards[#G.play.cards] and not G.play.cards[k+1].debuff then
                     card.front_hidden = G.play.cards[k+1]:should_hide_front()
@@ -569,7 +569,7 @@ end
 --Aureate Coin, The Clay
 local ease_anteref = ease_ante
 function ease_ante(mod)
-    if mod ~= 0 then
+    if mod > 0 then
         G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = 0
         local common_suit, common_rank = nil, nil
         local temp_suit_val, temp_rank_val = 0, 0
@@ -595,7 +595,7 @@ function ease_ante(mod)
         G.P_BLINDS['bl_aij_the_journey'].boss.selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey'))
         G.P_BLINDS['bl_aij_the_auroch'].boss.suit = common_suit or G.P_BLINDS['bl_aij_the_auroch'].boss.suit
         G.P_BLINDS['bl_aij_the_auroch'].boss.rank = common_rank or G.P_BLINDS['bl_aij_the_auroch'].boss.rank
-        G.P_BLINDS['bl_aij_the_clay'].mult = math.floor(100*pseudorandom("clay"))/100 + pseudorandom("clay", 1, 4)
+        -- G.P_BLINDS['bl_aij_the_clay'].mult = pseudorandom("clay", 2, 4) + math.floor(100*pseudorandom("clay"))/100 -- Randomises an integer part (1-4) and a decimal part (0.00 to 0.99) before adding both together
         G.GAME.all_in_jest.unused_hands.ante = 0
         G.GAME.all_in_jest.unused_discards.ante = 0
     end
@@ -852,4 +852,28 @@ function Card:save()
         saveTable.aij.tag = self.config.tag:save()
     end
     return saveTable
+end
+
+-- Automatically saves G.GAME.blind.original_chips when blind is loaded
+local aij_blind_set_blind_ref = Blind.set_blind
+function Blind:set_blind(blind, reset, silent)
+    local ret = aij_blind_set_blind_ref(self, blind, reset, silent)
+    if not reset then
+        self.original_chips = self.chips
+    end
+    return ret
+end
+
+-- Handle original chips when game is saved and reloaded
+local aij_blind_save_ref = Blind.save
+function Blind:save()
+    local blindTable = aij_blind_save_ref(self)
+    blindTable.original_chips = self.original_chips
+    return blindTable
+end
+local aij_blind_load_ref = Blind.load
+function Blind:load(blindTable)
+    local ret = aij_blind_load_ref(self, blindTable)
+    self.original_chips = blindTable.original_chips
+    return blindTable
 end

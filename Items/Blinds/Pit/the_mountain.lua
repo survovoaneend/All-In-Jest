@@ -22,7 +22,9 @@ local the_mountain = {
     end,
 
     disable = function(self)
-        G.hand:change_size(-1)
+        if G.hand.config.card_limit > 1 then
+            G.hand:change_size(-1)
+        end
         G.GAME.blind.chips = G.GAME.blind.chips/3
         G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
     end,
@@ -33,7 +35,9 @@ local the_mountain = {
             return
         end
         if not temp then
-            G.hand:change_size(-1)
+            if G.hand.config.card_limit > 1 then
+                G.hand:change_size(-1)
+            end
         end
     end
 }

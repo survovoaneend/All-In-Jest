@@ -1,3 +1,6 @@
+-- Used in Vanilla functions where 'type' is overridden
+All_in_Jest.aij_alias_type = type
+
 --repurposd from paperback
 function jest_poll_tag(seed, options)
   -- This part is basically a copy of how the base game does it
@@ -1269,22 +1272,27 @@ end
 
 function All_in_Jest.add_patch(card, suit, instant, append)
   if not suit then
-      local keys = {}
+    local keys = {}
 	  for k, v in pairs(SMODS.Suits) do
-          if card.base.suit ~= k and All_in_Jest.has_suit_in_deck(k, true) and ((v.in_pool and v.in_pool(val, nil)) or not v.in_pool) then
-	         keys[#keys+1] = k
-          end
+      if card.base.suit ~= k and All_in_Jest.has_suit_in_deck(k, true) and ((v.in_pool and v.in_pool(val, nil)) or not v.in_pool) then
+        keys[#keys+1] = k
+      end
 	  end
 	  suit = pseudorandom_element(keys, pseudoseed(append or ''))
   end
   instant = instant or false
   if not instant then
-      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() 
-	    card.ability.patches = card.ability.patches or {}
-        card.ability.patches[suit] = true
-        play_sound('tarot1')
-        card:juice_up(0.3, 0.5)
-      return true end }))
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.1,
+        func = function() 
+          card.ability.patches = card.ability.patches or {}
+          card.ability.patches[suit] = true
+          play_sound('tarot1')
+          card:juice_up(0.3, 0.5)
+          return true
+        end
+      }))
   else
     card.ability.patches = card.ability.patches or {}
     card.ability.patches[suit] = true
@@ -1516,8 +1524,8 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, _card)
                     if victim_joker.ability[k] then
                         new_joker.ability[k] = true
                         if k == "perishable" and new_joker.ability.perish_tally == nil then
-							new_joker.ability.perish_tally = victim_joker.ability.perish_tally or G.GAME.perishable_rounds or 5
-						end
+                            new_joker.ability.perish_tally = victim_joker.ability.perish_tally or G.GAME.perishable_rounds or 5
+                        end
                     end
                 end
                 new_joker:start_materialize({ G.C.SPECTRAL, G.C.WHITE })
@@ -1705,4 +1713,95 @@ function All_in_Jest.force_pit_blind()
     local all_pit_blinds_challenge = G.GAME.modifiers["aij_all_pit_blinds"] and G.GAME.round_resets.ante >= 2
     local not_showdown_blind = not ((G.GAME.round_resets.ante)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2)
     return (blue_stake_replacement_blind or all_pit_blinds_challenge) and not_showdown_blind
+end
+
+-- Increases blind requirement while making the score tick up with an animation
+-- mod_add increases the mult of the blind (so mod_add = 1 makes a blind go from x2 to x3)
+-- mod_add increases the blind requirement directly. This occurs after mod_add
+-- Code copied from Bunco
+function All_in_Jest.ease_blind_requirement(mod_mult, mod_add)
+    local original_chips = G.GAME.blind.original_chips > 0 and G.GAME.blind.original_chips or G.GAME.blind.chips
+
+    mod_mult = mod_mult ~= nil and mod_mult or 0
+    mod_add = mod_add ~= nil and mod_add or 0
+    local current_mult = G.GAME.blind.chips / (original_chips / G.GAME.blind.mult) -- Takes into account previous ease_blind_requirement calls
+    local final_chips = (original_chips / G.GAME.blind.mult) * (current_mult + mod_mult) + mod_add
+    local chip_mod -- iterate over ~120 ticks
+    if type(G.GAME.blind.chips) ~= 'table' then
+        chip_mod = math.ceil(math.abs(final_chips - G.GAME.blind.chips) / 120)
+    else
+        chip_mod = ((final_chips - G.GAME.blind.chips):abs() / 120):ceil()
+    end
+    local step = 0
+    if G.GAME.blind.chips < final_chips then
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            blocking = true,
+            func = function()
+                G.GAME.blind.chips = G.GAME.blind.chips + G.SETTINGS.GAMESPEED * chip_mod
+                if G.GAME.blind.chips < final_chips then
+                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                    if step % 5 == 0 then
+                        play_sound('chips1', 0.8 + (step * 0.005))
+                    end
+                    step = step + 1
+                else
+                    G.GAME.blind.chips = final_chips
+                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                    G.GAME.blind:wiggle()
+                    return true
+                end
+            end
+        }))
+    else
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            blocking = true,
+            func = function()
+                G.GAME.blind.chips = G.GAME.blind.chips - G.SETTINGS.GAMESPEED * chip_mod
+                if G.GAME.blind.chips > final_chips then
+                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                    if step % 5 == 0 then
+                        play_sound('chips1', 0.8 + (step * 0.005))
+                    end
+                    step = step - 1
+                else
+                    G.GAME.blind.chips = final_chips
+                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                    G.GAME.blind:wiggle()
+                    return true
+                end
+            end
+        }))
+    end
+end
+
+-- Redisplays the blind info on the blind select screen
+-- Used to update dynamic score requirements
+function All_in_Jest.aij_refresh_boss_blind()
+    if G.GAME.blind.boss or not G.blind_select_opts then return end
+
+    local par = G.blind_select_opts.boss.parent
+    if par and par.config.object then
+        G.blind_select_opts.boss:remove()
+        G.blind_select_opts.boss = UIBox{
+            T = {par.T.x, 0, 0, 0},
+            definition = { n = G.UIT.ROOT, config = { align = "cm", colour = G.C.CLEAR }, nodes = {
+              UIBox_dyn_container({ create_UIBox_blind_choice('Boss') }, false, get_blind_main_colour('Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Boss'), 0.8))
+            } },
+            config = {
+                align = "bmi",
+                offset = {
+                    x = 0,
+                    y = G.blind_select_opts.boss.alignment.offset.y
+                },
+                major = par,
+                xy_bond = 'Weak'
+            }
+        }
+        par.config.object = G.blind_select_opts.boss
+        par.config.object:recalculate()
+        G.blind_select_opts.boss.parent = par
+        -- G.blind_select_opts.boss.alignment.offset.y = -0.2
+    end
 end

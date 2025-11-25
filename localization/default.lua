@@ -407,15 +407,14 @@ return {
             bl_aij_the_groan = {
                 name = "The Groan",
                 text = {
-                    'Increase the score',
-                    'requirement by 50%',
-                    'after each hand',
+                    '+1X Base after',
+                    'playing a hand',
                 },
             },
             bl_aij_the_ash = {
                 name = "The Ash",
                 text = {
-                    '+0.25X Base requirement per',
+                    '+0.2X Base per',
                     'card below #1# in',
                     'full deck',
                 },
@@ -436,7 +435,7 @@ return {
             bl_aij_the_evergreen = {
                 name = "The Evergreen",
                 text = {
-                    '+0.2X Base requirement per',
+                    '+0.2X Base per',
                     'card above #1# in',
                     'full deck',
                 },
@@ -623,8 +622,8 @@ return {
                 name = "The Spear",
                 text = {
                     'All played cards in the',
-                    'winning hand are permanently',
-                    'debuffed'
+                    'winning hand are',
+                    'permanently debuffed'
                 },
             },
             bl_aij_the_steed = {
@@ -663,7 +662,7 @@ return {
                 text = {
                     'Hands do not',
                     'score until 0',
-                    'discard remain'
+                    'discards remain'
                 },
             },
             bl_aij_the_brimstone = {
@@ -693,9 +692,10 @@ return {
             bl_aij_the_rains = {
                 name = "The Rains",
                 text = {
-                    'Remove vanilla modifiers',
-                    'from all scored cards in',
-                    'the winning hand'
+                    'If played hand wins',
+                    'the blind, scored cards',
+                    'lose all enhancements,',
+                    'editions, and seals'
                 },
             },
             bl_aij_the_child = {
@@ -792,16 +792,18 @@ return {
             bl_aij_obsidian_blade = {
                 name = "Obsidian Blade",
                 text = {
-                    '-1 Hand Size, -1 Discard,',
-                    '-1 Hand, Large Blind'
+                    '-1 Hand',
+                    '-1 Discard',
+                    '-1 Hand Size',
+                    'Large Blind'
                 },
             },
             bl_aij_aureate_coin = {
                 name = "Aureate Coin",
                 text = {
-                    '+0.1X base for each $1',
-                    'you have when entering',
-                    'the ante'
+                    '+0.1X Base',
+                    'per $1 spent',
+                    'this ante'
                 },
             },
         },
