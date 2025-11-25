@@ -13,7 +13,7 @@ local the_hoard = {
 
     aij_blind_amount_display = function(self, blind, base_blind_amount, mult)
         local blinds = {}
-        for _, v in pairs(G.all_in_jest.advanced_hand_usage_ante) do
+        for _, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_ante) do
             if v.blind ~= G.GAME.blind then
                 local name = v.blind.name
                 blinds[name] = blinds[name] or {}
@@ -34,7 +34,7 @@ local the_hoard = {
 
     set_blind = function(self)
         local blinds = {}
-        for _, v in pairs(G.all_in_jest.advanced_hand_usage_ante) do
+        for _, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_ante) do
             if v.blind ~= G.GAME.blind then
                 local name = v.blind.name
                 blinds[name] = blinds[name] or {}

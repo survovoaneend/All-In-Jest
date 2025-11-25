@@ -13,9 +13,9 @@ local the_elk = {
 
     debuff_hand = function(self, cards, hand, handname, check)
         local bool = false
-        if G.all_in_jest.advanced_hand_usage_ante then
-            for i = 1, #G.all_in_jest.advanced_hand_usage_ante do
-                if handname == G.all_in_jest.advanced_hand_usage_ante[i].scoring_name and G.all_in_jest.advanced_hand_usage_ante[i].blind.name ~= self.name then
+        if G.GAME.all_in_jest.advanced_hand_usage_ante then
+            for i = 1, #G.GAME.all_in_jest.advanced_hand_usage_ante do
+                if handname == G.GAME.all_in_jest.advanced_hand_usage_ante[i].scoring_name and G.GAME.all_in_jest.advanced_hand_usage_ante[i].blind.name ~= self.name then
                     bool = true
                 end
             end

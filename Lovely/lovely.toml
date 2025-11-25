@@ -421,40 +421,57 @@ if G.GAME.all_in_jest.reset_score.chip_total then
     SMODS.Scoring_Parameters.mult:modify(-mult)
     G.GAME.all_in_jest.reset_score.chip_total = false
 end
-local blind = {}
-for k, v in pairs(G.GAME.blind) do
-    blind[k] = v
+-- Using :save() to allow this info to be saved and reloaded
+local blind = G.GAME.blind:save()
+local full_hand_saved = {}
+for k, v in pairs(G.play.cards) do
+    full_hand_saved[k] = v:save()
 end
-local hand_amt_thing = #G.all_in_jest.advanced_hand_usage_run + 1
-G.all_in_jest.advanced_hand_usage_run[hand_amt_thing] = {}
-G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].mult = mult
-G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].chips = hand_chips
-G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].total_chips = math.floor(SMODS.calculate_round_score())
-G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].full_hand = G.play.cards
-G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_hand = scoring_hand  
-G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_name = text 
-G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].blind = blind
-G.all_in_jest.advanced_hand_usage_run[hand_amt_thing].poker_hands = poker_hands
-local hand_amt_thing = #G.all_in_jest.advanced_hand_usage_ante + 1
-G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing] = {}
-G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].mult = mult
-G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].chips = hand_chips
-G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].total_chips = math.floor(SMODS.calculate_round_score())
-G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].full_hand = G.play.cards
-G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_hand = scoring_hand  
-G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_name = text
-G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].blind = blind
-G.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].poker_hands = poker_hands
-local hand_amt_thing = #G.all_in_jest.advanced_hand_usage + 1
-G.all_in_jest.advanced_hand_usage[hand_amt_thing] = {}
-G.all_in_jest.advanced_hand_usage[hand_amt_thing].mult = mult
-G.all_in_jest.advanced_hand_usage[hand_amt_thing].chips = hand_chips
-G.all_in_jest.advanced_hand_usage[hand_amt_thing].total_chips = math.floor(SMODS.calculate_round_score())
-G.all_in_jest.advanced_hand_usage[hand_amt_thing].full_hand = G.play.cards
-G.all_in_jest.advanced_hand_usage[hand_amt_thing].scoring_hand = scoring_hand 
-G.all_in_jest.advanced_hand_usage[hand_amt_thing].scoring_name = text 
-G.all_in_jest.advanced_hand_usage[hand_amt_thing].blind = blind
-G.all_in_jest.advanced_hand_usage[hand_amt_thing].poker_hands = poker_hands
+local scoring_hand_saved = {}
+for k, v in pairs(scoring_hand) do
+    scoring_hand_saved[k] = v:save()
+end
+local poker_hands_saved = {}
+for hand, _ in pairs(poker_hands) do
+    poker_hands_saved[hand] = {}
+    for i, _ in ipairs(poker_hands[hand]) do
+        poker_hands_saved[hand][i] = {}
+        for j, v in ipairs(poker_hands[hand][i]) do
+            poker_hands_saved[hand][i][j] = v:save()
+        end
+    end
+end
+
+local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_run + 1
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing] = {}
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].mult = mult
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].chips = hand_chips
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].total_chips = math.floor(SMODS.calculate_round_score())
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].full_hand = full_hand_saved
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_hand = scoring_hand_saved  
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_name = text 
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].blind = blind
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].poker_hands = poker_hands_saved
+local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_ante + 1
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing] = {}
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].mult = mult
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].chips = hand_chips
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].total_chips = math.floor(SMODS.calculate_round_score())
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].full_hand = full_hand_saved
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_hand = scoring_hand_saved  
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_name = text
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].blind = blind
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].poker_hands = poker_hands_saved
+local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_blind + 1
+G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing] = {}
+G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].mult = mult
+G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].chips = hand_chips
+G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].total_chips = math.floor(SMODS.calculate_round_score())
+G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].full_hand = full_hand_saved
+G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].scoring_hand = scoring_hand_saved 
+G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].scoring_name = text 
+G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].blind = blind
+G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].poker_hands = poker_hands_saved
 '''
 match_indent = true
 
@@ -623,8 +640,8 @@ SMODS.calculate_context({setting_blind = true, blind = G.GAME.round_resets.blind
 '''
 position = "before"
 payload = '''
-for k, v in pairs(G.all_in_jest.advanced_hand_usage) do
-    G.all_in_jest.advanced_hand_usage[k] = nil
+for k, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_blind) do
+    G.GAME.all_in_jest.advanced_hand_usage_blind[k] = nil
 end
 '''
 match_indent = true
@@ -638,8 +655,8 @@ SMODS.calculate_context({end_of_round = true, game_over = game_over, beat_boss =
 position = "before"
 payload = '''
 if G.GAME.blind.boss then
-    for k, v in pairs(G.all_in_jest.advanced_hand_usage_ante) do
-        G.all_in_jest.advanced_hand_usage_ante[k] = nil
+    for k, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_ante) do
+        G.GAME.all_in_jest.advanced_hand_usage_ante[k] = nil
     end
 end
 '''
@@ -2796,9 +2813,6 @@ payload = '''
 self.all_in_jest = self.all_in_jest or {}
 self.all_in_jest.patches_sprites = {}
 self.all_in_jest.extra_card_sprites = {}
-self.all_in_jest.advanced_hand_usage_run = {}
-self.all_in_jest.advanced_hand_usage_ante = {}
-self.all_in_jest.advanced_hand_usage = {}
 G.all_in_jest.extra_card_sprites['Mark_of_the_Spear'] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=9,y=2})
 G.all_in_jest.patches_sprites["Other"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=0,y=2})
 G.all_in_jest.patches_sprites["Hearts"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=2,y=2})
