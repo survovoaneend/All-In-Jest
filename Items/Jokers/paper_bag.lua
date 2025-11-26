@@ -5,7 +5,7 @@ local paper_bag = {
     key = "paper_bag",
     config = {
       extra = {
-          chip_mod = 2,
+          chip_mod = 1,
           cur_chips = 0
       }
     },
