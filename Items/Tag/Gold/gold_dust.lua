@@ -22,18 +22,22 @@ local gold_dust_tag = {
     end,
 
     apply = function(self, tag, context)
-        if context.type == 'new_blind_choice' then
+        if context.type == 'immediate' then
             tag:jest_apply("+", G.C.ATTENTION, function()
-                for i = 1, tag.config.extra.enhance do
+                for _ = 1, tag.config.extra.enhance do
                     local deck_cards = {}
                     for i = 1, #G.deck.cards do
                         if G.deck.cards[i].edition == nil then
                             table.insert(deck_cards, G.deck.cards[i])
                         end
                     end
-                    local playing_card = pseudorandom_element(deck_cards, pseudoseed('jest_iridescent_tag'))
-                    local edition = {aij_aureate = true}
-                    playing_card:set_edition(edition, true, true)
+                    if #deck_cards > 0 then
+                      local playing_card = pseudorandom_element(deck_cards, pseudoseed('jest_iridescent_tag'))
+                      local edition = {aij_aureate = true}
+                      playing_card:set_edition(edition, true, true)
+                    else
+                      break
+                    end
                 end
                 return true
 			end,
@@ -46,7 +50,7 @@ local gold_dust_tag = {
                         end
                     end
                 end
-                if deck_cards >= 10 then
+                if deck_cards >= 1 then
                     return true
                 end
                 return false

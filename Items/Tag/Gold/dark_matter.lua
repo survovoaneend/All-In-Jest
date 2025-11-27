@@ -18,7 +18,7 @@ local dark_matter_tag = {
     end,
 
     apply = function(self, tag, context)
-        if context.type == 'new_blind_choice' then
+        if context.type == 'immediate' then
             tag:jest_apply("+", G.C.ATTENTION, function()
                 local jokers = {}
                 for i = 1, #G.jokers.cards do
@@ -28,7 +28,7 @@ local dark_matter_tag = {
                 end
                 local joker = pseudorandom_element(jokers, pseudoseed('jest_dark_matter_tag'))
                 local edition = {negative = true}
-                joker:set_edition(edition)
+                joker:set_edition(edition, true)
                 return true
 			end,
             function() 

@@ -18,7 +18,7 @@ local glamour_tag = {
     end,
 
     apply = function(self, tag, context)
-        if context.type == 'new_blind_choice' then
+        if context.type == 'immediate' then
             tag:jest_apply("+", G.C.ATTENTION, function()
                 local jokers = {}
                 for i = 1, #G.jokers.cards do
@@ -34,8 +34,12 @@ local glamour_tag = {
                 end
                 local joker2 = pseudorandom_element(jokers, pseudoseed('jest_glamour_tag'))
                 local edition = {aij_glimmer = true}
-                joker:set_edition(edition)
-                joker2:set_edition(edition)
+                if joker then
+                    joker:set_edition(edition, true)
+                end
+                if joker2 then
+                    joker2:set_edition(edition, true)
+                end
                 return true
 			end,
             function() 
@@ -46,7 +50,7 @@ local glamour_tag = {
                             ad_jokers = ad_jokers + 1
                         end
                     end
-                    if ad_jokers >= 2 then
+                    if ad_jokers >= 1 then
                         return true
                     end
                 end

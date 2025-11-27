@@ -18,7 +18,7 @@ local omnichrome_tag = {
     end,
 
     apply = function(self, tag, context)
-        if context.type == 'new_blind_choice' then
+        if context.type == 'immediate' then
             tag:jest_apply("+", G.C.ATTENTION, function()
                 local jokers = {}
                 for i = 1, #G.jokers.cards do
@@ -26,9 +26,11 @@ local omnichrome_tag = {
                         table.insert(jokers, G.jokers.cards[i])
                     end
                 end
-                local joker = jokers[#jokers]
-                local edition = {polychrome = true}
-                joker:set_edition(edition)
+                if #jokers > 0 then
+                  local joker = jokers[#jokers]
+                  local edition = {polychrome = true}
+                  joker:set_edition(edition, true)
+                end
                 return true
 			end,
             function() 

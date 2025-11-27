@@ -22,7 +22,7 @@ local superlunary_tag = {
     end,
 
     apply = function(self, tag, context)
-        if context.type == 'new_blind_choice' then
+        if context.type == 'immediate' then
             tag:jest_apply("+", G.C.ATTENTION, function()
                 local jokers = {}
                 for i = 1, #G.jokers.cards do
@@ -30,9 +30,11 @@ local superlunary_tag = {
                         table.insert(jokers, G.jokers.cards[i])
                     end
                 end
-                local joker = pseudorandom_element(jokers, pseudoseed('jest_iridescent_tag'))
-                local edition = {aij_stellar = true}
-                joker:set_edition(edition)
+                if #jokers > 0 then
+                    local joker = pseudorandom_element(jokers, pseudoseed('jest_iridescent_tag'))
+                    local edition = {aij_stellar = true}
+                    joker:set_edition(edition, true)
+                end
                 for i = 1, tag.config.extra.enhance do
                     local deck_cards = {}
                     for i = 1, #G.deck.cards do
@@ -40,9 +42,13 @@ local superlunary_tag = {
                             table.insert(deck_cards, G.deck.cards[i])
                         end
                     end
-                    local playing_card = pseudorandom_element(deck_cards, pseudoseed('jest_iridescent_tag'))
-                    local edition = {aij_stellar = true}
-                    playing_card:set_edition(edition, true, true)
+                    if #deck_cards > 0 then
+                        local playing_card = pseudorandom_element(deck_cards, pseudoseed('jest_iridescent_tag'))
+                        local edition = {aij_stellar = true}
+                        playing_card:set_edition(edition, true, true)
+                    else
+                        break
+                    end
                 end
                 return true
 			end,

@@ -22,7 +22,7 @@ local iridescent_tag = {
     end,
 
     apply = function(self, tag, context)
-        if context.type == 'new_blind_choice' then
+        if context.type == 'immediate' then
             tag:jest_apply("+", G.C.ATTENTION, function()
                 local jokers = {}
                 for i = 1, #G.jokers.cards do
@@ -32,7 +32,7 @@ local iridescent_tag = {
                 end
                 local joker = pseudorandom_element(jokers, pseudoseed('jest_iridescent_tag'))
                 local edition = {holo = true}
-                joker:set_edition(edition)
+                joker:set_edition(edition, true)
                 for i = 1, tag.config.extra.enhance do
                     local deck_cards = {}
                     for i = 1, #G.deck.cards do
@@ -40,9 +40,13 @@ local iridescent_tag = {
                             table.insert(deck_cards, G.deck.cards[i])
                         end
                     end
-                    local playing_card = pseudorandom_element(deck_cards, pseudoseed('jest_iridescent_tag'))
-                    local edition = {holo = true}
-                    playing_card:set_edition(edition, true, true)
+                    if #deck_cards > 0 then
+                      local playing_card = pseudorandom_element(deck_cards, pseudoseed('jest_iridescent_tag'))
+                      local edition = {holo = true}
+                      playing_card:set_edition(edition, true, true)
+                    else
+                      break
+                    end
                 end
                 return true
 			end,
@@ -63,7 +67,7 @@ local iridescent_tag = {
                         end
                     end
                 end
-                if joker and deck_cards >= 5 then
+                if joker or deck_cards >= 1 then
                     return true
                 end
                 return false

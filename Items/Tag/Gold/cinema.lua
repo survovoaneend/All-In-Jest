@@ -1,49 +1,51 @@
 local cinema_tag = {
-    object_type = "Tag",
-    key = 'cinema',
+  object_type = "Tag",
+  key = 'cinema',
 
-    pos = { x = 6, y = 4 },
-    atlas = 'tag_atlas',
-    config = {
-        aij = {
-            upgrade = 'aij_silver',
-        }
-    },
+  pos = { x = 6, y = 4 },
+  atlas = 'tag_atlas',
+  config = {
+    aij = {
+      upgrade = 'aij_silver',
+    }
+  },
 
-    discovered = false,
-    order = 28,
-    min_ante = 3,
+  discovered = false,
+  order = 28,
+  min_ante = 3,
 
-    loc_vars = function(self, info_queue)
-    end,
+  loc_vars = function(self, info_queue)
+  end,
 
-    apply = function(self, tag, context)
-        if context.type == 'new_blind_choice' then
-            tag:jest_apply("+", G.C.ATTENTION, function()
-                local jokers = {}
-                for i = 1, #G.jokers.cards do
-                    if G.jokers.cards[i].edition == nil then
-                        table.insert(jokers, G.jokers.cards[i])
-                    end
-                end
-                local joker = jokers[1]
-                local edition = {aij_silver = true}
-                joker:set_edition(edition)
+  apply = function(self, tag, context)
+    if context.type == 'immediate' then
+      tag:jest_apply("+", G.C.ATTENTION, function()
+          local jokers = {}
+          for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i].edition == nil then
+              table.insert(jokers, G.jokers.cards[i])
+            end
+          end
+          if #jokers > 0 then
+            local joker = jokers[1]
+            local edition = { aij_silver = true }
+            joker:set_edition(edition, true)
+          end
+          return true
+        end,
+        function()
+          if #G.jokers.cards > 0 then
+            for i = 1, #G.jokers.cards do
+              if G.jokers.cards[i].edition == nil then
                 return true
-			end,
-            function() 
-                if #G.jokers.cards > 0 then
-                    for i = 1, #G.jokers.cards do
-                        if G.jokers.cards[i].edition == nil then
-                            return true
-                        end
-                    end
-                end
-                return false
-            end)
-            tag.triggered = true
-            return true
-        end
-    end,
+              end
+            end
+          end
+          return false
+        end)
+      tag.triggered = true
+      return true
+    end
+  end,
 }
-return {name = "Tags", items = {cinema_tag}}
+return { name = "Tags", items = { cinema_tag } }

@@ -3032,3 +3032,19 @@ pattern = "{n=G.UIT.T, config={text = number_format(blind_amt)*"
 position = 'before'
 match_indent = true
 payload = '''(blind_choice.config.name == "bl_aij_the_clay" and {n=G.UIT.O, config={object = DynaText({string = getRandomClayBlindReqs(blind_amt), colours = {disabled and G.C.UI.TEXT_INACTIVE or G.C.RED},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = score_number_scale(0.9, blind_amt), shadow = not disabled, min_cycle_time = 0})}}) or'''
+
+# Fix a crash if you call G.FUNCS.use_card multiple times in quick succession
+[[patches]]
+[patches.regex]
+target = 'functions/button_callbacks.lua'
+pattern = "G\\.(.*?)\\.alignment\\.offset\\.y = G\\.(.*?)\\.alignment\\.offset\\.py"
+position = 'at'
+payload = 'G.$1.alignment.offset.y = G.$1.alignment.offset.py or G.$1.alignment.offset.y'
+
+# Fix a crash if a voucher card is used via G.FUNCS.use_card outside the shop
+[[patches]]
+[patches.regex]
+target = 'functions/button_callbacks.lua'
+pattern = " if card\\.ability\\.set == 'Voucher' (.*)"
+position = 'at'
+payload = " if card.ability.set == 'Voucher' and G.shop $1"
