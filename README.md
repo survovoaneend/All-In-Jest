@@ -17,13 +17,15 @@ Take a look at the [Wiki Page](https://balatromods.miraheze.org/wiki/All_in_Jest
 * 40 Tags
 * 64 Boss Blinds
 * 22 Deck Skins
+* Deck Sleeves for Fabled and Patchwork deck (Branching is coming soon trust)
+* 6 Partners
 * Blue Stake rework
 * So much more planned...
 
 # Credits
-Lead Developer: survivalaiden
-Lead Artist: Nevernamed
-Coding & Mechanics: survivalaiden, RattlingSnow353, Jumbocarrot, ejwu2
+* Lead Developer: survivalaiden
+* Lead Artist: Nevernamed
+* Coding & Mechanics: survivalaiden, RattlingSnow353, Jumbocarrot, ejwu2
 
 # Reporting Bugs
 We have spent months playtesting and polishing to ensure this mod is stable. However, with the sheer volume of content within this mod, niche interactions may still cause bugs.
