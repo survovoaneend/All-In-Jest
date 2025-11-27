@@ -69,7 +69,7 @@ local superlunary_tag = {
                         end
                     end
                 end
-                if joker and deck_cards >= 5 then
+                if joker or deck_cards >= 1 then
                     return true
                 end
                 return false
