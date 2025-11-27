@@ -4444,6 +4444,7 @@ return {
                 text = {
                     'Apply {C:dark_edition}Negative{} to',
                     'a {C:attention}random{} Joker',
+                    'that has no edition'
                 }
             },
             tag_aij_crystal = {
@@ -4451,7 +4452,8 @@ return {
                 text = {
                     'Apply {C:dark_edition}Foil{} to a',
                     '{C:attention}random{} Joker and',
-                    '{C:attention}#1#{} cards in deck'
+                    '{C:attention}#1#{} cards in the deck',
+                    'that have no edition'
                 }
             },
             tag_aij_iridescent = {
@@ -4459,7 +4461,8 @@ return {
                 text = {
                     'Apply {C:dark_edition}Holographic{}',
                     'to a {C:attention}random{} Joker',
-                    'and {C:attention}#1#{} cards in deck'
+                    'and {C:attention}#1#{} cards in the deck',
+                    'that have no edition'
                 }
             },
             tag_aij_omnichrome = {
@@ -4637,6 +4640,7 @@ return {
                 text = {
                     'Apply {C:aij_plasma}Glimmer{} to',
                     '{C:attention}2 random{} Jokers',
+                    'that have no edition'
                 }
             },
             tag_aij_superlunary = {
@@ -4644,14 +4648,16 @@ return {
                 text = {
                     'Apply {C:aij_stellar}Stellar{}',
                     'to a {C:attention}random{} Joker',
-                    'and {C:attention}#1#{} cards in deck'
+                    'and {C:attention}#1#{} cards in the deck',
+                    'that have no edition'
                 }
             },
             tag_aij_gold_dust = {
                 name = 'Gold Dust Tag',
                 text = {
                     'Apply {C:money}Aureate{} to',
-                    '{C:attention}#1#{} cards in deck'
+                    '{C:attention}#1#{} cards in the deck',
+                    'that have no edition'
                 }
             },
             tag_aij_anarchy = {
