@@ -20,7 +20,7 @@ local the_journey = {
     loc_vars = function(self)
         local ability = G.GAME.blind.ability
         if self.boss.selected_suit == '[X]' then
-            self.boss.selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey'))
+            self.boss.selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey')) or "Spades"
         end
         return {
             vars = {ability and ability.selected_suit or self.boss.selected_suit}
