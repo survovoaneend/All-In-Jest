@@ -31,7 +31,7 @@ local velocity_tag = {
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',
                 func = function()
-                    ease_dollars(math.max(0,tag.config.extra.money - (tag.config.extra.money_mod * G.GAME.round))) 
+                    ease_dollars(math.max(0,tag.config.extra.money - (tag.config.extra.money_mod * G.GAME.round)), true) 
                     return true
                 end
             }))

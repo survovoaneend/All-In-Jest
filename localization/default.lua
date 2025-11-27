@@ -4473,8 +4473,10 @@ return {
             tag_aij_circumplanetary = {
                 name = 'Circumplanetary Tag',
                 text = {
-                    'Upgrade {C:attention}#2#',
-                    'by {C:attention}#1# levels',
+                    'Upgrade {C:attention}most played',
+                    '{C:attention}poker hand{} by',
+                    '{C:attention}#1# levels',
+                    '{C:inactive}(Currently #2#)'
                 }
             },
             tag_aij_velocity = {
@@ -4627,7 +4629,7 @@ return {
                 name = 'Auspicious Tag',
                 text = {
                     'Create {C:attention}3{} {C:dark_edition}Negative copies',
-                    'of {C:attention}any{} {C:tarot}Tarot{} card',
+                    'of a {C:tarot}Tarot{} card {C:attention}of your choice',
                 }
             },
             tag_aij_glamour = {
