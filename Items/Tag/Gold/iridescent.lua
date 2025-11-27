@@ -30,9 +30,11 @@ local iridescent_tag = {
                         table.insert(jokers, G.jokers.cards[i])
                     end
                 end
-                local joker = pseudorandom_element(jokers, pseudoseed('jest_iridescent_tag'))
-                local edition = {holo = true}
-                joker:set_edition(edition, true)
+                if #jokers > 0 then
+                    local joker = pseudorandom_element(jokers, pseudoseed('jest_iridescent_tag'))
+                    local edition = {holo = true}
+                    joker:set_edition(edition, true)
+                end
                 for i = 1, tag.config.extra.enhance do
                     local deck_cards = {}
                     for i = 1, #G.deck.cards do
