@@ -3955,8 +3955,8 @@ return {
             j_aij_talhak = {
                 name = "Talhak",
                 text = {
-                    "When {C:attention}Boss Blind{} is",
-                    "defeated, choose {C:attention}any{}",
+                    "When {C:attention}Boss Blind{} is defeated,",
+                    "choose {C:attention}any{} non-secret",
                     "{C:spectral}Spectral{} card to create",
                     "{C:inactive}(Must have room)"
                 },
@@ -4434,8 +4434,8 @@ return {
             tag_aij_hermetic = {
                 name = 'Hermetic Tag',
                 text = {
-                    'Choose {C:attention}any{} {C:spectral}Spectral{}',
-                    'card to create',
+                    'Choose a {C:attention}non-secret{}',
+                    '{C:spectral}Spectral{} card to create',
                     '{C:inactive}(Must have room)'
                 }
             },
