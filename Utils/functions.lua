@@ -1162,14 +1162,26 @@ function Tag:jest_apply(message, _colour, func, statement) -- Play on words just
 end
 
 -- Some of my personal functions i use in my projects
-function create_consumable(card_type,tag,message,extra, thing1, thing2)
+function create_consumable(card_type,tag,message,extra, thing1, thing2, immediate)
     extra=extra or {}
+
+    local event_alias
+    if immediate then
+        event_alias = function (func)
+            func()
+        end
+    else
+        event_alias = function (func)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'before',
+                delay = 0.0,
+                func = func
+            }))
+        end
+    end
     
     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-    G.E_MANAGER:add_event(Event({
-        trigger = 'before',
-        delay = 0.0,
-        func = (function()
+    event_alias(function()
                 local card = create_card(card_type,G.consumeables, nil, nil, thing1, thing2, extra.forced_key or nil, tag)
                 card:add_to_deck()
                 if extra.edition~=nil then
@@ -1194,17 +1206,29 @@ function create_consumable(card_type,tag,message,extra, thing1, thing2)
                     card_eval_status_text(card,'extra',nil,nil,nil,{message=message})
                 end
         return true
-    end)}))
+    end)
 end
 
-function create_joker(card_type,tag,message,extra, rarity)
+function create_joker(card_type,tag,message,extra, rarity, immediate)
     extra=extra or {}
+
+    local event_alias
+    if immediate then
+        event_alias = function (func)
+            func()
+        end
+    else
+        event_alias = function (func)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'before',
+                delay = 0.0,
+                func = func
+            }))
+        end
+    end
     
     G.GAME.joker_buffer = G.GAME.joker_buffer + 1
-    G.E_MANAGER:add_event(Event({
-        trigger = 'before',
-        delay = 0.0,
-        func = (function()
+    event_alias(function()
                 local card = create_card(card_type, G.joker, nil, rarity, nil, nil, extra.forced_key or nil, tag)
                 card:add_to_deck()
                 if extra.edition~=nil then
@@ -1229,7 +1253,7 @@ function create_joker(card_type,tag,message,extra, rarity)
                     card_eval_status_text(card,'extra',nil,nil,nil,{message=message})
                 end
         return true
-    end)}))
+    end)
 end
 
 ---- All In Jest-specific utility functions
