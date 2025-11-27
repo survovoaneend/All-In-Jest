@@ -33,8 +33,12 @@ local ignoramus_tag = {
                     {
                       no_materialize = true,
                       modify_card = function(card, center)
-                        if card.config.center.discovered and (card.config.center.rarity == 1 or card.config.center.rarity == 2) then
-                          jest_create_select_card_ui(card, G.jokers)
+                        if card.config.center.discovered then
+                          if card.config.center.rarity == 1 or card.config.center.rarity == 2 then
+                            jest_create_select_card_ui(card, G.jokers)
+                          else
+                            card.greyed = true
+                          end
                         end
                       end,
                       h_mod = 1.05,

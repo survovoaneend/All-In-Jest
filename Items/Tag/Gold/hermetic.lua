@@ -19,12 +19,6 @@ local hermetic_tag = {
     if context.type == 'new_blind_choice' then
       tag:jest_apply("+", G.C.ATTENTION, function()
           if (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit then
-            local valid_spectrals = {}
-            for _, v in ipairs(G.P_CENTER_POOLS.Spectral) do
-              if not v.hidden then
-                table.insert(valid_spectrals, v)
-              end
-            end
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
               func = function()
@@ -32,13 +26,17 @@ local hermetic_tag = {
                 G.FUNCS.overlay_menu {
                   config = { no_esc = true },
                   definition = SMODS.jest_no_back_card_collection_UIBox(
-                    valid_spectrals,
+                    G.P_CENTER_POOLS.Spectral,
                     { 4, 5 },
                     {
                       no_materialize = true,
                       modify_card = function(card, center)
-                        if card.config.center.discovered and (not card.config.center.hidden) then
-                          jest_create_select_card_ui(card, G.consumeables)
+                        if card.config.center.discovered then
+                          if card.config.center.hidden then
+                            card.greyed = true
+                          else
+                            jest_create_select_card_ui(card, G.consumeables)
+                          end
                         end
                       end,
                       h_mod = 1.05,
