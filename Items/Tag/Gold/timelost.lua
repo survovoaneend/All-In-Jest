@@ -56,8 +56,8 @@ local timelost_tag = {
                 _card.ability.perish_tally = G.GAME.perishable_rounds or 5
               end
               return _card
-            end,
-            G.FUNCS.use_card({ config = { ref_table = card } })
+            end
+        G.FUNCS.use_card({ config = { ref_table = card } })
         card:start_materialize()
         return true
       end)
