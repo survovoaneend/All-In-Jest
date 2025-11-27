@@ -4,18 +4,19 @@ local fortunate_tag = {
     pos = { x = 4, y = 0 },
     atlas = 'tag_atlas',
     discovered = false,
-    order = 6, -- This is the 2nd in game but 5th on the list, does not negativiely effct order
+    order = 6,
 
     loc_vars = function(self, info_queue)
     end,
 
     apply = function(self, tag, context)
-        if context.type == 'immediate' then
+        if context.type == 'new_blind_choice' then
             tag:jest_apply("+", G.C.ATTENTION, function()
-                if #G.consumeables.cards < G.consumeables.config.card_limit then
+                if (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit then
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({
                         func = function() 
-				            G.SETTINGS.paused = true
+				                    G.SETTINGS.paused = true
                             G.FUNCS.overlay_menu{
                                 config = {no_esc = true},
                                 definition = SMODS.jest_no_back_card_collection_UIBox(
@@ -39,9 +40,9 @@ local fortunate_tag = {
                 return true
 			end,
             function() 
-                return #G.consumeables.cards < G.consumeables.config.card_limit
+                return (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit
             end)
-            if #G.consumeables.cards < G.consumeables.config.card_limit then
+            if (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit then
                 tag.triggered = true
                 return true
             end
