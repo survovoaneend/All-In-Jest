@@ -1482,84 +1482,47 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, _card)
 
     
     local replacement_key = key or pseudorandom_element(replacement_pool, pseudoseed(append..'_replacement'))
-    local victim_index
-    for i, jkr in ipairs(G.jokers.cards) do
-        if jkr == victim_joker then
-            victim_index = i
-            break
-        end
-    end
 
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after', 
+        delay = 0.4, 
+        func = function()
+            play_sound('tarot1')
+            card:juice_up(0.3, 0.5)
+            return true 
+        end 
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.15,
+        func = function() 
+            victim_joker:flip()
+            play_sound('card1', 1)
+            victim_joker:juice_up(0.5, 0.5)
+            return true 
+        end 
+    }))
+    delay(0.5)
     G.E_MANAGER:add_event(Event({
         trigger = 'after',
         delay = 0.1,
         func = function()
-            if victim_joker and not victim_joker.removed then
-                victim_joker:All_in_Jest_start_dissolve({ G.C.SPECTRAL, G.C.WHITE })
-                victim_joker:remove_from_deck(true)
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.5,
-                    func = function()
-                        if victim_joker and victim_joker.area then victim_joker.area:remove_card(victim_joker) end
-                        return true
-                    end
-                }))
-            end
-
-            local new_joker = create_card('Joker', G.jokers, is_legendary, victim_rarity, true, nil,
-                replacement_key, 'apex_swap')
-            if _card then
-                new_joker:set_ability(_card.config.center)
-                new_joker.ability.type = _card.ability.type
-                new_joker:set_base(_card.config.card)
-                for k, v in pairs(_card.ability) do
-                    if type(v) == 'table' then 
-                        new_joker.ability[k] = copy_table(v)
-                    else
-                        new_joker.ability[k] = v
-                    end
-                end
-                for k, v in pairs(G.shared_stickers) do
-                    if new_joker.ability[k] and not card.ability[k] then
-                        new_joker.ability[k] = nil
-                    end
-                end
-            end
-            if new_joker then
-                new_joker:add_to_deck()
-                if victim_index and victim_index <= #G.jokers.cards + 1 then
-                    G.jokers:emplace(new_joker, victim_index)
-                else
-                    G.jokers:emplace(new_joker)
-                end
-                for k, v in pairs(G.shared_stickers) do
-                    if victim_joker.ability[k] then
-                        new_joker.ability[k] = true
-                        if k == "perishable" and new_joker.ability.perish_tally == nil then
-                            new_joker.ability.perish_tally = victim_joker.ability.perish_tally or G.GAME.perishable_rounds or 5
-                        end
-                    end
-                end
-                new_joker:start_materialize({ G.C.SPECTRAL, G.C.WHITE })
-                new_joker:set_edition(victim_joker.edition, true, true)
-                if victim_joker.ability.all_in_jest and victim_joker.ability.all_in_jest.has_been_rerolled_data then
-                    new_joker.ability = victim_joker.ability.all_in_jest.has_been_rerolled_data
-                    if new_joker.ability.all_in_jest and new_joker.ability.all_in_jest.has_been_rerolled_data then
-                        new_joker.ability.all_in_jest.has_been_rerolled_data = nil
-                    end
-                end
-                if temp_key then
-                    new_joker.ability.all_in_jest = new_joker.ability.all_in_jest or {}
-                    new_joker.ability.all_in_jest.has_been_rerolled = temp_key
-                    new_joker.ability.all_in_jest.has_been_rerolled_data = victim_joker.ability
-                end
-            end
-
-            card:juice_up(0.5, 0.5)
+            victim_joker:set_ability(G.P_CENTERS[replacement_key])
+            victim_joker:set_cost()
             return true
         end
     }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.15,
+        func = function() 
+            victim_joker:flip()
+            play_sound('tarot2', 1, 0.6)
+            victim_joker:juice_up(0.3, 0.3)
+            return true 
+        end 
+    }))
+    delay(0.5)
 end
 
 function All_in_Jest.set_debuff(card)
