@@ -417,17 +417,6 @@ to_big = to_big or function(num)
     return num
 end
 
-local set_ability_ref = Card.set_ability
-function Card:set_ability(center, initial, delay_sprites)
-    local t = set_ability_ref(self, center, initial, delay_sprites)
-    if self.ability then
-        if self.ability.jest_chaotic_card ~= nil and self.ability.jest_chaotic_card and not self.ability.jest_chaotic_card_changing then
-            self.ability.jest_chaotic_card = nil
-        end
-    end
-    return t
-end
-
 jest_ability_calculate = function(card, equation, extra_value, exclusions, inclusions, do_round, only, extra_search)
   if do_round == nil then do_round = true end
   if only == nil then only = false end
@@ -1611,11 +1600,11 @@ function All_in_Jest.reset_game_globals(run_start)
     -- Globals for a single blind (like Idol)
     reset_jest_magick_joker_card()
     reset_jest_you_broke_it_card()
-	G.GAME.shop_galloping_dominoed = false
+	  G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
 
     if run_start then
-    -- Globals for a whole run (like Fortune Teller)
+        -- Globals for a whole run (like Fortune Teller)
         reset_handsome_joker_card()
 
         local common_suit, common_rank = nil, nil
@@ -1641,9 +1630,14 @@ function All_in_Jest.reset_game_globals(run_start)
         end
         G.P_BLINDS['bl_aij_the_auroch'].boss.suit = common_suit
         G.P_BLINDS['bl_aij_the_auroch'].boss.rank = common_rank
+
         G.GAME.all_in_jest.starting_prams.deck_size = #G.deck.cards
+        
         local index = {4,5}
         G.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
+
+        -- Reset Aureate Coin
+        G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = 0
     end
 end
 

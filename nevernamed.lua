@@ -141,10 +141,6 @@ SMODS.Shader {
     key = 'silhouette',
     path = 'silhouette.fs',
  }
-SMODS.Shader {
-    key = 'chaotic',
-    path = 'chaotic.fs',
- }
 
 SMODS.Rarity({
 	key = "familiar_face",

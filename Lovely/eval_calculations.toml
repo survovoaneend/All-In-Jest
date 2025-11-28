@@ -3,39 +3,13 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-[[patches]] #This being a seprate file felt warentted
+[[patches]] #This being a separate file felt warranted
 [patches.pattern]
 target = "functions/common_events.lua"
 pattern = "-- TARGET: evaluate your own general effects"
 position = "before"
 match_indent = true
 payload = '''
-if context.final_scoring_step and context.cardarea == G.play and context.full_hand then
-    for i = 1, #G.play.cards do
-        if G.play.cards[i].ability.set == 'Enhanced' and (G.play.cards[i].ability.jest_chaotic_card or (G.GAME.blind.config.blind.key == 'bl_aij_the_elbow' and not G.GAME.blind.disabled)) then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.1,
-                func = function()
-                    local cen_pool = {}
-                    for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-                        if v.key ~= 'm_stone' then 
-                            cen_pool[#cen_pool+1] = v
-                        end
-                    end
-                    center = pseudorandom_element(cen_pool, pseudoseed('jest_chaotic_card'))
-                
-                    G.play.cards[i]:juice_up(0.3, 0.3)
-                    G.play.cards[i]:set_ability(center)
-                    if G.play.cards[i].ability.jest_chaotic_card then
-                        G.play.cards[i].ability.jest_chaotic_card = true
-                    end
-                return true
-                end
-            }))
-        end
-    end
-end
 if (context.skip_blind and next(SMODS.find_card("j_aij_dizzard"))) or (context.ending_booster and G.GAME.all_in_jest.dizzard_shop) then
     G.GAME.all_in_jest.dizzard_shop = true
     stop_use()
