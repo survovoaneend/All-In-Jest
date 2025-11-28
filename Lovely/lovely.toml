@@ -352,7 +352,7 @@ if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.
         if amt == 1 then
             jest_tag_info[#jest_tag_info+1] = _tag
             jest_tag_sprites[#jest_tag_sprites+1] = _tag_sprite
-            jest_tag_nodes[#jest_tag_nodes+1] = {n=G.UIT.C, config={id = 'tag_desc', align = "cm", minh = 1, hover = true, button = 'All_in_Jest_select_tag', ref_table = {i, _tag}}, nodes={ _tag_ui }}
+            jest_tag_nodes[#jest_tag_nodes+1] = {n=G.UIT.C, config={id = 'tag_desc', align = "cm", minh = 1, hover = true, button = 'All_in_Jest_select_tag', func = 'aij_hover_tag_branching', ref_table = {i, _tag}}, nodes={ _tag_ui }}
         else
             local jest_temp_tag = G.GAME.all_in_jest.blind_tags[blind_choice][i]
             if not jest_temp_tag then
@@ -370,7 +370,7 @@ if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.
             _tag_sprite_2.states.collide.can = not not run_info
             jest_tag_info[#jest_tag_info+1] = _tag_2
             jest_tag_sprites[#jest_tag_sprites+1] = _tag_sprite_2
-            jest_tag_nodes[#jest_tag_nodes+1] = {n=G.UIT.C, config={id = 'tag_desc', align = "cm", minh = 1, hover = true, button = 'All_in_Jest_select_tag', ref_table = {i, _tag_2}}, nodes={ _tag_ui_2 }}
+            jest_tag_nodes[#jest_tag_nodes+1] = {n=G.UIT.C, config={id = 'tag_desc', align = "cm", minh = 1, hover = true, button = 'All_in_Jest_select_tag', func = 'aij_hover_tag_branching', ref_table = {i, _tag_2}}, nodes={ _tag_ui_2 }}
         end
     end
 end
@@ -908,9 +908,9 @@ pattern = "if (e.states.hover.is or e.parent.states.hover.is) and (e.created_on_
 position = "before"
 payload = '''
 if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
-    if (e.states.hover.is or e.parent.states.hover.is) and (e.created_on_pause == G.SETTINGS.paused) and not e.parent.children.alert and G.GAME.all_in_jest.blind_tags.selected_index and e.parent.config.id == 'tag_'..G.GAME.blind_on_deck then
+    if e.states.hover.is and (e.created_on_pause == G.SETTINGS.paused) and not e.alert and G.GAME.all_in_jest.blind_tags.selected_index and e.parent.config.id == 'tag_'..G.GAME.blind_on_deck then
       local _sprite = e.config.ref_table[G.GAME.all_in_jest.blind_tags.selected_index]:get_uibox_table()
-      e.parent.children.alert = UIBox{
+      e.alert = UIBox{
           definition = G.UIDEF.card_h_popup(_sprite),
           config = {align="tm", offset = {x = 0, y = -0.1},
           major = e.parent,
@@ -919,10 +919,10 @@ if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.
       _sprite:juice_up(0.05, 0.02)
       play_sound('paper1', math.random()*0.1 + 0.55, 0.42)
       play_sound('tarot2', math.random()*0.1 + 0.55, 0.09)
-      e.parent.children.alert.states.collide.can = false
-    elseif e.parent.children.alert and ((not e.states.collide.is and not e.parent.states.collide.is) or (e.created_on_pause ~= G.SETTINGS.paused)) then
-          e.parent.children.alert:remove()
-          e.parent.children.alert = nil
+      e.alert.states.collide.can = false
+    elseif e.alert and (not e.states.collide.is or e.created_on_pause ~= G.SETTINGS.paused) then
+          e.alert:remove()
+          e.alert = nil
     end
     if e.parent.config.id == 'tag_'..G.GAME.blind_on_deck and G.GAME.all_in_jest.blind_tags.selected_index then
         e.config.button = 'skip_blind'
@@ -1626,16 +1626,6 @@ end
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = "if v == 'eternal' then info_queue[#info_queue+1] = {key = 'eternal', set = 'Other'} end"
-position = "before"
-match_indent = true
-payload = '''
-if v == 'k_aij_jest_chaotic_card' then info_queue[#info_queue+1] = {key = 'aij_jest_chaotic_card', set = 'Other'} end
-'''
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
 pattern = "if _c.set == 'Other' then"
 position = "before"
 match_indent = true
@@ -1652,16 +1642,6 @@ if card and card.ability and card.ability.patches then
         end
     end
 end
-'''
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "if self.ability.eternal then badges[#badges + 1] = 'eternal' end"
-position = "before"
-match_indent = true
-payload = '''
-if self.ability.jest_chaotic_card then badges[#badges + 1] = 'k_aij_jest_chaotic_card' end
 '''
 
 # Proper Shop Tag Text Generation
@@ -1803,6 +1783,18 @@ if hand == G.GAME.hands['Straight Flush'] then
 end
 '''
 match_indent = true
+# Update royal flush level when straight flush is upgrades
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = 'G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)'
+position = "after"
+payload = '''
+if hand == 'Straight Flush' then
+    G.GAME.hands['aij_Royal Flush'].level = math.max(0, G.GAME.hands['aij_Royal Flush'].level + amount)
+end
+'''
+match_indent = true
 
 [[patches]]
 [patches.pattern]
@@ -1848,6 +1840,19 @@ if G.GAME.jest_legendary_pool ~= nil and _type == 'Joker' then
         end
     end
 end
+'''
+
+# Make legendary jokers in the shop show their description
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+if self.config.center.unlocked == false and not self.bypass_lock then --For everyting that is locked
+'''
+position = "at"
+match_indent = true
+payload = '''
+if self.config.center.unlocked == false and not self.bypass_lock and not self.bypass_discovery_ui then --For everyting that is locked
 '''
 
 # The Grim Joker (Purple Seals) (1/3)
@@ -2268,22 +2273,6 @@ if #G.jest_super_discard.cards > 0 and G.GAME.blind.boss then
 end
 '''
 match_indent = true
-
-#[[patches]] 
-#[patches.pattern]
-#target = "functions/state_events.lua"
-#pattern = "-- TARGET: effects before scoring starts"
-#position = "before"
-#payload = '''
-#for i = 1, #scoring_hand do
-#    if scoring_hand[i].ability.jest_chaotic_card ~= nil and scoring_hand[i].ability.jest_chaotic_card then
-#        local random_enhancement_key = SMODS.poll_enhancement({ guaranteed = true, key_append = 'jest_chaotic_card_enhance'..i })
-#        scoring_hand[i].ability.jest_chaotic_card_changing = true
-#        scoring_hand[i]:set_ability(G.P_CENTERS[random_enhancement_key or 'c_base'], nil, true)
-#    end
-#end
-#'''
-#match_indent = true
 
 [[patches]] 
 [patches.pattern]
@@ -2812,6 +2801,28 @@ match_indent = true
 payload = '''
 self.all_in_jest = self.all_in_jest or {}
 self.all_in_jest.patches_sprites = {}
+self.all_in_jest.astral_grades = {}
+G.all_in_jest.astral_grades["Retrograde"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=15,y=3})
+G.all_in_jest.astral_grades["Prograde"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=16,y=3})
+G.all_in_jest.astral_grades["Passigrade"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=17,y=3})
+self.all_in_jest.astral_pins = {}
+G.all_in_jest.astral_pins["Algol"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=10,y=4})
+G.all_in_jest.astral_pins["Alcyone"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=11,y=4})
+G.all_in_jest.astral_pins["Aldebaran"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=12,y=4})
+G.all_in_jest.astral_pins["Capella"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=9,y=4})
+G.all_in_jest.astral_pins["Sirius"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=8,y=4})
+G.all_in_jest.astral_pins["Procyon"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=8,y=6})
+G.all_in_jest.astral_pins["Regulus"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=9,y=6})
+G.all_in_jest.astral_pins["Alkaid"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=10,y=6})
+G.all_in_jest.astral_pins["Algorab"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=11,y=6})
+G.all_in_jest.astral_pins["Spica"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=12,y=6})
+G.all_in_jest.astral_pins["Arcturus"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=13,y=6})
+G.all_in_jest.astral_pins["Alphecca"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=14,y=6})
+G.all_in_jest.astral_pins["Antares"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=15,y=6})
+G.all_in_jest.astral_pins["Vega"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=16,y=6})
+G.all_in_jest.astral_pins["Deneb_Algedi"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=17,y=6})
+G.all_in_jest.astral_pins["Ketu"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=13,y=4})
+G.all_in_jest.astral_pins["Rahu"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=14,y=4})
 self.all_in_jest.extra_card_sprites = {}
 G.all_in_jest.extra_card_sprites['Mark_of_the_Spear'] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=9,y=2})
 G.all_in_jest.patches_sprites["Other"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=0,y=2})

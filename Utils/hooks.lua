@@ -639,6 +639,45 @@ SMODS.PokerHand {
     end,
 }
 
+SMODS.ConsumableType({
+    key = 'aij_astral',
+    primary_colour = HEX("d1e2f6"),
+    secondary_colour = HEX("87a5c9"),
+    collection_rows = {5, 4},
+    shop_rate = 0,
+    default = 'c_aij_algol',
+    no_buy_and_use = true
+})
+
+SMODS.UndiscoveredSprite({
+    key = 'aij_astral',
+    atlas = "consumable_atlas",
+    pos = { x = 4, y = 3 },
+    no_overlay = true
+})
+
+G.AIJ.Astral = {} -- stores Astral pins
+All_in_Jest.Astral = SMODS.Tag:extend {
+    atlas = 'consumable_atlas',
+    class_prefix = 'astral',
+    in_pool = function() return false end,
+    inject = function(self)
+        G.AIJ.Astral[self.key] = self
+    end,
+}
+
+local start = Game.start_run
+function Game:start_run(args)
+    if self.AIJ.Astral_pins then
+        self.AIJ.Astral_pins = nil
+    end
+    self.AIJ.Astral_pins = {}
+    for k, v in pairs(SMODS.PokerHands) do
+        self.AIJ.Astral_pins[k] = {}
+    end
+    start(self, args)
+end
+
 local init_game_object_ref = Game.init_game_object
 function Game.init_game_object(self)
   local ret = init_game_object_ref(self)

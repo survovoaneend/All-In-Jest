@@ -18,8 +18,6 @@ jest_you_broke_it_card = {rank = nil, enhancement = nil, id = nil},
 jest_handsome_joker_card = {rank = nil, suit = nil, enhancement = nil, id = nil},	
 '''
 
-
-
 [[patches]] #G.GAME 
 [patches.pattern]
 target = 'game.lua'
@@ -117,5 +115,6 @@ position = 'before'
 payload = '''
 jest_inherent = HEX("b7e1d7"),
 jest_glitter = HEX("ff97ff"),
+aij_astral = HEX("87a5c9"),
 '''
 match_indent = true
