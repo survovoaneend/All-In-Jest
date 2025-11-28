@@ -56,7 +56,8 @@ return {
             k_aij_change_ex = 'Change!',
             k_aij_blood_spilt_ex = 'Blood Spilt!',
             k_aij_double_ex = 'Doubled!',
-            k_aij_triple_ex = 'Tripled!'
+            k_aij_triple_ex = 'Tripled!',
+            k_aij_chaos_ex = 'Chaos!'
 
         },
         v_dictionary = {
@@ -130,7 +131,7 @@ return {
             aij_smiley_seal = "Smiley Seal",
             aij_melted_seal = "Melted Seal",
             -- Other
-            k_aij_jest_chaotic_card = "Chaotic",
+            aij_jest_chaotic_card = "Chaotic", -- Treated internally as a sticker
         },
         poker_hands = {
             ['aij_Royal Flush'] = "Royal Flush",
@@ -2761,7 +2762,7 @@ return {
                 name = "Aphantasia", 
                 text = { 
                     "All played {C:attention}enhanced{} cards",
-                    "become {C:red}Chaotic" 
+                    "become {C:red}Chaotic{}" 
                 } 
             },
             j_aij_tabula_rasa = { 
@@ -4863,13 +4864,6 @@ return {
                     "{C:attention}7{}, {C:attention}8{}, {C:attention}9{}, and {C:attention}10{}",
                 }
             },
-            aij_jest_chaotic_card = {
-                name = "Chaotic Card",
-                text = {
-                    "{C:edition}Enhancement{} is {C:attention}randomised{}",
-                    "after being played",
-                }
-            },
             palindrome = {
                 name = "Palindrome",
                 text = {
@@ -4881,19 +4875,29 @@ return {
             -- Stickers
             aij_marked = {
                 name = "Marked",
-		        text = {
+                text = {
                     'Cannot be {C:blue}played',
                     'or {C:red}discarded'
-		        }
+                }
+            },
+            -- (not a sticker but treated as such)
+            aij_jest_chaotic_card = {
+                name = "Chaotic",
+                text = {
+                    "{X:mult,C:white} X#1# {} Mult",
+                    "{C:edition}Enhancement{} is",
+                    "{C:attention}randomised{} after",
+                    "being played",
+                }
             },
             -- Seals
             aij_smiley_seal = {
                 name = "Smiley Seal",
-		        text = {
+                text = {
                     'When {C:red}destroyed{}, apply',
                     'an edition to {C:attention}#1#{}',
                     'random {C:attention}Joker'
-		        }
+                }
             },
             aij_melted_seal = {
                 name = "Melted Seal",
