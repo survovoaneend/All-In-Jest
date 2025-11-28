@@ -1783,6 +1783,18 @@ if hand == G.GAME.hands['Straight Flush'] then
 end
 '''
 match_indent = true
+# Update royal flush level when straight flush is upgrades
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = 'G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)'
+position = "after"
+payload = '''
+if hand == 'Straight Flush' then
+    G.GAME.hands['aij_Royal Flush'].level = math.max(0, G.GAME.hands['aij_Royal Flush'].level + amount)
+end
+'''
+match_indent = true
 
 [[patches]]
 [patches.pattern]
