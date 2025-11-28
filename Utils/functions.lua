@@ -93,7 +93,7 @@ function retrieve_joker_text(joker, descip, name)
                 text = text .. main[i].config.text
 
             -- Parses any Dynatext objects
-            elseif main[i].config and main[i].config.object and main[i].config.object.config and type(main[i].config.object.config) == "table" then
+            elseif main[i].config and main[i].config.object and main[i].config.object.config and type(main[i].config.object.config) == "table" and main[i].config.object.config.string then
                 local options = main[i].config.object.config.string
                 local random_element = main[i].config.object.config.random_element
                 local chosen_option = nil
