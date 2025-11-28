@@ -1842,6 +1842,19 @@ if G.GAME.jest_legendary_pool ~= nil and _type == 'Joker' then
 end
 '''
 
+# Make legendary jokers in the shop show their description
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+if self.config.center.unlocked == false and not self.bypass_lock then --For everyting that is locked
+'''
+position = "at"
+match_indent = true
+payload = '''
+if self.config.center.unlocked == false and not self.bypass_lock and not self.bypass_discovery_ui then --For everyting that is locked
+'''
+
 # The Grim Joker (Purple Seals) (1/3)
 # Adds chance for negative tarots to be created by purple seals
 # and forces card creation even if it "exceeds" the card limit
