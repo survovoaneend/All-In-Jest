@@ -1786,3 +1786,25 @@ function All_in_Jest.aij_refresh_boss_blind()
         -- G.blind_select_opts.boss.alignment.offset.y = -0.2
     end
 end
+
+
+G.FUNCS.aij_hover_tag_branching = function(e)
+    if not e.parent or not e.parent.states then return end
+    if e.states.hover.is and (e.created_on_pause == G.SETTINGS.paused) and not e.alert then
+        -- sendDebugMessage(tprint(e), "AIJ")
+        local _sprite = e.config.ref_table[2]:get_uibox_table()
+        e.alert = UIBox{
+            definition = G.UIDEF.card_h_popup(_sprite),
+            config = {align="tm", offset = {x = 0, y = -0.1},
+            major = e,
+            instance_type = 'POPUP'},
+        }
+        _sprite:juice_up(0.05, 0.02)
+        play_sound('paper1', math.random()*0.1 + 0.55, 0.42)
+        play_sound('tarot2', math.random()*0.1 + 0.55, 0.09)
+        e.alert.states.collide.can = false
+    elseif e.alert and (not e.states.hover.is or e.created_on_pause ~= G.SETTINGS.paused) then
+        e.alert:remove()
+        e.alert = nil
+    end
+end

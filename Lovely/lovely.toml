@@ -352,7 +352,7 @@ if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.
         if amt == 1 then
             jest_tag_info[#jest_tag_info+1] = _tag
             jest_tag_sprites[#jest_tag_sprites+1] = _tag_sprite
-            jest_tag_nodes[#jest_tag_nodes+1] = {n=G.UIT.C, config={id = 'tag_desc', align = "cm", minh = 1, hover = true, button = 'All_in_Jest_select_tag', ref_table = {i, _tag}}, nodes={ _tag_ui }}
+            jest_tag_nodes[#jest_tag_nodes+1] = {n=G.UIT.C, config={id = 'tag_desc', align = "cm", minh = 1, hover = true, button = 'All_in_Jest_select_tag', func = 'aij_hover_tag_branching', ref_table = {i, _tag}}, nodes={ _tag_ui }}
         else
             local jest_temp_tag = G.GAME.all_in_jest.blind_tags[blind_choice][i]
             if not jest_temp_tag then
@@ -370,7 +370,7 @@ if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.
             _tag_sprite_2.states.collide.can = not not run_info
             jest_tag_info[#jest_tag_info+1] = _tag_2
             jest_tag_sprites[#jest_tag_sprites+1] = _tag_sprite_2
-            jest_tag_nodes[#jest_tag_nodes+1] = {n=G.UIT.C, config={id = 'tag_desc', align = "cm", minh = 1, hover = true, button = 'All_in_Jest_select_tag', ref_table = {i, _tag_2}}, nodes={ _tag_ui_2 }}
+            jest_tag_nodes[#jest_tag_nodes+1] = {n=G.UIT.C, config={id = 'tag_desc', align = "cm", minh = 1, hover = true, button = 'All_in_Jest_select_tag', func = 'aij_hover_tag_branching', ref_table = {i, _tag_2}}, nodes={ _tag_ui_2 }}
         end
     end
 end
@@ -908,9 +908,9 @@ pattern = "if (e.states.hover.is or e.parent.states.hover.is) and (e.created_on_
 position = "before"
 payload = '''
 if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
-    if (e.states.hover.is or e.parent.states.hover.is) and (e.created_on_pause == G.SETTINGS.paused) and not e.parent.children.alert and G.GAME.all_in_jest.blind_tags.selected_index and e.parent.config.id == 'tag_'..G.GAME.blind_on_deck then
+    if e.states.hover.is and (e.created_on_pause == G.SETTINGS.paused) and not e.alert and G.GAME.all_in_jest.blind_tags.selected_index and e.parent.config.id == 'tag_'..G.GAME.blind_on_deck then
       local _sprite = e.config.ref_table[G.GAME.all_in_jest.blind_tags.selected_index]:get_uibox_table()
-      e.parent.children.alert = UIBox{
+      e.alert = UIBox{
           definition = G.UIDEF.card_h_popup(_sprite),
           config = {align="tm", offset = {x = 0, y = -0.1},
           major = e.parent,
@@ -919,10 +919,10 @@ if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.
       _sprite:juice_up(0.05, 0.02)
       play_sound('paper1', math.random()*0.1 + 0.55, 0.42)
       play_sound('tarot2', math.random()*0.1 + 0.55, 0.09)
-      e.parent.children.alert.states.collide.can = false
-    elseif e.parent.children.alert and ((not e.states.collide.is and not e.parent.states.collide.is) or (e.created_on_pause ~= G.SETTINGS.paused)) then
-          e.parent.children.alert:remove()
-          e.parent.children.alert = nil
+      e.alert.states.collide.can = false
+    elseif e.alert and (not e.states.collide.is or e.created_on_pause ~= G.SETTINGS.paused) then
+          e.alert:remove()
+          e.alert = nil
     end
     if e.parent.config.id == 'tag_'..G.GAME.blind_on_deck and G.GAME.all_in_jest.blind_tags.selected_index then
         e.config.button = 'skip_blind'
