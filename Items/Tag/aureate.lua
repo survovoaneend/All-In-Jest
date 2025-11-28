@@ -3,7 +3,7 @@ local aureate = {
     key = 'aureate', 
     pos = { x = 2, y = 1},
     atlas = 'tag_atlas',
-    order = 4, -- Works because of alphabectical sorting of those with same order
+    order = 4, -- Works because of alphabetical sorting of those with same order
     min_ante = 2,
     config = {type = 'store_joker_modify', edition = 'aij_aureate'},
     loc_vars = function(self, info_queue)

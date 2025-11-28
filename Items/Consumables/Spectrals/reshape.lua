@@ -16,12 +16,54 @@ local reshape = {
         return false
     end,
 	use = function(self, card, area, copier)
-        local _card = pseudorandom_element(G.jokers.cards, pseudoseed('reshape'))
-        for k, v in ipairs(G.jokers.cards) do
-            if v ~= _card then
-                All_in_Jest.reroll_joker(v, _card.config.center.key, 'reshape', nil, _card)
-            end
+        local selected_joker = pseudorandom_element(G.jokers.cards, pseudoseed('reshape'))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', 
+            delay = 0.4, 
+            func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true 
+            end 
+        }))
+        for i=1, #G.jokers.cards do
+            local percent = 1.15 - (i-0.999)/(#G.jokers.cards-0.998)*0.3
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.15,
+                func = function() 
+                    G.jokers.cards[i]:flip()
+                    play_sound('card1', percent)
+                    G.jokers.cards[i]:juice_up(0.3, 0.3)
+                    return true
+                end
+            }))
         end
+        delay(0.5)
+        for i=1, #G.jokers.cards do
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    if G.jokers.cards[i] ~= selected_joker then
+                        copy_card(selected_joker, G.jokers.cards[i])
+                    end
+                    return true
+                end
+            }))
+        end
+        for i=1, #G.jokers.cards do
+            local percent = 0.85 + (i-0.999)/(#G.jokers.cards-0.998)*0.3
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.15,
+                func = function()
+                    G.jokers.cards[i]:flip()
+                    play_sound('tarot2', percent, 0.6)
+                    G.jokers.cards[i]:juice_up(0.3, 0.3)
+                    return true
+                end 
+            }))
+        end
+        delay(0.5)
     end,
 }
 return {name = {"Spectrals"}, items = {reshape}}

@@ -1,3 +1,21 @@
+local aij_ease_dollars_ref = ease_dollars
+function ease_dollars(mod, instant)
+    ret = aij_ease_dollars_ref(mod, instant)
+    if to_big(mod) < to_big(0) then
+        G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money + mod
+        if G.GAME.round_resets.blind_choices.Boss == "bl_aij_aureate_coin" then
+            G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                All_in_Jest.aij_refresh_boss_blind() -- Updates dynamic score requirement
+                return true
+            end
+            }))
+        end
+    end
+    return ret
+end
+
 local aureate_coin = {
     object_type = "Blind",
     key = 'aureate_coin',

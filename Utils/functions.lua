@@ -93,7 +93,7 @@ function retrieve_joker_text(joker, descip, name)
                 text = text .. main[i].config.text
 
             -- Parses any Dynatext objects
-            elseif main[i].config and main[i].config.object and main[i].config.object.config and type(main[i].config.object.config) == "table" then
+            elseif main[i].config and main[i].config.object and main[i].config.object.config and type(main[i].config.object.config) == "table" and main[i].config.object.config.string then
                 local options = main[i].config.object.config.string
                 local random_element = main[i].config.object.config.random_element
                 local chosen_option = nil
@@ -165,8 +165,6 @@ function jest_add_tag(tag, event, silent)
 end
 
 function level_up_other_hand(card, hand, other_hand, instant, amount, type)
-    local level = 1
-    
     if not type or type == 'mult' then
         G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + amount)
     end
@@ -188,6 +186,7 @@ function level_up_hand_chips(card, hand, instant, amount)
         local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - val
         extra_amount = (extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)) + (extra_chips > 0 and extra_chips or 0)
         if hand == 'Straight Flush' then
+            G.GAME.hands['aij_Royal Flush'].level = math.max(0, G.GAME.hands['aij_Royal Flush'].level + amount)
             level_up_other_hand(nil, 'aij_Royal Flush', hand, true, amount * 2 + extra_amount, 'chips')
         end
         G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + math.floor((G.GAME.hands[hand].l_chips * amount * 2 + extra_amount)))
@@ -222,6 +221,7 @@ function level_up_hand_mult(card, hand, instant, amount)
         local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - val
         extra_amount = (extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)) + (extra_mult > 0 and extra_mult or 0)
         if hand == 'Straight Flush' then
+            G.GAME.hands['aij_Royal Flush'].level = math.max(0, G.GAME.hands['aij_Royal Flush'].level + amount)
             level_up_other_hand(nil, 'aij_Royal Flush', hand, true, amount * 2 + extra_amount, 'mult')
         end
         G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + math.floor((G.GAME.hands[hand].l_mult * amount * 2 + extra_amount)))
@@ -1482,84 +1482,47 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, _card)
 
     
     local replacement_key = key or pseudorandom_element(replacement_pool, pseudoseed(append..'_replacement'))
-    local victim_index
-    for i, jkr in ipairs(G.jokers.cards) do
-        if jkr == victim_joker then
-            victim_index = i
-            break
-        end
-    end
 
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after', 
+        delay = 0.4, 
+        func = function()
+            play_sound('tarot1')
+            card:juice_up(0.3, 0.5)
+            return true 
+        end 
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.15,
+        func = function() 
+            victim_joker:flip()
+            play_sound('card1', 1)
+            victim_joker:juice_up(0.5, 0.5)
+            return true 
+        end 
+    }))
+    delay(0.5)
     G.E_MANAGER:add_event(Event({
         trigger = 'after',
         delay = 0.1,
         func = function()
-            if victim_joker and not victim_joker.removed then
-                victim_joker:All_in_Jest_start_dissolve({ G.C.SPECTRAL, G.C.WHITE })
-                victim_joker:remove_from_deck(true)
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.5,
-                    func = function()
-                        if victim_joker and victim_joker.area then victim_joker.area:remove_card(victim_joker) end
-                        return true
-                    end
-                }))
-            end
-
-            local new_joker = create_card('Joker', G.jokers, is_legendary, victim_rarity, true, nil,
-                replacement_key, 'apex_swap')
-            if _card then
-                new_joker:set_ability(_card.config.center)
-                new_joker.ability.type = _card.ability.type
-                new_joker:set_base(_card.config.card)
-                for k, v in pairs(_card.ability) do
-                    if type(v) == 'table' then 
-                        new_joker.ability[k] = copy_table(v)
-                    else
-                        new_joker.ability[k] = v
-                    end
-                end
-                for k, v in pairs(G.shared_stickers) do
-                    if new_joker.ability[k] and not card.ability[k] then
-                        new_joker.ability[k] = nil
-                    end
-                end
-            end
-            if new_joker then
-                new_joker:add_to_deck()
-                if victim_index and victim_index <= #G.jokers.cards + 1 then
-                    G.jokers:emplace(new_joker, victim_index)
-                else
-                    G.jokers:emplace(new_joker)
-                end
-                for k, v in pairs(G.shared_stickers) do
-                    if victim_joker.ability[k] then
-                        new_joker.ability[k] = true
-                        if k == "perishable" and new_joker.ability.perish_tally == nil then
-                            new_joker.ability.perish_tally = victim_joker.ability.perish_tally or G.GAME.perishable_rounds or 5
-                        end
-                    end
-                end
-                new_joker:start_materialize({ G.C.SPECTRAL, G.C.WHITE })
-                new_joker:set_edition(victim_joker.edition, true, true)
-                if victim_joker.ability.all_in_jest and victim_joker.ability.all_in_jest.has_been_rerolled_data then
-                    new_joker.ability = victim_joker.ability.all_in_jest.has_been_rerolled_data
-                    if new_joker.ability.all_in_jest and new_joker.ability.all_in_jest.has_been_rerolled_data then
-                        new_joker.ability.all_in_jest.has_been_rerolled_data = nil
-                    end
-                end
-                if temp_key then
-                    new_joker.ability.all_in_jest = new_joker.ability.all_in_jest or {}
-                    new_joker.ability.all_in_jest.has_been_rerolled = temp_key
-                    new_joker.ability.all_in_jest.has_been_rerolled_data = victim_joker.ability
-                end
-            end
-
-            card:juice_up(0.5, 0.5)
+            victim_joker:set_ability(G.P_CENTERS[replacement_key])
+            victim_joker:set_cost()
             return true
         end
     }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.15,
+        func = function() 
+            victim_joker:flip()
+            play_sound('tarot2', 1, 0.6)
+            victim_joker:juice_up(0.3, 0.3)
+            return true 
+        end 
+    }))
+    delay(0.5)
 end
 
 function All_in_Jest.set_debuff(card)
@@ -1821,5 +1784,27 @@ function All_in_Jest.aij_refresh_boss_blind()
         par.config.object:recalculate()
         G.blind_select_opts.boss.parent = par
         -- G.blind_select_opts.boss.alignment.offset.y = -0.2
+    end
+end
+
+
+G.FUNCS.aij_hover_tag_branching = function(e)
+    if not e.parent or not e.parent.states then return end
+    if e.states.hover.is and (e.created_on_pause == G.SETTINGS.paused) and not e.alert then
+        -- sendDebugMessage(tprint(e), "AIJ")
+        local _sprite = e.config.ref_table[2]:get_uibox_table()
+        e.alert = UIBox{
+            definition = G.UIDEF.card_h_popup(_sprite),
+            config = {align="tm", offset = {x = 0, y = -0.1},
+            major = e,
+            instance_type = 'POPUP'},
+        }
+        _sprite:juice_up(0.05, 0.02)
+        play_sound('paper1', math.random()*0.1 + 0.55, 0.42)
+        play_sound('tarot2', math.random()*0.1 + 0.55, 0.09)
+        e.alert.states.collide.can = false
+    elseif e.alert and (not e.states.hover.is or e.created_on_pause ~= G.SETTINGS.paused) then
+        e.alert:remove()
+        e.alert = nil
     end
 end

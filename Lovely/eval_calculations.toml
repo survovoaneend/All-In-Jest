@@ -70,18 +70,6 @@ if context.cardarea == G.play and context.all_in_jest and context.all_in_jest.ma
         ret.playing_card.chips = chips
     end
 end
-if context.money_altered and to_big(context.amount) < to_big(0) and not context.blueprint and not context.repetition then
-    G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money + context.amount
-    if G.GAME.round_resets.blind_choices.Boss == "bl_aij_aureate_coin" then
-        G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = function()
-            All_in_Jest.aij_refresh_boss_blind() -- Updates dynamic score requirement
-            return true
-        end
-        }))
-    end
-end
 '''
 
 [[patches]] #For debuffed joker cards
