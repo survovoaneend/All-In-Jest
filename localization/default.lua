@@ -3527,8 +3527,8 @@ return {
                 name = "Historian", 
                 text = {
                     "Adds {C:mult}Mult{} equal to",
-                    "{C:attention}triple{} the {C:money}Sell Value{}",
-                    "last sold Joker",
+                    "{C:attention}triple{} the {C:money}Sell Value{} of",
+                    "the last sold Joker",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 } 
             },
