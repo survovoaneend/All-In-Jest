@@ -32,7 +32,9 @@ local hermetic_tag = {
                       no_materialize = true,
                       modify_card = function(card, center)
                         if card.config.center.discovered then
-                          if card.config.center.hidden then
+                          if G.GAME.banned_keys[card.config.center.key] then
+                            card.debuff = true
+                          elseif card.config.center.hidden then
                             card.greyed = true
                           else
                             jest_create_select_card_ui(card, G.consumeables)

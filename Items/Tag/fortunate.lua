@@ -25,8 +25,10 @@ local fortunate_tag = {
                                     {
                                         no_materialize = true, 
                                         modify_card = function(card, center) 
-                                            if card.config.center.discovered then
-                                            jest_create_select_card_ui(card, G.consumeables)
+                                            if G.GAME.banned_keys[card.config.center.key] then
+                                                card.debuff = true
+                                            elseif card.config.center.discovered then
+                                                jest_create_select_card_ui(card, G.consumeables)
                                             end
                                         end, 
                                         h_mod = 1.05,
