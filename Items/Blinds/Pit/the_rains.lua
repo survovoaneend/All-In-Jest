@@ -19,6 +19,20 @@ local the_rains = {
     dollars = 6,
 
     calculate = function(self, blind, context)
+        local temp = G.GAME.blind and G.GAME.blind.disabled
+        if temp then
+            return
+        end
+
+        if context.before and G.hand.cards and not temp then
+            for _, v in pairs(G.hand.cards) do
+                if G.play.cards[i].config.center ~= G.P_CENTERS.c_base then
+                    blind.triggered = true
+                    break
+                end
+            end
+        end
+
         if context.all_in_jest and context.all_in_jest.before_after then
             local chipsthing = G.GAME.chips + context.total_chips >= G.GAME.blind.chips
             if chipsthing then
@@ -30,13 +44,17 @@ local the_rains = {
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     func = (function() 
+                        play_sound("tarot2")
                         for i = 1, #G.play.cards do
                             G.play.cards[i]:set_seal(nil, nil, true)
                             G.play.cards[i]:set_edition(nil, true)
+                            G.play.cards[i]:juice_up()
                         end
                         return true
                     end)
                 }))
+                blind:wiggle()
+                blind.triggered = false
             end
         end
     end
