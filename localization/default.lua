@@ -4551,9 +4551,8 @@ return {
             tag_aij_dominus = {
                 name = 'Dominus Tag',
                 text = {
-                    'Disable the {C:attention}Boss Blind{}',
-                    'and set its score',
-                    'requirement to {C:attention}1X{} Base'
+                    'Choose {C:attention}any Boss Blind{} to',
+                    'replace the current one'
                 }
             },
             tag_aij_nonstandard = {
