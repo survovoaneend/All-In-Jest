@@ -36,11 +36,7 @@ local the_arrow = {
         G.E_MANAGER:add_event(Event({
           trigger = 'immediate',
           func = (function()
-            if SMODS.hand_debuff_source then
-              SMODS.hand_debuff_source:juice_up(0.3, 0)
-            else
-              SMODS.juice_up_blind()
-            end
+            blind:wiggle()
             G.E_MANAGER:add_event(Event({
               trigger = 'after',
               delay = 0.06 * G.SETTINGS.GAMESPEED,
