@@ -4398,7 +4398,7 @@ return {
                 name = 'Overstuffed Tag',
                 text = {
                     "Next {C:attention}Booster Pack{} opened",
-                    "contains twice the number of",
+                    "contains {C:attention}twice{} the number of",
                     "options and available picks"
                 }
             },
@@ -4511,15 +4511,15 @@ return {
             tag_aij_ticket = {
                 name = 'Ticket Tag',
                 text = {
-                    'Redeem a random',
+                    '{C:attention}Redeem{} a random',
                     'Voucher and its',
-                    'upgraded version'
+                    '{C:attention}upgraded{} version'
                 }
             },
             tag_aij_galloping_domino = {
                 name = 'Galloping Domino Tag',
                 text = {
-                    'All rerolls cost',
+                    '{C:attention}All{} rerolls cost',
                     '{C:money}$#1#{} next shop'
                     -- TODO Needs a limit due to effectively quadratic
                     -- money scaling
@@ -4543,7 +4543,7 @@ return {
             tag_aij_frugal = {
                 name = 'Frugal Tag',
                 text = {
-                    'All cards and',
+                    '{C:attention}All{} cards and',
                     'booster packs in next',
                     'shop are free',
                 }
@@ -4616,8 +4616,8 @@ return {
                 name = 'Ventripotent Tag',
                 text = {
                     "Next {C:attention}Booster Pack{} opened",
-                    "contains twice the number of",
-                    "options and unlimited picks"
+                    "contains {C:attention}twice{} the number of",
+                    "options and {C:attention}unlimited{} picks"
                 }
             },
             tag_aij_timelost = {
@@ -4632,7 +4632,8 @@ return {
                 name = 'Auspicious Tag',
                 text = {
                     'Create {C:attention}3{} {C:dark_edition}Negative copies',
-                    'of a {C:tarot}Tarot{} card {C:attention}of your choice',
+                    'of a {C:tarot}Tarot{} card',
+                    '{C:attention}of your choice'
                 }
             },
             tag_aij_glamour = {
