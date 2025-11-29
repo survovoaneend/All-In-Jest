@@ -24,7 +24,9 @@ local the_bird = {
         end
 
         if context.before and G.jokers.cards and not temp then
+            blind.triggered = false
             if #G.jokers.cards > 1 then 
+                blind.triggered = true
                 local joker = pseudorandom_element(G.jokers.cards, "tbjk")
                 local old_index = 0
                 for i = 1, #G.jokers.cards do
@@ -36,9 +38,18 @@ local the_bird = {
                 while joker == G.jokers.cards[new_index] do
                     new_index = pseudorandom('bl_aij_the_bird', 1, #G.jokers.cards)
                 end
-                table.remove(G.jokers.cards, old_index)
-                table.insert(G.jokers.cards, new_index, joker)
-                play_sound('cardSlide1', 0.85)
+                G.E_MANAGER:add_event(Event({
+                    type = "after",
+                    delay = 0.2,
+                    func = function() 
+                        blind:wiggle()
+                        table.remove(G.jokers.cards, old_index)
+                        table.insert(G.jokers.cards, new_index, joker)
+                        play_sound('cardSlide1', 0.85)
+                        return true
+                    end
+                }))
+                delay(0.2)
             end
         end
     end
