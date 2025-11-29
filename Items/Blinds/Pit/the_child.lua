@@ -24,10 +24,15 @@ local the_child = {
     end
 
     if context.before and G.hand.cards and not temp then
-        blind.triggered = true
+      for i = 1, #context.scoring_hand do
+        if context.scoring_hand[i].base ~= 2 then
+          blind.triggered = true
+          break
+        end
+      end
     end
 
-    if context.after and context.scoring_hand and not temp then
+    if context.after and context.scoring_hand and not temp and blind.triggered then
       G.E_MANAGER:add_event(Event({
         func = function()
           blind:wiggle()
@@ -40,9 +45,11 @@ local the_child = {
           trigger = 'after',
           delay = 0.15,
           func = function()
-            context.scoring_hand[i]:flip()
-            play_sound('card1', percent)
-            context.scoring_hand[i]:juice_up(0.3, 0.3)
+            if context.scoring_hand[i]:get_id() ~= 2 then
+              context.scoring_hand[i]:flip()
+              play_sound('card1', percent)
+              context.scoring_hand[i]:juice_up(0.3, 0.3)
+            end
             return true
           end
         }))
@@ -65,9 +72,11 @@ local the_child = {
           trigger = 'after',
           delay = 0.15,
           func = function()
-            context.scoring_hand[i]:flip()
-            play_sound('tarot2', percent, 0.6)
-            context.scoring_hand[i]:juice_up(0.3, 0.3)
+            if context.scoring_hand[i].facing == "back" then
+              context.scoring_hand[i]:flip()
+              play_sound('tarot2', percent, 0.6)
+              context.scoring_hand[i]:juice_up(0.3, 0.3)
+            end
             return true
           end
         }))
