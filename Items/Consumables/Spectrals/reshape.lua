@@ -44,7 +44,21 @@ local reshape = {
             G.E_MANAGER:add_event(Event({
                 func = function()
                     if G.jokers.cards[i] ~= selected_joker then
-                        copy_card(selected_joker, G.jokers.cards[i])
+                        local original_edition = G.jokers.cards[i].edition or {}
+                        local original_stickers = {}
+                        for k, v in pairs(G.shared_stickers) do
+                            if G.jokers.cards[i].ability[k] then
+                                original_stickers[k] = true
+                                if k == "perishable" then
+                                    original_stickers["perish_tally"] = G.jokers.cards[i].ability.perish_tally or 5
+                                end
+                            end
+                        end
+                        copy_card(selected_joker, G.jokers.cards[i], nil, nil, true)
+                        G.jokers.cards[i]:set_edition(original_edition, true, true)
+                        for k, v in pairs(original_stickers) do
+                            G.jokers.cards[i].ability[k] = v
+                        end
                     end
                     return true
                 end
