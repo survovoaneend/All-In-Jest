@@ -18,7 +18,8 @@ local the_yew = {
         if temp or SMODS.has_no_rank(card) or not card:get_id() then
             return false
         end
-        if not SMODS.has_no_rank(card) and
+        if card.area ~= G.jokers and
+            not SMODS.has_no_rank(card) and
             ((card:get_id() <= 10 and
             card:get_id() >= 0 and
             card:get_id()%2 == 1) or
@@ -27,29 +28,33 @@ local the_yew = {
         end
         return false
     end,
-    set_blind = function(self)
-        for _, card in pairs(G.playing_cards) do
-            if not SMODS.has_no_rank(card) and card:get_id() and
-                ((card:get_id() <= 10 and
-                card:get_id() >= 0 and
-                card:get_id()%2 == 1) or
-                (card:get_id() == 14)) then
-                SMODS.debuff_card(card, true, 'the_yew')
-            end
-        end
-    end,
+    -- set_blind = function(self)
+    --     local temp = G.GAME.blind and G.GAME.blind.disabled
+    --     if temp then
+    --         return false
+    --     end
+    --     for _, card in pairs(G.playing_cards) do
+    --         if not SMODS.has_no_rank(card) and card:get_id() and
+    --             ((card:get_id() <= 10 and
+    --             card:get_id() >= 0 and
+    --             card:get_id()%2 == 1) or
+    --             (card:get_id() == 14)) then
+    --             SMODS.debuff_card(card, true, 'the_yew')
+    --         end
+    --     end
+    -- end,
 
-    disable = function(self)
-        for _, card in pairs(G.playing_cards) do
-            SMODS.debuff_card(card, false, 'the_yew')
-        end
-    end,
+    -- disable = function(self)
+    --     for _, card in pairs(G.playing_cards) do
+    --         SMODS.debuff_card(card, false, 'the_yew')
+    --     end
+    -- end,
 
-    defeat = function(self)
-        for _, card in pairs(G.playing_cards) do
-            SMODS.debuff_card(card, false, 'the_yew')
-        end
-    end
+    -- defeat = function(self)
+    --     for _, card in pairs(G.playing_cards) do
+    --         SMODS.debuff_card(card, false, 'the_yew')
+    --     end
+    -- end
 
 }
 return { name = {"Blinds"}, items = {the_yew} }
