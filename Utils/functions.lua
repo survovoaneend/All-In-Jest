@@ -130,15 +130,17 @@ function retrieve_joker_text(joker, descip, name)
         text = text .. get_text(main)
         if text and type(text) == 'string' then text = string.gsub(text, "{.-}", "") end
     else
-        if not joker.ability_UIBox_table then -- Removing this check causes memory leaks
-            joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
-        end
-        local main = joker.ability_UIBox_table.main
-        text = text .. get_text(main)
-        local multi_box = joker.ability_UIBox_table.multi_box
-        if multi_box then
-            text = text .. " "
-            text = text .. get_text(multi_box)
+        if joker.generate_UIBox_ability_table then
+            if not joker.ability_UIBox_table then -- Removing this check causes memory leaks
+                joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
+            end
+            local main = joker.ability_UIBox_table.main
+            text = text .. get_text(main)
+            local multi_box = joker.ability_UIBox_table.multi_box
+            if multi_box then
+                text = text .. " "
+                text = text .. get_text(multi_box)
+            end
         end
     end
     return text
