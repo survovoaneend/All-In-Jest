@@ -654,8 +654,8 @@ return {
                 name = "The Field",
                 text = {
                     'All cards are',
-                    'debuffed until 10',
-                    'cards discarded'
+                    'debuffed until #1#',
+                    'cards are discarded'
                 },
             },
             bl_aij_the_wound = {
