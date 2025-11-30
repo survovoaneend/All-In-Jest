@@ -33,7 +33,7 @@ local auspicious_tag = {
                     no_materialize = true,
                     modify_card = function(card, center)
                       if card.config.center.discovered then
-                        if G.GAME.banned_keys[card.config.center.key] then
+                        if G.GAME.banned_keys[card.config.center.key] and not (type(G.GAME.banned_keys[card.config.center.key]) == "string" and G.GAME.banned_keys[card.config.center.key]:sub(1, 5) == "j_aij") then
                             card.debuff = true
                         else
                             local edition = { negative = true }

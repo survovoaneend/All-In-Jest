@@ -338,10 +338,22 @@ end
 G.FUNCS.jest_select = function(e)
     local c1 = e.config.ref_table
     if c1 and c1:is(Card) then
+      local card_was_banned = false
+      if G.GAME.banned_keys[c1.config.center_key] then
+          card_was_banned = true
+          -- If card was banned by an All in Jest joker, unban it temporarially
+          if type(G.GAME.banned_keys[c1.config.center_key]) == "string" and G.GAME.banned_keys[c1.config.center_key]:sub(1, 5) == "j_aij" then
+              card_was_banned = G.GAME.banned_keys[c1.config.center_key]
+              G.GAME.banned_keys[c1.config.center_key] = nil
+          end
+      end
       G.E_MANAGER:add_event(Event({
         trigger = 'after',
         func = function()
           local c_to_remove = nil
+          if G.GAME.banned_keys[c1.config.center_key] then
+             return true
+          end
           if e.config.data[2].remove_orginal and e.config.data[2].index then
             c_to_remove = e.config.data[2].remove_orginal[e.config.data[2].index]
           end 
@@ -401,6 +413,15 @@ G.FUNCS.jest_select = function(e)
               G.OVERLAY_MENU:remove()
               G.OVERLAY_MENU = nil
           end
+          
+          G.E_MANAGER:add_event(Event({
+            func = function()
+              if card_was_banned then
+                  G.GAME.banned_keys[c1.config.center_key] = card_was_banned
+              end
+              return true
+            end
+          }))
           return true
         end
       }))
