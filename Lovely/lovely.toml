@@ -2440,7 +2440,7 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "if self.states.focus.is and not self.children.focused_ui then" # Find a line inside Card:hover() before the tooltip logic
+pattern = "if self.facing == 'front' and (not self.states.drag.is or G.CONTROLLER.HID.touch)*" # Find a line inside Card:hover() before the tooltip logic
 position = "before"
 match_indent = true
 payload = '''
