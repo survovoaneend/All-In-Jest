@@ -357,6 +357,7 @@ G.FUNCS.jest_select = function(e)
           if e.config.data[2].remove_orginal and e.config.data[2].index then
             c_to_remove = e.config.data[2].remove_orginal[e.config.data[2].index]
           end 
+          G.SETTINGS.paused = false
           if e.config.data[2].copies and e.config.data[2].copies > 1 then
               for i = 1, e.config.data[2].copies do
                   local card = SMODS.add_card {
@@ -408,7 +409,6 @@ G.FUNCS.jest_select = function(e)
             c_to_remove:remove()
             c_to_remove = nil
           end 
-          G.SETTINGS.paused = false
           if G.OVERLAY_MENU ~= nil then
               G.OVERLAY_MENU:remove()
               G.OVERLAY_MENU = nil
