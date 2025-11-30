@@ -25,10 +25,10 @@ local jumbo_joker = {
   
     add_to_deck = function(self, card, from_debuff)
         if #SMODS.find_card("j_aij_jumbo_joker") <= 0 then
-            for k, joker in pairs(G.P_CENTER_POOLS['Booster']) do
-                if joker.set == 'Booster' and not (joker.name:find('Mega') or joker.name:find('Jumbo') or joker.key:find('mega') or joker.key:find('jumbo')) then 
-                    G.GAME.banned_keys[joker.key] = true
-                    table.insert(card.ability.extra.banned_cards, joker.key)
+            for _, booster in ipairs(G.P_CENTER_POOLS['Booster']) do
+                if not G.GAME.banned_keys[booster.key] and booster.set == 'Booster' and not (booster.name:find('Mega') or booster.name:find('Jumbo') or booster.key:find('mega') or booster.key:find('jumbo')) then
+                    G.GAME.banned_keys[booster.key] = true
+                    table.insert(card.ability.extra.banned_cards, booster.key)
                 end
             end
         end
