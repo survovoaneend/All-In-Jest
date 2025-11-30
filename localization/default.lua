@@ -4300,6 +4300,15 @@ return {
                     "{C:inactive}eternal){}"
                 }
             },
+            c_aij_trefle_controller = {
+                name = 'Trèfle',
+                text = {
+                    '{C:attention}Reroll{} the',
+                    '{C:attention}rightmost{} Joker',
+                    "{C:inactive}(Cannot be{}",
+                    "{C:inactive}eternal){}"
+                }
+            },
             c_aij_scopophobia = {
                 name = 'Scopophobia',
                 text = {
@@ -4724,6 +4733,15 @@ return {
                 name = 'Osiris',
                 text = {
                     "{C:red}Destroy{} {C:attention}1{} selected",
+                    "Joker and earn triple",
+                    "its {C:money}sell value",
+                    "{C:inactive}(Currently{} {C:money}$#1#{}{C:inactive}){}"
+                }
+            },
+            c_aij_osiris_controller = {
+                name = 'Osiris',
+                text = {
+                    "{C:red}Destroy{} the {C:attention}rightmost{}",
                     "Joker and earn triple",
                     "its {C:money}sell value",
                     "{C:inactive}(Currently{} {C:money}$#1#{}{C:inactive}){}"

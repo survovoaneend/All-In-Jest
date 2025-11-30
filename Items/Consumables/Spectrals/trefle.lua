@@ -1,30 +1,51 @@
 local trefle_spectral = {
-    object_type = "Consumable",
-    key = 'trefle',
-    set = 'Spectral',
-    pos = { x = 1, y = 4 },
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    order = 0.5,
-    config = {},
-    atlas = 'consumable_atlas',
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = { set = 'Other', key = 'reroll_joker' }
-    end,
-    can_use = function(self, card)
-        if G.jokers.highlighted and (#G.jokers.highlighted == 1) and G.jokers.highlighted[1] and not G.jokers.highlighted[1].ability["eternal"] then
-            local target = G.jokers.highlighted[1]
-            if target.ability.set == 'Joker' and not target.ability.eternal and target.area == G.jokers then
-                return true
-            end
-        end
-        return false
-    end,
-    
-    use = function(self, card, area, copier)
-        All_in_Jest.reroll_joker(G.jokers.highlighted[1], nil, 'trefle')
-        return true 
+  object_type = "Consumable",
+  key = 'trefle',
+  set = 'Spectral',
+  pos = { x = 1, y = 4 },
+  cost = 4,
+  unlocked = true,
+  discovered = false,
+  order = 0.5,
+  config = {},
+  atlas = 'consumable_atlas',
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = { set = 'Other', key = 'reroll_joker' }
+    return { key = G.CONTROLLER.HID.controller and "c_aij_trefle_controller" or "c_aij_trefle" }
+  end,
+  can_use = function(self, card, area, copier)
+    local victim_card = nil
+
+    -- If controller is used, will select the rightmost joker
+    -- Otherwise, will select the highlighted joker
+    -- Done this way as you cannot highlight jokers with a controller
+    if G.CONTROLLER.HID.controller then
+      if G.jokers and (#G.jokers.cards >= 1) and G.jokers.cards[#G.jokers.cards] then
+        victim_card = G.jokers.cards[#G.jokers.cards]
+      end
+    else
+      if G.jokers and (#G.jokers.highlighted == 1) and G.jokers.highlighted[1] then
+        victim_card = G.jokers.highlighted[1]
+      end
     end
+    return victim_card and not SMODS.is_eternal(victim_card, card)
+  end,
+
+  use = function(self, card, area, copier)
+    local victim_card = nil
+    if G.CONTROLLER.HID.controller then
+      if G.jokers and (#G.jokers.cards >= 1) and G.jokers.cards[#G.jokers.cards] then
+        victim_card = G.jokers.cards[#G.jokers.cards]
+      end
+    else
+      if G.jokers and (#G.jokers.highlighted == 1) and G.jokers.highlighted[1] then
+        victim_card = G.jokers.highlighted[1]
+      end
+    end
+    if victim_card then
+      All_in_Jest.reroll_joker(victim_card, nil, 'trefle')
+    end
+    return true
+  end
 }
 return { name = { "Spectrals" }, items = { trefle_spectral } }
