@@ -654,8 +654,8 @@ return {
                 name = "The Field",
                 text = {
                     'All cards are',
-                    'debuffed until 10',
-                    'cards discarded'
+                    'debuffed until #1#',
+                    'cards are discarded'
                 },
             },
             bl_aij_the_wound = {
@@ -3527,8 +3527,8 @@ return {
                 name = "Historian", 
                 text = {
                     "Adds {C:mult}Mult{} equal to",
-                    "{C:attention}triple{} the {C:money}Sell Value{}",
-                    "last sold Joker",
+                    "{C:attention}triple{} the {C:money}Sell Value{} of",
+                    "the last sold Joker",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 } 
             },
@@ -4300,6 +4300,15 @@ return {
                     "{C:inactive}eternal){}"
                 }
             },
+            c_aij_trefle_controller = {
+                name = 'Trèfle',
+                text = {
+                    '{C:attention}Reroll{} the',
+                    '{C:attention}rightmost{} Joker',
+                    "{C:inactive}(Cannot be{}",
+                    "{C:inactive}eternal){}"
+                }
+            },
             c_aij_scopophobia = {
                 name = 'Scopophobia',
                 text = {
@@ -4398,7 +4407,7 @@ return {
                 name = 'Overstuffed Tag',
                 text = {
                     "Next {C:attention}Booster Pack{} opened",
-                    "contains twice the number of",
+                    "contains {C:attention}twice{} the number of",
                     "options and available picks"
                 }
             },
@@ -4511,15 +4520,15 @@ return {
             tag_aij_ticket = {
                 name = 'Ticket Tag',
                 text = {
-                    'Redeem a random',
+                    '{C:attention}Redeem{} a random',
                     'Voucher and its',
-                    'upgraded version'
+                    '{C:attention}upgraded{} version'
                 }
             },
             tag_aij_galloping_domino = {
                 name = 'Galloping Domino Tag',
                 text = {
-                    'All rerolls cost',
+                    '{C:attention}All{} rerolls cost',
                     '{C:money}$#1#{} next shop'
                     -- TODO Needs a limit due to effectively quadratic
                     -- money scaling
@@ -4543,7 +4552,7 @@ return {
             tag_aij_frugal = {
                 name = 'Frugal Tag',
                 text = {
-                    'All cards and',
+                    '{C:attention}All{} cards and',
                     'booster packs in next',
                     'shop are free',
                 }
@@ -4551,9 +4560,8 @@ return {
             tag_aij_dominus = {
                 name = 'Dominus Tag',
                 text = {
-                    'Disable the {C:attention}Boss Blind{}',
-                    'and set its score',
-                    'requirement to {C:attention}1X{} Base'
+                    'Choose {C:attention}any Boss Blind{} to',
+                    'replace the current one'
                 }
             },
             tag_aij_nonstandard = {
@@ -4617,8 +4625,8 @@ return {
                 name = 'Ventripotent Tag',
                 text = {
                     "Next {C:attention}Booster Pack{} opened",
-                    "contains twice the number of",
-                    "options and unlimited picks"
+                    "contains {C:attention}twice{} the number of",
+                    "options and {C:attention}unlimited{} picks"
                 }
             },
             tag_aij_timelost = {
@@ -4633,7 +4641,8 @@ return {
                 name = 'Auspicious Tag',
                 text = {
                     'Create {C:attention}3{} {C:dark_edition}Negative copies',
-                    'of a {C:tarot}Tarot{} card {C:attention}of your choice',
+                    'of a {C:tarot}Tarot{} card',
+                    '{C:attention}of your choice'
                 }
             },
             tag_aij_glamour = {
@@ -4724,6 +4733,15 @@ return {
                 name = 'Osiris',
                 text = {
                     "{C:red}Destroy{} {C:attention}1{} selected",
+                    "Joker and earn triple",
+                    "its {C:money}sell value",
+                    "{C:inactive}(Currently{} {C:money}$#1#{}{C:inactive}){}"
+                }
+            },
+            c_aij_osiris_controller = {
+                name = 'Osiris',
+                text = {
+                    "{C:red}Destroy{} the {C:attention}rightmost{}",
                     "Joker and earn triple",
                     "its {C:money}sell value",
                     "{C:inactive}(Currently{} {C:money}$#1#{}{C:inactive}){}"

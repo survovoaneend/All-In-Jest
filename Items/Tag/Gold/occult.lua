@@ -21,11 +21,12 @@ local occult_tag = {
   apply = function(self, tag, context)
     if context.type == 'immediate' then
       tag:jest_apply("+", G.C.ATTENTION, function()
-          create_consumable("Tarot", nil, nil, { edition = { negative = true } }, nil, nil, true)
+          create_consumable("Tarot", nil, nil, { edition = { negative = true } }, nil, nil, true, true)
           for i = 1, 2 do
-            create_consumable("Tarot", nil, nil, { edition = { negative = true } }, nil, nil, true)
-            create_consumable("Spectral", nil, nil, { edition = { negative = true } }, nil, nil, true)
+            create_consumable("Tarot", nil, nil, { edition = { negative = true } }, nil, nil, true, true)
+            create_consumable("Spectral", nil, nil, { edition = { negative = true } }, nil, nil, true, true)
           end
+          play_sound('negative', 1.5, 0.4)
           return true
         end,
         function()

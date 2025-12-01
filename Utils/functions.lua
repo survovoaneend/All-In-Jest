@@ -130,15 +130,17 @@ function retrieve_joker_text(joker, descip, name)
         text = text .. get_text(main)
         if text and type(text) == 'string' then text = string.gsub(text, "{.-}", "") end
     else
-        if not joker.ability_UIBox_table then -- Removing this check causes memory leaks
-            joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
-        end
-        local main = joker.ability_UIBox_table.main
-        text = text .. get_text(main)
-        local multi_box = joker.ability_UIBox_table.multi_box
-        if multi_box then
-            text = text .. " "
-            text = text .. get_text(multi_box)
+        if joker.generate_UIBox_ability_table then
+            if not joker.ability_UIBox_table then -- Removing this check causes memory leaks
+                joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
+            end
+            local main = joker.ability_UIBox_table.main
+            text = text .. get_text(main)
+            local multi_box = joker.ability_UIBox_table.multi_box
+            if multi_box then
+                text = text .. " "
+                text = text .. get_text(multi_box)
+            end
         end
     end
     return text
@@ -1151,7 +1153,7 @@ function Tag:jest_apply(message, _colour, func, statement) -- Play on words just
 end
 
 -- Some of my personal functions i use in my projects
-function create_consumable(card_type,tag,message,extra, thing1, thing2, immediate)
+function create_consumable(card_type,tag,message,extra, thing1, thing2, immediate, silent)
     extra=extra or {}
 
     local event_alias
@@ -1174,7 +1176,7 @@ function create_consumable(card_type,tag,message,extra, thing1, thing2, immediat
                 local card = create_card(card_type,G.consumeables, nil, nil, thing1, thing2, extra.forced_key or nil, tag)
                 card:add_to_deck()
                 if extra.edition~=nil then
-                    card:set_edition(extra.edition,true,false)
+                    card:set_edition(extra.edition,true,silent)
                 end
                 if extra.eternal~=nil then
                     card.ability.eternal=extra.eternal

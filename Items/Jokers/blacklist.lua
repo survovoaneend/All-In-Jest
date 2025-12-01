@@ -45,7 +45,7 @@ local blacklist = {
     end,
   
     calculate = function(self, card, context)
-        if context.jest_destroying_or_selling_joker and not context.jest_destroying_card then 
+        if context.jest_destroying_or_selling_joker and not context.jest_destroying_card and not not G.GAME.banned_keys[context.jest_destroyed_joker.config.center_key] then 
 		        G.GAME.banned_keys[context.jest_destroyed_joker.config.center_key] = true
             table.insert(card.ability.extra.banned_cards, context.jest_destroyed_joker.config.center_key)
         end
@@ -53,7 +53,9 @@ local blacklist = {
 
     add_to_deck = function (self, card, from_debuff)
         for _, key in ipairs(card.ability.extra.banned_cards) do
-            G.GAME.banned_keys[key] = true
+            if not G.GAME.banned_keys[key] then
+                G.GAME.banned_keys[key] = true
+            end
         end
     end,
     remove_from_deck = function(self, card, from_debuff)

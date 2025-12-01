@@ -47,13 +47,49 @@ local the_brilliance = {
             return
         end
         if context.all_in_jest and context.all_in_jest.before_after and not temp then
-            if G.GAME.blind.ability and (context.total_chips + G.GAME.chips >= G.GAME.blind.chips) and not G.GAME.blind.ability.extra.score_met then 
+            if G.GAME.blind.ability and (context.total_chips + G.GAME.chips >= G.GAME.blind.chips) and not G.GAME.blind.ability.extra.score_met then
+                blind.triggered = true
+                -- G.GAME.all_in_jest.reset_score.blind_total = true
+            end
+        end
+        if context.after and not temp then
+            if blind.triggered and G.GAME.blind.ability and not G.GAME.blind.ability.extra.score_met then 
                 G.E_MANAGER:add_event(Event({
-                    trigger = 'after',delay = 0.4,
-                    func = (function()  update_hand_text({delay = 0}, {mult = 0, chips = 0, chip_total = 0, level = '', handname = "Again!"});play_sound('button', 0.9, 0.6);return true end)
+                  trigger = 'ease',
+                  blocking = false,
+                  ref_table = G.GAME,
+                  ref_value = 'chips',
+                  ease_to = 0,
+                  delay =  0.5,
+                  func = (function(t) return math.floor(t) end)
                 }))
-                G.GAME.all_in_jest.reset_score.blind_total = true
+                -- SMODS.displayed_hand = nil
+                G.E_MANAGER:add_event(Event({
+                  trigger = 'immediate',
+                  func = (function()
+                    blind:wiggle()
+                    G.E_MANAGER:add_event(Event({
+                      trigger = 'after',
+                      delay = 0.06 * G.SETTINGS.GAMESPEED,
+                      blockable = false,
+                      blocking = false,
+                      func = function()
+                        play_sound('tarot2', 0.76, 0.4); return true
+                      end
+                    }))
+                    play_sound('tarot2', 1, 0.4)
+                    return true
+                  end)
+                }))
+
+                play_area_status_text(localize('k_again_ex'))
+                -- G.E_MANAGER:add_event(Event({
+                --     trigger = 'after',delay = 0.4,
+                --     func = (function()  update_hand_text({delay = 0}, {mult = 0, chips = 0, chip_total = 0, level = '', handname = "Again!"});play_sound('button', 0.9, 0.6);return true end)
+                -- }))
+                
                 G.GAME.blind.ability.extra.score_met = true
+                blind.triggered = false
             end
         end
     end
