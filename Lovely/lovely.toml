@@ -2328,7 +2328,7 @@ position = "before"
 payload = '''
 has_blind_drawn and _reward and {n=G.UIT.R, config={align = "cm"}, nodes={
     {n=G.UIT.T, config={text = localize('ph_blind_reward'), scale = 0.35, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE, shadow = not disabled}},
-    {n=G.UIT.T, config={text = "???+", scale = 0.35, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.MONEY, shadow = not disabled}}
+    {n=G.UIT.T, config={text = "???", scale = 0.35, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.MONEY, shadow = not disabled}}
 }} or
 '''
 match_indent = true
