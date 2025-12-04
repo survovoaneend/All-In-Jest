@@ -503,18 +503,6 @@ end
 '''
 match_indent = true
 
-[[patches]] 
-[patches.pattern]
-target = "functions/button_callbacks.lua"
-pattern = "elseif e.config.id ~= 'buy_and_use' then"
-position = "before"
-payload = '''
-elseif c1.ability.set == 'Tag' then
-    local temptag = c1.config.tag
-    add_tag(temptag)
-    c1:remove()
-'''
-match_indent = true
 
 [[patches]] 
 [patches.pattern]
@@ -1641,23 +1629,6 @@ if card and card.ability and card.ability.patches then
             info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {SMODS.Suits[k].original_key, colours = {SMODS.Suits[k].lc_colour}}}
         end
     end
-end
-'''
-
-# Proper Shop Tag Text Generation
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "return generate_card_ui(self.config.center, nil, loc_vars, card_type, badges, hide_desc, main_start, main_end, self)"
-position = "before"
-match_indent = true
-payload = '''
-if self.ability.is_aij_shop_tag then 
-    local name_to_check, alt_loc_vars = self.name, nil
-    if name_to_check == 'Orbital Tag' then alt_loc_vars = {
-        (self.ability.orbital_hand == '['..localize('k_poker_hand')..']') and self.ability.orbital_hand or localize(self.ability.orbital_hand, 'poker_hands'), self.ability.levels}
-    end
-    return generate_card_ui(G.P_TAGS[self.config.center.key], nil, alt_loc_vars or loc_vars, (self.hide_ability) and 'Undiscovered' or 'Tag', badges, (self.hide_ability), nil, nil, self) 
 end
 '''
 
@@ -2880,39 +2851,6 @@ if target.vars.aij_joker_png then card = target.vars.aij_joker_png; target.vars.
 if target.vars.aij_czar then card = target.vars.aij_czar; target.vars.aij_czar = nil end -- All in Jest
 '''
 
-## Correctly load tags in shop as cards
-# Card:load()
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-pattern = 'self.config.center = G.P_CENTERS[self.config.center_key]'
-position = "after"
-match_indent = true
-payload = '''
-if cardTable.aij and cardTable.aij.tag then
-    self.config.tag = Tag('tag_uncommon')
-    self.config.tag:load(cardTable.aij.tag)
-    self.config.tag.from_load = nil
-    self.config.center_key = self.config.tag.key
-    self.config.center = G.P_TAGS[self.config.tag.key]
-
-    self.config.center.set_card_type_badge = function(self, card, badges)
-        badges[#badges+1] = create_badge(localize('k_tag'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2 )
-    end
-end
-'''
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-pattern = 'if self.config.center.display_size and self.config.center.display_size.h then'
-position = "before"
-match_indent = true
-payload = '''
-if cardTable.aij and cardTable.aij.tag then
-    self.T.w, self.T.h = G.CARD_W*0.7, G.CARD_W*0.7
-end
-'''
-
 # Save ability table of bosses
 [[patches]]
 [patches.pattern]
@@ -3037,3 +2975,166 @@ target = 'functions/button_callbacks.lua'
 pattern = " if card\\.ability\\.set == 'Voucher' (.*)"
 position = 'at'
 payload = " if card.ability.set == 'Voucher' and G.shop $1"
+
+
+################################# Patches related to tags in shops #################################
+
+# G.UIDEF.shop
+# Add a new card area to the shop for selling tags
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "local shop_sign = *"
+position = 'before'
+match_indent = true
+payload = '''
+G.shop_aij_tags = CardArea(
+    G.hand.T.x+0,
+    G.hand.T.y+G.ROOM.T.y + 9,
+    0.8,
+    1.15*G.CARD_H, 
+    {card_limit = 2, type = 'shop', highlight_limit = 1, card_w = 0.8})
+
+if All_in_Jest.show_shop_aij_tags() then
+    G.shop_vouchers.T.w = G.shop_vouchers.T.w - G.shop_aij_tags.T.w - 0.15 -- The 0.15 accounts for padding
+end
+
+'''
+# G.UIDEF.deck_preview
+# Only make the tag area in the shop appear if any tags are for sale
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''{n=G.UIT.C, config={align = "cm", padding = 0.15, r=0.2, colour = G.C.L_BLACK, emboss = 0.05}, nodes={
+  {n=G.UIT.O, config={object = G.shop_booster}},
+}},'''
+position = 'after'
+match_indent = true
+payload = '''
+All_in_Jest.show_shop_aij_tags() and {n=G.UIT.C, config={align = "cm", padding = 0.15, r=0.2, colour = G.C.L_BLACK, emboss = 0.05}, nodes={
+  {n=G.UIT.O, config={object = G.shop_aij_tags}},
+}} or nil,
+'''
+# G.UIDEF.card_focus_ui
+# Make tags purchaseable via controller
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''if card.area == G.shop_booster and G.shop_booster*'''
+position = 'before'
+match_indent = true
+payload = '''
+if card.area == G.shop_aij_tags and G.shop_aij_tags then
+    base_attach.children.buy = G.UIDEF.card_focus_button{
+        card = card, parent = base_attach, type = 'buy',
+        func = 'can_buy', button = 'buy_from_shop', card_width = card_width * 2
+    }
+end
+'''
+# Card:load()
+## Correctly load tags in shop as cards
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'self.config.center = G.P_CENTERS[self.config.center_key]'
+position = "after"
+match_indent = true
+payload = '''
+if cardTable.aij and cardTable.aij.tag then
+    self.config.tag = Tag('tag_uncommon')
+    self.config.tag:load(cardTable.aij.tag)
+    self.config.tag.from_load = nil
+    self.config.center_key = self.config.tag.key
+    self.config.center = G.P_TAGS[self.config.tag.key]
+    self.config.center.atlas = self.config.center.atlas or "tags"
+
+    self.config.center.set_card_type_badge = function(self, card, badges)
+        badges[#badges+1] = create_badge(localize('k_tag'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2 )
+    end
+end
+'''
+# Card:load
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'if self.config.center.display_size and self.config.center.display_size.h then'
+position = "before"
+match_indent = true
+payload = '''
+if cardTable.aij and cardTable.aij.tag then
+    self.T.w, self.T.h = 0.8, 0.8
+end
+'''
+# Game:update_shop
+# Make shop tags re-appear on game reload
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''if G.load_shop_booster then '''
+position = 'before'
+match_indent = true
+payload = '''if G.load_shop_aij_tags then 
+    nosave_shop = true
+    G.shop_aij_tags:load(G.load_shop_aij_tags)
+    for k, v in ipairs(G.shop_aij_tags.cards) do
+        create_shop_card_ui(v, 'Tag', G.shop_aij_tags)
+        v:start_materialize()
+    end
+    G.load_shop_aij_tags = nil
+end
+
+'''
+# Card:generate_UIBox_ability_table
+# Proper Shop Tag Text Generation
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "return generate_card_ui(self.config.center, nil, loc_vars, card_type, badges, hide_desc, main_start, main_end, self)"
+position = "before"
+match_indent = true
+payload = '''
+if self.ability.is_aij_shop_tag then 
+    local name_to_check, alt_loc_vars = self.name, nil
+    if name_to_check == 'Orbital Tag' then alt_loc_vars = {
+        (self.ability.orbital_hand == '['..localize('k_poker_hand')..']') and self.ability.orbital_hand or localize(self.ability.orbital_hand, 'poker_hands'), self.ability.levels}
+    end
+    return generate_card_ui(G.P_TAGS[self.config.center.key], nil, alt_loc_vars or loc_vars, (self.hide_ability) and 'Undiscovered' or 'Tag', badges, (self.hide_ability), nil, nil, self) 
+end
+'''
+# Tag:get_uibox_table
+# Make skip tag show correctly in the shop (by default it adds one to the tag, now it won't do so if in shop/pack)
+[[patches]]
+[patches.regex]
+target = "tag.lua"
+pattern = '''elseif name_to_check == 'Skip Tag' then loc_vars = \{self\.config\.skip_bonus, self\.config\.skip_bonus\*\(\(G\.GAME\.skips or 0\)\+(.*?)\)\}'''
+position = "at"
+payload = '''
+elseif name_to_check == 'Skip Tag' then loc_vars = {self.config.skip_bonus, self.config.skip_bonus*((G.GAME.skips or 0)+(self.ability.as_card and 0 or $1))}
+'''
+# G.FUNCS.buy_from_shop
+# Add tag when purchases and immediately trigger it if applicable
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "elseif e.config.id ~= 'buy_and_use' then"
+position = "before"
+payload = '''
+elseif c1.ability.set == 'Tag' then
+    local temptag = c1.config.tag
+    add_tag(temptag)
+    c1:remove()
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            for i = 1, #G.GAME.tags do
+              G.GAME.tags[i]:apply_to_run({type = 'immediate'})
+            end
+            for i = 1, #G.GAME.tags do
+              if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
+            end
+            return true
+        end
+    })) 
+'''
+match_indent = true
+
+################################# End of shop tag patches #################################
