@@ -25,8 +25,8 @@ local the_rains = {
         end
 
         if context.before and G.hand.cards and not temp then
-            for _, v in pairs(G.hand.cards) do
-                if G.play.cards[i].config.center ~= G.P_CENTERS.c_base then
+            for i = 1, #G.play.cards do
+                if G.play.cards[i].config.center ~= G.P_CENTERS.c_base or G.play.cards[i].edition ~= nil or G.play.cards[i].seal ~= nil  then
                     blind.triggered = true
                     break
                 end
@@ -44,16 +44,22 @@ local the_rains = {
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     func = (function() 
-                        play_sound("tarot2")
+                        local removed_edition = false
+                        blind:wiggle()
                         for i = 1, #G.play.cards do
                             G.play.cards[i]:set_seal(nil, nil, true)
-                            G.play.cards[i]:set_edition(nil, true)
+                            if G.play.cards[i].edition ~= nil then
+                                removed_edition = true
+                            end
+                            G.play.cards[i]:set_edition(nil, true, true)
                             G.play.cards[i]:juice_up()
+                        end
+                        if removed_edition then
+                            play_sound('whoosh2', 1.2, 0.6)
                         end
                         return true
                     end)
                 }))
-                blind:wiggle()
                 blind.triggered = false
             end
         end

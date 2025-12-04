@@ -2,17 +2,17 @@
 
 local handsome_joker_calc_mult = function(xmult_mod)
     local handsome_card = G.GAME.current_round.jest_handsome_joker_card
-    local mult = 0
+    local matching_cards = 0
     if G.playing_cards then
         for _, deck_card in ipairs(G.playing_cards) do
             if deck_card:get_id() == handsome_card.id then
                     if SMODS.has_enhancement(deck_card, handsome_card.enhancement) then
-                        mult = mult + 1
+                        matching_cards = matching_cards + 1
                     end
             end
         end
     end
-    return (mult < 1 and 1) or mult * xmult_mod
+    return (matching_cards < 1 and 1) or (1 + matching_cards * xmult_mod)
 end
 
 local handsome_joker = {
@@ -58,7 +58,7 @@ local handsome_joker = {
     end,
 
     calculate = function(self, card, context)
-        local xmult = 1 + handsome_joker_calc_mult(card.ability.extra.xmult_mod)
+        local xmult = handsome_joker_calc_mult(card.ability.extra.xmult_mod)
         if context.joker_main then
             return {
                 xmult = xmult,
