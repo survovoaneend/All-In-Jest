@@ -28,12 +28,14 @@ local ijoker_co = {
     calculate = function(self, card, context)
         if context.starting_shop then
             for i = 1, card.ability.extra.tags do
-                local price = pseudorandom('aij_ijoker_co', 5, 10)
                 local tag = get_next_tag_key()
+                local is_gold = G.P_TAGS[tag].config.aij and G.P_TAGS[tag].config.aij.upgrade
+                local price = is_gold and pseudorandom('aij_ijoker_co', 12, 16) or pseudorandom('aij_ijoker_co', 5, 10)
                 All_in_Jest.add_tag_to_shop(tag, price)
             end
         end
     end
   
 }
+
 return { name = {"Jokers"}, items = {ijoker_co} }

@@ -57,7 +57,8 @@ return {
             k_aij_blood_spilt_ex = 'Blood Spilt!',
             k_aij_double_ex = 'Doubled!',
             k_aij_triple_ex = 'Tripled!',
-            k_aij_chaos_ex = 'Chaos!'
+            k_aij_chaos_ex = 'Chaos!',
+            k_aij_two_into_one_ex = 'Two into one!'
 
         },
         v_dictionary = {
@@ -245,8 +246,9 @@ return {
             pnr_aij_nellie = {
                 name = "Nellie",
                 text = {
-                    "{C:dark_edition}Negative{} Jokers are",
-                    "{C:attention}#1#X{} more common",
+                    "{C:dark_edition}Negative{} Jokers appear",
+                    "{C:attention}+#1#%{} more often",
+                    "{C:inactive}(Compared to the base rate){}"
                 },
                 unlock={
                     "Win a run with",
@@ -703,7 +705,8 @@ return {
                 name = "The Child",
                 text = {
                     'Reduce the rank of all',
-                    'scoring cards by 1'
+                    'scoring cards by 1',
+                    'after each hand played'
                 },
             },
             bl_aij_the_moon = {
@@ -1146,8 +1149,9 @@ return {
             j_aij_negative_nancy = {
                 name = "Negative Nancy",
                 text = {
-                    "{C:dark_edition}Negative{} Jokers appear {C:attention}#1#X{}",
-                    "more often in the {C:attention}Shop{}"
+                    "{C:dark_edition}Negative{} Jokers appear",
+                    "{C:attention}+#1#%{} more often",
+                    "{C:inactive}(Compared to the base rate){}"
                 },
             },
             j_aij_old_joker = { 
@@ -3148,9 +3152,9 @@ return {
                 name = "Lexicon", 
                 text = { 
                     "Adds {C:mult}Mult{} equal to the",
-                    "{C:attention}sum{} of all digits",
-                    "in the values of",
-                    "owned {C:attention}Jokers" ,
+                    "{C:attention}combined sum{} of all",
+                    "digits present on each",
+                    "owned {C:attention}Joker" ,
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 } 
             },
@@ -3212,7 +3216,7 @@ return {
                     "When {C:attention}Small Blind{} or {C:attention}Big Blind",
                     "is selected, this Joker",
                     "{C:red}destroys{} all {C:planet}Planet Cards{}",
-                    "in your {C:attention}consumable{} area and",
+                    "in your possession and",
                     "gains their {C:chips}Chips{} and {C:mult}Mult{}",
                     "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#2#{} {C:inactive,s:0.8}Chips, {C:mult,s:0.8}+#1#{C:inactive,s:0.8} Mult)"
                 } 

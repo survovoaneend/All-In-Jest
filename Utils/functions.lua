@@ -1325,43 +1325,42 @@ function All_in_Jest.has_suit_in_deck(suit, ignore_wild)
 end
 
 function All_in_Jest.add_tag_to_shop(key, price)
-    local center = G.P_TAGS[key]
-    center.atlas = center.atlas or 'tags'
-    local card = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
-    G.shop_booster.T.y, G.CARD_W*0.7, G.CARD_W*0.7, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
-    create_shop_card_ui(card, 'Tag', G.shop_booster)
-    for k, v in pairs(center.config) do
-        card.config[k] = v
-    end
-    card.ability.booster_pos = #G.shop_booster.cards + 1
-    card.ability.is_aij_shop_tag = true
-    local pool = options or get_current_pool('Tag')
-    local tag_key = key
-    local tag = Tag(tag_key)
-    if tag_key == "tag_orbital" then
-        local available_hands = {}
+  local center = G.P_TAGS[key]
+  center.atlas = center.atlas or 'tags'
+  local card = Card(G.shop_aij_tags.T.x, G.shop_aij_tags.T.y, 0.8, 0.8, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
+  for k, v in pairs(center.config) do
+    card.config[k] = v
+  end
+  card.ability.booster_pos = #G.shop_aij_tags.cards + 1
+  card.ability.is_aij_shop_tag = true
+  local pool = options or get_current_pool('Tag')
+  local tag_key = key
+  local tag = Tag(tag_key)
+  if tag_key == "tag_orbital" then
+    local available_hands = {}
 
-        for _, k in ipairs(G.handlist) do
-          local hand = G.GAME.hands[k]
-          if hand.visible then
-            available_hands[#available_hands + 1] = k
-          end
-        end
-
-        tag.ability.orbital_hand = pseudorandom_element(available_hands, pseudoseed(card.ability.booster_pos .. '_orbital'))
-        card.ability.orbital_hand = tag.ability.orbital_hand
+    for _, k in ipairs(G.handlist) do
+      local hand = G.GAME.hands[k]
+      if hand.visible then
+        available_hands[#available_hands + 1] = k
+      end
     end
-    card.config.tag = tag
-    card.name = card.config.tag.name
-    card:start_materialize()
-    card.edition = nil
-    card.base_cost = price or 1
-    card:set_cost()
-    card.config.center.set_card_type_badge = function(self, card, badges)
-		badges[#badges+1] = create_badge(localize('k_tag'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2 )
-	end
-    G.shop_booster:emplace(card)
-    return card
+
+    tag.ability.orbital_hand = pseudorandom_element(available_hands, pseudoseed(card.ability.booster_pos .. '_orbital'))
+    card.ability.orbital_hand = tag.ability.orbital_hand
+  end
+  card.config.tag = tag
+  card.name = card.config.tag.name
+  card:start_materialize()
+  card.edition = nil
+  card.base_cost = price or 1
+  card:set_cost()
+  card.config.center.set_card_type_badge = function(self, card, badges)
+    badges[#badges+1] = create_badge(localize('k_tag'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2 )
+  end
+  create_shop_card_ui(card, 'Tag', G.shop_aij_tags)
+  G.shop_aij_tags:emplace(card)
+  return card
 end
 
 function All_in_Jest.is_food(card)
@@ -1809,4 +1808,9 @@ G.FUNCS.aij_hover_tag_branching = function(e)
         e.alert:remove()
         e.alert = nil
     end
+end
+
+-- Function that defines when the tag area in the shop should appear (or not)
+All_in_Jest.show_shop_aij_tags = function(e)
+    return next(SMODS.find_card("j_aij_ijoker_co")) or next(SMODS.find_card("j_aij_death_of_a_salesman"))
 end

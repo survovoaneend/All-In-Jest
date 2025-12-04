@@ -89,6 +89,7 @@ local chaos = {
             par.config.object:recalculate()
             G.blind_select_opts.boss.parent = par
             G.blind_select_opts.boss.alignment.offset.y = 0
+            play_sound('other1')
           elseif effect == "open_booster" then
             local boosters = {}
             for k, v in pairs(G.P_CENTERS) do
