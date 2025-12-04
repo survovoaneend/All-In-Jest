@@ -3138,3 +3138,14 @@ elseif c1.ability.set == 'Tag' then
 match_indent = true
 
 ################################# End of shop tag patches #################################
+
+
+# CardArea:update
+# Lets multiple cards be forced selected
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = "if v.ability.forced_selection and not self.highlighted[1] then "
+position = "at"
+match_indent = true
+payload = 'if v.ability.forced_selection and not v.highlighted then '
