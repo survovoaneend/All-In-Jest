@@ -1532,6 +1532,7 @@ function All_in_Jest.set_debuff(card)
 	end
 end
 
+-- Should this have an option to check suits in the pool rather then suits that are in the deck?
 function All_in_Jest.get_suits(type, base)
     local suits = {}
 	for k, v in pairs(G.playing_cards) do

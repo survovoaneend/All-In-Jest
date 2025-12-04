@@ -28,7 +28,7 @@ local morio = {
                 G.E_MANAGER:add_event(Event({
                     func = function() 
                         G.SETTINGS.paused = true
-				        G.FUNCS.overlay_menu{
+				                G.FUNCS.overlay_menu{
                             config = {no_esc = true},
                             definition = SMODS.jest_no_back_card_collection_UIBox(
                                 G.P_CENTER_POOLS.Tarot, 

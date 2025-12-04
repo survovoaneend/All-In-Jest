@@ -1847,7 +1847,7 @@ if self.seal == 'Purple' then
     aij_purple_seal_is_negative = ret.aij_grim_joker_bluepurple_seal_negative_mod
 end
 -- End All in Jest patch
-if self.seal == 'Purple' and (aij_purple_seal_is_negative or #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit) $post
+if self.seal == 'Purple' and (aij_purple_seal_is_negative or (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit)) $post
 '''
 # The Grim Joker (Purple Seals) (2/3)
 # Undo buffer change so that non-negative consumables aren't prevented from spawning
@@ -1901,7 +1901,7 @@ if self.seal == 'Blue' then
     aij_blue_seal_is_negative = ret.aij_grim_joker_bluepurple_seal_negative_mod
 end
 -- End All in Jest patch
-if self.seal == 'Blue' and (aij_blue_seal_is_negative or #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit) $post
+if self.seal == 'Blue' and (aij_blue_seal_is_negative or (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit)) $post
 '''
 # The Grim Joker (Blue Seals) (2/3)
 # Undo buffer change so that non-negative consumables aren't prevented from spawning
