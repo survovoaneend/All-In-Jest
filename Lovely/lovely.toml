@@ -2984,7 +2984,7 @@ payload = " if card.ability.set == 'Voucher' and G.shop $1"
 [[patches]]
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
-pattern = "local shop_sign = *"
+pattern = "G.shop_booster =*"
 position = 'before'
 match_indent = true
 payload = '''
