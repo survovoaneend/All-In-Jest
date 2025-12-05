@@ -3481,6 +3481,12 @@ return {
                     "{C:inactive}#1#"
                 } 
             },
+            j_aij_golden_record = { 
+                name = "Golden Record", 
+                text = {
+                    ''
+                } 
+            },
             j_aij_pink_slip = { 
                 name = "Pink Slip", 
                 text = {
@@ -3549,12 +3555,35 @@ return {
                     '{C:attention}Rental{} Joker to the {C:attention}right'
                 } 
             },
+            j_aij_tornado = {
+                name = "Tornado", 
+                text = {
+                    {
+                        'This Joker gains {X:mult,C:white}X#1#{} Mult',
+                        'after all {C:attention}ranks{} have been',
+                        'scored at least once',
+                        '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult){}'
+                    },
+                    {
+                        '{C:inactive}(Remaining:#3#',
+                        '{C:inactive}#4#'
+                    }
+                } 
+            },
             j_aij_cavalier = {
                 name = "Cavalier", 
                 text = {
                     "{C:mult}+#2#{} Mult for each {C:attention}hand",
                     "previously scored this {C:attention}round",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
+                } 
+            },
+            j_aij_the_bell = {
+                name = "The Bell", 
+                text = {
+                    "{B:1,C:white,s:0.8}Activated Ability",
+                    'Pay {C:money}$#1#{} to reroll the',
+                    '{C:attention}Voucher',
                 } 
             },
             j_aij_elder = {
@@ -3564,6 +3593,23 @@ return {
                     'the {C:attention}Joker{}, you have',
                     "owned the {C:attention}longest{}",
                     "{C:inactive}(Currently #1#)"
+                } 
+            },
+            j_aij_dark_magician = {
+                name = "Dark Magician", 
+                text = {
+                    '{C:tarot}Tarot{} Cards, {C:planet}Planet{} Cards,',
+                    'and {C:spectral}Spectral{} Cards are',
+                    '{C:attention}considered{} the same',
+                } 
+            },
+            j_aij_mammon = { 
+                name = "Mammon", 
+                text = {
+                    '{C:attention}Increase{} the payout of',
+                    '{C:money}Gold{} cards by {C:money}$#1#{} per {C:money}Gold',
+                    'card scored this {C:attention}round',
+                    '{C:inactive}(Currently {C:money}+#2#{C:inactive} Dollars)',
                 } 
             },
 

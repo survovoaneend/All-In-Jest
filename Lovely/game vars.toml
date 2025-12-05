@@ -43,6 +43,7 @@ all_in_jest = {
       ['perishable'] = 2
     },
 	dizzard_shop = false,
+	gold_card_amt = 3,
 	pit_blind_ante = 4,
 	blind_tags = {has_multiple = false, selected_index = nil, amt = 1},
 	AIJAnimated = {

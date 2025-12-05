@@ -1062,6 +1062,93 @@ if _type == 'Joker' then
 end
 '''
 
+# Dark Magician Combines pools
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''local _pool, _starting_pool, _pool_key, _pool_size = G.ARGS.TEMP_POOL, nil, '', 0'''
+position = "after"
+match_indent = true
+payload = '''
+if _append == 'dark_magician_get_other_pools' and next(SMODS.find_card("j_aij_dark_magician")) then
+    _pool = {}
+end
+if _append ~= 'dark_magician_get_other_pools' and next(SMODS.find_card("j_aij_dark_magician")) then
+    if _type == 'Tarot'  then
+        local add_pool, discard_key = get_current_pool('Spectral', _rarity, _legendary, 'dark_magician_get_other_pools')
+        local add_pool2, discard_key2 = get_current_pool('Planet', _rarity, _legendary, 'dark_magician_get_other_pools')
+        if add_pool ~= _pool then
+            for i = 1, #add_pool do
+                _pool[#_pool + 1] = add_pool[i]
+            end
+        end
+        if add_pool2 ~= _pool then
+            for i = 1, #add_pool2 do
+                _pool[#_pool + 1] = add_pool2[i]
+            end
+        end
+    elseif _type == 'Planet' then
+        local add_pool, discard_key = get_current_pool('Spectral', _rarity, _legendary, 'dark_magician_get_other_pools')
+        local add_pool2, discard_key2 = get_current_pool('Tarot', _rarity, _legendary, 'dark_magician_get_other_pools')
+        if add_pool ~= _pool then
+            for i = 1, #add_pool do
+                _pool[#_pool + 1] = add_pool[i]
+            end
+        end
+        if add_pool2 ~= _pool then
+            for i = 1, #add_pool2 do
+                _pool[#_pool + 1] = add_pool2[i]
+            end
+        end
+    elseif _type == 'Tarot_Planet' then
+        local add_pool, discard_key = get_current_pool('Spectral', _rarity, _legendary, 'dark_magician_get_other_pools')
+        if add_pool ~= _pool then
+            for i = 1, #add_pool do
+                _pool[#_pool + 1] = add_pool[i]
+            end
+        end
+    elseif _type == 'Spectral' then
+        local add_pool, discard_key = get_current_pool('Tarot', _rarity, _legendary, 'dark_magician_get_other_pools')
+        local add_pool2, discard_key2 = get_current_pool('Planet', _rarity, _legendary, 'dark_magician_get_other_pools')
+        if add_pool ~= _pool then
+            for i = 1, #add_pool do
+                _pool[#_pool + 1] = add_pool[i]
+            end
+        end
+        if add_pool2 ~= _pool then
+            for i = 1, #add_pool2 do
+                _pool[#_pool + 1] = add_pool2[i]
+            end
+        end
+    end
+end
+'''
+
+# Dark Magician the fool compact
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "if card.config.center.set == 'Tarot' or card.config.center.set == 'Planet' then"
+position = "before"
+match_indent = true
+payload = '''
+if card.config.center.set == 'Spectral' and next(SMODS.find_card("j_aij_dark_magician")) then 
+    G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+            G.GAME.last_tarot_planet = card.config.center_key
+                return true
+            end
+        }))
+            return true
+        end
+    }))
+end
+'''
+
 # Patch to force pit blind on ante 4/5 or during the all pit blinds challenge
 [[patches]]
 [patches.pattern]

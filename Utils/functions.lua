@@ -1605,6 +1605,22 @@ function All_in_Jest.reset_game_globals(run_start)
     end
 end
 
+--Replaces shop voucher
+function All_in_Jest.reroll_shop_voucher(key)
+    if G.GAME.current_round.voucher.spawn[G.GAME.current_round.voucher[1]] then
+        G.GAME.current_round.voucher.spawn[G.GAME.current_round.voucher[1]] = nil
+        G.GAME.current_round.voucher[1] = nil
+        local new_voucher = key or get_next_voucher_key()
+        G.GAME.current_round.voucher[new_voucher] = true
+        G.GAME.current_round.voucher.spawn = {[new_voucher] = true}
+        local c = G.shop_vouchers:remove_card(G.shop_vouchers.cards[1])
+        c:remove()
+        c = nil
+        new_shop_card = SMODS.add_voucher_to_shop(G.GAME.current_round.voucher[1])
+        new_shop_card:juice_up()
+    end
+end
+
 -- Function to allow for filtering joker-copy effects and applying blacklists to copiable jokers
 -- Used by: Visage, Clay Joker, Joker.png, and Czar
 --  from_collection - set true for jokers that copy a joker from collection, rather than a joker that was previously in-play
