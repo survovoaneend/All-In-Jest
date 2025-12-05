@@ -2952,13 +2952,14 @@ end
 '''
 
 # Make blind display randomly change with The Clay blind
+# By coincidence this also works when UnBlind is installed, just gotta use the blind_state_text_colour variable to check if its in UnBlind's code or not
 [[patches]]
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
 pattern = "{n=G.UIT.T, config={text = number_format(blind_amt)*"
 position = 'before'
 match_indent = true
-payload = '''(blind_choice.config.name == "bl_aij_the_clay" and {n=G.UIT.O, config={object = DynaText({string = getRandomClayBlindReqs(blind_amt), colours = {disabled and G.C.UI.TEXT_INACTIVE or G.C.RED},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = score_number_scale(0.9, blind_amt), shadow = not disabled, min_cycle_time = 0})}}) or'''
+payload = '''(blind_choice.config.name == "bl_aij_the_clay" and {n=G.UIT.O, config={object = DynaText({string = getRandomClayBlindReqs(blind_amt), colours = {disabled and G.C.UI.TEXT_INACTIVE or blind_state_text_colour or G.C.RED},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = score_number_scale(blind_state_text_colour and 0.47 or 0.9, blind_amt), shadow = not disabled, min_cycle_time = 0})}}) or'''
 
 # Fix a crash if you call G.FUNCS.use_card multiple times in quick succession
 [[patches]]
