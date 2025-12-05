@@ -3150,3 +3150,14 @@ pattern = "if v.ability.forced_selection and not self.highlighted[1] then "
 position = "at"
 match_indent = true
 payload = 'if v.ability.forced_selection and not v.highlighted then '
+
+
+# create_UIBox_blind_popup
+# Adds custom blind description for The Clay in the collection
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "{n=G.UIT.T, config={text = blind.mult..localize('k_x_base'), scale = 0.4, colour = G.C.RED}},"
+position = "before"
+match_indent = true
+payload = '''blind.key == "bl_aij_the_clay" and {n=G.UIT.T, config={text = "2~5"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or '''
