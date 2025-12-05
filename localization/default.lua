@@ -272,7 +272,8 @@ return {
             pnr_aij_banger = {
                 name = "Banger",
                 text = {
-                    'Rerolls cost {C:money}$#1#{} less'
+                    '{C:green}Rerolls{} cost {C:money}$#1#{} less',
+                    '{C:inactive}(Cannot go below {C:money}$0{C:inactive}){}'
                 },
                 unlock={
                     "Win a run with",

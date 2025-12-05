@@ -3160,4 +3160,12 @@ target = "functions/UI_definitions.lua"
 pattern = "{n=G.UIT.T, config={text = blind.mult..localize('k_x_base'), scale = 0.4, colour = G.C.RED}},"
 position = "before"
 match_indent = true
-payload = '''blind.key == "bl_aij_the_clay" and {n=G.UIT.T, config={text = "2~5"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or '''
+
+# Set rerolls to zero cost if reroll cost would be below zero
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "G.GAME.current_round.reroll_cost = (G.GAME.round_resets.temp_reroll_cost or G.GAME.round_resets.reroll_cost) + G.GAME.current_round.reroll_cost_increase"
+position = "at"
+match_indent = true
+payload = '''G.GAME.current_round.reroll_cost = (G.GAME.round_resets.temp_reroll_cost or math.max(0, G.GAME.round_resets.reroll_cost)) + G.GAME.current_round.reroll_cost_increase'''
