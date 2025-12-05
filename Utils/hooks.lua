@@ -656,24 +656,71 @@ SMODS.UndiscoveredSprite({
     no_overlay = true
 })
 
-G.AIJ.Astral = {} -- stores Astral pins
+G.Astral = {} -- stores Astral pins
 All_in_Jest.Astral = SMODS.Tag:extend {
+    set = 'aij_astral',
+    is_pin = true,
     atlas = 'consumable_atlas',
-    class_prefix = 'astral',
+    class_prefix = 'c',
     in_pool = function() return false end,
     inject = function(self)
-        G.AIJ.Astral[self.key] = self
+        G.Astral[self.pin] = self
     end,
+    generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+        if not card then
+            card = self:create_fake_card()
+        end
+        local target = {
+            type = 'descriptions',
+            key = self.key,
+            set = self.set,
+            nodes = desc_nodes,
+            AUT = full_UI_table,
+            vars =
+                specific_vars or {}
+        }
+        local res = {}
+        if self.loc_vars and type(self.loc_vars) == 'function' then
+            res = self:loc_vars(info_queue, card) or {}
+            target.vars = res.vars or target.vars
+            target.key = res.key or target.key
+            target.set = res.set or target.set
+            target.scale = res.scale
+            target.text_colour = res.text_colour
+        end
+
+        if desc_nodes == full_UI_table.main and not full_UI_table.name then
+            full_UI_table.name = self.set == 'Enhanced' and 'temp_value' or localize { type = 'name', set = target.set, key = res.name_key or target.key, nodes = full_UI_table.name, vars = res.name_vars or target.vars or {} }
+        elseif desc_nodes ~= full_UI_table.main and not desc_nodes.name and self.set ~= 'Enhanced' then
+            desc_nodes.name = localize{type = 'name_text', key = res.name_key or target.key, set = target.set }
+        end
+        if specific_vars and specific_vars.debuffed and not res.replace_debuff then
+            target = { type = 'other', key = 'debuffed_' ..
+            (specific_vars.playing_card and 'playing_card' or 'default'), nodes = desc_nodes, AUT = full_UI_table, }
+        end
+        if res.main_start then
+            desc_nodes[#desc_nodes + 1] = res.main_start
+        end
+
+        localize(target)
+            
+        if res.main_end then
+            desc_nodes[#desc_nodes + 1] = res.main_end
+        end
+        desc_nodes.background_colour = res.background_colour
+    end
 }
 
 local start = Game.start_run
 function Game:start_run(args)
-    if self.AIJ.Astral_pins then
-        self.AIJ.Astral_pins = nil
+    if G.Astral_pins then
+        G.Astral_pins = nil
     end
-    self.AIJ.Astral_pins = {}
+    self.Astral_pins = self.Astral_pins or {}
     for k, v in pairs(SMODS.PokerHands) do
-        self.AIJ.Astral_pins[k] = {}
+        if k ~= 'aij_Royal Flush' then
+            self.Astral_pins[k] = self.Astral_pins[k] or {}
+        end
     end
     start(self, args)
 end

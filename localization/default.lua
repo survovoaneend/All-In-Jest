@@ -4352,7 +4352,53 @@ return {
                 name = 'Algol',
                 text = {
                     'When {C:attention}#1#{} is played',
-                    'earn {C:money}$2',
+                    'earn {C:money}$#2#',
+                }
+            },
+            c_aij_alcyone = {
+                name = 'Alcyone',
+                text = {
+                    'When {C:attention}#1#{} is played',
+                    'draw {C:attention}#2#{} additional card',
+                }
+            },
+            c_aij_capella = {
+                name = 'Capella',
+                text = {
+                    '{C:green}#2# in #3#{} chance to create a',
+                    'random {C:planet}Planet{} card when',
+                    '{C:attention}#1#{} is played',
+                }
+            },
+            c_aij_sirius = {
+                name = 'Sirius',
+                text = {
+                    'Retrigger {C:attention}#2#{} random card',
+                    'when {C:attention}#1#{} is played'
+                }
+            },
+            c_aij_procyon = {
+                name = 'Procyon',
+                text = {
+                    'When {C:attention}#1#{} is played',
+                    'adds {C:money}$#2#{} of sell value',
+                    'to a random {C:attention}Joker'
+                }
+            },
+            c_aij_alkaid = {
+                name = 'Alkaid',
+                text = {
+                    'When {C:attention}#1#{} is played',
+                    'gives a random enhancement',
+                    'to a {C:attention}#2#{} random card',
+                }
+            },
+            c_aij_algorab = {
+                name = 'Algorab',
+                text = {
+                    '{C:green}#2# in #3#{} chance to create a',
+                    'random {C:tarot}Tarot{} card when',
+                    '{C:attention}#1#{} is played',
                 }
             },
         },
@@ -4789,6 +4835,27 @@ return {
 					'run to find out what it does'
 				}
 			},
+            aij_astral_prograde = {
+                name = "Prograde",
+                text = {
+                    "Effects your {C:attention}least{}",
+                    "played hand"
+                }
+            },
+            aij_astral_retrograde = {
+                name = "Retrograde",
+                text = {
+                    "Effects your {C:attention}most{}",
+                    "played hand"
+                }
+            },
+            aij_astral_passigrade = {
+                name = "Passigrade",
+                text = {
+                    "Effects a {C:attention}random{}",
+                    "hand"
+                }
+            },
             aij_patches_suit = {
                 name = "Patches",
                 text = {

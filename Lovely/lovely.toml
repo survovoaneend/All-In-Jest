@@ -2790,6 +2790,59 @@ payload = '''
 next(SMODS.find_card('j_aij_touchstone')) and AllInJest.touchstone_deck_preview() or nil,
 '''
 
+# Display astral pin preview when selecting hand
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+update_hand_text({immediate = true, nopulse = nil, delay = 0}, {handname=disp_text, level=G.GAME.hands[text].level, mult = G.GAME.hands[text].mult, chips = G.GAME.hands[text].chips})
+'''
+payload = '''
+if G.Astral_pins then
+    All_in_Jest.old_colours = All_in_Jest.old_colours or {
+        special_colour = copy_table(G.C.BACKGROUND.C),
+        tertiary_colour = copy_table(G.C.BACKGROUND.D),
+        new_colour = copy_table(G.C.BACKGROUND.L),
+    }
+    All_in_Jest.astral_visuals(text, 'no_remove')       
+end
+'''
+
+# Remove astral pins
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+local text,disp_text,poker_hands = G.FUNCS.get_poker_hand_info(self.highlighted)
+'''
+payload = '''
+if G.Astral_pins then
+    All_in_Jest.astral_visuals(text, 'only_remove', All_in_Jest.old_colours or nil, true)      
+    if G.aij_astral_pin_area then
+        for _, v in pairs(G.aij_astral_pin_area.cards) do
+            v:remove()
+        end
+    end
+end
+'''
+
+# Adds Astral pin area to calculation pipeline
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'after'
+pattern = '''
+-- TARGET: add your own CardAreas for joker evaluation
+'''
+payload = '''
+table.insert(t, 1, G.aij_astral_pin_area)
+'''
+
 # Add CardAreas used to store the jokers that Clay Joker and Visage will copy
 # Using CardAreas so that reloading a run works properly
 [[patches]]
@@ -2805,24 +2858,6 @@ self.all_in_jest.astral_grades = {}
 G.all_in_jest.astral_grades["Retrograde"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=15,y=3})
 G.all_in_jest.astral_grades["Prograde"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=16,y=3})
 G.all_in_jest.astral_grades["Passigrade"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=17,y=3})
-self.all_in_jest.astral_pins = {}
-G.all_in_jest.astral_pins["Algol"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=10,y=4})
-G.all_in_jest.astral_pins["Alcyone"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=11,y=4})
-G.all_in_jest.astral_pins["Aldebaran"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=12,y=4})
-G.all_in_jest.astral_pins["Capella"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=9,y=4})
-G.all_in_jest.astral_pins["Sirius"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=8,y=4})
-G.all_in_jest.astral_pins["Procyon"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=8,y=6})
-G.all_in_jest.astral_pins["Regulus"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=9,y=6})
-G.all_in_jest.astral_pins["Alkaid"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=10,y=6})
-G.all_in_jest.astral_pins["Algorab"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=11,y=6})
-G.all_in_jest.astral_pins["Spica"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=12,y=6})
-G.all_in_jest.astral_pins["Arcturus"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=13,y=6})
-G.all_in_jest.astral_pins["Alphecca"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=14,y=6})
-G.all_in_jest.astral_pins["Antares"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=15,y=6})
-G.all_in_jest.astral_pins["Vega"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=16,y=6})
-G.all_in_jest.astral_pins["Deneb_Algedi"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=17,y=6})
-G.all_in_jest.astral_pins["Ketu"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=13,y=4})
-G.all_in_jest.astral_pins["Rahu"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=14,y=4})
 self.all_in_jest.extra_card_sprites = {}
 G.all_in_jest.extra_card_sprites['Mark_of_the_Spear'] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=9,y=2})
 G.all_in_jest.patches_sprites["Other"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=0,y=2})
@@ -2858,6 +2893,12 @@ self.all_in_jest_visage_last_sold = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
         {card_limit = 1, type = 'joker'})
+self.aij_astral_pin_area = self.aij_astral_pin_area or CardArea(
+	self.ROOM.T.x*5.2, self.ROOM.T.h/4,
+	3.35 * self.CARD_W,
+	0.95 * self.CARD_H,
+	{ card_limit = 3, type = 'title', highlight_limit = 0, collection = true }
+)
 for k, v in pairs(G) do
     if string.sub(k, 13) == 'G_all_in_jest' then
         local key = string.gsub(k, 'G_all_in_jest', '')

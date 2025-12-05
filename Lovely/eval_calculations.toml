@@ -70,6 +70,22 @@ if context.cardarea == G.play and context.all_in_jest and context.all_in_jest.ma
         ret.playing_card.chips = chips
     end
 end
+--Astral pins removal
+for k, v in pairs(G.Astral_pins) do
+    if context.scoring_name and context.scoring_name == k and context.full_hand and context.full_hand[1] == card and G.aij_astral_pin_area then
+        if G.Astral_pins and context.after and context.cardarea == G.play and not context.repetition and G.aij_astral_pin_area and #G.aij_astral_pin_area.cards > 0 then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                func = function()
+                    All_in_Jest.astral_visuals(context.scoring_name, 'only_color', All_in_Jest.old_colours or nil, true)
+                    return true
+            end}))
+        end
+    end
+end
+if context.discard and G.Astral_pins and G.aij_astral_pin_area and #G.aij_astral_pin_area.cards > 0 and not context.hook then
+    All_in_Jest.astral_visuals(context.scoring_name, 'only_remove', All_in_Jest.old_colours or nil, true)   
+end
 '''
 
 [[patches]] #For debuffed joker cards

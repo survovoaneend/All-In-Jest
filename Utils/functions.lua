@@ -1787,6 +1787,143 @@ function All_in_Jest.aij_refresh_boss_blind()
     end
 end
 
+--Sets an Astral cards grade
+function All_in_Jest.astral_set_grade()
+    local seed = pseudoseed('aij_astral_grade')
+    local rarity = {["Retrograde"] = 0.1, ["Passigrade"] = 0.45}
+    local grade = "Prograde"
+    for k, v in pairs(rarity) do
+        if seed <= v then
+            grade = k
+        end
+    end
+    return grade
+end
+
+--Gets hand from grade type
+function All_in_Jest.astral_hand_from_grade(grade, cur_hand)
+    local _hand, _tally = nil, 0
+    if G.GAME.hands and G.handlist then 
+        if grade == "Prograde" or grade == "Retrograde" then
+            for k, v in ipairs(G.handlist) do
+                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played > _tally then
+                    _hand = v
+                    _tally = G.GAME.hands[v].played
+                end
+            end
+            if grade == "Prograde" then 
+                for k, v in ipairs(G.handlist) do
+                    if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played <= _tally then
+                        _hand = v
+                        _tally = G.GAME.hands[v].played
+                    end
+                end
+            end
+        elseif grade == "Passigrade" then
+            local vaild_hands = {}
+            for k, v in ipairs(G.handlist) do
+                if SMODS.is_poker_hand_visible(v) then
+                    vaild_hands[#vaild_hands+1] = v
+                end
+            end
+            _hand = cur_hand or pseudorandom_element(vaild_hands, pseudoseed(grade))
+        end
+    end
+    return _hand
+end
+
+function All_in_Jest.create_astral_pin(card)
+    local index = #G.Astral_pins[card.ability.consumeable.hand]+1
+    G.Astral_pins[card.ability.consumeable.hand][index] = {}
+    G.Astral_pins[card.ability.consumeable.hand][index]['pin'] = card.ability.consumeable.pin
+    G.Astral_pins[card.ability.consumeable.hand][index].ability = {}
+    G.Astral_pins[card.ability.consumeable.hand][index].ability.extra = card.ability.extra
+end
+
+function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate)
+    local old_colours = old_colours or {
+        special_colour = copy_table(G.C.BACKGROUND.C),
+        tertiary_colour = copy_table(G.C.BACKGROUND.D),
+        new_colour = copy_table(G.C.BACKGROUND.L),
+    }
+    if extra == 'only_color' then
+        if not immediate then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 1,
+                func = function()
+                    ease_background_colour({special_colour = old_colours.special_colour, tertiary_colour = old_colours.tertiary_colour, new_colour = old_colours.new_colour})
+                    return true
+            end}))
+        else
+            ease_background_colour({special_colour = old_colours.special_colour, tertiary_colour = old_colours.tertiary_colour, new_colour = old_colours.new_colour})
+        end
+        return
+    end
+    if extra ~= 'only_remove' then
+        -- Add astral pins
+        local astrals = 0
+        for k, v in pairs(G.Astral_pins) do
+            if hand == k then
+                for _, i in pairs(v) do
+                    astrals = astrals + 1
+                end
+            end
+        end
+        if astrals == 0 then
+            All_in_Jest.astral_visuals(text, 'only_remove', All_in_Jest.old_colours or old_colours, true)  
+            All_in_Jest.old_colours = nil
+            return
+        end
+        for k, v in pairs(G.Astral_pins) do
+            if hand == k then
+                for _, i in pairs(v) do
+                    local center = G.Astral[i.pin]
+                    local card = Card(G.aij_astral_pin_area.T.x + G.aij_astral_pin_area.T.w/2,
+                    G.aij_astral_pin_area.T.y, G.CARD_W*2, G.CARD_H*2, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
+                    for k_, vi in pairs(card.config.center.config) do
+                        card.ability[k_] = vi 
+                    end
+                    for k_, vi in pairs(G.Astral_pins[k][_].ability) do
+                        card.ability[k_] = vi 
+                    end
+                    card.ability.extra.hand = k
+                    card.config.center.set_card_type_badge = function(self, card, badges)
+		                badges = {}
+	                end
+                    G.aij_astral_pin_area:emplace(card)
+                end
+            end
+        end
+        -- Change background colour
+        ease_background_colour{special_colour = darken(HEX("d1e2f6"), 0.5), new_colour = HEX("87a5c9"), tertiary_colour = HEX("d1e2f6"), contrast = 1}
+        delay(0.4)
+    end
+    if extra ~= 'no_remove' then
+        if not immediate then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 1,
+                func = function()
+                    ease_background_colour({special_colour = old_colours.special_colour, tertiary_colour = old_colours.tertiary_colour, new_colour = old_colours.new_colour})
+                    if G.aij_astral_pin_area then
+                        for _, v in pairs(G.aij_astral_pin_area.cards) do
+                            v:remove()
+                        end
+                    end
+                    return true
+            end}))
+        else
+            ease_background_colour({special_colour = old_colours.special_colour, tertiary_colour = old_colours.tertiary_colour, new_colour = old_colours.new_colour})
+            if G.aij_astral_pin_area then
+                for _, v in pairs(G.aij_astral_pin_area.cards) do
+                    v:remove()
+                end
+            end
+        end
+    end
+end
+
 
 G.FUNCS.aij_hover_tag_branching = function(e)
     if not e.parent or not e.parent.states then return end

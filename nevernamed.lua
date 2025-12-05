@@ -41,6 +41,12 @@ SMODS.Atlas {
   py = 95
 }
 SMODS.Atlas {
+  key = "misc_atlas",
+  path = "misc.png",
+  px = 71,
+  py = 95
+}
+SMODS.Atlas {
   key = "jumbo_joker",
   path = "jumbo_joker.png",
   px = 81,
