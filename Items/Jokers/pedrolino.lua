@@ -39,6 +39,7 @@ local pedrolino = {
                     return true
                 end
             }))
+            return nil, true
         end
     end
 

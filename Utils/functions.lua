@@ -1708,29 +1708,32 @@ function All_in_Jest.ease_blind_requirement(mod_mult, mod_add)
     mod_mult = mod_mult ~= nil and mod_mult or 0
     mod_add = mod_add ~= nil and mod_add or 0
     local current_mult = G.GAME.blind.chips / (original_chips / G.GAME.blind.mult) -- Takes into account previous ease_blind_requirement calls
-    local final_chips = (original_chips / G.GAME.blind.mult) * (current_mult + mod_mult) + mod_add
-    local chip_mod -- iterate over ~120 ticks
+    local desired_chip_amount = (original_chips / G.GAME.blind.mult) * (current_mult + mod_mult) + mod_add
+
+    local chip_mod -- Calculate how much the chips count changes each "tick", set to iterate over ~120 ticks
     if type(G.GAME.blind.chips) ~= 'table' then
-        chip_mod = math.ceil(math.abs(final_chips - G.GAME.blind.chips) / 120)
+        chip_mod = math.ceil(math.abs(desired_chip_amount - G.GAME.blind.chips) / 120)
     else
-        chip_mod = ((final_chips - G.GAME.blind.chips):abs() / 120):ceil()
+        chip_mod = ((desired_chip_amount - G.GAME.blind.chips):abs() / 120):ceil()
     end
     local step = 0
-    if G.GAME.blind.chips < final_chips then
+
+    local chips_text_integer = G.GAME.blind.chips -- Used to track animation
+    if chips_text_integer < desired_chip_amount then
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             blocking = true,
             func = function()
-                G.GAME.blind.chips = G.GAME.blind.chips + G.SETTINGS.GAMESPEED * chip_mod
-                if G.GAME.blind.chips < final_chips then
-                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                chips_text_integer = chips_text_integer + G.SETTINGS.GAMESPEED * chip_mod
+                if chips_text_integer < desired_chip_amount then
+                    G.GAME.blind.chip_text = number_format(chips_text_integer)
                     if step % 5 == 0 then
                         play_sound('chips1', 0.8 + (step * 0.005))
                     end
                     step = step + 1
                 else
-                    G.GAME.blind.chips = final_chips
-                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                    chips_text_integer = desired_chip_amount
+                    G.GAME.blind.chip_text = number_format(chips_text_integer)
                     G.GAME.blind:wiggle()
                     return true
                 end
@@ -1741,22 +1744,24 @@ function All_in_Jest.ease_blind_requirement(mod_mult, mod_add)
             trigger = 'after',
             blocking = true,
             func = function()
-                G.GAME.blind.chips = G.GAME.blind.chips - G.SETTINGS.GAMESPEED * chip_mod
-                if G.GAME.blind.chips > final_chips then
-                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                chips_text_integer = chips_text_integer - G.SETTINGS.GAMESPEED * chip_mod
+                if chips_text_integer > desired_chip_amount then
+                    G.GAME.blind.chip_text = number_format(chips_text_integer)
                     if step % 5 == 0 then
                         play_sound('chips1', 0.8 + (step * 0.005))
                     end
                     step = step - 1
                 else
-                    G.GAME.blind.chips = final_chips
-                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                    chips_text_integer = desired_chip_amount
+                    G.GAME.blind.chip_text = number_format(chips_text_integer)
                     G.GAME.blind:wiggle()
                     return true
                 end
             end
         }))
     end
+
+    G.GAME.blind.chips = desired_chip_amount -- Immediately set in case this function is called successively
 end
 
 -- Redisplays the blind info on the blind select screen
