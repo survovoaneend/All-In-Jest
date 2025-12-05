@@ -1,15 +1,15 @@
-local algol = {
+local procyon = {
     object_type = "Consumable",
-	key = 'algol',
+	key = 'procyon',
 	set = 'aij_astral',
     atlas = 'consumable_atlas',
-	pos = { x = 10, y = 3 },
-    soul_pos = { x = 10, y = 4 },
+	pos = { x = 8, y = 5 },
+    soul_pos = { x = 8, y = 6 },
 	cost = 4,
 	unlocked = true,
 	discovered = false,
-    order = 0,
-	config = { hand = nil, grade = '', pin = 'Algol', extra = {dollars = 2}},
+    order = 5,
+	config = { hand = nil, grade = '', pin = 'Procyon', extra = {sell_val = 3}},
     loc_vars = function(self, info_queue, card)
         card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(card.ability.consumeable.grade, card.ability.consumeable.hand)
         if card.ability.consumeable.hand then
@@ -18,7 +18,7 @@ local algol = {
 		return {
 			vars = {
 				card.ability.consumeable.hand or '(hand)',
-                card.ability.extra.dollars
+                card.ability.extra.sell_val,
 			},
 		}
     end,
@@ -38,42 +38,51 @@ local algol = {
         All_in_Jest.create_astral_pin(card)
     end,
 }
-local algol_pin = {
+local procyon_pin = {
 	object_loader = All_in_Jest,
     object_type = "Astral",
-	key = 'algol',
-    pin = 'Algol',
+	key = 'procyon',
+    pin = 'Procyon',
     atlas = 'misc_atlas',
     pos = { x = 0, y = -1 },
-	soul_pos = { x = 0, y = 0 },
+	soul_pos = { x = 0, y = 1 },
     discovered = false,
-    order = 0,
+    order = 5,
     config = {},
 
-    pixel_size = { w = 53, h = 28 },
+    pixel_size = { w = 48, h = 42 },
 
     loc_vars = function(self, info_queue, card)
-        return {
-		    vars = {
-			    card.ability.extra.hand,
-                card.ability.extra.dollars,
-		    },
-        }
+		return {
+			vars = {
+				card.ability.extra.hand,
+                card.ability.extra.sell_val,
+			},
+		}
     end,
 
     calculate = function(self, card, context)
         if context.after and not context.repetition then
+            if #G.jokers.cards > 0 then
+                local joker = pseudorandom_element(G.jokers.cards, pseudoseed('procyon'))
+                joker.ability.extra_value = joker.ability.extra_value + card.ability.extra.sell_val --Not sure if this should use scale_card
+                card_eval_status_text(joker, "extra", nil, nil, nil, {message = localize('k_val_up'), colour = G.C.MONEY})
+                joker:set_cost()
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                    card:juice_up(0.3, 0.5)
+                return true end }))
+            else
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_nope_ex'), colour = G.C.SECONDARY_SET.Tarot})
+                return true end }))
+            end
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 func = function()
                     SMODS.destroy_cards(card, true, true, true)
                     return true
             end}))
-            return { 
-                dollars = card.ability.extra.dollars,
-                card = card 
-            }
         end
     end,
 }
-return {name = {"Astrals"}, items = {algol, algol_pin}}
+return {name = {"Astrals"}, items = {procyon, procyon_pin}}

@@ -1,15 +1,15 @@
-local algol = {
+local alcyone = {
     object_type = "Consumable",
-	key = 'algol',
+	key = 'alcyone',
 	set = 'aij_astral',
     atlas = 'consumable_atlas',
-	pos = { x = 10, y = 3 },
-    soul_pos = { x = 10, y = 4 },
+	pos = { x = 11, y = 3 },
+    soul_pos = { x = 11, y = 4 },
 	cost = 4,
 	unlocked = true,
 	discovered = false,
-    order = 0,
-	config = { hand = nil, grade = '', pin = 'Algol', extra = {dollars = 2}},
+    order = 1,
+	config = { hand = nil, grade = '', pin = 'Alcyone', extra = {draw_amt = 1}},
     loc_vars = function(self, info_queue, card)
         card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(card.ability.consumeable.grade, card.ability.consumeable.hand)
         if card.ability.consumeable.hand then
@@ -18,7 +18,7 @@ local algol = {
 		return {
 			vars = {
 				card.ability.consumeable.hand or '(hand)',
-                card.ability.extra.dollars
+                card.ability.extra.draw_amt,
 			},
 		}
     end,
@@ -38,42 +38,42 @@ local algol = {
         All_in_Jest.create_astral_pin(card)
     end,
 }
-local algol_pin = {
+local alcyone_pin = {
 	object_loader = All_in_Jest,
     object_type = "Astral",
-	key = 'algol',
-    pin = 'Algol',
+	key = 'alcyone',
+    pin = 'Alcyone',
     atlas = 'misc_atlas',
     pos = { x = 0, y = -1 },
-	soul_pos = { x = 0, y = 0 },
+	soul_pos = { x = 3, y = 0 },
     discovered = false,
-    order = 0,
+    order = 1,
     config = {},
 
     pixel_size = { w = 53, h = 28 },
 
     loc_vars = function(self, info_queue, card)
-        return {
-		    vars = {
-			    card.ability.extra.hand,
-                card.ability.extra.dollars,
-		    },
-        }
+		return {
+			vars = {
+				card.ability.extra.hand,
+                card.ability.extra.draw_amt,
+			},
+		}
     end,
 
     calculate = function(self, card, context)
-        if context.after and not context.repetition then
+        if context.drawing_cards then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 func = function()
                     SMODS.destroy_cards(card, true, true, true)
                     return true
             end}))
-            return { 
-                dollars = card.ability.extra.dollars,
-                card = card 
+            return {
+                cards_to_draw = context.amount + card.ability.extra.draw_amt,
+                message = "+" .. card.ability.extra.draw_amt
             }
         end
     end,
 }
-return {name = {"Astrals"}, items = {algol, algol_pin}}
+return {name = {"Astrals"}, items = {alcyone, alcyone_pin}}
