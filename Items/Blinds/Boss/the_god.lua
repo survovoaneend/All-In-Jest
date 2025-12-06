@@ -29,10 +29,12 @@ local the_god = {
             return false
         end
         for _, card in pairs(cards) do
-            
             if card.config.center.always_scores and not contains(scoring_hand, card) then always_scores_count = always_scores_count + 1 end
         end
-        if #scoring_hand + always_scores_count ~= #cards then return true end
+        if #scoring_hand + always_scores_count ~= #cards then
+            G.GAME.blind.triggered = true
+            return true
+        end
     end,
 
 }

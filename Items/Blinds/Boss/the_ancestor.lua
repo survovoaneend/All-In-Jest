@@ -30,6 +30,7 @@ local the_ancestor = {
                 bool = true
             end
         end
+        G.GAME.blind.triggered = bool
         return bool
     end
 

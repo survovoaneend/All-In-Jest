@@ -57,9 +57,10 @@ local the_heart = {
                 G.GAME.blind.ability.extra.trigger = true
             end
             if next(poker_hands[G.GAME.blind.ability.extra.hand]) or G.GAME.blind.ability.extra.trigger then
-                return false     
+                return false
             end
         end
+        G.GAME.blind.triggered = true
         return true
     end,
 }
