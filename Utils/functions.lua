@@ -1603,6 +1603,16 @@ end
 function reset_aureate_coin_blind()
     G.GAME.current_round.aij_aureate_coin_blind = {spent_money = 0}
 end
+function reset_the_heart_blind()
+    local hands = {
+        "Two Pair",
+        "Flush",
+        "Straight",
+        "Three of a Kind"
+    }
+    local chosen_hand = pseudorandom_element(hands, pseudoseed('jest_the_heart_blind'..G.GAME.round_resets.ante))
+    G.GAME.current_round.aij_the_heart = {hand = chosen_hand or "Two Pair"}
+end
 
 function All_in_Jest.reset_game_globals(run_start)
     -- Globals for a single blind (like Idol)
@@ -1611,11 +1621,15 @@ function All_in_Jest.reset_game_globals(run_start)
 	  G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
 
-    if G.GAME.round_resets.blind_states.Boss == 'Defeated' then
+    if G.GAME.round_resets.blind_states.Boss == 'Defeated' or run_start then
        -- Globals for a single ante (not a thing in Vanilla)
+       -- Checks run_start as well to trigger at start of run, G.GAME.round_resets.blind_states.Boss == 'Defeated' only checks for the end of an ante
+
+        -- Reset Boss Blinds
        reset_the_auroch_blind()
        reset_the_journey_blind()
        reset_aureate_coin_blind()
+       reset_the_heart_blind()
     end
 
     if run_start then
@@ -1626,11 +1640,6 @@ function All_in_Jest.reset_game_globals(run_start)
         
         local index = {4,5}
         G.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
-
-        -- Reset Boss Blinds
-        reset_the_auroch_blind()
-        reset_the_journey_blind()
-        reset_aureate_coin_blind()
     end
 end
 
