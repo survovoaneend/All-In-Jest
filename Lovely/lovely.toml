@@ -2182,7 +2182,7 @@ end
 [[patches]]
 [patches.pattern]
 target = "game.lua"
-pattern = "if G.GAME.chips - G.GAME.blind.chips >= 0 or G.GAME.current_round.hands_left < 1 then"
+pattern = "if G.GAME.chips - G.GAME.blind.chips >= to_big(0) or G.GAME.current_round.hands_left < 1 then"
 position = "before"
 match_indent = true
 payload = '''
@@ -2881,6 +2881,7 @@ if target.vars.aij_visage then card = G.all_in_jest_visage_last_sold.cards[1]; t
 if target.vars.aij_clay then card = G.all_in_jest_clay_last_destroyed.cards[1]; target.vars.aij_clay = nil end -- All in Jest
 if target.vars.aij_joker_png then card = target.vars.aij_joker_png; target.vars.aij_joker_png = nil end -- All in Jest
 if target.vars.aij_czar then card = target.vars.aij_czar; target.vars.aij_czar = nil end -- All in Jest
+if target.vars.aij_elder then card = target.vars.aij_elder; target.vars.aij_elder = nil end -- All in Jest
 '''
 
 # Save ability table of bosses
