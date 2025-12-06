@@ -58,7 +58,8 @@ return {
             k_aij_double_ex = 'Doubled!',
             k_aij_triple_ex = 'Tripled!',
             k_aij_chaos_ex = 'Chaos!',
-            k_aij_two_into_one_ex = 'Two into one!'
+            k_aij_two_into_one_ex = 'Two into one!',
+            k_aij_downgrade_ex = "Downgrade!",
 
         },
         v_dictionary = {
@@ -1409,7 +1410,13 @@ return {
                     "at end of round"
                 } 
             },
-            j_aij_joker_baby = { name = "Joker Baby", text = { "" } },
+            j_aij_joker_baby = { 
+                name = "Joker Baby", 
+                text = { 
+                    "Scoring {C:attention}2s{}, {C:attention}3s{}, {C:attention}4s{}, and {C:attention}5s{}",
+                    "permanently gain {C:mult}+#1#{} Mult",
+                } 
+            },
             j_aij_anchor = { 
                 name = "Anchor", 
                 text = { 
@@ -1448,7 +1455,13 @@ return {
                 } 
             },
             j_aij_holy_bible = { name = "Holy Bible", text = { "" } },
-            j_aij_great_white_north = { name = "Great white North", text = { "" } },
+            j_aij_great_white_north = { 
+                name = "Great White North", 
+                text = { 
+                    "{C:mult}+#1#{} Mult when any",
+                    "card is {C:attention}scored{}"
+                } 
+            },
             j_aij_right_angle = { 
                 name = "Right Angle", 
                 text = { 
@@ -1512,7 +1525,16 @@ return {
                 } 
             },
             j_aij_oil_and_water = { name = "Oil and Water", text = { "" } },
-            j_aij_big_ears = { name = "Big-Ears", text = { "" } },
+            j_aij_big_ears = { 
+                name = "Big-Ears", 
+                text = { 
+                    "This Joker gains {C:chips}+#2#{} Chips" ,
+                    "when an {C:attention}even{} card is {C:attention}scored{},",
+                    "{C:chips}-#3#{} Chips when an {C:attention}odd{}",
+                    "card is {C:attention}scored{}",
+                    "{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips)"
+                } 
+            },
             j_aij_causal_absent_paranoia = { name = "Causal Absent Paranoia", text = { "" } },
             j_aij_hand_drawn = { 
                 name = "Hand Drawn", 

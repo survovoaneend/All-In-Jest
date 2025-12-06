@@ -1,7 +1,6 @@
 local red_wine = {
     object_type = "Joker",
     order = 104,
-    ignore = true,
 
     key = "red_wine",
     config = {
@@ -21,7 +20,7 @@ local red_wine = {
     end,
   
     calculate = function(self, card, context)
-      
+
     end
   
 }
