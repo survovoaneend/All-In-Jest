@@ -854,13 +854,15 @@ function Card:save()
     return saveTable
 end
 
--- Automatically saves G.GAME.blind.original_chips when blind is loaded
+-- Automatically saves G.GAME.blind.aij_original_chips when blind is loaded
 local aij_blind_set_blind_ref = Blind.set_blind
 function Blind:set_blind(blind, reset, silent)
-    local ret = aij_blind_set_blind_ref(self, blind, reset, silent)
-    if not reset then
-        self.original_chips = self.chips
+    if blind and not reset then
+        self.aij_original_chips = get_blind_amount(G.GAME.round_resets.ante)*blind.mult*G.GAME.starting_params.ante_scaling
+        self.aij_original_mult = blind.mult
+        self.aij_added_chips = 0
     end
+    local ret = aij_blind_set_blind_ref(self, blind, reset, silent)
     return ret
 end
 
@@ -868,14 +870,18 @@ end
 local aij_blind_save_ref = Blind.save
 function Blind:save()
     local blindTable = aij_blind_save_ref(self)
-    blindTable.original_chips = self.original_chips
+    blindTable.aij_original_chips = self.aij_original_chips
+    blindTable.aij_original_mult = self.aij_original_mult
+    blindTable.aij_added_chips = self.aij_added_chips
     return blindTable
 end
 local aij_blind_load_ref = Blind.load
 function Blind:load(blindTable)
     local ret = aij_blind_load_ref(self, blindTable)
-    self.original_chips = blindTable.original_chips
-    return blindTable
+    self.aij_original_chips = blindTable.aij_original_chips
+    self.aij_original_mult = blindTable.aij_original_mult
+    self.aij_added_chips = blindTable.aij_added_chips
+    return ret
 end
 
 -- Add area in the shop for puchaseable tags (1/2)

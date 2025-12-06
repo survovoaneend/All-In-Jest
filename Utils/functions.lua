@@ -1698,17 +1698,25 @@ function All_in_Jest.force_pit_blind()
     return (blue_stake_replacement_blind or all_pit_blinds_challenge) and not_showdown_blind
 end
 
+function All_in_Jest.get_current_blind_mult()
+    local original_chips = G.GAME.blind.aij_original_chips > 0 and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
+    return (G.GAME.blind.chips - G.GAME.blind.aij_added_chips) / (original_chips / G.GAME.blind.aij_original_mult)
+end
+
 -- Increases blind requirement while making the score tick up with an animation
--- mod_add increases the mult of the blind (so mod_add = 1 makes a blind go from x2 to x3)
+-- mod_mult increases the mult of the blind (so mod_mult = 1 makes a blind go from x2 to x3)
 -- mod_add increases the blind requirement directly. This occurs after mod_add
 -- Code copied from Bunco
 function All_in_Jest.ease_blind_requirement(mod_mult, mod_add)
-    local original_chips = G.GAME.blind.original_chips > 0 and G.GAME.blind.original_chips or G.GAME.blind.chips
+    local original_chips = G.GAME.blind.aij_original_chips > 0 and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
 
     mod_mult = mod_mult ~= nil and mod_mult or 0
     mod_add = mod_add ~= nil and mod_add or 0
-    local current_mult = G.GAME.blind.chips / (original_chips / G.GAME.blind.mult) -- Takes into account previous ease_blind_requirement calls
-    local desired_chip_amount = (original_chips / G.GAME.blind.mult) * (current_mult + mod_mult) + mod_add
+
+    local original_mult = G.GAME.blind.aij_original_mult
+    local previously_added = G.GAME.blind.aij_added_chips -- Only accounts chips added via mod_add
+    local current_mult = All_in_Jest.get_current_blind_mult() -- Takes into account previous ease_blind_requirement calls
+    local desired_chip_amount = (original_chips / original_mult) * (current_mult + mod_mult) + mod_add + previously_added
 
     local chip_mod -- Calculate how much the chips count changes each "tick", set to iterate over ~120 ticks
     if type(G.GAME.blind.chips) ~= 'table' then
@@ -1762,6 +1770,7 @@ function All_in_Jest.ease_blind_requirement(mod_mult, mod_add)
     end
 
     G.GAME.blind.chips = desired_chip_amount -- Immediately set in case this function is called successively
+    G.GAME.blind.aij_added_chips = G.GAME.blind.aij_added_chips + mod_add
 end
 
 -- Redisplays the blind info on the blind select screen
