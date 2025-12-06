@@ -118,4 +118,7 @@ function Card:update(dt)
   return ref
 end
 
+-- Set Oops! to be incompatible, otherwise dongtong will double probabilities where it really shouldn't
+G.P_CENTERS["j_oops"].dongtong_compat = false
+
 return { name = {"Jokers"}, items = {dongtong} }
