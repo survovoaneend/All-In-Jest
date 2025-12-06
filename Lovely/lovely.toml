@@ -1847,15 +1847,15 @@ if self.seal == 'Purple' then
     aij_purple_seal_is_negative = ret.aij_grim_joker_bluepurple_seal_negative_mod
 end
 -- End All in Jest patch
-if self.seal == 'Purple' and (aij_purple_seal_is_negative or #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit) $post
+if self.seal == 'Purple' and (aij_purple_seal_is_negative or (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit)) $post
 '''
 # The Grim Joker (Purple Seals) (2/3)
 # Undo buffer change so that non-negative consumables aren't prevented from spawning
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = """if self.seal == 'Purple'*
-    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1"""
+pattern = '''if self.seal == 'Purple'*
+    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1'''
 position = "after"
 match_indent = true
 payload = '''
@@ -1901,21 +1901,25 @@ if self.seal == 'Blue' then
     aij_blue_seal_is_negative = ret.aij_grim_joker_bluepurple_seal_negative_mod
 end
 -- End All in Jest patch
-if self.seal == 'Blue' and (aij_blue_seal_is_negative or #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit) $post
+if self.seal == 'Blue' and (aij_blue_seal_is_negative or (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit)) $post
 '''
-# The Grim Joker (Blue Seals) (2/3)
+# The Grim Joker (Blue Seals) (2/3) & Sky Trees (1/3)
 # Undo buffer change so that non-negative consumables aren't prevented from spawning
+# Also, add to buffer a second time if two cards are being created via Sky Trees
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = """local card_type = 'Planet'
-G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1"""
+pattern = '''local card_type = 'Planet'
+G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1'''
 position = "after"
 match_indent = true
 payload = '''
 -- All in Jest patch
+if next(SMODS.find_card("j_aij_sky_trees")) and not aij_blue_seal_is_negative then
+    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+end
 if aij_blue_seal_is_negative then
-    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1 -- Undoes adding to buffer
 end
 -- End All in Jest patch
 '''
@@ -2178,7 +2182,7 @@ end
 [[patches]]
 [patches.pattern]
 target = "game.lua"
-pattern = "if G.GAME.chips - G.GAME.blind.chips >= 0 or G.GAME.current_round.hands_left < 1 then"
+pattern = "if G.GAME.chips - G.GAME.blind.chips >= to_big(0) or G.GAME.current_round.hands_left < 1 then"
 position = "before"
 match_indent = true
 payload = '''
@@ -2328,7 +2332,7 @@ position = "before"
 payload = '''
 has_blind_drawn and _reward and {n=G.UIT.R, config={align = "cm"}, nodes={
     {n=G.UIT.T, config={text = localize('ph_blind_reward'), scale = 0.35, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE, shadow = not disabled}},
-    {n=G.UIT.T, config={text = "???+", scale = 0.35, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.MONEY, shadow = not disabled}}
+    {n=G.UIT.T, config={text = "???", scale = 0.35, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.MONEY, shadow = not disabled}}
 }} or
 '''
 match_indent = true
@@ -2575,6 +2579,8 @@ position = "at"
 line_prepend = '$indent'
 payload = '''if v.config.hand_type == G.GAME.last_hand_played and not v.config.moon $post'''
 
+# Sky Trees (2/3)
+# Creates two moon cards instead of a planet card
 [[patches]] 
 [patches.pattern]
 target = "card.lua"
@@ -2596,10 +2602,36 @@ if next(SMODS.find_card("j_aij_sky_trees")) then
     if _other_planet == 0 then _other_planet = nil end
     local cardt = create_card(card_type,G.consumeables, nil, nil, nil, nil, _other_planet, 'blusl')
     if aij_blue_seal_is_negative then -- For The Grim Joker
-        card:set_edition({negative = true}, true)
+        cardt:set_edition({negative = true}, true)
     end
     cardt:add_to_deck()
     G.consumeables:emplace(cardt)
+end
+'''
+match_indent = true
+# Sky Trees (3/3)
+# Show "+2 Moons" message instead of +1 "Planet"
+[[patches]] 
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('k_plus_planet')*
+'''
+position = "before"
+payload = '''
+if next(SMODS.find_card("j_aij_sky_trees")) then
+    card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('k_aij_plus_two_moons'), colour = G.C.SECONDARY_SET.Planet})
+else
+'''
+match_indent = true
+[[patches]] 
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('k_plus_planet')*
+'''
+position = "after"
+payload = '''
 end
 '''
 match_indent = true
@@ -2849,6 +2881,7 @@ if target.vars.aij_visage then card = G.all_in_jest_visage_last_sold.cards[1]; t
 if target.vars.aij_clay then card = G.all_in_jest_clay_last_destroyed.cards[1]; target.vars.aij_clay = nil end -- All in Jest
 if target.vars.aij_joker_png then card = target.vars.aij_joker_png; target.vars.aij_joker_png = nil end -- All in Jest
 if target.vars.aij_czar then card = target.vars.aij_czar; target.vars.aij_czar = nil end -- All in Jest
+if target.vars.aij_elder then card = target.vars.aij_elder; target.vars.aij_elder = nil end -- All in Jest
 '''
 
 # Save ability table of bosses
@@ -2884,11 +2917,11 @@ self.ability = blindTable.ability
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
-pattern = """func = function()
+pattern = '''func = function()
     card:highlight(highlight)
     play_sound('cardSlide1', 0.85 + percent*0.2)
     return true
-end"""
+end'''
 position = 'at'
 match_indent = true
 payload = '''
@@ -2909,7 +2942,7 @@ end
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
-pattern = """-- TARGET: main scoring on played cards"""
+pattern = '''-- TARGET: main scoring on played cards'''
 position = 'before'
 match_indent = true
 payload = '''
@@ -2952,13 +2985,14 @@ end
 '''
 
 # Make blind display randomly change with The Clay blind
+# By coincidence this also works when UnBlind is installed, just gotta use the blind_state_text_colour variable to check if its in UnBlind's code or not
 [[patches]]
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
 pattern = "{n=G.UIT.T, config={text = number_format(blind_amt)*"
 position = 'before'
 match_indent = true
-payload = '''(blind_choice.config.name == "bl_aij_the_clay" and {n=G.UIT.O, config={object = DynaText({string = getRandomClayBlindReqs(blind_amt), colours = {disabled and G.C.UI.TEXT_INACTIVE or G.C.RED},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = score_number_scale(0.9, blind_amt), shadow = not disabled, min_cycle_time = 0})}}) or'''
+payload = '''(blind_choice.config.name == "bl_aij_the_clay" and {n=G.UIT.O, config={object = DynaText({string = getRandomClayBlindReqs(blind_amt), colours = {disabled and G.C.UI.TEXT_INACTIVE or blind_state_text_colour or G.C.RED},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = score_number_scale(blind_state_text_colour and 0.47 or 0.9, blind_amt), shadow = not disabled, min_cycle_time = 0})}}) or'''
 
 # Fix a crash if you call G.FUNCS.use_card multiple times in quick succession
 [[patches]]
@@ -2984,7 +3018,7 @@ payload = " if card.ability.set == 'Voucher' and G.shop $1"
 [[patches]]
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
-pattern = "local shop_sign = *"
+pattern = "G.shop_booster =*"
 position = 'before'
 match_indent = true
 payload = '''
@@ -3138,3 +3172,62 @@ elseif c1.ability.set == 'Tag' then
 match_indent = true
 
 ################################# End of shop tag patches #################################
+
+
+# CardArea:update
+# Lets multiple cards be forced selected
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = "if v.ability.forced_selection and not self.highlighted[1] then "
+position = "at"
+match_indent = true
+payload = 'if v.ability.forced_selection and not v.highlighted then '
+
+
+# create_UIBox_blind_popup
+# Adds custom blind description for The Clay in the collection
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "{n=G.UIT.T, config={text = blind.mult..localize('k_x_base'), scale = 0.4, colour = G.C.RED}},"
+position = "before"
+match_indent = true
+payload = '''blind.key == "bl_aij_the_clay" and {n=G.UIT.T, config={text = "2~5"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or 
+              blind.aij_variable_req and {n=G.UIT.T, config={text = blind.mult.."+?"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or '''
+
+# Set rerolls to zero cost if reroll cost would be below zero
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "G.GAME.current_round.reroll_cost = (G.GAME.round_resets.temp_reroll_cost or G.GAME.round_resets.reroll_cost) + G.GAME.current_round.reroll_cost_increase"
+position = "at"
+match_indent = true
+payload = '''G.GAME.current_round.reroll_cost = (G.GAME.round_resets.temp_reroll_cost or math.max(0, G.GAME.round_resets.reroll_cost)) + G.GAME.current_round.reroll_cost_increase'''
+
+
+# Set The Journey to have a special background when activated
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "elseif blindname == 'Small Blind' or blindname == 'Big Blind' or blindname == '' then"
+position = "before"
+match_indent = true
+payload = '''elseif blindname == 'bl_aij_the_journey' and G.GAME.current_round.aij_the_journey_blind and G.GAME.current_round.aij_the_journey_blind.triggered then
+    boss_col = darken(G.P_BLINDS["bl_aij_the_journey"].boss_colour, 0.2)
+    G.ARGS.spin.real = -1
+    ease_background_colour{new_colour = lighten(mix_colours(boss_col, G.C.BLACK, 0.3), 0.1), special_colour = boss_col, contrast = 5}
+
+    if G.aij_the_journey_stars == nil then
+        G.aij_the_journey_stars = Particles(1, 1, 0,0, {
+            timer = 0.07,
+            scale = 0.1,
+            initialize = true,
+            lifespan = 15,
+            speed = 0.1,
+            padding = -4,
+            attach = G.ROOM_ATTACH,
+            colours = {G.C.WHITE, boss_col, lighten(boss_col, 0.2)},
+            fill = true
+        })
+    end'''

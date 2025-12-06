@@ -34,7 +34,7 @@ local elder = {
 
             if other_vars then
                 target_joker.config.center.specific_vars = other_vars
-                target_joker.config.center.specific_vars.aij_elder = true
+                target_joker.config.center.specific_vars.aij_elder = target_joker
             end
 
             info_queue[#info_queue + 1] = target_joker.config.center

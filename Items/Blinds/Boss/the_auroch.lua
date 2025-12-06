@@ -3,8 +3,6 @@ local the_auroch = {
     key = 'the_auroch',
     boss = {
         min = 3,
-        suit = nil,
-        rank = nil
     },
     mult = 2,
     boss_colour = HEX("7a7f89"),
@@ -15,7 +13,7 @@ local the_auroch = {
 
     loc_vars = function(self)
         return {
-            vars = {self.boss.suit, self.boss.rank}
+            vars = {G.GAME.current_round.aij_the_auroch.suit, G.GAME.current_round.aij_the_auroch.rank}
         }
     end,
 
@@ -26,8 +24,8 @@ local the_auroch = {
     end,
 
     stay_flipped = function(self, area, card)
-        if self.boss.suit and self.boss.rank and area == G.hand then
-            if card.base.suit == self.boss.suit or card.base.value == self.boss.rank then
+        if G.GAME.current_round.aij_the_auroch and G.GAME.current_round.aij_the_auroch.suit and G.GAME.current_round.aij_the_auroch.rank and area == G.hand then
+            if card.base.suit == G.GAME.current_round.aij_the_auroch.suit or card.base.value == G.GAME.current_round.aij_the_auroch.rank then
                 return true
             end
         end

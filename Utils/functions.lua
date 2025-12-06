@@ -849,81 +849,6 @@ function jest_get_unique_suits(scoring_hand, bypass_debuff, flush_calc)
   return num_suits
 end
 
-function reset_jest_magick_joker_card()
-    G.GAME.current_round.jest_magick_joker_card.suit = 'Spades'
-    local valid_jest_magick_joker_cards = {}
-    for k, v in ipairs(G.playing_cards) do
-        if v.ability.effect ~= 'Stone Card' then
-            valid_jest_magick_joker_cards[#valid_jest_magick_joker_cards+1] = v
-        end
-    end
-    if valid_jest_magick_joker_cards[1] then 
-        local jest_magick_joker_card = pseudorandom_element(valid_jest_magick_joker_cards, pseudoseed('mag'..G.GAME.round_resets.ante))
-        G.GAME.current_round.jest_magick_joker_card.suit = jest_magick_joker_card.base.suit
-    end
-end
-
-function reset_jest_you_broke_it_card()
-  G.GAME.current_round.jest_you_broke_it_card.rank = 'Ace'
-  G.GAME.current_round.jest_you_broke_it_card.enhancement = 'm_bonus'
-  local valid_enhancements = get_current_pool("Enhanced")
-  local valid_jest_ybi_cards = {}
-    for k, v in ipairs(G.playing_cards) do
-        if v.ability.effect ~= 'Stone Card' then
-            valid_jest_ybi_cards[#valid_jest_ybi_cards+1] = v
-        end
-    end
-    if valid_jest_ybi_cards[1] then 
-        local jest_ybi_card = pseudorandom_element(valid_jest_ybi_cards, pseudoseed('ybi'..G.GAME.round_resets.ante))
-        G.GAME.current_round.jest_you_broke_it_card.rank = jest_ybi_card.base.value
-        G.GAME.current_round.jest_you_broke_it_card.id = jest_ybi_card.base.id
-    end
-    if valid_enhancements[1] then
-      local jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..G.GAME.round_resets.ante))
-      local it = 1
-      while jest_ybi_enhancement == 'UNAVAILABLE' do
-        it = it + 1
-        jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..'_resample'..it))
-      end
-      G.GAME.current_round.jest_you_broke_it_card.enhancement = jest_ybi_enhancement
-    end
-end
-function reset_handsome_joker_card()
-  G.GAME.current_round.jest_handsome_joker_card.rank = 'Ace'
-  G.GAME.current_round.jest_handsome_joker_card.suit = 'Spades'
-  G.GAME.current_round.jest_handsome_joker_card.enhancement = 'm_bonus'
-  local all_enhancements = get_current_pool("Enhanced")
-  local valid_enhancements = {}
-
-  -- Loop through the original list of all enhancements
-  for _, enhancement in ipairs(all_enhancements) do
-    if enhancement ~= "UNAVAILABLE" and not (enhancement == 'm_stone' or enhancement == 'm_aij_canvas' or G.P_CENTERS[enhancement].no_rank or G.P_CENTERS[enhancement].no_suit) then
-      valid_enhancements[#valid_enhancements + 1] = enhancement
-    end
-  end
-  local valid_jest_handsome_cards = {}
-    for k, v in ipairs(G.playing_cards) do
-        local enhancement = v.ability.effect
-        if not (SMODS.has_no_rank(v) or SMODS.has_no_suit(v) or enhancement == 'm_aij_canvas') then
-            valid_jest_handsome_cards[#valid_jest_handsome_cards+1] = v
-        end
-    end
-    if valid_jest_handsome_cards[1] then 
-        local jest_handsome_card = pseudorandom_element(valid_jest_handsome_cards, pseudoseed('handsome'..G.GAME.round_resets.ante))
-        G.GAME.current_round.jest_handsome_joker_card.suit = jest_handsome_card.base.suit
-        G.GAME.current_round.jest_handsome_joker_card.rank = jest_handsome_card.base.value
-        G.GAME.current_round.jest_handsome_joker_card.id = jest_handsome_card.base.id
-    end
-    if valid_enhancements[1] then
-      local jest_handsome_card_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('handsome'..G.GAME.round_resets.ante))
-      local it = 1
-      while jest_handsome_card_enhancement == 'UNAVAILABLE' do
-        it = it + 1
-        jest_handsome_card_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('handsome'..'_resample'..it))
-      end
-      G.GAME.current_round.jest_handsome_joker_card.enhancement = jest_handsome_card_enhancement
-    end
-end
 -- card predict begin
 --------------------------------
 --------------------------------
@@ -1532,6 +1457,7 @@ function All_in_Jest.set_debuff(card)
 	end
 end
 
+-- Should this have an option to check suits in the pool rather then suits that are in the deck?
 function All_in_Jest.get_suits(type, base)
     local suits = {}
 	for k, v in pairs(G.playing_cards) do
@@ -1560,6 +1486,134 @@ function All_in_Jest.get_suits(type, base)
     return return_table
 end
 
+function reset_jest_magick_joker_card()
+    G.GAME.current_round.jest_magick_joker_card.suit = 'Spades'
+    local valid_jest_magick_joker_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        if v.ability.effect ~= 'Stone Card' then
+            valid_jest_magick_joker_cards[#valid_jest_magick_joker_cards+1] = v
+        end
+    end
+    if valid_jest_magick_joker_cards[1] then 
+        local jest_magick_joker_card = pseudorandom_element(valid_jest_magick_joker_cards, pseudoseed('mag'..G.GAME.round_resets.ante))
+        G.GAME.current_round.jest_magick_joker_card.suit = jest_magick_joker_card.base.suit
+    end
+end
+function reset_jest_you_broke_it_card()
+  G.GAME.current_round.jest_you_broke_it_card.rank = 'Ace'
+  G.GAME.current_round.jest_you_broke_it_card.enhancement = 'm_bonus'
+  local valid_enhancements = get_current_pool("Enhanced")
+  local valid_jest_ybi_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        if v.ability.effect ~= 'Stone Card' then
+            valid_jest_ybi_cards[#valid_jest_ybi_cards+1] = v
+        end
+    end
+    if valid_jest_ybi_cards[1] then 
+        local jest_ybi_card = pseudorandom_element(valid_jest_ybi_cards, pseudoseed('ybi'..G.GAME.round_resets.ante))
+        G.GAME.current_round.jest_you_broke_it_card.rank = jest_ybi_card.base.value
+        G.GAME.current_round.jest_you_broke_it_card.id = jest_ybi_card.base.id
+    end
+    if valid_enhancements[1] then
+      local jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..G.GAME.round_resets.ante))
+      local it = 1
+      while jest_ybi_enhancement == 'UNAVAILABLE' do
+        it = it + 1
+        jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..'_resample'..it))
+      end
+      G.GAME.current_round.jest_you_broke_it_card.enhancement = jest_ybi_enhancement
+    end
+end
+function reset_handsome_joker_card()
+  G.GAME.current_round.jest_handsome_joker_card.rank = 'Ace'
+  G.GAME.current_round.jest_handsome_joker_card.suit = 'Spades'
+  G.GAME.current_round.jest_handsome_joker_card.enhancement = 'm_bonus'
+  local all_enhancements = get_current_pool("Enhanced")
+  local valid_enhancements = {}
+
+  -- Loop through the original list of all enhancements
+  for _, enhancement in ipairs(all_enhancements) do
+    if enhancement ~= "UNAVAILABLE" and not (enhancement == 'm_stone' or enhancement == 'm_aij_canvas' or G.P_CENTERS[enhancement].no_rank or G.P_CENTERS[enhancement].no_suit) then
+      valid_enhancements[#valid_enhancements + 1] = enhancement
+    end
+  end
+  local valid_jest_handsome_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        local enhancement = v.ability.effect
+        if not (SMODS.has_no_rank(v) or SMODS.has_no_suit(v) or enhancement == 'm_aij_canvas') then
+            valid_jest_handsome_cards[#valid_jest_handsome_cards+1] = v
+        end
+    end
+    if valid_jest_handsome_cards[1] then 
+        local jest_handsome_card = pseudorandom_element(valid_jest_handsome_cards, pseudoseed('handsome'..G.GAME.round_resets.ante))
+        G.GAME.current_round.jest_handsome_joker_card.suit = jest_handsome_card.base.suit
+        G.GAME.current_round.jest_handsome_joker_card.rank = jest_handsome_card.base.value
+        G.GAME.current_round.jest_handsome_joker_card.id = jest_handsome_card.base.id
+    end
+    if valid_enhancements[1] then
+      local jest_handsome_card_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('handsome'..G.GAME.round_resets.ante))
+      local it = 1
+      while jest_handsome_card_enhancement == 'UNAVAILABLE' do
+        it = it + 1
+        jest_handsome_card_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('handsome'..'_resample'..it))
+      end
+      G.GAME.current_round.jest_handsome_joker_card.enhancement = jest_handsome_card_enhancement
+    end
+end
+function reset_the_auroch_blind()
+    local common_suit, common_rank = nil, nil
+    local temp_suit_val, temp_rank_val = 0, 0
+    local suit_table, rank_table = {}, {}
+    for _, v in pairs(G.deck.cards) do
+        suit_table[v.base.suit] = suit_table[v.base.suit] or 0 
+        suit_table[v.base.suit] = suit_table[v.base.suit] + 1
+        rank_table[v.base.value] = rank_table[v.base.value] or 0 
+        rank_table[v.base.value] = rank_table[v.base.value] + 1
+    end
+    for k, v in pairs(suit_table) do
+        if v >= temp_suit_val then
+            temp_suit_val = v
+            common_suit = k
+        end
+    end
+    for k, v in pairs(rank_table) do
+        if v >= temp_rank_val then
+            temp_rank_val = v
+            common_rank = k
+        end
+    end
+    G.GAME.current_round.aij_the_auroch = {suit = common_suit or "Spades", rank = common_rank or "Ace"}
+end
+function reset_the_journey_blind()
+    local selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey'))
+    -- By default the special journey background will fade during the evaluate screen, nesting events here prevnts this
+    -- This *is* jank
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.GAME.current_round.aij_the_journey_blind = {selected_suit = selected_suit or "Spades", triggered = false}
+                    return true
+                end
+            }))
+            return true
+        end
+    }))
+end
+function reset_aureate_coin_blind()
+    G.GAME.current_round.aij_aureate_coin_blind = {spent_money = 0}
+end
+function reset_the_heart_blind()
+    local hands = {
+        "Two Pair",
+        "Flush",
+        "Straight",
+        "Three of a Kind"
+    }
+    local chosen_hand = pseudorandom_element(hands, pseudoseed('jest_the_heart_blind'..G.GAME.round_resets.ante))
+    G.GAME.current_round.aij_the_heart = {hand = chosen_hand or "Two Pair"}
+end
+
 function All_in_Jest.reset_game_globals(run_start)
     -- Globals for a single blind (like Idol)
     reset_jest_magick_joker_card()
@@ -1567,41 +1621,25 @@ function All_in_Jest.reset_game_globals(run_start)
 	  G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
 
+    if G.GAME.round_resets.blind_states.Boss == 'Defeated' or run_start then
+       -- Globals for a single ante (not a thing in Vanilla)
+       -- Checks run_start as well to trigger at start of run, G.GAME.round_resets.blind_states.Boss == 'Defeated' only checks for the end of an ante
+
+        -- Reset Boss Blinds
+       reset_the_auroch_blind()
+       reset_the_journey_blind()
+       reset_aureate_coin_blind()
+       reset_the_heart_blind()
+    end
+
     if run_start then
         -- Globals for a whole run (like Fortune Teller)
         reset_handsome_joker_card()
-
-        local common_suit, common_rank = nil, nil
-        local temp_suit_val, temp_rank_val = 0, 0
-        local suit_table, rank_table = {}, {}
-        for k, v in pairs(G.deck.cards) do
-            suit_table[v.base.suit] = suit_table[v.base.suit] or 0 
-            suit_table[v.base.suit] = suit_table[v.base.suit] + 1
-            rank_table[v.base.value] = rank_table[v.base.value] or 0 
-            rank_table[v.base.value] = rank_table[v.base.value] + 1
-        end
-        for k, v in pairs(suit_table) do
-            if v >= temp_suit_val then
-                temp_suit_val = v
-                common_suit = k
-            end
-        end
-        for k, v in pairs(rank_table) do
-            if v >= temp_rank_val then
-                temp_rank_val = v
-                common_rank = k
-            end
-        end
-        G.P_BLINDS['bl_aij_the_auroch'].boss.suit = common_suit
-        G.P_BLINDS['bl_aij_the_auroch'].boss.rank = common_rank
 
         G.GAME.all_in_jest.starting_prams.deck_size = #G.deck.cards
         
         local index = {4,5}
         G.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
-
-        -- Reset Aureate Coin
-        G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = 0
     end
 end
 
@@ -1697,39 +1735,50 @@ function All_in_Jest.force_pit_blind()
     return (blue_stake_replacement_blind or all_pit_blinds_challenge) and not_showdown_blind
 end
 
+function All_in_Jest.get_current_blind_mult()
+    local original_chips = G.GAME.blind.aij_original_chips > to_big(0) and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
+    return (G.GAME.blind.chips - G.GAME.blind.aij_added_chips) / (original_chips / G.GAME.blind.aij_original_mult)
+end
+
 -- Increases blind requirement while making the score tick up with an animation
--- mod_add increases the mult of the blind (so mod_add = 1 makes a blind go from x2 to x3)
+-- mod_mult increases the mult of the blind (so mod_mult = 1 makes a blind go from x2 to x3)
 -- mod_add increases the blind requirement directly. This occurs after mod_add
 -- Code copied from Bunco
 function All_in_Jest.ease_blind_requirement(mod_mult, mod_add)
-    local original_chips = G.GAME.blind.original_chips > 0 and G.GAME.blind.original_chips or G.GAME.blind.chips
+    local original_chips = G.GAME.blind.aij_original_chips > to_big(0) and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
 
     mod_mult = mod_mult ~= nil and mod_mult or 0
     mod_add = mod_add ~= nil and mod_add or 0
-    local current_mult = G.GAME.blind.chips / (original_chips / G.GAME.blind.mult) -- Takes into account previous ease_blind_requirement calls
-    local final_chips = (original_chips / G.GAME.blind.mult) * (current_mult + mod_mult) + mod_add
-    local chip_mod -- iterate over ~120 ticks
+
+    local original_mult = G.GAME.blind.aij_original_mult
+    local previously_added = G.GAME.blind.aij_added_chips -- Only accounts chips added via mod_add
+    local current_mult = All_in_Jest.get_current_blind_mult() -- Takes into account previous ease_blind_requirement calls
+    local desired_chip_amount = (original_chips / original_mult) * (current_mult + mod_mult) + mod_add + previously_added
+
+    local chip_mod -- Calculate how much the chips count changes each "tick", set to iterate over ~120 ticks
     if type(G.GAME.blind.chips) ~= 'table' then
-        chip_mod = math.ceil(math.abs(final_chips - G.GAME.blind.chips) / 120)
+        chip_mod = math.ceil(math.abs(desired_chip_amount - G.GAME.blind.chips) / 120)
     else
-        chip_mod = ((final_chips - G.GAME.blind.chips):abs() / 120):ceil()
+        chip_mod = ((desired_chip_amount - G.GAME.blind.chips):abs() / 120):ceil()
     end
     local step = 0
-    if G.GAME.blind.chips < final_chips then
+
+    local chips_text_integer = G.GAME.blind.chips -- Used to track animation
+    if chips_text_integer < to_big(desired_chip_amount) then
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             blocking = true,
             func = function()
-                G.GAME.blind.chips = G.GAME.blind.chips + G.SETTINGS.GAMESPEED * chip_mod
-                if G.GAME.blind.chips < final_chips then
-                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                chips_text_integer = chips_text_integer + G.SETTINGS.GAMESPEED * chip_mod
+                if chips_text_integer < desired_chip_amount then
+                    G.GAME.blind.chip_text = number_format(chips_text_integer)
                     if step % 5 == 0 then
                         play_sound('chips1', 0.8 + (step * 0.005))
                     end
                     step = step + 1
                 else
-                    G.GAME.blind.chips = final_chips
-                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                    chips_text_integer = desired_chip_amount
+                    G.GAME.blind.chip_text = number_format(chips_text_integer)
                     G.GAME.blind:wiggle()
                     return true
                 end
@@ -1740,51 +1789,72 @@ function All_in_Jest.ease_blind_requirement(mod_mult, mod_add)
             trigger = 'after',
             blocking = true,
             func = function()
-                G.GAME.blind.chips = G.GAME.blind.chips - G.SETTINGS.GAMESPEED * chip_mod
-                if G.GAME.blind.chips > final_chips then
-                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                chips_text_integer = chips_text_integer - G.SETTINGS.GAMESPEED * chip_mod
+                if chips_text_integer > desired_chip_amount then
+                    G.GAME.blind.chip_text = number_format(chips_text_integer)
                     if step % 5 == 0 then
                         play_sound('chips1', 0.8 + (step * 0.005))
                     end
                     step = step - 1
                 else
-                    G.GAME.blind.chips = final_chips
-                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                    chips_text_integer = desired_chip_amount
+                    G.GAME.blind.chip_text = number_format(chips_text_integer)
                     G.GAME.blind:wiggle()
                     return true
                 end
             end
         }))
     end
+
+    G.GAME.blind.chips = desired_chip_amount -- Immediately set in case this function is called successively
+    G.GAME.blind.aij_added_chips = G.GAME.blind.aij_added_chips + mod_add
 end
 
 -- Redisplays the blind info on the blind select screen
 -- Used to update dynamic score requirements
 function All_in_Jest.aij_refresh_boss_blind()
-    if G.GAME.blind.boss or not G.blind_select_opts then return end
+    if G.GAME.blind.boss then return end
 
-    local par = G.blind_select_opts.boss.parent
-    if par and par.config.object then
-        G.blind_select_opts.boss:remove()
-        G.blind_select_opts.boss = UIBox{
-            T = {par.T.x, 0, 0, 0},
-            definition = { n = G.UIT.ROOT, config = { align = "cm", colour = G.C.CLEAR }, nodes = {
-              UIBox_dyn_container({ create_UIBox_blind_choice('Boss') }, false, get_blind_main_colour('Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Boss'), 0.8))
-            } },
-            config = {
-                align = "bmi",
-                offset = {
-                    x = 0,
-                    y = G.blind_select_opts.boss.alignment.offset.y
-                },
-                major = par,
-                xy_bond = 'Weak'
+    if G.blind_select_opts then
+        local par = G.blind_select_opts.boss.parent
+        if par and par.config.object then
+            G.blind_select_opts.boss:remove()
+            G.blind_select_opts.boss = UIBox{
+                T = {par.T.x, 0, 0, 0},
+                definition = { n = G.UIT.ROOT, config = { align = "cm", colour = G.C.CLEAR }, nodes = {
+                  UIBox_dyn_container({ create_UIBox_blind_choice('Boss') }, false, get_blind_main_colour('Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Boss'), 0.8))
+                } },
+                config = {
+                    align = "bmi",
+                    offset = {
+                        x = 0,
+                        y = G.blind_select_opts.boss.alignment.offset.y
+                    },
+                    major = par,
+                    xy_bond = 'Weak'
+                }
             }
+            par.config.object = G.blind_select_opts.boss
+            par.config.object:recalculate()
+            G.blind_select_opts.boss.parent = par
+            -- G.blind_select_opts.boss.alignment.offset.y = -0.2
+        end
+    end
+
+    if G.SHOP_SIGN and next(SMODS.find_mod("unBlindShopGUI")) then
+        G.SHOP_SIGN:remove()
+        G.SHOP_SIGN = UIBox{
+          definition = 
+            {n=G.UIT.ROOT, config = {colour = G.C.CLEAR, align = 'bm' }, nodes={
+              G.UIDEF.UnBlind_current_blinds()
+            }},
+          config = {
+            align="cm",
+            offset = {x=0,y=0},
+            major = G.HUD:get_UIE_by_ID('row_blind'),
+            bond = 'Weak'
+          }
         }
-        par.config.object = G.blind_select_opts.boss
-        par.config.object:recalculate()
-        G.blind_select_opts.boss.parent = par
-        -- G.blind_select_opts.boss.alignment.offset.y = -0.2
     end
 end
 

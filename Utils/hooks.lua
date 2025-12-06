@@ -570,32 +570,6 @@ end
 local ease_anteref = ease_ante
 function ease_ante(mod)
     if mod > 0 then
-        G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = 0
-        local common_suit, common_rank = nil, nil
-        local temp_suit_val, temp_rank_val = 0, 0
-        local suit_table, rank_table = {}, {}
-        for k, v in pairs(G.deck.cards) do
-            suit_table[v.base.suit] = suit_table[v.base.suit] or 0 
-            suit_table[v.base.suit] = suit_table[v.base.suit] + 1
-            rank_table[v.base.value] = rank_table[v.base.value] or 0 
-            rank_table[v.base.value] = rank_table[v.base.value] + 1
-        end
-        for k, v in pairs(suit_table) do
-            if v >= temp_suit_val then
-                temp_suit_val = v
-                common_suit = k
-            end
-        end
-        for k, v in pairs(rank_table) do
-            if v >= temp_rank_val then
-                temp_rank_val = v
-                common_rank = k
-            end
-        end
-        G.P_BLINDS['bl_aij_the_journey'].boss.selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey'))
-        G.P_BLINDS['bl_aij_the_auroch'].boss.suit = common_suit or G.P_BLINDS['bl_aij_the_auroch'].boss.suit
-        G.P_BLINDS['bl_aij_the_auroch'].boss.rank = common_rank or G.P_BLINDS['bl_aij_the_auroch'].boss.rank
-        -- G.P_BLINDS['bl_aij_the_clay'].mult = pseudorandom("clay", 2, 4) + math.floor(100*pseudorandom("clay"))/100 -- Randomises an integer part (1-4) and a decimal part (0.00 to 0.99) before adding both together
         G.GAME.all_in_jest.unused_hands.ante = 0
         G.GAME.all_in_jest.unused_discards.ante = 0
     end
@@ -854,13 +828,15 @@ function Card:save()
     return saveTable
 end
 
--- Automatically saves G.GAME.blind.original_chips when blind is loaded
+-- Automatically saves G.GAME.blind.aij_original_chips when blind is loaded
 local aij_blind_set_blind_ref = Blind.set_blind
 function Blind:set_blind(blind, reset, silent)
-    local ret = aij_blind_set_blind_ref(self, blind, reset, silent)
-    if not reset then
-        self.original_chips = self.chips
+    if blind and not reset then
+        self.aij_original_chips = get_blind_amount(G.GAME.round_resets.ante)*blind.mult*G.GAME.starting_params.ante_scaling
+        self.aij_original_mult = blind.mult
+        self.aij_added_chips = 0
     end
+    local ret = aij_blind_set_blind_ref(self, blind, reset, silent)
     return ret
 end
 
@@ -868,14 +844,19 @@ end
 local aij_blind_save_ref = Blind.save
 function Blind:save()
     local blindTable = aij_blind_save_ref(self)
-    blindTable.original_chips = self.original_chips
+    blindTable.aij_original_chips = self.aij_original_chips
+    blindTable.aij_original_mult = self.aij_original_mult
+    blindTable.aij_added_chips = self.aij_added_chips
     return blindTable
 end
 local aij_blind_load_ref = Blind.load
 function Blind:load(blindTable)
     local ret = aij_blind_load_ref(self, blindTable)
-    self.original_chips = blindTable.original_chips
-    return blindTable
+    self.aij_original_chips = blindTable.aij_original_chips
+    self.aij_original_mult = blindTable.aij_original_mult
+    self.aij_added_chips = blindTable.aij_added_chips
+    ease_background_colour_blind(G.STATE, self.name or 'Small Blind') -- For The Journey blind
+    return ret
 end
 
 -- Add area in the shop for puchaseable tags (1/2)

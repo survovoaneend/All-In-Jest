@@ -30,7 +30,7 @@ local majordomo = {
         if context.reroll_shop or context.starting_shop then
             for k, v in pairs(G.shop_jokers.cards) do
                 if v.cost > card.ability.extra.more_than then
-                    v:add_sticker('rental', true)
+                    v:set_rental(true)
                     v:juice_up(0.3, 0.5)
                     card:juice_up()
                 end

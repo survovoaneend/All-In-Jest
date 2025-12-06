@@ -45,20 +45,21 @@ return {
                 'deck have random {C:attention}deck skins'
             },
             k_aij_guess_the_jest = "Guess the Jest",
-            k_aij_memory_card = "Memorized!",
-            aij_plus_tag = "+1 Tag",
-            aij_refreshed = 'Refreshed',
-            aij_paid_off = 'Paid Off',
-            k_aij_polychrome_ex = 'Polychrome!',
-            k_aij_foiled_again = 'Foiled Again!',
-            k_aij_p_arcana = "+1 Arcana",
-            k_aij_merry_christmas = "Merry Christmas!",
-            k_aij_change_ex = 'Change!',
-            k_aij_blood_spilt_ex = 'Blood Spilt!',
-            k_aij_double_ex = 'Doubled!',
-            k_aij_triple_ex = 'Tripled!',
-            k_aij_chaos_ex = 'Chaos!',
-            k_aij_two_into_one_ex = 'Two into one!'
+            k_aij_memory_card = "Memorized!", -- Memory Card, currently unused
+            aij_plus_tag = "+1 Tag", -- Various jokers
+            aij_refreshed = 'Refreshed', -- Office Assistant (When fixing a perishable sticker)
+            aij_paid_off = 'Paid Off', -- Office Assistant (When fixing a rental sticker)
+            k_aij_polychrome_ex = 'Polychrome!', -- Colour Test
+            k_aij_foiled_again = 'Foiled Again!', -- Bad Guy
+            k_aij_p_arcana = "+1 Arcana", -- Witchfinder
+            k_aij_merry_christmas = "Merry Christmas!", -- Elf
+            k_aij_change_ex = 'Change!', -- Read 'em and Weep (when cards change suit)
+            k_aij_blood_spilt_ex = 'Blood Spilt!', -- Blood Artist
+            k_aij_double_ex = 'Doubled!', -- Taggart
+            k_aij_triple_ex = 'Tripled!', -- Toto Legendary
+            k_aij_chaos_ex = 'Chaos!', -- Chaotic modifier
+            k_aij_two_into_one_ex = 'Two into one!', -- Mycologists
+            k_aij_plus_two_moons = "+2 Moons", -- Sky Trees
 
         },
         v_dictionary = {
@@ -67,6 +68,8 @@ return {
             a_aij_mult_equal="=#1# Mult",
 
             a_aij_ante_minus="-#1# Ante",
+
+            a_aij_win_ante_plus="+#1# Win Ante",
 
             a_aij_percent_balance = "+%#1#",
             a_aij_percent_balance_minus = "-%#1#",
@@ -246,9 +249,8 @@ return {
             pnr_aij_nellie = {
                 name = "Nellie",
                 text = {
-                    "{C:dark_edition}Negative{} Jokers appear",
-                    "{C:attention}+#1#%{} more often",
-                    "{C:inactive}(Compared to the base rate){}"
+                    "{C:dark_edition}Negative{} Jokers are",
+                    "{C:attention}#1#X{} more common",
                 },
                 unlock={
                     "Win a run with",
@@ -272,7 +274,8 @@ return {
             pnr_aij_banger = {
                 name = "Banger",
                 text = {
-                    'Rerolls cost {C:money}$#1#{} less'
+                    '{C:green}Rerolls{} cost {C:money}$#1#{} less',
+                    '{C:inactive}(Cannot go below {C:money}$0{C:inactive}){}'
                 },
                 unlock={
                     "Win a run with",
@@ -705,8 +708,7 @@ return {
                 name = "The Child",
                 text = {
                     'Reduce the rank of all',
-                    'scoring cards by 1',
-                    'after each hand played'
+                    'scoring cards by 1'
                 },
             },
             bl_aij_the_moon = {
@@ -1149,9 +1151,8 @@ return {
             j_aij_negative_nancy = {
                 name = "Negative Nancy",
                 text = {
-                    "{C:dark_edition}Negative{} Jokers appear",
-                    "{C:attention}+#1#%{} more often",
-                    "{C:inactive}(Compared to the base rate){}"
+                    "{C:dark_edition}Negative{} Jokers appear {C:attention}#1#X{}",
+                    "more often in the {C:attention}Shop{}"
                 },
             },
             j_aij_old_joker = { 
@@ -3152,9 +3153,9 @@ return {
                 name = "Lexicon", 
                 text = { 
                     "Adds {C:mult}Mult{} equal to the",
-                    "{C:attention}combined sum{} of all",
-                    "digits present on each",
-                    "owned {C:attention}Joker" ,
+                    "{C:attention}sum{} of all digits",
+                    "in the values of",
+                    "owned {C:attention}Jokers" ,
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 } 
             },
@@ -3216,7 +3217,7 @@ return {
                     "When {C:attention}Small Blind{} or {C:attention}Big Blind",
                     "is selected, this Joker",
                     "{C:red}destroys{} all {C:planet}Planet Cards{}",
-                    "in your possession and",
+                    "in your {C:attention}consumable{} area and",
                     "gains their {C:chips}Chips{} and {C:mult}Mult{}",
                     "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#2#{} {C:inactive,s:0.8}Chips, {C:mult,s:0.8}+#1#{C:inactive,s:0.8} Mult)"
                 } 
@@ -3232,10 +3233,14 @@ return {
             j_aij_alien_joker = { 
                 name = "Alien Joker", 
                 text = { 
-                    "{C:attention}Forces 1{} card",
-                    "to be selected",
-                    "{C:attention}Force-selected{} card gives",
-                    "{X:mult,C:white}X#1#{} Mult when scored" 
+                    {
+                        "{C:attention}Forces 1{} card",
+                        "to be selected",
+                    },
+                    {
+                        "{C:attention}Force-selected{} cards give",
+                        "{X:mult,C:white}X#1#{} Mult when scored" 
+                    }
                 } 
             },
             j_aij_nobody = { 

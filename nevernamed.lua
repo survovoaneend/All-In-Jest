@@ -187,6 +187,9 @@ assert(SMODS.load_file('Utils/draw.lua'))()
 assert(SMODS.load_file('Utils/functions.lua'))()
 assert(SMODS.load_file('Utils/hooks.lua'))()
 assert(SMODS.load_file('Utils/ui.lua'))()
+if next(SMODS.find_mod("unBlindShopGUI")) then
+    assert(SMODS.load_file('Utils/UnBlind_crossmod.lua'))()
+end
 
 local folders = NFS.getDirectoryItems(mod_path.."Items")
 local objects = {}

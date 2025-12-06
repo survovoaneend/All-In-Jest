@@ -34,6 +34,7 @@ local the_divine = {
                     return false
                 end
             end
+            G.GAME.blind.triggered = true
             return true
         end
     end

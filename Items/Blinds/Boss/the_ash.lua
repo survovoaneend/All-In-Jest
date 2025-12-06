@@ -39,8 +39,32 @@ local the_ash = {
         All_in_Jest.ease_blind_requirement(extra_mult, 0)
     end,
 
+    calculate = function(self, blind, context)
+        local temp = G.GAME.blind and G.GAME.blind.disabled
+        if temp then
+            return
+        end
+        if context.playing_card_added then
+            local extra_mult = #context.cards * -0.2
+            if (All_in_Jest.get_current_blind_mult() + extra_mult) < G.GAME.blind.aij_original_mult then
+                extra_mult = G.GAME.blind.aij_original_mult - All_in_Jest.get_current_blind_mult()
+            end
+            if extra_mult ~= 0 then
+                All_in_Jest.ease_blind_requirement(extra_mult, 0)
+                blind.triggered = true
+            end
+        end
+        if context.remove_playing_cards then
+            local extra_mult = #context.removed * 0.2
+            if extra_mult ~= 0 then
+                All_in_Jest.ease_blind_requirement(extra_mult, 0)
+                blind.triggered = true
+            end
+        end
+    end,
+
     disable = function()
-        G.GAME.blind.chips = G.GAME.blind.original_chips
+        G.GAME.blind.chips = G.GAME.blind.aij_original_chips
         G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
     end,
 
