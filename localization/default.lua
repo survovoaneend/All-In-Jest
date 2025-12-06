@@ -45,20 +45,21 @@ return {
                 'deck have random {C:attention}deck skins'
             },
             k_aij_guess_the_jest = "Guess the Jest",
-            k_aij_memory_card = "Memorized!",
-            aij_plus_tag = "+1 Tag",
-            aij_refreshed = 'Refreshed',
-            aij_paid_off = 'Paid Off',
-            k_aij_polychrome_ex = 'Polychrome!',
-            k_aij_foiled_again = 'Foiled Again!',
-            k_aij_p_arcana = "+1 Arcana",
-            k_aij_merry_christmas = "Merry Christmas!",
-            k_aij_change_ex = 'Change!',
-            k_aij_blood_spilt_ex = 'Blood Spilt!',
-            k_aij_double_ex = 'Doubled!',
-            k_aij_triple_ex = 'Tripled!',
-            k_aij_chaos_ex = 'Chaos!',
-            k_aij_two_into_one_ex = 'Two into one!'
+            k_aij_memory_card = "Memorized!", -- Memory Card, currently unused
+            aij_plus_tag = "+1 Tag", -- Various jokers
+            aij_refreshed = 'Refreshed', -- Office Assistant (When fixing a perishable sticker)
+            aij_paid_off = 'Paid Off', -- Office Assistant (When fixing a rental sticker)
+            k_aij_polychrome_ex = 'Polychrome!', -- Colour Test
+            k_aij_foiled_again = 'Foiled Again!', -- Bad Guy
+            k_aij_p_arcana = "+1 Arcana", -- Witchfinder
+            k_aij_merry_christmas = "Merry Christmas!", -- Elf
+            k_aij_change_ex = 'Change!', -- Read 'em and Weep (when cards change suit)
+            k_aij_blood_spilt_ex = 'Blood Spilt!', -- Blood Artist
+            k_aij_double_ex = 'Doubled!', -- Taggart
+            k_aij_triple_ex = 'Tripled!', -- Toto Legendary
+            k_aij_chaos_ex = 'Chaos!', -- Chaotic modifier
+            k_aij_two_into_one_ex = 'Two into one!', -- Mycologists
+            k_aij_plus_two_moons = "+2 Moons", -- Sky Trees
 
         },
         v_dictionary = {

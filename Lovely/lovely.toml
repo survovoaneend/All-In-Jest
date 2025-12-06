@@ -1903,19 +1903,23 @@ end
 -- End All in Jest patch
 if self.seal == 'Blue' and (aij_blue_seal_is_negative or (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit)) $post
 '''
-# The Grim Joker (Blue Seals) (2/3)
+# The Grim Joker (Blue Seals) (2/3) & Sky Trees (1/3)
 # Undo buffer change so that non-negative consumables aren't prevented from spawning
+# Also, add to buffer a second time if two cards are being created via Sky Trees
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = """local card_type = 'Planet'
-G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1"""
+pattern = '''local card_type = 'Planet'
+G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1'''
 position = "after"
 match_indent = true
 payload = '''
 -- All in Jest patch
+if next(SMODS.find_card("j_aij_sky_trees")) and not aij_blue_seal_is_negative then
+    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+end
 if aij_blue_seal_is_negative then
-    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1 -- Undoes adding to buffer
 end
 -- End All in Jest patch
 '''
@@ -2575,6 +2579,8 @@ position = "at"
 line_prepend = '$indent'
 payload = '''if v.config.hand_type == G.GAME.last_hand_played and not v.config.moon $post'''
 
+# Sky Trees (2/3)
+# Creates two moon cards instead of a planet card
 [[patches]] 
 [patches.pattern]
 target = "card.lua"
@@ -2596,10 +2602,36 @@ if next(SMODS.find_card("j_aij_sky_trees")) then
     if _other_planet == 0 then _other_planet = nil end
     local cardt = create_card(card_type,G.consumeables, nil, nil, nil, nil, _other_planet, 'blusl')
     if aij_blue_seal_is_negative then -- For The Grim Joker
-        card:set_edition({negative = true}, true)
+        cardt:set_edition({negative = true}, true)
     end
     cardt:add_to_deck()
     G.consumeables:emplace(cardt)
+end
+'''
+match_indent = true
+# Sky Trees (3/3)
+# Show "+2 Moons" message instead of +1 "Planet"
+[[patches]] 
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('k_plus_planet')*
+'''
+position = "before"
+payload = '''
+if next(SMODS.find_card("j_aij_sky_trees")) then
+    card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('k_aij_plus_two_moons'), colour = G.C.SECONDARY_SET.Planet})
+else
+'''
+match_indent = true
+[[patches]] 
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('k_plus_planet')*
+'''
+position = "after"
+payload = '''
 end
 '''
 match_indent = true
