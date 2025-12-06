@@ -1736,7 +1736,7 @@ function All_in_Jest.force_pit_blind()
 end
 
 function All_in_Jest.get_current_blind_mult()
-    local original_chips = G.GAME.blind.aij_original_chips > 0 and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
+    local original_chips = G.GAME.blind.aij_original_chips > to_big(0) and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
     return (G.GAME.blind.chips - G.GAME.blind.aij_added_chips) / (original_chips / G.GAME.blind.aij_original_mult)
 end
 
@@ -1745,7 +1745,7 @@ end
 -- mod_add increases the blind requirement directly. This occurs after mod_add
 -- Code copied from Bunco
 function All_in_Jest.ease_blind_requirement(mod_mult, mod_add)
-    local original_chips = G.GAME.blind.aij_original_chips > 0 and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
+    local original_chips = G.GAME.blind.aij_original_chips > to_big(0) and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
 
     mod_mult = mod_mult ~= nil and mod_mult or 0
     mod_add = mod_add ~= nil and mod_add or 0
@@ -1764,7 +1764,7 @@ function All_in_Jest.ease_blind_requirement(mod_mult, mod_add)
     local step = 0
 
     local chips_text_integer = G.GAME.blind.chips -- Used to track animation
-    if chips_text_integer < desired_chip_amount then
+    if chips_text_integer < to_big(desired_chip_amount) then
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             blocking = true,
