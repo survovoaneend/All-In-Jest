@@ -1854,8 +1854,8 @@ if self.seal == 'Purple' and (aij_purple_seal_is_negative or (#G.consumeables.ca
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = """if self.seal == 'Purple'*
-    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1"""
+pattern = '''if self.seal == 'Purple'*
+    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1'''
 position = "after"
 match_indent = true
 payload = '''
@@ -2916,11 +2916,11 @@ self.ability = blindTable.ability
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
-pattern = """func = function()
+pattern = '''func = function()
     card:highlight(highlight)
     play_sound('cardSlide1', 0.85 + percent*0.2)
     return true
-end"""
+end'''
 position = 'at'
 match_indent = true
 payload = '''
@@ -2941,7 +2941,7 @@ end
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
-pattern = """-- TARGET: main scoring on played cards"""
+pattern = '''-- TARGET: main scoring on played cards'''
 position = 'before'
 match_indent = true
 payload = '''
