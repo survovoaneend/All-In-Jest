@@ -570,32 +570,6 @@ end
 local ease_anteref = ease_ante
 function ease_ante(mod)
     if mod > 0 then
-        G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = 0
-        local common_suit, common_rank = nil, nil
-        local temp_suit_val, temp_rank_val = 0, 0
-        local suit_table, rank_table = {}, {}
-        for k, v in pairs(G.deck.cards) do
-            suit_table[v.base.suit] = suit_table[v.base.suit] or 0 
-            suit_table[v.base.suit] = suit_table[v.base.suit] + 1
-            rank_table[v.base.value] = rank_table[v.base.value] or 0 
-            rank_table[v.base.value] = rank_table[v.base.value] + 1
-        end
-        for k, v in pairs(suit_table) do
-            if v >= temp_suit_val then
-                temp_suit_val = v
-                common_suit = k
-            end
-        end
-        for k, v in pairs(rank_table) do
-            if v >= temp_rank_val then
-                temp_rank_val = v
-                common_rank = k
-            end
-        end
-        G.P_BLINDS['bl_aij_the_journey'].boss.selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey'))
-        G.P_BLINDS['bl_aij_the_auroch'].boss.suit = common_suit or G.P_BLINDS['bl_aij_the_auroch'].boss.suit
-        G.P_BLINDS['bl_aij_the_auroch'].boss.rank = common_rank or G.P_BLINDS['bl_aij_the_auroch'].boss.rank
-        -- G.P_BLINDS['bl_aij_the_clay'].mult = pseudorandom("clay", 2, 4) + math.floor(100*pseudorandom("clay"))/100 -- Randomises an integer part (1-4) and a decimal part (0.00 to 0.99) before adding both together
         G.GAME.all_in_jest.unused_hands.ante = 0
         G.GAME.all_in_jest.unused_discards.ante = 0
     end

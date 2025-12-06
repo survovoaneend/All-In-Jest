@@ -2,8 +2,7 @@ local the_journey = {
     object_type = "Blind",
     key = 'the_journey',
     boss = {
-        min = 3,
-        selected_suit = '[X]',
+        min = 3
     },
     mult = 2,
     boss_colour = HEX("fdd879"),
@@ -11,19 +10,10 @@ local the_journey = {
     pos = { X = 0, y = 56},
     order = 28,
     dollars = 5,
-    config = {
-        extra = {
-            trigger = false,
-        }
-    },
 
     loc_vars = function(self)
-        local ability = G.GAME.blind.ability
-        if self.boss.selected_suit == '[X]' then
-            self.boss.selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey')) or "Spades"
-        end
         return {
-            vars = {ability and ability.selected_suit or self.boss.selected_suit}
+            vars = {G.GAME.current_round.aij_the_journey_blind and G.GAME.current_round.aij_the_journey_blind.selected_suit}
         }
     end,
 
@@ -38,17 +28,30 @@ local the_journey = {
         if temp then
             return
         end
-        -- BUG, this isn't saved
-        local ability = G.GAME.blind.ability
-        if ability and context.individual and context.cardarea == G.play and not temp then
-            if context.other_card:is_suit(self.boss.selected_suit) and not ability.trigger then
+
+        if context.individual and context.cardarea == G.play and G.GAME.current_round.aij_the_journey_blind and not temp then
+            if context.other_card:is_suit(G.GAME.current_round.aij_the_journey_blind.selected_suit) then
+                blind.triggered = true
+            end
+        end
+        
+        if context.all_in_jest and context.all_in_jest.before_after and G.GAME.current_round.aij_the_journey_blind and not temp then
+            local trigger = false
+            for _, v in ipairs(context.scoring_hand) do
+                if v:is_suit(G.GAME.current_round.aij_the_journey_blind.selected_suit) then
+                    trigger = true
+                    break
+                end
+            end
+            if trigger then
+                G.GAME.current_round.aij_the_journey_blind.triggered = true
                 G.E_MANAGER:add_event(Event({
                     func = function()
+                        G.GAME.blind:disable()
                         G.GAME.win_ante = G.GAME.win_ante + 1
                         return true
                     end
                 }))
-                ability.trigger = true
             end
         end
     end,

@@ -849,81 +849,6 @@ function jest_get_unique_suits(scoring_hand, bypass_debuff, flush_calc)
   return num_suits
 end
 
-function reset_jest_magick_joker_card()
-    G.GAME.current_round.jest_magick_joker_card.suit = 'Spades'
-    local valid_jest_magick_joker_cards = {}
-    for k, v in ipairs(G.playing_cards) do
-        if v.ability.effect ~= 'Stone Card' then
-            valid_jest_magick_joker_cards[#valid_jest_magick_joker_cards+1] = v
-        end
-    end
-    if valid_jest_magick_joker_cards[1] then 
-        local jest_magick_joker_card = pseudorandom_element(valid_jest_magick_joker_cards, pseudoseed('mag'..G.GAME.round_resets.ante))
-        G.GAME.current_round.jest_magick_joker_card.suit = jest_magick_joker_card.base.suit
-    end
-end
-
-function reset_jest_you_broke_it_card()
-  G.GAME.current_round.jest_you_broke_it_card.rank = 'Ace'
-  G.GAME.current_round.jest_you_broke_it_card.enhancement = 'm_bonus'
-  local valid_enhancements = get_current_pool("Enhanced")
-  local valid_jest_ybi_cards = {}
-    for k, v in ipairs(G.playing_cards) do
-        if v.ability.effect ~= 'Stone Card' then
-            valid_jest_ybi_cards[#valid_jest_ybi_cards+1] = v
-        end
-    end
-    if valid_jest_ybi_cards[1] then 
-        local jest_ybi_card = pseudorandom_element(valid_jest_ybi_cards, pseudoseed('ybi'..G.GAME.round_resets.ante))
-        G.GAME.current_round.jest_you_broke_it_card.rank = jest_ybi_card.base.value
-        G.GAME.current_round.jest_you_broke_it_card.id = jest_ybi_card.base.id
-    end
-    if valid_enhancements[1] then
-      local jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..G.GAME.round_resets.ante))
-      local it = 1
-      while jest_ybi_enhancement == 'UNAVAILABLE' do
-        it = it + 1
-        jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..'_resample'..it))
-      end
-      G.GAME.current_round.jest_you_broke_it_card.enhancement = jest_ybi_enhancement
-    end
-end
-function reset_handsome_joker_card()
-  G.GAME.current_round.jest_handsome_joker_card.rank = 'Ace'
-  G.GAME.current_round.jest_handsome_joker_card.suit = 'Spades'
-  G.GAME.current_round.jest_handsome_joker_card.enhancement = 'm_bonus'
-  local all_enhancements = get_current_pool("Enhanced")
-  local valid_enhancements = {}
-
-  -- Loop through the original list of all enhancements
-  for _, enhancement in ipairs(all_enhancements) do
-    if enhancement ~= "UNAVAILABLE" and not (enhancement == 'm_stone' or enhancement == 'm_aij_canvas' or G.P_CENTERS[enhancement].no_rank or G.P_CENTERS[enhancement].no_suit) then
-      valid_enhancements[#valid_enhancements + 1] = enhancement
-    end
-  end
-  local valid_jest_handsome_cards = {}
-    for k, v in ipairs(G.playing_cards) do
-        local enhancement = v.ability.effect
-        if not (SMODS.has_no_rank(v) or SMODS.has_no_suit(v) or enhancement == 'm_aij_canvas') then
-            valid_jest_handsome_cards[#valid_jest_handsome_cards+1] = v
-        end
-    end
-    if valid_jest_handsome_cards[1] then 
-        local jest_handsome_card = pseudorandom_element(valid_jest_handsome_cards, pseudoseed('handsome'..G.GAME.round_resets.ante))
-        G.GAME.current_round.jest_handsome_joker_card.suit = jest_handsome_card.base.suit
-        G.GAME.current_round.jest_handsome_joker_card.rank = jest_handsome_card.base.value
-        G.GAME.current_round.jest_handsome_joker_card.id = jest_handsome_card.base.id
-    end
-    if valid_enhancements[1] then
-      local jest_handsome_card_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('handsome'..G.GAME.round_resets.ante))
-      local it = 1
-      while jest_handsome_card_enhancement == 'UNAVAILABLE' do
-        it = it + 1
-        jest_handsome_card_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('handsome'..'_resample'..it))
-      end
-      G.GAME.current_round.jest_handsome_joker_card.enhancement = jest_handsome_card_enhancement
-    end
-end
 -- card predict begin
 --------------------------------
 --------------------------------
@@ -1561,6 +1486,112 @@ function All_in_Jest.get_suits(type, base)
     return return_table
 end
 
+function reset_jest_magick_joker_card()
+    G.GAME.current_round.jest_magick_joker_card.suit = 'Spades'
+    local valid_jest_magick_joker_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        if v.ability.effect ~= 'Stone Card' then
+            valid_jest_magick_joker_cards[#valid_jest_magick_joker_cards+1] = v
+        end
+    end
+    if valid_jest_magick_joker_cards[1] then 
+        local jest_magick_joker_card = pseudorandom_element(valid_jest_magick_joker_cards, pseudoseed('mag'..G.GAME.round_resets.ante))
+        G.GAME.current_round.jest_magick_joker_card.suit = jest_magick_joker_card.base.suit
+    end
+end
+function reset_jest_you_broke_it_card()
+  G.GAME.current_round.jest_you_broke_it_card.rank = 'Ace'
+  G.GAME.current_round.jest_you_broke_it_card.enhancement = 'm_bonus'
+  local valid_enhancements = get_current_pool("Enhanced")
+  local valid_jest_ybi_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        if v.ability.effect ~= 'Stone Card' then
+            valid_jest_ybi_cards[#valid_jest_ybi_cards+1] = v
+        end
+    end
+    if valid_jest_ybi_cards[1] then 
+        local jest_ybi_card = pseudorandom_element(valid_jest_ybi_cards, pseudoseed('ybi'..G.GAME.round_resets.ante))
+        G.GAME.current_round.jest_you_broke_it_card.rank = jest_ybi_card.base.value
+        G.GAME.current_round.jest_you_broke_it_card.id = jest_ybi_card.base.id
+    end
+    if valid_enhancements[1] then
+      local jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..G.GAME.round_resets.ante))
+      local it = 1
+      while jest_ybi_enhancement == 'UNAVAILABLE' do
+        it = it + 1
+        jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..'_resample'..it))
+      end
+      G.GAME.current_round.jest_you_broke_it_card.enhancement = jest_ybi_enhancement
+    end
+end
+function reset_handsome_joker_card()
+  G.GAME.current_round.jest_handsome_joker_card.rank = 'Ace'
+  G.GAME.current_round.jest_handsome_joker_card.suit = 'Spades'
+  G.GAME.current_round.jest_handsome_joker_card.enhancement = 'm_bonus'
+  local all_enhancements = get_current_pool("Enhanced")
+  local valid_enhancements = {}
+
+  -- Loop through the original list of all enhancements
+  for _, enhancement in ipairs(all_enhancements) do
+    if enhancement ~= "UNAVAILABLE" and not (enhancement == 'm_stone' or enhancement == 'm_aij_canvas' or G.P_CENTERS[enhancement].no_rank or G.P_CENTERS[enhancement].no_suit) then
+      valid_enhancements[#valid_enhancements + 1] = enhancement
+    end
+  end
+  local valid_jest_handsome_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        local enhancement = v.ability.effect
+        if not (SMODS.has_no_rank(v) or SMODS.has_no_suit(v) or enhancement == 'm_aij_canvas') then
+            valid_jest_handsome_cards[#valid_jest_handsome_cards+1] = v
+        end
+    end
+    if valid_jest_handsome_cards[1] then 
+        local jest_handsome_card = pseudorandom_element(valid_jest_handsome_cards, pseudoseed('handsome'..G.GAME.round_resets.ante))
+        G.GAME.current_round.jest_handsome_joker_card.suit = jest_handsome_card.base.suit
+        G.GAME.current_round.jest_handsome_joker_card.rank = jest_handsome_card.base.value
+        G.GAME.current_round.jest_handsome_joker_card.id = jest_handsome_card.base.id
+    end
+    if valid_enhancements[1] then
+      local jest_handsome_card_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('handsome'..G.GAME.round_resets.ante))
+      local it = 1
+      while jest_handsome_card_enhancement == 'UNAVAILABLE' do
+        it = it + 1
+        jest_handsome_card_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('handsome'..'_resample'..it))
+      end
+      G.GAME.current_round.jest_handsome_joker_card.enhancement = jest_handsome_card_enhancement
+    end
+end
+function reset_the_auroch_blind()
+    local common_suit, common_rank = nil, nil
+    local temp_suit_val, temp_rank_val = 0, 0
+    local suit_table, rank_table = {}, {}
+    for _, v in pairs(G.deck.cards) do
+        suit_table[v.base.suit] = suit_table[v.base.suit] or 0 
+        suit_table[v.base.suit] = suit_table[v.base.suit] + 1
+        rank_table[v.base.value] = rank_table[v.base.value] or 0 
+        rank_table[v.base.value] = rank_table[v.base.value] + 1
+    end
+    for k, v in pairs(suit_table) do
+        if v >= temp_suit_val then
+            temp_suit_val = v
+            common_suit = k
+        end
+    end
+    for k, v in pairs(rank_table) do
+        if v >= temp_rank_val then
+            temp_rank_val = v
+            common_rank = k
+        end
+    end
+    G.GAME.current_round.aij_the_auroch = {suit = common_suit or "Spades", rank = common_rank or "Ace"}
+end
+function reset_the_journey_blind()
+    local selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey'))
+    G.GAME.current_round.aij_the_journey_blind = {selected_suit = selected_suit or "Spades", triggered = false}
+end
+function reset_aureate_coin_blind()
+    G.GAME.current_round.aij_aureate_coin_blind = {spent_money = 0}
+end
+
 function All_in_Jest.reset_game_globals(run_start)
     -- Globals for a single blind (like Idol)
     reset_jest_magick_joker_card()
@@ -1568,41 +1599,26 @@ function All_in_Jest.reset_game_globals(run_start)
 	  G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
 
+    if G.GAME.round_resets.blind_states.Boss == 'Defeated' then
+       -- Globals for a single ante (not a thing in Vanilla)
+       reset_the_auroch_blind()
+       reset_the_journey_blind()
+       reset_aureate_coin_blind()
+    end
+
     if run_start then
         -- Globals for a whole run (like Fortune Teller)
         reset_handsome_joker_card()
-
-        local common_suit, common_rank = nil, nil
-        local temp_suit_val, temp_rank_val = 0, 0
-        local suit_table, rank_table = {}, {}
-        for k, v in pairs(G.deck.cards) do
-            suit_table[v.base.suit] = suit_table[v.base.suit] or 0 
-            suit_table[v.base.suit] = suit_table[v.base.suit] + 1
-            rank_table[v.base.value] = rank_table[v.base.value] or 0 
-            rank_table[v.base.value] = rank_table[v.base.value] + 1
-        end
-        for k, v in pairs(suit_table) do
-            if v >= temp_suit_val then
-                temp_suit_val = v
-                common_suit = k
-            end
-        end
-        for k, v in pairs(rank_table) do
-            if v >= temp_rank_val then
-                temp_rank_val = v
-                common_rank = k
-            end
-        end
-        G.P_BLINDS['bl_aij_the_auroch'].boss.suit = common_suit
-        G.P_BLINDS['bl_aij_the_auroch'].boss.rank = common_rank
 
         G.GAME.all_in_jest.starting_prams.deck_size = #G.deck.cards
         
         local index = {4,5}
         G.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
 
-        -- Reset Aureate Coin
-        G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = 0
+        -- Reset Boss Blinds
+        reset_the_auroch_blind()
+        reset_the_journey_blind()
+        reset_aureate_coin_blind()
     end
 end
 
