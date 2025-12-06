@@ -39,7 +39,7 @@ local the_journey = {
             end
         end
         
-        if context.all_in_jest and context.all_in_jest.before_after and G.GAME.current_round.aij_the_journey_blind and not temp then
+        if context.all_in_jest and context.all_in_jest.before_after and not G.GAME.current_round.aij_the_journey_blind.triggered and not temp then
             local trigger = false
             for _, v in ipairs(context.scoring_hand) do
                 if v:is_suit(G.GAME.current_round.aij_the_journey_blind.selected_suit) then
@@ -51,7 +51,6 @@ local the_journey = {
                 G.GAME.current_round.aij_the_journey_blind.triggered = true
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        G.GAME.blind:disable()
                         G.GAME.win_ante = G.GAME.win_ante + 1
                         play_sound('gong', 0.4, 0.7)
                         attention_text({
