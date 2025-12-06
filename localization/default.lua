@@ -2187,7 +2187,13 @@ return {
                     "{C:inactive}(Minimum {X:mult,C:white}X1{C:inactive} Mult){}"
                 } 
             },
-            j_aij_tonpraten = { name = "Tonpraten", text = { "" } },
+            j_aij_tonpraten = { 
+                name = "Tonpraten", 
+                text = { 
+                    "{C:mult}+#1#{} Mult, this Joker",
+                    "always triggers {C:attention}last{}" 
+                } 
+            },
             j_aij_rodeo_clown = { 
                 name = "Rodeo Clown", 
                 text = { 
@@ -2213,8 +2219,24 @@ return {
                     '{C:attention}#1#{} additional time'
                 },
             },
-            j_aij_pigpen = { name = "Pigpen", text = { "" } },
-            j_aij_cyclops = { name = "Cyclops", text = { "" } },
+            j_aij_pigpen = { 
+                name = "Pigpen", 
+                text = { 
+                    "Gives {C:chips}Chips{} equal to the",
+                    "number of times {C:attention}poker hand{}",
+                    "has been played this run,",
+                    "multiplied by its {C:attention}level"
+                } 
+            },
+            j_aij_cyclops = { 
+                name = "Cyclops", 
+                text = { 
+                    "If played hand is {{C:attention}exactly",
+                    "{C:attention}one Ace{}, create a random",
+                    "{C:tarot}Tarot{} card"
+                    
+                } 
+            },
             j_aij_blarney_stone = { 
                 name = "Blarney Stone", 
                 text = { 
