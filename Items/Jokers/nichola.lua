@@ -44,7 +44,7 @@ local nichola = {
                       local random_enhancement_key = SMODS.poll_enhancement({ guaranteed = true, key_append = 'nicola_enhance'..i, options = valid_enhancements })
                       local random_seal_key = SMODS.poll_seal({ guaranteed = true, key_append = 'nichola_seal'..i })
 
-                      local random_edition_table = poll_edition('nichola_edition'..i, nil, nil, true, {'e_foil', 'e_holo', 'e_polychrome'})
+                      local random_edition_table = poll_edition('nichola_edition'..i, nil, nil, true)
 
                       local new_queen = create_playing_card({
                           front = queen_card_proto,
