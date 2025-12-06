@@ -18,7 +18,7 @@ local the_groan = {
         end
         if context.all_in_jest and context.all_in_jest.drew_cards and not temp then
             All_in_Jest.ease_blind_requirement(1, 0)
-            self.triggered = true
+            blind.triggered = true
         end
     end,
 

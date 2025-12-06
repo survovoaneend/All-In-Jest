@@ -22,13 +22,14 @@ local the_gift = {
     end,
     press_play = function(self)
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
-        for i = 1, #G.play.cards do
-            G.E_MANAGER:add_event(Event({func = function() G.play.cards[i]:juice_up(); return true end })) 
-            ease_dollars(1)
-            delay(0.23)
-        end
-        return true end })) 
-        self.triggered = true
+            for i = 1, #G.play.cards do
+                G.E_MANAGER:add_event(Event({func = function() G.play.cards[i]:juice_up(); return true end }))
+                ease_dollars(1)
+                delay(0.23)
+            end
+            return true
+        end }))
+        G.GAME.blind.triggered = true
         return true
     end,
     calculate = function(self, blind, context)
