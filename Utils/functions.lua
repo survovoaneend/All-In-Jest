@@ -1586,7 +1586,19 @@ function reset_the_auroch_blind()
 end
 function reset_the_journey_blind()
     local selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey'))
-    G.GAME.current_round.aij_the_journey_blind = {selected_suit = selected_suit or "Spades", triggered = false}
+    -- By default the special journey background will fade during the evaluate screen, nesting events here prevnts this
+    -- This *is* jank
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.GAME.current_round.aij_the_journey_blind = {selected_suit = selected_suit or "Spades", triggered = false}
+                    return true
+                end
+            }))
+            return true
+        end
+    }))
 end
 function reset_aureate_coin_blind()
     G.GAME.current_round.aij_aureate_coin_blind = {spent_money = 0}

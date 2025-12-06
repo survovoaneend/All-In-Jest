@@ -855,6 +855,7 @@ function Blind:load(blindTable)
     self.aij_original_chips = blindTable.aij_original_chips
     self.aij_original_mult = blindTable.aij_original_mult
     self.aij_added_chips = blindTable.aij_added_chips
+    ease_background_colour_blind(G.STATE, self.name or 'Small Blind') -- For The Journey blind
     return ret
 end
 

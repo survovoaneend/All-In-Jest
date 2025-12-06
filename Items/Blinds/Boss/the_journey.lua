@@ -23,6 +23,10 @@ local the_journey = {
         }
     end,
 
+    set_blind = function(self)
+        G.aij_the_journey_stars = nil
+    end,
+
     calculate = function(self, blind, context)
         local temp = G.GAME.blind and G.GAME.blind.disabled
         if temp then
@@ -49,6 +53,13 @@ local the_journey = {
                     func = function()
                         G.GAME.blind:disable()
                         G.GAME.win_ante = G.GAME.win_ante + 1
+                        play_sound('gong', 0.4, 0.7)
+                        attention_text({
+                            scale = 1.0, text = localize{type='variable',key='a_aij_win_ante_plus',vars={1}}, hold = 4, align = 'cm', offset = {x = 0,y = -2.7},major = G.play
+                        })
+
+                        ease_background_colour_blind(G.STATE, "bl_aij_the_journey" or 'Small Blind')
+
                         return true
                     end
                 }))
@@ -56,7 +67,16 @@ local the_journey = {
         end
     end,
     defeat = function(self)
-        self.boss.selected_suit = '[X]'
+        if G.aij_the_journey_stars then G.aij_the_journey_stars:fade(1) end
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 1,blocking = false, blockable = false,
+            func = function()
+                if G.aij_the_journey_stars then 
+                    G.aij_the_journey_stars:remove()
+                    G.aij_the_journey_stars = nil
+                end
+                return true
+            end
+        }))
     end,
     in_pool = function(self)
         if G.GAME.round_resets.ante < (G.GAME.win_ante-1) and not G.GAME.won then
