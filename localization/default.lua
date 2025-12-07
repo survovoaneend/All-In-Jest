@@ -3482,6 +3482,11 @@ return {
                     "Cards that change {C:attention}suit{}",
                     "permanently gain {C:mult}+#1#{} Mult"
                 } 
+            },j_aij_tipples_the_clown = { 
+                name = "Tipples the Clown", 
+                text = {
+                
+                } 
             },
             j_aij_youve_got_mail = { 
                 name = "You've Got Mail", 
@@ -3495,6 +3500,18 @@ return {
                     {
                         "{V:1}{B:3,V:2}#1##2#{}{V:1}#3#",
                     }
+                } 
+            },
+            j_aij_idiot_box = { 
+                name = "Idiot Box", 
+                text = {
+                
+                } 
+            },
+            j_aij_chelonian_citrolo = { 
+                name = "Chelonian Citrolo", 
+                text = {
+                
                 } 
             },
             j_aij_fleshgait = { 
@@ -3515,6 +3532,24 @@ return {
                     "{C:inactive}is rerolled)"
                 } 
             },
+            j_aij_pog = { 
+                name = "Pog", 
+                text = {
+                
+                } 
+            },
+            j_aij_circle_joker = { 
+                name = "Circle Joker", 
+                text = {
+                
+                }
+            },
+            j_aij_no_arms_no_legs = { 
+                name = "No Arms. No Legs.", 
+                text = {
+                
+                } 
+            },
             j_aij_stage_production = { 
                 name = "Stage Production", 
                 text = {
@@ -3525,10 +3560,34 @@ return {
                     "{C:inactive}#1#"
                 } 
             },
+            j_aij_picasso = { 
+                name = "Picasso", 
+                text = {
+                
+                } 
+            },
+            j_aij_baroque_joker = { 
+                name = "Baroque Joker", 
+                text = {
+                
+                } 
+            },
+            j_aij_pedestrian = { 
+                name = "Pedestrian", 
+                text = {
+                
+                } 
+            },
             j_aij_golden_record = { 
                 name = "Golden Record", 
                 text = {
-                    ''
+                
+                } 
+            },
+            j_aij_moon_museum = { 
+                name = "Moon Museum", 
+                text = {
+                
                 } 
             },
             j_aij_pink_slip = { 
@@ -3536,6 +3595,30 @@ return {
                 text = {
                     "{C:attention}+#1# Selection Limit{}",
                     "for {C:red}Discards"
+                } 
+            },
+            j_aij_jack_horner = { 
+                name = "Jack Horner", 
+                text = {
+                
+                } 
+            },
+            j_aij_rat_maze = { 
+                name = "Baroque Joker", 
+                text = {
+                
+                } 
+            },
+            j_aij_valentine = { 
+                name = "Valentine", 
+                text = {
+                
+                } 
+            },
+            j_aij_clownfish = { 
+                name = "Clownfish", 
+                text = {
+                
                 } 
             },
             j_aij_chromatist = { 
@@ -3546,6 +3629,84 @@ return {
                     "triggers"
                 } 
             },
+            j_aij_bucolic_hills = { 
+                name = "Bucolic Hills", 
+                text = {
+                
+                } 
+            },
+            j_aij_bobby = { 
+                name = "Bobby", 
+                text = {
+                
+                } 
+            },
+            j_aij_four_eyes = { 
+                name = "Four Eyes", 
+                text = {
+                
+                } 
+            },
+            j_aij_octopus = { 
+                name = "Octopus", 
+                text = {
+                
+                } 
+            },
+            j_aij_cosmonaut = { 
+                name = "Cosmonaut", 
+                text = {
+                
+                } 
+            },
+            j_aij_hijacker = { 
+                name = "Hijacker", 
+                text = {
+                
+                } 
+            },
+            j_aij_diver = { 
+                name = "Diver", 
+                text = {
+                
+                } 
+            },
+            j_aij_sator_square = { 
+                name = "Sator Square", 
+                text = {
+                
+                } 
+            },
+            j_aij_evergreen = { 
+                name = "Evergreen", 
+                text = {
+                
+                } 
+            },
+            j_aij_the_treachery_of_jokers = { 
+                name = "The Treachery of Jokers", 
+                text = {
+                
+                } 
+            },
+            j_aij_candy_wrapper = { 
+                name = "Candy Wrapper", 
+                text = {
+                
+                } 
+            },
+            j_aij_mad_hatter = { 
+                name = "Mad Hatter", 
+                text = {
+                
+                } 
+            },
+            j_aij_vintage_joker = { 
+                name = "Baroque Joker", 
+                text = {
+                
+                } 
+            },
             j_aij_death_of_a_salesman = { 
                 name = "Death of a Salesman", 
                 text = {
@@ -3554,12 +3715,57 @@ return {
                     "every {C:money}Shop"
                 } 
             },
+            j_aij_the_jolly = { 
+                name = "The Jolly", 
+                text = {
+                
+                } 
+            },
+            j_aij_lonely_night = { 
+                name = "Lonely Night", 
+                text = {
+                
+                }
+            },
+            j_aij_hes_outside = { 
+                name = "He's Outside", 
+                text = {
+                
+                } 
+            },
             j_aij_parking_space = { 
                 name = "Parking Space", 
                 text = {
                     "{X:mult,C:white}X#1#{} Mult if this Joker",
                     "is in {C:attention}Joker Slot #2#{}",
                     "{C:inactive}(Slot changes at end of round)"
+                } 
+            },
+            j_aij_historian = {
+                name = "Historian", 
+                text = {
+                    "Adds {C:mult}Mult{} equal to",
+                    "{C:attention}triple{} the {C:money}Sell Value{} of",
+                    "the last sold Joker",
+                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
+                } 
+            },
+            j_aij_police_sketch = { 
+                name = "Police Sketch", 
+                text = {
+                
+                } 
+            },
+            j_aij_tom_thumb = { 
+                name = "Tom Thumb", 
+                text = {
+                
+                } 
+            },
+            j_aij_crop_circle = { 
+                name = "Crop Circle", 
+                text = {
+                
                 } 
             },
             j_aij_graffiti = { 
@@ -3577,18 +3783,141 @@ return {
                     }
                 } 
             },
-            j_aij_historian = {
-                name = "Historian", 
+            j_aij_error_404 = { 
+                name = "Error 404", 
                 text = {
-                    "Adds {C:mult}Mult{} equal to",
-                    "{C:attention}triple{} the {C:money}Sell Value{} of",
-                    "the last sold Joker",
-                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
+                
+                } 
+            },
+            j_aij_lucky_horseshoe = {
+                name = "Lucky Horseshoe", 
+                text = {
+
+                } 
+            },
+            j_aij_mad_scientist = {
+                name = "Mad Scientist", 
+                text = {
+                    
+                } 
+            },
+            j_aij_propaganda = {
+                name = "Propaganda", 
+                text = {
+                    
+                } 
+            },
+            j_aij_dire_warning = {
+                name = "Dire Warning", 
+                text = {
+                    
+                } 
+            },
+            j_aij_dont_be_a_joker = {
+                name = "Don't be a Joker!", 
+                text = {
+                    
+                } 
+            },
+            j_aij_prisoners_dilemma = {
+                name = "Prisoner's Dilemma", 
+                text = {
+                    
+                } 
+            },
+            j_aij_totem_pole = {
+                name = "Totem Pole", 
+                text = {
+                    
                 } 
             },
             j_aij_baddata = {
                 name = "BAD_DATA", 
                 text = {
+                } 
+            },
+            j_aij_beale = {
+                name = "Beale", 
+                text = {
+                    
+                } 
+            },
+            j_aij_mister_police = {
+                name = "Mister Police", 
+                text = {
+                    
+                } 
+            },
+            j_aij_fly_agaric = {
+                name = "Fly Agaric", 
+                text = {
+                    
+                } 
+            },
+            j_aij_plastic_surgeon = {
+                name = "Plastic Surgeon", 
+                text = {
+                    
+                } 
+            },
+            j_aij_asphyxiation = {
+                name = "Asphyxiation", 
+                text = {
+                    
+                } 
+            },
+            j_aij_rubberhose = {
+                name = "Rubberhose", 
+                text = {
+                    
+                } 
+            },
+            j_aij_ninja = {
+                name = "Ninja", 
+                text = {
+                    
+                } 
+            },
+            j_aij_wax_joker = {
+                name = "Wax Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_splat = {
+                name = "Splat!", 
+                text = {
+                    
+                } 
+            },
+            j_aij_windswept_joker = {
+                name = "Windswept Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_fun_guy = {
+                name = "Fun Guy", 
+                text = {
+                    
+                } 
+            },
+            j_aij_body_pillow = {
+                name = "Body Pillow", 
+                text = {
+                    
+                } 
+            },
+            j_aij_treasure_map = {
+                name = "Treasure Map", 
+                text = {
+                    
+                } 
+            },
+            j_aij_geoglyph = {
+                name = "Geoglyph", 
+                text = {
+                    
                 } 
             },
             j_aij_office_assistant = {
@@ -3597,6 +3926,18 @@ return {
                     "{B:1,C:white,s:0.8}Activated Ability",
                     'Repairs {C:attention}Perishable{} or',
                     '{C:attention}Rental{} Joker to the {C:attention}right'
+                } 
+            },
+            j_aij_smide = {
+                name = "Smide", 
+                text = {
+                    
+                } 
+            },
+            j_aij_poker_face = {
+                name = "Poker Face", 
+                text = {
+                    
                 } 
             },
             j_aij_tornado = {
@@ -3614,6 +3955,24 @@ return {
                     }
                 } 
             },
+            j_aij_crab_in_a_bucket = {
+                name = "Crab in a Bucket", 
+                text = {
+                    
+                } 
+            },
+            j_aij_summer_tan = {
+                name = "Summer Tan", 
+                text = {
+                    
+                } 
+            },
+            j_aij_ten_sharp = {
+                name = "Ten Sharp", 
+                text = {
+                    
+                } 
+            },
             j_aij_cavalier = {
                 name = "Cavalier", 
                 text = {
@@ -3622,12 +3981,402 @@ return {
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 } 
             },
+            j_aij_legerdemain = {
+                name = "Legerdemain", 
+                text = {
+                    
+                } 
+            },
+            j_aij_game_bro = {
+                name = "Game Bro", 
+                text = {
+                    
+                } 
+            },
+            j_aij_red_joker = {
+                name = "Red Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_the_green_room = {
+                name = "The Green Room", 
+                text = {
+                    
+                } 
+            },
+            j_aij_alas = {
+                name = "Alas!", 
+                text = {
+                    
+                } 
+            },
+            j_aij_bat_credit_card = {
+                name = "Bat Credit Card", 
+                text = {
+                    
+                } 
+            },
+            j_aij_brass_joker = {
+                name = "Brass Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_breakey = {
+                name = "Breakey", 
+                text = {
+                    
+                } 
+            },
+            j_aij_toe_tag = {
+                name = "Toe Tag", 
+                text = {
+                    
+                } 
+            },
+            j_aij_foliate_head = {
+                name = "Foliate Head", 
+                text = {
+                    
+                } 
+            },
+            j_aij_neighborhood_watch = {
+                name = "Neighborhood Watch", 
+                text = {
+                    
+                } 
+            },
+            j_aij_veggie_joker = {
+                name = "Veggie Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_meaty_joker = {
+                name = "Meaty Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_funny_bunch = {
+                name = "Funny Bunch", 
+                text = {
+                    
+                } 
+            },
+            j_aij_wizard = {
+                name = "Wizard", 
+                text = {
+                    
+                } 
+            },
+            j_aij_missing_poster = {
+                name = "Missing Poster", 
+                text = {
+                    
+                } 
+            },
+            j_aij_single_cell = {
+                name = "Single Cell", 
+                text = {
+                    
+                } 
+            },
+            j_aij_sharp_joker = {
+                name = "Sharp Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_dwarf = {
+                name = "Dwarf", 
+                text = {
+                    
+                } 
+            },
+            j_aij_gopnik = {
+                name = "Gopnik", 
+                text = {
+                    
+                } 
+            },
+            j_aij_headache = {
+                name = "Headache", 
+                text = {
+                    
+                } 
+            },
+            j_aij_mountie = {
+                name = "Mountie", 
+                text = {
+                    
+                } 
+            },
+            j_aij_anatomy = {
+                name = "Anatomy", 
+                text = {
+                    
+                } 
+            },
+            j_aij_cordyceps = {
+                name = "Cordyceps", 
+                text = {
+                    
+                } 
+            },
+            j_aij_courier = {
+                name = "Courier", 
+                text = {
+                    
+                } 
+            },
+            j_aij_scopaesthesia = {
+                name = "Scopaesthesia", 
+                text = {
+                    
+                } 
+            },
+            j_aij_outlet = {
+                name = "Outlet", 
+                text = {
+                    
+                } 
+            },
+            j_aij_neon_sign = {
+                name = "Neon Sign", 
+                text = {
+                    
+                } 
+            },
+            j_aij_sparky = {
+                name = "Sparky", 
+                text = {
+                    
+                } 
+            },
+            j_aij_blemmya = {
+                name = "Blemmya", 
+                text = {
+                    
+                } 
+            },
+            j_aij_durak = {
+                name = "Durak", 
+                text = {
+                    
+                } 
+            },
+            j_aij_origami_joker = {
+                name = "Origami Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_sam_mcgee = {
+                name = "Sam McGee", 
+                text = {
+                    
+                } 
+            },
+            j_aij_kingmaker = {
+                name = "Kingmaker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_pops = {
+                name = "Pops!", 
+                text = {
+                    
+                } 
+            },
+            j_aij_candidate = {
+                name = "Candidate", 
+                text = {
+                    
+                } 
+            },
+            j_aij_debbie_downer = {
+                name = "Debbie Downer", 
+                text = {
+                    
+                } 
+            },
+            j_aij_jack_sprat = {
+                name = "Jack Sprat", 
+                text = {
+                    
+                } 
+            },
+            j_aij_jill_sprat = {
+                name = "Don't be a Joker!", 
+                text = {
+                    
+                } 
+            },
+            j_aij_blacklight = {
+                name = "Blacklight", 
+                text = {
+                    
+                } 
+            },
+            j_aij_bullseye = {
+                name = "Bullseye", 
+                text = {
+                    
+                } 
+            },
+            j_aij_chipped_joker = {
+                name = "Chipped Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_glasgow_smile = {
+                name = "Glasgow Smile", 
+                text = {
+                    
+                } 
+            },
+            j_aij_whats_left = {
+                name = "What's Left", 
+                text = {
+                    
+                } 
+            },
+            j_aij_beelzebub = {
+                name = "Beelzebub", 
+                text = {
+                    
+                } 
+            },
+            j_aij_springy_joker = {
+                name = "Springy Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_diced_joker = {
+                name = "Diced Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_bermuda = {
+                name = "Bermuda", 
+                text = {
+                    
+                } 
+            },
+            j_aij_corndog = {
+                name = "Corndog", 
+                text = {
+                    
+                } 
+            },
+            j_aij_cheese_squigglies = {
+                name = "Cheese Squigglies", 
+                text = {
+                    
+                } 
+            },
+            j_aij_the_herald = {
+                name = "The Herald", 
+                text = {
+                    
+                } 
+            },
+            j_aij_handyman = {
+                name = "Handyman", 
+                text = {
+                    
+                } 
+            },
+            j_aij_embroidery = {
+                name = "Embroidery", 
+                text = {
+                    
+                } 
+            },
+            j_aij_in_memorium = {
+                name = "In Memorium", 
+                text = {
+                    
+                } 
+            },
+            j_aij_comic_panel = {
+                name = "Comic Panel", 
+                text = {
+                    
+                } 
+            },
+            j_aij_father_and_son = {
+                name = "Father and Son", 
+                text = {
+                    
+                } 
+            },
             j_aij_the_bell = {
                 name = "The Bell", 
                 text = {
                     "{B:1,C:white,s:0.8}Activated Ability",
                     'Pay {C:money}$#1#{} to reroll the',
                     '{C:attention}Voucher',
+                } 
+            },
+            j_aij_blue_star = {
+                name = "Blue Star", 
+                text = {
+                    
+                } 
+            },
+            j_aij_crypto_trader = {
+                name = "Crypto Trader", 
+                text = {
+                    
+                } 
+            },
+            j_aij_triple_sundae = {
+                name = "Triple Sundae", 
+                text = {
+                    
+                } 
+            },
+            j_aij_identity_theif = {
+                name = "Identity Thief", 
+                text = {
+                    
+                } 
+            },
+            j_aij_goblet = {
+                name = "Goblet", 
+                text = {
+                    
+                } 
+            },
+            j_aij_scrunched_joker = {
+                name = "Scrunched Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_funny_bone = {
+                name = "Funny Bone", 
+                text = {
+                    
+                } 
+            },
+            j_aij_bouffon = {
+                name = "Bouffon", 
+                text = {
+                    
+                } 
+            },
+            j_aij_scarecrow = {
+                name = "Scarecrow", 
+                text = {
+                    
                 } 
             },
             j_aij_elder = {
@@ -3639,12 +4388,282 @@ return {
                     "{C:inactive}(Currently #1#)"
                 } 
             },
+            j_aij_selene = {
+                name = "Selene", 
+                text = {
+                    
+                } 
+            },
             j_aij_dark_magician = {
                 name = "Dark Magician", 
                 text = {
                     '{C:tarot}Tarot{} Cards, {C:planet}Planet{} Cards,',
                     'and {C:spectral}Spectral{} Cards are',
                     '{C:attention}considered{} the same',
+                } 
+            },
+            j_aij_shredded_joker = {
+                name = "Shredded Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_party_time = {
+                name = "Party Time!", 
+                text = {
+                    
+                } 
+            },
+            j_aij_the_black_spot = {
+                name = "The Black Spot", 
+                text = {
+                    
+                } 
+            },
+            j_aij_semaphore = {
+                name = "Semaphore", 
+                text = {
+                    
+                } 
+            },
+            j_aij_jokey_bear = {
+                name = "Jokey Bear", 
+                text = {
+                    
+                } 
+            },
+            j_aij_sleazy_joker = {
+                name = "Sleazy Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_jeremy_bearimy = {
+                name = "Jeremy Bearimy", 
+                text = {
+                    
+                } 
+            },
+            j_aij_burly_joker = {
+                name = "Burly Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_minus_world = {
+                name = "Minus World", 
+                text = {
+                    
+                } 
+            },
+            j_aij_feather_in_your_cap = {
+                name = "Feather in Your Cap", 
+                text = {
+                    
+                } 
+            },
+            j_aij_numbertaker = {
+                name = "Numbertaker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_goon_joker = {
+                name = "Goon Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_goo_joker = {
+                name = "Goo Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_eye_test = {
+                name = "Eye Test", 
+                text = {
+                    
+                } 
+            },
+            j_aij_poison_apple = {
+                name = "Poison Apple", 
+                text = {
+                    
+                } 
+            },
+            j_aij_mystic = {
+                name = "Mystic", 
+                text = {
+                    
+                } 
+            },
+            j_aij_soft_serve = {
+                name = "Soft Serve", 
+                text = {
+                    
+                } 
+            },
+            j_aij_nosferatu = {
+                name = "Nosferatu", 
+                text = {
+                    
+                }
+            },
+            j_aij_mean_green = {
+                name = "Mean Green", 
+                text = {
+                    
+                } 
+            },
+            j_aij_psycho = {
+                name = "Psycho", 
+                text = {
+                    
+                } 
+            },
+            j_aij_bear = {
+                name = "Bear", 
+                text = {
+                    
+                } 
+            },
+            j_aij_coconut = {
+                name = "Coconut", 
+                text = {
+                    
+                } 
+            },
+            j_aij_tin_man = {
+                name = "Tin Man", 
+                text = {
+                    
+                } 
+            },
+            j_aij_crayon_rubbing = {
+                name = "Crayon Rubbing", 
+                text = {
+                    
+                } 
+            },
+            j_aij_chimney_sweep = {
+                name = "Chimney Sweep", 
+                text = {
+                    
+                } 
+            },
+            j_aij_doormat = {
+                name = "Doormat", 
+                text = {
+                    
+                } 
+            },
+            j_aij_ghosthunter = {
+                name = "Ghosthunter", 
+                text = {
+                    
+                } 
+            },
+            j_aij_family_tree = {
+                name = "Family Tree", 
+                text = {
+                    
+                } 
+            },
+            j_aij_no_junk_mail = {
+                name = "No Junk Mail", 
+                text = {
+                    
+                } 
+            },
+            j_aij_over_the_counter = {
+                name = "Over the Counter", 
+                text = {
+                    
+                } 
+            },
+            j_aij_cracked_up = {
+                name = "Cracked Up", 
+                text = {
+                    
+                } 
+            },
+            j_aij_happy_as_larry = {
+                name = "Happy as Larry", 
+                text = {
+                    
+                } 
+            },
+            j_aij_little_silhouetto = {
+                name = "Little Silhouetto", 
+                text = {
+                    
+                } 
+            },
+            j_aij_yin = {
+                name = "Yin", 
+                text = {
+                    
+                } 
+            },
+            j_aij_yang = {
+                name = "Yang", 
+                text = {
+                    
+                } 
+            },
+            j_aij_run = {
+                name = ">RUN", 
+                text = {
+                    
+                } 
+            },
+            j_aij_boy_scout = {
+                name = "Boy Scout", 
+                text = {
+                    
+                } 
+            },
+            j_aij_requiem = {
+                name = "Requiem", 
+                text = {
+                    
+                } 
+            },
+            j_aij_haughty_joker = {
+                name = "Haughty Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_imperious_joker = {
+                name = "Imperious Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_on_your_sleeve = {
+                name = "On Your Sleeve", 
+                text = {
+                    
+                } 
+            },
+            j_aij_skytower = {
+                name = "Skytower", 
+                text = {
+                    
+                } 
+            },
+            j_aij_disco_joker = {
+                name = "Disco Joker", 
+                text = {
+                    
+                } 
+            },
+            j_aij_oklo_reactor = {
+                name = "Oklo Reactor", 
+                text = {
+                    
                 } 
             },
             j_aij_mammon = { 
@@ -3654,6 +4673,18 @@ return {
                     '{C:money}Gold{} cards by {C:money}$#1#{} per {C:money}Gold',
                     'card scored this {C:attention}round',
                     '{C:inactive}(Currently {C:money}+#2#{C:inactive} Dollars)',
+                } 
+            },
+            j_aij_glass_delusion = {
+                name = "Glass Delusion", 
+                text = {
+                    
+                } 
+            },
+            j_aij_you_got_a = {
+                name = "YOU GOT A", 
+                text = {
+                    
                 } 
             },
 
