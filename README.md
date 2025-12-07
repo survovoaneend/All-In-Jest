@@ -30,4 +30,4 @@ Take a look at the [Wiki Page](https://balatromods.miraheze.org/wiki/All_in_Jest
 # Reporting Bugs
 We have spent months playtesting and polishing to ensure this mod is stable. However, with the sheer volume of content within this mod, niche interactions may still cause bugs.
 
-If you find anything, let us know in our thread in the Balatro discord server or as a Github issue.
+If you find anything, let us know in our thread in the Balatro discord server, in our own [discord server](https://discord.gg/U9gbU9eshk), or as a Github issue.
