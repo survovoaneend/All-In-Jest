@@ -3143,7 +3143,7 @@ target = "tag.lua"
 pattern = '''elseif name_to_check == 'Skip Tag' then loc_vars = \{self\.config\.skip_bonus, self\.config\.skip_bonus\*\(\(G\.GAME\.skips or 0\)\+(.*?)\)\}'''
 position = "at"
 payload = '''
-elseif name_to_check == 'Skip Tag' then loc_vars = {self.config.skip_bonus, self.config.skip_bonus*((G.GAME.skips or 0)+(self.ability.as_card and 0 or $1))}
+elseif name_to_check == 'Skip Tag' then loc_vars = {self.config.skip_bonus, self.config.skip_bonus*((G.GAME.skips or 0)+(G.STATE == G.STATES.SHOP and 0 or $1))}
 '''
 # G.FUNCS.buy_from_shop
 # Add tag when purchases and immediately trigger it if applicable
