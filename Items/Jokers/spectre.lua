@@ -13,7 +13,7 @@ local spectre = {
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
   

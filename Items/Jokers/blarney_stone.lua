@@ -24,7 +24,7 @@ local blarney_stone = {
   unlocked = true,
   discovered = false,
   blueprint_compat = true,
-  eternal_compat = false,
+  eternal_compat = true,
 
   loc_vars = function(self, info_queue, card)
     firstChar = get_first_digit()
