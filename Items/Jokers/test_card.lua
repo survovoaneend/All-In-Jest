@@ -12,7 +12,7 @@ local test_card = {
   cost = 6,
   unlocked = true,
   discovered = false,
-  blueprint_compat = false,
+  blueprint_compat = true,
   eternal_compat = true,
 
   in_pool = function(self, args)
@@ -46,7 +46,7 @@ local test_card = {
             local o = edition:calculate(context.other_card, {cardarea = G.play, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, edition = true, main_scoring = true})
             if o then
                 if not o.card then o.card = context.other_card end
-                o.juice_card = card
+                o.juice_card = context.blueprint_card or card
                 return o
             end
         end

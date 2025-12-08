@@ -14,7 +14,7 @@ local martellino = {
     cost = 20,
     unlocked = false,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = false, -- Logically should be compatible since diet coke is, but do we want to?
     eternal_compat = false,
     soul_pos = { x = 9, y = 9 },
 

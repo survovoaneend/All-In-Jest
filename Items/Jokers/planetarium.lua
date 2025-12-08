@@ -28,7 +28,7 @@ local planetarium = {
     end,
   
     calculate = function(self, card, context)
-        if context.joker_main and context.scoring_name then
+        if context.joker_main and context.scoring_name and not context.blueprint then
             local chips = 0
             local mult = 0
             if G.consumeables and #G.consumeables.cards > 0 then

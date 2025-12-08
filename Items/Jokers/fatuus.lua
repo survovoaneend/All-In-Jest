@@ -12,7 +12,7 @@ local fatuus = {
   cost = 9,
   unlocked = true,
   discovered = false,
-  blueprint_compat = false, 
+  blueprint_compat = true, 
   eternal_compat = true, 
 
   loc_vars = function(self, info_queue, card)
@@ -21,7 +21,7 @@ local fatuus = {
   end,
 
   calculate = function(self, card, context)
-      if context.after and context.full_hand and #context.full_hand > 0 and not context.blueprint and G.GAME.current_round.hands_played == 0 then
+      if context.after and context.full_hand and #context.full_hand > 0 and G.GAME.current_round.hands_played == 0 then
 
           local only_kings_queens = true
           for _, played_card in ipairs(context.full_hand) do
@@ -43,16 +43,17 @@ local fatuus = {
                 if #eligible_cards_in_hand > 0 then
                     local target_card = pseudorandom_element(eligible_cards_in_hand, pseudoseed('fatuus_target'))
                     if target_card then
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'before',
-                            delay = 1,
-                            func = function()
-                                card:juice_up(0.5, 0.5)
-                                target_card:juice_up(0.5, 0.5)
-                                target_card:set_seal('Blue')
-                                return true
-                            end
-                        }))
+                        target_card:set_seal('Blue')
+                        -- local juiced_card = context.blueprint_card or card
+                        -- G.E_MANAGER:add_event(Event({
+                        --     func = function()
+                        --         juiced_card:juice_up(0.5, 0.5)
+                        --         return true
+                        --     end
+                        -- }))
+                        return {
+                            message = localize{type="name_text", key="blue_seal", set="Other"} .. "!",
+                        }
                     end
                 end
             end

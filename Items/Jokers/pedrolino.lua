@@ -12,7 +12,7 @@ local pedrolino = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = false, -- Could be made compatible like Diet Coke
     eternal_compat = false,
 
     loc_vars = function(self, info_queue, card)

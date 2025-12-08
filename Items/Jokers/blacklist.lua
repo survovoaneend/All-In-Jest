@@ -45,7 +45,7 @@ local blacklist = {
     end,
   
     calculate = function(self, card, context)
-        if context.jest_destroying_or_selling_joker and not context.jest_destroying_card and not not G.GAME.banned_keys[context.jest_destroyed_joker.config.center_key] then 
+        if context.jest_destroying_or_selling_joker and not context.jest_destroying_card and not not G.GAME.banned_keys[context.jest_destroyed_joker.config.center_key] and not context.blueprint then 
 		        G.GAME.banned_keys[context.jest_destroyed_joker.config.center_key] = true
             table.insert(card.ability.extra.banned_cards, context.jest_destroyed_joker.config.center_key)
         end

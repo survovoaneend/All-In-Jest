@@ -20,7 +20,7 @@ local dizzard = {
   end,
 
   calculate = function(self, card, context)
-      if context.skip_blind then
+      if context.skip_blind and not context.blueprint then
           G.GAME.all_in_jest.dizzard_shop = true
           stop_use()
           if G.blind_select then

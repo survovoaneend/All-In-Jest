@@ -20,7 +20,7 @@ local spectre = {
     end,
   
     calculate = function(self, card, context)
-        if context.end_of_round and context.beat_boss and not context.individual and not context.repetition then
+        if context.end_of_round and context.beat_boss and not context.individual and not context.repetition and not context.blueprint then
             for i = 1, #G.consumeables.cards do
                 G.consumeables.cards[i]:start_dissolve()
                 create_consumable('Spectral', nil, nil, nil)

@@ -12,7 +12,7 @@ local carousel = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
@@ -20,7 +20,14 @@ local carousel = {
     end,
 
     calculate = function(self, card, context)
-        if context.after and context.scoring_hand and not context.blueprint then
+        if context.after and context.scoring_hand then
+            local juiced_card = context.blueprint_card or card
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    juiced_card:juice_up()
+                    return true
+                end
+            }))
             for i, card in ipairs(context.scoring_hand) do
                 local percent = 1.15 - (i - 0.999) / (#context.scoring_hand - 0.998) * 0.3
                 G.E_MANAGER:add_event(Event({
@@ -72,6 +79,8 @@ local carousel = {
             end
 
             delay(0.5)
+
+            return nil, true
         end
     end
 

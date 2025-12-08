@@ -15,8 +15,7 @@ local scary_story = {
     cost = 8,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
-    eternal_compat = false,
+    blueprint_compat = false, -- Could be made compatible, should it?
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.p_standard_normal_1

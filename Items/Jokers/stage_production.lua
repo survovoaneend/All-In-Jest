@@ -63,7 +63,7 @@ local stage_production = {
     end,
 
     calculate = function(self, card, context)
-        if context.setting_blind then
+        if context.setting_blind and not context.blueprint then
             card.ability.extra.trigger = true
         end
     end

@@ -20,7 +20,7 @@ local realty_sign = {
     end,
   
     calculate = function(self, card, context)
-        if not context.blueprint and context.before and context.scoring_name == 'Full House' then 
+        if context.before and context.scoring_name == 'Full House' and not context.blueprint then 
             SMODS.scale_card(card, {
 	            ref_table = card.ability,
                 ref_value = "extra_value",

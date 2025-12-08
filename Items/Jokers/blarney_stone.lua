@@ -1,3 +1,14 @@
+local get_first_digit = function()
+  local firstChar
+  if G.GAME.chips_text and tonumber(string.sub(G.GAME.chips_text, 1, 1)) then
+    firstChar = string.sub(G.GAME.chips_text, 1, 1)
+  elseif G.GAME.chips_text and tonumber(string.sub(G.GAME.chips_text, 2, 2)) then   -- Check for negative scores
+    firstChar = string.sub(G.GAME.chips_text, 2, 2)
+  end
+
+  return firstChar
+end
+
 local blarney_stone = {
   object_type = "Joker",
   order = 178,
@@ -12,40 +23,23 @@ local blarney_stone = {
   cost = 4,
   unlocked = true,
   discovered = false,
-  blueprint_compat = false,
+  blueprint_compat = true,
   eternal_compat = false,
 
   loc_vars = function(self, info_queue, card)
-    local num = 0
-    if G.GAME.chips and tonumber(G.GAME.chips) then
-        num = tonumber(G.GAME.chips)
-    end
-    local absNum = math.abs(num)
-
-    local numStr = tostring(absNum)
-
-    local firstChar = string.sub(numStr, 1, 1)
-
+    firstChar = get_first_digit()
+    local num = math.abs(tonumber(firstChar) or 0)
     return {
-      vars = {
-        tonumber(firstChar) * 3
-      }
+      vars = { num * 3 }
     }
   end,
 
   calculate = function(self, card, context)
-    local num = 0
-    if G.GAME.chips and tonumber(G.GAME.chips) then
-        num = tonumber(G.GAME.chips)
-    end
-    local absNum = math.abs(num)
-
-    local numStr = tostring(absNum)
-
-    local firstChar = string.sub(numStr, 1, 1)
     if context.joker_main then
+      firstChar = get_first_digit()
+      local num = math.abs(tonumber(firstChar) or 0)
       return {
-        mult = tonumber(firstChar) * 3
+        mult = num * 3
       }
     end
   end

@@ -19,7 +19,7 @@ local lucina = {
     end,
   
     calculate = function(self, card, context)
-        if context.setting_blind and not self.getting_sliced then
+        if context.setting_blind and not self.getting_sliced and not context.blueprint then
             local my_pos = nil
             for i = 1, #G.jokers.cards do
                 if G.jokers.cards[i] == card then my_pos = i; break end

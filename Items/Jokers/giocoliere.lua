@@ -26,9 +26,8 @@ local giocoliere = {
     end,
   
     calculate = function(self, card, context)
-      card.ability.boss_bonus_active = card.ability.boss_bonus_active or false
-
-      if context.setting_blind then
+      if context.setting_blind and not context.blueprint then
+          card.ability.boss_bonus_active = card.ability.boss_bonus_active or false
           if G.GAME.blind and G.GAME.blind.boss then
               if not card.ability.boss_bonus_active then
                   G.hand:change_size(card.ability.extra.hand_size)     
@@ -43,7 +42,8 @@ local giocoliere = {
           end
       end
 
-      if context.blind_defeated then
+      if context.blind_defeated and not context.blueprint then
+          card.ability.boss_bonus_active = card.ability.boss_bonus_active or false
           if card.ability.boss_bonus_active then
               G.hand:change_size(-card.ability.extra.hand_size)                     
               card.ability.boss_bonus_active = false   
