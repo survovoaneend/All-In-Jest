@@ -32,7 +32,7 @@ local bozo = {
                 SMODS.add_card { set = "Joker", edition = 'e_negative' }
             end
             return {
-                message = "+2 Jokers"
+                message = localize{type = "variable", key = "a_aij_jokers", vars = {card.ability.extra.jokers}},
             }
         end
     end,

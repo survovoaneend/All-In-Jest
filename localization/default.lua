@@ -78,6 +78,10 @@ return {
 
             a_aij_joker_slots = '+#1# Joker Slot',
             a_aij_joker_slots_minus = '-#1# Joker Slot',
+
+            a_aij_odds = "+#1# Odds",
+
+            a_aij_jokers = "+#1# Jokers",
         },
         challenge_names = {
             c_aij_bananarama = "Bananarama",
