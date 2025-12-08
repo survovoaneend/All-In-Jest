@@ -1433,7 +1433,18 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, _card)
         trigger = 'after',
         delay = 0.1,
         func = function()
+            local old_ability_data = copy_table(victim_joker.ability)
             victim_joker:set_ability(G.P_CENTERS[replacement_key])
+            sendDebugMessage(tprint(old_ability_data), "AIJ")
+            if old_ability_data.all_in_jest and old_ability_data.all_in_jest.has_been_rerolled_data then
+                victim_joker.ability = old_ability_data.all_in_jest.has_been_rerolled_data
+                old_ability_data.all_in_jest.has_been_rerolled_data = nil
+            end
+            if temp_key then
+                victim_joker.ability.all_in_jest = victim_joker.ability.all_in_jest or {}
+                victim_joker.ability.all_in_jest.has_been_rerolled = temp_key
+                victim_joker.ability.all_in_jest.has_been_rerolled_data = old_ability_data
+            end
             victim_joker:set_cost()
             return true
         end
