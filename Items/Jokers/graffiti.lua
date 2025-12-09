@@ -54,7 +54,7 @@ local graffiti = {
     },
 
     update = function(self, card, dt)
-        if (not card.aij_ability_cost_label or card.config.center.all_in_jest:ability_cost(card) ~= card.aij_ability_cost_label) and not context.blueprint then
+        if (not card.aij_ability_cost_label or card.config.center.all_in_jest:ability_cost(card) ~= card.aij_ability_cost_label) then
             card.aij_ability_cost_label = card.config.center.all_in_jest:ability_cost(card) or 0
         end
     end,
