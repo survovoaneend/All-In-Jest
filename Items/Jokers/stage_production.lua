@@ -38,6 +38,12 @@ local stage_production = {
             end
             
             if right_card then
+                G.E_MANAGER:add_event(Event({trigger = 'after', func = function()
+                  play_sound('tarot1')
+                  card:juice_up(0.3, 0.5)
+                  return true
+                end }))
+                delay(0.4)
                 All_in_Jest.reroll_joker(right_card, nil, 'stage_production', right_card.config.center.key)
                 card.ability.extra.trigger = false
             end

@@ -1376,7 +1376,7 @@ function Card:All_in_Jest_start_dissolve(dissolve_colours, silent, dissolve_time
     }))
 end
 
-function All_in_Jest.reroll_joker(card, key, append, temp_key, _card)
+function All_in_Jest.reroll_joker(card, key, append, temp_key)
     local victim_joker = card
       
     local victim_rarity = victim_joker.config.center.rarity or 1
@@ -1411,24 +1411,15 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, _card)
 
     G.E_MANAGER:add_event(Event({
         trigger = 'after', 
-        delay = 0.4, 
-        func = function()
-            play_sound('tarot1')
-            card:juice_up(0.3, 0.5)
-            return true 
-        end 
-    }))
-    G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        delay = 0.15,
+                delay = 0.15,
         func = function() 
             victim_joker:flip()
             play_sound('card1', 1)
-            victim_joker:juice_up(0.5, 0.5)
+            victim_joker:juice_up(0.3, 0.3)
             return true 
         end 
     }))
-    delay(0.5)
+    delay(0.4)
     G.E_MANAGER:add_event(Event({
         trigger = 'after',
         delay = 0.1,

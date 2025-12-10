@@ -32,18 +32,19 @@ local shade_spectral = {
         for k, v in ipairs(G.hand.cards) do
             if not v.edition then cards[#cards + 1] = v end
         end
-        local _card = pseudorandom_element(cards, pseudoseed('shade_card'))
+        local selected_card = pseudorandom_element(cards, pseudoseed('shade_card'))
         G.E_MANAGER:add_event(Event({
-            trigger = 'before', 
-            delay = 0.2,
+            trigger = 'after', 
+            delay = 0.4,
             func = function()
-                card:juice_up(0.6, 0.2)
-                _card:juice_up(0.6, 0.2)
+                card:juice_up(0.3, 0.5)
                 play_sound('negative', 1.5, 0.4)
-                _card:set_edition({negative = true}, true, true) 
-                if G.deck and #G.deck.cards > 0 then
-                    draw_card(G.deck,G.hand, nil,'up', nil, nil)
-                end
+                selected_card:set_edition({negative = true}, true)
+                G.FUNCS.draw_from_deck_to_hand(math.min(1, (G.hand.config.card_limit + 1) - #G.hand.cards))
+                -- G.hand:handle_card_limit()
+                -- if G.deck and #G.deck.cards > 0 then
+                --     draw_card(G.deck, G.hand, nil, 'up', nil, nil)
+                -- end
                 return true
             end
         }))
