@@ -18,8 +18,12 @@ local the_frost = {
             return
         end
         if context.after and not temp then
-            local hand_card = pseudorandom_element(G.hand.cards, pseudoseed('jest_the_frost'..G.GAME.round_resets.ante))
-            SMODS.destroy_cards(hand_card)
+            if #G.hand.cards > 0 then
+                local hand_card = pseudorandom_element(G.hand.cards, pseudoseed('jest_the_frost'..G.GAME.round_resets.ante))
+                if hand_card then
+                    SMODS.destroy_cards(hand_card)
+                end
+            end
         end
     end
 
