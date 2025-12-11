@@ -1747,6 +1747,8 @@ end
 -- mod_add increases the blind requirement directly. This occurs after mod_add
 -- Code copied from Bunco
 function All_in_Jest.ease_blind_requirement(mod_mult, mod_add)
+if not G.GAME.blind.in_blind then return end
+
     local original_chips = G.GAME.blind.aij_original_chips > to_big(0) and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
 
     mod_mult = mod_mult ~= nil and mod_mult or 0
