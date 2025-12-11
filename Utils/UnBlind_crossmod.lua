@@ -97,7 +97,7 @@ function UnBlind_create_UIBox_blind_tag(blind_choice) --Renders the tag that's a
             -- _tag_sprite.T.scale = 0.5
             _tag_ui.nodes[1].config.w = _tag_ui.nodes[1].config.w / G.GAME.all_in_jest.blind_tags.amt
             _tag_ui.nodes[1].config.h = _tag_ui.nodes[1].config.h / G.GAME.all_in_jest.blind_tags.amt
-            _tag_sprite.states.collide.can = not not true
+            _tag_sprite.states.collide.can = true
             jest_tag_nodes[#jest_tag_nodes + 1] = _tag_ui
         end
         return 
