@@ -2949,6 +2949,8 @@ payload = '''
 do -- All in Jest - Magick Joker and Red Sky
     local has_magick_joker = next(SMODS.find_card("j_aij_magick_joker"))
     local has_red_sky = next(SMODS.find_card("j_aij_red_sky"))
+local card_has_chips = (ret.playing_card.chips or 0) > 0
+    if card_has_chips then
     if has_red_sky and (G.GAME.current_round.hands_played == 0 or G.GAME.current_round.hands_left == 0) then
         ret.playing_card.mult = ret.playing_card.mult or 0
         ret.playing_card.mult = ret.playing_card.mult + ret.playing_card.chips
@@ -2959,6 +2961,7 @@ do -- All in Jest - Magick Joker and Red Sky
             ret.playing_card.mult = ret.playing_card.mult or 0
             ret.playing_card.mult = ret.playing_card.mult + ret.playing_card.chips
             ret.playing_card.chips = 0
+end
         end
     end
 end -- end All in Jest
