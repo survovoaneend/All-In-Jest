@@ -2179,10 +2179,11 @@ if G.GAME.jest_change_booster_options.trigger or G.GAME.jest_change_booster_opti
 end
 '''
 
+# Implement Electric Snow Effect
 [[patches]]
 [patches.pattern]
 target = "game.lua"
-pattern = "if G.GAME.chips - G.GAME.blind.chips >= to_big(0) or G.GAME.current_round.hands_left < 1 then"
+pattern = "if G.GAME.chips - G.GAME.blind.chips >= 0 or G.GAME.current_round.hands_left < 1 then"
 position = "before"
 match_indent = true
 payload = '''
@@ -2192,12 +2193,37 @@ if next(SMODS.find_card("j_aij_electric_snow")) and not (G.GAME.current_round.ha
     return true
 end
 '''
-
-#Talisman (why tho)
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = "if self.boss and G.GAME.chips - G.GAME.blind.chips >= 0 then"
+position = "before"
+match_indent = true
+payload = '''
+if next(SMODS.find_card("j_aij_electric_snow")) and not (G.GAME.current_round.hands_left < 1) then
+    G.STATE = G.STATES.DRAW_TO_HAND
+    G.STATE_COMPLETE = false
+    return true
+end
+'''
+# Electric Snow + Talisman (why tho)
 [[patches]]
 [patches.pattern]
 target = "game.lua"
 pattern = "if to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) or G.GAME.current_round.hands_left < 1 then"
+position = "before"
+match_indent = true
+payload = '''
+if next(SMODS.find_card("j_aij_electric_snow")) and not (G.GAME.current_round.hands_left < 1) then
+    G.STATE = G.STATES.DRAW_TO_HAND
+    G.STATE_COMPLETE = false
+    return true
+end
+'''
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = "if self.boss and to_big(G.GAME.chips) - G.GAME.blind.chips >= to_big(0) then"
 position = "before"
 match_indent = true
 payload = '''

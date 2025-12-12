@@ -40,7 +40,7 @@ local blood_artist = {
                     G.E_MANAGER:add_event(Event({
                         trigger = 'immediate',
                         func = function()
-                            if G.GAME.chips - G.GAME.blind.chips >= to_big(0) then
+                            if G.GAME.chips - G.GAME.blind.chips >= to_big(0) and not next(SMODS.find_card("j_aij_electric_snow")) then
                                 G.STATE = G.STATES.NEW_ROUND
                                 G.STATE_COMPLETE = false
                             end
@@ -65,7 +65,7 @@ local blood_artist = {
                     G.E_MANAGER:add_event(Event({
                         trigger = 'immediate',
                         func = function()
-                            if G.GAME.chips - G.GAME.blind.chips >= to_big(0) then
+                            if G.GAME.chips - G.GAME.blind.chips >= to_big(0) and not next(SMODS.find_card("j_aij_electric_snow")) then
                                 G.STATE = G.STATES.NEW_ROUND
                                 G.STATE_COMPLETE = false
                             end
