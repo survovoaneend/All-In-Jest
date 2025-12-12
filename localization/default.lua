@@ -2875,8 +2875,8 @@ return {
                 name = "Angel Number", 
                 text = { 
                     "{C:attention}+#1#{} to all {C:green}listed",
-                    "{C:green}probabilities{} for each scoring {C:attention}7",
-                    "played this hand",
+                    "{C:green}probabilities{} for each",
+                    "scoring {C:attention}7{} played this hand",
                     -- TODO currently?
                 } 
             },
