@@ -1840,23 +1840,68 @@ function All_in_Jest.create_astral_pin(card)
     G.Astral_pins[card.ability.consumeable.hand][index].ability.extra = card.ability.extra
 end
 
-function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate)
+function All_in_Jest.astral_background(type, colours)
+    if type then
+        ease_background_colour{special_colour = darken(colours.background[1], 0.5), new_colour = colours.background[2], tertiary_colour = colours.background[3], contrast = 1}
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.26,blocking = false, blockable = false,
+            func = function()
+                G.aij_astral_stars = Particles(1, 1, 0,0, {
+                    timer = 0.07,
+                    scale = 0.1,
+                    initialize = true,
+                    lifespan = 15,
+                    speed = 0.1,
+                    padding = -4,
+                    attach = G.ROOM_ATTACH,
+                    colours = colours.stars,
+                    fill = true
+                })
+                G.aij_astral_meteors = Particles(1, 1, 0,0, {
+                    timer = 2,
+                    scale = 0.05,
+                    lifespan = 1.5,
+                    speed = 4,
+                    attach = G.ROOM_ATTACH,
+                    colours = {colours.stars[1]},
+                    fill = true
+                })
+                return true
+            end
+        }))
+    else
+        ease_background_colour({special_colour = colours.background[1], tertiary_colour = colours.background[2], new_colour = colours.background[3]})
+        if G.aij_astral_stars then G.aij_astral_stars:fade(0.25) end
+        if G.aij_astral_meteors then G.aij_astral_meteors:fade(0.25) end
+
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.25,blocking = false, blockable = false,
+            func = function()
+                if G.aij_astral_stars then G.aij_astral_stars:remove(); G.aij_astral_stars = nil end
+                if G.aij_astral_meteors then G.aij_astral_meteors:remove(); G.aij_astral_meteors = nil end
+                return true
+            end
+        }))
+    end
+end
+
+
+function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours)
     local old_colours = old_colours or {
         special_colour = copy_table(G.C.BACKGROUND.C),
         tertiary_colour = copy_table(G.C.BACKGROUND.D),
         new_colour = copy_table(G.C.BACKGROUND.L),
     }
+    colours = colours or {}
     if extra == 'only_color' then
         if not immediate then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 1,
                 func = function()
-                    ease_background_colour({special_colour = old_colours.special_colour, tertiary_colour = old_colours.tertiary_colour, new_colour = old_colours.new_colour})
+                    All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour}})
                     return true
             end}))
         else
-            ease_background_colour({special_colour = old_colours.special_colour, tertiary_colour = old_colours.tertiary_colour, new_colour = old_colours.new_colour})
+            All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour}})
         end
         return
     end
@@ -1896,7 +1941,7 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate)
             end
         end
         -- Change background colour
-        ease_background_colour{special_colour = darken(HEX("d1e2f6"), 0.5), new_colour = HEX("87a5c9"), tertiary_colour = HEX("d1e2f6"), contrast = 1}
+        All_in_Jest.astral_background(true, {background = colours.background or {HEX("d1e2f6"), HEX("87a5c9"), HEX("d1e2f6")}, stars = colours.stars or {G.C.WHITE, HEX('d1e2f6'), HEX('9ec5d7')}})
         delay(0.4)
     end
     if extra ~= 'no_remove' then
@@ -1905,7 +1950,7 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate)
                 trigger = 'after',
                 delay = 1,
                 func = function()
-                    ease_background_colour({special_colour = old_colours.special_colour, tertiary_colour = old_colours.tertiary_colour, new_colour = old_colours.new_colour})
+                    All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour}})
                     if G.aij_astral_pin_area then
                         for _, v in pairs(G.aij_astral_pin_area.cards) do
                             v:remove()
@@ -1914,7 +1959,7 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate)
                     return true
             end}))
         else
-            ease_background_colour({special_colour = old_colours.special_colour, tertiary_colour = old_colours.tertiary_colour, new_colour = old_colours.new_colour})
+            All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour}})
             if G.aij_astral_pin_area then
                 for _, v in pairs(G.aij_astral_pin_area.cards) do
                     v:remove()
