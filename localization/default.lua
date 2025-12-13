@@ -73,6 +73,7 @@ return {
             a_aij_percent_balance_minus = "-%#1#",
             
             a_aij_hands_minus = "-#1# Hands",
+            a_aij_discards_plus = "+#1# Discards",
 
             a_aij_joker_slots = '+#1# Joker Slot',
             a_aij_joker_slots_minus = '-#1# Joker Slot',
@@ -4405,6 +4406,13 @@ return {
                 text = {
                     '{C:green}#2# in #3#{} chance to create a',
                     'random {C:tarot}Tarot{} card when',
+                    '{C:attention}#1#{} is played',
+                }
+            },
+            c_aij_arcturus = {
+                name = 'Arcturus',
+                text = {
+                    'Gain {C:attention}+#2#{} {C:red}Discard{} after',
                     '{C:attention}#1#{} is played',
                 }
             },
