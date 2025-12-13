@@ -1,19 +1,23 @@
 function getRandomClayBlindReqs(blind_amt)
-    local blind_amts = {}
-    local clay_mult = (G.P_BLINDS["bl_aij_the_clay"] or {mult = 2}).mult
-    
-    local base_amt = blind_amt / clay_mult
-    
-    for m = 2, 5, 0.14 do
-        table.insert(blind_amts, number_format(base_amt * m))
+    if next(SMODS.find_card("j_aij_fall_of_count_chaligny")) then
+        return {number_format(blind_amt)}
+    else
+        local blind_amts = {}
+        local clay_mult = (G.P_BLINDS["bl_aij_the_clay"] or {mult = 2}).mult
+
+        local base_amt = blind_amt / clay_mult
+
+        for m = 2.05, 5, 0.14 do
+            table.insert(blind_amts, number_format(base_amt * m))
+        end
+
+        -- if blind_amt < 1e99 then
+        --     table.insert(blind_amts, number_format(9.9e99))
+        -- end
+        table.insert(blind_amts, number_format(1/0)) -- gives naneinf
+
+        return blind_amts
     end
-
-    -- if blind_amt < 1e99 then
-    --     table.insert(blind_amts, number_format(9.9e99))
-    -- end
-    table.insert(blind_amts, number_format(1/0)) -- gives naneinf
-
-    return blind_amts
 end
 
 local the_clay = {

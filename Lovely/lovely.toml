@@ -2975,19 +2975,19 @@ payload = '''
 do -- All in Jest - Magick Joker and Red Sky
     local has_magick_joker = next(SMODS.find_card("j_aij_magick_joker"))
     local has_red_sky = next(SMODS.find_card("j_aij_red_sky"))
-local card_has_chips = (ret.playing_card.chips or 0) > 0
+    local card_has_chips = (ret.playing_card.chips or 0) > 0
     if card_has_chips then
-    if has_red_sky and (G.GAME.current_round.hands_played == 0 or G.GAME.current_round.hands_left == 0) then
-        ret.playing_card.mult = ret.playing_card.mult or 0
-        ret.playing_card.mult = ret.playing_card.mult + ret.playing_card.chips
-        ret.playing_card.chips = 0
-    elseif G.play ~= nil and has_magick_joker then
-        local required_suit = G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit
-        if card:is_suit(required_suit) then
+        if has_red_sky and (G.GAME.current_round.hands_played == 0 or G.GAME.current_round.hands_left == 0) then
             ret.playing_card.mult = ret.playing_card.mult or 0
             ret.playing_card.mult = ret.playing_card.mult + ret.playing_card.chips
             ret.playing_card.chips = 0
-end
+        elseif G.play ~= nil and has_magick_joker then
+            local required_suit = G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit
+            if card:is_suit(required_suit) then
+                ret.playing_card.mult = ret.playing_card.mult or 0
+                ret.playing_card.mult = ret.playing_card.mult + ret.playing_card.chips
+                ret.playing_card.chips = 0
+            end
         end
     end
 end -- end All in Jest
@@ -3004,11 +3004,16 @@ match_indent = true
 payload = '''
 
 if All_in_Jest.aij_alias_type(blind_choice.config.aij_blind_amount_display) == 'function' then
-    ret = blind_choice.config:aij_blind_amount_display(blind_choice.config, get_blind_amount(G.GAME.round_resets.blind_ante), blind_choice.config.mult)
+    local blind_mult = blind_choice.config.mult
+    if next(SMODS.find_card("j_aij_fall_of_count_chaligny")) then
+        blind_mult = 1
+    end
+    ret = blind_choice.config:aij_blind_amount_display(blind_choice.config, get_blind_amount(G.GAME.round_resets.blind_ante), blind_mult)
     if All_in_Jest.aij_alias_type(ret) == "number" then
         blind_amt = ret * G.GAME.starting_params.ante_scaling
-        blind_amt = blind_amt 
     end
+elseif next(SMODS.find_card("j_aij_fall_of_count_chaligny")) then
+    blind_amt = get_blind_amount(G.GAME.round_resets.blind_ante)*1*G.GAME.starting_params.ante_scaling
 end
 
 '''
