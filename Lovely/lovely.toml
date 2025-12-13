@@ -2146,7 +2146,7 @@ end}))
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "local _size = math.max(1, self.ability.extra + (G.GAME.modifiers.booster_size_mod or 0))"
+pattern = "local _size = *"
 position = "after" 
 match_indent = true
 payload = '''
