@@ -84,7 +84,22 @@ for k, v in pairs(G.Astral_pins) do
     end
 end
 if context.discard and G.Astral_pins and G.aij_astral_pin_area and #G.aij_astral_pin_area.cards > 0 and not context.hook then
-    All_in_Jest.astral_visuals(context.scoring_name, 'only_remove', All_in_Jest.old_colours or nil, true)   
+    All_in_Jest.astral_visuals(nil, 'only_remove', All_in_Jest.old_colours or nil, true)   
+end
+if G.STATE == G.STATES.ROUND_EVAL then
+    if G.Astral_pins and G.aij_astral_pin_area and #G.aij_astral_pin_area.cards then
+        local cards_to_destroy = {}
+        for k, v in pairs(G.aij_astral_pin_area.cards) do
+            if not v.astral_has_been_destroyed then
+                v.astral_has_been_destroyed = true
+                cards_to_destroy[#cards_to_destroy+1] = v
+            end
+        end
+        SMODS.destroy_cards(cards_to_destroy, true, true, true)
+        if #cards_to_destroy > 0 then
+            All_in_Jest.astral_visuals(nil, 'only_remove', All_in_Jest.old_colours or nil, true)   
+        end
+    end
 end
 '''
 
