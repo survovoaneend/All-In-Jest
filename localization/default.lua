@@ -3570,7 +3570,7 @@ return {
                 name = "Elder", 
                 text = {
                     'Copies the effect of',
-                    'the {C:attention}Joker{}, you have',
+                    'the {C:attention}Joker{} you have',
                     "owned the {C:attention}longest{}",
                     "{C:inactive}(Currently #1#)"
                 } 
