@@ -354,14 +354,18 @@ if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.
             jest_tag_sprites[#jest_tag_sprites+1] = _tag_sprite
             jest_tag_nodes[#jest_tag_nodes+1] = {n=G.UIT.C, config={id = 'tag_desc', align = "cm", minh = 1, hover = true, button = 'All_in_Jest_select_tag', func = 'aij_hover_tag_branching', ref_table = {i, _tag}}, nodes={ _tag_ui }}
         else
+            G.GAME.all_in_jest.blind_tags[blind_choice] = G.GAME.all_in_jest.blind_tags[blind_choice] or {}
             local jest_temp_tag = G.GAME.all_in_jest.blind_tags[blind_choice][i]
             if not jest_temp_tag then
-                G.GAME.all_in_jest.blind_tags[blind_choice] = G.GAME.all_in_jest.blind_tags[blind_choice] or {}
-                local temp_index_two = 0
-                G.GAME.all_in_jest.blind_tags[blind_choice][i] = get_next_tag_key()
-                while G.GAME.all_in_jest.blind_tags[blind_choice][i] == G.GAME.round_resets.blind_tags[blind_choice] do
-                    temp_index_two = temp_index_two + 1
-                    G.GAME.all_in_jest.blind_tags[blind_choice][i] = get_next_tag_key('_resample_'..temp_index_two)
+                if i == 1 then -- Leftmost tag matches vanilla skip tag
+                    G.GAME.all_in_jest.blind_tags[blind_choice][i] = G.GAME.round_resets.blind_tags[blind_choice]
+                else
+                    local temp_index_two = 0
+                    G.GAME.all_in_jest.blind_tags[blind_choice][i] = get_next_tag_key()
+                    while G.GAME.all_in_jest.blind_tags[blind_choice][i] == G.GAME.round_resets.blind_tags[blind_choice] do
+                        temp_index_two = temp_index_two + 1
+                        G.GAME.all_in_jest.blind_tags[blind_choice][i] = get_next_tag_key('_resample_'..temp_index_two)
+                    end
                 end
                 jest_temp_tag = G.GAME.all_in_jest.blind_tags[blind_choice][i]
             end
@@ -774,10 +778,14 @@ for k, v in pairs(G.GAME.round_resets.blind_tags) do
     G.GAME.all_in_jest.blind_tags[k] = G.GAME.all_in_jest.blind_tags[k] or {}
     local temp_index = 0
     for i = 1, G.GAME.all_in_jest.blind_tags.amt do
-        G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key()
-        while G.GAME.all_in_jest.blind_tags[k][i] == v do
-            temp_index = temp_index + 1
-            G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('_resample_'..temp_index)
+        if i == 1 then -- Leftmost tag matches vanilla skip tag
+            G.GAME.all_in_jest.blind_tags[k][i] = v
+        else
+            G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key()
+            while G.GAME.all_in_jest.blind_tags[k][i] == v do
+                temp_index = temp_index + 1
+                G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('_resample_'..temp_index)
+            end
         end
     end
 end
@@ -1001,10 +1009,14 @@ for k, v in pairs(self.GAME.round_resets.blind_tags) do
     self.GAME.all_in_jest.blind_tags[k] = self.GAME.all_in_jest.blind_tags[k] or {}
     local temp_index = 0
     for i = 1, self.GAME.all_in_jest.blind_tags.amt do
-        self.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key()
-        while self.GAME.all_in_jest.blind_tags[k][i] == v do
-            temp_index = temp_index + 1
-            self.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('_resample_'..temp_index)
+        if i == 1 then -- Leftmost tag matches vanilla skip tag
+            self.GAME.all_in_jest.blind_tags[k][i] = v
+        else
+            self.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key()
+            while self.GAME.all_in_jest.blind_tags[k][i] == v do
+                temp_index = temp_index + 1
+                self.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('_resample_'..temp_index)
+            end
         end
     end
 end
