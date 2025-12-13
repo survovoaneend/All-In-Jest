@@ -1788,9 +1788,9 @@ function All_in_Jest.aij_refresh_boss_blind()
 end
 
 --Sets an Astral cards grade
-function All_in_Jest.astral_set_grade()
+function All_in_Jest.astral_set_grade(rarity)
     local seed = pseudoseed('aij_astral_grade')
-    local rarity = {["Retrograde"] = 0.1, ["Passigrade"] = 0.45}
+    rarity = rarity or {["Retrograde"] = 0.1, ["Passigrade"] = 0.45}
     local grade = "Prograde"
     for k, v in pairs(rarity) do
         if seed <= v then
