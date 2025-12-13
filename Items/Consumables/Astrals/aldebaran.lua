@@ -1,15 +1,15 @@
-local algol = {
+local aldebaran = {
     object_type = "Consumable",
-	key = 'algol',
+	key = 'aldebaran',
 	set = 'aij_astral',
     atlas = 'consumable_atlas',
-	pos = { x = 10, y = 3 },
-    soul_pos = { x = 10, y = 4 },
+	pos = { x = 12, y = 3 },
+    soul_pos = { x = 12, y = 4 },
 	cost = 4,
 	unlocked = true,
 	discovered = false,
-    order = 0,
-	config = { hand = nil, grade = '', pin = 'Algol', extra = {dollars = 2}},
+    order = 2,
+	config = { hand = nil, grade = '', pin = 'Aldebaran', extra = {percent = 10}},
     loc_vars = function(self, info_queue, card)
         card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(card.ability.consumeable.grade, card.ability.consumeable.hand)
         if card.ability.consumeable.hand then
@@ -18,13 +18,13 @@ local algol = {
 		return {
 			vars = {
 				card.ability.consumeable.hand or '(hand)',
-                card.ability.extra.dollars
+                card.ability.extra.percent,
 			},
 		}
     end,
     add_to_deck = function(self, card, from_debuff)
         if card.ability.consumeable.grade == '' then
-            local grade = All_in_Jest.astral_set_grade({["Retrograde"] = 0.6, ["Passigrade"] = 0.3, ["Prograde"] = 0.1})
+            local grade = All_in_Jest.astral_set_grade({["Retrograde"] = 0.4, ["Passigrade"] = 0.4, ["Prograde"] = 0.2})
             card.ability.consumeable.grade = grade
             card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(grade)
         end
@@ -38,42 +38,41 @@ local algol = {
         All_in_Jest.create_astral_pin(card)
     end,
 }
-local algol_pin = {
+local aldebaran_pin = {
 	object_loader = All_in_Jest,
     object_type = "Astral",
-	key = 'algol',
-    pin = 'Algol',
+	key = 'aldebaran',
+    pin = 'Aldebaran',
     atlas = 'misc_atlas',
     pos = { x = 0, y = -1 },
-	soul_pos = { x = 0, y = 0 },
+	soul_pos = { x = 4, y = 0 },
     discovered = false,
-    order = 0,
+    order = 2,
     config = {},
 
-    pixel_size = { w = 53, h = 28 },
+    pixel_size = { w = 53, h = 34 }, --This is off because it makes the sprite smaller if it was accurate
 
     loc_vars = function(self, info_queue, card)
-        return {
-		    vars = {
-			    card.ability.extra.hand,
-                card.ability.extra.dollars,
-		    },
-        }
+		return {
+			vars = {
+				card.ability.extra.hand,
+                card.ability.extra.percent,
+			},
+		}
     end,
 
     calculate = function(self, card, context)
-        if context.after and not context.repetition then
+        if context.joker_main then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 func = function()
                     SMODS.destroy_cards(card, true, true, true)
                     return true
             end}))
-            return { 
-                dollars = card.ability.extra.dollars,
-                card = card 
+            return {
+                aij_balance_percent = card.ability.extra.percent * 0.01
             }
         end
     end,
 }
-return {name = {"Astrals"}, items = {algol, algol_pin}}
+return {name = {"Astrals"}, items = {aldebaran, aldebaran_pin}}

@@ -24,7 +24,7 @@ local sirius = {
     end,
     add_to_deck = function(self, card, from_debuff)
         if card.ability.consumeable.grade == '' then
-            local grade = All_in_Jest.astral_set_grade()
+            local grade = All_in_Jest.astral_set_grade({["Retrograde"] = 0.15, ["Passigrade"] = 0.55, ["Prograde"] = 0.3})
             card.ability.consumeable.grade = grade
             card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(grade)
         end
