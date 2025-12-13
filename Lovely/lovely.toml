@@ -774,6 +774,9 @@ target = "functions/button_callbacks.lua"
 pattern = "G.GAME.round_resets.blind_tags.Big = get_next_tag_key()"
 position = "after"
 payload = '''
+if G.GAME.used_vouchers.v_aij_trophy and G.GAME.all_in_jest.apply.v_aij_trophy_chance then
+    G.GAME.round_resets.blind_tags.Big = get_next_tag_key('all_in_jest_guarrented_gold_tag')
+end
 for k, v in pairs(G.GAME.round_resets.blind_tags) do
     G.GAME.all_in_jest.blind_tags[k] = G.GAME.all_in_jest.blind_tags[k] or {}
     local temp_index = 0
@@ -788,9 +791,7 @@ for k, v in pairs(G.GAME.round_resets.blind_tags) do
             end
         end
     end
-end
-if G.GAME.used_vouchers.v_aij_trophy and G.GAME.all_in_jest.apply.v_aij_trophy_chance then
-    G.GAME.round_resets.blind_tags.Big = get_next_tag_key('all_in_jest_guarrented_gold_tag')
+    pseudoshuffle(G.GAME.all_in_jest.blind_tags[k], pseudoseed('aij_branching')) -- So leftmost tag isn't always the "vanilla" one (or the forced gold one)
 end
 '''
 match_indent = true
@@ -1019,6 +1020,7 @@ for k, v in pairs(self.GAME.round_resets.blind_tags) do
             end
         end
     end
+    pseudoshuffle(self.GAME.all_in_jest.blind_tags[k], pseudoseed('aij_branching')) -- So leftmost tag isn't always the "vanilla" choice
 end
 '''
 match_indent = true
@@ -1264,7 +1266,7 @@ payload = '''
 local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest Golden Tag', nil, nil, append and append..'_gold' or '_gold')
 _gold_pool = {}
 for i = 1, #_temp_gold_pool do
-     _gold_pool[i] = _temp_gold_pool[i]
+    _gold_pool[i] = _temp_gold_pool[i]
 end
 '''
 
