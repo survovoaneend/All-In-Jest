@@ -3286,3 +3286,29 @@ pattern = "self.in_blind = true"
 position = "after"
 match_indent = true
 payload = '''SMODS.calculate_context({aij_before_setting_blind = true, blind = G.GAME.round_resets.blind})'''
+
+# Tag:set_ability()
+# Fixes orbital tags
+# Stolen from Ortalab, clearly they ran into the same problems as I
+[[patches]]
+[patches.pattern]
+target = 'tag.lua'
+pattern = '''
+if G.GAME.orbital_choices and G.GAME.orbital_choices[G.GAME.round_resets.ante][self.ability.blind_type] then
+    self.ability.orbital_hand = G.GAME.orbital_choices[G.GAME.round_resets.ante][self.ability.blind_type]
+end
+'''
+position = 'at'
+match_indent = true
+payload = '''
+if G.GAME.orbital_choices and G.GAME.orbital_choices[G.GAME.round_resets.ante] and G.GAME.orbital_choices[G.GAME.round_resets.ante][self.ability.blind_type] then
+    self.ability.orbital_hand = G.GAME.orbital_choices[G.GAME.round_resets.ante][self.ability.blind_type]       
+else
+    local _poker_hands = {}
+    for k, v in pairs(G.GAME.hands) do
+        if v.visible then _poker_hands[#_poker_hands+1] = k end
+    end
+    G.GAME.orbital_choices[G.GAME.round_resets.ante] = G.GAME.orbital_choices[G.GAME.round_resets.ante] or {}
+    G.GAME.orbital_choices[G.GAME.round_resets.ante][self.ability.blind_type] = pseudorandom_element(_poker_hands, pseudoseed('orbital'))
+end
+'''
