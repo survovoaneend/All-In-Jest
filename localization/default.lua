@@ -4362,6 +4362,13 @@ return {
                     'draw {C:attention}#2#{} additional card',
                 }
             },
+            c_aij_aldebaran = {
+                name = 'Aldebaran',
+                text = {
+                    '{C:aij_plasma}Balance{} {C:attention}#2#%{} of {C:chips}Chips{} and {C:mult}Mult',
+                    'after {C:attention}#1#{} is played',
+                }
+            },
             c_aij_capella = {
                 name = 'Capella',
                 text = {
