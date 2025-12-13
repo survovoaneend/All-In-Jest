@@ -18,21 +18,16 @@ local fall_of_count_chaligny = {
     end,
   
     calculate = function(self, card, context)
-        if context.setting_blind and not self.getting_sliced and not context.blueprint and G.GAME.blind.mult ~= 1 then
-            G.E_MANAGER:add_event(Event({func = function()
-                G.E_MANAGER:add_event(Event({func = function()
-                    if not card.getting_sliced then
-                        G.GAME.blind.mult = 1
-                        G.GAME.blind.chips = get_blind_amount(G.GAME.round_resets.ante)*G.GAME.blind.mult*G.GAME.starting_params.ante_scaling
-                        G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-                        card:juice_up()
-                        play_sound('timpani')
-                        G.GAME.blind:wiggle()
-                        delay(0.4)
-                    end
-                    return true end }))
+        if context.aij_before_setting_blind and not card.getting_sliced and not context.blueprint then
+            if not card.getting_sliced and All_in_Jest.get_current_blind_mult() ~= 1 then
+                card:juice_up()
+                play_sound('tarot2', 0.76, 0.4)
+                All_in_Jest.ease_blind_requirement(1 - All_in_Jest.get_current_blind_mult(), nil, true)
+                G.GAME.blind.aij_original_chips = G.GAME.blind.chips
+                G.GAME.blind.mult = 1
+                G.GAME.blind.aij_original_mult = G.GAME.blind.mult
                 return true
-            end }))
+            end
         end
     end
   

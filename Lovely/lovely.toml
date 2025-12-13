@@ -3265,3 +3265,12 @@ payload = '''elseif blindname == 'bl_aij_the_journey' and G.GAME.current_round.a
             fill = true
         })
     end'''
+
+# Add context before blind is set
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = "self.in_blind = true"
+position = "after"
+match_indent = true
+payload = '''SMODS.calculate_context({aij_before_setting_blind = true, blind = G.GAME.round_resets.blind})'''
