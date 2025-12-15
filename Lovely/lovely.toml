@@ -3402,6 +3402,23 @@ if target.vars.aij_czar then card = target.vars.aij_czar; target.vars.aij_czar =
 if target.vars.aij_elder then card = target.vars.aij_elder; target.vars.aij_elder = nil end -- All in Jest
 '''
 
+# Patch to make all instances of "destroy" red
+# Just hooks into a function in functions.lua
+# init_localization()
+[[patches]]
+[patches.pattern]
+target = 'functions/misc_functions.lua'
+pattern = "if not center.text then else"
+position = 'after'
+match_indent = true
+payload = '''
+-- All in Jest start
+if All_in_Jest_format_destroy then
+    center.text = All_in_Jest_format_destroy(center.text)
+end
+-- All in Jest end
+'''
+
 # Patch to fix already highlighted cards being re-highlighted and making erroneous sound
 # Can't do this in the calculation code because then it would be too early or too late to stop the sound without messing something else up
 # Done for Right Angle joker

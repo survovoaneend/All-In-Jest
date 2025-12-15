@@ -1874,6 +1874,107 @@ function All_in_Jest.aij_refresh_boss_blind()
     end
 end
 
+function All_in_Jest_format_destroy(center_text)
+
+    if center_text == {} then
+        return center_text
+    end
+
+    local function add_red_text(text, start_index, end_index, base_format)
+        local destroyed_format = base_format
+        if base_format == "{}" then
+            destroyed_format = "{C:red}"
+        elseif string.match(base_format, "C:%w+") then -- Try to find an existing colour option
+            destroyed_format, _ = string.gsub(base_format, "C:%w+", "C:red")
+        else
+            destroyed_format = string.sub(base_format, 1, -2) .. ",C:red}"
+        end
+        return string.sub(text, 1, start_index - 1)..destroyed_format..string.sub(text, start_index, end_index)..base_format..string.sub(text, end_index + 1)
+    end
+
+    local destroy_texts = {
+        "destroying",
+        "destroyed",
+        "destroys",
+        "destroy"
+    }
+    local found_strings = {}
+    local one_box = true
+
+    if type(center_text[1]) == "table" then
+        -- Description has multiple boxes (e.g. "You got Mail" joker in this mod)
+        one_box = false
+        for j, box in ipairs(center_text) do
+            found_strings[j] = {}
+            for i, line in ipairs(box) do
+                found_strings[j][i] = {}
+                for _, text in ipairs(destroy_texts) do
+                    local start_index, end_index = string.find(string.lower(line), text)
+                    if start_index and not found_strings[j][i][start_index] then
+                        found_strings[j][i][start_index] = end_index
+                    end
+                end
+            end
+        end
+    elseif type(center_text[1]) == "string" then
+        -- Description does not have multiple boxes
+        found_strings[1] = {}
+        for i, line in ipairs(center_text) do
+            found_strings[1][i] = {}
+            for _, text in ipairs(destroy_texts) do
+                local start_index, end_index = string.find(string.lower(line), text)
+                if start_index then
+                    local already_processed = false
+                    for _, t in ipairs(found_strings[1][i]) do
+                        if start_index == t.start_index then
+                            already_processed = true
+                            break
+                        end
+                    end
+
+                    if not already_processed then
+                        -- Try to extract any existing formatting on the destroy text
+                        -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
+                        local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
+                        if #applied_formatting > 2 then
+                            sendDebugMessage(applied_formatting, "AiJ")
+                        else
+                            sendDebugMessage(string.sub(line, 1, start_index - 1), "AiJ")
+                        end
+                        -- Do not apply red text if text is already red
+                        if not string.match(applied_formatting, "C:red") then
+                            local t = {
+                                start_index = start_index,
+                                end_index = end_index,
+                                format = applied_formatting
+                            }
+                            table.insert(found_strings[1][i], t)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    -- sendDebugMessage(tprint(found_strings), "AiJ")
+
+    for box_index, _ in ipairs(found_strings) do
+        for line_index, _ in ipairs(found_strings[box_index]) do
+            for _, t in ipairs(found_strings[box_index][line_index]) do
+                local start_index = t.start_index
+                local end_index = t.end_index
+                local base_format = t.format
+                if one_box then
+                    center_text[line_index] = add_red_text(center_text[line_index], start_index, end_index, base_format)
+                else
+                    center_text[box_index][line_index] = add_red_text(center_text[box_index][line_index], start_index, end_index, base_format)
+                end
+            end
+        end
+    end
+
+    return center_text
+end
 
 G.FUNCS.aij_hover_tag_branching = function(e)
     if not e.parent or not e.parent.states then return end
