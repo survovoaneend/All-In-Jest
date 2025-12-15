@@ -27,7 +27,7 @@ local blood_artist = {
 
     calculate = function(self, card, context)
         -- Removing non-playing cards and selling cards
-        if context.joker_type_destroyed or context.selling_card and G.GAME.blind.in_blind then
+        if (context.joker_type_destroyed or context.selling_card) and G.GAME.blind.in_blind then
             -- Have to do this mess of code to make banana man say "Again!" at the correct time
             return {
                 extra = {
