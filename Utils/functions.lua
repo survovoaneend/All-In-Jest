@@ -1749,7 +1749,7 @@ end
 -- Increases blind requirement while making the score tick up with an animation
 -- mod_mult increases the mult of the blind (so mod_mult = 1 makes a blind go from x2 to x3)
 -- mod_add increases the blind requirement directly. This occurs after mod_add
--- Code copied from Bunco
+-- "Ticking up" animate code copied + modified from Bunco
 function All_in_Jest.ease_blind_requirement(mod_mult, mod_add, skip_animation)
     if not G.GAME.blind.in_blind then return end
 
@@ -1936,11 +1936,6 @@ function All_in_Jest_format_destroy(center_text)
                         -- Try to extract any existing formatting on the destroy text
                         -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
                         local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
-                        if #applied_formatting > 2 then
-                            sendDebugMessage(applied_formatting, "AiJ")
-                        else
-                            sendDebugMessage(string.sub(line, 1, start_index - 1), "AiJ")
-                        end
                         -- Do not apply red text if text is already red
                         if not string.match(applied_formatting, "C:red") then
                             local t = {
@@ -1955,8 +1950,6 @@ function All_in_Jest_format_destroy(center_text)
             end
         end
     end
-
-    -- sendDebugMessage(tprint(found_strings), "AiJ")
 
     for box_index, _ in ipairs(found_strings) do
         for line_index, _ in ipairs(found_strings[box_index]) do
