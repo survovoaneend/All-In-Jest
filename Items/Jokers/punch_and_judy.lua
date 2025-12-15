@@ -26,6 +26,11 @@ local punch_and_judy = {
     end,
   
     calculate = function(self, card, context)
+        if context.modify_scoring_hand and (context.other_card:get_id() == 12 or context.other_card:get_id() == 13) then
+            return {
+                add_to_hand = true
+            }
+        end
         if context.repetition and context.cardarea == G.play then
             local king_count = 0
             local queen_count = 0

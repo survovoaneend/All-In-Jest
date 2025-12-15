@@ -45,7 +45,11 @@ local osiris = {
       end
     end
 
-    return victim_card and not SMODS.is_eternal(victim_card, card)
+    if victim_card then
+        return not SMODS.is_eternal(victim_card, card)
+    else
+        return false
+    end
   end,
 
   use = function(self, card)
@@ -62,10 +66,16 @@ local osiris = {
     
     if victim_card then
       local money_earned = (victim_card.sell_cost * 3)
+
+      G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+        play_sound('tarot1')
+        card:juice_up(0.3, 0.5)
+        return true end }))
+      delay(0.2)
       SMODS.destroy_cards(victim_card)
       G.E_MANAGER:add_event(Event({
         trigger = 'after',
-        delay = 0.4,
+        delay = 0.5,
         func = function()
           play_sound('timpani')
           card:juice_up(0.3, 0.5)
@@ -73,7 +83,7 @@ local osiris = {
           return true
         end
       }))
-      delay(0.6)
+      delay(0.3)
     end
   end,
 }

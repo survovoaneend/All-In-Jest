@@ -36,7 +36,7 @@ local magic_mirror = {
       if context.ante_change and context.ante_change ~= 0 and context.ante_end then
           G.GAME.jest_magic_mirror_trigger = true
       end
-      if context.individual and context.cardarea == G.play then
+      if context.individual and context.cardarea == G.play and not context.blueprint then
         if G.GAME.jest_magic_mirror_trigger then
             local cardd = context.other_card
             if cardd:is_face() then

@@ -44,6 +44,9 @@ local gnasher = {
             if G.GAME.pack_choices then
               G.GAME.pack_choices = G.GAME.pack_choices + 1
             end
+
+            -- Without this will crash with Wheel of Fortune, Ectoplasm and Hex
+            copied_consumeable:update(0)
             G.FUNCS.use_card({ config = { ref_table = copied_consumeable } })
 
             card.ability.extra.active = false
@@ -68,7 +71,7 @@ local gnasher = {
     end,
 
     calculate = function(self, card, context)
-        if context.ante_change and context.ante_change ~= 0 and context.ante_end then
+        if context.ante_change and context.ante_change ~= 0 and context.ante_end and not context.blueprint then
             card.ability.extra.active = true
         end
     end

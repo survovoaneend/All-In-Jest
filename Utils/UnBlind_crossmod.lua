@@ -1,8 +1,8 @@
 aij_UnBlind_current_blinds_ref = G.UIDEF.UnBlind_current_blinds
 function G.UIDEF.UnBlind_current_blinds() -- called by the replaced bit of code.	see lovely.toml			♥
     local ret = aij_UnBlind_current_blinds_ref()
-    local has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn"))
-    if has_blind_drawn and (ret.nodes and ret.nodes[1] and ret.nodes[1].nodes and ret.nodes[1].nodes[3]) then
+    local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn"))
+    if aij_has_blind_drawn and (ret.nodes and ret.nodes[1] and ret.nodes[1].nodes and ret.nodes[1].nodes[3]) then
         ret.nodes[1].nodes[3] = G.GAME.round_resets.blind_states['Boss'] ~= 'Hide' and UnBlind_create_UIBox_blind('aij_Hidden') or nil
     end
     return ret
@@ -97,7 +97,7 @@ function UnBlind_create_UIBox_blind_tag(blind_choice) --Renders the tag that's a
             -- _tag_sprite.T.scale = 0.5
             _tag_ui.nodes[1].config.w = _tag_ui.nodes[1].config.w / G.GAME.all_in_jest.blind_tags.amt
             _tag_ui.nodes[1].config.h = _tag_ui.nodes[1].config.h / G.GAME.all_in_jest.blind_tags.amt
-            _tag_sprite.states.collide.can = not not true
+            _tag_sprite.states.collide.can = true
             jest_tag_nodes[#jest_tag_nodes + 1] = _tag_ui
         end
         return 

@@ -1,19 +1,23 @@
 function getRandomClayBlindReqs(blind_amt)
-    local blind_amts = {}
-    local clay_mult = (G.P_BLINDS["bl_aij_the_clay"] or {mult = 2}).mult
-    
-    local base_amt = blind_amt / clay_mult
-    
-    for m = 2, 5, 0.14 do
-        table.insert(blind_amts, number_format(base_amt * m))
+    if next(SMODS.find_card("j_aij_fall_of_count_chaligny")) then
+        return {number_format(blind_amt)}
+    else
+        local blind_amts = {}
+        local clay_mult = (G.P_BLINDS["bl_aij_the_clay"] or {mult = 2}).mult
+
+        local base_amt = blind_amt / clay_mult
+
+        for m = 2.05, 5, 0.14 do
+            table.insert(blind_amts, number_format(base_amt * m))
+        end
+
+        -- if blind_amt < 1e99 then
+        --     table.insert(blind_amts, number_format(9.9e99))
+        -- end
+        table.insert(blind_amts, number_format(1/0)) -- gives naneinf
+
+        return blind_amts
     end
-
-    -- if blind_amt < 1e99 then
-    --     table.insert(blind_amts, number_format(9.9e99))
-    -- end
-    table.insert(blind_amts, number_format(1/0)) -- gives naneinf
-
-    return blind_amts
 end
 
 local the_clay = {
@@ -30,8 +34,11 @@ local the_clay = {
     dollars = 5,
 
     set_blind = function(self)
-        local new_mod = pseudorandom("clay", 2, 4) + math.floor(100*pseudorandom("clay"))/100 -- Randomises an integer part (1-4) and a decimal part (0.00 to 0.99) before adding both together
-        All_in_Jest.ease_blind_requirement(new_mod - 1, 0)
+        if not next(SMODS.find_card("j_aij_fall_of_count_chaligny")) then
+            local add_mult = pseudorandom("clay", 0, 2) + math.floor(100*pseudorandom("clay"))/100 -- Randomises an integer part (0-2) and a decimal part (0.00 to 0.99) before adding both together
+            add_mult = add_mult + 0.01 -- Do this so people dont think The Clay is bugged
+            All_in_Jest.ease_blind_requirement(add_mult, 0, true)
+        end
     end,
 
     disable = function()

@@ -577,6 +577,7 @@ function ease_ante(mod)
     local ref = ease_anteref(mod)
     return ref
 end
+
 SMODS.jest_Badge = {
     key = "jest_chaotic_card",
     badge_colour = HEX '8F00FF',

@@ -54,6 +54,9 @@ local the_hoard = {
     end,
 
     disable = function()
+        local add_val = G.GAME.blind.chips - G.GAME.blind.aij_original_chips
+        G.GAME.blind.aij_added_chips = G.GAME.blind.aij_added_chips - add_val
+
         G.GAME.blind.chips = G.GAME.blind.aij_original_chips
         G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
     end,

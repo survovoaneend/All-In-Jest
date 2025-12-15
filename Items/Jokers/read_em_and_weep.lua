@@ -18,7 +18,7 @@ local read_em_and_weep = {
     end,
 
     calculate = function(self, card, context)
-        if context.aij_before_before and context.scoring_name then
+        if context.aij_before_before and context.scoring_name and not context.blueprint then
             if context.poker_hands and next(context.poker_hands['Straight']) then
                 local temp_suit = pseudorandom_element(SMODS.Suits, pseudoseed('jest_read_em_and_weep' .. G.GAME.round_resets.ante)).key
 

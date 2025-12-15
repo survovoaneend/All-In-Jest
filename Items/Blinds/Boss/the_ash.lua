@@ -25,16 +25,16 @@ local the_ash = {
 
     aij_blind_amount_display = function(self, blind, base_blind_amount, mult)
         local extra_mult = 0
-        if #G.deck.cards <= G.GAME.all_in_jest.starting_prams.deck_size then
-            extra_mult = (G.GAME.all_in_jest.starting_prams.deck_size - #G.deck.cards) * 0.20
+        if #G.playing_cards <= G.GAME.all_in_jest.starting_prams.deck_size then
+            extra_mult = (G.GAME.all_in_jest.starting_prams.deck_size - #G.playing_cards) * 0.20
         end
         return base_blind_amount * (mult + extra_mult)
     end,
 
     set_blind = function(self)
         local extra_mult = 0
-        if #G.deck.cards <= G.GAME.all_in_jest.starting_prams.deck_size then
-            extra_mult = (G.GAME.all_in_jest.starting_prams.deck_size - #G.deck.cards) * 0.20
+        if #G.playing_cards <= G.GAME.all_in_jest.starting_prams.deck_size then
+            extra_mult = (G.GAME.all_in_jest.starting_prams.deck_size - #G.playing_cards) * 0.20
         end
         All_in_Jest.ease_blind_requirement(extra_mult, 0)
     end,
@@ -76,7 +76,7 @@ local the_ash = {
     end,
 
     in_pool = function(self)
-        if G.deck and #G.deck.cards < G.GAME.all_in_jest.starting_prams.deck_size then
+        if G.deck and #G.playing_cards < G.GAME.all_in_jest.starting_prams.deck_size then
             return true
         end
     end,

@@ -20,7 +20,7 @@ local cosmological_constant = {
     end,
   
     calculate = function(self, card, context)
-        if context.modify_hand then
+        if context.modify_hand and not context.blueprint then
             return {balance = true}
         end
     end,

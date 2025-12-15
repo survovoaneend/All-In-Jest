@@ -78,6 +78,10 @@ return {
 
             a_aij_joker_slots = '+#1# Joker Slot',
             a_aij_joker_slots_minus = '-#1# Joker Slot',
+
+            a_aij_odds = "+#1# Odds",
+
+            a_aij_jokers = "+#1# Jokers",
         },
         challenge_names = {
             c_aij_bananarama = "Bananarama",
@@ -2871,8 +2875,8 @@ return {
                 name = "Angel Number", 
                 text = { 
                     "{C:attention}+#1#{} to all {C:green}listed",
-                    "{C:green}probabilities{} for each scoring {C:attention}7",
-                    "played this hand",
+                    "{C:green}probabilities{} for each",
+                    "scoring {C:attention}7{} played this hand",
                     -- TODO currently?
                 } 
             },
@@ -3566,7 +3570,7 @@ return {
                 name = "Elder", 
                 text = {
                     'Copies the effect of',
-                    'the {C:attention}Joker{}, you have',
+                    'the {C:attention}Joker{} you have',
                     "owned the {C:attention}longest{}",
                     "{C:inactive}(Currently #1#)"
                 } 

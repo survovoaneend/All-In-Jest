@@ -27,7 +27,7 @@ local blood_artist = {
 
     calculate = function(self, card, context)
         -- Removing non-playing cards and selling cards
-        if context.joker_type_destroyed or context.selling_card and G.GAME.blind.chips > to_big(0) then
+        if (context.joker_type_destroyed or context.selling_card) and G.GAME.blind.in_blind then
             -- Have to do this mess of code to make banana man say "Again!" at the correct time
             return {
                 extra = {
@@ -40,7 +40,7 @@ local blood_artist = {
                     G.E_MANAGER:add_event(Event({
                         trigger = 'immediate',
                         func = function()
-                            if G.GAME.chips - G.GAME.blind.chips >= to_big(0) then
+                            if G.GAME.chips - G.GAME.blind.chips >= to_big(0) and not next(SMODS.find_card("j_aij_electric_snow")) then
                                 G.STATE = G.STATES.NEW_ROUND
                                 G.STATE_COMPLETE = false
                             end
@@ -52,7 +52,7 @@ local blood_artist = {
         end
 
         -- Removing playing cards
-        if context.remove_playing_cards and G.GAME.blind.chips > to_big(0) then
+        if context.remove_playing_cards and G.GAME.blind.in_blind then
             local destroyed_count = #context.removed
             return {
                 extra = {
@@ -65,7 +65,7 @@ local blood_artist = {
                     G.E_MANAGER:add_event(Event({
                         trigger = 'immediate',
                         func = function()
-                            if G.GAME.chips - G.GAME.blind.chips >= to_big(0) then
+                            if G.GAME.chips - G.GAME.blind.chips >= to_big(0) and not next(SMODS.find_card("j_aij_electric_snow")) then
                                 G.STATE = G.STATES.NEW_ROUND
                                 G.STATE_COMPLETE = false
                             end

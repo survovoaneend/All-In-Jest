@@ -19,10 +19,10 @@ local morio = {
     end,
   
     calculate = function(self, card, context)
-        if context.end_of_round and context.beat_boss then
+        if context.end_of_round and context.beat_boss and not context.blueprint then
             card.ability.trigger = true
         end
-        if context.cashing_out and card.ability.trigger then
+        if context.cashing_out and card.ability.trigger and not context.blueprint then
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                 G.E_MANAGER:add_event(Event({

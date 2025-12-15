@@ -32,7 +32,7 @@ local corpse_paint = {
     end,
   
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
+        if context.individual and context.cardarea == G.play and not context.blueprint then
             if context.other_card.edition ~= nil and context.other_card.edition.negative then
                 context.other_card:set_edition(nil)
                 if SMODS.pseudorandom_probability(card, 'corpse_paint', 1, card.ability.odds) then

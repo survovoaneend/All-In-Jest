@@ -24,47 +24,60 @@ local two_ways = {
         end
     end,
     use = function(self, card)
-        local rank_id_to_name = {
-            [2] = '2',
-            [3] = '3',
-            [4] = '4',
-            [5] = '5',
-            [6] = '6',
-            [7] = '7',
-            [8] = '8',
-            [9] = '9',
-            [10] = '10',
-            [11] = 'Jack',
-            [12] = 'Queen',
-            [13] = 'King',
-            [14] = 'Ace'
-        }
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            play_sound('tarot1')
+            card:juice_up(0.3, 0.5)
+            return true end }))
+        delay(0.2)
+        local new_cards = {}
+        G.E_MANAGER:add_event(Event({func = function()
+            for i = 1, #G.hand.highlighted do
+                local hand_card = G.hand.highlighted[i]
+                local hand_card_index = 1
+                for j = 1, #G.hand.cards do
+                    if G.hand.cards[j] == hand_card then
+                      hand_card_index = j
+                    end
+                end
+                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                local new_card = copy_card(hand_card, nil, nil, G.playing_card)
 
-        for i = 1, #G.hand.highlighted do
-            local hand_card = G.hand.highlighted[i]
-            G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-            local _card = copy_card(hand_card, nil, nil, G.playing_card)
+                local new_rank_id_for_clone = math.max(2, math.min(math.ceil(hand_card.base.id / 2), 14))
+                local new_rank_id_for_original = math.max(2, math.min(math.floor(hand_card.base.id / 2), 14))
 
-            local new_rank_id_for_clone = math.max(2, math.min(math.ceil(hand_card.base.id / 2), 14))
-            local new_rank_id_for_original = math.max(2, math.min(math.floor(hand_card.base.id / 2), 14))
+                assert(SMODS.modify_rank(new_card, -new_rank_id_for_clone))
+                assert(SMODS.modify_rank(hand_card, -new_rank_id_for_original))
 
-            assert(SMODS.modify_rank(_card, -new_rank_id_for_clone))
-            assert(SMODS.modify_rank(hand_card, -new_rank_id_for_original))
+                new_card:add_to_deck()
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                table.insert(G.playing_cards, new_card)
+                G.hand:emplace(new_card)
+                table.remove(G.hand.cards, #G.hand.cards)
+                table.insert(G.hand.cards, hand_card_index + 1, new_card)
+                G.hand:set_ranks()
 
-            _card:add_to_deck()
-            G.deck.config.card_limit = G.deck.config.card_limit + 1
-            table.insert(G.playing_cards, _card)
-            G.hand:emplace(_card)
-            _card.states.visible = nil
-
+                table.insert(new_cards, new_card)
+                -- new_card.states.visible = nil
+            end
+            for i = 1, #new_cards do
+                new_cards[i]:highlight(true)
+            end
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    _card:start_materialize()
-                    playing_card_joker_effects({ _card })
+                    -- new_card:start_materialize()
+                    playing_card_joker_effects({ new_cards })
                     return true
                 end
             }))
-        end
+        return true end }))
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.5, func = function() 
+            G.hand:unhighlight_all()
+            for i = 1, #new_cards do
+                new_cards[i]:highlight(false)
+            end
+            return true
+        end }))
+        delay(0.2)
     end,
 }
 return { name = { "Tarots" }, items = { two_ways } }

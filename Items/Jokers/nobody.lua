@@ -22,7 +22,7 @@ local nobody = {
     end,
   
     calculate = function(self, card, context)
-        if context.setting_blind then
+        if context.setting_blind and not context.blueprint then
             if card.ability.extra.cur_rounds >= card.ability.extra.rounds then
                 local temp_card = create_card('Joker', G.jokers, true, 1, nil, nil, nil, 'nobody')
                 temp_card:start_materialize()

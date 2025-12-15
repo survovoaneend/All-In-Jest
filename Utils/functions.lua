@@ -1376,7 +1376,7 @@ function Card:All_in_Jest_start_dissolve(dissolve_colours, silent, dissolve_time
     }))
 end
 
-function All_in_Jest.reroll_joker(card, key, append, temp_key, _card)
+function All_in_Jest.reroll_joker(card, key, append, temp_key)
     local victim_joker = card
       
     local victim_rarity = victim_joker.config.center.rarity or 1
@@ -1411,29 +1411,31 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, _card)
 
     G.E_MANAGER:add_event(Event({
         trigger = 'after', 
-        delay = 0.4, 
-        func = function()
-            play_sound('tarot1')
-            card:juice_up(0.3, 0.5)
-            return true 
-        end 
-    }))
-    G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        delay = 0.15,
+                delay = 0.15,
         func = function() 
             victim_joker:flip()
             play_sound('card1', 1)
-            victim_joker:juice_up(0.5, 0.5)
+            victim_joker:juice_up(0.3, 0.3)
             return true 
         end 
     }))
-    delay(0.5)
+    delay(0.4)
     G.E_MANAGER:add_event(Event({
         trigger = 'after',
         delay = 0.1,
         func = function()
+            local old_ability_data = copy_table(victim_joker.ability)
             victim_joker:set_ability(G.P_CENTERS[replacement_key])
+            sendDebugMessage(tprint(old_ability_data), "AIJ")
+            if old_ability_data.all_in_jest and old_ability_data.all_in_jest.has_been_rerolled_data then
+                victim_joker.ability = old_ability_data.all_in_jest.has_been_rerolled_data
+                old_ability_data.all_in_jest.has_been_rerolled_data = nil
+            end
+            if temp_key then
+                victim_joker.ability.all_in_jest = victim_joker.ability.all_in_jest or {}
+                victim_joker.ability.all_in_jest.has_been_rerolled = temp_key
+                victim_joker.ability.all_in_jest.has_been_rerolled_data = old_ability_data
+            end
             victim_joker:set_cost()
             return true
         end
@@ -1736,19 +1738,28 @@ function All_in_Jest.force_pit_blind()
 end
 
 function All_in_Jest.get_current_blind_mult()
-    local original_chips = G.GAME.blind.aij_original_chips > to_big(0) and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
-    return (G.GAME.blind.chips - G.GAME.blind.aij_added_chips) / (original_chips / G.GAME.blind.aij_original_mult)
+    if G.GAME.blind.in_blind then
+        local original_chips = G.GAME.blind.aij_original_chips > to_big(0) and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
+        return (G.GAME.blind.chips - G.GAME.blind.aij_added_chips) / (original_chips / G.GAME.blind.aij_original_mult)
+    else
+        return G.GAME.blind.mult
+    end
 end
 
 -- Increases blind requirement while making the score tick up with an animation
 -- mod_mult increases the mult of the blind (so mod_mult = 1 makes a blind go from x2 to x3)
 -- mod_add increases the blind requirement directly. This occurs after mod_add
--- Code copied from Bunco
-function All_in_Jest.ease_blind_requirement(mod_mult, mod_add)
-    local original_chips = G.GAME.blind.aij_original_chips > to_big(0) and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
+-- "Ticking up" animate code copied + modified from Bunco
+function All_in_Jest.ease_blind_requirement(mod_mult, mod_add, skip_animation)
+    if not G.GAME.blind.in_blind then return end
 
-    mod_mult = mod_mult ~= nil and mod_mult or 0
-    mod_add = mod_add ~= nil and mod_add or 0
+    local original_chips = G.GAME.blind.aij_original_chips > to_big(0) and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
+    if mod_mult == nil then
+        mod_mult = 0
+    end
+    if mod_add == nil then
+        mod_add = 0
+    end
 
     local original_mult = G.GAME.blind.aij_original_mult
     local previously_added = G.GAME.blind.aij_added_chips -- Only accounts chips added via mod_add
@@ -1764,46 +1775,51 @@ function All_in_Jest.ease_blind_requirement(mod_mult, mod_add)
     local step = 0
 
     local chips_text_integer = G.GAME.blind.chips -- Used to track animation
-    if chips_text_integer < to_big(desired_chip_amount) then
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            blocking = true,
-            func = function()
-                chips_text_integer = chips_text_integer + G.SETTINGS.GAMESPEED * chip_mod
-                if chips_text_integer < desired_chip_amount then
-                    G.GAME.blind.chip_text = number_format(chips_text_integer)
-                    if step % 5 == 0 then
-                        play_sound('chips1', 0.8 + (step * 0.005))
-                    end
-                    step = step + 1
-                else
-                    chips_text_integer = desired_chip_amount
-                    G.GAME.blind.chip_text = number_format(chips_text_integer)
-                    G.GAME.blind:wiggle()
-                    return true
-                end
-            end
-        }))
+    if skip_animation then
+        chips_text_integer = desired_chip_amount
+        G.GAME.blind.chip_text = number_format(chips_text_integer)
     else
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            blocking = true,
-            func = function()
-                chips_text_integer = chips_text_integer - G.SETTINGS.GAMESPEED * chip_mod
-                if chips_text_integer > desired_chip_amount then
-                    G.GAME.blind.chip_text = number_format(chips_text_integer)
-                    if step % 5 == 0 then
-                        play_sound('chips1', 0.8 + (step * 0.005))
+        if chips_text_integer < to_big(desired_chip_amount) then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                blocking = true,
+                func = function()
+                    chips_text_integer = chips_text_integer + G.SETTINGS.GAMESPEED * chip_mod
+                    if chips_text_integer < desired_chip_amount then
+                        G.GAME.blind.chip_text = number_format(chips_text_integer)
+                        if step % 5 == 0 then
+                            play_sound('chips1', 0.8 + (step * 0.005))
+                        end
+                        step = step + 1
+                    else
+                        chips_text_integer = desired_chip_amount
+                        G.GAME.blind.chip_text = number_format(chips_text_integer)
+                        G.GAME.blind:wiggle()
+                        return true
                     end
-                    step = step - 1
-                else
-                    chips_text_integer = desired_chip_amount
-                    G.GAME.blind.chip_text = number_format(chips_text_integer)
-                    G.GAME.blind:wiggle()
-                    return true
                 end
-            end
-        }))
+            }))
+        else
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                blocking = true,
+                func = function()
+                    chips_text_integer = chips_text_integer - G.SETTINGS.GAMESPEED * chip_mod
+                    if chips_text_integer > desired_chip_amount then
+                        G.GAME.blind.chip_text = number_format(chips_text_integer)
+                        if step % 5 == 0 then
+                            play_sound('chips1', 0.8 + (step * 0.005))
+                        end
+                        step = step - 1
+                    else
+                        chips_text_integer = desired_chip_amount
+                        G.GAME.blind.chip_text = number_format(chips_text_integer)
+                        G.GAME.blind:wiggle()
+                        return true
+                    end
+                end
+            }))
+        end
     end
 
     G.GAME.blind.chips = desired_chip_amount -- Immediately set in case this function is called successively
@@ -1858,6 +1874,100 @@ function All_in_Jest.aij_refresh_boss_blind()
     end
 end
 
+function All_in_Jest_format_destroy(center_text)
+
+    if center_text == {} then
+        return center_text
+    end
+
+    local function add_red_text(text, start_index, end_index, base_format)
+        local destroyed_format = base_format
+        if base_format == "{}" then
+            destroyed_format = "{C:red}"
+        elseif string.match(base_format, "C:%w+") then -- Try to find an existing colour option
+            destroyed_format, _ = string.gsub(base_format, "C:%w+", "C:red")
+        else
+            destroyed_format = string.sub(base_format, 1, -2) .. ",C:red}"
+        end
+        return string.sub(text, 1, start_index - 1)..destroyed_format..string.sub(text, start_index, end_index)..base_format..string.sub(text, end_index + 1)
+    end
+
+    local destroy_texts = {
+        "destroying",
+        "destroyed",
+        "destroys",
+        "destroy"
+    }
+    local found_strings = {}
+    local one_box = true
+
+    if type(center_text[1]) == "table" then
+        -- Description has multiple boxes (e.g. "You got Mail" joker in this mod)
+        one_box = false
+        for j, box in ipairs(center_text) do
+            found_strings[j] = {}
+            for i, line in ipairs(box) do
+                found_strings[j][i] = {}
+                for _, text in ipairs(destroy_texts) do
+                    local start_index, end_index = string.find(string.lower(line), text)
+                    if start_index and not found_strings[j][i][start_index] then
+                        found_strings[j][i][start_index] = end_index
+                    end
+                end
+            end
+        end
+    elseif type(center_text[1]) == "string" then
+        -- Description does not have multiple boxes
+        found_strings[1] = {}
+        for i, line in ipairs(center_text) do
+            found_strings[1][i] = {}
+            for _, text in ipairs(destroy_texts) do
+                local start_index, end_index = string.find(string.lower(line), text)
+                if start_index then
+                    local already_processed = false
+                    for _, t in ipairs(found_strings[1][i]) do
+                        if start_index == t.start_index then
+                            already_processed = true
+                            break
+                        end
+                    end
+
+                    if not already_processed then
+                        -- Try to extract any existing formatting on the destroy text
+                        -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
+                        local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
+                        -- Do not apply red text if text is already red
+                        if not string.match(applied_formatting, "C:red") then
+                            local t = {
+                                start_index = start_index,
+                                end_index = end_index,
+                                format = applied_formatting
+                            }
+                            table.insert(found_strings[1][i], t)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    for box_index, _ in ipairs(found_strings) do
+        for line_index, _ in ipairs(found_strings[box_index]) do
+            for _, t in ipairs(found_strings[box_index][line_index]) do
+                local start_index = t.start_index
+                local end_index = t.end_index
+                local base_format = t.format
+                if one_box then
+                    center_text[line_index] = add_red_text(center_text[line_index], start_index, end_index, base_format)
+                else
+                    center_text[box_index][line_index] = add_red_text(center_text[box_index][line_index], start_index, end_index, base_format)
+                end
+            end
+        end
+    end
+
+    return center_text
+end
 
 G.FUNCS.aij_hover_tag_branching = function(e)
     if not e.parent or not e.parent.states then return end
