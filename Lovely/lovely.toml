@@ -1829,7 +1829,7 @@ pattern = "{n=G.UIT.T, config={text = blind.mult..localize('k_x_base'), scale = 
 position = "before"
 match_indent = true
 payload = '''blind.key == "bl_aij_the_clay" and {n=G.UIT.T, config={text = "2~5"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or 
-              blind.aij_variable_req and {n=G.UIT.T, config={text = blind.mult.."+?"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or '''
+              blind.aij_variable_req and false and {n=G.UIT.T, config={text = blind.mult.."+?"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or '''
 
 # The Journey Blind (1/1)
 # Set The Journey to have a special background when activated
