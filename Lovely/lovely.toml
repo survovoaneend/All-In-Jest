@@ -1534,19 +1534,12 @@ target = "card.lua"
 pattern = "if self.ability.name == 'Blueprint' or self.ability.name == 'Brainstorm' then"
 position = "before"
 payload = '''
-if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage' or (self.ability.name == 'j_aij_czar' or self.ability.name == 'j_aij_joker_png') then
+if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage' or (self.ability.name == 'j_aij_czar') then
 	local other_joker = nil
     if self.ability.name == 'j_aij_visage' then
         other_joker = G.all_in_jest_visage_last_sold.cards[1]
     elseif self.ability.name == 'j_aij_clay_joker' then
         other_joker = G.all_in_jest_clay_last_destroyed.cards[1]
-    elseif self.ability.name == 'j_aij_joker_png' then
-        for _,v in pairs(G.all_in_jest_joker_png.cards) do
-            if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == self.unique_val then
-                other_joker = v
-                break
-            end
-        end
     elseif self.ability.name == 'j_aij_czar' then
         for _,v in pairs(G.all_in_jest_czar.cards) do
             if v.ability.all_in_jest and v.ability.all_in_jest.czar == self.unique_val then
@@ -1556,7 +1549,7 @@ if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage
         end
     end
     if 
-        other_joker and other_joker ~= self and other_joker.config and All_in_Jest.expanded_copier_compat(other_joker.config.center, (self.ability.name == 'j_aij_czar' or self.ability.name == 'j_aij_joker_png'))
+        other_joker and other_joker ~= self and other_joker.config and All_in_Jest.expanded_copier_compat(other_joker.config.center, (self.ability.name == 'j_aij_czar'))
     then
         self.ability.blueprint_compat = 'compatible'
     else
@@ -1565,7 +1558,7 @@ if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage
 end
 if self.ability.name == 'j_aij_elder' then
     other_joker = All_in_Jest.get_longest_held_joker()
-    if other_joker and other_joker ~= self and other_joker.config.center.blueprint_compat then
+    if other_joker and other_joker ~= self and (other_joker.ability.aij_blueprint_compat or other_joker.config.center.blueprint_compat) then
         self.ability.blueprint_compat = 'compatible'
     else
         self.ability.blueprint_compat = 'incompatible'
@@ -1599,15 +1592,6 @@ elseif self.ability.name == 'j_aij_visage' then
         }}
     } or nil
 elseif self.ability.name == 'j_aij_czar' then
-    self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
-    main_end = (self.area and self.area == G.jokers) and {
-        {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-            {n=G.UIT.C, config={ref_table = self, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
-                {n=G.UIT.T, config={ref_table = self.ability, ref_value = 'blueprint_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
-            }}
-        }}
-    } or nil
-elseif self.ability.name == 'j_aij_joker_png' then
     self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
     main_end = (self.area and self.area == G.jokers) and {
         {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
@@ -2882,10 +2866,6 @@ self.all_in_jest_czar = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
         {card_limit = 99999999, type = 'joker'})
-self.all_in_jest_joker_png = CardArea(
-        -10, -10,
-        CAI.discard_W,CAI.discard_H,
-        {card_limit = 99999999, type = 'joker'})
 self.all_in_jest_clay_last_destroyed = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
@@ -3225,3 +3205,13 @@ elseif c1.ability.set == 'Tag' then
 match_indent = true
 
 ################################# End of shop tag patches #################################
+
+# Card:update
+# Makes blueprint-like copiers show the correct compatability to joker.png style copiers 
+[[patches]] 
+[patches.pattern]
+target = "card.lua"
+pattern = "if other_joker and other_joker ~= self and other_joker.config.center.blueprint_compat then"
+position = "at"
+payload = '''if other_joker and other_joker ~= self and (other_joker.ability.aij_blueprint_compat or other_joker.config.center.blueprint_compat) then'''
+match_indent = true

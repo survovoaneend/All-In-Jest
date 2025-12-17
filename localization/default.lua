@@ -3050,7 +3050,7 @@ return {
                     },
                     {
                     'Pay {C:money}$#1#{} to reroll, increases',
-                    'by {C:money}$#1#{} per reroll this ante'
+                    'by {C:money}$#2#{} per reroll this ante'
                     }
                 } 
             },
