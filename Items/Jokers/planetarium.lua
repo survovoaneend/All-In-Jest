@@ -15,7 +15,7 @@ local planetarium = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
@@ -28,36 +28,72 @@ local planetarium = {
     end,
   
     calculate = function(self, card, context)
-        if context.joker_main and context.scoring_name and not context.blueprint then
+        if
+            context.other_consumeable and
+            context.other_consumeable.ability.set == 'Planet' and
+            context.other_consumeable.ability.consumeable.hand_type == context.scoring_name
+        then
             local chips = 0
             local mult = 0
-            if G.consumeables and #G.consumeables.cards > 0 then
-                for k, v in pairs(G.consumeables.cards) do
-                    if v.ability.set == 'Planet' and v.config.center.config.hand_type and context.scoring_name == v.config.center.config.hand_type then
-                        if v.config.center.config.mult then
-                            mult = mult + card.ability.extra.mult
-                        end
-                        if v.config.center.config.chips then
-		                    chips = chips + card.ability.extra.chips
-                        end
-                    end
+            if context.other_consumeable.ability.consumeable.hand_type and context.scoring_name == context.other_consumeable.ability.consumeable.hand_type then
+                if context.other_consumeable.ability.consumeable.mult then
+                    mult = mult + card.ability.extra.mult
+                end
+                if context.other_consumeable.ability.consumeable.chips then
+                    chips = chips + card.ability.extra.chips
                 end
             end
             if chips > 0 and mult > 0 then
                 return {
                     mult = mult,
-                    chips = chips
+                    chips = chips,
+                    message_card = context.other_consumeable
                 }
             elseif chips > 0 then
                 return {
-                    chips = chips
+                    chips = chips,
+                    message_card = context.other_consumeable
                 }
             elseif mult > 0 then
                 return {
-                    mult = mult
+                    mult = mult,
+                    message_card = context.other_consumeable
                 }
             end
         end
     end,
+  
+    -- calculate = function(self, card, context)
+    --     if context.joker_main and context.scoring_name then
+    --         local chips = 0
+    --         local mult = 0
+    --         if G.consumeables and #G.consumeables.cards > 0 then
+    --             for k, v in pairs(G.consumeables.cards) do
+    --                 if v.ability.set == 'Planet' and v.config.center.config.hand_type and context.scoring_name == v.config.center.config.hand_type then
+    --                     if v.config.center.config.mult then
+    --                         mult = mult + card.ability.extra.mult
+    --                     end
+    --                     if v.config.center.config.chips then
+		--                     chips = chips + card.ability.extra.chips
+    --                     end
+    --                 end
+    --             end
+    --         end
+    --         if chips > 0 and mult > 0 then
+    --             return {
+    --                 mult = mult,
+    --                 chips = chips
+    --             }
+    --         elseif chips > 0 then
+    --             return {
+    --                 chips = chips
+    --             }
+    --         elseif mult > 0 then
+    --             return {
+    --                 mult = mult
+    --             }
+    --         end
+    --     end
+    -- end,
 }
 return { name = {"Jokers"}, items = {planetarium} }

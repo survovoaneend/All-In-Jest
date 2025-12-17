@@ -11,7 +11,7 @@ local morio = {
     cost = 8,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
@@ -22,36 +22,41 @@ local morio = {
         if context.end_of_round and context.beat_boss and not context.blueprint then
             card.ability.trigger = true
         end
-        if context.cashing_out and card.ability.trigger and not context.blueprint then
+        if context.cashing_out and card.ability.trigger then
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                G.E_MANAGER:add_event(Event({
-                    func = function() 
-                        G.SETTINGS.paused = true
-				                G.FUNCS.overlay_menu{
-                            config = {no_esc = true},
-                            definition = SMODS.jest_no_back_card_collection_UIBox(
-                                G.P_CENTER_POOLS.Tarot, 
-                                {5,6}, 
-                                {
-                                    no_materialize = true, 
-                                    modify_card = function(card, center) 
-                                        if G.GAME.banned_keys[card.config.center.key] and not (type(G.GAME.banned_keys[card.config.center.key]) == "string" and G.GAME.banned_keys[card.config.center.key]:sub(1, 5) == "j_aij") then
-                                            card.debuff = true
-                                        elseif card.config.center.discovered then
-                                            jest_create_select_card_ui(card, G.consumeables)
-                                        end
-                                    end, 
-                                    h_mod = 1.05,
+                return {
+                    message = localize("k_plus_tarot"),
+                    func = function ()
+                        G.E_MANAGER:add_event(Event({
+                            func = function() 
+                                G.SETTINGS.paused = true
+                                G.FUNCS.overlay_menu{
+                                    config = {no_esc = true},
+                                    definition = SMODS.jest_no_back_card_collection_UIBox(
+                                        G.P_CENTER_POOLS.Tarot, 
+                                        {5,6}, 
+                                        {
+                                            no_materialize = true, 
+                                            modify_card = function(card, center) 
+                                                if G.GAME.banned_keys[card.config.center.key] and not (type(G.GAME.banned_keys[card.config.center.key]) == "string" and G.GAME.banned_keys[card.config.center.key]:sub(1, 5) == "j_aij") then
+                                                    card.debuff = true
+                                                elseif card.config.center.discovered then
+                                                    jest_create_select_card_ui(card, G.consumeables)
+                                                end
+                                            end, 
+                                            h_mod = 1.05,
+                                        }
+                                    ),
                                 }
-                            ),
-                        }
-                        return true 
-                    end 
-                }))
-                
+                                card.ability.trigger = false
+                                return true 
+                            end 
+                        }))
+                        delay(0.5)
+                    end
+                }
             end
-            card.ability.trigger = false
         end
     end
   
