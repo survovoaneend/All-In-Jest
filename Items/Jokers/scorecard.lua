@@ -6,7 +6,6 @@ local scorecard = {
   config = {
     extra = {
       levels = 2,
-      scorecard_poker_hand = nil
     }
   },
   rarity = 1,
@@ -30,7 +29,7 @@ local scorecard = {
     if context.setting_blind then
       local _poker_hands = {}
       for k, v in pairs(G.GAME.hands) do
-        if v.visible and k ~= card.ability.scorecard_poker_hand then _poker_hands[#_poker_hands + 1] = k end
+        if v.visible then _poker_hands[#_poker_hands + 1] = k end
       end
 
       local hand = pseudorandom_element(_poker_hands, pseudoseed('scorecard'))
