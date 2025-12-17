@@ -1,5 +1,6 @@
 --ALOPHRINE的个人汉化修正！如遇到问题请联系我。QQ与B站同名
 --vergenti Q群：奇小苦、:)，对部分汉化进行了修正，包括需要代码修改的丑
+--SulfuricAcid 补充未汉化小丑牌
 return {
     misc = {
         dictionary = {
@@ -62,7 +63,7 @@ return {
                 text = {
                     "若与此牌一同{C:attention}打出{}",
                     "或{C:attention}手牌{}中包含此牌",
-                    "{C:attention}增强效果{}获得 {C:attention}#1#％{}加成",
+                    "{C:attention}增强效果{}获得{C:attention}#1#％{}加成",
                 }
             },
         },
@@ -70,15 +71,15 @@ return {
             e_aij_glimmer = {
                 name = "微光",
                 text = {
-                    "{C:aij_plasma}平衡{}{C:attention}#1#%{} 的",
-                    "{C:mult}倍率{} 和 {C:chips}筹码"
+                    "{C:aij_plasma}平衡{}{C:attention}#1#%{}的",
+                    "{C:mult}倍率{}和{C:chips}筹码"
                 }
             },
             e_aij_stellar = {
                 name = "星辰",
                 text = {
                     "根据打出的牌型{C:attention}等级{}",
-                    "每级 {C:chips}+#1#{} 筹码和 {C:mult}+#2#{}倍率"
+                    "每级{C:chips}+#1#{}筹码和{C:mult}+#2#{}倍率"
                 }
             },
         },
@@ -88,8 +89,8 @@ return {
                 text = {
                     "本回合中，每打出一张",
                     "独特{C:attention}花色{}的{C:attention}A{}",
-                    "回合结束时获得 {C:money}$#1#{} ",
-                    "{C:inactive}（当前为{} {C:money}$#2#{}{C:inactive}）"
+                    "回合结束时获得{C:money}$#1#{}",
+                    "{C:inactive}（当前为{}{C:money}$#2#{}{C:inactive}）"
                 },
             },
             j_aij_lucky_seven = {
@@ -102,8 +103,8 @@ return {
             j_aij_you_broke_it = {
                 name = "你搞砸了！",
                 text = {
-                    "将所有打出的 {C:attention}#1#{}",
-                    "变为 {C:attention}#2#{}牌",
+                    "将所有打出的{C:attention}#1#{}",
+                    "变为{C:attention}#2#{}牌",
                     "{s:0.8}牌面和增强效果",
                     "{s:0.8}在回合结束时改变"
                 },
@@ -138,12 +139,28 @@ return {
                 name = "隐形人",
                 text = {
                     "所有{C:attention}人头牌{}均视为",
-                    "{C:attention}K{}、{C:attention}Q{} 和 {C:attention}J",
+                    "{C:attention}K{}、{C:attention}Q{}和{C:attention}J",
                     "{C:inactive}（不用于组成牌型）"
                 }
             },
-            j_aij_handsome_joker = { name = "帅气小丑", text = { "" } },
-            j_aij_whiteface_grotesque = { name = "白面怪诞", text = { "" } },
+            j_aij_handsome_joker = { 
+                name = "帅气小丑", 
+                text = { 
+                    "你{C:attention}完整牌组{}中",
+                    "每包含一张{C:attention}#2#{}",
+                    "获得{X:mult,C:white}X#1#{}倍率",
+                    "{C:inactive}(当前为{X:mult,C:white}X#3#{}{C:inactive}倍率)"
+                } 
+            },
+            j_aij_whiteface_grotesque = { 
+                name = "白面怪诞", 
+                text = { 
+                    "此小丑牌获得{C:chips}+#1#{}筹码",
+                    "出牌时每有一张{C:attention}人头牌{}被",
+                    "{C:attention}手持{}",
+                    "{C:inactive}(当前为{C:chips}+#2#{C:inactive}筹码)"
+                }
+            },
             j_aij_the_clown_show = {
                 name = "小丑秀",
                 text = {
@@ -160,7 +177,13 @@ return {
                     "{C:planet}流星{}、{C:spectral}空灵{}或{C:red}小丑{}标签"
                 },
             },
-            j_aij_pierrot = { name = "皮耶罗", text = { "" } },
+            j_aij_pierrot = { 
+                name = "皮耶罗", 
+                text = { 
+                    "{C:attention}手持{}的{C:attention}数字牌{}",
+                    "提供其自身的{C:chips}筹码{}值" 
+                } 
+            },
             j_aij_hat_trick = {
                 name = "帽子戏法",
                 text = {
@@ -173,7 +196,7 @@ return {
                 text = {
                     "每次连续打出包含{C:attention}葫芦{}的牌型",
                     "{X:mult,C:white}X#1#{}倍率",
-                    "{C:inactive}（当前为{} {X:mult,C:white}X#2#{}{C:inactive} 倍率）",
+                    "{C:inactive}（当前为{}{X:mult,C:white}X#2#{}{C:inactive}倍率）",
                 },
             },
             j_aij_bloody_mary = { name = "血腥玛丽", text = { "" } },
@@ -223,8 +246,23 @@ return {
                     "升级{C:attention}所有牌型{}等级"
                 }
             },
-            j_aij_old_joker = { name = "老小丑", text = { "" } },
-            j_aij_imageboard = { name = "图版", text = { "" } },
+            j_aij_old_joker = { 
+                name = "老小丑", 
+                text = { 
+                    "击败{C:attention}Boss盲注{}时，此小丑牌",
+                    "获得{C:chips}+#2#{}筹码和{C:mult}+#4#{}倍率",
+                    "{C:inactive,s:0.8}(当前为{C:chips,s:0.8}+#1#{}{C:inactive,s:0.8}筹码,{C:mult,s:0.8}+#3#{}{C:inactive,s:0.8}倍率)"
+                } 
+            },
+            j_aij_imageboard = { 
+                name = "图版", 
+                text = { 
+                    "每张{C:attention}计分{}牌给予{C:mult}+1{}倍率",
+                    "依据其{C:attention}点数{}在本手牌中",
+                    "{C:attention}计分{}的次数",
+                    "{C:inactive}(例如：{C:attention}2 2 2{C:inactive} ->{C:mult}+1{C:inactive},{C:mult}+2{C:inactive},{C:mult}+3{C:inactive})"
+                } 
+            },
             j_aij_carousel = {
                 name = "旋转木马",
                 text = {
@@ -246,18 +284,29 @@ return {
                 name = "恐怖故事",
                 text = {
                     "{C:attention}标准包{}中的基础游戏牌",
-                    "有 {C:green}#1#/#2#{} 的几率变为{C:dark_edition}负片{}"
+                    "有{C:green}#1#/#2#{}的几率变为{C:dark_edition}负片{}"
                 },
             },
             j_aij_doodle = {
                 name = "涂鸦",
                 text = {
-                    "有 {C:green}#1#/#2#{} 的几率复制",
+                    "有{C:green}#1#/#2#{}的几率复制",
                     "相邻两个{C:attention}小丑牌{}的{C:attention}能力{}"
                 },
             },
             j_aij_joqr = { name = "小丑牌（音译）", text = { "" } },
-            j_aij_greasepaint = { name = "油彩", text = { "" } },
+            j_aij_greasepaint = { 
+                name = "油彩", 
+                text = {
+                    {
+                        "禁用相邻的{C:attention}小丑牌{}"
+                    },
+                    {
+                        "被禁用的{C:attention}小丑牌{}和",
+                        "{C:attention}卡牌{}提供{X:mult,C:white}X#1#{}倍率"
+                    }  
+                } 
+            },
             j_aij_public_bathroom = {
                 name = "公共厕所",
                 text = {
@@ -292,7 +341,14 @@ return {
             },
             j_aij_circuit_board = { name = "电路板", text = { "" } },
             j_aij_platinum_chip = { name = "白金筹码", text = { "" } },
-            j_aij_pell_mel = { name = "杂乱", text = { "" } },
+            j_aij_pell_mel = { 
+                name = "杂乱", 
+                text = { 
+                    "{X:mult,C:white}X1{}倍率，{C:attention}打出的手牌{}中",
+                    "每有一种{C:attention}独特{}花色",
+                    "额外增加{X:mult,C:white}X#1#{}倍率"
+                } 
+            },
             j_aij_pput_together = { name = "组合", text = { "" } },
             j_aij_krampus = {
                 name = "坎卜斯",
@@ -300,7 +356,7 @@ return {
                     "打出的{C:attention}黄金牌{}",
                     "会变为{C:attention}石头牌{}",
                     "{C:attention}石头牌{}打出时",
-                    "获得 {C:money}$#1#{} "
+                    "获得{C:money}$#1#{}"
                 },
             },
             j_aij_art_of_the_deal = {
@@ -310,14 +366,14 @@ return {
                     "{C:mult}+#2#{}倍率",
                     "如果{C:money}金钱{}为{C:money}$0{}或更少",
                     "效果重置",
-                    "{C:inactive}（当前为{C:mult}+#1#{C:inactive} 倍率）"
+                    "{C:inactive}（当前为{C:mult}+#1#{C:inactive}倍率）"
                 }
             },
             j_aij_word_art = {
                 name = "文字艺术",
                 text = {
                     "打出的牌型中每包含一张",
-                    "{C:attention}A{}、{C:attention}K{}、{C:attention}Q{} 或 {C:attention}J{}",
+                    "{C:attention}A{}、{C:attention}K{}、{C:attention}Q{}或{C:attention}J{}",
                     "{C:mult}+#1#{}倍率"
                 }
             },
@@ -332,11 +388,24 @@ return {
                 name = "朴素婕恩",
                 text = {
                     "每张打出的{C:attention}未增强{}牌",
-                    "给予 {C:mult}+#1#{}倍率"
+                    "给予{C:mult}+#1#{}倍率"
                 },
             },
-            j_aij_paper_bag = { name = "纸袋", text = { "" } },
-            j_aij_fruity_joker = { name = "水果小丑", text = { "" } },
+            j_aij_paper_bag = { 
+                name = "纸袋", 
+                text = { 
+                    "每{C:red}弃掉{}一手{C:attention}牌型{}",
+                    "根据其{C:attention}等级{}获得{C:chips}+#1#{}筹码",
+                    "{C:inactive}(当前为{C:chips}+#2#{C:inactive}筹码)" 
+                } 
+            },
+            j_aij_fruity_joker = { 
+                name = "水果小丑", 
+                text = { 
+                    "{C:attention}多彩{}卡牌和",
+                    "小丑牌提供{C:mult}+#1#{}倍率"
+                } 
+            },
             j_aij_jokia = { name = "小丑（挪威语）", text = { "" } },
             j_aij_the_mycologists = {
                 name = "真菌学家",
@@ -347,7 +416,15 @@ return {
                     "赋予左侧的牌"
                 }
             },
-            j_aij_cool_joker = { name = "酷小丑", text = { "" } },
+            j_aij_cool_joker = { 
+                name = "酷小丑", 
+                text = { 
+                    "{B:1,C:white,s:0.8}启动式能力",
+                    "{V:1}启动{}此{C:attention}小丑牌{}，当它",
+                    "{C:attention}正常{}计分时提供",
+                    "{X:mult,C:white}X#1#{}倍率" 
+                } 
+            },
             j_aij_square_eyes = {
                 name = "方眼小丑",
                 text = {
@@ -368,10 +445,16 @@ return {
                 text = {
                     "{C:mult}+#1#{}倍率",
                     "打出的牌型中每张牌",
-                    "减少 {C:mult}-#2#{}倍率",
+                    "减少{C:mult}-#2#{}倍率",
                 }
             },
-            j_aij_wireframe = { name = "线框图", text = { "" } },
+            j_aij_wireframe = { 
+                name = "线框图", 
+                text = { 
+                    "每回合{C:attention}首次{}打出的手牌",
+                    "会{C:attention}返回{}你的{C:attention}手牌{}"
+                } 
+            },
             j_aij_soviet = {
                 name = "苏联同志",
                 text = {
@@ -384,7 +467,7 @@ return {
                 name = "一便士",
                 text = {
                     "带有{C:money}金色蜡封{}的牌有",
-                    "{C:green}#1#/#2#{} 的几率{C:attention}再次触发{}"
+                    "{C:green}#1#/#2#{}的几率{C:attention}再次触发{}"
                 },
             },
             j_aij_doctors_note = {
@@ -398,7 +481,7 @@ return {
             j_aij_silly_sausage = {
                 name = "蠢蠢香肠",
                 text = {
-                    "{C:green}重掷{}费用减少 {C:money}$#1#{}",
+                    "{C:green}重掷{}费用减少{C:money}$#1#{}",
                     "每回合结束时减少{C:money}$1{}"
                 }
             },
@@ -415,23 +498,45 @@ return {
                 text = {
                     "若打出的牌型最终{C:chips}筹码{}",
                     "超过{C:mult}倍率{}",
-                    "此小丑牌获得 {C:mult}+#2#{}倍率",
-                    "{C:inactive}（当前为{C:mult}+#1#{} {C:inactive}倍率）"
+                    "此小丑牌获得{C:mult}+#2#{}倍率",
+                    "{C:inactive}（当前为{C:mult}+#1#{}{C:inactive}倍率）"
                 }
             },
-            j_aij_polybius = { name = "波利比乌斯", text = { "" } },
+            j_aij_polybius = { 
+                name = "波利比乌斯", 
+                text = { 
+                    "提供{C:attention}打出的手牌{}中",
+                    "包含的所有牌型的",
+                    "{C:mult}倍率{}和{C:chips}筹码{}",
+                } 
+            },
             j_aij_joker_sighting = { name = "小丑目击", text = { "" } },
-            j_aij_pencil_drawing = { name = "铅笔画", text = { "" } },
+            j_aij_pencil_drawing = { 
+                name = {
+                    "铅笔画",
+                },
+                text = { 
+                    "{B:1,C:white,s:0.8}启动式能力",
+                    "支付{C:money}$#1#{}以将一张{C:attention}随机",
+                    "{C:attention}游戏牌{}加入你的手牌"
+                } 
+            },
             j_aij_holy_bible = { name = "圣经", text = { "" } },
             j_aij_great_white_north = { name = "大白北方", text = { "" } },
-            j_aij_right_angle = { name = "直角", text = { "" } },
+            j_aij_right_angle = { 
+                name = "直角", 
+                text = { 
+                    "当一张{C:attention}9{}计分时",
+                    "触发手牌中所有的{C:attention}10{}" 
+                } 
+            },
             j_aij_adoring_joker = {
                 name = "崇拜小丑",
                 text = {
                     "{C:attention}小丑牌{}触发后",
                     "将{C:mult}倍率{}设为你在当前{C:attention}底注{}中",
                     "达到过的最高{C:mult}倍率{}",
-                    "{C:inactive}（当前为{C:mult}#1# {C:inactive}倍率）"
+                    "{C:inactive}（当前为{C:mult}#1#{C:inactive}倍率）"
                 }
             },
             j_aij_lucignolo = {
@@ -448,14 +553,56 @@ return {
                     "{C:attention}随机牌型{}等级{C:attention}+#1#{}"
                 }
             },
-            j_aij_punch_and_judy = { name = "潘趣与朱迪", text = { "" } },
-            j_aij_nature_tapes = { name = "自然磁带", text = { "" } },
-            j_aij_low_priest = { name = "低级牧师", text = { "" } },
+            j_aij_punch_and_judy = { 
+                name = "潘趣与朱迪", 
+                text = { 
+                    {
+                        "如果{C:attention}打出的手牌{}包含",
+                        "正好{C:attention}#1# 张 K{}和{C:attention}#1# 张 Q{}，",
+                        "重新触发所有计分牌"
+                    },
+                    {
+                        "{C:attention}K{}和{C:attention}Q{}",
+                        "总是计分"
+                    }
+                } 
+            },
+            j_aij_nature_tapes = { 
+                name = "自然磁带", 
+                text = { 
+                    "当使用一张{C:mult}倍率{}类{C:planet}星球牌{}时",
+                    "此小丑牌获得{C:mult}+#1#{}倍率",
+                    "{C:inactive}(当前为{C:mult}+#2#{C:inactive}倍率)"
+                } 
+            },
+            j_aij_low_priest = { 
+                name = "低级牧师", 
+                text = { 
+                    "{X:mult,C:white}X#1#{}倍率，",
+                    "打出的牌型每有1{C:attention}级{}",
+                    "{X:mult,C:white}-X#2#{}倍率"
+                } 
+            },
             j_aij_oil_and_water = { name = "水火不容", text = { "" } },
             j_aij_big_ears = { name = "大耳朵", text = { "" } },
             j_aij_causal_absent_paranoia = { name = "因果缺席妄想", text = { "" } },
-            j_aij_hand_drawn = { name = "手绘", text = { "" } },
-            j_aij_haruspex = { name = "预言家", text = { "" } },
+            j_aij_hand_drawn = { 
+                name = "手绘", 
+                text = { 
+                    "在回合{C:attention}开始{}时，",
+                    "持续抽牌直到你的手牌{C:attention}包含{}",
+                    "你使用次数最多的{C:attention}牌型{}" 
+                }
+            },
+            j_aij_haruspex = { 
+                name = "预言家", 
+                text = { 
+                    "{B:1,C:white,s:0.8}启动式能力",
+                    "消耗{C:attention}#1#{}次{C:red}弃牌{}机会，从你的",
+                    "{C:attention}牌组{}中选择{C:attention}#2#{}张牌",
+                    "{C:attention}抽取{}到手牌"
+                } 
+            },
             j_aij_bobblehead = { name = "摇摆头", text = { "" } },
             j_aij_topsy_the_clown = {
                 name = "颠转小丑",
@@ -477,10 +624,19 @@ return {
                 name = "房产招牌",
                 text = {
                     "每次打出{C:attention}葫芦{}",
-                    "此小丑牌的{C:money}出售价值{}增加 {C:money}$#1#{}"
+                    "此小丑牌的{C:money}出售价值{}增加{C:money}$#1#{}"
                 },
             },
-            j_aij_bad_apple = { name = "坏苹果", text = { "" } },
+            j_aij_bad_apple = { 
+                name = "坏苹果", 
+                text = { 
+                    "如果{C:attention}计分手牌{}包含",
+                    "{C:attention}#4#{}张{C:spades}暗色{}花色和{C:attention}#3#{}张{C:hearts}亮色{}花色，",
+                    "此小丑牌获得{X:mult,C:white}X#2#{}倍率",
+                    "{C:inactive,s:0.8}(比例在回合结束时改变)",
+                    "{C:inactive}(当前为{X:mult,C:white}X#1#{}{C:inactive}倍率)"
+                } 
+            },
             j_aij_dim_bulb = {
                 name = "昏暗灯泡",
                 text = {
@@ -515,11 +671,18 @@ return {
                     "选择{C:attention}小盲注{}时",
                     "摧毁所有其他{C:attention}小丑牌",
                     "此小丑牌每摧毁一张其他小丑",
-                    "获得 {X:mult,C:white}X#2#{}倍率",
+                    "获得{X:mult,C:white}X#2#{}倍率",
                     "{C:inactive}（当前为{X:mult,C:white}X#1#{C:inactive}）"
                 },
             },
-            j_aij_zanni = { name = "赞尼", text = { "" } },
+            j_aij_zanni = { 
+                name = "赞尼", 
+                text = { 
+                    "{C:attention}数字牌{}在{C:attention}计分{}时",
+                    "有{C:green}#1# / #2#{}的几率",
+                    "生成一张{C:tarot}塔罗{}牌"
+                } 
+            },
             j_aij_furbo_e_stupido = {
                 name = "黠与愚",
                 text = {
@@ -527,7 +690,14 @@ return {
                     "{C:attention}A{}和{C:attention}J{}"
                 }
             },
-            j_aij_read_em_and_weep = { name = "看牌哭泣", text = { "" } },
+            j_aij_read_em_and_weep = {
+                name = "看牌哭泣", 
+                text = { 
+                    "如果手牌包含{C:attention}顺子{}，",
+                    "计分前将所有{C:attention}打出的{}牌",
+                    "转换为相同的随机{C:attention}花色{}" 
+                } 
+            },
             j_aij_goblin_joker = {
                 name = "哥布林小丑",
                 text = {
@@ -558,9 +728,29 @@ return {
                 },
             },
             j_aij_lucky_carder = { name = "幸运牌手", text = { "" } },
-            j_aij_silver_screen = { name = "银幕", text = { "" } },
-            j_aij_pedrolino = { name = "佩德罗利诺", text = { "" } },
-            j_aij_pierrette = { name = "皮耶雷特", text = { "" } },
+            j_aij_silver_screen = { 
+                name = "银幕", 
+                text = { 
+                    "当一张{C:attention}人头牌{}被",
+                    "{C:red}摧毁{}时，为{C:attention}手牌{}中的",
+                    "一张随机牌添加{C:aij_silver}银色{}版本" 
+                } 
+            },
+            j_aij_pedrolino = { 
+                name = "佩德罗利诺", 
+                text = { 
+                    "{C:money}出售{}此牌以降低",
+                    "当前{C:attention}盲注{}的",
+                    "{C:attention}分数需求{}{C:attention}#1#%"
+                } 
+            },
+            j_aij_pierrette = { 
+                name = "皮耶雷特", 
+                text = { 
+                    "重新触发所有{C:attention}卡牌",
+                    "{C:attention}弃牌{}时的效果" 
+                } 
+            },
             j_aij_scaramouche = {
                 name = "胆小丑",
                 text = {
@@ -576,15 +766,36 @@ return {
                     "{C:attention}小丑{}牌效果"
                 }
             },
-            j_aij_sunny_joker = { name = "阳光小丑", text = { "" } },
+            j_aij_sunny_joker = { 
+                name = "阳光小丑", 
+                text = { 
+                    "如果打出的手牌{C:attention}包含{}一",
+                    "手{C:attention}皇家同花顺{}，所有计分",
+                    "牌获得{X:mult,C:white}X#1#{}倍率" 
+                } 
+            },
             j_aij_red_wine = { name = "红酒", text = { "" } },
-            j_aij_mute_joker = { name = "沉默小丑", text = { "" } },
-            j_aij_scapino = { name = "斯卡皮诺", text = { "" } },
+            j_aij_mute_joker = { 
+                name = "沉默小丑", 
+                text = { 
+                    "本回合，打出的前{C:attention}#1#{}手牌",
+                    "会{C:red}摧毁{}所有计分牌",
+                    "{C:inactive}(牌型在回合结束时改变)"
+                } 
+            },
+            j_aij_scapino = { 
+                name = "斯卡皮诺", 
+                text = { 
+                    "在{C:money}商店{}中{C:green}重掷{}费用",
+                    "{C:money}+$#1#{}，但同时会补货",
+                    "{C:attention}补充包{}" 
+                } 
+            },
             j_aij_pinhead = {
                 name = "针头",
                 text = {
                     "如果{C:attention}单手牌{}击败{C:attention}盲注{}",
-                    "获得 {C:money}$#1#{}"
+                    "获得{C:money}$#1#{}"
                 },
             },
             j_aij_saltimbanco = {
@@ -637,7 +848,14 @@ return {
                     "数值增加{C:attention}#2#%{}"
                 }
             },
-            j_aij_j_file = { name = "J档案", text = { "" } },
+            j_aij_j_file = { 
+                name = "J档案", 
+                text = { 
+                    "在{C:attention}回合{}开始时，",
+                    "从你的{C:attention}牌组{}中检索",
+                    "{C:attention}#1#{}张牌加入手牌" 
+                } 
+            },
             j_aij_bumper_sticker = {
                 name = "汽车贴纸",
                 text = {
@@ -658,14 +876,14 @@ return {
                 name = "微小丑",
                 text = {
                     "如果打出的牌型中只含{C:attention}2{}",
-                    "则{C:chips}+#1#{} 筹码"
+                    "则{C:chips}+#1#{}筹码"
                 },
             },j_aij_clowns_on_parade = {
                 name = "游行小丑",
                 text = {
                     "如果打出的牌型中包含至少三张{C:attention}2{}",
-                    "此{C:attention}小丑牌{}获得 {C:chips}+#2#{} 筹码",
-                    "{C:inactive}（当前为{} {C:chips}+#1#{} {C:inactive}筹码）"
+                    "此{C:attention}小丑牌{}获得{C:chips}+#2#{}筹码",
+                    "{C:inactive}（当前为{}{C:chips}+#1#{}{C:inactive}筹码）"
                 },
             },
             j_aij_rising_sun = {
@@ -692,7 +910,7 @@ return {
             j_aij_heidelberg_tun = {
                 name = "海德堡酒桶",
                 text = {
-                    "购买的{C:attention}消耗品{}有 {C:green}#1#/#2#{} 的几率",
+                    "购买的{C:attention}消耗品{}有{C:green}#1#/#2#{}的几率",
                     "变为{C:dark_edition}负片{}"
                 },
             },
@@ -703,8 +921,20 @@ return {
                     "{C:attention}补充包{}可供购买"
                 },
             },
-            j_aij_little_boy_blue = { name = "小蓝孩", text = { "" } },
-            j_aij_big_red = { name = "大红", text = { "" } },
+            j_aij_little_boy_blue = { 
+                name = "小蓝孩", 
+                text = { 
+                    "{C:chips}+#1#{}筹码",
+                    "只出现{C:chips}筹码{}类小丑牌"
+                } 
+            },
+            j_aij_big_red = { 
+                name = "大红", 
+                text = { 
+                    "{C:mult}+#1#{}倍率",
+                    "只出现{C:mult}倍率{}类小丑牌" 
+                } 
+            },
             j_aij_party_streamers = {
                 name = "派对彩带",
                 text = {
@@ -729,7 +959,14 @@ return {
                     "对{C:attention}人头牌{}的效果{C:green}翻倍"
                 }
             },
-            j_aij_honker = { name = "响鼻（汽车喇叭声）", text = { "" } },
+            j_aij_honker = { 
+                name = "响鼻", 
+                text = { 
+                    "当一张{C:attention}倍率牌{}计分时",
+                    "此小丑牌获得{C:red}+#1#{}倍率",
+                    "{C:inactive}(当前为{C:mult}+#2#{C:inactive}倍率)"
+                } 
+            },
             j_aij_mummy = { name = "木乃伊", text = { "" } },
             j_aij_sitcom = { name = "情景喜剧", text = { "" } },
             j_aij_in_vino_veritas = { name = "酒后吐真言", text = { "" } },
@@ -738,9 +975,9 @@ return {
                 name = "惧四症",
                 text = {
                     "每{C:red}弃掉{}一张{C:attention}4{}",
-                    "此小丑牌获得 {C:mult}+#2#{}倍率",
+                    "此小丑牌获得{C:mult}+#2#{}倍率",
                     "打出的{C:attention}4{}计分时重置",
-                    "{C:inactive}（当前为{C:mult}+#1#{C:inactive} 倍率）"
+                    "{C:inactive}（当前为{C:mult}+#1#{C:inactive}倍率）"
                 },
             },
             j_aij_jack_of_all_trades = {
@@ -766,7 +1003,7 @@ return {
             j_aij_cosmological_constant = {
                 name = "宇宙常数",
                 text = {
-                    "{C:aij_plasma}平衡{}打出{C:attention}牌型{}的{C:attention}基础{} {C:chips}筹码{}和{C:mult}倍率{}"
+                    "{C:aij_plasma}平衡{}打出{C:attention}牌型{}的{C:attention}基础{}{C:chips}筹码{}和{C:mult}倍率{}"
                 },
             },
             j_aij_monster = { name = "怪物", text = { "" } },
@@ -780,7 +1017,7 @@ return {
             j_aij_simple_simon = {
                 name = "傻蛋西蒙",
                 text = {
-                    "{C:chips}+#1#{} 筹码",
+                    "{C:chips}+#1#{}筹码",
                 },
             },
             j_aij_giocoliere = {
@@ -790,7 +1027,15 @@ return {
                     "手牌上限{C:attention}+3{}"
                 },
             },
-            j_aij_spectre = { name = "幽灵", text = { "" } },
+            j_aij_spectre = { 
+                name = "幽灵", 
+                text = { 
+                    "当{C:attention}Boss盲注{}被",
+                    "击败时，将所有持有的",
+                    "{C:attention}消耗牌{}替换为随机",
+                    "{C:spectral}幻灵{}牌" 
+                } 
+            },
             j_aij_dapper_dan = {
                 name = "矫作的丹",
                 text = {
@@ -824,7 +1069,7 @@ return {
                 name = "鬼祟皮特",
                 text = {
                     "回合结束时，牌组中每有一张",
-                    "{C:money}金色蜡封{}，获得 {C:money}$#2#{}",
+                    "{C:money}金色蜡封{}，获得{C:money}$#2#{}",
                     "{C:inactive}（当前为{C:money}$#1#{C:inactive}）"
                 },
             },
@@ -834,22 +1079,22 @@ return {
                 text = {
                     "当一张{C:attention}人头牌{}被摧毁时",
                     "此小丑牌获得{C:mult}+#1#{}倍率",
-                    "{C:inactive}（当前为{C:mult}+#2#{C:inactive} 倍率）"
+                    "{C:inactive}（当前为{C:mult}+#2#{C:inactive}倍率）"
                 },
             },
             j_aij_straight_to_hell = {
                 name = "直奔地狱",
                 text = {
                     "当一个{C:attention}顺子{}被{C:attention}弃掉{}时",
-                    "这张小丑牌获得 {X:mult,C:white}X#1#{}倍率",
-                    "{C:inactive}（当前为{X:mult,C:white}X#2#{C:inactive} 倍率）"
+                    "这张小丑牌获得{X:mult,C:white}X#1#{}倍率",
+                    "{C:inactive}（当前为{X:mult,C:white}X#2#{C:inactive}倍率）"
                 },
             },
             j_aij_guiser = {
                 name = "假面伶人",
                 text = {
                     "每使用一张{C:tarot}塔罗牌{}",
-                    "这张小丑牌{C:attention}出售价值{}增加 {C:money}$#1#{}"
+                    "这张小丑牌{C:attention}出售价值{}增加{C:money}$#1#{}"
                 },
             },
             j_aij_mummer = {
@@ -863,10 +1108,10 @@ return {
                 name = "踮脚贼",
                 text = {
                     "回合结束时",
-                    "获得其他{C:attention}小丑牌{} ",
+                    "获得其他{C:attention}小丑牌{}",
                     "{C:money}出售价值{}的{C:attention}20%{}",
                     "向上取整",
-                    "{C:inactive}（当前为{} {C:money}$#1#{}{C:inactive}）"
+                    "{C:inactive}（当前为{}{C:money}$#1#{}{C:inactive}）"
                 },
             },
             j_aij_honest_john = { name = "诚实约翰", text = { "" } },
@@ -877,13 +1122,20 @@ return {
                     "可再次访问{C:money}商店{}"
                 }
             },
-            j_aij_arlecchino = { name = "阿莱基诺", text = { "" } },
+            j_aij_arlecchino = { 
+                name = "阿莱基诺", 
+                text = { 
+                    "在{C:attention}小丑包{}和",
+                    "{C:attention}标准包{}中",
+                    "可以选取无限次选项" 
+                } 
+            },
             j_aij_arlecchina = { name = "阿莱基娜", text = { "" } },
             j_aij_taikomochi = {
                 name = "太鼓持",
                 text = {
                     "每张手牌中持有的{C:attention}J{}",
-                    "给予{C:chips}+#1#{} 筹码"
+                    "给予{C:chips}+#1#{}筹码"
                 }
             },
             j_aij_sudoku = {
@@ -891,18 +1143,27 @@ return {
                 text = {
                     "每次连续打出包含",
                     "{C:attention}顺子{}的牌型",
-                    "此小丑牌获得 {X:mult,C:white}X#1#{}倍率",
+                    "此小丑牌获得{X:mult,C:white}X#1#{}倍率",
                     "打出其他牌型时重置",
-                    "{C:inactive}（当前为{X:mult,C:white}X#2#{C:inactive} 倍率）"
+                    "{C:inactive}（当前为{X:mult,C:white}X#2#{C:inactive}倍率）"
                 }
             },
-            j_aij_gnasher = { name = "磨牙者", text = { "" } },
+            j_aij_gnasher = { 
+                name = "磨牙者", 
+                text = { 
+                    "{B:1,C:white,s:0.8}启动式能力",
+                    "每个底注限一次，{C:attention}复制{}并",
+                    "{C:attention}立即{}使用一个持有的",
+                    "随机{C:attention}消耗牌{}",
+                    "{C:inactive}#1#"
+                } 
+            },
             j_aij_executioner = {
                 name = "刽子手",
                 text = {
                     "每当一张{C:attention}人头牌{}被摧毁时",
                     "此小丑牌获得{C:chips}+#1#{}筹码",
-                    "{C:inactive}（当前为{C:chips}+#2#{C:inactive} 筹码）"
+                    "{C:inactive}（当前为{C:chips}+#2#{C:inactive}筹码）"
                 },
             },
             j_aij_jongleur = {
@@ -937,8 +1198,23 @@ return {
                 }
             },
             j_aij_tonpraten = { name = "言语玩笑", text = { "" } },
-            j_aij_rodeo_clown = { name = "牛仔小丑", text = { "" } },
-            j_aij_joculator = { name = "小丑（Joculator）", text = { "" } },
+            j_aij_rodeo_clown = { 
+                name = "牛仔小丑", 
+                text = { 
+                    "如果在回合的{C:attention}最后一手牌{}",
+                    "击败{C:attention}盲注{}，",
+                    "此小丑牌获得{C:mult}+#1#{}倍率",
+                    "{C:inactive}(当前为{C:mult}+#2#{C:inactive}倍率)"
+                } 
+            },
+            j_aij_joculator = { 
+                name = "小丑(Joculator)", 
+                text = { 
+                    "如果你有{C:attention}0{}次{C:red}弃牌{}机会",
+                    "且剩余{C:attention}#1#{}次{C:blue}出牌{}机会，",
+                    "抽牌至手牌上限的{C:attention}两倍{}" 
+                } 
+            },
             j_aij_scurra = {
                 name = "嘲弄者",
                 text = {
@@ -948,7 +1224,14 @@ return {
             },
             j_aij_pigpen = { name = "猪圈", text = { "" } },
             j_aij_cyclops = { name = "独眼巨人", text = { "" } },
-            j_aij_blarney_stone = { name = "布拉尼石", text = { "" } },
+            j_aij_blarney_stone = { 
+                name = "布拉尼石", 
+                text = { 
+                    "增加等同于当前{C:attention}分数{}",
+                    "{C:attention}首位数字{}三倍的{C:mult}倍率{}",
+                    "{C:inactive}(当前为{C:mult}+#1#{C:inactive}倍率){}" 
+                } 
+            },
             j_aij_sticker = {
                 name = "贴纸",
                 text = {
@@ -957,7 +1240,14 @@ return {
                     "{C:inactive}(当前为{C:mult}+#2#{C:inactive}倍率)"
                 }
             },
-            j_aij_feedback_form = { name = "反馈表", text = { "" } },
+            j_aij_feedback_form = { 
+                name = "反馈表", 
+                text = { 
+                    "如果所有{C:attention}计分{}牌",
+                    "拥有不同的{C:attention}增强效果{}，",
+                    "每张{C:attention}计分{}牌提供{C:mult}+#1#{}倍率" 
+                }
+            },
             j_aij_stultor = {
                 name = "愚蠢之人",
                 text = {
@@ -968,33 +1258,33 @@ return {
             j_aij_david = {
                 name = "大卫王",
                 text = {
-                    "若打出的牌仅有{C:spades}黑桃{} {C:attention}K{}",
-                    "则这张小丑牌获得 {C:chips}+#1#{} 筹码",
-                    "{C:inactive}（当前为{} {C:chips}+#2#{C:inactive} 筹码）",
+                    "若打出的牌仅有{C:spades}黑桃{}{C:attention}K{}",
+                    "则这张小丑牌获得{C:chips}+#1#{}筹码",
+                    "{C:inactive}（当前为{}{C:chips}+#2#{C:inactive}筹码）",
                 },
             },
             j_aij_charles = {
                 name = "查理大帝",
                 text = {
-                    "若打出的牌仅有{C:hearts}红桃{} {C:attention}K{}",
-                    "此小丑牌获得 {X:mult,C:white}X#1#{}倍率",
-                    "{C:inactive}（当前为{} {X:mult,C:white}X#2#{C:inactive} 倍率）",
+                    "若打出的牌仅有{C:hearts}红桃{}{C:attention}K{}",
+                    "此小丑牌获得{X:mult,C:white}X#1#{}倍率",
+                    "{C:inactive}（当前为{}{X:mult,C:white}X#2#{C:inactive}倍率）",
                 },
             },
             j_aij_cesar = {
                 name = "凯撒大帝",
                 text = {
-                    "回合结束时获得 {C:money}$#1#{}",
-                    "如果打出的牌仅有{C:diamonds}方片{} {C:attention}K{}",
-                    "额外增加 {C:money}$#2#{} "
+                    "回合结束时获得{C:money}$#1#{}",
+                    "如果打出的牌仅有{C:diamonds}方片{}{C:attention}K{}",
+                    "额外增加{C:money}$#2#{}"
                 },
             },
             j_aij_alexandre = {
                 name = "亚历山大大帝",
                 text = {
-                    "若打出的牌仅有{C:clubs}梅花{} {C:attention}K{}",
-                    "此小丑牌获得 {C:mult}+#1#{}倍率",
-                    "{C:inactive}（当前为{} {C:mult}+#2#{C:inactive} 倍率）",
+                    "若打出的牌仅有{C:clubs}梅花{}{C:attention}K{}",
+                    "此小丑牌获得{C:mult}+#1#{}倍率",
+                    "{C:inactive}（当前为{}{C:mult}+#2#{C:inactive}倍率）",
                 },
             },
             j_aij_sannio = { name = "萨尼奥", text = { "" } },
@@ -1003,7 +1293,7 @@ return {
                 name = "宫廷弄臣",
                 text = {
                     "若打出的牌型包含一张{C:attention}K{}或{C:attention}Q{}",
-                    "有 {C:green}#2# 分之 #1#{} 的几率生成一张{C:tarot}塔罗牌{}",
+                    "有{C:green}#2# 分之 #1#{}的几率生成一张{C:tarot}塔罗牌{}",
                     "{C:inactive}（必须有空位）"
                 },
             },
@@ -1017,7 +1307,22 @@ return {
                 },
             },
             j_aij_enraging_photo = { name = "激怒照片", text = { "" } },
-            j_aij_infuriating_note = { name = "恼人纸条", text = { "" } },
+            j_aij_infuriating_note = { 
+                name = "恼人纸条", 
+                text = {{ 
+                    "{X:mult,C:white}X#1#{}倍率",
+                    "{C:attention}商店{}和{C:attention}小丑包{}中",
+                    "可能出现此小丑牌的",
+                    "{C:dark_edition}负片{}复制品" 
+                },
+                {
+                    "{C:inactive}\"我拿走了你的东西，但",
+                    "{C:inactive}你还在坚持；",
+                    "{C:inactive}我得加把劲了，所以",
+                    "{C:inactive}这些老鼠送给你！\" -R. R."
+                }
+            }
+            },
             j_aij_magic_hat = { name = "魔术帽", text = { "" } },
             j_aij_anagraph = {
                 name = "回文构词",
@@ -1038,7 +1343,9 @@ return {
             j_aij_phoney_baloney = { name = "虚假废话", text = { "" } },
             j_aij_jerko = { 
                 name = "混蛋", 
-                text = { "" } 
+                text = { 
+                    '{C:mult}+#1#{}倍率'
+                } 
             },
             j_aij_design_document = {
                 name = "设计文档",
@@ -1065,7 +1372,14 @@ return {
                     "{C:inactive}(当前为{X:mult,C:white}X#2#{C:inactive}倍率)",
                 }
             },
-            j_aij_lost_carcosa = { name = "失落的卡尔科萨", text = { "" } },
+            j_aij_lost_carcosa = { 
+                name = "失落的卡尔科萨", 
+                text = { 
+                    "将已使用的{C:planet}星球{}牌的",
+                    "{C:chips}筹码{}和{C:mult}倍率{}数值随机化，",
+                    "变为原始值的{C:attention}50%{}到{C:attention}200%{}之间"
+                } 
+            },
             j_aij_magic_mirror = {
                 name = "魔镜",
                 text = {
@@ -1080,28 +1394,58 @@ return {
                 text = {
                     "回合结束时",
                     "每有一个空置的{C:attention}小丑牌槽位{}",
-                    "这张小丑牌获得 {C:chips}+#1#{}筹码",
-                    "{C:inactive}（当前为{} {C:chips}+#2#{C:inactive} 筹码）"
+                    "这张小丑牌获得{C:chips}+#1#{}筹码",
+                    "{C:inactive}（当前为{}{C:chips}+#2#{C:inactive}筹码）"
                 },
-            },j_aij_spiders_georg = { name = "蜘蛛乔治", text = { "" } },
+            },
+            j_aij_spiders_georg = { 
+                name = "蜘蛛乔治", 
+                text = { 
+                    "将{C:mult}倍率{}乘以{C:attention}#2#{}加上",
+                    "本局游戏每手牌{C:attention}计分{}的{C:attention}8{}",
+                    "的{C:attention}平均{}数量",
+                    "{C:inactive}(当前为{X:mult,C:white}X#1#{}{C:inactive}倍率)"
+                } 
+            },
             j_aij_gille = { name = "吉尔", text = { "" } },
-            j_aij_fulehung = { name = "福勒洪", text = { "" } },
+            j_aij_fulehung = { 
+                name = "福勒洪", 
+                text = { 
+                    "当选择{C:attention}盲注{}时，",
+                    "有{C:green}#1# / #2#{}的几率获得",
+                    "其{C:attention}跳过标签{}" 
+                } 
+            },
             j_aij_bearded_joker = {
                 name = "胡子小丑",
                 text = {
                     "牌组中每有一张{C:attention}增强{}牌",
                     "获得{C:mult}+#1#{}倍率",
-                    "{C:inactive}（当前为{C:mult}+#2#{}{C:inactive} 倍率）"
+                    "{C:inactive}（当前为{C:mult}+#2#{}{C:inactive}倍率）"
                 }
             },
-            j_aij_skomorokh = { name = "斯科莫罗赫", text = { "" } },
+            j_aij_skomorokh = { 
+                name = "斯科莫罗赫", 
+                text = { 
+                    "你{C:attention}完整牌组{}中每有一张",
+                    "{C:attention}版本{}牌，",
+                    "此小丑牌获得{X:mult,C:white}X#1#{}倍率", 
+                    "{C:inactive}(当前为{X:mult,C:white}X#2#{}{C:inactive}倍率)"
+                } 
+            },
             j_aij_silly_billy = { name = "傻比利", text = { "" } },
-            j_aij_ijoker_co = { name = "i小丑公司", text = { "" } },
+            j_aij_ijoker_co = { 
+                name = "i小丑公司", 
+                text = { 
+                    "每次{C:money}商店{}进货时",
+                    "有{C:attention}#1#{}个随机{C:attention}标签{}可供购买" 
+                } 
+            },
             j_aij_corpse_paint = {
                 name = "尸脸彩绘",
                 text = {
                     "移除计分的牌的{C:dark_edition}负片{}效果",
-                    "每移除一张，此小丑牌有 {C:green}#2#/#1#{} 的几率",
+                    "每移除一张，此小丑牌有{C:green}#2#/#1#{}的几率",
                     "使手牌上限{C:attention}+#3#",
                     "{C:inactive}（当前为{C:attention}+#4#{C:inactive} 手牌上限）"
                 }
@@ -1119,7 +1463,7 @@ return {
                 text = {
                     "牌组中每有一张{C:attention}4{}",
                     "则{C:mult}+#1#{}倍率",
-                    "{C:inactive}（当前为{} {C:mult}+#2#{}{C:inactive} 倍率）"
+                    "{C:inactive}（当前为{}{C:mult}+#2#{}{C:inactive}倍率）"
                 },
             },
             j_aij_orphic_joker = {
@@ -1130,7 +1474,13 @@ return {
                     "{C:inactive}（必须有空位）{}"
                 },
             },
-            j_aij_the_artist = { name = "艺术家", text = { "" } },
+            j_aij_the_artist = { 
+                name = "艺术家", 
+                text = { 
+                    "{C:tarot}塔罗{}牌的",
+                    "选择上限{C:attention}+#1#{}" 
+                } 
+            },
             j_aij_toynbee_joker = { name = "汤因比小丑", text = { "" } },
             j_aij_aluzinnu = {
                 name = "阿卢津努",
@@ -1154,7 +1504,7 @@ return {
                 text = {
                     "每当一张持有回合数不小于一回合的{C:attention}小丑牌{}被出售时",
                     "此小丑牌获得{X:mult,C:white}X#2#{}倍率",
-                    "{C:inactive}（当前为{X:mult,C:white}X#1#{} {C:inactive}倍率）"
+                    "{C:inactive}（当前为{X:mult,C:white}X#1#{}{C:inactive}倍率）"
                 }
             },
             j_aij_chippy = {
@@ -1162,7 +1512,7 @@ return {
                 text = {
                     "此小丑牌获得与",
                     "所花费过{C:money}金钱{}的总额数相等的{C:chips}筹码{}",
-                    "{C:inactive}（当前为{C:chips}+#1#{C:inactive} 筹码）",
+                    "{C:inactive}（当前为{C:chips}+#1#{C:inactive}筹码）",
                 }
             },
             j_aij_hofnarr_the_barbarian = {
@@ -1170,7 +1520,7 @@ return {
                 text = {
                     "{C:mult}+#1#{}倍率",
                     "在{C:attention}决胜盲注{}中禁用",
-                    "并提供 {X:mult,C:white}X#2#{}倍率"
+                    "并提供{X:mult,C:white}X#2#{}倍率"
                 },
             },
             j_aij_histrio = {
@@ -1184,9 +1534,9 @@ return {
             j_aij_egg_cc = {
                 name = "“蛋”",
                 text = {
-                    "回合结束时，此小丑牌获得 {C:chips}+#2#{} 筹码",
-                    "和 {C:money}$#3#{} 的{C:attention}出售价值{}",
-                    "{C:inactive}（当前为{C:chips}+#1#{C:inactive} 筹码）",
+                    "回合结束时，此小丑牌获得{C:chips}+#2#{}筹码",
+                    "和{C:money}$#3#{}的{C:attention}出售价值{}",
+                    "{C:inactive}（当前为{C:chips}+#1#{C:inactive}筹码）",
                     "{C:inactive}嘿，是“蛋”"
                 },
             },
@@ -1240,7 +1590,15 @@ return {
             },
             j_aij_heyokha = { name = "赫由卡", text = { "" } },
             j_aij_casual_absent_paranoia = { name = "随意缺席妄想", text = { "" } },
-            j_aij_mandrake = { name = "曼德拉草", text = { "" } },
+            j_aij_mandrake = { 
+                name = "曼德拉草", 
+                text = { 
+                    "{C:attention}#2#{}回合后，{C:money}出售{}",
+                    "此小丑牌以{C:red}摧毁{}",
+                    "所有{C:attention}手持{}卡牌",
+                    "{C:inactive}(当前为{C:attention}#1#{C:inactive}/#2#)" 
+                } 
+            },
             j_aij_jester_zombie = {
                 name = "小丑僵尸",
                 text = {
@@ -1296,13 +1654,25 @@ return {
                 name = "顽童",
                 text = {
                     "回合结束时获得{C:money}$#1#{}",
-                    "跳过{C:attention}盲注{}时额外增加 {C:money}$#2#{}",
+                    "跳过{C:attention}盲注{}时额外增加{C:money}$#2#{}",
                 }
             },
             j_aij_machine_intelligence = { name = "机器智能", text = { "" } },
             j_aij_grandma = { name = "奶奶", text = { "" } },
-            j_aij_funny_money = { name = "假钞", text = { "" } },
-            j_aij_witchfinder = { name = "巫师猎人", text = { "" } },
+            j_aij_funny_money = { 
+                name = "假钞", 
+                text = { 
+                    "当{C:attention}跳过{}盲注时",
+                    "获得{C:money}$#1#{}"
+                } 
+            },
+            j_aij_witchfinder = { 
+                name = "巫师猎人", 
+                text = { 
+                    "{C:money}商店{}中额外提供",
+                    "{C:attention}1{}个{C:tarot}奥术包{}"
+                } 
+            },
             j_aij_trophy_kill = { name = "战利品击杀", text = { "" } },
             j_aij_tract = {
                 name = "传单",
@@ -1357,7 +1727,7 @@ return {
             j_aij_chitty = {
                 name = "小钞",
                 text = {
-                    "商店中额外提供{C:attention}+#1#{} 个",
+                    "商店中额外提供{C:attention}+#1#{}个",
                     "{C:attention}优惠券{}可供购买"
                 }
             },
@@ -1367,7 +1737,13 @@ return {
                     "{C:attention}笑语猜谜包{}更容易出现"
                 }
             },
-            j_aij_downing_street = { name = "唐宁街", text = { "" } },
+            j_aij_downing_street = { 
+                name = "唐宁街", 
+                text = { 
+                    "计分的{C:attention}10{}有{C:green}#1# / #2#{}的几率",
+                    "生成一个随机{C:attention}标签{}"
+                } 
+            },
             j_aij_one_little_duck = { name = "小鸭子", text = { "" } },
             j_aij_four_leaf_clover = { name = "四叶草", text = { "" } },
             j_aij_aphantasia = {
@@ -1403,9 +1779,36 @@ return {
                     "{C:inactive}(可用次数：{C:attention}#1#{C:inactive}/{C:attention}#2#{C:inactive}){}"
                 }
             },
-            j_aij_tilty_joker = { name = "倾斜小丑", text = { "" } },
-            j_aij_opening_move = { name = "开局", text = { "" } },
-            j_aij_bartender = { name = "酒保", text = { "" } },
+            j_aij_tilty_joker = { 
+                name = "倾斜小丑", 
+                text = { 
+                    "{C:attention}计分{}牌提供{C:attention}X#1#{}",
+                    "倍的基础{C:chips}筹码{}" 
+                } 
+            },
+            j_aij_opening_move = { 
+                name = "开局", 
+                text = { 
+                    {
+                        "回合{C:attention}首次出牌{}中",
+                        "每有一张{C:attention}计分{}牌，",
+                        "本回合获得{X:mult,C:white}X#1#{}倍率",
+                        "{C:inactive}(当前为{X:mult,C:white}X#2#{C:inactive}倍率)"
+                    },
+                    {
+                        "每回合的{C:attention}首次出牌{}",
+                        "不会计分"
+                    },
+                } 
+            },
+            j_aij_bartender = { 
+                name = "酒保", 
+                text = { 
+                    "{C:attention}消耗牌{}可能带有",
+                    "{C:dark_edition}闪箔{}、{C:dark_edition}全息{}或",
+                    "{C:dark_edition}多彩{}版本" 
+                } 
+            },
             j_aij_mahoney = {
                 name = "马奥尼",
                 text = {
@@ -1436,7 +1839,13 @@ return {
                     "生成那张牌的{C:attention}复制品{}"
                 }
             },
-            j_aij_mr_catfish = { name = "鲶鱼先生", text = { "" } },
+            j_aij_mr_catfish = { 
+                name = "鲶鱼先生", 
+                text = { 
+                    "每{C:red}弃掉{}{C:attention}#2#{C:inactive} [#3#]{}张牌，",
+                    "获得{C:money}$#1#{}"
+                } 
+            },
             j_aij_angel_number = {
                 name = "天使数字",
                 text = {
@@ -1445,9 +1854,16 @@ return {
                     "每回合重置"
                 }
             },
-            j_aij_doctors_orders = { name = "医嘱", text = { "" } },
+            j_aij_doctors_orders = { 
+                name = "医嘱", 
+                text = { 
+                    "打出的手牌中每有一张{C:attention}9{}，",
+                    "{X:mult,C:white}X#1#{}倍率，",
+                    "如果没有打出{C:attention}9{}则{C:red}自毁{}"
+                } 
+            },
             j_aij_blue_eyes_white_joker = {
-                name = "蓝眼白丑",
+                name = "青眼白丑",
                 text = {
                     "当回合{C:attention}最后出牌{}为{C:attention}1张牌{}时",
                     "增加其{C:attention}#1#次{}重新触发次数"
@@ -1474,11 +1890,45 @@ return {
                     "提升{C:attention}#1#{}的等级"
                 }
             },
-            j_aij_mocap = { name = "动作捕捉", text = { "" } },
-            j_aij_stagehand = { name = "舞台工作人员", text = { "" } },
+            j_aij_mocap = { 
+                name = "动作捕捉", 
+                text = { 
+                    {
+                        "当出售一张{C:legendary}传奇{}、{C:rare}稀有{}、",
+                        "或{C:uncommon}罕见{}小丑牌时，",
+                        "生成一张低一级的",
+                        "{C:attention}随机{}小丑牌"
+                    }, 
+                    {
+                        "{C:legendary}传奇{}->{C:rare}稀有{}",
+                        "{C:rare}稀有{}->{C:uncommon}罕见{}",
+                        "{C:uncommon}罕见{}->{C:common}普通{}"
+                    }
+                } 
+            },
+            j_aij_stagehand = { 
+                name = "舞台工作人员", 
+                text = { 
+                    "所有{C:attention}小丑牌{}提供",
+                    "{X:mult,C:white}X#1#{}倍率"
+                } 
+            },
             j_aij_the_mermaid = { name = "美人鱼", text = { "" } },
-            j_aij_electric_snow = { name = "电雪", text = { "" } },
-            j_aij_colour_test = { name = "色彩测试", text = { "" } },
+            j_aij_electric_snow = { 
+                name = "电雪", 
+                text = { 
+                    "回合只会在",
+                    "{C:attention}最后一次出牌{}后结束" 
+                } 
+            },
+            j_aij_colour_test = { 
+                name = "色彩测试", 
+                text = { 
+                    "在回合{C:attention}最后{}",
+                    "{C:attention}一手牌{}中，为第一张",
+                    "计分牌添加{C:attention}多彩{}版本"
+                } 
+            },
             j_aij_test_card = {
                 name = "测试卡",
                 text = {
@@ -1496,8 +1946,8 @@ return {
             j_aij_chips_n_dip = {
                 name = "筹码蘸酱",
                 text = {
-                    "{X:chips,C:white}X#1#{} 筹码",
-                    "回合结束时失去 {X:chips,C:white}X#2#{} 筹码"
+                    "{X:chips,C:white}X#1#{}筹码",
+                    "回合结束时失去{X:chips,C:white}X#2#{}筹码"
                 }
             },
             j_aij_homemade_comic = {
@@ -1522,13 +1972,26 @@ return {
                     "击败盲注时{C:blue}-#2#{}出牌次数"
                 }
             },
-            j_aij_joker_png = { name = "小丑.png", text = { "" } },
+            j_aij_joker_png = { 
+                name = "小丑.png", 
+                text = { 
+                    {
+                    '{B:1,C:white,s:0.8}启动式能力',
+                    '此小丑牌{C:attention}复制{}一张',
+                    '随机{C:attention}小丑牌{}的{C:attention}效果{}',
+                    },
+                    {
+                    '支付{C:money}$#1#{}重掷，本底注内',
+                    '每次重掷费用增加{C:money}$#1#{}'
+                    }
+                } 
+            },
             j_aij_kuruko = { name = "库鲁科", text = { "" } },
             j_aij_candy_floss = {
                 name = "棉花糖",
                 text = {
-                    "{C:aij_plasma}平衡{} {C:mult}倍率{}和{C:chips}筹码{} 的{C:attention}#1#%{}",
-                    "回合结束时减少{C:attention}#2#%{} "
+                    "{C:aij_plasma}平衡{}{C:mult}倍率{}和{C:chips}筹码{}的{C:attention}#1#%{}",
+                    "回合结束时减少{C:attention}#2#%{}"
                 }
             },
             j_aij_stargazy_pie = {
@@ -1538,15 +2001,35 @@ return {
                     "效果重新触发"
                 }
             },
-            j_aij_gameshow = { name = "游戏节目", text = { "" } },
+            j_aij_gameshow = { 
+                name = "游戏节目", 
+                text = { 
+                    {
+                        "当{C:attention}盲注{}被选择时，",
+                        "有{C:green}#1# / #2#{}的几率给一张",
+                        "随机{C:attention}小丑牌{}添加{C:dark_edition}闪箔{}、",
+                        "{C:dark_edition}全息{}或{C:dark_edition}多彩{}版本"
+                    },
+                    { 
+                        "触发时失去{C:money}$#3#{}",
+                        "无论结果如何"
+                    } ,
+                },
+            },
             j_aij_bonus_pay = {
                 name = "额外薪酬",
                 text = {
                     "打出{C:attention}奖励牌{}时",
-                    "获得 {C:money}$#1#{}"
+                    "获得{C:money}$#1#{}"
                 }
             },
-            j_aij_illuminated_joker = { name = "启迪小丑", text = { "" } },
+            j_aij_illuminated_joker = { 
+                name = "启迪小丑", 
+                text = { 
+                    "{C:money}金色{}标签出现的",
+                    "概率{C:attention}增加{}" 
+                } 
+            },
             j_aij_magazine_ad = { name = "杂志广告", text = { "" } },
             j_aij_bonus_bob = {
                 name = "红利鲍勃",
@@ -1563,19 +2046,90 @@ return {
                 }
             },
             j_aij_jack_o_lantern = { name = "杰克灯", text = { "" } },
-            j_aij_astrologer = { name = "占星家", text = { "" } },
-            j_aij_planetarium = { name = "天文馆", text = { "" } },
+            j_aij_astrologer = { 
+                name = "占星家", 
+                text = { 
+                    {
+                        "{C:planet}天体包{}中的",
+                        "选择次数{C:attention}+#1#{}" 
+                    },
+                    {
+                        "在{C:attention}奇数{}底注，{C:planet}星球{}牌",
+                        "变为其{C:mult}倍率{}变体；",
+                        "在{C:attention}偶数{}底注，变为",
+                        "其{C:chips}筹码{}变体"
+                    },
+                } 
+            },
+            j_aij_planetarium = { 
+                name = "天文馆", 
+                text = { 
+                    {
+                        "消耗牌区的{C:chips}筹码{}类{C:planet}星球{}牌",
+                        "为其对应的{C:attention}牌型{}",
+                        "提供{C:chips}+#1#{}筹码" 
+                    },
+                    {
+                        "消耗牌区的{C:mult}倍率{}类{C:planet}星球{}牌",
+                        "为其对应的{C:attention}牌型{}",
+                        "提供{C:mult}+#2#{}倍率" 
+                    },
+                } 
+            },
             j_aij_stargazer = { name = "观星者", text = { "" } },
             j_aij_skald = { name = "吟游诗人", text = { "" } },
-            j_aij_sky_trees = { name = "天空树", text = { "" } },
+            j_aij_sky_trees = { 
+                name = "天空树", 
+                text = { 
+                    "{C:attention}蓝色蜡封{}提供{C:mult}倍率{}和",
+                    "{C:chips}筹码{}类{C:planet}星球{}牌，",
+                    "而非{C:attention}基础{}类{C:planet}星球{}牌" 
+                } 
+            },
             j_aij_the_freezer = { name = "冰柜", text = { "" } },
-            j_aij_twisted_pair = { name = "双绞线", text = { "" } },
-            j_aij_the_grim_joker = { name = "冷酷小丑", text = { "" } },
-            j_aij_lexicon = { name = "词典", text = { "" } },
+            j_aij_twisted_pair = { 
+                name = "双绞线", 
+                text = { 
+                    "如果手牌是{C:attention}对子{}，",
+                    "每张牌获得对应于",
+                    "{C:attention}另一张牌{}花色的{C:attention}补丁{}" 
+                } 
+            },
+            j_aij_the_grim_joker = { 
+                name = "冷酷小丑", 
+                text = { 
+                    "由{C:planet}蓝色{}或{C:tarot}紫色{}蜡封",
+                    "生成的{C:attention}消耗牌{}",
+                    "有{C:green}#1# / #2# 几率{}变为",
+                    "{C:dark_edition}负片{}版本"
+                } 
+            },
+            j_aij_lexicon = { 
+                name = "词典", 
+                text = { 
+                    "增加等同于所有持有{C:attention}小丑牌{}",
+                    "价值中数字{C:attention}总和{}的{C:mult}倍率{}",
+                    "{C:inactive}(当前为{C:mult}+#1#{C:inactive}倍率)"
+                } 
+            },
             j_aij_dendroglpyh = { name = "树木雕刻", text = { "" } },
             j_aij_prank_caller = { name = "恶作剧电话", text = { "" } },
-            j_aij_arngren = { name = "阿恩格伦", text = { "" } },
-            j_aij_blacklist = { name = "黑名单", text = { "" } },
+            j_aij_arngren = { 
+                name = "阿恩格伦", 
+                text = { 
+                    "{C:money}商店{}中{C:attention}+#1#{}卡牌槽位，",
+                    "{C:attention}+#1#{}补充包槽位，",
+                    "以及{C:attention}+#1#{}优惠券槽位"
+                } 
+            },
+            j_aij_blacklist = { 
+                name = "黑名单", 
+                text = { 
+                    "{C:money}已售出{}的小丑牌",
+                    "不会再次出现",
+                    "当前黑名单小丑：",
+                } 
+            },
             j_aij_croupier = {
                 name = "荷官",
                 text = {
@@ -1603,19 +2157,84 @@ return {
             j_aij_screamer = { name = "尖叫者", text = { "" } },
             j_aij_evil_twin = { name = "邪恶双胞胎", text = { "" } },
             j_aij_cubic_joker = { name = "立方小丑", text = { "" } },
-            j_aij_remina = { name = "蕾米娜", text = { "" } },
+            j_aij_remina = { 
+                name = "蕾米娜", 
+                text = { 
+                    "当选择{C:attention}小盲注{}或{C:attention}大盲注{}时，",
+                    "此小丑牌{C:red}摧毁{}消耗牌区的所有",
+                    "{C:planet}星球牌{}并获得其",
+                    "{C:chips}筹码{}和{C:mult}倍率{}",
+                    "{C:inactive,s:0.8}(当前为{C:chips,s:0.8}+#2#{}{C:inactive,s:0.8}筹码,{C:mult,s:0.8}+#1#{C:inactive,s:0.8}倍率)"
+                } 
+            },
             j_aij_jpeg = { name = ".jpeg", text = { "" } },
-            j_aij_sherrif = { name = "警长", text = { "" } },
-            j_aij_alien_joker = { name = "外星小丑", text = { "" } },
-            j_aij_nobody = { name = "无名小卒", text = { "" } },
+            j_aij_sherrif = { 
+                name = "警长",
+                text = { 
+                    "每手牌第一张计分的{C:attention}万能牌{}",
+                    "赚取{C:money}$#1#{}"
+                } 
+            },
+            j_aij_alien_joker = { 
+                name = "外星小丑", 
+                text = { 
+                    {
+                        "{C:attention}强制选择 1{}张牌",
+                    },
+                    {
+                        "{C:attention}强制选择{}的牌在计分时",
+                        "提供{X:mult,C:white}X#1#{}倍率" 
+                    }
+                } 
+            },
+            j_aij_nobody = { 
+                name = "无名小卒", 
+                text = { 
+                    "{C:inactive}什么也不做...？" 
+                } 
+            },
             j_aij_broken_dreams = { name = "破碎的梦想", text = { "" } },
-            j_aij_elf = { name = "精灵", text = { "" } },
-            j_aij_fall_of_count_chaligny = { name = "沙利尼伯爵之陨", text = { "" } },
-            j_aij_coulrorachne = { name = "库尔罗拉克妮", text = { "" } },
-            j_aij_bad_sun = { name = "坏太阳", text = { "" } },
+            j_aij_elf = { 
+                name = "精灵", 
+                text = { 
+                    "跳过{C:attention}#2#{}个盲注后，",
+                    "{C:money}出售{}此小丑牌以生成",
+                    "{C:attention}#3# 个投资标签",
+                    "{C:inactive}(当前为{C:attention}#1#{C:inactive}/#2#)"
+                } 
+            },
+            j_aij_fall_of_count_chaligny = {
+                name = "沙利尼伯爵之陨",
+                text = { 
+                    "将所有{C:attention}盲注{}的",
+                    "{C:attention}分数需求{}设为{C:attention}1X{}基础值"
+                } 
+            },
+            j_aij_coulrorachne = { 
+                name = "库尔罗拉克妮", 
+                text = { 
+                    "每计分{C:attention}#4#{C:inactive}[#3#]{}张{C:attention}8{}",
+                    "此小丑牌获得{C:mult}+#1#{}倍率",
+                    "{C:inactive}(当前为{C:mult}+#2#{C:inactive}倍率)" 
+                } 
+            },
+            j_aij_bad_sun = { 
+                name = "坏太阳", 
+                text = { 
+                    "如果{C:attention}打出的{}手牌包含{C:attention}#1#{}",
+                    "或更多{C:hearts}红桃{}，摧毁一张",
+                    "{C:attention}随机{}打出的牌" 
+                } 
+            },
             j_aij_lemarchand_cube = { name = "勒马尔尚魔方", text = { "" } },
             j_aij_duende = { name = "杜恩德", text = { "" } },
-            j_aij_evil_joker = { name = "邪恶小丑", text = { "" } },
+            j_aij_evil_joker = { 
+                name = "邪恶小丑", 
+                text = { 
+                    "{X:mult,C:white}X#1#{}倍率，当{C:attention}获得{}时",
+                    "摧毁一张{C:attention}随机{}小丑牌" 
+                } 
+            },
             j_aij_sanguine_joker = {
                 name = "乐观小丑",
                 text = {
@@ -1647,8 +2266,27 @@ return {
                     "{C:inactive}(必须有空间){}"
                 }
             },
-            j_aij_majordomo = { name = "管家", text = { "" } },
-            j_aij_skinsuit = { name = "人皮衣", text = { "" } },
+            j_aij_majordomo = { 
+                name = "管家", 
+                text = { 
+                    {
+                        "{C:money}商店{}中所有价格",
+                        "高于{C:money}$#1#{}的{C:attention}小丑牌{}",
+                        "获得{C:money}租赁{}贴纸" 
+                    },
+                    {
+                        "{C:attention}租赁{}扣除的费用减少{C:money}$2{}"
+                    }
+                }
+            },
+            j_aij_skinsuit = { 
+                name = "人皮衣", 
+                text = { 
+                    "当一张牌被{C:red}摧毁{}时，",
+                    "将其{C:attention}花色补丁{}贴到",
+                    "{C:attention}手牌{}中的一张{C:attention}随机牌{}上" 
+                } 
+            },
             j_aij_shock_humor = { name = "冲击性幽默", text = { "" } },
             j_aij_the_house_that_jack_built = { name = "杰克盖的房子", text = { "" } },
             j_aij_clownbug = { name = "小丑虫", text = { "" } },
@@ -1659,7 +2297,7 @@ return {
                     "{C:attention}数学问答{}。",
                     "答对此小丑{C:green}获得奖励倍率{}",
                     "答错此小丑{C:red}扣除奖励倍率{}",
-                    "{C:inactive}（当前为{} {X:mult,C:white}X#1#{} {C:inactive}倍率）"
+                    "{C:inactive}（当前为{}{X:mult,C:white}X#1#{}{C:inactive}倍率）"
                 }
             },
             j_aij_prototype = {
@@ -1710,7 +2348,7 @@ return {
                     "每张位于庞培{C:attention}右侧{}的小丑牌",
                     "包括庞培自己",
                     "给予{X:mult,C:white}X#1#{}倍率",
-                    "{C:inactive}（当前为{} {X:mult,C:white}X#2#{}{C:inactive} 倍率）"
+                    "{C:inactive}（当前为{}{X:mult,C:white}X#2#{}{C:inactive}倍率）"
                 },
                 unlock = {
                     "?????"
@@ -1731,8 +2369,8 @@ return {
                     "将所有{C:attention}打出但未计分{}的牌",
                     "变为{C:attention}石头牌{}",
                     "当{C:attention}石头牌{}计分时",
-                    "此{C:attention}小丑牌{}获得 {X:mult,C:white}X#2#{}倍率",
-                    "{C:inactive}（当前为{} {X:mult,C:white}X#1#{} {C:inactive}倍率）",
+                    "此{C:attention}小丑牌{}获得{X:mult,C:white}X#2#{}倍率",
+                    "{C:inactive}（当前为{}{X:mult,C:white}X#1#{}{C:inactive}倍率）",
                 },
                 unlock = {
                     "?????"
@@ -1752,7 +2390,7 @@ return {
                 name = "内达",
                 text = {
                     "手牌中持有的{C:attention}Q{}",
-                    "提供 {X:mult,C:white}X#1#{}倍率"
+                    "提供{X:mult,C:white}X#1#{}倍率"
                 },
                 unlock = {
                     "?????"
@@ -1786,8 +2424,8 @@ return {
                 text = {
                     "击败{C:attention}Boss盲注{}时",
                     "{C:attention}底注-#1#{}",
-                    "此小丑牌失去 {X:mult,C:white}X#2#{}倍率",
-                    "{C:inactive}（当前为{X:mult,C:white}X#3#{C:inactive} 倍率）"
+                    "此小丑牌失去{X:mult,C:white}X#2#{}倍率",
+                    "{C:inactive}（当前为{X:mult,C:white}X#3#{C:inactive}倍率）"
                 },
                 unlock = {
                     "?????"
@@ -1867,7 +2505,7 @@ return {
                 text = {
                     "获得等同于本回合",
                     "你已打过的{C:attention}牌型{}的{C:attention}总筹码{}",
-                    "{C:inactive}（当前为{C:chips}+#1#{C:inactive} 筹码）",
+                    "{C:inactive}（当前为{C:chips}+#1#{C:inactive}筹码）",
                 },
                 unlock = { "?????" }
             },
@@ -1886,8 +2524,8 @@ return {
                 name = "基利格鲁",
                 text = {
                     "每拥有一张{C:attention}优惠券{}",
-                    "获得 {X:mult,C:white}X#1#{}倍率",
-                    "{C:inactive}（当前为{} {X:mult,C:white}X#2#{} {C:inactive}倍率）",
+                    "获得{X:mult,C:white}X#1#{}倍率",
+                    "{C:inactive}（当前为{}{X:mult,C:white}X#2#{}{C:inactive}倍率）",
                 },
                 unlock = { "?????" }
             },
@@ -1905,7 +2543,7 @@ return {
                 name = "虞瑟",
                 text = {
                     "没有{C:dark_edition}版本{}的小丑牌",
-                    "提供 {X:mult,C:white}X#1#{}倍率"
+                    "提供{X:mult,C:white}X#1#{}倍率"
                 },
                 unlock = {
                     "?????"
@@ -1929,7 +2567,7 @@ return {
                 name = "布鲁特",
                 text = {
                     "选择{C:attention}盲注{}时",
-                    "生成一张{C:dark_edition}负片{} {C:spectral}幻灵{}牌"
+                    "生成一张{C:dark_edition}负片{}{C:spectral}幻灵{}牌"
                 },
                 unlock = {
                     "?????"
@@ -1968,9 +2606,9 @@ return {
             j_aij_lavatch = {
                 name = "拉瓦奇",
                 text = {
-                    "打出的{C:clubs}梅花{}提供 {X:mult,C:white}X#1#{}倍率",
+                    "打出的{C:clubs}梅花{}提供{X:mult,C:white}X#1#{}倍率",
                     "当{C:clubs}梅花{}计分时",
-                    "额外增加 {X:mult,C:white}X#2#{}倍率",
+                    "额外增加{X:mult,C:white}X#2#{}倍率",
                 },
                 unlock = { "?????" }
             },
@@ -2018,7 +2656,7 @@ return {
                 name = "塔尔哈克",
                 text = {
                     "击败{C:attention}Boss盲注{}时",
-                    "可选择生成一张{C:attention}任意{} {C:spectral}幻灵{}牌",
+                    "可选择生成一张{C:attention}任意{}{C:spectral}幻灵{}牌",
                     "{C:inactive}（必须有空位）"
                 },
                 unlock = { "?????" }
@@ -2126,7 +2764,7 @@ return {
                 text = {
                     "{S:0.8}（等级#1#）{}",
                     "{C:attention}#2#{}等级提升",
-                    "{C:chips}+#3#{} 筹码"
+                    "{C:chips}+#3#{}筹码"
                 }
             },
             c_aij_2013_nd15 = {
@@ -2134,7 +2772,7 @@ return {
                 text = {
                     "{S:0.8}（等级#1#）{}",
                     "{C:attention}#2#{}等级提升",
-                    "{C:chips}+#3#{} 筹码"
+                    "{C:chips}+#3#{}筹码"
                 }
             },
             c_aij_kamooalewa = {
@@ -2142,7 +2780,7 @@ return {
                 text = {
                     "{S:0.8}（等级#1#）{}",
                     "{C:attention}#2#{}等级提升",
-                    "{C:chips}+#3#{} 筹码"
+                    "{C:chips}+#3#{}筹码"
                 }
             },
             c_aij_deimos = {
@@ -2150,7 +2788,7 @@ return {
                 text = {
                     "{S:0.8}（等级#1#）{}",
                     "{C:attention}#2#{}等级提升",
-                    "{C:chips}+#3#{} 筹码"
+                    "{C:chips}+#3#{}筹码"
                 }
             },
             c_aij_callisto = {
@@ -2158,7 +2796,7 @@ return {
                 text = {
                     "{S:0.8}（等级#1#）{}",
                     "{C:attention}#2#{}等级提升",
-                    "{C:chips}+#3#{} 筹码"
+                    "{C:chips}+#3#{}筹码"
                 }
             },
             c_aij_iapetus = {
@@ -2166,7 +2804,7 @@ return {
                 text = {
                     "{S:0.8}（等级#1#）{}",
                     "{C:attention}#2#{}等级提升",
-                    "{C:chips}+#3#{} 筹码"
+                    "{C:chips}+#3#{}筹码"
                 }
             },
             c_aij_oberon = {
@@ -2174,7 +2812,7 @@ return {
                 text = {
                     "{S:0.8}（等级#1#）{}",
                     "{C:attention}#2#{}等级提升",
-                    "{C:chips}+#3#{} 筹码"
+                    "{C:chips}+#3#{}筹码"
                 }
             },
             c_aij_proteus = {
@@ -2182,7 +2820,7 @@ return {
                 text = {
                     "{S:0.8}（等级#1#）{}",
                     "{C:attention}#2#{}等级提升",
-                    "{C:chips}+#3#{} 筹码"
+                    "{C:chips}+#3#{}筹码"
                 }
             },
             c_aij_charon = {
@@ -2190,7 +2828,7 @@ return {
                 text = {
                     "{S:0.8}（等级#1#）{}",
                     "{C:attention}#2#{}等级提升",
-                    "{C:chips}+#3#{} 筹码"
+                    "{C:chips}+#3#{}筹码"
                 }
             },
             c_aij_nibiru = {
@@ -2198,7 +2836,7 @@ return {
                 text = {
                     "{S:0.8}（等级#1#）{}",
                     "{C:attention}#2#{}等级提升",
-                    "{C:chips}+#3#{} 筹码"
+                    "{C:chips}+#3#{}筹码"
                 }
             },
             c_aij_2000_eu16 = {
@@ -2206,7 +2844,7 @@ return {
                 text = {
                     "{S:0.8}（等级#1#）{}",
                     "{C:attention}#2#{}等级提升",
-                    "{C:chips}+#3#{} 筹码"
+                    "{C:chips}+#3#{}筹码"
                 }
             },
             c_aij_kuiper = {
@@ -2214,63 +2852,63 @@ return {
                 text = {
                     "{S:0.8}（等级#1#）{}",
                     "{C:attention}#2#{}等级提升",
-                    "{C:chips}+#3#{} 筹码"
+                    "{C:chips}+#3#{}筹码"
                 }
             },
             c_aij_paper_weywot = {
                 name = "怀沃特",
                 text = {
-                    "{S:0.8}（等级#1#）{} {C:attention}#2#{}等级提升",
+                    "{S:0.8}（等级#1#）{}{C:attention}#2#{}等级提升",
                     "{C:mult}+#3#{}倍率"
                 }
             },
             c_aij_paper_namaka = {
                 name = "娜玛卡",
                 text = {
-                    "{S:0.8}（等级#1#）{} {C:attention}#2#{}等级提升",
+                    "{S:0.8}（等级#1#）{}{C:attention}#2#{}等级提升",
                     "{C:mult}+#3#{}倍率"
                 }
             },
             c_aij_paper_ilmare = {
                 name = "伊尔马雷",
                 text = {
-                    "{S:0.8}（等级#1#）{} {C:attention}#2#{}等级提升",
+                    "{S:0.8}（等级#1#）{}{C:attention}#2#{}等级提升",
                     "{C:mult}+#3#{}倍率"
                 }
             },
             c_aij_paper_salacia = {
                 name = "萨拉西亚",
                 text = {
-                    "{S:0.8}（等级#1#）{} {C:attention}#2#{}等级提升",
+                    "{S:0.8}（等级#1#）{}{C:attention}#2#{}等级提升",
                     "{C:mult}+#3#{}倍率"
                 }
             },
             c_aij_paper_ixion = {
                 name = "伊克西翁",
                 text = {
-                    "{S:0.8}（等级#1#）{} {C:attention}#2#{}等级提升",
-                    "{C:chips}+#3#{} 筹码"
+                    "{S:0.8}（等级#1#）{}{C:attention}#2#{}等级提升",
+                    "{C:chips}+#3#{}筹码"
                 }
             },
             c_aij_paper_hiiaka = {
                 name = "希亚卡",
                 text = {
-                    "{S:0.8}（等级#1#）{} {C:attention}#2#{}等级提升",
-                    "{C:chips}+#3#{} 筹码"
+                    "{S:0.8}（等级#1#）{}{C:attention}#2#{}等级提升",
+                    "{C:chips}+#3#{}筹码"
                 }
             },
             c_aij_paper_varda = {
                 name = "瓦尔达",
                 text = {
-                    "{S:0.8}（等级#1#）{} {C:attention}#2#{}等级提升",
-                    "{C:chips}+#3#{} 筹码"
+                    "{S:0.8}（等级#1#）{}{C:attention}#2#{}等级提升",
+                    "{C:chips}+#3#{}筹码"
                 }
             },
             c_aij_paper_mk2 = {
                 name = "Mk2",
                 text = {
-                    "{S:0.8}（等级#1#）{} {C:attention}#2#{}等级提升",
-                    "{C:chips}+#3#{} 筹码"
+                    "{S:0.8}（等级#1#）{}{C:attention}#2#{}等级提升",
+                    "{C:chips}+#3#{}筹码"
                 }
             }
         },
@@ -2394,7 +3032,7 @@ return {
                 text = {
                     "摧毁所选的{C:attention}1{}张{C:attention}小丑牌{}",
                     "并获得其{C:money}出售价值{}的{C:attention}3倍{}",
-                    "{C:inactive}（当前为{} {C:money}$#1#{}{C:inactive}）"
+                    "{C:inactive}（当前为{}{C:money}$#1#{}{C:inactive}）"
                 }
             },
             c_aij_broken_fate = {
@@ -2459,7 +3097,7 @@ return {
                 name = "失算牌",
                 text = {
                     "{C:attention}2{}、{C:attention}3{}、{C:attention}4{}、{C:attention}5{}、{C:attention}6{}、",
-                    "{C:attention}7{}、{C:attention}8{}、{C:attention}9{} 和 {C:attention}10{}",
+                    "{C:attention}7{}、{C:attention}8{}、{C:attention}9{}和{C:attention}10{}",
                 }
             },
             aij_jest_chaotic_card = {
