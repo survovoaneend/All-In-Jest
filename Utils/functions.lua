@@ -1910,8 +1910,29 @@ function All_in_Jest_format_destroy(center_text)
                 found_strings[j][i] = {}
                 for _, text in ipairs(destroy_texts) do
                     local start_index, end_index = string.find(string.lower(line), text)
-                    if start_index and not found_strings[j][i][start_index] then
-                        found_strings[j][i][start_index] = end_index
+                    if start_index then
+                        local already_processed = false
+                        for _, t in ipairs(found_strings[j][i]) do
+                            if start_index == t.start_index then
+                                already_processed = true
+                                break
+                            end
+                        end
+
+                        if not already_processed then
+                            -- Try to extract any existing formatting on the destroy text
+                            -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
+                            local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
+                            -- Do not apply red text if text is already red
+                            if not string.match(applied_formatting, "C:red") then
+                                local t = {
+                                    start_index = start_index,
+                                    end_index = end_index,
+                                    format = applied_formatting
+                                }
+                                table.insert(found_strings[j][i], t)
+                            end
+                        end
                     end
                 end
             end
