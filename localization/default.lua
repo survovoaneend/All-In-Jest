@@ -2893,7 +2893,7 @@ return {
             j_aij_blue_eyes_white_joker = { 
                 name = "Blue-Eyes White Joker", 
                 text = { 
-                    "If {C:attention}last hand{} of round",
+                    "If {C:attention}final hand{} of round",
                     "is exactly {C:attention}1{} card,",
                     "it permanently gains",
                     "{C:attention}+#1# retrigger"
