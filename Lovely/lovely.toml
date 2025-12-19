@@ -376,7 +376,7 @@ do
             aij_exceeds_hand_limit = aij_exceeds_hand_limit + 1
         end
     end
-    if aij_exceeds_hand_limit and aij_exceeds_hand_limit >= (#G.hand.highlighted - math.max(G.GAME.starting_params.play_limit, 1)) then
+    if aij_exceeds_hand_limit > 0 and not ((#G.hand.highlighted - aij_exceeds_hand_limit) > math.max(G.GAME.starting_params.play_limit, 1) or G.GAME.blind.block_play or #G.hand.highlighted <= 0) then
         e.config.colour = G.C.BLUE
         e.config.button = 'play_cards_from_highlighted'
         return
