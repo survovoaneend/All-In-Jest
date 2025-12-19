@@ -36,7 +36,7 @@ local rogue_planet = {
 		local level_hands = {}
 		for _, k in ipairs(G.handlist) do
 		    local hand = G.GAME.hands[k]
-		    if hand.visible then
+		    if hand.visible or k == "aij_Royal Flush" then
 			    available_hands[#available_hands+1] = k
 		    end
 		end
@@ -74,21 +74,21 @@ local rogue_planet = {
 		end
 	end,
 	in_pool = function(self, args)
-        if G.GAME and G.jokers then
-            local available_hands = {}
-			for _, k in ipairs(G.handlist) do
-				local hand = G.GAME.hands[k]
-				if hand.visible then
-					for i = 1, #G.jokers.cards do
-						local text = retrieve_joker_text(G.jokers.cards[i])
-						if text:find(k) or text:find(localize(k, 'poker_hands')) then
-							return true
-						end
-					end
-				end
-			end
+      if G.GAME and G.jokers then
+        local available_hands = {}
+        for _, k in ipairs(G.handlist) do
+          local hand = G.GAME.hands[k]
+          if hand.visible then
+            for i = 1, #G.jokers.cards do
+              local text = retrieve_joker_text(G.jokers.cards[i])
+              if text:find(k) or text:find(localize(k, 'poker_hands')) then
+                return true
+              end
+            end
+          end
         end
-        return false
+      end
+      return false
     end,
 	aij_weight = function(self)
         return -3
