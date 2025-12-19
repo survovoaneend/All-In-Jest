@@ -15,7 +15,6 @@ local witchfinder = {
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.p_arcana_normal
         return {vars = {card.ability.extra.boosters}}
     end,
 
