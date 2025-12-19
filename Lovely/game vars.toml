@@ -88,6 +88,7 @@ all_in_jest = {
   advanced_hand_usage_run = {},
   advanced_hand_usage_ante = {},
   advanced_hand_usage_blind = {},
+  jest_kilroy_curvalue = 25,
 },
 -- move these into all_in_jest at some point
 jest_legendary_pool = {in_shop = false, rate = 1.00},
@@ -95,7 +96,6 @@ jest_stored_memory_card = nil,
 jest_change_booster_options = {op = {add = 0, mult = 0, div = 0, sub = 0}, trigger = false, option = "", pack_choices = 0}, -- both, pick, or size
 jest_void_planet_ante = false,
 jest_kasperle_voucher_ante = false,
-jest_kilroy_sold = 0,
 jest_bought_jokers = 0,
 jest_magic_mirror_trigger = true,
 jest_toothy_joker_tarots = 0,
