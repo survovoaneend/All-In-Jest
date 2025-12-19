@@ -4,7 +4,9 @@ local orphic_joker = {
 
     key = "orphic_joker",
     config = {
-      
+        extra = {
+            jokers = 1
+        }
     },
     rarity = 3,
     pos = { x = 4, y = 8},
@@ -16,23 +18,22 @@ local orphic_joker = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+        return {vars = {card.ability.extra.jokers}}
     end,
   
     calculate = function(self, card, context)
       if context.skip_blind and not card.debuff then
-
-          if G.jokers and #G.jokers.cards < G.jokers.config.card_limit then
-              local new_joker = create_card('Joker', G.jokers, nil, 0.8, nil, nil, nil, 'skip_reward')
-              new_joker:add_to_deck()       
-              G.jokers:emplace(new_joker) 
-              new_joker:start_materialize() 
-              card:juice_up(0.4, 0.2)
-              play_sound('card1', 1.3, 0.7) 
-              return nil, true
-          else
-               return nil, true
+          for i = 1, card.ability.extra.jokers do
+              if G.jokers and #G.jokers.cards < G.jokers.config.card_limit then
+                  local new_joker = create_card('Joker', G.jokers, nil, 0.8, nil, nil, nil, 'skip_reward')
+                  new_joker:add_to_deck()       
+                  G.jokers:emplace(new_joker) 
+                  new_joker:start_materialize() 
+                  card:juice_up(0.4, 0.2)
+                  play_sound('card1', 1.3, 0.7)
+              end
           end
+          return nil, true
       end
   end,
 
