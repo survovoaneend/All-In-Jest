@@ -132,7 +132,7 @@ if self.edition and self.edition.aij_silver then
 end
 '''
 
-# Canvas Cards
+# Canvas Cards (1/3)
 # Card:set_base()
 # Removes canvas attributes when enhancement is removed
 [[patches]]
@@ -150,6 +150,32 @@ if self.ability and SMODS.has_enhancement(self, 'm_aij_canvas') then
         self.ability.aij_canvas_temp_rank = nil
     end
 end
+'''
+
+# Canvas Cards (2/3)
+# Card:generate_UIBox_ability_table()
+# Set whether the front of a card is hidden so we know if we should hide card suit/rank badge
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "bonus_repetitions = *"
+position = "after"
+match_indent = true
+payload = '''
+front_hidden = self.front_hidden,
+'''
+
+# Canvas Cards (3/3)
+# generate_card_ui()
+# Removes name of card if canvas is blank
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "elseif specific_vars.playing_card then"
+position = "before"
+match_indent = true
+payload = '''
+elseif _c.key == 'm_aij_canvas' and specific_vars.front_hidden then full_UI_table.name = true
 '''
 
 # Suit Patches
