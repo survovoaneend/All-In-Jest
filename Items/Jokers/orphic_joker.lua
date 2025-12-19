@@ -11,7 +11,7 @@ local orphic_joker = {
     rarity = 3,
     pos = { x = 4, y = 8},
     atlas = 'joker_atlas',
-    cost = 10,
+    cost = 8,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

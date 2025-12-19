@@ -1219,10 +1219,10 @@ return {
                 name = "Greasepaint", 
                 text = {
                     {
-                        "Disables adjacent {C:attention}Jokers{}"
+                        "Debuffs adjacent {C:attention}Jokers{}"
                     },
                     {
-                        "Disabled {C:attention}Jokers{} and",
+                        "Debuffed {C:attention}Jokers{} and",
                         "{C:attention}cards{} give {X:mult,C:white}X#1#{} Mult"
                     }  
                 } 
@@ -1793,7 +1793,7 @@ return {
             j_aij_mixel_perfect = {
                 name = "Mixel Perfect",
                 text = {
-                    "{C:mult}+#1#{} Mult if {C:attention}played hand{}",
+                    "{C:mult}+#1#{} Mult if {C:attention}scored hand{}",
                     "contains an {C:attention}odd{}",
                     "number of cards"
                 },
@@ -2943,8 +2943,8 @@ return {
             j_aij_stagehand = { 
                 name = "Stagehand", 
                 text = { 
-                    "All {C:attention}Jokers{} give",
-                    "{X:mult,C:white}X#1#{} Mult"
+                    "All non-{C:dark_edition}Negative{} {C:attention}Jokers{}",
+                    "give {X:mult,C:white}X#1#{} Mult"
                 } 
             },
             j_aij_the_mermaid = { name = "The Mermaid", text = { "" } },
@@ -4970,7 +4970,8 @@ return {
             jumbocarrot_credits_info = {
                 name = "Info",
                 text = {
-                    "{s:0.8}-Helped a ton with bugfixing and polish",
+                    "{s:0.8}-Helps a ton with bugfixes and polish",
+                    "{s:0.8}-Seriously, so many bugfixes",
                     "{s:0.8}-Primary playtester",
                     "{s:0.8}-Joined the team in September 2025"
                 }

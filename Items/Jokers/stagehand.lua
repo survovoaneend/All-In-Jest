@@ -27,15 +27,17 @@ local stagehand = {
 
     calculate = function(self, card, context)
         if context.other_joker then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    context.other_joker:juice_up(0.5, 0.5)
-                    return true
-                end
-            }))
-            return {
-                xmult = card.ability.extra.xmult
-            }
+            if not (context.other_joker.edition and context.other_joker.edition.negative) then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        context.other_joker:juice_up(0.5, 0.5)
+                        return true
+                    end
+                }))
+                return {
+                    xmult = card.ability.extra.xmult
+                }
+            end
         end
     end
 
