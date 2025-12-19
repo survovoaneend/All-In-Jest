@@ -1932,6 +1932,7 @@ target = "card.lua"
 pattern = "if self.ability.name == 'Blueprint' or self.ability.name == 'Brainstorm' then"
 position = "before"
 payload = '''
+--[[
 if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage' or (self.ability.name == 'j_aij_czar' or self.ability.name == 'j_aij_joker_png') then
 	local other_joker = nil
     if self.ability.name == 'j_aij_visage' then
@@ -1961,6 +1962,7 @@ if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage
         self.ability.blueprint_compat = 'incompatible'
     end
 end
+]]--
 if self.ability.name == 'j_aij_elder' then
     other_joker = All_in_Jest.get_longest_held_joker()
     if other_joker and other_joker ~= self and other_joker.config.center.blueprint_compat then
@@ -1980,6 +1982,7 @@ target = "card.lua"
 pattern = "elseif self.ability.name == 'Smeared Joker' then"
 position = "after"
 payload = '''
+--[[
 elseif self.ability.name == 'j_aij_clay_joker' then
     self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
     main_end = (self.area and self.area == G.jokers) and {
@@ -2016,6 +2019,7 @@ elseif self.ability.name == 'j_aij_joker_png' then
             }}
         }}
     } or nil
+]]--
 elseif self.ability.name == 'j_aij_elder' then
     self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
     main_end = (self.area and self.area == G.jokers) and {
@@ -3364,7 +3368,7 @@ for k, v in pairs(G) do
 end
 '''
 
-# Advanced Copiers (1/2)
+# Advanced Copiers (1/4)
 # Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
 # This is for vanilla jokers. Needs separate patches for vanilla and modded jokers.
 # generate_card_ui()
@@ -3377,7 +3381,7 @@ match_indent = true
 payload = '''
 specific_vars = _c.specific_vars or specific_vars
 '''
-# Advanced Copiers (2/2)
+# Advanced Copiers (2/4)
 # Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
 # This is for modded jokers. Needs separate patches for vanilla and modded jokers.
 # SMODS.Center:generate_ui()
@@ -3398,11 +3402,37 @@ local target = {
 position = "after"
 match_indent = true
 payload = '''
+--[[
 if target.vars.aij_visage then card = G.all_in_jest_visage_last_sold.cards[1]; target.vars.aij_visage = nil end -- All in Jest
 if target.vars.aij_clay then card = G.all_in_jest_clay_last_destroyed.cards[1]; target.vars.aij_clay = nil end -- All in Jest
 if target.vars.aij_joker_png then card = target.vars.aij_joker_png; target.vars.aij_joker_png = nil end -- All in Jest
 if target.vars.aij_czar then card = target.vars.aij_czar; target.vars.aij_czar = nil end -- All in Jest
+]]--
 if target.vars.aij_elder then card = target.vars.aij_elder; target.vars.aij_elder = nil end -- All in Jest
+'''
+# Advanced Copiers (3/4)
+# Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (1/2)
+# generate_card_ui()
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''_c:generate_ui(info_queue, card, desc_nodes, specific_vars, full_UI_table)'''
+position = "before"
+match_indent = true
+payload = '''
+local target_card = _c.specific_vars and _c.specific_vars.aij_elder
+'''
+# Advanced Copiers (4/4)
+# Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (2/2)
+# generate_card_ui()
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''localize{type = 'name', key = key, set = set, nodes = desc_nodes.name_styled, fixed_scale = 0.63, no_pop_in = true, no_shadow = true, y_offset = 0, no_spacing = true, no_bump = true, vars = (_c.create_fake_card and _c.loc_vars and (_c:loc_vars({}, _c:create_fake_card()) or {}).vars) or {colours = {}}} '''
+position = "at"
+match_indent = true
+payload = '''
+localize{type = 'name', key = key, set = set, nodes = desc_nodes.name_styled, fixed_scale = 0.63, no_pop_in = true, no_shadow = true, y_offset = 0, no_spacing = true, no_bump = true, vars = (_c.create_fake_card and _c.loc_vars and (_c:loc_vars({}, target_card or _c:create_fake_card()) or {}).vars) or {colours = {}}}  -- All in Jest overrides
 '''
 
 # Patch to make all instances of "destroy" red
