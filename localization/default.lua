@@ -1105,9 +1105,11 @@ return {
             j_aij_hat_trick = { 
                 name = "Hat Trick", 
                 text = { 
-                    "Played {C:attention}3s{} give {C:mult}+#1#{} Mult",
-                    "per {C:attention}Three of a Kind{} level",
-                    "when scored"
+                    "If played hand is a",
+                    "{C:attention}Three of a Kind{}, scored",
+                    "cards give {C:mult}Mult{} equal to",
+                    "its {C:attention}level",
+                    "{C:inactive}(Currently {C:mult}+#1#{} {C:inactive}Mult)",
                 } 
             },
             j_aij_squeezy_pete = {
