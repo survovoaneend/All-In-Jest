@@ -14,7 +14,7 @@ local fall_of_count_chaligny = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-        if MP.UTILS.is_standard_ruleset() and MP.LOBBY.code then
+        if MP and MP.UTILS.is_standard_ruleset() and MP.LOBBY.code then
             return {key = "j_aij_mp_fall_of_count_chaligny"}
         end
     end,
