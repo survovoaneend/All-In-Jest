@@ -37,10 +37,14 @@ local anarchy_tag = {
   end,
 
   apply = function(self, tag, context)
-    local effect = pseudorandom_element(self.config.effects, pseudoseed('jest_anarchy_tag'))
+    local effect = nil
     local trigger = false
     while not trigger do
-      if effect == "create_jokers" then
+      effect = pseudorandom_element(self.config.effects, pseudoseed('jest_anarchy_tag'))
+
+      if effect == "boss_reroll" and MP and MP.LOBBY.code then
+        trigger = false
+      elseif effect == "create_jokers" then
         trigger = #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
       elseif effect == "apply_edition" then
         if #G.jokers.cards > 0 then
@@ -65,9 +69,6 @@ local anarchy_tag = {
         trigger = false
       else
         trigger = true
-      end
-      if not trigger then
-        effect = pseudorandom_element(self.config.effects, pseudoseed('jest_anarchy_tag'))
       end
     end
     if context.type == 'new_blind_choice' then

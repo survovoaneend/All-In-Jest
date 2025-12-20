@@ -1873,6 +1873,15 @@ return {
                     "its effects until selected",
                 }
             },
+            j_aij_mp_blind_drawn = {
+                name = "Blind-Drawn",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult",
+                    "Cannot see your {X:purple,C:white}Nemesis'{}",
+                    "score or remaining hands",
+                    "during {C:attention}PvP Blinds{}",
+                }
+            },
             j_aij_heidelberg_tun = {
                 name = "Heidelberg Tun",
                 text = {
@@ -3270,6 +3279,14 @@ return {
                 text = { 
                     "Set the {C:attention}required{} score",
                     "of all {C:attention}Blinds{} to {C:attention}1X{} Base"
+                } 
+            },
+            j_aij_mp_fall_of_count_chaligny = {
+                name = "Fall of Count Chaligny",
+                text = { 
+                    "Set the {C:attention}required{} score",
+                    "of all {C:attention}Blinds{} to {C:attention}1X{} Base",
+                    "{C:inactive}(Does not affect PvP blinds){}"
                 } 
             },
             j_aij_coulrorachne = { 
