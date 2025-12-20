@@ -217,6 +217,7 @@ local anarchy_tag = {
               _voucher_key = pseudorandom_element(_pool, pseudoseed(_pool_key .. '_resample' .. iv))
             end
             voucher_card = create_card('Voucher', G.play, nil, nil, nil, nil, _voucher_key, 'ticket')
+            voucher_card.cost = 0
             G.play:emplace(voucher_card)
             G.FUNCS.use_card({ config = { ref_table = voucher_card } })
           elseif effect == "minus_ante" then
