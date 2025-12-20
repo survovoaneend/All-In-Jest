@@ -1900,7 +1900,7 @@ pattern = "if not skip_increment then G.GAME.current_round.reroll_cost_increase 
 position = "before"
 match_indent = true
 payload = '''
-if G.GAME.shop_galloping_dominoed then skip_increment = true end
+if G.GAME.shop_galloping_dominoed then skip_increment = true; G.GAME.round_resets.temp_reroll_cost = G.GAME.shop_galloping_dominoed end
 '''
 
 # Give consumables editions if Bartender is owned
