@@ -54,7 +54,7 @@ local chaos = {
           if effect == "money" then
             local money = pseudorandom('jest_chaos_tag', 1, 50)
             ease_dollars(money)
-          elseif effect == "boss_reroll" and not MP.LOBBY.code then
+          elseif effect == "boss_reroll" and not (MP and MP.LOBBY.code) then
             local bosses = {}
             for k, v in pairs(G.P_BLINDS) do
               if v and v.boss then
