@@ -27,8 +27,6 @@ local chaos = {
     local trigger = false
     while (not trigger) or (effect == nil) do
       effect = pseudorandom_element(self.config.effects, pseudoseed('jest_chaos_tag'))
-      
-      effect = "level_hands"
 
       if effect == "boss_reroll" and MP and MP.LOBBY.code then
         trigger = false
