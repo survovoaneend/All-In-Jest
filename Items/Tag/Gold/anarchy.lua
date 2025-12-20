@@ -144,8 +144,7 @@ local anarchy_tag = {
             G.FUNCS.use_card({ config = { ref_table = card } })
             card:start_materialize()
           elseif effect == "create_jokers" then
-            local jokers_to_create = math.min(pseudorandom('jest_chaos_tag', 1, 4),
-              G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
+            local jokers_to_create = math.min(pseudorandom('jest_chaos_tag', 1, 4), G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
             G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
             G.E_MANAGER:add_event(Event({
               func = function()
@@ -153,7 +152,7 @@ local anarchy_tag = {
                   local card = create_card('Joker', G.jokers, nil, nil, nil, nil, nil, 'jest_anarchy_tag')
                   card:add_to_deck()
                   G.jokers:emplace(card)
-                  card:start_materialize()
+                  card:start_materialize(nil, i ~= 1)
                   G.GAME.joker_buffer = 0
                 end
                 return true
@@ -168,9 +167,8 @@ local anarchy_tag = {
                   local card = create_card('Joker', G.jokers, nil, nil, nil, nil, nil, 'jest_anarchy_tag')
                   card:add_to_deck()
                   G.jokers:emplace(card)
-                  card:set_edition(edition)
-                  card:start_materialize()
-                  G.GAME.joker_buffer = 0
+                  card:set_edition(edition, nil, i ~= 1)
+                  card:start_materialize(nil, i ~= 1)
                 end
                 return true
               end
@@ -179,7 +177,7 @@ local anarchy_tag = {
             local consumeables_to_create = pseudorandom('jest_chaos_tag', 3, 4)
             local c_edition = { negative = true }
             for i = 1, consumeables_to_create do
-              local card_to_create = create_consumable("Consumeables", nil, nil, { edition = c_edition })
+              local card_to_create = create_consumable("Consumeables", nil, nil, { edition = c_edition }, nil, nil, nil, i ~= 1)
             end
           elseif effect == "dupe_joker" then
             local joker = pseudorandom_element(G.jokers.cards, pseudoseed('jest_anarchy_tag'))
