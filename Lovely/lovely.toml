@@ -288,6 +288,86 @@ SMODS.displayed_hand = calculated_text or text; SMODS.displaying_scoring = true
 '''
 match_indent = true
 
+# B-side decks UI junk
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+local lwidth, rwidth = 1.4, 1.8
+'''
+position = "before"
+payload = '''
+local old_ordered_names, old_viewed_deck = {}, viewed_deck
+for k_, v_ in ipairs(ordered_names) do
+    old_ordered_names[#old_ordered_names+1] = v_
+end
+ordered_names, viewed_deck = {}, 1
+for k, v in ipairs(G.P_CENTER_POOLS.Back) do
+    local has_deck = false
+    for k_, v_ in ipairs(old_ordered_names) do
+        if v_ == v.name then
+            has_deck = true
+        end
+    end
+    if (v.config.aij and v.config.aij.bside and has_deck and G.GAME.jest_bside_tab) or ((not v.config.aij or v.config.aij and not v.config.aij.bside) and has_deck and not G.GAME.jest_bside_tab) then
+        ordered_names[#ordered_names+1] = v.name
+        if v.name == G.GAME.viewed_back.name then viewed_deck = k end
+    end
+end
+--G.GAME.jest_bside_not_collection = true
+
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.GAME.viewed_back:change_to(deck_pool[args.to_key])"
+position = "before"
+payload = '''
+if not G.GAME.jest_bside_collection then
+    local old_deck_pool = {}
+    for k_, v_ in ipairs(deck_pool) do
+        old_deck_pool[#old_deck_pool+1] = v_
+    end
+    deck_pool = {}
+    for k, v in ipairs(old_deck_pool) do
+        if (v.config.aij and v.config.aij.bside and G.GAME.jest_bside_tab) or ((not v.config.aij or v.config.aij and not v.config.aij.bside) and not G.GAME.jest_bside_tab) then
+            deck_pool[#deck_pool+1] = v
+        end
+    end
+end
+G.GAME.jest_bside_collection = false
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''{n=G.UIT.C, config={align = "cm", minw = 2.5}, nodes={}}'''
+position = "at"
+payload = '''
+{n=G.UIT.C, config={align = "cm", minw = 0.5}, nodes={}},
+type == 'New Run' and {n=G.UIT.C, config={align = "cm", minw = 1, minh = 0.4, padding = 0.2, r = 0.1, hover = true, colour = G.C.SECONDARY_SET.Enhanced, button = "jest_bside_decks", shadow = true}, nodes={
+    {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+        {n=G.UIT.T, config={text = G.GAME.jest_bside_tab and localize('k_aij_aside') or localize('k_aij_bside'), scale = 0.8, colour = G.C.UI.TEXT_LIGHT,}}
+    }}
+}} or nil,
+{n=G.UIT.C, config={align = "cm", minw = 1.0}, nodes={}},
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''G.FUNCS.false_ret = function() return false end'''
+position = "before"
+payload = '''
+_can_continue = not G.GAME.jest_bside_new_run and _can_continue or false
+G.GAME.jest_bside_new_run = false
+'''
+match_indent = true
+
 [[patches]] 
 [patches.pattern]
 target = "functions/UI_definitions.lua"
@@ -1191,6 +1271,10 @@ end
 if G.GAME.previous_jest_upgrade_tab ~= G.GAME.jest_upgrade_tab then
     G.FUNCS.your_collection_tags_page({cycle_config = {current_option = 1}})
     G.GAME.previous_jest_upgrade_tab = G.GAME.jest_upgrade_tab
+end
+if G.GAME.previous_jest_bside_tab ~= G.GAME.jest_bside_tab then
+    
+    G.GAME.previous_jest_bside_tab = G.GAME.jest_bside_tab
 end
 if (G.shop and not G.GAME.shop_free and G.GAME.jest_shop_perma_free) then
     if G.shop_jokers and G.shop_booster then 

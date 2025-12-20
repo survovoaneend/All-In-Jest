@@ -105,6 +105,8 @@ jest_free_stultor_rerolls = 0,
 jest_fairy_edition_rate = 1,
 ['jest_upgrade_tab'] = false,
 previous_jest_upgrade_tab = false,
+['jest_bside_tab'] = false,
+previous_jest_bside_tab = false,
 shop_galloping_dominoed = false,
 temp_create_card = {},
 '''

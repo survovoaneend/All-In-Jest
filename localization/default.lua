@@ -12,6 +12,8 @@ return {
             k_tarot_q = "Tarot?",
             k_active = "Active",
             k_inactive = "Inactive",
+            k_aij_bside = "B-Side",
+            k_aij_aside = "A-Side",
             aij_requires_restart = "Requires Restart",
             aij_doesnt_requires_restart = "Doesn't Require Restart",
             aij_upgraded_tags = "Gold Tags",
