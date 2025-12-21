@@ -1111,9 +1111,9 @@ return {
                 name = "Hat Trick", 
                 text = { 
                     "If played hand is a",
-                    "{C:attention}Three of a Kind{}, scored",
-                    "cards give {C:mult}Mult{} equal to",
-                    "its {C:attention}level",
+                    "{C:attention}Three of a Kind{},",
+                    "scored cards give {C:mult}Mult{}",
+                    "equal to its {C:attention}level",
                     "{C:inactive}(Currently {C:mult}+#1#{} {C:inactive}Mult)",
                 } 
             },
@@ -3173,8 +3173,8 @@ return {
                 name = "Lexicon", 
                 text = { 
                     "Adds {C:mult}Mult{} equal to the",
-                    "{C:attention}sum{} of all digits",
-                    "in the values of",
+                    "{C:attention}sum{} of all digits in the",
+                    "{C:attention}ability descriptions{} of",
                     "owned {C:attention}Jokers" ,
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 } 
