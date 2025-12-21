@@ -423,6 +423,14 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
   if do_round == nil then do_round = true end
   if only == nil then only = false end
 
+  -- Some default exclusions, easier than just setting it for every use of the function
+  -- Use this for utility variables that track/store stuff, not for variables that are just usually not modified
+  -- E.g. "extra_value" is often set to prevent sell value from being modified, but we might want an effect
+  -- in the future that modifies that on purpose
+  exclusions = exclusions or {}
+  exclusions.has_been_rerolled_data = true -- Used for Stage Production
+  exclusions.jest_applied = true -- Used by Dongtong
+
   -- Store original values before modification
   local keys, original_values = jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
 
@@ -1411,7 +1419,7 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key)
 
     G.E_MANAGER:add_event(Event({
         trigger = 'after', 
-                delay = 0.15,
+        delay = 0.15,
         func = function() 
             victim_joker:flip()
             play_sound('card1', 1)
@@ -1426,7 +1434,6 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key)
         func = function()
             local old_ability_data = copy_table(victim_joker.ability)
             victim_joker:set_ability(G.P_CENTERS[replacement_key])
-            sendDebugMessage(tprint(old_ability_data), "AIJ")
             if old_ability_data.all_in_jest and old_ability_data.all_in_jest.has_been_rerolled_data then
                 victim_joker.ability = old_ability_data.all_in_jest.has_been_rerolled_data
                 old_ability_data.all_in_jest.has_been_rerolled_data = nil
