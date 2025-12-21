@@ -2952,8 +2952,8 @@ return {
             j_aij_stagehand = { 
                 name = "Stagehand", 
                 text = { 
-                    "All non-{C:dark_edition}Negative{} {C:attention}Jokers{}",
-                    "give {X:mult,C:white}X#1#{} Mult"
+                    "All {C:attention}Jokers{} give",
+                    "{X:mult,C:white}X#1#{} Mult"
                 } 
             },
             j_aij_the_mermaid = { name = "The Mermaid", text = { "" } },
