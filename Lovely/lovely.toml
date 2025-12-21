@@ -99,10 +99,10 @@ match_indent = true
 payload = '''
 local aij_silver_reapply = false
 if self.edition and self.edition.aij_silver then
-    if old_center ~= center and self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
+    if old_center ~= center and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
         jest_ability_calculate(
         self,
-        "/", tonumber(self.edition.pervmult),
+        "/", tonumber(self.edition.prevmult),
         { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
         nil, true, false, "ability"
         )
@@ -121,7 +121,7 @@ position = "before"
 match_indent = true
 payload = '''
 if self.edition and self.edition.aij_silver then
-    if aij_silver_reapply and self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
+    if aij_silver_reapply and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
         jest_ability_calculate(
         self,
         "*", self.edition.mult,
@@ -143,7 +143,7 @@ position = "before"
 match_indent = true
 payload = '''
 if self.ability and SMODS.has_enhancement(self, 'm_aij_canvas') then
-    if self.ability.aij_canvas_temp_suit and self.ability.aij_canvas_temp_rank and self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
+    if self.ability.aij_canvas_temp_suit and self.ability.aij_canvas_temp_rank and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
         SMODS.change_base(self, self.ability.aij_canvas_temp_suit, self.ability.aij_canvas_temp_rank)
         self.front_hidden = self:should_hide_front()
         self.ability.aij_canvas_temp_suit = nil
