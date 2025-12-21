@@ -85,7 +85,7 @@ if context.joker_main then
     
     local x_mult = (card.ability.perma_x_mult or 0)
     if x_mult > 0 then
-        ret.perma_joker_triggers.x_mult = x_mult
+        ret.perma_joker_triggers.x_mult = x_mult + 1
     end
     
     local p_dollars = (card.ability.perma_p_dollars or 0)
@@ -95,7 +95,7 @@ if context.joker_main then
     
     local x_chips = (card.ability.perma_x_chips or 0)
     if x_chips > 0 then
-        ret.perma_joker_triggers.x_chips = x_chips
+        ret.perma_joker_triggers.x_chips = x_chips + 1
     end
 end
 '''
