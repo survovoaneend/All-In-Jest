@@ -3401,7 +3401,10 @@ return {
             j_aij_pure_baseball_card = { 
                 name = "Pure Baseball Card", 
                 text = {
-                
+                    "{C:uncommon}Uncommon{} and {C:rare}Rare",
+                    "{C:attention}Jokers{} permanently gain",
+                    "{X:mult,C:white}X#1#{} Mult when {C:attention}Blind{} is",
+                    "{C:attention}defeated"
                 } 
             },
             j_aij_rock_n_roll_clown = { 
@@ -3695,7 +3698,7 @@ return {
                 name = "Party Time!", 
                 text = {
                     'All {C:attention}Jokers{} permanently',
-                    'gain {C:chips}+#1#{} Chips when Blind',
+                    'gain {C:chips}+#1#{} Chips when {C:attention}Blind',
                     'is {C:attention}defeated',
                 } 
             },
