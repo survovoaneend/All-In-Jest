@@ -3168,6 +3168,74 @@ if self.ability.is_aij_shop_tag then
     return generate_card_ui(G.P_TAGS[self.config.center.key], nil, alt_loc_vars or loc_vars, (self.hide_ability) and 'Undiscovered' or 'Tag', badges, (self.hide_ability), nil, nil, self) 
 end
 '''
+# Joker Perma stuff
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if vars_only then return loc_vars, main_start, main_end end"
+position = "before"
+match_indent = true
+payload = '''
+-- Joker Perma stuff
+if self.ability.set == 'Joker' then
+    loc_vars = loc_vars or {}
+    if self.ability.perma_bonus then
+        loc_vars.bonus_chips = self.ability.perma_bonus ~= 0 and self.ability.perma_bonus or nil
+    end
+    if self.ability.perma_mult then
+        loc_vars.bonus_mult = self.ability.perma_mult ~= 0 and self.ability.perma_mult or nil
+    end
+    if self.ability.perma_x_mult then
+        loc_vars.bonus_x_mult = self.ability.perma_x_mult ~= 0 and (self.ability.perma_x_mult + 1) or nil
+    end
+    if self.ability.perma_p_dollars then
+        loc_vars.bonus_p_dollars = self.ability.perma_p_dollars ~= 0 and self.ability.perma_p_dollars or nil
+    end
+    if self.ability.perma_x_chips then
+        loc_vars.bonus_x_chips = self.ability.perma_x_chips ~= 0 and (self.ability.perma_x_chips + 1) or nil
+    end
+end
+'''
+# Perma Joker stuff Locaization
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if specific_vars and specific_vars.sticker then info_queue[#info_queue+1] = {key = string.lower(specific_vars.sticker)..'_sticker', set = 'Other'} end"
+position = "after"
+match_indent = true
+payload = '''
+if _c.generate_ui and type(_c.generate_ui) == 'function' then
+    if specific_vars and specific_vars.bonus_chips then
+        localize{type = 'other', key = 'card_extra_chips', nodes = desc_nodes, vars = {SMODS.signed(specific_vars.bonus_chips)}}
+    end
+    SMODS.localize_perma_bonuses(specific_vars, desc_nodes)
+end
+'''
+# After Vanilla Jokers
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes, vars = specific_vars or {}}"
+position = "after"
+match_indent = true
+payload = '''
+if specific_vars and specific_vars.bonus_chips then
+    localize{type = 'other', key = 'card_extra_chips', nodes = desc_nodes, vars = {SMODS.signed(specific_vars.bonus_chips)}}
+end
+SMODS.localize_perma_bonuses(specific_vars, desc_nodes)
+'''
+# Perma Joker Trigger stuff
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "for _, key in ipairs({'jokers', 'retriggers'}) do"
+position = "before"
+payload = '''
+for _, key in ipairs({'perma_joker_triggers'}) do
+    SMODS.calculate_effect_table_key(effect_table, key, card, ret)
+end
+'''
+match_indent = true 
 # Tag:get_uibox_table
 # Make skip tag show correctly in the shop (by default it adds one to the tag, now it won't do so if in shop/pack)
 [[patches]]

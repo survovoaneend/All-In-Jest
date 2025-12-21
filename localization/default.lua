@@ -12,6 +12,7 @@ return {
             k_tarot_q = "Tarot?",
             k_active = "Active",
             k_inactive = "Inactive",
+            k_aij_party_time = "Party Time!",
             aij_requires_restart = "Requires Restart",
             aij_doesnt_requires_restart = "Doesn't Require Restart",
             aij_upgraded_tags = "Gold Tags",
@@ -3688,6 +3689,14 @@ return {
                     '{C:tarot}Tarot{} Cards, {C:planet}Planet{} Cards,',
                     'and {C:spectral}Spectral{} Cards are',
                     '{C:attention}considered{} the same',
+                } 
+            },
+            j_aij_party_time = {
+                name = "Party Time!", 
+                text = {
+                    'All {C:attention}Jokers{} permanently',
+                    'gain {C:chips}+#1#{} Chips when Blind',
+                    'is {C:attention}defeated',
                 } 
             },
             j_aij_mammon = { 

@@ -70,6 +70,34 @@ if context.cardarea == G.play and context.all_in_jest and context.all_in_jest.ma
         ret.playing_card.chips = chips
     end
 end
+-- Perma stuff for Jokers
+if context.joker_main then
+    ret.perma_joker_triggers = {}
+    local chips = (card.ability.perma_bonus or 0)
+    if chips ~= 0 then
+        ret.perma_joker_triggers.chips = chips
+    end
+    
+    local mult = (card.ability.perma_mult or 0)
+    if mult ~= 0 then
+        ret.perma_joker_triggers.mult = mult
+    end
+    
+    local x_mult = (card.ability.perma_x_mult or 0)
+    if x_mult > 0 then
+        ret.perma_joker_triggers.x_mult = x_mult
+    end
+    
+    local p_dollars = (card.ability.perma_p_dollars or 0)
+    if p_dollars ~= 0 then
+        ret.perma_joker_triggers.p_dollars = p_dollars
+    end
+    
+    local x_chips = (card.ability.perma_x_chips or 0)
+    if x_chips > 0 then
+        ret.perma_joker_triggers.x_chips = x_chips
+    end
+end
 '''
 
 [[patches]] #For debuffed joker cards
