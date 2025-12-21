@@ -3500,12 +3500,24 @@ do -- All in Jest - Magick Joker and Red Sky
             ret.playing_card.mult = ret.playing_card.mult or 0
             ret.playing_card.mult = ret.playing_card.mult + ret.playing_card.chips
             ret.playing_card.chips = 0
+            G.E_MANAGER:add_event(Event({func = function()
+                for _, red_sky in ipairs(SMODS.find_card("j_aij_red_sky")) do
+                    red_sky:juice_up(0.6, 0.1)
+                end
+                return true
+            end }))
         elseif G.play ~= nil and has_magick_joker then
             local required_suit = G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit
             if card:is_suit(required_suit) then
                 ret.playing_card.mult = ret.playing_card.mult or 0
                 ret.playing_card.mult = ret.playing_card.mult + ret.playing_card.chips
                 ret.playing_card.chips = 0
+                G.E_MANAGER:add_event(Event({func = function()
+                    for _, magick_joker in ipairs(SMODS.find_card("j_aij_magick_joker")) do
+                        magick_joker:juice_up(0.6, 0.1)
+                    end
+                    return true
+                end }))
             end
         end
     end
