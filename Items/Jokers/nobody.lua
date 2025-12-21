@@ -15,7 +15,8 @@ local nobody = {
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    perishable_compat = false, -- Because it would be sad
+    eternal_compat = false, -- incompatible since rerolls are considered not compatible with eternal, so keeping consistency
   
     loc_vars = function(self, info_queue, card)
         
