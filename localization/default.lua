@@ -135,6 +135,8 @@ return {
             aij_torn = "Torn",
             -- Stickers
             aij_marked = "Marked",
+            aij_unusual_doubled = "Doubled",
+            aij_recherche_doubled = "Doubled",
             -- Seals
             aij_smiley_seal = "Smiley Seal",
             aij_melted_seal = "Melted Seal",
@@ -4928,6 +4930,20 @@ return {
                 text = {
                     'Cannot be {C:blue}played',
                     'or {C:red}discarded'
+                }
+            },
+            aij_unusual_doubled = {
+                name = "Doubled",
+                text = {
+                    '{C:attention}X2{} effects',
+                    '{C:inactive,s:0.8}(Granted by an Unusual Tag){}'
+                }
+            },
+            aij_recherche_doubled = {
+                name = "Doubled",
+                text = {
+                    '{C:attention}X2{} effects',
+                    '{C:inactive,s:0.8}(Granted by a Recherche Tag){}'
                 }
             },
             -- (not a sticker but treated as such)
