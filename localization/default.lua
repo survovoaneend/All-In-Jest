@@ -3586,6 +3586,93 @@ return {
                     '{C:attention}Voucher',
                 } 
             },
+            j_aij_triple_sundae = {
+                name = "Triple Sundae", 
+                text = {
+                    {
+                        '{C:chips}+#1#{} Chips, {C:mult}+#2#{} Mult,',
+                        'Earn {C:money}$#3#{} at end of {C:attention}round'
+                    },
+                    {
+                        '{C:attention}Partly{} consumed after {C:attention}#4#',
+                        'Rounds'
+                    },
+                } 
+            },
+            j_aij_double_sundae_1 = {
+                name = "Double Sundae", 
+                text = {
+                    {
+                        '{C:chips}+#1#{} Chips, {C:mult}+#2#{} Mult',
+                    },
+                    {
+                        '{C:attention}Partly{} consumed after {C:attention}#3#',
+                        'Rounds'
+                    },
+                } 
+            },
+            j_aij_double_sundae_2 = {
+                name = "Double Sundae", 
+                text = {
+                    {
+                        '{C:chips}+#1#{} Chips,',
+                        'Earn {C:money}$#2#{} at end of {C:attention}round'
+                    },
+                    {
+                        '{C:attention}Partly{} consumed after {C:attention}#3#',
+                        'Rounds'
+                    },
+                } 
+            },
+            j_aij_double_sundae_3 = {
+                name = "Double Sundae", 
+                text = {
+                    {
+                        '{C:mult}+#1#{} Mult,',
+                        'Earn {C:money}$#2#{} at end of {C:attention}round'
+                    },
+                    {
+                        '{C:attention}Partly{} consumed after {C:attention}#3#',
+                        'Rounds'
+                    },
+                } 
+            },
+            j_aij_sundae_1 = {
+                name = "Sundae", 
+                text = {
+                    {
+                        '{C:chips}+#1#{} Chips',
+                    },
+                    {
+                        '{C:attention}Consumed{} after {C:attention}#2#',
+                        'Rounds'
+                    },
+                } 
+            },
+            j_aij_sundae_2 = {
+                name = "Sundae", 
+                text = {
+                    {
+                        '{C:mult}+#1#{} Mult',
+                    },
+                    {
+                        '{C:attention}Consumed{} after {C:attention}#2#',
+                        'Rounds'
+                    },
+                } 
+            },
+            j_aij_sundae_3 = {
+                name = "Sundae", 
+                text = {
+                    {
+                        'Earn {C:money}$#1#{} at end of {C:attention}round'
+                    },
+                    {
+                        '{C:attention}Consumed{} after {C:attention}#2#',
+                        'Rounds'
+                    },
+                } 
+            },
             j_aij_elder = {
                 name = "Elder", 
                 text = {
