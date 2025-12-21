@@ -16,19 +16,19 @@ SMODS.current_mod.optional_features = {
 SMODS.injectItems = function()
     injectitems_ref()
     G.AIJ.shared_mystery_sprites = G.AIJ.shared_mystery_sprites or {
-        bg1 = Sprite(0, 0, 1, 1, G.ASSET_ATLAS['aij_mystery_atlas'], {
+        bg1 = SMODS.create_sprite(0, 0, 1, 1, 'aij_mystery_atlas', {
             x = 0,
             y = 0
         }),
-        bg2 = Sprite(0, 0, 1, 1, G.ASSET_ATLAS['aij_mystery_atlas'], {
+        bg2 = SMODS.create_sprite(0, 0, 1, 1, 'aij_mystery_atlas', {
           x = 1,
           y = 0
         }),
-        bg3 = Sprite(0, 0, 1, 1, G.ASSET_ATLAS['aij_mystery_atlas'], {
+        bg3 = SMODS.create_sprite(0, 0, 1, 1, 'aij_mystery_atlas', {
           x = 2,
           y = 0
         }),
-        bg4 = Sprite(0, 0, 1, 1, G.ASSET_ATLAS['aij_mystery_atlas'], {
+        bg4 = SMODS.create_sprite(0, 0, 1, 1, 'aij_mystery_atlas', {
           x = 3,
           y = 0
       }),

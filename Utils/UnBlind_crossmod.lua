@@ -11,7 +11,7 @@ end
 aij_UnBlind_create_UIBox_blind_ref = UnBlind_create_UIBox_blind
 function UnBlind_create_UIBox_blind(type) -- Main definition for the whole of the shop_sign replacement
     if type == "aij_Hidden" then
-        local hidden_blind_animation = AnimatedSprite(0,0, 0.75, 0.75, G.ANIMATION_ATLAS["aij_blind_drawn_replacement"] or G.ANIMATION_ATLAS['blind_chips'],  { x = 0, y = 0 })
+        local hidden_blind_animation = SMODS.create_sprite(0,0, 0.75, 0.75, "aij_blind_drawn_replacement",  { x = 0, y = 0 })
 	      hidden_blind_animation:define_draw_steps({   {shader = 'dissolve', shadow_height = 0.05},  {shader = 'dissolve'}  })
         hidden_blind_animation.float = true
         hidden_blind_animation.states.hover.can = true

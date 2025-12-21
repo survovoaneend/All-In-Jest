@@ -829,19 +829,19 @@ function Card:set_sprites(_center, _front)
         for k, v in pairs(_center.all_in_jest.soul_layers) do
             if _center.all_in_jest.soul_layers[k] and not self.children[k] then
                 local scale_mod = _center.all_in_jest.soul_layers[k].moving and 0.07 + 0.02*math.cos(1.8*G.TIMERS.REAL) + 0.00*math.cos((G.TIMERS.REAL - math.floor(G.TIMERS.REAL))*math.pi*14)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^3 or 0.07
-				local rotate_mod = _center.all_in_jest.soul_layers[k].moving and 0.05*math.cos(1.219*G.TIMERS.REAL) + 0.00*math.cos((G.TIMERS.REAL)*math.pi*5)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^2 or 0
-				self.children[k] = Sprite(
-					self.T.x,
-					self.T.y,
-					self.T.w,
-					self.T.h,
-					G.ASSET_ATLAS[_center.all_in_jest.soul_layers.atlas or _center.atlas or _center.set],
-					_center.all_in_jest.soul_layers[k].pos
-				)
-				self.children[k].role.draw_major = self
-				self.children[k].states.hover.can = false
-				self.children[k].states.click.can = false
-			end
+                local rotate_mod = _center.all_in_jest.soul_layers[k].moving and 0.05*math.cos(1.219*G.TIMERS.REAL) + 0.00*math.cos((G.TIMERS.REAL)*math.pi*5)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^2 or 0
+                self.children[k] = SMODS.create_sprite(
+                    self.T.x,
+                    self.T.y,
+                    self.T.w,
+                    self.T.h,
+                    _center.all_in_jest.soul_layers.atlas or _center.atlas or _center.set,
+                    _center.all_in_jest.soul_layers[k].pos
+                )
+                self.children[k].role.draw_major = self
+                self.children[k].states.hover.can = false
+                self.children[k].states.click.can = false
+            end
             self.children[k]:set_sprite_pos(_center.all_in_jest.soul_layers[k].pos)
         end
     end

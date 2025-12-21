@@ -98,12 +98,12 @@ SMODS.DrawStep({
 					)
 				else
 					local center = self.config.center
-					self.children[k] = Sprite(
+					self.children[k] = SMODS.create_sprite(
 						self.T.x,
 						self.T.y,
 						self.T.w,
 						self.T.h,
-						G.ASSET_ATLAS[center.all_in_jest.soul_layers[k].atlas or center.atlas or center.set],
+						center.all_in_jest.soul_layers[k].atlas or center.atlas or center.set,
 						center.all_in_jest.soul_layers[k].pos
 					)
 					self.children[k].role.draw_major = self
