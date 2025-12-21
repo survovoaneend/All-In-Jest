@@ -45,7 +45,7 @@ local silver = {
         jest_ability_calculate(
           card,
           "*", card.edition.mult,
-          { x_chips = 1, x_mult = 1, xmult = 1, extra_value = true, rarity = true },
+          { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
           nil, true, false, "ability.extra"
         )
         if card.added_to_deck then
@@ -80,7 +80,7 @@ local silver = {
       jest_ability_calculate(
         card,
         "/", card.edition.mult,
-        { x_chips = 1, x_mult = 1, xmult = 1, extra_value = true, rarity = true },
+        { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
         nil, true, false, "ability.extra"
       )
       if card.added_to_deck then

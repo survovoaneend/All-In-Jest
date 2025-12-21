@@ -185,6 +185,7 @@ AllInJest = {}
 assert(SMODS.load_file('Utils/context.lua'))()
 assert(SMODS.load_file('Utils/draw.lua'))()
 assert(SMODS.load_file('Utils/functions.lua'))()
+assert(SMODS.load_file('Utils/functions_value_mod.lua'))()
 assert(SMODS.load_file('Utils/hooks.lua'))()
 assert(SMODS.load_file('Utils/ui.lua'))()
 if next(SMODS.find_mod("unBlindShopGUI")) then
