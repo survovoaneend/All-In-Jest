@@ -55,7 +55,7 @@ end
 [[patches]] #For debuffed joker cards
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = "if not card:can_calculate(context.ignore_debuff, context.remove_playing_cards) then"
+pattern = "if not card:can_calculate(context.ignore_debuff, context.remove_playing_cards*"
 position = "before"
 match_indent = true
 payload = '''

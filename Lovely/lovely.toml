@@ -415,10 +415,10 @@ match_indent = true
 
 # Marked Cards (3/3)
 # Ends the round if all cards in hand are marked (resulting in a game over)
-# G.FUNCS.draw_from_deck_to_hand
+# SMODS.draw_cards
 [[patches]] 
 [patches.pattern]
-target = "functions/state_events.lua"
+target = '=[SMODS _ "src/utils.lua"]'
 pattern = "local flags = SMODS.calculate_context({drawing_cards = true, amount = hand_space})"
 position = "before"
 payload = '''
@@ -498,17 +498,30 @@ target = "functions/state_events.lua"
 pattern = '''
 update_hand_text({sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, volume = 0.4, immediate = true, nopulse = nil,
             delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, {handname=disp_text, level=G.GAME.hands[text].level, mult = G.GAME.hands[text].mult, chips = G.GAME.hands[text].chips})
-SMODS.displayed_hand = text; SMODS.displaying_scoring = true
 '''
 position = "at"
 payload = '''
 update_hand_text({sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, volume = 0.4, immediate = true, nopulse = nil,
             delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, {handname=disp_text, level=G.GAME.hands[calculated_text or text].level, mult = G.GAME.hands[calculated_text or text].mult, chips = G.GAME.hands[calculated_text or text].chips})
-SMODS.displayed_hand = calculated_text or text; SMODS.displaying_scoring = true
 '''
 match_indent = true
 
 # Royal Flush (4/5)
+# Show the Royal Flush chips and mult when played (instead of a straight flush)
+# G.FUNCS.evaluate_play()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+SMODS.displayed_hand = text
+'''
+position = "after"
+payload = '''
+SMODS.displayed_hand = calculated_text or text
+'''
+match_indent = true
+
+# Royal Flush (5/5)
 # Show the level of royal flush and additional chips+mult in run info
 # create_UIBox_hand_tip()
 [[patches]] 
@@ -519,7 +532,7 @@ return {n=G.UIT.R, config={align = "cm", colour = G.C.WHITE, r = 0.1}, nodes={
 '''
 position = "before"
 payload = '''
-if handname == 'Straight Flush' and G.GAME.hands["aij_Royal Flush"] then
+if handname == 'Straight Flush' and G.GAME.hands["aij_Royal Flush"] and G.GAME.hands["aij_Royal Flush"].level > G.GAME.hands["Straight Flush"].level then
     return {n=G.UIT.R, config={align = "cm", r = 0.1}, nodes={
         {n=G.UIT.R, config={align = "cm", colour = G.C.WHITE, r = 0.1}, nodes={
           {n=G.UIT.C, config={align = "cm"}, nodes={
@@ -528,8 +541,8 @@ if handname == 'Straight Flush' and G.GAME.hands["aij_Royal Flush"] then
         }},
         {n=G.UIT.R, config={align = "cm", padding = 0.05, r = 0.1, colour = darken(G.C.JOKER_GREY, 0.1), emboss = 0.05, hover = true, force_focus = true, on_demand_tooltip = {text = localize("aij_Royal Flush", 'poker_hand_descriptions'), filler = {func = create_UIBox_hand_tip, args = "aij_Royal Flush"}}}, nodes={
           {n=G.UIT.C, config={align = "cl", padding = 0, minw = 5}, nodes={
-            {n=G.UIT.C, config={align = "cm", padding = 0.01, r = 0.1, colour = G.C.HAND_LEVELS[math.min(7, math.max(1,G.GAME.hands["aij_Royal Flush"].level-1))], minw = 1.5, outline = 0.8, outline_colour = G.C.WHITE}, nodes={
-              {n=G.UIT.T, config={text = '+'..localize('k_level_prefix')..(G.GAME.hands["aij_Royal Flush"].level-1), scale = 0.5, colour = G.C.UI.TEXT_DARK}}
+            {n=G.UIT.C, config={align = "cm", padding = 0.01, r = 0.1, colour = G.C.HAND_LEVELS[math.min(7, math.max(G.GAME.hands["aij_Royal Flush"].level-G.GAME.hands["Straight Flush"].level))], minw = 1.5, outline = 0.8, outline_colour = G.C.WHITE}, nodes={
+              {n=G.UIT.T, config={text = '+'..localize('k_level_prefix')..(G.GAME.hands["aij_Royal Flush"].level-G.GAME.hands["Straight Flush"].level), scale = 0.5, colour = G.C.UI.TEXT_DARK}}
             }},
             {n=G.UIT.C, config={align = "cm", minw = 4.5, maxw = 4.5}, nodes={
               {n=G.UIT.T, config={text = ' '..localize("aij_Royal Flush",'poker_hands'), scale = 0.45, colour = G.C.UI.TEXT_LIGHT, shadow = true}}
@@ -537,13 +550,13 @@ if handname == 'Straight Flush' and G.GAME.hands["aij_Royal Flush"] then
           }},
           {n=G.UIT.C, config={align = "cm", padding = 0.05, colour = G.C.BLACK,r = 0.1}, nodes={
             {n=G.UIT.C, config={align = "cr", padding = 0.01, r = 0.1, colour = G.C.CHIPS, minw = 1.1}, nodes={
-              {n=G.UIT.T, config={text = '+'..number_format(G.GAME.hands["aij_Royal Flush"].l_chips*(G.GAME.hands["aij_Royal Flush"].level-1), 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}},
+              {n=G.UIT.T, config={text = '+'..number_format(G.GAME.hands["aij_Royal Flush"].chips-G.GAME.hands["Straight Flush"].chips, 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}},
               {n=G.UIT.B, config={w = 0.08, h = 0.01}}
             }},
             {n=G.UIT.T, config={text = "X", scale = 0.45, colour = G.C.MULT}},
             {n=G.UIT.C, config={align = "cl", padding = 0.01, r = 0.1, colour = G.C.MULT, minw = 1.1}, nodes={
               {n=G.UIT.B, config={w = 0.08,h = 0.01}},
-              {n=G.UIT.T, config={text = '+'..number_format(G.GAME.hands["aij_Royal Flush"].l_mult*(G.GAME.hands["aij_Royal Flush"].level-1), 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}}
+              {n=G.UIT.T, config={text = '+'..number_format(G.GAME.hands["aij_Royal Flush"].mult-G.GAME.hands["Straight Flush"].mult, 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}}
             }}
           }},
           {n=G.UIT.C, config={align = "cm"}, nodes={
@@ -554,20 +567,6 @@ if handname == 'Straight Flush' and G.GAME.hands["aij_Royal Flush"] then
           }}
         }},
     }}
-end
-'''
-match_indent = true
-
-# Royal Flush (5/5)
-# Update royal flush level when straight flush is upgrades
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = 'G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)'
-position = "after"
-payload = '''
-if hand == 'Straight Flush' then
-    G.GAME.hands['aij_Royal Flush'].level = math.max(0, G.GAME.hands['aij_Royal Flush'].level + amount)
 end
 '''
 match_indent = true
@@ -1426,12 +1425,12 @@ end
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = '''local blind_sprite = Sprite(0, 0, 0.7,0.7, G.ASSET_ATLAS['tags'], copy_table(config.pos))'''
+pattern = '''local blind_sprite = SMODS.create_sprite(0, 0, 0.7,0.7, 'tags', copy_table(config.pos))'''
 position = "after"
 match_indent = true
 payload = '''
 if config.tag.config.aij then
-    blind_sprite = Sprite(0, 0, 0.7,0.7, G.ASSET_ATLAS['aij_tag_atlas'], copy_table(config.pos))
+    blind_sprite = SMODS.create_sprite(0, 0, 0.7,0.7, 'aij_tag_atlas', copy_table(config.pos))
 end
 '''
 
@@ -1643,12 +1642,12 @@ end
 [[patches]]
 [patches.pattern]
 target = "tag.lua"
-pattern = 'local tag_sprite = Sprite(0,0,_size*1,_size*1,G.ASSET_ATLAS[(not self.hide_ability) and G.P_TAGS[self.key].atlas or "tags"], (self.hide_ability) and G.tag_undiscovered.pos or self.pos)'
+pattern = 'local tag_sprite = *'
 position = "after"
 match_indent = true
 payload = '''
 if self.config.aij and self.config.aij.upgrade then
-    tag_sprite = Sprite(0,0,_size*1,_size*1,G.ASSET_ATLAS[(not self.hide_ability) and G.P_TAGS[self.key].atlas or "aij_tag_atlas"], (self.hide_ability) and { x = 5, y = 4 } or self.pos)
+    tag_sprite = SMODS.create_sprite(0,0,_size*1,_size*1,SMODS.get_atlas((not self.hide_ability) and G.P_TAGS[self.key].atlas or "aij_tag_atlas"), (self.hide_ability) and { x = 5, y = 4 } or self.pos)
 end
 ''' 
 
@@ -3047,35 +3046,11 @@ payload = '''
 #end
 #'''
 
-# Moon Cards (1/3)
-# Level up hands to relative stats rather than calculating the expected chip/mult stats without considering moons
-# SMODS.Scoring_Parameter.level_up_hand()
-[[patches]]
-[patches.pattern]
-target = '''=[SMODS _ "src/game_object.lua"]'''
-pattern = '''
-hand[self.key] = math.max(hand['s_'..self.key] + hand['l_'..self.key]*(hand.level - 1), 0)
-'''
-position = "at"
-payload = '''
-local aij_temp = hand['l_'..self.key] 
-local aij_val = hand['l_'..self.key] * amount
-local aij_extra_amount = (aij_val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - aij_val
-aij_extra_amount = aij_extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)
-hand['l_'..self.key] = math.floor(aij_val + aij_extra_amount)/amount
-if hand == G.GAME.hands['Straight Flush'] then
-    level_up_other_hand(nil, 'aij_Royal Flush', hand, true, math.max(hand['l_'..self.key]*amount, 0), self.key)
-end
-hand[self.key] = math.max(hand[self.key] + hand['l_'..self.key]*amount, 0)
-hand['l_'..self.key] = aij_temp
-'''
-match_indent = true
-
 ###########################
     # BLUE SEAL FIXES #
 ###########################
 
-# Moon Cards (2/3)
+# Moon Cards (1/2)
 # Prevent blue seals from generating moons
 # Card:get_end_of_round_effect()
 [[patches]]
@@ -3139,7 +3114,7 @@ end
     # END OF BLUE SEAL FIXES #
 #--------------------------------#
 
-# Moon Cards (3/3) + Astrologer Joker
+# Moon Cards (2/2) + Astrologer Joker
 # Offsets abundance of moons by making all other planets appear x3 as often, done mainly for crossmod purposes
 # Other special All in Jest planets are listed as well, making them appear 1/3 as much as other standard planets
 # (Dark Star, Rogue Planet, and Sol)
@@ -3655,11 +3630,14 @@ end
 '''
 # Shop Tags (6/10)
 # Card:load
-# Set size of shop tag sprites
+# Set size of shop tag sprites on game reload
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
-pattern = 'if self.config.center.display_size and self.config.center.display_size.h then'
+pattern = '''
+self.VT.h = self.T.*
+self.VT.w = self.T.*
+'''
 position = "before"
 match_indent = true
 payload = '''
@@ -3783,30 +3761,3 @@ pattern = "self.in_blind = true"
 position = "after"
 match_indent = true
 payload = 'SMODS.calculate_context({aij_before_setting_blind = true, blind = G.GAME.round_resets.blind})'
-
-# Fixes a crash when orbital tags are generated outside of Vanilla means
-# Prevents having to set Orbital Tag ability on every single tag generation effect
-# Stolen from Ortalab, clearly they ran into the same problems as I
-# Tag:set_ability()
-[[patches]]
-[patches.pattern]
-target = 'tag.lua'
-pattern = '''
-if G.GAME.orbital_choices and G.GAME.orbital_choices[G.GAME.round_resets.ante][self.ability.blind_type] then
-    self.ability.orbital_hand = G.GAME.orbital_choices[G.GAME.round_resets.ante][self.ability.blind_type]
-end
-'''
-position = 'at'
-match_indent = true
-payload = '''
-if G.GAME.orbital_choices and G.GAME.orbital_choices[G.GAME.round_resets.ante] and G.GAME.orbital_choices[G.GAME.round_resets.ante][self.ability.blind_type] then
-    self.ability.orbital_hand = G.GAME.orbital_choices[G.GAME.round_resets.ante][self.ability.blind_type]       
-else
-    local _poker_hands = {}
-    for k, v in pairs(G.GAME.hands) do
-        if v.visible then _poker_hands[#_poker_hands+1] = k end
-    end
-    G.GAME.orbital_choices[G.GAME.round_resets.ante] = G.GAME.orbital_choices[G.GAME.round_resets.ante] or {}
-    G.GAME.orbital_choices[G.GAME.round_resets.ante][self.ability.blind_type] = pseudorandom_element(_poker_hands, pseudoseed('orbital'))
-end
-'''

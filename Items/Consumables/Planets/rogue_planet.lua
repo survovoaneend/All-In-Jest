@@ -32,7 +32,7 @@ local rogue_planet = {
   end,
   use = function(self, card, area, copier)
     local available_hands = {}
-    local level_hands = {}
+    local hands_to_upgrade = {}
     for _, k in ipairs(G.handlist) do
       local hand = G.GAME.hands[k]
       if hand.visible or k == "aij_Royal Flush" then
@@ -55,25 +55,18 @@ local rogue_planet = {
           end
         end
         if (text:find(k) or text:find(localize(k, 'poker_hands'))) and should_add then
-          for j = 1, #level_hands do
-            if k == level_hands[j] then
+          for j = 1, #hands_to_upgrade do
+            if k == hands_to_upgrade[j] then
               should_add = false
             end
           end
           if should_add then
-            table.insert(level_hands, k)
+            table.insert(hands_to_upgrade, k)
           end
         end
       end
     end
-    for _, k in ipairs(level_hands) do
-      update_hand_text({ sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3 },
-        { handname = localize(k, 'poker_hands'), chips = G.GAME.hands[k].chips, mult = G.GAME.hands[k].mult, level = G
-        .GAME.hands[k].level })
-      level_up_hand(card, k)
-      update_hand_text({ sound = 'button', volume = 0.7, pitch = 1.1, delay = 0 },
-        { mult = 0, chips = 0, handname = '', level = '' })
-    end
+    level_up_hand(card, hands_to_upgrade)
   end,
   in_pool = function(self, args)
     if G.GAME and G.jokers then

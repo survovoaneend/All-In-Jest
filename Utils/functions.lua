@@ -166,87 +166,32 @@ function jest_add_tag(tag, event, silent)
   end
 end
 
-function level_up_other_hand(card, hand, other_hand, instant, amount, type)
-    if not type or type == 'mult' then
-        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + amount)
-    end
-    if not type or type == 'chips' then
-        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + amount)
-    end
-    G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
-    }))
-end
-
 function level_up_hand_chips(card, hand, instant, amount)
-    if (G.GAME.hands[hand].level and G.GAME.hands[hand].chips) then
-        amount = amount or 1
-        local extra_chips = 0
-        G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
-        local val = G.GAME.hands[hand].l_chips * amount * 2
-        local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - val
-        extra_amount = (extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)) + (extra_chips > 0 and extra_chips or 0)
-        if hand == 'Straight Flush' then
-            G.GAME.hands['aij_Royal Flush'].level = math.max(0, G.GAME.hands['aij_Royal Flush'].level + amount)
-            level_up_other_hand(nil, 'aij_Royal Flush', hand, true, amount * 2 + extra_amount, 'chips')
-        end
-        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + math.floor((G.GAME.hands[hand].l_chips * amount * 2 + extra_amount)))
-        if not instant then 
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
-                play_sound('tarot1')
-                if card then card:juice_up(0.8, 0.5) end
-                G.TAROT_INTERRUPT_PULSE = true
-                return true end }))
-            update_hand_text({delay = 0}, {chips = G.GAME.hands[hand].chips, StatusText = true})
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-                play_sound('tarot1')
-                if card then card:juice_up(0.8, 0.5) end
-                G.TAROT_INTERRUPT_PULSE = nil
-                return true end }))
-            update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
-            delay(1.3)
-        end
-        G.E_MANAGER:add_event(Event({
-            trigger = 'immediate',
-            func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
-        }))
-    end
+    amount = amount or 1
+    SMODS.upgrade_poker_hands({
+        hands = hand,
+        func = function(base, hand, parameter)
+            return base + G.GAME.hands[hand]['l_' .. parameter] * amount * 2
+        end,
+        level_up = amount,
+        from = card,
+        instant = instant,
+        parameters = {"chips"}
+    })
 end
 
 function level_up_hand_mult(card, hand, instant, amount)
-    if (G.GAME.hands[hand].level and G.GAME.hands[hand].mult) then
-        amount = amount or 1
-        local extra_mult = 0
-        G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
-        local val = G.GAME.hands[hand].l_mult * amount * 2
-        local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - val
-        extra_amount = (extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)) + (extra_mult > 0 and extra_mult or 0)
-        if hand == 'Straight Flush' then
-            G.GAME.hands['aij_Royal Flush'].level = math.max(0, G.GAME.hands['aij_Royal Flush'].level + amount)
-            level_up_other_hand(nil, 'aij_Royal Flush', hand, true, amount * 2 + extra_amount, 'mult')
-        end
-        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + math.floor((G.GAME.hands[hand].l_mult * amount * 2 + extra_amount)))
-        if not instant then 
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
-                play_sound('tarot1')
-                if card then card:juice_up(0.8, 0.5) end
-                G.TAROT_INTERRUPT_PULSE = true
-                return true end }))
-            update_hand_text({delay = 0}, {mult = G.GAME.hands[hand].mult, StatusText = true})
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-                play_sound('tarot1')
-                if card then card:juice_up(0.8, 0.5) end
-                G.TAROT_INTERRUPT_PULSE = nil
-                return true end }))
-            update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
-            delay(1.3)
-        end
-        G.E_MANAGER:add_event(Event({
-            trigger = 'immediate',
-            func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
-        }))
-    end
+    amount = amount or 1
+    SMODS.upgrade_poker_hands({
+        hands = hand,
+        func = function(base, hand, parameter)
+            return base + G.GAME.hands[hand]['l_' .. parameter] * amount * 2
+        end,
+        level_up = amount,
+        from = card,
+        instant = instant,
+        parameters = {"mult"}
+    })
 end
 
 --local ids_op_ref = ids_op

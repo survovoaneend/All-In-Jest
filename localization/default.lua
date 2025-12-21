@@ -149,7 +149,9 @@ return {
         },
         poker_hand_descriptions = {
             ['aij_Royal Flush'] = {
-            ""
+                "5 cards in a row (consecutive ranks) with",
+                "all cards sharing the same suit",
+                "with the lowest card rank 10"
             },
         },
     },

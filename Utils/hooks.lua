@@ -590,11 +590,11 @@ SMODS.PokerHand {
     l_mult = 6,
     l_chips = 60,
     example = {
-        { 'S_A', true },
-        { 'S_K', true },
-        { 'S_Q', true },
-        { 'S_J', true },
-        { 'S_10', true },
+        { 'H_A', true },
+        { 'H_K', true },
+        { 'H_Q', true },
+        { 'H_J', true },
+        { 'H_T', true },
     },
     above_hand = 'Straight Flush',
     evaluate = function(parts, hand)
@@ -609,6 +609,7 @@ SMODS.PokerHand {
             return {}
         end
     end,
+    no_collection = true,
     visible = function(self)
         return false
     end,
@@ -628,6 +629,36 @@ function Game.init_game_object(self)
   ret.all_in_jest = ret.all_in_jest or {}
   ret.all_in_jest.secret_hands = secrets
   return ret
+end
+
+-- Upgrade royal flush when a straight flush is played
+local aij_SMODS_upgrade_poker_hands_ref = SMODS.upgrade_poker_hands
+function SMODS.upgrade_poker_hands(args)
+    local ret = aij_SMODS_upgrade_poker_hands_ref(args)
+    local straight_flush_upgraded = false
+    local royal_flush_upgraded = false
+    for _, hand in ipairs(args.hands) do
+        if hand == "Straight Flush" then
+            straight_flush_upgraded = true
+        end
+        if hand == "aij_Royal Flush" then
+            royal_flush_upgraded = true
+        end
+    end
+    if straight_flush_upgraded and not royal_flush_upgraded then
+        local new_args = {
+            hands = "aij_Royal Flush",
+            parameters = args.parameters,
+            func = function(base, hand, parameter)
+                return args.func(base, "Straight Flush", parameter)
+            end,
+            level_up = args.level_up,
+            instant = true,
+            from = nil,
+        }
+        aij_SMODS_upgrade_poker_hands_ref(new_args)
+    end
+    return ret
 end
 
 -- Modified from Aura
