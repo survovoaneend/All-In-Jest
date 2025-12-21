@@ -3699,6 +3699,22 @@ return {
                     'is {C:attention}defeated',
                 } 
             },
+            j_aij_jokey_bear = {
+                name = "Jokey Bear", 
+                text = {
+                    {
+                        'If score of {C:attention}played hand',
+                        'exceeds the {C:attention}total blind',
+                        '{C:attention}requirement{}, {C:mult}X#1#{} Mult',
+                        'and earn {C:money}$#2#'
+                    },
+                    {
+                        '{C:attention}Retriggers{} until score',
+                        'does not exceed {C:attention}blind',
+                        '{C:attention}requirement'
+                    }
+                } 
+            },
             j_aij_mammon = { 
                 name = "Mammon", 
                 text = {
