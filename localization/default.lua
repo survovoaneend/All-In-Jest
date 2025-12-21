@@ -60,6 +60,7 @@ return {
             k_aij_chaos_ex = 'Chaos!', -- Chaotic modifier
             k_aij_two_into_one_ex = 'Two into one!', -- Mycologists
             k_aij_plus_two_moons = "+2 Moons", -- Sky Trees
+            k_aij_does_not_score_ex = "Does not Score!" -- Opening Move
 
         },
         v_dictionary = {
@@ -2831,8 +2832,8 @@ return {
                         "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
                     },
                     {
-                        "The {C:attention}first hand{} of each",
-                        "round does not score",
+                        "The {C:attention}first hand{} of each round",
+                        "is {C:red}not{} added to your score",
                     },
                 } 
             },

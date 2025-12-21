@@ -2404,22 +2404,21 @@ end
 '''
 
 # Opening Move (1/1)
-# Debuffs first hand played if joker is owned
-# Blind:debuff_hand()
+# Make first hand show "Will not score" if Opening Move is owned
+# CardArea:parse_highlighted()
 [[patches]]
 [patches.pattern]
-target = "blind.lua"
-pattern = '''
-function Blind:debuff_hand(cards, hand, handname, check)
-'''
+target = "cardarea.lua"
+pattern = 'G.boss_throw_hand = nil'
 position = "after"
 match_indent = true
 payload = '''
+do
     local has_opening_move = next(SMODS.find_card("j_aij_opening_move"))
     if G.GAME.current_round.hands_played <= 0 and has_opening_move then
-        self.triggered = true
-        return true
+        G.boss_throw_hand = true
     end
+end
 '''
 
 # # Currently unused patch, used to be used for splash-like jokers but they now use the relevant calculate context instead
