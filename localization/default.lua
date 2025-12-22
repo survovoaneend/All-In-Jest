@@ -2043,7 +2043,13 @@ return {
                     '{C:inactive}(Currently {C:money}$#1#{C:inactive})'
                 },
             },
-            j_aij_peeping_tom = { name = "Peeping tom", text = { "" } },
+            j_aij_peeping_tom = { 
+                name = "Peeping tom", 
+                text = { 
+                    "Reveals the next {C:attention}#1#{} cards in",
+                    "your deck" 
+                } 
+            },
             j_aij_la_commedia_e_finita = {
                 name = "La Commedia è Finita",
                 text = {
@@ -3713,8 +3719,8 @@ return {
                     },
                     {
                         '{C:attention}Retriggers{} until score',
-                        'does not exceed {C:attention}blind',
-                        '{C:attention}requirement'
+                        'does not exceed {C:attention}total',
+                        '{C:attention}blind requirement'
                     }
                 } 
             },
