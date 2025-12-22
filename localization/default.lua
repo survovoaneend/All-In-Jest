@@ -3609,6 +3609,16 @@ return {
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 } 
             },
+            j_aij_corndog = {
+                name = "Corndog", 
+                text = {
+                    "The next {C:attention}#1#{} hands are",
+                    "{C:attention}scored{} as and {C:attention}considered",
+                    "to be {C:attention}Straight Flush",
+                    "regardless of what",
+                    "cards are {C:attention}played"
+                } 
+            },
             j_aij_the_bell = {
                 name = "The Bell", 
                 text = {

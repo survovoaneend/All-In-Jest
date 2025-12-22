@@ -246,6 +246,14 @@ G.GAME.hands[text].played = G.GAME.hands[text].played + 1
 '''
 position = "before"
 payload = '''
+if next(SMODS.find_card("j_aij_corndog")) then 
+    text = 'Straight Flush'
+    non_loc_disp_text = text
+    disp_text = localize(text, 'poker_hands')
+    if poker_hands and scoring_hand and not next(poker_hands["Straight Flush"]) then
+        table.insert(poker_hands["Straight Flush"], scoring_hand)
+    end
+end
 local calculated_text = nil
 if text == 'aij_Royal Flush' then
     calculated_text = 'aij_Royal Flush'
@@ -1147,6 +1155,17 @@ if card.config.center.set == 'Spectral' and next(SMODS.find_card("j_aij_dark_mag
         end
     }))
 end
+'''
+
+# Corndog code
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = 'if results["Three of a Kind"][1] then'
+position = "before"
+match_indent = true
+payload = '''
+
 '''
 
 # Patch to force pit blind on ante 4/5 or during the all pit blinds challenge
