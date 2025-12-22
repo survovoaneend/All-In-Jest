@@ -1643,7 +1643,7 @@ return {
             j_aij_string_theory = { 
                 name = "String Theory", 
                 text = { 
-                    "Hand always counts as",
+                    "{C:blue}Hand{} always counts as",
                     "containing a {C:attention}Straight" 
                 } 
             },
@@ -3617,6 +3617,15 @@ return {
                     "to be {C:attention}Straight Flush",
                     "regardless of what",
                     "cards are {C:attention}played"
+                } 
+            },
+            j_aij_the_herald = {
+                name = "The Herald", 
+                text = {
+                    "{C:blue}Hand{} always counts as",
+                    "containing the {C:attention}most",
+                    "{C:attention}played hand",
+                    "{C:inactive}(Currently {C:attention}#1#{C:inactive})"
                 } 
             },
             j_aij_the_bell = {
