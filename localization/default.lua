@@ -76,6 +76,8 @@ return {
 
             a_aij_joker_slots = '+#1# Joker Slot',
             a_aij_joker_slots_minus = '-#1# Joker Slot',
+
+            a_aij_times_interest = 'X#1# Interest',
         },
         challenge_names = {
             c_aij_bananarama = "Bananarama",
@@ -3648,6 +3650,14 @@ return {
                     "{B:1,C:white,s:0.8}Activated Ability",
                     'Pay {C:money}$#1#{} to reroll the',
                     '{C:attention}Voucher',
+                } 
+            },
+            j_aij_crypto_trader = {
+                name = "Crypto Trader", 
+                text = {
+                    "{C:green}#1# in #2#{} chance to multiply",
+                    "{C:money}Interest{} by {C:attention}#3#{}; Else,",
+                    "earn no {C:money}Interest"
                 } 
             },
             j_aij_triple_sundae = {
