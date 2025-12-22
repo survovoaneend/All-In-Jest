@@ -37,7 +37,7 @@ if context.setting_blind then
     end
     for k, v in pairs(G.jokers.cards) do
         if v.ability and v.ability.all_in_jest and v.ability.all_in_jest.has_been_rerolled then
-            card_eval_status_text(card, "extra", nil, nil, nil, {message = localize("k_reset"), colour = G.C.FILTER})
+            card_eval_status_text(v, "extra", nil, nil, nil, {message = localize("k_reset"), colour = G.C.FILTER})
             All_in_Jest.reroll_joker(v, v.ability.all_in_jest.has_been_rerolled, 'stage_production')
             v.ability.all_in_jest.has_been_rerolled = nil
         end
@@ -55,7 +55,7 @@ end
 [[patches]] #For debuffed joker cards
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = "if not card:can_calculate(context.ignore_debuff, context.remove_playing_cards) then"
+pattern = "if not card:can_calculate(context.ignore_debuff, context.remove_playing_cards*"
 position = "before"
 match_indent = true
 payload = '''

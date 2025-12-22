@@ -5,7 +5,8 @@ local imageboard = {
     key = "imageboard",
     config = {
       extra = {
-          has_been_played = nil
+          has_been_played = nil,
+          mod_mult = 1
       }
     },
     rarity = 1,
@@ -18,7 +19,7 @@ local imageboard = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+        return {vars = {card.ability.extra.mod_mult, card.ability.extra.mod_mult * 2, card.ability.extra.mod_mult * 3}}
     end,
   
     calculate = function(self, card, context)
@@ -27,7 +28,7 @@ local imageboard = {
             card.ability.extra.has_been_played = card.ability.extra.has_been_played or {}
             local compare_id = context.other_card:get_id()
             card.ability.extra.has_been_played[compare_id] = card.ability.extra.has_been_played[compare_id] or 0
-            card.ability.extra.has_been_played[compare_id] = card.ability.extra.has_been_played[compare_id] + 1
+            card.ability.extra.has_been_played[compare_id] = card.ability.extra.has_been_played[compare_id] + card.ability.extra.mod_mult
             return {
                 mult = card.ability.extra.has_been_played[compare_id]
             }

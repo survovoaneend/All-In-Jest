@@ -38,22 +38,34 @@ local aureate = {
     if (card.ability.set == 'Enhanced' or card.ability.set == 'Default') and (context.main_scoring and context.cardarea == G.play) then
       local mod = to_big((((card.edition or {}).money or self.config.money) / (3 / 2)) + 1)
       local max = to_big((card.edition or {}).max or self.config.max)
-      local total_money = to_big(G.GAME.dollars)
+      local total_money = to_big(G.GAME.dollars) + (to_big(G.GAME.dollar_buffer or 0))
       local money = (total_money * mod) - total_money
+      money = to_big(math.floor(math.min(money, max)))
       if money > to_big(0) then
+        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + money
+        G.E_MANAGER:add_event(Event({func = (function()
+          G.GAME.dollar_buffer = 0
+          return true
+        end)}))
         return {
-          h_dollars = to_big(math.floor(math.min(money, max))),
+          h_dollars = money,
           card = card,
         }
       end
     elseif context.end_of_round and card.ability.set == 'Joker' and context.main_eval then
       local mod = to_big(((card.edition or {}).money or self.config.money) + 1)
       local max = to_big((card.edition or {}).max or self.config.max)
-      local total_money = to_big(G.GAME.dollars)
+      local total_money = to_big(G.GAME.dollars) + (to_big(G.GAME.dollar_buffer or 0))
       local money = (total_money * mod) - total_money
+      money = to_big(math.floor(math.min(money, max)))
       if money > to_big(0) then
+        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + money
+        G.E_MANAGER:add_event(Event({func = (function()
+          G.GAME.dollar_buffer = 0
+          return true
+        end)}))
         return {
-          dollars = to_number(math.floor(math.min(money, max))),
+          dollars = money,
           card = card,
         }
       end

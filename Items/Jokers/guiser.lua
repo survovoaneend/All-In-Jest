@@ -11,7 +11,7 @@ local guiser = {
   rarity = 3,
   pos = { x = 1, y = 6},
   atlas = 'joker_atlas',
-  cost = 8,
+  cost = 10,
   unlocked = true,
   discovered = false,
   blueprint_compat = false,

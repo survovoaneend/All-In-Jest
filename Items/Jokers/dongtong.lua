@@ -17,8 +17,8 @@ local dong_tong_double = function (card)
                 jest_ability_calculate(
                 card,
                 "*", 2,
-                { x_chips = 1, x_mult = 1, extra_value = true, jest_applied = true, card_limit=true },
-                nil, true, "ability.extra"
+                { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit=true },
+                nil, false, "ability.extra"
                 )
             end
         elseif diff < 0 then
@@ -26,8 +26,8 @@ local dong_tong_double = function (card)
                 jest_ability_calculate(
                 card,
                 "/", 2,
-                { x_chips = 1, x_mult = 1, extra_value = true, jest_applied = true, card_limit=true },
-                nil, true, "ability.extra"
+                { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit=true },
+                nil, false, "ability.extra"
                 )
             end
         end
@@ -118,7 +118,23 @@ function Card:update(dt)
   return ref
 end
 
+-- Setting a new ability will set base values without triggering dongtong's multiplication
+-- We set prevmult to 1 to trigger the Card:update() routine
+local aij_card_set_ability_ref = Card.set_ability
+function Card:set_ability(center, initial, delay_sprites)
+    local ret = aij_card_set_ability_ref(self, center, initial, delay_sprites)
+
+    if self.ability and self.ability.jest_applied and self.ability.jest_applied.j_aij_dongtong and self.ability.set == "Joker" then
+        self.ability.jest_applied["j_aij_dongtong"] = 0
+    end
+
+    return ret
+end
+
 -- Set Oops! to be incompatible, otherwise dongtong will double probabilities where it really shouldn't
 G.P_CENTERS["j_oops"].dongtong_compat = false
+
+-- Set Burnt Joker to be incompatible, since it has unused internal values that make it look compatible
+G.P_CENTERS["j_burnt"].dongtong_compat = false
 
 return { name = {"Jokers"}, items = {dongtong} }

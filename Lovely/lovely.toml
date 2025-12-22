@@ -99,10 +99,10 @@ match_indent = true
 payload = '''
 local aij_silver_reapply = false
 if self.edition and self.edition.aij_silver then
-    if old_center ~= center and self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
+    if old_center ~= center and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
         jest_ability_calculate(
         self,
-        "/", tonumber(self.edition.pervmult),
+        "/", tonumber(self.edition.prevmult),
         { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
         nil, true, false, "ability"
         )
@@ -121,7 +121,7 @@ position = "before"
 match_indent = true
 payload = '''
 if self.edition and self.edition.aij_silver then
-    if aij_silver_reapply and self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
+    if aij_silver_reapply and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
         jest_ability_calculate(
         self,
         "*", self.edition.mult,
@@ -132,7 +132,7 @@ if self.edition and self.edition.aij_silver then
 end
 '''
 
-# Canvas Cards
+# Canvas Cards (1/3)
 # Card:set_base()
 # Removes canvas attributes when enhancement is removed
 [[patches]]
@@ -143,13 +143,39 @@ position = "before"
 match_indent = true
 payload = '''
 if self.ability and SMODS.has_enhancement(self, 'm_aij_canvas') then
-    if self.ability.aij_canvas_temp_suit and self.ability.aij_canvas_temp_rank and self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
+    if self.ability.aij_canvas_temp_suit and self.ability.aij_canvas_temp_rank and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
         SMODS.change_base(self, self.ability.aij_canvas_temp_suit, self.ability.aij_canvas_temp_rank)
         self.front_hidden = self:should_hide_front()
         self.ability.aij_canvas_temp_suit = nil
         self.ability.aij_canvas_temp_rank = nil
     end
 end
+'''
+
+# Canvas Cards (2/3)
+# Card:generate_UIBox_ability_table()
+# Set whether the front of a card is hidden so we know if we should hide card suit/rank badge
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "bonus_repetitions = *"
+position = "after"
+match_indent = true
+payload = '''
+front_hidden = self.front_hidden,
+'''
+
+# Canvas Cards (3/3)
+# generate_card_ui()
+# Removes name of card if canvas is blank
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "elseif specific_vars.playing_card then"
+position = "before"
+match_indent = true
+payload = '''
+elseif _c.key == 'm_aij_canvas' and specific_vars.front_hidden then full_UI_table.name = true
 '''
 
 # Suit Patches
@@ -350,7 +376,7 @@ do
             aij_exceeds_hand_limit = aij_exceeds_hand_limit + 1
         end
     end
-    if aij_exceeds_hand_limit and aij_exceeds_hand_limit >= (#G.hand.highlighted - math.max(G.GAME.starting_params.play_limit, 1)) then
+    if aij_exceeds_hand_limit > 0 and not ((#G.hand.highlighted - aij_exceeds_hand_limit) > math.max(G.GAME.starting_params.play_limit, 1) or G.GAME.blind.block_play or #G.hand.highlighted <= 0) then
         e.config.colour = G.C.BLUE
         e.config.button = 'play_cards_from_highlighted'
         return
@@ -389,10 +415,10 @@ match_indent = true
 
 # Marked Cards (3/3)
 # Ends the round if all cards in hand are marked (resulting in a game over)
-# G.FUNCS.draw_from_deck_to_hand
+# SMODS.draw_cards
 [[patches]] 
 [patches.pattern]
-target = "functions/state_events.lua"
+target = '=[SMODS _ "src/utils.lua"]'
 pattern = "local flags = SMODS.calculate_context({drawing_cards = true, amount = hand_space})"
 position = "before"
 payload = '''
@@ -472,17 +498,30 @@ target = "functions/state_events.lua"
 pattern = '''
 update_hand_text({sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, volume = 0.4, immediate = true, nopulse = nil,
             delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, {handname=disp_text, level=G.GAME.hands[text].level, mult = G.GAME.hands[text].mult, chips = G.GAME.hands[text].chips})
-SMODS.displayed_hand = text; SMODS.displaying_scoring = true
 '''
 position = "at"
 payload = '''
 update_hand_text({sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, volume = 0.4, immediate = true, nopulse = nil,
             delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, {handname=disp_text, level=G.GAME.hands[calculated_text or text].level, mult = G.GAME.hands[calculated_text or text].mult, chips = G.GAME.hands[calculated_text or text].chips})
-SMODS.displayed_hand = calculated_text or text; SMODS.displaying_scoring = true
 '''
 match_indent = true
 
 # Royal Flush (4/5)
+# Show the Royal Flush chips and mult when played (instead of a straight flush)
+# G.FUNCS.evaluate_play()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+SMODS.displayed_hand = text
+'''
+position = "after"
+payload = '''
+SMODS.displayed_hand = calculated_text or text
+'''
+match_indent = true
+
+# Royal Flush (5/5)
 # Show the level of royal flush and additional chips+mult in run info
 # create_UIBox_hand_tip()
 [[patches]] 
@@ -493,7 +532,7 @@ return {n=G.UIT.R, config={align = "cm", colour = G.C.WHITE, r = 0.1}, nodes={
 '''
 position = "before"
 payload = '''
-if handname == 'Straight Flush' and G.GAME.hands["aij_Royal Flush"] then
+if handname == 'Straight Flush' and G.GAME.hands["aij_Royal Flush"] and G.GAME.hands["aij_Royal Flush"].level > G.GAME.hands["Straight Flush"].level then
     return {n=G.UIT.R, config={align = "cm", r = 0.1}, nodes={
         {n=G.UIT.R, config={align = "cm", colour = G.C.WHITE, r = 0.1}, nodes={
           {n=G.UIT.C, config={align = "cm"}, nodes={
@@ -502,8 +541,8 @@ if handname == 'Straight Flush' and G.GAME.hands["aij_Royal Flush"] then
         }},
         {n=G.UIT.R, config={align = "cm", padding = 0.05, r = 0.1, colour = darken(G.C.JOKER_GREY, 0.1), emboss = 0.05, hover = true, force_focus = true, on_demand_tooltip = {text = localize("aij_Royal Flush", 'poker_hand_descriptions'), filler = {func = create_UIBox_hand_tip, args = "aij_Royal Flush"}}}, nodes={
           {n=G.UIT.C, config={align = "cl", padding = 0, minw = 5}, nodes={
-            {n=G.UIT.C, config={align = "cm", padding = 0.01, r = 0.1, colour = G.C.HAND_LEVELS[math.min(7, math.max(1,G.GAME.hands["aij_Royal Flush"].level-1))], minw = 1.5, outline = 0.8, outline_colour = G.C.WHITE}, nodes={
-              {n=G.UIT.T, config={text = '+'..localize('k_level_prefix')..(G.GAME.hands["aij_Royal Flush"].level-1), scale = 0.5, colour = G.C.UI.TEXT_DARK}}
+            {n=G.UIT.C, config={align = "cm", padding = 0.01, r = 0.1, colour = G.C.HAND_LEVELS[math.min(7, math.max(G.GAME.hands["aij_Royal Flush"].level-G.GAME.hands["Straight Flush"].level))], minw = 1.5, outline = 0.8, outline_colour = G.C.WHITE}, nodes={
+              {n=G.UIT.T, config={text = '+'..localize('k_level_prefix')..(G.GAME.hands["aij_Royal Flush"].level-G.GAME.hands["Straight Flush"].level), scale = 0.5, colour = G.C.UI.TEXT_DARK}}
             }},
             {n=G.UIT.C, config={align = "cm", minw = 4.5, maxw = 4.5}, nodes={
               {n=G.UIT.T, config={text = ' '..localize("aij_Royal Flush",'poker_hands'), scale = 0.45, colour = G.C.UI.TEXT_LIGHT, shadow = true}}
@@ -511,13 +550,13 @@ if handname == 'Straight Flush' and G.GAME.hands["aij_Royal Flush"] then
           }},
           {n=G.UIT.C, config={align = "cm", padding = 0.05, colour = G.C.BLACK,r = 0.1}, nodes={
             {n=G.UIT.C, config={align = "cr", padding = 0.01, r = 0.1, colour = G.C.CHIPS, minw = 1.1}, nodes={
-              {n=G.UIT.T, config={text = '+'..number_format(G.GAME.hands["aij_Royal Flush"].l_chips*(G.GAME.hands["aij_Royal Flush"].level-1), 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}},
+              {n=G.UIT.T, config={text = '+'..number_format(G.GAME.hands["aij_Royal Flush"].chips-G.GAME.hands["Straight Flush"].chips, 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}},
               {n=G.UIT.B, config={w = 0.08, h = 0.01}}
             }},
             {n=G.UIT.T, config={text = "X", scale = 0.45, colour = G.C.MULT}},
             {n=G.UIT.C, config={align = "cl", padding = 0.01, r = 0.1, colour = G.C.MULT, minw = 1.1}, nodes={
               {n=G.UIT.B, config={w = 0.08,h = 0.01}},
-              {n=G.UIT.T, config={text = '+'..number_format(G.GAME.hands["aij_Royal Flush"].l_mult*(G.GAME.hands["aij_Royal Flush"].level-1), 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}}
+              {n=G.UIT.T, config={text = '+'..number_format(G.GAME.hands["aij_Royal Flush"].mult-G.GAME.hands["Straight Flush"].mult, 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}}
             }}
           }},
           {n=G.UIT.C, config={align = "cm"}, nodes={
@@ -528,20 +567,6 @@ if handname == 'Straight Flush' and G.GAME.hands["aij_Royal Flush"] then
           }}
         }},
     }}
-end
-'''
-match_indent = true
-
-# Royal Flush (5/5)
-# Update royal flush level when straight flush is upgrades
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = 'G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)'
-position = "after"
-payload = '''
-if hand == 'Straight Flush' then
-    G.GAME.hands['aij_Royal Flush'].level = math.max(0, G.GAME.hands['aij_Royal Flush'].level + amount)
 end
 '''
 match_indent = true
@@ -783,7 +808,9 @@ if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.
               G.E_MANAGER:add_event(Event({func = function()
                 G.CONTROLLER:snap_to({node = _top_button})
               return true end }))
-              _top_button.config.button = 'select_blind'
+              if _top_button.config.button ~= "mp_toggle_ready" then -- AiJ x Multiplayer
+                  _top_button.config.button = "select_blind"
+              end
               _top_button.config.colour = G.C.FILTER
               _top_button.config.hover = true
               _top_button.children[1].config.colour = G.C.WHITE
@@ -904,11 +931,12 @@ match_indent = true
 
 # Branching Deck (6/9)
 # Reset selected tag when ending the blind (needed for Dizzard)
+# Wildcard for compat with multiplayer
 # G.FUNCS.cash_out()
 [[patches]] 
 [patches.pattern]
 target = "functions/button_callbacks.lua"
-pattern = "G.deck:shuffle('cashout'..G.GAME.round_resets.ante)"
+pattern = "G.deck:shuffle('cashout'..*"
 position = "after"
 payload = '''
 G.GAME.all_in_jest.blind_tags.selected_index = nil
@@ -1202,7 +1230,7 @@ match_indent = true
 # '''
 # match_indent = true
 
-# Scapino (1/3) (Booster pack reroll joker)
+# Scapino (1/3) (Booster pack rerolling)
 # Removes all booster packs on reroll
 # G.FUNCS.reroll_shop()
 [[patches]] 
@@ -1221,7 +1249,7 @@ end
 '''
 match_indent = true
 
-# Scapino (2/3) (Booster pack reroll joker)
+# Scapino (2/3) (Booster pack rerolling)
 # Adds new booster packs on reroll
 # G.FUNCS.reroll_shop()
 [[patches]] 
@@ -1240,7 +1268,7 @@ end
 '''
 match_indent = true
 
-# Scapino (3/3) (Booster pack reroll joker)
+# Scapino (3/3) (Booster pack rerolling)
 # Define card to create for the shop_booster area
 # create_card_for_shop()
 [[patches]]
@@ -1397,16 +1425,17 @@ end
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = '''local blind_sprite = Sprite(0, 0, 0.7,0.7, G.ASSET_ATLAS['tags'], copy_table(config.pos))'''
+pattern = '''local blind_sprite = SMODS.create_sprite(0, 0, 0.7,0.7, 'tags', copy_table(config.pos))'''
 position = "after"
 match_indent = true
 payload = '''
 if config.tag.config.aij then
-    blind_sprite = Sprite(0, 0, 0.7,0.7, G.ASSET_ATLAS['aij_tag_atlas'], copy_table(config.pos))
+    blind_sprite = SMODS.create_sprite(0, 0, 0.7,0.7, 'aij_tag_atlas', copy_table(config.pos))
 end
 '''
 
 # Track hands and discards remaining on a whole-run and per-ante basis
+# Ante stats shouldn't be set here for boss blind
 # Only used for a few effects as of v0.6
 # G.FUNCS.evaluate_round()
 [[patches]]
@@ -1613,12 +1642,12 @@ end
 [[patches]]
 [patches.pattern]
 target = "tag.lua"
-pattern = 'local tag_sprite = Sprite(0,0,_size*1,_size*1,G.ASSET_ATLAS[(not self.hide_ability) and G.P_TAGS[self.key].atlas or "tags"], (self.hide_ability) and G.tag_undiscovered.pos or self.pos)'
+pattern = 'local tag_sprite = *'
 position = "after"
 match_indent = true
 payload = '''
 if self.config.aij and self.config.aij.upgrade then
-    tag_sprite = Sprite(0,0,_size*1,_size*1,G.ASSET_ATLAS[(not self.hide_ability) and G.P_TAGS[self.key].atlas or "aij_tag_atlas"], (self.hide_ability) and { x = 5, y = 4 } or self.pos)
+    tag_sprite = SMODS.create_sprite(0,0,_size*1,_size*1,SMODS.get_atlas((not self.hide_ability) and G.P_TAGS[self.key].atlas or "aij_tag_atlas"), (self.hide_ability) and { x = 5, y = 4 } or self.pos)
 end
 ''' 
 
@@ -1826,7 +1855,7 @@ pattern = "{n=G.UIT.T, config={text = blind.mult..localize('k_x_base'), scale = 
 position = "before"
 match_indent = true
 payload = '''blind.key == "bl_aij_the_clay" and {n=G.UIT.T, config={text = "2~5"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or 
-              blind.aij_variable_req and {n=G.UIT.T, config={text = blind.mult.."+?"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or '''
+              blind.aij_variable_req and false and {n=G.UIT.T, config={text = blind.mult.."+?"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or '''
 
 # The Journey Blind (1/1)
 # Set The Journey to have a special background when activated
@@ -1871,7 +1900,7 @@ pattern = "if not skip_increment then G.GAME.current_round.reroll_cost_increase 
 position = "before"
 match_indent = true
 payload = '''
-if G.GAME.shop_galloping_dominoed then skip_increment = true end
+if G.GAME.shop_galloping_dominoed then skip_increment = true; G.GAME.round_resets.temp_reroll_cost = G.GAME.shop_galloping_dominoed end
 '''
 
 # Give consumables editions if Bartender is owned
@@ -1929,6 +1958,7 @@ target = "card.lua"
 pattern = "if self.ability.name == 'Blueprint' or self.ability.name == 'Brainstorm' then"
 position = "before"
 payload = '''
+--[[
 if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage' or (self.ability.name == 'j_aij_czar' or self.ability.name == 'j_aij_joker_png') then
 	local other_joker = nil
     if self.ability.name == 'j_aij_visage' then
@@ -1958,6 +1988,7 @@ if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage
         self.ability.blueprint_compat = 'incompatible'
     end
 end
+]]--
 if self.ability.name == 'j_aij_elder' then
     other_joker = All_in_Jest.get_longest_held_joker()
     if other_joker and other_joker ~= self and other_joker.config.center.blueprint_compat then
@@ -1977,6 +2008,7 @@ target = "card.lua"
 pattern = "elseif self.ability.name == 'Smeared Joker' then"
 position = "after"
 payload = '''
+--[[
 elseif self.ability.name == 'j_aij_clay_joker' then
     self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
     main_end = (self.area and self.area == G.jokers) and {
@@ -2013,6 +2045,7 @@ elseif self.ability.name == 'j_aij_joker_png' then
             }}
         }}
     } or nil
+]]--
 elseif self.ability.name == 'j_aij_elder' then
     self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
     main_end = (self.area and self.area == G.jokers) and {
@@ -2128,8 +2161,8 @@ if card and card.ability and card.ability.patches then
 end
 '''
 
-# Adds tooltip for perma-debuffed cards
-# Currently just for The Spear blind
+# Adds tooltip for special "stickers"
+# (Mark of the Spear)
 # generate_card_ui()
 [[patches]]
 [patches.pattern]
@@ -2236,8 +2269,8 @@ other.ability.jest_copy_edition = false
 [[patches]] 
 [patches.pattern]
 target = "functions/state_events.lua"
-pattern = "dollars = dollars + G.GAME.interest_amount*math.min(math.floor(G.GAME.dollars/5), G.GAME.interest_cap/5)"
-position = "after"
+pattern = "add_round_eval_row({name = 'bottom', dollars = dollars*"
+position = "before"
 payload = '''
 dollars = math.floor(dollars + 0.5)
 '''
@@ -2370,22 +2403,21 @@ end
 '''
 
 # Opening Move (1/1)
-# Debuffs first hand played if joker is owned
-# Blind:debuff_hand()
+# Make first hand show "Will not score" if Opening Move is owned
+# CardArea:parse_highlighted()
 [[patches]]
 [patches.pattern]
-target = "blind.lua"
-pattern = '''
-function Blind:debuff_hand(cards, hand, handname, check)
-'''
+target = "cardarea.lua"
+pattern = 'G.boss_throw_hand = nil'
 position = "after"
 match_indent = true
 payload = '''
+do
     local has_opening_move = next(SMODS.find_card("j_aij_opening_move"))
     if G.GAME.current_round.hands_played <= 0 and has_opening_move then
-        self.triggered = true
-        return true
+        G.boss_throw_hand = true
     end
+end
 '''
 
 # # Currently unused patch, used to be used for splash-like jokers but they now use the relevant calculate context instead
@@ -2866,7 +2898,7 @@ position = "after"
 line_prepend = '$indent'
 payload = '''
   if aij_has_blind_drawn then
-      blind_choice.animation = AnimatedSprite(0,0, 1.4, 1.4, G.ANIMATION_ATLAS["aij_blind_drawn_replacement"] or G.ANIMATION_ATLAS['blind_chips'],  { x = 0, y = 0 })
+      blind_choice.animation = SMODS.create_sprite(0,0, 1.4, 1.4, "aij_blind_drawn_replacement",  { x = 0, y = 0 })
       if blind_choice.config.boss_colour ~= G.C.UI.TEXT_INACTIVE then
           blind_choice.config.aij_old_boss_colour = blind_choice.config.boss_colour
           blind_choice.config.boss_colour = G.C.UI.TEXT_INACTIVE
@@ -3014,35 +3046,11 @@ payload = '''
 #end
 #'''
 
-# Moon Cards (1/3)
-# Level up hands to relative stats rather than calculating the expected chip/mult stats without considering moons
-# SMODS.Scoring_Parameter.level_up_hand()
-[[patches]]
-[patches.pattern]
-target = '''=[SMODS _ "src/game_object.lua"]'''
-pattern = '''
-hand[self.key] = math.max(hand['s_'..self.key] + hand['l_'..self.key]*(hand.level - 1), 0)
-'''
-position = "at"
-payload = '''
-local aij_temp = hand['l_'..self.key] 
-local aij_val = hand['l_'..self.key] * amount
-local aij_extra_amount = (aij_val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - aij_val
-aij_extra_amount = aij_extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)
-hand['l_'..self.key] = math.floor(aij_val + aij_extra_amount)/amount
-if hand == G.GAME.hands['Straight Flush'] then
-    level_up_other_hand(nil, 'aij_Royal Flush', hand, true, math.max(hand['l_'..self.key]*amount, 0), self.key)
-end
-hand[self.key] = math.max(hand[self.key] + hand['l_'..self.key]*amount, 0)
-hand['l_'..self.key] = aij_temp
-'''
-match_indent = true
-
 ###########################
     # BLUE SEAL FIXES #
 ###########################
 
-# Moon Cards (2/3)
+# Moon Cards (1/2)
 # Prevent blue seals from generating moons
 # Card:get_end_of_round_effect()
 [[patches]]
@@ -3106,7 +3114,7 @@ end
     # END OF BLUE SEAL FIXES #
 #--------------------------------#
 
-# Moon Cards (3/3) + Astrologer Joker
+# Moon Cards (2/2) + Astrologer Joker
 # Offsets abundance of moons by making all other planets appear x3 as often, done mainly for crossmod purposes
 # Other special All in Jest planets are listed as well, making them appear 1/3 as much as other standard planets
 # (Dark Star, Rogue Planet, and Sol)
@@ -3318,24 +3326,24 @@ payload = '''
 self.all_in_jest = self.all_in_jest or {}
 self.all_in_jest.patches_sprites = {}
 self.all_in_jest.extra_card_sprites = {}
-G.all_in_jest.extra_card_sprites['Mark_of_the_Spear'] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=9,y=2})
-G.all_in_jest.patches_sprites["Other"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=0,y=2})
-G.all_in_jest.patches_sprites["Hearts"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=2,y=2})
-G.all_in_jest.patches_sprites["hc_Hearts"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=1,y=3})
-G.all_in_jest.patches_sprites["Clubs"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=1,y=2})
-G.all_in_jest.patches_sprites["hc_Clubs"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=0,y=3})
-G.all_in_jest.patches_sprites["Diamonds"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=3,y=2})
-G.all_in_jest.patches_sprites["hc_Diamonds"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=2,y=3})
-G.all_in_jest.patches_sprites["Spades"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=4,y=2})
-G.all_in_jest.patches_sprites["hc_Spades"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=3,y=3})
-G.all_in_jest.patches_sprites["paperback_Stars"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=5,y=2})
-G.all_in_jest.patches_sprites["hc_paperback_Stars"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=4,y=3})
-G.all_in_jest.patches_sprites["paperback_Crowns"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=6,y=2})
-G.all_in_jest.patches_sprites["hc_paperback_Crowns"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=5,y=3})
-G.all_in_jest.patches_sprites["bunc_Halberds"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=6,y=3})
-G.all_in_jest.patches_sprites["hc_bunc_Halberds"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=8,y=3})
-G.all_in_jest.patches_sprites["bunc_Fleurons"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=7,y=3})
-G.all_in_jest.patches_sprites["hc_bunc_Fleurons"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_enhancements_atlas"], {x=9,y=3})
+G.all_in_jest.extra_card_sprites['Mark_of_the_Spear'] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=9,y=2})
+G.all_in_jest.patches_sprites["Other"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=0,y=2})
+G.all_in_jest.patches_sprites["Hearts"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=2,y=2})
+G.all_in_jest.patches_sprites["hc_Hearts"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=1,y=3})
+G.all_in_jest.patches_sprites["Clubs"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=1,y=2})
+G.all_in_jest.patches_sprites["hc_Clubs"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=0,y=3})
+G.all_in_jest.patches_sprites["Diamonds"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=3,y=2})
+G.all_in_jest.patches_sprites["hc_Diamonds"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=2,y=3})
+G.all_in_jest.patches_sprites["Spades"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=4,y=2})
+G.all_in_jest.patches_sprites["hc_Spades"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=3,y=3})
+G.all_in_jest.patches_sprites["paperback_Stars"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=5,y=2})
+G.all_in_jest.patches_sprites["hc_paperback_Stars"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=4,y=3})
+G.all_in_jest.patches_sprites["paperback_Crowns"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=6,y=2})
+G.all_in_jest.patches_sprites["hc_paperback_Crowns"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=5,y=3})
+G.all_in_jest.patches_sprites["bunc_Halberds"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=6,y=3})
+G.all_in_jest.patches_sprites["hc_bunc_Halberds"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=8,y=3})
+G.all_in_jest.patches_sprites["bunc_Fleurons"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=7,y=3})
+G.all_in_jest.patches_sprites["hc_bunc_Fleurons"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=9,y=3})
 self.all_in_jest_czar = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
@@ -3361,7 +3369,7 @@ for k, v in pairs(G) do
 end
 '''
 
-# Advanced Copiers (1/2)
+# Advanced Copiers (1/4)
 # Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
 # This is for vanilla jokers. Needs separate patches for vanilla and modded jokers.
 # generate_card_ui()
@@ -3374,7 +3382,7 @@ match_indent = true
 payload = '''
 specific_vars = _c.specific_vars or specific_vars
 '''
-# Advanced Copiers (2/2)
+# Advanced Copiers (2/4)
 # Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
 # This is for modded jokers. Needs separate patches for vanilla and modded jokers.
 # SMODS.Center:generate_ui()
@@ -3395,11 +3403,37 @@ local target = {
 position = "after"
 match_indent = true
 payload = '''
+--[[
 if target.vars.aij_visage then card = G.all_in_jest_visage_last_sold.cards[1]; target.vars.aij_visage = nil end -- All in Jest
 if target.vars.aij_clay then card = G.all_in_jest_clay_last_destroyed.cards[1]; target.vars.aij_clay = nil end -- All in Jest
 if target.vars.aij_joker_png then card = target.vars.aij_joker_png; target.vars.aij_joker_png = nil end -- All in Jest
 if target.vars.aij_czar then card = target.vars.aij_czar; target.vars.aij_czar = nil end -- All in Jest
+]]--
 if target.vars.aij_elder then card = target.vars.aij_elder; target.vars.aij_elder = nil end -- All in Jest
+'''
+# Advanced Copiers (3/4)
+# Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (1/2)
+# generate_card_ui()
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''_c:generate_ui(info_queue, card, desc_nodes, specific_vars, full_UI_table)'''
+position = "before"
+match_indent = true
+payload = '''
+local target_card = _c.specific_vars and _c.specific_vars.aij_elder
+'''
+# Advanced Copiers (4/4)
+# Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (2/2)
+# generate_card_ui()
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''localize{type = 'name', key = key, set = set, nodes = desc_nodes.name_styled, fixed_scale = 0.63, no_pop_in = true, no_shadow = true, y_offset = 0, no_spacing = true, no_bump = true, vars = (_c.create_fake_card and _c.loc_vars and (_c:loc_vars({}, _c:create_fake_card()) or {}).vars) or {colours = {}}} '''
+position = "at"
+match_indent = true
+payload = '''
+localize{type = 'name', key = key, set = set, nodes = desc_nodes.name_styled, fixed_scale = 0.63, no_pop_in = true, no_shadow = true, y_offset = 0, no_spacing = true, no_bump = true, vars = (_c.create_fake_card and _c.loc_vars and (_c:loc_vars({}, target_card or _c:create_fake_card()) or {}).vars) or {colours = {}}}  -- All in Jest overrides
 '''
 
 # Patch to make all instances of "destroy" red
@@ -3466,12 +3500,24 @@ do -- All in Jest - Magick Joker and Red Sky
             ret.playing_card.mult = ret.playing_card.mult or 0
             ret.playing_card.mult = ret.playing_card.mult + ret.playing_card.chips
             ret.playing_card.chips = 0
+            G.E_MANAGER:add_event(Event({func = function()
+                for _, red_sky in ipairs(SMODS.find_card("j_aij_red_sky")) do
+                    red_sky:juice_up(0.6, 0.1)
+                end
+                return true
+            end }))
         elseif G.play ~= nil and has_magick_joker then
             local required_suit = G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit
             if card:is_suit(required_suit) then
                 ret.playing_card.mult = ret.playing_card.mult or 0
                 ret.playing_card.mult = ret.playing_card.mult + ret.playing_card.chips
                 ret.playing_card.chips = 0
+                G.E_MANAGER:add_event(Event({func = function()
+                    for _, magick_joker in ipairs(SMODS.find_card("j_aij_magick_joker")) do
+                        magick_joker:juice_up(0.6, 0.1)
+                    end
+                    return true
+                end }))
             end
         end
     end
@@ -3596,11 +3642,14 @@ end
 '''
 # Shop Tags (6/10)
 # Card:load
-# Set size of shop tag sprites
+# Set size of shop tag sprites on game reload
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
-pattern = 'if self.config.center.display_size and self.config.center.display_size.h then'
+pattern = '''
+self.VT.h = self.T.*
+self.VT.w = self.T.*
+'''
 position = "before"
 match_indent = true
 payload = '''
@@ -3724,30 +3773,3 @@ pattern = "self.in_blind = true"
 position = "after"
 match_indent = true
 payload = 'SMODS.calculate_context({aij_before_setting_blind = true, blind = G.GAME.round_resets.blind})'
-
-# Fixes a crash when orbital tags are generated outside of Vanilla means
-# Prevents having to set Orbital Tag ability on every single tag generation effect
-# Stolen from Ortalab, clearly they ran into the same problems as I
-# Tag:set_ability()
-[[patches]]
-[patches.pattern]
-target = 'tag.lua'
-pattern = '''
-if G.GAME.orbital_choices and G.GAME.orbital_choices[G.GAME.round_resets.ante][self.ability.blind_type] then
-    self.ability.orbital_hand = G.GAME.orbital_choices[G.GAME.round_resets.ante][self.ability.blind_type]
-end
-'''
-position = 'at'
-match_indent = true
-payload = '''
-if G.GAME.orbital_choices and G.GAME.orbital_choices[G.GAME.round_resets.ante] and G.GAME.orbital_choices[G.GAME.round_resets.ante][self.ability.blind_type] then
-    self.ability.orbital_hand = G.GAME.orbital_choices[G.GAME.round_resets.ante][self.ability.blind_type]       
-else
-    local _poker_hands = {}
-    for k, v in pairs(G.GAME.hands) do
-        if v.visible then _poker_hands[#_poker_hands+1] = k end
-    end
-    G.GAME.orbital_choices[G.GAME.round_resets.ante] = G.GAME.orbital_choices[G.GAME.round_resets.ante] or {}
-    G.GAME.orbital_choices[G.GAME.round_resets.ante][self.ability.blind_type] = pseudorandom_element(_poker_hands, pseudoseed('orbital'))
-end
-'''

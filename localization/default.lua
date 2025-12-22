@@ -60,6 +60,7 @@ return {
             k_aij_chaos_ex = 'Chaos!', -- Chaotic modifier
             k_aij_two_into_one_ex = 'Two into one!', -- Mycologists
             k_aij_plus_two_moons = "+2 Moons", -- Sky Trees
+            k_aij_does_not_score_ex = "Does not Score!" -- Opening Move
 
         },
         v_dictionary = {
@@ -135,6 +136,8 @@ return {
             aij_torn = "Torn",
             -- Stickers
             aij_marked = "Marked",
+            aij_unusual_doubled = "Doubled",
+            aij_recherche_doubled = "Doubled",
             -- Seals
             aij_smiley_seal = "Smiley Seal",
             aij_melted_seal = "Melted Seal",
@@ -146,7 +149,9 @@ return {
         },
         poker_hand_descriptions = {
             ['aij_Royal Flush'] = {
-            ""
+                "5 cards in a row (consecutive ranks) with",
+                "all cards sharing the same suit",
+                "with the lowest card rank 10"
             },
         },
     },
@@ -1105,9 +1110,11 @@ return {
             j_aij_hat_trick = { 
                 name = "Hat Trick", 
                 text = { 
-                    "Played {C:attention}3s{} give {C:mult}+#1#{} Mult",
-                    "per {C:attention}Three of a Kind{} level",
-                    "when scored"
+                    "If played hand is a",
+                    "{C:attention}Three of a Kind{},",
+                    "scored cards give {C:mult}Mult{}",
+                    "equal to its {C:attention}level",
+                    "{C:inactive}(Currently {C:mult}+#1#{} {C:inactive}Mult)",
                 } 
             },
             j_aij_squeezy_pete = {
@@ -1171,10 +1178,10 @@ return {
             j_aij_imageboard = { 
                 name = "Imageboard", 
                 text = { 
-                    "Each {C:attention}scored{} card gives {C:mult}+1{} Mult",
+                    "Each {C:attention}scored{} card gives {C:mult}+#1#{} Mult",
                     "for each {C:attention}time{} its {C:attention}rank{}",
                     "has {C:attention}scored{} this hand",
-                    "{C:inactive}(ex. {C:attention}2 2 2{C:inactive} -> {C:mult}+1{C:inactive}, {C:mult}+2{C:inactive}, {C:mult}+3{C:inactive})"
+                    "{C:inactive}(ex. {C:attention}2 2 2{C:inactive} -> {C:mult}+#1#{C:inactive}, {C:mult}+#2#{C:inactive}, {C:mult}+#3#{C:inactive})"
                 } 
             },
             j_aij_carousel = { 
@@ -1217,10 +1224,10 @@ return {
                 name = "Greasepaint", 
                 text = {
                     {
-                        "Disables adjacent {C:attention}Jokers{}"
+                        "Debuffs adjacent {C:attention}Jokers{}"
                     },
                     {
-                        "Disabled {C:attention}Jokers{} and",
+                        "Debuffed {C:attention}Jokers{} and",
                         "{C:attention}cards{} give {X:mult,C:white}X#1#{} Mult"
                     }  
                 } 
@@ -1791,7 +1798,7 @@ return {
             j_aij_mixel_perfect = {
                 name = "Mixel Perfect",
                 text = {
-                    "{C:mult}+#1#{} Mult if {C:attention}played hand{}",
+                    "{C:mult}+#1#{} Mult if {C:attention}scored hand{}",
                     "contains an {C:attention}odd{}",
                     "number of cards"
                 },
@@ -1869,6 +1876,15 @@ return {
                     "{X:mult,C:white}X#1#{} Mult",
                     "Cannot see {C:attention}Boss Blind{} or",
                     "its effects until selected",
+                }
+            },
+            j_aij_mp_blind_drawn = {
+                name = "Blind-Drawn",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult",
+                    "Cannot see your {X:purple,C:white}Nemesis'{}",
+                    "score or remaining hands",
+                    "during {C:attention}PvP Blinds{}",
                 }
             },
             j_aij_heidelberg_tun = {
@@ -2011,14 +2027,14 @@ return {
                 name = "Dapper Dan", 
                 text = { 
                     "Joker {C:dark_edition}Editions{} are",
-                    "{C:attention}2X{} as effective",
+                    "{C:attention}twice{} as effective",
                     "{C:inactive}(Except Negative)"
                 } 
             },
             j_aij_average_joe = {
                  name = "Average Joe", 
                  text = { 
-                    "{C:aij_plasma}Balance{} {C:attention}20%{} of",
+                    "{C:aij_plasma}Balance{} {C:attention}#1#%{} of",
                     "{C:chips}Chips{} and {C:mult}Mult{}"
                 } 
             },
@@ -2362,7 +2378,7 @@ return {
                 text = { 
                     "Randomize the {C:chips}Chips{} and {C:mult}Mult",
                     "of used {C:planet}Planet{} cards",
-                    "from {C:attention}50%{} to {C:attention}200%{}",
+                    "from {C:attention}#1#%{} to {C:attention}#2#%{}",
                     "their original values"
                 } 
             },
@@ -2458,7 +2474,7 @@ return {
             j_aij_orphic_joker = {
                 name = "Orphic Joker",
                 text = {
-                    "Create {C:attention}1{} random",
+                    "Create {C:attention}#1#{} random",
                     "{C:uncommon}Uncommon{} {C:attention}Joker{} when",
                     "{C:attention}Blind{} is skipped",
                     "{C:inactive}(Must have room){}"
@@ -2567,7 +2583,7 @@ return {
                     {
                         "Suit and effect {C:attention}rotate{}",
                         "when a card is {C:attention}scored",
-                        "{C:inactive}(Hearts->Clubs->Diamonds->Spades)"
+                        "{C:inactive}({V:4}Hearts{C:inactive}->{V:5}Clubs{C:inactive}->{V:6}Diamonds{C:inactive}->{V:7}Spades{C:inactive}){}"
                     }
                 }
             },
@@ -2684,7 +2700,7 @@ return {
             j_aij_witchfinder = { 
                 name = "Witchfinder", 
                 text = { 
-                    "{C:attention}1{} additional {C:tarot}Arcana{}",
+                    "{C:attention}#1#{} additional {C:tarot}Arcana{}",
                     "{C:tarot}Pack{} available in {C:money}Shop"
                 } 
             },
@@ -2818,8 +2834,8 @@ return {
                         "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
                     },
                     {
-                        "The {C:attention}first hand{} of each",
-                        "round does not score",
+                        "The {C:attention}first hand{} of each round",
+                        "is {C:red}not{} added to your score",
                     },
                 } 
             },
@@ -2891,7 +2907,7 @@ return {
             j_aij_blue_eyes_white_joker = { 
                 name = "Blue-Eyes White Joker", 
                 text = { 
-                    "If {C:attention}last hand{} of round",
+                    "If {C:attention}final hand{} of round",
                     "is exactly {C:attention}1{} card,",
                     "it permanently gains",
                     "{C:attention}+#1# retrigger"
@@ -3157,8 +3173,8 @@ return {
                 name = "Lexicon", 
                 text = { 
                     "Adds {C:mult}Mult{} equal to the",
-                    "{C:attention}sum{} of all digits",
-                    "in the values of",
+                    "{C:attention}sum{} of all digits in the",
+                    "{C:attention}ability descriptions{} of",
                     "owned {C:attention}Jokers" ,
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 } 
@@ -3268,6 +3284,14 @@ return {
                 text = { 
                     "Set the {C:attention}required{} score",
                     "of all {C:attention}Blinds{} to {C:attention}1X{} Base"
+                } 
+            },
+            j_aij_mp_fall_of_count_chaligny = {
+                name = "Fall of Count Chaligny",
+                text = { 
+                    "Set the {C:attention}required{} score",
+                    "of all {C:attention}Blinds{} to {C:attention}1X{} Base",
+                    "{C:inactive}(Does not affect PvP blinds){}"
                 } 
             },
             j_aij_coulrorachne = { 
@@ -3990,7 +4014,7 @@ return {
                 text = {
                     "If {C:attention}first discard{} of round",
                     "contains exactly {C:attention}1{} card, it",
-                    "permanently gains {C:attention}+1 retrigger"
+                    "permanently gains {C:attention}+#1#{} retrigger"
 
                 },
                 unlock = { "?????" }
@@ -4826,7 +4850,7 @@ return {
                 text = {
                     "The {C:attention}Boss Blind{}",
                     "that appears every",
-                    "{C:attention}8th{} Ante",
+                    "{C:attention}#1#th{} Ante",
                 }
             },
             reroll_joker = {
@@ -4857,28 +4881,28 @@ return {
                 name = "Clubs",
                 text = {
                     "Scored {C:clubs}Clubs{}",
-                    "give {C:mult}+14{} Mult",
+                    "give {C:mult}+#1#{} Mult",
                 }
             },
             overdesigned_spade = {
                 name = "Spades",
                 text = {
                     "Scored {C:spades}Spades{}",
-                    "give {C:chips}+100{} Chips",
+                    "give {C:chips}+#1#{} Chips",
                 }
             },
             overdesigned_diamond = {
                 name = "Diamonds",
                 text = {
                     "Scored {C:diamonds}Diamonds{}",
-                    "earn {C:money}$2{}",
+                    "earn {C:money}$#1#{}",
                 }
             },
             overdesigned_heart = {
                 name = "Hearts",
                 text = {
                     "Scored {C:hearts}Hearts{}",
-                    "give {X:mult,C:white}X1.5{} Mult",
+                    "give {X:mult,C:white}X#1#{} Mult",
                 }
             },
             p_aij_guess_the_jest = {
@@ -4909,6 +4933,20 @@ return {
                 text = {
                     'Cannot be {C:blue}played',
                     'or {C:red}discarded'
+                }
+            },
+            aij_unusual_doubled = {
+                name = "Doubled",
+                text = {
+                    '{C:attention}X2{} effects',
+                    '{C:inactive,s:0.8}(Granted by an Unusual Tag){}'
+                }
+            },
+            aij_recherche_doubled = {
+                name = "Doubled",
+                text = {
+                    '{C:attention}X2{} effects',
+                    '{C:inactive,s:0.8}(Granted by a Recherche Tag){}'
                 }
             },
             -- (not a sticker but treated as such)
@@ -4968,7 +5006,8 @@ return {
             jumbocarrot_credits_info = {
                 name = "Info",
                 text = {
-                    "{s:0.8}-Helped a ton with bugfixing and polish",
+                    "{s:0.8}-Helps a ton with bugfixes and polish",
+                    "{s:0.8}-Seriously, so many bugfixes",
                     "{s:0.8}-Primary playtester",
                     "{s:0.8}-Joined the team in September 2025"
                 }

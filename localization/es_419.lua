@@ -1083,14 +1083,14 @@ return {
                     "mano otorgan sus {C:chips}Fichas{}"
                 }
             },
-            j_aij_hat_trick = {
-                name = "Truco con Sombrero",
-                text = { 
-                    "Los {C:attention}3s{} jugados otorgan",
-                    "{C:mult}+#1#{} Multi por cada nivel",
-                    "de {C:attention}Tercia{} al anotar"
-                } 
-            },
+            -- j_aij_hat_trick = {
+            --     name = "Truco con Sombrero",
+            --     text = { 
+            --         "Los {C:attention}3s{} jugados otorgan",
+            --         "{C:mult}+#1#{} Multi por cada nivel",
+            --         "de {C:attention}Tercia{} al anotar"
+            --     } 
+            -- },
             j_aij_squeezy_pete = {
                 name = "Pedro el Apretable",
                 text = {
@@ -1135,10 +1135,10 @@ return {
             j_aij_imageboard = {
                 name = "Post satírico",
                 text = {
-                    "{C:attention}Anotar{} cartas otorgan {C:mult}+1{} Multi",
+                    "{C:attention}Anotar{} cartas otorgan {C:mult}+#1#{} Multi",
                     "cada {C:attention}vez{} que",
                     "su {C:attention}categoría{} anota",
-                    "{C:inactive}(ej. {C:attention}2 2 2{C:inactive} -> {C:mult}+1{C:inactive}, {C:mult}+2{C:inactive}, {C:mult}+3{C:inactive})"
+                    "{C:inactive}(ej. {C:attention}2 2 2{C:inactive} -> {C:mult}+#1#{C:inactive}, {C:mult}+#2#{C:inactive}, {C:mult}+#3#{C:inactive})"
                 }
             },
             j_aij_carousel = {
@@ -1718,7 +1718,7 @@ return {
                 name = "Comodín Mixel",
                 text = {
                     "{C:mult}+#1#{} Multi si la",
-                    "{C:attention}mano{} contiene un número",
+                    "{C:attention}mano anotada{} contiene un número",
                     "{C:attention}impar{} de cartas",
                 },
             },
@@ -1937,7 +1937,7 @@ return {
             j_aij_average_joe = {
                 name = "Pedro Promedio",
                 text = {
-                    "{C:aij_plasma}Equilibra{} el {C:attention}20%{} de",
+                    "{C:aij_plasma}Equilibra{} el {C:attention}#1#%{} de",
                     "las {C:chips}Fichas{} y {C:mult}Multi{}",
                 }
             },
@@ -2265,7 +2265,7 @@ return {
                 text = {
                     "Las {C:chips}Fichas{} y {C:mult}Multi{} de las",
                     "cartas de {C:planet}Planeta{} son alterados",
-                    "entre un {C:attention}50%{} a {C:attention}200%{}",
+                    "entre un {C:attention}#1#%{} a {C:attention}#2#%{}",
                     "de sus valores originales",
                 }
             },
@@ -2360,7 +2360,7 @@ return {
             j_aij_orphic_joker = {
                 name = "Comodín Órfico",
                 text = {
-                    "Crea {C:attention}1{} {C:attention}Comodín{}",
+                    "Crea {C:attention}#1#{} {C:attention}Comodín{}",
                     "{C:uncommon}Inusual{} al omitir",
                     "una {C:attention}Ciega{}",
                     "{C:inactive}(Debe haber espacio){}",
@@ -2447,7 +2447,7 @@ return {
                     {
                         "Palo y efecto {C:attention}rotan{}",
                         "cuando una carta {C:attention}anota{}",
-                        "{C:inactive,s:0.8}(Corazones->Tréboles->Diamantes->Espadas){}",
+                        "{C:inactive,s:0.8}({V:4}Corazones{C:inactive}->{V:5}Tréboles{C:inactive}->{V:6}Diamantes{C:inactive}->{V:7}Espadas{C:inactive}){}",
                     }
                 }
             },
@@ -2557,7 +2557,7 @@ return {
             j_aij_witchfinder = { 
                 name = "Cazador de Brujas", 
                 text = { 
-                    "Agrega {C:attention}1{} {C:tarot}Paquete Arcano{}",
+                    "Agrega {C:attention}#1#{} {C:tarot}Paquete Arcano{}",
                     "en cada la {C:money}Tienda{}",
                 } 
             },
@@ -3705,7 +3705,7 @@ return {
                     "Si tu primer {C:red}descarte{}",
                     "contiene exactamente {C:attention}1{} carta,",
                     "esta gana permanentemente",
-                    "{C:attention}+1{} reactivación"
+                    "{C:attention}+#1#{} reactivación"
 
                 },
                 unlock = { "?????" }
@@ -4540,28 +4540,28 @@ return {
                 name = "Tréboles",
                 text = {
                     "Los {C:clubs}Tréboles{} anotados",
-                    "otorgan {C:mult}+14{} Multi",
+                    "otorgan {C:mult}+#1#{} Multi",
                 }
             },
             overdesigned_spade = {
                 name = "Espadas",
                 text = {
                     "Las {C:spades}Espadas{} anotadas",
-                    "otorgan {C:chips}+100{} Fichas",
+                    "otorgan {C:chips}+#1#{} Fichas",
                 }
             },
             overdesigned_diamond = {
                 name = "Diamantes",
                 text = {
                     "Los {C:diamonds}Diamantes{} anotados",
-                    "otorgan {C:money}$2{}",
+                    "otorgan {C:money}$#1#{}",
                 }
             },
             overdesigned_heart = {
                 name = "Corazones",
                 text = {
                     "Los {C:hearts}Corazones{} anotados",
-                    "otorgan {X:mult,C:white}X1.5{} Multi",
+                    "otorgan {X:mult,C:white}X#1#{} Multi",
                 }
             },
             p_aij_guess_the_jest = {
