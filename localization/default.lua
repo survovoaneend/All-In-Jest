@@ -2269,7 +2269,21 @@ return {
                 },
             },
             j_aij_sannio = { name = "Sannio", text = { "" } },
-            j_aij_stock_photo = { name = "Stock Photo", text = { "" } },
+            j_aij_stock_photo = { 
+                name = "Stock Photo", 
+                text = { 
+                    {
+                        "Opens a {C:attention}Mega Standard",
+                        "{C:attention}Pack{} when entering the",
+                        "{C:attention}Shop" 
+                    },
+                    {
+                        "{C:green}#1# in #2#{} chance to",
+                        "{C:red}self-destruct{} if it",
+                        "is {C:attention}skipped"
+                    }
+                } 
+            },
             j_aij_fou_du_roi = {
                 name = "Fou du Roi",
                 text = {
@@ -2559,7 +2573,14 @@ return {
                     "as any {C:attention}suit{}",
                 },
             },
-            j_aij_mushroom_cloud = { name = "Mushroom Cloud", text = { "" } },
+            j_aij_mushroom_cloud = { 
+                name = "Mushroom Cloud", 
+                text = { 
+                    "{B:1,C:white,s:0.8}Activated Ability",
+                    "{C:red}Destroy{} all held {C:attention}Jokers",
+                    "and earn {C:money}$#1#" 
+                } 
+            },
             j_aij_overdesigned_joker = {
                 name = "Overdesigned Joker",
                 text = {
