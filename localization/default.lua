@@ -3628,6 +3628,20 @@ return {
                     "{C:inactive}(Currently {C:attention}#1#{C:inactive})"
                 } 
             },
+            j_aij_embroidery = {
+                name = "Embroidery", 
+                text = {
+                    {
+                        "{C:attention}Canvas Cards{} give {C:mult}+#2#",
+                        "Mult if they are {C:attention}ranked"
+                    },
+                    {
+                        "{C:attention}Canvas Cards{} give {C:chips}+#1#",
+                        "Chips if they do {C:red}not",
+                        "have a {C:attention}rank"
+                    }
+                } 
+            },
             j_aij_the_bell = {
                 name = "The Bell", 
                 text = {
