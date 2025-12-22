@@ -24,7 +24,7 @@ local hofnarr_the_barbarian = {
     end,
 
     calculate = function(self, card, context)
-        if context.setting_blind and not self.getting_sliced and context.blind.boss and math.fmod(G.GAME.round_resets.ante, 8) == 0 and not context.blueprint then
+        if context.setting_blind and not self.getting_sliced and context.blind.boss and context.blind.boss.showdown and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     G.E_MANAGER:add_event(Event({
@@ -40,15 +40,15 @@ local hofnarr_the_barbarian = {
 
         end
         if context.joker_main then
-            if math.fmod(G.GAME.round_resets.ante, 8) == 0 and G.GAME.blind:get_type() == 'Boss' then
-            return {
-                mult = card.ability.extra.mult,
-                xmult = card.ability.extra.xmult,
-            }
+            if G.GAME.blind:get_type() == 'Boss' and G.GAME.blind.config.blind.boss and G.GAME.blind.config.blind.boss.showdown then
+                return {
+                    mult = card.ability.extra.mult,
+                    xmult = card.ability.extra.xmult,
+                }
             else
-            return {
-                mult = card.ability.extra.mult,
-            }
+                return {
+                    mult = card.ability.extra.mult,
+                }
             end
         end
     end
