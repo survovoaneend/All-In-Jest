@@ -4850,7 +4850,7 @@ return {
                 text = {
                     "The {C:attention}Boss Blind{}",
                     "that appears every",
-                    "{C:attention}8th{} Ante",
+                    "{C:attention}#1#th{} Ante",
                 }
             },
             reroll_joker = {
