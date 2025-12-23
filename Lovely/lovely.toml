@@ -2634,6 +2634,9 @@ if next(SMODS.find_card("j_aij_electric_snow")) and not (G.GAME.current_round.ha
     G.STATE_COMPLETE = false
     return true
 end
+if G.STATE == G.STATES.NEW_ROUND then
+    return true
+end
 '''
 # Electric Snow (2/2)
 # Prevent round from ending after boss is disabled (unless final hand is played)
@@ -2648,6 +2651,9 @@ payload = '''
 if next(SMODS.find_card("j_aij_electric_snow")) and not (G.GAME.current_round.hands_left < 1) then
     G.STATE = G.STATES.DRAW_TO_HAND
     G.STATE_COMPLETE = false
+    return true
+end
+if G.STATE == G.STATES.NEW_ROUND then
     return true
 end
 '''
@@ -2667,6 +2673,9 @@ if next(SMODS.find_card("j_aij_electric_snow")) and not (G.GAME.current_round.ha
     G.STATE_COMPLETE = false
     return true
 end
+if G.STATE == G.STATES.NEW_ROUND then
+    return true
+end
 '''
 # Electric Snow (2/2)
 # Prevent round from ending after boss is disabled (unless final hand is played)
@@ -2682,6 +2691,9 @@ payload = '''
 if next(SMODS.find_card("j_aij_electric_snow")) and not (G.GAME.current_round.hands_left < 1) then
     G.STATE = G.STATES.DRAW_TO_HAND
     G.STATE_COMPLETE = false
+    return true
+end
+if G.STATE == G.STATES.NEW_ROUND then
     return true
 end
 '''
