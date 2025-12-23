@@ -1,7 +1,7 @@
-local error_404 = {
+local bat_credit_card = {
     object_type = "Joker",
-    order = 405,
-    key = "error_404",
+    order = 442,
+    key = "bat_credit_card",
     ignore = true,
     config = {
         extra = {
@@ -9,7 +9,7 @@ local error_404 = {
         }
     },
     rarity = 1,
-    pos = { x = 18, y = 14 },
+    pos = { x = 12, y = 22 },
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
@@ -30,4 +30,4 @@ local error_404 = {
     end
 }
 
-return { name = { "Jokers" }, items = { error_404 } }
+return { name = { "Jokers" }, items = { bat_credit_card } }

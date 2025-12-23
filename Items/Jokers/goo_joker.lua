@@ -1,7 +1,7 @@
-local error_404 = {
+local goo_joker = {
     object_type = "Joker",
-    order = 405,
-    key = "error_404",
+    order = 518,
+    key = "goo_joker",
     ignore = true,
     config = {
         extra = {
@@ -9,7 +9,7 @@ local error_404 = {
         }
     },
     rarity = 1,
-    pos = { x = 18, y = 14 },
+    pos = { x = 3, y = 25 },
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
@@ -30,4 +30,4 @@ local error_404 = {
     end
 }
 
-return { name = { "Jokers" }, items = { error_404 } }
+return { name = { "Jokers" }, items = { goo_joker } }

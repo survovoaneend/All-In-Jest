@@ -1,7 +1,7 @@
-local error_404 = {
+local geoglyph = {
     object_type = "Joker",
-    order = 405,
-    key = "error_404",
+    order = 427,
+    key = "geoglyph",
     ignore = true,
     config = {
         extra = {
@@ -9,7 +9,7 @@ local error_404 = {
         }
     },
     rarity = 1,
-    pos = { x = 18, y = 14 },
+    pos = { x = 7, y = 20 },
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
@@ -30,4 +30,4 @@ local error_404 = {
     end
 }
 
-return { name = { "Jokers" }, items = { error_404 } }
+return { name = { "Jokers" }, items = { geoglyph } }
