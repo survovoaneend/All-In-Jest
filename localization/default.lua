@@ -59,6 +59,7 @@ return {
             k_aij_double_ex = 'Doubled!',
             k_aij_triple_ex = 'Tripled!',
             k_aij_chaos_ex = 'Chaos!',
+            k_aij_melted_ex = 'Melted',
             k_aij_two_into_one_ex = 'Two into one!'
 
         },
@@ -73,6 +74,8 @@ return {
             a_aij_percent_balance_minus = "-%#1#",
             
             a_aij_hands_minus = "-#1# Hands",
+
+            a_aij_handsize = "+#1# Handsize",
 
             a_aij_joker_slots = '+#1# Joker Slot',
             a_aij_joker_slots_minus = '-#1# Joker Slot',
@@ -121,6 +124,11 @@ return {
             k_aij_blacklist_empty = 'None',
             k_aij_blacklist_and = 'And',
             k_aij_blacklist_more = 'more',
+            -- Ghosthunter
+            k_aij_ghosthunter_ghostless_1 = "cards can appear",
+            k_aij_ghosthunter_ghostless_2 = "in the",
+            k_aij_ghosthunter_ghost_1 = "cards appear",
+            k_aij_ghosthunter_ghost_2 = "more often",
         },
         labels = {
             -- Editions
@@ -1805,7 +1813,7 @@ return {
             j_aij_j_file = { 
                 name = "J-File", 
                 text = { 
-                    "At the start of the {C:attention}round,",
+                    "At the start of the {C:attention}round{},",
                     "search {C:attention}#1#{} card from your",
                     "{C:attention}deck{} to your hand" 
                 } 
@@ -1828,7 +1836,15 @@ return {
                     "{C:inactive}(Max of {C:money}$#1#{}{C:inactive})"
                 },
             },
-            j_aij_second_tier_meme = { name = "Second tier Meme", text = { "" } },
+            j_aij_second_tier_meme = { 
+                name = "Second tier Meme", 
+                text = { 
+                    "If hand is your {C:attention}second",
+                    "{C:attention}most{} played poker hand,",
+                    "{C:attention}retrigger{} all {C:attention}scoring{} cards",
+                    "{C:inactive}(Currently: {C:attention}#1#{C:inactive})"
+                } 
+            },
             j_aij_teeny_joker = {
                 name = "Teeny Joker",
                 text = {
@@ -2322,7 +2338,13 @@ return {
                 }
             }
             },
-            j_aij_magic_hat = { name = "Magic hat", text = { "" } },
+            j_aij_magic_hat = { 
+                name = "Magic hat", 
+                text = { 
+                    "{C:attention}+#1# Hand Size{} while",
+                    "opening {C:attention}Booster Packs" 
+                } 
+            },
             j_aij_anagraph = { 
                 name = "Anagraph", 
                 text = { 
@@ -2457,13 +2479,16 @@ return {
             j_aij_doormat = {
                 name = "Doormat",
                 text = {
-                    ''
+                    'Gives a {C:attention}random',
+                    '{C:attention}enhancement{} to the first',
+                    'drawn card each {C:attention}round'
                 }
             },
             j_aij_ghosthunter = {
                 name = "Ghosthunter",
                 text = {
-                    ''
+                    '{C:spectral}Spectral{} #1#',
+                    '#2# {C:money}Shop'
                 }
             },
             j_aij_family_tree = {
@@ -2475,7 +2500,8 @@ return {
             j_aij_no_junk_mail = {
                 name = "No Junk Mail",
                 text = {
-                    ''
+                    '{C:attention}Standard Packs{} in the',
+                    'Shop are {C:money}free'
                 }
             },
             j_aij_over_the_counter = {
@@ -3868,6 +3894,14 @@ return {
                     "{C:inactive}(Slot changes at end of round)"
                 } 
             },
+            j_aij_crop_circle = {
+                name = "Crop Circle",
+                text = {
+                    'Add a {C:attention}random enhancement',
+                    'to {C:attention}#1# random{} card held in hand',
+                    'when a {C:planet}Planet{} card is used'
+                }
+            },
             j_aij_graffiti = { 
                 name = "Graffiti", 
                 text = {
@@ -3886,7 +3920,10 @@ return {
             j_aij_error_404 = {
                 name = "Error 404",
                 text = {
-                    ''
+                    '{C:attention}Copies{} the effect of',
+                    'a random held {C:attention}Joker',
+                    '{C:attention}Changes{} every hand',
+                    "{C:inactive}(Currently: {C:attention}#1#{C:inactive})"
                 }
             },
             j_aij_lucky_horseshoe = {
@@ -3922,7 +3959,8 @@ return {
             j_aij_prisoners_cinema = {
                 name = "Prisoner's Cinema",
                 text = {
-                    ''
+                    '{C:attention}#1#{} random {C:attention}Booster Pack',
+                    'each shop is {C:attention}free'
                 }
             },
             j_aij_totem_pole = {
@@ -3976,7 +4014,9 @@ return {
             j_aij_wax_joker = {
                 name = "Wax Joker",
                 text = {
-                    ''
+                    'After hand is {C:attention}scored{}, all',
+                    '{C:attention}Seals{} in played hand',
+                    'become {C:jest_melted}Melted{} {C:attention}Seals'
                 }
             },
             j_aij_splat = {
@@ -4038,12 +4078,6 @@ return {
             },
             j_aij_tom_thumb = {
                 name = "Tom Thumb",
-                text = {
-                    ''
-                }
-            },
-            j_aij_crop_circle = {
-                name = "Crop Circle",
                 text = {
                     ''
                 }
@@ -4430,7 +4464,7 @@ return {
                     "{C:blue}Hand{} always counts as",
                     "containing the {C:attention}most",
                     "{C:attention}played hand",
-                    "{C:inactive}(Currently {C:attention}#1#{C:inactive})"
+                    "{C:inactive}(Currently: {C:attention}#1#{C:inactive})"
                 } 
             },
             j_aij_handyman = {
@@ -4456,7 +4490,12 @@ return {
             j_aij_in_memorium = {
                 name = "In Memorium",
                 text = {
-                    ''
+                    {
+                        'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                        'when a {C:spectral}Spectral Pack{} is',
+                        'opened',
+                        "{C:inactive}(Currently{} {X:mult,C:white}X#2#{}{C:inactive} Mult){}"
+                    },
                 }
             },
             j_aij_comic_panel = {
