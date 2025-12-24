@@ -2982,7 +2982,15 @@ return {
                 } 
             },
             j_aij_one_little_duck = { name = "One Little Duck", text = { "" } },
-            j_aij_four_leaf_clover = { name = "Four-leaf Clover", text = { "" } },
+            j_aij_four_leaf_clover = { 
+                name = "Four-leaf Clover", 
+                text = { 
+                    "Increase the {C:attention}quality{} of",
+                    "{C:attention}Jokers{} in the {C:money}Shop{} for each",
+                    "{C:attention}4{} in your {C:attention}full deck",
+                    "{C:inactive}(4s: {C:attention}#1#{C:inactive})"
+                } 
+            },
             j_aij_aphantasia = { 
                 name = "Aphantasia", 
                 text = { 
