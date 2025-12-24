@@ -4,7 +4,7 @@ local in_memorium = {
     key = "in_memorium",
     config = {
         extra = {
-            xmult = 1,
+            xmult = 0,
             xmult_mod = 0.1,
             triggered = false
         }
@@ -22,7 +22,7 @@ local in_memorium = {
         return {
             vars = {
                 card.ability.extra.xmult_mod,
-                card.ability.extra.xmult,
+                card.ability.extra.xmult + 1,
             }
         }
     end,
@@ -36,9 +36,10 @@ local in_memorium = {
             })
         end
         if context.joker_main then
-            if card.ability.extra.xmult > 1 then
+            local mult = card.ability.extra.xmult + 1
+            if mult > 1 then
                 return {
-                    xmult = card.ability.extra.xmult,
+                    xmult = mult,
                 }
             end
         end
