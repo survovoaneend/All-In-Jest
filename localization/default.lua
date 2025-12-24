@@ -2929,7 +2929,16 @@ return {
                 } 
             },
             j_aij_stave = { name = "Stave", text = { "" } },
-            j_aij_sunny_side = { name = "Sunny Side", text = { "" } },
+            j_aij_sunny_side = { 
+                name = "Sunny Side", 
+                text = { 
+                    "When any {C:money}money{} is",
+                    "earned, this {C:attention}Joker{} gains",
+                    "{C:attention}double{} that {C:money}money{} as sell",
+                    "value, and {C:red}subtracts",
+                    "{C:money}money{} earned" 
+                } 
+            },
             j_aij_omelette = { name = "Omelette", text = { "" } },
             j_aij_theyre_looking_at_you = { name = "They're Looking at You...", text = { "" } },
             j_aij_comedy_of_errors = { 
@@ -4925,7 +4934,9 @@ return {
             j_aij_cutesy_joker = {
                 name = "Cutesy Joker",
                 text = {
-                    ''
+                    '{C:green}Probabilities{} on',
+                    '{C:attention}consumables{} are',
+                    '{C:attention}guaranteed'
                 }
             },
             j_aij_quadrangled_joker = {
