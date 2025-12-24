@@ -4353,13 +4353,18 @@ return {
             j_aij_scopaesthesia = {
                 name = "Scopaesthesia",
                 text = {
-                    ''
+                    '{C:attention}Reveal{} the next card in',
+                    'your {C:attention}deck',
+                    '{C:attention}Cards{} that share its {C:attention}rank',
+                    'give {X:mult,C:white}X#1#{} Mult'
                 }
             },
             j_aij_outlet = {
                 name = "Outlet",
                 text = {
-                    ''
+                    'When Blind is {C:attention}selected',
+                    'add a random {C:attention}Charged',
+                    '{C:attention}Card{} to your hand'
                 }
             },
             j_aij_neon_sign = {
@@ -4781,7 +4786,9 @@ return {
             j_aij_jeremy_bearimy = {
                 name = "Jeremy Bearimy",
                 text = {
-                    ''
+                    '{C:attention}Retrigger{} all {C:attention}effects{} that',
+                    'trigger when a Blind is',
+                    '{C:attention}selected{} or {C:attention}defeated'
                 }
             },
             j_aij_burly_joker = {
