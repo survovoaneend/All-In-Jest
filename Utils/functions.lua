@@ -1451,20 +1451,34 @@ function Card:All_in_Jest_start_dissolve(dissolve_colours, silent, dissolve_time
     }))
 end
 
-function All_in_Jest.reroll_joker(card, key, append, temp_key, _card)
+function All_in_Jest.reroll_joker(card, key, append, temp_key, _card, extra)
+    extra = extra or {}
+    extra.type = extra.type or "Joker"
     local victim_joker = card
       
-    local victim_rarity = victim_joker.config.center.rarity or 1
+    local victim_rarity = extra.forced_rarity or victim_joker.config.center.rarity or 1
     local is_legendary = victim_rarity == 4
     local victim_key = victim_joker.config.center.key
 
     
     local replacement_pool = {}
-    for _, center_data in ipairs(G.P_CENTER_POOLS.Joker) do
-        local current_rarity = center_data.rarity or 1
-        if current_rarity == victim_rarity then
+    for _, center_data in ipairs(G.P_CENTER_POOLS[extra.type]) do
+        if extra.type == "Joker" then
+            local current_rarity = center_data.rarity or 1
+            if current_rarity == victim_rarity then
+                if center_data.key ~= victim_key then
+                    if not center_data.demo and not center_data.wip and (center_data.unlocked or G.GAME.modifiers.all_jokers_unlocked or center_data.rarity == 4) then
+                        local can_add = true
+                        if center_data.in_pool and type(center_data.in_pool) == 'function' then
+                            if not center_data:in_pool() then can_add = false end
+                        end
+                        if can_add then table.insert(replacement_pool, center_data.key) end
+                    end
+                end
+            end
+        else
             if center_data.key ~= victim_key then
-                if not center_data.demo and not center_data.wip and (center_data.unlocked or G.GAME.modifiers.all_jokers_unlocked or center_data.rarity == 4) then
+                if not center_data.demo and not center_data.wip then
                     local can_add = true
                     if center_data.in_pool and type(center_data.in_pool) == 'function' then
                         if not center_data:in_pool() then can_add = false end
