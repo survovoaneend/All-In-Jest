@@ -60,6 +60,8 @@ return {
             k_aij_triple_ex = 'Tripled!',
             k_aij_chaos_ex = 'Chaos!',
             k_aij_melted_ex = 'Melted',
+            k_aij_splat_ex = 'Splat!',
+            k_aij_hunted_ex = 'Hunted!',
             k_aij_two_into_one_ex = 'Two into one!'
 
         },
@@ -1543,7 +1545,16 @@ return {
                     "{C:attention}draw{} to hand"
                 } 
             },
-            j_aij_bobblehead = { name = "Bobblehead", text = { "" } },
+            j_aij_bobblehead = { 
+                name = "Bobblehead", 
+                text = { 
+                    "{C:attention}Jokers{} belonging to your",
+                    "{C:attention}most held rarity{} {C:inactive}(excluding",
+                    "{C:inactive}this card){} appear more",
+                    "often",
+                    "{C:inactive}(Currently:{C:attention}#1#{C:inactive})"
+                } 
+            },
             j_aij_topsy_the_clown = { 
                 name = "Topsy the Clown", 
                 text = { 
@@ -2821,7 +2832,15 @@ return {
                     "{C:attention}consumable{} is {C:money}sold" 
                 } 
             },
-            j_aij_warhol = { name = "Warhol", text = { "" } },
+            j_aij_warhol = { 
+                name = "Warhol", 
+                text = { 
+                    "{C:attention}Seals{} have the effect of",
+                    "{C:red}Red{}, {C:blue}Blue{}, {C:money}Gold{}, and",
+                    "{C:purple}Purple{} {C:attention}Seals",
+                    "simultaneously" 
+                } 
+            },
             j_aij_mistake = {
                 name = "Mistake",
                 text = {
@@ -2877,7 +2896,14 @@ return {
                     "{C:tarot}Pack{} available in {C:money}Shop"
                 } 
             },
-            j_aij_trophy_kill = { name = "Trophy Kill", text = { "" } },
+            j_aij_trophy_kill = { 
+                name = "Trophy Kill", 
+                text = { 
+                    "{X:mult,C:white}X#1#{} Mult after the {C:attention}#2# of",
+                    "{C:attention}#3#{} has been {C:red}destroyed",
+                    "{C:inactive}#4#"
+                } 
+            },
             j_aij_tract = { 
                 name = "Tract", 
                 text = { 
@@ -4022,7 +4048,9 @@ return {
             j_aij_splat = {
                 name = "Splat!",
                 text = {
-                    ''
+                    '{C:green}#1# in #2#{} chance for each',
+                    '{C:attention}scoring{} card to gain a',
+                    '{C:jest_melted}Melted{} {C:attention}Seal'
                 }
             },
             j_aij_windswept_joker = {
@@ -4496,6 +4524,12 @@ return {
                         'opened',
                         "{C:inactive}(Currently{} {X:mult,C:white}X#2#{}{C:inactive} Mult){}"
                     },
+                    {
+                        'After acquiring this {C:attention}Joker{},',
+                        '{C:attention}One{} pack in the next {C:money}shop',
+                        'will always be a {C:spectral}Spectral',
+                        '{C:spectral}Pack'
+                    }
                 }
             },
             j_aij_comic_panel = {
