@@ -62,7 +62,8 @@ return {
             k_aij_melted_ex = 'Melted',
             k_aij_splat_ex = 'Splat!',
             k_aij_hunted_ex = 'Hunted!',
-            k_aij_two_into_one_ex = 'Two into one!'
+            k_aij_two_into_one_ex = 'Two into one!',
+            k_aij_bullet_king_ex = 'Bullet King',
 
         },
         v_dictionary = {
@@ -4964,7 +4965,9 @@ return {
             j_aij_bullet_king = {
                 name = "Bullet King",
                 text = {
-                    ''
+                    '{C:attention}Kings{} also trigger their',
+                    '{C:attention}held in hand{} effects when',
+                    'scored'
                 }
             },
 

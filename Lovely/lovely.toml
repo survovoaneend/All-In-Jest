@@ -15,6 +15,62 @@ for i = #G.GAME.tags, 1, -1 do
 end
 '''
 
+# Bullet King - scored cards act as in hand
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'after'
+pattern = '''
+card.lucky_trigger = nil
+'''
+payload = '''
+local bullet_kings = SMODS.find_card('j_aij_bullet_king')
+if next(bullet_kings) and context.cardarea == G.play and card:get_id() == 13 then
+    context.cardarea = G.hand
+    card.bullet_king = bullet_kings[1]
+    SMODS.score_card(card, context)
+    context.cardarea = G.play
+end
+'''
+# Bullet King - scored cards trigger end of round in hand effects
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+hand_chips = mod_chips(nu_chip or hand_chips)
+'''
+payload = '''
+local bullet_kings = SMODS.find_card('j_aij_bullet_king')
+if next(bullet_kings) then
+    All_in_Jest.bullet_king_end_of_round({cardarea = G.hand, end_of_round = true, beat_boss = G.GAME.blind.boss }, G.play.cards, bullet_kings[1])
+end
+'''
+
+
+# Bullet King/Raised Fist compat
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+if raised_card == context.other_card then 
+'''
+payload = '''
+if next(SMODS.find_card('j_aij_bullet_king')) then
+    for i=1, #G.play.cards do
+        if temp_ID >= G.play.cards[i].base.id and not SMODS.has_no_rank(G.play.cards[i]) and card.bullet_king then 
+            temp_Mult = G.play.cards[i].base.nominal
+            temp_ID = G.play.cards[i].base.id
+            raised_card = G.play.cards[i]
+        end
+    end
+end
+'''
+
 [[patches]]
 [patches.pattern]
 target = "card.lua"
