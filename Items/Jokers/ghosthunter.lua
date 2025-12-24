@@ -19,7 +19,7 @@ local ghosthunter = {
     loc_vars = function(self, info_queue, card)
         local text_1 = ''
         local text_2 = ''
-        if (G.GAME.selected_back and G.GAME.selected_back.name == 'Ghost Deck') or SMODS.find_card("j_aij_ghosthunter")[1] ~= card then
+        if (G.GAME.selected_back and G.GAME.selected_back.name == 'Ghost Deck') or (next(SMODS.find_card("j_aij_ghosthunter")) and SMODS.find_card("j_aij_ghosthunter")[1] ~= card) then
             text_1 = localize('k_aij_ghosthunter_ghost_1', 'extra_joker_dictionary')
             text_2 = localize('k_aij_ghosthunter_ghost_2', 'extra_joker_dictionary').." "..localize('k_aij_ghosthunter_ghostless_2', 'extra_joker_dictionary')
         else
