@@ -58,8 +58,8 @@ local handsome_joker = {
     end,
 
     calculate = function(self, card, context)
-        local xmult = handsome_joker_calc_mult(card.ability.extra.xmult_mod)
         if context.joker_main then
+            local xmult = handsome_joker_calc_mult(card.ability.extra.xmult_mod)
             return {
                 xmult = xmult,
             }
