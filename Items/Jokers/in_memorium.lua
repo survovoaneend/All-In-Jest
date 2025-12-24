@@ -46,14 +46,7 @@ local in_memorium = {
             G.E_MANAGER:add_event(Event ({
                 trigger = 'before',
                 func = function()
-                    local c = G.shop_booster:remove_card(G.shop_booster.cards[1])
-                    c:remove()
-                    c = nil
-                    local new_shop_card = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
-                    G.shop_booster.T.y, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS[get_pack('in_memorium', 'Spectral').key], {bypass_discovery_center = true, bypass_discovery_ui = true})
-                    create_shop_card_ui(new_shop_card, 'Booster', G.shop_booster)
-                    G.shop_booster:emplace(new_shop_card)
-                    new_shop_card:juice_up()
+                    All_in_Jest.reroll_joker(G.shop_booster.cards[1], get_pack('in_memorium', 'Spectral').key, 'in_memorium', nil, nil, {type = "Booster"})
                     return true
                 end 
             }))
