@@ -40,7 +40,8 @@ local crop_circle = {
                         play_sound('card1', 0.9 + i*0.05, 0.5) 
                         ran_card:juice_up(0.2, 0.1)
                         ran_card:set_ability(center)
-                        card:juice_up(0.5, 0.2)
+                        local juice_card = context.blueprint_card or card
+                        juice_card:juice_up(0.5, 0.2)
                     end
                 end
             end
