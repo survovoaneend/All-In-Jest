@@ -2,20 +2,19 @@ local cutesy_joker = {
     object_type = "Joker",
     order = 560,
     key = "cutesy_joker",
-    ignore = true,
     config = {
         extra = {
             
         }
     },
-    rarity = 1,
+    rarity = 3,
     pos = { x = 23, y = 26 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 8,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
         return {
@@ -26,7 +25,12 @@ local cutesy_joker = {
     end,
 
     calculate = function(self, card, context)
-        
+        if context.mod_probability and context.trigger_obj and context.trigger_obj.ability and context.trigger_obj.ability.consumeable then
+            return {
+                numerator = context.denominator,
+                denominator = context.denominator
+            }
+        end
     end
 }
 
