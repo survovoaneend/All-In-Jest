@@ -2519,7 +2519,9 @@ return {
             j_aij_over_the_counter = {
                 name = "Over the Counter",
                 text = {
-                    ''
+                    'When opening a {C:attention}Booster',
+                    '{C:attention}Pack{}, choose {C:attention}#1#{} card from',
+                    'your {C:attention}deck{} to draw'
                 }
             },
             j_aij_cracked_up = {
@@ -2531,7 +2533,14 @@ return {
             j_aij_happy_as_larry = {
                 name = "Happy as Larry",
                 text = {
-                    ''
+                    {
+                        '{X:mult,C:white}X#1#{} Mult'
+                    },
+                    {
+                        '{C:green}#2# in #3#{} chance to {C:attention}retrigger{},',
+                        '{C:attention}Chance{} decreases by {C:green}#4#{} on',
+                        'each subsequent {C:attention}retrigger'
+                    }
                 }
             },
             j_aij_little_silhouetto = {
