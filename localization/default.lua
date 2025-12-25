@@ -3601,7 +3601,11 @@ return {
             j_aij_infamous_machine = { 
                 name = "Infamous Machine", 
                 text = {
-                
+                    'After the {C:attention}first draw{} of each',
+                    'round, {C:red}destroy{} the {C:attention}leftmost',
+                    '{C:attention}playing card{} and this {C:attention}Joker',
+                    'gains {C:mult}+#1#{} Mult',
+                    '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
                 } 
             },
             j_aij_weatherman = { 
@@ -3662,7 +3666,15 @@ return {
             j_aij_vecchio_dolore = { 
                 name = "Vecchio Dolore", 
                 text = {
-                
+                    {
+                        'On next {C:green}reroll{}, create',
+                        '{C:dark_edition}Negative{} copies of all',
+                        'items offered in the {C:money}Shop',
+                        'before you {C:green}rerolled{}',
+                    },
+                    {
+                        'Self {C:red}destructs{} on {C:green}reroll'
+                    }
                 } 
             },
             j_aij_firework = { 
