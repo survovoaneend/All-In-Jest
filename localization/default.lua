@@ -3904,7 +3904,8 @@ return {
             j_aij_the_treachery_of_jokers = {
                 name = "The Treachery of Jokers",
                 text = {
-                    ''
+                    '{X:mult,C:white}X#1#{} Mult, goes in your',
+                    '{C:attention}consumable{} slot'
                 }
             },
             j_aij_candy_wrapper = {

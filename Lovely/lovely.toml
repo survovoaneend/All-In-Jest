@@ -228,6 +228,21 @@ else
 '''
 match_indent = true
 
+# The Treachery Of Jokers going into Consumable slot instead
+[[patches]] 
+[patches.pattern]
+target = "cardarea.lua"
+pattern = '''
+if location == 'front' or self.config.type == 'deck' then 
+'''
+position = "before"
+payload = '''
+if self == G.jokers and card.config.center.key == 'j_aij_the_treachery_of_jokers' then
+    self = G.consumeables
+end
+'''
+match_indent = true
+
 [[patches]] 
 [patches.pattern]
 target = "cardarea.lua"
