@@ -1171,10 +1171,10 @@ return {
             j_aij_imageboard = { 
                 name = "Imageboard", 
                 text = { 
-                    "Each {C:attention}scored{} card gives {C:mult}+1{} Mult",
+                    "Each {C:attention}scored{} card gives {C:mult}+#1#{} Mult",
                     "for each {C:attention}time{} its {C:attention}rank{}",
                     "has {C:attention}scored{} this hand",
-                    "{C:inactive}(ex. {C:attention}2 2 2{C:inactive} -> {C:mult}+1{C:inactive}, {C:mult}+2{C:inactive}, {C:mult}+3{C:inactive})"
+                    "{C:inactive}(ex. {C:attention}2 2 2{C:inactive} -> {C:mult}+#1#{C:inactive}, {C:mult}+#2#{C:inactive}, {C:mult}+#3#{C:inactive})"
                 } 
             },
             j_aij_carousel = { 
