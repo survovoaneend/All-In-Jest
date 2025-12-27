@@ -1,19 +1,18 @@
 local warhol = {
     object_type = "Joker",
     order = 240,
-    ignore = true,
     key = "warhol",
     config = {
       
     },
-    rarity = 1,
+    rarity = 3,
     pos = { x = 8, y = 9},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 8,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
   

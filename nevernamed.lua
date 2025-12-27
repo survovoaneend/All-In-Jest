@@ -47,6 +47,12 @@ SMODS.Atlas {
   py = 111
 }
 SMODS.Atlas {
+  key = "trophy_kill",
+  path = "trophy_kill.png",
+  px = 91,
+  py = 95
+}
+SMODS.Atlas {
     key = "deck_atlas",
     path = "decks.png",
     px = 71,
