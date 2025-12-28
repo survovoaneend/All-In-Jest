@@ -19,7 +19,7 @@ local sunny_side = {
     end,
   
     calculate = function(self, card, context)
-        if context.money_altered and to_big(context.amount) >= to_big(1) and not context.blueprint then
+        if context.money_altered and to_big(context.amount) >= to_big(1) and not context.blueprint and not card.ability.jest_sold_self then
             ease_dollars(-context.amount)
             card_eval_status_text(card, 'dollars', -context.amount)
             SMODS.scale_card(card, {
