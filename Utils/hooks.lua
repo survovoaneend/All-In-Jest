@@ -572,6 +572,7 @@ function ease_ante(mod)
     if mod > 0 then
         G.GAME.all_in_jest.unused_hands.ante = 0
         G.GAME.all_in_jest.unused_discards.ante = 0
+        G.GAME.jest_kasperle_voucher_ante = false
     end
     
     local ref = ease_anteref(mod)
