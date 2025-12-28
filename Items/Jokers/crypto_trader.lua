@@ -38,7 +38,7 @@ local crypto_trader = {
             end
             apply_multiplier(G.GAME, "interest_amount", amount, string)
             card.ability.extra.multpliers[#card.ability.extra.multpliers+1] = string
-		    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize { type = 'variable', key = "a_aij_times_interest", vars = { amount }}, colour = G.C.FILTER})
+		        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize { type = 'variable', key = "a_aij_times_interest", vars = { amount }}, colour = G.C.FILTER})
         end
         if context.cashing_out then
             for k, v in pairs(card.ability.extra.multpliers) do

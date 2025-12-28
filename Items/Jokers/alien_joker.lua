@@ -51,7 +51,7 @@ local alien_joker = {
                 }
             end
         end
-        if context.end_of_round then
+        if context.end_of_round and context.main_eval then
             for _, v in ipairs(G.playing_cards) do
                 if v.ability.alien_joker_highlight then
                     v.ability.alien_joker_highlight = nil
