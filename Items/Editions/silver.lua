@@ -46,7 +46,7 @@ local silver = {
           card,
           "*", card.edition.mult,
           { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
-          nil, true, false, "ability.extra"
+          nil, true, false, "ability"
         )
         if card.added_to_deck then
           card.added_to_deck = false
@@ -81,7 +81,7 @@ local silver = {
         card,
         "/", card.edition.mult,
         { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
-        nil, true, false, "ability.extra"
+        nil, true, false, "ability"
       )
       if card.added_to_deck then
         card.added_to_deck = false
@@ -137,13 +137,13 @@ function Card:update(dt)
           self,
           "/", tonumber(self.edition.prevmult),
           { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
-          nil, true, false, "ability.extra"
+          nil, true, false, "ability"
         )
         jest_ability_calculate(
           self,
           "*", self.edition.mult,
           { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
-          nil, true, false, "ability.extra"
+          nil, true, false, "ability"
         )
         if self.added_to_deck then
           self.added_to_deck = false
