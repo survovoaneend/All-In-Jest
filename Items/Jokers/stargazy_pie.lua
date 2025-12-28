@@ -39,6 +39,7 @@ local stargazy_pie = {
                         card.ability.extra.triggers = card.ability.extra.triggers - 1
                     end
                 end
+                return nil, true
             end
         end
     end

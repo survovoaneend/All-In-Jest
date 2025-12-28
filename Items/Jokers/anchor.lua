@@ -11,7 +11,7 @@ local anchor = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = false, -- SMODs forces this to be blueprint incompatible
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
@@ -22,13 +22,16 @@ local anchor = {
         -- I probably don't need to use both joker_type_destroyed and check_eternal
         -- Limited testing suggested joker_type_destroyed didn't even work in SMODS~BETA-0827c
         -- But I'm using both anyways
-        if context.joker_type_destroyed or (context.check_eternal and not context.trigger.from_sell) then
+        if context.joker_type_destroyed or (context.check_eternal and not context.trigger.from_sell) and not context.blueprint then
             local card_to_be_destroyed = context.card or context.other_card
             if (card_to_be_destroyed.ability.jest_sold_self) then
                 -- Do not trigger on sold cards
             else
+
+                local source_card = context.blueprint_card or card
+
                 -- Do not destroy anchors
-                if (card_to_be_destroyed == card) then
+                if (card_to_be_destroyed == source_card) then
                     return {
                         no_destroy = { override_compat = true }
                     }
@@ -44,7 +47,7 @@ local anchor = {
                     end
                     local left      = index_of_destroyed_card - 1
                     local right     = index_of_destroyed_card + 1
-                    local is_nearby = (G.jokers.cards[left] == card) or (G.jokers.cards[right] == card)
+                    local is_nearby = (G.jokers.cards[left] == source_card) or (G.jokers.cards[right] == source_card)
                     if is_nearby then
                         return {
                             no_destroy = { override_compat = true }

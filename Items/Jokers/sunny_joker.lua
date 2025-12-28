@@ -31,7 +31,8 @@ local sunny_joker = {
                 context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult or 0
                 context.other_card.ability.perma_x_mult = context.other_card.ability.perma_x_mult + card.ability.extra.perma_mult
                 return {
-                    extra = { message = localize('k_upgrade_ex'), colour = G.C.MULT },
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.MULT,
                     card = context.blueprint_card or card
                 }
             end

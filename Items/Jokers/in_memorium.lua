@@ -47,7 +47,7 @@ local in_memorium = {
             G.E_MANAGER:add_event(Event ({
                 trigger = 'before',
                 func = function()
-                    All_in_Jest.reroll_joker(G.shop_booster.cards[1], get_pack('in_memorium', 'Spectral').key, 'in_memorium', nil, nil, {type = "Booster"})
+                    All_in_Jest.reroll_joker(G.shop_booster.cards[1], get_pack('in_memorium', 'Spectral').key, 'in_memorium', nil, {type = "Booster"})
                     return true
                 end 
             }))

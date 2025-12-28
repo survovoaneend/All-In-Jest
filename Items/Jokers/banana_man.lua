@@ -30,12 +30,12 @@ local banana_man = {
   
     calculate = function(self, card, context)
       if context.repetition_only or (context.retrigger_joker_check) then
-        if context.other_card ~= card then
+        if context.other_card ~= card and not context.other_context.modify_scoring_hand then
             return {
                 repetitions = 1,
                 card = card,
                 message = localize('k_again_ex')
-            }  
+            }
         end
       end
       if context.after and context.cardarea == G.jokers and not context.blueprint then

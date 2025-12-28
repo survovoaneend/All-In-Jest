@@ -31,7 +31,7 @@ local hand_drawn = {
     end,
   
     calculate = function(self, card, context)
-        if context.first_hand_drawn then
+        if context.first_hand_drawn and not context.blueprint then
             local cards = {}
             for k, v in pairs(SMODS.drawn_cards) do
                 cards[k] = v

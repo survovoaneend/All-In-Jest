@@ -3,6 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
+# Issue: Everything here will not work if there are no cards on screen to calculate with
 [[patches]] #This being a separate file felt warranted
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -10,34 +11,13 @@ pattern = "-- TARGET: evaluate your own general effects"
 position = "before"
 match_indent = true
 payload = '''
-if (context.skip_blind and next(SMODS.find_card("j_aij_dizzard"))) or (context.ending_booster and G.GAME.all_in_jest.dizzard_shop) then
-    G.GAME.all_in_jest.dizzard_shop = true
-    stop_use()
-    G.deck:shuffle('cashout'..G.GAME.round_resets.ante)
-    G.deck:hard_set_T()
-    G.GAME.current_round.reroll_cost_increase = 0
-    G.GAME.current_round.used_packs = {}
-    G.GAME.current_round.free_rerolls = G.GAME.round_resets.free_rerolls
-    calculate_reroll_cost(true)
-    if context.skip_blind then
-        G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext1').config.object.pop_delay = 0
-        G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext1').config.object:pop_out(5)
-        G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext2').config.object.pop_delay = 0
-        G.blind_prompt_box:get_UIE_by_ID('prompt_dynatext2').config.object:pop_out(5) 
-        delay(0.3)
-    end
+if context.ending_booster and G.GAME.all_in_jest.dizzard_shop and G.shop.alignment.offset.y ~= -5.3 then
     G.E_MANAGER:add_event(Event({
         trigger = 'after',
         func = function()
-            if G.blind_select and context.skip_blind then 
-                G.blind_select:remove()
-                G.blind_prompt_box:remove()
-                G.blind_select = nil
+            if G.shop.alignment.offset.y ~= -5.3 then
+                G.shop.alignment.offset.y = -5.3
             end
-            G.STATE = G.STATES.SHOP
-            G.GAME.shop_free = nil
-            G.GAME.shop_d6ed = nil
-            G.STATE_COMPLETE = false
             return true
         end
     }))
@@ -57,7 +37,7 @@ if context.setting_blind then
     end
     for k, v in pairs(G.jokers.cards) do
         if v.ability and v.ability.all_in_jest and v.ability.all_in_jest.has_been_rerolled then
-            card_eval_status_text(card, "extra", nil, nil, nil, {message = localize("k_reset"), colour = G.C.FILTER})
+            card_eval_status_text(v, "extra", nil, nil, nil, {message = localize("k_reset"), colour = G.C.FILTER})
             All_in_Jest.reroll_joker(v, v.ability.all_in_jest.has_been_rerolled, 'stage_production')
             v.ability.all_in_jest.has_been_rerolled = nil
         end
@@ -103,7 +83,7 @@ end
 [[patches]] #For debuffed joker cards
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = "if not card:can_calculate(context.ignore_debuff, context.remove_playing_cards) then"
+pattern = "if not card:can_calculate(context.ignore_debuff, context.remove_playing_cards*"
 position = "before"
 match_indent = true
 payload = '''

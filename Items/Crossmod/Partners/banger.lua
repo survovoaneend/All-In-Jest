@@ -37,31 +37,21 @@ local banger = {
   end,
   calculate_begin = function(self, card)
       G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.reroll_cost
-      G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - card.ability.extra.reroll_cost)
       card.ability.extra.prev_discount = tostring(card.ability.extra.reroll_cost)
   end,
   calculate = function(self, card, context)
-    if context.end_of_round and not context.blueprint and context.main_eval then
-        local link_level = self:get_link_level()
-        local benefits = 1
-        if link_level == 1 then benefits = 5 end
-        local discount_this_round = card.ability.extra.reroll_cost * benefits
-        if card.ability.extra.reroll_cost > 0 then
-            if tonumber(card.ability.extra.prev_discount) ~= card.ability.extra.reroll_cost then
-                local removeamt = card.ability.extra.reroll_cost - tonumber(card.ability.extra.prev_discount) 
-                G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - removeamt
-                G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - removeamt)
-            end
-            G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + discount_this_round
-            G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost + discount_this_round)
-            card.ability.extra.reroll_cost = card.ability.extra.reroll_cost
-
-            G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.reroll_cost
-            G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - card.ability.extra.reroll_cost)
-            card.ability.extra.prev_discount = tostring(card.ability.extra.reroll_cost)
-            calculate_reroll_cost(true)
-        end
-    end
+      if context.end_of_round or (context.card_added and context.card.key == "j_aij_silly_sausage") then
+          local link_level = self:get_link_level()
+          local benefits = 1
+          if link_level == 1 then benefits = 5 end
+          local discount_this_round = card.ability.extra.reroll_cost * benefits
+          if tostring(discount_this_round) ~= card.ability.extra.prev_discount then
+              local removeamt = discount_this_round - tonumber(card.ability.extra.prev_discount)
+              G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - removeamt
+              card.ability.extra.prev_discount = tostring(discount_this_round)
+          end
+          calculate_reroll_cost(true)
+      end
   end
 }
 if next(SMODS.find_mod("partner")) then

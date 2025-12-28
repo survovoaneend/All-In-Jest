@@ -43,6 +43,11 @@ local trefle_spectral = {
       end
     end
     if victim_card then
+      G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+        play_sound('tarot1')
+        card:juice_up(0.3, 0.5)
+        return true
+      end }))
       All_in_Jest.reroll_joker(victim_card, nil, 'trefle')
     end
     return true

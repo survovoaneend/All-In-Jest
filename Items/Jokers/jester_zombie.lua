@@ -11,7 +11,7 @@ local jester_zombie = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
@@ -38,8 +38,16 @@ local jester_zombie = {
               end
           end
       end
-      if context.remove_playing_cards then
+      if context.remove_playing_cards and not context.blueprint and not G.GAME.jest_jester_zombie_trigger then
           G.GAME.jest_jester_zombie_trigger = true
+          local eval = function(card) return G.GAME.jest_jester_zombie_trigger end
+          G.E_MANAGER:add_event(Event({func = (function()
+              juice_card_until(card, eval, true)
+              return true
+          end)}))
+          return {
+              message = localize('k_active_ex')
+          }
       end
     end
   

@@ -45,9 +45,7 @@ local circumplanetary_tag = {
             if not _hand then return end
             tag:yep('+', G.C.FILTER ,function() 
                 local levels = tag.config.extra.times
-                update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(_hand, 'poker_hands'),chips = G.GAME.hands[_hand].chips, mult = G.GAME.hands[_hand].mult, level=G.GAME.hands[_hand].level})
                 level_up_hand(nil, _hand, nil, levels)
-                update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
                 return true
             end)
             tag.triggered = true

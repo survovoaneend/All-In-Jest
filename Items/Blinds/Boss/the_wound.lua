@@ -2,7 +2,6 @@ local the_wound = {
     object_type = "Blind",
     key = 'the_wound',
     boss = {
-        trigger = false,
         min = 2,
     },
     mult = 2,
@@ -16,14 +15,11 @@ local the_wound = {
     calculate = function(self, blind, context)
         
     end,
-    debuff_hand = function(self, cards, poker_hands, text, mult, hand_chips)
-        if G.GAME.current_round.discards_left == 0 then
-            self.boss.trigger = true
+    debuff_hand = function(self, cards, hand, handname, check)
+        if G.GAME.current_round.discards_left > 0 then
+            G.GAME.blind.triggered = true
+            return true
         end
-        if self.boss.trigger then
-            return false     
-        end
-        return true
     end,
 
 }

@@ -40,7 +40,15 @@ local flub = {
                 local link_level = self:get_link_level()
                 local benefits = 0.5
                 if link_level == 1 then benefits = 0 end
-                v.cost = v.cost * benefits
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'immediate',
+                    func = function()
+                        play_sound("tarot1", nil, 0.3)
+                        v.cost = math.max(benefits == 0 and 0 or 1, math.floor(v.cost * benefits))
+                        return true
+                    end
+                }))
+                card:juice_up(0.3, 0.5)
                 v:juice_up(0.3, 0.5)
             end
         end
