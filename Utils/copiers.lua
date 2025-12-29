@@ -13,7 +13,12 @@ end
 local save_changed_abilities_to_stored_table = function (copier_card, copied_index)
     copied_index = tonumber(copied_index)
     for k, v in pairs(copier_card.ability) do
-        if not (k == copier_card.config.center.key or k == "jest_applied" or string.sub(k, 1, #"j_aij_whats_left_compat") == "j_aij_whats_left_compat") then -- This is the key that stores all the data related to the copier joker
+        if not (
+            k == copier_card.config.center.key or 
+            k == "jest_applied" or 
+            k == "jest_silver_active" or
+            string.sub(k, 1, #"j_aij_whats_left_compat") == "j_aij_whats_left_compat"
+        ) then -- This is the key that stores all the data related to the copier joker
             -- if copier_card.ability[copier_card.config.center.key].copied_joker_abilities[copied_index][k] ~= v and type(v) ~= "table" then
             --     sendDebugMessage("Saving " .. tostring(copier_card.ability[copier_card.config.center.key].copied_joker_abilities[copied_index][k] or "nil") .. " to " .. tostring(v or "nil"), "AiJ")
             -- end
@@ -144,12 +149,10 @@ end
 -- Swaps in a joker ability from their "copied_joker_abilities" table
 All_in_Jest.hotswap_copied_ability = function(copier_card, index)
     local new_ability = copier_card.ability[copier_card.config.center.key].copied_joker_abilities[index]
-    -- if G.P_CENTERS[new_ability.key][copier_card.config.center.key .. "_compat"] ~= false then
-        local original_jest_applied = copy_table(copier_card.ability.jest_applied)
-        All_in_Jest.set_copied_ability(copier_card, G.P_CENTERS[new_ability.key], nil, new_ability)
-        copier_card.ability.jest_applied = original_jest_applied
-        new_ability.copied_joker_abilities_index = tostring(index) -- Make this a string so dongtong doesn't affect it
-    -- end
+    local original_jest_applied = copy_table(copier_card.ability.jest_applied)
+    All_in_Jest.set_copied_ability(copier_card, G.P_CENTERS[new_ability.key], nil, new_ability)
+    copier_card.ability.jest_applied = original_jest_applied
+    new_ability.copied_joker_abilities_index = tostring(index) -- Make this a string so dongtong doesn't affect it
 end
 
 -- Function to insert into the queue at a specific index
@@ -314,6 +317,7 @@ All_in_Jest.add_copied_joker = function(copier_card, copied_center, copied_base_
             All_in_Jest.set_copied_ability(copier_card, copied_center, new_ability, copied_base_stats)
             local joker_key = copied_center.key
             new_ability.key = joker_key
+            new_ability.jest_silver_active = nil
 
             if copied_center.aij_dongtong_compat then
                 jest_ability_calculate(
