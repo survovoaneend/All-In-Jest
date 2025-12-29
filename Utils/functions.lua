@@ -1415,64 +1415,64 @@ function All_in_Jest.reroll_shop_voucher(key)
     end
 end
 
--- Function to allow for filtering joker-copy effects and applying blacklists to copiable jokers
--- Used by: Visage, Clay Joker, Joker.png, and Czar
---  from_collection - set true for jokers that copy a joker from collection, rather than a joker that was previously in-play
-function All_in_Jest.expanded_copier_compat(center, from_collection)
-    if not (center and type(center) == "table") then
-        return
-    end
-    local blacklist = {
-        'j_blueprint',
-        'j_aij_lexicon' -- Crashes the game for some reason, temporary fix
-    }
-    if from_collection then
-        table.insert(blacklist, 'j_campfire')
+-- -- Function to allow for filtering joker-copy effects and applying blacklists to copiable jokers
+-- -- Used by: Visage, Clay Joker, Joker.png, and Czar
+-- --  from_collection - set true for jokers that copy a joker from collection, rather than a joker that was previously in-play
+-- function All_in_Jest.expanded_copier_compat(center, from_collection)
+--     if not (center and type(center) == "table") then
+--         return
+--     end
+--     local blacklist = {
+--         'j_blueprint',
+--         'j_aij_lexicon' -- Crashes the game for some reason, temporary fix
+--     }
+--     if from_collection then
+--         table.insert(blacklist, 'j_campfire')
 
-        -- can remove these if they are made un-perishable
-        table.insert(blacklist, 'j_aij_egg_cc')
-        table.insert(blacklist, 'j_aij_toothy_joker')
-        table.insert(blacklist, 'j_aij_coulrorachne')
-    end
+--         -- can remove these if they are made un-perishable
+--         table.insert(blacklist, 'j_aij_egg_cc')
+--         table.insert(blacklist, 'j_aij_toothy_joker')
+--         table.insert(blacklist, 'j_aij_coulrorachne')
+--     end
 
-    if center.blueprint_compat and 
-        (not from_collection or (center.discovered and 
-        center.perishable_compat and 
-        center.rarity ~= 4 and 
-        not G.GAME.banned_keys[center.key]))
-    then
-        for _, v in ipairs(blacklist) do
-            if center.key == v then
-                return false
-            end
-        end
+--     if center.blueprint_compat and 
+--         (not from_collection or (center.discovered and 
+--         center.perishable_compat and 
+--         center.rarity ~= 4 and 
+--         not G.GAME.banned_keys[center.key]))
+--     then
+--         for _, v in ipairs(blacklist) do
+--             if center.key == v then
+--                 return false
+--             end
+--         end
 
-        -- if from_collection then
-        --     if center.in_pool and type(center.in_pool) == 'function' then
-        --         return center:in_pool()
-        --     end
+--         -- if from_collection then
+--         --     if center.in_pool and type(center.in_pool) == 'function' then
+--         --         return center:in_pool()
+--         --     end
 
-        --     if center.yes_pool_flag and not G.GAME.pool_flags[center.yes_pool_flag] then
-        --         return false
-        --     end
-        --     if center.no_pool_flag and G.GAME.pool_flags[center.no_pool_flag] then
-        --         return false
-        --     end
+--         --     if center.yes_pool_flag and not G.GAME.pool_flags[center.yes_pool_flag] then
+--         --         return false
+--         --     end
+--         --     if center.no_pool_flag and G.GAME.pool_flags[center.no_pool_flag] then
+--         --         return false
+--         --     end
 
-        --     if center.enhancement_gate then
-        --         for _, v in pairs(G.playing_cards) do
-        --             if SMODS.has_enhancement(v, center.enhancement_gate) then
-        --                 return true
-        --             end
-        --         end
-        --     end
-        -- end
+--         --     if center.enhancement_gate then
+--         --         for _, v in pairs(G.playing_cards) do
+--         --             if SMODS.has_enhancement(v, center.enhancement_gate) then
+--         --                 return true
+--         --             end
+--         --         end
+--         --     end
+--         -- end
 
-        return true
-    else
-        return false
-    end
-end
+--         return true
+--     else
+--         return false
+--     end
+-- end
 
 -- Used for Elder
 function All_in_Jest.get_longest_held_joker()

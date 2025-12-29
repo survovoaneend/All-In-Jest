@@ -3473,7 +3473,6 @@ if G.all_in_jest then
 end
 '''
 
-# Add CardAreas used to store the jokers that Clay Joker and Visage will copy
 # Also adds Sprites needed for patches and a new sticker/indicator for perma debuff
 # Also handles moving all data in G_all_in_jest as children of G.all_in_jest when loading a run
 # Keeping in one patch to ensure the G_all_in_jest stuff always happens last
@@ -3507,18 +3506,7 @@ G.all_in_jest.patches_sprites["bunc_Halberds"] = SMODS.create_sprite(0,0,G.CARD_
 G.all_in_jest.patches_sprites["hc_bunc_Halberds"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=8,y=3})
 G.all_in_jest.patches_sprites["bunc_Fleurons"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=7,y=3})
 G.all_in_jest.patches_sprites["hc_bunc_Fleurons"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=9,y=3})
-self.all_in_jest_czar = CardArea(
-        -10, -10,
-        CAI.discard_W,CAI.discard_H,
-        {card_limit = 99999999, type = 'joker'})
-self.all_in_jest_clay_last_destroyed = CardArea(
-        -10, -10,
-        CAI.discard_W,CAI.discard_H,
-        {card_limit = 1, type = 'joker'})
-self.all_in_jest_visage_last_sold = CardArea(
-        -10, -10,
-        CAI.discard_W,CAI.discard_H,
-        {card_limit = 1, type = 'joker'})
+
 for k, v in pairs(G) do
     if string.sub(k, 13) == 'G_all_in_jest' then
         local key = string.gsub(k, 'G_all_in_jest', '')
@@ -3540,6 +3528,22 @@ position = "after"
 match_indent = true
 payload = '''
 specific_vars = _c.specific_vars or specific_vars
+if specific_vars.aij_whats_left then
+    local copier_card = specific_vars.aij_whats_left
+    local index = specific_vars.aij_whats_left_index
+    local new_ability = copier_card.ability[copier_card.config.center.key].copied_joker_abilities[index]
+
+    new_ability.j_aij_whats_left_compat_ui = new_ability.j_aij_whats_left_compat_ui or ''
+    new_ability.j_aij_whats_left_compat_check = nil
+    local main_end = (copier_card.area and copier_card.area == G.jokers) and {
+        {n=G.UIT.C, config={align = "tm", minh = 0.4}, nodes={
+            {n=G.UIT.C, config={ref_table = {ability = new_ability}, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'whats_left_compat'}, nodes={
+                {n=G.UIT.T, config={ref_table = new_ability, ref_value = 'j_aij_whats_left_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            }}
+        }}
+    } or nil
+    desc_nodes[#desc_nodes + 1] = main_end
+end
 '''
 # Advanced Copiers (2/4)
 # Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
@@ -3562,13 +3566,36 @@ local target = {
 position = "after"
 match_indent = true
 payload = '''
---[[
-if target.vars.aij_visage then card = G.all_in_jest_visage_last_sold.cards[1]; target.vars.aij_visage = nil end -- All in Jest
-if target.vars.aij_clay then card = G.all_in_jest_clay_last_destroyed.cards[1]; target.vars.aij_clay = nil end -- All in Jest
+if target.vars.aij_whats_left then
+    card = target.vars.aij_whats_left
+    local index = target.vars.aij_whats_left_index
+    local new_ability = card.ability[card.config.center.key].copied_joker_abilities[index]
+
+    new_ability.j_aij_whats_left_compat_ui = new_ability.j_aij_whats_left_compat_ui or ''
+    new_ability.j_aij_whats_left_compat_check = nil
+    local main_end = (card.area and card.area == G.jokers) and {
+        {n=G.UIT.C, config={align = "tm", minh = 0.4}, nodes={
+            {n=G.UIT.C, config={ref_table = {ability = new_ability}, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'whats_left_compat'}, nodes={
+                {n=G.UIT.T, config={ref_table = new_ability, ref_value = 'j_aij_whats_left_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            }}
+        }}
+    } or nil
+    desc_nodes[#desc_nodes + 1] = main_end
+    
+    All_in_Jest.hotswap_copied_ability(card, index)
+
+    target.vars.aij_whats_left = nil
+    target.vars.aij_whats_left_index = nil
+
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            All_in_Jest.set_copied_ability(card, {config = {}})
+            return true
+        end
+    }))
+end -- All in Jest
 if target.vars.aij_joker_png then card = target.vars.aij_joker_png; target.vars.aij_joker_png = nil end -- All in Jest
 if target.vars.aij_czar then card = target.vars.aij_czar; target.vars.aij_czar = nil end -- All in Jest
-]]--
-if target.vars.aij_elder then card = target.vars.aij_elder; target.vars.aij_elder = nil end -- All in Jest
 '''
 # Advanced Copiers (3/4)
 # Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (1/2)
@@ -3580,7 +3607,7 @@ pattern = '''_c:generate_ui(info_queue, card, desc_nodes, specific_vars, full_UI
 position = "before"
 match_indent = true
 payload = '''
-local target_card = _c.specific_vars and _c.specific_vars.aij_elder
+local target_card = _c.specific_vars and (_c.specific_vars.aij_elder or _c.specific_vars.aij_whats_left or _c.specific_vars.aij_joker_png or _c.specific_vars.aij_czar)
 '''
 # Advanced Copiers (4/4)
 # Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (2/2)
@@ -4003,9 +4030,10 @@ payload = 'SMODS.calculate_context({aij_before_setting_blind = true, blind = G.G
 # Card:update
 # Makes blueprint-like copiers show the correct compatability to joker.png style copiers 
 [[patches]] 
-[patches.pattern]
+[patches.regex]
 target = "card.lua"
-pattern = "if other_joker and other_joker ~= self and other_joker.config.center.blueprint_compat then"
+pattern = '''(?<indent>[\t ]*)if other_joker and other_joker ~= self and (?<cond>.*?) then'''
+line_prepend = "$indent"
 position = "at"
-payload = '''if other_joker and other_joker ~= self and (other_joker.ability.aij_blueprint_compat or other_joker.config.center.blueprint_compat) then'''
-match_indent = true
+payload = '''local aij_blueprint_compatible = other_joker and (other_joker.ability.aij_blueprint_compat or $cond)
+if other_joker and other_joker ~= self and aij_blueprint_compatible then'''

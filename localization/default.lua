@@ -2814,8 +2814,11 @@ return {
             j_aij_visage = { 
                 name = "Visage", 
                 text = { 
-                    "Copies the effect of the",
-                    "last {C:money}sold{} joker" 
+                    "When a hand is played,",
+                    "add a {C:attention}temporary copy{} of" ,
+                    "the last {C:red}destroyed{} face",
+                    "card to scored hand",
+                    "{C:inactive}(Does not change hand type){}"
                 } 
             },
             j_aij_goofball = { 
@@ -3776,7 +3779,7 @@ return {
             j_aij_czar = { 
                 name = "Czar", 
                 text = {
-                    "Copies the {C:attention}effect{} of a",
+                    "{C:attention}Copies{} the {C:attention}effect{} of a",
                     "{C:attention}random{} discovered Joker",
                     "from your {C:attention}collection",
                     "{C:inactive}(Changes when the Shop",
@@ -4160,9 +4163,9 @@ return {
                 name = "Historian", 
                 text = {
                     "Adds {C:mult}Mult{} equal to",
-                    "{C:attention}triple{} the {C:money}Sell Value{} of",
+                    "{C:attention}#1#X{} the {C:money}Sell Value{} of",
                     "the last sold Joker",
-                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
                 } 
             },
             j_aij_police_sketch = {
@@ -4520,8 +4523,10 @@ return {
             },
             j_aij_whats_left = {
                 name = "What's Left",
-                text = {
-                    ''
+                text = { 
+                    "Copies the abilities of the",
+                    "last {C:attention}#1#{} {C:money}sold{} {C:attention}jokers{}" ,
+                    "{C:inactive}(Excluding What's Left){}"
                 }
             },
             j_aij_beelzebub = {

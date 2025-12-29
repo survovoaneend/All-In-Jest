@@ -21,6 +21,7 @@ local czar = {
     key = "czar",
     config = {
         aij_blueprint_compat = true,
+        aij_dongtong_compat = true,
         j_aij_czar = { -- Store all data needed for this joker in a table with a matching key, this will be preserved on ability changes
             copied_joker_key = nil,
             silver_multiplier_buff = 100, -- Make 100 instead of 1 to keep 2 decimals of precision
@@ -32,7 +33,7 @@ local czar = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = true,
+    blueprint_compat = false, -- uses ability.aij_blueprint_compat
     eternal_compat = true,
 
     add_to_deck = function(self, card, from_debuff)
@@ -63,7 +64,18 @@ local czar = {
     loc_vars = function(self, info_queue, card)
         if card.ability.j_aij_czar and card.ability.j_aij_czar.copied_joker_key ~= nil then
             local copied_center = G.P_CENTERS[card.ability.j_aij_czar.copied_joker_key]
-            local old_vars = {}
+            local info_queue_center = { -- Create a simplified "fake" center that can be used without referencing/modifying the actual center object
+                key = copied_center.key,
+                name = copied_center.name,
+                config = copied_center.config,
+                blueprint_compat = copied_center.blueprint_compat,
+                discovered = true,
+                set = "Joker",
+                create_fake_card = copied_center.create_fake_card,
+                generate_ui = copied_center.generate_ui,
+                loc_vars = copied_center.loc_vars
+            }
+
             local other_vars = {}
             if copied_center.loc_vars then
                 local ret = copied_center:loc_vars({}, card) -- Make info_queue an empty table 
@@ -71,17 +83,15 @@ local czar = {
                     other_vars = ret.vars
                 end
             else
-                local old_name = card.ability.name
                 card.ability.name = copied_center.name
                 other_vars, _, _ = card:generate_UIBox_ability_table(true)
-                card.ability.name = old_name
+                card.ability.name = card.config.center.name
             end
             if other_vars then
-                old_vars = copied_center.specific_vars
-                copied_center.specific_vars = other_vars
-                copied_center.specific_vars.aij_czar = card
+                info_queue_center.specific_vars = other_vars
+                info_queue_center.specific_vars.aij_czar = card
             end
-            info_queue[#info_queue + 1] = copied_center
+            info_queue[#info_queue + 1] = info_queue_center
         end
         return { vars = {} }
     end,

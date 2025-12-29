@@ -89,6 +89,7 @@ all_in_jest = {
   advanced_hand_usage_run = {},
   advanced_hand_usage_ante = {},
   advanced_hand_usage_blind = {},
+  previously_sold_jokers = {},
   jest_kilroy_curvalue = 25,
 },
 -- move these into all_in_jest at some point
