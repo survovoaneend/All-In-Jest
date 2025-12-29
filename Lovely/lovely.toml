@@ -3516,7 +3516,7 @@ for k, v in pairs(G) do
 end
 '''
 
-# Advanced Copiers (1/4)
+# Advanced Copiers (1/5)
 # Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
 # This is for vanilla jokers. Needs separate patches for vanilla and modded jokers.
 # generate_card_ui()
@@ -3545,7 +3545,7 @@ if specific_vars.aij_whats_left then
     desc_nodes[#desc_nodes + 1] = main_end
 end
 '''
-# Advanced Copiers (2/4)
+# Advanced Copiers (2/5)
 # Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
 # This is for modded jokers. Needs separate patches for vanilla and modded jokers.
 # SMODS.Center:generate_ui()
@@ -4047,3 +4047,4 @@ line_prepend = "$indent"
 position = "at"
 payload = '''local aij_blueprint_compatible = other_joker and (other_joker.ability.aij_blueprint_compat or $cond)
 if other_joker and other_joker ~= self and aij_blueprint_compatible then'''
+
