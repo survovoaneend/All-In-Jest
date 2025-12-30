@@ -17,6 +17,8 @@ local save_changed_abilities_to_stored_table = function (copier_card, copied_ind
             k == copier_card.config.center.key or 
             k == "jest_applied" or 
             k == "jest_silver_active" or
+            k == "aij_recherche_doubled" or
+            k == "aij_unusual_doubled" or
             string.sub(k, 1, #"j_aij_whats_left_compat") == "j_aij_whats_left_compat"
         ) then -- This is the key that stores all the data related to the copier joker
             -- if copier_card.ability[copier_card.config.center.key].copied_joker_abilities[copied_index][k] ~= v and type(v) ~= "table" then
@@ -294,7 +296,6 @@ All_in_Jest.set_copied_joker = function(copier_card, copied_center)
     copier_card.ability[copier_card.config.center.key].copied_joker_key = joker_key
 
     local copier_ability = copy_table(copier_card.ability[copier_card.config.center.key])
-    
     copier_card.ability[copier_card.config.center.key] = copier_ability
 
     -- Set added_to_deck before and after as add_to_deck does not execute if card is already added to deck
@@ -318,8 +319,10 @@ All_in_Jest.add_copied_joker = function(copier_card, copied_center, copied_base_
             local joker_key = copied_center.key
             new_ability.key = joker_key
             new_ability.jest_silver_active = nil
+            new_ability.aij_recherche_doubled = nil
+            new_ability.aij_unusual_doubled = nil
 
-            if copied_center.aij_dongtong_compat then
+            if copied_center.dongtong_compat == nil or copied_center.dongtong_compat then
                 jest_ability_calculate(
                     {ability = new_ability},
                     "*", (copier_card.ability[copier_card.config.center.key].silver_multiplier_buff or 100) / 100,
