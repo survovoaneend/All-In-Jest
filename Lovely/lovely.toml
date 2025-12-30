@@ -306,6 +306,8 @@ end
 match_indent = true
 
 # The Treachery Of Jokers going into Consumable slot instead
+# Also make advanced copier jokers (joker.png, what's left, etc.) go into consumable slot if they're copying ToJ
+# CardArea:emplace()
 [[patches]] 
 [patches.pattern]
 target = "cardarea.lua"
@@ -314,8 +316,27 @@ if location == 'front' or self.config.type == 'deck' then
 '''
 position = "before"
 payload = '''
-if self == G.jokers and card.config.center.key == 'j_aij_the_treachery_of_jokers' then
-    self = G.consumeables
+if self == G.jokers then
+    if card.config.center.key == 'j_aij_the_treachery_of_jokers' then
+        self = G.consumeables
+    end
+    if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_key == 'j_aij_the_treachery_of_jokers' then
+        self = G.consumeables
+    end
+    if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_abilities then
+        local move = false
+        local copier_ability = card.ability[card.config.center.key]
+        for index = #copier_ability.copied_joker_abilities, math.max(1, #copier_ability.copied_joker_abilities - copier_ability.copy_limit + 1), -1 do
+            local copied_ability = copier_ability.copied_joker_abilities[index]
+            if copied_ability.key == "j_aij_the_treachery_of_jokers" then
+                move = true
+                break
+            end
+        end
+        if move then
+            self = G.consumeables
+        end
+    end
 end
 '''
 match_indent = true
