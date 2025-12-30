@@ -36,16 +36,16 @@ local czar = {
     blueprint_compat = false, -- uses ability.aij_blueprint_compat
     eternal_compat = true,
 
+    set_ability = function(self, card, initial, delay_sprites)
+        local joker_center, index = select_random_valid_joker()
+        All_in_Jest.set_copied_joker(card, joker_center)
+    end,
+
     add_to_deck = function(self, card, from_debuff)
         if card.ability.j_aij_czar and card.ability.j_aij_czar.copied_joker_key ~= nil then
             card.added_to_deck = false
             All_in_Jest.use_copied_joker_function(card, "add_to_deck", "add_to_deck", {card, true}, {true})
             card.added_to_deck = true
-        else
-            if not from_debuff then
-                local joker_center, index = select_random_valid_joker()
-                All_in_Jest.set_copied_joker(card, joker_center)
-            end
         end
     end,
 

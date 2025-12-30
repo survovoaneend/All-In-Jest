@@ -36,19 +36,20 @@ local whats_left = {
     j_aij_whats_left_compat = false, -- Stops it from copying itself
     eternal_compat = true,
 
+    set_ability = function(self, card, initial, delay_sprites)
+        for index = 1, #G.GAME.all_in_jest.previously_sold_jokers do
+            sendDebugMessage("is anything happening", "AIJ")
+            local copied_center = G.P_CENTERS[G.GAME.all_in_jest.previously_sold_jokers[index].save_fields.center]
+            All_in_Jest.add_copied_joker(card, copied_center, G.GAME.all_in_jest.previously_sold_jokers[index].ability, true)
+        end
+    end,
+
     add_to_deck = function(self, card, from_debuff)
         if card.ability.j_aij_whats_left and #card.ability.j_aij_whats_left.copied_joker_abilities > 0 then
             for index = #card.ability.j_aij_whats_left.copied_joker_abilities, math.max(1, #card.ability.j_aij_whats_left.copied_joker_abilities - card.ability.j_aij_whats_left.copy_limit + 1), -1 do
                 card.added_to_deck = false
                 All_in_Jest.use_copied_joker_function(card, "add_to_deck", "add_to_deck", {card, true}, {true}, index)
                 card.added_to_deck = true
-            end
-        else
-            if not from_debuff then
-                for index = 1, #G.GAME.all_in_jest.previously_sold_jokers do
-                    local copied_center = G.P_CENTERS[G.GAME.all_in_jest.previously_sold_jokers[index].save_fields.center]
-                    All_in_Jest.add_copied_joker(card, copied_center, G.GAME.all_in_jest.previously_sold_jokers[index].ability, index <= #G.GAME.all_in_jest.previously_sold_jokers - card.ability.j_aij_whats_left.copy_limit)
-                end
             end
         end
     end,
