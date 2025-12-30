@@ -3530,8 +3530,7 @@ payload = '''
 specific_vars = _c.specific_vars or specific_vars
 if specific_vars.aij_whats_left then
     local copier_card = specific_vars.aij_whats_left
-    local index = specific_vars.aij_whats_left_index
-    local new_ability = copier_card.ability[copier_card.config.center.key].copied_joker_abilities[index]
+    local new_ability = specific_vars.aij_whats_left_ability
 
     new_ability.j_aij_whats_left_compat_ui = new_ability.j_aij_whats_left_compat_ui or ''
     new_ability.j_aij_whats_left_compat_check = nil
@@ -3569,7 +3568,13 @@ payload = '''
 if target.vars.aij_whats_left then
     card = target.vars.aij_whats_left
     local index = target.vars.aij_whats_left_index
-    local new_ability = card.ability[card.config.center.key].copied_joker_abilities[index]
+    local new_ability = target.vars.aij_whats_left_ability
+    
+    if card.added_to_deck then
+        All_in_Jest.hotswap_copied_ability(card, index)
+    else
+        All_in_Jest.set_copied_ability(card, G.P_CENTERS[target.key], nil, new_ability)
+    end
 
     new_ability.j_aij_whats_left_compat_ui = new_ability.j_aij_whats_left_compat_ui or ''
     new_ability.j_aij_whats_left_compat_check = nil
@@ -3581,11 +3586,10 @@ if target.vars.aij_whats_left then
         }}
     } or nil
     desc_nodes[#desc_nodes + 1] = main_end
-    
-    All_in_Jest.hotswap_copied_ability(card, index)
 
     target.vars.aij_whats_left = nil
     target.vars.aij_whats_left_index = nil
+    target.vars.aij_whats_left_ability = nil
 
     G.E_MANAGER:add_event(Event({
         func = function()

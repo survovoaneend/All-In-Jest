@@ -75,9 +75,18 @@ local whats_left = {
     end,
 
     loc_vars = function(self, info_queue, card)
+
+        local abilities_to_display = {}
+
         if card.ability.j_aij_whats_left and #card.ability.j_aij_whats_left.copied_joker_abilities > 0 then
-            for i = #card.ability.j_aij_whats_left.copied_joker_abilities, math.max(1, #card.ability.j_aij_whats_left.copied_joker_abilities - card.ability.j_aij_whats_left.copy_limit + 1), -1 do
-                local copied_center = G.P_CENTERS[card.ability.j_aij_whats_left.copied_joker_abilities[i].key]
+            abilities_to_display = card.ability.j_aij_whats_left.copied_joker_abilities
+        end
+
+        if #abilities_to_display > 0 then
+            for i = #abilities_to_display, math.max(1, #abilities_to_display - card.ability.j_aij_whats_left.copy_limit + 1), -1 do
+                local center_key = abilities_to_display[i].key
+                local copied_center = G.P_CENTERS[center_key]
+
                 local info_queue_center = { -- Create a simplified "fake" center that can be used without referencing/modifying the actual center object
                     key = copied_center.key,
                     name = copied_center.name,
@@ -91,7 +100,11 @@ local whats_left = {
                 }
 
                 local other_vars = {}
-                All_in_Jest.hotswap_copied_ability(card, i)
+                if card.added_to_deck then
+                    All_in_Jest.hotswap_copied_ability(card, i)
+                else
+                    All_in_Jest.set_copied_ability(card, copied_center, nil, abilities_to_display[i])
+                end
                 if copied_center.loc_vars then
                     local ret = copied_center:loc_vars({}, card) -- Make info_queue an empty table 
                     if ret then
@@ -106,6 +119,7 @@ local whats_left = {
                     info_queue_center.specific_vars = other_vars
                     info_queue_center.specific_vars.aij_whats_left = card
                     info_queue_center.specific_vars.aij_whats_left_index = i
+                    info_queue_center.specific_vars.aij_whats_left_ability = abilities_to_display[i]
                 end
                 info_queue[#info_queue + 1] = info_queue_center
                 All_in_Jest.set_copied_ability(card, {config = {}})
@@ -164,14 +178,27 @@ function Card:sell_card()
         local save_data = copy_table(self:save())
         save_data.ability.jest_sold_self = nil
         table.insert(G.GAME.all_in_jest.previously_sold_jokers, save_data) -- Store the joker saved so it does not get erased on game reload
-        for _, whats_left in ipairs(SMODS.find_card("j_aij_whats_left", true)) do
-            if whats_left ~= self then
+        
+        -- Update What's Left while its in a booster pack or the shop
+        local whats_left_jokers = SMODS.find_card("j_aij_whats_left", true)
+        for _, area in ipairs({G.shop_jokers, G.pack_cards}) do
+            if area ~= nil and area.cards then
+                for _, v in pairs(area.cards) do
+                    if v and type(v) == 'table' and v.config.center.key == "j_aij_whats_left" then
+                        table.insert(whats_left_jokers, v)
+                    end
+                end
+            end
+        end
+
+        for _, whats_left_card in ipairs(whats_left_jokers) do
+            if whats_left_card ~= self then
                 local sold_joker = G.GAME.all_in_jest.previously_sold_jokers[#G.GAME.all_in_jest.previously_sold_jokers]
                 local sold_joker_key = sold_joker.save_fields.center -- key is stored differently in a save table
                 local copied_center = G.P_CENTERS[sold_joker_key]
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        All_in_Jest.add_copied_joker(whats_left, copied_center, sold_joker.ability)
+                        All_in_Jest.add_copied_joker(whats_left_card, copied_center, sold_joker.ability, not whats_left_card.added_to_deck)
                         return true
                     end
                 }))
