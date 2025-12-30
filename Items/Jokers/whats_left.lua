@@ -206,24 +206,4 @@ function Card:sell_card()
     return ref
 end
 
-local aij_smods_find_card_ref = SMODS.find_card
-function SMODS.find_card(key, count_debuffed)
-    local results = aij_smods_find_card_ref(key, count_debuffed)
-    if not G.jokers or not G.jokers.cards then return {} end
-    for _, area in ipairs(SMODS.get_card_areas('jokers')) do
-        if area.cards then
-            for _, v in pairs(area.cards) do
-                if v and type(v) == 'table' and v.ability.j_aij_whats_left and (count_debuffed or not v.debuff) then
-                    for i = #v.ability.j_aij_whats_left.copied_joker_abilities, math.max(1, #v.ability.j_aij_whats_left.copied_joker_abilities - v.ability.j_aij_whats_left.copy_limit + 1), -1 do
-                        if v.ability.j_aij_whats_left.copied_joker_abilities[i] and v.ability.j_aij_whats_left.copied_joker_abilities[i].key == key then
-                            table.insert(results, v)
-                        end
-                    end
-                end
-            end
-        end
-    end
-    return results
-end
-
 return { name = { "Jokers" }, items = { whats_left } }

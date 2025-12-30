@@ -3620,7 +3620,7 @@ if target.vars.aij_whats_left then
     }))
 end -- All in Jest
 if target.vars.aij_joker_png then card = target.vars.aij_joker_png; target.vars.aij_joker_png = nil end -- All in Jest
-if target.vars.aij_czar then card = target.vars.aij_czar; target.vars.aij_czar = nil end -- All in Jest
+if target.vars.aij_copier_card then card = target.vars.aij_copier_card; target.vars.aij_copier_card = nil end -- All in Jest
 '''
 # Advanced Copiers (3/5)
 # Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (1/2)
@@ -3632,7 +3632,7 @@ pattern = '''_c:generate_ui(info_queue, card, desc_nodes, specific_vars, full_UI
 position = "before"
 match_indent = true
 payload = '''
-local target_card = _c.specific_vars and (_c.specific_vars.aij_elder or _c.specific_vars.aij_whats_left or _c.specific_vars.aij_joker_png or _c.specific_vars.aij_czar)
+local target_card = _c.specific_vars and (_c.specific_vars.aij_elder or _c.specific_vars.aij_whats_left or _c.specific_vars.aij_copier_card)
 '''
 # Advanced Copiers (4/5)
 # Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (2/2)

@@ -362,3 +362,107 @@ All_in_Jest.add_copied_joker = function(copier_card, copied_center, copied_base_
         end
     end
 end
+
+
+-- ------------------------------------------------------------
+-- Create template object for copier jokers
+-- ------------------------------------------------------------
+
+
+All_in_Jest.single_copier = SMODS.Joker:extend {
+    add_to_deck = function(self, card, from_debuff)
+        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_key ~= nil then
+            card.added_to_deck = false
+            All_in_Jest.use_copied_joker_function(card, "add_to_deck", "add_to_deck", {card, true}, {true})
+            card.added_to_deck = true
+        end
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_key ~= nil then
+            card.added_to_deck = true
+            All_in_Jest.use_copied_joker_function(card, "remove_from_deck", "remove_from_deck", {card, true}, {true})
+            card.added_to_deck = true
+        end
+    end,
+
+    update = function(self, card, dt)
+        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_key ~= nil then
+            All_in_Jest.use_copied_joker_function(card, "update", "update", {card, dt}, {dt})
+        end
+    end,
+
+    loc_vars = function(self, info_queue, card)
+        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_key ~= nil then
+            local copied_center = G.P_CENTERS[card.ability[card.config.center.key].copied_joker_key]
+            local info_queue_center = { -- Create a simplified "fake" center that can be used without referencing/modifying the actual center object
+                key = copied_center.key,
+                name = copied_center.name,
+                config = copied_center.config,
+                blueprint_compat = copied_center.blueprint_compat,
+                discovered = true,
+                set = "Joker",
+                create_fake_card = copied_center.create_fake_card,
+                generate_ui = copied_center.generate_ui,
+                loc_vars = copied_center.loc_vars
+            }
+
+            local other_vars = {}
+            if copied_center.loc_vars then
+                local ret = copied_center:loc_vars({}, card) -- Make info_queue an empty table 
+                if ret then
+                    other_vars = ret.vars
+                end
+            else
+                card.ability.name = copied_center.name
+                other_vars, _, _ = card:generate_UIBox_ability_table(true)
+                card.ability.name = card.config.center.name
+            end
+            if other_vars then
+                info_queue_center.specific_vars = other_vars
+                info_queue_center.specific_vars.aij_copier_card = card
+            end
+            info_queue[#info_queue + 1] = info_queue_center
+        end
+        return { vars = {} }
+    end,
+
+    calculate = function(self, card, context)
+        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_key ~= nil then
+            return table.unpack(All_in_Jest.use_copied_joker_function(card, "calculate", "calculate_joker", {card, context}, {context}))
+        end
+    end,
+
+    calc_dollar_bonus = function(self, card)
+        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_key ~= nil then
+            return table.unpack(All_in_Jest.use_copied_joker_function(card, "calc_dollar_bonus", "calculate_dollar_bonus", {card}, {}))
+        end
+    end
+}
+
+local aij_smods_find_card_ref = SMODS.find_card
+function SMODS.find_card(key, count_debuffed)
+    local results = aij_smods_find_card_ref(key, count_debuffed)
+    if not G.jokers or not G.jokers.cards then return {} end
+    for _, area in ipairs(SMODS.get_card_areas('jokers')) do
+        if area.cards then
+            for _, v in pairs(area.cards) do
+                if v and type(v) == 'table' and v.ability[v.config.center.key] and (count_debuffed or not v.debuff) then
+                    -- Check if a single-copier is copying it
+                    if v.ability[v.config.center.key].copied_joker_key == key then
+                        table.insert(results, v)
+                    end
+                    -- Check if a multi-copier is copying it
+                    if type(v.ability[v.config.center.key].copied_joker_abilities) == "table" and v.ability[v.config.center.key].copy_limit then
+                        for i = #v.ability[v.config.center.key].copied_joker_abilities, math.max(1, #v.ability[v.config.center.key].copied_joker_abilities - v.ability[v.config.center.key].copy_limit + 1), -1 do
+                            if v.ability[v.config.center.key].copied_joker_abilities[i] and v.ability[v.config.center.key].copied_joker_abilities[i].key == key then
+                                table.insert(results, v)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return results
+end
