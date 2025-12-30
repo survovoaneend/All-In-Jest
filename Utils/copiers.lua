@@ -204,9 +204,9 @@ All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla
             -- Vanilla Jokers
             local old_func = card.config.center[modded_func_name]
             card.ability.name = obj.name
-            card.config.center[modded_func_name] = nil
+            card.config.center[modded_func_name] = false
 
-            ret = table.pack(card[vanilla_func_name](card, table.unpack(vanilla_func_args)))
+            ret = table.pack(Card[vanilla_func_name](card, table.unpack(vanilla_func_args)))
 
             card.ability.name = card.config.center.name
             card.config.center[modded_func_name] = old_func
@@ -277,9 +277,11 @@ end
 -- Joker.png + Czar
 All_in_Jest.set_copied_joker = function(copier_card, copied_center)
     -- Set added_to_deck before and after as remove_from_deck does not execute if card is not added to deck
-    copier_card.added_to_deck = true
-    All_in_Jest.use_copied_joker_function(copier_card, "remove_from_deck", "remove_from_deck", {copier_card, true}, {true})
-    copier_card.added_to_deck = true
+    if copier_card.ability[copier_card.config.center.key].copied_joker_key ~= nil then
+        copier_card.added_to_deck = true
+        All_in_Jest.use_copied_joker_function(copier_card, "remove_from_deck", "remove_from_deck", {copier_card, true}, {true})
+        copier_card.added_to_deck = true
+    end
 
     if copied_center == nil or (not copied_center.key) then
         copied_center = G.P_CENTERS['j_joker']
