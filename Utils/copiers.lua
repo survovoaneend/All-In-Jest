@@ -240,12 +240,14 @@ All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla
                         -- If none were, #G.E_MANAGER.queues.base should be equal to the expected_queue_length
                         -- If it's greater than expected_queue_length, then additional events have been made
                         -- (If it's somehow less something weird happened)
+                        if not skip_events then
+                            All_in_Jest.set_copied_ability(card, {config = {}})
+                        end
                         if (not skip_events) and (#G.E_MANAGER.queues.base > expected_queue_length) then -- Subtract 1 from starting_queue_length to account for the event inserted above
                             -- This is for events that modify joker values nested in an event
                             -- I don't think there yet exists a joker in this mod that does this?
                             -- This is mostly a "just-in-case" measure, especially for modded and future effects
-                            All_in_Jest.set_copied_ability(card, {config = {}})
-                            event_insert_to_queue(G.E_MANAGER, expected_queue_length, Event({
+                            event_insert_to_queue(G.E_MANAGER, expected_queue_length + 1, Event({
                                 func = function()
                                     sendDebugMessage(modded_func_name .. pseudorandom(pseudoseed("AIJ")), "AIJ use")
                                     All_in_Jest.hotswap_copied_ability(card, index)
@@ -272,7 +274,7 @@ All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla
 end
 
 -- Sets a copier joker to copy a specified joker
--- Keep index as nil if copier only copies one joker at a time
+-- Joker.png + Czar
 All_in_Jest.set_copied_joker = function(copier_card, copied_center)
     -- Set added_to_deck before and after as remove_from_deck does not execute if card is not added to deck
     copier_card.added_to_deck = true
@@ -304,6 +306,8 @@ All_in_Jest.set_copied_joker = function(copier_card, copied_center)
     copier_card.added_to_deck = true
 end
 
+-- Adds a joker for a multi-copier joker to copy
+-- What's Left + Clay Joker
 All_in_Jest.add_copied_joker = function(copier_card, copied_center, copied_base_stats, skip_funcs)
     if copier_card.ability[copier_card.config.center.key].copied_joker_abilities ~= nil then
         if copied_center == nil or (not copied_center.key) then
