@@ -62,6 +62,15 @@ local joker_png = {
             card.ability.j_aij_joker_png.cost = card.ability.j_aij_joker_png.cost + card.ability.j_aij_joker_png.cost_increase
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_reroll')})
         end,
+
+        -- A utility function for testing
+        utils_set_joker_ability = function(self, card, joker_center)
+            All_in_Jest.set_copied_joker(card, G.P_CENTERS[joker_center])
+
+            card:juice_up(0.3, 0.5)
+            card.ability.j_aij_joker_png.cost = card.ability.j_aij_joker_png.cost + card.ability.j_aij_joker_png.cost_increase
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_reroll')})
+        end
     },
 
     set_ability = function(self, card, initial, delay_sprites)
