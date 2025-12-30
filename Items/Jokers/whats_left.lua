@@ -67,9 +67,7 @@ local whats_left = {
     update = function(self, card, dt)
         if card.ability.j_aij_whats_left and #card.ability.j_aij_whats_left.copied_joker_abilities > 0 then
             for index = #card.ability.j_aij_whats_left.copied_joker_abilities, math.max(1, #card.ability.j_aij_whats_left.copied_joker_abilities - card.ability.j_aij_whats_left.copy_limit + 1), -1 do
-                card.added_to_deck = false
                 All_in_Jest.use_copied_joker_function(card, "update", "update", {card, dt}, {dt}, index, true)
-                card.added_to_deck = true
             end
         end
     end,
