@@ -365,9 +365,27 @@ to_big = to_big or function(num)
 end
 
 AllInJest.touchstone_deck_preview = function()
-    local touchstone_card = SMODS.find_card('j_aij_touchstone')[1]
+    local max_future_sense = 0
+    if G.jokers and G.jokers.cards then
+        for _, area in ipairs(SMODS.get_card_areas('jokers')) do
+            if area.cards then
+                for _, v in pairs(area.cards) do
+                    if v and type(v) == 'table' and not v.debuff then
+                        if v.ability.future_sense and not v.debuff then
+                            max_future_sense = math.max(max_future_sense, v.ability.future_sense)
+                        end
+                        if v.ability[v.config.center.key] and v.ability[v.config.center.key].copied_joker_abilities then
+                            for index = #v.ability[v.config.center.key].copied_joker_abilities, math.max(1, #v.ability[v.config.center.key].copied_joker_abilities - v.ability[v.config.center.key].copy_limit + 1), -1 do
+                                max_future_sense = math.max(max_future_sense, v.ability[v.config.center.key].copied_joker_abilities[index].future_sense)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
     local cards = {}
-    for i = #G.deck.cards, #G.deck.cards - touchstone_card.ability.future_sense + 1, -1 do
+    for i = #G.deck.cards, #G.deck.cards - max_future_sense + 1, -1 do
         if i > 0 then
             local card = copy_card(G.deck.cards[i], nil, nil, G.playing_card)
 
@@ -376,9 +394,7 @@ AllInJest.touchstone_deck_preview = function()
                 card:set_edition({negative = true}, nil, true)
             end
 
-            if G.jokers and touchstone_card.area == G.jokers then
-                card.facing = 'front' -- Using .flip() here plays the flipping animation
-            end
+            card.facing = 'front' -- Using .flip() here plays the flipping animation
 
             table.insert(cards, card)
         end

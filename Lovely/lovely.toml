@@ -3468,7 +3468,7 @@ position = "after"
 line_prepend = "$indent"
 payload = '''
 
-next(SMODS.find_card('j_aij_touchstone')) and AllInJest.touchstone_deck_preview() or nil,
+(next(SMODS.find_card('j_aij_touchstone')) or next(SMODS.find_card('j_aij_peeping_tom'))) and AllInJest.touchstone_deck_preview() or nil,
 '''
 
 # When saving a run, save all data in G.all_in_jest as direct children of G
