@@ -3,7 +3,6 @@ local the_heart = {
     key = 'the_heart',
     boss = {
       min = 4,
-      hand = "[hand]",
       all_in_jest = {
           pit = true
       }
@@ -20,18 +19,9 @@ local the_heart = {
     config = {extra = {trigger = false,  hand = "[hand]"}},
 
     loc_vars = function(self)
-        local hands = {
-            "Two Pair",
-            "Flush",
-            "Straight",
-            "Three of a Kind"
-        }
-        if self.boss.hand == "[hand]" then
-            self.boss.hand = pseudorandom_element(hands, pseudoseed('jest_the_heart_blind'..G.GAME.round_resets.ante))
-        end
         return {
             vars = {
-                self.boss.hand
+                G.GAME.current_round.aij_the_heart and G.GAME.current_round.aij_the_heart.hand or "[hand]"
             }
         }
     end,
@@ -52,14 +42,13 @@ local the_heart = {
     debuff_hand = function(self, cards, poker_hands, text, mult, hand_chips)
         local blind_exists = G.GAME.blind and G.GAME.blind.ability
         if blind_exists then
-            G.GAME.blind.ability.extra.hand = self.boss.hand
-            if G.GAME.hands[G.GAME.blind.ability.extra.hand].played_this_round > 0 then
-                G.GAME.blind.ability.extra.trigger = true
-            end
-            if next(poker_hands[G.GAME.blind.ability.extra.hand]) or G.GAME.blind.ability.extra.trigger then
-                return false     
+            local current_hand_is_matching = next(poker_hands[G.GAME.current_round.aij_the_heart.hand])
+            local previous_hand_matched = G.GAME.hands[G.GAME.current_round.aij_the_heart.hand].played_this_round > 0
+            if current_hand_is_matching or previous_hand_matched then
+                return false
             end
         end
+        G.GAME.blind.triggered = true
         return true
     end,
 }

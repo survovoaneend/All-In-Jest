@@ -1,10 +1,18 @@
+local function round_hundredth(x)
+    if x >= 0 then
+        return math.floor(x * 100 + 0.5) / 100
+    else
+        return math.ceil(x * 100 - 0.5) / 100
+    end
+end
+
 local kilroy = {
     object_type = "Joker",
     order = 132,
 
     key = "kilroy",
     config = {
-      extra = {curchips = 25}
+        silver_multiplier_buff = 100, -- Make 100 instead of 1 to keep 2 decimals of precision
     },
     rarity = 1,
     pos = { x = 1, y = 5 },
@@ -16,7 +24,7 @@ local kilroy = {
     eternal_compat = false,
   
     loc_vars = function(self, info_queue, card)
-        return { vars = {card.ability.extra.curchips}}
+        return { vars = {round_hundredth(G.GAME.all_in_jest.jest_kilroy_curvalue * card.ability.silver_multiplier_buff / 100)}}
     end,
   
     calculate = function(self, card, context)
@@ -24,27 +32,20 @@ local kilroy = {
         if context.selling_card and not context.blueprint then
             if (context.card == card) then
                 SMODS.scale_card(card, {
-                    ref_table = G.P_CENTERS["j_aij_kilroy"].config.extra,
-                    ref_value = "curchips",
-                    scalar_value = "curchips",
-                    no_message = true,
+                    ref_table = G.GAME.all_in_jest,
+                    ref_value = "jest_kilroy_curvalue",
+                    scalar_table = {scale = 2},
+                    operation = "X",
+                    scalar_value = "scale",
+                    -- no_message = true,
                 })
-            else
-                -- If this card was not sold, copy current values with config
-                -- In case a duplicate Kilroy was sold
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        card.ability.extra.curchips = G.P_CENTERS["j_aij_kilroy"].config.extra.curchips
-                        return true
-                    end
-                }))
             end
         end
 
         if context.joker_main then
-            if card.ability.extra.curchips ~= 0 then
+            if round_hundredth(G.GAME.all_in_jest.jest_kilroy_curvalue * card.ability.silver_multiplier_buff / 100) > 0 then
                 return {
-                  chips = card.ability.extra.curchips,
+                  chips = round_hundredth(G.GAME.all_in_jest.jest_kilroy_curvalue * card.ability.silver_multiplier_buff / 100),
                 }
             end
         end

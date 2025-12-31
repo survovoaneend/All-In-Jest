@@ -29,9 +29,6 @@ local kasperle = {
     end,
   
     calculate = function(self, card, context)
-        if context.ante_change and context.ante_change ~= 0 and context.ante_end then
-            G.GAME.jest_kasperle_voucher_ante = false
-        end
         if context.joker_main then
             if G.GAME.jest_kasperle_voucher_ante then
                 return {
@@ -41,13 +38,13 @@ local kasperle = {
         end
     end
 }
-local redeemref = Card.redeem
+local aij_card_redeem_ref = Card.redeem
 function Card:redeem()
     if self.ability.set == "Voucher" then
         G.GAME.jest_kasperle_voucher_ante = true
     end
     
-    local ref = redeemref(self)
+    local ref = aij_card_redeem_ref(self)
     return ref
 end
 return { name = {"Jokers"}, items = {kasperle} }

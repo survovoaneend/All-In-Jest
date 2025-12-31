@@ -1,29 +1,31 @@
-local spawn_czar_joker = function (card)
+local select_random_valid_joker = function ()
     local jokers = {}
-    -- for rarity, _ in pairs(SMODS.Rarity.obj_table) do
-        -- for _, key in pairs(get_current_pool("Joker"), rarity) do
-        for _, key in pairs(get_current_pool("Joker")) do
-            local center = G.P_CENTERS[key]
-            if key ~= "j_aij_czar" and key ~= "UNAVAILABLE" and All_in_Jest.expanded_copier_compat(center, true) then
+    for _, key in pairs(get_current_pool("Joker")) do
+        local center = G.P_CENTERS[key]
+        -- Disallowing jokers with a set_ability function, because those usually mess with the sprite and I cannot be bothered
+        -- May disallow jokers with an "update" function too, but it seems to be alright with Vanilla and All in Jest alone
+        if key ~= "j_aij_czar" and key ~= "UNAVAILABLE" and not (center.all_in_jest and center.all_in_jest.use_ability) and not center.set_ability then
+            if center.discovered then
                 jokers[#jokers+1] = center
             end
         end
-    -- end
-    local joker_center = pseudorandom_element(jokers, pseudoseed('czar'))
-    SMODS.bypass_create_card_edition = true
-    local joker = create_card('Joker', G.all_in_jest_czar, nil, nil, true, nil, joker_center.key, 'czar')
-    SMODS.bypass_create_card_edition = nil
-    G.all_in_jest_czar:emplace(joker)
-    joker.ability.all_in_jest = joker.ability.all_in_jest or {}
-    joker.ability.all_in_jest.czar = tostring(card.unique_val)
+    end
+    local joker_center, index = pseudorandom_element(jokers, pseudoseed('czar'))
+    return joker_center, index
 end
 
 local czar = {
-    object_type = "Joker",
+    object_type = "single_copier",
+    object_loader = All_in_Jest,
     order = 365,
-    ignore = true,
     key = "czar",
     config = {
+        aij_blueprint_compat = true,
+        aij_dongtong_compat = true,
+        j_aij_czar = { -- Store all data needed for this joker in a table with a matching key, this will be preserved on ability changes
+            copied_joker_key = nil,
+            silver_multiplier_buff = 100, -- Make 100 instead of 1 to keep 2 decimals of precision
+        }
     },
     rarity = 2,
     pos = { x = 14, y = 14},
@@ -31,71 +33,31 @@ local czar = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = true,
+    blueprint_compat = false, -- uses ability.aij_blueprint_compat
     eternal_compat = true,
-    
-    add_to_deck = function(self, card, from_debuff)
-        if not from_debuff then
-            spawn_czar_joker(card)
-        end
-    end,
 
-    remove_from_deck = function(self, card, from_debuff)
-        if not from_debuff then
-            for _,v in pairs(G.all_in_jest_czar.cards) do
-                if v.ability.all_in_jest and v.ability.all_in_jest.czar == tostring(card.unique_val) then
-                    v:remove()
-                end
-            end
+    set_ability = function(self, card, initial, delay_sprites)
+        if G.playing_card then -- Check if in collection or not
+            local joker_center, index = select_random_valid_joker()
+            All_in_Jest.set_copied_joker(card, joker_center)
         end
-    end,
-
-    loc_vars = function(self, info_queue, card)
-        if G.all_in_jest_czar and G.all_in_jest_czar.cards then
-            for _,v in pairs(G.all_in_jest_czar.cards) do
-                if v.ability.all_in_jest and v.ability.all_in_jest.czar == tostring(card.unique_val) then
-                    local other_joker = v
-                    local other_vars = nil
-                    if other_joker.config.center.loc_vars then
-                        local ret = other_joker.config.center:loc_vars({}, other_joker)
-                        if ret then
-                            other_vars = ret.vars
-                        end
-                    else
-                        other_vars, _, _ = other_joker:generate_UIBox_ability_table(true)
-                    end
-                    if other_vars then
-                        other_joker.config.center.specific_vars = other_vars
-                        other_joker.config.center.specific_vars.aij_czar = other_joker
-                    end
-                    info_queue[#info_queue + 1] = G.P_CENTERS[other_joker.config.center.key]
-                end
-            end
-        end
-        return { vars = {} }
     end,
 
     calculate = function(self, card, context)
         if context.reroll_shop then
-            for _,v in pairs(G.all_in_jest_czar.cards) do
-                if v.ability.all_in_jest and v.ability.all_in_jest.czar == tostring(card.unique_val) then
-                    v:remove()
-                end
-            end
-            spawn_czar_joker(card)
+            local joker_center, index = select_random_valid_joker()
+            All_in_Jest.set_copied_joker(card, joker_center)
+
+            card:juice_up(0.3, 0.5)
             if not context.blueprint then
                 return {
-                    message = localize('k_reset'),
+                    message = localize('k_reroll'),
                 }
             end
         end
-        for _,v in pairs(G.all_in_jest_czar.cards) do
-            if v.ability.all_in_jest and v.ability.all_in_jest.czar == tostring(card.unique_val) then
-                local other_joker = v
-                return SMODS.blueprint_effect(card, other_joker, context)
-            end
-        end
-    end
-  
+
+        return All_in_Jest.single_copier.calculate(self, card, context)
+    end,
 }
+
 return { name = {"Jokers"}, items = {czar} }

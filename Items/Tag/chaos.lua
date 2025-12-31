@@ -27,13 +27,15 @@ local chaos = {
     local trigger = false
     while (not trigger) or (effect == nil) do
       effect = pseudorandom_element(self.config.effects, pseudoseed('jest_chaos_tag'))
-      
-      if effect == "create_consumables" then
+
+      if effect == "boss_reroll" and MP and MP.LOBBY.code then
+        trigger = false
+      elseif effect == "create_consumables" then
         trigger = #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
       elseif effect == "create_jokers" then
         trigger = #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
       elseif effect == "dupe_joker" then
-        trigger = (#G.jokers.cards <= G.jokers.config.card_limit and #G.jokers.cards > 0)
+        trigger = (#G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit) and (#G.jokers.cards > 0)
       elseif effect == "apply_edition" then
         if #G.jokers.cards > 0 then
           for i = 1, #G.jokers.cards do
@@ -52,7 +54,7 @@ local chaos = {
           if effect == "money" then
             local money = pseudorandom('jest_chaos_tag', 1, 50)
             ease_dollars(money)
-          elseif effect == "boss_reroll" then
+          elseif effect == "boss_reroll" and not (MP and MP.LOBBY.code) then
             local bosses = {}
             for k, v in pairs(G.P_BLINDS) do
               if v and v.boss then
@@ -108,22 +110,18 @@ local chaos = {
             G.FUNCS.use_card({ config = { ref_table = card } })
             card:start_materialize()
           elseif effect == "level_hands" then
+            local _poker_hands = {}
+            for k, v in pairs(G.GAME.hands) do
+              if v.visible then _poker_hands[#_poker_hands + 1] = k end
+            end
+
             local times = pseudorandom('jest_chaos_tag', 1, 2)
-            for i = 1, times do
-              local _poker_hands = {}
-              for k, v in pairs(G.GAME.hands) do
-                if v.visible then _poker_hands[#_poker_hands + 1] = k end
-              end
-              local poker_hand = pseudorandom_element(_poker_hands, pseudoseed('jest_chaos_tag'))
+            for i = 1, math.min(times, #_poker_hands) do
+              local chosen_poker_hand, chosen_index = pseudorandom_element(_poker_hands, pseudoseed('jest_chaos_tag'))
               local levels = pseudorandom('jest_chaos_tag', 1, 3)
-              for j = 1, levels do
-                update_hand_text({ sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3 },
-                  { handname = localize(poker_hand, 'poker_hands'), chips = G.GAME.hands[poker_hand].chips, mult = G
-                  .GAME.hands[poker_hand].mult, level = G.GAME.hands[poker_hand].level })
-                level_up_hand(nil, poker_hand)
-                update_hand_text({ sound = 'button', volume = 0.7, pitch = 1.1, delay = 0 },
-                  { mult = 0, chips = 0, handname = '', level = '' })
-              end
+              level_up_hand(nil, chosen_poker_hand, nil, levels)
+
+              table.remove(_poker_hands, chosen_index)
             end
           elseif effect == "create_jokers" then
             local jokers_to_create = math.min(pseudorandom('jest_chaos_tag', 1, 4),
@@ -135,7 +133,7 @@ local chaos = {
                   local card = create_card('Joker', G.jokers, nil, 0, nil, nil, nil, 'jest_chaos_tag')
                   card:add_to_deck()
                   G.jokers:emplace(card)
-                  card:start_materialize()
+                  card:start_materialize(nil, i ~= 1)
                   G.GAME.joker_buffer = 0
                 end
                 return true
@@ -159,7 +157,7 @@ local chaos = {
               G.consumeables.config.card_limit - (#G.consumeables.cards + G.GAME.consumeable_buffer))
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + consumeables_to_create
             for i = 1, consumeables_to_create do
-              create_consumable("Consumeables", nil, nil, nil)
+              create_consumable("Consumeables", nil, nil, nil, nil, nil, nil, i ~= 1)
             end
           elseif effect == "apply_edition" then
             local jokers = {}

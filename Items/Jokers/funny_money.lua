@@ -11,7 +11,7 @@ local funny_money = {
     rarity = 1,
     pos = { x = 22, y = 9},
     atlas = 'joker_atlas',
-    cost = 5,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

@@ -24,7 +24,7 @@ local chef = {
         return G.GAME.modifiers.enable_perishables_in_shop or false
     end,
     calculate = function(self, card, context)
-        if context.open_booster then
+        if context.open_booster and not context.blueprint then
             card.ability.extra.trigger = true
         end
     end,

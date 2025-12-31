@@ -53,7 +53,7 @@ local four_leaf_clover = {
                             local mult = force_rarity == 4 and 0.5 or 1
                             if SMODS.pseudorandom_probability(card, 'four_leaf_clover'..index, fours*mult, 100, nil, true) then
                                 if force_rarity ~= (v.config.center.rarity or 1) then
-                                    All_in_Jest.reroll_joker(v, nil, 'four_leaf_clover'..index, nil, nil, {forced_rarity = force_rarity})
+                                    All_in_Jest.reroll_joker(v, nil, 'four_leaf_clover'..index, nil, {forced_rarity = force_rarity})
                                     card_eval_status_text(v, 'extra', nil, nil, nil, {
                                         message = localize('k_upgrade_ex'),
                                     })

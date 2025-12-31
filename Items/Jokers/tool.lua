@@ -13,7 +13,7 @@ local tool = {
     cost = 4,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
@@ -28,24 +28,16 @@ local tool = {
         if context.change_suit then
             if not SMODS.has_no_suit(context.other_card) and context.old_suit ~= context.new_suit and not SMODS.has_enhancement(context.other_card, 'm_aij_canvas') then
                 context.other_card.ability.perma_mult = context.other_card.ability.perma_mult or 0
-                context.other_card.ability.perma_mult = context.other_card.ability.perma_mult +
-                    card.ability.extra.mult_mod
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {
-                            message = localize('k_upgrade_ex'),
-                            colour = G.C.RED,
-                            focus = context.other_card
-                        })
-                        card:juice_up()
-                        return true
-                    end
-                }))
-                
-                
+                context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + card.ability.extra.mult_mod
+                local juiced_card = context.blueprint_card or card
+                return {
+                    message = localize("k_upgrade_ex"),
+                    colour = G.C.RED,
+                    message_card = context.other_card,
+                    juice_card = juiced_card
+                }
             end
         end
-        return nil, true
     end
 
 }

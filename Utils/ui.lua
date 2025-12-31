@@ -597,13 +597,27 @@ G.FUNCS.All_in_Jest_select_tag = function(e)
     local number = e.config.ref_table[1]
     local tag = e.config.ref_table[2]
     local other_tags = e.parent.parent.config.ref_table
-    for i = 1, #other_tags do
-        if i ~= number then
-            other_tags[i].T.scale = 0.7
-        else
+    if G.GAME.all_in_jest.blind_tags.selected_index == number then
+        -- Deselects tag if already selected
+        -- (Functionally useless, but prevents player from worrying they did something "unreversible")
+        for i = 1, #other_tags do
             other_tags[i].T.scale = 1
         end
+        G.GAME.all_in_jest.blind_tags.selected_index = nil
+    else
+        for i = 1, #other_tags do
+            if i ~= number then
+                other_tags[i].T.scale = 0.7
+            else
+                other_tags[i].T.scale = 1
+            end
+        end
+        tag:juice_up()
+
+        G.GAME.all_in_jest.blind_tags.selected_index = number
+        -- Sets vanilla tag variable to be the selected tag
+        if G.GAME.round_resets.blind_tags[G.GAME.blind_on_deck] then
+            G.GAME.round_resets.blind_tags[G.GAME.blind_on_deck] = G.GAME.all_in_jest.blind_tags[G.GAME.blind_on_deck][number]
+        end
     end
-    tag:juice_up()
-    G.GAME.all_in_jest.blind_tags.selected_index = number
 end

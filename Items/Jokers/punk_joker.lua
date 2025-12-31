@@ -37,20 +37,24 @@ local punk_joker = {
             end
 
             if #eligible_targets > 0 then
-              local target_card = pseudorandom_element(eligible_targets, pseudoseed('punk'))
-
-              if target_card then
-                  target_card:set_ability(G.P_CENTERS.m_wild, false, true)
-                  G.E_MANAGER:add_event(Event({
+                -- Have to do this mess of code to make banana man say "Again!" at the correct time
+                return {
+                    extra = {message = localize{type = 'name_text', set = 'Enhanced', key = 'm_wild'} .. "!"}, 
                     func = function()
-                        target_card:juice_up()
-                        return true
+                        G.E_MANAGER:add_event(Event({
+                          func = function()
+                              local target_card = pseudorandom_element(eligible_targets, pseudoseed('punk'), {in_pool = function (v, args)
+                                  return v.config.center == G.P_CENTERS.c_base
+                              end})
+                              if target_card then
+                                  target_card:set_ability(G.P_CENTERS.m_wild)
+                                  target_card:juice_up()
+                              end
+                              return true
+                          end
+                        }))
                     end
-                  })) 
-                  card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {
-                    message = 'Wild!', 
-                  })
-              end
+                }
             end
           end
       end

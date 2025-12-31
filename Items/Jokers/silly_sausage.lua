@@ -13,7 +13,7 @@ local silly_sausage = {
     rarity = 1,
     pos = { x = 3, y = 2 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
@@ -48,10 +48,8 @@ local silly_sausage = {
                 if tonumber(card.ability.extra.prev_discount) ~= card.ability.extra.current_discount then
                     local removeamt = card.ability.extra.current_discount - tonumber(card.ability.extra.prev_discount) 
                     G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - removeamt
-                    G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - removeamt)
                 end
                 G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + discount_this_round
-                G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost + discount_this_round)
 
                 if card.ability.extra.current_discount - card.ability.extra.discount_loss <= 0 then
                     SMODS.destroy_cards(card, nil, nil, true)
@@ -63,7 +61,6 @@ local silly_sausage = {
                     card.ability.extra.current_discount = card.ability.extra.current_discount - card.ability.extra.discount_loss
                     card_eval_status_text(card, 'extra', nil, nil, nil, { message = "-$" .. card.ability.extra.discount_loss .. " Discount", colour = G.C.RED })
                     G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.current_discount
-                    G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - card.ability.extra.current_discount)
                     card.ability.extra.prev_discount = tostring(card.ability.extra.current_discount)
                 end
                 calculate_reroll_cost(true)

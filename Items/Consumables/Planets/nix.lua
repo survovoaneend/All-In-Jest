@@ -27,9 +27,7 @@ local nix_planet = {
 		return true
 	end,
 	use = function(self, card, area, copier)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(card.ability.consumeable.hand_type, 'poker_hands'),chips = G.GAME.hands[card.ability.consumeable.hand_type].chips, mult = G.GAME.hands[card.ability.consumeable.hand_type].mult, level=G.GAME.hands[card.ability.consumeable.hand_type].level})
         level_up_hand_mult(card, card.ability.consumeable.hand_type)
-        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
 	end,
 }
 return {name = {"Planets"}, items = {nix_planet}}

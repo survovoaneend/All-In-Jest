@@ -16,19 +16,19 @@ SMODS.current_mod.optional_features = {
 SMODS.injectItems = function()
     injectitems_ref()
     G.AIJ.shared_mystery_sprites = G.AIJ.shared_mystery_sprites or {
-        bg1 = Sprite(0, 0, 1, 1, G.ASSET_ATLAS['aij_mystery_atlas'], {
+        bg1 = SMODS.create_sprite(0, 0, 1, 1, 'aij_mystery_atlas', {
             x = 0,
             y = 0
         }),
-        bg2 = Sprite(0, 0, 1, 1, G.ASSET_ATLAS['aij_mystery_atlas'], {
+        bg2 = SMODS.create_sprite(0, 0, 1, 1, 'aij_mystery_atlas', {
           x = 1,
           y = 0
         }),
-        bg3 = Sprite(0, 0, 1, 1, G.ASSET_ATLAS['aij_mystery_atlas'], {
+        bg3 = SMODS.create_sprite(0, 0, 1, 1, 'aij_mystery_atlas', {
           x = 2,
           y = 0
         }),
-        bg4 = Sprite(0, 0, 1, 1, G.ASSET_ATLAS['aij_mystery_atlas'], {
+        bg4 = SMODS.create_sprite(0, 0, 1, 1, 'aij_mystery_atlas', {
           x = 3,
           y = 0
       }),
@@ -191,9 +191,13 @@ AllInJest = {}
 assert(SMODS.load_file('Utils/context.lua'))()
 assert(SMODS.load_file('Utils/draw.lua'))()
 assert(SMODS.load_file('Utils/functions.lua'))()
+assert(SMODS.load_file('Utils/functions_value_mod.lua'))()
 assert(SMODS.load_file('Utils/hooks.lua'))()
 assert(SMODS.load_file('Utils/ui.lua'))()
 assert(SMODS.load_file('Utils/copiers.lua'))()
+if next(SMODS.find_mod("unBlindShopGUI")) then
+    assert(SMODS.load_file('Utils/UnBlind_crossmod.lua'))()
+end
 
 local folders = NFS.getDirectoryItems(mod_path.."Items")
 local objects = {}
@@ -290,6 +294,12 @@ local function load_items(curr_obj)
             goto continue
         end
         if SMODS[item.object_type] and not item.ignore then
+            if item.object_type == "Joker" then
+                -- Add incompatibility to all jokers with an activated ability
+                if item.all_in_jest and item.all_in_jest.use_ability then
+                    item.j_aij_whats_left_compat = false
+                end
+            end
             SMODS[item.object_type](item)
         elseif item.object_loader and not item.ignore then
             item.object_loader[item.object_type](item)

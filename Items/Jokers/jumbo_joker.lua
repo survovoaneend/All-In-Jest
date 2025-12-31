@@ -58,14 +58,13 @@ local hoverref = Card.hover
 function Card:hover()
     hoverref(self)
     if self.config.center.key == "j_aij_jumbo_joker" and self.config.center.discovered then
-        local _atlas, _pos = get_front_spriteinfo(self.config.card)
-        _pos = { x = 1, y = 0 }
-        _atlas = G.ASSET_ATLAS['aij_jumbo_joker']
+        local _pos = { x = 1, y = 0 }
+        local _atlas = G.ASSET_ATLAS['aij_jumbo_joker']
         if self.children.front then
             self.children.front.atlas = _atlas
             self.children.front:set_sprite_pos(_pos)
         else
-            self.children.front = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, _atlas, _pos)
+            self.children.front = SMODS.create_sprite(self.T.x, self.T.y, self.T.w, self.T.h, 'aij_jumbo_joker', _pos)
             self.children.front.states.hover = self.states.hover
             self.children.front.states.click = self.states.click
             self.children.front.states.drag = self.states.drag
@@ -74,7 +73,7 @@ function Card:hover()
         end
 
         self.config.center.soul_pos = { x = 2, y = 0 }
-        self.children.floating_sprite = Sprite(self.T.x, self.T.y, G.CARD_W, G.CARD_H, G.ASSET_ATLAS['aij_jumbo_joker'], { x = 2, y = 0 })
+        self.children.floating_sprite = SMODS.create_sprite(self.T.x, self.T.y, G.CARD_W, G.CARD_H, 'aij_jumbo_joker', { x = 2, y = 0 })
         self.children.floating_sprite.role.draw_major = self
         self.children.floating_sprite.states.hover.can = false
         self.children.floating_sprite.states.click.can = false
@@ -87,14 +86,13 @@ local stop_hoverref = Card.stop_hover
 function Card:stop_hover()
     stop_hoverref(self)
     if self.config.center.key == "j_aij_jumbo_joker" and self.config.center.discovered then
-        local _atlas, _pos = get_front_spriteinfo(self.config.card)
-        _pos = { x = 0, y = 0 }
-        _atlas = G.ASSET_ATLAS['aij_jumbo_joker']
+        local _pos = { x = 0, y = 0 }
+        local _atlas = G.ASSET_ATLAS['aij_jumbo_joker']
         if self.children.front then
             self.children.front.atlas = _atlas
             self.children.front:set_sprite_pos(_pos)
         else
-            self.children.front = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, _atlas, _pos)
+            self.children.front = SMODS.create_sprite(self.T.x, self.T.y, self.T.w, self.T.h, 'aij_jumbo_joker', _pos)
             self.children.front.states.hover = self.states.hover
             self.children.front.states.click = self.states.click
             self.children.front.states.drag = self.states.drag

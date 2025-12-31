@@ -3,6 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
+# Game:start_run()
 [[patches]]
 [patches.pattern]
 target = "game.lua"
@@ -27,6 +28,7 @@ for k, v in pairs(G.SETTINGS.colour_palettes) do
 end
 '''
 
+# Card:set_sprites()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/overrides.lua"]'
@@ -34,14 +36,18 @@ pattern = "local _atlas, _pos = get_front_spriteinfo(_front)"
 position = "at"
 match_indent = true
 payload = '''
+-- All in Jest Overrides
 local _false_front = {}
 for k, v in pairs(_front) do
     _false_front[k] = v
 end
 _false_front.card = self
 local _atlas, _pos = get_front_spriteinfo(_false_front)
+-- End of All in Jest Overrides
 '''
 
+# Sets which deck skin to use for this card, then set sprite for that deck skin
+# create_card()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -51,6 +57,7 @@ if card.ability.consumeable and not skip_materialize then card:start_materialize
 position = "before"
 match_indent = true
 payload = '''
+-- All in Jest patch
 if (area == G.shop_jokers) or (area == G.pack_cards) then
     if card.ability and (card.ability.set == 'Default' or card.ability.set == 'Enhanced') then
         card.ability.all_in_jest = card.ability.all_in_jest or {}
@@ -71,8 +78,11 @@ if (area == G.shop_jokers) or (area == G.pack_cards) then
         card:set_sprites(card.config.center, card.config.card)
     end
 end
+-- End of All in Jest patch
 '''
 
+# Call set_sprites when a card is copied, updating deck skin for changed rank/suit
+# copy_card()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"

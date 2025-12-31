@@ -37,14 +37,14 @@ local nichola = {
 
                       -- Loop through the original list of all enhancements
                       for _, enhancement in ipairs(all_enhancements) do
-                        if not (enhancement == 'm_stone' or enhancement == 'm_aij_canvas' or G.P_CENTERS[enhancement].no_rank) then
+                        if enhancement ~= "UNAVAILABLE" and not (enhancement == 'm_stone' or enhancement == 'm_aij_canvas' or G.P_CENTERS[enhancement].no_rank) then
                           valid_enhancements[#valid_enhancements + 1] = enhancement
                         end
                       end
                       local random_enhancement_key = SMODS.poll_enhancement({ guaranteed = true, key_append = 'nicola_enhance'..i, options = valid_enhancements })
                       local random_seal_key = SMODS.poll_seal({ guaranteed = true, key_append = 'nichola_seal'..i })
 
-                      local random_edition_table = poll_edition('nichola_edition'..i, nil, nil, true, {'e_foil', 'e_holo', 'e_polychrome'})
+                      local random_edition_table = poll_edition('nichola_edition'..i, nil, nil, true)
 
                       local new_queen = create_playing_card({
                           front = queen_card_proto,

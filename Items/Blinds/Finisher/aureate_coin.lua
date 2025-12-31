@@ -2,7 +2,7 @@ local aij_ease_dollars_ref = ease_dollars
 function ease_dollars(mod, instant)
     ret = aij_ease_dollars_ref(mod, instant)
     if to_big(mod) < to_big(0) then
-        G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money + mod
+        G.GAME.current_round.aij_aureate_coin_blind.spent_money = G.GAME.current_round.aij_aureate_coin_blind.spent_money + mod
         if G.GAME.round_resets.blind_choices.Boss == "bl_aij_aureate_coin" then
             G.E_MANAGER:add_event(Event({
             trigger = 'immediate',
@@ -21,13 +21,13 @@ local aureate_coin = {
     key = 'aureate_coin',
     boss = {
       min = 1,
-      spent_money = 0,
       showdown = true,
     },
     in_pool = function(self)
         return true
     end,
     mult = 2,
+    aij_variable_req = true,
     boss_colour = HEX("eba03a"),
     atlas = 'blinds',
     pos = { y = 30 },
@@ -36,18 +36,20 @@ local aureate_coin = {
     config = {extra = {trigger = false}},
 
     aij_blind_amount_display = function(self, blind, base_blind_amount, mult)
-        local extra_mult = math.abs(self.boss.spent_money) * 0.1
-        return base_blind_amount * (mult + extra_mult)
+        if G.GAME.current_round.aij_aureate_coin_blind then
+            local extra_mult = math.abs(G.GAME.current_round.aij_aureate_coin_blind.spent_money) * 0.1
+            return base_blind_amount * (mult + extra_mult)
+        end
     end,
 
     set_blind = function(self)
-        if math.abs(self.boss.spent_money) > 0 then
-            All_in_Jest.ease_blind_requirement(math.abs(self.boss.spent_money) * 0.1, 0)
+        if G.GAME.current_round.aij_aureate_coin_blind and math.abs(G.GAME.current_round.aij_aureate_coin_blind.spent_money) > 0 then
+            All_in_Jest.ease_blind_requirement(math.abs(G.GAME.current_round.aij_aureate_coin_blind.spent_money) * 0.1, 0)
         end
     end,
 
     disable = function()
-        G.GAME.blind.chips = G.GAME.blind.original_chips
+        G.GAME.blind.chips = G.GAME.blind.aij_original_chips
         G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
     end,
 

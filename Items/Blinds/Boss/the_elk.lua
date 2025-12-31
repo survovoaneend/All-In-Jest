@@ -20,6 +20,7 @@ local the_elk = {
                 end
             end
         end
+        G.GAME.blind.triggered = bool
         return bool
     end
 
