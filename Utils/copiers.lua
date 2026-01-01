@@ -322,10 +322,12 @@ All_in_Jest.add_copied_joker = function(copier_card, copied_center, copied_base_
             new_ability.aij_recherche_doubled = nil
             new_ability.aij_unusual_doubled = nil
 
+            -- Apply ability multipliers (silver, recherche)
+            -- Do not apply dongtong as it is likely already applied
             if copied_center.dongtong_compat ~= false then
                 jest_ability_calculate(
                     {ability = new_ability},
-                    "*", (copier_card.ability[copier_card.config.center.key].silver_multiplier_buff or 100) / 100,
+                    "*", (copier_card.ability[copier_card.config.center.key].silver_multiplier_buff or 100) / 100 / (2 ^ new_ability.jest_applied.j_aij_dongtong),
                     { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, [copier_card.config.center.key] = true },
                     nil, true, nil, "ability"
                 )
