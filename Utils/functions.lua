@@ -403,7 +403,7 @@ AllInJest.touchstone_deck_preview = function()
         override = true,
         cards = cards,
         w = 5,
-        h = 0.6,
+        h = 0.4,
         ml = 0,
         scale = 0.4,
         padding = 0,
@@ -413,7 +413,7 @@ end
 AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
     if not config then config = {} end
     local height = config.h or 1.25
-    local width = config.w or 1
+    local width = math.max(config.w or 1, 1)
     local card_limit = config.card_limit or #config.cards or 1
     local override = config.override or false
     local cards = config.cards or {}
@@ -422,17 +422,19 @@ AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
     local margin_top = config.mt or 0
     local alignment = config.alignment or "cm"
     local scale = config.scale or 1
-    local type = config.type or "title"
+    local type = config.type or "title_2"
     local box_height = config.box_height or 0
     local highlight_limit = config.highlight_limit or 0
     local x_offset = config.x_offset or 0
     if override or not cardArea then
         cardArea = CardArea(
-            G.ROOM.T.x + margin_left * G.ROOM.T.w - x_offset, G.ROOM.T.h + margin_top
-            ,G.CARD_W <= width * G.CARD_W and width * G.CARD_W or G.CARD_W, height * G.CARD_H,
-            {card_limit = card_limit, type = type, highlight_limit = highlight_limit, collection = true,temporary = true}
+            G.ROOM.T.x + margin_left * G.ROOM.T.w - x_offset, 
+            G.ROOM.T.h + margin_top,
+            width * G.CARD_W,
+            height * G.CARD_H,
+            {card_limit = card_limit, type = type, highlight_limit = highlight_limit, collection = true, temporary = true}
         )
-        for i, card in ipairs(cards) do
+        for _, card in ipairs(cards) do
             card.T.w = card.T.w * scale
             card.T.h = card.T.h * scale
             card.VT.h = card.T.h
@@ -446,7 +448,7 @@ AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
     end
     local uiEX = {
         n = G.UIT.R,
-        config = { align = alignment , padding = padding, no_fill = true, minh = box_height },
+        config = { align = alignment, padding = padding, no_fill = true, minh = box_height },
         nodes = {
             {n=G.UIT.R, config={padding = padding, r = 0.12, colour = lighten(G.C.JOKER_GREY, 0.5), emboss = 0.07}, nodes={
                 {n = G.UIT.O, config = { object = cardArea }}

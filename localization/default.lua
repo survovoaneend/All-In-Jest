@@ -2118,8 +2118,8 @@ return {
             j_aij_peeping_tom = { 
                 name = "Peeping tom", 
                 text = { 
-                    "Reveals the next {C:attention}#1#{} cards in",
-                    "your deck" 
+                    "Reveals the next {C:attention}#1#{}",
+                    "cards in your deck"
                 } 
             },
             j_aij_la_commedia_e_finita = {
@@ -6354,6 +6354,12 @@ return {
             },
         },
         Other = {
+            aij_future_sight_tip = {
+                name="fs",
+                text = {
+                    "{C:inactive,s:0.8}(Leftmost is on top of deck){}"
+                }
+            },
             -- Other
             aij_patches_suit = {
                 name = "Patches",
@@ -6499,12 +6505,13 @@ return {
             },
             aij_melted_seal = {
                 name = "Melted Seal",
-		        text = {
-                    'When held in {C:attention}hand{},',
-                    '{C:attention}transforms{} into first',
-                    'non-{V:1}Melted{} {C:attention}seal{} scored'
-		        }
+                text = {
+                        'When held in {C:attention}hand{},',
+                        '{C:attention}transforms{} into first',
+                        'non-{V:1}Melted{} {C:attention}seal{} scored'
+                }
             },
+            -- Credits page jokers
             nevernamed_credits_info = {
                 name = "Info",
                 text = {
