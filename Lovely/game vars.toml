@@ -91,6 +91,7 @@ all_in_jest = {
   advanced_hand_usage_blind = {},
   previously_sold_jokers = {},
   previously_destroyed_jokers = {},
+  previously_destroyed_playing_cards = {},
   jest_kilroy_curvalue = 25,
 },
 -- move these into all_in_jest at some point

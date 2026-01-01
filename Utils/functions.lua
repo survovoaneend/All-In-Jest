@@ -1393,6 +1393,8 @@ function All_in_Jest.reset_game_globals(run_start)
 	  G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
 
+    reset_jest_visage_cards()
+
     if G.GAME.round_resets.blind_states.Boss == 'Defeated' or run_start then
        -- Globals for a single ante (not a thing in Vanilla)
        -- Checks run_start as well to trigger at start of run, G.GAME.round_resets.blind_states.Boss == 'Defeated' only checks for the end of an ante
