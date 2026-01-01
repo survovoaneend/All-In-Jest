@@ -1,19 +1,6 @@
-G.FUNCS.whats_left_compat = function(e)
-  -- if e.config.ref_table.ability.j_aij_whats_left_compat == nil then
-  --     e.config.ref_table.ability.j_aij_whats_left_compat = "compatible"
-  -- end
-  local compatible = e.config.ref_table.ability.j_aij_whats_left_compat
-  if compatible == 'compatible' then 
-      e.config.colour = mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8)
-  elseif compatible == 'incompatible' then
-      e.config.colour = mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8)
-  end
-  e.config.ref_table.ability.j_aij_whats_left_compat_ui = ' '..localize('k_'..e.config.ref_table.ability.j_aij_whats_left_compat)..' '
-  e.config.ref_table.ability.j_aij_whats_left_compat_check = e.config.ref_table.ability.j_aij_whats_left_compat
-end
-
 local whats_left = {
-    object_type = "Joker",
+    object_type = "multi_copier",
+    object_loader = All_in_Jest,
     order = 480,
     key = "whats_left",
     config = {
@@ -32,143 +19,17 @@ local whats_left = {
     cost = 8,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false, -- uses ability.aij_blueprint_compat
+    blueprint_compat = true, -- uses ability.aij_blueprint_compat
     j_aij_whats_left_compat = false, -- Stops it from copying itself
-    eternal_compat = true,
 
     set_ability = function(self, card, initial, delay_sprites)
         for index = 1, #G.GAME.all_in_jest.previously_sold_jokers do
-            sendDebugMessage("is anything happening", "AIJ")
             local copied_center = G.P_CENTERS[G.GAME.all_in_jest.previously_sold_jokers[index].save_fields.center]
             All_in_Jest.add_copied_joker(card, copied_center, G.GAME.all_in_jest.previously_sold_jokers[index].ability, true)
         end
     end,
-
-    add_to_deck = function(self, card, from_debuff)
-        if card.ability.j_aij_whats_left and #card.ability.j_aij_whats_left.copied_joker_abilities > 0 then
-            for index = #card.ability.j_aij_whats_left.copied_joker_abilities, math.max(1, #card.ability.j_aij_whats_left.copied_joker_abilities - card.ability.j_aij_whats_left.copy_limit + 1), -1 do
-                card.added_to_deck = false
-                All_in_Jest.use_copied_joker_function(card, "add_to_deck", "add_to_deck", {card, true}, {true}, index)
-                card.added_to_deck = true
-            end
-        end
-    end,
-
-    remove_from_deck = function(self, card, from_debuff)
-        if card.ability.j_aij_whats_left and #card.ability.j_aij_whats_left.copied_joker_abilities > 0 then
-            for index = #card.ability.j_aij_whats_left.copied_joker_abilities, math.max(1, #card.ability.j_aij_whats_left.copied_joker_abilities - card.ability.j_aij_whats_left.copy_limit + 1), -1 do
-                card.added_to_deck = false
-                All_in_Jest.use_copied_joker_function(card, "remove_from_deck", "remove_from_deck", {card, true}, {true}, index)
-                card.added_to_deck = true
-            end
-        end
-    end,
-
-    update = function(self, card, dt)
-        if card.ability.j_aij_whats_left and #card.ability.j_aij_whats_left.copied_joker_abilities > 0 then
-            for index = #card.ability.j_aij_whats_left.copied_joker_abilities, math.max(1, #card.ability.j_aij_whats_left.copied_joker_abilities - card.ability.j_aij_whats_left.copy_limit + 1), -1 do
-                All_in_Jest.use_copied_joker_function(card, "update", "update", {card, dt}, {dt}, index, true)
-            end
-        end
-    end,
-
-    loc_vars = function(self, info_queue, card)
-
-        local abilities_to_display = {}
-
-        if card.ability.j_aij_whats_left and #card.ability.j_aij_whats_left.copied_joker_abilities > 0 then
-            abilities_to_display = card.ability.j_aij_whats_left.copied_joker_abilities
-        end
-
-        if #abilities_to_display > 0 then
-            for i = #abilities_to_display, math.max(1, #abilities_to_display - card.ability.j_aij_whats_left.copy_limit + 1), -1 do
-                local center_key = abilities_to_display[i].key
-                local copied_center = G.P_CENTERS[center_key]
-
-                local info_queue_center = { -- Create a simplified "fake" center that can be used without referencing/modifying the actual center object
-                    key = copied_center.key,
-                    name = copied_center.name,
-                    config = copied_center.config,
-                    blueprint_compat = copied_center.blueprint_compat,
-                    discovered = true,
-                    set = "Joker",
-                    create_fake_card = copied_center.create_fake_card,
-                    generate_ui = copied_center.generate_ui,
-                    loc_vars = copied_center.loc_vars
-                }
-
-                local other_vars = {}
-                if card.added_to_deck then
-                    All_in_Jest.hotswap_copied_ability(card, i)
-                else
-                    All_in_Jest.set_copied_ability(card, copied_center, nil, abilities_to_display[i])
-                end
-                if copied_center.loc_vars then
-                    local ret = copied_center:loc_vars({}, card) -- Make info_queue an empty table 
-                    if ret then
-                        other_vars = ret.vars
-                    end
-                else
-                    card.ability.name = copied_center.name
-                    other_vars, _, _ = card:generate_UIBox_ability_table(true)
-                    card.ability.name = card.config.center.name
-                end
-                if other_vars then
-                    info_queue_center.specific_vars = other_vars
-                    info_queue_center.specific_vars.aij_whats_left = card
-                    info_queue_center.specific_vars.aij_whats_left_index = i
-                    info_queue_center.specific_vars.aij_whats_left_ability = abilities_to_display[i]
-                end
-                info_queue[#info_queue + 1] = info_queue_center
-                All_in_Jest.set_copied_ability(card, {config = {}})
-            end
-        end
-        return { vars = { card.ability.j_aij_whats_left.copy_limit } }
-    end,
-
-    calculate = function(self, card, context)        
-        if card.ability.j_aij_whats_left and #card.ability.j_aij_whats_left.copied_joker_abilities > 0 then            
-            local return_table = nil
-            for index = #card.ability.j_aij_whats_left.copied_joker_abilities, math.max(1, #card.ability.j_aij_whats_left.copied_joker_abilities - card.ability.j_aij_whats_left.copy_limit + 1), -1 do
-                local new_ability = card.ability[card.config.center.key].copied_joker_abilities[index]
-                if card.config.center.key ~= new_ability.key then
-                    local ret = table.unpack(All_in_Jest.use_copied_joker_function(card, "calculate", "calculate_joker", {card, context}, {context}, index))
-
-                    -- Check if table is empty or not
-                    if ret ~= nil and next(ret) then
-                        if return_table == nil then
-                            return_table = ret
-                        else
-                            local table_pointer = return_table
-                            while table_pointer.extra ~= nil do
-                                table_pointer = table_pointer.extra
-                            end
-                            table_pointer.extra = ret
-                        end
-                    end
-                end
-            end
-            return return_table
-        end
-    end,
-
-    calc_dollar_bonus = function(self, card)
-        if card.ability.j_aij_whats_left and #card.ability.j_aij_whats_left.copied_joker_abilities > 0 then
-            local dollar_bonus = 0
-            for index = #card.ability.j_aij_whats_left.copied_joker_abilities, math.max(1, #card.ability.j_aij_whats_left.copied_joker_abilities - card.ability.j_aij_whats_left.copy_limit + 1), -1 do
-                if card.ability.j_aij_whats_left and #card.ability.j_aij_whats_left.copied_joker_abilities > 0 then
-                    local ret = table.unpack(All_in_Jest.use_copied_joker_function(card, "calc_dollar_bonus", "calculate_dollar_bonus", {card}, {}, index))
-                    if ret ~= nil then
-                        dollar_bonus = dollar_bonus + ret
-                    end
-                end
-            end
-            if dollar_bonus ~= 0 then
-                return dollar_bonus
-            end
-        end
-    end
 }
+
 local sell_card_ref = Card.sell_card
 function Card:sell_card()
     local ref = sell_card_ref(self)

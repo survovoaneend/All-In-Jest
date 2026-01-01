@@ -293,13 +293,11 @@ local function load_items(curr_obj)
         if item.jest_spec_moon and not All_in_Jest.config.moons_enabled then
             goto continue
         end
+        -- Add incompatibility to all jokers with an activated ability
+        if item.all_in_jest and item.all_in_jest.use_ability then
+            item.j_aij_whats_left_compat = false
+        end
         if SMODS[item.object_type] and not item.ignore then
-            if item.object_type == "Joker" then
-                -- Add incompatibility to all jokers with an activated ability
-                if item.all_in_jest and item.all_in_jest.use_ability then
-                    item.j_aij_whats_left_compat = false
-                end
-            end
             SMODS[item.object_type](item)
         elseif item.object_loader and not item.ignore then
             item.object_loader[item.object_type](item)

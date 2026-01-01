@@ -3549,20 +3549,24 @@ position = "after"
 match_indent = true
 payload = '''
 specific_vars = _c.specific_vars or specific_vars
-if specific_vars.aij_whats_left then
-    local copier_card = specific_vars.aij_whats_left
-    local new_ability = specific_vars.aij_whats_left_ability
+if specific_vars ~= nil and specific_vars.aij_multi_copier_card then
+    local copier_card = specific_vars.aij_multi_copier_card
+    local new_ability = specific_vars.aij_multi_copier_card_ability
 
-    new_ability.j_aij_whats_left_compat_ui = new_ability.j_aij_whats_left_compat_ui or ''
-    new_ability.j_aij_whats_left_compat_check = nil
-    local main_end = (copier_card.area and copier_card.area == G.jokers) and {
+    ret = {Card.generate_UIBox_ability_table({ area = copier_card.area, ability = new_ability, config = { center = G.P_CENTERS[new_ability.key] }, bypass_lock = true}, true)}
+
+    new_ability[copier_card.config.center.key .. "_compat_ui"] = new_ability[copier_card.config.center.key .. "_compat_ui"] or ''
+    new_ability[copier_card.config.center.key .. "_compat_check"] = nil
+    local compatible = G.P_CENTERS[new_ability.key][copier_card.config.center.key .. "_compat"]
+    compatible = compatible ~= false
+    local copier_compat = (copier_card.area and copier_card.area == G.jokers) and {
         {n=G.UIT.C, config={align = "tm", minh = 0.4}, nodes={
-            {n=G.UIT.C, config={ref_table = {ability = new_ability}, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'whats_left_compat'}, nodes={
-                {n=G.UIT.T, config={ref_table = new_ability, ref_value = 'j_aij_whats_left_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            {n=G.UIT.C, config={align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06}, nodes={
+                {n=G.UIT.T, config={text = ' ' .. (compatible and localize('k_compatible') or localize('k_incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
             }}
         }}
     } or nil
-    desc_nodes[#desc_nodes + 1] = main_end
+    desc_nodes[#desc_nodes + 1] = copier_compat
 end
 '''
 # Advanced Copiers (2/5)
@@ -3586,10 +3590,11 @@ local target = {
 position = "after"
 match_indent = true
 payload = '''
-if target.vars.aij_whats_left then
-    card = target.vars.aij_whats_left
-    local index = target.vars.aij_whats_left_index
-    local new_ability = target.vars.aij_whats_left_ability
+-- All in Jest
+if target.vars.aij_multi_copier_card then
+    card = target.vars.aij_multi_copier_card
+    local index = target.vars.aij_multi_copier_card_index
+    local new_ability = target.vars.aij_multi_copier_card_ability
     
     if card.added_to_deck then
         All_in_Jest.hotswap_copied_ability(card, index)
@@ -3597,20 +3602,22 @@ if target.vars.aij_whats_left then
         All_in_Jest.set_copied_ability(card, G.P_CENTERS[target.key], nil, new_ability)
     end
 
-    new_ability.j_aij_whats_left_compat_ui = new_ability.j_aij_whats_left_compat_ui or ''
-    new_ability.j_aij_whats_left_compat_check = nil
+    new_ability[card.config.center.key .. "_compat_ui"] = new_ability[card.config.center.key .. "_compat_ui"] or ''
+    new_ability[card.config.center.key .. "_compat_check"] = nil
+    local compatible = G.P_CENTERS[new_ability.key][card.config.center.key .. "_compat"]
+    compatible = compatible ~= false
     local main_end = (card.area and card.area == G.jokers) and {
         {n=G.UIT.C, config={align = "tm", minh = 0.4}, nodes={
-            {n=G.UIT.C, config={ref_table = {ability = new_ability}, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'whats_left_compat'}, nodes={
-                {n=G.UIT.T, config={ref_table = new_ability, ref_value = 'j_aij_whats_left_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            {n=G.UIT.C, config={align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06}, nodes={
+                {n=G.UIT.T, config={text = ' ' .. (compatible and localize('k_compatible') or localize('k_incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
             }}
         }}
     } or nil
     desc_nodes[#desc_nodes + 1] = main_end
 
-    target.vars.aij_whats_left = nil
-    target.vars.aij_whats_left_index = nil
-    target.vars.aij_whats_left_ability = nil
+    target.vars.aij_multi_copier_card = nil
+    target.vars.aij_multi_copier_card_index = nil
+    target.vars.aij_multi_copier_card_ability = nil
 
     G.E_MANAGER:add_event(Event({
         func = function()
@@ -3618,9 +3625,12 @@ if target.vars.aij_whats_left then
             return true
         end
     }))
-end -- All in Jest
-if target.vars.aij_joker_png then card = target.vars.aij_joker_png; target.vars.aij_joker_png = nil end -- All in Jest
-if target.vars.aij_copier_card then card = target.vars.aij_copier_card; target.vars.aij_copier_card = nil end -- All in Jest
+end
+if target.vars.aij_copier_card then
+    card = target.vars.aij_copier_card
+    target.vars.aij_copier_card = nil
+end
+-- End of All in Jest patch
 '''
 # Advanced Copiers (3/5)
 # Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (1/2)
@@ -3632,7 +3642,7 @@ pattern = '''_c:generate_ui(info_queue, card, desc_nodes, specific_vars, full_UI
 position = "before"
 match_indent = true
 payload = '''
-local target_card = _c.specific_vars and (_c.specific_vars.aij_elder or _c.specific_vars.aij_whats_left or _c.specific_vars.aij_copier_card)
+local card = _c.specific_vars and (_c.specific_vars.aij_elder or _c.specific_vars.aij_multi_copier_card or _c.specific_vars.aij_copier_card) or card
 '''
 # Advanced Copiers (4/5)
 # Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (2/2)
@@ -3644,7 +3654,7 @@ pattern = '''localize{type = 'name', key = key, set = set, nodes = desc_nodes.na
 position = "at"
 match_indent = true
 payload = '''
-localize{type = 'name', key = key, set = set, nodes = desc_nodes.name_styled, fixed_scale = 0.63, no_pop_in = true, no_shadow = true, y_offset = 0, no_spacing = true, no_bump = true, vars = (_c.create_fake_card and _c.loc_vars and (_c:loc_vars({}, target_card or _c:create_fake_card()) or {}).vars) or {colours = {}}}  -- All in Jest overrides
+localize{type = 'name', key = key, set = set, nodes = desc_nodes.name_styled, fixed_scale = 0.63, no_pop_in = true, no_shadow = true, y_offset = 0, no_spacing = true, no_bump = true, vars = (_c.create_fake_card and _c.loc_vars and (_c:loc_vars({}, card or _c:create_fake_card()) or {}).vars) or {colours = {}}}  -- All in Jest overrides
 '''
 # Advanced Copiers (5/5)
 # Fixes a nice SMODs issue where Oops! All sixes is refered to by its key rather than ability name (like other vanilla jokers)

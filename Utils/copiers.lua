@@ -12,14 +12,16 @@ end
 
 local save_changed_abilities_to_stored_table = function (copier_card, copied_index)
     copied_index = tonumber(copied_index)
+
     for k, v in pairs(copier_card.ability) do
         if not (
             k == copier_card.config.center.key or 
             k == "jest_applied" or 
             k == "jest_silver_active" or
-            k == "aij_recherche_doubled" or
-            k == "aij_unusual_doubled" or
-            string.sub(k, 1, #"j_aij_whats_left_compat") == "j_aij_whats_left_compat"
+            k == "name" or
+            k == "key" or
+            string.sub(k, 1, #(copier_card.config.center.key .. "compat")) == copier_card.config.center.key .. "compat" or
+            SMODS.Stickers[k] ~= nil
         ) then -- This is the key that stores all the data related to the copier joker
             -- if copier_card.ability[copier_card.config.center.key].copied_joker_abilities[copied_index][k] ~= v and type(v) ~= "table" then
             --     sendDebugMessage("Saving " .. tostring(copier_card.ability[copier_card.config.center.key].copied_joker_abilities[copied_index][k] or "nil") .. " to " .. tostring(v or "nil"), "AiJ")
@@ -133,7 +135,12 @@ All_in_Jest.set_copied_ability = function(copier_card, center_to_copy, ability_t
     -- ability_table.jest_applied = nil
     
     for k, v in pairs(copied_base_stats) do
-        if k ~= 'bonus' then
+        if not (
+            k == 'bonus' or
+            k == 'name' or
+            k == 'key' or
+            SMODS.Stickers[k] ~= nil
+        ) then
             if type(v) == 'table' then
                 ability_table[k] = copy_table(v)
             else
@@ -169,6 +176,14 @@ end
 -- A boilerplate function that lets a copier joker use one of the methods of the joker its copying
 -- Vanilla jokers are implemented differently, and so are handled seperately
 All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla_func_name, modded_func_args, vanilla_func_args, index, skip_events)
+
+    if card.ability.name == card.config.center.key then
+        return {}
+    end
+    if not card.ability[card.config.center.key] then
+        return {}
+    end
+
     if vanilla_func_name == nil then
         vanilla_func_args = modded_func_args
     end
@@ -176,7 +191,7 @@ All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla
     local to_copy = nil
     if card.ability[card.config.center.key].copied_joker_abilities and card.ability[card.config.center.key].copied_joker_abilities[index] then
         to_copy = card.ability[card.config.center.key].copied_joker_abilities[index].key
-    else
+    elseif card.ability[card.config.center.key].copied_joker_key ~= nil then
         to_copy = card.ability[card.config.center.key].copied_joker_key
     end
     if to_copy ~= nil then
@@ -202,14 +217,14 @@ All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla
             ret = table.pack(obj[modded_func_name](obj, table.unpack(modded_func_args)))
         else
             -- Vanilla Jokers
-            local old_func = card.config.center[modded_func_name]
+            -- local old_func = card.config.center[modded_func_name]
             card.ability.name = obj.name
-            card.config.center[modded_func_name] = false
+            -- card.config.center[modded_func_name] = false
 
             ret = table.pack(Card[vanilla_func_name](card, table.unpack(vanilla_func_args)))
 
             card.ability.name = card.config.center.name
-            card.config.center[modded_func_name] = old_func
+            -- card.config.center[modded_func_name] = old_func
         end
 
         -- if not skip_events then
@@ -225,7 +240,7 @@ All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla
                 event_insert_to_queue(G.E_MANAGER, starting_queue_length + 1, Event({
                     func = function()
                         expected_queue_length = #G.E_MANAGER.queues.base - (expected_queue_length - starting_queue_length) - 1
-                        sendDebugMessage(expected_queue_length .. modded_func_name .. pseudorandom(pseudoseed("AIJ")), "AIJ use")
+                        -- sendDebugMessage(expected_queue_length .. modded_func_name .. pseudorandom(pseudoseed("AIJ")), "AIJ use")
                         All_in_Jest.hotswap_copied_ability(card, index)
                         return true
                     end
@@ -235,7 +250,7 @@ All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla
                 -- Will include card_eval_status_text(), attention_text(), and similar. Would be ideal if these are moved to return parameters
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        sendDebugMessage(#G.E_MANAGER.queues.base .. " " .. expected_queue_length .. modded_func_name .. "bblurb" .. index, "AIJ use")
+                        -- sendDebugMessage(#G.E_MANAGER.queues.base .. " " .. expected_queue_length .. modded_func_name .. "bblurb" .. index, "AIJ use")
                         -- Check if any events were created between this event and the previously inserted one
                         -- If none were, #G.E_MANAGER.queues.base should be equal to the expected_queue_length
                         -- If it's greater than expected_queue_length, then additional events have been made
@@ -249,7 +264,7 @@ All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla
                             -- This is mostly a "just-in-case" measure, especially for modded and future effects
                             event_insert_to_queue(G.E_MANAGER, expected_queue_length + 1, Event({
                                 func = function()
-                                    sendDebugMessage(modded_func_name .. pseudorandom(pseudoseed("AIJ")), "AIJ use")
+                                    -- sendDebugMessage(modded_func_name .. pseudorandom(pseudoseed("AIJ")), "AIJ use")
                                     All_in_Jest.hotswap_copied_ability(card, index)
                                     return true
                                 end
@@ -257,7 +272,7 @@ All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla
                             -- Any events made in the events when calling modded_func_name() or vanilla_func_name() above will execute here
                             G.E_MANAGER:add_event(Event({
                                 func = function()
-                                    sendDebugMessage(modded_func_name .. "bblurb" .. index, "AIJ use")
+                                    -- sendDebugMessage(modded_func_name .. "bblurb" .. index, "AIJ use")
                                     All_in_Jest.set_copied_ability(card, {config = {}})
                                     return true
                                 end
@@ -322,8 +337,8 @@ All_in_Jest.add_copied_joker = function(copier_card, copied_center, copied_base_
                 copied_base_stats = nil -- Do not save incompatible joker abilities
             end
             All_in_Jest.set_copied_ability(copier_card, copied_center, new_ability, copied_base_stats)
-            local joker_key = copied_center.key
-            new_ability.key = joker_key
+            new_ability.key = copied_center.key
+            new_ability.name = copied_center.name
             new_ability.jest_silver_active = nil
             new_ability.aij_recherche_doubled = nil
             new_ability.aij_unusual_doubled = nil
@@ -341,11 +356,14 @@ All_in_Jest.add_copied_joker = function(copier_card, copied_center, copied_base_
 
             if not skip_funcs and #copier_card.ability[copier_card.config.center.key].copied_joker_abilities > copier_card.ability[copier_card.config.center.key].copy_limit then
                 local index = #copier_card.ability[copier_card.config.center.key].copied_joker_abilities - copier_card.ability[copier_card.config.center.key].copy_limit
-                All_in_Jest.hotswap_copied_ability(copier_card, index)
-                copier_card.added_to_deck = true
-                All_in_Jest.use_copied_joker_function(copier_card, "remove_from_deck", "remove_from_deck", {copier_card, true}, {true}, index)
-                copier_card.added_to_deck = true
-                All_in_Jest.set_copied_ability(copier_card, {config = {}})
+                local center_to_copy = G.P_CENTERS[copier_card.ability[copier_card.config.center.key].copied_joker_abilities[index].key]
+                if center_to_copy[copier_card.config.center.key .. "_compat"] ~= false then
+                    All_in_Jest.hotswap_copied_ability(copier_card, index)
+                    copier_card.added_to_deck = true
+                    All_in_Jest.use_copied_joker_function(copier_card, "remove_from_deck", "remove_from_deck", {copier_card, true}, {true}, index)
+                    copier_card.added_to_deck = true
+                    All_in_Jest.set_copied_ability(copier_card, {config = {}})
+                end
             end
 
             local copier_ability = copy_table(copier_card.ability[copier_card.config.center.key])
@@ -353,11 +371,13 @@ All_in_Jest.add_copied_joker = function(copier_card, copied_center, copied_base_
 
             -- Set added_to_deck before and after as add_to_deck does not execute if card is already added to deck
             if not (skip_funcs or copied_center[copier_card.config.center.key .. "_compat"] == false) then
-                All_in_Jest.hotswap_copied_ability(copier_card, #copier_card.ability[copier_card.config.center.key].copied_joker_abilities)
-                copier_card.added_to_deck = false
-                All_in_Jest.use_copied_joker_function(copier_card, "add_to_deck", "add_to_deck", {copier_card, true}, {true}, #copier_card.ability[copier_card.config.center.key].copied_joker_abilities)
-                copier_card.added_to_deck = true
-                All_in_Jest.set_copied_ability(copier_card, {config = {}})
+                if copied_center[copier_card.config.center.key .. "_compat"] ~= false then
+                    All_in_Jest.hotswap_copied_ability(copier_card, #copier_card.ability[copier_card.config.center.key].copied_joker_abilities)
+                    copier_card.added_to_deck = false
+                    All_in_Jest.use_copied_joker_function(copier_card, "add_to_deck", "add_to_deck", {copier_card, true}, {true}, #copier_card.ability[copier_card.config.center.key].copied_joker_abilities)
+                    copier_card.added_to_deck = true
+                    All_in_Jest.set_copied_ability(copier_card, {config = {}})
+                end
             end
         end
     end
@@ -371,25 +391,19 @@ end
 
 All_in_Jest.single_copier = SMODS.Joker:extend {
     add_to_deck = function(self, card, from_debuff)
-        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_key ~= nil then
-            card.added_to_deck = false
-            All_in_Jest.use_copied_joker_function(card, "add_to_deck", "add_to_deck", {card, true}, {true})
-            card.added_to_deck = true
-        end
+        card.added_to_deck = false
+        All_in_Jest.use_copied_joker_function(card, "add_to_deck", "add_to_deck", {card, true}, {true})
+        card.added_to_deck = true
     end,
 
     remove_from_deck = function(self, card, from_debuff)
-        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_key ~= nil then
-            card.added_to_deck = true
-            All_in_Jest.use_copied_joker_function(card, "remove_from_deck", "remove_from_deck", {card, true}, {true})
-            card.added_to_deck = true
-        end
+        card.added_to_deck = true
+        All_in_Jest.use_copied_joker_function(card, "remove_from_deck", "remove_from_deck", {card, true}, {true})
+        card.added_to_deck = true
     end,
 
     update = function(self, card, dt)
-        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_key ~= nil then
-            All_in_Jest.use_copied_joker_function(card, "update", "update", {card, dt}, {dt})
-        end
+        All_in_Jest.use_copied_joker_function(card, "update", "update", {card, dt}, {dt})
     end,
 
     loc_vars = function(self, info_queue, card)
@@ -398,6 +412,7 @@ All_in_Jest.single_copier = SMODS.Joker:extend {
             local info_queue_center = { -- Create a simplified "fake" center that can be used without referencing/modifying the actual center object
                 key = copied_center.key,
                 name = copied_center.name,
+                area = card.area,
                 config = copied_center.config,
                 blueprint_compat = copied_center.blueprint_compat,
                 discovered = true,
@@ -428,14 +443,157 @@ All_in_Jest.single_copier = SMODS.Joker:extend {
     end,
 
     calculate = function(self, card, context)
-        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_key ~= nil then
-            return table.unpack(All_in_Jest.use_copied_joker_function(card, "calculate", "calculate_joker", {card, context}, {context}))
+        -- Make blueprint compatibility work
+        if context.blueprint and not G.P_CENTERS[card.ability[card.config.center.key].copied_joker_key].blueprint_compat then
+            return {}
+        end
+        return table.unpack(All_in_Jest.use_copied_joker_function(card, "calculate", "calculate_joker", {card, context}, {context}))
+    end,
+
+    calc_dollar_bonus = function(self, card)
+        return table.unpack(All_in_Jest.use_copied_joker_function(card, "calc_dollar_bonus", "calculate_dollar_bonus", {card}, {}))
+    end
+}
+
+All_in_Jest.multi_copier = SMODS.Joker:extend {
+    add_to_deck = function(self, card, from_debuff)
+        if card.ability[card.config.center.key] and #card.ability[card.config.center.key].copied_joker_abilities > 0 and card.ability.name == card.config.center.key then
+            for index = #card.ability[card.config.center.key].copied_joker_abilities, math.max(1, #card.ability[card.config.center.key].copied_joker_abilities - card.ability[card.config.center.key].copy_limit + 1), -1 do
+                local center_to_copy = G.P_CENTERS[card.ability[card.config.center.key].copied_joker_abilities[index].key]
+                if center_to_copy[card.config.center.key .. "_compat"] ~= false then
+                    card.added_to_deck = false
+                    All_in_Jest.use_copied_joker_function(card, "add_to_deck", "add_to_deck", {card, true}, {true}, index)
+                    card.added_to_deck = true
+                end
+            end
+        end
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        if card.ability[card.config.center.key] and #card.ability[card.config.center.key].copied_joker_abilities > 0 and card.ability.name == card.config.center.key then
+            for index = #card.ability[card.config.center.key].copied_joker_abilities, math.max(1, #card.ability[card.config.center.key].copied_joker_abilities - card.ability[card.config.center.key].copy_limit + 1), -1 do
+                local center_to_copy = G.P_CENTERS[card.ability[card.config.center.key].copied_joker_abilities[index].key]
+                if center_to_copy[card.config.center.key .. "_compat"] ~= false then
+                    card.added_to_deck = false
+                    All_in_Jest.use_copied_joker_function(card, "remove_from_deck", "remove_from_deck", {card, true}, {true}, index)
+                    card.added_to_deck = true
+                end
+            end
+        end
+    end,
+
+    update = function(self, card, dt)
+        if card.ability[card.config.center.key] and #card.ability[card.config.center.key].copied_joker_abilities > 0 and card.ability.name == card.config.center.key then
+            for index = #card.ability[card.config.center.key].copied_joker_abilities, math.max(1, #card.ability[card.config.center.key].copied_joker_abilities - card.ability[card.config.center.key].copy_limit + 1), -1 do
+                local center_to_copy = G.P_CENTERS[card.ability[card.config.center.key].copied_joker_abilities[index].key]
+                if center_to_copy[card.config.center.key .. "_compat"] ~= false then
+                    All_in_Jest.use_copied_joker_function(card, "update", "update", {card, dt}, {dt}, index, true)
+                end
+            end
+        end
+    end,
+
+    loc_vars = function(self, info_queue, card)
+        local abilities_to_display = {}
+
+        if card.ability[card.config.center.key] and #card.ability[card.config.center.key].copied_joker_abilities > 0 then
+            abilities_to_display = card.ability[card.config.center.key].copied_joker_abilities
+        end
+
+        if #abilities_to_display > 0 then
+            for i = #abilities_to_display, math.max(1, #abilities_to_display - card.ability[card.config.center.key].copy_limit + 1), -1 do
+                local center_key = abilities_to_display[i].key
+                local copied_center = G.P_CENTERS[center_key]
+
+                local info_queue_center = { -- Create a simplified "fake" center that can be used without referencing/modifying the actual center object
+                    key = copied_center.key,
+                    name = copied_center.name,
+                    area = card.area,
+                    config = copied_center.config,
+                    blueprint_compat = copied_center.blueprint_compat,
+                    discovered = true,
+                    set = "Joker",
+                    create_fake_card = copied_center.create_fake_card,
+                    generate_ui = copied_center.generate_ui,
+                    loc_vars = copied_center.loc_vars
+                }
+
+                local other_vars = {}
+                if card.added_to_deck then
+                    All_in_Jest.hotswap_copied_ability(card, i)
+                else
+                    All_in_Jest.set_copied_ability(card, copied_center, nil, abilities_to_display[i])
+                end
+                if copied_center.loc_vars then
+                    local ret = copied_center:loc_vars({}, card) -- Make info_queue an empty table 
+                    if ret then
+                        other_vars = ret.vars
+                    end
+                else
+                    card.ability.name = copied_center.name
+                    other_vars, main_start, main_end = card:generate_UIBox_ability_table(true)
+                    card.ability.name = card.config.center.name
+                end
+                if other_vars then
+                    info_queue_center.specific_vars = other_vars
+                    info_queue_center.specific_vars.aij_multi_copier_card = card
+                    info_queue_center.specific_vars.aij_multi_copier_card_index = i
+                    info_queue_center.specific_vars.aij_multi_copier_card_ability = abilities_to_display[i]
+                end
+                info_queue[#info_queue + 1] = info_queue_center
+                All_in_Jest.set_copied_ability(card, {config = {}})
+            end
+        end
+        return { vars = { card.ability[card.config.center.key].copy_limit } }
+    end,
+
+    calculate = function(self, card, context)        
+        if card.ability[card.config.center.key] and #card.ability[card.config.center.key].copied_joker_abilities > 0 and card.ability.name == card.config.center.key then
+            local return_table = nil
+            for index = #card.ability[card.config.center.key].copied_joker_abilities, math.max(1, #card.ability[card.config.center.key].copied_joker_abilities - card.ability[card.config.center.key].copy_limit + 1), -1 do
+                local center_to_copy = G.P_CENTERS[card.ability[card.config.center.key].copied_joker_abilities[index].key]
+                if center_to_copy[card.config.center.key .. "_compat"] ~= false then
+                    local new_ability = card.ability[card.config.center.key].copied_joker_abilities[index]
+                    -- Make blueprint compatibility work
+                    if card.config.center.key ~= new_ability.key and not (context.blueprint and not G.P_CENTERS[new_ability.key].blueprint_compat) then
+                        local ret = table.unpack(All_in_Jest.use_copied_joker_function(card, "calculate", "calculate_joker", {card, context}, {context}, index))
+
+                        -- Check if table is empty or not
+                        if ret ~= nil and next(ret) then
+                            if return_table == nil then
+                                return_table = ret
+                            else
+                                local table_pointer = return_table
+                                while table_pointer.extra ~= nil do
+                                    table_pointer = table_pointer.extra
+                                end
+                                table_pointer.extra = ret
+                            end
+                        end
+                    end
+                end
+            end
+            return return_table
         end
     end,
 
     calc_dollar_bonus = function(self, card)
-        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_key ~= nil then
-            return table.unpack(All_in_Jest.use_copied_joker_function(card, "calc_dollar_bonus", "calculate_dollar_bonus", {card}, {}))
+        if card.ability[card.config.center.key] and #card.ability[card.config.center.key].copied_joker_abilities > 0 and card.ability.name == card.config.center.key then
+            local dollar_bonus = 0
+            for index = #card.ability[card.config.center.key].copied_joker_abilities, math.max(1, #card.ability[card.config.center.key].copied_joker_abilities - card.ability[card.config.center.key].copy_limit + 1), -1 do
+                local center_to_copy = G.P_CENTERS[card.ability[card.config.center.key].copied_joker_abilities[index].key]
+                if center_to_copy[card.config.center.key .. "_compat"] ~= false then
+                    if card.ability[card.config.center.key] and #card.ability[card.config.center.key].copied_joker_abilities > 0 then
+                        local ret = table.unpack(All_in_Jest.use_copied_joker_function(card, "calc_dollar_bonus", "calculate_dollar_bonus", {card}, {}, index))
+                        if ret ~= nil then
+                            dollar_bonus = dollar_bonus + ret
+                        end
+                    end
+                end
+            end
+            if dollar_bonus ~= 0 then
+                return dollar_bonus
+            end
         end
     end
 }
