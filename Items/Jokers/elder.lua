@@ -18,7 +18,7 @@ local elder = {
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        local target_joker = All_in_Jest.get_longest_held_joker({card})
+        local target_joker = All_in_Jest.get_longest_held_joker(SMODS.find_card("j_aij_elder"))
 
         if target_joker then
             local copied_center = target_joker.config.center
