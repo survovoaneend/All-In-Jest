@@ -34,8 +34,7 @@ local joker_png = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false, -- uses ability.aij_blueprint_compat
-    eternal_compat = true,
+    blueprint_compat = true, -- uses ability.aij_blueprint_compat
 
     pixel_size = { w = 31, h = 40 },
 

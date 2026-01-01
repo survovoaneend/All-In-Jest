@@ -33,8 +33,7 @@ local czar = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false, -- uses ability.aij_blueprint_compat
-    eternal_compat = true,
+    blueprint_compat = true, -- uses ability.aij_blueprint_compat
 
     set_ability = function(self, card, initial, delay_sprites)
         if G.playing_card then -- Check if in collection or not
