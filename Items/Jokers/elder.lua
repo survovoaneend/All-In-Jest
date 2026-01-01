@@ -18,7 +18,7 @@ local elder = {
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        local target_joker = All_in_Jest.get_longest_held_joker()
+        local target_joker = All_in_Jest.get_longest_held_joker({card})
 
         if target_joker then
             local copied_center = target_joker.config.center
@@ -68,7 +68,7 @@ local elder = {
     end,
 
     update = function(self, card, dt)
-        local target_joker = All_in_Jest.get_longest_held_joker()
+        local target_joker = All_in_Jest.get_longest_held_joker(SMODS.find_card("j_aij_elder"))
         if target_joker and target_joker ~= card and (target_joker.ability.aij_blueprint_compat or target_joker.config.center.blueprint_compat) then
             card.ability.blueprint_compat = 'compatible'
         else
@@ -77,7 +77,7 @@ local elder = {
     end,
 
     calculate = function(self, card, context)
-        local target_joker = All_in_Jest.get_longest_held_joker()
+        local target_joker = All_in_Jest.get_longest_held_joker(SMODS.find_card("j_aij_elder"))
         if target_joker then
             return SMODS.blueprint_effect(card, target_joker, context)
         end

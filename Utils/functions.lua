@@ -1490,14 +1490,23 @@ end
 --     end
 -- end
 
+local contains = function (tbl, item)
+    for k, v in pairs(tbl) do
+        if v == item then
+            return true
+        end
+    end
+    return false
+end
+
 -- Used for Elder
-function All_in_Jest.get_longest_held_joker()
+function All_in_Jest.get_longest_held_joker(exclusions)
     local longest_joker = nil
     local min_index = math.huge
+    exclusions = exclusions or {}
     if G.jokers and G.jokers.cards then
         for _, v in ipairs(G.jokers.cards) do
-            local is_elder = (v.config.center.key == "j_aij_elder")
-            if not is_elder and v.ability.jest_held_order then
+            if not contains(v, exclusions) and v.ability.jest_held_order then
                 if tonumber(v.ability.jest_held_order) < min_index then
                     min_index = tonumber(v.ability.jest_held_order)
                     longest_joker = v
