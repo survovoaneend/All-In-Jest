@@ -3310,13 +3310,14 @@ return {
                 name = "Joker.png", 
                 text = { 
                     {
-                    '{B:1,C:white,s:0.8}Activated Ability',
-                    'This Joker {C:attention}copies{} the',
-                    '{C:attention}effect{} of a random {C:attention}Joker',
+                    'This Joker copies the',
+                    'ability of a random {C:attention}Joker',
+                    'from your {C:attention}collection{}'
                     },
                     {
-                    'Pay {C:money}$#1#{} to reroll, increases',
-                    'by {C:money}$#2#{} per reroll this ante'
+                    '{B:1,C:white,s:0.8}Activated Ability',
+                    'Pay {C:money}$#1#{} to reroll copied joker,',
+                    'costs {C:money}+$#2#{} next use this ante'
                     }
                 } 
             },
@@ -3833,11 +3834,13 @@ return {
             j_aij_czar = { 
                 name = "Czar", 
                 text = {
-                    "{C:attention}Copies{} the {C:attention}effect{} of a",
-                    "{C:attention}random{} discovered Joker",
-                    "from your {C:attention}collection",
-                    "{C:inactive}(Changes when the Shop",
-                    "{C:inactive}is rerolled)"
+                    {
+                        'This Joker copies the',
+                        'ability of a random {C:attention}Joker{}',
+                        'from your {C:attention}collection{},',
+                        'copied joker {C:attention}changes{} when',
+                        'the shop is {C:green}rerolled{}'
+                    }
                 } 
             },
             j_aij_pog = {
@@ -4076,7 +4079,7 @@ return {
             j_aij_error_404 = {
                 name = "Error 404",
                 text = {
-                    '{C:attention}Copies{} the effect of',
+                    '{C:attention}Copies{} the ability of',
                     'a random held {C:attention}Joker',
                     '{C:attention}Changes{} every hand',
                     "{C:inactive}(Currently: {C:attention}#1#{C:inactive})"

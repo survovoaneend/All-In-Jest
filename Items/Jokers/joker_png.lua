@@ -4,7 +4,13 @@ local select_random_valid_joker = function ()
         local center = G.P_CENTERS[key]
         -- Disallowing jokers with a set_ability function, because those usually mess with the sprite and I cannot be bothered
         -- May disallow jokers with an "update" function too, but it seems to be alright with Vanilla and All in Jest alone
-        if key ~= "j_aij_joker_png" and key ~= "UNAVAILABLE" and not (center.all_in_jest and center.all_in_jest.use_ability) and not center.set_ability then
+        if
+            key ~= "j_aij_joker_png" and
+            key ~= "UNAVAILABLE" and
+            center ~= nil and
+            center.discovered and
+            not (center.all_in_jest and center.all_in_jest.use_ability)
+        then
             jokers[#jokers+1] = center
         end
     end
