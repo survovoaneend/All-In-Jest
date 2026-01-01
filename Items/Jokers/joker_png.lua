@@ -70,6 +70,14 @@ local joker_png = {
         end
     },
 
+    update = function(self, card, dt)
+        if not card.aij_ability_cost_label or card.config.center.all_in_jest:ability_cost(card) ~= card.aij_ability_cost_label then
+            card.aij_ability_cost_label = card.config.center.all_in_jest:ability_cost(card) or "??"
+        end
+
+        return All_in_Jest.single_copier.update(self, card, dt)
+    end,
+
     set_ability = function(self, card, initial, delay_sprites)
         if G.playing_card then -- Check if in collection or not
             local joker_center, index = select_random_valid_joker()
