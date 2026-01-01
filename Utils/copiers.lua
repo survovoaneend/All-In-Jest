@@ -326,7 +326,7 @@ All_in_Jest.add_copied_joker = function(copier_card, copied_center, copied_base_
             if copied_center.dongtong_compat ~= false then
                 jest_ability_calculate(
                     {ability = new_ability},
-                    "*", (copier_card.ability[copier_card.config.center.key].silver_multiplier_buff or 100) / 100 / (2 ^ new_ability.jest_applied.j_aij_dongtong),
+                    "*", (copier_card.ability[copier_card.config.center.key].silver_multiplier_buff or 100) / 100 / (2 ^ (new_ability.jest_applied and new_ability.jest_applied.j_aij_dongtong or 0)),
                     { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, [copier_card.config.center.key] = true },
                     nil, true, nil, "ability"
                 )
