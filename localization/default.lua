@@ -65,7 +65,8 @@ return {
             k_aij_two_into_one_ex = 'Two into one!', -- Mycologists
             k_aij_bullet_king_ex = 'Bullet King',
             k_aij_plus_two_moons = "+2 Moons", -- Sky Trees
-            k_aij_does_not_score_ex = "Does not Score!" -- Opening Move
+            k_aij_does_not_score_ex = "Does not Score!", -- Opening Move
+            k_aij_downgrade_ex = "Downgrade!", 
 
         },
         v_dictionary = {
@@ -1435,7 +1436,13 @@ return {
                     "at end of round"
                 } 
             },
-            j_aij_joker_baby = { name = "Joker Baby", text = { "" } },
+            j_aij_joker_baby = { 
+                name = "Joker Baby", 
+                text = { 
+                    "Scoring {C:attention}2s{}, {C:attention}3s{}, {C:attention}4s{}, and {C:attention}5s{}",
+                    "permanently gain {C:mult}+#1#{} Mult"
+                } 
+            },
             j_aij_anchor = { 
                 name = "Anchor", 
                 text = { 
@@ -1474,7 +1481,13 @@ return {
                 } 
             },
             j_aij_holy_bible = { name = "Holy Bible", text = { "" } },
-            j_aij_great_white_north = { name = "Great white North", text = { "" } },
+            j_aij_great_white_north = { 
+                name = "Great White North", 
+                text = { 
+                    "{C:mult}+#1#{} Mult when any card",
+                    "is {C:attention}scored"
+                } 
+            },
             j_aij_right_angle = { 
                 name = "Right Angle", 
                 text = { 
@@ -1538,7 +1551,15 @@ return {
                 } 
             },
             j_aij_oil_and_water = { name = "Oil and Water", text = { "" } },
-            j_aij_big_ears = { name = "Big-Ears", text = { "" } },
+            j_aij_big_ears = { 
+                name = "Big-Ears", 
+                text = { 
+                    "This Joker gains {C:chips}+#2#{} Chips when",
+                    "an {C:attention}even{} card is scored, {C:red}-#3#{}",
+                    "Chips when an {C:attention}odd{} card is scored",
+                    "{C:inactive}(Currently {C:chips}+#1#{} {C:inactive}Chips)"
+                } 
+            },
             j_aij_causal_absent_paranoia = { name = "Causal Absent Paranoia", text = { "" } },
             j_aij_hand_drawn = { 
                 name = "Hand Drawn", 
@@ -1861,7 +1882,7 @@ return {
                 },
             },
             j_aij_second_tier_meme = { 
-                name = "Second tier Meme", 
+                name = "Second Tier Meme", 
                 text = { 
                     "If hand is your {C:attention}second",
                     "{C:attention}most{} played poker hand,",
@@ -2223,7 +2244,13 @@ return {
                     "{C:inactive}(Minimum {X:mult,C:white}X1{C:inactive} Mult){}"
                 } 
             },
-            j_aij_tonpraten = { name = "Tonpraten", text = { "" } },
+            j_aij_tonpraten = { 
+                name = "Tonpraten", 
+                text = { 
+                    "{C:mult}+#1#{} Mult, {C:attention}always",
+                    "{C:attention}triggers last"
+                } 
+            },
             j_aij_rodeo_clown = { 
                 name = "Rodeo Clown", 
                 text = { 
@@ -2249,7 +2276,15 @@ return {
                     '{C:attention}#1#{} additional time'
                 },
             },
-            j_aij_pigpen = { name = "Pigpen", text = { "" } },
+            j_aij_pigpen = { 
+                name = 
+                "Pigpen", 
+                text = { 
+                    "Gives {C:chips}Chips{} equal to the number",
+                    "of times {C:attention}poker hand{} has been",
+                    "{C:attention}played{}, multiplied by its {C:attention}level"
+                } 
+            },
             j_aij_cyclops = { name = "Cyclops", text = { "" } },
             j_aij_blarney_stone = { 
                 name = "Blarney Stone", 
@@ -2488,13 +2523,16 @@ return {
             j_aij_coconut = {
                 name = "Coconut",
                 text = {
-                    ''
+                    'Create a {C:attention}Juggle Tag{}',
+                    'when this Joker is {C:money}sold{}'
                 }
             },
             j_aij_tin_man = {
                 name = "Tin Man",
                 text = {
-                    ''
+                    'Apply {C:attention}Steel{} to all unenhanced',
+                    '{C:hearts}Heart{} suit cards {C:attention}held in{}',
+                    '{C:attention}hand{} at end of round'
                 }
             },
             j_aij_crayon_rubbing = {
@@ -3429,7 +3467,14 @@ return {
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 } 
             },
-            j_aij_dendroglpyh = { name = "Dendroglyph", text = { "" } },
+            j_aij_dendroglyph = { 
+                name = "Dendroglyph", 
+                text = { 
+                    "Scored {C:attention}Wood Cards{} give",
+                    "{C:mult}+#1#{} Mult per {C:attention}Wood Card{}",
+                    "held in hand"
+                } 
+            },
             j_aij_prank_caller = { name = "Prank Caller", text = { "" } },
             j_aij_arngren = { 
                 name = "Arngren", 
@@ -3560,7 +3605,15 @@ return {
                     "{C:attention}random{} played card" 
                 } 
             },
-            j_aij_lemarchand_cube = { name = "LeMarchand Cube", text = { "" } },
+            j_aij_lemarchand_cube = { 
+                name = "LeMarchand Cube", 
+                text = { 
+                    "Create a random {C:spectral}Spectral{} card",
+                    "every {C:attention}#2#{} {C:tarot}Tarot{} cards used",
+                    "{C:inactive}(Must have room){}",
+                    "{C:inactive}({C:attention}#1#{C:inactive}/{C:attention}#2#{C:inactive})"
+                } 
+            },
             j_aij_duende = { name = "Duende", text = { "" } },
             j_aij_evil_joker = { 
                 name = "Evil Joker", 
@@ -4333,7 +4386,10 @@ return {
             j_aij_meaty_joker = {
                 name = "Meaty Joker",
                 text = {
-                    ''
+                    '{X:mult,C:white}X#1#{} Mult for every {C:attention}#2#{}',
+                    'cards in your {C:attention}full deck{}',
+                    "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult){}",
+                    "{C:inactive}(Minimum {X:mult,C:white}X1{C:inactive} Mult){}"
                 }
             },
             j_aij_funny_bunch = {
@@ -4476,7 +4532,14 @@ return {
             j_aij_candidate = {
                 name = "Candidate",
                 text = {
-                    ''
+                    {
+                        '{C:common}Common{} Jokers give {C:chips}+#2#{}',
+                        'Chips'
+                    },
+                    {
+                        '{C:uncommon}Uncommon{} and {C:rare}Rare{} Jokers',
+                        'give {C:mult}+#1#{} Mult'
+                    }
                 }
             },
             j_aij_debbie_downer = {
@@ -4677,7 +4740,14 @@ return {
             j_aij_scrunched_joker = {
                 name = "Scrunched Joker",
                 text = {
-                    ''
+                    {
+                        "{C:chips}+#1#{} Chips and {C:mult}+#2#{} Mult on",
+                        "{C:attention}first{} and {C:attention}last{} hand of round"
+                    },
+                    {
+                        "{C:chips}+#3#{} Chips and {C:mult}+#4#{} Mult",
+                        "otherwise"
+                    },
                 }
             },
             j_aij_funny_bone = {
@@ -4818,7 +4888,8 @@ return {
             j_aij_semaphore = {
                 name = "Semaphore",
                 text = {
-                    ''
+                    'Scored cards give {C:mult}+#1#{} Mult',
+                    'for each {C:red}discard{} remaining'
                 }
             },
             j_aij_jokey_bear = {
@@ -4884,7 +4955,8 @@ return {
             j_aij_goo_joker = {
                 name = "Goo Joker",
                 text = {
-                    ''
+                    "Scored {C:attention}enhanced{}",
+                    "cards give {C:mult}+#1#{} Mult"
                 }
             },
             j_aij_eye_test = {

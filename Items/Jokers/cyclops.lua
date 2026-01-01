@@ -1,8 +1,7 @@
 local cyclops = {
   object_type = "Joker",
   order = 177,
-
-
+  ignore = true,
   key = "cyclops",
   config = {
     extra = {
