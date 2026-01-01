@@ -125,7 +125,6 @@ All_in_Jest.set_copied_ability = function(copier_card, center_to_copy, ability_t
         end
     end
     ability_table.aij_blueprint_compat = center_to_copy.blueprint_compat
-    ability_table.aij_dongtong_compat = center_to_copy.dongtong_compat
     local compatible = center_to_copy[copier_card.config.center.key .. "_compat"] ~= false
     ability_table[copier_card.config.center.key .. "_compat"] = (compatible and "compatible") or "incompatible"
     ability_table.copied_joker_abilities_index = nil
@@ -525,7 +524,7 @@ All_in_Jest.multi_copier = SMODS.Joker:extend {
                 All_in_Jest.set_copied_ability(card, {config = {}})
             end
         end
-        return { vars = { card.ability[card.config.center.key].copy_limit } }
+        return { vars = { } }
     end,
 
     calculate = function(self, card, context)        

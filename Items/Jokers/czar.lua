@@ -21,7 +21,6 @@ local czar = {
     key = "czar",
     config = {
         aij_blueprint_compat = true,
-        aij_dongtong_compat = true,
         j_aij_czar = { -- Store all data needed for this joker in a table with a matching key, this will be preserved on ability changes
             copied_joker_key = nil,
             silver_multiplier_buff = 100, -- Make 100 instead of 1 to keep 2 decimals of precision

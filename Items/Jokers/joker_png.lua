@@ -19,7 +19,6 @@ local joker_png = {
     key = "joker_png",
     config = {
         aij_blueprint_compat = true,
-        aij_dongtong_compat = true,
         j_aij_joker_png = { -- Store all data needed for this joker in a table with a matching key, this will be preserved on ability changes
             base_cost = 1,
             cost = 1,

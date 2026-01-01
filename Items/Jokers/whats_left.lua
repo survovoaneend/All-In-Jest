@@ -6,7 +6,6 @@ local whats_left = {
     config = {
         j_aij_whats_left_compat = true,
         aij_blueprint_compat = true,
-        aij_dongtong_compat = true,
         j_aij_whats_left = { -- Store all data needed for this joker in a table with a matching key, this will be preserved on ability changes
             copy_limit = 2,
             copied_joker_abilities = {},
@@ -22,6 +21,11 @@ local whats_left = {
     blueprint_compat = true, -- uses ability.aij_blueprint_compat
     j_aij_whats_left_compat = false, -- Stops it from copying itself
 
+    loc_vars = function(self, info_queue, card)
+        _ = All_in_Jest.multi_copier.loc_vars(self, info_queue, card)
+        return { vars = { card.ability[card.config.center.key].copy_limit } }
+    end,
+
     set_ability = function(self, card, initial, delay_sprites)
         for index = 1, #G.GAME.all_in_jest.previously_sold_jokers do
             local copied_center = G.P_CENTERS[G.GAME.all_in_jest.previously_sold_jokers[index].save_fields.center]
@@ -30,9 +34,9 @@ local whats_left = {
     end,
 }
 
-local sell_card_ref = Card.sell_card
+local aij_whats_left_sell_card_ref = Card.sell_card
 function Card:sell_card()
-    local ref = sell_card_ref(self)
+    local ref = aij_whats_left_sell_card_ref(self)
     if G.jokers and self.ability.set == 'Joker' then
         local save_data = copy_table(self:save())
         save_data.ability.jest_sold_self = nil
