@@ -23,9 +23,6 @@ local save_changed_abilities_to_stored_table = function (copier_card, copied_ind
             string.sub(k, 1, #(copier_card.config.center.key .. "compat")) == copier_card.config.center.key .. "compat" or
             SMODS.Stickers[k] ~= nil
         ) then -- This is the key that stores all the data related to the copier joker
-            -- if copier_card.ability[copier_card.config.center.key].copied_joker_abilities[copied_index][k] ~= v and type(v) ~= "table" then
-            --     sendDebugMessage("Saving " .. tostring(copier_card.ability[copier_card.config.center.key].copied_joker_abilities[copied_index][k] or "nil") .. " to " .. tostring(v or "nil"), "AiJ")
-            -- end
             if type(v) == "table" then
                 copier_card.ability[copier_card.config.center.key].copied_joker_abilities[copied_index][k] = copy_table(v)
             else
@@ -174,10 +171,9 @@ local function event_insert_to_queue(manager, index, event, queue)
 end
 
 -- A boilerplate function that lets a copier joker use one of the methods of the joker its copying
--- Vanilla jokers are implemented differently, and so are handled seperately
+-- Vanilla jokers are implemented differently, and so are handled separately
 All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla_func_name, modded_func_args, vanilla_func_args, index, skip_events)
-
-    if card.ability.name == card.config.center.key then
+    if card.ability.name ~= card.config.center.key then
         return {}
     end
     if not card.ability[card.config.center.key] then
@@ -207,32 +203,19 @@ All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla
 
         local starting_queue_length = #G.E_MANAGER.queues.base
 
-        -- if not skip_events then
-        --     sendDebugMessage(starting_queue_length .. modded_func_name .. pseudorandom(pseudoseed("AIJ")), "AIJ use")
-        -- end
-
         local ret = table.pack(nil)
         if obj[modded_func_name] and type(obj[modded_func_name]) == 'function' then
             -- Modded Jokers
             ret = table.pack(obj[modded_func_name](obj, table.unpack(modded_func_args)))
         else
             -- Vanilla Jokers
-            -- local old_func = card.config.center[modded_func_name]
             card.ability.name = obj.name
-            -- card.config.center[modded_func_name] = false
-
             ret = table.pack(Card[vanilla_func_name](card, table.unpack(vanilla_func_args)))
-
             card.ability.name = card.config.center.name
-            -- card.config.center[modded_func_name] = old_func
         end
 
-        -- if not skip_events then
-        --     sendDebugMessage(#G.E_MANAGER.queues.base .. " " .. starting_queue_length .. modded_func_name .. "bblurb", "AIJ use")
-        -- end
         if index ~= nil then
             if not skip_events and (#G.E_MANAGER.queues.base > starting_queue_length) then
-                -- sendDebugMessage("Events" .. tprint(modded_func_args), "AIJ")
                 All_in_Jest.set_copied_ability(card, {config = {}})
                 -- Repeat set_copied_ability in events so that any events the copied joker creates can reference itself correctly
                 -- Using two-deep events, could go deeper if needed
@@ -240,7 +223,6 @@ All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla
                 event_insert_to_queue(G.E_MANAGER, starting_queue_length + 1, Event({
                     func = function()
                         expected_queue_length = #G.E_MANAGER.queues.base - (expected_queue_length - starting_queue_length) - 1
-                        -- sendDebugMessage(expected_queue_length .. modded_func_name .. pseudorandom(pseudoseed("AIJ")), "AIJ use")
                         All_in_Jest.hotswap_copied_ability(card, index)
                         return true
                     end
@@ -250,7 +232,6 @@ All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla
                 -- Will include card_eval_status_text(), attention_text(), and similar. Would be ideal if these are moved to return parameters
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        -- sendDebugMessage(#G.E_MANAGER.queues.base .. " " .. expected_queue_length .. modded_func_name .. "bblurb" .. index, "AIJ use")
                         -- Check if any events were created between this event and the previously inserted one
                         -- If none were, #G.E_MANAGER.queues.base should be equal to the expected_queue_length
                         -- If it's greater than expected_queue_length, then additional events have been made
@@ -264,7 +245,6 @@ All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla
                             -- This is mostly a "just-in-case" measure, especially for modded and future effects
                             event_insert_to_queue(G.E_MANAGER, expected_queue_length + 1, Event({
                                 func = function()
-                                    -- sendDebugMessage(modded_func_name .. pseudorandom(pseudoseed("AIJ")), "AIJ use")
                                     All_in_Jest.hotswap_copied_ability(card, index)
                                     return true
                                 end
@@ -272,7 +252,6 @@ All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla
                             -- Any events made in the events when calling modded_func_name() or vanilla_func_name() above will execute here
                             G.E_MANAGER:add_event(Event({
                                 func = function()
-                                    -- sendDebugMessage(modded_func_name .. "bblurb" .. index, "AIJ use")
                                     All_in_Jest.set_copied_ability(card, {config = {}})
                                     return true
                                 end
@@ -302,7 +281,7 @@ All_in_Jest.set_copied_joker = function(copier_card, copied_center)
         copied_center = G.P_CENTERS['j_joker']
     end
     All_in_Jest.set_copied_ability(copier_card, copied_center)
-    if copier_card.aij_dongtong_compat then
+    if copied_center.dongtong_compat ~= false then
         jest_ability_calculate(
             copier_card,
             "*", (copier_card.ability[copier_card.config.center.key].silver_multiplier_buff or 100) / 100,
@@ -343,7 +322,7 @@ All_in_Jest.add_copied_joker = function(copier_card, copied_center, copied_base_
             new_ability.aij_recherche_doubled = nil
             new_ability.aij_unusual_doubled = nil
 
-            if copied_center.dongtong_compat == nil or copied_center.dongtong_compat then
+            if copied_center.dongtong_compat ~= false then
                 jest_ability_calculate(
                     {ability = new_ability},
                     "*", (copier_card.ability[copier_card.config.center.key].silver_multiplier_buff or 100) / 100,
