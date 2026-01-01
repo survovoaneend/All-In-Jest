@@ -1762,9 +1762,10 @@ return {
             j_aij_clay_joker = { 
                 name = "Clay Joker", 
                 text = { 
-                    "Copies the effect of the",
-                    "last {C:red}destroyed{} Joker" 
-                } 
+                    "Copies the abilities of the",
+                    "last {C:attention}#1#{} {C:red}destroyed{} {C:attention}jokers{}" ,
+                    "{C:inactive}(Excluding Clay Joker){}"
+                }
             },
             j_aij_sunny_joker = { 
                 name = "Sunny Joker", 
