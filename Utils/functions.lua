@@ -372,11 +372,11 @@ AllInJest.touchstone_deck_preview = function()
                 for _, v in pairs(area.cards) do
                     if v and type(v) == 'table' and not v.debuff then
                         if v.ability.future_sense and not v.debuff then
-                            max_future_sense = math.max(max_future_sense, v.ability.future_sense)
+                            max_future_sense = math.max(max_future_sense, to_number(v.ability.future_sense))
                         end
                         if v.ability[v.config.center.key] and v.ability[v.config.center.key].copied_joker_abilities then
                             for index = #v.ability[v.config.center.key].copied_joker_abilities, math.max(1, #v.ability[v.config.center.key].copied_joker_abilities - v.ability[v.config.center.key].copy_limit + 1), -1 do
-                                max_future_sense = math.max(max_future_sense, v.ability[v.config.center.key].copied_joker_abilities[index].future_sense)
+                                max_future_sense = math.max(max_future_sense, to_number(v.ability[v.config.center.key].copied_joker_abilities[index].future_sense))
                             end
                         end
                     end
