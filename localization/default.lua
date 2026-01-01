@@ -2855,7 +2855,7 @@ return {
                 text = { 
                     "When a hand is played,",
                     "add a {C:attention}temporary copy{} of" ,
-                    "the last {C:red}destroyed{} face",
+                    "the last {C:red}destroyed{} {C:attention}face{}",
                     "card to scored hand",
                     "{C:inactive}(Does not change hand type){}"
                 } 
