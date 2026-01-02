@@ -41,7 +41,7 @@ local function process_value(val, base_val, equation, extra_value, do_round)
   end
 end
 
-local function should_process(key, value, exclusions, inclusions)
+local function should_process(key, value, exclusions, inclusions, only)
   if type(key) ~= "string" then return true end
   if inclusions and next(inclusions) then
     local valid = false
@@ -60,13 +60,13 @@ local function should_process(key, value, exclusions, inclusions)
   return true
 end
 
-local function process_table(t, base_table, equation, extra_value, do_round, exclusions, inclusions)
+local function process_table(t, base_table, equation, extra_value, do_round, exclusions, inclusions, only)
   for key, value in pairs(t) do
-    if value ~= nil and should_process(key, value, exclusions, inclusions) then
+    if value ~= nil and should_process(key, value, exclusions, inclusions, only) then
       if type(value) == "number" then
         t[key] = process_value(value, base_table[key] or 0, equation, extra_value, do_round)
       elseif type(value) == "table" and type(base_table[key]) == "table" then
-        process_table(value, base_table[key], equation, extra_value, do_round, exclusions, inclusions)
+        process_table(value, base_table[key], equation, extra_value, do_round, exclusions, inclusions, only)
       end
     end
   end
@@ -115,7 +115,7 @@ local jest_ability_get_items = function(card, equation, extra_value, exclusions,
       table.insert(values, process_value(search_table, nil, equation, extra_value, do_round))
     elseif type(search_table) == "table" then
       for key, value in pairs(search_table) do
-        if value ~= nil and should_process(key, value, exclusions, inclusions) then
+        if value ~= nil and should_process(key, value, exclusions, inclusions, only) then
           table.insert(keys, key)
           table.insert(values, process_value(value, nil, equation, extra_value, do_round))
         end
@@ -151,7 +151,7 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
     elseif type(search_table) == "table" then
       local base_map = {}
       for i, k in ipairs(keys) do base_map[k] = original_values[i] end
-      process_table(search_table, base_map, equation, extra_value, do_round, exclusions, inclusions)
+      process_table(search_table, base_map, equation, extra_value, do_round, exclusions, inclusions, only)
     end
   end
 end

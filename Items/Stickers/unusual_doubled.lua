@@ -44,7 +44,7 @@ local unusual_doubled = {
         card,
         "*", tonumber(card.ability[self.key].mult),
         { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
-        nil, true, false, "ability.extra"
+        nil, true, nil, "ability"
       )
       if card.added_to_deck then
         card.added_to_deck = false
@@ -60,7 +60,7 @@ local unusual_doubled = {
         card,
         "/", tonumber(card.ability[self.key].mult),
         { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
-        nil, true, false, "ability.extra"
+        nil, true, nil, "ability"
       )
       if card.added_to_deck then
         card.added_to_deck = false
@@ -90,13 +90,13 @@ function Card:update(dt)
           self,
           "/", tonumber(self.ability.aij_unusual_doubled.prevmult),
           { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
-          nil, true, false, "ability.extra"
+          nil, true, nil, "ability"
         )
         jest_ability_calculate(
           self,
           "*", tonumber(self.ability.aij_unusual_doubled.mult),
           { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
-          nil, true, false, "ability.extra"
+          nil, true, nil, "ability"
         )
         if self.added_to_deck then
           self.added_to_deck = false

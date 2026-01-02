@@ -44,26 +44,24 @@ local dong_tong_double = function (card, mod_count)
         card.ability.jest_applied["j_aij_dongtong"] = current_count
 
         if diff > 0 then
-            sendDebugMessage("diff" .. diff, "AiJ")
             card:remove_from_deck(true)
             for _ = 1, math.abs(diff) do
                 jest_ability_calculate(
                 card,
                 "*", 2,
                 { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit=true },
-                nil, false, "ability.extra"
+                nil, false, nil, "ability"
                 )
             end
             card:add_to_deck(true)
         elseif diff < 0 then
-            sendDebugMessage("diff" .. diff, "AiJ")
             card:remove_from_deck(true)
             for _ = 1, math.abs(diff) do
                 jest_ability_calculate(
                 card,
                 "/", 2,
                 { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit=true },
-                nil, false, "ability.extra"
+                nil, false, nil, "ability"
                 )
             end
             card:add_to_deck(true)
