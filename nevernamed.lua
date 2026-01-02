@@ -293,9 +293,10 @@ local function load_items(curr_obj)
         if item.jest_spec_moon and not All_in_Jest.config.moons_enabled then
             goto continue
         end
-        -- Add incompatibility to all jokers with an activated ability
-        if item.all_in_jest and item.all_in_jest.use_ability then
+        -- Add incompatibility to all jokers with an activated ability and to advanced copiers
+        if (item.all_in_jest and item.all_in_jest.use_ability) or (item.config and item.config["j_aij_" .. item.key]) then
             item.j_aij_whats_left_compat = false
+            item.j_aij_clay_joker_compat = false
         end
         if SMODS[item.object_type] and not item.ignore then
             SMODS[item.object_type](item)

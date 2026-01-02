@@ -108,6 +108,7 @@ end
 local aij_visage_start_dissolve_ref = Card.start_dissolve
 function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice)
     local ref = aij_visage_start_dissolve_ref(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
+    -- Specific check to exclude the card that dissolved in the screen when you start the run
     if (self.ability.set == 'Default' or self.ability.set == 'Enhanced') and self ~= G.screenwipecard then
         add_to_previously_destroyed_playing_cards(self)
     end

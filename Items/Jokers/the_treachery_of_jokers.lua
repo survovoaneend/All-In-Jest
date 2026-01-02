@@ -104,44 +104,46 @@ end
 -- For what's left/clay joker
 local aij_add_copied_joker_ref = All_in_Jest.add_copied_joker
 All_in_Jest.add_copied_joker = function(copier_card, copied_center, copied_base_stats, skip_funcs)
-
-    local copier_ability = copier_card.ability[copier_card.config.center.key]
-
     local previously_copied_jokers = {}
-    for index = #copier_ability.copied_joker_abilities, math.max(1, #copier_ability.copied_joker_abilities - copier_ability.copy_limit + 1), -1 do
-        local copied_ability = copier_ability.copied_joker_abilities[index]
-        table.insert(previously_copied_jokers, copied_ability.key)
+    if copier_card.ability[copier_card.config.center.key].copied_joker_abilities ~= nil then
+        local copier_ability = copier_card.ability[copier_card.config.center.key]
+
+        for index = #copier_ability.copied_joker_abilities, math.max(1, #copier_ability.copied_joker_abilities - copier_ability.copy_limit + 1), -1 do
+            local copied_ability = copier_ability.copied_joker_abilities[index]
+            table.insert(previously_copied_jokers, copied_ability.key)
+        end
     end
 
     local ret = aij_add_copied_joker_ref(copier_card, copied_center, copied_base_stats, skip_funcs)
 
-    copier_ability = copier_card.ability[copier_card.config.center.key]
+    if copier_card.ability[copier_card.config.center.key].copied_joker_abilities ~= nil then
+        copier_ability = copier_card.ability[copier_card.config.center.key]
 
+        local currently_copied_jokers = {}
+        for index = #copier_ability.copied_joker_abilities, math.max(1, #copier_ability.copied_joker_abilities - copier_ability.copy_limit + 1), -1 do
+            local copied_ability = copier_ability.copied_joker_abilities[index]
+            table.insert(currently_copied_jokers, copied_ability.key)
+        end
 
-    local currently_copied_jokers = {}
-    for index = #copier_ability.copied_joker_abilities, math.max(1, #copier_ability.copied_joker_abilities - copier_ability.copy_limit + 1), -1 do
-        local copied_ability = copier_ability.copied_joker_abilities[index]
-        table.insert(currently_copied_jokers, copied_ability.key)
-    end
-
-    G.E_MANAGER:add_event(Event({
-        func = function()
-            if contains(previously_copied_jokers, "j_aij_the_treachery_of_jokers") ~= contains(currently_copied_jokers, "j_aij_the_treachery_of_jokers") then
-                if contains(previously_copied_jokers, "j_aij_the_treachery_of_jokers") then
-                    if copier_card.area and copier_card.area == G.consumeables then
-                        local removed_card = copier_card.area:remove_card(copier_card)
-                        G.jokers:emplace(removed_card)
-                    end
-                elseif contains(currently_copied_jokers, "j_aij_the_treachery_of_jokers") then
-                    if copier_card.area and copier_card.area == G.jokers then
-                        local removed_card = copier_card.area:remove_card(copier_card)
-                        G.consumeables:emplace(removed_card)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                if contains(previously_copied_jokers, "j_aij_the_treachery_of_jokers") ~= contains(currently_copied_jokers, "j_aij_the_treachery_of_jokers") then
+                    if contains(previously_copied_jokers, "j_aij_the_treachery_of_jokers") then
+                        if copier_card.area and copier_card.area == G.consumeables then
+                            local removed_card = copier_card.area:remove_card(copier_card)
+                            G.jokers:emplace(removed_card)
+                        end
+                    elseif contains(currently_copied_jokers, "j_aij_the_treachery_of_jokers") then
+                        if copier_card.area and copier_card.area == G.jokers then
+                            local removed_card = copier_card.area:remove_card(copier_card)
+                            G.consumeables:emplace(removed_card)
+                        end
                     end
                 end
+                return true
             end
-            return true
-        end
-    }))
+        }))
+      end
 
     return ret
 end

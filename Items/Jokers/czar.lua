@@ -9,7 +9,8 @@ local select_random_valid_joker = function ()
             key ~= "UNAVAILABLE" and
             center ~= nil and
             center.discovered and
-            not (center.all_in_jest and center.all_in_jest.use_ability)
+            not (center.all_in_jest and center.all_in_jest.use_ability) and
+            not (center.config[key]) -- Disallow copiers, bandaid fix for a bug
         then
             jokers[#jokers+1] = center
         end

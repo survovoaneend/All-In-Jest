@@ -437,7 +437,7 @@ All_in_Jest.single_copier = SMODS.Joker:extend {
 
 All_in_Jest.multi_copier = SMODS.Joker:extend {
     add_to_deck = function(self, card, from_debuff)
-        if card.ability[card.config.center.key] and #card.ability[card.config.center.key].copied_joker_abilities > 0 and card.ability.name == card.config.center.key then
+        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_abilities and #card.ability[card.config.center.key].copied_joker_abilities > 0 and card.ability.name == card.config.center.key then
             for index = #card.ability[card.config.center.key].copied_joker_abilities, math.max(1, #card.ability[card.config.center.key].copied_joker_abilities - card.ability[card.config.center.key].copy_limit + 1), -1 do
                 local center_to_copy = G.P_CENTERS[card.ability[card.config.center.key].copied_joker_abilities[index].key]
                 if center_to_copy[card.config.center.key .. "_compat"] ~= false then
@@ -450,7 +450,7 @@ All_in_Jest.multi_copier = SMODS.Joker:extend {
     end,
 
     remove_from_deck = function(self, card, from_debuff)
-        if card.ability[card.config.center.key] and #card.ability[card.config.center.key].copied_joker_abilities > 0 and card.ability.name == card.config.center.key then
+        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_abilities and #card.ability[card.config.center.key].copied_joker_abilities > 0 and card.ability.name == card.config.center.key then
             for index = #card.ability[card.config.center.key].copied_joker_abilities, math.max(1, #card.ability[card.config.center.key].copied_joker_abilities - card.ability[card.config.center.key].copy_limit + 1), -1 do
                 local center_to_copy = G.P_CENTERS[card.ability[card.config.center.key].copied_joker_abilities[index].key]
                 if center_to_copy[card.config.center.key .. "_compat"] ~= false then
@@ -463,7 +463,7 @@ All_in_Jest.multi_copier = SMODS.Joker:extend {
     end,
 
     update = function(self, card, dt)
-        if card.ability[card.config.center.key] and #card.ability[card.config.center.key].copied_joker_abilities > 0 and card.ability.name == card.config.center.key then
+        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_abilities and #card.ability[card.config.center.key].copied_joker_abilities > 0 and card.ability.name == card.config.center.key then
             for index = #card.ability[card.config.center.key].copied_joker_abilities, math.max(1, #card.ability[card.config.center.key].copied_joker_abilities - card.ability[card.config.center.key].copy_limit + 1), -1 do
                 local center_to_copy = G.P_CENTERS[card.ability[card.config.center.key].copied_joker_abilities[index].key]
                 if center_to_copy[card.config.center.key .. "_compat"] ~= false then
@@ -476,7 +476,7 @@ All_in_Jest.multi_copier = SMODS.Joker:extend {
     loc_vars = function(self, info_queue, card)
         local abilities_to_display = {}
 
-        if card.ability[card.config.center.key] and #card.ability[card.config.center.key].copied_joker_abilities > 0 then
+        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_abilities and #card.ability[card.config.center.key].copied_joker_abilities > 0 then
             abilities_to_display = card.ability[card.config.center.key].copied_joker_abilities
         end
 
@@ -528,7 +528,7 @@ All_in_Jest.multi_copier = SMODS.Joker:extend {
     end,
 
     calculate = function(self, card, context)        
-        if card.ability[card.config.center.key] and #card.ability[card.config.center.key].copied_joker_abilities > 0 and card.ability.name == card.config.center.key then
+        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_abilities and #card.ability[card.config.center.key].copied_joker_abilities > 0 and card.ability.name == card.config.center.key then
             local return_table = nil
             for index = #card.ability[card.config.center.key].copied_joker_abilities, math.max(1, #card.ability[card.config.center.key].copied_joker_abilities - card.ability[card.config.center.key].copy_limit + 1), -1 do
                 local center_to_copy = G.P_CENTERS[card.ability[card.config.center.key].copied_joker_abilities[index].key]
@@ -558,12 +558,12 @@ All_in_Jest.multi_copier = SMODS.Joker:extend {
     end,
 
     calc_dollar_bonus = function(self, card)
-        if card.ability[card.config.center.key] and #card.ability[card.config.center.key].copied_joker_abilities > 0 and card.ability.name == card.config.center.key then
+        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_abilities and #card.ability[card.config.center.key].copied_joker_abilities > 0 and card.ability.name == card.config.center.key then
             local dollar_bonus = 0
             for index = #card.ability[card.config.center.key].copied_joker_abilities, math.max(1, #card.ability[card.config.center.key].copied_joker_abilities - card.ability[card.config.center.key].copy_limit + 1), -1 do
                 local center_to_copy = G.P_CENTERS[card.ability[card.config.center.key].copied_joker_abilities[index].key]
                 if center_to_copy[card.config.center.key .. "_compat"] ~= false then
-                    if card.ability[card.config.center.key] and #card.ability[card.config.center.key].copied_joker_abilities > 0 then
+                    if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_abilities and #card.ability[card.config.center.key].copied_joker_abilities > 0 then
                         local ret = table.unpack(All_in_Jest.use_copied_joker_function(card, "calc_dollar_bonus", "calculate_dollar_bonus", {card}, {}, index))
                         if ret ~= nil then
                             dollar_bonus = dollar_bonus + ret

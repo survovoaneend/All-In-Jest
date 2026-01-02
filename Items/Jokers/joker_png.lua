@@ -9,7 +9,8 @@ local select_random_valid_joker = function ()
             key ~= "UNAVAILABLE" and
             center ~= nil and
             center.discovered and
-            not (center.all_in_jest and center.all_in_jest.use_ability)
+            not (center.all_in_jest and center.all_in_jest.use_ability) and
+            not (center.config[key]) -- Disallow copiers, bandaid fix for a bug
         then
             jokers[#jokers+1] = center
         end
@@ -33,7 +34,7 @@ local joker_png = {
             silver_multiplier_buff = 100, -- Make 100 instead of 1 to keep 2 decimals of precision
         }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 24, y = 11},
     atlas = 'joker_atlas',
     cost = 6,
