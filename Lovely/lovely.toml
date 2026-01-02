@@ -3102,7 +3102,7 @@ do -- All in Jest Patch
 
                 if item_key then
                     local planet_center = G.P_CENTERS[item_key]
-                    if v.key == item_key then
+                    if planet_center and planet_center.key == item_key then
                         if (G.GAME.round_resets.ante % 2) == 0 then
                             if planet_center.config and planet_center.config.chips and planet_center.config.moon then
                                 table.insert(cur_pool, item)
