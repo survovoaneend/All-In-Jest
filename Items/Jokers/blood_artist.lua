@@ -59,7 +59,11 @@ local blood_artist = {
                     message = localize("k_aij_blood_spilt_ex")
                 },
                 func = function ()
-                    All_in_Jest.ease_blind_requirement(nil, -1 * math.ceil(G.GAME.blind.chips * card.ability.extra.blind_reduction * 0.01) * destroyed_count)
+                    local new_mult = (1 - card.ability.extra.blind_reduction * 0.01) ^ destroyed_count
+                    All_in_Jest.ease_blind_requirement(nil, -1 * math.ceil(G.GAME.blind.chips * (1 - new_mult)))
+                    -- for _ = 1, destroyed_count do
+                    --     All_in_Jest.ease_blind_requirement(nil, -1 * math.ceil(G.GAME.blind.chips * card.ability.extra.blind_reduction * 0.01))
+                    -- end
                     -- Ends blind if blind requirement is now met
                     -- Copied from blind:disable()
                     G.E_MANAGER:add_event(Event({
