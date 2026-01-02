@@ -3311,13 +3311,13 @@ return {
                 text = { 
                     {
                     'This Joker copies the',
-                    'ability of a random {C:attention}Joker',
-                    'from your {C:attention}collection{}'
+                    'ability of a random discovered',
+                    '{C:attention}Joker{} from your {C:attention}collection{}'
                     },
                     {
                     '{B:1,C:white,s:0.8}Activated Ability',
                     'Pay {C:money}$#1#{} to reroll copied joker,',
-                    'costs {C:money}+$#2#{} next use this ante'
+                    'the next use this ante costs {C:money}+$#2#{}'
                     }
                 } 
             },
@@ -3836,8 +3836,8 @@ return {
                 text = {
                     {
                         'This Joker copies the',
-                        'ability of a random {C:attention}Joker{}',
-                        'from your {C:attention}collection{},',
+                        'ability of a random discovered',
+                        '{C:attention}Joker{} from your {C:attention}collection{},',
                         'copied joker {C:attention}changes{} when',
                         'the shop is {C:green}rerolled{}'
                     }
