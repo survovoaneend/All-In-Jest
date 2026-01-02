@@ -21,29 +21,12 @@ local asteroid_tag = {
   apply = function(self, tag, context)
     if context.type == 'new_blind_choice' then
       tag:jest_apply('+', G.C.SECONDARY_SET.Planet, function()
-          local key = 'p_celestial_normal_' .. (math.random(1, 4))
+          local key = 'p_aij_asteroid_tag_celestial'
           local card = Card(G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
             G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2, G.CARD_W * 1.27, G.CARD_H * 1.27, G.P_CARDS.empty,
             G.P_CENTERS[key], { bypass_discovery_center = true, bypass_discovery_ui = true })
           card.cost = 0
           card.from_tag = true
-          G.GAME.temp_create_card = {}
-          G.GAME.temp_create_card[1] = card.config.center.create_card
-          card.fake_create_card = true
-          card.config.center.create_card = function(self, i)
-                self.card_index = self.card_index or 1
-                local tmp_key = 'c_black_hole'
-                if self.card_index == 2 then
-                  tmp_key = 'c_aij_gravastar'
-                elseif self.card_index == 3 then
-                  tmp_key = 'c_aij_pulsar'
-                  self.card_index = nil
-                end
-                if self.card_index then
-                  self.card_index = self.card_index + 1
-                end
-                return create_card("Spectral", G.pack_cards, nil, nil, true, true, tmp_key, 'ast')
-              end
           G.FUNCS.use_card({ config = { ref_table = card } })
           card:start_materialize()
           return true

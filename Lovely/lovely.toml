@@ -2490,27 +2490,6 @@ end
 '''
 match_indent = true
 
-# Handle booster packs with custom contents
-# As of v0.6 for Timelost (Guess the Jest with perishable options) and asteroid (Celestial with 3 spectral planets)
-# Card:open()
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "if G.GAME.modifiers.inflation then "
-position = "before" 
-match_indent = true
-payload = '''
-G.E_MANAGER:add_event(Event({trigger = 'after', delay = 1.4*math.sqrt(G.SETTINGS.GAMESPEED), blockable = false, blocking = false, 
-    func = function()
-        if self.fake_create_card then
-            self.config.center.create_card = G.GAME.temp_create_card[1]
-            self.fake_create_card = false
-            G.GAME.temp_create_card = {}
-        end
-    return true
-end}))
-'''
-
 # Electric Snow (1/2)
 # Prevent round from ending after hand is played (unless final hand is played)
 # Game:update_hand_played()
