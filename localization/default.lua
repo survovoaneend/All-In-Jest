@@ -803,6 +803,13 @@ return {
                     '+2 Hands',
                 },
             },
+            bl_aij_the_assistant = {
+                name = "The Assistant",
+                text = {
+                    'Becomes a boss blind',
+                    'that counters your build',
+                },
+            },
             -- Finisher Blinds
             bl_aij_obsidian_blade = {
                 name = "Obsidian Blade",
