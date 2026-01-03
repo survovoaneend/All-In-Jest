@@ -42,7 +42,7 @@ local scopaesthesia = {
     end,
     generate_ui = function(self, info_queue, cardd, desc_nodes, specific_vars, full_UI_table)
         SMODS.Joker.super.generate_ui(self, info_queue, cardd, desc_nodes, specific_vars, full_UI_table)
-        if G.deck ~= nil and cardd.area.config.type == "joker" then
+        if G.deck ~= nil and cardd and cardd.area and cardd.area.config.type == "joker" then
             local cards = {}
             local i = #G.deck.cards
             if i > 0 then

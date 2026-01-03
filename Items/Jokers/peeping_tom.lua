@@ -17,7 +17,7 @@ local peeping_tom = {
 
   loc_vars = function(self, info_queue, card)
       local main_end = {}
-      if G.deck ~= nil and card.area.config.type == "joker" and #G.deck.cards > 0 then
+      if G.deck ~= nil and card.area and card.area.config.type == "joker" and #G.deck.cards > 0 then
           localize{type = 'other', key = 'aij_future_sight_tip', nodes = main_end, vars = {}}
           main_end = main_end[1]
       end
@@ -29,7 +29,7 @@ local peeping_tom = {
   end,
   generate_ui = function(self, info_queue, cardd, desc_nodes, specific_vars, full_UI_table)
       SMODS.Joker.super.generate_ui(self, info_queue, cardd, desc_nodes, specific_vars, full_UI_table)
-      if G.deck ~= nil and cardd.area.config.type == "joker" then
+      if G.deck ~= nil and cardd and cardd.area and cardd.area.config.type == "joker" then
           local cards = {}
           for i = #G.deck.cards, #G.deck.cards - cardd.ability.future_sense + 1, -1 do
               if i > 0 then
