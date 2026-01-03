@@ -41,12 +41,16 @@ local dead_president = {
       end
       if my_pos > 0 then
         local left_joker = G.jokers.cards[my_pos - 1]
-        if left_joker.sell_cost <= 0 or left_joker == sold_card then
-          left_joker = nil
+        if pcall(assert, left_joker) then
+          if left_joker.sell_cost <= 0 or left_joker == sold_card then
+            left_joker = nil
+          end
         end
         local right_joker = G.jokers.cards[my_pos + 1]
-        if right_joker.sell_cost <= 0 or right_joker == sold_card then
-          right_joker = nil
+        if pcall(assert, right_joker) then
+          if right_joker.sell_cost <= 0 or right_joker == sold_card then
+            right_joker = nil
+          end
         end
 
         if left_joker or right_joker then
@@ -92,3 +96,4 @@ local dead_president = {
   end
 }
 return { name = { "Jokers" }, items = { dead_president } }
+
