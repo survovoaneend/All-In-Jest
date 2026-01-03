@@ -12,8 +12,8 @@ local function contains_number(table, exclusions)
         else
             if type(v) == "number" and v ~= 0 then
                 return true
-            elseif type(v) == "table" then
-                return contains_number(v)
+            elseif type(v) == "table" and contains_number(v, exclusions) then
+                return true
             end
         end
     end
