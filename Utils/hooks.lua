@@ -990,7 +990,7 @@ end
 -- If one of chips/mult are at base levels, then downgrade the other appropriately
 local aij_level_up_hand_ref = level_up_hand
 function level_up_hand(card, hand, instant, amount)
-    if amount < 1 then
+    if amount ~= nil and amount < 1 then
         local obj = G.GAME.hands[hand]
         local freeze_mult = false
         local freeze_chips = false
