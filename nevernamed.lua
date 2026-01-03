@@ -72,6 +72,22 @@ SMODS.Atlas {
     frames = 21, 
     atlas_table = 'ANIMATION_ATLAS' 
 }
+SMODS.Atlas { 
+    key = 'blinds_pit', 
+    path = 'blinds_pit.png', 
+    px = 34, 
+    py = 34, 
+    frames = 21, 
+    atlas_table = 'ANIMATION_ATLAS' 
+}
+SMODS.Atlas { 
+    key = 'blinds_final', 
+    path = 'blinds_final.png', 
+    px = 34, 
+    py = 34, 
+    frames = 21, 
+    atlas_table = 'ANIMATION_ATLAS' 
+}
 SMODS.Atlas {
   key = "legendary_atlas",
   path = "legendaries.png",

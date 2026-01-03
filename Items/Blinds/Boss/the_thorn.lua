@@ -18,7 +18,7 @@ local the_thorn = {
     mult = 1,
     boss_colour = HEX("56a786"),
     atlas = 'blinds',
-    pos = { X = 0, y = 45},
+    pos = { X = 0, y = 29},
     order = 24,
     dollars = 5,
 

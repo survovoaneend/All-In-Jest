@@ -7,7 +7,7 @@ local the_brimstone = {
     mult = 2,
     boss_colour = HEX("f24949"),
     atlas = 'blinds',
-    pos = { X = 0, y = 22 },
+    pos = { X = 0, y = 8 },
     order = 14,
     dollars = 5,
 

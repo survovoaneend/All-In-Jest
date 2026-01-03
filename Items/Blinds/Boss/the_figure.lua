@@ -8,7 +8,7 @@ local the_figure = {
     mult = 2,
     boss_colour = HEX("615b91"),
     atlas = 'blinds',
-    pos = { X = 0, y = 28},
+    pos = { X = 0, y = 14},
     order = 47,
     dollars = 5,
 

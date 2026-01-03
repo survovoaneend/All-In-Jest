@@ -7,7 +7,7 @@ local the_ancestor = {
     mult = 2,
     boss_colour = HEX("f03464"),
     atlas = 'blinds',
-    pos = { X = 0, y = 61},
+    pos = { X = 0, y = 45},
     order = 30,
     dollars = 5,
 

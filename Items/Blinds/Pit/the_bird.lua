@@ -12,7 +12,7 @@ local the_bird = {
     end,
     mult = 2,
     boss_colour = HEX("c7b28c"),
-    atlas = 'blinds',
+    atlas = 'blinds_pit',
     pos = { y = 11 },
     order = 512,
     dollars = 6,

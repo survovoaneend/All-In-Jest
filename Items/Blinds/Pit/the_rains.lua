@@ -13,7 +13,7 @@ local the_rains = {
     end,
     mult = 2,
     boss_colour = HEX("869ca7"),
-    atlas = 'blinds',
+    atlas = 'blinds_pit',
     pos = { y = 1 },
     order = 502,
     dollars = 6,

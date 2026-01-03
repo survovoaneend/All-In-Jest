@@ -18,7 +18,7 @@ local the_enigma = {
     mult = 1.5,
     boss_colour = HEX("6b4d74"),
     atlas = 'blinds',
-    pos = { X = 0, y = 42 },
+    pos = { X = 0, y = 26 },
     order = 21,
     dollars = 5,
 

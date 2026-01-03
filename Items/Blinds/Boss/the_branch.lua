@@ -7,7 +7,7 @@ local the_branch = {
     mult = 2,
     boss_colour = HEX("88715a"),
     atlas = 'blinds',
-    pos = {X = 0, y = 18 },
+    pos = {X = 0, y = 4 },
     order = 5,
     dollars = 5,
 

@@ -7,7 +7,7 @@ local the_ash = {
     mult = 2,
     boss_colour = HEX("97896f"),
     atlas = 'blinds',
-    pos = { X = 0, y = 38 },
+    pos = { X = 0, y = 22 },
     order = 17,
     dollars = 5,
 

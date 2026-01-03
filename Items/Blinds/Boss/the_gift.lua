@@ -8,7 +8,7 @@ local the_gift = {
     mult = 2,
     boss_colour = HEX("c75d5d"),
     atlas = 'blinds',
-    pos = { X = 0, y = 60},
+    pos = { X = 0, y = 44},
     order = 29,
     dollars = 5,
 

@@ -18,7 +18,7 @@ local the_twin = {
     mult = 2,
     boss_colour = HEX("009cfd"),
     atlas = 'blinds',
-    pos = { X = 0, y = 46},
+    pos = { X = 0, y = 30},
     order = 25,
     dollars = 5,
 

@@ -7,7 +7,7 @@ local the_spear = {
     mult = 2,
     boss_colour = HEX("56a786"),
     atlas = 'blinds',
-    pos = { X = 0, y = 57},
+    pos = { X = 0, y = 41},
     order = 44,
     dollars = 5,
 

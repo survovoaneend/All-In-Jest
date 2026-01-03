@@ -7,7 +7,7 @@ local the_storm = {
     mult = 2,
     boss_colour = HEX("b48b52"),
     atlas = 'blinds',
-    pos = { X = 0, y = 53},
+    pos = { X = 0, y = 37},
     order = 37,
     dollars = 5,
 

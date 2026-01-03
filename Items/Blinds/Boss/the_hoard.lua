@@ -7,7 +7,7 @@ local the_hoard = {
     mult = 2,
     boss_colour = HEX("7a73bb"),
     atlas = 'blinds',
-    pos = { X = 0, y = 63},
+    pos = { X = 0, y = 47},
     order = 40,
     dollars = 5,
 

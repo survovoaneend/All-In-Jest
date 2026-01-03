@@ -8,7 +8,7 @@ local the_god = {
   mult = 2,
   boss_colour = HEX("9badaf"),
   atlas = 'blinds',
-  pos = { X = 0, y = 48 },
+  pos = { X = 0, y = 32 },
   order = 31,
   dollars = 5,
 

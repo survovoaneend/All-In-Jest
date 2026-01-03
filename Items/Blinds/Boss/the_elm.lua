@@ -7,7 +7,7 @@ local the_elm = {
     mult = 2,
     boss_colour = HEX("5a835e"),
     atlas = 'blinds',
-    pos = {X = 0, y = 15 },
+    pos = {X = 0, y = 1 },
     order = 2,
     dollars = 5,
 

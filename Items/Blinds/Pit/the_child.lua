@@ -12,7 +12,7 @@ local the_child = {
   end,
   mult = 2,
   boss_colour = HEX("c1b297"),
-  atlas = 'blinds',
+  atlas = 'blinds_pit',
   pos = { y = 2 },
   order = 503,
   dollars = 6,

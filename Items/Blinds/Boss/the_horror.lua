@@ -7,7 +7,7 @@ local the_horror = {
     mult = 2,
     boss_colour = HEX("58696c"),
     atlas = 'blinds',
-    pos = {X = 0, y = 32 },
+    pos = {X = 0, y = 16 },
     order = 6,
     dollars = 5,
 

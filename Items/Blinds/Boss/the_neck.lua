@@ -7,7 +7,7 @@ local the_neck = {
     mult = 2,
     boss_colour = HEX("dfab55"),
     atlas = 'blinds',
-    pos = {X = 0, y = 19 },
+    pos = {X = 0, y = 5 },
     order = 11,
     dollars = 5,
 

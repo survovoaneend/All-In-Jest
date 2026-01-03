@@ -7,7 +7,7 @@ local the_blush = {
     mult = 2,
     boss_colour = HEX("e39170"),
     atlas = 'blinds',
-    pos = { X = 0, y = 23 },
+    pos = { X = 0, y = 9 },
     order = 15,
     dollars = 5,
 

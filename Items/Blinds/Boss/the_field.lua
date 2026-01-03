@@ -7,7 +7,7 @@ local the_field = {
     mult = 2,
     boss_colour = HEX("95ac6e"),
     atlas = 'blinds',
-    pos = { X = 0, y = 20 },
+    pos = { X = 0, y = 6 },
     order = 12,
     dollars = 5,
     config = { extra = { cards = 0, defeated = false } },

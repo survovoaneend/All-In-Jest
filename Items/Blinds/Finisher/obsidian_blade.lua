@@ -10,8 +10,8 @@ local obsidian_blade = {
     end,
     mult = 4,
     boss_colour = HEX("635d91"),
-    atlas = 'blinds',
-    pos = { y = 31 },
+    atlas = 'blinds_final',
+    pos = { y = 1 },
     order = 1002,
     dollars = 8,
 

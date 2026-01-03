@@ -7,7 +7,7 @@ local the_oak = {
     mult = 2,
     boss_colour = HEX("b9a072"),
     atlas = 'blinds',
-    pos = {X = 0, y = 33 },
+    pos = {X = 0, y = 17 },
     order = 7,
     dollars = 5,
 

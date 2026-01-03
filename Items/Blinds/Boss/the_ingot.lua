@@ -7,7 +7,7 @@ local the_ingot = {
     mult = 2,
     boss_colour = HEX("dfd8ca"),
     atlas = 'blinds',
-    pos = {X = 0, y = 34 },
+    pos = {X = 0, y = 18 },
     order = 8,
     dollars = 5,
 

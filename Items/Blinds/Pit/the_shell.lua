@@ -14,7 +14,7 @@ local the_shell = {
     end,
     mult = 2,
     boss_colour = HEX("cca7b2"),
-    atlas = 'blinds',
+    atlas = 'blinds_pit',
     pos = { y = 4 },
     order = 505,
     dollars = 6,

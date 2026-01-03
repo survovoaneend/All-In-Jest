@@ -7,7 +7,7 @@ local the_celebration = {
     mult = 2,
     boss_colour = HEX("ff6368"),
     atlas = 'blinds',
-    pos = { X = 0, y = 49},
+    pos = { X = 0, y = 33},
     order = 36,
     dollars = 5,
 

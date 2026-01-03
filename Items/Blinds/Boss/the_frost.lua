@@ -7,7 +7,7 @@ local the_frost = {
     mult = 2,
     boss_colour = HEX("d1d0dd"),
     atlas = 'blinds',
-    pos = { X = 0, y = 58},
+    pos = { X = 0, y = 42},
     order = 38,
     dollars = 5,
 

@@ -12,7 +12,7 @@ local the_brilliance = {
     end,
     mult = 2,
     boss_colour = HEX("e8dd9d"),
-    atlas = 'blinds',
+    atlas = 'blinds_pit',
     pos = { y = 13 },
     order = 514,
     dollars = 6,

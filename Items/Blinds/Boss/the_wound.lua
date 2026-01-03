@@ -7,7 +7,7 @@ local the_wound = {
     mult = 2,
     boss_colour = HEX("e1614c"),
     atlas = 'blinds',
-    pos = { X = 0, y = 21 },
+    pos = { X = 0, y = 7 },
     order = 13,
     dollars = 5,
 

@@ -7,7 +7,7 @@ local the_willow = {
     mult = 2,
     boss_colour = HEX("6f9282"),
     atlas = 'blinds',
-    pos = { X = 0, y = 17 },
+    pos = { X = 0, y = 3 },
     order = 4,
     dollars = 5,
 

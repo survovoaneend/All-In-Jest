@@ -7,7 +7,7 @@ local the_evergreen = {
     mult = 2,
     boss_colour = HEX("62844b"),
     atlas = 'blinds',
-    pos = { X = 0, y = 41},
+    pos = { X = 0, y = 25},
     order = 20,
     dollars = 5,
 

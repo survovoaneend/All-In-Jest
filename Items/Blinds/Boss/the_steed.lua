@@ -8,7 +8,7 @@ local the_steed = {
     mult = 2,
     boss_colour = HEX("cfd1d5"),
     atlas = 'blinds',
-    pos = { X = 0, y = 55},
+    pos = { X = 0, y = 39},
     order = 46,
     dollars = 5,
 

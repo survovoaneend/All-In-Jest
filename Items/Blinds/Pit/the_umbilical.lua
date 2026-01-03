@@ -12,7 +12,7 @@ local the_umbilical = {
     end,
     mult = 2,
     boss_colour = HEX("ae7a8a"),
-    atlas = 'blinds',
+    atlas = 'blinds_pit',
     pos = { y = 9 },
     order = 510,
     dollars = 6,

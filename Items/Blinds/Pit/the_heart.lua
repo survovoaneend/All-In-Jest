@@ -12,7 +12,7 @@ local the_heart = {
     end,
     mult = 2,
     boss_colour = HEX("b18c8c"),
-    atlas = 'blinds',
+    atlas = 'blinds_pit',
     pos = { y = 0 },
     order = 501,
     dollars = 6,

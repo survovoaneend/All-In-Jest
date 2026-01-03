@@ -7,7 +7,7 @@ local the_alder = {
     mult = 2,
     boss_colour = HEX("af6457"),
     atlas = 'blinds',
-    pos = {X = 0, y = 16 },
+    pos = {X = 0, y = 2 },
     order = 3,
     dollars = 5,
 

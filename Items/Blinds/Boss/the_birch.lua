@@ -8,7 +8,7 @@ local the_birch = {
     mult = 2,
     boss_colour = HEX("5b9baa"),
     atlas = 'blinds',
-    pos = { X = 0, y = 27},
+    pos = { X = 0, y = 13},
     order = 45,
     dollars = 5,
 

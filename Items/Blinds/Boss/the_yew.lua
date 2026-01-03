@@ -8,7 +8,7 @@ local the_yew = {
     mult = 2,
     boss_colour = HEX("f28a3c"),
     atlas = 'blinds',
-    pos = { X = 0, y = 26},
+    pos = { X = 0, y = 12},
     order = 39,
     dollars = 5,
 

@@ -7,7 +7,7 @@ local the_journey = {
     mult = 2,
     boss_colour = HEX("fdd879"),
     atlas = 'blinds',
-    pos = { X = 0, y = 56},
+    pos = { X = 0, y = 40},
     order = 28,
     dollars = 5,
 

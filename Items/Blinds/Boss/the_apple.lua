@@ -7,7 +7,7 @@ local the_apple = {
     mult = 2,
     boss_colour = HEX("ac3232"),
     atlas = 'blinds',
-    pos = {X = 0, y = 36 },
+    pos = {X = 0, y = 20 },
     order = 10,
     dollars = 5,
 

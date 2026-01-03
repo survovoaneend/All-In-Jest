@@ -7,7 +7,7 @@ local the_hazel = {
     mult = 2,
     boss_colour = HEX("a5722c"),
     atlas = 'blinds',
-    pos = {X = 0, y = 35 },
+    pos = {X = 0, y = 19 },
     order = 9,
     dollars = 5,
 
