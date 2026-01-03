@@ -4324,7 +4324,7 @@ return {
                 name = 'Shade',
                 text = {
                     'Add {C:dark_edition}Negative{} edition',
-                    'to {C:attention}1{} random',
+                    'to {C:attention}#1#{} random',
                     'card in hand'
                 }
             },
