@@ -132,7 +132,10 @@ function retrieve_joker_text(joker, descip, name)
     else
         if joker.generate_UIBox_ability_table then
             if not joker.ability_UIBox_table then -- Removing this check causes memory leaks
-                joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
+                -- joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
+                local other_vars, _, _ = joker:generate_UIBox_ability_table(true)
+                joker.ability_UIBox_table = generate_card_ui(joker.config.center, nil, other_vars)
+                text = retrieve_joker_text(joker)
             end
             local main = joker.ability_UIBox_table.main
             text = text .. get_text(main)
