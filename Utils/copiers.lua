@@ -587,13 +587,13 @@ function SMODS.find_card(key, count_debuffed)
             for _, v in pairs(area.cards) do
                 if v and type(v) == 'table' and v.ability[v.config.center.key] and (count_debuffed or not v.debuff) then
                     -- Check if a single-copier is copying it
-                    if v.ability[v.config.center.key].copied_joker_key == key then
+                    if v.ability[v.config.center.key].copied_joker_key == key and G.P_CENTERS[key][key .. "_compat"] ~= false then
                         table.insert(results, v)
                     end
                     -- Check if a multi-copier is copying it
                     if type(v.ability[v.config.center.key].copied_joker_abilities) == "table" and v.ability[v.config.center.key].copy_limit then
                         for i = #v.ability[v.config.center.key].copied_joker_abilities, math.max(1, #v.ability[v.config.center.key].copied_joker_abilities - v.ability[v.config.center.key].copy_limit + 1), -1 do
-                            if v.ability[v.config.center.key].copied_joker_abilities[i] and v.ability[v.config.center.key].copied_joker_abilities[i].key == key then
+                            if v.ability[v.config.center.key].copied_joker_abilities[i] and v.ability[v.config.center.key].copied_joker_abilities[i].key == key and G.P_CENTERS[key][key .. "_compat"] ~= false then
                                 table.insert(results, v)
                             end
                         end
