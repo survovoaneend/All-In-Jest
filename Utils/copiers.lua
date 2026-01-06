@@ -499,10 +499,12 @@ All_in_Jest.multi_copier = SMODS.Joker:extend {
                 }
 
                 local other_vars = {}
-                if card.added_to_deck then
+                if card.added_to_deck and copied_center[card.config.center.key .. "_compat"] ~= false then
                     All_in_Jest.hotswap_copied_ability(card, i)
-                else
+                elseif copied_center[card.config.center.key .. "_compat"] ~= false then
                     All_in_Jest.set_copied_ability(card, copied_center, nil, abilities_to_display[i])
+                else
+                    All_in_Jest.set_copied_ability(card, copied_center)
                 end
                 if copied_center.loc_vars then
                     local ret = copied_center:loc_vars({}, card) -- Make info_queue an empty table 

@@ -19,10 +19,11 @@ local whats_left = {
     unlocked = true,
     discovered = false,
     blueprint_compat = true, -- uses ability.aij_blueprint_compat
-    j_aij_whats_left_compat = false, -- Stops it from copying itself
 
     loc_vars = function(self, info_queue, card)
-        _ = All_in_Jest.multi_copier.loc_vars(self, info_queue, card)
+        if card.config.center.key == "j_aij_whats_left" then
+            _ = All_in_Jest.multi_copier.loc_vars(self, info_queue, card)
+        end
         return { vars = { card.ability[card.config.center.key].copy_limit } }
     end,
 

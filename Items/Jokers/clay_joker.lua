@@ -19,10 +19,11 @@ local clay_joker = {
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
-    eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        _ = All_in_Jest.multi_copier.loc_vars(self, info_queue, card)
+        if card.config.center.key == "j_aij_clay_joker" then
+            _ = All_in_Jest.multi_copier.loc_vars(self, info_queue, card)
+        end
         return { vars = { card.ability[card.config.center.key].copy_limit } }
     end,
 
@@ -39,7 +40,7 @@ local add_to_previously_destroyed_jokers = function(card)
         local save_data = copy_table(card:save())
         table.insert(G.GAME.all_in_jest.previously_destroyed_jokers, save_data) -- Store the joker saved so it does not get erased on game reload
         
-        -- Update What's Left while its in a booster pack or the shop
+        -- Update Clay Joker while its in a booster pack or the shop
         local clay_joker_cards = SMODS.find_card("j_aij_clay_joker", true)
         for _, area in ipairs({G.shop_jokers, G.pack_cards}) do
             if area ~= nil and area.cards then
