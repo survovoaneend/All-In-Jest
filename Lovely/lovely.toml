@@ -3,6 +3,48 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
+# Wax Stamp 
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''
+local _seal = SMODS.poll_seal({mod = 10})
+'''
+position = "at"
+match_indent = true
+payload = '''
+local _seal = SMODS.poll_seal({mod = G.GAME.all_in_jest.standard_pack_seal_rate * 10, type_key = 'stdset'..G.GAME.round_resets.ante})
+'''
+
+# Seal Edition Calculation
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "for _, key in ipairs({'jokers', 'retriggers'}) do"
+position = "before"
+payload = '''
+for _, key in ipairs({'aij_seal_edition'}) do
+    SMODS.calculate_effect_table_key(effect_table, key, card, ret)
+end
+'''
+match_indent = true 
+
+# Unused Context that Might be Used Eventually
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+for k, v in ipairs(pack_cards) do
+    G.pack_cards:emplace(v)
+end
+'''
+position = "before"
+match_indent = true
+payload = '''
+-- Like context.indiviual for pack cards
+SMODS.calculate_context({all_in_jest = {before_create_booster_cards = true, card = self, pack_card = card}})
+'''
+
 # Overstuffed Tag (1/4)
 # Card:open()
 # Add triggers for overstuffed tags

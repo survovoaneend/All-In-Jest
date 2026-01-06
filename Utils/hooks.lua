@@ -537,6 +537,12 @@ All_in_Jest.vanilla_food = {
   j_selzer = true,
 }
 
+All_in_Jest.seal_edition_compact = {
+  e_foil = true,
+  e_holo = true,
+  e_polychrome = true,
+}
+
 if not SMODS.ObjectTypes.Food then
   SMODS.ObjectType {
     key = 'Food',
@@ -546,6 +552,24 @@ if not SMODS.ObjectTypes.Food then
       SMODS.ObjectType.inject(self)
       for k, _ in pairs(All_in_Jest.vanilla_food) do
         self:inject_card(G.P_CENTERS[k])
+      end
+    end
+  }
+end
+
+if not SMODS.ObjectTypes.seal_edition_pool then
+  SMODS.ObjectType {
+    key = 'seal_edition_pool',
+    default = 'e_foil',
+    cards = {},
+    inject = function(self)
+      SMODS.ObjectType.inject(self)
+      for k, _ in pairs(All_in_Jest.seal_edition_compact) do
+        for k_, v in pairs(G.P_CENTER_POOLS.Edition) do
+            if v.key == k then
+                self:inject_card(G.P_CENTER_POOLS.Edition[k_])
+            end
+        end
       end
     end
   }

@@ -18,8 +18,6 @@ jest_you_broke_it_card = {rank = nil, enhancement = nil, id = nil},
 jest_handsome_joker_card = {rank = nil, suit = nil, enhancement = nil, id = nil},	
 '''
 
-
-
 [[patches]] #G.GAME 
 [patches.pattern]
 target = 'game.lua'
@@ -85,10 +83,11 @@ all_in_jest = {
 	unused_discards = {
 		ante = 0,
 	},
-  advanced_hand_usage_run = {},
-  advanced_hand_usage_ante = {},
-  advanced_hand_usage_blind = {},
-  jest_kilroy_curvalue = 25,
+	advanced_hand_usage_run = {},
+	advanced_hand_usage_ante = {},
+	advanced_hand_usage_blind = {},
+	jest_kilroy_curvalue = 25,
+	standard_pack_seal_rate = 1,
 },
 -- move these into all_in_jest at some point
 jest_legendary_pool = {in_shop = false, rate = 1.00},

@@ -1574,6 +1574,38 @@ function All_in_Jest.ease_blind_requirement(mod_mult, mod_add, skip_animation)
     G.GAME.blind.aij_added_chips = G.GAME.blind.aij_added_chips + mod_add
 end
 
+function All_in_Jest.seal_edition_effects(ret, context)
+    local ret = ret or {}
+    local card = ret.card or {}
+    ret.card = nil
+    if card.ability.all_in_jest and card.ability.all_in_jest.has_seal_edition_values then
+        local new_ret = card:All_in_Jest_calculate_seal_edition(context)
+        return new_ret
+    else
+        if ret.x_mult then ret.x_mult = ret.x_mult - 1 end
+        for k, v in pairs(ret) do
+            v = v / 2
+        end
+        if edition.x_mult then edition.x_mult = edition.x_mult + 1 end
+    end
+    ret.card = card
+    return ret
+    --If expansion is needed for your crossmod stuff; you can probably hook this function.
+end
+
+function Card:All_in_Jest_calculate_seal_edition(context)
+    if self.aij_seal_edition then
+        local edition = G.P_CENTERS[self.aij_seal_edition.key]
+        if edition.calculate and type(edition.calculate) == 'function' then
+            local o = edition:calculate(self, context)
+            if o then
+                if not o.card then o.card = self end
+                return o
+            end
+        end
+    end
+end 
+
 -- Redisplays the blind info on the blind select screen
 -- Used to update dynamic score requirements
 function All_in_Jest.aij_refresh_boss_blind()
@@ -1620,6 +1652,159 @@ function All_in_Jest.aij_refresh_boss_blind()
           }
         }
     end
+end
+
+function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
+	SMODS.enh_cache:write(self, nil)
+	
+	if self.aij_seal_edition then
+		self.ability.card_limit = self.ability.card_limit - (self.aij_seal_edition.card_limit or 0)
+		self.ability.extra_slots_used = self.ability.extra_slots_used - (self.aij_seal_edition.extra_slots_used or 0)
+	end
+
+	local old_edition = self.aij_seal_edition
+	if old_edition and old_edition.key then
+		self.ignore_base_shader[old_edition.key] = nil
+		self.ignore_shadow[old_edition.key] = nil
+
+		local on_old_edition_removed = G.P_CENTERS[old_edition.key] and G.P_CENTERS[old_edition.key].on_remove
+		if type(on_old_edition_removed) == "function" then
+			on_old_edition_removed(self)
+		end
+	end
+
+	local edition_type = nil
+	if type(edition) == 'string' then
+		assert(string.sub(edition, 1, 2) == 'e_', ("Edition \"%s\" is missing \"e_\" prefix."):format(edition))
+		edition_type = string.sub(edition, 3)
+	elseif type(edition) == 'table' then
+		if edition.type then
+			edition_type = edition.type
+		else
+			for k, v in pairs(edition) do
+				if v then
+					assert(not edition_type, "Tried to apply more than one edition.")
+					edition_type = k
+				end
+			end
+		end
+	end
+
+	if not edition_type or edition_type == 'base' then
+		if self.aij_seal_edition == nil then -- early exit
+			return
+		end
+		self.aij_seal_edition = nil -- remove edition from card
+		self:set_cost()
+		if not silent then
+			G.E_MANAGER:add_event(Event({
+				trigger = 'after',
+				delay = not immediate and 0.2 or 0,
+				blockable = not immediate,
+				func = function()
+					self:juice_up(1, 0.5)
+					play_sound('whoosh2', 1.2, 0.6)
+					return true
+				end
+			}))
+		end
+		if delay then
+			self.aij_delay_seal_edition = old_edition
+			G.E_MANAGER:add_event(Event({
+				trigger = 'immediate',
+				func = function()
+					self.aij_delay_seal_edition = nil
+					return true
+				end
+			}))
+		end
+		return
+	end
+
+	self.aij_seal_edition = {}
+	self.aij_seal_edition[edition_type] = true
+	self.aij_seal_edition.type = edition_type
+	self.aij_seal_edition.key = 'e_' .. edition_type
+
+	local p_edition = G.P_CENTERS['e_' .. edition_type]
+
+	if p_edition.override_base_shader or p_edition.disable_base_shader then
+		self.ignore_base_shader[self.aij_seal_edition.key] = true
+	end
+	if p_edition.no_shadow or p_edition.disable_shadow then
+		self.ignore_shadow[self.aij_seal_edition.key] = true
+	end
+
+	for k, v in pairs(p_edition.config) do
+		if type(v) == 'table' then
+			self.aij_seal_edition[k] = copy_table(v)
+		else
+			self.aij_seal_edition[k] = v
+		end
+	end
+
+	local on_edition_applied = p_edition.on_apply
+	if type(on_edition_applied) == "function" then
+		on_edition_applied(self)
+	end
+
+	if self.area and self.area == G.jokers then
+		if self.aij_seal_edition then
+			if not G.P_CENTERS['e_' .. (self.aij_seal_edition.type)].discovered then
+				discover_card(G.P_CENTERS['e_' .. (self.aij_seal_edition.type)])
+			end
+		else
+			if not G.P_CENTERS['e_base'].discovered then
+				discover_card(G.P_CENTERS['e_base'])
+			end
+		end
+	end
+
+	if self.aij_seal_edition and not silent then
+		local ed = G.P_CENTERS['e_' .. (self.aij_seal_edition.type)]
+		G.CONTROLLER.locks.aij_seal_edition = true
+		G.E_MANAGER:add_event(Event({
+			trigger = 'after',
+			delay = not immediate and 0.2 or 0,
+			blockable = not immediate,
+			func = function()
+				if self.aij_seal_edition then
+					self:juice_up(1, 0.5)
+					play_sound(ed.sound.sound, ed.sound.per, ed.sound.vol)
+				end
+				return true
+			end
+		}))
+		G.E_MANAGER:add_event(Event({
+			trigger = 'after',
+			delay = 0.1,
+			func = function()
+				G.CONTROLLER.locks.aij_seal_edition = false
+				return true
+			end
+		}))
+	end
+
+	if delay then
+		self.aij_delay_seal_edition = old_edition or {base = true}
+		G.E_MANAGER:add_event(Event({
+			trigger = 'immediate',
+			func = function()
+				self.aij_delay_seal_edition = nil
+				return true
+			end
+		}))
+	end
+
+	self.ability.card_limit = self.ability.card_limit + (self.aij_seal_edition.card_limit or 0)
+	self.ability.extra_slots_used = self.ability.extra_slots_used + (self.aij_seal_edition.extra_slots_used or 0)
+
+
+	if G.jokers and self.area == G.jokers then
+		check_for_unlock({ type = 'modify_jokers' })
+	end
+
+	self:set_cost()
 end
 
 function All_in_Jest_format_destroy(center_text)

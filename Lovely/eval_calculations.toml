@@ -50,6 +50,17 @@ if context.cardarea == G.play and context.all_in_jest and context.all_in_jest.ma
         ret.playing_card.chips = chips
     end
 end
+if card.aij_seal_edition and card.seal then
+    ret.aij_seal_edition = {}
+    local old_edition = card.edition and copy_table(card.edition)
+    card.edition = card.aij_seal_edition
+    local edition = card:calculate_edition(context)
+    edition = All_in_Jest.seal_edition_effects(edition)
+    if edition then
+        ret.aij_seal_edition = edition
+    end
+    card.edition = old_edition
+end
 '''
 
 [[patches]] #For debuffed joker cards

@@ -930,20 +930,50 @@ return {
                     '{C:attention}stickers'
                 },
             },
+            v_aij_wax_stamp ={
+                name = "Wax Stamp",
+                text = {
+                    '{C:attention}Playing cards{} in {C:attention}Standard',
+                    '{C:attention}Packs{} are {C:attention}twice{} as likely',
+                    'to bear a {C:attention}Seal'
+                },
+            },
+            v_aij_thaumaturgy ={
+                name = "Thaumaturgy",
+                text = {
+                    '{C:attention}Adds{} an additional',
+                    'random {C:tarot}Arcana Pack',
+                    'to every {C:money}shop',
+                },
+            },
+            v_aij_embraced_arcane ={
+                name = "Embraced Arcane",
+                text = {
+                    '{C:attention}+#1#{} pick in {C:tarot}Arcana Packs',
+                },
+            },
+            v_aij_thaumaturgy ={
+                name = "Thaumaturgy",
+                text = {
+                    '{C:attention}Adds{} an additional',
+                    'random {C:tarot}Arcana Pack',
+                    'to every {C:money}shop',
+                },
+            },
             v_aij_common_caste ={
                 name = "Common Caste",
                 text = {
-                    '{C:attention}Create{} a {C:attention}random',
-                    '{C:common}Common{} Pack when',
-                    'entering {C:money}Shop'
+                    '{C:attention}Adds{} an additional',
+                    'random {C:common}Common Pack',
+                    'to every {C:money}shop',
                 },
             },
             v_aij_upper_class ={
                 name = "Upper Class",
                 text = {
-                    '{C:attention}Create{} a {C:attention}random',
-                    '{C:uncommon}Uncommon{} Pack when',
-                    'entering {C:money}Shop'
+                    '{C:attention}Adds{} an additional',
+                    'random {C:uncommon}Uncommon Pack',
+                    'to every {C:money}shop',
                 },
             },
         },
