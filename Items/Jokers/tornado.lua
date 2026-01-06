@@ -67,7 +67,7 @@ local tornado = {
     end,
   
     calculate = function(self, card, context)
-		if context.individual and context.cardarea == G.play then
+		    if context.individual and context.cardarea == G.play then
             for k, v in pairs(SMODS.Ranks) do
                 for _, i in pairs(card.ability.extra.to_play_ranks) do
                     if v.card_key == i then
