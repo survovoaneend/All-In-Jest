@@ -37,6 +37,7 @@ local naiteh = {
 	            scalar_value = "h_size_mod",
             })
             G.hand:change_size(card.ability.extra.h_size_mod)
+            return nil, true
         end
     end,
     remove_from_deck = function(self, card, from_debuff)
