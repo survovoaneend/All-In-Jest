@@ -9,7 +9,7 @@ local gold_medal = {
   atlas = 'vouchers_atlas',
   pos = { x = 2, y = 0 },
   discovered = false,
-  order = 3,
+  order = 2,
 
   loc_vars = function(self, info_queue)
     return {vars = {self.config.extra.rate}}

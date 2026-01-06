@@ -9,7 +9,7 @@ local fairy_dust = {
   atlas = 'vouchers_atlas',
   pos = { x = 0, y = 0 },
   discovered = false,
-  order = 1,
+  order = 0,
 
   loc_vars = function(self, info_queue)
     return {vars = {self.config.extra.rate}}

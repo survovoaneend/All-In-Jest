@@ -15,6 +15,9 @@ local glimmer = {
         per = 1,
         vol = 1
     },
+    pools = {
+        seal_edition_compact = true
+    },
     order = 0,
     config = { percent = 10 },
     loc_vars = function(self, info_queue, card)

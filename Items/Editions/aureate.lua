@@ -20,6 +20,9 @@ local aureate = {
     money = 0.1,
     max = 10
   },
+  pools = {
+    seal_edition_compact = true
+  },
   loc_vars = function(self, info_queue, card)
     local money
     if card and card.ability and (card.ability.set == 'Enhanced' or card.ability.set == 'Default') then

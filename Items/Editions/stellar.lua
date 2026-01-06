@@ -15,8 +15,11 @@ local stellar = {
         per = 1,
         vol = 1
     },
+    pools = {
+        seal_edition_compact = true
+    },
     order = 2,
-    config = { chips = 5, mult = 1 },
+    config = { chips = 5, mult = 1, all_in_jest = { has_seal_edition_values = true } },
     loc_vars = function(self, info_queue, card)
         return {vars = {(card.edition or {}).chips or self.config.chips, (card.edition or {}).mult or self.config.mult}}
     end,

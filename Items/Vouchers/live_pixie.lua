@@ -12,7 +12,7 @@ local live_pixie = {
   atlas = 'vouchers_atlas',
   pos = { x = 1, y = 0 },
   discovered = false,
-  order = 2,
+  order = 1,
 
   loc_vars = function(self, info_queue)
     return {vars = {self.config.extra.rate}}

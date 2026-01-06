@@ -12,7 +12,7 @@ local trophy = {
   atlas = 'vouchers_atlas',
   pos = { x = 3, y = 0 },
   discovered = false,
-  order = 4,
+  order = 3,
 
   loc_vars = function(self, info_queue)
     local numerator, denominator = SMODS.get_probability_vars(self, 1, self.config.extra.odds)
