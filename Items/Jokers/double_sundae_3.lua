@@ -50,6 +50,8 @@ local double_sundae = {
                 local sundae_key = pseudorandom_element({2,3}, pseudoseed('jest_double_sundae'))
                 local key = 'j_aij_sundae_'.. sundae_key
                 All_in_Jest.reroll_joker(card, key, 'jest_double_sundae')
+            else
+                return nil, true
             end
         end
     end,

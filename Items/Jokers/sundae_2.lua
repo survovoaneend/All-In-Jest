@@ -48,6 +48,8 @@ local sundae = {
                     message = localize('k_eaten_ex'),
                     colour = G.C.MULT
                 }
+            else
+                return nil, true
             end
         end
     end,
