@@ -2202,6 +2202,39 @@ if card and card.ability and card.ability.patches then
     end
 end
 '''
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if _c.set == 'Other' then"
+position = "before"
+match_indent = true
+payload = '''
+if _c.is_seal_edition then
+    desc_nodes.name = ' '..localize{type = 'name_text', key = _c.edition_key, set = 'Edition'}..' '..localize{type = 'name_text', key = _c.seal_key, set = 'Other'}..' '
+end
+if card and card.aij_seal_edition and card.seal then
+    local ed_key = card.aij_seal_edition.key
+    if G.P_CENTERS[ed_key] and G.P_CENTERS[ed_key].set == 'Edition' then
+        local t = {key = ed_key, set = 'Edition', config = {}}
+        if ed_key == 'e_aij_stellar' then
+            t = {key = 'e_aij_stellar_alt', set = 'Edition', config = card.aij_seal_edition}
+        end
+        if localize(SMODS.merge_defaults(t, {type = 'name_text'})) == 'ERROR' then t.key = ed_key end
+        t.is_seal_edition = true
+        t.seal_key = string.lower(G.P_SEALS[card.seal].key)..'_seal'
+        t.edition_key = ed_key
+        info_queue[#info_queue + 1] = t
+        local fake_card = {edition = card.aij_seal_edition}
+        if G.P_CENTERS[ed_key].loc_vars and type(G.P_CENTERS[ed_key].loc_vars) == 'function' then
+            local res = G.P_CENTERS[ed_key]:loc_vars(info_queue, fake_card) or {}
+            t.vars = res.vars
+            t.key = res.key or t.key
+            t.set = res.set or t.set
+        end
+    end
+end
+'''
+
 
 # Adds tooltip for special "stickers"
 # (Mark of the Spear)
@@ -2304,6 +2337,15 @@ if other.edition and other.edition.negative and not All_in_Jest.config.no_copy_n
     end
 end
 other.ability.jest_copy_edition = false
+--Seal edition copys (mainly for deck view)
+new_card:All_in_Jest_set_seal_edition(other.aij_seal_edition or {}, nil, true)
+for k,v in pairs(other.aij_seal_edition or {}) do
+    if type(v) == 'table' then
+        new_card.aij_seal_edition[k] = copy_table(v)
+    else
+        new_card.aij_seal_edition[k] = v
+    end
+end
 '''
 
 # Round dollars earned at the end of the round to the nearest whole number

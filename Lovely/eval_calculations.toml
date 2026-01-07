@@ -54,8 +54,9 @@ if card.aij_seal_edition and card.seal then
     ret.aij_seal_edition = {}
     local old_edition = card.edition and copy_table(card.edition)
     card.edition = card.aij_seal_edition
+    context.calculate_seal_edition = true
     local edition = card:calculate_edition(context)
-    edition = All_in_Jest.seal_edition_effects(edition)
+    context.calculate_seal_edition = nil
     if edition then
         ret.aij_seal_edition = edition
     end

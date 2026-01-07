@@ -1574,38 +1574,6 @@ function All_in_Jest.ease_blind_requirement(mod_mult, mod_add, skip_animation)
     G.GAME.blind.aij_added_chips = G.GAME.blind.aij_added_chips + mod_add
 end
 
-function All_in_Jest.seal_edition_effects(ret, context)
-    local ret = ret or {}
-    local card = ret.card or {}
-    ret.card = nil
-    if card.ability.all_in_jest and card.ability.all_in_jest.has_seal_edition_values then
-        local new_ret = card:All_in_Jest_calculate_seal_edition(context)
-        return new_ret
-    else
-        if ret.x_mult then ret.x_mult = ret.x_mult - 1 end
-        for k, v in pairs(ret) do
-            v = v / 2
-        end
-        if edition.x_mult then edition.x_mult = edition.x_mult + 1 end
-    end
-    ret.card = card
-    return ret
-    --If expansion is needed for your crossmod stuff; you can probably hook this function.
-end
-
-function Card:All_in_Jest_calculate_seal_edition(context)
-    if self.aij_seal_edition then
-        local edition = G.P_CENTERS[self.aij_seal_edition.key]
-        if edition.calculate and type(edition.calculate) == 'function' then
-            local o = edition:calculate(self, context)
-            if o then
-                if not o.card then o.card = self end
-                return o
-            end
-        end
-    end
-end 
-
 -- Redisplays the blind info on the blind select screen
 -- Used to update dynamic score requirements
 function All_in_Jest.aij_refresh_boss_blind()
@@ -1735,13 +1703,37 @@ function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
 		self.ignore_shadow[self.aij_seal_edition.key] = true
 	end
 
-	for k, v in pairs(p_edition.config) do
-		if type(v) == 'table' then
-			self.aij_seal_edition[k] = copy_table(v)
-		else
-			self.aij_seal_edition[k] = v
-		end
-	end
+    if p_edition.aij_seal_config then
+        for k, v in pairs(p_edition.aij_seal_config) do
+		    if type(v) == 'table' then
+			    self.aij_seal_edition[k] = copy_table(v)
+		    else
+			    self.aij_seal_edition[k] = v
+		    end
+	    end
+        for k, v in pairs(p_edition.config) do
+		    if type(v) == 'table' and not self.aij_seal_edition[k] then
+			    self.aij_seal_edition[k] = copy_table(v)
+		    elseif not self.aij_seal_edition[k] then
+			    self.aij_seal_edition[k] = v
+		    end
+	    end
+    else
+	    for k, v in pairs(p_edition.config) do
+		    if type(v) == 'table' then
+			    self.aij_seal_edition[k] = copy_table(v)
+		    else
+			    self.aij_seal_edition[k] = v
+		    end
+	    end
+        if edition_type == 'polychrome' then
+            self.aij_seal_edition['x_mult'] = self.aij_seal_edition['x_mult'] - 1
+        end
+        jest_ability_calculate(self, "/", 2, nil, nil, false, nil, "aij_seal_edition")
+        if edition_type == 'polychrome' then
+            self.aij_seal_edition['x_mult'] = self.aij_seal_edition['x_mult'] + 1
+        end
+    end
 
 	local on_edition_applied = p_edition.on_apply
 	if type(on_edition_applied) == "function" then

@@ -938,12 +938,13 @@ return {
                     'to bear a {C:attention}Seal'
                 },
             },
-            v_aij_thaumaturgy ={
-                name = "Thaumaturgy",
+            v_aij_seal_of_the_realm ={
+                name = "Seal Of The Realm",
                 text = {
-                    '{C:attention}Adds{} an additional',
-                    'random {C:tarot}Arcana Pack',
-                    'to every {C:money}shop',
+                    '{C:attention}Playing cards{} may',
+                    'appear with {C:attention}Seals',
+                    'that {C:attention}bear{} their',
+                    '{C:attention}own{} {C:dark_edition}editions'
                 },
             },
             v_aij_embraced_arcane ={
@@ -1003,6 +1004,14 @@ return {
                 text = {
                     "{C:chips}+#1#{} Chips and",
                     "{C:mult}+#2#{} Mult per {C:attention}level{}",
+                    "of played hand"
+                }
+            },
+            e_aij_stellar_alt = {
+                name = "Stellar",
+                text = {
+                    "{C:chips}+#1#{} Chips and",
+                    "{C:mult}+#2#{} Mult per {C:attention}#3# levels{}",
                     "of played hand"
                 }
             },
