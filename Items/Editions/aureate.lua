@@ -21,7 +21,7 @@ local aureate = {
     max = 10
   },
   pools = {
-    seal_edition_compact = true
+    seal_edition_pool = true
   },
   loc_vars = function(self, info_queue, card)
     local money

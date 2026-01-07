@@ -16,7 +16,7 @@ local glimmer = {
         vol = 1
     },
     pools = {
-        seal_edition_compact = true
+        seal_edition_pool = true
     },
     order = 0,
     config = { percent = 10 },
