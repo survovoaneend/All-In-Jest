@@ -26,31 +26,36 @@ local no_junk_mail = {
         }
     end,
 
+    add_to_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({func = function()
+            for k, v in pairs(G.I.CARD) do
+                if v.set_cost then v:set_cost() end
+            end
+            return true
+        end }))
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({func = function()
+            for k, v in pairs(G.I.CARD) do
+                if v.set_cost then v:set_cost() end
+            end
+            return true
+        end }))
+    end,
+
     calculate = function(self, card, context)
-        if G.shop_booster then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = (function() 
-                    local vaild_packs = {}
-                    for i = 1, #G.shop_booster.cards do
-                        if G.shop_booster.cards[i].config.center.kind == "Standard" and G.shop_booster.cards[i].cost ~= 0 then
-                            vaild_packs[#vaild_packs+1] = G.shop_booster.cards[i]
-                        end
-                    end
-                    if #vaild_packs > 0 then
-                        card:juice_up()
-                        play_sound('tarot1')
-                    end
-                    for k, v in pairs(vaild_packs) do
-                        v.ability.couponed = true
-                        v:set_cost() 
-                        v:juice_up()
-                    end
-                    return true
-                end)
-            }))
-        end
+      
     end
 }
+
+local aij_card_set_cost_ref = Card.set_cost
+function Card:set_cost()
+    local ret = aij_card_set_cost_ref(self)
+    if self.ability.set == 'Booster' and self.config.center.kind == "Standard" and next(SMODS.find_card("j_aij_no_junk_mail")) then 
+        self.cost = 0
+    end
+    return ret
+end
 
 return { name = { "Jokers" }, items = { no_junk_mail } }
