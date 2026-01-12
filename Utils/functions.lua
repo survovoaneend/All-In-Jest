@@ -1622,6 +1622,29 @@ function All_in_Jest.aij_refresh_boss_blind()
     end
 end
 
+function All_in_Jest.get_inherent_effects(card, type, amt_only)
+    if card.aij_inherent_effects and card.aij_inherent_effects[type..'s'] and #card.aij_inherent_effects[type..'s'] > 0 then
+        local effects = {}
+        local amt = 0
+        for k, v in pairs(card.aij_inherent_effects[type..'s']) do
+            effects[#effects + 1] = v
+            amt = amt + 1
+        end
+        return amt_only and amt or effects
+    else
+        return amt_only and 0 or {}
+    end
+end
+
+function All_in_Jest.apply_inherent_effect(card, effect, type)
+    card.aij_inherent_effects = card.aij_inherent_effects or {}
+    if not effect then return end
+    if type == 'edition' or type == 'enhancement' then
+        card.aij_inherent_effects[type..'s'] = card.aij_inherent_effects[type..'s'] or {}
+        card.aij_inherent_effects[type..'s'][#card.aij_inherent_effects[type..'s'] + 1] = copy_table(effect)
+    end
+end
+
 function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
 	SMODS.enh_cache:write(self, nil)
 	

@@ -278,6 +278,18 @@ function SMODS.has_no_suit(card)
     return has_no_suit_ref(card)
 end
 
+local has_enhancement_ref = SMODS.has_no_rank
+function SMODS.has_enhancement(card, key)
+    local has_enhancement = has_enhancement_ref(card, key)
+    local effects = All_in_Jest.get_inherent_effects(card, 'enhancement')
+    for k, v in pairs(effects) do
+        if v.key = key then
+            return true
+        end
+    end
+    return has_enhancement
+end
+
 local has_no_rank_ref = SMODS.has_no_rank
 function SMODS.has_no_rank(card)
     if card.base.id == nil then return true end

@@ -26,8 +26,53 @@ payload = '''
 for _, key in ipairs({'aij_seal_edition'}) do
     SMODS.calculate_effect_table_key(effect_table, key, card, ret)
 end
+if card and card.aij_inherent_effects then
+    local i = 0
+    local j = 0
+    for k, v in pairs(card.aij_inherent_effects) do
+        i = i + 1
+        for _k, _v in pairs(card.aij_inherent_effects[k]) do
+            j = j + 1
+            local v = 'aij_inherent_effects'..j..i
+            SMODS.calculate_effect_table_key(effect_table, v, card, ret)
+        end
+    end
+end
 '''
-match_indent = true 
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "if not SMODS.optional_features.quantum_enhancements then return end"
+position = "before"
+payload = '''
+if context.aij_inherent_enhancement or SMODS.aij_inherent_enhancement_calc_in_progress then return end
+if card.aij_inherent_effects then
+    context.aij_inherent_enhancement = true
+    SMODS.aij_inherent_enhancement_calc_in_progress = true
+    local aij_inherent_enhancements = All_in_Jest.get_inherent_effects(card, 'enhancement')
+    local aij_inherent_enhancements_list = {}
+    local fake_card = {}
+    for k, v in pairs(aij_inherent_enhancements) do
+        if G.P_CENTERS[v.key] then
+            table.insert(aij_inherent_enhancements_list, v.key)
+        end
+    end
+    local set_ability = Card.set_ability
+    for _, k in ipairs(aij_inherent_enhancements_list) do
+        local removable = Card(0,0,0,0, nil, G.P_CENTERS[k])
+        set_ability(removable, G.P_CENTERS[k], true, 'quantum')
+        removable.ability.aij_inherent_enhancement = k
+        local eval = eval_card(removable, context)
+        table.insert(effects, eval)
+        removable:remove()
+    end
+    context.aij_inherent_enhancement = nil
+    SMODS.aij_inherent_enhancement_calc_in_progress = nil
+end
+'''
+match_indent = true
 
 # Unused Context that Might be Used Eventually
 [[patches]]
@@ -2233,6 +2278,42 @@ if card and card.aij_seal_edition and card.seal then
         end
     end
 end
+if _c.is_inherent_edition then
+    desc_nodes.name = ' '..localize('k_aij_inherent')..' '..localize{type = 'name_text', key = _c.edition_key, set = 'Edition'}..' '
+end
+if _c.is_inherent_enhancement then
+    desc_nodes.name = ' '..localize('k_aij_inherent')..' '..localize{type = 'name_text', key = _c.enhancement_key, set = 'Enhanced'}..' '
+end
+if card and card.aij_inherent_effects then
+    for k, v in pairs(card.aij_inherent_effects) do
+        for _k, _v in pairs(card.aij_inherent_effects[k]) do
+            local ed_key = _v.key
+            if k == 'enhancements' then
+                if G.P_CENTERS[ed_key] and G.P_CENTERS[ed_key].set == 'Enhanced' then
+                    local t = copy_table(_v)
+                    t.is_inherent_enhancement = true
+                    t.enhancement_key = ed_key
+                    info_queue[#info_queue + 1] = t
+                end
+            elseif k == 'editions' then
+                if G.P_CENTERS[ed_key] and G.P_CENTERS[ed_key].set == 'Edition' then
+                    local t = {key = ed_key, set = 'Edition', config = {}}
+                    if localize(SMODS.merge_defaults(t, {type = 'name_text'})) == 'ERROR' then t.key = ed_key end
+                    t.is_inherent_edition = true
+                    t.edition_key = ed_key
+                    info_queue[#info_queue + 1] = t
+                    local fake_card = {edition = _v}
+                    if G.P_CENTERS[ed_key].loc_vars and type(G.P_CENTERS[ed_key].loc_vars) == 'function' then
+                        local res = G.P_CENTERS[ed_key]:loc_vars(info_queue, fake_card) or {}
+                        t.vars = res.vars
+                        t.key = res.key or t.key
+                        t.set = res.set or t.set
+                    end
+                end
+            end
+        end
+    end
+end
 '''
 
 
@@ -2344,6 +2425,16 @@ for k,v in pairs(other.aij_seal_edition or {}) do
         new_card.aij_seal_edition[k] = copy_table(v)
     else
         new_card.aij_seal_edition[k] = v
+    end
+end
+if other.aij_inherent_effects then
+    new_card.aij_inherent_effects = {}
+    for k,v in pairs(other.aij_inherent_effects or {}) do
+        if type(v) == 'table' then
+            new_card.aij_inherent_effects[k] = copy_table(v)
+        else
+            new_card.aij_inherent_effects[k] = v
+        end
     end
 end
 '''

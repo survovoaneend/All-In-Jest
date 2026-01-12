@@ -12,6 +12,7 @@ return {
             k_tarot_q = "Tarot?",
             k_active = "Active",
             k_inactive = "Inactive",
+            k_aij_inherent = "Inherent",
             aij_requires_restart = "Requires Restart",
             aij_doesnt_requires_restart = "Doesn't Require Restart",
             aij_upgraded_tags = "Gold Tags",
@@ -4383,6 +4384,15 @@ return {
                     'Add {C:dark_edition}Negative{} edition',
                     'to {C:attention}1{} random',
                     'card in hand'
+                }
+            },
+            c_aij_possession = {
+                name = 'Possession',
+                text = {
+                    'Remove {C:dark_edition}Edition{} and {C:attention}Enhancement',
+                    'from {C:attention}#1#{} selected card in hand',
+                    'and make their {C:attention}effects',
+                    '{C:jest_inherent}Inherent'
                 }
             },
             c_aij_trefle = {
