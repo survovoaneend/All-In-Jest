@@ -4395,6 +4395,14 @@ return {
                     '{C:jest_inherent}Inherent'
                 }
             },
+            c_aij_tetragrammaton = {
+                name = 'Tetragrammaton',
+                text = {
+                    'Create {C:attention}any{} playing card and',
+                    '{C:attention}#1# random{} playing cards to',
+                    'add to your {C:attention}deck'
+                }
+            },
             c_aij_trefle = {
                 name = 'Trèfle',
                 text = {
@@ -4455,6 +4463,14 @@ return {
                     'Add a {V:1}#2#',
                     'to {C:attention}#1#{} selected',
                     'card in your hand'
+                }
+            },
+            c_aij_tallow = {
+                name = 'Tallow',
+                text = {
+                    'Add a {V:1}#2#',
+                    'to {C:attention}#1#{} selected',
+                    'cards in your hand'
                 }
             },
         },
