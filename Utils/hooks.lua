@@ -283,7 +283,7 @@ function SMODS.has_enhancement(card, key)
     local has_enhancement = has_enhancement_ref(card, key)
     local effects = All_in_Jest.get_inherent_effects(card, 'enhancement')
     for k, v in pairs(effects) do
-        if v.key = key then
+        if v.key == key then
             return true
         end
     end
