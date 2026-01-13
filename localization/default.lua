@@ -10,6 +10,7 @@ return {
             k_star_q = "Star?",
             k_asteroid = "Asteroid",
             k_tarot_q = "Tarot?",
+            k_tarot_hex = "Hex",
             k_active = "Active",
             k_inactive = "Inactive",
             k_aij_inherent = "Inherent",
@@ -4929,6 +4930,36 @@ return {
                     "Randomises the values",
                     "of {C:attention}leftmost consumable",
                     "between {C:attention}X0.75{} and {C:attention}X2.5"
+                }
+            },
+            c_aij_error = {
+                name = 'The Error',
+                text = {
+                    "Apply {C:red}Chaotic{} to up",
+                    "to {C:attention}#1#{} selected cards"
+                }
+            },
+            c_aij_janitor = {
+                name = 'The Janitor',
+                text = {
+                    "{C:red}Destroy{} all cards",
+                    "held in {C:attention}hand"
+                }
+            },
+            c_aij_faceless = {
+                name = 'The Faceless',
+                text = {
+                    "{C:red}Destroy{} leftmost {C:attention}Joker",
+                    "and create a {C:dark_edition}Negative",
+                    "{C:attention}Joker{} of lower rarity"
+                }
+            },
+            c_aij_oracle = {
+                name = 'The Oracle',
+                text = {
+                    "{C:attention}All{} cards in your hand",
+                    "are given a {C:attention}single",
+                    "{C:attention}random{} enhancement"
                 }
             },
         },
