@@ -4390,9 +4390,8 @@ return {
                 name = 'Possession',
                 text = {
                     'Remove {C:dark_edition}Edition{} and {C:attention}Enhancement',
-                    'from {C:attention}#1#{} selected card in hand',
-                    'and make their {C:attention}effects',
-                    '{C:jest_inherent}Inherent'
+                    'from {C:attention}#1#{} selected card and make',
+                    'their {C:attention}effects {C:jest_inherent}Inherent'
                 }
             },
             c_aij_tetragrammaton = {
@@ -4896,6 +4895,32 @@ return {
                     "Enhances {C:attention}#1#{} selected",
                     "card into a",
                     "{C:attention}#2#{}"
+                }
+            },
+            c_aij_sacrifice = {
+                name = 'The Sacrifice',
+                text = {
+                    "{C:red}Destroy{} {C:attention}#1#{} selected card",
+                    "to create a card with a",
+                    "random {C:attention}suit{}, {C:attention}rank{}, and",
+                    "{C:attention}enhancement"
+                }
+            },
+            c_aij_reaper = {
+                name = 'The Reaper',
+                text = {
+                    "Select {C:attention}#1#{} cards. All {C:attention}#1#",
+                    "cards will be {C:attention}converted",
+                    "into {C:attention}copies{} of one of",
+                    "them, chosen at {C:attention}random"
+                }
+            },
+            c_aij_urns = {
+                name = 'The Urns',
+                text = {
+                    "{C:red}Destroy{} {C:attention}#1#{} selected {C:attention}enhanced{} card",
+                    "and apply its {C:attention}enhancement{} to {C:attention}#2#",
+                    "{C:attention}random{} cards in hand"
                 }
             },
             c_aij_broken_fate = {
