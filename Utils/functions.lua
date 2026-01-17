@@ -1622,6 +1622,131 @@ function All_in_Jest.aij_refresh_boss_blind()
     end
 end
 
+function All_in_Jest.get_random_joker_colours(colour)
+    local clothes_and_makeup_colours = {
+        HEX('fd5f55'), HEX('fda200'), HEX('009cfd'), HEX('55a383'), HEX('8dffd0'), HEX('7dc6f3'),
+        HEX('597a90'), HEX('83c4b4'), HEX('608d81'), HEX('d9dd61'), HEX('f66178'), HEX('e39571'),
+        HEX('ff7e5f'), HEX('71d0e4'), HEX('fde487'), HEX('eeeeee'), HEX('4f6367'), HEX('d5495e'),
+    }
+    if colour == 'skintone' then
+        local seed = pseudoseed('randomjoker')
+        local raritys_weight = {['common'] = 0.7, ['uncommon'] = 0.2, ['rare'] = 0.07, ['very_rare'] = 0.03}
+        local total_rate = 0
+        for k, v in pairs(raritys_weight) do
+            total_rate = total_rate + v
+        end
+        local append = G.GAME and G.GAME.round_resets and G.GAME.round_resets.ante or 1
+        local polled_rate = pseudorandom(pseudoseed('skintone'..append))*total_rate
+        local check_rate = 0
+    
+        local rates = {}
+        for k, v in pairs(raritys_weight) do
+            rates[#rates+1] = {rarity = k, val = v}
+        end
+        local rarity = "common"
+        for _, v in ipairs(rates) do
+            if polled_rate > check_rate and polled_rate <= check_rate + v.val then
+                rarity = v.rarity
+                break
+            end
+            check_rate = check_rate + v.val
+        end
+        local colour_palettes = {
+            ['common'] = {
+                jimbo = {HEX('ffffff'), HEX('dcdcdc'), HEX('c0c0c0')},
+            }, 
+            ['uncommon'] = {
+                greedy_joker = {HEX('fde9d6'), HEX('f8cbaa'), HEX('f28a3c')},
+                lusty_joker = {HEX('fde8e8'), HEX('fdd3d5'), HEX('ff6368')},
+                wrathful_joker = {HEX('f9f7ff'), HEX('dddafb'), HEX('7a73bb')},
+                gluttonous_joker = {HEX('e8ffff'), HEX('cdf8f5'), HEX('449d95')},
+                steel = {HEX('f4f7fc'), HEX('e5edf9'), HEX('c2cddf')},
+            },
+            ['rare'] = {
+                marble = {HEX('f9f3e6'), HEX('e8dfc4'), HEX('cbcdb2')},
+                tarot = {HEX('cbcdb2'), HEX('d9b672'), HEX('bb9d64')},
+                astronomer = {HEX('dff5fc'), HEX('84c5d2'), HEX('5b9baa')},
+            },
+            ['very_rare'] = {
+                gold = {HEX('fdd897'), HEX('f1ba5b'), HEX('dfab55')},
+                blueprint = {HEX('abbdf8'), HEX('829cf4'), HEX('6484f7')},
+            }
+        }
+        local selected_palette = pseudorandom_element(colour_palettes[rarity], pseudoseed('randomjoker'))
+        return selected_palette
+    elseif colour == 'clothes_and_makeup' then
+        local clothes_colour = {}
+        local makeup_colour = {}
+        for i = 1, 5 do
+            local ran_element = pseudorandom_element(clothes_and_makeup_colours, pseudoseed('randomjoker'..i))
+            for k, v in pairs(clothes_and_makeup_colours) do
+                if v == ran_element then
+                    v = nil
+                end
+            end
+            clothes_colour[#clothes_colour+1] = ran_element
+        end
+        for i = 6, 9 do
+            local ran_element = pseudorandom_element(clothes_and_makeup_colours, pseudoseed('randomjoker'..i))
+            for k, v in pairs(clothes_and_makeup_colours) do
+                if v == ran_element then
+                    v = nil
+                end
+            end
+            makeup_colour[#makeup_colour+1] = ran_element
+        end
+        local makeup1 = pseudoseed('randomjokert1')
+        local makeup2 = pseudoseed('randomjokert2')
+        if makeup1 <= 0.5 then
+            clothes_colour[1] = makeup_colour[1]
+        end
+        if makeup2 <= 0.5 then
+            clothes_colour[2] = makeup_colour[2]
+        end
+        return clothes_colour, makeup_colour
+    elseif colour == 'hair' then
+        local seed = pseudoseed('randomjoker')
+        local raritys_weight = {['common'] = 0.7, ['uncommon'] = 0.2, ['rare'] = 0.07, ['very_rare'] = 0.03}
+        local total_rate = 0
+        for k, v in pairs(raritys_weight) do
+            total_rate = total_rate + v
+        end
+        local append = G.GAME and G.GAME.round_resets and G.GAME.round_resets.ante or 1
+        local polled_rate = pseudorandom(pseudoseed('skintone'..append))*total_rate
+        local check_rate = 0
+    
+        local rates = {}
+        for k, v in pairs(raritys_weight) do
+            rates[#rates+1] = {rarity = k, val = v}
+        end
+        local rarity = "common"
+        for _, v in ipairs(rates) do
+            if polled_rate > check_rate and polled_rate <= check_rate + v.val then
+                rarity = v.rarity
+                break
+            end
+            check_rate = check_rate + v.val
+        end
+        local colour_palettes = {
+            ['common'] = {
+                red = {HEX('fd5f55'), HEX('f49b78'), HEX('dd463c')},
+            }, 
+            ['uncommon'] = {
+                orange = {HEX('fda200'), HEX('ffce76'), HEX('b3760a')},
+                black = {HEX('6d7c7f'), HEX('869294'), HEX('4f6367')},
+                pale_red = {HEX('dd9793'), HEX('f1bfbc'), HEX('a47875')},
+            },
+            ['rare'] = {
+                blonde = {HEX('f1d562'), HEX('f9eec1'), HEX('e1b649')},
+                white = {HEX('dcdcdc'), HEX('ffffff'), HEX('959595')},
+            },
+            ['very_rare'] = clothes_and_makeup_colours
+        }
+        local selected_colour = pseudorandom_element(colour_palettes[rarity], pseudoseed('randomjoker'))
+        return selected_colour
+    end
+end
+
 function All_in_Jest.get_inherent_effects(card, type, amt_only)
     if card.aij_inherent_effects and card.aij_inherent_effects[type..'s'] and #card.aij_inherent_effects[type..'s'] > 0 then
         local effects = {}
