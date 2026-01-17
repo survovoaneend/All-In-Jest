@@ -494,28 +494,6 @@ G.FUNCS.jest_gold_tags = function(e)
         G.GAME.jest_upgrade_tab = true
     end
 end
-G.FUNCS.jest_bside_decks = function(e)
-    if G.OVERLAY_MENU then G.FUNCS.exit_overlay_menu() end
-    if G.GAME.jest_bside_tab then
-        G.GAME.jest_bside_tab = false
-    else
-        G.GAME.jest_bside_tab = true
-    end
-    G.GAME.jest_bside_new_run = true
-    G.FUNCS.setup_run(e)
-    local deck_pool = SMODS.collection_pool(G.P_CENTER_POOLS.Back)
-    local old_deck_pool = {}
-    for k_, v_ in ipairs(deck_pool) do
-        old_deck_pool[#old_deck_pool+1] = v_
-    end
-    deck_pool = {}
-    for k, v in ipairs(old_deck_pool) do
-        if (v.config.aij and v.config.aij.bside and G.GAME.jest_bside_tab) or ((not v.config.aij or v.config.aij and not v.config.aij.bside) and not G.GAME.jest_bside_tab) then
-            deck_pool[#deck_pool+1] = v
-        end
-    end
-    G.FUNCS.change_viewed_back({to_key = 1, to_val = deck_pool[1].name})
-end
 G.FUNCS.jest_next_tag = function(e)
     local _tag = e.UIBox:get_UIE_by_ID('tag_container')
     if _tag then
