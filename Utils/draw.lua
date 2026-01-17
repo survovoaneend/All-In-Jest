@@ -36,7 +36,7 @@ SMODS.DrawStep {
                 end
             end
         end
-		    --Mark of the Spear
+		--Mark of the Spear
         if self.ability and self.ability.all_in_jest and self.ability.all_in_jest.perma_debuff then
           if G.all_in_jest.extra_card_sprites['Mark_of_the_Spear'].role then
             G.all_in_jest.extra_card_sprites['Mark_of_the_Spear'].role.draw_major = self
@@ -46,6 +46,25 @@ SMODS.DrawStep {
     end,
     conditions = { vortex = false, facing = 'front' },
 } 
+SMODS.DrawStep {
+    key = 'aij_seal_edition',
+    order = 30,
+    func = function(self, layer)
+        local edition = self.aij_delay_seal_edition or self.aij_seal_edition
+        if self.seal and edition then
+            for k, v in pairs(G.P_CENTER_POOLS.Edition) do
+                if edition[v.key:sub(3)] and v.shader then
+                    if type(v.draw) == 'function' then
+                        v:draw(self, layer)
+                    else
+                        G.shared_seals[self.seal]:draw_shader(v.shader, nil, self.ARGS.send_to_shader, nil, self.children.center)
+                    end
+                end
+            end
+        end
+    end,
+    conditions = { vortex = false, facing = 'front' },
+}
 -- SMODS.DrawStep {
 --     key = 'wireframe_floating_sprite',
 --     order = 61,
@@ -98,12 +117,12 @@ SMODS.DrawStep({
 					)
 				else
 					local center = self.config.center
-					self.children[k] = Sprite(
+					self.children[k] = SMODS.create_sprite(
 						self.T.x,
 						self.T.y,
 						self.T.w,
 						self.T.h,
-						G.ASSET_ATLAS[center.all_in_jest.soul_layers[k].atlas or center.atlas or center.set],
+						center.all_in_jest.soul_layers[k].atlas or center.atlas or center.set,
 						center.all_in_jest.soul_layers[k].pos
 					)
 					self.children[k].role.draw_major = self

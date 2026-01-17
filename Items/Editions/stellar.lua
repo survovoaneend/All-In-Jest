@@ -15,15 +15,20 @@ local stellar = {
         per = 1,
         vol = 1
     },
+    pools = {
+        seal_edition_pool = true
+    },
     order = 2,
     config = { chips = 5, mult = 1 },
+    aij_seal_config = { hands = 2 }, --Prevents other vaules from being halfed by seal editions
     loc_vars = function(self, info_queue, card)
-        return {vars = {(card.edition or {}).chips or self.config.chips, (card.edition or {}).mult or self.config.mult}}
+        return {vars = {(card.edition or {}).chips or self.config.chips, (card.edition or {}).mult or self.config.mult, (card.aij_seal_edition or {}).hands or self.aij_seal_config.hands}}
     end,
     calculate = function(self, card, context)
 		if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
-            local chip = to_number(G.GAME.hands[context.scoring_name].level) * card.edition.chips
-            local mul = to_number(G.GAME.hands[context.scoring_name].level) * card.edition.mult
+            local level = context.calculate_seal_edition and math.floor(to_number(G.GAME.hands[context.scoring_name].level)/2) or to_number(G.GAME.hands[context.scoring_name].level)
+            local chip = level * card.edition.chips
+            local mul = level * card.edition.mult
 			return {
 				chips = chip,
 				mult = mul

@@ -278,6 +278,18 @@ function SMODS.has_no_suit(card)
     return has_no_suit_ref(card)
 end
 
+local has_enhancement_ref = SMODS.has_no_rank
+function SMODS.has_enhancement(card, key)
+    local has_enhancement = has_enhancement_ref(card, key)
+    local effects = All_in_Jest.get_inherent_effects(card, 'enhancement')
+    for k, v in pairs(effects) do
+        if v.key == key then
+            return true
+        end
+    end
+    return has_enhancement
+end
+
 local has_no_rank_ref = SMODS.has_no_rank
 function SMODS.has_no_rank(card)
     if card.base.id == nil then return true end
@@ -537,6 +549,12 @@ All_in_Jest.vanilla_food = {
   j_selzer = true,
 }
 
+All_in_Jest.seal_edition_compact = {
+  e_foil = true,
+  e_holo = true,
+  e_polychrome = true,
+}
+
 if not SMODS.ObjectTypes.Food then
   SMODS.ObjectType {
     key = 'Food',
@@ -546,6 +564,24 @@ if not SMODS.ObjectTypes.Food then
       SMODS.ObjectType.inject(self)
       for k, _ in pairs(All_in_Jest.vanilla_food) do
         self:inject_card(G.P_CENTERS[k])
+      end
+    end
+  }
+end
+
+if not SMODS.ObjectTypes.seal_edition_pool then
+  SMODS.ObjectType {
+    key = 'seal_edition_pool',
+    default = 'e_foil',
+    cards = {},
+    inject = function(self)
+      SMODS.ObjectType.inject(self)
+      for k, _ in pairs(All_in_Jest.seal_edition_compact) do
+        for k_, v in pairs(G.P_CENTER_POOLS.Edition) do
+            if v.key == k then
+                self:inject_card(G.P_CENTER_POOLS.Edition[k_])
+            end
+        end
       end
     end
   }
@@ -572,11 +608,13 @@ function ease_ante(mod)
     if mod > 0 then
         G.GAME.all_in_jest.unused_hands.ante = 0
         G.GAME.all_in_jest.unused_discards.ante = 0
+        G.GAME.jest_kasperle_voucher_ante = false
     end
     
     local ref = ease_anteref(mod)
     return ref
 end
+
 SMODS.jest_Badge = {
     key = "jest_chaotic_card",
     badge_colour = HEX '8F00FF',
@@ -589,11 +627,11 @@ SMODS.PokerHand {
     l_mult = 6,
     l_chips = 60,
     example = {
-        { 'S_A', true },
-        { 'S_K', true },
-        { 'S_Q', true },
-        { 'S_J', true },
-        { 'S_10', true },
+        { 'H_A', true },
+        { 'H_K', true },
+        { 'H_Q', true },
+        { 'H_J', true },
+        { 'H_T', true },
     },
     above_hand = 'Straight Flush',
     evaluate = function(parts, hand)
@@ -608,6 +646,7 @@ SMODS.PokerHand {
             return {}
         end
     end,
+    no_collection = true,
     visible = function(self)
         return false
     end,
@@ -627,6 +666,36 @@ function Game.init_game_object(self)
   ret.all_in_jest = ret.all_in_jest or {}
   ret.all_in_jest.secret_hands = secrets
   return ret
+end
+
+-- Upgrade royal flush when a straight flush is played
+local aij_SMODS_upgrade_poker_hands_ref = SMODS.upgrade_poker_hands
+function SMODS.upgrade_poker_hands(args)
+    local ret = aij_SMODS_upgrade_poker_hands_ref(args)
+    local straight_flush_upgraded = false
+    local royal_flush_upgraded = false
+    for _, hand in ipairs(args.hands) do
+        if hand == "Straight Flush" then
+            straight_flush_upgraded = true
+        end
+        if hand == "aij_Royal Flush" then
+            royal_flush_upgraded = true
+        end
+    end
+    if straight_flush_upgraded and not royal_flush_upgraded then
+        local new_args = {
+            hands = "aij_Royal Flush",
+            parameters = args.parameters,
+            func = function(base, hand, parameter)
+                return args.func(base, "Straight Flush", parameter)
+            end,
+            level_up = args.level_up,
+            instant = true,
+            from = nil,
+        }
+        aij_SMODS_upgrade_poker_hands_ref(new_args)
+    end
+    return ret
 end
 
 -- Modified from Aura
@@ -797,19 +866,19 @@ function Card:set_sprites(_center, _front)
         for k, v in pairs(_center.all_in_jest.soul_layers) do
             if _center.all_in_jest.soul_layers[k] and not self.children[k] then
                 local scale_mod = _center.all_in_jest.soul_layers[k].moving and 0.07 + 0.02*math.cos(1.8*G.TIMERS.REAL) + 0.00*math.cos((G.TIMERS.REAL - math.floor(G.TIMERS.REAL))*math.pi*14)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^3 or 0.07
-				local rotate_mod = _center.all_in_jest.soul_layers[k].moving and 0.05*math.cos(1.219*G.TIMERS.REAL) + 0.00*math.cos((G.TIMERS.REAL)*math.pi*5)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^2 or 0
-				self.children[k] = Sprite(
-					self.T.x,
-					self.T.y,
-					self.T.w,
-					self.T.h,
-					G.ASSET_ATLAS[_center.all_in_jest.soul_layers.atlas or _center.atlas or _center.set],
-					_center.all_in_jest.soul_layers[k].pos
-				)
-				self.children[k].role.draw_major = self
-				self.children[k].states.hover.can = false
-				self.children[k].states.click.can = false
-			end
+                local rotate_mod = _center.all_in_jest.soul_layers[k].moving and 0.05*math.cos(1.219*G.TIMERS.REAL) + 0.00*math.cos((G.TIMERS.REAL)*math.pi*5)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^2 or 0
+                self.children[k] = SMODS.create_sprite(
+                    self.T.x,
+                    self.T.y,
+                    self.T.w,
+                    self.T.h,
+                    _center.all_in_jest.soul_layers.atlas or _center.atlas or _center.set,
+                    _center.all_in_jest.soul_layers[k].pos
+                )
+                self.children[k].role.draw_major = self
+                self.children[k].states.hover.can = false
+                self.children[k].states.click.can = false
+            end
             self.children[k]:set_sprite_pos(_center.all_in_jest.soul_layers[k].pos)
         end
     end

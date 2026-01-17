@@ -13,7 +13,7 @@ local silly_sausage = {
     rarity = 1,
     pos = { x = 3, y = 2 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

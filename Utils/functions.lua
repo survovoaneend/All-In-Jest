@@ -166,87 +166,32 @@ function jest_add_tag(tag, event, silent)
   end
 end
 
-function level_up_other_hand(card, hand, other_hand, instant, amount, type)
-    if not type or type == 'mult' then
-        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + amount)
-    end
-    if not type or type == 'chips' then
-        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + amount)
-    end
-    G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
-    }))
-end
-
 function level_up_hand_chips(card, hand, instant, amount)
-    if (G.GAME.hands[hand].level and G.GAME.hands[hand].chips) then
-        amount = amount or 1
-        local extra_chips = 0
-        G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
-        local val = G.GAME.hands[hand].l_chips * amount * 2
-        local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - val
-        extra_amount = (extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)) + (extra_chips > 0 and extra_chips or 0)
-        if hand == 'Straight Flush' then
-            G.GAME.hands['aij_Royal Flush'].level = math.max(0, G.GAME.hands['aij_Royal Flush'].level + amount)
-            level_up_other_hand(nil, 'aij_Royal Flush', hand, true, amount * 2 + extra_amount, 'chips')
-        end
-        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + math.floor((G.GAME.hands[hand].l_chips * amount * 2 + extra_amount)))
-        if not instant then 
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
-                play_sound('tarot1')
-                if card then card:juice_up(0.8, 0.5) end
-                G.TAROT_INTERRUPT_PULSE = true
-                return true end }))
-            update_hand_text({delay = 0}, {chips = G.GAME.hands[hand].chips, StatusText = true})
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-                play_sound('tarot1')
-                if card then card:juice_up(0.8, 0.5) end
-                G.TAROT_INTERRUPT_PULSE = nil
-                return true end }))
-            update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
-            delay(1.3)
-        end
-        G.E_MANAGER:add_event(Event({
-            trigger = 'immediate',
-            func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
-        }))
-    end
+    amount = amount or 1
+    SMODS.upgrade_poker_hands({
+        hands = hand,
+        func = function(base, hand, parameter)
+            return base + G.GAME.hands[hand]['l_' .. parameter] * amount * 2
+        end,
+        level_up = amount,
+        from = card,
+        instant = instant,
+        parameters = {"chips"}
+    })
 end
 
 function level_up_hand_mult(card, hand, instant, amount)
-    if (G.GAME.hands[hand].level and G.GAME.hands[hand].mult) then
-        amount = amount or 1
-        local extra_mult = 0
-        G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
-        local val = G.GAME.hands[hand].l_mult * amount * 2
-        local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - val
-        extra_amount = (extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)) + (extra_mult > 0 and extra_mult or 0)
-        if hand == 'Straight Flush' then
-            G.GAME.hands['aij_Royal Flush'].level = math.max(0, G.GAME.hands['aij_Royal Flush'].level + amount)
-            level_up_other_hand(nil, 'aij_Royal Flush', hand, true, amount * 2 + extra_amount, 'mult')
-        end
-        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + math.floor((G.GAME.hands[hand].l_mult * amount * 2 + extra_amount)))
-        if not instant then 
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
-                play_sound('tarot1')
-                if card then card:juice_up(0.8, 0.5) end
-                G.TAROT_INTERRUPT_PULSE = true
-                return true end }))
-            update_hand_text({delay = 0}, {mult = G.GAME.hands[hand].mult, StatusText = true})
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-                play_sound('tarot1')
-                if card then card:juice_up(0.8, 0.5) end
-                G.TAROT_INTERRUPT_PULSE = nil
-                return true end }))
-            update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
-            delay(1.3)
-        end
-        G.E_MANAGER:add_event(Event({
-            trigger = 'immediate',
-            func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
-        }))
-    end
+    amount = amount or 1
+    SMODS.upgrade_poker_hands({
+        hands = hand,
+        func = function(base, hand, parameter)
+            return base + G.GAME.hands[hand]['l_' .. parameter] * amount * 2
+        end,
+        level_up = amount,
+        from = card,
+        instant = instant,
+        parameters = {"mult"}
+    })
 end
 
 --local ids_op_ref = ids_op
@@ -417,202 +362,6 @@ end
 
 to_big = to_big or function(num)
     return num
-end
-
-jest_ability_calculate = function(card, equation, extra_value, exclusions, inclusions, do_round, only, extra_search)
-  if do_round == nil then do_round = true end
-  if only == nil then only = false end
-
-  -- Store original values before modification
-  local keys, original_values = jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
-
-  local operators = {
-    ["+"] = function(a, b) return a + b end,
-    ["-"] = function(a, b) return a - b end,
-    ["*"] = function(a, b) return a * b end,
-    ["/"] = function(a, b) return a / b end,
-    ["%"] = function(a, b) return a % b end,
-    ["="] = function(a, b) return b end,
-  }
-
-  local function round_int(x)
-    return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
-  end
-
-  local function round_hundredth(x)
-    if x >= 0 then
-      return math.floor(x * 100 + 0.5) / 100
-    else
-      return math.ceil(x * 100 - 0.5) / 100
-    end
-  end
-
-  local function process_value(val, base_val)
-    if type(val) == "number" then
-      local delta = val - base_val
-      local result = operators[equation](base_val, extra_value) + delta
-      if do_round then
-        if base_val % 1 ~= 0 then
-          return round_hundredth(result)
-        else
-          return round_int(result)
-        end
-      else
-        return result
-      end
-    else
-      return val
-    end
-  end
-
-  local function should_process(key, value)
-    if type(key) ~= "string" then return true end
-    if inclusions and next(inclusions) then
-      local valid = false
-      for _, prefix in ipairs(inclusions) do
-        if (not only and key:sub(1, #prefix) == prefix) or (only and key == prefix) then
-          valid = true; break
-        end
-      end
-      if not valid then return false end
-    end
-    if exclusions and exclusions[key] ~= nil then
-      if exclusions[key] == true or value == exclusions[key] then
-        return false
-      end
-    end
-    return true
-  end
-
-  local function process_table(t, base_table)
-    for key, value in pairs(t) do
-      if value ~= nil and should_process(key, value) then
-        if type(value) == "number" then
-          t[key] = process_value(value, base_table[key] or 0)
-        elseif type(value) == "table" and type(base_table[key]) == "table" then
-          process_table(value, base_table[key])
-        end
-      end
-    end
-  end
-
-  function nested_tables(temcard, index)
-      local current = temcard
-      for key in string.gmatch(index, "[^%.]+") do
-          if type(current) ~= "table" then
-              return current
-          end
-          current = current[key]
-      end
-      return current
-  end
-
-  local search_table = extra_search and nested_tables(card, extra_search) or card.ability
-
-  if search_table then
-    local _, base_values = jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
-    if type(search_table) == "number" then
-      search_table = process_value(search_table, base_values[1] or 0)
-    elseif type(search_table) == "table" then
-      local base_map = {}
-      for i, k in ipairs(keys) do base_map[k] = original_values[i] end
-      process_table(search_table, base_map)
-    end
-  end
-end
-
-jest_ability_get_items = function(card, equation, extra_value, exclusions, inclusions, do_round, only, extra_search)
-  if do_round == nil then do_round = true end
-  if only == nil then only = false end
-
-  local keys = {}
-  local values = {}
-
-  local operators = {
-    ["+"] = function(a, b) return a + b end,
-    ["-"] = function(a, b) return a - b end,
-    ["*"] = function(a, b) return a * b end,
-    ["/"] = function(a, b) return a / b end,
-    ["%"] = function(a, b) return a % b end,
-    ["="] = function(a, b) return b end,
-    ["nil"] = function(a, b) return a end,
-  }
-
-  local function round_int(x)
-    return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
-  end
-  local function round_hundredth(x)
-    if x >= 0 then
-      return math.floor(x * 100 + 0.5) / 100
-    else
-      return math.ceil(x * 100 - 0.5) / 100
-    end
-  end
-
-  local function process_value(val)
-    if type(val) == "number" then
-      local res = operators[equation](val, extra_value)
-      if do_round then
-        if val % 1 ~= 0 then
-          return round_hundredth(res)
-        else
-          return round_int(res)
-        end
-      else
-        return res
-      end
-    else
-      return val
-    end
-  end
-
-  local function should_process(key, value)
-    if type(key) ~= "string" then return true end
-    if inclusions and next(inclusions) then
-      local valid = false
-      for _, prefix in ipairs(inclusions) do
-        if (not only and key:sub(1, #prefix) == prefix) or (only and key == prefix) then
-          valid = true; break
-        end
-      end
-      if not valid then return false end
-    end
-    if exclusions and exclusions[key] ~= nil then
-      if exclusions[key] == true or value == exclusions[key] then
-        return false
-      end
-    end
-    return true
-  end
-
-  function nested_tables(temcard, index)
-      local current = temcard
-      for key in string.gmatch(index, "[^%.]+") do
-          if type(current) ~= "table" then
-              return current
-          end
-          current = current[key]
-      end
-      return current
-  end
-
-  local search_table = extra_search and nested_tables(card, extra_search) or card.ability
-
-  if search_table then
-    if type(search_table) == "number" then
-      table.insert(keys, extra_search or "ability")
-      table.insert(values, process_value(search_table))
-    elseif type(search_table) == "table" then
-      for key, value in pairs(search_table) do
-        if value ~= nil and should_process(key, value) then
-          table.insert(keys, key)
-          table.insert(values, process_value(value))
-        end
-      end
-    end
-  end
-
-  return keys, values
 end
 
 AllInJest.touchstone_deck_preview = function()
@@ -1411,7 +1160,7 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key)
 
     G.E_MANAGER:add_event(Event({
         trigger = 'after', 
-                delay = 0.15,
+        delay = 0.15,
         func = function() 
             victim_joker:flip()
             play_sound('card1', 1)
@@ -1426,7 +1175,6 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key)
         func = function()
             local old_ability_data = copy_table(victim_joker.ability)
             victim_joker:set_ability(G.P_CENTERS[replacement_key])
-            sendDebugMessage(tprint(old_ability_data), "AIJ")
             if old_ability_data.all_in_jest and old_ability_data.all_in_jest.has_been_rerolled_data then
                 victim_joker.ability = old_ability_data.all_in_jest.has_been_rerolled_data
                 old_ability_data.all_in_jest.has_been_rerolled_data = nil
@@ -1749,7 +1497,7 @@ end
 -- Increases blind requirement while making the score tick up with an animation
 -- mod_mult increases the mult of the blind (so mod_mult = 1 makes a blind go from x2 to x3)
 -- mod_add increases the blind requirement directly. This occurs after mod_add
--- Code copied from Bunco
+-- "Ticking up" animate code copied + modified from Bunco
 function All_in_Jest.ease_blind_requirement(mod_mult, mod_add, skip_animation)
     if not G.GAME.blind.in_blind then return end
 
@@ -1999,6 +1747,321 @@ function All_in_Jest.get_random_joker_colours(colour)
     end
 end
 
+function All_in_Jest.get_inherent_effects(card, type, amt_only)
+    if card.aij_inherent_effects and card.aij_inherent_effects[type..'s'] and #card.aij_inherent_effects[type..'s'] > 0 then
+        local effects = {}
+        local amt = 0
+        for k, v in pairs(card.aij_inherent_effects[type..'s']) do
+            effects[#effects + 1] = v
+            amt = amt + 1
+        end
+        return amt_only and amt or effects
+    else
+        return amt_only and 0 or {}
+    end
+end
+
+function All_in_Jest.apply_inherent_effect(card, effect, type)
+    card.aij_inherent_effects = card.aij_inherent_effects or {}
+    if not effect then return end
+    if type == 'edition' or type == 'enhancement' then
+        card.aij_inherent_effects[type..'s'] = card.aij_inherent_effects[type..'s'] or {}
+        card.aij_inherent_effects[type..'s'][#card.aij_inherent_effects[type..'s'] + 1] = copy_table(effect)
+    end
+end
+
+function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
+	SMODS.enh_cache:write(self, nil)
+	
+	if self.aij_seal_edition then
+		self.ability.card_limit = self.ability.card_limit - (self.aij_seal_edition.card_limit or 0)
+		self.ability.extra_slots_used = self.ability.extra_slots_used - (self.aij_seal_edition.extra_slots_used or 0)
+	end
+
+	local old_edition = self.aij_seal_edition
+	if old_edition and old_edition.key then
+		self.ignore_base_shader[old_edition.key] = nil
+		self.ignore_shadow[old_edition.key] = nil
+
+		local on_old_edition_removed = G.P_CENTERS[old_edition.key] and G.P_CENTERS[old_edition.key].on_remove
+		if type(on_old_edition_removed) == "function" then
+			on_old_edition_removed(self)
+		end
+	end
+
+	local edition_type = nil
+	if type(edition) == 'string' then
+		assert(string.sub(edition, 1, 2) == 'e_', ("Edition \"%s\" is missing \"e_\" prefix."):format(edition))
+		edition_type = string.sub(edition, 3)
+	elseif type(edition) == 'table' then
+		if edition.type then
+			edition_type = edition.type
+		else
+			for k, v in pairs(edition) do
+				if v then
+					assert(not edition_type, "Tried to apply more than one edition.")
+					edition_type = k
+				end
+			end
+		end
+	end
+
+	if not edition_type or edition_type == 'base' then
+		if self.aij_seal_edition == nil then -- early exit
+			return
+		end
+		self.aij_seal_edition = nil -- remove edition from card
+		self:set_cost()
+		if not silent then
+			G.E_MANAGER:add_event(Event({
+				trigger = 'after',
+				delay = not immediate and 0.2 or 0,
+				blockable = not immediate,
+				func = function()
+					self:juice_up(1, 0.5)
+					play_sound('whoosh2', 1.2, 0.6)
+					return true
+				end
+			}))
+		end
+		if delay then
+			self.aij_delay_seal_edition = old_edition
+			G.E_MANAGER:add_event(Event({
+				trigger = 'immediate',
+				func = function()
+					self.aij_delay_seal_edition = nil
+					return true
+				end
+			}))
+		end
+		return
+	end
+
+	self.aij_seal_edition = {}
+	self.aij_seal_edition[edition_type] = true
+	self.aij_seal_edition.type = edition_type
+	self.aij_seal_edition.key = 'e_' .. edition_type
+
+	local p_edition = G.P_CENTERS['e_' .. edition_type]
+
+	if p_edition.override_base_shader or p_edition.disable_base_shader then
+		self.ignore_base_shader[self.aij_seal_edition.key] = true
+	end
+	if p_edition.no_shadow or p_edition.disable_shadow then
+		self.ignore_shadow[self.aij_seal_edition.key] = true
+	end
+
+    if p_edition.aij_seal_config then
+        for k, v in pairs(p_edition.aij_seal_config) do
+		    if type(v) == 'table' then
+			    self.aij_seal_edition[k] = copy_table(v)
+		    else
+			    self.aij_seal_edition[k] = v
+		    end
+	    end
+        for k, v in pairs(p_edition.config) do
+		    if type(v) == 'table' and not self.aij_seal_edition[k] then
+			    self.aij_seal_edition[k] = copy_table(v)
+		    elseif not self.aij_seal_edition[k] then
+			    self.aij_seal_edition[k] = v
+		    end
+	    end
+    else
+	    for k, v in pairs(p_edition.config) do
+		    if type(v) == 'table' then
+			    self.aij_seal_edition[k] = copy_table(v)
+		    else
+			    self.aij_seal_edition[k] = v
+		    end
+	    end
+        if edition_type == 'polychrome' then
+            self.aij_seal_edition['x_mult'] = self.aij_seal_edition['x_mult'] - 1
+        end
+        jest_ability_calculate(self, "/", 2, nil, nil, false, nil, "aij_seal_edition")
+        if edition_type == 'polychrome' then
+            self.aij_seal_edition['x_mult'] = self.aij_seal_edition['x_mult'] + 1
+        end
+    end
+
+	local on_edition_applied = p_edition.on_apply
+	if type(on_edition_applied) == "function" then
+		on_edition_applied(self)
+	end
+
+	if self.area and self.area == G.jokers then
+		if self.aij_seal_edition then
+			if not G.P_CENTERS['e_' .. (self.aij_seal_edition.type)].discovered then
+				discover_card(G.P_CENTERS['e_' .. (self.aij_seal_edition.type)])
+			end
+		else
+			if not G.P_CENTERS['e_base'].discovered then
+				discover_card(G.P_CENTERS['e_base'])
+			end
+		end
+	end
+
+	if self.aij_seal_edition and not silent then
+		local ed = G.P_CENTERS['e_' .. (self.aij_seal_edition.type)]
+		G.CONTROLLER.locks.aij_seal_edition = true
+		G.E_MANAGER:add_event(Event({
+			trigger = 'after',
+			delay = not immediate and 0.2 or 0,
+			blockable = not immediate,
+			func = function()
+				if self.aij_seal_edition then
+					self:juice_up(1, 0.5)
+					play_sound(ed.sound.sound, ed.sound.per, ed.sound.vol)
+				end
+				return true
+			end
+		}))
+		G.E_MANAGER:add_event(Event({
+			trigger = 'after',
+			delay = 0.1,
+			func = function()
+				G.CONTROLLER.locks.aij_seal_edition = false
+				return true
+			end
+		}))
+	end
+
+	if delay then
+		self.aij_delay_seal_edition = old_edition or {base = true}
+		G.E_MANAGER:add_event(Event({
+			trigger = 'immediate',
+			func = function()
+				self.aij_delay_seal_edition = nil
+				return true
+			end
+		}))
+	end
+
+	self.ability.card_limit = self.ability.card_limit + (self.aij_seal_edition.card_limit or 0)
+	self.ability.extra_slots_used = self.ability.extra_slots_used + (self.aij_seal_edition.extra_slots_used or 0)
+
+
+	if G.jokers and self.area == G.jokers then
+		check_for_unlock({ type = 'modify_jokers' })
+	end
+
+	self:set_cost()
+end
+
+function All_in_Jest_format_destroy(center_text)
+
+    if center_text == {} then
+        return center_text
+    end
+
+    local function add_red_text(text, start_index, end_index, base_format)
+        local destroyed_format = base_format
+        if base_format == "{}" then
+            destroyed_format = "{C:red}"
+        elseif string.match(base_format, "C:%w+") then -- Try to find an existing colour option
+            destroyed_format, _ = string.gsub(base_format, "C:%w+", "C:red")
+        else
+            destroyed_format = string.sub(base_format, 1, -2) .. ",C:red}"
+        end
+        return string.sub(text, 1, start_index - 1)..destroyed_format..string.sub(text, start_index, end_index)..base_format..string.sub(text, end_index + 1)
+    end
+
+    local destroy_texts = {
+        "destroying",
+        "destroyed",
+        "destroys",
+        "destroy"
+    }
+    local found_strings = {}
+    local one_box = true
+
+    if type(center_text[1]) == "table" then
+        -- Description has multiple boxes (e.g. "You got Mail" joker in this mod)
+        one_box = false
+        for j, box in ipairs(center_text) do
+            found_strings[j] = {}
+            for i, line in ipairs(box) do
+                found_strings[j][i] = {}
+                for _, text in ipairs(destroy_texts) do
+                    local start_index, end_index = string.find(string.lower(line), text)
+                    if start_index then
+                        local already_processed = false
+                        for _, t in ipairs(found_strings[j][i]) do
+                            if start_index == t.start_index then
+                                already_processed = true
+                                break
+                            end
+                        end
+
+                        if not already_processed then
+                            -- Try to extract any existing formatting on the destroy text
+                            -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
+                            local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
+                            -- Do not apply red text if text is already red
+                            if not string.match(applied_formatting, "C:red") then
+                                local t = {
+                                    start_index = start_index,
+                                    end_index = end_index,
+                                    format = applied_formatting
+                                }
+                                table.insert(found_strings[j][i], t)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    elseif type(center_text[1]) == "string" then
+        -- Description does not have multiple boxes
+        found_strings[1] = {}
+        for i, line in ipairs(center_text) do
+            found_strings[1][i] = {}
+            for _, text in ipairs(destroy_texts) do
+                local start_index, end_index = string.find(string.lower(line), text)
+                if start_index then
+                    local already_processed = false
+                    for _, t in ipairs(found_strings[1][i]) do
+                        if start_index == t.start_index then
+                            already_processed = true
+                            break
+                        end
+                    end
+
+                    if not already_processed then
+                        -- Try to extract any existing formatting on the destroy text
+                        -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
+                        local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
+                        -- Do not apply red text if text is already red
+                        if not string.match(applied_formatting, "C:red") then
+                            local t = {
+                                start_index = start_index,
+                                end_index = end_index,
+                                format = applied_formatting
+                            }
+                            table.insert(found_strings[1][i], t)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    for box_index, _ in ipairs(found_strings) do
+        for line_index, _ in ipairs(found_strings[box_index]) do
+            for _, t in ipairs(found_strings[box_index][line_index]) do
+                local start_index = t.start_index
+                local end_index = t.end_index
+                local base_format = t.format
+                if one_box then
+                    center_text[line_index] = add_red_text(center_text[line_index], start_index, end_index, base_format)
+                else
+                    center_text[box_index][line_index] = add_red_text(center_text[box_index][line_index], start_index, end_index, base_format)
+                end
+            end
+        end
+    end
+
+    return center_text
+end
 
 G.FUNCS.aij_hover_tag_branching = function(e)
     if not e.parent or not e.parent.states then return end

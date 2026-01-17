@@ -13,7 +13,7 @@ local egg_cc = {
     rarity = 1,
     pos = { x = 14, y = 8},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

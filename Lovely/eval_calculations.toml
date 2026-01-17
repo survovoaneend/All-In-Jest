@@ -37,7 +37,7 @@ if context.setting_blind then
     end
     for k, v in pairs(G.jokers.cards) do
         if v.ability and v.ability.all_in_jest and v.ability.all_in_jest.has_been_rerolled then
-            card_eval_status_text(card, "extra", nil, nil, nil, {message = localize("k_reset"), colour = G.C.FILTER})
+            card_eval_status_text(v, "extra", nil, nil, nil, {message = localize("k_reset"), colour = G.C.FILTER})
             All_in_Jest.reroll_joker(v, v.ability.all_in_jest.has_been_rerolled, 'stage_production')
             v.ability.all_in_jest.has_been_rerolled = nil
         end
@@ -50,12 +50,56 @@ if context.cardarea == G.play and context.all_in_jest and context.all_in_jest.ma
         ret.playing_card.chips = chips
     end
 end
+if card.aij_seal_edition and card.seal then
+    ret.aij_seal_edition = {}
+    local old_edition = card.edition and copy_table(card.edition)
+    card.edition = card.aij_seal_edition
+    context.calculate_seal_edition = true
+    local edition = card:calculate_edition(context)
+    context.calculate_seal_edition = nil
+    if edition then
+        ret.aij_seal_edition = edition
+    end
+    card.edition = old_edition
+end
+if context.aij_inherent_enhancement then return ret end
+if card.aij_inherent_effects then
+    local i = 0
+    local j = 0
+    for k, v in pairs(card.aij_inherent_effects) do
+        i = i + 1
+        for _k, _v in pairs(card.aij_inherent_effects[k]) do
+            j = j + 1
+            if not _v.aij_setting_ability then
+                if k == 'editions' then
+                    local old_edition = card.edition and copy_table(card.edition)
+                    card.edition = _v
+                    local edition = card:calculate_edition(context)
+                    if edition then
+                        ret['aij_inherent_effects'..j..i] = edition
+                    end
+                    card.edition = old_edition
+                end
+            end
+        end
+    end
+end
+'''
+
+[[patches]] #For repetition on cards
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "-- TARGET: evaluate your own repetition effects"
+position = "before"
+match_indent = true
+payload = '''
+if context.aij_inherent_enhancement then return ret end
 '''
 
 [[patches]] #For debuffed joker cards
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = "if not card:can_calculate(context.ignore_debuff, context.remove_playing_cards) then"
+pattern = "if not card:can_calculate(context.ignore_debuff, context.remove_playing_cards*"
 position = "before"
 match_indent = true
 payload = '''

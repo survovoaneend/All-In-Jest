@@ -7,7 +7,7 @@ local polkadot = {
   atlas = 'vouchers_atlas',
   pos = { x = 5, y = 0 },
   discovered = false,
-  order = 6,
+  order = 5,
   requires = {
     'v_aij_sticker_sheet'
   },
