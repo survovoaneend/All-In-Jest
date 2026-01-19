@@ -29,14 +29,15 @@ local pellesini = {
                 local juiced_card = context.blueprint_card or card
                 G.E_MANAGER:add_event(Event({func = function()
                     local temp_card = copy_card(other_card, nil, nil, nil, false)
-                    temp_card:start_materialize()
                     temp_card:add_to_deck()
+                    G.jokers:emplace(temp_card)
+                    temp_card:start_materialize()
                     if juiced_card == other_card then
                         temp_card:juice_up(0.6, 0.1)
                     else
                         juiced_card:juice_up(0.6, 0.1)
                     end
-                    G.jokers:emplace(temp_card)
+                    G.GAME.joker_buffer = 0
                     return true
                 end }))
             end

@@ -5,7 +5,7 @@ local blood_artist = {
     key = "blood_artist",
     config = {
         extra = {
-            blind_reduction = 25
+            blind_reduction = 20
         }
     },
     rarity = 2,
@@ -40,7 +40,7 @@ local blood_artist = {
                     G.E_MANAGER:add_event(Event({
                         trigger = 'immediate',
                         func = function()
-                            if G.GAME.chips - G.GAME.blind.chips >= to_big(0) and not next(SMODS.find_card("j_aij_electric_snow")) then
+                            if G.STATE ~= G.STATES.NEW_ROUND and G.GAME.chips - G.GAME.blind.chips >= to_big(0) and not next(SMODS.find_card("j_aij_electric_snow")) then
                                 G.STATE = G.STATES.NEW_ROUND
                                 G.STATE_COMPLETE = false
                             end
@@ -59,13 +59,17 @@ local blood_artist = {
                     message = localize("k_aij_blood_spilt_ex")
                 },
                 func = function ()
-                    All_in_Jest.ease_blind_requirement(nil, -1 * math.ceil(G.GAME.blind.chips * card.ability.extra.blind_reduction * 0.01) * destroyed_count)
+                    local new_mult = (1 - card.ability.extra.blind_reduction * 0.01) ^ destroyed_count
+                    All_in_Jest.ease_blind_requirement(nil, -1 * math.ceil(G.GAME.blind.chips * (1 - new_mult)))
+                    -- for _ = 1, destroyed_count do
+                    --     All_in_Jest.ease_blind_requirement(nil, -1 * math.ceil(G.GAME.blind.chips * card.ability.extra.blind_reduction * 0.01))
+                    -- end
                     -- Ends blind if blind requirement is now met
                     -- Copied from blind:disable()
                     G.E_MANAGER:add_event(Event({
                         trigger = 'immediate',
                         func = function()
-                            if G.GAME.chips - G.GAME.blind.chips >= to_big(0) and not next(SMODS.find_card("j_aij_electric_snow")) then
+                            if G.STATE ~= G.STATES.NEW_ROUND and G.GAME.chips - G.GAME.blind.chips >= to_big(0) and not next(SMODS.find_card("j_aij_electric_snow")) then
                                 G.STATE = G.STATES.NEW_ROUND
                                 G.STATE_COMPLETE = false
                             end

@@ -119,16 +119,7 @@ local chaos = {
             for i = 1, math.min(times, #_poker_hands) do
               local chosen_poker_hand, chosen_index = pseudorandom_element(_poker_hands, pseudoseed('jest_chaos_tag'))
               local levels = pseudorandom('jest_chaos_tag', 1, 3)
-
-              update_hand_text(
-                { sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3 }, 
-                { handname = localize(chosen_poker_hand, 'poker_hands'), chips = G.GAME.hands[chosen_poker_hand].chips, mult = G.GAME.hands[chosen_poker_hand].mult, level = G.GAME.hands[chosen_poker_hand].level }
-              )
               level_up_hand(nil, chosen_poker_hand, nil, levels)
-              update_hand_text(
-                { sound = 'button', volume = 0.7, pitch = 1.1, delay = 0 },
-                { mult = 0, chips = 0, handname = '', level = '' }
-              )
 
               table.remove(_poker_hands, chosen_index)
             end

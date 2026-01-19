@@ -54,6 +54,7 @@ local reshape = {
                                 end
                             end
                         end
+                        G.jokers.cards[i]:set_edition(nil, true, true)
                         copy_card(selected_joker, G.jokers.cards[i], nil, nil, true)
                         G.jokers.cards[i]:set_edition(original_edition, true, true)
                         for k, v in pairs(original_stickers) do
