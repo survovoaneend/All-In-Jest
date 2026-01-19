@@ -3,7 +3,7 @@ local the_gift = {
     key = 'the_gift',
 
     boss = {
-        min = 3
+        min = 6
     },
     mult = 2,
     boss_colour = HEX("c75d5d"),

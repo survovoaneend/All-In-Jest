@@ -575,8 +575,9 @@ return {
             bl_aij_the_storm = {
                 name = "The Storm",
                 text = {
-                    'Destroy all non-scoring',
-                    'played cards'
+                    'If scored hand contains',
+                    '3 or more cards,',
+                    "destroy all played cards"
                 },
             },
             bl_aij_the_frost = {
@@ -3976,9 +3977,15 @@ return {
             j_aij_dongtong = {
                 name = "Dongtong",
                 text = {
+                    {
                     "{C:green}Doubles{} most {C:attention}Joker{}",
                     "values",
-                },
+                    },
+                    {
+                        "Doubles {C:attention}Blind{}",
+                        "{C:attention}Requirements"
+                    }
+            },
                 unlock = { "?????" }
             },
             j_aij_naiteh = {
@@ -4820,7 +4827,8 @@ return {
                 text = {
                     "Randomises the values",
                     "of {C:attention}leftmost consumable",
-                    "between {C:attention}X0.75{} and {C:attention}X2.5"
+                    "between {C:attention}X0.75{} and {C:attention}X2.5",
+                    "their {C:attention}default{} values"
                 }
             },
         },

@@ -5,7 +5,7 @@ local naiteh = {
     key = "naiteh",
     config = {
       extra = {
-        h_size = 0,
+        h_size = 1,
         h_size_mod = 1,
       }
     },
