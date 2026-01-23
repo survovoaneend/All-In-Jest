@@ -14,8 +14,6 @@ extern bool shadow;
 extern MY_HIGHP_OR_MEDIUMP vec4 burn_colour_1;
 extern MY_HIGHP_OR_MEDIUMP vec4 burn_colour_2;
 
-vec4 wood_color = vec4(102., 66.3, 33.15, 0.) / (255. + wood.r);
-
 vec4 dissolve_mask(vec4 tex, vec2 texture_coords, vec2 uv)
 {
     if (dissolve < 0.001) {
@@ -113,7 +111,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     if (uv.y + wood.y == uv.y)
         uv.y = wood.y; // I don't know why but it doesn't crash with this
     vec3 hsv = rgbToHsv(pixel.rgb);
-    hsv.r = 26.90/255;
+    hsv.r = 26.90/255.0;
     pixel.rgb = hsvToRgb(hsv);
 
     pixel = vec4(pixel.rgb, pixel.a);
