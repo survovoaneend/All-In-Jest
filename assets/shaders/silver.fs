@@ -149,7 +149,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     float thickness = 80.0;  
 	float spacing = 30.0;   
 
-	float wave = sin(dot(adjusted_uv, dir) * (spacing) + silver.r * (time/15));
+	float wave = sin(dot(adjusted_uv, dir) * (spacing) + silver.r * (time/15.0));
 	float fac  = pow(max(wave, 0.0), thickness);
     
     tex.rgb *= 1.0 + fac * 0.5;
