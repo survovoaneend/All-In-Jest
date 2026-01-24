@@ -2314,10 +2314,10 @@ return {
                     "{C:attention}Shop{} and {C:attention}Buffoon Packs{}", 
                 },
                 {
-                    "{C:inactive}\"I've taken your stuff, but",
-                    "{C:inactive}you keep pushing through;",
-                    "{C:inactive}I'll have to try harder, so",
-                    "{C:inactive}rats off to you!\" -R. R.",
+                    "{C:inactive}\"I've taken your stuff,",
+                    "{C:inactive}but you keep pushing through;",
+                    "{C:inactive}I'll have to try harder,",
+                    "{C:inactive}so rats off to you!\" -R. R.",
                 }
             }
             },
