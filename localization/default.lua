@@ -883,6 +883,14 @@ return {
                     'of card to the {C:attention}right'
                 }
             },
+            m_aij_scorched = {
+                name = "Scorched Card",
+                text = {
+                    'When discarded, {C:green}#1# in #2#',
+                    'chance to {C:attention}upgrade{} discarded',
+                    '{C:attention}poker hand{} by {C:attention}#3#{} level.'
+                }
+            },
         },
         Voucher = {
             v_aij_fairy_dust ={
