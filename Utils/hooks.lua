@@ -488,6 +488,14 @@ function get_front_spriteinfo(_front)
     return get_front_spriteinfo_ref(_front)
 end
 
+local should_draw_base_shader_ref = Card.should_draw_base_shader
+function Card:should_draw_base_shader()
+    if SMODS.get_enhancements(self).m_aij_scorched then
+        return false
+    end
+	return should_draw_base_shader_ref(self)
+end
+
 local should_hide_front_ref = Card.should_hide_front
 function Card:should_hide_front()
   if SMODS.has_enhancement(self, 'm_aij_canvas') then
