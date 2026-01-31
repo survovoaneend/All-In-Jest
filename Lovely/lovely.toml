@@ -196,6 +196,19 @@ if self.edition and self.edition.aij_silver then
         aij_silver_reapply = true
     end
 end
+--Same thing but for misprinted
+local aij_misprint_reapply = false
+if self.edition and self.edition.aij_misprint then
+    if old_center ~= center and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
+        jest_ability_calculate(
+        self,
+        "/", tonumber(self.edition.prevmult),
+        { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
+        nil, true, false, "ability"
+        )
+        aij_misprint_reapply = true
+    end
+end
 '''
 # Silver Cards (2/2)
 # Re-applies attributes to pre-silver stats when new enhancements are applied
@@ -209,6 +222,17 @@ match_indent = true
 payload = '''
 if self.edition and self.edition.aij_silver then
     if aij_silver_reapply and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
+        jest_ability_calculate(
+        self,
+        "*", self.edition.mult,
+        { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true },
+        nil, true, false, "ability"
+        )
+    end
+end
+--Same thing but for misprinted
+if self.edition and self.edition.aij_misprint then
+    if aij_misprint_reapply and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
         jest_ability_calculate(
         self,
         "*", self.edition.mult,
