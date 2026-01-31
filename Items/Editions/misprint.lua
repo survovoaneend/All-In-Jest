@@ -25,7 +25,7 @@ local misprint = {
         vol = 1
     },
     order = 3,
-    config = { min_mult = 33, max_mult = 300, mult = 1, prevmult = "1" },
+    config = { min_mult = 50, max_mult = 300, mult = 1, prevmult = "1" },
     disable_base_shader = true,
     loc_vars = function(self, info_queue, card)
         return { vars = { ((card.edition or {}).max_mult or self.config.max_mult) * 0.01, ((card.edition or {}).min_mult or self.config.min_mult) * 0.01 } }
@@ -101,9 +101,20 @@ local misprint = {
         card.ability.jest_misprint_active = nil
     end,
     calculate = function(self, card, context)
+        function aij_precision_fix(card, x) --hopefully fixes precision
+            local n = 4
+            local snapped = (x >= 0 and math.floor(x * n + 0.5) or math.ceil(x * n - 0.5)) / n
+
+            if snapped < (card.edition.min_mult * 0.01) then return (card.edition.min_mult * 0.01) end
+            if snapped > (card.edition.max_mult * 0.01) then return (card.edition.max_mult * 0.01) end
+            return snapped
+        end
 		if context.before then --context.after causes problems
-            card.edition.mult = pseudorandom('jest_misprint_mult', card.edition.min_mult, card.edition.max_mult) * 0.01
-            local string = tostring(card.edition.mult).."%"
+            local value = pseudorandom('jest_misprint_mult', card.edition.min_mult, card.edition.max_mult) * 0.01
+            card.edition.mult = aij_precision_fix(card, value)
+        end
+        if context.after
+            local string = tostring(card, card.edition.mult).."%"
             return {
                 message = string,
             }
