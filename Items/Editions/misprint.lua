@@ -26,6 +26,7 @@ local misprint = {
     },
     order = 3,
     config = { min_mult = 50, max_mult = 300, mult = 1, prevmult = "1" },
+    disable_base_shader = true,
     loc_vars = function(self, info_queue, card)
         return { vars = { ((card.edition or {}).max_mult or self.config.max_mult) * 0.01, ((card.edition or {}).min_mult or self.config.min_mult) * 0.01 } }
     end,
