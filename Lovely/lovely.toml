@@ -4083,3 +4083,15 @@ position = "at"
 payload = '''local aij_blueprint_compatible = other_joker and (other_joker.ability.aij_blueprint_compat or $cond)
 if other_joker and other_joker ~= self and aij_blueprint_compatible then'''
 
+# function Card:highlight (Tumbler)
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'self.highlighted = is_higlighted'
+position = 'after'
+match_indent = true
+payload = '''
+if G.jokers ~= nil and next(SMODS.find_card('j_aij_tumbler')) then
+    SMODS.calculate_context({aij_card_highlight = true})
+end
+'''

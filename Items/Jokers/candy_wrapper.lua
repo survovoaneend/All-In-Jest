@@ -2,7 +2,7 @@ local candy_wrapper = {
     object_type = "Joker",
     order = 391,
     key = "candy_wrapper",
-    ignore = true,
+    
     config = {
         extra = {
             

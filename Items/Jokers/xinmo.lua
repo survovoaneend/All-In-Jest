@@ -1,7 +1,7 @@
 local xinmo = {
     object_type = "Joker",
     order = 1052,
-    ignore = true,
+    
 
     key = "xinmo",
     config = {

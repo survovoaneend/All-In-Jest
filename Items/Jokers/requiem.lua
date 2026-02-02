@@ -2,7 +2,7 @@ local requiem = {
     object_type = "Joker",
     order = 543,
     key = "requiem",
-    ignore = true,
+    
     config = {
         extra = {
             

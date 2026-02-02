@@ -2,7 +2,7 @@ local sam_mcgee = {
     object_type = "Joker",
     order = 469,
     key = "sam_mcgee",
-    ignore = true,
+    
     config = {
         extra = {
             

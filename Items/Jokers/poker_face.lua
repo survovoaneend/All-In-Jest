@@ -2,7 +2,7 @@ local poker_face = {
     object_type = "Joker",
     order = 430,
     key = "poker_face",
-    ignore = true,
+    
     config = {
         extra = {
             

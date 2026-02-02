@@ -2,7 +2,7 @@ local propaganda = {
     object_type = "Joker",
     order = 408,
     key = "propaganda",
-    ignore = true,
+    
     config = {
         extra = {
             

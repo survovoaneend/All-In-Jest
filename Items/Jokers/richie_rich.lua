@@ -1,7 +1,7 @@
 local richie_rich = {
     object_type = "Joker",
     order = 237,
-    ignore = true,
+    
     key = "richie_rich",
     config = {
       
@@ -11,7 +11,7 @@ local richie_rich = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   

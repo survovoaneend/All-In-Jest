@@ -1,7 +1,7 @@
 local magazine_ad = {
     object_type = "Joker",
     order = 309,
-    ignore = true,
+   
     key = "magazine_ad",
     config = {
     },
@@ -10,7 +10,7 @@ local magazine_ad = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   

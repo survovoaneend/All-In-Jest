@@ -2,7 +2,7 @@ local neptunium = {
     object_type = "Joker",
     order = 565,
     key = "neptunium",
-    ignore = true,
+    
     config = {
         extra = {
             

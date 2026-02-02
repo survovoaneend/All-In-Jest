@@ -2,7 +2,7 @@ local lonely_night = {
     object_type = "Joker",
     order = 396,
     key = "lonely_night",
-    ignore = true,
+   
     config = {
         extra = {
             

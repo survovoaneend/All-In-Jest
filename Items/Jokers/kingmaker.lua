@@ -2,7 +2,6 @@ local kingmaker = {
     object_type = "Joker",
     order = 470,
     key = "kingmaker",
-    ignore = true,
     config = {
         extra = {
             

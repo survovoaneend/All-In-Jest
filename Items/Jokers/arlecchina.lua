@@ -1,7 +1,6 @@
 local arlecchina = {
   object_type = "Joker",
   order = 163,
-  ignore = true,
 
   key = "arlecchina",
   config = {

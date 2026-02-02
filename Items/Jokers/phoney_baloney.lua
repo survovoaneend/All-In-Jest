@@ -1,7 +1,6 @@
 local phoney_baloney = {
     object_type = "Joker",
     order = 195,
-    ignore = true,
 
     key = "phoney_baloney",
     config = {

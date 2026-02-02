@@ -1,7 +1,7 @@
 local curse_of_scotland = {
     object_type = "Joker",
     order = 243,
-    ignore = true,
+
     key = "curse_of_scotland",
     config = {
       
@@ -11,7 +11,7 @@ local curse_of_scotland = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   

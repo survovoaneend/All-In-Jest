@@ -2,7 +2,6 @@ local disco_joker = {
     object_type = "Joker",
     order = 548,
     key = "disco_joker",
-    ignore = true,
     config = {
         extra = {
             

@@ -2,7 +2,7 @@ local bear = {
     object_type = "Joker",
     order = 526,
     key = "bear",
-    ignore = true,
+   
     config = {
         extra = {
             

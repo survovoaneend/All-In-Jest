@@ -2,7 +2,7 @@ local abandoned_joker = {
     object_type = "Joker",
     order = 566,
     key = "abandoned_joker",
-    ignore = true,
+    
     config = {
         extra = {
             

@@ -2,7 +2,7 @@ local gopnik = {
     object_type = "Joker",
     order = 456,
     key = "gopnik",
-    ignore = true,
+    
     config = {
         extra = {
             

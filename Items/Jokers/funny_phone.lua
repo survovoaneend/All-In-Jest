@@ -1,7 +1,7 @@
 local funny_phone = {
     object_type = "Joker",
     order = 261,
-    ignore = true,
+
     key = "funny_phone",
     config = {
       
@@ -11,7 +11,7 @@ local funny_phone = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   

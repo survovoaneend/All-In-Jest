@@ -1,7 +1,7 @@
 local heavy_sixer = {
     object_type = "Joker",
     order = 280,
-    ignore = true,
+    
     key = "heavy_sixer",
     config = {
       
@@ -11,7 +11,7 @@ local heavy_sixer = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   

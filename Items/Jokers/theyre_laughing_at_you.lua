@@ -1,7 +1,7 @@
 local theyre_laughing_at_you = {
     object_type = "Joker",
     order = 257,
-    ignore = true,
+    
     key = "theyre_laughing_at_you",
     config = {
       
@@ -11,7 +11,7 @@ local theyre_laughing_at_you = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   

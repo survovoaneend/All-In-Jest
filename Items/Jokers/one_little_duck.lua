@@ -1,7 +1,7 @@
 local one_little_duck = {
     object_type = "Joker",
     order = 266,
-    ignore = true,
+    
     key = "one_little_duck",
     config = {
       
@@ -11,7 +11,7 @@ local one_little_duck = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   

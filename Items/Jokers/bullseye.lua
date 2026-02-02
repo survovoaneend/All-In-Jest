@@ -2,7 +2,7 @@ local bullseye = {
     object_type = "Joker",
     order = 477,
     key = "bullseye",
-    ignore = true,
+    
     config = {
         extra = {
             

@@ -2,7 +2,7 @@ local quicksilver = {
     object_type = "Joker",
     order = 564,
     key = "quicksilver",
-    ignore = true,
+    
     config = {
         extra = {
             

@@ -2,7 +2,7 @@ local veggie_joker = {
     object_type = "Joker",
     order = 448,
     key = "veggie_joker",
-    ignore = true,
+    
     config = {
         extra = {
             

@@ -2,7 +2,7 @@ local geoglyph = {
     object_type = "Joker",
     order = 427,
     key = "geoglyph",
-    ignore = true,
+    
     config = {
         extra = {
             

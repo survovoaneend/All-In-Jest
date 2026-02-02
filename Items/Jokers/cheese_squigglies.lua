@@ -2,7 +2,7 @@ local cheese_squigglies = {
     object_type = "Joker",
     order = 486,
     key = "cheese_squigglies",
-    ignore = true,
+    
     config = {
         extra = {
             

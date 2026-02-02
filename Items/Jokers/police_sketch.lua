@@ -2,7 +2,6 @@ local police_sketch = {
     object_type = "Joker",
     order = 400,
     key = "police_sketch",
-    ignore = true,
     config = {
         extra = {
             

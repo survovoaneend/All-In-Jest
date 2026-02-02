@@ -2,7 +2,7 @@ local valentine = {
     object_type = "Joker",
     order = 378,
     key = "valentine",
-    ignore = true,
+    
     config = {
         extra = {
             

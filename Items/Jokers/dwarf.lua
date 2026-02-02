@@ -2,7 +2,7 @@ local dwarf = {
     object_type = "Joker",
     order = 455,
     key = "dwarf",
-    ignore = true,
+    
     config = {
         extra = {
             

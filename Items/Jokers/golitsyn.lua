@@ -1,7 +1,7 @@
 local golitsyn = {
     object_type = "Joker",
     order = 1044,
-    ignore = true,
+    
     key = "golitsyn",
     config = {
       

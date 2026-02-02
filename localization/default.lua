@@ -67,6 +67,7 @@ return {
             k_aij_plus_two_moons = "+2 Moons", -- Sky Trees
             k_aij_does_not_score_ex = "Does not Score!", -- Opening Move
             k_aij_downgrade_ex = "Downgrade!", 
+            k_aij_empty_ex = "Empty!", -- Tumbler
 
         },
         v_dictionary = {
@@ -1207,7 +1208,14 @@ return {
                     "{C:inactive,s:0.8}(Spades -> Hearts -> Clubs -> Diamonds)"
                 } 
             },
-            j_aij_slippery_when_wet = { name = "Slippery When wet", text = { "" } },
+            j_aij_slippery_when_wet = { 
+                name = "Slippery When Wet", 
+                text = { 
+                    "Scoring cards give {C:chips}Chips{}",
+                    "equal to the combined {C:attention}rank{}",
+                    "of {C:attention}adjacent{} cards"
+                } 
+            },
             j_aij_founding_father = { 
                 name = "Founding Father", 
                 text = { 
@@ -1775,7 +1783,16 @@ return {
                     "cards gain {X:mult,C:white}X#1#{} Mult" 
                 } 
             },
-            j_aij_red_wine = { name = "Red Wine", text = { "" } },
+            j_aij_red_wine = { 
+                name = "Red Wine", 
+                text = { 
+                    "{C:attention}First{} scoring card",
+                    "each {C:attention}hand{} is converted",
+                    "to {C:hearts}Hearts{} suit",
+            
+
+                } 
+            },
             j_aij_mute_joker = { 
                 name = "Mute Joker", 
                 text = { 
@@ -1838,8 +1855,21 @@ return {
                     "{C:inactive}#2#"
                 } 
             },
-            j_aij_tumbler = { name = "Tumbler", text = { "" } },
-            j_aij_plain_packaging = { name = "Plain Packaging", text = { "" } },
+            j_aij_tumbler = { 
+                name = "Tumbler", 
+                text = { 
+                    "{X:mult,C:white}X#1#{} Mult, loses {X:mult,C:white}X#2#{} Mult", 
+                    "when a card is {C:attention}selected"
+                } 
+            },
+            j_aij_plain_packaging = { 
+                name = "Plain Packaging", 
+                text = { 
+                    "{C:mult}+#1#{} Mult, {C:mult}-#2#{} Mult when",
+                    "a {C:attention}Joker{} is {C:money}sold{}",
+                    "or {C:red}destroyed{}"
+                } 
+            },
             j_aij_mixel_perfect = {
                 name = "Mixel Perfect",
                 text = {
@@ -1872,7 +1902,15 @@ return {
                     "{C:mult}+#1#{} Mult when scored"
                 } 
             },
-            j_aij_vesti_la_guibba = { name = "Vesti la Guibba", text = { "" } },
+            j_aij_vesti_la_guibba = { 
+                name = "Vesti la Guibba", 
+                text = { 
+                    "If {C:attention}played hand{} contains",
+                    "a {C:attention}Straight{}, create a random",
+                    "{C:common}Common{} or {C:uncommon}Uncommon{} Joker",
+                    "{C:inactive}(Must have room)"
+                } 
+            },
             j_aij_dead_president = {
                 name = "Dead President",
                 text = {
@@ -2006,7 +2044,7 @@ return {
             },
             j_aij_mummy = { name = "Mummy", text = { "" } },
             j_aij_sitcom = { name = "Sitcom", text = { "" } },
-            j_aij_in_vino_veritas = { name = "In vino Veritas", text = { "" } },
+            j_aij_in_vino_veritas = { name = "In Vino Veritas", text = { "" } },
             j_aij_beefeater = { name = "Beefeater", text = { "" } },
             j_aij_tetraphobia = {
                 name = "Tetraphobia",
@@ -2456,7 +2494,7 @@ return {
                     "{C:inactive}(Max of {C:attention}+#3#{C:inactive}){}"
                 } 
             },
-            j_aij_arecibo_message = { name = "Arecibo Message", text = { "" } },
+            j_aij_arecibo_message = { name = "Arecibo", text = { "" } },
             j_aij_napkin = { 
                 name = "Napkin", 
                 text = { 
@@ -3012,7 +3050,7 @@ return {
                 } 
             },
             j_aij_omelette = { name = "Omelette", text = { "" } },
-            j_aij_theyre_looking_at_you = { name = "They're Looking at You...", text = { "" } },
+            j_aij_theyre_laughing_at_you = { name = "They're Laughing at You...", text = { "" } },
             j_aij_comedy_of_errors = { 
                 name = "Comedy of Errors", 
                 text = { 
@@ -3502,7 +3540,7 @@ return {
                     "requirement" 
                 } 
             },
-            j_aij_the_lucovico_technique = { name = "The Ludovico Technique", text = { "" } },
+            j_aij_the_ludovico_technique = { name = "The Ludovico Technique", text = { "" } },
             j_aij_headstone = { 
                 name = "Headstone", 
                 text = { 
@@ -3734,7 +3772,7 @@ return {
                 } 
             },
             j_aij_mike_check = { 
-                name = "A Young Hamlet", 
+                name = "Mike Check", 
                 text = {
                 
                 } 
@@ -5533,12 +5571,33 @@ return {
                 },
                 unlock = { "?????" }
             },
+            j_aij_bizco = {
+                name = "Bizco",
+                text = {
+                    ""
+                },
+                unlock = { "?????" }
+            },
+            j_aij_pablillos = {
+                name = "Pablillos",
+                text = {
+                    ""
+                },
+                unlock = { "?????" }
+            },
             j_aij_bozo = {
                 name = "Bozo",
                 text = {
                     "When {C:attention}Boss Blind{} is",
                     "defeated, create {C:attention}#1#{}",
                     "random {C:dark_edition}Negative{} Jokers",
+                },
+                unlock = { "?????" }
+            },
+            j_aij_melpomene = {
+                name = "Melpomene",
+                text = {
+                    ""
                 },
                 unlock = { "?????" }
             },
@@ -5549,6 +5608,41 @@ return {
                     "contains exactly {C:attention}1{} card, it",
                     "permanently gains {C:attention}+#1#{} retrigger"
 
+                },
+                unlock = { "?????" }
+            },
+            j_aij_hardy = {
+                name = "Hardy",
+                text = {
+                    ""
+                },
+                unlock = { "?????" }
+            },
+            j_aij_laurel = {
+                name = "Laurel",
+                text = {
+                    ""
+                },
+                unlock = { "?????" }
+            },
+            j_aij_blanche = {
+                name = "Blanche",
+                text = {
+                    ""
+                },
+                unlock = { "?????" }
+            },
+            j_aij_dicky = {
+                name = "Dicky",
+                text = {
+                    ""
+                },
+                unlock = { "?????" }
+            },
+            j_aij_bogdonoff = {
+                name = "Bogdonoff",
+                text = {
+                    ""
                 },
                 unlock = { "?????" }
             },

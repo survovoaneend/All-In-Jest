@@ -2,7 +2,7 @@ local dire_warning = {
     object_type = "Joker",
     order = 409,
     key = "dire_warning",
-    ignore = true,
+    
     config = {
         extra = {
             

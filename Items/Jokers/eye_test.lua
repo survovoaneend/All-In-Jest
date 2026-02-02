@@ -2,7 +2,6 @@ local eye_test = {
     object_type = "Joker",
     order = 519,
     key = "eye_test",
-    ignore = true,
     config = {
         extra = {
             

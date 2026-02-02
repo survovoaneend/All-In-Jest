@@ -2,7 +2,7 @@ local quadrangled_joker = {
     object_type = "Joker",
     order = 561,
     key = "quadrangled_joker",
-    ignore = true,
+    
     config = {
         extra = {
             

@@ -2,14 +2,14 @@ local neon_sign = {
     object_type = "Joker",
     order = 464,
     key = "neon_sign",
-    ignore = true,
+    
     config = {
         extra = {
             
         }
     },
     rarity = 1,
-    pos = { x = 0, y = 0 },
+    pos = { x = 6, y = 21 },
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,

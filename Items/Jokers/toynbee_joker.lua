@@ -1,7 +1,6 @@
 local toynbee_joker = {
     object_type = "Joker",
     order = 217,
-    ignore = true,
 
     key = "toynbee_joker",
     config = {

@@ -2,7 +2,7 @@ local wizard = {
     object_type = "Joker",
     order = 451,
     key = "wizard",
-    ignore = true,
+    
     config = {
         extra = {
             

@@ -2,7 +2,7 @@ local uranium = {
     object_type = "Joker",
     order = 563,
     key = "uranium",
-    ignore = true,
+    
     config = {
         extra = {
             

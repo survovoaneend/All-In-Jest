@@ -2,7 +2,6 @@ local funny_bone = {
     object_type = "Joker",
     order = 500,
     key = "funny_bone",
-    ignore = true,
     config = {
         extra = {
             

@@ -1,7 +1,7 @@
 local the_house_that_jack_built = {
     object_type = "Joker",
     order = 355,
-    ignore = true,
+    
     key = "the_house_that_jack_built",
     config = {
     },
@@ -10,7 +10,7 @@ local the_house_that_jack_built = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   

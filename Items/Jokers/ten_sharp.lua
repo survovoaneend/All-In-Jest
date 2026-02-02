@@ -2,7 +2,7 @@ local ten_sharp = {
     object_type = "Joker",
     order = 434,
     key = "ten_sharp",
-    ignore = true,
+    
     config = {
         extra = {
             

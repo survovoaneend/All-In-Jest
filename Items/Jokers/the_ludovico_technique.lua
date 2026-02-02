@@ -1,7 +1,7 @@
 local the_ludovico_technique = {
     object_type = "Joker",
     order = 328,
-    ignore = true,
+    
     key = "the_ludovico_technique",
     config = {
     },
@@ -10,7 +10,7 @@ local the_ludovico_technique = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   

@@ -2,7 +2,7 @@ local oklo_reactor = {
     object_type = "Joker",
     order = 549,
     key = "oklo_reactor",
-    ignore = true,
+    
     config = {
         extra = {
             

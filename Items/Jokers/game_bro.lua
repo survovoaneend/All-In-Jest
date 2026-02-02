@@ -2,7 +2,7 @@ local game_bro = {
     object_type = "Joker",
     order = 437,
     key = "game_bro",
-    ignore = true,
+    
     config = {
         extra = {
             

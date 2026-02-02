@@ -2,7 +2,7 @@ local comic_panel = {
     object_type = "Joker",
     order = 491,
     key = "comic_panel",
-    ignore = true,
+    
     config = {
         extra = {
             

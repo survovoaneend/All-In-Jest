@@ -2,7 +2,7 @@ local body_pillow = {
     object_type = "Joker",
     order = 425,
     key = "body_pillow",
-    ignore = true,
+   
     config = {
         extra = {
             

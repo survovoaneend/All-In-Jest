@@ -2,7 +2,7 @@ local smide = {
     object_type = "Joker",
     order = 429,
     key = "smide",
-    ignore = true,
+    
     config = {
         extra = {
             

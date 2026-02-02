@@ -2,7 +2,7 @@ local father_christmas = {
     object_type = "Joker",
     order = 567,
     key = "father_christmas",
-    ignore = true,
+    
     config = {
         extra = {
             

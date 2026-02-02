@@ -2,7 +2,7 @@ local funny_bunch = {
     object_type = "Joker",
     order = 450,
     key = "funny_bunch",
-    ignore = true,
+
     config = {
         extra = {
             

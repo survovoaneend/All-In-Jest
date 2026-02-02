@@ -2,7 +2,7 @@ local haughty_joker = {
     object_type = "Joker",
     order = 544,
     key = "haughty_joker",
-    ignore = true,
+    
     config = {
         extra = {
             

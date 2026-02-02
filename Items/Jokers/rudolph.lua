@@ -1,7 +1,7 @@
 local rudolph = {
     object_type = "Joker",
     order = 360,
-    ignore = true,
+    
     key = "rudolph",
     config = {
     },
@@ -10,7 +10,7 @@ local rudolph = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   

@@ -1,7 +1,7 @@
 local mike_check = {
     object_type = "Joker",
     order = 363,
-    ignore = true,
+    
     key = "mike_check",
     config = {
     },
@@ -10,7 +10,7 @@ local mike_check = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   

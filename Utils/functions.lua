@@ -779,7 +779,7 @@ function Card:click(...)
 
     return _click(self, ...)
 end
-
+-- Also highlight context is here
 local _highlight = Card.highlight
 function Card:highlight(is_higlighted, ...)
     if not is_higlighted then
@@ -1816,4 +1816,51 @@ end
 -- Function that defines when the tag area in the shop should appear (or not)
 All_in_Jest.show_shop_aij_tags = function(e)
     return next(SMODS.find_card("j_aij_ijoker_co")) or next(SMODS.find_card("j_aij_death_of_a_salesman"))
+end
+
+All_in_Jest.change_suit = function(suit, cards)
+    -- Using same code as suit tarots, stolen from old read em and weep
+    for i = 1, #cards do
+        local percent = 1.15 - (i - 0.999) / (#cards - 0.998) * 0.3
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.15,
+            func = function()
+                cards[i]:flip()
+                play_sound('card1', percent)
+                cards[i]:juice_up(0.3, 0.3)
+                return true
+            end
+        }))
+    end
+    delay(0.2)
+    for i = 1, #cards do
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                if cards[i].ability then -- This stuff is here bc its used in read em and weep and i dont think it matters much for other things that use it
+                    cards[i].ability.played_this_ante = false
+                end
+                cards[i]:change_suit(suit)-- Changes suit sprite
+                if cards[i].ability then
+                    cards[i].ability.played_this_ante = true
+                end
+                return true
+            end
+        }))
+    end
+    for i = 1, #cards do
+        local percent = 0.85 + (i - 0.999) / (#cards - 0.998) * 0.3
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.15,
+            func = function()
+                cards[i]:flip()
+                play_sound('tarot2', percent, 0.6)
+                cards[i]:juice_up(0.3, 0.3)
+                return true
+            end
+        }))
+    end
 end

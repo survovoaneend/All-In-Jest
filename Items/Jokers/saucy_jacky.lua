@@ -1,7 +1,7 @@
 local saucy_jacky = {
     object_type = "Joker",
     order = 260,
-    ignore = true,
+    
     key = "saucy_jacky",
     config = {
       
@@ -11,7 +11,7 @@ local saucy_jacky = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   

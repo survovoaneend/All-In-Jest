@@ -2,7 +2,7 @@ local legerdemain = {
     object_type = "Joker",
     order = 436,
     key = "legerdemain",
-    ignore = true,
+    
     config = {
         extra = {
             

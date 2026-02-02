@@ -2,7 +2,7 @@ local rubberhose = {
     object_type = "Joker",
     order = 419,
     key = "rubberhose",
-    ignore = true,
+    
     config = {
         extra = {
             

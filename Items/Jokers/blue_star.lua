@@ -2,7 +2,6 @@ local blue_star = {
     object_type = "Joker",
     order = 494,
     key = "blue_star",
-    ignore = true,
     config = {
         extra = {
             

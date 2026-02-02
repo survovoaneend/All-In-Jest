@@ -2,7 +2,7 @@ local lucky_horseshoe = {
     object_type = "Joker",
     order = 406,
     key = "lucky_horseshoe",
-    ignore = true,
+    
     config = {
         extra = {
             

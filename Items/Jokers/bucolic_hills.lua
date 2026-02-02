@@ -2,7 +2,7 @@ local bucolic_hills = {
     object_type = "Joker",
     order = 381,
     key = "bucolic_hills",
-    ignore = true,
+   
     config = {
         extra = {
             

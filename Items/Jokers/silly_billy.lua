@@ -1,7 +1,6 @@
 local silly_billy = {
     object_type = "Joker",
     order = 210,
-    ignore = true,
 
     key = "silly_billy",
     config = {

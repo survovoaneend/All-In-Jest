@@ -2,7 +2,7 @@ local yin = {
     object_type = "Joker",
     order = 539,
     key = "yin",
-    ignore = true,
+    
     config = {
         extra = {
             

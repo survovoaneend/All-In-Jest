@@ -2,7 +2,7 @@ local goblet = {
     object_type = "Joker",
     order = 498,
     key = "goblet",
-    ignore = true,
+    
     config = {
         extra = {
             

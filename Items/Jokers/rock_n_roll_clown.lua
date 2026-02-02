@@ -1,7 +1,7 @@
 local rock_n_roll_clown = {
     object_type = "Joker",
     order = 365,
-    ignore = true,
+    
     key = "rock_n_roll_clown",
     config = {
     },
@@ -10,7 +10,7 @@ local rock_n_roll_clown = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   

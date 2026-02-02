@@ -2,7 +2,7 @@ local pedestrian = {
     object_type = "Joker",
     order = 372,
     key = "pedestrian",
-    ignore = true,
+    
     config = {
         extra = {
             

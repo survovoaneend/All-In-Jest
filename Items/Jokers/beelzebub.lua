@@ -2,7 +2,7 @@ local beelzebub = {
     object_type = "Joker",
     order = 481,
     key = "beelzebub",
-    ignore = true,
+    
     config = {
         extra = {
             

@@ -2,7 +2,7 @@ local shredded_joker = {
     object_type = "Joker",
     order = 506,
     key = "shredded_joker",
-    ignore = true,
+    
     config = {
         extra = {
             

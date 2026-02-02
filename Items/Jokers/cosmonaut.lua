@@ -2,7 +2,7 @@ local cosmonaut = {
     object_type = "Joker",
     order = 385,
     key = "cosmonaut",
-    ignore = true,
+    
     config = {
         extra = {
             

@@ -2,7 +2,7 @@ local glasgow_smile = {
     object_type = "Joker",
     order = 479,
     key = "glasgow_smile",
-    ignore = true,
+    
     config = {
         extra = {
             

@@ -2,7 +2,7 @@ local windswept_joker = {
     object_type = "Joker",
     order = 423,
     key = "windswept_joker",
-    ignore = true,
+
     config = {
         extra = {
             

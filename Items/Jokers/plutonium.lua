@@ -2,7 +2,7 @@ local plutonium = {
     object_type = "Joker",
     order = 562,
     key = "plutonium",
-    ignore = true,
+
     config = {
         extra = {
             

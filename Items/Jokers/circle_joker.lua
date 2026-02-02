@@ -2,7 +2,7 @@ local circle_joker = {
     object_type = "Joker",
     order = 367,
     key = "circle_joker",
-    ignore = true,
+
     config = {
         extra = {
             

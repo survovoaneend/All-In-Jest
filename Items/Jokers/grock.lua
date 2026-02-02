@@ -1,7 +1,6 @@
 local grock = {
     object_type = "Joker",
     order = 1012,
-    ignore = true,
 
     key = "grock",
     config = {

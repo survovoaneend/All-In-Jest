@@ -2,7 +2,7 @@ local alas = {
     object_type = "Joker",
     order = 441,
     key = "alas",
-    ignore = true,
+   
     config = {
         extra = {
             

@@ -1,7 +1,7 @@
 local bowls_of_joy = {
     object_type = "Joker",
     order = 296,
-    ignore = true,
+   
     key = "bowls_of_joy",
     config = {
       
@@ -11,7 +11,7 @@ local bowls_of_joy = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   

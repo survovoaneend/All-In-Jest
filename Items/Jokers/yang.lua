@@ -2,7 +2,7 @@ local yang = {
     object_type = "Joker",
     order = 540,
     key = "yang",
-    ignore = true,
+    
     config = {
         extra = {
             

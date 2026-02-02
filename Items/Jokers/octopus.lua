@@ -2,7 +2,7 @@ local octopus = {
     object_type = "Joker",
     order = 384,
     key = "octopus",
-    ignore = true,
+    
     config = {
         extra = {
             

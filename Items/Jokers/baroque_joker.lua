@@ -2,7 +2,7 @@ local baroque_joker = {
     object_type = "Joker",
     order = 371,
     key = "baroque_joker",
-    ignore = true,
+    
     config = {
         extra = {
             

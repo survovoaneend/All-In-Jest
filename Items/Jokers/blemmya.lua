@@ -2,7 +2,7 @@ local blemmya = {
     object_type = "Joker",
     order = 466,
     key = "blemmya",
-    ignore = true,
+    
     config = {
         extra = {
             

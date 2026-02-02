@@ -2,7 +2,7 @@ local single_cell = {
     object_type = "Joker",
     order = 453,
     key = "single_cell",
-    ignore = true,
+    
     config = {
         extra = {
             

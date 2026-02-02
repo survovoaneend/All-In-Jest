@@ -1,7 +1,7 @@
 local kuruko = {
     object_type = "Joker",
     order = 303,
-    ignore = true,
+    
     key = "kuruko",
     config = {
       
@@ -11,7 +11,7 @@ local kuruko = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
   

@@ -2,7 +2,7 @@ local diver = {
     object_type = "Joker",
     order = 387,
     key = "diver",
-    ignore = true,
+    
     config = {
         extra = {
             

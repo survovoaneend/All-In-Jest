@@ -2,7 +2,7 @@ local imperious_joker = {
     object_type = "Joker",
     order = 545,
     key = "imperious_joker",
-    ignore = true,
+    
     config = {
         extra = {
             

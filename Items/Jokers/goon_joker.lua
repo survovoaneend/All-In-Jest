@@ -2,7 +2,7 @@ local goon_joker = {
     object_type = "Joker",
     order = 517,
     key = "goon_joker",
-    ignore = true,
+   
     config = {
         extra = {
             
