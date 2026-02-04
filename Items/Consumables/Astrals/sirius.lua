@@ -30,9 +30,7 @@ local sirius = {
         end
     end,
     can_use = function(self, card)
-        if G.Astral_pins[card.ability.consumeable.hand] and #G.Astral_pins[card.ability.consumeable.hand] < G.GAME.all_in_jest.astral_pin_per_hand then
-            return true 
-        end
+        return true 
     end,
 	use = function(self, card, area, copier)
         All_in_Jest.use_astral_card(card)
