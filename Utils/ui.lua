@@ -517,14 +517,6 @@ G.FUNCS.jest_astral_replace = function(e)
     local area = e.config.data[1]
     local data = e.config.data[2]
     All_in_Jest.create_astral_pin(data.consumable_card, data.astral_index)
-    if G.Astral_pins then
-        All_in_Jest.astral_visuals(data.consumable_card.ability.consumeable.hand, 'only_remove', All_in_Jest.old_colours or nil, true)      
-        if G.aij_astral_pin_area then
-            for _, v in pairs(G.aij_astral_pin_area.cards) do
-                v:remove()
-            end
-        end
-    end
     G.SETTINGS.paused = false
     if G.OVERLAY_MENU ~= nil then
         G.OVERLAY_MENU:remove()

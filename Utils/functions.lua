@@ -1842,6 +1842,12 @@ end
 
 function All_in_Jest.use_astral_card(card)
     if G.Astral_pins[card.ability.consumeable.hand] and #G.Astral_pins[card.ability.consumeable.hand] >= G.GAME.all_in_jest.astral_pin_per_hand then
+        if G.Astral_pins and G.aij_astral_pin_area and #G.aij_astral_pin_area.cards > 0 then
+            All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'only_remove', All_in_Jest.old_colours or nil, true)      
+            for _, v in pairs(G.aij_astral_pin_area.cards) do
+                v:remove()
+            end
+        end
         if G.Astral_pins then
             All_in_Jest.old_colours = All_in_Jest.old_colours or {
                 special_colour = copy_table(G.C.BACKGROUND.C),
@@ -1854,7 +1860,7 @@ function All_in_Jest.use_astral_card(card)
             func = function() 
                 G.SETTINGS.paused = true
 				G.FUNCS.overlay_menu{
-                    config = {no_esc = true},
+                    config = {},
                     definition = SMODS.jest_no_back_card_collection_UIBox(
                         G.aij_astral_pin_area.cards, 
                         {6,6}, 
@@ -1893,6 +1899,14 @@ function All_in_Jest.use_astral_card(card)
                         }
                     ),
                 }
+                if G.Astral_pins then
+                    All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'only_remove', All_in_Jest.old_colours or nil, true)      
+                    if G.aij_astral_pin_area then
+                        for _, v in pairs(G.aij_astral_pin_area.cards) do
+                            v:remove()
+                        end
+                    end
+                end
                 return true 
             end 
         }))
@@ -1977,7 +1991,7 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
             end
         end
         if astrals == 0 then
-            All_in_Jest.astral_visuals(text, 'only_remove', All_in_Jest.old_colours or old_colours, true)  
+            All_in_Jest.astral_visuals(hand, 'only_remove', All_in_Jest.old_colours or old_colours, true)  
             All_in_Jest.old_colours = nil
             return
         end
