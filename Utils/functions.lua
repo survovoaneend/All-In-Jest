@@ -1906,7 +1906,7 @@ function All_in_Jest.astral_background(type, colours)
         ease_background_colour{special_colour = darken(colours.background[1], 0.5), new_colour = colours.background[2], tertiary_colour = colours.background[3], contrast = 1}
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.26,blocking = false, blockable = false,
             func = function()
-                G.aij_astral_stars = Particles(1, 1, 0,0, {
+                G.aij_astral_stars = G.aij_astral_stars or Particles(1, 1, 0,0, {
                     timer = 0.07,
                     scale = 0.1,
                     initialize = true,
@@ -1917,7 +1917,7 @@ function All_in_Jest.astral_background(type, colours)
                     colours = colours.stars,
                     fill = true
                 })
-                G.aij_astral_meteors = Particles(1, 1, 0,0, {
+                G.aij_astral_meteors = G.aij_astral_meteors or Particles(1, 1, 0,0, {
                     timer = 2,
                     scale = 0.05,
                     lifespan = 1.5,
