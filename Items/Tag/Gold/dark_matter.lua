@@ -6,7 +6,7 @@ local dark_matter_tag = {
     atlas = 'tag_atlas',
     config = {
         aij = {
-            upgrade = 'uncommon',
+            upgrade = 'negative',
         }
     },
 
