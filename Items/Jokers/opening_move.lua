@@ -28,11 +28,17 @@ local opening_move = {
     end,
 
     update = function(self, card, dt)
-        if G.GAME.current_round.hands_played <= 0 then
+        if next(SMODS.find_card("j_aij_opening_move")) and G.GAME.current_round.hands_played <= 0 then
             G.boss_throw_hand = true
             SMODS.debuff_text = "(" .. localize{type="name_text", set="Joker", key=card.config.center.key} .. ")"
         else
             SMODS.debuff_text = nil
+        end
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        if not next(SMODS.find_card("j_aij_opening_move")) then
+            G.boss_throw_hand = nil
         end
     end,
   
