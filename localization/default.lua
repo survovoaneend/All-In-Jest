@@ -12,6 +12,8 @@ return {
             k_tarot_q = "Tarot?",
             k_active = "Active",
             k_inactive = "Inactive",
+            k_aij_replace = "Replace",
+            k_aij_select = "Select",
             k_aij_astral = 'Astral',
             b_aij_astral_cards = 'Astral Cards',
             aij_requires_restart = "Requires Restart",

@@ -308,9 +308,16 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
         for j = 1, #rows do
             for i = 1, rows[j] do
             local index = i+row_totals[j] + (cards_per_page*(e.cycle_config.current_option - 1))
-            local center = pool[index]
-            if not center then break end
-            local card = args.from_area and copy_card(center) or Card(G.your_collection[j].T.x + G.your_collection[j].T.w/2, G.your_collection[j].T.y, G.CARD_W*args.card_scale, G.CARD_H*args.card_scale, G.P_CARDS.empty, (args.center and G.P_CENTERS[args.center]) or center)
+            local center = nil
+            local card = nil
+            if args.create_card then 
+                center, card = args.create_card(pool, index, i, j) 
+                if not center then break end
+            else
+                center = pool[index]
+                if not center then break end
+                card = args.from_area and copy_card(center, nil, args.card_scale) or Card(G.your_collection[j].T.x + G.your_collection[j].T.w/2, G.your_collection[j].T.y, G.CARD_W*args.card_scale, G.CARD_H*args.card_scale, G.P_CARDS.empty, (args.center and G.P_CENTERS[args.center]) or center, args.bypass_extra)
+            end
 
             -- Re-adds negative to preview if it was stripped by the mod
             if center.edition and center.edition.negative and not All_in_Jest.config.no_copy_neg then
@@ -505,12 +512,31 @@ G.FUNCS.jest_next_tag = function(e)
       end
     end
 end
+G.FUNCS.jest_astral_replace = function(e)
+    local card = e.config.ref_table
+    local area = e.config.data[1]
+    local data = e.config.data[2]
+    All_in_Jest.create_astral_pin(data.consumable_card, data.astral_index)
+    if G.Astral_pins then
+        All_in_Jest.astral_visuals(data.consumable_card.ability.consumeable.hand, 'only_remove', All_in_Jest.old_colours or nil, true)      
+        if G.aij_astral_pin_area then
+            for _, v in pairs(G.aij_astral_pin_area.cards) do
+                v:remove()
+            end
+        end
+    end
+    G.SETTINGS.paused = false
+    if G.OVERLAY_MENU ~= nil then
+        G.OVERLAY_MENU:remove()
+        G.OVERLAY_MENU = nil
+    end
+end
 function jest_create_select_card_ui(card, area, extra_data, select_func)
     select_func = select_func or "jest_select"
     extra_data = extra_data or {}
     extra_data.copies = extra_data.copies or 1 
-    local t2 =  {n=G.UIT.ROOT, config = {ref_table = card, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true, button = select_func, data = {area, extra_data}, hover = true}, nodes={
-        {n=G.UIT.T, config={text = "Select",colour = G.C.WHITE, scale = 0.5}}
+    local t2 =  {n=G.UIT.ROOT, config = {ref_table = card, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm', colour = extra_data.alt_colour or G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true, button = select_func, data = {area, extra_data}, hover = true}, nodes={
+        {n=G.UIT.T, config={text = extra_data.alt_text or localize('k_aij_select'),colour = G.C.WHITE, scale = 0.5}}
     }}
 
     card.children.select_button = UIBox{

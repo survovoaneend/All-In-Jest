@@ -1832,12 +1832,73 @@ function All_in_Jest.astral_hand_from_grade(grade, cur_hand)
     return _hand
 end
 
-function All_in_Jest.create_astral_pin(card)
-    local index = #G.Astral_pins[card.ability.consumeable.hand]+1
+function All_in_Jest.create_astral_pin(card, index)
+    local index = index or #G.Astral_pins[card.ability.consumeable.hand]+1
     G.Astral_pins[card.ability.consumeable.hand][index] = {}
     G.Astral_pins[card.ability.consumeable.hand][index]['pin'] = card.ability.consumeable.pin
     G.Astral_pins[card.ability.consumeable.hand][index].ability = {}
     G.Astral_pins[card.ability.consumeable.hand][index].ability.extra = card.ability.extra
+end
+
+function All_in_Jest.use_astral_card(card)
+    if G.Astral_pins[card.ability.consumeable.hand] and #G.Astral_pins[card.ability.consumeable.hand] >= G.GAME.all_in_jest.astral_pin_per_hand then
+        if G.Astral_pins then
+            All_in_Jest.old_colours = All_in_Jest.old_colours or {
+                special_colour = copy_table(G.C.BACKGROUND.C),
+                tertiary_colour = copy_table(G.C.BACKGROUND.D),
+                new_colour = copy_table(G.C.BACKGROUND.L),
+            }
+            All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'no_remove')       
+        end
+        G.E_MANAGER:add_event(Event({
+            func = function() 
+                G.SETTINGS.paused = true
+				G.FUNCS.overlay_menu{
+                    config = {no_esc = true},
+                    definition = SMODS.jest_no_back_card_collection_UIBox(
+                        G.aij_astral_pin_area.cards, 
+                        {6,6}, 
+                        {
+                            from_area = true,
+                            card_scale = 2,
+                            hide_single_page = true,
+                            collapse_single_page = true,
+                            modify_card = function(cardd, center) 
+                                if cardd and cardd.config.center then
+                                    cardd.bypass_discovery_center = true
+                                    cardd.bypass_discovery_ui = true
+                                    cardd:set_ability(cardd.config.center)
+                                    for k, v in pairs(center.ability) do
+                                        if type(v) == 'table' then 
+                                            cardd.ability[k] = copy_table(v)
+                                        else
+                                            cardd.ability[k] = v
+                                        end
+                                    end
+                                    local index = nil
+                                    for k, v in pairs(G.aij_astral_pin_area.cards) do
+                                        if v == center then
+                                            index = k
+                                        end
+                                    end
+                                    jest_create_select_card_ui(cardd, G.aij_astral_pin_area, {
+                                        alt_text = localize('k_aij_replace'),
+                                        alt_colour = HEX("87a5c9"),
+                                        consumable_card = card,
+                                        astral_index = index
+                                    }, 'jest_astral_replace')
+                                end
+                            end, 
+                            h_mod = 1.05,
+                        }
+                    ),
+                }
+                return true 
+            end 
+        }))
+    else
+        All_in_Jest.create_astral_pin(card)
+    end
 end
 
 function All_in_Jest.astral_background(type, colours)
