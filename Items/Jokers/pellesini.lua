@@ -23,25 +23,27 @@ local pellesini = {
   
     calculate = function(self, card, context)
         if context.joker_type_destroyed then
-            if ((#G.jokers.cards + G.GAME.joker_buffer) <= G.jokers.config.card_limit or (context.card.edition ~= nil and context.card.edition.negative)) then
-                G.GAME.joker_buffer = G.GAME.joker_buffer + 1
-                local other_card = context.card
-                local juiced_card = context.blueprint_card or card
-                G.E_MANAGER:add_event(Event({func = function()
-                    local temp_card = copy_card(other_card, nil, nil, nil, false)
-                    temp_card:add_to_deck()
-                    G.jokers:emplace(temp_card)
-                    temp_card:start_materialize()
-                    if juiced_card == other_card then
-                        temp_card:juice_up(0.6, 0.1)
-                    else
-                        juiced_card:juice_up(0.6, 0.1)
-                    end
-                    G.GAME.joker_buffer = 0
-                    return true
-                end }))
+            local other_card = context.card
+            if other_card.ability.set == "Joker" then
+                if ((#G.jokers.cards + G.GAME.joker_buffer) <= G.jokers.config.card_limit or (context.card.edition ~= nil and context.card.edition.negative)) then
+                    G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                    local juiced_card = context.blueprint_card or card
+                    G.E_MANAGER:add_event(Event({func = function()
+                        local temp_card = copy_card(other_card, nil, nil, nil, false)
+                        temp_card:add_to_deck()
+                        G.jokers:emplace(temp_card)
+                        temp_card:start_materialize()
+                        if juiced_card == other_card then
+                            temp_card:juice_up(0.6, 0.1)
+                        else
+                            juiced_card:juice_up(0.6, 0.1)
+                        end
+                        G.GAME.joker_buffer = 0
+                        return true
+                    end }))
+                end
+                return nil, true
             end
-            return nil, true
         end
     end
   
