@@ -9,7 +9,7 @@ local algorab = {
 	unlocked = true,
 	discovered = false,
     order = 8,
-	config = { hand = nil, grade = '', pin = 'Algorab', extra = {odds = 6}},
+	config = { hand = nil, grade = '', pin = 'Algorab', extra = {odds = 4}},
     loc_vars = function(self, info_queue, card)
         card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(card.ability.consumeable.grade, card.ability.consumeable.hand)
         if card.ability.consumeable.hand then
@@ -23,19 +23,13 @@ local algorab = {
 			},
 		}
     end,
-    add_to_deck = function(self, card, from_debuff)
-        if card.ability.consumeable.grade == '' then
-            local grade = All_in_Jest.astral_set_grade({["Retrograde"] = 0.3, ["Passigrade"] = 0.6, ["Prograde"] = 0.1})
-            card.ability.consumeable.grade = grade
-            card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(grade)
-        end
-    end,
-    can_use = function(self, card)
-        return true 
-    end,
-	use = function(self, card, area, copier)
-        All_in_Jest.use_astral_card(card)
-    end,
+    all_in_jest = {
+        grades = {
+            ["Retrograde"] = 0.3, 
+            ["Passigrade"] = 0.6, 
+            ["Prograde"] = 0.1,
+        }
+    },
 }
 local algorab_pin = {
 	object_loader = All_in_Jest,

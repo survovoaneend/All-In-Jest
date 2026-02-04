@@ -22,19 +22,13 @@ local procyon = {
 			},
 		}
     end,
-    add_to_deck = function(self, card, from_debuff)
-        if card.ability.consumeable.grade == '' then
-            local grade = All_in_Jest.astral_set_grade({["Retrograde"] = 0.5, ["Passigrade"] = 0.4, ["Prograde"] = 0.1})
-            card.ability.consumeable.grade = grade
-            card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(grade)
-        end
-    end,
-    can_use = function(self, card)
-        return true 
-    end,
-	use = function(self, card, area, copier)
-        All_in_Jest.use_astral_card(card)
-    end,
+    all_in_jest = {
+        grades = {
+            ["Retrograde"] = 0.5, 
+            ["Passigrade"] = 0.4, 
+            ["Prograde"] = 0.1,
+        }
+    },
 }
 local procyon_pin = {
 	object_loader = All_in_Jest,
