@@ -38,12 +38,6 @@ local gnasher = {
                 end
             end
             local copied_consumeable = copy_card(G.consumeables.cards[pseudorandom_element(viable_options, pseudoseed('gnasher_consumeable'))])
-            
-            -- G.FUNCS.use_card by default decrements booster pack choices, this will preemptively revert that
-            -- Classic modding Jank:tm:
-            if G.GAME.pack_choices then
-              G.GAME.pack_choices = G.GAME.pack_choices + 1
-            end
 
             -- Without this will crash with Wheel of Fortune, Ectoplasm and Hex
             copied_consumeable:update(0)
