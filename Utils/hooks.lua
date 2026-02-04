@@ -646,7 +646,30 @@ SMODS.ConsumableType({
     collection_rows = {5, 4},
     shop_rate = 0,
     default = 'c_aij_algol',
-    no_buy_and_use = true
+    no_buy_and_use = true,
+    inject_card = function(self, center)
+        if not center.add_to_deck then
+            center.add_to_deck = function(self, card, from_debuff)
+                if card.ability.consumeable.grade == '' then
+                    local center = card.config.center
+                    local grade = All_in_Jest.astral_set_grade(center.all_in_jest and center.all_in_jest.grades)
+                    card.ability.consumeable.grade = grade
+                    card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(grade)
+                end
+            end
+        end
+        if not center.can_use then
+            center.can_use = function(self, card)
+                return true 
+            end
+        end
+        if not center.use then
+            center.use = function(self, card, area, copier)
+                All_in_Jest.use_astral_card(card)
+            end
+        end
+        SMODS.ObjectType.inject_card(self, center)
+    end,
 })
 
 SMODS.UndiscoveredSprite({

@@ -4395,6 +4395,14 @@ return {
                     'to a random {C:attention}Joker'
                 }
             },
+            c_aij_regulus = {
+                name = 'Regulus',
+                text = {
+                    '{C:green}#2# in #3#{} chance to {C:attention}level up',
+                    '{C:attention}played{} hand when {C:attention}#1#{}',
+                    'is played',
+                }
+            },
             c_aij_alkaid = {
                 name = 'Alkaid',
                 text = {
