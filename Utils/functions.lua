@@ -1818,7 +1818,7 @@ All_in_Jest.show_shop_aij_tags = function(e)
     return next(SMODS.find_card("j_aij_ijoker_co")) or next(SMODS.find_card("j_aij_death_of_a_salesman"))
 end
 
-All_in_Jest.change_suit = function(suit, cards)
+All_in_Jest.change_card = function(suit, rank, cards)
     -- Using same code as suit tarots, stolen from old read em and weep
     for i = 1, #cards do
         local percent = 1.15 - (i - 0.999) / (#cards - 0.998) * 0.3
@@ -1842,7 +1842,7 @@ All_in_Jest.change_suit = function(suit, cards)
                 if cards[i].ability then -- This stuff is here bc its used in read em and weep and i dont think it matters much for other things that use it
                     cards[i].ability.played_this_ante = false
                 end
-                cards[i]:change_suit(suit)-- Changes suit sprite
+                SMODS.change_base(cards[i], suit, rank)
                 if cards[i].ability then
                     cards[i].ability.played_this_ante = true
                 end

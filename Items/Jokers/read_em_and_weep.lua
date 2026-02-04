@@ -42,7 +42,7 @@ local read_em_and_weep = {
                     return {
                         message = localize("k_aij_change_ex"),
                         func = function()
-                            All_in_Jest.change_suit(temp_suit, G.play.cards)
+                            All_in_Jest.change_card(temp_suit, nil, G.play.cards)
                             delay(0.2)
                             G.E_MANAGER:add_event(Event({
                                 func = function()
