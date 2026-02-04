@@ -36,7 +36,7 @@ local algorab = {
         end
     end,
 	use = function(self, card, area, copier)
-        All_in_Jest.create_astral_pin(card)
+        All_in_Jest.use_astral_card(card)
     end,
 }
 local algorab_pin = {
