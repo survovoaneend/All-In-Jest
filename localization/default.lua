@@ -2627,7 +2627,7 @@ return {
                 text = { 
                     "Retrigger all {C:attention}scored{} cards",
                     "if a {C:attention}playing card{} has been",
-                    "{C:red}destroyed{} this round",
+                    "{C:red}destroyed{} this blind",
                     "{C:inactive}#1#{}"
                 } 
             },
