@@ -4611,8 +4611,8 @@ return {
             tag_aij_nonstandard = {
                 name = 'Nonstandard Tag',
                 text = {
-                    'Create {C:attention}2 copies{} of',
-                    'any playing card',
+                    'Create a {C:attention}custom playing card{} and',
+                    'add 2 copies of it to the deck',
                 }
             },
             tag_aij_ignoramus = {
