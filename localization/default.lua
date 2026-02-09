@@ -60,7 +60,8 @@ return {
             k_aij_chaos_ex = 'Chaos!', -- Chaotic modifier
             k_aij_two_into_one_ex = 'Two into one!', -- Mycologists
             k_aij_plus_two_moons = "+2 Moons", -- Sky Trees
-            k_aij_does_not_score_ex = "Does not Score!" -- Opening Move
+            k_aij_does_not_score_ex = "Does not Score!", -- Opening Move
+            k_aij_create = "Create" -- Nonstandard tag
 
         },
         v_dictionary = {
@@ -3176,7 +3177,7 @@ return {
                     "Adds {C:mult}Mult{} equal to the",
                     "{C:attention}sum{} of all digits in the",
                     "{C:attention}ability descriptions{} of",
-                    "owned {C:attention}Jokers" ,
+                    "all other owned {C:attention}Jokers{}",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 } 
             },
@@ -3595,7 +3596,7 @@ return {
                 name = "Elder", 
                 text = {
                     'Copies the effect of',
-                    'the {C:attention}Joker{} you have',
+                    'the other {C:attention}Joker{} you have',
                     "owned the {C:attention}longest{}",
                     "{C:inactive}(Currently #1#)"
                 } 
@@ -3674,7 +3675,7 @@ return {
                     "When any Joker is",
                     "{C:red}destroyed{}, create an",
                     "{C:attention}exact{} copy",
-					"{C:inactive}(Including itself)"
+					          "{C:inactive}(Including itself)"
                 },
                 unlock = { 
                     "?????" 
