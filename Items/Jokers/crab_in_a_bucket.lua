@@ -18,7 +18,10 @@ local crab_in_a_bucket = {
     eternal_compat = false,
 
     loc_vars = function(self, info_queue, card)
-        local diff = math.max(0, #G.playing_cards - G.GAME.starting_deck_size)
+        local diff = 0
+        if G.playing_cards then 
+            diff = math.max(0, #G.playing_cards - G.GAME.starting_deck_size)
+        end
         return {
             vars = {
                 card.ability.extra.chips,

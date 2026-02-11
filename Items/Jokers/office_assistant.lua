@@ -92,6 +92,7 @@ local office_assistant = {
     end,
 
     in_pool = function(self, args)
+        if G.jokers.cards then
         for k, v in pairs(G.jokers.cards) do
             if v and v.ability then
                 if v.ability.perishable or v.ability.rental then
@@ -99,6 +100,7 @@ local office_assistant = {
                 end
             end
         end
+    end
         return false
     end,
   

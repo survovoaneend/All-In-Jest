@@ -2,7 +2,7 @@ local propaganda = {
     object_type = "Joker",
     order = 408,
     key = "propaganda",
-    
+
     config = {
         extra = {
             mult = 5
@@ -19,18 +19,21 @@ local propaganda = {
 
     loc_vars = function(self, info_queue, card)
         local suit_counts = { Spades = 0, Hearts = 0, Clubs = 0, Diamonds = 0 }
+        local target_suit = ""
+        if G.playing_cards then
             for _, v in ipairs(G.playing_cards) do
                 if v.base.suit then suit_counts[v.base.suit] = suit_counts[v.base.suit] + 1 end
             end
-            
+
             local max_count = 0
-            local target_suit = ""
+
             for suit, count in pairs(suit_counts) do
                 if count > max_count then
                     max_count = count
                     target_suit = suit
                 end
             end
+        end
         return {
             vars = {
                 target_suit or 'None',
@@ -45,7 +48,7 @@ local propaganda = {
             for _, v in ipairs(G.playing_cards) do
                 if v.base.suit then suit_counts[v.base.suit] = suit_counts[v.base.suit] + 1 end
             end
-            
+
             local max_count = 0
             local target_suit = ""
             for suit, count in pairs(suit_counts) do

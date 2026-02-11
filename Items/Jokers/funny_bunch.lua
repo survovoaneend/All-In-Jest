@@ -19,12 +19,13 @@ local funny_bunch = {
 
     loc_vars = function(self, info_queue, card)
         local commons = 0
-        for _, v in ipairs(G.jokers.cards) do
-            if v.config.center.rarity == 1 then
-                commons = commons + 1
+        if G.jokers and G.jokers.cards then
+            for _, v in ipairs(G.jokers.cards) do
+                if v.config.center.rarity == 1 then
+                    commons = commons + 1
+                end
             end
         end
-
         return {
             vars = {
                 card.ability.extra.xmult_mod,

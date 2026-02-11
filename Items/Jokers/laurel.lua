@@ -21,14 +21,16 @@ local laurel = {
 
     loc_vars = function(self, info_queue, card)
         local count = 0
-        for _, v in ipairs(G.playing_cards) do
-            if next(SMODS.get_enhancements(v)) then count = count + 1 end
+        if G.playing_cards then
+            for _, v in ipairs(G.playing_cards) do
+                if next(SMODS.get_enhancements(v)) then count = count + 1 end
+            end
         end
-        return { 
-            vars = { 
-                card.ability.extra.xmult_mod, 
-                1 + (count * card.ability.extra.xmult_mod) 
-            } 
+        return {
+            vars = {
+                card.ability.extra.xmult_mod,
+                1 + (count * card.ability.extra.xmult_mod)
+            }
         }
     end,
 
