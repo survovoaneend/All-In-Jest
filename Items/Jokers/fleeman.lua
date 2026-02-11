@@ -1,7 +1,7 @@
 local fleeman = {
     object_type = "Joker",
     order = 1018,
-
+    ignore = true,
     key = "fleeman",
     config = {
       

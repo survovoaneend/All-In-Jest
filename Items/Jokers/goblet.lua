@@ -5,7 +5,7 @@ local goblet = {
     
     config = {
         extra = {
-            
+            slots = 2
         }
     },
     rarity = 1,
@@ -15,12 +15,19 @@ local goblet = {
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
+
+    add_to_deck = function(self, card, from_debuff)
+        G.consumeables.config.card_limit = G.consumeables.config.card_limit + card.ability.extra.slots
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra.slots
+    end,
 
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                
+                card.ability.extra.slots
             }
         }
     end,

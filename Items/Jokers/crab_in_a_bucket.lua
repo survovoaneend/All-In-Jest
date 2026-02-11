@@ -5,7 +5,7 @@ local crab_in_a_bucket = {
     
     config = {
         extra = {
-            
+            chips  = 8
         }
     },
     rarity = 1,
@@ -18,15 +18,25 @@ local crab_in_a_bucket = {
     eternal_compat = false,
 
     loc_vars = function(self, info_queue, card)
+        local diff = math.max(0, #G.playing_cards - G.GAME.starting_deck_size)
         return {
             vars = {
-                
+                card.ability.extra.chips,
+                G.GAME.starting_deck_size or 52,
+                diff * card.ability.extra.chips
             }
         }
     end,
 
     calculate = function(self, card, context)
-        
+        if context.joker_main then
+            local diff = math.max(0, #G.playing_cards - G.GAME.starting_deck_size)
+            if diff > 0 then
+                return {
+                    chips = diff * card.ability.extra.chips
+                }
+            end
+        end
     end
 }
 

@@ -8,10 +8,10 @@ local quadrangled_joker = {
             
         }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 24, y = 26 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 8,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
@@ -20,13 +20,19 @@ local quadrangled_joker = {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                
+                G.GAME.hands['Four of a Kind'].chips, 
+                G.GAME.hands['Four of a Kind'].mult
             }
         }
     end,
 
     calculate = function(self, card, context)
-        
+        if context.joker_main and #context.full_hand == 4 then
+            return {
+                chips = G.GAME.hands['Four of a Kind'].chips,
+                mult = G.GAME.hands['Four of a Kind'].mult
+            }
+        end
     end
 }
 

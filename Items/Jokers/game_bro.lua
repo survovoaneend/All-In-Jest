@@ -20,13 +20,17 @@ local game_bro = {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                
+                G.GAME.round * 2
             }
         }
     end,
 
     calculate = function(self, card, context)
-        
+        if context.joker_main then
+            return {
+                mult = G.GAME.round * 2
+            }
+        end
     end
 }
 

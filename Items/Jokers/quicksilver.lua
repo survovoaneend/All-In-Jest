@@ -26,7 +26,11 @@ local quicksilver = {
     end,
 
     calculate = function(self, card, context)
-        
+        if context.repetition and context.cardarea == G.play and context.scoring_name == "Pair" then
+            return {
+                repetitions = 1
+            }
+        end
     end
 }
 

@@ -1,7 +1,7 @@
 local deburau = {
     object_type = "Joker",
     order = 1014,
-
+    ignore = true,
     key = "deburau",
     config = {
       

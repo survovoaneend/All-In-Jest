@@ -3,7 +3,9 @@ local bogdonoff = {
     order = 1071,
     key = "bogdonoff",
     config = {
-       
+        extra = {
+            debt_limit = 50
+        }
     },
     rarity = 4,
     pos = { x = 8, y = 12 },
@@ -16,11 +18,27 @@ local bogdonoff = {
     soul_pos = { x = 8, y = 13 },
 
     loc_vars = function(self, info_queue, card)
-        
+        return {
+            vars = {
+                card.ability.extra.debt_limit
+            }
+        }
     end,
 
-    calculate = function(self, card, context)
-        
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.bankrupt_at = G.GAME.bankrupt_at - card.ability.extra.debt_limit
     end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.bankrupt_at = G.GAME.bankrupt_at + card.ability.extra.debt_limit
+    end,
+    calculate = function(self, card, context)
+        if context.ending_shop then
+            ease_dollars(-G.GAME.dollars)
+            return {
+                message = localize('k_reset'),
+                colour = G.C.MONEY
+            }
+        end
+    end
 }
 return { name = { "Jokers" }, items = { bogdonoff } }

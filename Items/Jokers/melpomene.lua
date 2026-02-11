@@ -21,7 +21,13 @@ local melpomene = {
     end,
 
     calculate = function(self, card, context)
-        
+        if context.individual and context.cardarea == G.play and context.other_card:is_face() then
+            local hand_stats = G.GAME.hands[context.scoring_name]
+            return {
+                chips = to_number(hand_stats.chips),
+                mult = to_number(hand_stats.mult)
+            }
+        end
     end,
 }
 return { name = { "Jokers" }, items = { melpomene } }

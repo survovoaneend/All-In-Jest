@@ -5,7 +5,8 @@ local beelzebub = {
     
     config = {
         extra = {
-            
+            mult = 0,
+            gain = 3
         }
     },
     rarity = 1,
@@ -20,13 +21,25 @@ local beelzebub = {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                
+               card.ability.extra.gain,
+               card.ability.extra.mult
             }
         }
     end,
 
     calculate = function(self, card, context)
-        
+        if context.playing_card_added and not context.blueprint then
+             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
+             return {
+                 message = localize('k_upgrade_ex'),
+                 colour = G.C.MULT
+             }
+        end
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
     end
 }
 
