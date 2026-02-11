@@ -3,6 +3,65 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
+
+
+# Bullet King (1/3)
+# Scored cards act as in hand
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'after'
+pattern = '''
+card.lucky_trigger = nil
+'''
+payload = '''
+local bullet_kings = SMODS.find_card('j_aij_bullet_king')
+if next(bullet_kings) and context.cardarea == G.play and card:get_id() == 13 then
+    context.cardarea = G.hand
+    card.bullet_king = bullet_kings[1]
+    SMODS.score_card(card, context)
+    context.cardarea = G.play
+end
+'''
+# Bullet King (2/3) 
+# Scored cards trigger end of round in hand effects
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+hand_chips = mod_chips(nu_chip or hand_chips)
+'''
+payload = '''
+local bullet_kings = SMODS.find_card('j_aij_bullet_king')
+if next(bullet_kings) then
+    All_in_Jest.bullet_king_end_of_round({cardarea = G.hand, end_of_round = true, beat_boss = G.GAME.blind.boss }, G.play.cards, bullet_kings[1])
+end
+'''
+# Bullet King (3/3)
+# Raised Fist compat
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+if raised_card == context.other_card then 
+'''
+payload = '''
+if next(SMODS.find_card('j_aij_bullet_king')) then
+    for i=1, #G.play.cards do
+        if temp_ID >= G.play.cards[i].base.id and not SMODS.has_no_rank(G.play.cards[i]) and card.bullet_king then 
+            temp_Mult = G.play.cards[i].base.nominal
+            temp_ID = G.play.cards[i].base.id
+            raised_card = G.play.cards[i]
+        end
+    end
+end
+'''
+
 # Overstuffed Tag (1/4)
 # Card:open()
 # Add triggers for overstuffed tags
@@ -17,6 +76,7 @@ for i = #G.GAME.tags, 1, -1 do
     if G.GAME.tags[i]:apply_to_run({type = 'open_booster', booster = self}) then break end
 end
 '''
+
 # Overstuffed Tag (2/4)
 # Card:open()
 [[patches]]
@@ -245,6 +305,42 @@ end
 '''
 match_indent = true
 
+# The Treachery Of Jokers going into Consumable slot instead
+# Also make advanced copier jokers (joker.png, what's left, etc.) go into consumable slot if they're copying ToJ
+# CardArea:emplace()
+[[patches]] 
+[patches.pattern]
+target = "cardarea.lua"
+pattern = '''
+if location == 'front' or self.config.type == 'deck' then 
+'''
+position = "before"
+payload = '''
+if self == G.jokers then
+    if card.config.center.key == 'j_aij_the_treachery_of_jokers' then
+        self = G.consumeables
+    end
+    if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_key == 'j_aij_the_treachery_of_jokers' then
+        self = G.consumeables
+    end
+    if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_abilities then
+        local move = false
+        local copier_ability = card.ability[card.config.center.key]
+        for index = #copier_ability.copied_joker_abilities, math.max(1, #copier_ability.copied_joker_abilities - copier_ability.copy_limit + 1), -1 do
+            local copied_ability = copier_ability.copied_joker_abilities[index]
+            if copied_ability.key == "j_aij_the_treachery_of_jokers" then
+                move = true
+                break
+            end
+        end
+        if move then
+            self = G.consumeables
+        end
+    end
+end
+'''
+match_indent = true
+
 # Add context for when cards are drawn to hand
 # Usually for effects that happen at the start of the round and after a hand is played but did not win
 # G.FUNCS.play_cards_from_highlighted()
@@ -449,7 +545,7 @@ SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = fake_scoring_h
 '''
 match_indent = true
 
-# Royal Flush (1/5)
+# Royal Flush (1/5) + Corndog (1/1)
 # Add stats to the royal flush when its played
 # G.FUNCS.evaluate_play()
 [[patches]] 
@@ -460,6 +556,14 @@ G.GAME.hands[text].played = G.GAME.hands[text].played + 1
 '''
 position = "before"
 payload = '''
+if next(SMODS.find_card("j_aij_corndog")) then 
+    text = 'Straight Flush'
+    non_loc_disp_text = text
+    disp_text = localize(text, 'poker_hands')
+    if poker_hands and scoring_hand and not next(poker_hands["Straight Flush"]) then
+        table.insert(poker_hands["Straight Flush"], scoring_hand)
+    end
+end
 local calculated_text = nil
 if text == 'aij_Royal Flush' then
     calculated_text = 'aij_Royal Flush'
@@ -1230,6 +1334,18 @@ match_indent = true
 # '''
 # match_indent = true
 
+
+# Context for before the Shop is Rerolled
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "calculate_reroll_cost(final_free)"
+position = "before"
+payload = '''
+SMODS.calculate_context({all_in_jest = {before_reroll_shop = true, cost = reroll_cost}})
+'''
+match_indent = true
+
 # Scapino (1/3) (Booster pack rerolling)
 # Removes all booster packs on reroll
 # G.FUNCS.reroll_shop()
@@ -1418,6 +1534,104 @@ if _type == 'Joker' then
 end
 -- End of All in Jest patch
 '''
+
+# Dark Magician Combines pools
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''local _pool, _starting_pool, _pool_key, _pool_size = G.ARGS.TEMP_POOL, nil, '', 0'''
+position = "after"
+match_indent = true
+payload = '''
+if _append == 'dark_magician_get_other_pools' and next(SMODS.find_card("j_aij_dark_magician")) then
+    _pool = {}
+end
+if _append ~= 'dark_magician_get_other_pools' and next(SMODS.find_card("j_aij_dark_magician")) then
+    if _type == 'Tarot'  then
+        local add_pool, discard_key = get_current_pool('Spectral', _rarity, _legendary, 'dark_magician_get_other_pools')
+        local add_pool2, discard_key2 = get_current_pool('Planet', _rarity, _legendary, 'dark_magician_get_other_pools')
+        if add_pool ~= _pool then
+            for i = 1, #add_pool do
+                _pool[#_pool + 1] = add_pool[i]
+            end
+        end
+        if add_pool2 ~= _pool then
+            for i = 1, #add_pool2 do
+                _pool[#_pool + 1] = add_pool2[i]
+            end
+        end
+    elseif _type == 'Planet' then
+        local add_pool, discard_key = get_current_pool('Spectral', _rarity, _legendary, 'dark_magician_get_other_pools')
+        local add_pool2, discard_key2 = get_current_pool('Tarot', _rarity, _legendary, 'dark_magician_get_other_pools')
+        if add_pool ~= _pool then
+            for i = 1, #add_pool do
+                _pool[#_pool + 1] = add_pool[i]
+            end
+        end
+        if add_pool2 ~= _pool then
+            for i = 1, #add_pool2 do
+                _pool[#_pool + 1] = add_pool2[i]
+            end
+        end
+    elseif _type == 'Tarot_Planet' then
+        local add_pool, discard_key = get_current_pool('Spectral', _rarity, _legendary, 'dark_magician_get_other_pools')
+        if add_pool ~= _pool then
+            for i = 1, #add_pool do
+                _pool[#_pool + 1] = add_pool[i]
+            end
+        end
+    elseif _type == 'Spectral' then
+        local add_pool, discard_key = get_current_pool('Tarot', _rarity, _legendary, 'dark_magician_get_other_pools')
+        local add_pool2, discard_key2 = get_current_pool('Planet', _rarity, _legendary, 'dark_magician_get_other_pools')
+        if add_pool ~= _pool then
+            for i = 1, #add_pool do
+                _pool[#_pool + 1] = add_pool[i]
+            end
+        end
+        if add_pool2 ~= _pool then
+            for i = 1, #add_pool2 do
+                _pool[#_pool + 1] = add_pool2[i]
+            end
+        end
+    end
+end
+'''
+
+# Dark Magician the fool compact
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "if card.config.center.set == 'Tarot' or card.config.center.set == 'Planet' then"
+position = "before"
+match_indent = true
+payload = '''
+if card.config.center.set == 'Spectral' and next(SMODS.find_card("j_aij_dark_magician")) then 
+    G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+            G.GAME.last_tarot_planet = card.config.center_key
+                return true
+            end
+        }))
+            return true
+        end
+    }))
+end
+'''
+
+# # Corndog code
+# [[patches]]
+# [patches.pattern]
+# target = "functions/misc_functions.lua"
+# pattern = 'if results["Three of a Kind"][1] then'
+# position = "before"
+# match_indent = true
+# payload = '''
+
+# '''
 
 # Have tags in the round eval screen use the correct atlas
 # (How does SMODs not change this???)
@@ -2181,6 +2395,71 @@ payload = '''
 SMODS.calculate_context({all_in_jest = {before_using_consumeable = true, consumeable = self, area = area }})
 '''
 
+# TODO: fix this
+# This patch is weird, applies to too many places and creates dead code
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+if _type == 'Joker' then 
+'''
+position = "before"
+match_indent = true
+payload = '''
+if G.GAME.jest_legendary_pool ~= nil and _type == 'Joker' then
+    if G.GAME.jest_legendary_pool.in_shop then
+        local legend_mod = 1 - G.GAME.jest_legendary_pool.rate
+        legend_mod = (legend_mod * G.GAME.legendary_mod) - legend_mod
+        legend_mod = G.GAME.jest_legendary_pool.rate - legend_mod
+        local rary = _rarity or pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) 
+        if type(rary) == "number" and (_rarity == nil or _rarity == 4 or _rarity == "Legendary") then
+            rary = (rary > legend_mod and 4) or 1 
+            if rary ~= 1 then
+                _legendary = true
+            end
+        end
+    end
+end
+'''
+
+# Make legendary jokers in the shop show their description
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+if self.config.center.unlocked == false and not self.bypass_lock then --For everyting that is locked
+'''
+position = "at"
+match_indent = true
+payload = '''
+if self.config.center.unlocked == false and not self.bypass_lock and not self.bypass_discovery_ui then --For everyting that is locked
+'''
+
+# Warhol (1/2)
+# Gold Seal
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = """elseif self.seal == 'Gold' and not self.ability.extra_enhancement then"""
+position = "before"
+match_indent = true
+payload = '''
+elseif next(SMODS.find_card("j_aij_warhol")) and self.seal and not self.ability.extra_enhancement then
+    ret = ret +  3
+'''
+
+# Warhol (2/2)
+# Red Seal
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = """if self.seal == 'Red' then"""
+position = "at"
+match_indent = true
+payload = '''
+if self.seal == 'Red' or (next(SMODS.find_card("j_aij_warhol")) and self.seal) then
+'''
+
 # The Grim Joker (Purple Seals) (1/3)
 # Adds chance for negative tarots to be created by purple seals
 # and forces card creation even if it "exceeds" the card limit
@@ -2195,14 +2474,14 @@ line_prepend = '$indent'
 payload = '''
 -- All in Jest patch
 local aij_purple_seal_is_negative = false
-if self.seal == 'Purple' then
+if self.seal == 'Purple' or (next(SMODS.find_card("j_aij_warhol")) and self.seal) then
     local ret = SMODS.calculate_context({
         aij_grim_joker_bluepurple_seal = true
     })
     aij_purple_seal_is_negative = ret.aij_grim_joker_bluepurple_seal_negative_mod
 end
 -- End All in Jest patch
-if self.seal == 'Purple' and (aij_purple_seal_is_negative or (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit)) $post
+if (self.seal == 'Purple' or (next(SMODS.find_card("j_aij_warhol")) and self.seal)) and (aij_purple_seal_is_negative or (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit)) $post
 '''
 # The Grim Joker (Purple Seals) (2/3)
 # Undo buffer change so that non-negative consumables aren't prevented from spawning
@@ -2249,14 +2528,14 @@ line_prepend = '$indent'
 payload = '''
 -- All in Jest patch
 local aij_blue_seal_is_negative = false
-if self.seal == 'Blue' then
+if self.seal == 'Blue' or (next(SMODS.find_card("j_aij_warhol")) and self.seal) then
     local ret = SMODS.calculate_context({
         aij_grim_joker_bluepurple_seal = true
     })
     aij_blue_seal_is_negative = ret.aij_grim_joker_bluepurple_seal_negative_mod
 end
 -- End All in Jest patch
-if self.seal == 'Blue' and (aij_blue_seal_is_negative or (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit)) $post
+if (self.seal == 'Blue' or (next(SMODS.find_card("j_aij_warhol")) and self.seal)) and (aij_blue_seal_is_negative or (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit)) $post
 '''
 # The Grim Joker (Blue Seals) (2/3) & Sky Trees (1/3)
 # Undo buffer change so that non-negative consumables aren't prevented from spawning
@@ -3167,7 +3446,7 @@ position = "after"
 line_prepend = "$indent"
 payload = '''
 
-next(SMODS.find_card('j_aij_touchstone')) and AllInJest.touchstone_deck_preview() or nil,
+(next(SMODS.find_card('j_aij_touchstone')) or next(SMODS.find_card('j_aij_peeping_tom'))) and AllInJest.touchstone_deck_preview() or nil,
 '''
 
 # When saving a run, save all data in G.all_in_jest as direct children of G
@@ -3193,7 +3472,6 @@ if G.all_in_jest then
 end
 '''
 
-# Add CardAreas used to store the jokers that Clay Joker and Visage will copy
 # Also adds Sprites needed for patches and a new sticker/indicator for perma debuff
 # Also handles moving all data in G_all_in_jest as children of G.all_in_jest when loading a run
 # Keeping in one patch to ensure the G_all_in_jest stuff always happens last
@@ -3227,22 +3505,7 @@ G.all_in_jest.patches_sprites["bunc_Halberds"] = SMODS.create_sprite(0,0,G.CARD_
 G.all_in_jest.patches_sprites["hc_bunc_Halberds"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=8,y=3})
 G.all_in_jest.patches_sprites["bunc_Fleurons"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=7,y=3})
 G.all_in_jest.patches_sprites["hc_bunc_Fleurons"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=9,y=3})
-self.all_in_jest_czar = CardArea(
-        -10, -10,
-        CAI.discard_W,CAI.discard_H,
-        {card_limit = 99999999, type = 'joker'})
-self.all_in_jest_joker_png = CardArea(
-        -10, -10,
-        CAI.discard_W,CAI.discard_H,
-        {card_limit = 99999999, type = 'joker'})
-self.all_in_jest_clay_last_destroyed = CardArea(
-        -10, -10,
-        CAI.discard_W,CAI.discard_H,
-        {card_limit = 1, type = 'joker'})
-self.all_in_jest_visage_last_sold = CardArea(
-        -10, -10,
-        CAI.discard_W,CAI.discard_H,
-        {card_limit = 1, type = 'joker'})
+
 for k, v in pairs(G) do
     if string.sub(k, 13) == 'G_all_in_jest' then
         local key = string.gsub(k, 'G_all_in_jest', '')
@@ -3252,7 +3515,7 @@ for k, v in pairs(G) do
 end
 '''
 
-# Advanced Copiers (1/4)
+# Advanced Copiers (1/5)
 # Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
 # This is for vanilla jokers. Needs separate patches for vanilla and modded jokers.
 # generate_card_ui()
@@ -3264,8 +3527,27 @@ position = "after"
 match_indent = true
 payload = '''
 specific_vars = _c.specific_vars or specific_vars
+if specific_vars ~= nil and specific_vars.aij_multi_copier_card then
+    local copier_card = specific_vars.aij_multi_copier_card
+    local new_ability = specific_vars.aij_multi_copier_card_ability
+
+    ret = {Card.generate_UIBox_ability_table({ area = copier_card.area, ability = new_ability, config = { center = G.P_CENTERS[new_ability.key] }, bypass_lock = true}, true)}
+
+    new_ability[copier_card.config.center.key .. "_compat_ui"] = new_ability[copier_card.config.center.key .. "_compat_ui"] or ''
+    new_ability[copier_card.config.center.key .. "_compat_check"] = nil
+    local compatible = G.P_CENTERS[new_ability.key][copier_card.config.center.key .. "_compat"]
+    compatible = compatible ~= false
+    local copier_compat = (copier_card.area and copier_card.area == G.jokers) and {
+        {n=G.UIT.C, config={align = "tm", minh = 0.4}, nodes={
+            {n=G.UIT.C, config={align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06}, nodes={
+                {n=G.UIT.T, config={text = ' ' .. (compatible and localize('k_compatible') or localize('k_incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            }}
+        }}
+    } or nil
+    desc_nodes[#desc_nodes + 1] = copier_compat
+end
 '''
-# Advanced Copiers (2/4)
+# Advanced Copiers (2/5)
 # Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
 # This is for modded jokers. Needs separate patches for vanilla and modded jokers.
 # SMODS.Center:generate_ui()
@@ -3286,15 +3568,49 @@ local target = {
 position = "after"
 match_indent = true
 payload = '''
---[[
-if target.vars.aij_visage then card = G.all_in_jest_visage_last_sold.cards[1]; target.vars.aij_visage = nil end -- All in Jest
-if target.vars.aij_clay then card = G.all_in_jest_clay_last_destroyed.cards[1]; target.vars.aij_clay = nil end -- All in Jest
-if target.vars.aij_joker_png then card = target.vars.aij_joker_png; target.vars.aij_joker_png = nil end -- All in Jest
-if target.vars.aij_czar then card = target.vars.aij_czar; target.vars.aij_czar = nil end -- All in Jest
-]]--
-if target.vars.aij_elder then card = target.vars.aij_elder; target.vars.aij_elder = nil end -- All in Jest
+-- All in Jest
+if target.vars.aij_multi_copier_card then
+    card = target.vars.aij_multi_copier_card
+    local index = target.vars.aij_multi_copier_card_index
+    local new_ability = target.vars.aij_multi_copier_card_ability
+    
+    if card.added_to_deck then
+        All_in_Jest.hotswap_copied_ability(card, index)
+    else
+        All_in_Jest.set_copied_ability(card, G.P_CENTERS[target.key], nil, new_ability)
+    end
+
+    new_ability[card.config.center.key .. "_compat_ui"] = new_ability[card.config.center.key .. "_compat_ui"] or ''
+    new_ability[card.config.center.key .. "_compat_check"] = nil
+    local compatible = G.P_CENTERS[new_ability.key][card.config.center.key .. "_compat"]
+    compatible = compatible ~= false
+    local main_end = (card.area and card.area == G.jokers) and {
+        {n=G.UIT.C, config={align = "tm", minh = 0.4}, nodes={
+            {n=G.UIT.C, config={align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06}, nodes={
+                {n=G.UIT.T, config={text = ' ' .. (compatible and localize('k_compatible') or localize('k_incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            }}
+        }}
+    } or nil
+    desc_nodes[#desc_nodes + 1] = main_end
+
+    target.vars.aij_multi_copier_card = nil
+    target.vars.aij_multi_copier_card_index = nil
+    target.vars.aij_multi_copier_card_ability = nil
+
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            All_in_Jest.set_copied_ability(card, {config = {}})
+            return true
+        end
+    }))
+end
+if target.vars.aij_copier_card then
+    card = target.vars.aij_copier_card
+    target.vars.aij_copier_card = nil
+end
+-- End of All in Jest patch
 '''
-# Advanced Copiers (3/4)
+# Advanced Copiers (3/5)
 # Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (1/2)
 # generate_card_ui()
 [[patches]]
@@ -3304,9 +3620,9 @@ pattern = '''_c:generate_ui(info_queue, card, desc_nodes, specific_vars, full_UI
 position = "before"
 match_indent = true
 payload = '''
-local target_card = _c.specific_vars and _c.specific_vars.aij_elder
+local card = _c.specific_vars and (_c.specific_vars.aij_elder or _c.specific_vars.aij_multi_copier_card or _c.specific_vars.aij_copier_card) or card
 '''
-# Advanced Copiers (4/4)
+# Advanced Copiers (4/5)
 # Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (2/2)
 # generate_card_ui()
 [[patches]]
@@ -3316,8 +3632,18 @@ pattern = '''localize{type = 'name', key = key, set = set, nodes = desc_nodes.na
 position = "at"
 match_indent = true
 payload = '''
-localize{type = 'name', key = key, set = set, nodes = desc_nodes.name_styled, fixed_scale = 0.63, no_pop_in = true, no_shadow = true, y_offset = 0, no_spacing = true, no_bump = true, vars = (_c.create_fake_card and _c.loc_vars and (_c:loc_vars({}, target_card or _c:create_fake_card()) or {}).vars) or {colours = {}}}  -- All in Jest overrides
+localize{type = 'name', key = key, set = set, nodes = desc_nodes.name_styled, fixed_scale = 0.63, no_pop_in = true, no_shadow = true, y_offset = 0, no_spacing = true, no_bump = true, vars = (_c.create_fake_card and _c.loc_vars and (_c:loc_vars({}, card or _c:create_fake_card()) or {}).vars) or {colours = {}}}  -- All in Jest overrides
 '''
+# Advanced Copiers (5/5)
+# Fixes a nice SMODs issue where Oops! All sixes is refered to by its key rather than ability name (like other vanilla jokers)
+# Card:calculate_joker
+[[patches]] 
+[patches.regex]
+target = "card.lua"
+pattern = '''(?<indent>[\t ]*)elseif (?<precond>.*?) self.config.center_key == 'j_oops' (?<postcond>.*?)'''
+line_prepend = "$indent"
+position = "at"
+payload = '''elseif $precond self.ability.name == 'Oops! All 6s' $postcond'''
 
 # Patch to make all instances of "destroy" red
 # Just hooks into a function in functions.lua
@@ -3578,6 +3904,7 @@ if self.ability.is_aij_shop_tag then
     return generate_card_ui(G.P_TAGS[self.config.center.key], nil, alt_loc_vars or loc_vars, (self.hide_ability) and 'Undiscovered' or 'Tag', badges, (self.hide_ability), nil, nil, self) 
 end
 '''
+
 # Shop Tags (9/10)
 # Tag:get_uibox_table
 # Make skip tag show correctly in the shop (by default it adds one to the tag, now it won't do so if in shop/pack)
@@ -3620,9 +3947,74 @@ match_indent = true
     # End of patches related to tags in shops #
 #-------------------------------------------------#
 
-
-
-
+# Joker Perma stuff
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if vars_only then return loc_vars, main_start, main_end end"
+position = "before"
+match_indent = true
+payload = '''
+-- Joker Perma stuff
+if self.ability.set == 'Joker' then
+    loc_vars = loc_vars or {}
+    if self.ability.perma_bonus then
+        loc_vars.bonus_chips = self.ability.perma_bonus ~= 0 and self.ability.perma_bonus or nil
+    end
+    if self.ability.perma_mult then
+        loc_vars.bonus_mult = self.ability.perma_mult ~= 0 and self.ability.perma_mult or nil
+    end
+    if self.ability.perma_x_mult then
+        loc_vars.bonus_x_mult = self.ability.perma_x_mult ~= 0 and (self.ability.perma_x_mult + 1) or nil
+    end
+    if self.ability.perma_p_dollars then
+        loc_vars.bonus_p_dollars = self.ability.perma_p_dollars ~= 0 and self.ability.perma_p_dollars or nil
+    end
+    if self.ability.perma_x_chips then
+        loc_vars.bonus_x_chips = self.ability.perma_x_chips ~= 0 and (self.ability.perma_x_chips + 1) or nil
+    end
+end
+'''
+# Perma Joker stuff Locaization
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if specific_vars and specific_vars.sticker then info_queue[#info_queue+1] = {key = string.lower(specific_vars.sticker)..'_sticker', set = 'Other'} end"
+position = "after"
+match_indent = true
+payload = '''
+if _c.generate_ui and type(_c.generate_ui) == 'function' then
+    if specific_vars and specific_vars.bonus_chips then
+        localize{type = 'other', key = 'card_extra_chips', nodes = desc_nodes, vars = {SMODS.signed(specific_vars.bonus_chips)}}
+    end
+    SMODS.localize_perma_bonuses(specific_vars, desc_nodes)
+end
+'''
+# After Vanilla Jokers
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes, vars = specific_vars or {}}"
+position = "after"
+match_indent = true
+payload = '''
+if specific_vars and specific_vars.bonus_chips then
+    localize{type = 'other', key = 'card_extra_chips', nodes = desc_nodes, vars = {SMODS.signed(specific_vars.bonus_chips)}}
+end
+SMODS.localize_perma_bonuses(specific_vars, desc_nodes)
+'''
+# Perma Joker Trigger stuff
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "for _, key in ipairs({'jokers', 'retriggers'}) do"
+position = "before"
+payload = '''
+for _, key in ipairs({'perma_joker_triggers'}) do
+    SMODS.calculate_effect_table_key(effect_table, key, card, ret)
+end
+'''
+match_indent = true 
 
 # Lets multiple cards be forced selected
 # Needed for Alien Joker + Cerulean Bell
@@ -3656,3 +4048,28 @@ pattern = "self.in_blind = true"
 position = "after"
 match_indent = true
 payload = 'SMODS.calculate_context({aij_before_setting_blind = true, blind = G.GAME.round_resets.blind})'
+
+
+# Card:update
+# Makes blueprint-like copiers show the correct compatability to joker.png style copiers 
+[[patches]] 
+[patches.regex]
+target = "card.lua"
+pattern = '''(?<indent>[\t ]*)if other_joker and other_joker ~= self and (?<cond>.*?) then'''
+line_prepend = "$indent"
+position = "at"
+payload = '''local aij_blueprint_compatible = other_joker and (other_joker.ability.aij_blueprint_compat or $cond)
+if other_joker and other_joker ~= self and aij_blueprint_compatible then'''
+
+# function Card:highlight (Tumbler)
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'self.highlighted = is_higlighted'
+position = 'after'
+match_indent = true
+payload = '''
+if G.jokers ~= nil and next(SMODS.find_card('j_aij_tumbler')) then
+    SMODS.calculate_context({aij_card_highlight = true})
+end
+'''

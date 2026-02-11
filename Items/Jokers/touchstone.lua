@@ -19,7 +19,12 @@ local touchstone = {
     soul_pos = { x = 4, y = 1},
   
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.hand_size, card.ability.future_sense } }
+      local main_end = {}
+      if G.deck ~= nil and card.area and card.area.config.type == "joker" and #G.deck.cards > 0 then
+          localize{type = 'other', key = 'aij_future_sight_tip', nodes = main_end, vars = {}}
+          main_end = main_end[1]
+      end
+      return { vars = { card.ability.hand_size, card.ability.future_sense }, main_end = main_end }
     end,
   
     add_to_deck = function(self, card, from_debuff)
@@ -42,9 +47,8 @@ local touchstone = {
                         card:set_edition({negative = true}, nil, true)
                     end
 
-                    if G.jokers and self.area == G.jokers then
-                        card:flip()
-                    end
+                    card.facing = 'front'
+
                     table.insert(cards,card)
                 end
             end
@@ -52,7 +56,7 @@ local touchstone = {
                 override = true,
                 cards = cards,
                 w = 2.4,
-                h = 0.6,
+                h = 0.4,
                 ml = 0,
                 scale = 0.4,
             })

@@ -1,148 +1,118 @@
-local spawn_joker_png_joker = function (card)
+local select_random_valid_joker = function ()
     local jokers = {}
-    -- for rarity, _ in pairs(SMODS.Rarity.obj_table) do
-        -- for _, key in pairs(get_current_pool("Joker"), rarity) do
-        for _, key in pairs(get_current_pool("Joker")) do
-            local center = G.P_CENTERS[key]
-            if key ~= "j_aij_joker_png" and key ~= "UNAVAILABLE" and All_in_Jest.expanded_copier_compat(center, true) then
-                jokers[#jokers+1] = center
-            end
+    for _, key in pairs(get_current_pool("Joker")) do
+        local center = G.P_CENTERS[key]
+        -- Disallowing jokers with a set_ability function, because those usually mess with the sprite and I cannot be bothered
+        -- May disallow jokers with an "update" function too, but it seems to be alright with Vanilla and All in Jest alone
+        if
+            key ~= "j_aij_joker_png" and
+            key ~= "UNAVAILABLE" and
+            center ~= nil and
+            center.discovered and
+            not (center.all_in_jest and center.all_in_jest.use_ability) and
+            not center.config.j_aij_joker_png_compat == false and
+            not (center.config[key]) -- Disallow copiers, bandaid fix for a bug
+        then
+            jokers[#jokers+1] = center
         end
-    -- end
-    local joker_center, index = pseudorandom_element(jokers, pseudoseed('joker_png'))
-    SMODS.bypass_create_card_edition = true
-    if not (joker_center ~= nil and joker_center.key) then
-        joker_center = G.P_CENTERS['j_joker']
     end
-    local joker = create_card('Joker', G.all_in_jest_joker_png, nil, nil, true, nil, joker_center.key, 'joker_png')
-    SMODS.bypass_create_card_edition = nil
-    G.all_in_jest_joker_png:emplace(joker)
-    joker.ability.all_in_jest = joker.ability.all_in_jest or {}
-    joker.ability.all_in_jest.joker_png = tostring(card.unique_val) -- Prevents dongtong from messing with it
-
-    -- Useful debugging
-    -- sendDebugMessage(index, "AIJ")
-    -- sendDebugMessage(joker_center.key, "AIJ")
+    local joker_center, index = pseudorandom_element(jokers, pseudoseed('joker_png'))
+    return joker_center, index
 end
 
 local joker_png = {
-    object_type = "Joker",
+    object_type = "single_copier",
+    object_loader = All_in_Jest,
     order = 302,
-    ignore = true,
     key = "joker_png",
     config = {
-      extra = {
-          base_cost = 1,
-          cost = 1,
-          cost_increase = 1
-      }
+        aij_blueprint_compat = true,
+        j_aij_joker_png = { -- Store all data needed for this joker in a table with a matching key, this will be preserved on ability changes
+            base_cost = 1,
+            cost = 1,
+            cost_increase = 1,
+            copied_joker_key = nil,
+            silver_multiplier_buff = 100, -- Make 100 instead of 1 to keep 2 decimals of precision
+        }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 24, y = 11},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
+    blueprint_compat = true, -- uses ability.aij_blueprint_compat
 
     pixel_size = { w = 31, h = 40 },
 
     all_in_jest = {
         ability_cost = function(self, card)
-            return card.ability.extra.cost
+            return card.ability.j_aij_joker_png.cost
         end,
 
         can_use_ability = function(self, card, context)
-            if to_big(G.GAME.dollars) >= to_big(card.ability.extra.cost) then
+            if (to_big(G.GAME.dollars) - to_big(G.GAME.bankrupt_at)) >= to_big(card.ability.j_aij_joker_png.cost) then
                 return true
             end
         end,
 
         use_ability = function(self, card)
-            ease_dollars(-card.ability.extra.cost)
+            ease_dollars(-card.ability.j_aij_joker_png.cost)
 
-            for _,v in pairs(G.all_in_jest_joker_png.cards) do
-                if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == tostring(card.unique_val) then
-                    v:remove()
-                end
-            end
-
-            spawn_joker_png_joker(card)
+            local joker_center, index = select_random_valid_joker()
+            All_in_Jest.set_copied_joker(card, joker_center)
 
             card:juice_up(0.3, 0.5)
-            card.ability.extra.cost = card.ability.extra.cost + cost.ability.extra.cost_increase
+            card.ability.j_aij_joker_png.cost = card.ability.j_aij_joker_png.cost + card.ability.j_aij_joker_png.cost_increase
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_reroll')})
         end,
+
+        -- A utility function for testing
+        utils_set_joker_ability = function(self, card, joker_center)
+            All_in_Jest.set_copied_joker(card, G.P_CENTERS[joker_center])
+
+            card:juice_up(0.3, 0.5)
+            card.ability.j_aij_joker_png.cost = card.ability.j_aij_joker_png.cost + card.ability.j_aij_joker_png.cost_increase
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_reroll')})
+        end
     },
-
-    add_to_deck = function(self, card, from_debuff)
-        if not from_debuff then
-            spawn_joker_png_joker(card)
-        end
-    end,
-
-    remove_from_deck = function(self, card, from_debuff)
-        if not from_debuff then
-            for _,v in pairs(G.all_in_jest_joker_png.cards) do
-                if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == tostring(card.unique_val) then
-                    v:remove()
-                end
-            end
-        end
-    end,
 
     update = function(self, card, dt)
         if not card.aij_ability_cost_label or card.config.center.all_in_jest:ability_cost(card) ~= card.aij_ability_cost_label then
-            card.aij_ability_cost_label = card.config.center.all_in_jest:ability_cost(card) or 0
+            card.aij_ability_cost_label = card.config.center.all_in_jest:ability_cost(card) or "??"
+        end
+
+        return All_in_Jest.single_copier.update(self, card, dt)
+    end,
+
+    set_ability = function(self, card, initial, delay_sprites)
+        if G.playing_card then -- Check if in collection or not
+            local joker_center, index = select_random_valid_joker()
+            All_in_Jest.set_copied_joker(card, joker_center)
         end
     end,
-  
+
     loc_vars = function(self, info_queue, card)
-        if G.all_in_jest_joker_png then
-            for _,v in pairs(G.all_in_jest_joker_png.cards) do
-                if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == tostring(card.unique_val) then
-                    local other_joker = v
-                    local other_vars = nil
-                    if other_joker.config.center.loc_vars then
-                        local ret = other_joker.config.center:loc_vars({}, other_joker)
-                        if ret then
-                            other_vars = ret.vars
-                        end
-                    else
-                        other_vars, _, _ = other_joker:generate_UIBox_ability_table(true)
-                    end
-                    if other_vars then
-                        other_joker.config.center.specific_vars = other_vars
-                        other_joker.config.center.specific_vars.aij_joker_png = other_joker
-                    end
-                    info_queue[#info_queue + 1] = other_joker.config.center
-                end
-            end
-        end
+        _ = All_in_Jest.single_copier.loc_vars(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.cost,
-                card.ability.extra.cost_increase,
+                card.ability.j_aij_joker_png.cost,
+                card.ability.j_aij_joker_png.cost_increase,
                 colours = { 
                     G.C.SECONDARY_SET.Enhanced
                 }
             }
         }
     end,
-  
+
     calculate = function(self, card, context)
-        if context.ante_change and context.ante_change ~= 0 and context.ante_end then
-            card.ability.extra.cost = card.ability.extra.base_cost
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_reset')})
+        if context.ante_change and context.ante_change ~= 0 and context.ante_end and not context.blueprint then
+            card.ability.j_aij_joker_png.cost = card.ability.j_aij_joker_png.base_cost
+            -- card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_reset')})
         end
-        for _,v in pairs(G.all_in_jest_joker_png.cards) do
-            if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == tostring(card.unique_val) then
-                local other_joker = v
-                return SMODS.blueprint_effect(card, other_joker, context)
-            end
-        end
-    end
-  
+
+        return All_in_Jest.single_copier.calculate(self, card, context)
+    end,
 }
+
 return { name = {"Jokers"}, items = {joker_png} }

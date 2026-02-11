@@ -2,7 +2,6 @@ local roland = {
     object_type = "Joker",
     order = 1028,
     ignore = true,
-
     key = "roland",
     config = {
       

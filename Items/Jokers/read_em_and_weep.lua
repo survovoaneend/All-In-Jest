@@ -42,50 +42,7 @@ local read_em_and_weep = {
                     return {
                         message = localize("k_aij_change_ex"),
                         func = function()
-                            -- Using same code as suit tarots
-                            for i = 1, #G.play.cards do
-                                local percent = 1.15 - (i - 0.999) / (#G.play.cards - 0.998) * 0.3
-                                G.E_MANAGER:add_event(Event({
-                                    trigger = 'after',
-                                    delay = 0.15,
-                                    func = function()
-                                        G.play.cards[i]:flip()
-                                        play_sound('card1', percent)
-                                        G.play.cards[i]:juice_up(0.3, 0.3)
-                                        return true
-                                    end
-                                }))
-                            end
-                            delay(0.2)
-                            for i = 1, #G.play.cards do
-                                G.E_MANAGER:add_event(Event({
-                                    trigger = 'after',
-                                    delay = 0.2,
-                                    func = function()
-                                        if G.play.cards[i].ability then
-                                            G.play.cards[i].ability.played_this_ante = false
-                                        end
-                                        G.play.cards[i]:change_suit(temp_suit) -- Changes suit sprite
-                                        if G.play.cards[i].ability then
-                                            G.play.cards[i].ability.played_this_ante = true
-                                        end
-                                        return true
-                                    end
-                                }))
-                            end
-                            for i = 1, #G.play.cards do
-                                local percent = 0.85 + (i - 0.999) / (#G.play.cards - 0.998) * 0.3
-                                G.E_MANAGER:add_event(Event({
-                                    trigger = 'after',
-                                    delay = 0.15,
-                                    func = function()
-                                        G.play.cards[i]:flip()
-                                        play_sound('tarot2', percent, 0.6)
-                                        G.play.cards[i]:juice_up(0.3, 0.3)
-                                        return true
-                                    end
-                                }))
-                            end
+                            All_in_Jest.change_card(temp_suit, nil, G.play.cards)
                             delay(0.2)
                             G.E_MANAGER:add_event(Event({
                                 func = function()

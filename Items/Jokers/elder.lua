@@ -77,7 +77,7 @@ local elder = {
     end,
 
     calculate = function(self, card, context)
-        local target_joker = All_in_Jest.get_longest_held_joker()
+        local target_joker = All_in_Jest.get_longest_held_joker(SMODS.find_card("j_aij_elder"))
         if target_joker then
             return SMODS.blueprint_effect(card, target_joker, context)
         end

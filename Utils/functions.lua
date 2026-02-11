@@ -368,9 +368,27 @@ to_big = to_big or function(num)
 end
 
 AllInJest.touchstone_deck_preview = function()
-    local touchstone_card = SMODS.find_card('j_aij_touchstone')[1]
+    local max_future_sense = 0
+    if G.jokers and G.jokers.cards then
+        for _, area in ipairs(SMODS.get_card_areas('jokers')) do
+            if area.cards then
+                for _, v in pairs(area.cards) do
+                    if v and type(v) == 'table' and not v.debuff then
+                        if v.ability.future_sense and not v.debuff then
+                            max_future_sense = math.max(max_future_sense, to_number(v.ability.future_sense))
+                        end
+                        if v.ability[v.config.center.key] and v.ability[v.config.center.key].copied_joker_abilities then
+                            for index = #v.ability[v.config.center.key].copied_joker_abilities, math.max(1, #v.ability[v.config.center.key].copied_joker_abilities - v.ability[v.config.center.key].copy_limit + 1), -1 do
+                                max_future_sense = math.max(max_future_sense, to_number(v.ability[v.config.center.key].copied_joker_abilities[index].future_sense))
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
     local cards = {}
-    for i = #G.deck.cards, #G.deck.cards - touchstone_card.ability.future_sense + 1, -1 do
+    for i = #G.deck.cards, #G.deck.cards - max_future_sense + 1, -1 do
         if i > 0 then
             local card = copy_card(G.deck.cards[i], nil, nil, G.playing_card)
 
@@ -379,9 +397,7 @@ AllInJest.touchstone_deck_preview = function()
                 card:set_edition({negative = true}, nil, true)
             end
 
-            if G.jokers and touchstone_card.area == G.jokers then
-                card.facing = 'front' -- Using .flip() here plays the flipping animation
-            end
+            card.facing = 'front' -- Using .flip() here plays the flipping animation
 
             table.insert(cards, card)
         end
@@ -390,7 +406,7 @@ AllInJest.touchstone_deck_preview = function()
         override = true,
         cards = cards,
         w = 5,
-        h = 0.6,
+        h = 0.4,
         ml = 0,
         scale = 0.4,
         padding = 0,
@@ -400,7 +416,7 @@ end
 AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
     if not config then config = {} end
     local height = config.h or 1.25
-    local width = config.w or 1
+    local width = math.max(config.w or 1, 1)
     local card_limit = config.card_limit or #config.cards or 1
     local override = config.override or false
     local cards = config.cards or {}
@@ -409,17 +425,19 @@ AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
     local margin_top = config.mt or 0
     local alignment = config.alignment or "cm"
     local scale = config.scale or 1
-    local type = config.type or "title"
+    local type = config.type or "title_2"
     local box_height = config.box_height or 0
     local highlight_limit = config.highlight_limit or 0
     local x_offset = config.x_offset or 0
     if override or not cardArea then
         cardArea = CardArea(
-            G.ROOM.T.x + margin_left * G.ROOM.T.w - x_offset, G.ROOM.T.h + margin_top
-            ,G.CARD_W <= width * G.CARD_W and width * G.CARD_W or G.CARD_W, height * G.CARD_H,
-            {card_limit = card_limit, type = type, highlight_limit = highlight_limit, collection = true,temporary = true}
+            G.ROOM.T.x + margin_left * G.ROOM.T.w - x_offset, 
+            G.ROOM.T.h + margin_top,
+            width * G.CARD_W,
+            height * G.CARD_H,
+            {card_limit = card_limit, type = type, highlight_limit = highlight_limit, collection = true, temporary = true}
         )
-        for i, card in ipairs(cards) do
+        for _, card in ipairs(cards) do
             card.T.w = card.T.w * scale
             card.T.h = card.T.h * scale
             card.VT.h = card.T.h
@@ -433,7 +451,7 @@ AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
     end
     local uiEX = {
         n = G.UIT.R,
-        config = { align = alignment , padding = padding, no_fill = true, minh = box_height },
+        config = { align = alignment, padding = padding, no_fill = true, minh = box_height },
         nodes = {
             {n=G.UIT.R, config={padding = padding, r = 0.12, colour = lighten(G.C.JOKER_GREY, 0.5), emboss = 0.07}, nodes={
                 {n = G.UIT.O, config = { object = cardArea }}
@@ -761,7 +779,7 @@ function Card:click(...)
 
     return _click(self, ...)
 end
-
+-- Also highlight context is here
 local _highlight = Card.highlight
 function Card:highlight(is_higlighted, ...)
     if not is_higlighted then
@@ -1128,20 +1146,26 @@ function Card:All_in_Jest_start_dissolve(dissolve_colours, silent, dissolve_time
     }))
 end
 
-function All_in_Jest.reroll_joker(card, key, append, temp_key)
+function All_in_Jest.reroll_joker(card, key, append, temp_key, extra)
+    extra = extra or {}
+    extra.type = extra.type or "Joker"
     local victim_joker = card
       
-    local victim_rarity = victim_joker.config.center.rarity or 1
+    local victim_rarity = extra.forced_rarity or victim_joker.config.center.rarity or 1
     local is_legendary = victim_rarity == 4
     local victim_key = victim_joker.config.center.key
 
     
     local replacement_pool = {}
-    for _, center_data in ipairs(G.P_CENTER_POOLS.Joker) do
-        local current_rarity = center_data.rarity or 1
-        if current_rarity == victim_rarity then
+    for _, center_data in ipairs(G.P_CENTER_POOLS[extra.type]) do
+        -- If card is a joker, make sure the new card is of the desired rarity and is unlocked
+        -- Otherwise pick whatever
+        if 
+            (extra.type ~= "Joker") or 
+            (victim_rarity == (center_data.rarity or 1) and (center_data.unlocked or G.GAME.modifiers.all_jokers_unlocked or center_data.rarity == 4))
+        then
             if center_data.key ~= victim_key then
-                if not center_data.demo and not center_data.wip and (center_data.unlocked or G.GAME.modifiers.all_jokers_unlocked or center_data.rarity == 4) then
+                if not center_data.demo and not center_data.wip then
                     local can_add = true
                     if center_data.in_pool and type(center_data.in_pool) == 'function' then
                         if not center_data:in_pool() then can_add = false end
@@ -1374,6 +1398,8 @@ function All_in_Jest.reset_game_globals(run_start)
 	  G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
 
+    reset_jest_visage_cards()
+
     if G.GAME.round_resets.blind_states.Boss == 'Defeated' or run_start then
        -- Globals for a single ante (not a thing in Vanilla)
        -- Checks run_start as well to trigger at start of run, G.GAME.round_resets.blind_states.Boss == 'Defeated' only checks for the end of an ante
@@ -1396,73 +1422,98 @@ function All_in_Jest.reset_game_globals(run_start)
     end
 end
 
--- Function to allow for filtering joker-copy effects and applying blacklists to copiable jokers
--- Used by: Visage, Clay Joker, Joker.png, and Czar
---  from_collection - set true for jokers that copy a joker from collection, rather than a joker that was previously in-play
-function All_in_Jest.expanded_copier_compat(center, from_collection)
-    if not (center and type(center) == "table") then
-        return
-    end
-    local blacklist = {
-        'j_blueprint',
-        'j_aij_lexicon' -- Crashes the game for some reason, temporary fix
-    }
-    if from_collection then
-        table.insert(blacklist, 'j_campfire')
-
-        -- can remove these if they are made un-perishable
-        table.insert(blacklist, 'j_aij_egg_cc')
-        table.insert(blacklist, 'j_aij_toothy_joker')
-        table.insert(blacklist, 'j_aij_coulrorachne')
-    end
-
-    if center.blueprint_compat and 
-        (not from_collection or (center.discovered and 
-        center.perishable_compat and 
-        center.rarity ~= 4 and 
-        not G.GAME.banned_keys[center.key]))
-    then
-        for _, v in ipairs(blacklist) do
-            if center.key == v then
-                return false
-            end
-        end
-
-        -- if from_collection then
-        --     if center.in_pool and type(center.in_pool) == 'function' then
-        --         return center:in_pool()
-        --     end
-
-        --     if center.yes_pool_flag and not G.GAME.pool_flags[center.yes_pool_flag] then
-        --         return false
-        --     end
-        --     if center.no_pool_flag and G.GAME.pool_flags[center.no_pool_flag] then
-        --         return false
-        --     end
-
-        --     if center.enhancement_gate then
-        --         for _, v in pairs(G.playing_cards) do
-        --             if SMODS.has_enhancement(v, center.enhancement_gate) then
-        --                 return true
-        --             end
-        --         end
-        --     end
-        -- end
-
-        return true
-    else
-        return false
+--Replaces shop voucher
+function All_in_Jest.reroll_shop_voucher(key)
+    if G.GAME.current_round.voucher.spawn[G.GAME.current_round.voucher[1]] then
+        G.GAME.current_round.voucher.spawn[G.GAME.current_round.voucher[1]] = nil
+        G.GAME.current_round.voucher[1] = nil
+        local new_voucher = key or get_next_voucher_key()
+        G.GAME.current_round.voucher[new_voucher] = true
+        G.GAME.current_round.voucher.spawn = {[new_voucher] = true}
+        local c = G.shop_vouchers:remove_card(G.shop_vouchers.cards[1])
+        c:remove()
+        c = nil
+        new_shop_card = SMODS.add_voucher_to_shop(G.GAME.current_round.voucher[1])
+        new_shop_card:juice_up()
     end
 end
 
+-- -- Function to allow for filtering joker-copy effects and applying blacklists to copiable jokers
+-- -- Used by: Visage, Clay Joker, Joker.png, and Czar
+-- --  from_collection - set true for jokers that copy a joker from collection, rather than a joker that was previously in-play
+-- function All_in_Jest.expanded_copier_compat(center, from_collection)
+--     if not (center and type(center) == "table") then
+--         return
+--     end
+--     local blacklist = {
+--         'j_blueprint',
+--         'j_aij_lexicon' -- Crashes the game for some reason, temporary fix
+--     }
+--     if from_collection then
+--         table.insert(blacklist, 'j_campfire')
+
+--         -- can remove these if they are made un-perishable
+--         table.insert(blacklist, 'j_aij_egg_cc')
+--         table.insert(blacklist, 'j_aij_toothy_joker')
+--         table.insert(blacklist, 'j_aij_coulrorachne')
+--     end
+
+--     if center.blueprint_compat and 
+--         (not from_collection or (center.discovered and 
+--         center.perishable_compat and 
+--         center.rarity ~= 4 and 
+--         not G.GAME.banned_keys[center.key]))
+--     then
+--         for _, v in ipairs(blacklist) do
+--             if center.key == v then
+--                 return false
+--             end
+--         end
+
+--         -- if from_collection then
+--         --     if center.in_pool and type(center.in_pool) == 'function' then
+--         --         return center:in_pool()
+--         --     end
+
+--         --     if center.yes_pool_flag and not G.GAME.pool_flags[center.yes_pool_flag] then
+--         --         return false
+--         --     end
+--         --     if center.no_pool_flag and G.GAME.pool_flags[center.no_pool_flag] then
+--         --         return false
+--         --     end
+
+--         --     if center.enhancement_gate then
+--         --         for _, v in pairs(G.playing_cards) do
+--         --             if SMODS.has_enhancement(v, center.enhancement_gate) then
+--         --                 return true
+--         --             end
+--         --         end
+--         --     end
+--         -- end
+
+--         return true
+--     else
+--         return false
+--     end
+-- end
+
+local contains = function (tbl, item)
+    for k, v in pairs(tbl) do
+        if v == item then
+            return true
+        end
+    end
+    return false
+end
+
 -- Used for Elder
-function All_in_Jest.get_longest_held_joker()
+function All_in_Jest.get_longest_held_joker(exclusions)
     local longest_joker = nil
     local min_index = math.huge
+    exclusions = exclusions or {}
     if G.jokers and G.jokers.cards then
         for _, v in ipairs(G.jokers.cards) do
-            local is_elder = (v.config.center.key == "j_aij_elder")
-            if not is_elder and v.ability.jest_held_order then
+            if v.ability.jest_held_order and not contains(exclusions, v) then
                 if tonumber(v.ability.jest_held_order) < min_index then
                     min_index = tonumber(v.ability.jest_held_order)
                     longest_joker = v
@@ -1765,4 +1816,51 @@ end
 -- Function that defines when the tag area in the shop should appear (or not)
 All_in_Jest.show_shop_aij_tags = function(e)
     return next(SMODS.find_card("j_aij_ijoker_co")) or next(SMODS.find_card("j_aij_death_of_a_salesman"))
+end
+
+All_in_Jest.change_card = function(suit, rank, cards)
+    -- Using same code as suit tarots, stolen from old read em and weep
+    for i = 1, #cards do
+        local percent = 1.15 - (i - 0.999) / (#cards - 0.998) * 0.3
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.15,
+            func = function()
+                cards[i]:flip()
+                play_sound('card1', percent)
+                cards[i]:juice_up(0.3, 0.3)
+                return true
+            end
+        }))
+    end
+    delay(0.2)
+    for i = 1, #cards do
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                if cards[i].ability then -- This stuff is here bc its used in read em and weep and i dont think it matters much for other things that use it
+                    cards[i].ability.played_this_ante = false
+                end
+                SMODS.change_base(cards[i], suit, rank)
+                if cards[i].ability then
+                    cards[i].ability.played_this_ante = true
+                end
+                return true
+            end
+        }))
+    end
+    for i = 1, #cards do
+        local percent = 0.85 + (i - 0.999) / (#cards - 0.998) * 0.3
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.15,
+            func = function()
+                cards[i]:flip()
+                play_sound('tarot2', percent, 0.6)
+                cards[i]:juice_up(0.3, 0.3)
+                return true
+            end
+        }))
+    end
 end

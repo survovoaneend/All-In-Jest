@@ -1,0 +1,37 @@
+local game_bro = {
+    object_type = "Joker",
+    order = 437,
+    key = "game_bro",
+    
+    config = {
+        extra = {
+            
+        }
+    },
+    rarity = 1,
+    pos = { x = 7, y = 22 },
+    atlas = 'joker_atlas',
+    cost = 4,
+    unlocked = true,
+    discovered = false,
+    blueprint_compat = false,
+    eternal_compat = false,
+
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                G.GAME.round * 2
+            }
+        }
+    end,
+
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                mult = G.GAME.round * 2
+            }
+        end
+    end
+}
+
+return { name = { "Jokers" }, items = { game_bro } }

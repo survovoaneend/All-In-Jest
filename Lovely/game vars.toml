@@ -44,6 +44,7 @@ all_in_jest = {
       ['perishable'] = 2
     },
 	dizzard_shop = false,
+	gold_card_amt = 3,
 	pit_blind_ante = 4,
 	blind_tags = {has_multiple = false, selected_index = nil, amt = 1},
 	AIJAnimated = {
@@ -75,6 +76,7 @@ all_in_jest = {
 		},
 		m_aij_simulated = {frames_per_row = 'atlas_size', extra_yrows = 1, frames = 10, start_frame = 0, fps = 10,},
 		j_aij_chromatist = { frames_per_row = 'atlas_size', extra_yrows = 15, frames = 25, start_frame = 8, fps = 10, },
+		j_aij_neon_sign = { frames_per_row = 'atlas_size', extra_yrows = 21, frames = 12, start_frame = 6, fps = 4, },
 	},
 	reset_score = {chips = false, mult = false, chip_total = false, blind_total = false},
 	secret_hands = {},
@@ -89,6 +91,9 @@ all_in_jest = {
   advanced_hand_usage_run = {},
   advanced_hand_usage_ante = {},
   advanced_hand_usage_blind = {},
+  previously_sold_jokers = {},
+  previously_destroyed_jokers = {},
+  previously_destroyed_playing_cards = {},
   jest_kilroy_curvalue = 25,
 },
 -- move these into all_in_jest at some point
@@ -104,6 +109,7 @@ jest_jester_zombie_trigger = false,
 jest_omlette_appearence_eggs = 0,
 jest_free_stultor_rerolls = 0,
 jest_fairy_edition_rate = 1,
+jest_last_hand_size = nil,
 ['jest_upgrade_tab'] = false,
 previous_jest_upgrade_tab = false,
 shop_galloping_dominoed = false,
@@ -118,5 +124,6 @@ position = 'before'
 payload = '''
 jest_inherent = HEX("b7e1d7"),
 jest_glitter = HEX("ff97ff"),
+jest_melted = HEX("a28b8b"),
 '''
 match_indent = true
