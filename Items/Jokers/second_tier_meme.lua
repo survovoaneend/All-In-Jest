@@ -34,7 +34,7 @@ local second_tier_meme = {
         end
         return {
             vars = {
-                second_most_played_hand,
+                second_most_played_hand and localize(second_most_played_hand, "poker_hands") or localize("k_none"),
             }
         }
     end,
@@ -46,15 +46,23 @@ local second_tier_meme = {
             local second_most_played_hand = nil
             local val = 1
             for k, v in pairs(G.GAME.hands) do
-                if v.played >= val and v.visible then
-                    val = v.played
+                local hand_count = v.played
+                if k == context.scoring_name then
+                    hand_count = hand_count - 1
+                end
+                if hand_count >= val and v.visible then
+                    val = hand_count
                     most_played_hand = k
                 end
             end
             val = 1
             for k, v in pairs(G.GAME.hands) do
-                if v.played >= val and v.visible and k ~= most_played_hand then
-                    val = v.played
+                local hand_count = v.played
+                if k == context.scoring_name then
+                    hand_count = hand_count - 1
+                end
+                if hand_count >= val and v.visible and k ~= most_played_hand then
+                    val = hand_count
                     second_most_played_hand = k
                 end
             end
