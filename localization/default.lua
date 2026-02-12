@@ -4838,7 +4838,7 @@ return {
             aij_patches_suit = {
                 name = "Patches",
                 text = {
-                    "{C:attention}Patched{} with {V:1}#1#"
+                    "Counts as a {V:1}#1#"
                 }
             },
             aij_jest_mark_of_the_spear = {

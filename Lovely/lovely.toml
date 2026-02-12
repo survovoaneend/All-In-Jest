@@ -2043,11 +2043,11 @@ payload = '''
 if card and card.ability and card.ability.patches then
     for k, v in pairs(card.ability.patches) do
         if G.C.SUITS[k] then
-            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {SMODS.Suits[k].original_key, colours = {G.C.SUITS[k]}}}
+            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {localize(k, "suits_singular"), colours = {G.C.SUITS[k]}}}
         elseif G.SETTINGS.colour_palettes[k] == 'hc' then
-            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {SMODS.Suits[k].original_key, colours = {SMODS.Suits[k].hc_colour}}}
+            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {localize(k, "suits_singular"), colours = {SMODS.Suits[k].hc_colour}}}
         else
-            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {SMODS.Suits[k].original_key, colours = {SMODS.Suits[k].lc_colour}}}
+            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {localize(k, "suits_singular"), colours = {SMODS.Suits[k].lc_colour}}}
         end
     end
 end
