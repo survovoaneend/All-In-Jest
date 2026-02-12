@@ -4827,9 +4827,9 @@ return {
                 name = 'Broken Fate',
                 text = {
                     "Randomises the values",
-                    "of {C:attention}leftmost consumable",
-                    "between {C:attention}X0.75{} and {C:attention}X2.5",
-                    "their {C:attention}default{} values"
+                    "of the {C:attention}leftmost consumable",
+                    "to between {C:attention}X0.75{} and {C:attention}X2.5{}",
+                    "of their {C:attention}default{} values"
                 }
             },
         },
