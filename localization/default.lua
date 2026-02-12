@@ -1498,8 +1498,8 @@ return {
             j_aij_great_white_north = {
                 name = "Great White North",
                 text = {
-                    "{C:mult}+#1#{} Mult when any card",
-                    "is {C:attention}scored"
+                    "Played cards give {C:mult}+#1#{} Mult",
+                    "when {C:attention}scored"
                 }
             },
             j_aij_right_angle = {
@@ -1598,9 +1598,8 @@ return {
                 text = {
                     "{C:attention}Jokers{} belonging to your",
                     "{C:attention}most held rarity{} {C:inactive}(excluding",
-                    "{C:inactive}this card){} appear more",
-                    "often",
-                    "{C:inactive}(Currently:{C:attention}#1#{C:inactive})"
+                    "{C:inactive}Bobblehead){} appear more often",
+                    "{C:inactive}(Currently: {C:attention}#1#{C:inactive})"
                 }
             },
             j_aij_topsy_the_clown = {
@@ -2236,8 +2235,8 @@ return {
                 name = "Arlecchina",
                 text = {
                     "This Joker gains {X:mult,C:white}X#2#{} Mult",
-                    "when a {C:attention}Buffoon{} or {C:attention}Standard{}",
-                    "{C:attention}Pack{} is {C:attention}skipped",
+                    "when a {C:attention}Buffoon Pack{} or",
+                    "{C:attention}Standard Pack{} is {C:attention}skipped",
                     "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
                 }
             },
@@ -2421,14 +2420,13 @@ return {
                 name = "Stock Photo",
                 text = {
                     {
-                        "Opens a {C:attention}Mega Standard",
-                        "{C:attention}Pack{} when entering the",
-                        "{C:attention}Shop"
+                        "Opens a {C:attention}Mega Standard Pack{}",
+                        "when entering the {C:attention}Shop{}",
                     },
                     {
                         "{C:green}#1# in #2#{} chance to",
-                        "{C:red}self-destruct{} if it",
-                        "is {C:attention}skipped"
+                        "{C:red}self-destruct{} if",
+                        "it is {C:attention}skipped{}"
                     }
                 }
             },
@@ -2507,9 +2505,8 @@ return {
                 text = {
                     "Gives {C:attention}#2#{} free {C:green}rerolls{} at",
                     "the start of each {C:attention}Ante{},",
-                    "{C:attention}consumed{} when reaching {C:attention}0{}",
-                    "{C:green}rerolls{} {C:inactive}({C:attention}#1#{C:inactive} Remaining)"
-
+                    "{C:attention}consumed{} when reaching",
+                    "{C:attention}0{} {C:green}rerolls{} {C:inactive}({C:attention}#1#{C:inactive} Remaining)"
                 }
             },
             j_aij_jerko = {
@@ -2537,10 +2534,10 @@ return {
             j_aij_arecibo_message = { 
                 name = "Arecibo", 
                 text = { 
-                    "{C:attention}Retrigger{} all scored cards",
-                    "if the {C:planet}Planet Card{} for",
-                    "the played {C:attention}poker hand",
-                    "is held"
+                    "{C:attention}Retrigger{} all scored",
+                    "cards if you hold",
+                    "the {C:planet}Planet Card{} for",
+                    "the played {C:attention}poker hand{}"
                 } 
             },
             j_aij_napkin = {
@@ -2791,8 +2788,8 @@ return {
                 name = "Silly Billy", 
                 text = { 
                     "{C:mult}+#1#{} Mult for each",
-                    "{C:attention}enhancement{}, {C:attention}seal{},",
-                    "and {C:attention}edition{} in played hand"
+                    "{C:attention}enhancement{}, {C:attention}seal{}, and",
+                    "{C:attention}edition{} in played hand"
                 } 
             },
             j_aij_ijoker_co = {
@@ -2848,8 +2845,8 @@ return {
                 name = "Toynbee Joker", 
                 text = { 
                     "Create the {C:planet}Planet{} card for",
-                    "the first played {C:attention}poker hand{}",
-                    "of the round when Blind is {C:attention}defeated",
+                    "the first played {C:attention}poker hand{} of",
+                    "the round when Blind is {C:attention}defeated",
                     "{C:inactive}(Currently {C:attention}#1#{C:inactive}){}",
                     "{C:inactive}(Must have room){}"
                 } 
@@ -3137,8 +3134,8 @@ return {
                 name = "Stave", 
                 text = { 
                     "When a Joker with an {C:dark_edition}Edition{}",
-                    "is {C:money}sold{}, apply its {C:dark_edition}Edition{}",
-                    "to a random {C:attention}uneditioned{} Joker",
+                    "is {C:money}sold{}, apply its {C:dark_edition}Edition{} to",
+                    "a random {C:attention}uneditioned{} Joker",
                     "{C:inactive}(If possible)"
                 } 
             },
@@ -3459,8 +3456,8 @@ return {
                 text = { 
                     "When {C:green}rerolling{} in the {C:attention}Shop{},",
                     "{C:green}#1# in #2#{} chance to gain",
-                    "{C:money}sell value{} equal to the cost",
-                    "of {C:green}rerolling"
+                    "{C:money}sell value{} equal to the",
+                    "cost of {C:green}rerolling"
                 } 
             },
             j_aij_chips_n_dip = {
@@ -4857,12 +4854,12 @@ return {
                 name = "Candidate",
                 text = {
                     {
-                        '{C:common}Common{} Jokers give {C:chips}+#2#{}',
-                        'Chips'
+                        '{C:common}Common{} Jokers',
+                        'give {C:chips}+#2#{} Chips'
                     },
                     {
-                        '{C:uncommon}Uncommon{} and {C:rare}Rare{} Jokers',
-                        'give {C:mult}+#1#{} Mult'
+                        '{C:uncommon}Uncommon{} and {C:rare}Rare{}',
+                        'Jokers give {C:mult}+#1#{} Mult'
                     }
                 }
             },
@@ -5006,16 +5003,15 @@ return {
                 name = "In Memorium",
                 text = {
                     {
-                        'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
-                        'when a {C:spectral}Spectral Pack{} is',
-                        'opened',
+                        'This {C:attention}Joker{} gains',
+                        '{X:mult,C:white}X#1#{} Mult every time a',
+                        '{C:spectral}Spectral Pack{} is opened',
                         "{C:inactive}(Currently{} {X:mult,C:white}X#2#{}{C:inactive} Mult){}"
                     },
                     {
                         'After acquiring this {C:attention}Joker{},',
                         '{C:attention}One{} pack in the next {C:money}shop',
-                        'will always be a {C:spectral}Spectral',
-                        '{C:spectral}Pack'
+                        'will be a {C:spectral}Spectral Pack{}',
                     }
                 }
             },
@@ -5317,9 +5313,8 @@ return {
                 name = "Eye Test",
                 text = {
                     '{C:mult}+#1#{} Mult per {C:attention}consecutive{}',
-                    '{C:attention}hand{} containing {C:attention}more{}',
-                    'cards than the {C:attention}previous{}',
-                    'hand',
+                    '{C:attention}hand{} containing {C:attention}more{} cards',
+                    'than the {C:attention}previous{} hand',
                     '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)',
                 }
             },
@@ -5441,12 +5436,10 @@ return {
             j_aij_quadrangled_joker = {
                 name = "Quadrangled Joker",
                 text = {
-                    'If played hand contains',
-                    'exactly {C:attention}4{} cards, give {C:chips}Chips',
-                    'and {C:mult}Mult{} equal to the base',
-                    '{C:chips}Chips{} and {C:mult}Mult{} of {C:attention}Four of a',
-                    '{C:attention}Kind',
-                    "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#3#{}{C:inactive,s:0.8} Mult)",
+                    'Adds the {C:chips}Chips{} and {C:mult}Mult{} of',
+                    '{C:attention}Four of a Kind{} if played hand',
+                    'has exactly {C:attention}4{} cards',
+                    '{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#2#{}{C:inactive,s:0.8} Mult)',
                 }
             },
             j_aij_plutonium = {
@@ -6068,9 +6061,9 @@ return {
             j_aij_bizco = {
                 name = "Bizco",
                 text = {
-                    "Leftmost {C:attention}5{} cards {C:attention}held in",
-                    '{C:attention}hand{} are counted in',
-                    'scoring'
+                    "Leftmost {C:attention}#1#{} cards ",
+                    '{C:attention}held in hand{} are',
+                    'counted in scoring'
                 },
                 unlock = { "?????" }
             },
@@ -6164,8 +6157,8 @@ return {
                 name = "Cairoli",
                 text = {
                     "This Joker gains {X:mult,C:white}X#1#{} Mult",
-                    'when a {C:attention}Blind{} or {C:attention}Booster',
-                    '{C:attention}Pack{} is {C:attention}skipped',
+                    'when any {C:attention}Booster Pack{} or',
+                    '{C:attention}Blind{} is {C:attention}skipped',
                     "{C:inactive}(Currently{} {X:mult,C:white}X#2#{} {C:inactive}Mult){}"
                 },
                 unlock = { "?????" }
