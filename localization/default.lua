@@ -1466,8 +1466,8 @@ return {
             j_aij_right_angle = { 
                 name = "Right Angle", 
                 text = { 
-                    "Trigger all {C:attention}10s{} held in hand",
-                    "when a {C:attention}9{} is scored" 
+                    "Score all {C:attention}10s{} held in hand",
+                    "when a {C:attention}9{} is scored"
                 } 
             },
             j_aij_adoring_joker = {
