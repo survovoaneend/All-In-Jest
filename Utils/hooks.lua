@@ -985,3 +985,28 @@ function CardArea:align_cards()
         return aij_cardarea_align_cards_ref(self)
     end
 end
+
+-- Hook for The Arm's downgrades
+-- If one of chips/mult are at base levels, then downgrade the other appropriately
+local aij_level_up_hand_ref = level_up_hand
+function level_up_hand(card, hand, instant, amount)
+    if amount ~= nil and amount < 1 then
+        local obj = G.GAME.hands[hand]
+        local freeze_mult = false
+        local freeze_chips = false
+        if obj.mult <= obj.s_mult then
+            freeze_mult = true
+        end
+        if obj.chips <= obj.s_chips then
+            freeze_chips = true
+        end
+        if freeze_chips and freeze_mult then
+            return
+        elseif freeze_chips then
+            return level_up_hand_mult(card, hand, instant, amount)
+        elseif freeze_mult then
+            return level_up_hand_chips(card, hand, instant, amount)
+        end
+    end
+    return aij_level_up_hand_ref(card, hand, instant, amount)
+end

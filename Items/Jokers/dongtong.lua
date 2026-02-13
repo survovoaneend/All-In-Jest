@@ -12,15 +12,15 @@ local function contains_number(table, exclusions)
         else
             if type(v) == "number" and v ~= 0 then
                 return true
-            elseif type(v) == "table" then
-                return contains_number(v)
+            elseif type(v) == "table" and contains_number(v, exclusions) then
+                return true
             end
         end
     end
     return false
 end
 
-local contains = function (tbl, item)
+local contains = function(tbl, item)
     for k, v in pairs(tbl) do
         if v == item then
             return true
@@ -31,7 +31,7 @@ end
 
 -- Calculates the number of dongtongs, saves how many dongtongs were owned last time this was called,
 -- then doubles/halves card values accordingly
-local dong_tong_double = function (card, mod_count)
+local dong_tong_double = function(card, mod_count)
     if card.ability.set == 'Joker' and (card.config.center.dongtong_compat == nil or card.config.center.dongtong_compat) then
         mod_count = mod_count or 0
         card.ability.jest_applied = card.ability.jest_applied or {}
@@ -47,10 +47,10 @@ local dong_tong_double = function (card, mod_count)
             card:remove_from_deck(true)
             for _ = 1, math.abs(diff) do
                 jest_ability_calculate(
-                card,
-                "*", 2,
-                { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit=true },
-                nil, false, nil, "ability"
+                    card,
+                    "*", 2,
+                    { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit = true },
+                    nil, false, nil, "ability"
                 )
             end
             card:add_to_deck(true)
@@ -58,10 +58,10 @@ local dong_tong_double = function (card, mod_count)
             card:remove_from_deck(true)
             for _ = 1, math.abs(diff) do
                 jest_ability_calculate(
-                card,
-                "/", 2,
-                { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit=true },
-                nil, false, nil, "ability"
+                    card,
+                    "/", 2,
+                    { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit = true },
+                    nil, false, nil, "ability"
                 )
             end
             card:add_to_deck(true)
@@ -75,10 +75,12 @@ local dongtong = {
 
     key = "dongtong",
     config = {
-      
+        extra = {
+            has_doubled = false
+        }
     },
     rarity = 4,
-    pos = { x = 6, y = 10},
+    pos = { x = 6, y = 10 },
     atlas = 'legendary_atlas',
     cost = 20,
     unlocked = false,
@@ -86,11 +88,32 @@ local dongtong = {
     blueprint_compat = false,
     eternal_compat = true,
     dongtong_compat = false, -- Makes it so dongtong doesn't activate its own effects
-    soul_pos = { x = 6, y = 11},
-  
+    soul_pos = { x = 6, y = 11 },
+
     loc_vars = function(self, info_queue, card)
-  
+
     end,
+    calculate = function(self, card, context)
+        if context.aij_before_setting_blind and not card.getting_sliced and not context.blueprint then
+            local current_mult = All_in_Jest.get_current_blind_mult()
+            if not card.getting_sliced and not card.ability.extra.has_doubled then
+                card:juice_up()
+                play_sound('tarot2', 0.76, 0.4)
+                All_in_Jest.ease_blind_requirement(current_mult, nil, true)
+
+                G.GAME.blind.aij_original_chips = G.GAME.blind.chips
+
+                G.GAME.blind.mult = current_mult * 2
+
+                G.GAME.blind.aij_original_mult = G.GAME.blind.mult
+                card.ability.extra.has_doubled = true
+                return true
+            end
+        end
+        if context.end_of_round and not context.blueprint and context.main_eval then
+            card.ability.extra.has_doubled = false
+        end
+    end
 }
 
 -- For these, use "includes(SMODS.get_card_areas('jokers'), self.area)" to stop jokers in off-screen areas (like for Visage) from influencing things
@@ -99,7 +122,7 @@ local dongtong = {
 -- (E.g., without this Juggler would only give +1 hand size even with Dongtong owned)
 local aij_card_add_to_deck = Card.add_to_deck
 function Card:add_to_deck(from_debuff)
-    if not self.added_to_deck and G.jokers and (self.config.center.dongtong_compat == nil or self.config.center.dongtong_compat) and contains_number(self.config.center.config, { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit=true }) and (self.area == nil or contains(SMODS.get_card_areas('jokers'), self.area)) then
+    if not self.added_to_deck and G.jokers and (self.config.center.dongtong_compat == nil or self.config.center.dongtong_compat) and contains_number(self.config.center.config, { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit = true }) and (self.area == nil or contains(SMODS.get_card_areas('jokers'), self.area)) then
         dong_tong_double(self)
     end
     return aij_card_add_to_deck(self, from_debuff)
@@ -108,11 +131,11 @@ end
 -- Have to check dongtong count every tick
 local updateref = Card.update
 function Card:update(dt)
-  local ref = updateref(self, dt)
-  if G.jokers and self.ability.set == 'Joker' and (self.config.center.dongtong_compat == nil or self.config.center.dongtong_compat) and contains_number(self.config.center.config, { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit=true }) and contains(SMODS.get_card_areas('jokers'), self.area) then
-    dong_tong_double(self)
-  end
-  return ref
+    local ref = updateref(self, dt)
+    if G.jokers and self.ability.set == 'Joker' and (self.config.center.dongtong_compat == nil or self.config.center.dongtong_compat) and contains_number(self.config.center.config, { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit = true }) and contains(SMODS.get_card_areas('jokers'), self.area) then
+        dong_tong_double(self)
+    end
+    return ref
 end
 
 -- Setting a new ability will set base values without triggering dongtong's multiplication
@@ -129,4 +152,4 @@ function Card:set_ability(center, initial, delay_sprites)
     return ret
 end
 
-return { name = {"Jokers"}, items = {dongtong} }
+return { name = { "Jokers" }, items = { dongtong } }

@@ -34,7 +34,22 @@ local elder = {
                 loc_vars = copied_center.loc_vars
             }
 
+            local copied_center = target_joker.config.center
+            local info_queue_center = { -- Create a simplified "fake" center that can be used without referencing/modifying the actual center object
+                key = copied_center.key,
+                name = copied_center.name,
+                config = copied_center.config,
+                blueprint_compat = copied_center.blueprint_compat,
+                discovered = true,
+                set = "Joker",
+                create_fake_card = copied_center.create_fake_card,
+                generate_ui = copied_center.generate_ui,
+                loc_vars = copied_center.loc_vars
+            }
+
             local other_vars = nil
+            if copied_center.loc_vars then
+                local ret = copied_center:loc_vars({}, target_joker)
             if copied_center.loc_vars then
                 local ret = copied_center:loc_vars({}, target_joker)
                 if ret then
@@ -47,8 +62,21 @@ local elder = {
             if other_vars then
                 info_queue_center.specific_vars = other_vars
                 info_queue_center.specific_vars.aij_elder = target_joker
+                info_queue_center.specific_vars = other_vars
+                info_queue_center.specific_vars.aij_elder = target_joker
             end
 
+            info_queue[#info_queue + 1] = info_queue_center
+
+            card.ability.blueprint_compat_ui = card.ability.blueprint_compat_ui or ''
+            card.ability.blueprint_compat_check = nil
+            local main_end = (card.area and card.area == G.jokers) and {
+                {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+                    {n=G.UIT.C, config={ref_table = card, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
+                        {n=G.UIT.T, config={ref_table = card.ability, ref_value = 'blueprint_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+                    }}
+                }}
+            } or nil
             info_queue[#info_queue + 1] = info_queue_center
 
             card.ability.blueprint_compat_ui = card.ability.blueprint_compat_ui or ''

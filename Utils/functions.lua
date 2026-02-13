@@ -1363,7 +1363,7 @@ function reset_the_auroch_blind()
 end
 function reset_the_journey_blind()
     local selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey'))
-    -- By default the special journey background will fade during the evaluate screen, nesting events here prevnts this
+    -- By default the special journey background will fade during the evaluate screen, nesting events here prevents this
     -- This *is* jank
     G.E_MANAGER:add_event(Event({
         func = function()

@@ -16,6 +16,7 @@ jest_magick_joker_card = {suit = 'Spades'},
 jest_highest_scored_mult = {amount = 0, trigger = true},
 jest_you_broke_it_card = {rank = nil, enhancement = nil, id = nil},	
 jest_handsome_joker_card = {rank = nil, suit = nil, enhancement = nil, id = nil},	
+aij_the_journey_blind = {selected_suit = selected_suit or "Spades", triggered = false},
 '''
 
 

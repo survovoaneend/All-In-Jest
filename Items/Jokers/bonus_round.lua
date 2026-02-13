@@ -23,7 +23,7 @@ local bonus_round = {
     end,
   
     calculate = function(self, card, context)
-        if context.repetition and context.other_card then
+        if context.repetition and context.other_card and context.cardarea == G.play then
             if context.other_card.config.center == G.P_CENTERS["m_bonus"] then
                 return {
                     message = localize('k_again_ex'),

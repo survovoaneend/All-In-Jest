@@ -41,11 +41,11 @@ local dead_president = {
       end
       if my_pos > 0 then
         local left_joker = G.jokers.cards[my_pos - 1]
-        if left_joker.sell_cost <= 0 or left_joker == sold_card then
+        if left_joker and left_joker.sell_cost <= 0 or left_joker == sold_card then
           left_joker = nil
         end
         local right_joker = G.jokers.cards[my_pos + 1]
-        if right_joker.sell_cost <= 0 or right_joker == sold_card then
+        if right_joker and right_joker.sell_cost <= 0 or right_joker == sold_card then
           right_joker = nil
         end
 
@@ -61,7 +61,7 @@ local dead_president = {
                 left_joker:set_cost()
                 left_joker:juice_up(0.5, 0.3)
                 card_eval_status_text(left_joker, 'extra', nil, nil, nil, {
-                  message = 'Value Up!',
+                  message = localize('k_val_up'),
                   colour = G.C.MONEY,
                   instant = true,
                   silent = true
@@ -73,7 +73,7 @@ local dead_president = {
                 right_joker:set_cost()
                 right_joker:juice_up(0.5, 0.3)
                 card_eval_status_text(right_joker, 'extra', nil, nil, nil, {
-                  message = 'Value Up!',
+                  message = localize('k_val_up'),
                   colour = G.C.MONEY,
                   instant = true,
                   silent = true
