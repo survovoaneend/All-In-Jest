@@ -65,7 +65,7 @@ return {
             k_aij_two_into_one_ex = 'Two into one!',     -- Mycologists
             k_aij_bullet_king_ex = 'Bullet King',
             k_aij_plus_two_moons = "+2 Moons",           -- Sky Trees
-            k_aij_does_not_score_ex = "Does not Score!",, -- Opening Move
+            k_aij_does_not_score_ex = "Does not Score!", -- Opening Move
             k_aij_downgrade_ex = "Downgrade!",
             k_aij_empty_ex = "Empty!",                   -- Tumbler
             k_aij_editioned_ex = "Editioned!",        -- Stave
