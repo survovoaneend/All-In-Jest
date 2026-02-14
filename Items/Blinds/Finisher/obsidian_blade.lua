@@ -9,6 +9,7 @@ local obsidian_blade = {
         return true
     end,
     mult = 4,
+    lite = true,
     boss_colour = HEX("635d91"),
     atlas = 'blinds',
     pos = { y = 31 },

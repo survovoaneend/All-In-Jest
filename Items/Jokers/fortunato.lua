@@ -1,7 +1,7 @@
 local fortunato = {
   object_type = "Joker",
   order = 1006,
-
+  lite = true,
   key = "fortunato",
   config = {
     extra = {

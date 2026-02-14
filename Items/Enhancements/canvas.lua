@@ -1,6 +1,7 @@
 local canvas = {
     object_type = "Enhancement",
     key = 'canvas',
+    lite = true,
     atlas = 'enhancements_atlas',
     order = 6,
     pos = { x = 5, y = 0 },

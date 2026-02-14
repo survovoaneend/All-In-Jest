@@ -1,7 +1,7 @@
 local petrushka = {
     object_type = "Joker",
     order = 110,
-
+    lite = true,
     key = "petrushka",
     config = {
       

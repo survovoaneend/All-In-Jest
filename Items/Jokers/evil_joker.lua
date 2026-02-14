@@ -7,6 +7,7 @@ local evil_joker = {
         x_mult = 3,
       }
     },
+    lite = true,
     rarity = 3,
     pos = { x = 18, y = 13},
     atlas = 'joker_atlas',

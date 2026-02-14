@@ -46,12 +46,16 @@ local broken_fate = {
       card:juice_up(0.3, 0.5)
       return true end }))
     delay(0.2)
-
-    -- Reset the card to its starting values
-    G.consumeables.cards[1].ability.consumeable = copy_table(G.consumeables.cards[1].config.center.config)
-
-    -- Define the target for clarity
+    --this worked ig
     local target = G.consumeables.cards[1]
+    if not target then return end
+
+    if not target.aij_reset_state then
+        target.ability = copy_table(target.ability)
+        target.aij_reset_state = copy_table(target.ability)
+    end
+
+    target.ability = copy_table(target.aij_reset_state)
 
     local ran_amount = 0.75 + (pseudorandom('aij_broken_fate', 0, math.floor(((2.5 - 0.75) / 0.05) + 0.5)) * 0.05)
     jest_ability_calculate(target, "*", ran_amount, { card_limit = true, h_x_chips = 1, x_chips = 1, h_x_mult = 1, x_mult = 1, hands_played_at_create = true, order = true }, nil, true, false, "ability")

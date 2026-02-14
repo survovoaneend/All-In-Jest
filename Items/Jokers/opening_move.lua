@@ -8,6 +8,7 @@ local opening_move = {
           cur_xmult = 1,
       }
     },
+    lite = true,
     rarity = 2,
     pos = { x = 22, y = 10},
     atlas = 'joker_atlas',
@@ -54,6 +55,7 @@ local opening_move = {
 
                 return {
                     message = localize('k_upgrade_ex'),
+                    focus = card
                 }
             end
             if context.all_in_jest and context.all_in_jest.before_after and G.GAME.current_round.hands_played <= 0 and (hand_chips > 0 or mult > 0) then

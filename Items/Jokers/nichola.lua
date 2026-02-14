@@ -1,7 +1,7 @@
 local nichola = {
     object_type = "Joker",
     order = 1017,
-
+    lite = true,
     key = "nichola",
     config = {
       

@@ -39,6 +39,13 @@ return {
                 'the new {C:attention}Pit Blinds{} instead',
                 'of {C:red}-1{} Discard'
             },
+            aij_lite = 'All in Jest Lite',
+            aij_lite_tooltip = {
+                'Enables only a hand-picked selection',
+                'of the most {C:attention}vanilla-adjacent{} content',
+                '{s:0.8,C:inactive}(Currently 76 things)'
+                
+            },
             aij_random_deck_skins = 'Randomized Deck Skins',
             aij_random_deck_skins_tooltip = {
                 '{C:attention}Playing cards{} added to the',
@@ -2959,8 +2966,9 @@ return {
             j_aij_stagehand = { 
                 name = "Stagehand", 
                 text = { 
-                    "All {C:attention}Jokers{} give",
-                    "{X:mult,C:white}X#1#{} Mult"
+                    "Gains {X:mult,C:white}X#1#{} Mult",
+                    'per held {C:attention}Joker',
+                    '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
                 } 
             },
             j_aij_the_mermaid = { name = "The Mermaid", text = { "" } },
@@ -3727,10 +3735,17 @@ return {
             j_aij_eulenspiegel = { 
                 name = "Eulenspiegel", 
                 text = { 
-                    "When {C:attention}Boss Blind{} is defeated,",
+                    {
+                        "When {C:attention}Boss Blind{} is defeated,",
                     "{C:attention}-#1#{} Ante and this Joker",
                     "loses {X:mult,C:white}X#2#{} Mult",
                     "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
+                    },
+                    {
+                        "{C:red}Debuffs self{}",
+                        "at {X:mult,C:white}X0{} Mult"
+                    }
+
                 }, 
                 unlock = { 
                     "?????" 

@@ -1,7 +1,7 @@
 local thomazina = {
     object_type = "Joker",
     order = 1024,
-
+    lite = true,
     key = "thomazina",
     config = {
       chips = 0,

@@ -3,7 +3,7 @@ local overstuffed = {
     key = 'overstuffed',
     pos = { x = 3, y = 0 },
     atlas = 'tag_atlas',
-
+    lite = true,
     discovered = false,
     order = 5,
     config = {},

@@ -265,6 +265,9 @@ local function load_items(curr_obj)
         return
     end
     for _, item in ipairs(curr_obj.items) do
+        if All_in_Jest.config.aij_lite and not item.lite then
+            goto continue
+        end
         item.ignore             = item.ignore             or false
         item.jest_spec_moon     = item.jest_spec_moon     or false
         item.jest_rec_paperback = item.jest_rec_paperback or false

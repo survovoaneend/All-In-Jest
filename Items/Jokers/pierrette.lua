@@ -1,7 +1,7 @@
 local pierrette = {
   object_type = "Joker",
   order = 100,
-
+  lite = true,
   key = "pierrette",
   config = {
 

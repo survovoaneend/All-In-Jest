@@ -4,7 +4,7 @@ local tool = {
     key = "tool",
     config = {
         extra = {
-            mult_mod = 2
+            mult_mod = 3
         }
     },
     rarity = 1,
