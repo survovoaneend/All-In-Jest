@@ -1,7 +1,7 @@
 local low_priest = {
   object_type = "Joker",
   order = 72,
-
+  lite = true,
   key = "low_priest",
   config = {
     extra = {

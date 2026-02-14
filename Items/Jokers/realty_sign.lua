@@ -1,7 +1,7 @@
 local realty_sign = {
     object_type = "Joker",
     order = 83,
-
+    lite = true,
     key = "realty_sign",
     config = {
       extra = { sell_increase = 3 }

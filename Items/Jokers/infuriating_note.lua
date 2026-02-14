@@ -5,13 +5,13 @@ local infuriating_note = {
     key = "infuriating_note",
     config = {
         extra = {
-            xmult = 1.25
+            xmult = 1.2
         }
     },
     rarity = 1,
     pos = { x = 5, y = 7 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 5,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

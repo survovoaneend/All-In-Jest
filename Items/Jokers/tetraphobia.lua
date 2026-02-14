@@ -1,7 +1,7 @@
 local tetraphobia = {
     object_type = "Joker",
     order = 139,
-
+    lite = true,
     key = "tetraphobia",
     config = {
         extra = { 

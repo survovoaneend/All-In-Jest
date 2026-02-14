@@ -1,7 +1,7 @@
 local pedrolino = {
     object_type = "Joker",
     order = 99,
-
+    lite = true,
     key = "pedrolino",
     config = {
         extra = { blind_reduction = 90 }

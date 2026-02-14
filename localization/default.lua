@@ -39,6 +39,13 @@ return {
                 'the new {C:attention}Pit Blinds{} instead',
                 'of {C:red}-1{} Discard'
             },
+            aij_lite = 'All in Jest Lite',
+            aij_lite_tooltip = {
+                'Enables only a hand-picked selection',
+                'of the most {C:attention}vanilla-adjacent{} content',
+                '{s:0.8,C:inactive}(Currently 76 things)'
+                
+            },
             aij_random_deck_skins = 'Randomized Deck Skins',
             aij_random_deck_skins_tooltip = {
                 '{C:attention}Playing cards{} added to the',
@@ -60,7 +67,8 @@ return {
             k_aij_chaos_ex = 'Chaos!', -- Chaotic modifier
             k_aij_two_into_one_ex = 'Two into one!', -- Mycologists
             k_aij_plus_two_moons = "+2 Moons", -- Sky Trees
-            k_aij_does_not_score_ex = "Does not Score!" -- Opening Move
+            k_aij_does_not_score_ex = "Does not Score!", -- Opening Move
+            k_aij_create = "Create" -- Nonstandard tag
 
         },
         v_dictionary = {
@@ -1465,8 +1473,8 @@ return {
             j_aij_right_angle = { 
                 name = "Right Angle", 
                 text = { 
-                    "Trigger all {C:attention}10s{} held in hand",
-                    "when a {C:attention}9{} is scored" 
+                    "Score all {C:attention}10s{} held in hand",
+                    "when a {C:attention}9{} is scored"
                 } 
             },
             j_aij_adoring_joker = {
@@ -2314,10 +2322,10 @@ return {
                     "{C:attention}Shop{} and {C:attention}Buffoon Packs{}", 
                 },
                 {
-                    "{C:inactive}\"I've taken your stuff, but",
-                    "{C:inactive}you keep pushing through;",
-                    "{C:inactive}I'll have to try harder, so",
-                    "{C:inactive}rats off to you!\" -R. R.",
+                    "{C:inactive}\"I've taken your stuff,",
+                    "{C:inactive}but you keep pushing through;",
+                    "{C:inactive}I'll have to try harder,",
+                    "{C:inactive}so rats off to you!\" -R. R.",
                 }
             }
             },
@@ -2627,7 +2635,7 @@ return {
                 text = { 
                     "Retrigger all {C:attention}scored{} cards",
                     "if a {C:attention}playing card{} has been",
-                    "{C:red}destroyed{} this round",
+                    "{C:red}destroyed{} this blind",
                     "{C:inactive}#1#{}"
                 } 
             },
@@ -2958,8 +2966,9 @@ return {
             j_aij_stagehand = { 
                 name = "Stagehand", 
                 text = { 
-                    "All {C:attention}Jokers{} give",
-                    "{X:mult,C:white}X#1#{} Mult"
+                    "Gains {X:mult,C:white}X#1#{} Mult",
+                    'per held {C:attention}Joker',
+                    '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
                 } 
             },
             j_aij_the_mermaid = { name = "The Mermaid", text = { "" } },
@@ -3176,7 +3185,7 @@ return {
                     "Adds {C:mult}Mult{} equal to the",
                     "{C:attention}sum{} of all digits in the",
                     "{C:attention}ability descriptions{} of",
-                    "owned {C:attention}Jokers" ,
+                    "all other owned {C:attention}Jokers{}",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 } 
             },
@@ -3595,7 +3604,7 @@ return {
                 name = "Elder", 
                 text = {
                     'Copies the effect of',
-                    'the {C:attention}Joker{} you have',
+                    'the other {C:attention}Joker{} you have',
                     "owned the {C:attention}longest{}",
                     "{C:inactive}(Currently #1#)"
                 } 
@@ -3674,7 +3683,7 @@ return {
                     "When any Joker is",
                     "{C:red}destroyed{}, create an",
                     "{C:attention}exact{} copy",
-					"{C:inactive}(Including itself)"
+					          "{C:inactive}(Including itself)"
                 },
                 unlock = { 
                     "?????" 
@@ -3726,10 +3735,17 @@ return {
             j_aij_eulenspiegel = { 
                 name = "Eulenspiegel", 
                 text = { 
-                    "When {C:attention}Boss Blind{} is defeated,",
+                    {
+                        "When {C:attention}Boss Blind{} is defeated,",
                     "{C:attention}-#1#{} Ante and this Joker",
                     "loses {X:mult,C:white}X#2#{} Mult",
                     "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
+                    },
+                    {
+                        "{C:red}Debuffs self{}",
+                        "at {X:mult,C:white}X0{} Mult"
+                    }
+
                 }, 
                 unlock = { 
                     "?????" 
@@ -4611,8 +4627,8 @@ return {
             tag_aij_nonstandard = {
                 name = 'Nonstandard Tag',
                 text = {
-                    'Create {C:attention}2 copies{} of',
-                    'any playing card',
+                    'Create a {C:attention}custom playing card{} and',
+                    'add 2 copies of it to the deck',
                 }
             },
             tag_aij_ignoramus = {
@@ -4826,9 +4842,9 @@ return {
                 name = 'Broken Fate',
                 text = {
                     "Randomises the values",
-                    "of {C:attention}leftmost consumable",
-                    "between {C:attention}X0.75{} and {C:attention}X2.5",
-                    "their {C:attention}default{} values"
+                    "of the {C:attention}leftmost consumable",
+                    "to between {C:attention}X0.75{} and {C:attention}X2.5{}",
+                    "of their {C:attention}default{} values"
                 }
             },
         },
@@ -4837,7 +4853,7 @@ return {
             aij_patches_suit = {
                 name = "Patches",
                 text = {
-                    "{C:attention}Patched{} with {V:1}#1#"
+                    "Counts as a {V:1}#1#"
                 }
             },
             aij_jest_mark_of_the_spear = {

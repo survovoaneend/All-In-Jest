@@ -46,9 +46,9 @@ local reshape = {
                     if G.jokers.cards[i] ~= selected_joker then
                         local original_edition = G.jokers.cards[i].edition or {}
                         local original_stickers = {}
-                        for k, v in pairs(G.shared_stickers) do
+                        for k, _ in pairs(G.shared_stickers) do
                             if G.jokers.cards[i].ability[k] then
-                                original_stickers[k] = true
+                                original_stickers[k] = G.jokers.cards[i].ability[k]
                                 if k == "perishable" then
                                     original_stickers["perish_tally"] = G.jokers.cards[i].ability.perish_tally or 5
                                 end
@@ -57,8 +57,17 @@ local reshape = {
                         G.jokers.cards[i]:set_edition(nil, true, true)
                         copy_card(selected_joker, G.jokers.cards[i], nil, nil, true)
                         G.jokers.cards[i]:set_edition(original_edition, true, true)
-                        for k, v in pairs(original_stickers) do
-                            G.jokers.cards[i].ability[k] = v
+                        for k, _ in pairs(G.shared_stickers) do
+                            if original_stickers[k] then
+                                G.jokers.cards[i].ability[k] = original_stickers[k]
+                            else
+                                -- Handle unusual and recherche stickers
+                                if type(G.jokers.cards[i].ability[k]) == "table" and G.jokers.cards[i].ability[k].mult then
+                                    G.jokers.cards[i].ability[k].mult = tostring(1)
+                                    G.jokers.cards[i]:update(0)
+                                end
+                                G.jokers.cards[i].ability[k] = nil
+                            end
                         end
                     end
                     return true

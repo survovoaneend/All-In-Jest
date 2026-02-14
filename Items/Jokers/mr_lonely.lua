@@ -1,7 +1,7 @@
 local mr_lonely = {
   object_type = "Joker",
   order = 204,
-
+  lite = true,
   key = "mr_lonely",
   config = {
     extra = {

@@ -1,8 +1,7 @@
 local bumper_sticker = {
     object_type = "Joker",
     order = 118,
-    
-
+    lite = true,
     key = "bumper_sticker",
     config = {
       extra = {

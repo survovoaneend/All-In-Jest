@@ -46,24 +46,29 @@ local broken_fate = {
       card:juice_up(0.3, 0.5)
       return true end }))
     delay(0.2)
-
-    -- Define the target for clarity
+    --this worked ig
     local target = G.consumeables.cards[1]
+    if not target then return end
 
-    -- SNAPSHOT LOGIC:
-    if target.aij_original_ability then
-        target.ability = copy_table(target.aij_original_ability)
-    else
-        target.aij_original_ability = copy_table(target.ability)
+    if not target.aij_reset_state then
+        target.ability = copy_table(target.ability)
+        target.aij_reset_state = copy_table(target.ability)
     end
 
+    target.ability = copy_table(target.aij_reset_state)
+
     local ran_amount = 0.75 + (pseudorandom('aij_broken_fate', 0, math.floor(((2.5 - 0.75) / 0.05) + 0.5)) * 0.05)
-    local string = "X" .. tostring(ran_amount)
-    
     jest_ability_calculate(target, "*", ran_amount, { card_limit = true, h_x_chips = 1, x_chips = 1, h_x_mult = 1, x_mult = 1, hands_played_at_create = true, order = true }, nil, true, false, "ability")
     
+    local string = "X" .. tostring(ran_amount)
     card_eval_status_text(target, 'extra', nil, nil, nil, { message = string, colour = G.C.FILTER })
     delay(0.2)
+  end,
+  in_pool = function(self, args)
+    if G.consumeables and #G.consumeables.cards > 0 then
+      return true
+    end
+    return false
   end,
 }
 

@@ -1,7 +1,7 @@
 local bearded_joker = {
     object_type = "Joker",
     order = 208,
-
+    lite = true,
     key = "bearded_joker",
     config = {
       extra = {

@@ -8,6 +8,7 @@ local opening_move = {
           cur_xmult = 1,
       }
     },
+    lite = true,
     rarity = 2,
     pos = { x = 22, y = 10},
     atlas = 'joker_atlas',
@@ -28,11 +29,17 @@ local opening_move = {
     end,
 
     update = function(self, card, dt)
-        if G.GAME.current_round.hands_played <= 0 then
+        if next(SMODS.find_card("j_aij_opening_move")) and G.GAME.current_round.hands_played <= 0 then
             G.boss_throw_hand = true
             SMODS.debuff_text = "(" .. localize{type="name_text", set="Joker", key=card.config.center.key} .. ")"
         else
             SMODS.debuff_text = nil
+        end
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        if not next(SMODS.find_card("j_aij_opening_move")) then
+            G.boss_throw_hand = nil
         end
     end,
   
@@ -48,6 +55,7 @@ local opening_move = {
 
                 return {
                     message = localize('k_upgrade_ex'),
+                    focus = card
                 }
             end
             if context.all_in_jest and context.all_in_jest.before_after and G.GAME.current_round.hands_played <= 0 and (hand_chips > 0 or mult > 0) then

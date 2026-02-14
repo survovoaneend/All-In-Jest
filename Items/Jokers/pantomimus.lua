@@ -1,7 +1,7 @@
 local pantomimus = {
     object_type = "Joker",
     order = 152,
-
+    lite = true,
     key = "pantomimus",
     config = {
         extra = {

@@ -11,7 +11,7 @@ local the_ulcer = {
     pos = { X = 0, y = 24},
     order = 33,
     dollars = 5,
-
+    lite = true,
 
     calculate = function(self, blind, context)
         

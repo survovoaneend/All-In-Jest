@@ -1,7 +1,7 @@
 local bad_apple = {
     object_type = "Joker",
     order = 84,
-
+    lite = true,
     key = "bad_apple",
     config = {
         extra = {
