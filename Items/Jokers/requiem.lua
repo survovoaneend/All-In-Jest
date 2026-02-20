@@ -15,7 +15,7 @@ local requiem = {
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
     add_to_deck = function(self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
             func = function()

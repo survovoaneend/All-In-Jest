@@ -8,10 +8,10 @@ local semaphore = {
             mult = 1
         }
     },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 19, y = 24 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

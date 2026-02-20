@@ -8,10 +8,10 @@ local legerdemain = {
             discards = 2
         }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 6, y = 22 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

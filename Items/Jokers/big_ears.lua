@@ -18,6 +18,7 @@ local big_ears = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = false,
 
     loc_vars = function(self, info_queue, card)
         return {
@@ -44,7 +45,7 @@ local big_ears = {
                  if card.ability.extra.chips ~= prev_chips then
                 return {
                     message = localize('k_aij_downgrade_ex'),
-                    colour = G.C.CHIPS,
+                    colour = G.C.RED,
                     message_card = card
                 }
             end

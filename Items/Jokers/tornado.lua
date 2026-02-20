@@ -4,7 +4,7 @@ local tornado = {
     key = "tornado",
     config = {
         extra = {
-            x_mult_mod = 1,
+            x_mult_mod = 0.5,
             cur_x_mult = 1,
             to_play_ranks = {},
         }
@@ -22,7 +22,7 @@ local tornado = {
         local temp_list = {}
         local ranks = ''
         local ranks2 = ''
-        if #card.ability.extra.to_play_ranks == 0 then
+        if next(card.ability.extra.to_play_ranks) == nil then
             for k, v in pairs(SMODS.Ranks) do
                 temp_list[v.id] = v.card_key
             end
@@ -77,7 +77,7 @@ local tornado = {
                     end
                 end
             end
-            if #card.ability.extra.to_play_ranks == 0 then
+            if next(card.ability.extra.to_play_ranks) == nil then
                 for k, v in pairs(SMODS.Ranks) do
                     card.ability.extra.to_play_ranks[v.id] = v.card_key
                 end

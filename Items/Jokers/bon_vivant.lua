@@ -36,6 +36,7 @@ local bon_vivant = {
                 G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
                 return {
                     dollars = card.ability.extra.dollars,
+                    focus = card,
                     func = function()
                         G.E_MANAGER:add_event(Event({ func = function() G.GAME.dollar_buffer = 0; return true end }))
                     end

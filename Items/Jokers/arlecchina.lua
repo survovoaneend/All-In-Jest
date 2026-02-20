@@ -29,7 +29,6 @@ local arlecchina = {
 
   calculate = function(self, card, context)
     if context.skipping_booster and not context.blueprint then
-      print(context.booster)
       if context.booster.kind == "Buffoon" or context.booster.kind == "Standard" then
         SMODS.scale_card(card, {
           ref_table = card.ability.extra,

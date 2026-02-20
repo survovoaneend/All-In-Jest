@@ -6,7 +6,7 @@ local joker_baby = {
     key = "joker_baby",
     config = {
         extra = {
-            mult_mod = 2
+            mult_mod = 1
         }
     },
     rarity = 1,

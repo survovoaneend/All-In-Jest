@@ -5,13 +5,13 @@ local great_white_north = {
     key = "great_white_north",
     config = {
       extra = {
-        mult = 1
+        mult = 2
       }
     },
     rarity = 1,
     pos = { x = 11, y = 2 },
     atlas = 'joker_atlas',
-    cost = 3,
+    cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

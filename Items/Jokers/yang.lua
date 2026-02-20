@@ -8,14 +8,14 @@ local yang = {
             mult = 5
         }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 24, y = 25 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
-    eternal_compat = false,
+    blueprint_compat = true,
+    eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
         return {

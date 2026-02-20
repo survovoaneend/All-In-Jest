@@ -14,7 +14,7 @@ local dandiprat = {
     cost = 5,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
 
 
