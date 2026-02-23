@@ -70,7 +70,7 @@ return {
             k_aij_empty_ex = "Empty!",                   -- Tumbler
             k_aij_editioned_ex = "Editioned!",        -- Stave
             k_aij_destroyed_ex = "Destroyed!",
-            k_aij_create = "Create" -- Nonstandard tag
+            k_aij_create = "Create", -- Nonstandard tag
 
         },
         v_dictionary = {
