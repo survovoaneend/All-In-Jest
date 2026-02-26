@@ -162,6 +162,11 @@ return {
                 "with the lowest card rank 10"
             },
         },
+        tutorial = {
+           k_aij_line1 =  {"Hey."},
+           k_aij_line2 =  {"You've been playing", "for a while now,", "and I was thinking..."},
+           k_aij_line3 =  {"Isn't it about time", "you went all in?"},
+        }
     },
     descriptions = {
         Back = {
