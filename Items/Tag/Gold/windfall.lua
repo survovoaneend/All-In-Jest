@@ -25,7 +25,7 @@ local windfall_tag = {
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',
                 func = function()
-                    ease_dollars(math.max(0,to_big(G.GAME.dollars) * 2), true) -- Triples Money (Money + 2 Money)
+                    ease_dollars(math.max(0,math.min(to_big(G.GAME.dollars), 300) * 2), true) -- Triples Money (Money + 2 Money)
                     return true
                 end
             }))
