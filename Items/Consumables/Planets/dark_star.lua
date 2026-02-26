@@ -37,7 +37,7 @@ local dark_star = {
         end
       end
     end
-    level_up_hand(card, hands_to_upgrade)
+    SMODS.upgrade_poker_hands(hands_to_upgrade)
   end,
   in_pool = function(self, args)
     for _, k in ipairs(G.handlist) do
