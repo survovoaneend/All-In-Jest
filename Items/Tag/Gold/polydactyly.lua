@@ -15,13 +15,13 @@ local polydactyly_tag = {
     min_ante = 3,
 
     loc_vars = function(self, info_queue, tag)
-        return {vars = {G.GAME.all_in_jest.unused_hands.run}}
+        return {vars = {math.min(G.GAME.all_in_jest.unused_hands.run, 40)}}
     end,
 
     apply = function(self, tag, context)
         if context.type == 'round_start_bonus' then
             tag:jest_apply('+', G.C.BLUE,function() 
-                ease_hands_played(G.GAME.all_in_jest.unused_hands.run)
+                ease_hands_played(math.min(G.GAME.all_in_jest.unused_hands.run, 40))
                 return true
 			end,
             function() 

@@ -41,6 +41,7 @@ local whiteface_grotesque = {
                 return {
                     message = localize('k_upgrade_ex'),
                     message_card = card,
+                    delay = 0.2,
                 }
             end
         end

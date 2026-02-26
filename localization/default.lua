@@ -1187,6 +1187,7 @@ return {
                     "and {C:mult}+#4#{} Mult when {C:attention}Boss",
                     "{C:attention}Blind{} is defeated",
                     "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#3#{}{C:inactive,s:0.8} Mult)",
+                    "{C:inactive,s:0.8}(Always Eternal)"
                 } 
             },
             j_aij_imageboard = { 
@@ -4486,8 +4487,8 @@ return {
             tag_aij_windfall = {
                 name = 'Windfall Tag',
                 text = {
-                    "{C:money}Triples{} your money"
-                    -- TODO needs a max
+                    "{C:money}Triples{} your money",
+                    "{C:inactive}Max of {C:money}$300{}{C:inactive})"
                 }
             },
             tag_aij_unusual = {
@@ -4668,6 +4669,7 @@ return {
                     'Gives {C:blue}+1 hand{} next round',
                     'per unused {C:blue}hand{} this run', 
                     '{C:inactive}(Will give {C:blue}+#1#{C:inactive} hands)',
+                    '{C:inactive}(Max of {C:blue}+40{C:inactive} hands)'
                 }
             },
             tag_aij_landfill = {
