@@ -114,7 +114,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     
 
     vec3 hsv = rgbToHsv(pixel.rgb);
-    hsv.r = 26.90/255;
+    hsv.r = 26.90/255.0;
     pixel.rgb = hsvToRgb(hsv);
 
     pixel = vec4(pixel.rgb, pixel.a);
