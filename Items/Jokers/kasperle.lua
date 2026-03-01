@@ -1,7 +1,7 @@
 local kasperle = {
     object_type = "Joker",
     order = 112,
-
+    lite = true,
     key = "kasperle",
     config = {
       extra = { xmult = 3 }

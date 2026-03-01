@@ -4,6 +4,7 @@ local tamed_lion = {
 	set = 'Tarot',
 	pos = { x = 7, y = 5 },
 	cost = 3,
+	lite = true,
 	unlocked = true,
 	discovered = false,
 	order = 10,

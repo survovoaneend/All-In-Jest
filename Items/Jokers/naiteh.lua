@@ -1,7 +1,7 @@
 local naiteh = {
     object_type = "Joker",
     order = 1058,
-
+    lite = true,
     key = "naiteh",
     config = {
       extra = {

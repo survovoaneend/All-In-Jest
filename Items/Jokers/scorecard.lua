@@ -1,7 +1,7 @@
 local scorecard = {
   object_type = "Joker",
   order = 69,
-
+  lite = true,
   key = "scorecard",
   config = {
     extra = {

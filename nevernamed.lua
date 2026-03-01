@@ -278,6 +278,9 @@ local function load_items(curr_obj)
         return
     end
     for _, item in ipairs(curr_obj.items) do
+        if All_in_Jest.config.aij_lite and not item.lite then
+            goto continue
+        end
         item.ignore             = item.ignore             or false
         item.jest_spec_moon     = item.jest_spec_moon     or false
         item.jest_rec_paperback = item.jest_rec_paperback or false
@@ -348,4 +351,16 @@ end
 -- SMODS mod-specific settings
 function All_in_Jest.set_ability_reset_keys()
     return {'jest_charged_applied'}
+end
+
+-- 4. Function to handle the skip button
+G.FUNCS.skip_aij_intro = function(e)
+    if G.OVERLAY_TUTORIAL then
+        G.OVERLAY_TUTORIAL.skip_steps = true
+        if G.OVERLAY_TUTORIAL.Jimbo then G.OVERLAY_TUTORIAL.Jimbo:remove() end
+        if G.OVERLAY_TUTORIAL.content then G.OVERLAY_TUTORIAL.content:remove() end
+        G.OVERLAY_TUTORIAL:remove()
+        G.OVERLAY_TUTORIAL = nil
+    end
+    G.E_MANAGER:clear_queue('tutorial')
 end

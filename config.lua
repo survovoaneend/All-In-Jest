@@ -4,4 +4,5 @@ return {
   ['no_copy_neg'] = false,
   ['blue_stake_rework'] = true,
   ['random_deck_skins'] = true,
+  ['aij_lite'] = false,
 }

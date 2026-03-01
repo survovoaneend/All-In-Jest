@@ -1,12 +1,12 @@
 local devil_deal = {
     object_type = "Joker",
     order = 238,
-
+    lite = true,
     key = "devil_deal",
     config = {
       extra = {
         xmult = 1,
-        xmult_mod = 0.2
+        xmult_mod = 0.25
       }
     },
     rarity = 2,

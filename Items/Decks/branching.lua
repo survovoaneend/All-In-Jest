@@ -3,6 +3,7 @@ local branching = {
     key = 'branching',
     atlas = 'deck_atlas',
     order = 1,
+    lite = true,
     pos = { x = 1, y = 0 },
     unlocked = false,
 	unlock_condition = {hidden = true},

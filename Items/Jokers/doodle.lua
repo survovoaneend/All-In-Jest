@@ -15,7 +15,7 @@ local doodle = {
   cost = 10,
   unlocked = true,
   discovered = false,
-  blueprint_compat = false,
+  blueprint_compat = true,
   eternal_compat = true,
 
   loc_vars = function(self, info_queue, card)
@@ -100,7 +100,7 @@ local doodle = {
       end
 
       if effect1_def and effect2_def then
-        effect_to_return = SMODS.merge_effects(effect1_def, effect2_def)
+        effect_to_return = SMODS.merge_effects{effect1_def, effect2_def}
       else
         effect_to_return = effect1_def or effect2_def
       end

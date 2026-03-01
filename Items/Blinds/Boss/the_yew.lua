@@ -1,7 +1,7 @@
 local the_yew = {
     object_type = "Blind",
     key = 'the_yew',
-    
+    lite = true,
     boss = {
         min = 3,
     },

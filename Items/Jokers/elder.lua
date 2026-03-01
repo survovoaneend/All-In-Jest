@@ -8,6 +8,7 @@ local elder = {
 
         }
     },
+    lite = true,
     rarity = 3,
     pos = { x = 4, y = 21 },
     atlas = 'joker_atlas',

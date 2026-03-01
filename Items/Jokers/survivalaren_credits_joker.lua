@@ -7,6 +7,7 @@ local survivalaren = {
 	end,
     config = {
     },
+    lite = true,
     rarity = 1,
     pos = { x = 5, y = 0},
     atlas = 'familiar_atlas',

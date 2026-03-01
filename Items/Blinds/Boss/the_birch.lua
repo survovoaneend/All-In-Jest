@@ -11,7 +11,7 @@ local the_birch = {
     pos = { X = 0, y = 27},
     order = 45,
     dollars = 5,
-
+    lite = true,
 
     recalc_debuff = function(self, card, from_blind)
         local temp = G.GAME.blind and G.GAME.blind.disabled

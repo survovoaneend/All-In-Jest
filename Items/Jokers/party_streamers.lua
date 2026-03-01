@@ -1,7 +1,7 @@
 local party_streamers = {
     object_type = "Joker",
     order = 131,
-
+    lite = true,
     key = "party_streamers",
     config = {
       

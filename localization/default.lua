@@ -40,6 +40,13 @@ return {
                 'the new {C:attention}Pit Blinds{} instead',
                 'of {C:red}-1{} Discard'
             },
+            aij_lite = 'All in Jest Lite',
+            aij_lite_tooltip = {
+                'Enables only a hand-picked selection',
+                'of the most {C:attention}vanilla-adjacent{} content',
+                '{s:0.8,C:inactive}(Currently 76 things)'
+                
+            },
             aij_random_deck_skins = 'Randomized Deck Skins',
             aij_random_deck_skins_tooltip = {
                 '{C:attention}Playing cards{} added to the',
@@ -177,6 +184,11 @@ return {
                 "with the lowest card rank 10"
             },
         },
+        tutorial = {
+           k_aij_line1 =  {"Hey."},
+           k_aij_line2 =  {"You've been playing", "for a while now,", "and I was thinking..."},
+           k_aij_line3 =  {"Isn't it about time", "you went all in?"},
+        }
     },
     descriptions = {
         Back = {
@@ -1197,7 +1209,8 @@ return {
                     "and {C:mult}+#4#{} Mult when {C:attention}Boss",
                     "{C:attention}Blind{} is defeated",
                     "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#3#{}{C:inactive,s:0.8} Mult)",
-                }
+                    "{C:inactive,s:0.8}(Always Eternal)"
+                } 
             },
             j_aij_imageboard = {
                 name = "Imageboard",
@@ -3422,12 +3435,13 @@ return {
                     }
                 }
             },
-            j_aij_stagehand = {
-                name = "Stagehand",
-                text = {
-                    "All {C:attention}Jokers{} give",
-                    "{X:mult,C:white}X#1#{} Mult"
-                }
+            j_aij_stagehand = { 
+                name = "Stagehand", 
+                text = { 
+                    "Gains {X:mult,C:white}X#1#{} Mult",
+                    'per held {C:attention}Joker',
+                    '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
+                } 
             },
             j_aij_the_mermaid = { name = "The Mermaid", text = { "" } },
             j_aij_colour_test = {
@@ -5764,17 +5778,24 @@ return {
                 }
             },
             j_aij_grock = { name = "Grock", text = { "" }, unlock = { "?????" } },
-            j_aij_eulenspiegel = {
-                name = "Eulenspiegel",
-                text = {
-                    "When {C:attention}Boss Blind{} is defeated,",
+            j_aij_eulenspiegel = { 
+                name = "Eulenspiegel", 
+                text = { 
+                    {
+                        "When {C:attention}Boss Blind{} is defeated,",
                     "{C:attention}-#1#{} Ante and this Joker",
                     "loses {X:mult,C:white}X#2#{} Mult",
                     "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
-                },
-                unlock = {
-                    "?????"
-                }
+                    },
+                    {
+                        "{C:red}Debuffs self{}",
+                        "at {X:mult,C:white}X0{} Mult"
+                    }
+
+                }, 
+                unlock = { 
+                    "?????" 
+                } 
             },
             j_aij_deburau = { name = "Deburau", text = { "" }, unlock = { "?????" } },
             j_aij_dacosta = { name = "D'acosta", text = { "" }, unlock = { "?????" } },
@@ -6610,8 +6631,8 @@ return {
             tag_aij_windfall = {
                 name = 'Windfall Tag',
                 text = {
-                    "{C:money}Triples{} your money"
-                    -- TODO needs a max
+                    "{C:money}Triples{} your money",
+                    "{C:inactive}(Max of {C:money}$300{}{C:inactive})"
                 }
             },
             tag_aij_unusual = {
@@ -6792,6 +6813,7 @@ return {
                     'Gives {C:blue}+1 hand{} next round',
                     'per unused {C:blue}hand{} this run',
                     '{C:inactive}(Will give {C:blue}+#1#{C:inactive} hands)',
+                    '{C:inactive}(Max of {C:blue}+40{C:inactive} hands)'
                 }
             },
             tag_aij_landfill = {
