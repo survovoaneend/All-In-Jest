@@ -11,7 +11,7 @@ local toynbee_joker = {
     rarity = 2,
     pos = { x = 6, y = 8},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 7,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
@@ -29,7 +29,7 @@ local toynbee_joker = {
       if context.before and G.GAME.current_round.hands_played == 0 then
             card.ability.extra.first_hand = context.scoring_name
         end
-        if context.end_of_round and context.game_over == false and not context.blueprint then
+        if context.end_of_round and context.game_over == false then
             if card.ability.extra.first_hand then
                 local planet_key
                 for k, v in pairs(G.P_CENTER_POOLS.Planet) do
@@ -46,10 +46,12 @@ local toynbee_joker = {
                             return true
                         end
                     }))
-                    card.ability.extra.first_hand = nil
                     return { message = localize('k_plus_planet'), colour = G.C.SECONDARY_SET.Planet }
                 end
             end
+        end
+        if context.cashing_out then
+            card.ability.extra.first_hand = nil
         end
     end
   

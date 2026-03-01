@@ -3195,7 +3195,7 @@ return {
                 text = { 
                     "This Joker gains {C:chips}+#3#-#2#{} Chips",
                     "when {C:green}rerolling{} in the {C:attention}Shop",
-                    "{C:inactive}(Currently {C:chips}+#1#{} {C:inactive{}Chips)"
+                    "{C:inactive}(Currently {C:chips}+#1#{} {C:inactive}Chips){}"
                 } 
             },
             j_aij_taggart = {
