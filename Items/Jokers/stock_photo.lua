@@ -53,12 +53,14 @@ local stock_photo = {
           }))
        end
        if context.skipping_booster and card.ability.extra.trigger and not context.blueprint then
-           card.ability.extra.trigger = false
-           if SMODS.pseudorandom_probability(card, 'stock_photo', 1, card.ability.extra.odds) then
-               SMODS.destroy_cards(card)
-               return
-           end
-           card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_safe_ex'),colour = message_colour})
+          card.ability.extra.trigger = false
+          if SMODS.pseudorandom_probability(card, 'stock_photo', 1, card.ability.extra.odds) then
+              SMODS.destroy_cards(card)
+          else
+              return {
+                  message = localize('k_safe_ex'),
+              }
+          end
        end
     end
 }
