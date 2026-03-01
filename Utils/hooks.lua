@@ -674,9 +674,9 @@ SMODS.ConsumableType({
 
 SMODS.UndiscoveredSprite({
     key = 'aij_astral',
-    atlas = "consumable_atlas",
-    pos = { x = 4, y = 3 },
-    no_overlay = true
+    atlas = 'consumable_atlas',
+    pos = { x = 15, y = 4 },
+    overlay_pos = { x = 16, y = 4 },
 })
 
 G.Astral = {} -- stores Astral pins
