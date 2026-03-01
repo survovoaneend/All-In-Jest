@@ -27,6 +27,13 @@ local in_memorium = {
         }
     end,
 
+    add_to_deck = function(self, card, from_debuff)
+        if not from_debuff then
+            -- Gives synergy to Pellesini and similar effects
+            card.ability.extra.triggered = false
+        end
+    end,
+
     calculate = function(self, card, context)
         if context.open_booster and not context.blueprint and context.card.config.center.kind == 'Spectral' then
             SMODS.scale_card(card, {
@@ -49,7 +56,7 @@ local in_memorium = {
                 func = function()
                     All_in_Jest.reroll_joker(G.shop_booster.cards[1], get_pack('in_memorium', 'Spectral').key, 'in_memorium', nil, {type = "Booster"})
                     return true
-                end 
+                end
             }))
             card.ability.extra.triggered = true
         end
