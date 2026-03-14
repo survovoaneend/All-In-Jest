@@ -1150,19 +1150,30 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, extra)
     extra = extra or {}
     extra.type = extra.type or "Joker"
     local victim_joker = card
+
+    local vanilla_rarities = {"Common", "Uncommon", "Rare", "Legendary"}
       
     local victim_rarity = extra.forced_rarity or victim_joker.config.center.rarity or 1
     local is_legendary = victim_rarity == 4
+    if type(victim_rarity) == "number" then
+        victim_rarity = vanilla_rarities[victim_rarity]
+    end
     local victim_key = victim_joker.config.center.key
 
     
     local replacement_pool = {}
-    for _, center_data in ipairs(G.P_CENTER_POOLS[extra.type]) do
+    local pool = get_current_pool("Joker", victim_rarity, is_legendary)
+    for _, center_key in ipairs(pool) do
         -- If card is a joker, make sure the new card is of the desired rarity and is unlocked
         -- Otherwise pick whatever
+
+        local center_data = G.P_CENTERS[center_key]
+
         if 
-            (extra.type ~= "Joker") or 
-            (victim_rarity == (center_data.rarity or 1) and (center_data.unlocked or G.GAME.modifiers.all_jokers_unlocked or center_data.rarity == 4))
+            center_data and (
+                (extra.type ~= "Joker") or 
+                (victim_rarity == (vanilla_rarities[center_data.rarity] or center_data.rarity or "Common") and (center_data.unlocked or G.GAME.modifiers.all_jokers_unlocked or center_data.rarity == 4))
+            )
         then
             if center_data.key ~= victim_key then
                 if not center_data.demo and not center_data.wip then
@@ -1225,6 +1236,10 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, extra)
             return true 
         end 
     }))
+      G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+        G.jokers:unhighlight_all()
+        return true
+      end }))
     delay(0.5)
 end
 
