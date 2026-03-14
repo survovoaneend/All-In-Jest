@@ -28,21 +28,13 @@ local infamous_machine = {
   
     calculate = function(self, card, context)
         if context.first_hand_drawn and G.hand and not context.blueprint then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                func = function()
-                    G.hand.cards[1]:start_dissolve()
-                    return true
-                end
-            })) 
-            G.hand.cards[1].destroyed = true
+            SMODS.destroy_cards(G.hand.cards[1])
             SMODS.scale_card(card, {
 	            ref_table = card.ability.extra,
                 ref_value = "mult",
 	            scalar_value = "mult_mod",
                 message_key = 'a_mult'
             })
-            SMODS.calculate_context({remove_playing_cards = true, removed = G.hand.cards[1]})
         end
         if context.joker_main then
             local mult = card.ability.extra.mult
