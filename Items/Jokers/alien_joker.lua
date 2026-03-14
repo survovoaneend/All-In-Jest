@@ -59,12 +59,6 @@ local alien_joker = {
                 end
             end
         end
-        if context.discard then
-            if context.other_card.ability.alien_joker_highlight then
-                context.other_card.ability.alien_joker_highlight = nil
-                context.other_card.ability.forced_selection = nil
-            end
-        end
     end,
 
     add_to_deck = function(self, card, from_debuff)
@@ -108,7 +102,6 @@ local alien_joker = {
 -- Override some stuff with Cerulean Bell to work better with this joker
 
 local aij_play_cards_from_highlighted_ref = G.FUNCS.play_cards_from_highlighted
-
 G.FUNCS.play_cards_from_highlighted = function(e)
     local forced_cards = {}
     for k, v in ipairs(G.playing_cards) do
@@ -118,6 +111,24 @@ G.FUNCS.play_cards_from_highlighted = function(e)
     end
 
     local ret = aij_play_cards_from_highlighted_ref(e)
+
+    for _, v in ipairs(forced_cards) do
+        v.ability.forced_selection = true
+    end
+
+    return ret
+end
+
+local aij_discard_cards_from_highlighted_ref = G.FUNCS.discard_cards_from_highlighted
+G.FUNCS.discard_cards_from_highlighted = function(e, hook)
+    local forced_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        if v.ability.forced_selection then
+            table.insert(forced_cards, v)
+        end
+    end
+
+    local ret = aij_discard_cards_from_highlighted_ref(e, hook)
 
     for _, v in ipairs(forced_cards) do
         v.ability.forced_selection = true
