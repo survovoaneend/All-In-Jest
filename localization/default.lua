@@ -1512,7 +1512,7 @@ return {
                 text = { 
                     {
                         "If {C:attention}played hand{} contains",
-                        "exactly {C:attention}#1# King{} and {C:attention}#1# Queen{},",
+                        "exactly {C:attention}one King{} and {C:attention}one Queen{},",
                         "retrigger all scoring cards"
                     },
                     {
