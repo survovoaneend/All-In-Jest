@@ -17,7 +17,7 @@ local gegenschein = {
   can_use = function(self, card)
     for hand_key, hand_data in pairs(G.GAME.hands) do
       for _, v in pairs(G.GAME.all_in_jest.secret_hands) do
-        if hand_key == v and G.GAME.hands[hand_key].played > G.GAME.hands[hand_key].played then
+        if hand_key == v and G.GAME.hands[hand_key].played > G.GAME.hands[hand_key].level then
           return true
         end
       end
@@ -36,7 +36,7 @@ local gegenschein = {
   in_pool = function(self, args)
     for hand_key, hand_data in pairs(G.GAME.hands) do
       for _, v in pairs(G.GAME.all_in_jest.secret_hands) do
-        if hand_key == v and G.GAME.hands[hand_key].played > G.GAME.hands[hand_key].played then
+        if hand_key == v and G.GAME.hands[hand_key].played > G.GAME.hands[hand_key].level then
           return true
         end
       end

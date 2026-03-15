@@ -4488,7 +4488,7 @@ return {
                 name = 'Windfall Tag',
                 text = {
                     "{C:money}Triples{} your money",
-                    "{C:inactive}Max of {C:money}$300{}{C:inactive})"
+                    "{C:inactive}(Max of {C:money}$300{}{C:inactive})"
                 }
             },
             tag_aij_unusual = {
