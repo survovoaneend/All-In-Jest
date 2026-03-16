@@ -37,7 +37,7 @@ local jokey_bear = {
                 }
             end
         end
-        if context.repetition_only or (context.retrigger_joker_check) then
+        if context.retrigger_joker_check and context.other_card == card and context.other_context.all_in_jest and context.other_context.all_in_jest.before_after then
             local chip_amt = tonumber(card.ability.extra.temp_chips)
             chip_amt = chip_amt * 0.75
             local reps = 0
@@ -45,7 +45,7 @@ local jokey_bear = {
                 reps = reps + 1
                 chip_amt = chip_amt * 0.75
             end
-            if context.other_card == card and reps > 0 then
+            if reps > 0 then
                 return {
                     repetitions = reps,
                     card = card,

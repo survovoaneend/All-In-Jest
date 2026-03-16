@@ -29,7 +29,7 @@ local mocap = {
                             delay = 0.2,
                             func = function()
                               card:juice_up()
-                              local temp_card = create_card('Joker', G.jokers, nil, 1, nil, nil, nil, 'mocap')
+                              local temp_card = SMODS.create_card{set="Joker", area=G.Jokers, rarity=1, key_append="mocap"}
                               temp_card:start_materialize()
                               G.jokers:emplace(temp_card)
                               return true
@@ -41,7 +41,7 @@ local mocap = {
                             delay = 0.2,
                             func = function()
                               card:juice_up()
-                              local temp_card = create_card('Joker', G.jokers, nil, 0.9, nil, nil, nil, 'mocap')
+                              local temp_card = SMODS.create_card{set="Joker", area=G.Jokers, rarity=0.9, key_append="mocap"}
                               temp_card:start_materialize()
                               G.jokers:emplace(temp_card)
                               return true
@@ -53,7 +53,7 @@ local mocap = {
                             delay = 0.2,
                             func = function()
                               card:juice_up()
-                              local temp_card = create_card('Joker', G.jokers, nil, 0.6, nil, nil, nil, 'mocap')
+                              local temp_card = SMODS.create_card{set="Joker", area=G.Jokers, rarity=0.6, key_append="mocap"}
                               temp_card:start_materialize()
                               G.jokers:emplace(temp_card)
                               return true

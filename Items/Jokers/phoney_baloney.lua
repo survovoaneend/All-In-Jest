@@ -29,16 +29,16 @@ local phoney_baloney = {
 
     calculate = function(self, card, context)
         if context.reroll_shop and not context.blueprint then
-            card.ability.extra.rerolls_remaining = card.ability.extra.rerolls_remaining - 1
-            G.GAME.current_round.free_rerolls = card.ability.extra.rerolls_remaining
-            calculate_reroll_cost(true)
-            if card.ability.extra.rerolls_remaining <= 0 then
+            if card.ability.extra.rerolls_remaining <= 1 and context.cost == 0 then
                 SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),
                     colour = G.C.FILTER
                 }
             else
+                card.ability.extra.rerolls_remaining = card.ability.extra.rerolls_remaining - 1
+                G.GAME.round_resets.free_rerolls = G.GAME.round_resets.free_rerolls - 1
+                calculate_reroll_cost(true)
                 return {
                     message = localize { type = 'variable', key = 'a_remaining', vars = { card.ability.extra.rerolls_remaining } },
                     colour = G.C.FILTER
@@ -48,6 +48,7 @@ local phoney_baloney = {
         if context.end_of_round and context.main_eval and not context.blueprint then
             if context.beat_boss then
                 card.ability.extra.rerolls_remaining = card.ability.extra.rerolls_remaining + card.ability.extra.rerolls
+                SMODS.change_free_rerolls(card.ability.extra.rerolls)
 
                 return {
                     message = localize { type = 'variable', key = 'a_aij_plus_rerolls', vars = { card.ability.extra.rerolls } },
