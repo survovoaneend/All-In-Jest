@@ -4419,10 +4419,49 @@ return {
                     '{C:attention}#1#{} is played',
                 }
             },
+            c_aij_spica = {
+                name = 'Spica',
+                text = {
+                    '{C:red}Disable{} the {C:attention}Boss Blind{} if {C:attention}first',
+                    '{C:attention}hand{} of round is {C:attention}#1#{}'
+                }
+            },
             c_aij_arcturus = {
                 name = 'Arcturus',
                 text = {
                     'Gain {C:attention}+#2#{} {C:red}Discard{} after',
+                    '{C:attention}#1#{} is played',
+                }
+            },
+            c_aij_alphecca = {
+                name = 'Alphecca',
+                text = {
+                    'Scored cards {C:attention}permanently',
+                    'gain {C:chips}+#2#{} Chips if hand',
+                    'is {C:attention}#1#{}'
+                }
+            },
+            c_aij_antares = {
+                name = 'Antares',
+                text = {
+                    'When {C:attention}#1#{} is played',
+                    '{C:red}destroy{} a random card',
+                    '{C:attention}held in hand'
+                }
+            },
+            c_aij_vega = {
+                name = 'Vega',
+                text = {
+                    'Retrigger all cards',
+                    '{C:attention}held in hand{} when',
+                    '{C:attention}#1#{} is played',
+                }
+            },
+            c_aij_deneb_algedi = {
+                name = 'Deneb Algedi',
+                text = {
+                    'Earn {C:blue}+#2#{} Hand',
+                    'the first time',
                     '{C:attention}#1#{} is played',
                 }
             },
