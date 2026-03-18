@@ -4349,6 +4349,22 @@ return {
                     'card in your hand'
                 }
             },
+            c_aij_ketu = {
+                name = 'Ketu',
+                text = {
+                    'Retrigger leftmost',
+                    '{C:attention}Joker{} when {C:attention}#1#{}',
+                    'is played',
+                }
+            },
+            c_aij_rahu = {
+                name = 'Rahu',
+                text = {
+                    'Retrigger all cards',
+                    '{C:attention}played{} when {C:attention}#1#{}',
+                    'is played',
+                }
+            },
         },
         aij_astral = {
             c_aij_algol = {
