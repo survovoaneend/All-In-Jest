@@ -470,8 +470,50 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'control',
+    name = 'Control',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'megaman',
+    name = 'Megaman',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'mewgenics',
+    name = 'Mewgenics',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'super_meat_boy',
+    name = 'Super Meat Boy',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'slarpg',
+    name = 'Super Lesbian Animal RPG',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
     id = 'spelunky',
     name = 'Spelunky',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
+    id = 'stellaris',
+    name = 'Stellaris',
     suits = {
       'Diamonds',
     }
@@ -498,10 +540,10 @@ AllInJest.deck_skins = {
     }
   },
   {
-    id = 'alan_wake',
-    name = 'Alan Wake',
+    id = 'gish',
+    name = 'GISH',
     suits = {
-      'Clubs',
+      'Spades',
     }
   },
   {
@@ -522,6 +564,21 @@ AllInJest.deck_skins = {
     id = 'we_happy_few',
     name = 'We Happy Few',
     suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'stanley_parable',
+    name = 'The Stanley Parable',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'alan_wake',
+    name = 'Alan Wake',
+    suits = {
+      'Diamonds',
       'Clubs',
     }
   },
@@ -1768,6 +1825,47 @@ function All_in_Jest.apply_inherent_effect(card, effect, type)
         card.aij_inherent_effects[type..'s'] = card.aij_inherent_effects[type..'s'] or {}
         card.aij_inherent_effects[type..'s'][#card.aij_inherent_effects[type..'s'] + 1] = copy_table(effect)
     end
+end
+
+function All_in_Jest.set_other_enhancement(card, enhancement)
+    if not G.P_CENTERS[enhancement] then return end
+    card.config.aij_other_center = card.config.aij_other_center or {}
+    if G.P_CENTERS[enhancement] then
+        card.config.aij_other_center = G.P_CENTERS[enhancement]
+    end
+end
+
+function All_in_Jest.find_multi_enhancement_pos(enhancement1, enhancement2)
+    local pos = {
+        x = 0,
+        y = 0
+    }
+    local center_table = {
+        ['1'] = enhancement1,
+        ['2'] = enhancement2
+    }
+    for i = 1, 2 do
+        local type = 'x'
+        if i == 2 then type = 'y' end
+        if center_table[i] == 'm_bonus' then
+            pos[type] = 3
+        elseif center_table[i] == 'm_mult' then
+            pos[type] = 4
+        elseif center_table[i] == 'm_wild' then
+            pos[type] = 5
+        elseif center_table[i] == 'm_glass' then
+            pos[type] = 7
+        elseif center_table[i] == 'm_steel' then
+            pos[type] = 8
+        elseif center_table[i] == 'm_stone' then
+            pos[type] = 1
+        elseif center_table[i] == 'm_gold' then
+            pos[type] = 2
+        elseif center_table[i] == 'm_lucky' then
+            pos[type] = 6
+        end
+    end
+    return pos
 end
 
 function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
