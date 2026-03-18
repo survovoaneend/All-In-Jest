@@ -21,6 +21,7 @@ SMODS.DrawStep {
     key = 'temp_patches',
     order = 21,
     func = function(self, layer)
+		local center = self.config.center
 		--Patches
         if self.ability.patches then
             for k, v in pairs(self.ability.patches) do
@@ -44,7 +45,7 @@ SMODS.DrawStep {
           end
         end
 		--Astral Grades/Pins
-		if self.ability and self.ability.set and self.ability.set == 'aij_astral' and not self.config.center.is_pin then
+		if ((self.ability and self.ability.set and self.ability.set == 'aij_astral') or (center and center.all_in_jest and center.all_in_jest.as_astral)) and not self.config.center.is_pin then
           if G.all_in_jest and G.all_in_jest.astral_grades[self.ability.consumeable.grade] then
             G.all_in_jest.astral_grades[self.ability.consumeable.grade].role.draw_major = self
             G.all_in_jest.astral_grades[self.ability.consumeable.grade]:draw_shader('dissolve', nil, nil, nil, self.children.center)

@@ -693,10 +693,11 @@ All_in_Jest.Astral = SMODS.Tag:extend {
         if not card then
             card = self:create_fake_card()
         end
+        local set_check = self.alt_set or self.set
         local target = {
             type = 'descriptions',
             key = self.key,
-            set = self.set,
+            set = set_check,
             nodes = desc_nodes,
             AUT = full_UI_table,
             vars =
@@ -713,8 +714,8 @@ All_in_Jest.Astral = SMODS.Tag:extend {
         end
 
         if desc_nodes == full_UI_table.main and not full_UI_table.name then
-            full_UI_table.name = self.set == 'Enhanced' and 'temp_value' or localize { type = 'name', set = target.set, key = res.name_key or target.key, nodes = full_UI_table.name, vars = res.name_vars or target.vars or {} }
-        elseif desc_nodes ~= full_UI_table.main and not desc_nodes.name and self.set ~= 'Enhanced' then
+            full_UI_table.name = set_check == 'Enhanced' and 'temp_value' or localize { type = 'name', set = target.set, key = res.name_key or target.key, nodes = full_UI_table.name, vars = res.name_vars or target.vars or {} }
+        elseif desc_nodes ~= full_UI_table.main and not desc_nodes.name and set_check ~= 'Enhanced' then
             desc_nodes.name = localize{type = 'name_text', key = res.name_key or target.key, set = target.set }
         end
         if specific_vars and specific_vars.debuffed and not res.replace_debuff then
