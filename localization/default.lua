@@ -1512,7 +1512,7 @@ return {
                 text = { 
                     {
                         "If {C:attention}played hand{} contains",
-                        "exactly {C:attention}#1# King{} and {C:attention}#1# Queen{},",
+                        "exactly {C:attention}one King{} and {C:attention}one Queen{},",
                         "retrigger all scoring cards"
                     },
                     {
@@ -4488,7 +4488,7 @@ return {
                 name = 'Windfall Tag',
                 text = {
                     "{C:money}Triples{} your money",
-                    "{C:inactive}Max of {C:money}$300{}{C:inactive})"
+                    "{C:inactive}(Max of {C:money}$300{}{C:inactive})"
                 }
             },
             tag_aij_unusual = {
