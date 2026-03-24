@@ -1,12 +1,15 @@
-local rogue_planet = {
+local ghost_moon = {
   object_type = "Consumable",
-  key = 'rogue',
+  key = 'ghost_moon',
   set = 'Planet',
-  pos = { x = 6, y = 6 },
+  pos = { x = 5, y = 8 },
+  set_card_type_badge = function(self, card, badges)
+    badges[#badges + 1] = create_badge(localize('k_moon'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2)
+  end,
   cost = 3,
   unlocked = true,
   discovered = false,
-  order = 33,
+  order = 35,
   config = {},
   atlas = 'consumable_atlas',
   loc_vars = function(self, info_queue, card)
@@ -20,8 +23,8 @@ local rogue_planet = {
     for _, k in ipairs(G.handlist) do
       local hand = G.GAME.hands[k]
       if hand.visible then
-        for i = 1, #G.jokers.cards do
-          local text = retrieve_joker_text(G.jokers.cards[i])
+        for i = 1, #G.consumeables.cards do
+          local text = retrieve_joker_text(G.consumeables.cards[i])
           if text:find(k) or text:find(localize(k, 'poker_hands')) then
             return true
           end
@@ -40,8 +43,8 @@ local rogue_planet = {
       end
     end
     for _, k in ipairs(available_hands) do
-      for i = 1, #G.jokers.cards do
-        local text = retrieve_joker_text(G.jokers.cards[i])
+      for i = 1, #G.consumeables.cards do
+        local text = retrieve_joker_text(G.consumeables.cards[i])
         local like_hands = {}
         local should_add = true
         for _, v in ipairs(available_hands) do
@@ -67,16 +70,16 @@ local rogue_planet = {
       end
     end
     for _, k in ipairs(hands_to_upgrade) do
-        level_up_hand(card, k)
+        level_up_hand(card, k, nil, 2)
     end
   end,
   in_pool = function(self, args)
-    if G.GAME and G.jokers then
+    if G.GAME and G.consumeables then
       for _, k in ipairs(G.handlist) do
         local hand = G.GAME.hands[k]
         if hand.visible then
-          for i = 1, #G.jokers.cards do
-            local text = retrieve_joker_text(G.jokers.cards[i])
+          for i = 1, #G.consumeables.cards do
+            local text = retrieve_joker_text(G.consumeables.cards[i])
             if text:find(k) or text:find(localize(k, 'poker_hands')) then
               return true
             end
@@ -90,4 +93,4 @@ local rogue_planet = {
     return -3
   end,
 }
-return { name = { "Planets" }, items = { rogue_planet } }
+return { name = { "Planets" }, items = { ghost_moon } }
