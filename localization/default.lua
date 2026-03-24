@@ -135,6 +135,7 @@ return {
             -- Editions
             aij_glimmer = "Glimmer",
             aij_silver = "Silver",
+            aij_misprint = "Misprinted",
             aij_stellar = "Stellar",
             aij_aureate = "Aureate",
             aij_torn = "Torn",
@@ -1032,8 +1033,16 @@ return {
                     "{C:inactive}(Max of {C:money}$#2#{}{C:inactive})"
                 }
             },
+            e_aij_misprint = {
+                name = "Misprinted",
+                text = {
+                    "{C:attention}Randomises{} the {C:attention}values{} of this",
+                    "{C:attention}Joker{} between {C:attention}X#1#{} and {C:attention}X#2#",
+                    "after hand {C:attention}played",
+                }
+            },
             e_aij_torn = {
-                name = "Torn",
+                name = "Half-Wit",
                 text = {
                     
                 }
@@ -4296,6 +4305,15 @@ return {
                     "been {C:attention}played{} yet"
                 }
             },
+            c_aij_ghost_moon = {
+                name = "Ghost Moon",
+                text = {
+                    'Level up {C:attention}all',
+                    '{C:attention}hands{} mentioned',
+                    'by your {C:attention}Consumables',
+                    '{C:attention}twice'
+                }
+            },
             c_aij_sol = {
                 name = "Sol",
                 text = {
@@ -4938,6 +4956,14 @@ return {
                     "Randomises the values",
                     "of {C:attention}leftmost consumable",
                     "between {C:attention}X0.75{} and {C:attention}X2.5"
+                }
+            },
+            c_aij_golem = {
+                name = 'Golem',
+                text = {
+                    "Applies an {C:attention}additional{} random",
+                    "enhancement to up to {C:attention}#1#",
+                    "selected {C:attention}Stone Cards"
                 }
             },
             c_aij_error = {
