@@ -591,6 +591,14 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'tadc',
+    name = 'The Amazing Digital Circus',
+    suits = {
+      'Spades',
+      'Hearts'
+    }
+  },
+  {
     id = 'inscryption',
     name = 'Inscryption',
     suits = {
