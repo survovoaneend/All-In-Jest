@@ -5640,6 +5640,114 @@ return {
                    ''
                 }
             },
+            j_aij_hangman = {
+                name = "Hangman",
+                text = {
+                    ''
+                }
+            },
+            j_aij_rue_barre = {
+                name = "Rue Barrée",
+                text = {
+                    ''
+                }
+            },
+            j_aij_happygolucky = {
+                name = "Happy-Go-Lucky",
+                text = {
+                    ''
+                }
+            },
+            j_aij_the_slab = {
+                name = "The Slab",
+                text = {
+                    ''
+                }
+            },
+            j_aij_quantum_computing = {
+                name = "Quantum Computing",
+                text = {
+                    ''
+                }
+            },
+            j_aij_akahachi = {
+                name = "Akahachi",
+                text = {
+                    ''
+                }
+            },
+            j_aij_obsessive_objective = {
+                name = "Obsessive Objective",
+                text = {
+                    ''
+                }
+            },
+            j_aij_polyphemus = {
+                name = "Polyphemus",
+                text = {
+                    ''
+                }
+            },
+            j_aij_rounding_error = {
+                name = "Rounding Error",
+                text = {
+                    ''
+                }
+            },
+            j_aij_shrinkflation = {
+                name = "Shrinkflation",
+                text = {
+                    ''
+                }
+            },
+            j_aij_gummy = {
+                name = "Gummy",
+                text = {
+                    ''
+                }
+            },
+            j_aij_the_far_lands = {
+                name = "The Far Lands",
+                text = {
+                    ''
+                }
+            },
+            j_aij_game_cartridge = {
+                name = "Game Cartridge",
+                text = {
+                    ''
+                }
+            },
+            j_aij_steven = {
+                name = "Steven",
+                text = {
+                    ''
+                }
+            },
+            j_aij_super_meat_joker = {
+                name = "Super Meat Joker",
+                text = {
+                    ''
+                }
+            },
+            j_aij_the_mark = {
+                name = "The Mark",
+                text = {
+                    ''
+                }
+            },
+            j_aij_creative_commons = {
+                name = "Creative Commons",
+                text = {
+                    ''
+                }
+            },
+            j_aij_tar_joker = {
+                name = "Tar Joker",
+                text = {
+                    ''
+                }
+            },
 
 
             j_aij_prototype = {

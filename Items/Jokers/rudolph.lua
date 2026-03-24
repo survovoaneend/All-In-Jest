@@ -11,8 +11,8 @@ local rudolph = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
-    eternal_compat = false,
+    blueprint_compat = true,
+    eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = { set = 'Other', key = 'red_seal' }
