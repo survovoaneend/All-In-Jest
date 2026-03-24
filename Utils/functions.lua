@@ -595,7 +595,7 @@ AllInJest.deck_skins = {
     name = 'The Amazing Digital Circus',
     suits = {
       'Spades',
-      'Hearts'
+      'Hearts',
       'Clubs',
     }
   },
