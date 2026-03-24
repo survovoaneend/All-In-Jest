@@ -596,6 +596,7 @@ AllInJest.deck_skins = {
     suits = {
       'Spades',
       'Hearts'
+      'Clubs',
     }
   },
   {
