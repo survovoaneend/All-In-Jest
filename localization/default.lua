@@ -10,10 +10,8 @@ return {
             k_star_q = "Star?",
             k_asteroid = "Asteroid",
             k_tarot_q = "Tarot?",
-            k_tarot_hex = "Hex",
             k_active = "Active",
             k_inactive = "Inactive",
-            k_aij_inherent = "Inherent",
             aij_requires_restart = "Requires Restart",
             aij_doesnt_requires_restart = "Doesn't Require Restart",
             aij_upgraded_tags = "Gold Tags",
@@ -41,14 +39,19 @@ return {
                 'the new {C:attention}Pit Blinds{} instead',
                 'of {C:red}-1{} Discard'
             },
+            aij_lite = 'All in Jest Lite',
+            aij_lite_tooltip = {
+                'Enables only a hand-picked selection',
+                'of the most {C:attention}vanilla-adjacent{} content',
+                '{s:0.8,C:inactive}(Currently 76 things)'
+                
+            },
             aij_random_deck_skins = 'Randomized Deck Skins',
             aij_random_deck_skins_tooltip = {
                 '{C:attention}Playing cards{} added to the',
                 'deck have random {C:attention}deck skins'
             },
             k_aij_guess_the_jest = "Guess the Jest",
-            k_aij_common_packs = "Common Pack",
-            k_aij_uncommon_packs = "Uncommon Pack",
             k_aij_memory_card = "Memorized!", -- Memory Card, currently unused
             aij_plus_tag = "+1 Tag", -- Various jokers
             aij_refreshed = 'Refreshed', -- Office Assistant (When fixing a perishable sticker)
@@ -64,7 +67,8 @@ return {
             k_aij_chaos_ex = 'Chaos!', -- Chaotic modifier
             k_aij_two_into_one_ex = 'Two into one!', -- Mycologists
             k_aij_plus_two_moons = "+2 Moons", -- Sky Trees
-            k_aij_does_not_score_ex = "Does not Score!" -- Opening Move
+            k_aij_does_not_score_ex = "Does not Score!", -- Opening Move
+            k_aij_create = "Create" -- Nonstandard tag
 
         },
         v_dictionary = {
@@ -135,7 +139,6 @@ return {
             -- Editions
             aij_glimmer = "Glimmer",
             aij_silver = "Silver",
-            aij_misprint = "Misprinted",
             aij_stellar = "Stellar",
             aij_aureate = "Aureate",
             aij_torn = "Torn",
@@ -159,6 +162,11 @@ return {
                 "with the lowest card rank 10"
             },
         },
+        tutorial = {
+           k_aij_line1 =  {"Hey."},
+           k_aij_line2 =  {"You've been playing", "for a while now,", "and I was thinking..."},
+           k_aij_line3 =  {"Isn't it about time", "you went all in?"},
+        }
     },
     descriptions = {
         Back = {
@@ -580,8 +588,9 @@ return {
             bl_aij_the_storm = {
                 name = "The Storm",
                 text = {
-                    'Destroy all non-scoring',
-                    'played cards'
+                    'If scored hand contains',
+                    '3 or more cards,',
+                    "destroy all played cards"
                 },
             },
             bl_aij_the_frost = {
@@ -884,14 +893,6 @@ return {
                     'of card to the {C:attention}right'
                 }
             },
-            m_aij_scorched = {
-                name = "Scorched Card",
-                text = {
-                    'When discarded, {C:green}#1# in #2#',
-                    'chance to {C:attention}upgrade{} discarded',
-                    '{C:attention}poker hand{} by {C:attention}#3#{} level.'
-                }
-            },
         },
         Voucher = {
             v_aij_fairy_dust ={
@@ -941,53 +942,6 @@ return {
                     '{C:attention}stickers'
                 },
             },
-            v_aij_wax_stamp ={
-                name = "Wax Stamp",
-                text = {
-                    '{C:attention}Playing cards{} in {C:attention}Standard',
-                    '{C:attention}Packs{} are {C:attention}twice{} as likely',
-                    'to bear a {C:attention}Seal'
-                },
-            },
-            v_aij_seal_of_the_realm ={
-                name = "Seal Of The Realm",
-                text = {
-                    '{C:attention}Playing cards{} may',
-                    'appear with {C:attention}Seals',
-                    'that {C:attention}bear{} their',
-                    '{C:attention}own{} {C:dark_edition}editions'
-                },
-            },
-            v_aij_embraced_arcane ={
-                name = "Embraced Arcane",
-                text = {
-                    '{C:attention}+#1#{} pick in {C:tarot}Arcana Packs',
-                },
-            },
-            v_aij_thaumaturgy ={
-                name = "Thaumaturgy",
-                text = {
-                    '{C:attention}Adds{} an additional',
-                    'random {C:tarot}Arcana Pack',
-                    'to every {C:money}shop',
-                },
-            },
-            v_aij_common_caste ={
-                name = "Common Caste",
-                text = {
-                    '{C:attention}Adds{} an additional',
-                    'random {C:common}Common Pack',
-                    'to every {C:money}shop',
-                },
-            },
-            v_aij_upper_class ={
-                name = "Upper Class",
-                text = {
-                    '{C:attention}Adds{} an additional',
-                    'random {C:uncommon}Uncommon Pack',
-                    'to every {C:money}shop',
-                },
-            },
         },
         Edition = {
             e_aij_negative_playing_card = {
@@ -1018,14 +972,6 @@ return {
                     "of played hand"
                 }
             },
-            e_aij_stellar_alt = {
-                name = "Stellar",
-                text = {
-                    "{C:chips}+#1#{} Chips and",
-                    "{C:mult}+#2#{} Mult per {C:attention}#3# levels{}",
-                    "of played hand"
-                }
-            },
             e_aij_aureate = {
                 name = "Aureate",
                 text = {
@@ -1033,16 +979,8 @@ return {
                     "{C:inactive}(Max of {C:money}$#2#{}{C:inactive})"
                 }
             },
-            e_aij_misprint = {
-                name = "Misprinted",
-                text = {
-                    "{C:attention}Randomises{} the {C:attention}values{} of this",
-                    "{C:attention}Joker{} between {C:attention}X#1#{} and {C:attention}X#2#",
-                    "after hand {C:attention}played",
-                }
-            },
             e_aij_torn = {
-                name = "Half-Wit",
+                name = "Torn",
                 text = {
                     
                 }
@@ -1249,6 +1187,7 @@ return {
                     "and {C:mult}+#4#{} Mult when {C:attention}Boss",
                     "{C:attention}Blind{} is defeated",
                     "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#1#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#3#{}{C:inactive,s:0.8} Mult)",
+                    "{C:inactive,s:0.8}(Always Eternal)"
                 } 
             },
             j_aij_imageboard = { 
@@ -1540,8 +1479,8 @@ return {
             j_aij_right_angle = { 
                 name = "Right Angle", 
                 text = { 
-                    "Trigger all {C:attention}10s{} held in hand",
-                    "when a {C:attention}9{} is scored" 
+                    "Score all {C:attention}10s{} held in hand",
+                    "when a {C:attention}9{} is scored"
                 } 
             },
             j_aij_adoring_joker = {
@@ -1573,7 +1512,7 @@ return {
                 text = { 
                     {
                         "If {C:attention}played hand{} contains",
-                        "exactly {C:attention}#1# King{} and {C:attention}#1# Queen{},",
+                        "exactly {C:attention}one King{} and {C:attention}one Queen{},",
                         "retrigger all scoring cards"
                     },
                     {
@@ -2389,10 +2328,10 @@ return {
                     "{C:attention}Shop{} and {C:attention}Buffoon Packs{}", 
                 },
                 {
-                    "{C:inactive}\"I've taken your stuff, but",
-                    "{C:inactive}you keep pushing through;",
-                    "{C:inactive}I'll have to try harder, so",
-                    "{C:inactive}rats off to you!\" -R. R.",
+                    "{C:inactive}\"I've taken your stuff,",
+                    "{C:inactive}but you keep pushing through;",
+                    "{C:inactive}I'll have to try harder,",
+                    "{C:inactive}so rats off to you!\" -R. R.",
                 }
             }
             },
@@ -2702,7 +2641,7 @@ return {
                 text = { 
                     "Retrigger all {C:attention}scored{} cards",
                     "if a {C:attention}playing card{} has been",
-                    "{C:red}destroyed{} this round",
+                    "{C:red}destroyed{} this blind",
                     "{C:inactive}#1#{}"
                 } 
             },
@@ -3033,8 +2972,9 @@ return {
             j_aij_stagehand = { 
                 name = "Stagehand", 
                 text = { 
-                    "All {C:attention}Jokers{} give",
-                    "{X:mult,C:white}X#1#{} Mult"
+                    "Gains {X:mult,C:white}X#1#{} Mult",
+                    'per held {C:attention}Joker',
+                    '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
                 } 
             },
             j_aij_the_mermaid = { name = "The Mermaid", text = { "" } },
@@ -3251,7 +3191,7 @@ return {
                     "Adds {C:mult}Mult{} equal to the",
                     "{C:attention}sum{} of all digits in the",
                     "{C:attention}ability descriptions{} of",
-                    "owned {C:attention}Jokers" ,
+                    "all other owned {C:attention}Jokers{}",
                     "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
                 } 
             },
@@ -3670,7 +3610,7 @@ return {
                 name = "Elder", 
                 text = {
                     'Copies the effect of',
-                    'the {C:attention}Joker{} you have',
+                    'the other {C:attention}Joker{} you have',
                     "owned the {C:attention}longest{}",
                     "{C:inactive}(Currently #1#)"
                 } 
@@ -3749,7 +3689,7 @@ return {
                     "When any Joker is",
                     "{C:red}destroyed{}, create an",
                     "{C:attention}exact{} copy",
-					"{C:inactive}(Including itself)"
+					          "{C:inactive}(Including itself)"
                 },
                 unlock = { 
                     "?????" 
@@ -3801,10 +3741,17 @@ return {
             j_aij_eulenspiegel = { 
                 name = "Eulenspiegel", 
                 text = { 
-                    "When {C:attention}Boss Blind{} is defeated,",
+                    {
+                        "When {C:attention}Boss Blind{} is defeated,",
                     "{C:attention}-#1#{} Ante and this Joker",
                     "loses {X:mult,C:white}X#2#{} Mult",
                     "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)"
+                    },
+                    {
+                        "{C:red}Debuffs self{}",
+                        "at {X:mult,C:white}X0{} Mult"
+                    }
+
                 }, 
                 unlock = { 
                     "?????" 
@@ -4052,9 +3999,15 @@ return {
             j_aij_dongtong = {
                 name = "Dongtong",
                 text = {
+                    {
                     "{C:green}Doubles{} most {C:attention}Joker{}",
                     "values",
-                },
+                    },
+                    {
+                        "Doubles {C:attention}Blind{}",
+                        "{C:attention}Requirements"
+                    }
+            },
                 unlock = { "?????" }
             },
             j_aij_naiteh = {
@@ -4305,15 +4258,6 @@ return {
                     "been {C:attention}played{} yet"
                 }
             },
-            c_aij_ghost_moon = {
-                name = "Ghost Moon",
-                text = {
-                    'Level up {C:attention}all',
-                    '{C:attention}hands{} mentioned',
-                    'by your {C:attention}Consumables',
-                    '{C:attention}twice'
-                }
-            },
             c_aij_sol = {
                 name = "Sol",
                 text = {
@@ -4409,24 +4353,8 @@ return {
                 name = 'Shade',
                 text = {
                     'Add {C:dark_edition}Negative{} edition',
-                    'to {C:attention}1{} random',
+                    'to {C:attention}#1#{} random',
                     'card in hand'
-                }
-            },
-            c_aij_possession = {
-                name = 'Possession',
-                text = {
-                    'Remove {C:dark_edition}Edition{} and {C:attention}Enhancement',
-                    'from {C:attention}#1#{} selected card and make',
-                    'their {C:attention}effects {C:jest_inherent}Inherent'
-                }
-            },
-            c_aij_tetragrammaton = {
-                name = 'Tetragrammaton',
-                text = {
-                    'Create {C:attention}any{} playing card and',
-                    '{C:attention}#1# random{} playing cards to',
-                    'add to your {C:attention}deck'
                 }
             },
             c_aij_trefle = {
@@ -4489,14 +4417,6 @@ return {
                     'Add a {V:1}#2#',
                     'to {C:attention}#1#{} selected',
                     'card in your hand'
-                }
-            },
-            c_aij_tallow = {
-                name = 'Tallow',
-                text = {
-                    'Add a {V:1}#2#',
-                    'to {C:attention}#1#{} selected',
-                    'cards in your hand'
                 }
             },
         },
@@ -4567,8 +4487,8 @@ return {
             tag_aij_windfall = {
                 name = 'Windfall Tag',
                 text = {
-                    "{C:money}Triples{} your money"
-                    -- TODO needs a max
+                    "{C:money}Triples{} your money",
+                    "{C:inactive}(Max of {C:money}$300{}{C:inactive})"
                 }
             },
             tag_aij_unusual = {
@@ -4713,8 +4633,8 @@ return {
             tag_aij_nonstandard = {
                 name = 'Nonstandard Tag',
                 text = {
-                    'Create {C:attention}2 copies{} of',
-                    'any playing card',
+                    'Create a {C:attention}custom playing card{} and',
+                    'add 2 copies of it to the deck',
                 }
             },
             tag_aij_ignoramus = {
@@ -4749,6 +4669,7 @@ return {
                     'Gives {C:blue}+1 hand{} next round',
                     'per unused {C:blue}hand{} this run', 
                     '{C:inactive}(Will give {C:blue}+#1#{C:inactive} hands)',
+                    '{C:inactive}(Max of {C:blue}+40{C:inactive} hands)'
                 }
             },
             tag_aij_landfill = {
@@ -4924,76 +4845,13 @@ return {
                     "{C:attention}#2#{}"
                 }
             },
-            c_aij_sacrifice = {
-                name = 'The Sacrifice',
-                text = {
-                    "{C:red}Destroy{} {C:attention}#1#{} selected card",
-                    "to create a card with a",
-                    "random {C:attention}suit{}, {C:attention}rank{}, and",
-                    "{C:attention}enhancement"
-                }
-            },
-            c_aij_reaper = {
-                name = 'The Reaper',
-                text = {
-                    "Select {C:attention}#1#{} cards. All {C:attention}#1#",
-                    "cards will be {C:attention}converted",
-                    "into {C:attention}copies{} of one of",
-                    "them, chosen at {C:attention}random"
-                }
-            },
-            c_aij_urns = {
-                name = 'The Urns',
-                text = {
-                    "{C:red}Destroy{} {C:attention}#1#{} selected {C:attention}enhanced{} card",
-                    "and apply its {C:attention}enhancement{} to {C:attention}#2#",
-                    "{C:attention}random{} cards in hand"
-                }
-            },
             c_aij_broken_fate = {
                 name = 'Broken Fate',
                 text = {
                     "Randomises the values",
-                    "of {C:attention}leftmost consumable",
-                    "between {C:attention}X0.75{} and {C:attention}X2.5"
-                }
-            },
-            c_aij_golem = {
-                name = 'Golem',
-                text = {
-                    "Applies an {C:attention}additional{} random",
-                    "enhancement to up to {C:attention}#1#",
-                    "selected {C:attention}Stone Cards"
-                }
-            },
-            c_aij_error = {
-                name = 'The Error',
-                text = {
-                    "Apply {C:red}Chaotic{} to up",
-                    "to {C:attention}#1#{} selected cards"
-                }
-            },
-            c_aij_janitor = {
-                name = 'The Janitor',
-                text = {
-                    "{C:red}Destroy{} all cards",
-                    "held in {C:attention}hand"
-                }
-            },
-            c_aij_faceless = {
-                name = 'The Faceless',
-                text = {
-                    "{C:red}Destroy{} leftmost {C:attention}Joker",
-                    "and create a {C:dark_edition}Negative",
-                    "{C:attention}Joker{} of lower rarity"
-                }
-            },
-            c_aij_oracle = {
-                name = 'The Oracle',
-                text = {
-                    "{C:attention}All{} cards in your hand",
-                    "are given a {C:attention}single",
-                    "{C:attention}random{} enhancement"
+                    "of the {C:attention}leftmost consumable",
+                    "to between {C:attention}X0.75{} and {C:attention}X2.5{}",
+                    "of their {C:attention}default{} values"
                 }
             },
         },
@@ -5002,7 +4860,7 @@ return {
             aij_patches_suit = {
                 name = "Patches",
                 text = {
-                    "{C:attention}Patched{} with {V:1}#1#"
+                    "Counts as a {V:1}#1#"
                 }
             },
             aij_jest_mark_of_the_spear = {
@@ -5083,102 +4941,6 @@ return {
                 text = {
                     'Choose {C:attention}#1#{} of {C:attention}#2#{} hidden',
                     '{C:legendary,E:2}Legendary{} Jokers'
-                }
-            },
-            p_aij_common_normal_1 = {
-                name = "Common Pack",
-                text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:common}Common{} Joker",
-                    "cards"
-                }
-            },
-            p_aij_common_normal_2 = {
-                name = "Common Pack",
-                text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:common}Common{} Joker",
-                    "cards"
-                }
-            },
-            p_aij_common_normal_3 = {
-                name = "Common Pack",
-                text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:common}Common{} Joker",
-                    "cards"
-                }
-            },
-            p_aij_common_jumbo_1 = {
-                name = "Jumbo Common Pack",
-                text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:common}Common{} Joker",
-                    "cards"
-                }
-            },
-            p_aij_common_jumbo_2 = {
-                name = "Jumbo Common Pack",
-                text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:common}Common{} Joker",
-                    "cards"
-                }
-            },
-            p_aij_common_mega_1 = {
-                name = "Mega Common Pack",
-                text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:common}Common{} Joker",
-                    "cards"
-                }
-            },
-            p_aij_uncommon_normal_1 = {
-                name = "Uncommon Pack",
-                text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:uncommon}Uncommon{} Joker",
-                    "cards"
-                }
-            },
-            p_aij_uncommon_normal_2 = {
-                name = "Uncommon Pack",
-                text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:uncommon}Uncommon{} Joker",
-                    "cards"
-                }
-            },
-            p_aij_uncommon_normal_3 = {
-                name = "Uncommon Pack",
-                text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:uncommon}Uncommon{} Joker",
-                    "cards"
-                }
-            },
-            p_aij_uncommon_jumbo_1 = {
-                name = "Jumbo Uncommon Pack",
-                text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:uncommon}Uncommon{} Joker",
-                    "cards"
-                }
-            },
-            p_aij_uncommon_jumbo_2 = {
-                name = "Jumbo Uncommon Pack",
-                text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:uncommon}Uncommon{} Joker",
-                    "cards"
-                }
-            },
-            p_aij_uncommon_mega_1 = {
-                name = "Mega Uncommon Pack",
-                text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:uncommon}Uncommon{} Joker",
-                    "cards"
                 }
             },
             m_aij_dyscalcular_numbered_rank = {
