@@ -62,7 +62,7 @@ if card.aij_seal_edition and card.seal then
     end
     card.edition = old_edition
 end
-if context.aij_inherent_enhancement then return ret end
+if context.aij_inherent_enhancement or context.aij_other_enhancement then return ret end
 if card.aij_inherent_effects then
     local i = 0
     local j = 0
@@ -93,7 +93,7 @@ pattern = "-- TARGET: evaluate your own repetition effects"
 position = "before"
 match_indent = true
 payload = '''
-if context.aij_inherent_enhancement then return ret end
+if context.aij_inherent_enhancement or context.aij_other_enhancement then return ret end
 '''
 
 [[patches]] #For debuffed joker cards

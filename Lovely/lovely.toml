@@ -41,33 +41,36 @@ end
 '''
 match_indent = true
 
+
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
 pattern = "if not SMODS.optional_features.quantum_enhancements then return end"
 position = "before"
 payload = '''
-if context.aij_inherent_enhancement or SMODS.aij_inherent_enhancement_calc_in_progress then return end
+if context.aij_inherent_enhancement or context.aij_other_enhancement or SMODS.aij_inherent_enhancement_calc_in_progress then return end
 if card.aij_inherent_effects then
     context.aij_inherent_enhancement = true
     SMODS.aij_inherent_enhancement_calc_in_progress = true
     local aij_inherent_enhancements = All_in_Jest.get_inherent_effects(card, 'enhancement')
-    local aij_inherent_enhancements_list = {}
-    local fake_card = {}
-    for k, v in pairs(aij_inherent_enhancements) do
-        if G.P_CENTERS[v.key] then
-            table.insert(aij_inherent_enhancements_list, v.key)
-        end
-    end
+    local old_nominal = card.base.nominal
+    local old_ability = copy_table(card.ability)
+    local old_center = card.config.center
+    local old_center_key = card.config.center_key
     local set_ability = Card.set_ability
-    for _, k in ipairs(aij_inherent_enhancements_list) do
-        local removable = Card(0,0,0,0, nil, G.P_CENTERS[k])
-        set_ability(removable, G.P_CENTERS[k], true, 'quantum')
-        removable.ability.aij_inherent_enhancement = k
-        local eval = eval_card(removable, context)
+    for _, k in ipairs(aij_inherent_enhancements) do
+        card.base.nominal = 0
+        card.ability = k['ability']
+        card.config.center = k['center']
+        card.config.center_key = k['center'].key
+        card.ability.aij_inherent_enhancement = k['center']
+        local eval = eval_card(card, context)
         table.insert(effects, eval)
-        removable:remove()
     end
+    card.base.nominal = old_nominal
+    card.ability = old_ability
+    card.config.center = old_center
+    card.config.center_key = old_center_key
     context.aij_inherent_enhancement = nil
     SMODS.aij_inherent_enhancement_calc_in_progress = nil
 end
@@ -2311,10 +2314,10 @@ end
 if card and card.aij_inherent_effects then
     for k, v in pairs(card.aij_inherent_effects) do
         for _k, _v in pairs(card.aij_inherent_effects[k]) do
-            local ed_key = _v.key
+            local ed_key = _v['center'] and _v['center'].key or _v.key
             if k == 'enhancements' then
                 if G.P_CENTERS[ed_key] and G.P_CENTERS[ed_key].set == 'Enhanced' then
-                    local t = copy_table(_v)
+                    local t = copy_table(_v['center'])
                     t.is_inherent_enhancement = true
                     t.enhancement_key = ed_key
                     info_queue[#info_queue + 1] = t
