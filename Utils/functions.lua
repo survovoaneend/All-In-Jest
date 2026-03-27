@@ -1830,9 +1830,16 @@ end
 function All_in_Jest.apply_inherent_effect(card, effect, type)
     card.aij_inherent_effects = card.aij_inherent_effects or {}
     if not effect then return end
-    if type == 'edition' or type == 'enhancement' then
+    if type == 'edition' then
         card.aij_inherent_effects[type..'s'] = card.aij_inherent_effects[type..'s'] or {}
-        card.aij_inherent_effects[type..'s'][#card.aij_inherent_effects[type..'s'] + 1] = copy_table(effect)
+        local index = #card.aij_inherent_effects[type..'s'] + 1
+        card.aij_inherent_effects[type..'s'][index] = copy_table(effect)
+    elseif type == 'enhancement' then
+        card.aij_inherent_effects[type..'s'] = card.aij_inherent_effects[type..'s'] or {}
+        local index = #card.aij_inherent_effects[type..'s'] + 1
+        card.aij_inherent_effects[type..'s'][index] = {}
+        card.aij_inherent_effects[type..'s'][index]['center'] = copy_table(effect)
+        card.aij_inherent_effects[type..'s'][index]['ability'] = copy_table(card.ability)
     end
 end
 
