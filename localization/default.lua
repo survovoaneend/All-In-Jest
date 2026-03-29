@@ -5612,6 +5612,16 @@ return {
                    ''
                 }
             },
+            j_aij_maguelonne = {
+                name = "Maguelonne",
+                text = {
+                   'When Blind is {C:attention}defeated{},',
+                   '{C:red}destroy{} a random {C:attention}Face',
+                   '{C:attention}Card{} remaining in your',
+                   'deck and gain {X:mult,C:white}X#1#{} Mult',
+                   '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult){}'
+                }
+            },
             j_aij_famulus = {
                 name = "Famulus",
                 text = {
@@ -5634,10 +5644,30 @@ return {
                    '{C:attention}discarded'
                 }
             },
+            j_aij_halter_sack = {
+                name = "Halter-sack",
+                text = {
+                   '{X:mult,C:white}X#3#{} Mult if hand contains at',
+                   'least {C:attention}4{} scoring cards,',
+                   '{C:attention}decreases{} by {X:mult,C:white}X#2#{} Mult',
+                   'per {C:red}discard{} used this round',
+
+                }
+            },
             j_aij_hall_monitor = {
                 name = "Hall Monitor",
                 text = {
                    ''
+                }
+            },
+            j_aij_hallucinaut = {
+                name = "Hallucinaut",
+                text = {
+                   'This Joker gains {X:mult,C:white}X#1#{} Mult',
+                   'when a {C:attention}Booster Pack{} is',
+                   'purchased, {C:attention}resets{} when',
+                   '{C:attention}Boss Blind{} is defeated',
+                   '{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult){}'
                 }
             },
             j_aij_hangman = {

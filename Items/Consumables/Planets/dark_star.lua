@@ -37,7 +37,9 @@ local dark_star = {
         end
       end
     end
-    level_up_hand(card, hands_to_upgrade)
+    for _, k in ipairs(hands_to_upgrade) do
+        level_up_hand(card, k)
+    end
   end,
   in_pool = function(self, args)
     for _, k in ipairs(G.handlist) do
