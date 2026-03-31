@@ -1678,8 +1678,12 @@ function All_in_Jest_format_destroy(center_text)
                             -- Try to extract any existing formatting on the destroy text
                             -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
                             local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
-                            -- Do not apply red text if text is already red
-                            if not string.match(applied_formatting, "C:red") then
+                            -- Do not apply red text if text is:
+                            -- - Grey
+                            -- - Already red
+                            if not (string.match(applied_formatting, "C:red") or
+                               string.match(applied_formatting, "C:inactive"))
+                            then
                                 local t = {
                                     start_index = start_index,
                                     end_index = end_index,
