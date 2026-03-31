@@ -1627,6 +1627,10 @@ end
 
 function All_in_Jest_format_destroy(center_text)
 
+    if not All_in_Jest.config.red_destroy_text then
+        return center_text
+    end
+
     if center_text == {} then
         return center_text
     end

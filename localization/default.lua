@@ -46,6 +46,14 @@ return {
                 '{s:0.8,C:inactive}(Currently 76 things)'
                 
             },
+            aij_red_destroy_text = "Modify Joker Descriptions",
+            aij_red_destroy_text_tooltip = {
+                'Changes all {C:attention}Vanilla{} and',
+                '{C:attention}Modded{} card descriptions',
+                'to make "destroy" {C:red}red{}.',
+                '{s:0.8,C:inactive}(This may negatively impact',
+                '{s:0.8,C:inactive}tooltips from other mods)'
+            },
             aij_random_deck_skins = 'Randomized Deck Skins',
             aij_random_deck_skins_tooltip = {
                 '{C:attention}Playing cards{} added to the',
