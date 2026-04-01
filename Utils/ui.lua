@@ -66,6 +66,28 @@ SMODS.current_mod.config_tab = function()
               },
             }
           },
+          {
+            n = G.UIT.R,
+            nodes = {
+              {
+                n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_red_destroy_text_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_red_destroy_text'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'red_destroy_text'
+                  },
+                },
+              },
+              -- {
+              --   n = G.UIT.C,
+              --   config = {},
+              --   nodes = {
+              --   },
+              -- },
+            }
+          },
         }},
       }},
       { n = G.UIT.R, config = {align = 'cm', emboss = 0.05, r = 0.1, colour = HEX('465255')}, nodes = {
