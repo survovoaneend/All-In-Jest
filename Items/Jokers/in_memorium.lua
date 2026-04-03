@@ -37,9 +37,9 @@ local in_memorium = {
     calculate = function(self, card, context)
         if context.open_booster and not context.blueprint and context.card.config.center.kind == 'Spectral' then
             SMODS.scale_card(card, {
-	            ref_table = card.ability.extra,
+                ref_table = card.ability.extra,
                 ref_value = "xmult",
-	            scalar_value = "xmult_mod",
+                scalar_value = "xmult_mod",
             })
         end
         if context.joker_main then
