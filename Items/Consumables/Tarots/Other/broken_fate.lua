@@ -35,7 +35,10 @@ local broken_fate = {
       -- Check for Ankh and Hex explicitly, as they have unused variables that make it seem like they are compatible
       return (
           leftmost_card.config.center.key ~= "c_aij_broken_fate" and
-          contains_number(leftmost_card.ability, { card_limit = true, h_x_chips = 1, x_chips = 1, h_x_mult = 1, x_mult = 1, hands_played_at_create = true, order = true }) and 
+          contains_number(leftmost_card.ability, { 
+            card_limit = true, h_x_chips = 1, x_chips = 1, h_x_mult = 1, x_mult = 1, hands_played_at_create = true, order = true,
+            bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+          }) and 
           leftmost_card.config.center.dongtong_compat ~= false
       )
     end
@@ -58,7 +61,10 @@ local broken_fate = {
     target.ability = copy_table(target.aij_reset_state)
 
     local ran_amount = 0.75 + (pseudorandom('aij_broken_fate', 0, math.floor(((2.5 - 0.75) / 0.05) + 0.5)) * 0.05)
-    jest_ability_calculate(target, "*", ran_amount, { card_limit = true, h_x_chips = 1, x_chips = 1, h_x_mult = 1, x_mult = 1, hands_played_at_create = true, order = true }, nil, true, false, "ability")
+    jest_ability_calculate(target, "*", ran_amount, { 
+      card_limit = true, h_x_chips = 1, x_chips = 1, h_x_mult = 1, x_mult = 1, hands_played_at_create = true, order = true,
+      bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+    }, nil, true, false, "ability")
     
     local string = "X" .. tostring(ran_amount)
     card_eval_status_text(target, 'extra', nil, nil, nil, { message = string, colour = G.C.FILTER })
