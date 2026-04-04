@@ -519,6 +519,13 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'fallout_nv',
+    name = 'Fallout: New Vegas',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
     id = 'off',
     name = 'OFF',
     suits = {
@@ -547,6 +554,13 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'aooni',
+    name = 'Aooni',
+    suits = {
+      'Spades',
+    }
+  },
+  {
     id = 'minecraft',
     name = 'Minecraft',
     suits = {
@@ -570,6 +584,13 @@ AllInJest.deck_skins = {
   {
     id = 'stanley_parable',
     name = 'The Stanley Parable',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'sam_and_max',
+    name = 'Sam & Max',
     suits = {
       'Clubs',
     }
@@ -612,6 +633,25 @@ AllInJest.deck_skins = {
   {
     id = 'yume_nikki',
     name = 'Yume Nikki',
+    suits = {
+      'Clubs',
+      'Spades',
+      'Hearts',
+      'Diamonds'
+    }
+  },
+  {
+    id = 'etg',
+    name = 'Enter the Gungeon',
+    suits = {
+      'Clubs',
+      'Spades',
+      'Hearts',
+    }
+  },
+  {
+    id = 'nuclear_throne',
+    name = 'Nuclear Throne',
     suits = {
       'Clubs',
       'Spades',
@@ -1844,42 +1884,49 @@ function All_in_Jest.apply_inherent_effect(card, effect, type)
 end
 
 function All_in_Jest.set_other_enhancement(card, enhancement)
+    SMODS.aij_applying_thing = true
     if not G.P_CENTERS[enhancement] then return end
     card.config.aij_other_center = card.config.aij_other_center or {}
-    if G.P_CENTERS[enhancement] then
-        card.config.aij_other_center = G.P_CENTERS[enhancement]
+    card.config.aij_other_center['center'] = G.P_CENTERS[enhancement]
+    local old_center = card.config.center
+    card:set_ability(G.P_CENTERS[enhancement])
+    card.config.aij_other_center['ability'] = copy_table(card.ability)
+    card:set_ability(old_center)
+    if not card.ability.aij_other_center or not card.ability.aij_other_center['ability'] then
+        card.ability.aij_other_center = card.ability.aij_other_center or {}
+        card.ability.aij_other_center['ability'] = card.config.aij_other_center and card.config.aij_other_center['ability']
     end
+    SMODS.aij_applying_thing = false
 end
 
-function All_in_Jest.find_multi_enhancement_pos(enhancement1, enhancement2)
-    local pos = {
-        x = 0,
-        y = 0
-    }
-    local center_table = {
-        ['1'] = enhancement1,
-        ['2'] = enhancement2
-    }
-    for i = 1, 2 do
-        local type = 'x'
-        if i == 2 then type = 'y' end
-        if center_table[i] == 'm_bonus' then
-            pos[type] = 3
-        elseif center_table[i] == 'm_mult' then
-            pos[type] = 4
-        elseif center_table[i] == 'm_wild' then
-            pos[type] = 5
-        elseif center_table[i] == 'm_glass' then
-            pos[type] = 7
-        elseif center_table[i] == 'm_steel' then
-            pos[type] = 8
-        elseif center_table[i] == 'm_stone' then
-            pos[type] = 1
-        elseif center_table[i] == 'm_gold' then
-            pos[type] = 2
-        elseif center_table[i] == 'm_lucky' then
-            pos[type] = 6
-        end
+function All_in_Jest.find_multi_enhancement_pos(enhancement)
+    local pos = 0
+    if enhancement == 'm_bonus' then
+        pos = 3
+    elseif enhancement == 'm_mult' then
+        pos = 4
+    elseif enhancement == 'm_wild' then
+        pos = 5
+    elseif enhancement == 'm_glass' then
+        pos = 7
+    elseif enhancement == 'm_steel' then
+        pos = 8
+    elseif enhancement == 'm_stone' then
+        pos = 1
+    elseif enhancement == 'm_gold' then
+        pos = 2
+    elseif enhancement == 'm_lucky' then
+        pos = 6
+    elseif enhancement == 'm_aij_fervent' then
+        pos = 10
+    elseif enhancement == 'm_aij_charged' then
+        pos = 11
+    elseif enhancement == 'm_aij_ice' then
+        pos = 12
+    elseif enhancement == 'm_aij_canvas' then
+        pos = 13
+    elseif enhancement == 'm_aij_wood' then
+        pos = 15
     end
     return pos
 end
