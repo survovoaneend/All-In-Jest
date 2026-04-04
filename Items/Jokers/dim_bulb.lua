@@ -16,7 +16,11 @@ local dim_bulb = {
   eternal_compat = true, 
 
   loc_vars = function(self, info_queue, card)
-      return { vars = {card.ability.extra.xmult}}
+      if card:is_rarity("Uncommon") or card:is_rarity("Rare") then
+          return { key = "j_aij_dim_bulb_alt", vars = {card.ability.extra.xmult}}
+      else
+          return { vars = {card.ability.extra.xmult}}
+      end
   end,
 
   calculate = function(self, card, context)

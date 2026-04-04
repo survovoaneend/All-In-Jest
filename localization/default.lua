@@ -1655,8 +1655,17 @@ return {
             j_aij_dim_bulb = {
                 name = "Dim Bulb",
                 text = {
-                    "{X:mult,C:white}X#1#{} Mult if you have no",
-                    "{C:uncommon}Uncommon{} or {C:red}Rare{} {C:attention}Jokers{}",
+                    "{X:mult,C:white}X#1#{} Mult if you have",
+                    "no {C:uncommon}Uncommon{} or",
+                    "{C:red}Rare{} {C:attention}Jokers{}",
+                },
+            },
+            j_aij_dim_bulb_alt = {
+                name = "Dim Bulb",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult if you have",
+                    "no other {C:uncommon}Uncommon{}",
+                    "or {C:red}Rare{} {C:attention}Jokers{}",
                 },
             },
             j_aij_blood_artist = {
