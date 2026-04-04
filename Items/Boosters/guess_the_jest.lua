@@ -72,14 +72,29 @@ SMODS.DrawStep {
     end,
     conditions = { vortex = false, facing = 'front' },
 }
+
+local aij_floating_sprite_drawfunc_ref = SMODS.DrawSteps["floating_sprite"].func
+SMODS.DrawSteps["floating_sprite"].func = function(self)
+
+    local in_guess_the_jest = (G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER and SMODS.OPENED_BOOSTER.config.center.key == "p_aij_guess_the_jest") 
+    local in_collection = (self.area and self.area.config.collection)
+    local is_legendary = self.config.center.rarity == 4
+
+    if not (in_guess_the_jest and in_collection and is_legendary) then
+	    aij_floating_sprite_drawfunc_ref(self)
+    end
+end
+
 SMODS.DrawStep {
     key = 'silhouette',
     order = 65,
     func = function(self, layer)
         local scale_mod = 0.07 + 0.02*math.sin(1.8*G.TIMERS.REAL) + 0.00*math.sin((G.TIMERS.REAL - math.floor(G.TIMERS.REAL))*math.pi*14)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^3
-            local rotate_mod = 0.05*math.sin(1.219*G.TIMERS.REAL) + 0.00*math.sin((G.TIMERS.REAL)*math.pi*5)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^2
+        local rotate_mod = 0.05*math.sin(1.219*G.TIMERS.REAL) + 0.00*math.sin((G.TIMERS.REAL)*math.pi*5)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^2
         if self.config.center.soul_pos and self.ability.from_guess_the_jest then
             self.children.floating_sprite:draw_shader('aij_silhouette', nil, self.ARGS.send_to_shader, nil, self.children.center, scale_mod, rotate_mod)
+        -- elseif G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER and SMODS.OPENED_BOOSTER.config.center.key == "p_aij_guess_the_jest" and self.config.center.soul_pos and self.config.center.rarity == 4 and self.area and self.area.config.collection then
+        --     self.children.floating_sprite:draw_shader('aij_silhouette', nil, self.ARGS.send_to_shader, nil, self.children.center, scale_mod, rotate_mod)
         end
     end,
     conditions = { vortex = false, facing = 'front' },

@@ -79,6 +79,12 @@ SMODS.Atlas {
   py = 95
 }
 SMODS.Atlas {
+  key = "legendary_jimbo_atlas",
+  path = "jimbo.png",
+  px = 71,
+  py = 95
+}
+SMODS.Atlas {
   key = "consumable_atlas",
   path = "consumables.png",
   px = 71,
@@ -190,6 +196,9 @@ assert(SMODS.load_file('Utils/hooks.lua'))()
 assert(SMODS.load_file('Utils/ui.lua'))()
 if next(SMODS.find_mod("unBlindShopGUI")) then
     assert(SMODS.load_file('Utils/UnBlind_crossmod.lua'))()
+end
+if next(SMODS.find_mod("Balatest")) then
+    assert(SMODS.load_file('Unit Tests/jokers.lua'))()
 end
 
 local folders = NFS.getDirectoryItems(mod_path.."Items")

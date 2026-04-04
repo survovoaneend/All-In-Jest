@@ -174,6 +174,31 @@ return {
            k_aij_line1 =  {"Hey."},
            k_aij_line2 =  {"You've been playing", "for a while now,", "and I was thinking..."},
            k_aij_line3 =  {"Isn't it about time", "you went all in?"},
+        },
+        quips = {
+            legendary_jimbo_added_1={
+                "Oh, Hello again!"
+            },
+            legendary_jimbo_added_2={
+                "Well, let's see",
+                "what you got!"
+            },
+
+            legendary_jimbo_clone_1 = {
+                "Doppelganger?",
+                "No way!"
+            },
+            legendary_jimbo_clone_2 = {
+                "Ah wait,",
+                "that's actually me."
+            },
+            legendary_jimbo_clone_3 = {
+                "Hello, handsome!"
+            },
+            legendary_jimbo_clone_4 = {
+                "I don't think you can handle two Jimbos.",
+                "{s:0.8}You're underqualified for this."
+            },
         }
     },
     descriptions = {
@@ -4055,6 +4080,15 @@ return {
 
                 },
                 unlock = { "?????" }
+            },
+            j_aij_jimbo = { 
+                name = "Jimbo", 
+                text = { 
+                    "{C:inactive}Only{} {C:red}+#1#{} Mult{C:inactive}?{}" 
+                }, 
+                unlock = { 
+                    "?????" 
+                } 
             },
         },
         Planet = {
