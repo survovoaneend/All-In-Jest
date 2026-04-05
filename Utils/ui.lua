@@ -130,6 +130,17 @@ SMODS.current_mod.config_tab = function()
                     ref_value = 'random_deck_skins'
                   },
                 },
+              },
+              {
+                n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_guess_names_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_guess_names'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'guess_names'
+                  },
+                },
               }
             }
           },
