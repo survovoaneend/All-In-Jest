@@ -278,6 +278,18 @@ function SMODS.has_no_suit(card)
     return has_no_suit_ref(card)
 end
 
+local has_enhancement_ref = SMODS.has_no_rank
+function SMODS.has_enhancement(card, key)
+    local has_enhancement = has_enhancement_ref(card, key)
+    local effects = All_in_Jest.get_inherent_effects(card, 'enhancement')
+    for k, v in pairs(effects) do
+        if v.key == key then
+            return true
+        end
+    end
+    return has_enhancement
+end
+
 local has_no_rank_ref = SMODS.has_no_rank
 function SMODS.has_no_rank(card)
     if card.base.id == nil then return true end
@@ -476,6 +488,14 @@ function get_front_spriteinfo(_front)
     return get_front_spriteinfo_ref(_front)
 end
 
+local should_draw_base_shader_ref = Card.should_draw_base_shader
+function Card:should_draw_base_shader()
+    if SMODS.get_enhancements(self).m_aij_scorched then
+        return false
+    end
+	return should_draw_base_shader_ref(self)
+end
+
 local should_hide_front_ref = Card.should_hide_front
 function Card:should_hide_front()
   if SMODS.has_enhancement(self, 'm_aij_canvas') then
@@ -537,6 +557,12 @@ All_in_Jest.vanilla_food = {
   j_selzer = true,
 }
 
+All_in_Jest.seal_edition_compact = {
+  e_foil = true,
+  e_holo = true,
+  e_polychrome = true,
+}
+
 if not SMODS.ObjectTypes.Food then
   SMODS.ObjectType {
     key = 'Food',
@@ -546,6 +572,24 @@ if not SMODS.ObjectTypes.Food then
       SMODS.ObjectType.inject(self)
       for k, _ in pairs(All_in_Jest.vanilla_food) do
         self:inject_card(G.P_CENTERS[k])
+      end
+    end
+  }
+end
+
+if not SMODS.ObjectTypes.seal_edition_pool then
+  SMODS.ObjectType {
+    key = 'seal_edition_pool',
+    default = 'e_foil',
+    cards = {},
+    inject = function(self)
+      SMODS.ObjectType.inject(self)
+      for k, _ in pairs(All_in_Jest.seal_edition_compact) do
+        for k_, v in pairs(G.P_CENTER_POOLS.Edition) do
+            if v.key == k then
+                self:inject_card(G.P_CENTER_POOLS.Edition[k_])
+            end
+        end
       end
     end
   }

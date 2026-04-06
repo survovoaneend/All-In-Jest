@@ -7,7 +7,7 @@ local sticker_sheet = {
   atlas = 'vouchers_atlas',
   pos = { x = 4, y = 0 },
   discovered = false,
-  order = 5,
+  order = 4,
 
   in_pool = function(self, args)
       return (G.GAME.modifiers.enable_perishables_in_shop or G.GAME.modifiers.enable_rentals_in_shop) or false

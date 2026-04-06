@@ -359,6 +359,32 @@ function All_in_Jest.set_ability_reset_keys()
     return {'jest_charged_applied'}
 end
 
+local function collect_png_files(base_fs, rel, out)
+    for _, name in ipairs(NFS.getDirectoryItems(base_fs)) do
+        local abs = base_fs.."/"..name
+        local info = NFS.getInfo(abs)
+        if info and info.type == "directory" then
+            collect_item_files(abs, rel.."/"..name, out)
+        elseif info and info.type == "file" and name:match("%.png$") then
+            table.insert(out, rel.."/"..name)
+        end
+    end
+end
+
+local png_files = {}
+collect_png_files(mod_path.."assets/1x/Parts", "Parts", png_files)
+
+for _, filename in ipairs(png_files) do
+    local path = mod_path.."assets/1x/Parts"..filename
+    local name = filename:sub(1, -5) 
+    name = name:sub(7)
+
+    SMODS.Atlas({
+        key = name,
+        path = 'Parts/'..name..'.png',
+        px = '71',
+        py = '95',
+    })
 -- 4. Function to handle the skip button
 G.FUNCS.skip_aij_intro = function(e)
     if G.OVERLAY_TUTORIAL then
@@ -369,4 +395,5 @@ G.FUNCS.skip_aij_intro = function(e)
         G.OVERLAY_TUTORIAL = nil
     end
     G.E_MANAGER:clear_queue('tutorial')
+end
 end

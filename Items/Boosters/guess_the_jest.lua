@@ -1,8 +1,6 @@
-
-
 local guess_the_jest = {
     object_type = "Booster",
-    order = 67,
+    order = 0,
     key = 'guess_the_jest', 
     atlas = 'booster_atlas', 
     pos = { x = 0, y = 0 }, 

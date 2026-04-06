@@ -78,6 +78,50 @@ if context.joker_main then
         ret.perma_joker_triggers.x_chips = x_chips + 1
     end
 end
+if card.aij_seal_edition and card.seal then
+    ret.aij_seal_edition = {}
+    local old_edition = card.edition and copy_table(card.edition)
+    card.edition = card.aij_seal_edition
+    context.calculate_seal_edition = true
+    local edition = card:calculate_edition(context)
+    context.calculate_seal_edition = nil
+    if edition then
+        ret.aij_seal_edition = edition
+    end
+    card.edition = old_edition
+end
+if context.aij_inherent_enhancement or context.aij_other_enhancement then return ret end
+if card.aij_inherent_effects then
+    local i = 0
+    local j = 0
+    for k, v in pairs(card.aij_inherent_effects) do
+        i = i + 1
+        for _k, _v in pairs(card.aij_inherent_effects[k]) do
+            j = j + 1
+            if not _v.aij_setting_ability then
+                if k == 'editions' then
+                    local old_edition = card.edition and copy_table(card.edition)
+                    card.edition = _v
+                    local edition = card:calculate_edition(context)
+                    if edition then
+                        ret['aij_inherent_effects'..j..i] = edition
+                    end
+                    card.edition = old_edition
+                end
+            end
+        end
+    end
+end
+'''
+
+[[patches]] #For repetition on cards
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "-- TARGET: evaluate your own repetition effects"
+position = "before"
+match_indent = true
+payload = '''
+if context.aij_inherent_enhancement or context.aij_other_enhancement then return ret end
 '''
 
 [[patches]] #For debuffed joker cards

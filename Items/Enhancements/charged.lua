@@ -25,7 +25,7 @@ local charged = {
 local updateref = Card.update
 function Card:update(dt)
   local ref = updateref(self, dt)
-  if self.config.center == G.P_CENTERS["m_aij_charged"]
+  if SMODS.has_enhancement(self, "m_aij_charged")
   or self.config.center == G.P_CENTERS.c_base then
     return ref
   end
@@ -33,7 +33,7 @@ function Card:update(dt)
   local current_count = 0
   if self.area == G.play and G.play then
     for _, c in ipairs(G.play.cards) do
-      if c.config and c.config.center == G.P_CENTERS["m_aij_charged"] and not c.debuff then
+      if c.config and SMODS.has_enhancement(c, "m_aij_charged") and not c.debuff then
         current_count = current_count + 1
       end
     end
@@ -46,7 +46,7 @@ function Card:update(dt)
     local self_is_highlighted = is_highlighted[self]
 
     for _, c in ipairs(G.hand.cards) do
-      if c.config and c.config.center == G.P_CENTERS["m_aij_charged"] and not c.debuff then
+      if c.config and SMODS.has_enhancement(c, "m_aij_charged") and not c.debuff then
         if is_highlighted[c] == self_is_highlighted then
           current_count = current_count + 1
         end
