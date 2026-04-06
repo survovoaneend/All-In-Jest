@@ -100,7 +100,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     float glitchStrength = 0.3;
 
     vec3 finalRGB = mix(tex.rgb, glitchCol, glitchStrength);
-    vec4 outp = vec4(finalRGB, tex.a);
+    vec4 outp = vec4(finalRGB, tex.a* 0.5);
 
     tex.rgba = outp;
 

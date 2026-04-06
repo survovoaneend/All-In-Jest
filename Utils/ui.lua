@@ -66,6 +66,28 @@ SMODS.current_mod.config_tab = function()
               },
             }
           },
+          {
+            n = G.UIT.R,
+            nodes = {
+              {
+                n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_red_destroy_text_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_red_destroy_text'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'red_destroy_text'
+                  },
+                },
+              },
+              -- {
+              --   n = G.UIT.C,
+              --   config = {},
+              --   nodes = {
+              --   },
+              -- },
+            }
+          },
         }},
       }},
       { n = G.UIT.R, config = {align = 'cm', emboss = 0.05, r = 0.1, colour = HEX('465255')}, nodes = {
@@ -336,8 +358,10 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
         INIT_COLLECTION_CARD_ALERTS()
     end
 
+    local temp = copy_table(G.GAME.used_jokers) -- Doing this since otherwise collection cards will be counted as owned
     G.FUNCS.SMODS_card_collection_page{ cycle_config = { current_option = 1 }}
-    
+    G.GAME.used_jokers = temp
+
     local t =  create_UIBox_generic_options({ back_func = (args and args.back_func) or G.ACTIVE_MOD_UI and "openModUI_"..G.ACTIVE_MOD_UI.id or 'your_collection', snap_back = args.snap_back, infotip = args.infotip, no_back = true, contents = {
           {n=G.UIT.R, config={align = "cm", r = 0.1, colour = G.C.BLACK, emboss = 0.05}, nodes=deck_tables}, 
           (not args.hide_single_page or cards_per_page < #pool) and {n=G.UIT.R, config={align = "cm"}, nodes={
@@ -433,16 +457,6 @@ G.FUNCS.jest_select = function(e)
               return true
             end
           }))
-          return true
-        end
-      }))
-      G.E_MANAGER:add_event(Event({
-        func = function()
-          for i = 1, #G.GAME.tags do
-            if G.GAME.tags[i]:apply_to_run({ type = 'new_blind_choice' }) then
-              break
-            end
-          end
           return true
         end
       }))
