@@ -13,6 +13,10 @@ return {
             k_active = "Active",
             k_inactive = "Inactive",
             k_aij_party_time = "Party Time!",
+            k_aij_replace = "Replace",
+            k_aij_select = "Select",
+            k_aij_astral = 'Astral',
+            b_aij_astral_cards = 'Astral Cards',
             aij_requires_restart = "Requires Restart",
             aij_doesnt_requires_restart = "Doesn't Require Restart",
             aij_upgraded_tags = "Gold Tags",
@@ -101,6 +105,7 @@ return {
             a_aij_percent_balance_minus = "-%#1#",
 
             a_aij_hands_minus = "-#1# Hands",
+            a_aij_discards_plus = "+#1# Discards",
 
             a_aij_handsize = "+#1# Handsize",
 
@@ -6718,6 +6723,138 @@ return {
                     'card in your hand'
                 }
             },
+            c_aij_ketu = {
+                name = 'Ketu',
+                text = {
+                    'Retrigger leftmost',
+                    '{C:attention}Joker{} when {C:attention}#1#{}',
+                    'is played',
+                }
+            },
+            c_aij_rahu = {
+                name = 'Rahu',
+                text = {
+                    'Retrigger all cards',
+                    '{C:attention}played{} when {C:attention}#1#{}',
+                    'is played',
+                }
+            },
+        },
+        aij_astral = {
+            c_aij_algol = {
+                name = 'Algol',
+                text = {
+                    'When {C:attention}#1#{} is played',
+                    'earn {C:money}$#2#',
+                }
+            },
+            c_aij_alcyone = {
+                name = 'Alcyone',
+                text = {
+                    'When {C:attention}#1#{} is played',
+                    'draw {C:attention}#2#{} additional card',
+                }
+            },
+            c_aij_aldebaran = {
+                name = 'Aldebaran',
+                text = {
+                    '{C:aij_plasma}Balance{} {C:attention}#2#%{} of {C:chips}Chips{} and {C:mult}Mult',
+                    'after {C:attention}#1#{} is played',
+                }
+            },
+            c_aij_capella = {
+                name = 'Capella',
+                text = {
+                    '{C:green}#2# in #3#{} chance to create a',
+                    'random {C:planet}Planet{} card when',
+                    '{C:attention}#1#{} is played',
+                }
+            },
+            c_aij_sirius = {
+                name = 'Sirius',
+                text = {
+                    'Retrigger {C:attention}#2#{} random card',
+                    'when {C:attention}#1#{} is played'
+                }
+            },
+            c_aij_procyon = {
+                name = 'Procyon',
+                text = {
+                    'When {C:attention}#1#{} is played',
+                    'adds {C:money}$#2#{} of sell value',
+                    'to a random {C:attention}Joker'
+                }
+            },
+            c_aij_regulus = {
+                name = 'Regulus',
+                text = {
+                    '{C:green}#2# in #3#{} chance to {C:attention}level up',
+                    '{C:attention}played{} hand when {C:attention}#1#{}',
+                    'is played',
+                }
+            },
+            c_aij_alkaid = {
+                name = 'Alkaid',
+                text = {
+                    'When {C:attention}#1#{} is played',
+                    'gives a random enhancement',
+                    'to a {C:attention}#2#{} random card',
+                }
+            },
+            c_aij_algorab = {
+                name = 'Algorab',
+                text = {
+                    '{C:green}#2# in #3#{} chance to create a',
+                    'random {C:tarot}Tarot{} card when',
+                    '{C:attention}#1#{} is played',
+                }
+            },
+            c_aij_spica = {
+                name = 'Spica',
+                text = {
+                    '{C:red}Disable{} the {C:attention}Boss Blind{} if {C:attention}first',
+                    '{C:attention}hand{} of round is {C:attention}#1#{}'
+                }
+            },
+            c_aij_arcturus = {
+                name = 'Arcturus',
+                text = {
+                    'Gain {C:attention}+#2#{} {C:red}Discard{} after',
+                    '{C:attention}#1#{} is played',
+                }
+            },
+            c_aij_alphecca = {
+                name = 'Alphecca',
+                text = {
+                    'Scored cards {C:attention}permanently',
+                    'gain {C:chips}+#2#{} Chips if hand',
+                    'is {C:attention}#1#{}'
+                }
+            },
+            c_aij_antares = {
+                name = 'Antares',
+                text = {
+                    'When {C:attention}#1#{} is played',
+                    '{C:red}destroy{} a random card',
+                    '{C:attention}held in hand'
+                }
+            },
+            c_aij_vega = {
+                name = 'Vega',
+                text = {
+                    'Retrigger all cards',
+                    '{C:attention}held in hand{} when',
+                    '{C:attention}#1#{} is played',
+                }
+            },
+            c_aij_deneb_algedi = {
+                name = 'Deneb Algedi',
+                text = {
+                    'Earn {C:blue}+#2#{} Hand',
+                    'the first time',
+                    '{C:attention}#1#{} is played',
+                }
+            },
         },
         Tag = {
             tag_aij_glimmer = {
@@ -7162,6 +7299,34 @@ return {
                 }
             },
             -- Other
+            undiscovered_aij_astral = {
+				name = 'Unknown Astral Card',
+				text = {
+					'Find this card in an unseeded',
+					'run to find out what it does'
+				}
+			},
+            aij_astral_prograde = {
+                name = "Prograde",
+                text = {
+                    "Effects your {C:attention}least{}",
+                    "played hand"
+                }
+            },
+            aij_astral_retrograde = {
+                name = "Retrograde",
+                text = {
+                    "Effects your {C:attention}most{}",
+                    "played hand"
+                }
+            },
+            aij_astral_passigrade = {
+                name = "Passigrade",
+                text = {
+                    "Effects a {C:attention}random{}",
+                    "hand"
+                }
+            },
             aij_patches_suit = {
                 name = "Patches",
                 text = {

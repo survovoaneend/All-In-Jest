@@ -1434,6 +1434,9 @@ function All_in_Jest.reset_game_globals(run_start)
         
         local index = {4,5}
         G.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
+
+        -- Reset Aureate Coin
+        G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = 0
     end
 end
 
@@ -1691,129 +1694,263 @@ function All_in_Jest.aij_refresh_boss_blind()
     end
 end
 
-function All_in_Jest_format_destroy(center_text)
-
-    if not All_in_Jest.config.red_destroy_text then
-        return center_text
-    end
-
-    if center_text == {} then
-        return center_text
-    end
-
-    local function add_red_text(text, start_index, end_index, base_format)
-        local destroyed_format = base_format
-        if base_format == "{}" then
-            destroyed_format = "{C:red}"
-        elseif string.match(base_format, "C:%w+") then -- Try to find an existing colour option
-            destroyed_format, _ = string.gsub(base_format, "C:%w+", "C:red")
-        else
-            destroyed_format = string.sub(base_format, 1, -2) .. ",C:red}"
-        end
-        return string.sub(text, 1, start_index - 1)..destroyed_format..string.sub(text, start_index, end_index)..base_format..string.sub(text, end_index + 1)
-    end
-
-    local destroy_texts = {
-        "destroying",
-        "destroyed",
-        "destroys",
-        "destroy"
-    }
-    local found_strings = {}
-    local one_box = true
-
-    if type(center_text[1]) == "table" then
-        -- Description has multiple boxes (e.g. "You got Mail" joker in this mod)
-        one_box = false
-        for j, box in ipairs(center_text) do
-            found_strings[j] = {}
-            for i, line in ipairs(box) do
-                found_strings[j][i] = {}
-                for _, text in ipairs(destroy_texts) do
-                    local start_index, end_index = string.find(string.lower(line), text)
-                    if start_index then
-                        local already_processed = false
-                        for _, t in ipairs(found_strings[j][i]) do
-                            if start_index == t.start_index then
-                                already_processed = true
-                                break
-                            end
-                        end
-
-                        if not already_processed then
-                            -- Try to extract any existing formatting on the destroy text
-                            -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
-                            local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
-                            -- Do not apply red text if text is:
-                            -- - Grey
-                            -- - Already red
-                            if not (string.match(applied_formatting, "C:red") or
-                               string.match(applied_formatting, "C:inactive"))
-                            then
-                                local t = {
-                                    start_index = start_index,
-                                    end_index = end_index,
-                                    format = applied_formatting
-                                }
-                                table.insert(found_strings[j][i], t)
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    elseif type(center_text[1]) == "string" then
-        -- Description does not have multiple boxes
-        found_strings[1] = {}
-        for i, line in ipairs(center_text) do
-            found_strings[1][i] = {}
-            for _, text in ipairs(destroy_texts) do
-                local start_index, end_index = string.find(string.lower(line), text)
-                if start_index then
-                    local already_processed = false
-                    for _, t in ipairs(found_strings[1][i]) do
-                        if start_index == t.start_index then
-                            already_processed = true
-                            break
-                        end
-                    end
-
-                    if not already_processed then
-                        -- Try to extract any existing formatting on the destroy text
-                        -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
-                        local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
-                        -- Do not apply red text if text is already red
-                        if not string.match(applied_formatting, "C:red") then
-                            local t = {
-                                start_index = start_index,
-                                end_index = end_index,
-                                format = applied_formatting
-                            }
-                            table.insert(found_strings[1][i], t)
-                        end
-                    end
-                end
-            end
+--Sets an Astral cards grade
+function All_in_Jest.astral_set_grade(rarity)
+    local seed = pseudoseed('aij_astral_grade')
+    rarity = rarity or {["Retrograde"] = 0.1, ["Passigrade"] = 0.45}
+    local grade = "Prograde"
+    for k, v in pairs(rarity) do
+        if seed <= v then
+            grade = k
         end
     end
-
-    for box_index, _ in ipairs(found_strings) do
-        for line_index, _ in ipairs(found_strings[box_index]) do
-            for _, t in ipairs(found_strings[box_index][line_index]) do
-                local start_index = t.start_index
-                local end_index = t.end_index
-                local base_format = t.format
-                if one_box then
-                    center_text[line_index] = add_red_text(center_text[line_index], start_index, end_index, base_format)
-                else
-                    center_text[box_index][line_index] = add_red_text(center_text[box_index][line_index], start_index, end_index, base_format)
-                end
-            end
-        end
-    end
-
-    return center_text
+    return grade
 end
+
+--Gets hand from grade type
+function All_in_Jest.astral_hand_from_grade(grade, cur_hand)
+    local _hand, _tally = nil, 0
+    if G.GAME.hands and G.handlist then 
+        if grade == "Prograde" or grade == "Retrograde" then
+            for k, v in ipairs(G.handlist) do
+                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played > _tally then
+                    _hand = v
+                    _tally = G.GAME.hands[v].played
+                end
+            end
+            if grade == "Prograde" then 
+                for k, v in ipairs(G.handlist) do
+                    if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played <= _tally then
+                        _hand = v
+                        _tally = G.GAME.hands[v].played
+                    end
+                end
+            end
+        elseif grade == "Passigrade" then
+            local vaild_hands = {}
+            for k, v in ipairs(G.handlist) do
+                if SMODS.is_poker_hand_visible(v) then
+                    vaild_hands[#vaild_hands+1] = v
+                end
+            end
+            _hand = cur_hand or pseudorandom_element(vaild_hands, pseudoseed(grade))
+        end
+    end
+    return _hand
+end
+
+function All_in_Jest.create_astral_pin(card, index)
+    local index = index or #G.Astral_pins[card.ability.consumeable.hand]+1
+    G.Astral_pins[card.ability.consumeable.hand][index] = {}
+    G.Astral_pins[card.ability.consumeable.hand][index]['pin'] = card.ability.consumeable.pin
+    G.Astral_pins[card.ability.consumeable.hand][index].ability = {}
+    G.Astral_pins[card.ability.consumeable.hand][index].ability.extra = card.ability.extra
+end
+
+function All_in_Jest.use_astral_card(card)
+    if G.Astral_pins[card.ability.consumeable.hand] and #G.Astral_pins[card.ability.consumeable.hand] >= G.GAME.all_in_jest.astral_pin_per_hand then
+        if G.Astral_pins and G.aij_astral_pin_area and #G.aij_astral_pin_area.cards > 0 then
+            All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'only_remove', All_in_Jest.old_colours or nil, true)      
+            for _, v in pairs(G.aij_astral_pin_area.cards) do
+                v:remove()
+            end
+        end
+        if G.Astral_pins then
+            All_in_Jest.old_colours = All_in_Jest.old_colours or {
+                special_colour = copy_table(G.C.BACKGROUND.C),
+                tertiary_colour = copy_table(G.C.BACKGROUND.D),
+                new_colour = copy_table(G.C.BACKGROUND.L),
+            }
+            All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'no_remove')       
+        end
+        G.E_MANAGER:add_event(Event({
+            func = function() 
+                G.SETTINGS.paused = true
+				G.FUNCS.overlay_menu{
+                    config = {},
+                    definition = SMODS.jest_no_back_card_collection_UIBox(
+                        G.aij_astral_pin_area.cards, 
+                        {6,6}, 
+                        {
+                            from_area = true,
+                            card_scale = 2,
+                            hide_single_page = true,
+                            collapse_single_page = true,
+                            modify_card = function(cardd, center) 
+                                if cardd and cardd.config.center then
+                                    cardd.bypass_discovery_center = true
+                                    cardd.bypass_discovery_ui = true
+                                    cardd:set_ability(cardd.config.center)
+                                    for k, v in pairs(center.ability) do
+                                        if type(v) == 'table' then 
+                                            cardd.ability[k] = copy_table(v)
+                                        else
+                                            cardd.ability[k] = v
+                                        end
+                                    end
+                                    local index = nil
+                                    for k, v in pairs(G.aij_astral_pin_area.cards) do
+                                        if v == center then
+                                            index = k
+                                        end
+                                    end
+                                    jest_create_select_card_ui(cardd, G.aij_astral_pin_area, {
+                                        alt_text = localize('k_aij_replace'),
+                                        alt_colour = HEX("87a5c9"),
+                                        consumable_card = card,
+                                        astral_index = index
+                                    }, 'jest_astral_replace')
+                                end
+                            end, 
+                            h_mod = 1.05,
+                        }
+                    ),
+                }
+                if G.Astral_pins then
+                    All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'only_remove', All_in_Jest.old_colours or nil, true)      
+                    if G.aij_astral_pin_area then
+                        for _, v in pairs(G.aij_astral_pin_area.cards) do
+                            v:remove()
+                        end
+                    end
+                end
+                return true 
+            end 
+        }))
+    else
+        All_in_Jest.create_astral_pin(card)
+    end
+end
+
+function All_in_Jest.astral_background(type, colours)
+    if type then
+        ease_background_colour{special_colour = darken(colours.background[1], 0.5), new_colour = colours.background[2], tertiary_colour = colours.background[3], contrast = 1}
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.26,blocking = false, blockable = false,
+            func = function()
+                G.aij_astral_stars = G.aij_astral_stars or Particles(1, 1, 0,0, {
+                    timer = 0.07,
+                    scale = 0.1,
+                    initialize = true,
+                    lifespan = 15,
+                    speed = 0.1,
+                    padding = -4,
+                    attach = G.ROOM_ATTACH,
+                    colours = colours.stars,
+                    fill = true
+                })
+                G.aij_astral_meteors = G.aij_astral_meteors or Particles(1, 1, 0,0, {
+                    timer = 2,
+                    scale = 0.05,
+                    lifespan = 1.5,
+                    speed = 4,
+                    attach = G.ROOM_ATTACH,
+                    colours = {colours.stars[1]},
+                    fill = true
+                })
+                return true
+            end
+        }))
+    else
+        ease_background_colour({special_colour = colours.background[1], tertiary_colour = colours.background[2], new_colour = colours.background[3]})
+        if G.aij_astral_stars then G.aij_astral_stars:fade(0.25) end
+        if G.aij_astral_meteors then G.aij_astral_meteors:fade(0.25) end
+
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.25,blocking = false, blockable = false,
+            func = function()
+                if G.aij_astral_stars then G.aij_astral_stars:remove(); G.aij_astral_stars = nil end
+                if G.aij_astral_meteors then G.aij_astral_meteors:remove(); G.aij_astral_meteors = nil end
+                return true
+            end
+        }))
+    end
+end
+
+
+function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours)
+    local old_colours = old_colours or {
+        special_colour = copy_table(G.C.BACKGROUND.C),
+        tertiary_colour = copy_table(G.C.BACKGROUND.D),
+        new_colour = copy_table(G.C.BACKGROUND.L),
+    }
+    colours = colours or {}
+    if extra == 'only_color' then
+        if not immediate then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 1,
+                func = function()
+                    All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour}})
+                    return true
+            end}))
+        else
+            All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour}})
+        end
+        return
+    end
+    if extra ~= 'only_remove' then
+        -- Add astral pins
+        local astrals = 0
+        for k, v in pairs(G.Astral_pins) do
+            if hand == k then
+                for _, i in pairs(v) do
+                    astrals = astrals + 1
+                end
+            end
+        end
+        if astrals == 0 then
+            All_in_Jest.astral_visuals(hand, 'only_remove', All_in_Jest.old_colours or old_colours, true)  
+            All_in_Jest.old_colours = nil
+            return
+        end
+        for k, v in pairs(G.Astral_pins) do
+            if hand == k then
+                for _, i in pairs(v) do
+                    local center = G.Astral[i.pin]
+                    local card = Card(G.aij_astral_pin_area.T.x + G.aij_astral_pin_area.T.w/2,
+                    G.aij_astral_pin_area.T.y, G.CARD_W*2, G.CARD_H*2, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
+                    for k_, vi in pairs(card.config.center.config) do
+                        card.ability[k_] = vi 
+                    end
+                    for k_, vi in pairs(G.Astral_pins[k][_].ability) do
+                        card.ability[k_] = vi 
+                    end
+                    card.ability.extra.hand = k
+                    card.config.center.set_card_type_badge = function(self, card, badges)
+		                badges = {}
+	                end
+                    G.aij_astral_pin_area:emplace(card)
+                end
+            end
+        end
+        -- Change background colour
+        All_in_Jest.astral_background(true, {background = colours.background or {HEX("d1e2f6"), HEX("87a5c9"), HEX("d1e2f6")}, stars = colours.stars or {G.C.WHITE, HEX('d1e2f6'), HEX('9ec5d7')}})
+        delay(0.4)
+    end
+    if extra ~= 'no_remove' then
+        if not immediate then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 1,
+                func = function()
+                    All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour}})
+                    if G.aij_astral_pin_area then
+                        for _, v in pairs(G.aij_astral_pin_area.cards) do
+                            v:remove()
+                        end
+                    end
+                    return true
+            end}))
+        else
+            All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour}})
+            if G.aij_astral_pin_area then
+                for _, v in pairs(G.aij_astral_pin_area.cards) do
+                    v:remove()
+                end
+            end
+        end
+    end
+end
+
 
 G.FUNCS.aij_hover_tag_branching = function(e)
     if not e.parent or not e.parent.states then return end

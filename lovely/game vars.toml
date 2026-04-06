@@ -19,8 +19,6 @@ jest_handsome_joker_card = {rank = nil, suit = nil, enhancement = nil, id = nil}
 aij_the_journey_blind = {selected_suit = selected_suit or "Spades", triggered = false},
 '''
 
-
-
 [[patches]] #G.GAME 
 [patches.pattern]
 target = 'game.lua'
@@ -81,6 +79,7 @@ all_in_jest = {
 	reset_score = {chips = false, mult = false, chip_total = false, blind_total = false},
 	secret_hands = {},
 	gold_tag_rate = 1,
+	astral_pin_per_hand = 3,
 	unused_hands = {
 		ante = 0,
     run = 0
@@ -125,5 +124,6 @@ payload = '''
 jest_inherent = HEX("b7e1d7"),
 jest_glitter = HEX("ff97ff"),
 jest_melted = HEX("a28b8b"),
+aij_astral = HEX("87a5c9"),
 '''
 match_indent = true
