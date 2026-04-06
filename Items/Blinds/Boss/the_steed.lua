@@ -17,7 +17,7 @@ local the_steed = {
         if temp then
             return
         end
-        if context.after and not temp then
+        if context.before and not temp then
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
             for i = 1, #G.hand.cards do
                 if not G.hand.cards[i].debuffed then

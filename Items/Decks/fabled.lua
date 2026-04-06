@@ -1,6 +1,7 @@
 local fabled = {
     object_type = "Back",
     key = 'fabled',
+    lite = true,
     atlas = 'deck_atlas',
     order = 0,
     pos = { x = 0, y = 0 },

@@ -8,10 +8,10 @@ local ijoker_co = {
           tags = 2
       }
     },
-    rarity = 2,
+    rarity = 3,
     pos = { x = 0, y = 8},
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 8,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

@@ -3,7 +3,7 @@ local the_gift = {
     key = 'the_gift',
 
     boss = {
-        min = 3
+        min = 6
     },
     mult = 2,
     boss_colour = HEX("c75d5d"),
@@ -18,7 +18,6 @@ local the_gift = {
     end,
     disable = function(self)
         ease_dollars(G.GAME.current_round.aij_the_gift.money, true)
-        G.GAME.current_round.aij_the_gift = nil
     end,
     press_play = function(self)
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()

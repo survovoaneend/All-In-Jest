@@ -1,7 +1,7 @@
 local simple_simon = {
     object_type = "Joker",
     order = 146,
-
+    lite = true,
     key = "simple_simon",
     config = {
       extra = {

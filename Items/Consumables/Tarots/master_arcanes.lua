@@ -22,7 +22,7 @@ local master_arcanes = {
         }
 	end,
 	can_use = function(self, card, area, copier)
-		if #G.consumeables.cards <= G.consumeables.config.card_limit or self.area == G.consumeables then
+		if #G.consumeables.cards < G.consumeables.config.card_limit or card.area == G.consumeables then
 			return true
 		end
 	end,

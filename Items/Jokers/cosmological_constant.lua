@@ -1,7 +1,7 @@
 local cosmological_constant = {
     object_type = "Joker",
     order = 143,
-
+    lite = true,
     key = "cosmological_constant",
     config = {
       

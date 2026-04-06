@@ -1,7 +1,7 @@
 local mixel_perfect = {
     object_type = "Joker",
     order = 115,
-
+    lite = true,
     key = "mixel_perfect",
     config = {
       extra = {

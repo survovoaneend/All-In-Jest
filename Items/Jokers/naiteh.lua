@@ -1,11 +1,11 @@
 local naiteh = {
     object_type = "Joker",
     order = 1058,
-
+    lite = true,
     key = "naiteh",
     config = {
       extra = {
-        h_size = 0,
+        h_size = 1,
         h_size_mod = 1,
       }
     },
@@ -37,6 +37,7 @@ local naiteh = {
 	            scalar_value = "h_size_mod",
             })
             G.hand:change_size(card.ability.extra.h_size_mod)
+            return nil, true
         end
     end,
     remove_from_deck = function(self, card, from_debuff)

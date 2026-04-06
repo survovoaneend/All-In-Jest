@@ -21,9 +21,12 @@ local gnasher = {
         can_use_ability = function(self, card, context)
             local viable_options = {}
             for i, v in ipairs(G.consumeables.cards) do
+                local area = G.consumeables.cards[i].area
+                G.consumeables.cards[i].area = nil
                 if G.consumeables.cards[i]:can_use_consumeable() then
                     viable_options[#viable_options + 1] = i
                 end
+                G.consumeables.cards[i].area = area
             end
             if card.ability.extra.active and #viable_options > 0 then
                 return true
@@ -33,17 +36,14 @@ local gnasher = {
         use_ability = function(self, card)
             local viable_options = {}
             for i, v in ipairs(G.consumeables.cards) do
+                local area = G.consumeables.cards[i].area
+                G.consumeables.cards[i].area = nil
                 if G.consumeables.cards[i]:can_use_consumeable() then
                     viable_options[#viable_options + 1] = i
                 end
+                G.consumeables.cards[i].area = area
             end
             local copied_consumeable = copy_card(G.consumeables.cards[pseudorandom_element(viable_options, pseudoseed('gnasher_consumeable'))])
-            
-            -- G.FUNCS.use_card by default decrements booster pack choices, this will preemptively revert that
-            -- Classic modding Jank:tm:
-            if G.GAME.pack_choices then
-              G.GAME.pack_choices = G.GAME.pack_choices + 1
-            end
 
             -- Without this will crash with Wheel of Fortune, Ectoplasm and Hex
             copied_consumeable:update(0)

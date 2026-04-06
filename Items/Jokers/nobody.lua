@@ -24,6 +24,7 @@ local nobody = {
   
     calculate = function(self, card, context)
         if context.setting_blind and not context.blueprint then
+            card.ability.extra.cur_rounds = card.ability.extra.cur_rounds + 1
             if card.ability.extra.cur_rounds >= card.ability.extra.rounds then
                 -- Poll a legendary to transform into
                 -- All_in_Jest.reroll_joker only polls for same rarity by default, so doing it here instead
@@ -45,15 +46,5 @@ local nobody = {
         end
     end
 }
-local ease_rounderef = ease_round
-function ease_round(mod)
-    if mod ~= 0 then
-        for i = 1, #SMODS.find_card("j_aij_nobody") do
-            SMODS.find_card("j_aij_nobody")[i].ability.extra.cur_rounds = SMODS.find_card("j_aij_nobody")[i].ability.extra.cur_rounds + mod
-        end
-    end
-    
-    local ref = ease_rounderef(mod)
-    return ref
-end
+
 return { name = {"Jokers"}, items = {nobody} }

@@ -14,7 +14,7 @@ local bozo = {
     cost = 20,
     unlocked = false,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     soul_pos = { x = 0, y = 13 },
 
@@ -27,7 +27,7 @@ local bozo = {
     end,
 
     calculate = function(self, card, context)
-        if context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss and not context.blueprint then
+        if context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss then
             for i = 1, card.ability.extra.jokers do
                 SMODS.add_card { set = "Joker", edition = 'e_negative' }
             end

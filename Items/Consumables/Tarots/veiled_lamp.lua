@@ -2,7 +2,7 @@ local veiled_lamp = {
     object_type = "Consumable",
 	key = 'veiled_lamp',
 	set = 'Tarot',
-	 
+	 lite = true,
 	pos = { x = 7, y = 3 },
 	cost = 3,
 	unlocked = true,

@@ -1496,43 +1496,6 @@ end
 '''
 match_indent = true
 
-# Prevent jokers that can only appear in shop or booster packs from appearing elsewhere
-# create_card()
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = '''if forced_key and not G.GAME.banned_keys[forced_key] then'''
-position = "before"
-match_indent = true
-payload = '''
--- All in Jest patch
-if _type == 'Joker' then
-    local _pool, _pool_key = get_current_pool(_type, _rarity, legendary, key_append)
-    for k, v in pairs(_pool) do
-        if G.P_CENTERS[v] and G.P_CENTERS[v].all_in_jest then
-            local appear = false
-            if (G.P_CENTERS[v].all_in_jest.only_shop_pool and area == G.shop_jokers) then
-                appear = true
-            elseif (G.P_CENTERS[v].all_in_jest.only_booster_pool and area == G.pack_cards) then
-                appear = true
-            end
-            if G.P_CENTERS[v].all_in_jest.only_shop_pool or G.P_CENTERS[v].all_in_jest.only_booster_pool then
-                if appear then
-                    G.P_CENTERS[v].in_pool = function(self, args)
-    		                return true
-                    end
-                else
-                    G.P_CENTERS[v].in_pool = function(self, args)
-    		                return false
-                    end
-                end
-            end
-        end
-    end
-end
--- End of All in Jest patch
-'''
-
 # Have tags in the round eval screen use the correct atlas
 # (How does SMODs not change this???)
 # add_round_eval_row()
@@ -2064,114 +2027,6 @@ payload = '''
 elseif _type == 'Joker' and next(SMODS.find_card("j_aij_little_boy_blue")) then _pool[#_pool + 1] = "j_aij_simple_simon"
 '''
 
-# Set "compatible" or "incompatible" or new copier jokers
-# Card:update()
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "if self.ability.name == 'Blueprint' or self.ability.name == 'Brainstorm' then"
-position = "before"
-payload = '''
---[[
-if self.ability.name == 'j_aij_clay_joker' or self.ability.name == 'j_aij_visage' or (self.ability.name == 'j_aij_czar' or self.ability.name == 'j_aij_joker_png') then
-	local other_joker = nil
-    if self.ability.name == 'j_aij_visage' then
-        other_joker = G.all_in_jest_visage_last_sold.cards[1]
-    elseif self.ability.name == 'j_aij_clay_joker' then
-        other_joker = G.all_in_jest_clay_last_destroyed.cards[1]
-    elseif self.ability.name == 'j_aij_joker_png' then
-        for _,v in pairs(G.all_in_jest_joker_png.cards) do
-            if v.ability.all_in_jest and v.ability.all_in_jest.joker_png == self.unique_val then
-                other_joker = v
-                break
-            end
-        end
-    elseif self.ability.name == 'j_aij_czar' then
-        for _,v in pairs(G.all_in_jest_czar.cards) do
-            if v.ability.all_in_jest and v.ability.all_in_jest.czar == self.unique_val then
-                other_joker = v
-                break
-            end
-        end
-    end
-    if 
-        other_joker and other_joker ~= self and other_joker.config and All_in_Jest.expanded_copier_compat(other_joker.config.center, (self.ability.name == 'j_aij_czar' or self.ability.name == 'j_aij_joker_png'))
-    then
-        self.ability.blueprint_compat = 'compatible'
-    else
-        self.ability.blueprint_compat = 'incompatible'
-    end
-end
-]]--
-if self.ability.name == 'j_aij_elder' then
-    other_joker = All_in_Jest.get_longest_held_joker()
-    if other_joker and other_joker ~= self and other_joker.config.center.blueprint_compat then
-        self.ability.blueprint_compat = 'compatible'
-    else
-        self.ability.blueprint_compat = 'incompatible'
-    end
-end
-'''
-match_indent = true
-
-# Give the "compatible" or "incompatible" badge to new copier jokers
-# Card:generate_UIBox_ability_table()
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "elseif self.ability.name == 'Smeared Joker' then"
-position = "after"
-payload = '''
---[[
-elseif self.ability.name == 'j_aij_clay_joker' then
-    self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
-    main_end = (self.area and self.area == G.jokers) and {
-        {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-            {n=G.UIT.C, config={ref_table = self, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
-                {n=G.UIT.T, config={ref_table = self.ability, ref_value = 'blueprint_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
-            }}
-        }}
-    } or nil
-elseif self.ability.name == 'j_aij_visage' then
-    self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
-    main_end = (self.area and self.area == G.jokers) and {
-        {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-            {n=G.UIT.C, config={ref_table = self, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
-                {n=G.UIT.T, config={ref_table = self.ability, ref_value = 'blueprint_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
-            }}
-        }}
-    } or nil
-elseif self.ability.name == 'j_aij_czar' then
-    self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
-    main_end = (self.area and self.area == G.jokers) and {
-        {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-            {n=G.UIT.C, config={ref_table = self, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
-                {n=G.UIT.T, config={ref_table = self.ability, ref_value = 'blueprint_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
-            }}
-        }}
-    } or nil
-elseif self.ability.name == 'j_aij_joker_png' then
-    self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
-    main_end = (self.area and self.area == G.jokers) and {
-        {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-            {n=G.UIT.C, config={ref_table = self, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
-                {n=G.UIT.T, config={ref_table = self.ability, ref_value = 'blueprint_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
-            }}
-        }}
-    } or nil
-]]--
-elseif self.ability.name == 'j_aij_elder' then
-    self.ability.blueprint_compat_ui = self.ability.blueprint_compat_ui or ''; self.ability.blueprint_compat_check = nil
-    main_end = (self.area and self.area == G.jokers) and {
-        {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-            {n=G.UIT.C, config={ref_table = self, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
-                {n=G.UIT.T, config={ref_table = self.ability, ref_value = 'blueprint_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
-            }}
-        }}
-    } or nil
-'''
-match_indent = true 
-
 # Remove the additional cost of the edition under certain conditions
 # Card:set_cost()
 [[patches]]
@@ -2265,11 +2120,11 @@ payload = '''
 if card and card.ability and card.ability.patches then
     for k, v in pairs(card.ability.patches) do
         if G.C.SUITS[k] then
-            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {SMODS.Suits[k].original_key, colours = {G.C.SUITS[k]}}}
+            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {localize(k, "suits_singular"), colours = {G.C.SUITS[k]}}}
         elseif G.SETTINGS.colour_palettes[k] == 'hc' then
-            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {SMODS.Suits[k].original_key, colours = {SMODS.Suits[k].hc_colour}}}
+            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {localize(k, "suits_singular"), colours = {SMODS.Suits[k].hc_colour}}}
         else
-            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {SMODS.Suits[k].original_key, colours = {SMODS.Suits[k].lc_colour}}}
+            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {localize(k, "suits_singular"), colours = {SMODS.Suits[k].lc_colour}}}
         end
     end
 end
@@ -2800,27 +2655,6 @@ end
 '''
 match_indent = true
 
-# Handle booster packs with custom contents
-# As of v0.6 for Timelost (Guess the Jest with perishable options) and asteroid (Celestial with 3 spectral planets)
-# Card:open()
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "if G.GAME.modifiers.inflation then "
-position = "before" 
-match_indent = true
-payload = '''
-G.E_MANAGER:add_event(Event({trigger = 'after', delay = 1.4*math.sqrt(G.SETTINGS.GAMESPEED), blockable = false, blocking = false, 
-    func = function()
-        if self.fake_create_card then
-            self.config.center.create_card = G.GAME.temp_create_card[1]
-            self.fake_create_card = false
-            G.GAME.temp_create_card = {}
-        end
-    return true
-end}))
-'''
-
 # Electric Snow (1/2)
 # Prevent round from ending after hand is played (unless final hand is played)
 # Game:update_hand_played()
@@ -3004,9 +2838,7 @@ match_indent = true
 target = "functions/UI_definitions.lua"
 pattern = '''
 for k, v in ipairs(text_table) do
-    blind_desc_nodes[#blind_desc_nodes+1] = {n=G.UIT.R, config={align = "cm", maxw = 2.8}, nodes={
-        {n=G.UIT.T, config={text = v or '-', scale = 0.32, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE, shadow = not disabled}}
-    }}
+    blind_desc_nodes[#blind_desc_nodes+1] = {n=G.UIT.R, config={align = "cm", maxw = 2.8}, nodes=SMODS.localize_box(v, {default_col = disabled and G.C.UI.TEXT_INACTIVE or target.text_colour or G.C.WHITE, shadow = not disabled, vars = target.vars, scale = target.scale})}
 end
 '''
 position = "at"
@@ -3018,9 +2850,7 @@ if aij_has_blind_drawn then
     blind_col = G.C.UI.TEXT_INACTIVE
 else
     for k, v in ipairs(text_table) do
-        blind_desc_nodes[#blind_desc_nodes+1] = {n=G.UIT.R, config={align = "cm", maxw = 2.8}, nodes={
-            {n=G.UIT.T, config={text = v or '-', scale = 0.32, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE, shadow = not disabled}}
-        }}
+        blind_desc_nodes[#blind_desc_nodes+1] = {n=G.UIT.R, config={align = "cm", maxw = 2.8}, nodes=SMODS.localize_box(v, {default_col = disabled and G.C.UI.TEXT_INACTIVE or target.text_colour or G.C.WHITE, shadow = not disabled, vars = target.vars, scale = target.scale})}
     end
 end
 '''
@@ -3328,11 +3158,13 @@ end
     # END OF BLUE SEAL FIXES #
 #--------------------------------#
 
-# Moon Cards (2/2) + Astrologer Joker
+
+# Moon Cards (2/2) + Astrologer Joker + Shop/Booster only jokers
 # Offsets abundance of moons by making all other planets appear x3 as often, done mainly for crossmod purposes
 # Other special All in Jest planets are listed as well, making them appear 1/3 as much as other standard planets
 # (Dark Star, Rogue Planet, and Sol)
 # Also handles Astrologer joker (only mult/chip moons appear on odd/even antes)
+# Also prevent jokers that can only appear in shop or booster packs from appearing elsewhere
 # create_card()
 [[patches]]
 [patches.pattern]
@@ -3342,6 +3174,30 @@ position = "before"
 match_indent = true
 payload = '''
 do -- All in Jest Patch
+    if _type == 'Joker' then
+        local _pool, _pool_key = get_current_pool(_type, _rarity, legendary, key_append)
+        for k, v in pairs(_pool) do
+            if G.P_CENTERS[v] and G.P_CENTERS[v].all_in_jest then
+                local appear = false
+                if (G.P_CENTERS[v].all_in_jest.only_shop_pool and area == G.shop_jokers) then
+                    appear = true
+                elseif (G.P_CENTERS[v].all_in_jest.only_booster_pool and area == G.pack_cards) then
+                    appear = true
+                end
+                if G.P_CENTERS[v].all_in_jest.only_shop_pool or G.P_CENTERS[v].all_in_jest.only_booster_pool then
+                    if appear then
+                        G.P_CENTERS[v].in_pool = function(self, args)
+                            return true
+                        end
+                    else
+                        G.P_CENTERS[v].in_pool = function(self, args)
+                            return false
+                        end
+                    end
+                end
+            end
+        end
+    end
     if _type == 'Planet' then
         local unboosted_weight_planet_keys = {
             ['c_mercury'] = true, ['c_aij_vulcanoid'] = true, ['c_aij_phaethon'] = true,
@@ -3412,7 +3268,7 @@ do -- All in Jest Patch
 
                 if item_key then
                     local planet_center = G.P_CENTERS[item_key]
-                    if v.key == item_key then
+                    if planet_center and planet_center.key == item_key then
                         if (G.GAME.round_resets.ante % 2) == 0 then
                             if planet_center.config and planet_center.config.chips and planet_center.config.moon then
                                 table.insert(cur_pool, item)

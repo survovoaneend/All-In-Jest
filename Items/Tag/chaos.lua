@@ -3,7 +3,7 @@ local chaos = {
   key = 'chaos',
   pos = { x = 1, y = 0 },
   atlas = 'tag_atlas',
-
+  lite = true,
   discovered = false,
   order = 1,
   config = {

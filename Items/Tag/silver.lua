@@ -1,3 +1,17 @@
+local function contains_number(table, exclusions)
+    for k, v in pairs(table) do
+        if exclusions and exclusions[k] ~= nil and (exclusions[k] == true or exclusions[k] == v) then
+        else
+            if type(v) == "number" and v ~= 0 then
+                return true
+            elseif type(v) == "table" and contains_number(v, exclusions) then
+                return true
+            end
+        end
+    end
+    return false
+end
+
 local silver = {
     object_type = "Tag",
     key = 'silver', 
@@ -15,27 +29,16 @@ local silver = {
         if context.type == 'store_joker_create' then
             local card
             card = create_card('Joker', context.area, nil, nil, nil, nil, nil, 'silverta')
-            local function contains_number(table)
-                for k, v in pairs(table) do
-                    if type(v) == "number" and v ~= 0 then
-                        return true
-                    elseif type(v) == "table" then
-                        if contains_number(v) then
-                            return true
-                        end
-                    end
-                end
-                return false
-            end
+            
             local modifyable = false
-            if contains_number(card.config.center.config) then
+            if contains_number(card.config.center.config, { x_chips = 1, x_mult = 1, extra_value = true, rarity = true }) then
                 modifyable = true
             end
             local ivalue = 1
             while not modifyable do
                 card:remove()
                 card = create_card('Joker', context.area, nil, nil, nil, nil, nil, 'silverta'..ivalue)
-                if contains_number(card.config.center.config) then
+                if contains_number(card.config.center.config, { x_chips = 1, x_mult = 1, extra_value = true, rarity = true }) then
                     modifyable = true
                 end
                 ivalue = ivalue + 1

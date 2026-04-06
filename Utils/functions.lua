@@ -132,7 +132,10 @@ function retrieve_joker_text(joker, descip, name)
     else
         if joker.generate_UIBox_ability_table then
             if not joker.ability_UIBox_table then -- Removing this check causes memory leaks
-                joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
+                -- joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
+                local other_vars, _, _ = joker:generate_UIBox_ability_table(true)
+                joker.ability_UIBox_table = generate_card_ui(joker.config.center, nil, other_vars)
+                text = retrieve_joker_text(joker)
             end
             local main = joker.ability_UIBox_table.main
             text = text .. get_text(main)
@@ -448,217 +451,34 @@ AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
 end
 
 AllInJest.deck_skins = {
-  {
-    id = 'double_king',
-    name = 'Double King',
-    suits = {
-      'Hearts',
-    }
-  },
-  {
-    id = 'balatro',
-    name = 'Balatro',
-    suits = {
-      'Hearts',
-    }
-  },
-  {
-    id = 'wuppo',
-    name = 'Wuppo',
-    suits = {
-      'Hearts',
-    }
-  },
-  {
-    id = 'control',
-    name = 'Control',
-    suits = {
-      'Hearts',
-    }
-  },
-  {
-    id = 'megaman',
-    name = 'Megaman',
-    suits = {
-      'Hearts',
-    }
-  },
-  {
-    id = 'mewgenics',
-    name = 'Mewgenics',
-    suits = {
-      'Hearts',
-    }
-  },
-  {
-    id = 'super_meat_boy',
-    name = 'Super Meat Boy',
-    suits = {
-      'Hearts',
-    }
-  },
-  {
-    id = 'slarpg',
-    name = 'Super Lesbian Animal RPG',
-    suits = {
-      'Hearts',
-    }
-  },
-  {
-    id = 'spelunky',
-    name = 'Spelunky',
-    suits = {
-      'Diamonds',
-    }
-  },
-  {
-    id = 'stellaris',
-    name = 'Stellaris',
-    suits = {
-      'Diamonds',
-    }
-  },
-  {
-    id = 'fallout_nv',
-    name = 'Fallout: New Vegas',
-    suits = {
-      'Diamonds',
-    }
-  },
-  {
-    id = 'off',
-    name = 'OFF',
-    suits = {
-      'Spades',
-    }
-  },
-  {
-    id = 'portal_two',
-    name = 'Portal 2',
-    suits = {
-      'Spades',
-    }
-  },
-  {
-    id = 'talos_principle',
-    name = 'Talos Principle',
-    suits = {
-      'Spades',
-    }
-  },
-  {
-    id = 'gish',
-    name = 'GISH',
-    suits = {
-      'Spades',
-    }
-  },
-  {
-    id = 'aooni',
-    name = 'Aooni',
-    suits = {
-      'Spades',
-    }
-  },
-  {
-    id = 'minecraft',
-    name = 'Minecraft',
-    suits = {
-      'Clubs',
-    }
-  },
-  {
-    id = 'petscop',
-    name = 'Petscop',
-    suits = {
-      'Clubs',
-    }
-  },
-  {
-    id = 'we_happy_few',
-    name = 'We Happy Few',
-    suits = {
-      'Clubs',
-    }
-  },
-  {
-    id = 'stanley_parable',
-    name = 'The Stanley Parable',
-    suits = {
-      'Clubs',
-    }
-  },
-  {
-    id = 'sam_and_max',
-    name = 'Sam & Max',
-    suits = {
-      'Clubs',
-    }
-  },
-  {
-    id = 'alan_wake',
-    name = 'Alan Wake',
-    suits = {
-      'Diamonds',
-      'Clubs',
-    }
-  },
-  {
-    id = 'king_in_yellow',
-    name = 'The King in Yellow',
-    suits = {
-      'Diamonds',
-      'Clubs',
-    }
-  },
-  {
-    id = 'tadc',
-    name = 'The Amazing Digital Circus',
-    suits = {
-      'Spades',
-      'Hearts',
-      'Clubs',
-    }
-  },
-  {
-    id = 'inscryption',
-    name = 'Inscryption',
-    suits = {
-      'Clubs',
-      'Spades',
-      'Hearts',
-      'Diamonds'
-    }
-  },
-  {
-    id = 'yume_nikki',
-    name = 'Yume Nikki',
-    suits = {
-      'Clubs',
-      'Spades',
-      'Hearts',
-      'Diamonds'
-    }
-  },
-  {
-    id = 'etg',
-    name = 'Enter the Gungeon',
-    suits = {
-      'Clubs',
-      'Spades',
-      'Hearts',
-    }
-  },
-  {
-    id = 'nuclear_throne',
-    name = 'Nuclear Throne',
-    suits = {
-      'Clubs',
-      'Spades',
-      'Hearts',
-      'Diamonds'
-    }
-  },
+  { id = 'double_king', name = 'Double King', suits = { 'Hearts' } },
+  { id = 'balatro', name = 'Balatro', suits = { 'Hearts' } },
+  { id = 'wuppo', name = 'Wuppo', suits = { 'Hearts' } },
+  { id = 'control', name = 'Control', suits = { 'Hearts' } },
+  { id = 'megaman', name = 'Megaman', suits = { 'Hearts' } },
+  { id = 'mewgenics', name = 'Mewgenics', suits = { 'Hearts' } },
+  { id = 'super_meat_boy', name = 'Super Meat Boy', suits = { 'Hearts' } },
+  { id = 'slarpg', name = 'Super Lesbian Animal RPG', suits = { 'Hearts' } },
+  { id = 'spelunky', name = 'Spelunky', suits = { 'Diamonds' } },
+  { id = 'stellaris', name = 'Stellaris', suits = { 'Diamonds' } },
+  { id = 'fallout_nv', name = 'Fallout: New Vegas', suits = { 'Diamonds' } },
+  { id = 'off', name = 'OFF', suits = { 'Spades' } },
+  { id = 'portal_two', name = 'Portal 2', suits = { 'Spades' } },
+  { id = 'talos_principle', name = 'Talos Principle', suits = { 'Spades' } },
+  { id = 'gish', name = 'GISH', suits = { 'Spades' } },
+  { id = 'aooni', name = 'Aooni', suits = { 'Spades' } },
+  { id = 'minecraft', name = 'Minecraft', suits = { 'Clubs' } },
+  { id = 'petscop', name = 'Petscop', suits = { 'Clubs' } },
+  { id = 'we_happy_few', name = 'We Happy Few', suits = { 'Clubs' } },
+  { id = 'stanley_parable', name = 'The Stanley Parable', suits = { 'Clubs' } },
+  { id = 'sam_and_max', name = 'Sam & Max', suits = { 'Clubs' } },
+  { id = 'alan_wake', name = 'Alan Wake', suits = { 'Diamonds', 'Clubs' } },
+  { id = 'king_in_yellow', name = 'The King in Yellow', suits = { 'Diamonds', 'Clubs' } },
+  { id = 'tadc', name = 'The Amazing Digital Circus', suits = { 'Spades', 'Hearts', 'Clubs' } },
+  { id = 'inscryption', name = 'Inscryption', suits = { 'Clubs', 'Spades', 'Hearts', 'Diamonds' } },
+  { id = 'yume_nikki', name = 'Yume Nikki', suits = { 'Clubs', 'Spades', 'Hearts', 'Diamonds' } },
+  { id = 'etg', name = 'Enter the Gungeon', suits = { 'Clubs', 'Spades', 'Hearts' } },
+  { id = 'nuclear_throne', name = 'Nuclear Throne', suits = { 'Clubs', 'Spades', 'Hearts', 'Diamonds' } },
 }
 
 --Taken from paperback
@@ -1442,7 +1262,7 @@ function reset_the_auroch_blind()
 end
 function reset_the_journey_blind()
     local selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey'))
-    -- By default the special journey background will fade during the evaluate screen, nesting events here prevnts this
+    -- By default the special journey background will fade during the evaluate screen, nesting events here prevents this
     -- This *is* jank
     G.E_MANAGER:add_event(Event({
         func = function()
@@ -1728,6 +1548,156 @@ function All_in_Jest.aij_refresh_boss_blind()
     end
 end
 
+function All_in_Jest_format_destroy(center_text)
+
+    if not All_in_Jest.config.red_destroy_text then
+        return center_text
+    end
+
+    if center_text == {} then
+        return center_text
+    end
+
+    local function add_red_text(text, start_index, end_index, base_format)
+        local destroyed_format = base_format
+        if base_format == "{}" then
+            destroyed_format = "{C:red}"
+        elseif string.match(base_format, "C:%w+") then -- Try to find an existing colour option
+            destroyed_format, _ = string.gsub(base_format, "C:%w+", "C:red")
+        else
+            destroyed_format = string.sub(base_format, 1, -2) .. ",C:red}"
+        end
+        return string.sub(text, 1, start_index - 1)..destroyed_format..string.sub(text, start_index, end_index)..base_format..string.sub(text, end_index + 1)
+    end
+
+    local destroy_texts = {
+        "destroying",
+        "destroyed",
+        "destroys",
+        "destroy"
+    }
+    local found_strings = {}
+    local one_box = true
+
+    if type(center_text[1]) == "table" then
+        -- Description has multiple boxes (e.g. "You got Mail" joker in this mod)
+        one_box = false
+        for j, box in ipairs(center_text) do
+            found_strings[j] = {}
+            for i, line in ipairs(box) do
+                found_strings[j][i] = {}
+                for _, text in ipairs(destroy_texts) do
+                    local start_index, end_index = string.find(string.lower(line), text)
+                    if start_index then
+                        local already_processed = false
+                        for _, t in ipairs(found_strings[j][i]) do
+                            if start_index == t.start_index then
+                                already_processed = true
+                                break
+                            end
+                        end
+
+                        if not already_processed then
+                            -- Try to extract any existing formatting on the destroy text
+                            -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
+                            local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
+                            -- Do not apply red text if text is:
+                            -- - Grey
+                            -- - Already red
+                            if not (string.match(applied_formatting, "C:red") or
+                               string.match(applied_formatting, "C:inactive"))
+                            then
+                                local t = {
+                                    start_index = start_index,
+                                    end_index = end_index,
+                                    format = applied_formatting
+                                }
+                                table.insert(found_strings[j][i], t)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    elseif type(center_text[1]) == "string" then
+        -- Description does not have multiple boxes
+        found_strings[1] = {}
+        for i, line in ipairs(center_text) do
+            found_strings[1][i] = {}
+            for _, text in ipairs(destroy_texts) do
+                local start_index, end_index = string.find(string.lower(line), text)
+                if start_index then
+                    local already_processed = false
+                    for _, t in ipairs(found_strings[1][i]) do
+                        if start_index == t.start_index then
+                            already_processed = true
+                            break
+                        end
+                    end
+
+                    if not already_processed then
+                        -- Try to extract any existing formatting on the destroy text
+                        -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
+                        local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
+                        -- Do not apply red text if text is already red
+                        if not string.match(applied_formatting, "C:red") then
+                            local t = {
+                                start_index = start_index,
+                                end_index = end_index,
+                                format = applied_formatting
+                            }
+                            table.insert(found_strings[1][i], t)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    for box_index, _ in ipairs(found_strings) do
+        for line_index, _ in ipairs(found_strings[box_index]) do
+            for _, t in ipairs(found_strings[box_index][line_index]) do
+                local start_index = t.start_index
+                local end_index = t.end_index
+                local base_format = t.format
+                if one_box then
+                    center_text[line_index] = add_red_text(center_text[line_index], start_index, end_index, base_format)
+                else
+                    center_text[box_index][line_index] = add_red_text(center_text[box_index][line_index], start_index, end_index, base_format)
+                end
+            end
+        end
+    end
+
+    return center_text
+end
+
+G.FUNCS.aij_hover_tag_branching = function(e)
+    if not e.parent or not e.parent.states then return end
+    if e.states.hover.is and (e.created_on_pause == G.SETTINGS.paused) and not e.alert then
+        -- sendDebugMessage(tprint(e), "AIJ")
+        local _sprite = e.config.ref_table[2]:get_uibox_table()
+        e.alert = UIBox{
+            definition = G.UIDEF.card_h_popup(_sprite),
+            config = {align="tm", offset = {x = 0, y = -0.1},
+            major = e,
+            instance_type = 'POPUP'},
+        }
+        _sprite:juice_up(0.05, 0.02)
+        play_sound('paper1', math.random()*0.1 + 0.55, 0.42)
+        play_sound('tarot2', math.random()*0.1 + 0.55, 0.09)
+        e.alert.states.collide.can = false
+    elseif e.alert and (not e.states.hover.is or e.created_on_pause ~= G.SETTINGS.paused) then
+        e.alert:remove()
+        e.alert = nil
+    end
+end
+
+-- Function that defines when the tag area in the shop should appear (or not)
+All_in_Jest.show_shop_aij_tags = function(e)
+    return next(SMODS.find_card("j_aij_ijoker_co")) or next(SMODS.find_card("j_aij_death_of_a_salesman"))
+end
+
 function All_in_Jest.get_random_joker_colours(colour)
     local clothes_and_makeup_colours = {
         HEX('fd5f55'), HEX('fda200'), HEX('009cfd'), HEX('55a383'), HEX('8dffd0'), HEX('7dc6f3'),
@@ -1901,32 +1871,19 @@ end
 
 function All_in_Jest.find_multi_enhancement_pos(enhancement)
     local pos = 0
-    if enhancement == 'm_bonus' then
-        pos = 3
-    elseif enhancement == 'm_mult' then
-        pos = 4
-    elseif enhancement == 'm_wild' then
-        pos = 5
-    elseif enhancement == 'm_glass' then
-        pos = 7
-    elseif enhancement == 'm_steel' then
-        pos = 8
-    elseif enhancement == 'm_stone' then
-        pos = 1
-    elseif enhancement == 'm_gold' then
-        pos = 2
-    elseif enhancement == 'm_lucky' then
-        pos = 6
-    elseif enhancement == 'm_aij_fervent' then
-        pos = 10
-    elseif enhancement == 'm_aij_charged' then
-        pos = 11
-    elseif enhancement == 'm_aij_ice' then
-        pos = 12
-    elseif enhancement == 'm_aij_canvas' then
-        pos = 13
-    elseif enhancement == 'm_aij_wood' then
-        pos = 15
+    if enhancement == 'm_bonus' then pos = 3
+    elseif enhancement == 'm_mult' then pos = 4
+    elseif enhancement == 'm_wild' then pos = 5
+    elseif enhancement == 'm_glass' then pos = 7
+    elseif enhancement == 'm_steel' then pos = 8
+    elseif enhancement == 'm_stone' then pos = 1
+    elseif enhancement == 'm_gold' then pos = 2
+    elseif enhancement == 'm_lucky' then pos = 6
+    elseif enhancement == 'm_aij_fervent' then pos = 10
+    elseif enhancement == 'm_aij_charged' then pos = 11
+    elseif enhancement == 'm_aij_ice' then pos = 12
+    elseif enhancement == 'm_aij_canvas' then pos = 13
+    elseif enhancement == 'm_aij_wood' then pos = 15
     end
     return pos
 end
@@ -1968,10 +1925,8 @@ function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
 	end
 
 	if not edition_type or edition_type == 'base' then
-		if self.aij_seal_edition == nil then -- early exit
-			return
-		end
-		self.aij_seal_edition = nil -- remove edition from card
+		if self.aij_seal_edition == nil then return end
+		self.aij_seal_edition = nil 
 		self:set_cost()
 		if not silent then
 			G.E_MANAGER:add_event(Event({
@@ -1987,13 +1942,7 @@ function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
 		end
 		if delay then
 			self.aij_delay_seal_edition = old_edition
-			G.E_MANAGER:add_event(Event({
-				trigger = 'immediate',
-				func = function()
-					self.aij_delay_seal_edition = nil
-					return true
-				end
-			}))
+			G.E_MANAGER:add_event(Event({ trigger = 'immediate', func = function() self.aij_delay_seal_edition = nil return true end }))
 		end
 		return
 	end
@@ -2005,59 +1954,36 @@ function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
 
 	local p_edition = G.P_CENTERS['e_' .. edition_type]
 
-	if p_edition.override_base_shader or p_edition.disable_base_shader then
-		self.ignore_base_shader[self.aij_seal_edition.key] = true
-	end
-	if p_edition.no_shadow or p_edition.disable_shadow then
-		self.ignore_shadow[self.aij_seal_edition.key] = true
-	end
+	if p_edition.override_base_shader or p_edition.disable_base_shader then self.ignore_base_shader[self.aij_seal_edition.key] = true end
+	if p_edition.no_shadow or p_edition.disable_shadow then self.ignore_shadow[self.aij_seal_edition.key] = true end
 
     if p_edition.aij_seal_config then
         for k, v in pairs(p_edition.aij_seal_config) do
-		    if type(v) == 'table' then
-			    self.aij_seal_edition[k] = copy_table(v)
-		    else
-			    self.aij_seal_edition[k] = v
-		    end
+		    if type(v) == 'table' then self.aij_seal_edition[k] = copy_table(v)
+		    else self.aij_seal_edition[k] = v end
 	    end
         for k, v in pairs(p_edition.config) do
-		    if type(v) == 'table' and not self.aij_seal_edition[k] then
-			    self.aij_seal_edition[k] = copy_table(v)
-		    elseif not self.aij_seal_edition[k] then
-			    self.aij_seal_edition[k] = v
-		    end
+		    if type(v) == 'table' and not self.aij_seal_edition[k] then self.aij_seal_edition[k] = copy_table(v)
+		    elseif not self.aij_seal_edition[k] then self.aij_seal_edition[k] = v end
 	    end
     else
 	    for k, v in pairs(p_edition.config) do
-		    if type(v) == 'table' then
-			    self.aij_seal_edition[k] = copy_table(v)
-		    else
-			    self.aij_seal_edition[k] = v
-		    end
+		    if type(v) == 'table' then self.aij_seal_edition[k] = copy_table(v)
+		    else self.aij_seal_edition[k] = v end
 	    end
-        if edition_type == 'polychrome' then
-            self.aij_seal_edition['x_mult'] = self.aij_seal_edition['x_mult'] - 1
-        end
+        if edition_type == 'polychrome' then self.aij_seal_edition['x_mult'] = self.aij_seal_edition['x_mult'] - 1 end
         jest_ability_calculate(self, "/", 2, nil, nil, false, nil, "aij_seal_edition")
-        if edition_type == 'polychrome' then
-            self.aij_seal_edition['x_mult'] = self.aij_seal_edition['x_mult'] + 1
-        end
+        if edition_type == 'polychrome' then self.aij_seal_edition['x_mult'] = self.aij_seal_edition['x_mult'] + 1 end
     end
 
 	local on_edition_applied = p_edition.on_apply
-	if type(on_edition_applied) == "function" then
-		on_edition_applied(self)
-	end
+	if type(on_edition_applied) == "function" then on_edition_applied(self) end
 
 	if self.area and self.area == G.jokers then
 		if self.aij_seal_edition then
-			if not G.P_CENTERS['e_' .. (self.aij_seal_edition.type)].discovered then
-				discover_card(G.P_CENTERS['e_' .. (self.aij_seal_edition.type)])
-			end
+			if not G.P_CENTERS['e_' .. (self.aij_seal_edition.type)].discovered then discover_card(G.P_CENTERS['e_' .. (self.aij_seal_edition.type)]) end
 		else
-			if not G.P_CENTERS['e_base'].discovered then
-				discover_card(G.P_CENTERS['e_base'])
-			end
+			if not G.P_CENTERS['e_base'].discovered then discover_card(G.P_CENTERS['e_base']) end
 		end
 	end
 
@@ -2065,9 +1991,7 @@ function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
 		local ed = G.P_CENTERS['e_' .. (self.aij_seal_edition.type)]
 		G.CONTROLLER.locks.aij_seal_edition = true
 		G.E_MANAGER:add_event(Event({
-			trigger = 'after',
-			delay = not immediate and 0.2 or 0,
-			blockable = not immediate,
+			trigger = 'after', delay = not immediate and 0.2 or 0, blockable = not immediate,
 			func = function()
 				if self.aij_seal_edition then
 					self:juice_up(1, 0.5)
@@ -2076,176 +2000,17 @@ function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
 				return true
 			end
 		}))
-		G.E_MANAGER:add_event(Event({
-			trigger = 'after',
-			delay = 0.1,
-			func = function()
-				G.CONTROLLER.locks.aij_seal_edition = false
-				return true
-			end
-		}))
+		G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.1, func = function() G.CONTROLLER.locks.aij_seal_edition = false return true end }))
 	end
 
 	if delay then
 		self.aij_delay_seal_edition = old_edition or {base = true}
-		G.E_MANAGER:add_event(Event({
-			trigger = 'immediate',
-			func = function()
-				self.aij_delay_seal_edition = nil
-				return true
-			end
-		}))
+		G.E_MANAGER:add_event(Event({ trigger = 'immediate', func = function() self.aij_delay_seal_edition = nil return true end }))
 	end
 
 	self.ability.card_limit = self.ability.card_limit + (self.aij_seal_edition.card_limit or 0)
 	self.ability.extra_slots_used = self.ability.extra_slots_used + (self.aij_seal_edition.extra_slots_used or 0)
 
-
-	if G.jokers and self.area == G.jokers then
-		check_for_unlock({ type = 'modify_jokers' })
-	end
-
+	if G.jokers and self.area == G.jokers then check_for_unlock({ type = 'modify_jokers' }) end
 	self:set_cost()
-end
-
-function All_in_Jest_format_destroy(center_text)
-
-    if center_text == {} then
-        return center_text
-    end
-
-    local function add_red_text(text, start_index, end_index, base_format)
-        local destroyed_format = base_format
-        if base_format == "{}" then
-            destroyed_format = "{C:red}"
-        elseif string.match(base_format, "C:%w+") then -- Try to find an existing colour option
-            destroyed_format, _ = string.gsub(base_format, "C:%w+", "C:red")
-        else
-            destroyed_format = string.sub(base_format, 1, -2) .. ",C:red}"
-        end
-        return string.sub(text, 1, start_index - 1)..destroyed_format..string.sub(text, start_index, end_index)..base_format..string.sub(text, end_index + 1)
-    end
-
-    local destroy_texts = {
-        "destroying",
-        "destroyed",
-        "destroys",
-        "destroy"
-    }
-    local found_strings = {}
-    local one_box = true
-
-    if type(center_text[1]) == "table" then
-        -- Description has multiple boxes (e.g. "You got Mail" joker in this mod)
-        one_box = false
-        for j, box in ipairs(center_text) do
-            found_strings[j] = {}
-            for i, line in ipairs(box) do
-                found_strings[j][i] = {}
-                for _, text in ipairs(destroy_texts) do
-                    local start_index, end_index = string.find(string.lower(line), text)
-                    if start_index then
-                        local already_processed = false
-                        for _, t in ipairs(found_strings[j][i]) do
-                            if start_index == t.start_index then
-                                already_processed = true
-                                break
-                            end
-                        end
-
-                        if not already_processed then
-                            -- Try to extract any existing formatting on the destroy text
-                            -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
-                            local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
-                            -- Do not apply red text if text is already red
-                            if not string.match(applied_formatting, "C:red") then
-                                local t = {
-                                    start_index = start_index,
-                                    end_index = end_index,
-                                    format = applied_formatting
-                                }
-                                table.insert(found_strings[j][i], t)
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    elseif type(center_text[1]) == "string" then
-        -- Description does not have multiple boxes
-        found_strings[1] = {}
-        for i, line in ipairs(center_text) do
-            found_strings[1][i] = {}
-            for _, text in ipairs(destroy_texts) do
-                local start_index, end_index = string.find(string.lower(line), text)
-                if start_index then
-                    local already_processed = false
-                    for _, t in ipairs(found_strings[1][i]) do
-                        if start_index == t.start_index then
-                            already_processed = true
-                            break
-                        end
-                    end
-
-                    if not already_processed then
-                        -- Try to extract any existing formatting on the destroy text
-                        -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
-                        local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
-                        -- Do not apply red text if text is already red
-                        if not string.match(applied_formatting, "C:red") then
-                            local t = {
-                                start_index = start_index,
-                                end_index = end_index,
-                                format = applied_formatting
-                            }
-                            table.insert(found_strings[1][i], t)
-                        end
-                    end
-                end
-            end
-        end
-    end
-
-    for box_index, _ in ipairs(found_strings) do
-        for line_index, _ in ipairs(found_strings[box_index]) do
-            for _, t in ipairs(found_strings[box_index][line_index]) do
-                local start_index = t.start_index
-                local end_index = t.end_index
-                local base_format = t.format
-                if one_box then
-                    center_text[line_index] = add_red_text(center_text[line_index], start_index, end_index, base_format)
-                else
-                    center_text[box_index][line_index] = add_red_text(center_text[box_index][line_index], start_index, end_index, base_format)
-                end
-            end
-        end
-    end
-
-    return center_text
-end
-
-G.FUNCS.aij_hover_tag_branching = function(e)
-    if not e.parent or not e.parent.states then return end
-    if e.states.hover.is and (e.created_on_pause == G.SETTINGS.paused) and not e.alert then
-        -- sendDebugMessage(tprint(e), "AIJ")
-        local _sprite = e.config.ref_table[2]:get_uibox_table()
-        e.alert = UIBox{
-            definition = G.UIDEF.card_h_popup(_sprite),
-            config = {align="tm", offset = {x = 0, y = -0.1},
-            major = e,
-            instance_type = 'POPUP'},
-        }
-        _sprite:juice_up(0.05, 0.02)
-        play_sound('paper1', math.random()*0.1 + 0.55, 0.42)
-        play_sound('tarot2', math.random()*0.1 + 0.55, 0.09)
-        e.alert.states.collide.can = false
-    elseif e.alert and (not e.states.hover.is or e.created_on_pause ~= G.SETTINGS.paused) then
-        e.alert:remove()
-        e.alert = nil
-    end
-end
-
--- Function that defines when the tag area in the shop should appear (or not)
-All_in_Jest.show_shop_aij_tags = function(e)
-    return next(SMODS.find_card("j_aij_ijoker_co")) or next(SMODS.find_card("j_aij_death_of_a_salesman"))
 end

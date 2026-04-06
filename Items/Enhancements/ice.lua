@@ -2,7 +2,7 @@ local ice = {
     object_type = "Enhancement",
     key = 'ice',
     atlas = 'enhancements_atlas',
-    
+    lite = true,
     order = 3,
     pos = { x = 3, y = 0 },
     config = {

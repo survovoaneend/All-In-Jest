@@ -32,26 +32,20 @@ local guillaume = {
   
     calculate = function(self, card, context)
       if context.end_of_round and G.jokers and not context.blueprint and context.beat_boss and #G.jokers.cards < 5 and context.main_eval then
-        SMODS.scale_card(card, {
-	        ref_table = G.jokers.config,
-            ref_value = "card_limit",
-            scalar_table = card.ability.extra,
-	        scalar_value = "joker_slots_mod",
-            message_key = 'a_aij_joker_slots'
-        })
+        G.jokers:change_size(card.ability.extra.joker_slots_mod)
         SMODS.scale_card(card, {
 	        ref_table = card.ability.extra,
-            ref_value = "joker_slots", 
+          ref_value = "joker_slots",
 	        scalar_value = "joker_slots_mod",
-            no_message = true,
+          message_key = 'a_aij_joker_slots'
         })
       end
     end,
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.joker_slots
+        G.jokers:change_size(card.ability.extra.joker_slots)
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.joker_slots
+        G.jokers:change_size(-card.ability.extra.joker_slots)
     end,
   
 }
