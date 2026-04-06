@@ -9,7 +9,7 @@ local jesters_privelege = {
     rarity = 3,
     pos = { x = 15, y = 3 },
     atlas = 'joker_atlas',
-    cost = 10,
+    cost = 8,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

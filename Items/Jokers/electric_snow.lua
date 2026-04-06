@@ -18,7 +18,7 @@ local electric_snow = {
     end,
   
     calculate = function(self, card, context)
-        
+        -- Effect in lovely.toml
     end
   
 }

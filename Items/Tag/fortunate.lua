@@ -16,7 +16,7 @@ local fortunate_tag = {
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({
                         func = function() 
-				                    G.SETTINGS.paused = true
+				            G.SETTINGS.paused = true
                             G.FUNCS.overlay_menu{
                                 config = {no_esc = true},
                                 definition = SMODS.jest_no_back_card_collection_UIBox(
@@ -25,8 +25,10 @@ local fortunate_tag = {
                                     {
                                         no_materialize = true, 
                                         modify_card = function(card, center) 
-                                            if card.config.center.discovered then
-                                            jest_create_select_card_ui(card, G.consumeables)
+                                            if G.GAME.banned_keys[card.config.center.key] and not (type(G.GAME.banned_keys[card.config.center.key]) == "string" and G.GAME.banned_keys[card.config.center.key]:sub(1, 5) == "j_aij") then
+                                                card.debuff = true
+                                            elseif card.config.center.discovered then
+                                                jest_create_select_card_ui(card, G.consumeables)
                                             end
                                         end, 
                                         h_mod = 1.05,
@@ -35,6 +37,16 @@ local fortunate_tag = {
                             }
                             return true 
                         end 
+                    }))
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                        for i = 1, #G.GAME.tags do
+                            if G.GAME.tags[i]:apply_to_run({ type = 'new_blind_choice' }) then
+                            break
+                            end
+                        end
+                        return true
+                        end
                     }))
                 end
                 return true

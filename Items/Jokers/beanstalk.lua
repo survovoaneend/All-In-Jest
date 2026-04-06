@@ -20,7 +20,11 @@ local beanstalk = {
     end,
   
     calculate = function(self, card, context)
-      
+        if context.modify_scoring_hand and context.other_card:get_id() == 11 then
+            return {
+                add_to_hand = true
+            }
+        end
     end,
 
     update = function(self, card, dt)

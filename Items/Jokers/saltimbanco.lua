@@ -7,14 +7,14 @@ local saltimbanco = {
           trigger = false
       }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 3, y = 4 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
   

@@ -41,9 +41,9 @@ local jerko = {
         }
     end,
     calculate = function(self, card, context)
-      if context.repetition_only or (context.retrigger_joker_check) then
+      if context.retrigger_joker_check and context.other_card == card then
         local retriggers = pseudorandom('jerko', card.ability.extra.min, card.ability.extra.max)
-        if context.other_card == card then
+        if retriggers > 0 then
             return {
                 repetitions = retriggers,
                 card = card,

@@ -2,7 +2,6 @@ local sanctuary_gate = {
     object_type = "Consumable",
 	key = 'sanctuary_gate',
 	set = 'Tarot',
-	 
 	pos = { x = 1, y = 6 },
 	cost = 3,
 	unlocked = true,

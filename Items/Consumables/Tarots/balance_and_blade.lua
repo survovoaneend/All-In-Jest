@@ -34,10 +34,11 @@ local balance_and_blade = {
 				keys[#keys+1] = key
 			end
 		end
-		cur_suit = pseudorandom_element(keys, pseudoseed('balance_and_blade'))
 
     -- If there were no valid patches, then make a new set of valid patches with looser rules
-		if #keys <= 0 then
+    if next(keys) then
+		    cur_suit = pseudorandom_element(keys, pseudoseed('balance_and_blade'))
+		else
       -- Try again, allowing any patch that can meaningfully affect at least one card
 			keys = {}
 			for key, val in pairs(All_in_Jest.get_suits(nil, true)) do
@@ -49,31 +50,62 @@ local balance_and_blade = {
 			end
 
       -- This time allow any patch that matches a suit in the deck
-			cur_suit = pseudorandom_element(keys, pseudoseed('balance_and_blade_resample'))
-			if #keys <= 0 then
+      if next(keys) then
+          cur_suit = pseudorandom_element(keys, pseudoseed('balance_and_blade_resample'))
+      else
 				keys = {}
 				for key, val in pairs(All_in_Jest.get_suits(nil, true)) do
 					if All_in_Jest.has_suit_in_deck(key, true) then
 						keys[#keys+1] = key
 					end
 				end
-				cur_suit = pseudorandom_element(keys, pseudoseed('balance_and_blade_resample_2'))
 
         -- If somehow every card in the deck has no suit then just go with the SMODS suits pool
-        if #keys <= 0 then
+        if next(keys) then
+            cur_suit = pseudorandom_element(keys, pseudoseed('balance_and_blade_resample_2'))
+        else
           cur_suit = pseudorandom_element(SMODS.Suits, pseudoseed('balance_and_blade_resample_how_in_the_everliving_localthunk_did_you_get_to_this_point'))
           cur_suit = cur_suit.key
         end
 			end
 		end
   
-		for k, v in pairs(G.hand.highlighted) do
-			if (v.base.suit ~= cur_suit or SMODS.has_no_suit(v)) and not All_in_Jest.has_patches(v, cur_suit) then
-				All_in_Jest.add_patch(v, cur_suit);
-			end
-    end 
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+      play_sound('tarot1')
+      card:juice_up(0.3, 0.5)
+      return true
+    end }))
 
-		G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4,func = function() G.hand:unhighlight_all(); return true end }))
+    for i=1, #G.hand.highlighted do
+      local percent = 1.15 - (i-0.999)/(#G.hand.highlighted-0.998)*0.3
+      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.highlighted[i]:flip();play_sound('card1', percent);G.hand.highlighted[i]:juice_up(0.3, 0.3);return true end }))
+    end
+
+    delay(0.2)
+    
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+      for k, v in pairs(G.hand.highlighted) do
+        if (v.base.suit ~= cur_suit or SMODS.has_no_suit(v)) and not All_in_Jest.has_patches(v, cur_suit) then
+          All_in_Jest.add_patch(v, cur_suit, true);
+        end
+      end 
+      return true
+    end }))
+
+    for i=1, #G.hand.highlighted do
+      local percent = 0.85 + (i-0.999)/(#G.hand.highlighted-0.998)*0.3
+      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function()
+        G.hand.highlighted[i]:flip()
+        play_sound('tarot2', percent, 0.6)
+        G.hand.highlighted[i]:juice_up(0.3, 0.3)
+        return true
+     end }))
+    end
+		G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4,func = function() 
+      G.hand:unhighlight_all()
+      return true
+    end }))
+    delay(0.2)
 	end,
 }
 return {name = {"Tarots"}, items = {balance_and_blade}}

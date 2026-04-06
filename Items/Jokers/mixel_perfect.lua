@@ -1,7 +1,7 @@
 local mixel_perfect = {
     object_type = "Joker",
     order = 115,
-
+    lite = true,
     key = "mixel_perfect",
     config = {
       extra = {
@@ -26,7 +26,7 @@ local mixel_perfect = {
     end,
   
     calculate = function(self, card, context)
-      if context.joker_main and math.fmod(#context.full_hand, 2) == 1 then
+      if context.joker_main and math.fmod(#context.scoring_hand, 2) == 1 then
         return {
           mult = card.ability.extra.mult
         }

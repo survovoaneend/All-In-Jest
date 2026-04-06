@@ -16,21 +16,20 @@ local the_horror = {
         if temp then
             return
         end
-        local exclude_contexts = context.individual or context.repetition or context.blueprint
-        if G.jokers and context.end_of_round and G.GAME.current_round.hands_left == 0 and not temp and not exclude_contexts then
+        if G.jokers and context.before and G.GAME.current_round.hands_left == 0 and not temp then
             local jokers = {}
             for i = 1, #G.jokers.cards do
-                if not G.jokers.cards[i].ability.perishable and not SMODS.is_eternal(G.jokers.cards[i]) and not context.individual and not context.repetition then
+                if not G.jokers.cards[i].ability.perishable and G.jokers.cards[i].config.center.perishable_compat and not G.jokers.cards[i].ability.eternal then
                     jokers[i] = G.jokers.cards[i]
                 end
             end
             if #jokers > 0 then
                 local temp_card = pseudorandom_element(jokers, pseudoseed('the_horror'))
-                temp_card:add_sticker('perishable', true)
+                temp_card:set_perishable(true)
                 temp_card:juice_up(0.3, 0.5)
                 blind.triggered = true
-                blind:wiggle()
             end
+            blind:wiggle()
         end
     end
 }

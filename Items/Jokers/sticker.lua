@@ -1,7 +1,7 @@
 local sticker = {
   object_type = "Joker",
   order = 179,
-
+  lite = true,
   key = "sticker",
   config = {
     extra = {
@@ -39,7 +39,7 @@ local sticker = {
     
     -- Check non-vanilla stickers
     local fake_card = SMODS.Joker:create_fake_card()
-    local fake_center = SMODS.Center:create_fake_card()
+    local fake_center = {config = {}} -- SMODS.Center:create_fake_card() does not return a valid center object
     fake_center.set = "Joker"
     for _, v in ipairs(SMODS.Sticker.obj_buffer) do
         local sticker = SMODS.Stickers[v]

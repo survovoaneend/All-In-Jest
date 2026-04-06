@@ -2,6 +2,7 @@ local stargazy_pie = {
     object_type = "Joker",
     order = 305,
     key = "stargazy_pie",
+    lite = true,
     config = {
         extra = { triggers = 5 }
     },
@@ -39,6 +40,7 @@ local stargazy_pie = {
                         card.ability.extra.triggers = card.ability.extra.triggers - 1
                     end
                 end
+                return nil, true
             end
         end
     end

@@ -5,14 +5,14 @@ local fish_fingers = {
     key = "fish_fingers",
     config = {
       extra = {
-        hands = 3,
+        hands = 5,
         hand_mod = 1
       }
     },
     rarity = 2,
     pos = { x = 23, y = 11},
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 7,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

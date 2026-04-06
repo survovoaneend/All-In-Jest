@@ -1,0 +1,167 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+# I think this would ideally be a thing to make a PR for, but this is early days
+[[patches]]
+[patches.pattern]
+target = '=[SMODS Multiplayer "core.lua"]'
+pattern = 'MP.load_mp_dir("compatibility")'
+position = "after"
+payload = '''
+do -- All in Jest multiplayer patch 
+  if next(SMODS.find_mod("allinjest")) then
+	  sendDebugMessage("All in Jest compatibility detected", "MULTIPLAYER")
+    MP.DECK.ban_card("j_aij_blood_artist") -- Messes with blind req.
+    -- MP.DECK.ban_card("j_aij_fall_of_count_chaligny") -- Messes with blind req.
+    MP.DECK.ban_card("j_aij_pedrolino") -- Messes with blind req.
+    MP.DECK.ban_card("j_aij_blind_drawn") -- Downside becomes irrelevant
+    MP.DECK.ban_card("j_aij_stultor") -- Rerolls blind
+    MP.DECK.ban_card("j_aij_hofnarr_the_barbarian") -- Only cares about showdown blinds
+
+    MP.DECK.ban_tag("tag_aij_dominus") -- Can reroll blind
+
+    -- Ban boss blinds that increase score requirement
+    -- Used for option to combine pvp blind with a boss blind
+    MP.DECK.ban_blind("bl_aij_the_groan")
+    MP.DECK.ban_blind("bl_aij_the_ash")
+    MP.DECK.ban_blind("bl_aij_the_clay")
+    MP.DECK.ban_blind("bl_aij_the_aspen")
+    MP.DECK.ban_blind("bl_aij_the_evergreen")
+    MP.DECK.ban_blind("bl_aij_the_giant")
+    MP.DECK.ban_blind("bl_aij_the_celebration")
+    MP.DECK.ban_blind("bl_aij_the_hoard")
+    MP.DECK.ban_blind("bl_aij_the_mountain")
+    MP.DECK.ban_blind("bl_aij_the_brilliance")
+    MP.DECK.ban_blind("bl_aij_aureate_coin")
+
+    MP.DECK.ban_blind("bl_aij_the_journey")
+  end
+end -- End of All in Jest multiplayer patch
+'''
+match_indent = true 
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS Multiplayer "core.lua"]'
+pattern = 'MP.load_mp_dir("gamemodes")'
+position = "after"
+payload = '''
+do -- All in Jest multiplayer patch 
+  if next(SMODS.find_mod("allinjest")) then
+    for _, t in ipairs({MP.Gamemodes.gamemode_mp_attrition, MP.Gamemodes.gamemode_mp_showdown}) do
+      table.insert(t.reworked_jokers, "j_aij_mp_blind_drawn")
+    end
+    sendDebugMessage(tprint(MP.Gamemodes.gamemode_mp_attrition), "AIJ")
+  end
+end -- End of All in Jest multiplayer patch
+'''
+match_indent = true 
+
+# Multiplayer Blind Drawn (1/5)
+# Hide's nemesis' score
+# G.FUNCS.multiplayer_blind_chip_UI_scale()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS Multiplayer "ui/game.lua"]'
+pattern = 'MP.GAME.enemy.score_text = new_score_text'
+position = "before"
+payload = '''
+do -- All in Jest multiplayer patch 
+    if next(SMODS.find_card("j_aij_mp_blind_drawn")) then
+        new_score_text = "???" -- Redundancy in case other patch fails
+        e.config.scale = 0.7
+    end
+end -- End of All in Jest multiplayer patch
+'''
+match_indent = true 
+
+# Multiplayer Blind Drawn (2/5)
+# Hide's nemesis' score
+# Set here as well so the score display actually updates
+# G.FUNCS.multiplayer_blind_chip_UI_scale()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS Multiplayer "ui/game.lua"]'
+pattern = 'local new_score_text = MP.INSANE_INT.to_string(MP.GAME.enemy.score)'
+position = "after"
+payload = '''
+if next(SMODS.find_card("j_aij_mp_blind_drawn")) then -- All in Jest multiplayer patch 
+    new_score_text = "???"
+end -- End of All in Jest multiplayer patch
+'''
+match_indent = true 
+
+# Multiplayer Blind Drawn (3/5)
+# Hides nemesis' hands remaining
+# update_blind_HUD()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS Multiplayer "ui/game.lua"]'
+pattern = '{ { ref_table = MP.GAME.enemy, ref_value = "hands" } }'
+position = "before"
+payload = '''
+next(SMODS.find_card("j_aij_mp_blind_drawn")) and { { ref_table = {hands = "?"}, ref_value = "hands" } } or 
+'''
+match_indent = true 
+
+# Multiplayer Blind Drawn (4/5)
+# Stop blind score and hands remaining from juicing up when nemesis scores
+# action_enemy_info()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS Multiplayer "networking/action_handlers.lua"]'
+pattern = '''
+G.HUD_blind:get_UIE_by_ID("HUD_blind_count"):juice_up()
+G.HUD_blind:get_UIE_by_ID("dollars_to_be_earned"):juice_up()
+'''
+position = "at"
+payload = '''
+if not next(SMODS.find_card("j_aij_mp_blind_drawn")) then -- All in Jest multiplayer patch 
+ 		G.HUD_blind:get_UIE_by_ID("HUD_blind_count"):juice_up()
+		G.HUD_blind:get_UIE_by_ID("dollars_to_be_earned"):juice_up()
+end -- End of All in Jest multiplayer patch
+'''
+match_indent = true 
+
+# Multiplayer Blind Drawn (5/5)
+# Hide opponent's highest score in lobby info screen
+# action_enemy_info()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS Multiplayer "ui/hud.lua"]'
+pattern = 'text = MP.INSANE_INT.to_string(highest_score),'
+position = "at"
+payload = 'text = (next(SMODS.find_card("j_aij_mp_blind_drawn")) and not ((type == "host" and MP.LOBBY.is_host) or (type == "guest" and not MP.LOBBY.is_host))) and "???" or MP.INSANE_INT.to_string(highest_score), -- All in Jest override'
+match_indent = true 
+
+# AiJ Blind Functionality (5/5)
+# Allows blinds to display a dynamic blind amount on blind select screen without changing the chip value directly
+# Hooked into via new aij_blind_amount_display() method in blind objects
+# Separate patch for multiplayer's overriden create_UIBox_blind_choice()
+# create_UIBox_blind_choice()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS Multiplayer "ui/game.lua"]'
+pattern = '''if
+  G.GAME.round_resets.blind_choices[type] == "bl_mp_nemesis" or G.GAME.round_resets.pvp_blind_choices[type]
+then
+  blind_amt = "????"
+end'''
+position = 'before'
+match_indent = true
+payload = '''
+if All_in_Jest.aij_alias_type(blind_choice.config.aij_blind_amount_display) == 'function' then
+    local blind_mult = blind_choice.config.mult
+    if next(SMODS.find_card("j_aij_fall_of_count_chaligny")) then
+        blind_mult = 1
+    end
+    ret = blind_choice.config:aij_blind_amount_display(blind_choice.config, get_blind_amount(G.GAME.round_resets.blind_ante), blind_mult)
+    if All_in_Jest.aij_alias_type(ret) == "number" then
+        blind_amt = ret * G.GAME.starting_params.ante_scaling
+    end
+elseif next(SMODS.find_card("j_aij_fall_of_count_chaligny")) then
+    blind_amt = get_blind_amount(G.GAME.round_resets.blind_ante)*1*G.GAME.starting_params.ante_scaling
+end
+'''

@@ -1,7 +1,7 @@
 local interstate = {
     object_type = "Joker",
     order = 295,
-    
+    lite = true,
     key = "interstate",
     config = {
       extra = {

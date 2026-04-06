@@ -46,7 +46,7 @@ local omlette = {
                 })
                 card:set_cost()
           end
-          if context.before and context.scoring_hand then
+          if context.before and context.scoring_hand and not context.blueprint then
                 SMODS.scale_card(card, {
 	                ref_table = card.ability,
                     ref_value = "extra_value",

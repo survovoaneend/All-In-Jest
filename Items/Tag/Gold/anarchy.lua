@@ -37,10 +37,14 @@ local anarchy_tag = {
   end,
 
   apply = function(self, tag, context)
-    local effect = pseudorandom_element(self.config.effects, pseudoseed('jest_anarchy_tag'))
+    local effect = nil
     local trigger = false
     while not trigger do
-      if effect == "create_jokers" then
+      effect = pseudorandom_element(self.config.effects, pseudoseed('jest_anarchy_tag'))
+
+      if effect == "boss_reroll" and MP and MP.LOBBY.code then
+        trigger = false
+      elseif effect == "create_jokers" then
         trigger = #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
       elseif effect == "apply_edition" then
         if #G.jokers.cards > 0 then
@@ -66,16 +70,13 @@ local anarchy_tag = {
       else
         trigger = true
       end
-      if not trigger then
-        effect = pseudorandom_element(self.config.effects, pseudoseed('jest_anarchy_tag'))
-      end
     end
     if context.type == 'new_blind_choice' then
       tag:jest_apply("+", G.C.ATTENTION, function()
           if effect == "money" then
             local money = pseudorandom('jest_chaos_tag', 1, 150)
             ease_dollars(money)
-          elseif effect == "boss_reroll" then
+          elseif effect == "boss_reroll" and not (MP and MP.LOBBY.code) then
             local bosses = {}
             local showdown_bosses = {}
             for k, v in pairs(G.P_BLINDS) do
@@ -143,8 +144,7 @@ local anarchy_tag = {
             G.FUNCS.use_card({ config = { ref_table = card } })
             card:start_materialize()
           elseif effect == "create_jokers" then
-            local jokers_to_create = math.min(pseudorandom('jest_chaos_tag', 1, 4),
-              G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
+            local jokers_to_create = math.min(pseudorandom('jest_chaos_tag', 1, 4), G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
             G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
             G.E_MANAGER:add_event(Event({
               func = function()
@@ -152,7 +152,7 @@ local anarchy_tag = {
                   local card = create_card('Joker', G.jokers, nil, nil, nil, nil, nil, 'jest_anarchy_tag')
                   card:add_to_deck()
                   G.jokers:emplace(card)
-                  card:start_materialize()
+                  card:start_materialize(nil, i ~= 1)
                   G.GAME.joker_buffer = 0
                 end
                 return true
@@ -167,9 +167,8 @@ local anarchy_tag = {
                   local card = create_card('Joker', G.jokers, nil, nil, nil, nil, nil, 'jest_anarchy_tag')
                   card:add_to_deck()
                   G.jokers:emplace(card)
-                  card:set_edition(edition)
-                  card:start_materialize()
-                  G.GAME.joker_buffer = 0
+                  card:set_edition(edition, nil, i ~= 1)
+                  card:start_materialize(nil, i ~= 1)
                 end
                 return true
               end
@@ -178,7 +177,7 @@ local anarchy_tag = {
             local consumeables_to_create = pseudorandom('jest_chaos_tag', 3, 4)
             local c_edition = { negative = true }
             for i = 1, consumeables_to_create do
-              local card_to_create = create_consumable("Consumeables", nil, nil, { edition = c_edition })
+              local card_to_create = create_consumable("Consumeables", nil, nil, { edition = c_edition }, nil, nil, nil, i ~= 1)
             end
           elseif effect == "dupe_joker" then
             local joker = pseudorandom_element(G.jokers.cards, pseudoseed('jest_anarchy_tag'))
@@ -216,6 +215,7 @@ local anarchy_tag = {
               _voucher_key = pseudorandom_element(_pool, pseudoseed(_pool_key .. '_resample' .. iv))
             end
             voucher_card = create_card('Voucher', G.play, nil, nil, nil, nil, _voucher_key, 'ticket')
+            voucher_card.cost = 0
             G.play:emplace(voucher_card)
             G.FUNCS.use_card({ config = { ref_table = voucher_card } })
           elseif effect == "minus_ante" then

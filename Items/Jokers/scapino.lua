@@ -5,7 +5,7 @@ local scapino = {
     key = "scapino",
     config = {
         extra = {
-            reroll_sale = 2
+            reroll_sale = 5
         }
     },
     rarity = 3,

@@ -11,7 +11,7 @@ local sneaky_pete = {
     rarity = 2,
     pos = { x = 22, y = 5 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 7,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

@@ -32,7 +32,9 @@ local hermetic_tag = {
                       no_materialize = true,
                       modify_card = function(card, center)
                         if card.config.center.discovered then
-                          if card.config.center.hidden then
+                          if G.GAME.banned_keys[card.config.center.key] and not (type(G.GAME.banned_keys[card.config.center.key]) == "string" and G.GAME.banned_keys[card.config.center.key]:sub(1, 5) == "j_aij") then
+                            card.debuff = true
+                          elseif card.config.center.hidden then
                             card.greyed = true
                           else
                             jest_create_select_card_ui(card, G.consumeables)
@@ -45,6 +47,16 @@ local hermetic_tag = {
                 }
                 return true
               end
+            }))
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                for i = 1, #G.GAME.tags do
+                    if G.GAME.tags[i]:apply_to_run({ type = 'new_blind_choice' }) then
+                    break
+                    end
+                end
+                return true
+                end
             }))
           end
           return true

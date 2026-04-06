@@ -1,7 +1,7 @@
 local quark = {
     object_type = "Joker",
     order = 96,
-
+    lite = true,
     key = "quark",
     config = {
 

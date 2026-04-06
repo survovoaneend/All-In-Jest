@@ -1,7 +1,7 @@
 local void = {
     object_type = "Joker",
     order = 111,
-
+    lite = true,
     key = "void",
     config = {
       extra = { xmult = 3 }

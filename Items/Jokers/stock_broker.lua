@@ -32,7 +32,7 @@ local stock_broker = {
         local ran_amount = math.floor(room_saver / 0.05 + 0.5) * 0.05
         apply_multiplier(G.GAME, "interest_amount", ran_amount, tostring(card).."stock_broker")
         local string = "X"..tostring(ran_amount.." Interest")
-		card_eval_status_text(card, 'extra', nil, nil, nil, {message = string, colour = G.C.FILTER})
+		    card_eval_status_text(card, 'extra', nil, nil, nil, {message = string, colour = G.C.FILTER})
       end
       if context.cashing_out then
         remove_multiplier(G.GAME, "interest_amount", tostring(card).."stock_broker")

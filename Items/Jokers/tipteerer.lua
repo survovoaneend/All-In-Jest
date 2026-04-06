@@ -11,7 +11,7 @@ local tipteerer = {
   rarity = 2,
   pos = { x = 3, y = 6 },
   atlas = 'joker_atlas',
-  cost = 6,
+  cost = 7,
   unlocked = true,
   discovered = false,
   blueprint_compat = false,

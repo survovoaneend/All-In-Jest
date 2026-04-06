@@ -1213,7 +1213,7 @@ return {
                     "计分时#3# {B:3,V:2}#4##2#{}#5#",
                     "当一张牌{C:attention}计分{}时",
                     "花色和效果{C:attention}轮换{}",
-                    "{C:inactive}（红桃→梅花→方片→黑桃）"
+                    "{C:inactive}（{V:4}红桃{C:inactive}→{V:5}梅花{C:inactive}→{V:6}方片{C:inactive}→{V:7}黑桃{C:inactive}）"
                 }
             },
             j_aij_morio = {

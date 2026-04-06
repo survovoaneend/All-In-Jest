@@ -33,9 +33,13 @@ local auspicious_tag = {
                     no_materialize = true,
                     modify_card = function(card, center)
                       if card.config.center.discovered then
-                        local edition = { negative = true }
-                        card:set_edition(edition, true, true)
-                        jest_create_select_card_ui(card, G.consumeables, { copies = 3 })
+                        if G.GAME.banned_keys[card.config.center.key] and not (type(G.GAME.banned_keys[card.config.center.key]) == "string" and G.GAME.banned_keys[card.config.center.key]:sub(1, 5) == "j_aij") then
+                            card.debuff = true
+                        else
+                            local edition = { negative = true }
+                            card:set_edition(edition, true, true)
+                            jest_create_select_card_ui(card, G.consumeables, { copies = 3 })
+                        end
                       end
                     end,
                     h_mod = 1.05,
@@ -44,6 +48,16 @@ local auspicious_tag = {
               }
               return true
             end
+          }))
+          G.E_MANAGER:add_event(Event({
+              func = function()
+              for i = 1, #G.GAME.tags do
+                  if G.GAME.tags[i]:apply_to_run({ type = 'new_blind_choice' }) then
+                  break
+                  end
+              end
+              return true
+              end
           }))
           return true
         end,

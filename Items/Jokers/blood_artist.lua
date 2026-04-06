@@ -5,7 +5,7 @@ local blood_artist = {
     key = "blood_artist",
     config = {
         extra = {
-            blind_reduction = 25
+            blind_reduction = 20
         }
     },
     rarity = 2,
@@ -26,38 +26,61 @@ local blood_artist = {
     end,
 
     calculate = function(self, card, context)
-        if G.GAME.blind.chips > 0 then
-            -- Removing non-playing cards and selling cards
-            if context.joker_type_destroyed or context.selling_card then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        G.GAME.blind.chips = G.GAME.blind.chips - math.ceil(G.GAME.blind.chips * (card.ability.extra.blind_reduction * 0.01))
-                        G.GAME.blind.chip_text = G.GAME.blind.chips
-                        return true
-                    end
-                }))
-                return {
-                    message = localize("k_aij_blood_spilt_ex"),
-                }
-            end
-
-            -- Removing playing cards
-            if context.remove_playing_cards then
-                local destroyed_count = #context.removed
-                G.E_MANAGER:add_event(Event({
-                    func = function ()
-                        G.GAME.blind.chips = G.GAME.blind.chips - math.ceil(G.GAME.blind.chips * (card.ability.extra.blind_reduction * 0.01) * destroyed_count)
-                        G.GAME.blind.chip_text = G.GAME.blind.chips
-                        return true
-                    end
-                }))
-                return {
-                    message = localize("k_aij_blood_spilt_ex"),
-                }
-            end
-
-            -- return nil, true
+        -- Removing non-playing cards and selling cards
+        if (context.joker_type_destroyed or context.selling_card) and G.GAME.blind.in_blind then
+            -- Have to do this mess of code to make banana man say "Again!" at the correct time
+            return {
+                extra = {
+                    message = localize("k_aij_blood_spilt_ex")
+                },
+                func = function ()
+                    All_in_Jest.ease_blind_requirement(nil, -1 * math.ceil(G.GAME.blind.chips * card.ability.extra.blind_reduction * 0.01))
+                    -- Ends blind if blind requirement is now met
+                    -- Copied from blind:disable()
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'immediate',
+                        func = function()
+                            if G.STATE ~= G.STATES.NEW_ROUND and G.GAME.chips - G.GAME.blind.chips >= to_big(0) and not next(SMODS.find_card("j_aij_electric_snow")) then
+                                G.STATE = G.STATES.NEW_ROUND
+                                G.STATE_COMPLETE = false
+                            end
+                            return true
+                        end
+                    }))
+                end
+            }
         end
+
+        -- Removing playing cards
+        if context.remove_playing_cards and G.GAME.blind.in_blind then
+            local destroyed_count = #context.removed
+            return {
+                extra = {
+                    message = localize("k_aij_blood_spilt_ex")
+                },
+                func = function ()
+                    local new_mult = (1 - card.ability.extra.blind_reduction * 0.01) ^ destroyed_count
+                    All_in_Jest.ease_blind_requirement(nil, -1 * math.ceil(G.GAME.blind.chips * (1 - new_mult)))
+                    -- for _ = 1, destroyed_count do
+                    --     All_in_Jest.ease_blind_requirement(nil, -1 * math.ceil(G.GAME.blind.chips * card.ability.extra.blind_reduction * 0.01))
+                    -- end
+                    -- Ends blind if blind requirement is now met
+                    -- Copied from blind:disable()
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'immediate',
+                        func = function()
+                            if G.STATE ~= G.STATES.NEW_ROUND and G.GAME.chips - G.GAME.blind.chips >= to_big(0) and not next(SMODS.find_card("j_aij_electric_snow")) then
+                                G.STATE = G.STATES.NEW_ROUND
+                                G.STATE_COMPLETE = false
+                            end
+                            return true
+                        end
+                    }))
+                end
+            }
+        end
+
+        -- return nil, true
     end
 }
 

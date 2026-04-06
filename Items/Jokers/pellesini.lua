@@ -7,14 +7,14 @@ local pellesini = {
       
     },
     rarity = 4,
-	unlock_condition = {hidden = true},
+	  unlock_condition = {hidden = true},
     pos = { x = 6, y = 0},
     atlas = 'legendary_atlas',
     cost = 20,
     unlocked = false,
     discovered = false,
-    blueprint_compat = false,
-    eternal_compat = false,
+    blueprint_compat = true,
+    eternal_compat = true,
     soul_pos = { x = 6, y = 1},
   
     loc_vars = function(self, info_queue, card)
@@ -22,26 +22,27 @@ local pellesini = {
     end,
   
     calculate = function(self, card, context)
-      
+        if context.joker_type_destroyed then
+            local other_card = context.card
+            if other_card.ability.set == "Joker" then
+                local juiced_card = context.blueprint_card or card
+                G.E_MANAGER:add_event(Event({func = function()
+                    local temp_card = copy_card(other_card, nil, nil, nil, false)
+                    temp_card:add_to_deck()
+                    G.jokers:emplace(temp_card)
+                    temp_card:start_materialize()
+                    if juiced_card == other_card then
+                        temp_card:juice_up(0.6, 0.1)
+                    else
+                        juiced_card:juice_up(0.6, 0.1)
+                    end
+                    return true
+                end }))
+                return nil, true
+            end
+        end
     end
   
 }
-local start_dissolve_ref = Card.start_dissolve
-function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice)
-  local ref = start_dissolve_ref(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
-  if G.jokers and self.ability.set == 'Joker' then
-    local has_pellesini = #SMODS.find_card("j_aij_pellesini")
-    if has_pellesini >= 0 and self.ability.jest_sold_self == nil and (#G.jokers.cards <= G.jokers.config.card_limit or (self.edition ~= nil and self.edition.negative)) then
-        for i = 1, has_pellesini do
-            G.E_MANAGER:add_event(Event({trigger = 'before', delay = 0.4, func = function()
-                local card = copy_card(self, nil, nil, nil, false)
-                card:start_materialize()
-                card:add_to_deck()
-                G.jokers:emplace(card)
-                return true end }))
-        end
-    end
-  end
-  return ref
-end
+
 return { name = {"Jokers"}, items = {pellesini} }

@@ -13,14 +13,14 @@ local spectre = {
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
   
     end,
   
     calculate = function(self, card, context)
-        if context.end_of_round and context.beat_boss and not context.individual and not context.repetition then
+        if context.end_of_round and context.beat_boss and not context.individual and not context.repetition and not context.blueprint then
             for i = 1, #G.consumeables.cards do
                 G.consumeables.cards[i]:start_dissolve()
                 create_consumable('Spectral', nil, nil, nil)

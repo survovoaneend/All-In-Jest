@@ -23,18 +23,38 @@ local the_earth = {
             return
         end
 
-        if context.after and G.hand.cards and not temp then
-            for k, v in pairs(G.hand.cards) do
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.1,
-                    func = function()
-                        v:set_ability(G.P_CENTERS.m_stone, nil, true)
-                        v:juice_up()
-                        return true
-                    end
-                })) 
+        if context.before and G.hand.cards and not temp then
+            for _, v in pairs(G.hand.cards) do
+                if not SMODS.has_enhancement(v, 'm_stone') then
+                    blind.triggered = true
+                    break
+                end
             end
+        end
+
+        if context.after and G.hand.cards and not temp then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    blind:wiggle()
+                    return true
+                end
+            }))
+            for i, v in pairs(G.hand.cards) do
+                local percent = 0.85 + (i-0.999)/(#G.hand.cards-0.998)*0.3
+                if not SMODS.has_enhancement(v, 'm_stone') then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = "after",
+                        delay = 0.15,
+                        func = function()
+                            play_sound("tarot2", percent, 0.6)
+                            v:set_ability(G.P_CENTERS.m_stone)
+                            v:juice_up()
+                            return true
+                        end
+                    }))
+                end
+            end
+            blind.triggered = false
         end
     end
 }

@@ -14,7 +14,7 @@ local martellino = {
     cost = 20,
     unlocked = false,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = false, -- Logically should be compatible since diet coke is, but do we want to?
     eternal_compat = false,
     soul_pos = { x = 9, y = 9 },
 
@@ -57,7 +57,9 @@ local martellino = {
                                         no_materialize = true,
                                         modify_card = function(card, center)
                                             card.sticker = get_joker_win_sticker(center)
-                                            if card.config.center.discovered then
+                                            if G.GAME.banned_keys[card.config.center.key] and not (type(G.GAME.banned_keys[card.config.center.key]) == "string" and G.GAME.banned_keys[card.config.center.key]:sub(1, 5) == "j_aij") then
+                                                card.debuff = true
+                                            elseif card.config.center.discovered then
                                                 jest_create_select_card_ui(card, G.jokers)
                                             end
                                         end,

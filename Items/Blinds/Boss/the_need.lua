@@ -26,6 +26,7 @@ local the_need = {
         if to_number(G.GAME.dollars) >= 20 then
             return false
         else
+            G.GAME.blind.triggered = true
             return true
         end
     end

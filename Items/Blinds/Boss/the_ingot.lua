@@ -16,17 +16,15 @@ local the_ingot = {
         if temp then
             return
         end
-        local exclude_contexts = context.individual or context.repetition or context.blueprint
-        if G.jokers and context.end_of_round and G.GAME.current_round.hands_left == 0 and not temp and not exclude_contexts then
-            local jokers = {}
+        if G.jokers and context.before and G.GAME.current_round.hands_left == 0 and not temp then
             for i = 1, #G.jokers.cards do
-                if not context.individual and not context.repetition and not G.jokers.cards[i].ability.perishable and not SMODS.is_eternal(G.jokers.cards[i]) then
-                    G.jokers.cards[i]:add_sticker('eternal', true)
+                if not G.jokers.cards[i].ability.perishable and G.jokers.cards[i].config.center.eternal_compat then
+                    G.jokers.cards[i]:set_eternal(true)
                     G.jokers.cards[i]:juice_up(0.3, 0.5)
                     blind.triggered = true
-                    blind:wiggle()
                 end
             end
+            blind:wiggle()
         end
     end
 }

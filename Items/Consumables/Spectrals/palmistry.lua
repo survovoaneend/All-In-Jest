@@ -5,6 +5,7 @@ local palmistry = {
     atlas = 'consumable_atlas',
 	pos = { x = 6, y = 2 },
 	cost = 4,
+    lite = true,
 	unlocked = true,
 	discovered = false,
     order = 0,

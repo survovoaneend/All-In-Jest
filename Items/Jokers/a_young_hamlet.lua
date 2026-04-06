@@ -1,7 +1,7 @@
 local a_young_hamlet = {
     object_type = "Joker",
     order = 362,
-
+    lite = true,
     key = "a_young_hamlet",
     config = {
         extra = {

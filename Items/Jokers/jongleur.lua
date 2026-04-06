@@ -1,7 +1,7 @@
 local jongleur = {
   object_type = "Joker",
   order = 168,
-
+  lite = true,
   key = "jongleur",
   config = {
     extra = {
@@ -11,7 +11,7 @@ local jongleur = {
   rarity = 1,
   pos = { x = 12, y = 6},
   atlas = 'joker_atlas',
-  cost = 4,
+  cost = 6,
   unlocked = true,
   discovered = false,
   blueprint_compat = false,

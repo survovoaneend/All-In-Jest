@@ -14,7 +14,7 @@ local the_jester = {
     cost = 7,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
@@ -46,27 +46,29 @@ local the_jester = {
             if context.card ~= card then
                 if context.card.ability.set == "Joker" and card.ability.extra.active then
                     G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.4,
+                        func = function()
+                            card.ability.extra.active = false
+                            return true
+                        end
+                    }))
+                    G.E_MANAGER:add_event(Event({
                         func = function()
                             if G.consumeables.config.card_limit > #G.consumeables.cards then
                                 play_sound('timpani')
                                 local _card = create_card(nil, G.consumeables, nil, nil, nil, nil, 'c_fool', nil)
                                 _card:add_to_deck()
                                 G.consumeables:emplace(_card)
-                                card:juice_up(0.3, 0.3)
                             end
                             return true
                         end
                     }))
-                    card.ability.extra.active = false
                     return {
                         message = localize{type = 'name_text', set = 'Tarot', key = "c_fool"}
                     }
                 end
             end
         end
-        if context.end_of_round and not card.ability.extra.active then
+        if context.end_of_round and not card.ability.extra.active and not context.blueprint then
             card.ability.extra.active = true
             local eval = function() return card.ability.extra.active end
             juice_card_until(card, eval, true)

@@ -16,7 +16,7 @@ local toto = {
     unlocked = false,
     discovered = false,
     blueprint_compat = true,
-    eternal_compat = false,
+    eternal_compat = true,
     soul_pos = { x = 0, y = 3},
   
     loc_vars = function(self, info_queue, card)

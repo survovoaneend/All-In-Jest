@@ -26,7 +26,7 @@ local joculator = {
   end,
 
   calculate = function(self, card, context)
-      if context.hand_drawn and G.GAME.current_round.discards_left == 0 and G.GAME.current_round.hands_left == card.ability.extra.hand_amount then
+      if context.hand_drawn and G.GAME.current_round.discards_left == 0 and G.GAME.current_round.hands_left == card.ability.extra.hand_amount and not context.blueprint then
           for i = 1, G.hand.config.card_limit do
               if #G.deck.cards > 0 then
                   G.E_MANAGER:add_event(Event({

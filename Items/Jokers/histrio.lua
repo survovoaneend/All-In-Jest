@@ -1,7 +1,7 @@
 local histrio = {
     object_type = "Joker",
     order = 223,
-
+    lite = true,
     key = "histrio",
     config = {
         extra = {

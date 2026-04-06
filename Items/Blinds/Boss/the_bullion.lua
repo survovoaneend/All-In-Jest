@@ -37,7 +37,7 @@ local the_bullion = {
             end
         end
         return true end })) 
-        self.triggered = true
+        G.GAME.blind.triggered = true
         return true
     end,
 

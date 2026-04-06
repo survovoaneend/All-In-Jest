@@ -570,39 +570,15 @@ end
 local ease_anteref = ease_ante
 function ease_ante(mod)
     if mod > 0 then
-        G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = 0
-        local common_suit, common_rank = nil, nil
-        local temp_suit_val, temp_rank_val = 0, 0
-        local suit_table, rank_table = {}, {}
-        for k, v in pairs(G.deck.cards) do
-            suit_table[v.base.suit] = suit_table[v.base.suit] or 0 
-            suit_table[v.base.suit] = suit_table[v.base.suit] + 1
-            rank_table[v.base.value] = rank_table[v.base.value] or 0 
-            rank_table[v.base.value] = rank_table[v.base.value] + 1
-        end
-        for k, v in pairs(suit_table) do
-            if v >= temp_suit_val then
-                temp_suit_val = v
-                common_suit = k
-            end
-        end
-        for k, v in pairs(rank_table) do
-            if v >= temp_rank_val then
-                temp_rank_val = v
-                common_rank = k
-            end
-        end
-        G.P_BLINDS['bl_aij_the_journey'].boss.selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey'))
-        G.P_BLINDS['bl_aij_the_auroch'].boss.suit = common_suit or G.P_BLINDS['bl_aij_the_auroch'].boss.suit
-        G.P_BLINDS['bl_aij_the_auroch'].boss.rank = common_rank or G.P_BLINDS['bl_aij_the_auroch'].boss.rank
-        -- G.P_BLINDS['bl_aij_the_clay'].mult = pseudorandom("clay", 2, 4) + math.floor(100*pseudorandom("clay"))/100 -- Randomises an integer part (1-4) and a decimal part (0.00 to 0.99) before adding both together
         G.GAME.all_in_jest.unused_hands.ante = 0
         G.GAME.all_in_jest.unused_discards.ante = 0
+        G.GAME.jest_kasperle_voucher_ante = false
     end
     
     local ref = ease_anteref(mod)
     return ref
 end
+
 SMODS.jest_Badge = {
     key = "jest_chaotic_card",
     badge_colour = HEX '8F00FF',
@@ -615,11 +591,11 @@ SMODS.PokerHand {
     l_mult = 6,
     l_chips = 60,
     example = {
-        { 'S_A', true },
-        { 'S_K', true },
-        { 'S_Q', true },
-        { 'S_J', true },
-        { 'S_10', true },
+        { 'H_A', true },
+        { 'H_K', true },
+        { 'H_Q', true },
+        { 'H_J', true },
+        { 'H_T', true },
     },
     above_hand = 'Straight Flush',
     evaluate = function(parts, hand)
@@ -634,6 +610,7 @@ SMODS.PokerHand {
             return {}
         end
     end,
+    no_collection = true,
     visible = function(self)
         return false
     end,
@@ -763,6 +740,36 @@ function Game.init_game_object(self)
   ret.all_in_jest = ret.all_in_jest or {}
   ret.all_in_jest.secret_hands = secrets
   return ret
+end
+
+-- Upgrade royal flush when a straight flush is played
+local aij_SMODS_upgrade_poker_hands_ref = SMODS.upgrade_poker_hands
+function SMODS.upgrade_poker_hands(args)
+    local ret = aij_SMODS_upgrade_poker_hands_ref(args)
+    local straight_flush_upgraded = false
+    local royal_flush_upgraded = false
+    for _, hand in ipairs(args.hands) do
+        if hand == "Straight Flush" then
+            straight_flush_upgraded = true
+        end
+        if hand == "aij_Royal Flush" then
+            royal_flush_upgraded = true
+        end
+    end
+    if straight_flush_upgraded and not royal_flush_upgraded then
+        local new_args = {
+            hands = "aij_Royal Flush",
+            parameters = args.parameters,
+            func = function(base, hand, parameter)
+                return args.func(base, "Straight Flush", parameter)
+            end,
+            level_up = args.level_up,
+            instant = true,
+            from = nil,
+        }
+        aij_SMODS_upgrade_poker_hands_ref(new_args)
+    end
+    return ret
 end
 
 -- Modified from Aura
@@ -933,19 +940,19 @@ function Card:set_sprites(_center, _front)
         for k, v in pairs(_center.all_in_jest.soul_layers) do
             if _center.all_in_jest.soul_layers[k] and not self.children[k] then
                 local scale_mod = _center.all_in_jest.soul_layers[k].moving and 0.07 + 0.02*math.cos(1.8*G.TIMERS.REAL) + 0.00*math.cos((G.TIMERS.REAL - math.floor(G.TIMERS.REAL))*math.pi*14)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^3 or 0.07
-				local rotate_mod = _center.all_in_jest.soul_layers[k].moving and 0.05*math.cos(1.219*G.TIMERS.REAL) + 0.00*math.cos((G.TIMERS.REAL)*math.pi*5)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^2 or 0
-				self.children[k] = Sprite(
-					self.T.x,
-					self.T.y,
-					self.T.w,
-					self.T.h,
-					G.ASSET_ATLAS[_center.all_in_jest.soul_layers.atlas or _center.atlas or _center.set],
-					_center.all_in_jest.soul_layers[k].pos
-				)
-				self.children[k].role.draw_major = self
-				self.children[k].states.hover.can = false
-				self.children[k].states.click.can = false
-			end
+                local rotate_mod = _center.all_in_jest.soul_layers[k].moving and 0.05*math.cos(1.219*G.TIMERS.REAL) + 0.00*math.cos((G.TIMERS.REAL)*math.pi*5)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^2 or 0
+                self.children[k] = SMODS.create_sprite(
+                    self.T.x,
+                    self.T.y,
+                    self.T.w,
+                    self.T.h,
+                    _center.all_in_jest.soul_layers.atlas or _center.atlas or _center.set,
+                    _center.all_in_jest.soul_layers[k].pos
+                )
+                self.children[k].role.draw_major = self
+                self.children[k].states.hover.can = false
+                self.children[k].states.click.can = false
+            end
             self.children[k]:set_sprite_pos(_center.all_in_jest.soul_layers[k].pos)
         end
     end
@@ -964,13 +971,15 @@ function Card:save()
     return saveTable
 end
 
--- Automatically saves G.GAME.blind.original_chips when blind is loaded
+-- Automatically saves G.GAME.blind.aij_original_chips when blind is loaded
 local aij_blind_set_blind_ref = Blind.set_blind
 function Blind:set_blind(blind, reset, silent)
-    local ret = aij_blind_set_blind_ref(self, blind, reset, silent)
-    if not reset then
-        self.original_chips = self.chips
+    if blind and not reset then
+        self.aij_original_chips = get_blind_amount(G.GAME.round_resets.ante)*blind.mult*G.GAME.starting_params.ante_scaling
+        self.aij_original_mult = blind.mult
+        self.aij_added_chips = 0
     end
+    local ret = aij_blind_set_blind_ref(self, blind, reset, silent)
     return ret
 end
 
@@ -978,12 +987,136 @@ end
 local aij_blind_save_ref = Blind.save
 function Blind:save()
     local blindTable = aij_blind_save_ref(self)
-    blindTable.original_chips = self.original_chips
+    blindTable.aij_original_chips = self.aij_original_chips
+    blindTable.aij_original_mult = self.aij_original_mult
+    blindTable.aij_added_chips = self.aij_added_chips
     return blindTable
 end
 local aij_blind_load_ref = Blind.load
 function Blind:load(blindTable)
     local ret = aij_blind_load_ref(self, blindTable)
-    self.original_chips = blindTable.original_chips
-    return blindTable
+    self.aij_original_chips = blindTable.aij_original_chips
+    self.aij_original_mult = blindTable.aij_original_mult
+    self.aij_added_chips = blindTable.aij_added_chips
+    ease_background_colour_blind(G.STATE, self.name or 'Small Blind') -- For The Journey blind
+    return ret
+end
+
+-- Add area in the shop for puchaseable tags (1/2)
+-- This changes the UI so that the price appears to the right of the tag
+local aij_create_shop_card_ui_ref = create_shop_card_ui
+function create_shop_card_ui(card, type, area)
+  if card.ability.is_aij_shop_tag then
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.43,
+      blocking = false,
+      blockable = false,
+      func = (function()
+        if card.opening then return true end
+        -- Different
+        local t1 = {
+              n=G.UIT.ROOT, config = {minw = 0.6, align = 'cr', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 0.6}, nodes={
+                  {n=G.UIT.R, config={align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03}, nodes={
+                    {n=G.UIT.C, config={ maxw = 0.2, padding = 0.2 }}, -- Adds a bit of padding to the left of the cost
+                    {n=G.UIT.O, config={object = DynaText({string = {{prefix = localize('$'), ref_table = card, ref_value = 'cost'}}, colours = {G.C.MONEY}, shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5})}},
+                  }}
+              }}
+        local t2 = {
+          n=G.UIT.ROOT, config = {ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.94, func = 'can_buy', one_press = true, button = 'buy_from_shop', hover = true}, nodes={
+              {n=G.UIT.T, config={text = localize('b_buy'),colour = G.C.WHITE, scale = 0.5}}
+          }}
+          
+          -- Different
+        card.children.price = UIBox{
+          definition = t1,
+          config = {
+            align="cr",
+            offset = {x=-0.3,y=0},
+            major = card,
+            bond = 'Weak',
+            parent = card
+          }
+        }
+
+        card.children.buy_button = UIBox{
+          definition = t2,
+          config = {
+            align="bm",
+            offset = {x=0,y=-0.3},
+            major = card,
+            bond = 'Weak',
+            parent = card
+          }
+        }
+
+        card.children.price.alignment.offset.y = 0
+
+        return true
+      end)
+    }))
+  else
+    aij_create_shop_card_ui_ref(card, type, area)
+  end
+end
+
+-- Add area in the shop for puchaseable tags (2/2)
+-- This changes the cardarea to have it stack cards vertically instead of horizontally
+local aij_cardarea_align_cards_ref = CardArea.align_cards
+function CardArea:align_cards()
+    if self == G.shop_aij_tags then
+        for k, card in ipairs(self.cards) do
+            if not card.states.drag.is then 
+                card.T.r = 0
+                local max_cards = math.max(#self.cards, self.config.temp_limit)
+                if #self.cards == 1 then
+                    card.T.y = self.T.y
+                elseif #self.cards == 2 then
+                    card.T.y = self.T.y - (self.T.h-self.card_w)/2 + ((2 * k - 1) / 4) * (self.T.h-self.card_w)
+                else
+                    card.T.y = self.T.y - (self.T.h-self.card_w)/2 + ((k - 1) / math.max(max_cards - 1, 1)) * (self.T.h-self.card_w)
+                end
+                local highlight_height = G.HIGHLIGHT_H / 2
+                if not card.highlighted then highlight_height = 0 end
+                card.T.y = card.T.y + self.T.h/2 - card.T.h/2 - highlight_height
+                card.T.y = card.T.y + card.shadow_parrallax.y/30
+
+                card.T.x = self.T.x
+            end
+        end
+        table.sort(self.cards, function (a, b) return a.T.y + a.T.y/2 < b.T.y + b.T.y/2 end)
+        for k, card in ipairs(self.cards) do
+            card.rank = k
+        end
+        if self.children.view_deck then
+            self.children.view_deck:set_role{major = self.cards[1] or self}
+        end
+    else
+        return aij_cardarea_align_cards_ref(self)
+    end
+end
+
+-- Hook for The Arm's downgrades
+-- If one of chips/mult are at base levels, then downgrade the other appropriately
+local aij_level_up_hand_ref = level_up_hand
+function level_up_hand(card, hand, instant, amount)
+    if amount ~= nil and amount < 1 then
+        local obj = G.GAME.hands[hand]
+        local freeze_mult = false
+        local freeze_chips = false
+        if obj.mult <= obj.s_mult then
+            freeze_mult = true
+        end
+        if obj.chips <= obj.s_chips then
+            freeze_chips = true
+        end
+        if freeze_chips and freeze_mult then
+            return
+        elseif freeze_chips then
+            return level_up_hand_mult(card, hand, instant, amount)
+        elseif freeze_mult then
+            return level_up_hand_chips(card, hand, instant, amount)
+        end
+    end
+    return aij_level_up_hand_ref(card, hand, instant, amount)
 end

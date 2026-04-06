@@ -26,6 +26,7 @@ local the_figure = {
             end
         end
         if faces and faces >= 3 then
+            G.GAME.blind.triggered = true
             return true
         else
             return false

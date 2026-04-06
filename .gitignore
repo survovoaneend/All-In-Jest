@@ -1,1 +1,8 @@
 .lovelyignore
+*.ods
+*.ods#
+*.py
+*.txt
+*.csv
+
+python_output

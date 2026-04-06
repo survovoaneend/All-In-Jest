@@ -130,15 +130,20 @@ function retrieve_joker_text(joker, descip, name)
         text = text .. get_text(main)
         if text and type(text) == 'string' then text = string.gsub(text, "{.-}", "") end
     else
-        if not joker.ability_UIBox_table then -- Removing this check causes memory leaks
-            joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
-        end
-        local main = joker.ability_UIBox_table.main
-        text = text .. get_text(main)
-        local multi_box = joker.ability_UIBox_table.multi_box
-        if multi_box then
-            text = text .. " "
-            text = text .. get_text(multi_box)
+        if joker.generate_UIBox_ability_table then
+            if not joker.ability_UIBox_table then -- Removing this check causes memory leaks
+                -- joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
+                local other_vars, _, _ = joker:generate_UIBox_ability_table(true)
+                joker.ability_UIBox_table = generate_card_ui(joker.config.center, nil, other_vars)
+                text = retrieve_joker_text(joker)
+            end
+            local main = joker.ability_UIBox_table.main
+            text = text .. get_text(main)
+            local multi_box = joker.ability_UIBox_table.multi_box
+            if multi_box then
+                text = text .. " "
+                text = text .. get_text(multi_box)
+            end
         end
     end
     return text
@@ -164,87 +169,32 @@ function jest_add_tag(tag, event, silent)
   end
 end
 
-function level_up_other_hand(card, hand, other_hand, instant, amount, type)
-    if not type or type == 'mult' then
-        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + amount)
-    end
-    if not type or type == 'chips' then
-        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + amount)
-    end
-    G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
-    }))
-end
-
 function level_up_hand_chips(card, hand, instant, amount)
-    if (G.GAME.hands[hand].level and G.GAME.hands[hand].chips) then
-        amount = amount or 1
-        local extra_chips = 0
-        G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
-        local val = G.GAME.hands[hand].l_chips * amount * 2
-        local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - val
-        extra_amount = (extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)) + (extra_chips > 0 and extra_chips or 0)
-        if hand == 'Straight Flush' then
-            G.GAME.hands['aij_Royal Flush'].level = math.max(0, G.GAME.hands['aij_Royal Flush'].level + amount)
-            level_up_other_hand(nil, 'aij_Royal Flush', hand, true, amount * 2 + extra_amount, 'chips')
-        end
-        G.GAME.hands[hand].chips = math.max(0, G.GAME.hands[hand].chips + math.floor((G.GAME.hands[hand].l_chips * amount * 2 + extra_amount)))
-        if not instant then 
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
-                play_sound('tarot1')
-                if card then card:juice_up(0.8, 0.5) end
-                G.TAROT_INTERRUPT_PULSE = true
-                return true end }))
-            update_hand_text({delay = 0}, {chips = G.GAME.hands[hand].chips, StatusText = true})
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-                play_sound('tarot1')
-                if card then card:juice_up(0.8, 0.5) end
-                G.TAROT_INTERRUPT_PULSE = nil
-                return true end }))
-            update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
-            delay(1.3)
-        end
-        G.E_MANAGER:add_event(Event({
-            trigger = 'immediate',
-            func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
-        }))
-    end
+    amount = amount or 1
+    SMODS.upgrade_poker_hands({
+        hands = hand,
+        func = function(base, hand, parameter)
+            return base + G.GAME.hands[hand]['l_' .. parameter] * amount * 2
+        end,
+        level_up = amount,
+        from = card,
+        instant = instant,
+        parameters = {"chips"}
+    })
 end
 
 function level_up_hand_mult(card, hand, instant, amount)
-    if (G.GAME.hands[hand].level and G.GAME.hands[hand].mult) then
-        amount = amount or 1
-        local extra_mult = 0
-        G.GAME.hands[hand].level = math.max(0, G.GAME.hands[hand].level + amount)
-        local val = G.GAME.hands[hand].l_mult * amount * 2
-        local extra_amount = (val * (next(SMODS.find_card("j_aij_lost_carcosa")) and G.GAME.all_in_jest.apply.lost_carcosa_mult or 1)) - val
-        extra_amount = (extra_amount * (next(SMODS.find_card("j_aij_lost_carcosa")) and 1 or 0)) + (extra_mult > 0 and extra_mult or 0)
-        if hand == 'Straight Flush' then
-            G.GAME.hands['aij_Royal Flush'].level = math.max(0, G.GAME.hands['aij_Royal Flush'].level + amount)
-            level_up_other_hand(nil, 'aij_Royal Flush', hand, true, amount * 2 + extra_amount, 'mult')
-        end
-        G.GAME.hands[hand].mult = math.max(1, G.GAME.hands[hand].mult + math.floor((G.GAME.hands[hand].l_mult * amount * 2 + extra_amount)))
-        if not instant then 
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
-                play_sound('tarot1')
-                if card then card:juice_up(0.8, 0.5) end
-                G.TAROT_INTERRUPT_PULSE = true
-                return true end }))
-            update_hand_text({delay = 0}, {mult = G.GAME.hands[hand].mult, StatusText = true})
-            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
-                play_sound('tarot1')
-                if card then card:juice_up(0.8, 0.5) end
-                G.TAROT_INTERRUPT_PULSE = nil
-                return true end }))
-            update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[hand].level})
-            delay(1.3)
-        end
-        G.E_MANAGER:add_event(Event({
-            trigger = 'immediate',
-            func = (function() check_for_unlock{type = 'upgrade_hand', hand = hand, level = G.GAME.hands[hand].level} return true end)
-        }))
-    end
+    amount = amount or 1
+    SMODS.upgrade_poker_hands({
+        hands = hand,
+        func = function(base, hand, parameter)
+            return base + G.GAME.hands[hand]['l_' .. parameter] * amount * 2
+        end,
+        level_up = amount,
+        from = card,
+        instant = instant,
+        parameters = {"mult"}
+    })
 end
 
 --local ids_op_ref = ids_op
@@ -415,202 +365,6 @@ end
 
 to_big = to_big or function(num)
     return num
-end
-
-jest_ability_calculate = function(card, equation, extra_value, exclusions, inclusions, do_round, only, extra_search)
-  if do_round == nil then do_round = true end
-  if only == nil then only = false end
-
-  -- Store original values before modification
-  local keys, original_values = jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
-
-  local operators = {
-    ["+"] = function(a, b) return a + b end,
-    ["-"] = function(a, b) return a - b end,
-    ["*"] = function(a, b) return a * b end,
-    ["/"] = function(a, b) return a / b end,
-    ["%"] = function(a, b) return a % b end,
-    ["="] = function(a, b) return b end,
-  }
-
-  local function round_int(x)
-    return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
-  end
-
-  local function round_hundredth(x)
-    if x >= 0 then
-      return math.floor(x * 100 + 0.5) / 100
-    else
-      return math.ceil(x * 100 - 0.5) / 100
-    end
-  end
-
-  local function process_value(val, base_val)
-    if type(val) == "number" then
-      local delta = val - base_val
-      local result = operators[equation](base_val, extra_value) + delta
-      if do_round then
-        if base_val % 1 ~= 0 then
-          return round_hundredth(result)
-        else
-          return round_int(result)
-        end
-      else
-        return result
-      end
-    else
-      return val
-    end
-  end
-
-  local function should_process(key, value)
-    if type(key) ~= "string" then return true end
-    if inclusions and next(inclusions) then
-      local valid = false
-      for _, prefix in ipairs(inclusions) do
-        if (not only and key:sub(1, #prefix) == prefix) or (only and key == prefix) then
-          valid = true; break
-        end
-      end
-      if not valid then return false end
-    end
-    if exclusions and exclusions[key] ~= nil then
-      if exclusions[key] == true or value == exclusions[key] then
-        return false
-      end
-    end
-    return true
-  end
-
-  local function process_table(t, base_table)
-    for key, value in pairs(t) do
-      if value ~= nil and should_process(key, value) then
-        if type(value) == "number" then
-          t[key] = process_value(value, base_table[key] or 0)
-        elseif type(value) == "table" and type(base_table[key]) == "table" then
-          process_table(value, base_table[key])
-        end
-      end
-    end
-  end
-
-  function nested_tables(temcard, index)
-      local current = temcard
-      for key in string.gmatch(index, "[^%.]+") do
-          if type(current) ~= "table" then
-              return current
-          end
-          current = current[key]
-      end
-      return current
-  end
-
-  local search_table = extra_search and nested_tables(card, extra_search) or card.ability
-
-  if search_table then
-    local _, base_values = jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
-    if type(search_table) == "number" then
-      search_table = process_value(search_table, base_values[1] or 0)
-    elseif type(search_table) == "table" then
-      local base_map = {}
-      for i, k in ipairs(keys) do base_map[k] = original_values[i] end
-      process_table(search_table, base_map)
-    end
-  end
-end
-
-jest_ability_get_items = function(card, equation, extra_value, exclusions, inclusions, do_round, only, extra_search)
-  if do_round == nil then do_round = true end
-  if only == nil then only = false end
-
-  local keys = {}
-  local values = {}
-
-  local operators = {
-    ["+"] = function(a, b) return a + b end,
-    ["-"] = function(a, b) return a - b end,
-    ["*"] = function(a, b) return a * b end,
-    ["/"] = function(a, b) return a / b end,
-    ["%"] = function(a, b) return a % b end,
-    ["="] = function(a, b) return b end,
-    ["nil"] = function(a, b) return a end,
-  }
-
-  local function round_int(x)
-    return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
-  end
-  local function round_hundredth(x)
-    if x >= 0 then
-      return math.floor(x * 100 + 0.5) / 100
-    else
-      return math.ceil(x * 100 - 0.5) / 100
-    end
-  end
-
-  local function process_value(val)
-    if type(val) == "number" then
-      local res = operators[equation](val, extra_value)
-      if do_round then
-        if val % 1 ~= 0 then
-          return round_hundredth(res)
-        else
-          return round_int(res)
-        end
-      else
-        return res
-      end
-    else
-      return val
-    end
-  end
-
-  local function should_process(key, value)
-    if type(key) ~= "string" then return true end
-    if inclusions and next(inclusions) then
-      local valid = false
-      for _, prefix in ipairs(inclusions) do
-        if (not only and key:sub(1, #prefix) == prefix) or (only and key == prefix) then
-          valid = true; break
-        end
-      end
-      if not valid then return false end
-    end
-    if exclusions and exclusions[key] ~= nil then
-      if exclusions[key] == true or value == exclusions[key] then
-        return false
-      end
-    end
-    return true
-  end
-
-  function nested_tables(temcard, index)
-      local current = temcard
-      for key in string.gmatch(index, "[^%.]+") do
-          if type(current) ~= "table" then
-              return current
-          end
-          current = current[key]
-      end
-      return current
-  end
-
-  local search_table = extra_search and nested_tables(card, extra_search) or card.ability
-
-  if search_table then
-    if type(search_table) == "number" then
-      table.insert(keys, extra_search or "ability")
-      table.insert(values, process_value(search_table))
-    elseif type(search_table) == "table" then
-      for key, value in pairs(search_table) do
-        if value ~= nil and should_process(key, value) then
-          table.insert(keys, key)
-          table.insert(values, process_value(value))
-        end
-      end
-    end
-  end
-
-  return keys, values
 end
 
 AllInJest.touchstone_deck_preview = function()
@@ -847,81 +601,6 @@ function jest_get_unique_suits(scoring_hand, bypass_debuff, flush_calc)
   return num_suits
 end
 
-function reset_jest_magick_joker_card()
-    G.GAME.current_round.jest_magick_joker_card.suit = 'Spades'
-    local valid_jest_magick_joker_cards = {}
-    for k, v in ipairs(G.playing_cards) do
-        if v.ability.effect ~= 'Stone Card' then
-            valid_jest_magick_joker_cards[#valid_jest_magick_joker_cards+1] = v
-        end
-    end
-    if valid_jest_magick_joker_cards[1] then 
-        local jest_magick_joker_card = pseudorandom_element(valid_jest_magick_joker_cards, pseudoseed('mag'..G.GAME.round_resets.ante))
-        G.GAME.current_round.jest_magick_joker_card.suit = jest_magick_joker_card.base.suit
-    end
-end
-
-function reset_jest_you_broke_it_card()
-  G.GAME.current_round.jest_you_broke_it_card.rank = 'Ace'
-  G.GAME.current_round.jest_you_broke_it_card.enhancement = 'm_bonus'
-  local valid_enhancements = get_current_pool("Enhanced")
-  local valid_jest_ybi_cards = {}
-    for k, v in ipairs(G.playing_cards) do
-        if v.ability.effect ~= 'Stone Card' then
-            valid_jest_ybi_cards[#valid_jest_ybi_cards+1] = v
-        end
-    end
-    if valid_jest_ybi_cards[1] then 
-        local jest_ybi_card = pseudorandom_element(valid_jest_ybi_cards, pseudoseed('ybi'..G.GAME.round_resets.ante))
-        G.GAME.current_round.jest_you_broke_it_card.rank = jest_ybi_card.base.value
-        G.GAME.current_round.jest_you_broke_it_card.id = jest_ybi_card.base.id
-    end
-    if valid_enhancements[1] then
-      local jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..G.GAME.round_resets.ante))
-      local it = 1
-      while jest_ybi_enhancement == 'UNAVAILABLE' do
-        it = it + 1
-        jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..'_resample'..it))
-      end
-      G.GAME.current_round.jest_you_broke_it_card.enhancement = jest_ybi_enhancement
-    end
-end
-function reset_handsome_joker_card()
-  G.GAME.current_round.jest_handsome_joker_card.rank = 'Ace'
-  G.GAME.current_round.jest_handsome_joker_card.suit = 'Spades'
-  G.GAME.current_round.jest_handsome_joker_card.enhancement = 'm_bonus'
-  local all_enhancements = get_current_pool("Enhanced")
-  local valid_enhancements = {}
-
-  -- Loop through the original list of all enhancements
-  for _, enhancement in ipairs(all_enhancements) do
-    if enhancement ~= "UNAVAILABLE" and not (enhancement == 'm_stone' or enhancement == 'm_aij_canvas' or G.P_CENTERS[enhancement].no_rank or G.P_CENTERS[enhancement].no_suit) then
-      valid_enhancements[#valid_enhancements + 1] = enhancement
-    end
-  end
-  local valid_jest_handsome_cards = {}
-    for k, v in ipairs(G.playing_cards) do
-        local enhancement = v.ability.effect
-        if not (SMODS.has_no_rank(v) or SMODS.has_no_suit(v) or enhancement == 'm_aij_canvas') then
-            valid_jest_handsome_cards[#valid_jest_handsome_cards+1] = v
-        end
-    end
-    if valid_jest_handsome_cards[1] then 
-        local jest_handsome_card = pseudorandom_element(valid_jest_handsome_cards, pseudoseed('handsome'..G.GAME.round_resets.ante))
-        G.GAME.current_round.jest_handsome_joker_card.suit = jest_handsome_card.base.suit
-        G.GAME.current_round.jest_handsome_joker_card.rank = jest_handsome_card.base.value
-        G.GAME.current_round.jest_handsome_joker_card.id = jest_handsome_card.base.id
-    end
-    if valid_enhancements[1] then
-      local jest_handsome_card_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('handsome'..G.GAME.round_resets.ante))
-      local it = 1
-      while jest_handsome_card_enhancement == 'UNAVAILABLE' do
-        it = it + 1
-        jest_handsome_card_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('handsome'..'_resample'..it))
-      end
-      G.GAME.current_round.jest_handsome_joker_card.enhancement = jest_handsome_card_enhancement
-    end
-end
 -- card predict begin
 --------------------------------
 --------------------------------
@@ -1151,7 +830,7 @@ function Tag:jest_apply(message, _colour, func, statement) -- Play on words just
 end
 
 -- Some of my personal functions i use in my projects
-function create_consumable(card_type,tag,message,extra, thing1, thing2, immediate)
+function create_consumable(card_type,tag,message,extra, thing1, thing2, immediate, silent)
     extra=extra or {}
 
     local event_alias
@@ -1174,7 +853,7 @@ function create_consumable(card_type,tag,message,extra, thing1, thing2, immediat
                 local card = create_card(card_type,G.consumeables, nil, nil, thing1, thing2, extra.forced_key or nil, tag)
                 card:add_to_deck()
                 if extra.edition~=nil then
-                    card:set_edition(extra.edition,true,false)
+                    card:set_edition(extra.edition,true,silent)
                 end
                 if extra.eternal~=nil then
                     card.ability.eternal=extra.eternal
@@ -1323,43 +1002,42 @@ function All_in_Jest.has_suit_in_deck(suit, ignore_wild)
 end
 
 function All_in_Jest.add_tag_to_shop(key, price)
-    local center = G.P_TAGS[key]
-    center.atlas = center.atlas or 'tags'
-    local card = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
-    G.shop_booster.T.y, G.CARD_W*0.7, G.CARD_W*0.7, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
-    create_shop_card_ui(card, 'Tag', G.shop_booster)
-    for k, v in pairs(center.config) do
-        card.config[k] = v
-    end
-    card.ability.booster_pos = #G.shop_booster.cards + 1
-    card.ability.is_aij_shop_tag = true
-    local pool = options or get_current_pool('Tag')
-    local tag_key = key
-    local tag = Tag(tag_key)
-    if tag_key == "tag_orbital" then
-        local available_hands = {}
+  local center = G.P_TAGS[key]
+  center.atlas = center.atlas or 'tags'
+  local card = Card(G.shop_aij_tags.T.x, G.shop_aij_tags.T.y, 0.8, 0.8, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
+  for k, v in pairs(center.config) do
+    card.config[k] = v
+  end
+  card.ability.booster_pos = #G.shop_aij_tags.cards + 1
+  card.ability.is_aij_shop_tag = true
+  local pool = options or get_current_pool('Tag')
+  local tag_key = key
+  local tag = Tag(tag_key)
+  if tag_key == "tag_orbital" then
+    local available_hands = {}
 
-        for _, k in ipairs(G.handlist) do
-          local hand = G.GAME.hands[k]
-          if hand.visible then
-            available_hands[#available_hands + 1] = k
-          end
-        end
-
-        tag.ability.orbital_hand = pseudorandom_element(available_hands, pseudoseed(card.ability.booster_pos .. '_orbital'))
-        card.ability.orbital_hand = tag.ability.orbital_hand
+    for _, k in ipairs(G.handlist) do
+      local hand = G.GAME.hands[k]
+      if hand.visible then
+        available_hands[#available_hands + 1] = k
+      end
     end
-    card.config.tag = tag
-    card.name = card.config.tag.name
-    card:start_materialize()
-    card.edition = nil
-    card.base_cost = price or 1
-    card:set_cost()
-    card.config.center.set_card_type_badge = function(self, card, badges)
-		badges[#badges+1] = create_badge(localize('k_tag'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2 )
-	end
-    G.shop_booster:emplace(card)
-    return card
+
+    tag.ability.orbital_hand = pseudorandom_element(available_hands, pseudoseed(card.ability.booster_pos .. '_orbital'))
+    card.ability.orbital_hand = tag.ability.orbital_hand
+  end
+  card.config.tag = tag
+  card.name = card.config.tag.name
+  card:start_materialize()
+  card.edition = nil
+  card.base_cost = price or 1
+  card:set_cost()
+  card.config.center.set_card_type_badge = function(self, card, badges)
+    badges[#badges+1] = create_badge(localize('k_tag'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2 )
+  end
+  create_shop_card_ui(card, 'Tag', G.shop_aij_tags)
+  G.shop_aij_tags:emplace(card)
+  return card
 end
 
 function All_in_Jest.is_food(card)
@@ -1450,7 +1128,7 @@ function Card:All_in_Jest_start_dissolve(dissolve_colours, silent, dissolve_time
     }))
 end
 
-function All_in_Jest.reroll_joker(card, key, append, temp_key, _card)
+function All_in_Jest.reroll_joker(card, key, append, temp_key)
     local victim_joker = card
       
     local victim_rarity = victim_joker.config.center.rarity or 1
@@ -1485,29 +1163,30 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, _card)
 
     G.E_MANAGER:add_event(Event({
         trigger = 'after', 
-        delay = 0.4, 
-        func = function()
-            play_sound('tarot1')
-            card:juice_up(0.3, 0.5)
-            return true 
-        end 
-    }))
-    G.E_MANAGER:add_event(Event({
-        trigger = 'after',
         delay = 0.15,
         func = function() 
             victim_joker:flip()
             play_sound('card1', 1)
-            victim_joker:juice_up(0.5, 0.5)
+            victim_joker:juice_up(0.3, 0.3)
             return true 
         end 
     }))
-    delay(0.5)
+    delay(0.4)
     G.E_MANAGER:add_event(Event({
         trigger = 'after',
         delay = 0.1,
         func = function()
+            local old_ability_data = copy_table(victim_joker.ability)
             victim_joker:set_ability(G.P_CENTERS[replacement_key])
+            if old_ability_data.all_in_jest and old_ability_data.all_in_jest.has_been_rerolled_data then
+                victim_joker.ability = old_ability_data.all_in_jest.has_been_rerolled_data
+                old_ability_data.all_in_jest.has_been_rerolled_data = nil
+            end
+            if temp_key then
+                victim_joker.ability.all_in_jest = victim_joker.ability.all_in_jest or {}
+                victim_joker.ability.all_in_jest.has_been_rerolled = temp_key
+                victim_joker.ability.all_in_jest.has_been_rerolled_data = old_ability_data
+            end
             victim_joker:set_cost()
             return true
         end
@@ -1531,6 +1210,7 @@ function All_in_Jest.set_debuff(card)
 	end
 end
 
+-- Should this have an option to check suits in the pool rather then suits that are in the deck?
 function All_in_Jest.get_suits(type, base)
     local suits = {}
 	for k, v in pairs(G.playing_cards) do
@@ -1559,6 +1239,134 @@ function All_in_Jest.get_suits(type, base)
     return return_table
 end
 
+function reset_jest_magick_joker_card()
+    G.GAME.current_round.jest_magick_joker_card.suit = 'Spades'
+    local valid_jest_magick_joker_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        if v.ability.effect ~= 'Stone Card' then
+            valid_jest_magick_joker_cards[#valid_jest_magick_joker_cards+1] = v
+        end
+    end
+    if valid_jest_magick_joker_cards[1] then 
+        local jest_magick_joker_card = pseudorandom_element(valid_jest_magick_joker_cards, pseudoseed('mag'..G.GAME.round_resets.ante))
+        G.GAME.current_round.jest_magick_joker_card.suit = jest_magick_joker_card.base.suit
+    end
+end
+function reset_jest_you_broke_it_card()
+  G.GAME.current_round.jest_you_broke_it_card.rank = 'Ace'
+  G.GAME.current_round.jest_you_broke_it_card.enhancement = 'm_bonus'
+  local valid_enhancements = get_current_pool("Enhanced")
+  local valid_jest_ybi_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        if v.ability.effect ~= 'Stone Card' then
+            valid_jest_ybi_cards[#valid_jest_ybi_cards+1] = v
+        end
+    end
+    if valid_jest_ybi_cards[1] then 
+        local jest_ybi_card = pseudorandom_element(valid_jest_ybi_cards, pseudoseed('ybi'..G.GAME.round_resets.ante))
+        G.GAME.current_round.jest_you_broke_it_card.rank = jest_ybi_card.base.value
+        G.GAME.current_round.jest_you_broke_it_card.id = jest_ybi_card.base.id
+    end
+    if valid_enhancements[1] then
+      local jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..G.GAME.round_resets.ante))
+      local it = 1
+      while jest_ybi_enhancement == 'UNAVAILABLE' do
+        it = it + 1
+        jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..'_resample'..it))
+      end
+      G.GAME.current_round.jest_you_broke_it_card.enhancement = jest_ybi_enhancement
+    end
+end
+function reset_handsome_joker_card()
+  G.GAME.current_round.jest_handsome_joker_card.rank = 'Ace'
+  G.GAME.current_round.jest_handsome_joker_card.suit = 'Spades'
+  G.GAME.current_round.jest_handsome_joker_card.enhancement = 'm_bonus'
+  local all_enhancements = get_current_pool("Enhanced")
+  local valid_enhancements = {}
+
+  -- Loop through the original list of all enhancements
+  for _, enhancement in ipairs(all_enhancements) do
+    if enhancement ~= "UNAVAILABLE" and not (enhancement == 'm_stone' or enhancement == 'm_aij_canvas' or G.P_CENTERS[enhancement].no_rank or G.P_CENTERS[enhancement].no_suit) then
+      valid_enhancements[#valid_enhancements + 1] = enhancement
+    end
+  end
+  local valid_jest_handsome_cards = {}
+    for k, v in ipairs(G.playing_cards) do
+        local enhancement = v.ability.effect
+        if not (SMODS.has_no_rank(v) or SMODS.has_no_suit(v) or enhancement == 'm_aij_canvas') then
+            valid_jest_handsome_cards[#valid_jest_handsome_cards+1] = v
+        end
+    end
+    if valid_jest_handsome_cards[1] then 
+        local jest_handsome_card = pseudorandom_element(valid_jest_handsome_cards, pseudoseed('handsome'..G.GAME.round_resets.ante))
+        G.GAME.current_round.jest_handsome_joker_card.suit = jest_handsome_card.base.suit
+        G.GAME.current_round.jest_handsome_joker_card.rank = jest_handsome_card.base.value
+        G.GAME.current_round.jest_handsome_joker_card.id = jest_handsome_card.base.id
+    end
+    if valid_enhancements[1] then
+      local jest_handsome_card_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('handsome'..G.GAME.round_resets.ante))
+      local it = 1
+      while jest_handsome_card_enhancement == 'UNAVAILABLE' do
+        it = it + 1
+        jest_handsome_card_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('handsome'..'_resample'..it))
+      end
+      G.GAME.current_round.jest_handsome_joker_card.enhancement = jest_handsome_card_enhancement
+    end
+end
+function reset_the_auroch_blind()
+    local common_suit, common_rank = nil, nil
+    local temp_suit_val, temp_rank_val = 0, 0
+    local suit_table, rank_table = {}, {}
+    for _, v in pairs(G.deck.cards) do
+        suit_table[v.base.suit] = suit_table[v.base.suit] or 0 
+        suit_table[v.base.suit] = suit_table[v.base.suit] + 1
+        rank_table[v.base.value] = rank_table[v.base.value] or 0 
+        rank_table[v.base.value] = rank_table[v.base.value] + 1
+    end
+    for k, v in pairs(suit_table) do
+        if v >= temp_suit_val then
+            temp_suit_val = v
+            common_suit = k
+        end
+    end
+    for k, v in pairs(rank_table) do
+        if v >= temp_rank_val then
+            temp_rank_val = v
+            common_rank = k
+        end
+    end
+    G.GAME.current_round.aij_the_auroch = {suit = common_suit or "Spades", rank = common_rank or "Ace"}
+end
+function reset_the_journey_blind()
+    local selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey'))
+    -- By default the special journey background will fade during the evaluate screen, nesting events here prevents this
+    -- This *is* jank
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.GAME.current_round.aij_the_journey_blind = {selected_suit = selected_suit or "Spades", triggered = false}
+                    return true
+                end
+            }))
+            return true
+        end
+    }))
+end
+function reset_aureate_coin_blind()
+    G.GAME.current_round.aij_aureate_coin_blind = {spent_money = 0}
+end
+function reset_the_heart_blind()
+    local hands = {
+        "Two Pair",
+        "Flush",
+        "Straight",
+        "Three of a Kind"
+    }
+    local chosen_hand = pseudorandom_element(hands, pseudoseed('jest_the_heart_blind'..G.GAME.round_resets.ante))
+    G.GAME.current_round.aij_the_heart = {hand = chosen_hand or "Two Pair"}
+end
+
 function All_in_Jest.reset_game_globals(run_start)
     -- Globals for a single blind (like Idol)
     reset_jest_magick_joker_card()
@@ -1566,33 +1374,20 @@ function All_in_Jest.reset_game_globals(run_start)
 	  G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
 
+    if G.GAME.round_resets.blind_states.Boss == 'Defeated' or run_start then
+       -- Globals for a single ante (not a thing in Vanilla)
+       -- Checks run_start as well to trigger at start of run, G.GAME.round_resets.blind_states.Boss == 'Defeated' only checks for the end of an ante
+
+        -- Reset Boss Blinds
+       reset_the_auroch_blind()
+       reset_the_journey_blind()
+       reset_aureate_coin_blind()
+       reset_the_heart_blind()
+    end
+
     if run_start then
         -- Globals for a whole run (like Fortune Teller)
         reset_handsome_joker_card()
-
-        local common_suit, common_rank = nil, nil
-        local temp_suit_val, temp_rank_val = 0, 0
-        local suit_table, rank_table = {}, {}
-        for k, v in pairs(G.deck.cards) do
-            suit_table[v.base.suit] = suit_table[v.base.suit] or 0 
-            suit_table[v.base.suit] = suit_table[v.base.suit] + 1
-            rank_table[v.base.value] = rank_table[v.base.value] or 0 
-            rank_table[v.base.value] = rank_table[v.base.value] + 1
-        end
-        for k, v in pairs(suit_table) do
-            if v >= temp_suit_val then
-                temp_suit_val = v
-                common_suit = k
-            end
-        end
-        for k, v in pairs(rank_table) do
-            if v >= temp_rank_val then
-                temp_rank_val = v
-                common_rank = k
-            end
-        end
-        G.P_BLINDS['bl_aij_the_auroch'].boss.suit = common_suit
-        G.P_BLINDS['bl_aij_the_auroch'].boss.rank = common_rank
 
         G.GAME.all_in_jest.starting_prams.deck_size = #G.deck.cards
         
@@ -1696,94 +1491,140 @@ function All_in_Jest.force_pit_blind()
     return (blue_stake_replacement_blind or all_pit_blinds_challenge) and not_showdown_blind
 end
 
--- Increases blind requirement while making the score tick up with an animation
--- mod_add increases the mult of the blind (so mod_add = 1 makes a blind go from x2 to x3)
--- mod_add increases the blind requirement directly. This occurs after mod_add
--- Code copied from Bunco
-function All_in_Jest.ease_blind_requirement(mod_mult, mod_add)
-    local original_chips = G.GAME.blind.original_chips > 0 and G.GAME.blind.original_chips or G.GAME.blind.chips
-
-    mod_mult = mod_mult ~= nil and mod_mult or 0
-    mod_add = mod_add ~= nil and mod_add or 0
-    local current_mult = G.GAME.blind.chips / (original_chips / G.GAME.blind.mult) -- Takes into account previous ease_blind_requirement calls
-    local final_chips = (original_chips / G.GAME.blind.mult) * (current_mult + mod_mult) + mod_add
-    local chip_mod -- iterate over ~120 ticks
-    if type(G.GAME.blind.chips) ~= 'table' then
-        chip_mod = math.ceil(math.abs(final_chips - G.GAME.blind.chips) / 120)
+function All_in_Jest.get_current_blind_mult()
+    if G.GAME.blind.in_blind then
+        local original_chips = G.GAME.blind.aij_original_chips > to_big(0) and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
+        return (G.GAME.blind.chips - G.GAME.blind.aij_added_chips) / (original_chips / G.GAME.blind.aij_original_mult)
     else
-        chip_mod = ((final_chips - G.GAME.blind.chips):abs() / 120):ceil()
+        return G.GAME.blind.mult
+    end
+end
+
+-- Increases blind requirement while making the score tick up with an animation
+-- mod_mult increases the mult of the blind (so mod_mult = 1 makes a blind go from x2 to x3)
+-- mod_add increases the blind requirement directly. This occurs after mod_add
+-- "Ticking up" animate code copied + modified from Bunco
+function All_in_Jest.ease_blind_requirement(mod_mult, mod_add, skip_animation)
+    if not G.GAME.blind.in_blind then return end
+
+    local original_chips = G.GAME.blind.aij_original_chips > to_big(0) and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
+    if mod_mult == nil then
+        mod_mult = 0
+    end
+    if mod_add == nil then
+        mod_add = 0
+    end
+
+    local original_mult = G.GAME.blind.aij_original_mult
+    local previously_added = G.GAME.blind.aij_added_chips -- Only accounts chips added via mod_add
+    local current_mult = All_in_Jest.get_current_blind_mult() -- Takes into account previous ease_blind_requirement calls
+    local desired_chip_amount = (original_chips / original_mult) * (current_mult + mod_mult) + mod_add + previously_added
+
+    local chip_mod -- Calculate how much the chips count changes each "tick", set to iterate over ~120 ticks
+    if type(G.GAME.blind.chips) ~= 'table' then
+        chip_mod = math.ceil(math.abs(desired_chip_amount - G.GAME.blind.chips) / 120)
+    else
+        chip_mod = ((desired_chip_amount - G.GAME.blind.chips):abs() / 120):ceil()
     end
     local step = 0
-    if G.GAME.blind.chips < final_chips then
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            blocking = true,
-            func = function()
-                G.GAME.blind.chips = G.GAME.blind.chips + G.SETTINGS.GAMESPEED * chip_mod
-                if G.GAME.blind.chips < final_chips then
-                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-                    if step % 5 == 0 then
-                        play_sound('chips1', 0.8 + (step * 0.005))
-                    end
-                    step = step + 1
-                else
-                    G.GAME.blind.chips = final_chips
-                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-                    G.GAME.blind:wiggle()
-                    return true
-                end
-            end
-        }))
+
+    local chips_text_integer = G.GAME.blind.chips -- Used to track animation
+    if skip_animation then
+        chips_text_integer = desired_chip_amount
+        G.GAME.blind.chip_text = number_format(chips_text_integer)
     else
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            blocking = true,
-            func = function()
-                G.GAME.blind.chips = G.GAME.blind.chips - G.SETTINGS.GAMESPEED * chip_mod
-                if G.GAME.blind.chips > final_chips then
-                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-                    if step % 5 == 0 then
-                        play_sound('chips1', 0.8 + (step * 0.005))
+        if chips_text_integer < to_big(desired_chip_amount) then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                blocking = true,
+                func = function()
+                    chips_text_integer = chips_text_integer + G.SETTINGS.GAMESPEED * chip_mod
+                    if chips_text_integer < desired_chip_amount then
+                        G.GAME.blind.chip_text = number_format(chips_text_integer)
+                        if step % 5 == 0 then
+                            play_sound('chips1', 0.8 + (step * 0.005))
+                        end
+                        step = step + 1
+                    else
+                        chips_text_integer = desired_chip_amount
+                        G.GAME.blind.chip_text = number_format(chips_text_integer)
+                        G.GAME.blind:wiggle()
+                        return true
                     end
-                    step = step - 1
-                else
-                    G.GAME.blind.chips = final_chips
-                    G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-                    G.GAME.blind:wiggle()
-                    return true
                 end
-            end
-        }))
+            }))
+        else
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                blocking = true,
+                func = function()
+                    chips_text_integer = chips_text_integer - G.SETTINGS.GAMESPEED * chip_mod
+                    if chips_text_integer > desired_chip_amount then
+                        G.GAME.blind.chip_text = number_format(chips_text_integer)
+                        if step % 5 == 0 then
+                            play_sound('chips1', 0.8 + (step * 0.005))
+                        end
+                        step = step - 1
+                    else
+                        chips_text_integer = desired_chip_amount
+                        G.GAME.blind.chip_text = number_format(chips_text_integer)
+                        G.GAME.blind:wiggle()
+                        return true
+                    end
+                end
+            }))
+        end
     end
+
+    G.GAME.blind.chips = desired_chip_amount -- Immediately set in case this function is called successively
+    G.GAME.blind.aij_added_chips = G.GAME.blind.aij_added_chips + mod_add
 end
 
 -- Redisplays the blind info on the blind select screen
 -- Used to update dynamic score requirements
 function All_in_Jest.aij_refresh_boss_blind()
-    if G.GAME.blind.boss or not G.blind_select_opts then return end
+    if G.GAME.blind.boss then return end
 
-    local par = G.blind_select_opts.boss.parent
-    if par and par.config.object then
-        G.blind_select_opts.boss:remove()
-        G.blind_select_opts.boss = UIBox{
-            T = {par.T.x, 0, 0, 0},
-            definition = { n = G.UIT.ROOT, config = { align = "cm", colour = G.C.CLEAR }, nodes = {
-              UIBox_dyn_container({ create_UIBox_blind_choice('Boss') }, false, get_blind_main_colour('Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Boss'), 0.8))
-            } },
-            config = {
-                align = "bmi",
-                offset = {
-                    x = 0,
-                    y = G.blind_select_opts.boss.alignment.offset.y
-                },
-                major = par,
-                xy_bond = 'Weak'
+    if G.blind_select_opts then
+        local par = G.blind_select_opts.boss.parent
+        if par and par.config.object then
+            G.blind_select_opts.boss:remove()
+            G.blind_select_opts.boss = UIBox{
+                T = {par.T.x, 0, 0, 0},
+                definition = { n = G.UIT.ROOT, config = { align = "cm", colour = G.C.CLEAR }, nodes = {
+                  UIBox_dyn_container({ create_UIBox_blind_choice('Boss') }, false, get_blind_main_colour('Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Boss'), 0.8))
+                } },
+                config = {
+                    align = "bmi",
+                    offset = {
+                        x = 0,
+                        y = G.blind_select_opts.boss.alignment.offset.y
+                    },
+                    major = par,
+                    xy_bond = 'Weak'
+                }
             }
+            par.config.object = G.blind_select_opts.boss
+            par.config.object:recalculate()
+            G.blind_select_opts.boss.parent = par
+            -- G.blind_select_opts.boss.alignment.offset.y = -0.2
+        end
+    end
+
+    if G.SHOP_SIGN and next(SMODS.find_mod("unBlindShopGUI")) then
+        G.SHOP_SIGN:remove()
+        G.SHOP_SIGN = UIBox{
+          definition = 
+            {n=G.UIT.ROOT, config = {colour = G.C.CLEAR, align = 'bm' }, nodes={
+              G.UIDEF.UnBlind_current_blinds()
+            }},
+          config = {
+            align="cm",
+            offset = {x=0,y=0},
+            major = G.HUD:get_UIE_by_ID('row_blind'),
+            bond = 'Weak'
+          }
         }
-        par.config.object = G.blind_select_opts.boss
-        par.config.object:recalculate()
-        G.blind_select_opts.boss.parent = par
-        -- G.blind_select_opts.boss.alignment.offset.y = -0.2
     end
 end
 
@@ -2064,3 +1905,9 @@ G.FUNCS.aij_hover_tag_branching = function(e)
         e.alert:remove()
         e.alert = nil
     end
+end
+
+-- Function that defines when the tag area in the shop should appear (or not)
+All_in_Jest.show_shop_aij_tags = function(e)
+    return next(SMODS.find_card("j_aij_ijoker_co")) or next(SMODS.find_card("j_aij_death_of_a_salesman"))
+end

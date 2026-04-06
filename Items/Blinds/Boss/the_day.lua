@@ -28,6 +28,7 @@ local the_day = {
         if value and value > 0 then
             return false
         else
+            G.GAME.blind.triggered = true
             return true
         end
     end

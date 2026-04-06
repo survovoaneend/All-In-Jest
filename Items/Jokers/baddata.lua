@@ -7,8 +7,8 @@ local baddata = {
     soul_pos = { x = 6, y = 18},
     all_in_jest = {
 		soul_layers = {
-            aij_floating_sprite_1 = {pos = {x = 15, y = 19}, moving = false,}
-        },
+        aij_floating_sprite_1 = {pos = {x = 15, y = 19}, moving = false,}
+    },
 		layer_funcs = {
 			pos = function(anim, obj, loc)
 				-- Runs every frame

@@ -34,7 +34,9 @@ local ignoramus_tag = {
                       no_materialize = true,
                       modify_card = function(card, center)
                         if card.config.center.discovered then
-                          if card.config.center.rarity == 1 or card.config.center.rarity == 2 then
+                          if G.GAME.banned_keys[card.config.center.key] and not (type(G.GAME.banned_keys[card.config.center.key]) == "string" and G.GAME.banned_keys[card.config.center.key]:sub(1, 5) == "j_aij") then
+                            card.debuff = true
+                          elseif card.config.center.rarity == 1 or card.config.center.rarity == 2 then
                             jest_create_select_card_ui(card, G.jokers)
                           else
                             card.greyed = true
@@ -49,6 +51,16 @@ local ignoramus_tag = {
               end
             }))
           end
+          G.E_MANAGER:add_event(Event({
+              func = function()
+              for i = 1, #G.GAME.tags do
+                  if G.GAME.tags[i]:apply_to_run({ type = 'new_blind_choice' }) then
+                  break
+                  end
+              end
+              return true
+              end
+          }))
           return true
         end,
         function()

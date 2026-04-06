@@ -27,10 +27,10 @@ local majordomo = {
     end,
   
     calculate = function(self, card, context) 
-        if context.reroll_shop or context.starting_shop then
+        if context.reroll_shop or context.starting_shop and not context.blueprint then
             for k, v in pairs(G.shop_jokers.cards) do
                 if v.cost > card.ability.extra.more_than then
-                    v:add_sticker('rental', true)
+                    v:set_rental(true)
                     v:juice_up(0.3, 0.5)
                     card:juice_up()
                 end

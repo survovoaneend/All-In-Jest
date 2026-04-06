@@ -1,6 +1,6 @@
 local marked = {
-    object_type = "Sticker",
-    key = "marked",
+  object_type = "Sticker",
+  key = "marked",
 	no_collection = true,
 	config = { extra = {  } },
 	atlas = "stickers_atlas",

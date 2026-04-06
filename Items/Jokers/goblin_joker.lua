@@ -32,13 +32,20 @@ local goblin_joker = {
         end
 
         if context.drawing_cards and card.ability.extra.active then
-            return {
-                cards_to_draw = context.amount + card.ability.extra.draw_extra,
-                message = "+" .. card.ability.extra.draw_extra
-            }
+            if context.retrigger_joker then
+                return {
+                    cards_to_draw = card.ability.extra.draw_extra,
+                    message = "+" .. card.ability.extra.draw_extra
+                }
+            else
+                return {
+                    cards_to_draw = math.max(0, context.amount) + card.ability.extra.draw_extra,
+                    message = "+" .. card.ability.extra.draw_extra
+                }
+            end
         end
 
-        if context.hand_drawn then
+        if context.hand_drawn or (context.end_of_round and context.main_eval) then
             card.ability.extra.active = false
         end
     end
