@@ -473,8 +473,57 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'control',
+    name = 'Control',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'megaman',
+    name = 'Megaman',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'mewgenics',
+    name = 'Mewgenics',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'super_meat_boy',
+    name = 'Super Meat Boy',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'slarpg',
+    name = 'Super Lesbian Animal RPG',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
     id = 'spelunky',
     name = 'Spelunky',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
+    id = 'stellaris',
+    name = 'Stellaris',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
+    id = 'fallout_nv',
+    name = 'Fallout: New Vegas',
     suits = {
       'Diamonds',
     }
@@ -501,10 +550,17 @@ AllInJest.deck_skins = {
     }
   },
   {
-    id = 'alan_wake',
-    name = 'Alan Wake',
+    id = 'gish',
+    name = 'GISH',
     suits = {
-      'Clubs',
+      'Spades',
+    }
+  },
+  {
+    id = 'aooni',
+    name = 'Aooni',
+    suits = {
+      'Spades',
     }
   },
   {
@@ -529,10 +585,41 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'stanley_parable',
+    name = 'The Stanley Parable',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'sam_and_max',
+    name = 'Sam & Max',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'alan_wake',
+    name = 'Alan Wake',
+    suits = {
+      'Diamonds',
+      'Clubs',
+    }
+  },
+  {
     id = 'king_in_yellow',
     name = 'The King in Yellow',
     suits = {
       'Diamonds',
+      'Clubs',
+    }
+  },
+  {
+    id = 'tadc',
+    name = 'The Amazing Digital Circus',
+    suits = {
+      'Spades',
+      'Hearts',
       'Clubs',
     }
   },
@@ -549,6 +636,25 @@ AllInJest.deck_skins = {
   {
     id = 'yume_nikki',
     name = 'Yume Nikki',
+    suits = {
+      'Clubs',
+      'Spades',
+      'Hearts',
+      'Diamonds'
+    }
+  },
+  {
+    id = 'etg',
+    name = 'Enter the Gungeon',
+    suits = {
+      'Clubs',
+      'Spades',
+      'Hearts',
+    }
+  },
+  {
+    id = 'nuclear_throne',
+    name = 'Nuclear Throne',
     suits = {
       'Clubs',
       'Spades',
