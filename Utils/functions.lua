@@ -1498,7 +1498,7 @@ function All_in_Jest.reset_game_globals(run_start)
         G.GAME.all_in_jest.starting_prams.deck_size = #G.deck.cards
         
         local index = {4,5}
-        G.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
+        G.GAME.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
     end
 end
 
