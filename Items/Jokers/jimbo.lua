@@ -128,8 +128,11 @@ local jimbo_legendary = {
         end
 
         if context.card_added then
-            if context.card.ability.name == "j_aij_jimbo" then
-                local quips = {"legendary_jimbo_clone_1", "legendary_jimbo_clone_2", "legendary_jimbo_clone_3", "legendary_jimbo_clone_4"}
+            if context.blueprint and context.blueprint_card then
+                local quips = {"legendary_jimbo_blueprint_1", "legendary_jimbo_blueprint_2", "legendary_jimbo_blueprint_3a"}
+                local quips_copier = {"legendary_jimbo_blueprint_1", "legendary_jimbo_blueprint_2", "legendary_jimbo_blueprint_3b"}
+
+                local copier = context.blueprint_card
 
                 for i = 1, #quips do
                     G.E_MANAGER:add_event(Event({
@@ -138,14 +141,20 @@ local jimbo_legendary = {
                         func = function ()
                             card:add_speech_bubble(quips[i], nil, {quip = true})
                             card:say_stuff(5)
-                            if i == 3 then
-                                context.card:add_speech_bubble(quips[i], nil, {quip = true})
-                                context.card:say_stuff(5)
-                            end
-                            if i == 4 then
-                                context.card:remove_speech_bubble()
-                                SMODS.destroy_cards(context.card, true)
-                            end
+                            copier:remove_speech_bubble()
+                            -- copier:add_speech_bubble(quips_copier[i], nil, {quip = true})
+                            -- copier:say_stuff(5)
+                            return true
+                        end
+                    }), "jimbo_legendary_queue")
+                    G.E_MANAGER:add_event(Event({
+                        trigger = "after",
+                        delay = 0.5,
+                        func = function ()
+                            -- card:add_speech_bubble(quips[i], nil, {quip = true})
+                            -- card:say_stuff(5)
+                            copier:add_speech_bubble(quips_copier[i], nil, {quip = true})
+                            copier:say_stuff(5)
                             return true
                         end
                     }), "jimbo_legendary_queue")
@@ -157,10 +166,48 @@ local jimbo_legendary = {
                     func = function ()
                         if not card.talking then
                             card:remove_speech_bubble()
+                            copier:remove_speech_bubble()
                             return true
                         end
                     end
                 }), "jimbo_legendary_queue")
+            else
+                if context.card.ability.name == "j_joker" then
+                    jimbo_say_stuff(card, {"legendary_jimbo_joker_1", "legendary_jimbo_joker_2"})
+                elseif context.card.ability.name == "j_aij_jimbo" then
+                    local quips = {"legendary_jimbo_clone_1", "legendary_jimbo_clone_2", "legendary_jimbo_clone_3", "legendary_jimbo_clone_4"}
+
+                    for i = 1, #quips do
+                        G.E_MANAGER:add_event(Event({
+                            trigger = i == 1 and "immediate" or "after",
+                            delay = i == 1 and 0.1 or (5 * G.SPEEDFACTOR),
+                            func = function ()
+                                card:add_speech_bubble(quips[i], nil, {quip = true})
+                                card:say_stuff(5)
+                                if i == 3 then
+                                    context.card:add_speech_bubble(quips[i], nil, {quip = true})
+                                    context.card:say_stuff(5)
+                                end
+                                if i == 4 then
+                                    context.card:remove_speech_bubble()
+                                    SMODS.destroy_cards(context.card, true)
+                                end
+                                return true
+                            end
+                        }), "jimbo_legendary_queue")
+                    end
+
+                    G.E_MANAGER:add_event(Event({
+                        trigger = "after",
+                        delay = 5 * G.SPEEDFACTOR,
+                        func = function ()
+                            if not card.talking then
+                                card:remove_speech_bubble()
+                                return true
+                            end
+                        end
+                    }), "jimbo_legendary_queue")
+                end
             end
         end
     end,
@@ -169,7 +216,7 @@ local jimbo_legendary = {
         if not from_debuff then
             if #SMODS.find_card("j_aij_jimbo") <= 0 then
                 -- Only quip if there is no other Jimbo
-                jimbo_say_stuff(card, {"legendary_jimbo_added_1", "legendary_jimbo_added_2"})
+                jimbo_say_stuff(card, {"legendary_jimbo_initial_1", "legendary_jimbo_initial_2"})
             end
         end
     end,

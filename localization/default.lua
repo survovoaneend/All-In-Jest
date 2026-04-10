@@ -176,10 +176,10 @@ return {
            k_aij_line3 =  {"Isn't it about time", "you went all in?"},
         },
         quips = {
-            legendary_jimbo_added_1={
+            legendary_jimbo_initial_1={
                 "Oh, Hello again!"
             },
-            legendary_jimbo_added_2={
+            legendary_jimbo_initial_2={
                 "Well, let's see",
                 "what you got!"
             },
@@ -198,6 +198,28 @@ return {
             legendary_jimbo_clone_4 = {
                 "I don't think you can handle two Jimbos.",
                 "{s:0.8}You're underqualified for this."
+            },
+
+            legendary_jimbo_joker_1 = {
+                "Oh remember when I",
+                "taught you about this",
+                "handsome guy?"
+            },
+            legendary_jimbo_joker_2 = {
+                "Ahh, the memories.",
+            },
+
+            legendary_jimbo_blueprint_1 = {
+                "Who's this guy?",
+            },
+            legendary_jimbo_blueprint_2 = {
+                "Heh, that's fun!",
+            },
+            legendary_jimbo_blueprint_3a = {
+                "I'm an idiot!",
+            },
+            legendary_jimbo_blueprint_3b = {
+                "Yeah you are.",
             },
         }
     },
