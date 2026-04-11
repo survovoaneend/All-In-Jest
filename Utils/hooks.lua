@@ -278,7 +278,7 @@ function SMODS.has_no_suit(card)
     return has_no_suit_ref(card)
 end
 
-local has_enhancement_ref = SMODS.has_no_rank
+local has_enhancement_ref = SMODS.has_enhancement
 function SMODS.has_enhancement(card, key)
     local has_enhancement = has_enhancement_ref(card, key)
     local effects = All_in_Jest.get_inherent_effects(card, 'enhancement')
@@ -804,8 +804,8 @@ function SMODS.upgrade_poker_hands(args)
         local new_args = {
             hands = "aij_Royal Flush",
             parameters = args.parameters,
-            func = function(base, hand, parameter)
-                return args.func(base, "Straight Flush", parameter)
+            func = function(base, hand, parameter, level_up)
+                return args.func(base, "Straight Flush", parameter, level_up)
             end,
             level_up = args.level_up,
             instant = true,

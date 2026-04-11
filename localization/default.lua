@@ -6824,6 +6824,14 @@ return {
                     'card in your hand'
                 }
             },
+            c_aij_tallow = {
+                name = 'Tallow',
+                text = {
+                    'Add a {V:1}#2#',
+                    'to {C:attention}#1#{} selected',
+                    'cards in your hand'
+                }
+            },
             c_aij_ketu = {
                 name = 'Ketu',
                 text = {
@@ -6956,14 +6964,7 @@ return {
                     '{C:attention}#1#{} is played',
                 }
             },
-            c_aij_tallow = {
-                name = 'Tallow',
-                text = {
-                    'Add a {V:1}#2#',
-                    'to {C:attention}#1#{} selected',
-                    'cards in your hand'
-                }
-            },
+            
         },
         Tag = {
             tag_aij_glimmer = {

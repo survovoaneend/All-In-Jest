@@ -444,7 +444,7 @@ AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
             card.VT.h = card.T.h
             local area = cardArea
             if(card.config.center) then
-                card:set_sprites(card.config.center)
+                card:set_sprites(card.config.center, card.config.card)
             end
             area:emplace(card)
         end
