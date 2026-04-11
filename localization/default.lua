@@ -59,6 +59,13 @@ return {
                 '{C:attention}Playing cards{} added to the',
                 'deck have random {C:attention}deck skins'
             },
+            aij_guess_names = 'Guess the Jest Names',
+            aij_guess_names_tooltip = {
+                'Accessibility option for {C:purple}Guess',
+                '{C:purple}the Jest Packs{}, showing the',
+                'names of the Jokers',
+                '{s:0.8,C:inactive}(but not their descriptions)'
+            },
             k_aij_guess_the_jest = "Guess the Jest",
             k_aij_memory_card = "Memorized!", -- Memory Card, currently unused
             aij_plus_tag = "+1 Tag", -- Various jokers
@@ -4965,6 +4972,12 @@ return {
                     "{C:attention}unchanged{} when reversed",
                     "{C:inactive}ex. 33, 151, 3003{}"
                 }
+            },
+            guess_the_jest_hidden={
+                name="???",
+                text={
+                    "{C:inactive,E:1,s:1.5}???{}",
+                },
             },
             -- Stickers
             aij_marked = {
