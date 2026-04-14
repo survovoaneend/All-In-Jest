@@ -1,0 +1,14 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 2147483647
+
+# Fixes crash and "ERROR of ERROR" UI when using Cryptid with All in Jest
+# Prevents UI generation from calling localize() with nil rank/suit data
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if specific_vars and specific_vars.ccd then"
+position = "at"
+match_indent = true
+payload = "if specific_vars and specific_vars.ccd and specific_vars.ccd.value and specific_vars.ccd.suit then"
