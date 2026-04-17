@@ -12,7 +12,7 @@ local theyre_laughing_at_you = {
     cost = 10,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
@@ -20,7 +20,7 @@ local theyre_laughing_at_you = {
     end,
   
     calculate = function(self, card, context)
-        if context.end_of_round and context.main_eval and context.beat_boss and not context.blueprint then
+        if context.end_of_round and context.main_eval and context.beat_boss then
             local common_jokers = {}
             for _, j in ipairs(G.jokers.cards) do
                 if j.config.center.rarity == 1 and not j.edition then 

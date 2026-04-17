@@ -16,7 +16,7 @@ local dendroglyph = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
-
+    
     in_pool = function(self, args)
         if G.deck then
             if #G.deck.cards > 0 then

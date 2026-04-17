@@ -3249,7 +3249,8 @@ return {
                     "When a Joker with an {C:dark_edition}Edition{}",
                     "is {C:money}sold{}, apply its {C:dark_edition}Edition{} to",
                     "a random {C:attention}uneditioned{} Joker",
-                    "{C:inactive}(If possible)"
+                    "{C:inactive}(If possible)",
+                    "{C:inactive}(Excluding Negative)"
                 } 
             },
             j_aij_sunny_side = {

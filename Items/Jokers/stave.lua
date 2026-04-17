@@ -20,7 +20,7 @@ local stave = {
     end,
   
     calculate = function(self, card, context)
-        if context.selling_card and context.card.ability.set == 'Joker' and context.card.edition and not context.blueprint then
+        if context.selling_card and context.card.ability.set == 'Joker' and context.card.edition and not card.edition.key == 'e_negative' and not context.blueprint then
             
             local targets = {}
             for i = 1, #G.jokers.cards do
