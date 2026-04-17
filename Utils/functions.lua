@@ -519,6 +519,20 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'cookie_clicker',
+    name = 'Cookie Clicker',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
+    id = 'guilty_gear',
+    name = 'Guilty Gear',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
     id = 'fallout_nv',
     name = 'Fallout: New Vegas',
     suits = {
@@ -618,6 +632,16 @@ AllInJest.deck_skins = {
       'Spades',
       'Hearts',
       'Clubs',
+    }
+  },
+  {
+    id = 'the_hex',
+    name = 'The Hex',
+    suits = {
+      'Spades',
+      'Hearts',
+      'Clubs',
+      'Diamonds'
     }
   },
   {
@@ -1901,6 +1925,7 @@ end
 
 function All_in_Jest.find_multi_enhancement_pos(enhancement)
     local pos = 0
+    local atlas = nil
     if enhancement == 'm_bonus' then
         pos = 3
     elseif enhancement == 'm_mult' then
@@ -1925,10 +1950,13 @@ function All_in_Jest.find_multi_enhancement_pos(enhancement)
         pos = 12
     elseif enhancement == 'm_aij_canvas' then
         pos = 13
+    elseif enhancement == 'm_aij_simulated' then
+        pos = 0
+        atlas = 'aij_multi_simulated_atlas'
     elseif enhancement == 'm_aij_wood' then
         pos = 15
     end
-    return pos
+    return pos, atlas
 end
 
 function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
