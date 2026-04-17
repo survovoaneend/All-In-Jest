@@ -5,7 +5,7 @@ local silver_shader = {
 }
 SMODS.Sound {
   key = 'silver',
-  path = 'glimmer.mp3'
+  path = 'silver.mp3'
 }
 local silver = {
   object_type = "Edition",

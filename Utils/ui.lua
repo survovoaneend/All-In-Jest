@@ -150,7 +150,7 @@ SMODS.current_mod.config_tab = function()
   }
 end
 local joker_listing = {
-	{"j_aij_nevernamed_credits_joker", "j_aij_survivalaren_credits_joker", "j_aij_rattling_snow_credits_joker", "j_aij_jumbocarrot_credits_joker"},
+	{"j_aij_nevernamed_credits_joker", "j_aij_survivalaren_credits_joker", "j_aij_rattling_snow_credits_joker", "j_aij_jumbocarrot_credits_joker","j_aij_heavenbrand_credits_joker"},
 }
 -- Modify main page
 All_in_Jest.custom_ui = function(mod_nodes)
@@ -188,6 +188,7 @@ All_in_Jest.custom_ui = function(mod_nodes)
 	}
 	mod_nodes[#mod_nodes + 1] = {
 		n = G.UIT.R,
+    config = { align = "cm" },
 		nodes = {
 			{
 				n = G.UIT.C,
