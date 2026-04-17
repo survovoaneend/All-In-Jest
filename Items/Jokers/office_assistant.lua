@@ -51,16 +51,20 @@ local office_assistant = {
             end
         end,
 
-        use_ability = function(self, card)
+        use_ability = function(self, card, args)
+            args = args or {}
+            SMODS.calculate_context({all_in_jest = {joker_ability_used = true, card = card, retriggered = args.retriggered, args = args}})
             local right_card = nil
             for k, v in pairs(G.jokers.cards) do
                 if v == card and G.jokers.cards[k+1] then
                     right_card = G.jokers.cards[k+1]
                 end
             end
-            if right_card.ability.rental and to_big(G.GAME.dollars) >= to_big(right_card.config.center.cost) then
-                ease_dollars(-right_card.config.center.cost)
-                card_eval_status_text(card, 'dollars', -right_card.config.center.cost)
+            if right_card.ability.rental and ((to_big(G.GAME.dollars) >= to_big(right_card.config.center.cost)) or args.free) then
+                if not args.free then
+                    ease_dollars(-right_card.config.center.cost)
+                    card_eval_status_text(card, 'dollars', -right_card.config.center.cost)
+                end
                 G.E_MANAGER:add_event(Event({
                     func = (function()
                         right_card:juice_up(0.3, 0.5)
@@ -69,9 +73,11 @@ local office_assistant = {
                     end)
                 }))
                 card_eval_status_text(right_card, 'extra', nil, nil, nil, {message = localize('aij_paid_off')..'!'})
-            elseif right_card.ability.perishable and to_big(G.GAME.dollars) >= to_big(3) then
-                ease_dollars(-3)
-                card_eval_status_text(card, 'dollars', -3)
+            elseif right_card.ability.perishable and ((to_big(G.GAME.dollars) >= to_big(3)) or args.free) then
+                if not args.free then
+                    ease_dollars(-3)
+                    card_eval_status_text(card, 'dollars', -3)
+                end
                 G.E_MANAGER:add_event(Event({
                     func = (function()
                         right_card:juice_up(0.3, 0.5)
