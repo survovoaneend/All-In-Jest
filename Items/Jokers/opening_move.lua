@@ -58,7 +58,7 @@ local opening_move = {
                     focus = card
                 }
             end
-            if context.all_in_jest and context.all_in_jest.before_after and G.GAME.current_round.hands_played <= 0 and (hand_chips > 0 or mult > 0) then
+            if context.all_in_jest and context.all_in_jest.before_after and G.GAME.current_round.hands_played <= to_big(0) and (hand_chips > to_big(0) or mult > to_big(0)) then
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',delay = 0.4,
                     func = (function()
