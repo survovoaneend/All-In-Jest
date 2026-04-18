@@ -2,10 +2,9 @@ local jogre = {
     object_type = "Joker",
     order = 569,
     key = "jogre",
-    ignore = true,
     config = {
         extra = {
-            
+            dollars = 15
         }
     },
     rarity = 1,
@@ -20,15 +19,18 @@ local jogre = {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                
+                card.ability.extra.dollars,
             }
         }
     end,
 
-    calculate = function(self, card, context)
-        
-    end
+    all_in_jest = {
+        end_calc_dollar_bonus = function(self, card, cashout_dollars)
+            if card.ability.extra.dollars > 0 then
+                local dollar_bonus = card.ability.extra.dollars - cashout_dollars
+                return dollar_bonus
+            end
+        end
+    }
 }
-
-
 return { name = { "Jokers" }, items = { jogre } }
