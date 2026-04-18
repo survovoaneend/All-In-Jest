@@ -322,6 +322,7 @@ function SMODS.has_no_rank(card)
             return true
         end
     end
+    if card.ability.numbertaker_rankless then return true end
     return has_no_rank_ref(card)
 end
 

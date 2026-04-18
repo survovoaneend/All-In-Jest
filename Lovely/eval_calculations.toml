@@ -101,11 +101,11 @@ if next(SMODS.find_card("j_aij_run")) and card.config.center_key ~= 'j_aij_run' 
     if cur_index < run_index then
         local new_context = {joker_main = context.joker_main}
 
-        if context.joker_main and not context.before then
+        if context.joker_main and not context.initial_scoring_step then
             context.joker_main = nil
             context.aij_ran_away = true
         end
-        if context.before and context.main_eval and not context.aij_ran_away_new_before then
+        if context.initial_scoring_step and context.main_eval and not context.aij_ran_away_new_before then
             context.aij_ran_away_before = true
             context.aij_ran_away_new_before = true
             for k, v in pairs(context) do 
@@ -113,9 +113,9 @@ if next(SMODS.find_card("j_aij_run")) and card.config.center_key ~= 'j_aij_run' 
                     new_context[k] = v
                 end
             end
-            SMODS.calculate_context(new_context) -- Allows before to still be called
+            SMODS.calculate_context(new_context) -- Allows initial_scoring_step to still be called
             context.joker_main = true
-            context.before = nil
+            context.initial_scoring_step = nil
             context.aij_ran_away_new_before = nil
         end
     end
@@ -149,7 +149,7 @@ if next(SMODS.find_card("j_aij_run")) and card.config.center_key ~= 'j_aij_run' 
     end
     if cur_index < run_index then
         if context.aij_ran_away_before then
-            context.before = true
+            context.initial_scoring_step = true
             context.joker_main = nil
             context.aij_ran_away_before = nil
         end
