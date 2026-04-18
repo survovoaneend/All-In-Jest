@@ -2469,6 +2469,27 @@ target = "functions/state_events.lua"
 pattern = "add_round_eval_row({name = 'bottom', dollars = dollars*"
 position = "before"
 payload = '''
+local i = 0
+for _, area in ipairs(SMODS.get_card_areas('jokers')) do
+    for _, _card in ipairs(area.cards) do
+        local obj = _card.config.center
+        if obj.all_in_jest and obj.all_in_jest.end_calc_dollar_bonus and type(obj.all_in_jest.end_calc_dollar_bonus) == 'function' then
+            local ret, ret_opts = obj.all_in_jest:end_calc_dollar_bonus(_card, dollars)
+            ret_opts = ret_opts or {}
+    
+            -- TARGET: calc_dollar_bonus per card
+            if ret then
+                if not ret_opts.no_eval_row then
+                    i = i+1
+                    add_round_eval_row({dollars = ret, bonus = true, name='aij_joker'..i, pitch = pitch, card = _card, loc_opts = ret_opts})
+                    pitch = pitch + 0.06
+                end
+                dollars = dollars + ret
+            end
+        end
+    end
+end
+i = 0
 dollars = math.floor(dollars + 0.5)
 '''
 match_indent = true
@@ -2730,6 +2751,11 @@ match_indent = true
 payload = '''
 if next(SMODS.find_card("j_aij_pace")) and self.ability.set == 'Joker' then
     self.cost = math.max(1, math.floor((SMODS.find_card("j_aij_pace")[1].ability.extra.price + self.extra_cost + 0.5)*(100-G.GAME.discount_percent)/100))
+end
+if next(SMODS.find_card("j_aij_barcode")) and self.ability.set == 'Booster' then
+    for k, v in pairs(SMODS.find_card("j_aij_barcode")) do
+        self.cost = math.max(1, math.floor((self.cost + self.extra_cost + 0.5)*(100-v.ability.extra.sale)/100))
+    end
 end
 '''
 
