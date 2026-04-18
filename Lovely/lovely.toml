@@ -833,34 +833,31 @@ local jest_tag_nodes = {}
 local jest_tag_sprites = {}
 local jest_tag_info = {}
 if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
+    G.GAME.all_in_jest.blind_tags[blind_choice].page = G.GAME.all_in_jest.blind_tags[blind_choice].page or 0
     local temp_index = 0
     for i = 1, G.GAME.all_in_jest.blind_tags.amt do
-        if amt == 1 then
-            jest_tag_info[#jest_tag_info+1] = _tag
-            jest_tag_sprites[#jest_tag_sprites+1] = _tag_sprite
-            jest_tag_nodes[#jest_tag_nodes+1] = {n=G.UIT.C, config={id = 'tag_desc', align = "cm", minh = 1, hover = true, button = 'All_in_Jest_select_tag', func = 'aij_hover_tag_branching', ref_table = {i, _tag}}, nodes={ _tag_ui }}
-        else
-            G.GAME.all_in_jest.blind_tags[blind_choice] = G.GAME.all_in_jest.blind_tags[blind_choice] or {}
-            local jest_temp_tag = G.GAME.all_in_jest.blind_tags[blind_choice][i]
-            if not jest_temp_tag then
-                if i == 1 then -- Leftmost tag matches vanilla skip tag
-                    G.GAME.all_in_jest.blind_tags[blind_choice][i] = G.GAME.round_resets.blind_tags[blind_choice]
-                else
-                    local temp_index_two = 0
-                    G.GAME.all_in_jest.blind_tags[blind_choice][i] = get_next_tag_key()
-                    while G.GAME.all_in_jest.blind_tags[blind_choice][i] == G.GAME.round_resets.blind_tags[blind_choice] do
-                        temp_index_two = temp_index_two + 1
-                        G.GAME.all_in_jest.blind_tags[blind_choice][i] = get_next_tag_key('_resample_'..temp_index_two)
-                    end
-                end
-                jest_temp_tag = G.GAME.all_in_jest.blind_tags[blind_choice][i]
+        local jest_temp_tag = G.GAME.all_in_jest.blind_tags[blind_choice][i]
+        if not jest_temp_tag then
+            if i == 1 then -- Leftmost tag matches vanilla skip tag
+                G.GAME.all_in_jest.blind_tags[blind_choice][i] = G.GAME.round_resets.blind_tags[blind_choice]
+            else
+                local temp_index_two = 0
+                G.GAME.all_in_jest.blind_tags[blind_choice][i] = get_next_tag_key('aij_no_blind_dupes_'..blind_choice)
             end
+            jest_temp_tag = G.GAME.all_in_jest.blind_tags[blind_choice][i]
+        end
+    end
+    for i = 1, 3 do
+        local index = i+(G.GAME.all_in_jest.blind_tags[blind_choice].page*3)
+        if G.GAME.all_in_jest.blind_tags[blind_choice][index] then
+            G.GAME.all_in_jest.blind_tags[blind_choice] = G.GAME.all_in_jest.blind_tags[blind_choice] or {}
+            local jest_temp_tag = G.GAME.all_in_jest.blind_tags[blind_choice][index]
             local _tag_2 = Tag(jest_temp_tag, nil, blind_choice)
             local _tag_ui_2, _tag_sprite_2 = _tag_2:generate_UI()
             _tag_sprite_2.states.collide.can = not not run_info
             jest_tag_info[#jest_tag_info+1] = _tag_2
             jest_tag_sprites[#jest_tag_sprites+1] = _tag_sprite_2
-            jest_tag_nodes[#jest_tag_nodes+1] = {n=G.UIT.C, config={id = 'tag_desc', align = "cm", minh = 1, hover = true, button = 'All_in_Jest_select_tag', func = 'aij_hover_tag_branching', ref_table = {i, _tag_2}}, nodes={ _tag_ui_2 }}
+            jest_tag_nodes[#jest_tag_nodes+1] = {n=G.UIT.C, config={id = 'tag_desc', align = "cm", minh = 1, hover = true, button = 'All_in_Jest_select_tag', func = 'aij_hover_tag_branching', ref_table = {index, _tag_2}}, nodes={ _tag_ui_2 }}
         end
     end
 end
@@ -879,7 +876,17 @@ pattern = '''
 position = "before"
 payload = '''
 G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 and {n=G.UIT.R, config={id = 'tag_'..blind_choice, align = "cm", r = 0.1, padding = 0.1, minw = 1, can_collide = true, ref_table = jest_tag_sprites}, nodes={
-        {n=G.UIT.R, config={align = "cm", r = 0.1, maxw = 1}, nodes=jest_tag_nodes},
+        {n=G.UIT.R, config={align = "cm", r = 0.1}, nodes = {
+            not run_info and jest_tag_nodes[1].config.ref_table[1] ~= 1 and {n=G.UIT.C, config={id = 'aij_page_button', align = "cm",r = 0.1, minw = 0.4, maxh = 0.3, scale = 1, hover = true, colour = G.C.RED, shadow = true, button = 'jest_tag_choice_next_page', ref_table = {-1, blind_choice}, focus_args = {type = 'none'}}, nodes={
+                {n=G.UIT.T, config={text = '<', scale = 0.5, colour = G.C.WHITE}}
+            }} or nil,
+            jest_tag_nodes[1],
+            jest_tag_nodes[2],
+            jest_tag_nodes[3],
+            not run_info and G.GAME.all_in_jest.blind_tags.amt > 3+(G.GAME.all_in_jest.blind_tags[blind_choice].page*3) and {n=G.UIT.C, config={id = 'aij_page_button', align = "cm",r = 0.1, minw = 0.4, maxh = 0.3, scale = 1, hover = true, colour = G.C.RED, shadow = true, button = 'jest_tag_choice_next_page', ref_table = {1, blind_choice}, focus_args = {type = 'none'}}, nodes={
+                {n=G.UIT.T, config={text = '>', scale = 0.5, colour = G.C.WHITE}}
+            }} or nil,
+        }},
         not run_info and {n=G.UIT.R, config={align = "cm", colour = G.C.UI.BACKGROUND_INACTIVE, minh = 0.8, minw = 2, maxw = 2, padding = 0.07, r = 0.1, shadow = true, hover = true, one_press = true, button = 'skip_blind', func = 'hover_tag_proxy', ref_table = jest_tag_info}, nodes={
             {n=G.UIT.T, config={text = localize('b_skip_blind'), scale = 0.4, colour = G.C.UI.TEXT_INACTIVE}}
         }} or {n=G.UIT.R, config={align = "cm", padding = 0.1, emboss = 0.05, colour = mix_colours(G.C.BLUE, G.C.BLACK, 0.4), r = 0.1, maxw = 2}, nodes={
@@ -929,9 +936,13 @@ if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.
               _tag.children[2].config.colour = G.C.UI.BACKGROUND_INACTIVE
               _tag.children[2].children[1].config.colour = G.C.UI.TEXT_INACTIVE
               for i = 1, #_tag.children[1].children do
-                local _sprite = _tag.config.ref_table[i]
-                _sprite.config.force_focus = nil
-                _tag.children[1].children[i].config.button = 'All_in_Jest_select_tag'
+                local index = i
+                if _tag.children[1].children[i].config.id ~= 'aij_page_button' then
+                    if _tag.children[1].children[1].config.id == 'aij_page_button' then index = i - 1 end
+                    local _sprite = _tag.config.ref_table[index]
+                    _sprite.config.force_focus = nil
+                    _tag.children[1].children[i].config.button = 'All_in_Jest_select_tag'
+                end
               end
             end
             if _top_button then
@@ -977,9 +988,13 @@ if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.
               _tag.children[2].config.colour = G.C.UI.BACKGROUND_INACTIVE
               _tag.children[2].children[1].config.colour = G.C.UI.TEXT_INACTIVE
               for i = 1, #_tag.children[1].children do
-                _tag.children[1].children[i].config.button = nil
-                local _sprite = _tag.config.ref_table[i]
-                _sprite.config.force_focus = true
+                local index = i
+                if _tag.children[1].children[i].config.id ~= 'aij_page_button' then
+                    if _tag.children[1].children[1].config.id == 'aij_page_button' then index = i - 1 end
+                    _tag.children[1].children[i].config.button = nil
+                    local _sprite = _tag.config.ref_table[index]
+                    _sprite.config.force_focus = true
+                end
               end
             end
             if _top_button then 
@@ -1010,7 +1025,7 @@ payload = '''
 -- All in Jest patch
 if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
     if e.states.hover.is and (e.created_on_pause == G.SETTINGS.paused) and not e.alert and G.GAME.all_in_jest.blind_tags.selected_index and e.parent.config.id == 'tag_'..G.GAME.blind_on_deck then
-      local _sprite = e.config.ref_table[G.GAME.all_in_jest.blind_tags.selected_index]:get_uibox_table()
+      local _sprite = e.config.ref_table[G.GAME.all_in_jest.blind_tags.selected_index-(G.GAME.all_in_jest.blind_tags[G.GAME.blind_on_deck].page*3)]:get_uibox_table()
       e.alert = UIBox{
           definition = G.UIDEF.card_h_popup(_sprite),
           config = {align="tm", offset = {x = 0, y = -0.1},
@@ -1086,7 +1101,7 @@ check_for_unlock({type = 'skip_count'})
 if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
     _tag = e.UIBox:get_UIE_by_ID('tag_'..G.GAME.blind_on_deck)
     if _tag then 
-      add_tag(_tag.children[2].config.ref_table[G.GAME.all_in_jest.blind_tags.selected_index])
+      add_tag(_tag.children[2].config.ref_table[G.GAME.all_in_jest.blind_tags.selected_index-(G.GAME.all_in_jest.blind_tags[G.GAME.blind_on_deck].page*3)])
       G.GAME.all_in_jest.blind_tags.selected_index = nil
       local skipped, skip_to = G.GAME.blind_on_deck or 'Small', 
       G.GAME.blind_on_deck == 'Small' and 'Big' or G.GAME.blind_on_deck == 'Big' and 'Boss' or 'Boss'
@@ -1800,6 +1815,55 @@ local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest Golden Tag', nil,
 _gold_pool = {}
 for i = 1, #_temp_gold_pool do
     _gold_pool[i] = _temp_gold_pool[i]
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "local _pool, _pool_key = get_current_pool('Tag', nil, nil, append)"
+position = "after"
+match_indent = true
+payload = '''
+for k, v in pairs(G.GAME.all_in_jest.blind_tags) do
+    if append and append == 'aij_no_blind_dupes_'..k then
+        for k_, v_ in ipairs(v) do
+            if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
+                for _, j in pairs(_gold_pool) do
+                    if v == j or j == G.GAME.round_resets.blind_tags[k] then
+                        j = 'UNAVAILABLE'
+                    end
+                end
+            end
+            if #_pool > 0 and _pool[1] ~= 'tag_handy'  then
+                for _, j in pairs(_pool) do
+                    if v == j or j == G.GAME.round_resets.blind_tags[k] then
+                        j = 'UNAVAILABLE'
+                    end
+                end
+            end
+        end
+    end
+end
+local t_index = 0
+for _, j in pairs(_pool) do
+    if j == 'UNAVAILABLE' then
+        t_index = t_index + 1
+    end
+end
+if t_index == #_pool then _pool, _pool_key = get_current_pool('Tag', nil, nil, append) end
+t_index = 0
+for _, j in pairs(_gold_pool) do
+    if j == 'UNAVAILABLE' then
+        t_index = t_index + 1
+    end
+end
+if t_index == #_gold_pool then 
+    _temp_gold_pool, _gold_pool_key = get_current_pool('Jest Golden Tag', nil, nil, append and append..'_gold' or '_gold')
+    _gold_pool = {}
+    for i = 1, #_temp_gold_pool do
+        _gold_pool[i] = _temp_gold_pool[i]
+    end
 end
 '''
 
