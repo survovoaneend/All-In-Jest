@@ -23,6 +23,32 @@ if next(bullet_kings) and context.cardarea == G.play and card:get_id() == 13 the
     SMODS.score_card(card, context)
     context.cardarea = G.play
 end
+-- For Bouffon
+if next(SMODS.find_card("j_aij_bouffon")) and context.cardarea == G.deck then
+    for k, v in pairs(SMODS.find_card("j_aij_bouffon")) do
+        for i = 1, v.ability.extra.cards do
+            local bouf_card = G.deck.cards[#G.deck.cards-(v.ability.extra.cards-i)]
+            if bouf_card and bouf_card == card then
+                context.cardarea = G.hand
+                SMODS.score_card(card, context)
+                context.cardarea = G.deck
+            end
+        end
+    end
+end
+if next(SMODS.find_card("j_aij_ninja")) and context.cardarea == G.play and not context.j_aij_ninja_triggered then
+    for k, v in pairs(SMODS.find_card("j_aij_ninja")) do
+        if card == G.play.cards[#G.play.cards] then
+            context.j_aij_ninja_triggered = true
+            card_eval_status_text(G.play.cards[1], 'extra', nil, nil, nil, {
+                message = localize('k_again_ex'),
+                colour = G.C.FILTER
+            })
+            SMODS.score_card(G.play.cards[1], context)
+            context.j_aij_ninja_triggered = nil
+        end
+    end
+end
 '''
 # Bullet King (2/3) 
 # Scored cards trigger end of round in hand effects

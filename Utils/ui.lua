@@ -188,6 +188,24 @@ end
 --  end
 --  G:save_settings()
 --end
+
+function aij_get_UIE_by_fob(self, id, node)
+    if not node then node = self end
+    if node.config and (node.config.func == id or node.config.button == id) then return node end
+    for k, v in pairs(node.children) do
+        local res = aij_get_UIE_by_fob(self, id, v)
+        if res then
+            return res
+        elseif v.config.object and v.config.object.aij_get_UIE_by_fob then
+            res = v.config.object:aij_get_UIE_by_fob(id, nil)
+            if res then
+                return res
+            end
+        end
+    end
+    return nil
+end
+
 G.FUNCS.jest_free_reroll_boss = function(e) 
     stop_use()
     if G.GAME.jest_free_stultor_rerolls == 0 then
