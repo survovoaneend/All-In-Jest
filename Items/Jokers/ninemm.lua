@@ -1,9 +1,9 @@
-local 9mm = {
+local ninemm = {
     object_type = "Joker",
     order = 636,
     ignore = true,
 
-    key = "9mm",
+    key = "ninemm",
     config = {
 
     },
@@ -24,4 +24,4 @@ local 9mm = {
 
     end
 }
-return { name = {"Jokers"}, items = {9mm} }
+return { name = {"Jokers"}, items = {ninemm} }

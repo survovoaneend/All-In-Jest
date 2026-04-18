@@ -2,10 +2,9 @@ local bouffon = {
     object_type = "Joker",
     order = 501,
     key = "bouffon",
-    ignore = true,
     config = {
         extra = {
-            
+            cards = 5
         }
     },
     rarity = 1,
@@ -15,12 +14,12 @@ local bouffon = {
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                
+                card.ability.extra.cards,
             }
         }
     end,
