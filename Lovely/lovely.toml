@@ -3,8 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
-
 # Bullet King (1/3)
 # Scored cards act as in hand
 [[patches]]

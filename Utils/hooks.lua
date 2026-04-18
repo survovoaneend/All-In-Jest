@@ -650,8 +650,8 @@ function SMODS.upgrade_poker_hands(args)
         local new_args = {
             hands = "aij_Royal Flush",
             parameters = args.parameters,
-            func = function(base, hand, parameter)
-                return args.func(base, "Straight Flush", parameter)
+            func = function(base, hand, parameter, level_up)
+                return args.func(base, "Straight Flush", parameter, level_up)
             end,
             level_up = args.level_up,
             instant = true,

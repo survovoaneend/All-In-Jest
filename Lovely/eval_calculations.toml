@@ -87,6 +87,39 @@ pattern = "if not card:can_calculate(context.ignore_debuff, context.remove_playi
 position = "before"
 match_indent = true
 payload = '''
+if next(SMODS.find_card("j_aij_run")) and card.config.center_key ~= 'j_aij_run' and card.ability.set == "Joker" then
+    local index, cur_index, run_index = 0, 0, 0
+    for k, v in pairs(G.jokers.cards) do
+        index = index + 1
+        if v.config.center_key == 'j_aij_run' then
+            run_index = index
+        end
+        if v == card then
+            cur_index = index
+        end
+    end
+    if cur_index < run_index then
+        local new_context = {joker_main = context.joker_main}
+
+        if context.joker_main and not context.before then
+            context.joker_main = nil
+            context.aij_ran_away = true
+        end
+        if context.before and context.main_eval and not context.aij_ran_away_new_before then
+            context.aij_ran_away_before = true
+            context.aij_ran_away_new_before = true
+            for k, v in pairs(context) do 
+                if k ~= 'joker_main' then
+                    new_context[k] = v
+                end
+            end
+            SMODS.calculate_context(new_context) -- Allows before to still be called
+            context.joker_main = true
+            context.before = nil
+            context.aij_ran_away_new_before = nil
+        end
+    end
+end
 if context.joker_main and next(SMODS.find_card("j_aij_greasepaint")) and not context.blueprint then
     for k, v in pairs(SMODS.find_card("j_aij_greasepaint")) do
         if card.debuff then
@@ -95,6 +128,40 @@ if context.joker_main and next(SMODS.find_card("j_aij_greasepaint")) and not con
     end
 end
 '''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "return ret, post_trig"
+position = "before"
+match_indent = true
+payload = '''
+if next(SMODS.find_card("j_aij_run")) and card.config.center_key ~= 'j_aij_run' and card.ability.set == "Joker" then
+    local index, cur_index, run_index = 0, 0, 0
+    for k, v in pairs(G.jokers.cards) do
+        index = index + 1
+        if v.config.center_key == 'j_aij_run' then
+            run_index = index
+        end
+        if v == card then
+            cur_index = index
+        end
+    end
+    if cur_index < run_index then
+        if context.aij_ran_away_before then
+            context.before = true
+            context.joker_main = nil
+            context.aij_ran_away_before = nil
+        end
+        if context.aij_ran_away then
+            context.joker_main = true
+            context.aij_ran_away = nil
+        end
+    end
+end
+'''
+
+
 
 [[patches]] #For debuffed played cards
 [patches.pattern]
