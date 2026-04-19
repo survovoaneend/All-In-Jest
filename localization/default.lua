@@ -356,6 +356,20 @@ return {
                     'more {C:attention}frequently'
                 },
             },
+            sleeve_aij_branching = {
+                name = "Branching Sleeve",
+                text = {
+                    'Skips offer a choice',
+                    'between {C:attention}3{} Tags',
+                }
+            },
+            sleeve_aij_branching_alt = {
+                name = "Branching Sleeve",
+                text = {
+                    'Skips offer {C:attention}2{} additional',
+                    'Tag choices'
+                },
+            },
             sleeve_aij_patchwork = {
                 name = "Patchwork Sleeve",
                 text = {
