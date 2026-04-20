@@ -11,6 +11,7 @@ pattern = "-- TARGET: evaluate your own general effects"
 position = "before"
 match_indent = true
 payload = '''
+if card.ability.numbertaker_rankless and card.base.nominal > 0 then card.base.nominal = 1 end
 if context.ending_booster and G.GAME.all_in_jest.dizzard_shop and G.shop.alignment.offset.y ~= -5.3 then
     G.E_MANAGER:add_event(Event({
         trigger = 'after',

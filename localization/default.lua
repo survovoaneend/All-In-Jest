@@ -5394,7 +5394,15 @@ return {
             j_aij_numbertaker = {
                 name = "Numbertaker",
                 text = {
-                    ''
+                    {
+                        'Removes the {C:attention}ranks{} of',
+                        'scored {C:attention}numbered{} cards'
+                    },
+                    {
+                        'This {C:attention}Joker{} gains {C:mult}mult{} equal',
+                        'to removed ranks',
+                        '{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)',
+                    }
                 }
             },
             j_aij_goon_joker = {
@@ -7431,6 +7439,11 @@ return {
             },
         },
         Other = {
+            aij_suit_only_playing_card = {
+                text = {
+                    " {V:1}#1# "
+                }
+            },
             aij_future_sight_tip = {
                 name = "fs",
                 text = {

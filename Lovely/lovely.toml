@@ -260,6 +260,10 @@ position = "before"
 match_indent = true
 payload = '''
 elseif _c.key == 'm_aij_canvas' and specific_vars.front_hidden then full_UI_table.name = true
+elseif (card and card.ability and card.ability.numbertaker_rankless) then
+    full_UI_table.name = {}
+    localize{type = 'other', key = 'aij_suit_only_playing_card', set = 'Other', nodes = full_UI_table.name, vars = {localize(specific_vars.suit, 'suits_plural'), colours = {specific_vars.colour}}}
+    full_UI_table.name = full_UI_table.name[1]
 '''
 
 # Suit Patches
@@ -2459,6 +2463,20 @@ end
 other.ability.jest_copy_edition = false
 '''
 
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if new_card.ability and (new_card.ability.set == 'Default' or new_card.ability.set == 'Enhanced') then"
+position = "before"
+match_indent = true
+payload = '''
+if other.ability.numbertaker_rankless and other.config.card then
+    new_card.ability.numbertaker_rankless = true
+    if new_card.base.nominal > 0 then new_card.base.nominal = 1 end
+    new_card:set_sprites(nil, other.config.card)
+end
+'''
+
 # Round dollars earned at the end of the round to the nearest whole number
 # G.FUNCS.evaluate_round()
 [[patches]] 
@@ -3601,6 +3619,7 @@ match_indent = true
 payload = '''
 self.all_in_jest = self.all_in_jest or {}
 self.all_in_jest.patches_sprites = {}
+self.all_in_jest.numbertaker_rankless = {}
 self.all_in_jest.extra_card_sprites = {}
 G.all_in_jest.extra_card_sprites['Mark_of_the_Spear'] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=9,y=2})
 G.all_in_jest.patches_sprites["Other"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=0,y=2})
@@ -3620,6 +3639,19 @@ G.all_in_jest.patches_sprites["bunc_Halberds"] = SMODS.create_sprite(0,0,G.CARD_
 G.all_in_jest.patches_sprites["hc_bunc_Halberds"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=8,y=3})
 G.all_in_jest.patches_sprites["bunc_Fleurons"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=7,y=3})
 G.all_in_jest.patches_sprites["hc_bunc_Fleurons"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=9,y=3})
+G.all_in_jest.numbertaker_rankless["Other"] = {atlas = 'aij_enhancements_atlas', pos = {x=6, y=4}}
+G.all_in_jest.numbertaker_rankless["Hearts"] = {atlas = 'aij_enhancements_atlas', pos = {x=0, y=4}}
+G.all_in_jest.numbertaker_rankless["Clubs"] = {atlas = 'aij_enhancements_atlas', pos = {x=1, y=4}}
+G.all_in_jest.numbertaker_rankless["Spades"] = {atlas = 'aij_enhancements_atlas', pos = {x=3, y=4}}
+G.all_in_jest.numbertaker_rankless["Diamonds"] = {atlas = 'aij_enhancements_atlas', pos = {x=2, y=4}}
+G.all_in_jest.numbertaker_rankless["hc_Hearts"] = {atlas = 'aij_enhancements_atlas', pos = {x=0, y=5}}
+G.all_in_jest.numbertaker_rankless["hc_Clubs"] = {atlas = 'aij_enhancements_atlas', pos = {x=1, y=5}}
+G.all_in_jest.numbertaker_rankless["hc_Spades"] = {atlas = 'aij_enhancements_atlas', pos = {x=3, y=5}}
+G.all_in_jest.numbertaker_rankless["hc_Diamonds"] = {atlas = 'aij_enhancements_atlas', pos = {x=2, y=5}}
+G.all_in_jest.numbertaker_rankless["paperback_Crowns"] = {atlas = 'aij_enhancements_atlas', pos = {x=4, y=4}}
+G.all_in_jest.numbertaker_rankless["hc_paperback_Crowns"] = {atlas = 'aij_enhancements_atlas', pos = {x=4, y=5}}
+G.all_in_jest.numbertaker_rankless["paperback_Stars"] = {atlas = 'aij_enhancements_atlas', pos = {x=5, y=4}}
+G.all_in_jest.numbertaker_rankless["hc_paperback_Stars"] = {atlas = 'aij_enhancements_atlas', pos = {x=5, y=5}}
 
 for k, v in pairs(G) do
     if string.sub(k, 13) == 'G_all_in_jest' then

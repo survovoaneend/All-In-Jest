@@ -32,6 +32,143 @@ function jest_poll_tag(seed, options)
   return tag
 end
 
+function aij_pasteAlpha(base, layer, posb, posl, args)
+    args = args or {}
+    posb = posb or {x=0, y=0}
+    posl = posl or {x=0, y=0}
+
+    local lw, lh = layer:getWidth(), layer:getHeight()
+    local bw, bh = base:getWidth(), base:getHeight()
+
+    local lpx = args.lpx and args.lpx * G.SETTINGS.GRAPHICS.texture_scaling or lw
+    local lpy = args.lpy and args.lpy * G.SETTINGS.GRAPHICS.texture_scaling or lh
+    local bpx = args.bpx and args.bpx * G.SETTINGS.GRAPHICS.texture_scaling or bw
+    local bpy = args.bpy and args.bpy * G.SETTINGS.GRAPHICS.texture_scaling or bh
+
+    local lx0 = posl.x * lpx
+    local ly0 = posl.y * lpy
+    local bx0 = posb.x * bpx
+    local by0 = posb.y * bpy
+
+    local lx1 = math.min(lx0 + lpx, lw)
+    local ly1 = math.min(ly0 + lpy, lh)
+    local bx1 = math.min(bx0 + bpx, bw)
+    local by1 = math.min(by0 + bpy, bh)
+
+    for x = 0, math.min(lx1 - lx0, bx1 - bx0) - 1 do
+        for y = 0, math.min(ly1 - ly0, by1 - by0) - 1 do
+
+            local r, g, b, a = layer:getPixel(lx0 + x, ly0 + y)
+
+            if (not args.reverse and a > 0) or (args.reverse and a <= 0) then
+                base:setPixel(bx0 + x, by0 + y, r, g, b, a)
+            end
+        end
+    end
+end
+
+function aij_recolour_atlas(card, old_colour, new_colour, atlas, front)
+    local image_data = atlas.image_data:clone()
+
+    image_data:mapPixel(function(x, y, r, g, b, a)
+        return aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour)
+    end)
+    if front then 
+        card.children.front.atlas = {
+            px = atlas.px,
+            py = atlas.py,
+            name = atlas.name,
+            image_data = image_data,
+            image = love.graphics.newImage(image_data, {
+                mipmaps = true,
+                dpiscale = G.SETTINGS.GRAPHICS.texture_scaling
+            })
+        }
+    else
+        card.children.center.atlas = {
+            px = atlas.px,
+            py = atlas.py,
+            name = atlas.name,
+            image_data = image_data,
+            image = love.graphics.newImage(image_data, {
+                mipmaps = true,
+                dpiscale = G.SETTINGS.GRAPHICS.texture_scaling
+            })
+        }
+    end
+end
+
+function aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour, tolerance)
+    tolerance = tolerance or 0.01
+
+    if math.abs(r - old_colour[1]) <= tolerance
+    and math.abs(g - old_colour[2]) <= tolerance
+    and math.abs(b - old_colour[3]) <= tolerance then
+        return new_colour[1], new_colour[2], new_colour[3], a
+    end
+
+    return r, g, b, a
+end
+
+function aij_get_mcc_pixel(base, posb, args)
+    args = args or {}
+    posb = posb or {x=0, y=0}
+
+    local bw, bh = base:getWidth(), base:getHeight()
+
+    local bpx = args.bpx and args.bpx * G.SETTINGS.GRAPHICS.texture_scaling or bw
+    local bpy = args.bpy and args.bpy * G.SETTINGS.GRAPHICS.texture_scaling or bh
+
+    local bx0 = posb.x * bpx
+    local by0 = posb.y * bpy
+
+    local bx1 = math.min(bx0 + bpx, bw)
+    local by1 = math.min(by0 + bpy, bh)
+
+    local color_counts = {}
+
+    for x = 0, (bx1 - bx0) - 1 do
+        for y = 0, (by1 - by0) - 1 do
+            local r, g, b, a = base:getPixel(bx0 + x, by0 + y)
+
+            if a > 0 then
+                local key = r .. "," .. g .. "," .. b
+                color_counts[key] = (color_counts[key] or 0) + 1
+            end
+        end
+    end
+
+    local best_key, best_count = nil, 0
+    for key, count in pairs(color_counts) do
+        if count > best_count then
+            best_key = key
+            best_count = count
+        end
+    end
+
+    if not best_key then
+        return nil
+    end
+
+    local r, g, b = best_key:match("([^,]+),([^,]+),([^,]+)")
+    return {
+        [1] = tonumber(r),
+        [2] = tonumber(g),
+        [3] = tonumber(b)
+    }
+end
+
+function aij_remove_rank(card)
+    G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+            card.ability.numbertaker_rankless = true
+            card:set_sprites(nil, card.config.card)
+            return true
+        end
+    }))
+end
+
 function next_palindrome(n)
     n = math.ceil(n)
     while true do
