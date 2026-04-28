@@ -5,7 +5,7 @@ local aureate_shader = {
 }
 SMODS.Sound {
   key = 'aureate',
-  path = 'aureate.ogg'
+  path = 'glimmer.mp3'
 }
 local aureate = {
   object_type = "Edition",

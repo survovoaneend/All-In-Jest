@@ -5,7 +5,7 @@ local sanguine_joker = {
     key = "sanguine_joker",
     config = {
         extra = {
-            odds = 13
+            odds = 10
         }
     },
     rarity = 3,

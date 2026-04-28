@@ -5,7 +5,7 @@ local tipteerer = {
   key = "tipteerer",
   config = {
     extra = {
-      percent = 25,
+      percent = 20,
     }
   },
   rarity = 2,
