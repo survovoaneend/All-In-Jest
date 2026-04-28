@@ -64,7 +64,7 @@ local polybius = {
                 local text, poker_hands, scoring_hand = JokerDisplay.evaluate_hand()
                 if poker_hands then
                     for k, v in pairs(poker_hands) do
-                        if G.GAME.hands[k] and next(poker_hands[k]) then
+                        if k ~= text and G.GAME.hands[k] and next(poker_hands[k]) then
                             chip_total = chip_total + to_big(G.GAME.hands[k].chips)
                             mult_total = mult_total + to_big(G.GAME.hands[k].mult)
                         end

@@ -102,6 +102,21 @@ local right_angle = {
                 }
             end
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                
+                card.joker_display_values.localized_text = localize('9', 'ranks') .. " > " .. localize('10', 'ranks')
+            end
+        }
     end
   
 }

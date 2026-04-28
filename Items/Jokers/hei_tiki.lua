@@ -49,10 +49,16 @@ local hei_tiki = {
         ---@type JDJokerDefinition
         return {
             text = {
-                { text = "+" },
-                { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult" }
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.joker_display_values", ref_value = "xmult", retrigger_type = "exp" }
+                    }
+                }
             },
-            text_config = { colour = G.C.MULT },
+            calc_function = function(card)
+                card.joker_display_values.xmult = 1 + card.ability.extra.xmult
+            end
         }
     end
   
