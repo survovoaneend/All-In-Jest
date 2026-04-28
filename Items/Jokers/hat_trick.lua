@@ -36,7 +36,7 @@ local hat_trick = {
         end
       end
     end,
-
+    
     joker_display_def = function(JokerDisplay)
         ---@type JDJokerDefinition
         return {

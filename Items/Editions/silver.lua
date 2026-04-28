@@ -18,7 +18,7 @@ local silver = {
   order = 1,
   config = { mult = 1.5, prevmult = "1.5" },
   loc_vars = function(self, info_queue, card)
-    return { vars = { (card.edition or {}).extra.mult or self.config.extra.mult } }
+    return { vars = { (card.edition or {}).mult or self.config.mult } }
   end,
   on_apply = function(card)
     if not card.ability.jest_silver_active then
@@ -29,7 +29,7 @@ local silver = {
         end
         jest_ability_calculate(
           card,
-          "*", card.edition.extra.mult,
+          "*", card.edition.mult,
           { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
           nil, true, false, "ability"
         )
@@ -64,7 +64,7 @@ local silver = {
       end
       jest_ability_calculate(
         card,
-        "/", card.edition.extra.mult,
+        "/", card.edition.mult,
         { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
         nil, true, false, "ability"
       )
@@ -120,7 +120,7 @@ function Card:update(dt)
         )
         jest_ability_calculate(
           self,
-          "*", self.edition.extra.mult,
+          "*", self.edition.mult,
           { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
           nil, true, false, "ability"
         )
