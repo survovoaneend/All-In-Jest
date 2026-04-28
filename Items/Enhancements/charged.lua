@@ -61,35 +61,17 @@ function Card:update(dt)
   local b = (has_founding_father and 1 or 0.5) -- base of exponential
   local factor = 1 + (b*current_count)
   local diff = factor/prev_factor
-  
+  -- NOTE concern about imprecision
   if diff ~= 1 then
-    local inherent_keys = {}
-    local function extract_keys(tbl)
-      if type(tbl) ~= "table" then return end
-      for k, v in pairs(tbl) do
-        table.insert(inherent_keys, k)
-        if type(v) == "table" then
-          extract_keys(v)
-        end
-      end
-    end
-    
-    if self.config and self.config.center and self.config.center.config then
-      extract_keys(self.config.center.config)
-    end
-
-    if #inherent_keys > 0 then
-      jest_ability_calculate(
-        self,
-        "*", diff,
-        { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true, card_limit=true },
-        inherent_keys, 
-        true, 
-        true,    
-        "ability"
-      )
-    end
-    
+    jest_ability_calculate(
+      self,
+      "*", diff,
+      { 
+        h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value=true, card_limit=true,
+        bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+      },
+      nil, true, false, "ability"
+    )
     applied.factor = factor
   end
   return ref

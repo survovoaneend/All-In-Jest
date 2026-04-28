@@ -6,5 +6,4 @@ return {
   ['random_deck_skins'] = true,
   ['red_destroy_text'] = true,
   ['aij_lite'] = false,
-  ['guess_names'] = false,
 }
