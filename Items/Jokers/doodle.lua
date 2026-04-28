@@ -123,8 +123,19 @@ local doodle = {
             { ref_table = "card.joker_display_values", ref_value = "active" },
             { text = ")" },
         },
+        extra = {
+            {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "odds" },
+                { text = ")" },
+            }
+        },
+        extra_config = { colour = G.C.GREEN, scale = 0.3 },
         calc_function = function(card)
             card.joker_display_values.active = (G.GAME.round % 2) == 0 and localize('k_active') or localize('k_inactive')
+            local numerator, denominator = 1, card.ability.extra.odds
+            numerator, denominator = SMODS.get_probability_vars(card, numerator, denominator, 'doodle')
+            card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { numerator, denominator } }
         end,
     }
   end

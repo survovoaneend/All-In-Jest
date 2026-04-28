@@ -71,7 +71,7 @@ local squeezy_pete = {
                 {
                     border_nodes = {
                         { text = "X" },
-                        { ref_table = "card.ability.extra", ref_value = "xmult", retrigger_type = "exp" }
+                        { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
                     }
                 }
             },
@@ -82,6 +82,16 @@ local squeezy_pete = {
             },
             calc_function = function(card)
                 card.joker_display_values.localized_text = localize('Full House', 'poker_hands')
+                local text, poker_hands, _ = JokerDisplay.evaluate_hand()
+                local hand_exists = text ~= 'Unknown' and G.GAME.hands and G.GAME.hands[text]
+                card.joker_display_values.x_mult = card.ability.extra.xmult
+                if text ~= 'Unknown' and hand_exists then
+                    if next(poker_hands['Full House']) then
+                        card.joker_display_values.x_mult = card.ability.extra.xmult + card.ability.extra.bonus
+                    else
+                        card.joker_display_values.x_mult = 1
+                    end
+                end
             end
         }
     end
