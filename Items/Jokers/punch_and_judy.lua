@@ -69,7 +69,7 @@ local punch_and_judy = {
                         end
                     end
                 end
-                if king_count == card.ability.extra.count and queen_count == card.ability.extra.count then
+                if king_count == 1 and queen_count == 1 then
                     active = true
                 end
                 card.joker_display_values.active = active and localize("k_active_ex") or localize("jdis_inactive")
