@@ -46,7 +46,9 @@ local hat_trick = {
             },
             text_config = { colour = G.C.MULT },
             reminder_text = {
-                { text = "(3)" }
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+                { text = ")" },
             },
             calc_function = function(card)
                 local mult = 0
@@ -60,6 +62,7 @@ local hat_trick = {
                     end
                 end
                 card.joker_display_values.mult = mult
+                card.joker_display_values.localized_text = localize('Three of a Kind', 'poker_hands')
             end
         }
     end

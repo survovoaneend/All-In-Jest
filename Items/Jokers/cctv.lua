@@ -84,8 +84,10 @@ local cctv = {
         ---@type JDJokerDefinition
         return {
             text = {
-                { ref_table = "card.joker_display_values", ref_value = "active" }
+                { text = "+$" },
+                { ref_table = "card.ability.extra", ref_value = "money" },
             },
+            text_config = { colour = G.C.GOLD },
             reminder_text = {
                 { text = "(" },
                 { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE, retrigger_type = "mult" },
@@ -100,7 +102,6 @@ local cctv = {
                         break
                     end
                 end
-                card.joker_display_values.active = active and localize("k_active_ex") or localize("jdis_inactive")
                 card.joker_display_values.localized_text = localize { type = 'name_text', set = 'Enhanced', key = 'm_glass' }
             end
         }

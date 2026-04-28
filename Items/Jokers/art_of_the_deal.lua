@@ -57,7 +57,7 @@ local art_of_the_deal = {
             },
             text_config = { colour = G.C.MULT },
             reminder_text = {
-                { text = "(>$0)" },
+                { text = "(>$25)" },
             }
         }
     end

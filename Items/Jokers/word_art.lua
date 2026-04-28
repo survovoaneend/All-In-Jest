@@ -46,12 +46,17 @@ local word_art = {
         ---@type JDJokerDefinition
         return {
             text = {
-                { text = "+" },
-                { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
+                    }
+                }
             },
-            text_config = { colour = G.C.MULT },
             reminder_text = {
-                { text = "(8)" },
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+                { text = ")" },
             },
             calc_function = function(card)
                 local words = 0
@@ -61,7 +66,8 @@ local word_art = {
                         words = words + 1
                     end
                 end
-                card.joker_display_values.mult = card.ability.extra.mult_per_card * words
+                card.joker_display_values.x_mult = math.max(1, card.ability.extra.xmult_per_card * words)
+                card.joker_display_values.localized_text = localize('Ace', 'ranks') .. ", " .. localize('King', 'ranks') .. ", " .. localize('Queen', 'ranks') .. ", " .. localize('Jack', 'ranks')
             end
         }
     end
