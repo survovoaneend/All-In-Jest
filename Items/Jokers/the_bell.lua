@@ -34,9 +34,13 @@ local the_bell = {
             end
         end,
 
-        use_ability = function(self, card)
-            ease_dollars(-card.ability.extra.cost)
-            card_eval_status_text(card, 'dollars', -card.ability.extra.cost)
+        use_ability = function(self, card, args)
+            args = args or {}
+            SMODS.calculate_context({all_in_jest = {joker_ability_used = true, card = card, retriggered = args.retriggered, args = args}})
+            if not args.free then
+                ease_dollars(-card.ability.extra.cost)
+                card_eval_status_text(card, 'dollars', -card.ability.extra.cost)
+            end
             All_in_Jest.reroll_shop_voucher()
         end,
     },

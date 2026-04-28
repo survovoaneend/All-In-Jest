@@ -210,6 +210,24 @@ end
 --  end
 --  G:save_settings()
 --end
+
+function aij_get_UIE_by_fob(self, id, node)
+    if not node then node = self end
+    if node.config and (node.config.func == id or node.config.button == id) then return node end
+    for k, v in pairs(node.children) do
+        local res = aij_get_UIE_by_fob(self, id, v)
+        if res then
+            return res
+        elseif v.config.object and v.config.object.aij_get_UIE_by_fob then
+            res = v.config.object:aij_get_UIE_by_fob(id, nil)
+            if res then
+                return res
+            end
+        end
+    end
+    return nil
+end
+
 G.FUNCS.jest_free_reroll_boss = function(e) 
     stop_use()
     if G.GAME.jest_free_stultor_rerolls == 0 then
@@ -292,7 +310,29 @@ G.FUNCS.jest_free_reroll_boss_button = function(e)
             G.blind_prompt_box.definition.nodes[3].nodes[1].nodes[2].config.button_UIE.UIBox:recalculate()
         end
     end
-  end
+end
+G.FUNCS.jest_tag_choice_next_page = function(e)
+    local blind_choice = e.config.ref_table[2]
+    if blind_choice == G.GAME.blind_on_deck then G.GAME.all_in_jest.blind_tags.selected_index = nil end
+    G.GAME.all_in_jest.blind_tags[blind_choice].page = G.GAME.all_in_jest.blind_tags[blind_choice].page + e.config.ref_table[1]
+    local par = G.blind_select_opts[blind_choice:lower()].parent
+    G.blind_select_opts[blind_choice:lower()]:remove()
+    G.blind_select_opts[blind_choice:lower()] = UIBox{
+      T = {par.T.x, 0, 0, 0, },
+      definition =
+        {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
+          UIBox_dyn_container({create_UIBox_blind_choice(blind_choice)},false,get_blind_main_colour(blind_choice))
+        }},
+      config = {align="bmi",
+                offset = {x=0,y=G.ROOM.T.y + 9},
+                major = par,
+                xy_bond = 'Weak'
+              }
+    }
+    par.config.object = G.blind_select_opts[blind_choice:lower()]
+    par.config.object:recalculate()
+    G.blind_select_opts[blind_choice:lower()].parent = par
+end
 SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
     args = args or {}
     args.w_mod = args.w_mod or 1
@@ -631,7 +671,7 @@ G.FUNCS.All_in_Jest_select_tag = function(e)
         G.GAME.all_in_jest.blind_tags.selected_index = nil
     else
         for i = 1, #other_tags do
-            if i ~= number then
+            if i ~= number-(G.GAME.all_in_jest.blind_tags[G.GAME.blind_on_deck].page*3) then
                 other_tags[i].T.scale = 0.7
             else
                 other_tags[i].T.scale = 1

@@ -33,7 +33,9 @@ local gnasher = {
             end
         end,
 
-        use_ability = function(self, card)
+        use_ability = function(self, card, args)
+            args = args or {}
+            SMODS.calculate_context({all_in_jest = {joker_ability_used = true, card = card, retriggered = args.retriggered, args = args}})
             local viable_options = {}
             for i, v in ipairs(G.consumeables.cards) do
                 local area = G.consumeables.cards[i].area

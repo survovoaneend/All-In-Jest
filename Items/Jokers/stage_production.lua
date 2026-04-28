@@ -29,7 +29,9 @@ local stage_production = {
             end
         end,
 
-        use_ability = function(self, card)
+        use_ability = function(self, card, args)
+            args = args or {}
+            SMODS.calculate_context({all_in_jest = {joker_ability_used = true, card = card, retriggered = args.retriggered, args = args}})
             local right_card = nil
             for k, v in pairs(G.jokers.cards) do
                 if v == card and G.jokers.cards[k+1] and G.jokers.cards[k+1].ability and (not G.jokers.cards[k+1].ability.all_in_jest or (G.jokers.cards[k+1].ability.all_in_jest and not G.jokers.cards[k+1].ability.all_in_jest.has_been_rerolled)) then

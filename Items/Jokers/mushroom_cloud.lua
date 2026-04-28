@@ -23,14 +23,16 @@ local mushroom_cloud = {
             end
         end,
 
-        use_ability = function(self, card)
+        use_ability = function(self, card, args)
+            args = args or {}
+            SMODS.calculate_context({all_in_jest = {joker_ability_used = true, card = card, retriggered = args.retriggered, args = args}})
             ease_dollars(card.ability.extra.dollars)
             card_eval_status_text(card, 'dollars', card.ability.extra.dollars)
             local cards_to_destroy = {}
             for k, v in pairs(G.jokers.cards) do
                 cards_to_destroy[#cards_to_destroy+1] = v
             end
-            SMODS.destroy_cards(cards_to_destroy)
+            if not args.retriggered then SMODS.destroy_cards(cards_to_destroy) end
         end,
     },
   

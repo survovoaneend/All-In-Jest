@@ -2,7 +2,7 @@ local calculate_lexicon_mult = function(card)
     local mult = 0
     if G.jokers then
         for i = 1, #G.jokers.cards do
-            if G.jokers.cards[i] ~= card and G.jokers.cards[i].config.center.key ~= 'j_aij_lexicon' then
+            if G.jokers.cards[i] ~= card and G.jokers.cards[i].config.center.key ~= 'j_aij_lexicon' and G.jokers.cards[i].config.center.key ~= 'j_aij_crayon_rubbing' then
                 local text = retrieve_joker_text(G.jokers.cards[i])
  
                 -- Consecutive spaces usually indicates some sort of missing dynatext
