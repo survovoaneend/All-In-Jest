@@ -6,6 +6,7 @@ local big_red = {
     config = {
       extra = {
           mult = 40,
+          -- banned_cards = {}
       }
     },
     rarity = 3,
@@ -32,65 +33,53 @@ local big_red = {
             }
         end
     end,
+
+    add_to_deck = function(self, card, from_debuff)
+        if #SMODS.find_card("j_aij_big_red") <= 0 then
+            for k, joker in pairs(G.P_CENTER_POOLS['Joker']) do
+                local joker_temp = G.P_CENTER_POOLS['Joker'][k]
+                local key = joker_temp.key
+                local text = retrieve_joker_text(joker_temp, true)
+                if text == "" then
+                    -- Add exceptions for BAD_DATA and misprint
+                    if next(SMODS.find_card("j_aij_little_boy_blue")) and key == "j_aij_baddata" and G.GAME.banned_keys[key] == "j_aij_little_boy_blue" then
+                        G.GAME.banned_keys[key] = nil
+                    elseif key ~= "j_misprint" or next(SMODS.find_card("j_aij_little_boy_blue")) then
+                        G.GAME.banned_keys[key] = "j_aij_big_red"
+                    end
+                else
+                    local text_has_mult = text:find('Mult') or text:find('mult')
+                    local text_has_chips = text:find('Chip') or text:find('chip')
+                    if not G.GAME.banned_keys[key] and not text_has_mult or (text_has_chips and not next(SMODS.find_card("j_aij_little_boy_blue"))) then
+                        G.GAME.banned_keys[key] = "j_aij_big_red"
+                        -- table.insert(card.ability.extra.banned_cards, key)
+                    -- If both Big Red and Little Boy Blue are owned, only show chip and mult jokers
+                    elseif next(SMODS.find_card("j_aij_little_boy_blue")) and G.GAME.banned_keys[key] == "j_aij_little_boy_blue" and text_has_chips and text_has_mult then
+                        G.GAME.banned_keys[key] = nil
+                    end
+                end
+            end
+        end
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        if #SMODS.find_card("j_aij_big_red") <= 0 then
+            for key, value in pairs(G.GAME.banned_keys) do
+                -- BUG: by the time this unbans cards, the list of cards to unban
+                -- can be inaccurate. (applies to the mult joker too)
+                -- plan: probably just patch instead of utilizing the existing banned_keys
+                -- table
+                if value == "j_aij_big_red" then
+                    G.GAME.banned_keys[key] = nil
+                end
+            end
+            if next(SMODS.find_card("j_aij_little_boy_blue")) then
+                SMODS.find_card("j_aij_little_boy_blue")[1]:add_to_deck(SMODS.find_card("j_aij_little_boy_blue")[1])
+            end
+        end
+    end,
+  
 }
-
-local has_attribute = function(center, attribute)
-    if not SMODS.Attributes[attribute] or not center.attributes then return false end
-    if center.attributes[attribute] then return true end
-    for _, att in ipairs(SMODS.Attributes[attribute].alias or {}) do
-        if center.attributes[att] then return true end
-    end
-    return false
-end
-
-local is_mult_joker = function(center)
-    if has_attribute(center, "mult") then
-        return true
-    elseif center.mod ~= nil then -- Check descriptions for modded jokers, as vanilla has attributes set
-        local key = center.key
-        local text = retrieve_joker_text(center, true)
-        if text == "" then
-            -- Add exceptions for BAD_DATA
-            if key == "j_aij_baddata" then
-                return true
-            end
-        else
-            local text_has_mult = text:find('Mult') or text:find('mult')
-            return text_has_mult
-        end
-    end
-end
-local is_chips_joker = function(center)
-    if has_attribute(center, "chips") then
-        return true
-    elseif center.mod ~= nil then -- Check descriptions for modded jokers, as vanilla has attributes set
-        local key = center.key
-        local text = retrieve_joker_text(center, true)
-        if text == "" then
-            -- Add exceptions for BAD_DATA
-            if key == "j_aij_baddata" then
-                return true
-            end
-        else
-            local text_has_chips = text:find('Chips') or text:find('chips')
-            return text_has_chips
-        end
-    end
-end
-
-local smods_add_to_pool_ref = SMODS.add_to_pool
-function SMODS.add_to_pool(prototype_obj, ...)
-    if #SMODS.find_card("j_aij_big_red") > 0 and #SMODS.find_card("j_aij_little_boy_blue") > 0 and not (is_mult_joker(prototype_obj) or is_chips_joker(prototype_obj)) then
-        return false
-    elseif #SMODS.find_card("j_aij_big_red") > 0 and not (is_mult_joker(prototype_obj) and not is_chips_joker(prototype_obj)) then
-        return false
-    elseif #SMODS.find_card("j_aij_little_boy_blue") > 0 and not (is_chips_joker(prototype_obj) and not is_mult_joker(prototype_obj)) then
-        return false
-    else
-        return smods_add_to_pool_ref(prototype_obj, ...)
-    end
-end
-
 return { name = {"Jokers"}, items = {big_red} }
 
 
