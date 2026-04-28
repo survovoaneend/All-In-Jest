@@ -66,6 +66,13 @@ return {
                 '{C:attention}Playing cards{} added to the',
                 'deck have random {C:attention}deck skins'
             },
+            aij_guess_names = 'Guess the Jest Names',
+            aij_guess_names_tooltip = {
+                'Accessibility option for {C:purple}Guess',
+                '{C:purple}the Jest Packs{}, showing the',
+                'names of the Jokers',
+                '{s:0.8,C:inactive}(but not their descriptions)'
+            },
             k_aij_guess_the_jest = "Guess the Jest",
             k_aij_common_packs = "Common Pack",
             k_aij_uncommon_packs = "Uncommon Pack",
@@ -1126,6 +1133,13 @@ return {
                     '{C:inactive}"Hi Alex"'
                 },
             },
+            j_aij_heavenbrand_credits_joker = {
+                name = "HEAVENBRAND",
+                text = {
+                    '{C:inactive}"As they say in France,',
+                    '{C:inactive}\'I\'ll take two.\'"'
+                },
+            },
             -- Jokers
             j_aij_flying_ace = {
                 name = "Flying Ace",
@@ -1656,9 +1670,9 @@ return {
                 text = {
                     "When a {C:mult}Mult{}-type {C:planet}Planet",
                     "card is used, this Joker",
-                    "gains {C:mult}+#1#{} Mult",
-                    "{C:inactive}(Currently {C:mult}+#2# {C:inactive}Mult)",
-                }
+                    "gains {X:mult,C:white}X#1#{} Mult",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2# {C:inactive} Mult)",
+                } 
             },
             j_aij_low_priest = {
                 name = "Low Priest",
@@ -2241,11 +2255,11 @@ return {
                     "{C:spectral}Spectral{} cards"
                 }
             },
-            j_aij_dapper_dan = {
-                name = "Dapper Dan",
-                text = {
-                    "Joker {C:dark_edition}Editions{} are",
-                    "{C:attention}twice{} as effective",
+            j_aij_dapper_dan = { 
+                name = "Dapper Dan", 
+                text = { 
+                    "Increases Joker {C:attention}edition{}",
+                    "effects by {C:attention}100%",
                     "{C:inactive}(Except Negative)"
                 }
             },
@@ -4130,8 +4144,8 @@ return {
                 text = {
                     "Apply {C:attention}Foil{} to a random",
                     "card {C:attention}held in hand{} when",
-                    "{C:attention}Boss Blind{} is defeated"
-                }
+                    "{C:attention}Blind{} is defeated"
+                } 
             },
             j_aij_tool = {
                 name = "Tool",
@@ -6295,8 +6309,8 @@ return {
                 name = "Dongtong",
                 text = {
                     {
-                    "{C:green}Doubles{} most {C:attention}Joker{}",
-                    "values",
+                        "Increases most {C:attention}Joker{}",
+                        "values by {C:green}100%"
                     },
                     {
                         "Doubles {C:attention}Blind{}",
@@ -7699,6 +7713,12 @@ return {
                     "{C:inactive}ex. 33, 151, 3003{}"
                 }
             },
+            guess_the_jest_hidden={
+                name="???",
+                text={
+                    "{C:inactive,E:1,s:1.5}???{}",
+                },
+            },
             -- Stickers
             aij_marked = {
                 name = "Marked",
@@ -7764,6 +7784,7 @@ return {
                     "{s:0.8}-Coded around half of the content",
                     "{s:0.8}-Concepted around half of the effects",
                     "{s:0.8}-Started the mod in the first place",
+                    "{s:0.8}-Significant portion of playtesting",
                     "{s:0.8}-Created the mod in early April 2025"
                 }
             },
@@ -7781,8 +7802,16 @@ return {
                 text = {
                     "{s:0.8}-Helps a ton with bugfixes and polish",
                     "{s:0.8}-Seriously, so many bugfixes",
-                    "{s:0.8}-Primary playtester",
                     "{s:0.8}-Joined the team in September 2025"
+                }
+            },
+            heavenbrand_credits_info = {
+                name = "Info",
+                text = {
+                    "{s:0.8}-Made the All in Jest trailer and its soundtrack",
+                    "{s:0.8}-Made the sounds for Silver and Aureate",
+                    "{s:0.8}-Lots of helpful playtesting and feedback",
+                    "{s:0.8}-Started work on All in Jest stuff in February 2026"
                 }
             },
         }
