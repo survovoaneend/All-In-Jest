@@ -42,8 +42,10 @@ local gopnik = {
             end
         end,
 
-        use_ability = function(self, card)
-            ease_dollars(-card.ability.extra.cost)
+        use_ability = function(self, card, args)
+            args = args or {}
+            SMODS.calculate_context({all_in_jest = {joker_ability_used = true, card = card, retriggered = args.retriggered, args = args}})
+            if not args.free then ease_dollars(-card.ability.extra.cost) end
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
         end,

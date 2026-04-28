@@ -56,14 +56,16 @@ local joker_png = {
             end
         end,
 
-        use_ability = function(self, card)
-            ease_dollars(-card.ability.j_aij_joker_png.cost)
+        use_ability = function(self, card, args)
+            args = args or {}
+            SMODS.calculate_context({all_in_jest = {joker_ability_used = true, card = card, retriggered = args.retriggered, args = args}})
+            if not args.free then ease_dollars(-card.ability.j_aij_joker_png.cost) end
 
             local joker_center, index = select_random_valid_joker()
             All_in_Jest.set_copied_joker(card, joker_center)
 
             card:juice_up(0.3, 0.5)
-            card.ability.j_aij_joker_png.cost = card.ability.j_aij_joker_png.cost + card.ability.j_aij_joker_png.cost_increase
+            if not args.free then card.ability.j_aij_joker_png.cost = card.ability.j_aij_joker_png.cost + card.ability.j_aij_joker_png.cost_increase end
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_reroll')})
         end,
 

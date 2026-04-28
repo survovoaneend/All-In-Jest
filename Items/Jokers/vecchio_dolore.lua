@@ -12,7 +12,7 @@ local vecchio_dolore = {
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
-    eternal_compat = true,
+    eternal_compat = false,
   
     loc_vars = function(self, info_queue, card)
 
