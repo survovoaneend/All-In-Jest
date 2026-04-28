@@ -5,7 +5,7 @@ local phlegmatic_joker = {
     key = "phlegmatic_joker",
     config = {
         extra = {
-            odds = 4
+            odds = 6
         }
     },
     rarity = 3,
