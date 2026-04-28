@@ -2063,8 +2063,8 @@ return {
             j_aij_dapper_dan = { 
                 name = "Dapper Dan", 
                 text = { 
-                    "Joker {C:dark_edition}Editions{} are",
-                    "{C:attention}twice{} as effective",
+                    "Increases Joker {C:attention}edition{}",
+                    "effects by {C:attention}100%",
                     "{C:inactive}(Except Negative)"
                 } 
             },
@@ -4022,8 +4022,8 @@ return {
                 name = "Dongtong",
                 text = {
                     {
-                    "{C:green}Doubles{} most {C:attention}Joker{}",
-                    "values",
+                        "Increases most {C:attention}Joker{}",
+                        "values by {C:green}100%"
                     },
                     {
                         "Doubles {C:attention}Blind{}",
