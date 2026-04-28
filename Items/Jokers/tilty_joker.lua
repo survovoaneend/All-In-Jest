@@ -30,18 +30,13 @@ local tilty_joker = {
       if context.before and G.play then
         for _, temp_card in ipairs(G.play.cards) do
           jest_ability_calculate(temp_card, "*", card.ability.extra.semi_x_chips, nil, {"nominal"}, false, true, "base")
-          temp_card.ability.all_in_jest = temp_card.ability.all_in_jest or {}
-          temp_card.ability.all_in_jest.tilty_joker_affected = true
         end
         return nil, true
       end
 
-      if context.after and G.playing_cards then
-        for _, temp_card in ipairs(G.playing_cards) do
-          if temp_card.ability.all_in_jest and temp_card.ability.all_in_jest.tilty_joker_affected then
-            jest_ability_calculate(temp_card, "/", card.ability.extra.semi_x_chips, nil, {"nominal"}, false, true, "base")
-            temp_card.ability.all_in_jest.tilty_joker_affected = nil
-          end
+      if context.after and G.play then
+        for _, temp_card in ipairs(G.play.cards) do
+          jest_ability_calculate(temp_card, "/", card.ability.extra.semi_x_chips, nil, {"nominal"}, false, true, "base")
         end
         return nil, true
       end

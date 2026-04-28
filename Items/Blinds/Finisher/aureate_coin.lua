@@ -43,7 +43,7 @@ local aureate_coin = {
     end,
 
     set_blind = function(self)
-        if G.GAME.current_round.aij_aureate_coin_blind and math.abs(G.GAME.current_round.aij_aureate_coin_blind.spent_money) > to_big(0) then
+        if G.GAME.current_round.aij_aureate_coin_blind and math.abs(G.GAME.current_round.aij_aureate_coin_blind.spent_money) > 0 then
             All_in_Jest.ease_blind_requirement(math.abs(G.GAME.current_round.aij_aureate_coin_blind.spent_money) * 0.1, 0)
         end
     end,

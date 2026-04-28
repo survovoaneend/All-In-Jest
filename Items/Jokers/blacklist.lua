@@ -45,14 +45,19 @@ local blacklist = {
     end,
   
     calculate = function(self, card, context)
-        if context.selling_card and context.card.ability.set == "Joker" and not context.blueprint then
-            table.insert(card.ability.extra.banned_cards, context.card.config.center_key)
+        if context.jest_destroying_or_selling_joker and not context.jest_destroying_card and not G.GAME.banned_keys[context.jest_destroyed_joker.config.center_key] and not context.blueprint then 
+		        G.GAME.banned_keys[context.jest_destroyed_joker.config.center_key] = true
+            table.insert(card.ability.extra.banned_cards, context.jest_destroyed_joker.config.center_key)
         end
     end,
 
     add_to_deck = function (self, card, from_debuff)
+        for _, key in ipairs(card.ability.extra.banned_cards) do
+            if not G.GAME.banned_keys[key] then
+                G.GAME.banned_keys[key] = true
+            end
+        end
     end,
-
     remove_from_deck = function(self, card, from_debuff)
         local blacklists = SMODS.find_card("j_aij_blacklist")
         local cards_to_remain_banned = {}
@@ -66,34 +71,12 @@ local blacklist = {
                 end
             end
         end
+
+        for _, key in ipairs(card.ability.extra.banned_cards) do
+            if not cards_to_remain_banned[key] then
+                G.GAME.banned_keys[key] = nil
+            end
+        end
     end,
 }
-
-local contains = function(tbl, item)
-    for k, v in pairs(tbl) do
-        if v == item then
-            return true
-        end
-    end
-    return false
-end
-
-local smods_add_to_pool_ref = SMODS.add_to_pool
-function SMODS.add_to_pool(prototype_obj, ...)
-
-    local blacklisted = false
-    for _, joker in ipairs(SMODS.find_card("j_aij_blacklist")) do
-        if contains(joker.ability.extra.banned_cards, prototype_obj.key) then
-            blacklisted = true
-            break
-        end
-    end
-
-    if blacklisted then
-        return false
-    else
-        return smods_add_to_pool_ref(prototype_obj, ...)
-    end
-end
-
 return { name = {"Jokers"}, items = {blacklist} }
