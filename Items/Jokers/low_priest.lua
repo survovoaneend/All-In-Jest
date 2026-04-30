@@ -41,15 +41,18 @@ local low_priest = {
         ---@type JDJokerDefinition
         return {
             text = {
-                { text = "+" },
-                { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
+                    }
+                }
             },
-            text_config = { colour = G.C.MULT },
             calc_function = function(card)
                 local text, _, _ = JokerDisplay.evaluate_hand()
-                card.joker_display_values.mult = math.max(0, card.ability.extra.initial_mult - 
+                card.joker_display_values.x_mult = math.max(0, card.ability.extra.initial_xmult - 
                   ((text ~= "Unknown" and G.GAME and G.GAME.hands and G.GAME.hands[text]) and 
-                  to_number(G.GAME.hands[text].level) or 0) * card.ability.extra.mult_mod)
+                  to_number(G.GAME.hands[text].level) or 0) * card.ability.extra.xmult_mod)
             end
         }
     end

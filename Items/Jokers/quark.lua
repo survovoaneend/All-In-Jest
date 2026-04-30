@@ -58,7 +58,7 @@ local quark = {
         return {
             extra = {
                 {
-                    { text = "" },
+                    { ref_table = "card.joker_display_values", ref_value = "localized_text_2" }
                 }
             },
 
@@ -69,6 +69,33 @@ local quark = {
             },
             calc_function = function(card)
                 card.joker_display_values.localized_text = localize('Three of a Kind', 'poker_hands')
+                card.joker_display_values.localized_text_2 = localize("k_active_ex")
+                local text, poker_hands, scoring_hand = JokerDisplay.evaluate_hand()
+                if text ~= "Unknown" and next(poker_hands['Three of a Kind']) then
+                    if #scoring_hand == 3 then
+                        local suits_present = {}
+                        local all_different_suits = true
+                        for _, scoring_card in ipairs(context.scoring_hand) do
+                            if scoring_card.base.suit then
+                                if suits_present[scoring_card.base.suit] then
+                                    all_different_suits = false
+                                    break
+                                else
+                                    suits_present[scoring_card.base.suit] = true
+                                end
+                            else
+                                all_different_suits = false
+                                break
+                            end
+                        end
+                        if all_different_suits then
+                            card.joker_display_values.localized_text_2 = localize("jdis_inactive")
+                        end
+                    end
+                end
+                if king_count == 1 and queen_count == 1 then
+                    active = true
+                end
             end
         }
     end

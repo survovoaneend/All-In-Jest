@@ -87,8 +87,9 @@ local bad_apple = {
             },
             reminder_text = {
                 { text = "(" },
-                { ref_table = "card.ability.extra", ref_value = "dark_suits", colour = G.C.SPADES },
-                { ref_table = "card.ability.extra", ref_value = "light_suits", colour = G.C.HEARTS },
+                { ref_table = "card.ability.extra", ref_value = "dark_suits", colour = G.C.SUITS.SPADES },
+                { text = "," },
+                { ref_table = "card.ability.extra", ref_value = "light_suits", colour = G.C.SUITS.HEARTS },
                 { text = ")" },
             },
         }

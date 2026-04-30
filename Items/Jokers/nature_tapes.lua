@@ -50,10 +50,13 @@ local nature_tapes = {
         ---@type JDJokerDefinition
         return {
             text = {
-                { text = "+" },
-                { ref_table = "card.ability.extra", ref_value = "cur_mult", retrigger_type = "mult" }
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.ability.extra", ref_value = "cur_xmult", retrigger_type = "exp" }
+                    }
+                }
             },
-            text_config = { colour = G.C.MULT },
         }
     end
   
