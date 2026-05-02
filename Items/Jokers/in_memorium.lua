@@ -2,6 +2,7 @@ local in_memorium = {
     object_type = "Joker",
     order = 490,
     key = "in_memorium",
+    ignore = true,
     config = {
         extra = {
             xmult = 0,

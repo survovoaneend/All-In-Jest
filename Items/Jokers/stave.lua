@@ -6,10 +6,10 @@ local stave = {
     config = {
       
     },
-    rarity = 3,
+    rarity = 2,
     pos = { x = 1, y = 10},
     atlas = 'joker_atlas',
-    cost = 10,
+    cost = 7,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

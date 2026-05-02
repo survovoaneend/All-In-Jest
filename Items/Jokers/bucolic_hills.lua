@@ -5,7 +5,7 @@ local bucolic_hills = {
    
     config = {
         extra = {
-            dollars = 6
+            dollars = 8
         }
     },
     rarity = 1,
@@ -26,7 +26,7 @@ local bucolic_hills = {
     end,
 
     calculate = function(self, card, context)
-        if context.before and not context.blueprint then
+        if context.before then
             if G.GAME.current_round.hands_left == 0 then
                 G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
                 return {

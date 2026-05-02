@@ -5,8 +5,8 @@ local baroque_joker = {
 
     config = {
         extra = {
-            mult = 0,
-            gain = 3,
+            xmult = 1,
+            gain = 0.1,
             last_hand = nil
         }
     },
@@ -23,7 +23,7 @@ local baroque_joker = {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.mult,
+                card.ability.extra.xmult,
                 card.ability.extra.gain
             }
         }
@@ -34,7 +34,7 @@ local baroque_joker = {
             local target_hand = card.ability.extra.last_hand
             if target_hand then
                 if context.poker_hands and next(context.poker_hands[target_hand]) and context.scoring_name ~= target_hand then
-                    card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
+                    card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
                     return {
                         message = localize('k_upgrade_ex'),
                         colour = G.C.MULT
@@ -48,7 +48,7 @@ local baroque_joker = {
 
         if context.joker_main then
             return {
-                mult = card.ability.extra.mult
+                xmult = card.ability.extra.xmult
             }
         end
     end

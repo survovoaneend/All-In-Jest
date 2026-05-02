@@ -15,9 +15,15 @@ local spica = {
         if card.ability.consumeable.hand then
             info_queue[#info_queue+1] = {key = 'aij_astral_'..string.lower(card.ability.consumeable.grade), set = 'Other'}
         end
+        local pin_count = 0
+        if G.Astral_pins and #G.Astral_pins and card.ability.consumeable.hand then 
+            pin_count = #G.Astral_pins[card.ability.consumeable.hand] or 0 
+        end
 		return {
 			vars = {
 				card.ability.consumeable.hand or '(hand)',
+                pin_count,
+                G.GAME.all_in_jest.astral_pin_per_hand or 3
 			},
 		}
     end,
@@ -44,9 +50,15 @@ local spica_pin = {
     pixel_size = { w = 53, h = 28 },
 
     loc_vars = function(self, info_queue, card)
+        local pin_count = 0
+        if G.Astral_pins and #G.Astral_pins and card.ability.consumeable and card.ability.consumeable.hand then 
+            pin_count = #G.Astral_pins[card.ability.consumeable.hand] or 0 
+        end
 		return {
 			vars = {
 				card.ability.extra.hand,
+                pin_count,
+                G.GAME.all_in_jest.astral_pin_per_hand or 3
 			},
 		}
     end,

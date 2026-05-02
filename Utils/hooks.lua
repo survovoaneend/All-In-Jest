@@ -675,18 +675,21 @@ SMODS.ConsumableType({
     primary_colour = HEX("d1e2f6"),
     secondary_colour = HEX("87a5c9"),
     collection_rows = {5, 4},
-    shop_rate = 0,
+    shop_rate = 2,
     default = 'c_aij_algol',
     no_buy_and_use = true,
     inject_card = function(self, center)
-        if not center.add_to_deck then
-            center.add_to_deck = function(self, card, from_debuff)
-                if card.ability.consumeable.grade == '' then
-                    local center = card.config.center
-                    local grade = All_in_Jest.astral_set_grade(center.all_in_jest and center.all_in_jest.grades)
-                    card.ability.consumeable.grade = grade
-                    card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(grade)
-                end
+        -- Store the original update function so we don't overwrite it if the card already has one
+        local old_update = center.update
+        
+        center.update = function(self, card, dt)
+            if old_update then old_update(self, card, dt) end
+            
+            if card.ability and card.ability.consumeable and card.ability.consumeable.grade == '' then
+                local center_cfg = card.config.center
+                local grade = All_in_Jest.astral_set_grade(center_cfg.all_in_jest and center_cfg.all_in_jest.grades)
+                card.ability.consumeable.grade = grade
+                card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(grade)
             end
         end
         if not center.can_use then

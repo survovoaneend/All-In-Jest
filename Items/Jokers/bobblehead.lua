@@ -18,12 +18,14 @@ local bobblehead = {
         local vanilla_rarity_keys = {'common', 'uncommon', 'rare', 'legendary'}
         local rarity_counts = {}
         local max_count = 0
-        for k, v in pairs(G.jokers.cards) do
-            if v.config.center.rarity and v.config.center.key ~= 'j_aij_bobblehead' then
-                local rarity = vanilla_rarity_keys[v.config.center.rarity] or v.config.center.rarity
-                rarity_counts[rarity] = (rarity_counts[rarity] or 0) + 1
-                if rarity_counts[rarity] > max_count then
-                    max_count = rarity_counts[rarity]
+        if G.jokers and G.jokers.cards then
+            for k, v in pairs(G.jokers.cards) do
+                if v.config.center.rarity and v.config.center.key ~= 'j_aij_bobblehead' then
+                    local rarity = vanilla_rarity_keys[v.config.center.rarity] or v.config.center.rarity
+                    rarity_counts[rarity] = (rarity_counts[rarity] or 0) + 1
+                    if rarity_counts[rarity] > max_count then
+                        max_count = rarity_counts[rarity]
+                    end
                 end
             end
         end

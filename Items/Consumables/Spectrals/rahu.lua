@@ -7,6 +7,7 @@ local rahu = {
     soul_pos = { x = 14, y = 4 },
 	cost = 4,
     hidden = true,
+    ignore = true,
     soul_rate = 0.003,
     soul_set = 'aij_astral',
 	unlocked = true,

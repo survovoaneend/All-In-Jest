@@ -1697,15 +1697,21 @@ end
 
 --Sets an Astral cards grade
 function All_in_Jest.astral_set_grade(rarity)
-    local seed = pseudoseed('aij_astral_grade')
+    local rand_val = pseudorandom('aij_astral_grade')
+    
     rarity = rarity or {["Retrograde"] = 0.1, ["Passigrade"] = 0.45}
-    local grade = "Prograde"
-    for k, v in pairs(rarity) do
-        if seed <= v then
-            grade = k
-        end
+    
+    local retro_chance = rarity["Retrograde"] or 0
+    local passi_chance = rarity["Passigrade"] or 0
+    
+    -- Check probabilities sequentially so they don't overwrite each other
+    if rand_val <= retro_chance then
+        return "Retrograde"
+    elseif rand_val <= (retro_chance + passi_chance) then
+        return "Passigrade"
+    else
+        return "Prograde"
     end
-    return grade
 end
 
 --Gets hand from grade type

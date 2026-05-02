@@ -4022,6 +4022,7 @@ return {
                 text = { 
                     "Earn {C:money}$#2#{} at end of round",
                     "for each {C:attention}empty{} Joker slot",
+                    "{C:inactive}(Except Duende)",
                     "{C:inactive}(Currently {C:money}$#1#{C:inactive})"
                 } 
             },
@@ -4184,7 +4185,7 @@ return {
                         'before you {C:green}rerolled{}',
                     },
                     {
-                        'Self {C:red}destructs{} on {C:green}reroll'
+                        'Self {C:red}debuffs{} on {C:green}reroll'
                     }
                 }
             },
@@ -4305,10 +4306,10 @@ return {
             j_aij_baroque_joker = {
                 name = "Baroque Joker",
                 text = {
-                    'This Joker gains {C:mult}+#2#{} Mult if',
+                    'This Joker gains {X:mult,C:white}X#2#{} Mult if',
                     'played hand {C:attention}contains{} but is {C:attention}not',
                     '{C:attention}scored as{} the last played hand',
-                    '{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)'
+                    '{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)'
                 }
             },
             j_aij_pedestrian = {
@@ -7168,6 +7169,7 @@ return {
                 text = {
                     'When {C:attention}#1#{} is played',
                     'earn {C:money}$#2#',
+                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             c_aij_alcyone = {
@@ -7175,6 +7177,7 @@ return {
                 text = {
                     'When {C:attention}#1#{} is played',
                     'draw {C:attention}#2#{} additional card',
+                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             c_aij_aldebaran = {
@@ -7182,6 +7185,7 @@ return {
                 text = {
                     '{C:aij_plasma}Balance{} {C:attention}#2#%{} of {C:chips}Chips{} and {C:mult}Mult',
                     'after {C:attention}#1#{} is played',
+                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             c_aij_capella = {
@@ -7190,13 +7194,15 @@ return {
                     '{C:green}#2# in #3#{} chance to create a',
                     'random {C:planet}Planet{} card when',
                     '{C:attention}#1#{} is played',
+                    '{C:inactive}(#4#/#5#){}'
                 }
             },
             c_aij_sirius = {
                 name = 'Sirius',
                 text = {
                     'Retrigger {C:attention}#2#{} random card',
-                    'when {C:attention}#1#{} is played'
+                    'when {C:attention}#1#{} is played',
+                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             c_aij_procyon = {
@@ -7204,7 +7210,8 @@ return {
                 text = {
                     'When {C:attention}#1#{} is played',
                     'adds {C:money}$#2#{} of sell value',
-                    'to a random {C:attention}Joker'
+                    'to a random {C:attention}Joker',
+                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             c_aij_regulus = {
@@ -7213,6 +7220,7 @@ return {
                     '{C:green}#2# in #3#{} chance to {C:attention}level up',
                     '{C:attention}played{} hand when {C:attention}#1#{}',
                     'is played',
+                    '{C:inactive}(#4#/#5#){}'
                 }
             },
             c_aij_alkaid = {
@@ -7221,6 +7229,7 @@ return {
                     'When {C:attention}#1#{} is played',
                     'gives a random enhancement',
                     'to a {C:attention}#2#{} random card',
+                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             c_aij_algorab = {
@@ -7229,13 +7238,15 @@ return {
                     '{C:green}#2# in #3#{} chance to create a',
                     'random {C:tarot}Tarot{} card when',
                     '{C:attention}#1#{} is played',
+                    '{C:inactive}(#4#/#5#){}'
                 }
             },
             c_aij_spica = {
                 name = 'Spica',
                 text = {
                     '{C:red}Disable{} the {C:attention}Boss Blind{} if {C:attention}first',
-                    '{C:attention}hand{} of round is {C:attention}#1#{}'
+                    '{C:attention}hand{} of round is {C:attention}#1#{}',
+                    '{C:inactive}(#2#/#3#){}'
                 }
             },
             c_aij_arcturus = {
@@ -7243,6 +7254,7 @@ return {
                 text = {
                     'Gain {C:attention}+#2#{} {C:red}Discard{} after',
                     '{C:attention}#1#{} is played',
+                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             c_aij_alphecca = {
@@ -7250,7 +7262,8 @@ return {
                 text = {
                     'Scored cards {C:attention}permanently',
                     'gain {C:chips}+#2#{} Chips if hand',
-                    'is {C:attention}#1#{}'
+                    'is {C:attention}#1#{}',
+                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             c_aij_antares = {
@@ -7258,7 +7271,8 @@ return {
                 text = {
                     'When {C:attention}#1#{} is played',
                     '{C:red}destroy{} a random card',
-                    '{C:attention}held in hand'
+                    '{C:attention}held in hand',
+                    '{C:inactive}(#2#/#3#){}'
                 }
             },
             c_aij_vega = {
@@ -7267,6 +7281,7 @@ return {
                     'Retrigger all cards',
                     '{C:attention}held in hand{} when',
                     '{C:attention}#1#{} is played',
+                    '{C:inactive}(#2#/#3#){}'
                 }
             },
             c_aij_deneb_algedi = {
@@ -7275,6 +7290,7 @@ return {
                     'Earn {C:blue}+#2#{} Hand',
                     'the first time',
                     '{C:attention}#1#{} is played',
+                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             

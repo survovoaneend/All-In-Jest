@@ -4,7 +4,7 @@ local the_treachery_of_jokers = {
     key = "the_treachery_of_jokers",
     config = {
         extra = {
-            xmult = 2
+            xmult = 1.5
         }
     },
     rarity = 2,

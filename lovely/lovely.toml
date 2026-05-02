@@ -34,15 +34,15 @@ if next(SMODS.find_card("j_aij_bouffon")) and context.cardarea == G.deck then
         end
     end
 end
-if next(SMODS.find_card("j_aij_ninja")) and context.cardarea == G.play and not context.j_aij_ninja_triggered then
+if next(SMODS.find_card("j_aij_ninja")) and context.cardarea == G.play and not context.j_aij_ninja_triggered and #context.scoring_hand > 1 then
     for k, v in pairs(SMODS.find_card("j_aij_ninja")) do
-        if card == G.play.cards[#G.play.cards] then
+        if card == context.scoring_hand[#context.scoring_hand] then
             context.j_aij_ninja_triggered = true
-            card_eval_status_text(G.play.cards[1], 'extra', nil, nil, nil, {
+            card_eval_status_text(context.scoring_hand[1], 'extra', nil, nil, nil, {
                 message = localize('k_again_ex'),
                 colour = G.C.FILTER
             })
-            SMODS.score_card(G.play.cards[1], context)
+            SMODS.score_card((context.scoring_hand)[1], context)
             context.j_aij_ninja_triggered = nil
         end
     end
@@ -3938,9 +3938,9 @@ payload = '''
 self.all_in_jest = self.all_in_jest or {}
 self.all_in_jest.patches_sprites = {}
 self.all_in_jest.astral_grades = {}
-G.all_in_jest.astral_grades["Retrograde"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=15,y=3})
-G.all_in_jest.astral_grades["Prograde"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=16,y=3})
-G.all_in_jest.astral_grades["Passigrade"] = Sprite(0,0,G.CARD_W,G.CARD_H,G.ASSET_ATLAS["aij_consumable_atlas"], {x=17,y=3})
+G.all_in_jest.astral_grades["Retrograde"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_consumable_atlas", {x=15,y=3})
+G.all_in_jest.astral_grades["Prograde"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_consumable_atlas", {x=16,y=3})
+G.all_in_jest.astral_grades["Passigrade"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_consumable_atlas", {x=17,y=3})
 self.all_in_jest.numbertaker_rankless = {}
 self.all_in_jest.extra_card_sprites = {}
 G.all_in_jest.extra_card_sprites['Mark_of_the_Spear'] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=9,y=2})

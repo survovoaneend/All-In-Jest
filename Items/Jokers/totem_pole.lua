@@ -25,7 +25,7 @@ local totem_pole = {
     end,
 
     calculate = function(self, card, context)
-        if context.aij_before_before and not context.blueprint then
+        if context.press_play and not context.blueprint then
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',
                 func = function()

@@ -3,6 +3,7 @@ local ketu = {
 	key = 'ketu',
 	set = 'Spectral',
     atlas = 'consumable_atlas',
+    ignore = true,
 	pos = { x = 13, y = 3 },
     soul_pos = { x = 13, y = 4 },
 	cost = 4,

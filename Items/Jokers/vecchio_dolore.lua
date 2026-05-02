@@ -40,7 +40,9 @@ local vecchio_dolore = {
                     end
                 }))
             end
-            SMODS.destroy_cards(card)
+            card_eval_status_text(card, 'extra', nil, nil, nil,
+            { message = localize('k_disabled_ex'), colour = G.C.FILTER, delay = 0.45 })
+          card.ability.perma_debuff = true
         end
     end
   

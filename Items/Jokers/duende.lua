@@ -20,7 +20,7 @@ local duende = {
     loc_vars = function(self, info_queue, card)
         local empty_slots = 0
         if G.jokers then
-            empty_slots = G.jokers.config.card_limit - #G.jokers.cards
+            empty_slots = (G.jokers.config.card_limit - #G.jokers.cards) + #SMODS.find_card("j_aij_duende", true)
         end
         return {
             vars = {
@@ -34,7 +34,10 @@ local duende = {
 
     end,
     calc_dollar_bonus = function(self, card)
-        local empty_slots = G.jokers.config.card_limit - #G.jokers.cards
+        local empty_slots = 0
+        if G.jokers then
+            empty_slots = (G.jokers.config.card_limit - #G.jokers.cards) + #SMODS.find_card("j_aij_duende", true)
+        end
         if empty_slots > 0 then
             return empty_slots * card.ability.extra.dollars
         end

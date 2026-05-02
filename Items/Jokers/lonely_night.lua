@@ -8,10 +8,10 @@ local lonely_night = {
             
         }
     },
-    rarity = 3,
+    rarity = 2,
     pos = { x = 2, y = 16 },
     atlas = 'joker_atlas',
-    cost = 8,
+    cost = 7,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
