@@ -1872,11 +1872,11 @@ create_option_cycle({
 position = "after"
 match_indent = true
 payload = ''',
-{n=G.UIT.R, config={align = "cm", r = 0.1, w = 0.2, minh = 0.9, hover = true, colour = G.C.GOLD, button = "jest_gold_tags", shadow = true, focus_args = {nav = 'wide', snap_to = true}}, nodes={
+(not All_in_Jest.config.aij_lite) and {n=G.UIT.R, config={align = "cm", r = 0.1, w = 0.2, minh = 0.9, hover = true, colour = G.C.GOLD, button = "jest_gold_tags", shadow = true, focus_args = {nav = 'wide', snap_to = true}}, nodes={
     {n=G.UIT.R, config={align = "cm", padding = 0, no_fill = true, maxw = 4.8}, nodes={
         {n=G.UIT.T, config={text = localize('aij_upgraded_tags'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT}}
     }}
-}},
+}} or nil,
 '''
 
 # Gold tags (3/9)
@@ -2685,6 +2685,7 @@ end
 '''
 
 # Round dollars earned at the end of the round to the nearest whole number
+# Implemenet alternative to calc_dollar_bonus (currently just for Jogre)
 # G.FUNCS.evaluate_round()
 [[patches]] 
 [patches.pattern]
@@ -2692,27 +2693,29 @@ target = "functions/state_events.lua"
 pattern = "add_round_eval_row({name = 'bottom', dollars = dollars*"
 position = "before"
 payload = '''
-local i = 0
-for _, area in ipairs(SMODS.get_card_areas('jokers')) do
-    for _, _card in ipairs(area.cards) do
-        local obj = _card.config.center
-        if obj.all_in_jest and obj.all_in_jest.end_calc_dollar_bonus and type(obj.all_in_jest.end_calc_dollar_bonus) == 'function' then
-            local ret, ret_opts = obj.all_in_jest:end_calc_dollar_bonus(_card, dollars)
-            ret_opts = ret_opts or {}
-    
-            -- TARGET: calc_dollar_bonus per card
-            if ret then
-                if not ret_opts.no_eval_row then
-                    i = i+1
-                    add_round_eval_row({dollars = ret, bonus = true, name='aij_joker'..i, pitch = pitch, card = _card, loc_opts = ret_opts})
-                    pitch = pitch + 0.06
+do
+    local i = 0
+    for _, area in ipairs(SMODS.get_card_areas('jokers')) do
+        for _, _card in ipairs(area.cards) do
+            local obj = _card.config.center
+            if _card:can_calculate() and obj.all_in_jest and obj.all_in_jest.end_calc_dollar_bonus and type(obj.all_in_jest.end_calc_dollar_bonus) == 'function' then
+                local ret, ret_opts = obj.all_in_jest:end_calc_dollar_bonus(_card, dollars)
+                ret_opts = ret_opts or {}
+        
+                -- TARGET: calc_dollar_bonus per card
+                if ret then
+                    if not ret_opts.no_eval_row then
+                        i = i+1
+                        add_round_eval_row({dollars = ret, bonus = true, name='aij_joker'..i, pitch = pitch, card = _card, loc_opts = ret_opts})
+                        pitch = pitch + 0.06
+                    end
+                    dollars = dollars + ret
                 end
-                dollars = dollars + ret
             end
         end
     end
+    i = 0
 end
-i = 0
 dollars = math.floor(dollars + 0.5)
 '''
 match_indent = true
