@@ -5156,6 +5156,12 @@ return {
             c_aij_scopophobia = {
                 name = 'Скопофобия',
                 text = {
+                    '',
+                }
+            },
+            c_aij_maw = {
+                name = 'Maw',
+                text = {
                     '{C:red}Уничтожает{} случайного {C:attention}Джокера',
                     'и {C:attention}все карты{} в руке',
                 }

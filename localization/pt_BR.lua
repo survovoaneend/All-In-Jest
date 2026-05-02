@@ -4318,6 +4318,12 @@ return {
             c_aij_scopophobia = {
                 name = "Scopophobia",
                 text = {
+                    ""
+                }
+            },
+            c_aij_maw = {
+                name = "Maw",
+                text = {
                     "Destrói um Coringa aleatório",
                     "e todas as cartas seguradas na mão"
                 }
