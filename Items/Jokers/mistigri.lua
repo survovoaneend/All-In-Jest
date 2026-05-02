@@ -31,6 +31,9 @@ local mistigri = {
         if not (G.GAME and G.hand and G.jokers and G.hand.cards) then
             return
         end
+        if #SMODS.find_card("j_aij_mistigri") <= 0 then
+            return
+        end
         if card.debuff then
             if card.ability.current_bonus_applied and card.ability.current_bonus_applied > 0 then
                 G.hand:change_size(-card.ability.current_bonus_applied)

@@ -27,7 +27,7 @@ local pog = {
     pixel_size = { w = 55, h = 55 },
 
     update = function(self, card, dt)
-        if G.booster_pack then
+        if G.booster_pack and #SMODS.find_card("j_aij_pog") > 0 then
             local skip_button = aij_get_UIE_by_fob(G.booster_pack.UIRoot, 'can_skip_booster')
             if not skip_button.UIBox:get_UIE_by_ID('tag_desc') then
                 local _tag = jest_poll_tag("pog")

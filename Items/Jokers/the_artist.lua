@@ -27,70 +27,72 @@ local the_artist = {
     end,
 
     update = function(self, card, dt)
-        if G.consumeables then
-            for i = 1, #G.consumeables.cards do
-                if G.consumeables.cards[i] and G.consumeables.cards[i].config.center.set == 'Tarot' then
-                    local index = 0
-                    for j = 1, #SMODS.find_card("j_aij_the_artist") do 
-                        if SMODS.find_card("j_aij_the_artist")[j] == card then
-                            index = j
+        if #SMODS.find_card("j_aij_the_artist") > 0 then
+            if G.consumeables then
+                for i = 1, #G.consumeables.cards do
+                    if G.consumeables.cards[i] and G.consumeables.cards[i].config.center.set == 'Tarot' then
+                        local index = 0
+                        for j = 1, #SMODS.find_card("j_aij_the_artist") do 
+                            if SMODS.find_card("j_aij_the_artist")[j] == card then
+                                index = j
+                            end
                         end
-                    end
-                    
-                    if not G.consumeables.cards[i].ability.jest_the_artist_applied or (G.consumeables.cards[i].ability.jest_the_artist_applied and not G.consumeables.cards[i].ability.jest_the_artist_applied[index]) then
-                        G.consumeables.cards[i].ability.jest_the_artist_applied = G.consumeables.cards[i].ability.jest_the_artist_applied or {}
-                        G.consumeables.cards[i].ability.jest_the_artist_applied[index] = card.ability.extra.more_selection
-                        card.ability.extra.index = tostring(index)
-                        if G.consumeables.cards[i].ability.max_highlighted then
-                            G.consumeables.cards[i].ability.consumeable = copy_table(G.consumeables.cards[i].ability.consumeable)
-                            jest_ability_calculate(G.consumeables.cards[i],"+", card.ability.extra.more_selection, nil ,nil, true, false, "ability.consumeable")
-                            G.consumeables.cards[i].ability.max_highlighted = G.consumeables.cards[i].ability.max_highlighted + card.ability.extra.more_selection
-                        end
-                    end
-                end
-            end
-        end
-        if G.shop_jokers and G.shop_jokers.cards then 
-            for i = 1, #G.shop_jokers.cards do
-                if G.shop_jokers.cards[i] and G.shop_jokers.cards[i].config.center.set == 'Tarot' then
-                    local index = 0
-                    for j = 1, #SMODS.find_card("j_aij_the_artist") do 
-                        if SMODS.find_card("j_aij_the_artist")[j] == card then
-                            index = j
-                        end
-                    end
-                    
-                    if not G.shop_jokers.cards[i].ability.jest_the_artist_applied or (G.shop_jokers.cards[i].ability.jest_the_artist_applied and not G.shop_jokers.cards[i].ability.jest_the_artist_applied[index]) then
-                        G.shop_jokers.cards[i].ability.jest_the_artist_applied = G.shop_jokers.cards[i].ability.jest_the_artist_applied or {}
-                        G.shop_jokers.cards[i].ability.jest_the_artist_applied[index] = card.ability.extra.more_selection
-                        card.ability.extra.index = tostring(index)
-                        if G.shop_jokers.cards[i].ability.max_highlighted then
-                            G.shop_jokers.cards[i].ability.consumeable = copy_table(G.shop_jokers.cards[i].ability.consumeable)
-                            jest_ability_calculate(G.shop_jokers.cards[i],"+", card.ability.extra.more_selection, nil ,nil, true, false, "ability.consumeable")
-                            G.shop_jokers.cards[i].ability.max_highlighted = G.shop_jokers.cards[i].ability.max_highlighted + card.ability.extra.more_selection
+                        
+                        if not G.consumeables.cards[i].ability.jest_the_artist_applied or (G.consumeables.cards[i].ability.jest_the_artist_applied and not G.consumeables.cards[i].ability.jest_the_artist_applied[index]) then
+                            G.consumeables.cards[i].ability.jest_the_artist_applied = G.consumeables.cards[i].ability.jest_the_artist_applied or {}
+                            G.consumeables.cards[i].ability.jest_the_artist_applied[index] = card.ability.extra.more_selection
+                            card.ability.extra.index = tostring(index)
+                            if G.consumeables.cards[i].ability.max_highlighted then
+                                G.consumeables.cards[i].ability.consumeable = copy_table(G.consumeables.cards[i].ability.consumeable)
+                                jest_ability_calculate(G.consumeables.cards[i],"+", card.ability.extra.more_selection, nil ,nil, true, false, "ability.consumeable")
+                                G.consumeables.cards[i].ability.max_highlighted = G.consumeables.cards[i].ability.max_highlighted + card.ability.extra.more_selection
+                            end
                         end
                     end
                 end
             end
-        end
-        if G.pack_cards and G.pack_cards.cards then
-            for i = 1, #G.pack_cards.cards do
-                if G.pack_cards.cards[i] and G.pack_cards.cards[i].config.center.set == 'Tarot' then
-                    local index = 0
-                    for j = 1, #SMODS.find_card("j_aij_the_artist") do 
-                        if SMODS.find_card("j_aij_the_artist")[j] == card then
-                            index = j
+            if G.shop_jokers and G.shop_jokers.cards then 
+                for i = 1, #G.shop_jokers.cards do
+                    if G.shop_jokers.cards[i] and G.shop_jokers.cards[i].config.center.set == 'Tarot' then
+                        local index = 0
+                        for j = 1, #SMODS.find_card("j_aij_the_artist") do 
+                            if SMODS.find_card("j_aij_the_artist")[j] == card then
+                                index = j
+                            end
+                        end
+                        
+                        if not G.shop_jokers.cards[i].ability.jest_the_artist_applied or (G.shop_jokers.cards[i].ability.jest_the_artist_applied and not G.shop_jokers.cards[i].ability.jest_the_artist_applied[index]) then
+                            G.shop_jokers.cards[i].ability.jest_the_artist_applied = G.shop_jokers.cards[i].ability.jest_the_artist_applied or {}
+                            G.shop_jokers.cards[i].ability.jest_the_artist_applied[index] = card.ability.extra.more_selection
+                            card.ability.extra.index = tostring(index)
+                            if G.shop_jokers.cards[i].ability.max_highlighted then
+                                G.shop_jokers.cards[i].ability.consumeable = copy_table(G.shop_jokers.cards[i].ability.consumeable)
+                                jest_ability_calculate(G.shop_jokers.cards[i],"+", card.ability.extra.more_selection, nil ,nil, true, false, "ability.consumeable")
+                                G.shop_jokers.cards[i].ability.max_highlighted = G.shop_jokers.cards[i].ability.max_highlighted + card.ability.extra.more_selection
+                            end
                         end
                     end
-                    
-                    if not G.pack_cards.cards[i].ability.jest_the_artist_applied or (G.pack_cards.cards[i].ability.jest_the_artist_applied and not G.pack_cards.cards[i].ability.jest_the_artist_applied[index]) then
-                        G.pack_cards.cards[i].ability.jest_the_artist_applied = G.pack_cards.cards[i].ability.jest_the_artist_applied or {}
-                        G.pack_cards.cards[i].ability.jest_the_artist_applied[index] = card.ability.extra.more_selection
-                        card.ability.extra.index = tostring(index)
-                        if G.pack_cards.cards[i].ability.max_highlighted then
-                            G.pack_cards.cards[i].ability.consumeable = copy_table(G.pack_cards.cards[i].ability.consumeable)
-                            jest_ability_calculate(G.pack_cards.cards[i],"+", card.ability.extra.more_selection, nil ,nil, true, false, "ability.consumeable")
-                            G.pack_cards.cards[i].ability.max_highlighted = G.pack_cards.cards[i].ability.max_highlighted + card.ability.extra.more_selection
+                end
+            end
+            if G.pack_cards and G.pack_cards.cards then
+                for i = 1, #G.pack_cards.cards do
+                    if G.pack_cards.cards[i] and G.pack_cards.cards[i].config.center.set == 'Tarot' then
+                        local index = 0
+                        for j = 1, #SMODS.find_card("j_aij_the_artist") do 
+                            if SMODS.find_card("j_aij_the_artist")[j] == card then
+                                index = j
+                            end
+                        end
+                        
+                        if not G.pack_cards.cards[i].ability.jest_the_artist_applied or (G.pack_cards.cards[i].ability.jest_the_artist_applied and not G.pack_cards.cards[i].ability.jest_the_artist_applied[index]) then
+                            G.pack_cards.cards[i].ability.jest_the_artist_applied = G.pack_cards.cards[i].ability.jest_the_artist_applied or {}
+                            G.pack_cards.cards[i].ability.jest_the_artist_applied[index] = card.ability.extra.more_selection
+                            card.ability.extra.index = tostring(index)
+                            if G.pack_cards.cards[i].ability.max_highlighted then
+                                G.pack_cards.cards[i].ability.consumeable = copy_table(G.pack_cards.cards[i].ability.consumeable)
+                                jest_ability_calculate(G.pack_cards.cards[i],"+", card.ability.extra.more_selection, nil ,nil, true, false, "ability.consumeable")
+                                G.pack_cards.cards[i].ability.max_highlighted = G.pack_cards.cards[i].ability.max_highlighted + card.ability.extra.more_selection
+                            end
                         end
                     end
                 end
