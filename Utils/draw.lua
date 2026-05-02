@@ -67,7 +67,7 @@ SMODS.DrawStep {
 -- }
 SMODS.DrawStep {
     key = 'chaotic_shader',
-    order = 55,
+    order = 15,
     func = function(self, layer)
         if SMODS.get_enhancements(self).m_aij_wood then
             if not G.SETTINGS.colourblind_option and self.children.front and (self.ability.delayed or not self:should_hide_front()) then
