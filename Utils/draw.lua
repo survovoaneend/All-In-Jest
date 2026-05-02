@@ -29,12 +29,12 @@ SMODS.DrawStep {
 } 
 SMODS.DrawStep {
     key = 'aij_seal_edition',
-    order = 30,
+    order = 31,
     func = function(self, layer)
         local edition = self.aij_delay_seal_edition or self.aij_seal_edition
         if self.seal and edition then
             for k, v in pairs(G.P_CENTER_POOLS.Edition) do
-                if edition[v.key:sub(3)] and v.shader then
+                if edition.key == v.key and v.shader then
                     if type(v.draw) == 'function' then
                         v:draw(self, layer)
                     else
