@@ -42,17 +42,12 @@ local glasgow_smile = {
     calculate = function(self, card, context)
         if context.after and not context.blueprint then
             if G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 then
-                 local played_card = {context.full_hand[1]}
-                 if played_card[1].config.center == G.P_CENTERS.m_bonus then
-                     card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.gain
+                 local played_card = context.full_hand[1]
+                 if played_card.config.center == G.P_CENTERS.m_bonus then
+                    card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.gain
                      
-                     G.E_MANAGER:add_event(Event({
-                        func = function()
-                            played_card[1]:start_dissolve()
-                            SMODS.destroy_cards(played_card)
-                            return true
-                        end
-                    }))
+                    SMODS.destroy_cards(played_card)
+
                     return {
                         message = localize('k_upgrade_ex'),
                         colour = G.C.CHIPS

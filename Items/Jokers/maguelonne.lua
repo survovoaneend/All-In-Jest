@@ -39,13 +39,8 @@ local maguelonne = {
             if #face_cards > 0 then
                 local destroyed_card = pseudorandom_element(face_cards, 'maguelonne')
                 card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
-                
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        destroyed_card:start_dissolve()
-                        return true
-                    end
-                }))
+                     
+                SMODS.destroy_cards(destroyed_card)
 
                 return {
                     message = localize{type='variable', key='a_xmult', vars={card.ability.extra.xmult}},
