@@ -10,7 +10,7 @@ return {
             k_star_q = "Star?",
             k_asteroid = "Asteroid",
             k_tarot_q = "Tarot?",
-            k_tarot_hex = "Hex",
+            k_tarot_hex = "The Hex",
             k_active = "Active",
             k_inactive = "Inactive",
             k_aij_party_time = "Party Time!",
@@ -7753,6 +7753,14 @@ return {
                 text = {
                     "{C:red}Destroy{} all cards",
                     "held in {C:attention}hand"
+                }
+            },
+            c_aij_inn = {
+                name = 'The Inn',
+                text = {
+                    "Creates a random",
+                    "{C:spectral}Familiar Face{}",
+                    "{C:inactive}(Must have room){}"
                 }
             },
             c_aij_faceless = {
