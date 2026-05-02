@@ -75,6 +75,12 @@ SMODS.DrawStep {
             end
             self.children.center:draw_shader('aij_semitrasparent', nil, self.ARGS.send_to_shader)
         end
+        if SMODS.get_enhancements(self).m_aij_scorched then
+            self.children.center:draw_shader('aij_burnt', nil, self.ARGS.send_to_shader)
+            if self.children.front and (self.ability.delayed or not self:should_hide_front()) then
+                self.children.front:draw_shader('aij_burnt', nil, self.ARGS.send_to_shader)
+            end
+        end
         if self.ability.aij_jest_chaotic_card ~= nil and self.ability.aij_jest_chaotic_card then
             self.children.center:draw_shader('aij_chaotic', nil, self.ARGS.send_to_shader)
             if self.children.front and (self.ability.delayed or not self:should_hide_front()) then

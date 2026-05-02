@@ -4,15 +4,15 @@ local scorched_shader = {
     path = 'burnt.fs',
     send_vars = function(sprite)
         local atlas = G.ASSET_ATLAS["aij_enhancements_atlas"]
-        local pos = {x = 8, y = 0}
-        local postwo = {x = 7, y = 0}
+        local overlayPos = {x = 8, y = 0}
+        local maskPos = {x = 7, y = 0}
         local w, h = 71, 95 
         local texW, texH = atlas.image:getDimensions()
     
         return {
-            maskTex = atlas.image,
-            maskUV = { pos.x * atlas.px / texW, pos.y * atlas.py / texH, w / texW, h / texH },
-            otherUV = { postwo.x * atlas.px / texW, postwo.y * atlas.py / texH, w / texW, h / texH },
+            enhancementsTex = atlas.image,
+            overlayUV = { overlayPos.x * atlas.px / texW, overlayPos.y * atlas.py / texH, w / texW, h / texH },
+            maskUV = { maskPos.x * atlas.px / texW, maskPos.y * atlas.py / texH, w / texW, h / texH },
         }
     end
 } 
