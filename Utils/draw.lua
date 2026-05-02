@@ -23,6 +23,18 @@ SMODS.DrawStep {
     end,
     conditions = { vortex = false, facing = 'front' },
 }
+--SMODS.DrawStep {
+--    key = 'shadow_misprint',
+--    order = -995,
+--    layers = { shadow = true, both = true },
+--    func = function(self)
+--        if not self.no_shadow and G.SETTINGS.GRAPHICS.shadows == 'On' and((self.ability.effect ~= 'Glass Card' and not self.greyed and self:should_draw_shadow() ) and ((self.area and self.area ~= G.discard and self.area.config.type ~= 'deck') or not self.area or self.states.drag.is)) then
+--            if self.edition and self.edition.aij_misprint then
+--                G.shared_shadow:draw_shader('aij_misprint', nil, self.ARGS.send_to_shader)
+--            end
+--        end
+--    end,
+--}
 SMODS.DrawStep {
     key = 'temp_patches',
     order = 21,

@@ -32,6 +32,177 @@ function jest_poll_tag(seed, options)
   return tag
 end
 
+function aij_pasteAlpha(base, layer, posb, posl, args)
+    args = args or {}
+    posb = posb or {x=0, y=0}
+    posl = posl or {x=0, y=0}
+
+    local lw, lh = layer:getWidth(), layer:getHeight()
+    local bw, bh = base:getWidth(), base:getHeight()
+
+    local lpx = args.lpx and args.lpx * G.SETTINGS.GRAPHICS.texture_scaling or lw
+    local lpy = args.lpy and args.lpy * G.SETTINGS.GRAPHICS.texture_scaling or lh
+    local bpx = args.bpx and args.bpx * G.SETTINGS.GRAPHICS.texture_scaling or bw
+    local bpy = args.bpy and args.bpy * G.SETTINGS.GRAPHICS.texture_scaling or bh
+
+    local lx0 = posl.x * lpx
+    local ly0 = posl.y * lpy
+    local bx0 = posb.x * bpx
+    local by0 = posb.y * bpy
+
+    local lx1 = math.min(lx0 + lpx, lw)
+    local ly1 = math.min(ly0 + lpy, lh)
+    local bx1 = math.min(bx0 + bpx, bw)
+    local by1 = math.min(by0 + bpy, bh)
+
+    local getPixel = layer.getPixel
+
+    for x = 0, math.min(lx1 - lx0, bx1 - bx0) - 1 do
+        for y = 0, math.min(ly1 - ly0, by1 - by0) - 1 do
+
+            local r, g, b, a = getPixel(layer, lx0 + x, ly0 + y)
+            local br, bg, bb, ba = getPixel(base, lx0 + x, ly0 + y)
+            if args.blend then args.blend = {br, bg, bb, ba} end
+
+            if (not args.reverse and a > 0) or (args.reverse and a <= 0) then
+                if args.blend then
+                    local nr, ng, nb, na = aij_blend_pixels(r, g, b, a, args.blend, args)
+                    base:setPixel(bx0 + x, by0 + y, nr, ng, nb, args.force_alpha or na)
+                else
+                    base:setPixel(bx0 + x, by0 + y, r, g, b, args.force_alpha or a)
+                end
+            end
+        end
+    end
+end
+
+function aij_recolour_atlas(card, old_colour, new_colour, atlas, front, args)
+    args = args or {}
+    local image_data = args.image_data or (atlas and atlas.image_data:clone())
+
+    image_data:mapPixel(function(x, y, r, g, b, a)
+        return aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour, args.tolerance, args)
+    end)
+    if args.return_val then return image_data end
+    if front then 
+        if self.children.front.atlas and self.children.front.atlas.image_data then
+            self.children.front.atlas.image_data = nil
+        end
+        card.children.front.atlas = {
+            px = atlas.px,
+            py = atlas.py,
+            name = atlas.name,
+            image_data = image_data,
+            image = love.graphics.newImage(image_data, {
+                mipmaps = true,
+                dpiscale = G.SETTINGS.GRAPHICS.texture_scaling
+            })
+        }
+    else
+        if self.children.center.atlas and self.children.center.atlas.image_data then
+            self.children.center.atlas.image_data = nil
+        end
+        card.children.center.atlas = {
+            px = atlas.px,
+            py = atlas.py,
+            name = atlas.name,
+            image_data = image_data,
+            image = love.graphics.newImage(image_data, {
+                mipmaps = true,
+                dpiscale = G.SETTINGS.GRAPHICS.texture_scaling
+            })
+        }
+    end
+end
+
+function aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour, tolerance, args)
+    tolerance = tolerance or 0.01
+    args.tolerance = args.tolerance or tolerance
+    args.pos = {x = x, y = y}
+
+    if (math.abs(r - old_colour[1]) <= tolerance
+    and math.abs(g - old_colour[2]) <= tolerance
+    and math.abs(b - old_colour[3]) <= tolerance) or args.skip_check then
+        if args.return_pixel then return args.return_pixel(r, g, b, a, old_colour, new_colour, args) end
+        return new_colour[1], new_colour[2], new_colour[3], args.replace_alpha and new_colour[4] or a
+    end
+
+    return r, g, b, a
+end
+
+function aij_get_mcc_pixel(base, posb, args)
+    args = args or {}
+    posb = posb or {x=0, y=0}
+
+    local data = base
+    local bw, bh = data:getWidth(), data:getHeight()
+    local bit = require("bit")
+
+    local scale = G.SETTINGS.GRAPHICS.texture_scaling
+    local bpx = (args.bpx and args.bpx * scale) or bw
+    local bpy = (args.bpy and args.bpy * scale) or bh
+
+    local bx0 = posb.x * bpx
+    local by0 = posb.y * bpy
+
+    local bx1 = math.min(bx0 + bpx, bw)
+    local by1 = math.min(by0 + bpy, bh)
+
+    local color_counts = {}
+    local getPixel = data.getPixel 
+
+    if args.check_invis then
+        for x = bx0, bx1 - 1 do
+            for y = by0, by1 - 1 do
+                local _, _, _, a = getPixel(data, x, y)
+                if a > 0 then
+                    return false
+                end
+            end
+        end
+        return true
+    end
+
+    for x = bx0, bx1 - 1 do
+        for y = by0, by1 - 1 do
+            local r, g, b, a = getPixel(data, x, y)
+            if a > 0 then
+                local key = r * 65536 + g * 256 + b 
+                color_counts[key] = (color_counts[key] or 0) + 1
+            end
+        end
+    end
+
+    local best_key, best_count = nil, 0
+    for key, count in pairs(color_counts) do
+        if count > best_count then
+            best_key = key
+            best_count = count
+        end
+    end
+
+    if not best_key then
+        return nil
+    end
+
+    local r = bit.band(bit.rshift(best_key, 16), 0xFF)
+    local g = bit.band(bit.rshift(best_key, 8), 0xFF)
+    local b = bit.band(best_key, 0xFF)
+
+    return {r, g, b}
+end
+
+function aij_blend_pixels(r, g, b, a, new_color, args)
+    local r_new, g_new, b_new = new_color[1], new_color[2], new_color[3]
+    local alpha = args.force_blend_alpha or a
+
+    local out_r = r_new * alpha + r * (1 - alpha)
+    local out_g = g_new * alpha + g * (1 - alpha)
+    local out_b = b_new * alpha + b * (1 - alpha)
+
+    return out_r, out_g, out_b, a
+end
+
 function next_palindrome(n)
     n = math.ceil(n)
     while true do
@@ -1924,7 +2095,7 @@ function All_in_Jest.set_other_enhancement(card, enhancement)
 end
 
 function All_in_Jest.find_multi_enhancement_pos(enhancement)
-    local pos = 0
+    local pos = 500
     local atlas = nil
     if enhancement == 'm_bonus' then
         pos = 3
@@ -1951,12 +2122,87 @@ function All_in_Jest.find_multi_enhancement_pos(enhancement)
     elseif enhancement == 'm_aij_canvas' then
         pos = 13
     elseif enhancement == 'm_aij_simulated' then
-        pos = 0
+        pos = nil
         atlas = 'aij_multi_simulated_atlas'
     elseif enhancement == 'm_aij_wood' then
         pos = 15
     end
     return pos, atlas
+end
+
+function All_in_Jest.multi_enhancement_get_vanilla_layer(key)
+    local layer = nil
+    if key == 'm_bonus' then
+        layer = 'Foreground'
+    elseif key == 'm_mult' then
+        layer = 'Foreground'
+    elseif key == 'm_wild' then
+        layer = 'Foreground'
+    elseif key == 'm_glass' then
+        layer = 'Background'
+    elseif key == 'm_steel' then
+        layer = 'Background'
+    elseif key == 'm_stone' then
+        layer = 'Background'
+    elseif key == 'm_gold' then
+        layer = 'Background'
+    elseif key == 'm_lucky' then
+        layer = 'Background'
+    end
+    return layer
+end
+
+function All_in_Jest.multi_enhancement_auto_sprite(card, center, other_center, atlas)
+    --Only Vanilla sprites don't have image data (luckly the Vanilla enhancements sprites also exist in this mod)
+    local has_img_data, o_has_img_data = center.atlas and G.ASSET_ATLAS[center.atlas].image_data, other_center.atlas and G.ASSET_ATLAS[other_center.atlas].image_data
+    local center_sprite, o_center_sprite = (has_img_data and has_img_data:clone() or G.ASSET_ATLAS[atlas].image_data:clone()), (o_has_img_data and o_has_img_data:clone() or G.ASSET_ATLAS[atlas].image_data:clone())
+    local center_pos, o_center_pos = has_img_data and center.pos or {x = All_in_Jest.find_multi_enhancement_pos(center.key), y = 0}, o_has_img_data and other_center.pos or {x = All_in_Jest.find_multi_enhancement_pos(other_center.key), y = 0}
+    local center_preference, o_center_preference = (center.all_in_jest and center.all_in_jest.multi_enhancement_layer) or All_in_Jest.multi_enhancement_get_vanilla_layer(center.key) or 'Undefined', (other_center.all_in_jest and other_center.all_in_jest.multi_enhancement_layer) or All_in_Jest.multi_enhancement_get_vanilla_layer(other_center.key) or 'Undefined'
+    local c_atlas, o_atlas = has_img_data and center.atlas or atlas, o_has_img_data and other_center.atlas or atlas
+    if ((center_preference == 'Foreground' or o_center_preference == 'Foreground') and (center_preference == 'Background' or o_center_preference == 'Background')) or ((center_preference == 'Foreground' or o_center_preference == 'Foreground') and (center_preference == 'Undefined' or o_center_preference == 'Undefined')) then
+        local replace_color = HEX('ffffff')
+        local new_colour = HEX('ffffff')
+        new_colour[4] = 0
+        local order_sprite, o_order_sprite = center_preference ~= 'Foreground' and center_sprite or o_center_sprite, center_preference ~= 'Foreground' and o_center_sprite or center_sprite
+        aij_recolour_atlas(nil, replace_color, new_colour, nil, nil, {image_data = o_order_sprite, return_val = true, replace_alpha = true})
+        local bpx, bpy, lpx, lpy = G.ASSET_ATLAS[c_atlas].px, G.ASSET_ATLAS[c_atlas].py, G.ASSET_ATLAS[o_atlas].px, G.ASSET_ATLAS[o_atlas].py
+        local order_pos, o_order_pos = center_preference ~= 'Foreground' and center_pos or o_center_pos, center_preference ~= 'Foreground' and o_center_pos or center_pos
+        aij_pasteAlpha(order_sprite, o_order_sprite, order_pos, o_order_pos, {lpx = lpx, lpy = lpy, bpx = bpx, bpy = bpy})
+        local order_atlas = center_preference ~= 'Foreground' and c_atlas or o_atlas
+        return order_sprite, order_atlas, order_pos
+    else
+        local c_order, o_order = 0, 0
+        for k, v in pairs(G.P_CENTER_POOLS.Enhanced) do
+            if v.key == center.key then c_order = k end
+            if v.key == other_center.key then o_order = k end
+        end
+        local replace_color = HEX('ffffff')
+        local new_colour = HEX('ffffff')
+        new_colour[4] = 0.5
+        local order_sprite, o_order_sprite = c_order < o_order and center_sprite or o_center_sprite, c_order < o_order and o_center_sprite or center_sprite
+        aij_recolour_atlas(nil, replace_color, new_colour, nil, nil, {
+            image_data = o_order_sprite, 
+            return_val = true, 
+            skip_check = true,
+            other_color = HEX('c0c8d6'),
+            return_pixel = function(r, g, b, a, old_colour, new_colour, args)
+                local tolerance = 0.01
+                if (math.abs(r - old_colour[1]) <= tolerance
+                and math.abs(g - old_colour[2]) <= tolerance
+                and math.abs(b - old_colour[3]) <= tolerance) or (math.abs(r - args.other_color[1]) <= tolerance
+                and math.abs(g - args.other_color[2]) <= tolerance
+                and math.abs(b - args.other_color[3]) <= tolerance) then
+                    return r, g, b, 0
+                end
+                return r, g, b, a
+            end
+        })
+        local bpx, bpy, lpx, lpy = G.ASSET_ATLAS[c_atlas].px, G.ASSET_ATLAS[c_atlas].py, G.ASSET_ATLAS[o_atlas].px, G.ASSET_ATLAS[o_atlas].py
+        local order_pos, o_order_pos = c_order < o_order and center_pos or o_center_pos, c_order < o_order and o_center_pos or center_pos
+        aij_pasteAlpha(order_sprite, o_order_sprite, order_pos, o_order_pos, {blend = true, force_blend_alpha = 0.5, lpx = lpx, lpy = lpy, bpx = bpx, bpy = bpy})
+        local order_atlas = c_order < o_order and c_atlas or o_atlas
+        return order_sprite, order_atlas, order_pos
+    end
 end
 
 function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)

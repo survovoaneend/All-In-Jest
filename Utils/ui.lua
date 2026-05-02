@@ -177,6 +177,7 @@ end
 --  end
 --  G:save_settings()
 --end
+
 G.FUNCS.jest_free_reroll_boss = function(e) 
     stop_use()
     if G.GAME.jest_free_stultor_rerolls == 0 then
@@ -325,8 +326,10 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
         INIT_COLLECTION_CARD_ALERTS()
     end
 
+    local temp = copy_table(G.GAME.used_jokers) -- Doing this since otherwise collection cards will be counted as owned
     G.FUNCS.SMODS_card_collection_page{ cycle_config = { current_option = 1 }}
-    
+    G.GAME.used_jokers = temp
+
     local t =  create_UIBox_generic_options({ back_func = (args and args.back_func) or G.ACTIVE_MOD_UI and "openModUI_"..G.ACTIVE_MOD_UI.id or 'your_collection', snap_back = args.snap_back, infotip = args.infotip, no_back = true, contents = {
           {n=G.UIT.R, config={align = "cm", r = 0.1, colour = G.C.BLACK, emboss = 0.05}, nodes=deck_tables}, 
           (not args.hide_single_page or cards_per_page < #pool) and {n=G.UIT.R, config={align = "cm"}, nodes={
@@ -338,13 +341,26 @@ end
 G.FUNCS.jest_select = function(e)
     local c1 = e.config.ref_table
     if c1 and c1:is(Card) then
+      local card_was_banned = false
+      if G.GAME.banned_keys[c1.config.center_key] then
+          card_was_banned = true
+          -- If card was banned by an All in Jest joker, unban it temporarially
+          if type(G.GAME.banned_keys[c1.config.center_key]) == "string" and G.GAME.banned_keys[c1.config.center_key]:sub(1, 5) == "j_aij" then
+              card_was_banned = G.GAME.banned_keys[c1.config.center_key]
+              G.GAME.banned_keys[c1.config.center_key] = nil
+          end
+      end
       G.E_MANAGER:add_event(Event({
         trigger = 'after',
         func = function()
           local c_to_remove = nil
+          if G.GAME.banned_keys[c1.config.center_key] then
+             return true
+          end
           if e.config.data[2].remove_orginal and e.config.data[2].index then
             c_to_remove = e.config.data[2].remove_orginal[e.config.data[2].index]
           end 
+          G.SETTINGS.paused = false
           if e.config.data[2].copies and e.config.data[2].copies > 1 then
               for i = 1, e.config.data[2].copies do
                   local card = SMODS.add_card {
@@ -396,21 +412,19 @@ G.FUNCS.jest_select = function(e)
             c_to_remove:remove()
             c_to_remove = nil
           end 
-          G.SETTINGS.paused = false
           if G.OVERLAY_MENU ~= nil then
               G.OVERLAY_MENU:remove()
               G.OVERLAY_MENU = nil
           end
-          return true
-        end
-      }))
-      G.E_MANAGER:add_event(Event({
-        func = function()
-          for i = 1, #G.GAME.tags do
-            if G.GAME.tags[i]:apply_to_run({ type = 'new_blind_choice' }) then
-              break
+          
+          G.E_MANAGER:add_event(Event({
+            func = function()
+              if card_was_banned then
+                  G.GAME.banned_keys[c1.config.center_key] = card_was_banned
+              end
+              return true
             end
-          end
+          }))
           return true
         end
       }))

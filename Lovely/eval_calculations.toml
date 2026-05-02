@@ -84,6 +84,10 @@ if card.aij_inherent_effects then
         end
     end
 end
+if not card.ability.aij_other_center or not card.ability.aij_other_center['ability'] then
+    card.ability.aij_other_center = card.ability.aij_other_center or {}
+    card.ability.aij_other_center['ability'] = card.config.aij_other_center and card.config.aij_other_center['ability']
+end
 '''
 
 [[patches]] #For repetition on cards

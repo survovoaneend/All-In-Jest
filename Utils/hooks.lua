@@ -221,13 +221,27 @@ end
 --    end,
 --}, true)
 
+local never_scores_ref = SMODS.never_scores
+function SMODS.never_scores(card)
+    if card.config.aij_other_center and card.config.aij_other_center['center'] then
+        if card.config.aij_other_center['center'].never_scores then return true end
+    end
+    return never_scores_ref(card)
+end
+
 local has_any_suit_ref = SMODS.has_any_suit
 function SMODS.has_any_suit(card)
+    if card.config.aij_other_center and card.config.aij_other_center['center'] then
+        if card.config.aij_other_center['center'].key == 'm_wild' or card.config.aij_other_center['center'].any_suit then return true end
+    end
     return has_any_suit_ref(card) or All_in_Jest.counts_as_all_suits(card)
 end
 
 local always_scores_ref = SMODS.always_scores
 function SMODS.always_scores(card)
+    if card.config.aij_other_center and card.config.aij_other_center['center'] then
+        if card.config.aij_other_center['center'].key == 'm_stone' or card.config.aij_other_center['center'].always_scores then return true end
+    end
     return always_scores_ref(card)
 end
 
@@ -275,6 +289,12 @@ function SMODS.has_no_suit(card)
             return true
         end
     end
+    local any_suit, no_suit = nil, has_no_suit_ref(card)
+    if card.config.aij_other_center and card.config.aij_other_center['center'] then
+        if card.config.aij_other_center['center'].key == 'm_wild' or card.config.aij_other_center['center'].any_suit then any_suit = true end
+        if card.config.aij_other_center['center'].key == 'm_stone' or card.config.aij_other_center['center'].no_suit then no_suit = true end
+        return no_suit and not any_suit
+    end
     return has_no_suit_ref(card)
 end
 
@@ -287,6 +307,7 @@ function SMODS.has_enhancement(card, key)
             return true
         end
     end
+    if card.config.aij_other_center and card.config.aij_other_center['center'].key and card.config.aij_other_center['center'].key == key then return true end
     return has_enhancement
 end
 
@@ -332,6 +353,12 @@ function SMODS.has_no_rank(card)
         else
             card.front_hidden = card:should_hide_front()
             return true
+        end
+    end
+    if card.config.aij_other_center and card.config.aij_other_center['center'] then
+        if card.config.aij_other_center['center'].key == 'm_stone' or card.config.aij_other_center['center'].no_rank then
+            card.front_hidden = card:should_hide_front()
+            return true 
         end
     end
     return has_no_rank_ref(card)
@@ -533,6 +560,9 @@ function Card:should_hide_front()
     else
         return true
     end
+  end
+  if self.config.aij_other_center and self.ability.aij_other_center and ((self.ability.aij_other_center['ability'] and self.ability.aij_other_center['ability'].effect == 'Stone Card') or (self.config.aij_other_center['center'] and self.config.aij_other_center['center'].replace_base_card)) then
+    return true
   end
   return should_hide_front_ref(self)
 end
@@ -869,7 +899,7 @@ end
 
 local set_spritesref = Card.set_sprites
 function Card:set_sprites(_center, _front)
-	local ref = set_spritesref(self, _center, _front)
+	set_spritesref(self, _center, _front)
     if _center and _center.discovered and _center.all_in_jest and _center.all_in_jest.soul_layers then
         for k, v in pairs(_center.all_in_jest.soul_layers) do
             if _center.all_in_jest.soul_layers[k] and not self.children[k] then
@@ -889,6 +919,49 @@ function Card:set_sprites(_center, _front)
             end
             self.children[k]:set_sprite_pos(_center.all_in_jest.soul_layers[k].pos)
         end
+    end
+end
+
+local cardupdateref = Card.update
+function Card:update(dt)
+    local ref = cardupdateref(self, dt)
+    if self.config.center and self.config.aij_other_center and self.children.center then
+        local x, temp_atlas_1 = All_in_Jest.find_multi_enhancement_pos(self.config.center and self.config.center.key)
+        local y, temp_atlas_2 = All_in_Jest.find_multi_enhancement_pos(self.config.aij_other_center['center'].key)
+        local flip = false
+        if (not y and x) then
+            local temp, x_ = All_in_Jest.find_multi_enhancement_pos(self.config.center and self.config.center.key)
+            local temp2, y_ = All_in_Jest.find_multi_enhancement_pos(self.config.aij_other_center['center'].key)
+            x = temp2
+            y = temp
+            flip = true
+        end
+        local atlas = temp_atlas_1 or temp_atlas_2 or 'aij_multi_enhancements_atlas'
+        local new_pos = {
+            x = x or (flip and self.config.aij_other_center['center'].pos.x or self.config.center.pos.x), 
+            y = y or (flip and self.config.aij_other_center['center'].pos.y or self.config.center.pos.y)
+        }
+        local temp_image_data = G.ASSET_ATLAS[atlas].image_data
+        --local has_sprite = aij_get_mcc_pixel(temp_image_data, new_pos, {bpx = G.ASSET_ATLAS[atlas].px, bpy = G.ASSET_ATLAS[atlas].py, check_invis = true})
+        --local old_s = self.aij_meo_sprite
+        --if has_sprite and (not old_s or old_s[1] ~= atlas or old_s[2] ~= new_pos.x or old_s[3] ~= new_pos.y) then
+        --    self.aij_meo_sprite = {atlas, new_pos.x, new_pos.y}
+        --    local new_image_data, new_atlas, newer_pos = All_in_Jest.multi_enhancement_auto_sprite(self, self.config.center, self.config.aij_other_center['center'], atlas)
+        --    
+        --    self.children.center.atlas = {
+        --        px = G.ASSET_ATLAS[new_atlas].px, py = G.ASSET_ATLAS[new_atlas].py, name = new_atlas,
+        --        image_data = new_image_data,
+        --        image = love.graphics.newImage(new_image_data, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
+        --    }
+        --    self.children.center:set_sprite_pos(newer_pos)
+        --elseif not has_sprite then
+        --self.aij_meo_sprite = {atlas, new_pos.x, new_pos.y}
+        self.children.center:set_sprite_pos(new_pos)
+        self.children.center.atlas = G.ASSET_ATLAS[atlas]
+    end
+    if not self.front_hidden then self.front_hidden = self:should_hide_front() end
+    if self.base.nominal > 0 and self.config.aij_other_center and self.ability.aij_other_center and ((self.ability.aij_other_center['ability'] and self.ability.aij_other_center['ability'].effect == 'Stone Card') or (self.config.aij_other_center['center'] and self.config.aij_other_center['center'].replace_base_card)) then
+        self.base.nominal = 0
     end
     return ref
 end

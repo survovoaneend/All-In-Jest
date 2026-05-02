@@ -13,6 +13,8 @@ return {
             k_tarot_hex = "Hex",
             k_active = "Active",
             k_inactive = "Inactive",
+            k_aij_select = "Select",
+            k_aij_remove = "Remove",
             k_aij_inherent = "Inherent",
             aij_requires_restart = "Requires Restart",
             aij_doesnt_requires_restart = "Doesn't Require Restart",
@@ -4497,6 +4499,14 @@ return {
                     'Add a {V:1}#2#',
                     'to {C:attention}#1#{} selected',
                     'cards in your hand'
+                }
+            },
+            c_aij_barathrum = {
+                name = 'Barathrum',
+                text = {
+                    'Permanently {C:red}removes{} a',
+                    '{C:tarot}Tarot{} Card of your ',
+                    'choice from the {C:attention}pool'
                 }
             },
         },

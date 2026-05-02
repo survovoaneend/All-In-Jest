@@ -57,7 +57,6 @@ if card.aij_inherent_effects then
     local old_ability = copy_table(card.ability)
     local old_center = card.config.center
     local old_center_key = card.config.center_key
-    local set_ability = Card.set_ability
     for _, k in ipairs(aij_inherent_enhancements) do
         card.base.nominal = 0
         card.ability = k['ability']
@@ -73,6 +72,30 @@ if card.aij_inherent_effects then
     card.config.center_key = old_center_key
     context.aij_inherent_enhancement = nil
     SMODS.aij_inherent_enhancement_calc_in_progress = nil
+end
+if card.config.aij_other_center and not SMODS.aij_applying_thing then
+    if card.config.aij_other_center['center'] and card.ability.aij_other_center['ability'] then
+        context.aij_inherent_enhancement = true
+        SMODS.aij_inherent_enhancement_calc_in_progress = true
+        local aij_oc = card.config.aij_other_center
+        local old_nominal = card.base.nominal
+        local old_ability = copy_table(card.ability)
+        local old_center = card.config.center
+        local old_center_key = card.config.center_key
+        card.base.nominal = 0
+        card.ability = card.ability.aij_other_center['ability']
+        card.config.center = aij_oc['center']
+        card.config.center_key = aij_oc['center'].key
+        card.ability.aij_other_center = aij_oc['center']
+        local eval = eval_card(card, context)
+        table.insert(effects, eval)
+        card.base.nominal = old_nominal
+        card.ability = old_ability
+        card.config.center = old_center
+        card.config.center_key = old_center_key
+        context.aij_inherent_enhancement = nil
+        SMODS.aij_inherent_enhancement_calc_in_progress = nil
+    end
 end
 '''
 match_indent = true
@@ -290,6 +313,7 @@ position = "before"
 match_indent = true
 payload = '''
 elseif _c.key == 'm_aij_canvas' and specific_vars.front_hidden then full_UI_table.name = true
+elseif (card and card.config and card.config.aij_other_center) and ((card.config.aij_other_center['center'].key == 'm_aij_canvas' and specific_vars.front_hidden) or (card.config.aij_other_center['center'].name == 'Stone Card' or card.config.aij_other_center['center'].replace_base_card)) then full_UI_table.name = true
 '''
 
 # Suit Patches
@@ -2343,6 +2367,59 @@ if card and card.aij_inherent_effects then
 end
 '''
 
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "SMODS.localize_perma_bonuses(specific_vars, desc_nodes)"
+position = "after"
+match_indent = true
+payload = '''
+    if card and card.config and card.config.aij_other_center then
+        local aij_o_c = card.config.aij_other_center['center']
+        local aij_ocfg = card.ability.aij_other_center['ability']
+        local fake_card = {config = {center = aij_o_c}, ability = aij_ocfg}
+        local res = {}
+        if aij_o_c.loc_vars and type(aij_o_c.loc_vars) == 'function' then
+            res = aij_o_c:loc_vars(nil, fake_card) or {}
+        end
+        if aij_o_c.effect == 'Mult Card' then loc_vars = {SMODS.signed(aij_ocfg.mult)}
+        elseif aij_o_c.effect == 'Wild Card' then
+        elseif aij_o_c.effect == 'Glass Card' then loc_vars = {aij_ocfg.Xmult, SMODS.get_probability_vars(card, 1, aij_ocfg.extra, 'glass')}
+        elseif aij_o_c.effect == 'Steel Card' then loc_vars = {aij_ocfg.h_x_mult}
+        elseif aij_o_c.effect == 'Stone Card' then loc_vars = {aij_ocfg.bonus and SMODS.signed(aij_ocfg.bonus) or 0}
+        elseif aij_o_c.effect == 'Gold Card' then loc_vars = {SMODS.signed_dollars(aij_ocfg.h_dollars)}
+        elseif aij_o_c.effect == 'Lucky Card' then loc_vars = {G.GAME.probabilities.normal, aij_ocfg.mult, 5, aij_ocfg.p_dollars, 15}
+        end
+        local AUT = localize{type = 'descriptions', key = aij_o_c.key, set = aij_o_c.set, nodes = desc_nodes, vars = res.vars or loc_vars, all_in_jest = {add_box = true}}
+        full_UI_table.multi_box = AUT.multi_box
+        full_UI_table.box_colours = AUT.box_colours
+        if aij_o_c.name ~= 'Stone Card' and (aij_ocfg.bonus ~= 0 and aij_ocfg.bonus) then
+            localize{type = 'other', key = 'card_extra_chips', nodes = desc_nodes, vars = {SMODS.signed(aij_ocfg.bonus)}}
+        end
+        card.front_hidden = card:should_hide_front()
+    end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if specific_vars and _c.name ~= 'Stone Card' and specific_vars.nominal_chips then"
+position = "before"
+match_indent = true
+payload = '''
+if (card and card.config and card.config.aij_other_center and card.config.aij_other_center['center'] and card.config.aij_other_center['center'].name  ~= 'Stone Card') or (not card or (card and not card.config or (card and card.config and not card.config.aij_other_center))) then
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if _c.effect == 'Mult Card' then loc_vars = {SMODS.signed(cfg.mult)}"
+position = "before"
+match_indent = true
+payload = '''
+end
+'''
+
 
 # Adds tooltip for special "stickers"
 # (Mark of the Spear)
@@ -2462,6 +2539,25 @@ if other.aij_inherent_effects then
         else
             new_card.aij_inherent_effects[k] = v
         end
+    end
+end
+'''
+
+# copy_card (before setting sprites)
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if new_card.ability and (new_card.ability.set == 'Default' or new_card.ability.set == 'Enhanced') then"
+position = "before"
+match_indent = true
+payload = '''
+if other.config.aij_other_center then
+    new_card.config.aij_other_center = {}
+    new_card.config.aij_other_center['center'] = other.config.aij_other_center['center']
+    new_card.config.aij_other_center['ability'] = other.config.aij_other_center['ability']
+    if not new_card.ability.aij_other_center or not new_card.ability.aij_other_center['ability'] then
+        new_card.ability.aij_other_center = new_card.ability.aij_other_center or {}
+        new_card.ability.aij_other_center['ability'] = new_card.config.aij_other_center and new_card.config.aij_other_center['ability']
     end
 end
 '''
@@ -3521,6 +3617,38 @@ if G.all_in_jest then
     for k, v in pairs(G.all_in_jest) do
         G['G_all_in_jest'..k] = v
     end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "if (args.type == 'descriptions' or args.type == 'other') and type(loc_target.text) == 'table' and type(loc_target.text[1]) == 'table' then"
+position = "before"
+match_indent = true
+payload = '''
+if args.all_in_jest and args.all_in_jest.add_box then
+    args.AUT.multi_box = args.AUT.multi_box or {} 
+    if (args.type == 'descriptions' or args.type == 'other') and type(loc_target.text) == 'table' and type(loc_target.text[1]) == 'table' then
+        for i, box in ipairs(loc_target.text_parsed) do
+            for j, line in ipairs(box) do
+                local final_line = SMODS.localize_box(line, args)
+                args.nodes.main_box_flag = true
+                args.AUT.multi_box[i] = args.AUT.multi_box[i] or {}
+                args.AUT.multi_box[i][#args.AUT.multi_box[i]+1] = final_line
+                args.AUT.box_colours[i] = args.vars.box_colours and args.vars.box_colours[i] or G.C.UI.BACKGROUND_WHITE
+            end
+        end
+        return args.AUT
+    end
+    for _, lines in ipairs(args.type == 'unlocks' and loc_target.unlock_parsed or args.type == 'name' and loc_target.name_parsed or (args.type == 'text' or args.type == 'tutorial' or args.type == 'quips') and loc_target or loc_target.text_parsed) do
+        local final_line = SMODS.localize_box(lines, args)
+        args.nodes.main_box_flag = true
+        args.AUT.multi_box[1] = args.AUT.multi_box[1] or {}
+        args.AUT.multi_box[1][#args.AUT.multi_box[1]+1] = final_line
+        args.AUT.box_colours[1] = args.vars.box_colours and args.vars.box_colours[1] or G.C.UI.BACKGROUND_WHITE
+    end
+    return args.AUT
 end
 '''
 
