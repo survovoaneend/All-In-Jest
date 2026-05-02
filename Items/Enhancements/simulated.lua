@@ -1,9 +1,9 @@
 local simulated = {
     object_type = "Enhancement",
     key = 'simulated',
-    atlas = 'enhancements_atlas',
+    atlas = 'aij_multi_simulated_atlas',
     order = 5,
-    pos = { x = 0, y = 1 },
+    pos = { x = 0, y = 0 },
     config = {
         extra = {
             all_in_jest = {
