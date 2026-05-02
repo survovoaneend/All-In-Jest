@@ -2538,8 +2538,8 @@ if G.STATE == G.STATES.NEW_ROUND then
 end
 '''
 
-# Guess the Jest (1/2)
-# Prevents tooltip for Guess the Jest cards from appearing while hovering over cards in the pack
+# Guess the Jest (1/4)
+# Prevents tooltip for Guess the Jest cards from appearing while hovering over cards in the pack (if 'Guess the Jest Names' is not enabled)
 # Card:hover()
 [[patches]]
 [patches.pattern]
@@ -2549,12 +2549,45 @@ position = "before"
 match_indent = true
 payload = '''
 -- Prevent tooltip for Guess the Jest cards while in the pack
-if (self.ability and self.ability.from_guess_the_jest and self.area == G.pack_cards) or self.ability.jest_got_no_ui then
+if not All_in_Jest.config.guess_names and self.ability and self.ability.from_guess_the_jest and self.area == G.pack_cards then
+    return
+end
+if self.ability.jest_got_no_ui then
     return
 end
 '''
 
-# Guess the Jest (2/2)
+# Guess the Jest (2/4)
+# If 'Guess the Jest Names' is enabled, replace the card's description with '???'
+# SMODS.Center:generate_ui
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = "if specific_vars and specific_vars.debuffed and not res.replace_debuff then"
+position = "before"
+match_indent = true
+payload = '''
+if card.ability and card.ability.from_guess_the_jest then
+    target = { type = 'other', key = 'guess_the_jest_hidden', nodes = desc_nodes, AUT = full_UI_table, }
+end
+'''
+
+# Guess the Jest (3/4)
+# Clear info_queue if card is hidden
+# generate_card_ui
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "SMODS.compat_0_9_8.generate_UIBox_ability_table_card = nil"
+position = "after"
+match_indent = true
+payload = '''
+if card and card.ability and card.ability.from_guess_the_jest then
+    info_queue = {}
+end
+'''
+
+# Guess the Jest (4/4)
 # Remove from_guess_the_jest attribute once joker has been selected
 # Card:add_to_deck
 [[patches]]
