@@ -32,7 +32,10 @@ local silver = {
         jest_ability_calculate(
           card,
           "*", multiplier,
-          { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
+          { 
+            h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+            bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+          },
           nil, true, false, "ability"
         )
         if card.added_to_deck then
@@ -68,7 +71,10 @@ local silver = {
       jest_ability_calculate(
         card,
         "/",  multiplier,
-        { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
+        { 
+          h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+          bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+        },
         nil, true, false, "ability"
       )
       if card.added_to_deck then
@@ -123,14 +129,20 @@ function Card:update(dt)
         jest_ability_calculate(
           self,
           "/", old_multiplier,
-          { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
+          { 
+            h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+            bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+          },
           nil, true, false, "ability"
         )
         -- ...and multiply by the new multiplier
         jest_ability_calculate(
           self,
           "*", new_multiplier,
-          { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
+          { 
+            h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+            bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+          },
           nil, true, false, "ability"
         )
         if self.added_to_deck then

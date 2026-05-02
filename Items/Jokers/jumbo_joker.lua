@@ -5,7 +5,6 @@ local jumbo_joker = {
     key = "jumbo_joker",
     config = {
       extra = {
-          banned_cards = {}
       }
     },
     rarity = 2,
@@ -22,17 +21,7 @@ local jumbo_joker = {
     loc_vars = function(self, info_queue, card)
   
     end,
-  
-    add_to_deck = function(self, card, from_debuff)
-        if #SMODS.find_card("j_aij_jumbo_joker") <= 0 then
-            for _, booster in ipairs(G.P_CENTER_POOLS['Booster']) do
-                if not G.GAME.banned_keys[booster.key] and booster.set == 'Booster' and not (booster.name:find('Mega') or booster.name:find('Jumbo') or booster.key:find('mega') or booster.key:find('jumbo')) then
-                    G.GAME.banned_keys[booster.key] = true
-                    table.insert(card.ability.extra.banned_cards, booster.key)
-                end
-            end
-        end
-    end,
+
     set_ability = function(self, card, initial, delay_sprites)
         if self.discovered or card.bypass_discovery_center then
             card.T.w = G.CARD_W * 1.14084507
@@ -45,15 +34,34 @@ local jumbo_joker = {
             card.children.center:reset()
         end
     end,
-    remove_from_deck = function(self, card, from_debuff)
-        if #SMODS.find_card("j_aij_jumbo_joker") <= 0 then
-		    for _, key in ipairs(card.ability.extra.banned_cards) do
-                G.GAME.banned_keys[key] = nil
-            end
-        end
-	end,
   
 }
+
+local smods_add_to_pool_ref = SMODS.add_to_pool
+function SMODS.add_to_pool(prototype_obj, ...)
+    if
+        #SMODS.find_card("j_aij_jumbo_joker") > 0 and
+        prototype_obj.set == 'Booster' and
+        not (prototype_obj.name:find('Mega') or prototype_obj.name:find('Jumbo') or prototype_obj.key:find('mega') or prototype_obj.key:find('jumbo')) 
+    then
+        return false
+    else
+        return smods_add_to_pool_ref(prototype_obj, ...)
+    end
+end
+
+-- First shop buffon pack becomes jumbo with Jumbo Joker
+local smods_get_pack_ref = get_pack
+function get_pack(...)
+    if not G.GAME.first_shop_buffoon and #SMODS.find_card("j_aij_jumbo_joker") > 0 then
+        G.GAME.first_shop_buffoon = true
+        return G.P_CENTERS['p_buffoon_jumbo_1']
+    else
+        return smods_get_pack_ref(...)
+    end
+end
+
+-- For the "pop out" animation
 local hoverref = Card.hover
 function Card:hover()
     hoverref(self)

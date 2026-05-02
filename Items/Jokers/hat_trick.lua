@@ -26,15 +26,15 @@ local hat_trick = {
     end,
   
     calculate = function(self, card, context)
-      if context.individual and context.cardarea == G.play then
-        local multt = to_number(G.GAME.hands['Three of a Kind'].level) * card.ability.extra.mod
-        if next(context.poker_hands['Three of a Kind']) then 
-            return {
-                mult = multt,
-                card = card
-            }
+        if context.individual and context.cardarea == G.play then
+            local multt = to_number(G.GAME.hands['Three of a Kind'].level) * card.ability.extra.mod
+            if context.scoring_name == 'Three of a Kind' then
+                return {
+                    mult = multt,
+                    card = card
+                }
+            end
         end
-      end
     end
   
 }

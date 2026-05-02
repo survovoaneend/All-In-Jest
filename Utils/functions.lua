@@ -310,8 +310,8 @@ function level_up_hand_chips(card, hand, instant, amount)
     amount = amount or 1
     SMODS.upgrade_poker_hands({
         hands = hand,
-        func = function(base, hand, parameter)
-            return base + G.GAME.hands[hand]['l_' .. parameter] * amount * 2
+        func = function(base, hand, parameter, level_up)
+            return base + G.GAME.hands[hand]['l_' .. parameter] * level_up * 2
         end,
         level_up = amount,
         from = card,
@@ -324,8 +324,8 @@ function level_up_hand_mult(card, hand, instant, amount)
     amount = amount or 1
     SMODS.upgrade_poker_hands({
         hands = hand,
-        func = function(base, hand, parameter)
-            return base + G.GAME.hands[hand]['l_' .. parameter] * amount * 2
+        func = function(base, hand, parameter, level_up)
+            return base + G.GAME.hands[hand]['l_' .. parameter] * level_up * 2
         end,
         level_up = amount,
         from = card,
@@ -1493,7 +1493,7 @@ function All_in_Jest.reset_game_globals(run_start)
         G.GAME.all_in_jest.starting_prams.deck_size = #G.deck.cards
         
         local index = {4,5}
-        G.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
+        G.GAME.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
 
         -- Reset Aureate Coin
         G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = 0
