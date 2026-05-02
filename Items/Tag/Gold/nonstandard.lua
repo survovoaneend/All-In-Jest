@@ -134,7 +134,7 @@ G.FUNCS.tag_aij_nonstandard_set_submit = function(args)
   }))
 end
 
-function create_UIBox_nonstandard()  
+function create_UIBox_nonstandard(create_func)  
 
   G.customize_card = CardArea(
       0,0,
@@ -233,7 +233,7 @@ function create_UIBox_nonstandard()
     {n=G.UIT.R, config={align = "cm", colour = G.C.BLACK, r = 0.1, padding = 0.07, no_fill = true}, nodes={
       {n=G.UIT.O, config={object = G.customize_card}},
     }},
-    UIBox_button{ label = { localize("k_aij_create") }, button = "tag_aij_nonstandard_set_submit", minw = 5},
+    UIBox_button{ label = { localize("k_aij_create") }, button = create_func, minw = 5},
     {n=G.UIT.R, config={align = "cm", colour = G.C.BLACK, r = 0.1}, nodes={
       {n=G.UIT.C, config={align = "tm", colour = G.C.BLACK, r = 0.1}, nodes = {
         suits_option_cycle,
@@ -279,7 +279,7 @@ local nonstandard_tag = {
                         -- G.SETTINGS.paused = true
                         G.FUNCS.overlay_menu{
                             config = { no_esc = true },
-                            definition = create_UIBox_nonstandard()
+                            definition = create_UIBox_nonstandard("tag_aij_nonstandard_set_submit")
                         }
                         return true 
                     end 
