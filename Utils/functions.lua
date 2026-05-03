@@ -1716,7 +1716,7 @@ end
 
 --Gets hand from grade type
 function All_in_Jest.astral_hand_from_grade(grade, cur_hand)
-    local _hand, _tally = nil, 0
+    local _hand, _tally = "High Card", 0
     if G.GAME.hands and G.handlist then 
         if grade == "Prograde" or grade == "Retrograde" then
             for k, v in ipairs(G.handlist) do

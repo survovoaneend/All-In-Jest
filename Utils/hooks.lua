@@ -679,17 +679,16 @@ SMODS.ConsumableType({
     default = 'c_aij_algol',
     no_buy_and_use = false,
     inject_card = function(self, center)
-        -- Store the original update function so we don't overwrite it if the card already has one
-        local old_update = center.update
-        
-        center.update = function(self, card, dt)
-            if old_update then old_update(self, card, dt) end
-            
-            if card.ability and card.ability.consumeable and card.ability.consumeable.grade == '' then
-                local center_cfg = card.config.center
-                local grade = All_in_Jest.astral_set_grade(center_cfg.all_in_jest and center_cfg.all_in_jest.grades)
-                card.ability.consumeable.grade = grade
-                card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(grade)
+        local set_ability_ref = center.set_ability
+        center.set_ability = function(self, card, initial, delay_sprites)
+            card.ability = copy_table(card.ability)
+            local center_cfg = card.config.center
+            local grade = All_in_Jest.astral_set_grade(center_cfg.all_in_jest and center_cfg.all_in_jest.grades)
+            card.ability.consumeable.grade = grade
+            card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(grade)
+
+            if set_ability_ref then
+                return set_ability_ref(self, card, initial, delay_sprites)
             end
         end
 
