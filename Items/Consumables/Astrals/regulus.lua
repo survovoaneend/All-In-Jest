@@ -11,21 +11,12 @@ local regulus = {
     order = 5,
 	config = { hand = nil, grade = '', pin = 'Regulus', extra = {odds = 6}},
     loc_vars = function(self, info_queue, card)
-        card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(card.ability.consumeable.grade, card.ability.consumeable.hand)
-        if card.ability.consumeable.hand then
-            info_queue[#info_queue+1] = {key = 'aij_astral_'..string.lower(card.ability.consumeable.grade), set = 'Other'}
-        end
+        -- Rest of loc_vars is defined in the ConsumableType in hooks.lua
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
-        local pin_count = 0
-        if G.Astral_pins and #G.Astral_pins and card.ability.consumeable.hand then 
-            pin_count = #G.Astral_pins[card.ability.consumeable.hand] or 0 
-        end
 		return {
 			vars = {
-				card.ability.consumeable.hand or '(hand)',
-                numerator, denominator,
-                pin_count,
-                G.GAME.all_in_jest.astral_pin_per_hand or 3
+				(card.area and not card.area.config.collection) and card.ability.consumeable.hand or '(hand)',
+                numerator, denominator
 			},
 		}
     end,
@@ -54,15 +45,13 @@ local regulus_pin = {
     loc_vars = function(self, info_queue, card)
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
         local pin_count = 0
-        if G.Astral_pins and #G.Astral_pins and card.ability.consumeable and card.ability.consumeable.hand then 
-            pin_count = #G.Astral_pins[card.ability.consumeable.hand] or 0 
+        if G.GAME.Astral_pins and #G.GAME.Astral_pins and card.ability.consumeable and card.ability.consumeable.hand then 
+            pin_count = #G.GAME.Astral_pins[card.ability.consumeable.hand] or 0 
         end
 		return {
 			vars = {
 				card.ability.extra.hand,
-                numerator, denominator,
-                pin_count,
-                G.GAME.all_in_jest.astral_pin_per_hand or 3
+                numerator, denominator
 			},
 		}
     end,

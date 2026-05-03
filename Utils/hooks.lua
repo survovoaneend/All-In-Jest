@@ -692,6 +692,21 @@ SMODS.ConsumableType({
                 card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(grade)
             end
         end
+
+        local loc_vars_ref = center.loc_vars
+        center.loc_vars = function(self, info_queue, card)
+            if card.area and not card.area.config.collection then
+                if card.ability.consumeable.hand and card.ability.consumeable.grade then
+                    info_queue[#info_queue+1] = {key = 'aij_astral_'..string.lower(card.ability.consumeable.grade), set = 'Other'}
+                end
+            end
+            local ret = {}
+            if loc_vars_ref then
+                ret = loc_vars_ref(self, info_queue, card)
+            end
+            return ret
+        end
+        
         if not center.can_use then
             center.can_use = function(self, card)
                 return true 

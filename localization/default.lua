@@ -7170,7 +7170,6 @@ return {
                 text = {
                     'When {C:attention}#1#{} is played',
                     'earn {C:money}$#2#',
-                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             c_aij_alcyone = {
@@ -7178,7 +7177,6 @@ return {
                 text = {
                     'When {C:attention}#1#{} is played',
                     'draw {C:attention}#2#{} additional card',
-                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             c_aij_aldebaran = {
@@ -7186,7 +7184,6 @@ return {
                 text = {
                     '{C:aij_plasma}Balance{} {C:attention}#2#%{} of {C:chips}Chips{} and {C:mult}Mult',
                     'after {C:attention}#1#{} is played',
-                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             c_aij_capella = {
@@ -7195,7 +7192,6 @@ return {
                     '{C:green}#2# in #3#{} chance to create a',
                     'random {C:planet}Planet{} card when',
                     '{C:attention}#1#{} is played',
-                    '{C:inactive}(#4#/#5#){}'
                 }
             },
             c_aij_sirius = {
@@ -7203,7 +7199,6 @@ return {
                 text = {
                     'Retrigger {C:attention}#2#{} random card',
                     'when {C:attention}#1#{} is played',
-                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             c_aij_procyon = {
@@ -7212,7 +7207,6 @@ return {
                     'When {C:attention}#1#{} is played',
                     'adds {C:money}$#2#{} of sell value',
                     'to a random {C:attention}Joker',
-                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             c_aij_regulus = {
@@ -7221,7 +7215,6 @@ return {
                     '{C:green}#2# in #3#{} chance to {C:attention}level up',
                     '{C:attention}played{} hand when {C:attention}#1#{}',
                     'is played',
-                    '{C:inactive}(#4#/#5#){}'
                 }
             },
             c_aij_alkaid = {
@@ -7230,7 +7223,6 @@ return {
                     'When {C:attention}#1#{} is played',
                     'gives a random enhancement',
                     'to a {C:attention}#2#{} random card',
-                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             c_aij_algorab = {
@@ -7239,7 +7231,6 @@ return {
                     '{C:green}#2# in #3#{} chance to create a',
                     'random {C:tarot}Tarot{} card when',
                     '{C:attention}#1#{} is played',
-                    '{C:inactive}(#4#/#5#){}'
                 }
             },
             c_aij_spica = {
@@ -7247,7 +7238,6 @@ return {
                 text = {
                     '{C:red}Disable{} the {C:attention}Boss Blind{} if {C:attention}first',
                     '{C:attention}hand{} of round is {C:attention}#1#{}',
-                    '{C:inactive}(#2#/#3#){}'
                 }
             },
             c_aij_arcturus = {
@@ -7255,7 +7245,6 @@ return {
                 text = {
                     'Gain {C:attention}+#2#{} {C:red}Discard{} after',
                     '{C:attention}#1#{} is played',
-                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             c_aij_alphecca = {
@@ -7264,7 +7253,6 @@ return {
                     'Scored cards {C:attention}permanently',
                     'gain {C:chips}+#2#{} Chips if hand',
                     'is {C:attention}#1#{}',
-                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             c_aij_antares = {
@@ -7273,7 +7261,6 @@ return {
                     'When {C:attention}#1#{} is played',
                     '{C:red}destroy{} a random card',
                     '{C:attention}held in hand',
-                    '{C:inactive}(#2#/#3#){}'
                 }
             },
             c_aij_vega = {
@@ -7282,7 +7269,6 @@ return {
                     'Retrigger all cards',
                     '{C:attention}held in hand{} when',
                     '{C:attention}#1#{} is played',
-                    '{C:inactive}(#2#/#3#){}'
                 }
             },
             c_aij_deneb_algedi = {
@@ -7291,7 +7277,6 @@ return {
                     'Earn {C:blue}+#2#{} Hand',
                     'the first time',
                     '{C:attention}#1#{} is played',
-                    '{C:inactive}(#3#/#4#){}'
                 }
             },
             
