@@ -56,13 +56,6 @@ local arcturus_pin = {
 
     calculate = function(self, card, context)
         if context.after then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = function()
-                    SMODS.destroy_cards(card, true, true, true)
-                    return true
-            end}))
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_aij_discards_plus',vars={card.ability.extra.discards}}, colour = G.C.RED})
             ease_discard(card.ability.extra.discards)
         end
     end,

@@ -53,14 +53,6 @@ local spica_pin = {
     end,
 
     calculate = function(self, card, context)
-        if context.after and not context.repetition then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = function()
-                    SMODS.destroy_cards(card, true, true, true)
-                    return true
-            end}))
-        end
         if context.before and context.main_eval and G.GAME.blind and G.GAME.blind.boss and G.GAME.current_round.hands_played == 0 then
             G.GAME.blind:disable()
             play_sound('timpani')

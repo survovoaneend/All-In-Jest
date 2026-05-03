@@ -55,12 +55,6 @@ local aldebaran_pin = {
 
     calculate = function(self, card, context)
         if context.joker_main then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = function()
-                    SMODS.destroy_cards(card, true, true, true)
-                    return true
-            end}))
             return {
                 aij_balance_percent = card.ability.extra.percent * 0.01
             }

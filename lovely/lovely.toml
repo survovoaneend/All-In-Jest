@@ -4561,3 +4561,33 @@ if G.jokers ~= nil and next(SMODS.find_card('j_aij_tumbler')) then
     SMODS.calculate_context({aij_card_highlight = true})
 end
 '''
+
+# end_round()
+# Force astral pins to dissolve at end of round
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = '-- TARGET: main end_of_round evaluation'
+position = 'after'
+match_indent = true
+payload = '''
+SMODS.destroy_cards(G.aij_astral_pin_area.cards, true)
+'''
+
+# evaluate_play()
+# Force astral pins to dissolve after hand is played
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = '-- TARGET: effects after hand evaluation'
+position = 'after'
+match_indent = true
+payload = '''
+local pins_to_destroy = {}
+for _, v in ipairs(G.aij_astral_pin_area.cards) do
+    if not v.ability.no_auto_destroy then
+        table.insert(pins_to_destroy, v)
+    end
+end
+SMODS.destroy_cards(pins_to_destroy, true)
+'''

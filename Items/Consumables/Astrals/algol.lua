@@ -56,12 +56,6 @@ local algol_pin = {
 
     calculate = function(self, card, context)
         if context.after and not context.repetition then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = function()
-                    SMODS.destroy_cards(card, true, true, true)
-                    return true
-            end}))
             return { 
                 dollars = card.ability.extra.dollars,
                 card = card 

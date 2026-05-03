@@ -57,14 +57,6 @@ local regulus_pin = {
     end,
 
     calculate = function(self, card, context)
-        if context.after and not context.repetition then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = function()
-                    SMODS.destroy_cards(card, true, true, true)
-                    return true
-            end}))
-        end
         if context.before and context.main_eval then    
             if SMODS.pseudorandom_probability(card, 'regulus', 1, card.ability.extra.odds) then
                 return {

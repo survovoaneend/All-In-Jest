@@ -53,14 +53,6 @@ local vega_pin = {
                 card = card
             }
         end
-        if context.after then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = function()
-                    SMODS.destroy_cards(card, true, true, true)
-                    return true
-            end}))
-        end
     end,
 }
 return {name = {"Astrals"}, items = {vega, vega_pin}}

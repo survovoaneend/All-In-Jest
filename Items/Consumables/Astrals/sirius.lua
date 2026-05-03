@@ -80,12 +80,6 @@ local sirius_pin = {
         end
         if context.after and not context.repetition then
             card.ability.extra.random_cards = nil
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = function()
-                    SMODS.destroy_cards(card, true, true, true)
-                    return true
-            end}))
         end
     end,
 }

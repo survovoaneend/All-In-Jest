@@ -37,7 +37,7 @@ local alcyone_pin = {
 	soul_pos = { x = 3, y = 0 },
     discovered = false,
     order = 1,
-    config = {},
+    config = {no_auto_destroy = true},
 
     pixel_size = { w = 53, h = 28 },
 
@@ -59,21 +59,13 @@ local alcyone_pin = {
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 func = function()
-                    SMODS.destroy_cards(card, true, true, true)
+                    SMODS.destroy_cards(card, true)
                     return true
             end}))
             return {
                 cards_to_draw = context.amount + card.ability.extra.draw_amt,
                 message = "+" .. card.ability.extra.draw_amt
             }
-        end
-        if context.end_of_round and not context.blueprint and context.main_eval then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = function()
-                    SMODS.destroy_cards(card, true, true, true)
-                    return true
-            end}))
         end
     end,
 }

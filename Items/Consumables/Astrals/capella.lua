@@ -58,12 +58,6 @@ local capella_pin = {
 
     calculate = function(self, card, context)
         if context.after and not context.repetition then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                func = function()
-                    SMODS.destroy_cards(card, true, true, true)
-                    return true
-            end}))
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 if SMODS.pseudorandom_probability(card, 'capella', 1, card.ability.extra.odds) then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
