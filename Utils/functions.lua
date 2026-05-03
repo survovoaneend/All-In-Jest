@@ -1747,22 +1747,22 @@ function All_in_Jest.astral_hand_from_grade(grade, cur_hand)
 end
 
 function All_in_Jest.create_astral_pin(card, index)
-    local index = index or #G.Astral_pins[card.ability.consumeable.hand]+1
-    G.Astral_pins[card.ability.consumeable.hand][index] = {}
-    G.Astral_pins[card.ability.consumeable.hand][index]['pin'] = card.ability.consumeable.pin
-    G.Astral_pins[card.ability.consumeable.hand][index].ability = {}
-    G.Astral_pins[card.ability.consumeable.hand][index].ability.extra = card.ability.extra
+    local index = index or #G.GAME.Astral_pins[card.ability.consumeable.hand]+1
+    G.GAME.Astral_pins[card.ability.consumeable.hand][index] = {}
+    G.GAME.Astral_pins[card.ability.consumeable.hand][index]['pin'] = card.ability.consumeable.pin
+    G.GAME.Astral_pins[card.ability.consumeable.hand][index].ability = {}
+    G.GAME.Astral_pins[card.ability.consumeable.hand][index].ability.extra = card.ability.extra
 end
 
 function All_in_Jest.use_astral_card(card)
-    if G.Astral_pins[card.ability.consumeable.hand] and #G.Astral_pins[card.ability.consumeable.hand] >= G.GAME.all_in_jest.astral_pin_per_hand then
-        if G.Astral_pins and G.aij_astral_pin_area and #G.aij_astral_pin_area.cards > 0 then
+    if G.GAME.Astral_pins[card.ability.consumeable.hand] and #G.GAME.Astral_pins[card.ability.consumeable.hand] >= G.GAME.all_in_jest.astral_pin_per_hand then
+        if G.GAME.Astral_pins and G.aij_astral_pin_area and #G.aij_astral_pin_area.cards > 0 then
             All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'only_remove', All_in_Jest.old_colours or nil, true)      
             for _, v in pairs(G.aij_astral_pin_area.cards) do
                 v:remove()
             end
         end
-        if G.Astral_pins then
+        if G.GAME.Astral_pins then
             All_in_Jest.old_colours = All_in_Jest.old_colours or {
                 special_colour = copy_table(G.C.BACKGROUND.C),
                 tertiary_colour = copy_table(G.C.BACKGROUND.D),
@@ -1813,7 +1813,7 @@ function All_in_Jest.use_astral_card(card)
                         }
                     ),
                 }
-                if G.Astral_pins then
+                if G.GAME.Astral_pins then
                     All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'only_remove', All_in_Jest.old_colours or nil, true)      
                     if G.aij_astral_pin_area then
                         for _, v in pairs(G.aij_astral_pin_area.cards) do
@@ -1897,7 +1897,7 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
     if extra ~= 'only_remove' then
         -- Add astral pins
         local astrals = 0
-        for k, v in pairs(G.Astral_pins) do
+        for k, v in pairs(G.GAME.Astral_pins) do
             if hand == k then
                 for _, i in pairs(v) do
                     astrals = astrals + 1
@@ -1909,7 +1909,7 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
             All_in_Jest.old_colours = nil
             return
         end
-        for k, v in pairs(G.Astral_pins) do
+        for k, v in pairs(G.GAME.Astral_pins) do
             if hand == k then
                 for _, i in pairs(v) do
                     local center = G.Astral[i.pin]
@@ -1918,7 +1918,7 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
                     for k_, vi in pairs(card.config.center.config) do
                         card.ability[k_] = vi 
                     end
-                    for k_, vi in pairs(G.Astral_pins[k][_].ability) do
+                    for k_, vi in pairs(G.GAME.Astral_pins[k][_].ability) do
                         card.ability[k_] = vi 
                     end
                     card.ability.extra.hand = k

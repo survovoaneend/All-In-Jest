@@ -769,20 +769,6 @@ All_in_Jest.Astral = SMODS.Tag:extend {
     end
 }
 
-local start = Game.start_run
-function Game:start_run(args)
-    if G.Astral_pins then
-        G.Astral_pins = nil
-    end
-    self.Astral_pins = self.Astral_pins or {}
-    for k, v in pairs(SMODS.PokerHands) do
-        if k ~= 'aij_Royal Flush' then
-            self.Astral_pins[k] = self.Astral_pins[k] or {}
-        end
-    end
-    start(self, args)
-end
-
 local init_game_object_ref = Game.init_game_object
 function Game.init_game_object(self)
   local ret = init_game_object_ref(self)
