@@ -1914,7 +1914,7 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
                 for _, i in pairs(v) do
                     local center = G.Astral[i.pin]
                     local card = Card(G.aij_astral_pin_area.T.x + G.aij_astral_pin_area.T.w/2,
-                    G.aij_astral_pin_area.T.y, G.CARD_W*2, G.CARD_H*2, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
+                    G.aij_astral_pin_area.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
                     for k_, vi in pairs(card.config.center.config) do
                         card.ability[k_] = vi 
                     end
