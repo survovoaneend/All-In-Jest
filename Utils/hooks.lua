@@ -675,9 +675,9 @@ SMODS.ConsumableType({
     primary_colour = HEX("d1e2f6"),
     secondary_colour = HEX("87a5c9"),
     collection_rows = {5, 4},
-    shop_rate = 2,
+    shop_rate = 0,
     default = 'c_aij_algol',
-    no_buy_and_use = true,
+    no_buy_and_use = false,
     inject_card = function(self, center)
         -- Store the original update function so we don't overwrite it if the card already has one
         local old_update = center.update
