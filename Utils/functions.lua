@@ -1714,23 +1714,24 @@ function All_in_Jest.astral_set_grade(rarity)
     end
 end
 
---Gets hand from grade type
+-- Gets hand from grade type
 function All_in_Jest.astral_hand_from_grade(grade, cur_hand)
-    local _hand, _tally = "High Card", 0
+    local _hand = "High Card"
     if G.GAME.hands and G.handlist then 
-        if grade == "Prograde" or grade == "Retrograde" then
+        if grade == "Retrograde" then
+            local _tally = 0
             for k, v in ipairs(G.handlist) do
-                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played > _tally then
+                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played >= _tally then
                     _hand = v
                     _tally = G.GAME.hands[v].played
                 end
             end
-            if grade == "Prograde" then 
-                for k, v in ipairs(G.handlist) do
-                    if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played <= _tally then
-                        _hand = v
-                        _tally = G.GAME.hands[v].played
-                    end
+        elseif grade == "Prograde" then 
+            local _tally = math.huge
+            for k, v in ipairs(G.handlist) do
+                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played < _tally then
+                    _hand = v
+                    _tally = G.GAME.hands[v].played
                 end
             end
         elseif grade == "Passigrade" then
