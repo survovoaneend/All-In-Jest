@@ -1,33 +1,4 @@
 SMODS.DrawStep {
-    key = 'temp_patches',
-    order = 21,
-    func = function(self, layer)
-		--Patches
-        if self.ability.patches then
-            for k, v in pairs(self.ability.patches) do
-                if G.all_in_jest.patches_sprites['hc_'..k] and G.SETTINGS.colour_palettes[k] == 'hc' then
-                    G.all_in_jest.patches_sprites['hc_'..k].role.draw_major = self
-                    G.all_in_jest.patches_sprites['hc_'..k]:draw_shader('dissolve', nil, nil, nil, self.children.center)
-				        elseif G.all_in_jest.patches_sprites[k] then
-                    G.all_in_jest.patches_sprites[k].role.draw_major = self
-                    G.all_in_jest.patches_sprites[k]:draw_shader('dissolve', nil, nil, nil, self.children.center)
-                else
-                    G.all_in_jest.patches_sprites['Other'].role.draw_major = self
-                    G.all_in_jest.patches_sprites['Other']:draw_shader('dissolve', nil, nil, nil, self.children.center)
-                end
-            end
-        end
-		--Mark of the Spear
-        if self.ability and self.ability.all_in_jest and self.ability.all_in_jest.perma_debuff then
-          if G.all_in_jest.extra_card_sprites['Mark_of_the_Spear'].role then
-            G.all_in_jest.extra_card_sprites['Mark_of_the_Spear'].role.draw_major = self
-            G.all_in_jest.extra_card_sprites['Mark_of_the_Spear']:draw_shader('dissolve', nil, nil, nil, self.children.center)
-          end
-        end
-    end,
-    conditions = { vortex = false, facing = 'front' },
-} 
-SMODS.DrawStep {
     key = 'aij_seal_edition',
     order = 31,
     func = function(self, layer)
@@ -111,6 +82,7 @@ SMODS.DrawStep {
                 end
             end
         end
+        
         --Mark of the Spear
         if self.ability and self.ability.all_in_jest and self.ability.all_in_jest.perma_debuff then
           if G.all_in_jest.extra_card_sprites['Mark_of_the_Spear'].role then
@@ -118,6 +90,7 @@ SMODS.DrawStep {
             G.all_in_jest.extra_card_sprites['Mark_of_the_Spear']:draw_shader('dissolve', nil, nil, nil, self.children.center)
           end
         end
+
         --Astral Grades/Pins
         if ((self.ability and self.ability.set and self.ability.set == 'aij_astral') or (center and center.all_in_jest and center.all_in_jest.as_astral)) and not self.config.center.is_pin then
           if G.all_in_jest and G.all_in_jest.astral_grades[self.ability.consumeable.grade] then
