@@ -6273,7 +6273,7 @@ return {
                     "When any Joker is",
                     "{C:red}destroyed{}, create an",
                     "{C:attention}exact{} copy",
-					          "{C:inactive}(Including itself)"
+                    "{C:inactive}(Must have room){}"
                 },
                 unlock = {
                     "?????"
