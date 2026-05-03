@@ -701,22 +701,23 @@ SMODS.ConsumableType({
             local pins_left = math.max((G.GAME.all_in_jest.astral_pin_per_hand or 3) - pin_count, 0)
 
 
-            if card.area and not card.area.config.collection then
-                if card.ability.consumeable.hand and card.ability.consumeable.grade then
-                    info_queue[#info_queue+1] = {key = 'aij_astral_'..string.lower(card.ability.consumeable.grade), set = 'Other'}
-                end
-            end
             local ret = {}
             if loc_vars_ref then
                 ret = loc_vars_ref(self, info_queue, card)
             end
 
-            ret.main_end = ret.main_end or {}
-            ret.main_end[#ret.main_end + 1] = {n = G.UIT.R, config = {align = "cm"}, nodes = {
-                {n = G.UIT.R, config = {align = "cm", padding = 0.02}, nodes = {
-                    {n = G.UIT.T, config = {text = localize{type = "variable", key = "a_aij_slots_left", vars = {pins_left}}, colour = G.C.UI.TEXT_INACTIVE, scale = 0.32}},
+            if card.area and not card.area.config.collection then
+                if card.ability.consumeable.hand and card.ability.consumeable.grade then
+                    info_queue[#info_queue+1] = {key = 'aij_astral_'..string.lower(card.ability.consumeable.grade), set = 'Other'}
+                end
+                
+                ret.main_end = ret.main_end or {}
+                ret.main_end[#ret.main_end + 1] = {n = G.UIT.R, config = {align = "cm"}, nodes = {
+                    {n = G.UIT.R, config = {align = "cm", padding = 0.02}, nodes = {
+                        {n = G.UIT.T, config = {text = localize{type = "variable", key = "a_aij_slots_left", vars = {pins_left}}, colour = G.C.UI.TEXT_INACTIVE, scale = 0.32}},
+                    }}
                 }}
-            }}
+            end
 
             return ret
         end
