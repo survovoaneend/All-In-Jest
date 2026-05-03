@@ -3962,22 +3962,6 @@ G.all_in_jest.patches_sprites["hc_bunc_Halberds"] = SMODS.create_sprite(0,0,G.CA
 G.all_in_jest.patches_sprites["bunc_Fleurons"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=7,y=3})
 G.all_in_jest.patches_sprites["hc_bunc_Fleurons"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=9,y=3})
 
-self.all_in_jest_czar = CardArea(
-        -10, -10,
-        CAI.discard_W,CAI.discard_H,
-        {card_limit = 99999999, type = 'joker'})
-self.all_in_jest_joker_png = CardArea(
-        -10, -10,
-        CAI.discard_W,CAI.discard_H,
-        {card_limit = 99999999, type = 'joker'})
-self.all_in_jest_clay_last_destroyed = CardArea(
-        -10, -10,
-        CAI.discard_W,CAI.discard_H,
-        {card_limit = 1, type = 'joker'})
-self.all_in_jest_visage_last_sold = CardArea(
-        -10, -10,
-        CAI.discard_W,CAI.discard_H,
-        {card_limit = 1, type = 'joker'})
 self.aij_astral_pin_area = self.aij_astral_pin_area or CardArea(
 	self.ROOM.T.x*5.2, self.ROOM.T.h/4,
 	3.35 * self.CARD_W,
