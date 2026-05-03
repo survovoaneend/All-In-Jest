@@ -80,6 +80,7 @@ all_in_jest = {
 	secret_hands = {},
 	gold_tag_rate = 1,
 	astral_pin_per_hand = 3,
+	sidereal_packs_rate = 1,
 	unused_hands = {
 		ante = 0,
     run = 0

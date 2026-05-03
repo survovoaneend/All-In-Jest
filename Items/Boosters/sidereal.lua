@@ -36,7 +36,7 @@ local sidereal_booster_base = {
         })
     end,
     get_weight = function(self)
-        return (G.GAME.aij_sidereal_packs_rate or 0) * self.weight
+        return (G.GAME.all_in_jest.sidereal_packs_rate or 0) * self.weight
     end,
     create_card = function(self, card, i)
         local card_params = {
