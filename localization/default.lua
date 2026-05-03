@@ -74,6 +74,7 @@ return {
                 '{s:0.8,C:inactive}(but not their descriptions)'
             },
             k_aij_guess_the_jest = "Guess the Jest",
+            k_aij_sidereal_packs = "Sidereal Pack",
             k_aij_common_packs = "Common Pack",
             k_aij_uncommon_packs = "Uncommon Pack",
             k_aij_memory_card = "Memorized!", -- Memory Card, currently unused
@@ -7927,6 +7928,14 @@ return {
                 text = {
                     'Choose {C:attention}#1#{} of {C:attention}#2#{} hidden',
                     '{C:legendary,E:2}Legendary{} Jokers'
+                }
+            },
+            p_aij_sidereal = {
+                name = "Sidereal Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{} {C:spectral}Astral{} cards to",
+                    "be used immediately"
                 }
             },
             p_aij_common_normal_1 = {
