@@ -694,6 +694,13 @@ SMODS.ConsumableType({
 
         local loc_vars_ref = center.loc_vars
         center.loc_vars = function(self, info_queue, card)
+            local pin_count = 0
+            if G.GAME.Astral_pins and #G.GAME.Astral_pins and card.ability.consumeable and card.ability.consumeable.hand then 
+                pin_count = #G.GAME.Astral_pins[card.ability.consumeable.hand] or 0 
+            end
+            local pins_left = math.max((G.GAME.all_in_jest.astral_pin_per_hand or 3) - pin_count, 0)
+
+
             if card.area and not card.area.config.collection then
                 if card.ability.consumeable.hand and card.ability.consumeable.grade then
                     info_queue[#info_queue+1] = {key = 'aij_astral_'..string.lower(card.ability.consumeable.grade), set = 'Other'}
@@ -703,6 +710,14 @@ SMODS.ConsumableType({
             if loc_vars_ref then
                 ret = loc_vars_ref(self, info_queue, card)
             end
+
+            ret.main_end = ret.main_end or {}
+            ret.main_end[#ret.main_end + 1] = {n = G.UIT.R, config = {align = "cm"}, nodes = {
+                {n = G.UIT.R, config = {align = "cm", padding = 0.02}, nodes = {
+                    {n = G.UIT.T, config = {text = localize{type = "variable", key = "a_aij_slots_left", vars = {pins_left}}, colour = G.C.UI.TEXT_INACTIVE, scale = 0.32}},
+                }}
+            }}
+
             return ret
         end
         

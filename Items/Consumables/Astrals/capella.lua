@@ -43,10 +43,7 @@ local capella_pin = {
 
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
-        local pin_count = 0
-        if G.GAME.Astral_pins and #G.GAME.Astral_pins and card.ability.consumeable and card.ability.consumeable.hand then 
-            pin_count = #G.GAME.Astral_pins[card.ability.consumeable.hand] or 0 
-        end
+        
 		return {
 			vars = {
 				card.ability.extra.hand,

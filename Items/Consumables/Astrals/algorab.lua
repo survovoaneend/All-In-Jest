@@ -42,10 +42,7 @@ local algorab_pin = {
     pixel_size = { w = 53, h = 28 },
 
     loc_vars = function(self, info_queue, card)
-        local pin_count = 0
-        if G.GAME.Astral_pins and #G.GAME.Astral_pins and card.ability.consumeable and card.ability.consumeable.hand then 
-            pin_count = #G.GAME.Astral_pins[card.ability.consumeable.hand] or 0 
-        end
+        
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
 		return {
 			vars = {

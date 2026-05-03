@@ -132,7 +132,9 @@ return {
 
             a_aij_plus_rerolls = "+#1# Rerolls",
             a_aij_times_money = "X$#1#",
-            a_aij_discards = "+#1# Discards"
+            a_aij_discards = "+#1# Discards",
+
+            a_aij_slots_left = "(#1# slots left)"
         },
         challenge_names = {
             c_aij_bananarama = "Bananarama",
