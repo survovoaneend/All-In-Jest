@@ -56,6 +56,7 @@ local arcturus_pin = {
     calculate = function(self, card, context)
         if context.after then
             ease_discard(card.ability.extra.discards)
+            return {message = localize{type='variable',key='a_aij_discards_plus',vars={card.ability.extra.discards}}, colour = G.C.RED}
         end
     end,
 }

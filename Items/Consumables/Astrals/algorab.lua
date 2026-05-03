@@ -80,14 +80,10 @@ local algorab_pin = {
                         card = card
                     }
                 else
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_nope_ex'), colour = G.C.SECONDARY_SET.Tarot})
-                    return true end }))
+                    return {message = localize('k_nope_ex'), colour = G.C.SECONDARY_SET.Tarot}
                 end
             else
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_nope_ex'), colour = G.C.SECONDARY_SET.Tarot})
-                return true end }))
+                return {message = localize('k_nope_ex'), colour = G.C.SECONDARY_SET.Tarot}
             end
         end
     end,
