@@ -1926,6 +1926,7 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
 		                badges = {}
 	                end
                     G.aij_astral_pin_area:emplace(card)
+                    card:start_materialize()
                 end
             end
         end

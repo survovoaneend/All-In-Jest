@@ -1207,3 +1207,19 @@ function level_up_hand(card, hand, instant, amount)
     end
     return aij_level_up_hand_ref(card, hand, instant, amount)
 end
+
+-- Hoke to make astral pins move out of the way outside of a round
+local aij_cardarea_move_ref = CardArea.move
+function CardArea:move(dt)
+    local ret = aij_cardarea_move_ref(self, dt)
+
+    if self == G.aij_astral_pin_area then 
+        local desired_y = G.ROOM.T.h/4
+        if not (G.STATE == G.STATES.SELECTING_HAND or G.STATE == G.STATES.HAND_PLAYED or G.STATE == G.STATES.DRAW_TO_HAND) then
+            desired_y = desired_y * -1
+        end
+        G.aij_astral_pin_area.T.y = desired_y
+    end
+
+    return ret
+end
