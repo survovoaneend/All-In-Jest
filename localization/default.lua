@@ -7826,21 +7826,21 @@ return {
             aij_astral_prograde = {
                 name = "Prograde",
                 text = {
-                    "Effects your {C:attention}least{}",
+                    "Affects your {C:attention}least{}",
                     "played hand"
                 }
             },
             aij_astral_retrograde = {
                 name = "Retrograde",
                 text = {
-                    "Effects your {C:attention}most{}",
+                    "Affects your {C:attention}most{}",
                     "played hand"
                 }
             },
             aij_astral_passigrade = {
                 name = "Passigrade",
                 text = {
-                    "Effects a {C:attention}random{}",
+                    "Affects a {C:attention}random{}",
                     "hand"
                 }
             },
