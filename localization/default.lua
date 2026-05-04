@@ -2627,19 +2627,112 @@ return {
             },
             j_aij_infuriating_note = {
                 name = "Infuriating Note",
-                text = { {
-                    "{X:mult,C:white}X#1#{} Mult",
-                    "{C:dark_edition}Negative{} duplicates of this",
-                    "Joker may appear in the",
-                    "{C:attention}Shop{} and {C:attention}Buffoon Packs{}",
-                },
-                {
-                    "{C:inactive}\"I've taken your stuff,",
-                    "{C:inactive}but you keep pushing through;",
-                    "{C:inactive}I'll have to try harder,",
-                    "{C:inactive}so rats off to you!\" -R. R.",
+                text = { 
+                    {
+                        "{X:mult,C:white}X#1#{} Mult",
+                        "{C:dark_edition}Negative{} duplicates of this",
+                        "Joker may appear in the",
+                        "{C:attention}Shop{} and {C:attention}Buffoon Packs{}",
+                    },
+                    {
+                        "{C:inactive}\"I've taken your stuff,",
+                        "{C:inactive}but you keep pushing through;",
+                        "{C:inactive}I'll have to try harder,",
+                        "{C:inactive}so rats off to you!\" -R. R.",
+                    }
                 }
-            }
+            },
+            j_aij_infuriating_note_2 = {
+                name = "Infuriating Note",
+                text = { 
+                    {
+                        "{X:mult,C:white}X#1#{} Mult",
+                        "{C:dark_edition}Negative{} duplicates of this",
+                        "Joker may appear in the",
+                        "{C:attention}Shop{} and {C:attention}Buffoon Packs{}",
+                    },
+                    {
+                        "{C:inactive}\"Some packs are red,",
+                        "{C:inactive}but none of them blue;",
+                        "{C:inactive}no matter what's in 'em,",
+                        "{C:inactive}I'll steal them from you!",
+                        "",
+                        "{C:inactive,s:0.8}Thanks for the stuff, joker!\" -R. R.{}",
+                    }
+                }
+            },
+            j_aij_infuriating_note_3 = {
+                name = "Infuriating Note",
+                text = { 
+                    {
+                        "{X:mult,C:white}X#1#{} Mult",
+                        "{C:dark_edition}Negative{} duplicates of this",
+                        "Joker may appear in the",
+                        "{C:attention}Shop{} and {C:attention}Buffoon Packs{}",
+                    },
+                    {
+                        "{C:inactive}\"What I wouldn't give,",
+                        "{C:inactive}to see the look on your face.",
+                        "{C:inactive}You wished for an item,",
+                        "{C:inactive}and found this note in its place!",
+                        "",
+                        "{C:inactive,s:0.8}Thanks for your continued patronage{}",
+                        "{C:inactive,s:0.8}Fufufufufufu...!\" -R. R.{}",
+                    }
+                }
+            },
+            j_aij_infuriating_note_4 = {
+                name = "Infuriating Note",
+                text = { 
+                    {
+                        "{X:mult,C:white}X#1#{} Mult",
+                        "{C:dark_edition}Negative{} duplicates of this",
+                        "Joker may appear in the",
+                        "{C:attention}Shop{} and {C:attention}Buffoon Packs{}",
+                    },
+                    {
+                        "{C:inactive}\"I should just kill you,",
+                        "{C:inactive}but that wouldn't be hard;",
+                        "{C:inactive}so just for a laugh,",
+                        "{C:inactive}I've stolen your card!",
+                        "",
+                        "{C:inactive,s:0.8}Good luck, fool!\" -R. R.{}",
+                    }
+                }
+            },
+            j_aij_infuriating_note_5 = {
+                name = "Infuriating Note",
+                text = { 
+                    {
+                        "{X:mult,C:white}X#1#{} Mult",
+                        "{C:dark_edition}Negative{} duplicates of this",
+                        "Joker may appear in the",
+                        "{C:attention}Shop{} and {C:attention}Buffoon Packs{}",
+                    },
+                    {
+                        "{C:inactive}\"If you were to find me,",
+                        "{C:inactive}I'd make you bow on your knees.",
+                        "{C:inactive}You're just a rodent,",
+                        "{C:inactive}and I'm the Big Cheese!\" -R. R.",
+                    }
+                }
+            },
+            j_aij_infuriating_note_6 = {
+                name = "Infuriating Note",
+                text = { 
+                    {
+                        "{X:mult,C:white}X#1#{} Mult",
+                        "{C:dark_edition}Negative{} duplicates of this",
+                        "Joker may appear in the",
+                        "{C:attention}Shop{} and {C:attention}Buffoon Packs{}",
+                    },
+                    {
+                        "{C:inactive}\"You want a way through,",
+                        "{C:inactive}but you don't know enough yet;",
+                        "{C:inactive}The path is for you,",
+                        "{C:inactive}so don't cheat on the net!\" -R. R.",
+                    }
+                }
             },
             j_aij_magic_hat = {
                 name = "Magic hat",

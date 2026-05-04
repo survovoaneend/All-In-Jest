@@ -5,7 +5,8 @@ local infuriating_note = {
     key = "infuriating_note",
     config = {
         extra = {
-            xmult = 1.2
+            xmult = 1.2,
+            loc_vars_key = key
         }
     },
     rarity = 1,
@@ -24,8 +25,18 @@ local infuriating_note = {
         return {
             vars = {
                 card.ability.extra.xmult
-            }
+            },
+            key = card.ability.extra.loc_vars_key or "j_aij_infuriating_note"
         }
+    end,
+
+    set_ability = function(self, card, initial, delay_sprites)
+        local number_of_notes = #SMODS.find_card("j_aij_infuriating_note") + 1
+        local key = "j_aij_infuriating_note"
+        if number_of_notes >= 2 and number_of_notes <= 6 then
+            key = key .. "_" .. number_of_notes
+        end
+        card.ability.extra.loc_vars_key = key
     end,
 
     calculate = function(self, card, context)
