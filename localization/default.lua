@@ -2988,7 +2988,8 @@ return {
                 text = {
                     '{C:attention}Jokers{} to the {C:attention}left{} of this',
                     '{C:attention}Joker{} trigger {C:attention}before{} hand is',
-                    'scored, instead of {C:attention}after'
+                    'scored, instead of {C:attention}after',
+                    '{C:inactive}(If applicable){}'
                 }
             },
             j_aij_boy_scout = {
