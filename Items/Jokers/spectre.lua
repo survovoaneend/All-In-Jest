@@ -20,7 +20,7 @@ local spectre = {
     end,
   
     calculate = function(self, card, context)
-        if context.end_of_round and context.beat_boss and not context.individual and not context.repetition and not context.blueprint then
+        if context.end_of_round and context.beat_boss and not context.individual and not context.repetition and not context.blueprint and #G.consumeables.cards > 0 then
             --     for i = 1, #G.consumeables.cards do                     
             --         SMODS.destroy_cards(G.consumeables.cards)
             --         create_consumable('Spectral', nil, nil, nil)
