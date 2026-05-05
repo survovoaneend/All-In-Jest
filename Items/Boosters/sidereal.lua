@@ -1,6 +1,6 @@
 local sidereal_booster_base = {
     object_type = "Booster",
-    order = 1,
+    order = 0,
     key = 'sidereal_normal', 
     atlas = 'booster_atlas', 
     pos = { x = 0, y = 3 }, 
@@ -54,7 +54,7 @@ local sidereal_booster_base = {
 }
 local sidereal_jumbo = {
     object_type = "Booster",
-    order = 1,
+    order = 0,
     key = 'sidereal_jumbo', 
     atlas = 'booster_atlas', 
     pos = { x = 0, y = 4 }, 
@@ -66,7 +66,7 @@ local sidereal_jumbo = {
 }
 local sidereal_mega = {
     object_type = "Booster",
-    order = 1,
+    order = 0,
     key = 'sidereal_mega', 
     atlas = 'booster_atlas', 
     pos = { x = 2, y = 4 }, 
