@@ -15,6 +15,7 @@ local glass_delusion = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    ignore = true,
 
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'glass_delusion')

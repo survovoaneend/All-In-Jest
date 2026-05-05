@@ -17,6 +17,7 @@ local lawfirm = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    ignore = true,
 
     all_in_jest = {
         ability_cost = function(self, card)

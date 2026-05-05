@@ -16,6 +16,7 @@ local the_herald = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    ignore = true,
 
     loc_vars = function(self, info_queue, card)
         local most_played_hand = nil

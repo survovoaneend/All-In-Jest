@@ -125,86 +125,86 @@ payload = '''
 if context.aij_inherent_enhancement or context.aij_other_enhancement then return ret end
 '''
 
-[[patches]] #For debuffed joker cards
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "if not card:can_calculate(context.ignore_debuff, context.remove_playing_cards*"
-position = "before"
-match_indent = true
-payload = '''
-if next(SMODS.find_card("j_aij_run")) and card.config.center_key ~= 'j_aij_run' and card.ability.set == "Joker" then
-    local index, cur_index, run_index = 0, 0, 0
-    for k, v in pairs(G.jokers.cards) do
-        index = index + 1
-        if v.config.center_key == 'j_aij_run' then
-            run_index = index
-        end
-        if v == card then
-            cur_index = index
-        end
-    end
-    if cur_index < run_index then
-        local new_context = {joker_main = context.joker_main}
-
-        if context.joker_main and not context.initial_scoring_step then
-            context.joker_main = nil
-            context.aij_ran_away = true
-        end
-        if context.initial_scoring_step and context.main_eval and not context.aij_ran_away_new_before then
-            context.aij_ran_away_before = true
-            context.aij_ran_away_new_before = true
-            for k, v in pairs(context) do 
-                if k ~= 'joker_main' then
-                    new_context[k] = v
-                end
-            end
-            SMODS.calculate_context(new_context) -- Allows initial_scoring_step to still be called
-            context.joker_main = true
-            context.initial_scoring_step = nil
-            context.aij_ran_away_new_before = nil
-        end
-    end
-end
-if context.joker_main and next(SMODS.find_card("j_aij_greasepaint")) and not context.blueprint then
-    for k, v in pairs(SMODS.find_card("j_aij_greasepaint")) do
-        if card.debuff then
-            SMODS.calculate_effect({xmult = v.ability.extra.xmult}, card)
-        end
-    end
-end
-'''
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "return ret, post_trig"
-position = "before"
-match_indent = true
-payload = '''
-if next(SMODS.find_card("j_aij_run")) and card.config.center_key ~= 'j_aij_run' and card.ability.set == "Joker" then
-    local index, cur_index, run_index = 0, 0, 0
-    for k, v in pairs(G.jokers.cards) do
-        index = index + 1
-        if v.config.center_key == 'j_aij_run' then
-            run_index = index
-        end
-        if v == card then
-            cur_index = index
-        end
-    end
-    if cur_index < run_index then
-        if context.aij_ran_away_before then
-            context.initial_scoring_step = true
-            context.joker_main = nil
-            context.aij_ran_away_before = nil
-        end
-        if context.aij_ran_away then
-            context.joker_main = true
-            context.aij_ran_away = nil
-        end
-    end
-end
-'''
+#[[patches]] #For debuffed joker cards
+#[patches.pattern]
+#target = "functions/common_events.lua"
+#pattern = "if not card:can_calculate(context.ignore_debuff, context.remove_playing_cards*"
+#position = "before"
+#match_indent = true
+#payload = '''
+#if next(SMODS.find_card("j_aij_run")) and card.config.center_key ~= 'j_aij_run' and card.ability.set == "Joker" then
+#    local index, cur_index, run_index = 0, 0, 0
+#    for k, v in pairs(G.jokers.cards) do
+#        index = index + 1
+#        if v.config.center_key == 'j_aij_run' then
+#            run_index = index
+#        end
+#        if v == card then
+#            cur_index = index
+#        end
+#    end
+#    if cur_index < run_index then
+#        local new_context = {joker_main = context.joker_main}
+#
+#        if context.joker_main and not context.initial_scoring_step then
+#            context.joker_main = nil
+#            context.aij_ran_away = true
+#        end
+#        if context.initial_scoring_step and context.main_eval and not context.aij_ran_away_new_before then
+#            context.aij_ran_away_before = true
+#            context.aij_ran_away_new_before = true
+#            for k, v in pairs(context) do 
+#                if k ~= 'joker_main' then
+#                    new_context[k] = v
+#                end
+#            end
+#            SMODS.calculate_context(new_context) -- Allows initial_scoring_step to still be called
+#            context.joker_main = true
+#            context.initial_scoring_step = nil
+#            context.aij_ran_away_new_before = nil
+#        end
+#    end
+#end
+#if context.joker_main and next(SMODS.find_card("j_aij_greasepaint")) and not context.blueprint then
+#    for k, v in pairs(SMODS.find_card("j_aij_greasepaint")) do
+#        if card.debuff then
+#            SMODS.calculate_effect({xmult = v.ability.extra.xmult}, card)
+#        end
+#    end
+#end
+#'''
+#
+#[[patches]]
+#[patches.pattern]
+#target = "functions/common_events.lua"
+#pattern = "return ret, post_trig"
+#position = "before"
+#match_indent = true
+#payload = '''
+#if next(SMODS.find_card("j_aij_run")) and card.config.center_key ~= 'j_aij_run' and card.ability.set == "Joker" then
+#    local index, cur_index, run_index = 0, 0, 0
+#    for k, v in pairs(G.jokers.cards) do
+#        index = index + 1
+#        if v.config.center_key == 'j_aij_run' then
+#            run_index = index
+#        end
+#        if v == card then
+#            cur_index = index
+#        end
+#    end
+#    if cur_index < run_index then
+#        if context.aij_ran_away_before then
+#            context.initial_scoring_step = true
+#            context.joker_main = nil
+#            context.aij_ran_away_before = nil
+#        end
+#        if context.aij_ran_away then
+#            context.joker_main = true
+#            context.aij_ran_away = nil
+#        end
+#    end
+#end
+#'''
 
 
 

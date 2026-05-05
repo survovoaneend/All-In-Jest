@@ -3794,7 +3794,7 @@ return {
                 text = {
                     "Scored cards give {C:mult}+#1#{} Mult",
                     "per card of matching {C:attention}rank{}",
-                    "in your {C:attention}full deck{}"
+                    "remaining in your {C:attention}deck{}"
                 }
             },
             j_aij_candy_floss = {
@@ -4375,7 +4375,7 @@ return {
                 name = "Circle Joker",
                 text = {
                     '{X:mult,C:white}X#1#{} Mult if each {C:attention}rank{}',
-                    "in scored hand is {C:attention}higher{}",
+                    "in scored hand is {C:attention}lower{}",
                     "than the {C:attention}previous"
                 }
             },
@@ -4414,7 +4414,7 @@ return {
                 name = "Pedestrian",
                 text = {
                     '{C:attention}Retrigger{} scoring card if its ',
-                    '{C:attention}rank{} is {C:attention}higher{} than the',
+                    '{C:attention}rank{} is {C:attention}lower{} than the',
                     '{C:attention}previous{} scoring card'
                 }
             },
@@ -5552,7 +5552,7 @@ return {
                     {
                         'If score of {C:attention}played hand',
                         'exceeds the {C:attention}total blind',
-                        '{C:attention}requirement{}, {C:mult}X#1#{} Mult',
+                        '{C:attention}requirement{}, {X:mult,C:white}X#1#{} Mult',
                         'and earn {C:money}$#2#'
                     },
                     {
@@ -5664,7 +5664,11 @@ return {
             j_aij_psycho = {
                 name = "Psycho",
                 text = {
-                    ''
+                    'When {C:attention}Blind{} is selected',
+                    '{C:red}destroy{} Joker to the {C:attention}left',
+                    'and gain {X:mult,C:white}X#1#{} Mult per {C:money}$1',
+                    'of its {C:money}sell value{}',
+                    '{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult){}'
                 }
             },
             j_aij_bear = {
@@ -5898,6 +5902,13 @@ return {
                     'earn {C:money}$#1#{} when scored'
                 }
             },
+            j_aij_clapperdudgeon = {
+                name = "Clapperdudgeon",
+                text = {
+                    '{X:mult,C:white}X#1#{} Mult if you have',
+                    '{C:money}$#2#{} or less'
+                }
+            },
             j_aij_quantum_foam = {
                 name = "Quantum Foam",
                 text = {
@@ -5924,6 +5935,14 @@ return {
                 name = "Clipart",
                 text = {
                     ''
+                }
+            },
+            j_aij_tussaud = {
+                name = "Tussaud",
+                text = {
+                    'Gains {X:mult,C:white}X#1#{} Mult per unique',
+                    '{C:attention}Seal{} in your {C:attention}full deck',
+                    '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult){}'
                 }
             },
             j_aij_maguelonne = {
@@ -6047,7 +6066,8 @@ return {
             j_aij_gummy = {
                 name = "Gummy",
                 text = {
-                    ''
+                    '{C:chips}+#1#{} Chips',
+                    '{C:mult}+#2#{} Mult',
                 }
             },
             j_aij_the_far_lands = {
@@ -6136,7 +6156,10 @@ return {
             j_aij_mariachi = {
                 name = "Mariachi",
                 text = {
-                    ''
+                    '{C:mult}+#1#{} Mult per {C:attention}unique{}',
+                    '{C:attention}enhancement{} in your',
+                    '{C:attention}full deck',
+                    '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
                 }
             },
             j_aij_third_degree = {
@@ -6267,6 +6290,14 @@ return {
                 name = "Emoticon",
                 text = {
                     ''
+                }
+            },
+            j_aij_dot_matrix = {
+                name = "Dot Matrix",
+                text = {
+                    '{C:mult}+#1#{} Mult for each unique',
+                    '{C:attention}rank{} remaining in deck',
+                    '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
                 }
             },
             j_aij_barcode = {

@@ -28,15 +28,15 @@ local circle_joker = {
     calculate = function(self, card, context)
         if context.joker_main then
             if #context.scoring_hand >= 2 then
-                local strictly_increasing = true
+                local strictly_decreasing = true
                 for i = 1, #context.scoring_hand - 1 do
-                    if context.scoring_hand[i]:get_id() >= context.scoring_hand[i+1]:get_id() then
-                        strictly_increasing = false
+                    if context.scoring_hand[i]:get_id() <= context.scoring_hand[i+1]:get_id() then
+                        strictly_decreasing = false
                         break
                     end
                 end
 
-                if strictly_increasing then
+                if strictly_decreasing then
                     return {
                         xmult = card.ability.extra.xmult
                     }

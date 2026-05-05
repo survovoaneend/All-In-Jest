@@ -8,10 +8,10 @@ local kuruko = {
             mult = 1
         }
     },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 0, y = 12 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
@@ -29,7 +29,7 @@ local kuruko = {
         if context.individual and context.cardarea == G.play then
             if G.playing_cards then
                 local matches = 0
-                for _, playing_card in ipairs(G.playing_cards) do
+                for _, playing_card in ipairs(G.deck.cards) do
                     if playing_card:get_id() == context.other_card:get_id() then matches = matches + 1 end
                 end
                 return {

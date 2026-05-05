@@ -14,6 +14,7 @@ local coffee_thermos = {
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
+    ignore = true,
     discovered = false,
     blueprint_compat = true,
     eternal_compat = false,

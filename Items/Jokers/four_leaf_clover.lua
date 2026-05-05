@@ -9,6 +9,7 @@ local four_leaf_clover = {
     pos = { x = 14, y = 10},
     atlas = 'joker_atlas',
     cost = 6,
+    ignore = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true, 

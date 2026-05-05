@@ -15,6 +15,7 @@ local skytower = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    ignore = true,
 
     loc_vars = function(self, info_queue, card)
         return {

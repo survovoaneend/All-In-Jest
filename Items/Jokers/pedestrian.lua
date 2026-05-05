@@ -39,7 +39,7 @@ local pedestrian = {
             if current_index and current_index > 1 then
                 local previous_card = context.scoring_hand[current_index - 1]
 
-                if context.other_card:get_id() > previous_card:get_id() then
+                if context.other_card:get_id() < previous_card:get_id() then
                     return {
                         repetitions = 1,
                     }

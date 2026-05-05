@@ -11,7 +11,7 @@ local magazine_ad = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = false,
 
     loc_vars = function(self, info_queue, card)
@@ -19,7 +19,7 @@ local magazine_ad = {
     end,
 
     calculate = function(self, card, context)
-        if context.end_of_round and context.beat_boss and context.main_eval and not context.blueprint then
+        if context.end_of_round and context.beat_boss and context.main_eval then
             local temp_deck = {}
             for _, v in ipairs(G.deck.cards) do
                 if not v.seal then
