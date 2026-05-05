@@ -2735,7 +2735,7 @@ return {
                 }
             },
             j_aij_magic_hat = {
-                name = "Magic hat",
+                name = "Magic Hat",
                 text = {
                     "{C:attention}+#1# Hand Size{} while",
                     "opening {C:attention}Booster Packs"
