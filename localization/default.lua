@@ -3375,7 +3375,7 @@ return {
             j_aij_trophy_kill = {
                 name = "Trophy Kill",
                 text = {
-                    "{X:mult,C:white}X#1#{} Mult after the {C:attention}#2# of",
+                    "{X:mult,C:white}X#1#{} Mult after a {C:attention}#2# of",
                     "{C:attention}#3#{} has been {C:red}destroyed",
                     "{C:inactive}#4#"
                 }
