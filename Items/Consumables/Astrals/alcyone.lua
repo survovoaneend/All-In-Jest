@@ -30,7 +30,7 @@ local alcyone = {
 local alcyone_pin = {
 	object_loader = All_in_Jest,
     object_type = "Astral",
-	key = 'alcyone',
+	key = 'alcyone_pin',
     pin = 'Alcyone',
     atlas = 'misc_atlas',
 	pos = { x = 3, y = 0 },

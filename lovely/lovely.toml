@@ -4591,3 +4591,17 @@ for _, v in ipairs(G.aij_astral_pin_area.cards) do
 end
 SMODS.destroy_cards(pins_to_destroy, true)
 '''
+
+# This is so astral pins info queue can work
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes, vars = _c.vars or loc_vars}
+   end'''
+position = 'at'
+payload = '''localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes, vars = _c.vars or loc_vars}
+   elseif _c.set == "aij_astral" then
+	 	localize{type = 'descriptions', key = _c.key, set = _c.set, nodes = desc_nodes, vars = _c.vars or loc_vars}
+	 end
+'''
+match_indent = true

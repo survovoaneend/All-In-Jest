@@ -30,7 +30,7 @@ local algol = {
 local algol_pin = {
 	object_loader = All_in_Jest,
     object_type = "Astral",
-	key = 'algol',
+	key = 'algol_pin',
     pin = 'Algol',
     atlas = 'misc_atlas',
 	pos = { x = 2, y = 0 },
@@ -41,7 +41,6 @@ local algol_pin = {
     pixel_size = { w = 53, h = 28 },
 
     loc_vars = function(self, info_queue, card)
-        
         return {
 		    vars = {
 			    card.ability.extra.hand,

@@ -29,7 +29,7 @@ local aldebaran = {
 local aldebaran_pin = {
 	object_loader = All_in_Jest,
     object_type = "Astral",
-	key = 'aldebaran',
+	key = 'aldebaran_pin',
     pin = 'Aldebaran',
     atlas = 'misc_atlas',
 	pos = { x = 4, y = 0 },

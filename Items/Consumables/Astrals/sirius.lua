@@ -30,7 +30,7 @@ local sirius = {
 local sirius_pin = {
 	object_loader = All_in_Jest,
     object_type = "Astral",
-	key = 'sirius',
+	key = 'sirius_pin',
     pin = 'Sirius',
     atlas = 'misc_atlas',
 	pos = { x = 0, y = 0 },

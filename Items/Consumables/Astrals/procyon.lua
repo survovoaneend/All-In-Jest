@@ -30,7 +30,7 @@ local procyon = {
 local procyon_pin = {
 	object_loader = All_in_Jest,
     object_type = "Astral",
-	key = 'procyon',
+	key = 'procyon_pin',
     pin = 'Procyon',
     atlas = 'misc_atlas',
 	pos = { x = 0, y = 1 },

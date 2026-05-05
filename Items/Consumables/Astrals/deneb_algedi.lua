@@ -30,7 +30,7 @@ local deneb_algedi = {
 local deneb_algedi_pin = {
 	object_loader = All_in_Jest,
     object_type = "Astral",
-	key = 'deneb_algedi',
+	key = 'deneb_algedi_pin',
     pin = 'Deneb Algedi',
     atlas = 'misc_atlas',
 	pos = { x = 8, y = 1 },

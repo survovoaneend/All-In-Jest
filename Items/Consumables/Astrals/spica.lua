@@ -29,7 +29,7 @@ local spica = {
 local spica_pin = {
 	object_loader = All_in_Jest,
     object_type = "Astral",
-	key = 'spica',
+	key = 'spica_pin',
     pin = 'Spica',
     atlas = 'misc_atlas',
 	pos = { x = 4, y = 1 },

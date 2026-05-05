@@ -30,7 +30,7 @@ local arcturus = {
 local arcturus_pin = {
 	object_loader = All_in_Jest,
     object_type = "Astral",
-	key = 'arcturus',
+	key = 'arcturus_pin',
     pin = 'Arcturus',
     atlas = 'misc_atlas',
 	pos = { x = 5, y = 1 },

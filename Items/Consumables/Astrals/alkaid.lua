@@ -30,7 +30,7 @@ local alkaid = {
 local alkaid_pin = {
 	object_loader = All_in_Jest,
     object_type = "Astral",
-	key = 'alkaid',
+	key = 'alkaid_pin',
     pin = 'Alkaid',
     atlas = 'misc_atlas',
 	pos = { x = 2, y = 1 },

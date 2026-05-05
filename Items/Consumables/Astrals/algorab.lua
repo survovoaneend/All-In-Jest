@@ -31,7 +31,7 @@ local algorab = {
 local algorab_pin = {
 	object_loader = All_in_Jest,
     object_type = "Astral",
-	key = 'algorab',
+	key = 'algorab_pin',
     pin = 'Algorab',
     atlas = 'misc_atlas',
 	pos = { x = 3, y = 1 },

@@ -22,7 +22,7 @@ local antares = {
 local antares_pin = {
 	object_loader = All_in_Jest,
     object_type = "Astral",
-	key = 'antares',
+	key = 'antares_pin',
     pin = 'Antares',
     atlas = 'misc_atlas',
 	pos = { x = 7, y = 1 },

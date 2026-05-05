@@ -31,7 +31,7 @@ local regulus = {
 local regulus_pin = {
 	object_loader = All_in_Jest,
     object_type = "Astral",
-	key = 'regulus',
+	key = 'regulus_pin',
     pin = 'Regulus',
     atlas = 'misc_atlas',
 	pos = { x = 1, y = 1 },
