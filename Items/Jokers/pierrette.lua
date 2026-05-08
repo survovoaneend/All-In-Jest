@@ -84,7 +84,7 @@ local pierrette = {
     ---@type JDJokerDefinition
     return {
       retrigger_joker_function = function(card, retrigger_joker)
-        return 1
+        --return 1
       end
     }
   end

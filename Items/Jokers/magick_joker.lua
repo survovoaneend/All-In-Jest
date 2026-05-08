@@ -41,8 +41,7 @@ local magick_joker = {
             reminder_text = {
                 { text = "(" },
                 {
-                    ref_table = "card.joker_display_values",
-                    ref_value = "localized_text",
+                    ref_table = "card.joker_display_values", ref_value = "localized_text",
                 },
                 { text = ")" },
             },
@@ -60,6 +59,11 @@ local magick_joker = {
                 end
                 card.joker_display_values.mult = count
                 card.joker_display_values.localized_text = localize(suit, 'suits_plural')
+            end,
+            style_function = function(card, text, reminder_text, extra)
+                local suit = G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit or "Spades"
+                local suit_node = reminder_text and reminder_text.children and reminder_text.children[2]
+                if suit_node then suit_node.config.colour = lighten(G.C.SUITS[suit], 0.35) end
             end
         }
     end,
