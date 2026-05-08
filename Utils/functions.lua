@@ -1916,6 +1916,7 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
                     local center = G.Astral[i.pin]
                     local card = Card(G.aij_astral_pin_area.T.x + G.aij_astral_pin_area.T.w/2,
                     G.aij_astral_pin_area.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
+                    card.config.center_key = i.pin
                     for k_, vi in pairs(card.config.center.config) do
                         card.ability[k_] = vi 
                     end
@@ -2298,16 +2299,16 @@ end
 function All_in_Jest.apply_inherent_effect(card, effect, type)
     card.aij_inherent_effects = card.aij_inherent_effects or {}
     if not effect then return end
-    if type == 'edition' then
-        card.aij_inherent_effects[type..'s'] = card.aij_inherent_effects[type..'s'] or {}
-        local index = #card.aij_inherent_effects[type..'s'] + 1
-        card.aij_inherent_effects[type..'s'][index] = copy_table(effect)
-    elseif type == 'enhancement' then
-        card.aij_inherent_effects[type..'s'] = card.aij_inherent_effects[type..'s'] or {}
-        local index = #card.aij_inherent_effects[type..'s'] + 1
-        card.aij_inherent_effects[type..'s'][index] = {}
-        card.aij_inherent_effects[type..'s'][index]['center'] = copy_table(effect)
-        card.aij_inherent_effects[type..'s'][index]['ability'] = copy_table(card.ability)
+    if effect_type == 'edition' then
+        card.aij_inherent_effects[effect_type..'s'] = card.aij_inherent_effects[effect_type..'s'] or {}
+        local index = #card.aij_inherent_effects[effect_type..'s'] + 1
+        card.aij_inherent_effects[effect_type..'s'][index] = copy_table(effect)
+    elseif effect_type == 'enhancement' then
+        card.aij_inherent_effects[effect_type..'s'] = card.aij_inherent_effects[effect_type..'s'] or {}
+        local index = #card.aij_inherent_effects[effect_type..'s'] + 1
+        card.aij_inherent_effects[effect_type..'s'][index] = {}
+        card.aij_inherent_effects[effect_type..'s'][index]['center_key'] = effect.key
+        card.aij_inherent_effects[effect_type..'s'][index]['ability'] = copy_table(card.ability)
     end
 end
 

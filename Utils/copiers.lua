@@ -6,8 +6,7 @@ end
 
 -- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 -- A set of utility functions used for new jokers that copy joker abilities without the other joker being owned
--- Currently: Joker.png, Czar
--- Planned: What's Left (formerly Visage), Clay Joker 
+-- Currently: Joker.png, Czar, What's Left (formerly Visage), Clay Joker 
 -- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 local save_changed_abilities_to_stored_table = function (copier_card, copied_index)
