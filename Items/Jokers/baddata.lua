@@ -177,9 +177,16 @@ local baddata = {
   
     calculate = function(self, card, context)
         if context.joker_main then
+            local effects = {
+                'mult',
+                'chips',
+                'xchips',
+                'Xmult',
+                'dollars'
+            }
 			G.E_MANAGER:add_event(Event({
                 func = function()
-                    card.ability.extra.effect = ''
+                    card.ability.extra.effect = pseudorandom_element(effects, pseudoseed('baddata'))
                     return true
                 end
             }))
