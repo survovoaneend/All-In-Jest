@@ -950,23 +950,26 @@ function Card:update(dt)
             x = x or (flip and self.config.aij_other_center['center'].pos.x or self.config.center.pos.x), 
             y = y or (flip and self.config.aij_other_center['center'].pos.y or self.config.center.pos.y)
         }
+        
         local temp_image_data = G.ASSET_ATLAS[atlas].image_data
-        --local has_sprite = aij_get_mcc_pixel(temp_image_data, new_pos, {bpx = G.ASSET_ATLAS[atlas].px, bpy = G.ASSET_ATLAS[atlas].py, check_invis = true})
-        --local old_s = self.aij_meo_sprite
-        --if has_sprite and (not old_s or old_s[1] ~= atlas or old_s[2] ~= new_pos.x or old_s[3] ~= new_pos.y) then
-        --    self.aij_meo_sprite = {atlas, new_pos.x, new_pos.y}
-        --    local new_image_data, new_atlas, newer_pos = All_in_Jest.multi_enhancement_auto_sprite(self, self.config.center, self.config.aij_other_center['center'], atlas)
-        --    
-        --    self.children.center.atlas = {
-        --        px = G.ASSET_ATLAS[new_atlas].px, py = G.ASSET_ATLAS[new_atlas].py, name = new_atlas,
-        --        image_data = new_image_data,
-        --        image = love.graphics.newImage(new_image_data, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
-        --    }
-        --    self.children.center:set_sprite_pos(newer_pos)
-        --elseif not has_sprite then
-        --self.aij_meo_sprite = {atlas, new_pos.x, new_pos.y}
-        self.children.center:set_sprite_pos(new_pos)
-        self.children.center.atlas = G.ASSET_ATLAS[atlas]
+        local has_sprite = aij_get_mcc_pixel(temp_image_data, new_pos, {bpx = G.ASSET_ATLAS[atlas].px, bpy = G.ASSET_ATLAS[atlas].py, check_invis = true})
+        local old_s = self.aij_meo_sprite
+        if has_sprite and (not old_s or old_s[1] ~= atlas or old_s[2] ~= new_pos.x or old_s[3] ~= new_pos.y) then
+           self.aij_meo_sprite = {atlas, new_pos.x, new_pos.y}
+           local new_image_data, new_atlas, newer_pos = All_in_Jest.multi_enhancement_auto_sprite(self, self.config.center, self.config.aij_other_center['center'], atlas)
+           
+           self.children.center.atlas = {
+               px = G.ASSET_ATLAS[new_atlas].px, py = G.ASSET_ATLAS[new_atlas].py, name = new_atlas,
+               image_data = new_image_data,
+               image = love.graphics.newImage(new_image_data, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
+           }
+           self.children.center:set_sprite_pos(newer_pos)
+        elseif not has_sprite then
+            self.aij_meo_sprite = {atlas, new_pos.x, new_pos.y}
+            self.children.center:set_sprite_pos(new_pos)
+            self.children.center.atlas = G.ASSET_ATLAS[atlas]
+        end
+
     end
     if not self.front_hidden then self.front_hidden = self:should_hide_front() end
     if self.base.nominal > 0 and self.config.aij_other_center and self.ability.aij_other_center and ((self.ability.aij_other_center['ability'] and self.ability.aij_other_center['ability'].effect == 'Stone Card') or (self.config.aij_other_center['center'] and self.config.aij_other_center['center'].replace_base_card)) then
