@@ -8,6 +8,9 @@ local charged = {
     config = {
         
     },
+    all_in_jest = {
+        multi_enhancement_layer = "Foreground"
+    },
     loc_vars = function(self, info_queue, card)
         local charged_text
         local has_founding_father = next(SMODS.find_card("j_aij_founding_father"))

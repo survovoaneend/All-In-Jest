@@ -10,6 +10,9 @@ local fervent_planet = {
             chips_extra = 10,
         }
     },
+    all_in_jest = {
+        multi_enhancement_layer = "Foreground"
+    },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {

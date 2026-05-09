@@ -7,6 +7,9 @@ local dyscalcular = {
     config = {
         
     },
+    all_in_jest = {
+        multi_enhancement_layer = "Foreground"
+    },
     ignore = true,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set = 'Other', key = 'm_aij_dyscalcular_numbered_rank'}

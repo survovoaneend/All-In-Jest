@@ -28,6 +28,9 @@ local scorched = {
             levels = 1
         }
     },
+    all_in_jest = {
+        multi_enhancement_layer = "Foreground"
+    },
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
         return {

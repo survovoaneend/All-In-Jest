@@ -8,6 +8,9 @@ local ice = {
     config = {
         
     },
+    all_in_jest = {
+        multi_enhancement_layer = "Background"
+    },
     always_scores = true,
     loc_vars = function(self, info_queue, card)
         local text = G.GAME.starting_params.play_limit or 5
