@@ -929,14 +929,23 @@ function Card:update(dt)
         local x, temp_atlas_1 = All_in_Jest.find_multi_enhancement_pos(self.config.center and self.config.center.key)
         local y, temp_atlas_2 = All_in_Jest.find_multi_enhancement_pos(self.config.aij_other_center['center'].key)
         local flip = false
-        if (not y and x) then
-            local temp, x_ = All_in_Jest.find_multi_enhancement_pos(self.config.center and self.config.center.key)
-            local temp2, y_ = All_in_Jest.find_multi_enhancement_pos(self.config.aij_other_center['center'].key)
-            x = temp2
-            y = temp
+
+        -- For simulated and other animated sprites
+        if (x and not y) then
+            x, y = y, x
             flip = true
         end
+
+
         local atlas = temp_atlas_1 or temp_atlas_2 or 'aij_multi_enhancements_atlas'
+
+        -- Flip pos so it only uses top-right half of spritesheet. Helps reduce redundancy.
+        if type(x) == "number" and type(y) == "number" then
+            if y > x then
+                x, y = y, x
+            end
+        end
+
         local new_pos = {
             x = x or (flip and self.config.aij_other_center['center'].pos.x or self.config.center.pos.x), 
             y = y or (flip and self.config.aij_other_center['center'].pos.y or self.config.center.pos.y)
