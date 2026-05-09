@@ -223,6 +223,27 @@ return {
                     'cards with a {C:attention}suit',
                     '{C:attention}patch{} at once'
                 }
+            },
+            b_aij_melded = {
+                name = 'Melded Deck',
+                text = {
+                    'Each playing card may',
+                    'have {C:attention}two{} enhancements'
+                },
+                unlock = {
+                    "Win a run with {C:attention}#1#",
+                    "decks on at least",
+                    "{V:1}#2#{} difficulty",
+                }
+            },
+            b_aij_melded_hidden = {
+                name = 'Melded Deck',
+                text = {},
+                unlock = {
+                    "Win a run with {C:attention}#1#",
+                    "decks on at least",
+                    "{V:1}#2#{} difficulty",
+                }
             }
         },
         Stake = All_in_Jest.config.blue_stake_rework and {

@@ -2081,7 +2081,7 @@ end
 function All_in_Jest.set_other_enhancement(card, enhancement)
     SMODS.aij_applying_thing = true
     if not G.P_CENTERS[enhancement] then return end
-    card.config.aij_other_center = card.config.aij_other_center or {}
+    card.config.aij_other_center = {}
     card.config.aij_other_center['center'] = G.P_CENTERS[enhancement]
     local old_center = card.config.center
     card:set_ability(G.P_CENTERS[enhancement])
@@ -2154,12 +2154,23 @@ end
 
 function All_in_Jest.multi_enhancement_auto_sprite(card, center, other_center, atlas)
     --Only Vanilla sprites don't have image data (luckly the Vanilla enhancements sprites also exist in this mod)
-    local has_img_data, o_has_img_data = center.atlas and G.ASSET_ATLAS[center.atlas].image_data, other_center.atlas and G.ASSET_ATLAS[other_center.atlas].image_data
-    local center_sprite, o_center_sprite = (has_img_data and has_img_data:clone() or G.ASSET_ATLAS[atlas].image_data:clone()), (o_has_img_data and o_has_img_data:clone() or G.ASSET_ATLAS[atlas].image_data:clone())
-    local center_pos, o_center_pos = has_img_data and center.pos or {x = All_in_Jest.find_multi_enhancement_pos(center.key), y = 0}, o_has_img_data and other_center.pos or {x = All_in_Jest.find_multi_enhancement_pos(other_center.key), y = 0}
-    local center_preference, o_center_preference = (center.all_in_jest and center.all_in_jest.multi_enhancement_layer) or All_in_Jest.multi_enhancement_get_vanilla_layer(center.key) or 'Undefined', (other_center.all_in_jest and other_center.all_in_jest.multi_enhancement_layer) or All_in_Jest.multi_enhancement_get_vanilla_layer(other_center.key) or 'Undefined'
-    local c_atlas, o_atlas = has_img_data and center.atlas or atlas, o_has_img_data and other_center.atlas or atlas
+    local has_img_data = center.atlas and G.ASSET_ATLAS[center.atlas].image_data
+    local o_has_img_data = other_center.atlas and G.ASSET_ATLAS[other_center.atlas].image_data
+
+    local center_sprite = (has_img_data and has_img_data:clone() or G.ASSET_ATLAS[atlas].image_data:clone())
+    local o_center_sprite = (o_has_img_data and o_has_img_data:clone() or G.ASSET_ATLAS[atlas].image_data:clone())
+
+    local center_pos = has_img_data and center.pos or {x = All_in_Jest.find_multi_enhancement_pos(center.key), y = 0}
+    local o_center_pos = o_has_img_data and other_center.pos or {x = All_in_Jest.find_multi_enhancement_pos(other_center.key), y = 0}
+
+    local center_preference = (center.all_in_jest and center.all_in_jest.multi_enhancement_layer) or All_in_Jest.multi_enhancement_get_vanilla_layer(center.key) or 'Undefined'
+    local o_center_preference = (other_center.all_in_jest and other_center.all_in_jest.multi_enhancement_layer) or All_in_Jest.multi_enhancement_get_vanilla_layer(other_center.key) or 'Undefined'
+    
+    local c_atlas = has_img_data and center.atlas or atlas
+    local  o_atlas = o_has_img_data and other_center.atlas or atlas
+    
     if ((center_preference == 'Foreground' or o_center_preference == 'Foreground') and (center_preference == 'Background' or o_center_preference == 'Background')) or ((center_preference == 'Foreground' or o_center_preference == 'Foreground') and (center_preference == 'Undefined' or o_center_preference == 'Undefined')) then
+        -- If one is foreground and the other is either background or undefined
         local replace_color = HEX('ffffff')
         local new_colour = HEX('ffffff')
         new_colour[4] = 0
@@ -2179,7 +2190,9 @@ function All_in_Jest.multi_enhancement_auto_sprite(card, center, other_center, a
         local replace_color = HEX('ffffff')
         local new_colour = HEX('ffffff')
         new_colour[4] = 0.5
-        local order_sprite, o_order_sprite = c_order < o_order and center_sprite or o_center_sprite, c_order < o_order and o_center_sprite or center_sprite
+        local order_sprite = c_order < o_order and center_sprite or o_center_sprite
+        local o_order_sprite = c_order < o_order and o_center_sprite or center_sprite
+        
         aij_recolour_atlas(nil, replace_color, new_colour, nil, nil, {
             image_data = o_order_sprite, 
             return_val = true, 
@@ -2197,8 +2210,15 @@ function All_in_Jest.multi_enhancement_auto_sprite(card, center, other_center, a
                 return r, g, b, a
             end
         })
-        local bpx, bpy, lpx, lpy = G.ASSET_ATLAS[c_atlas].px, G.ASSET_ATLAS[c_atlas].py, G.ASSET_ATLAS[o_atlas].px, G.ASSET_ATLAS[o_atlas].py
-        local order_pos, o_order_pos = c_order < o_order and center_pos or o_center_pos, c_order < o_order and o_center_pos or center_pos
+
+        local bpx, = G.ASSET_ATLAS[c_atlas].px
+        local bpy = G.ASSET_ATLAS[c_atlas].py
+        local lpx = G.ASSET_ATLAS[o_atlas].px
+        local lpy = G.ASSET_ATLAS[o_atlas].py
+
+        local order_pos = c_order < o_order and center_pos or o_center_pos
+        local o_order_pos = c_order < o_order and o_center_pos or center_pos
+
         aij_pasteAlpha(order_sprite, o_order_sprite, order_pos, o_order_pos, {blend = true, force_blend_alpha = 0.5, lpx = lpx, lpy = lpy, bpx = bpx, bpy = bpy})
         local order_atlas = c_order < o_order and c_atlas or o_atlas
         return order_sprite, order_atlas, order_pos
