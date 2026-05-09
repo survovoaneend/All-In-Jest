@@ -54,36 +54,36 @@ function aij_outline_image(imagedata, outline_color)
 end
 
 
-function aij_recolour_atlas(card, old_colour, new_colour, atlas)
-    local image_data = atlas.image_data:clone()
+-- function aij_recolour_atlas(card, old_colour, new_colour, atlas)
+--     local image_data = atlas.image_data:clone()
 
-    image_data:mapPixel(function(x, y, r, g, b, a)
-        return aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour)
-    end)
+--     image_data:mapPixel(function(x, y, r, g, b, a)
+--         return aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour)
+--     end)
 
-    card.children.center.atlas = {
-        px = atlas.px,
-        py = atlas.py,
-        name = atlas.name,
-        image_data = image_data,
-        image = love.graphics.newImage(image_data, {
-            mipmaps = true,
-            dpiscale = G.SETTINGS.GRAPHICS.texture_scaling
-        })
-    }
-end
+--     card.children.center.atlas = {
+--         px = atlas.px,
+--         py = atlas.py,
+--         name = atlas.name,
+--         image_data = image_data,
+--         image = love.graphics.newImage(image_data, {
+--             mipmaps = true,
+--             dpiscale = G.SETTINGS.GRAPHICS.texture_scaling
+--         })
+--     }
+-- end
 
-function aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour, tolerance)
-    tolerance = tolerance or 0.01
+-- function aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour, tolerance)
+--     tolerance = tolerance or 0.01
 
-    if math.abs(r - old_colour[1]) <= tolerance
-    and math.abs(g - old_colour[2]) <= tolerance
-    and math.abs(b - old_colour[3]) <= tolerance then
-        return new_colour[1], new_colour[2], new_colour[3], a
-    end
+--     if math.abs(r - old_colour[1]) <= tolerance
+--     and math.abs(g - old_colour[2]) <= tolerance
+--     and math.abs(b - old_colour[3]) <= tolerance then
+--         return new_colour[1], new_colour[2], new_colour[3], a
+--     end
 
-    return r, g, b, a
-end
+--     return r, g, b, a
+-- end
 
 local function aij_downscale_imagedata(src, scale)
     if scale == 1 then return src:clone() end
