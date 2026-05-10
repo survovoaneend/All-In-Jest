@@ -57,5 +57,15 @@ local columbina = {
     return false
   end,
 
+  joker_display_def = function(JokerDisplay)
+    ---@type JDJokerDefinition
+    return {
+      text = {
+        { ref_table = "card.ability.extra", ref_value = "percent" },
+        { text = "%" },
+      },
+      text_config = { colour = G.C.PURPLE },
+    }
+  end
 }
 return { name = { "Jokers" }, items = { columbina } }

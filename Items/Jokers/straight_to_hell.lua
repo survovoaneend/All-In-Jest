@@ -53,6 +53,20 @@ local straight_to_hell = {
             }
         end
     end
-  end
+  end,
+
+  joker_display_def = function(JokerDisplay)
+      ---@type JDJokerDefinition
+      return {
+          text = {
+              {
+                  border_nodes = {
+                      { text = "X" },
+                      { ref_table = "card.ability.extra", ref_value = "xmult", retrigger_type = "exp" }
+                  }
+              }
+          },
+      }
+  end,
 }
 return { name = {"Jokers"}, items = {straight_to_hell} }

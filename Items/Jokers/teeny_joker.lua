@@ -40,6 +40,33 @@ local teeny_joker = {
         }
       end
     end
+  end,
+
+  joker_display_def = function(JokerDisplay)
+      ---@type JDJokerDefinition
+      return {
+          text = {
+              { text = "+" },
+              { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" }
+          },
+          text_config = { colour = G.C.CHIPS },
+          calc_function = function(card)
+              local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+              card.joker_display_values.chips = 0
+              if text ~= 'Unknown' then
+                  local twos, all_cards = 0, 0
+                  for _, scoring_card in pairs(scoring_hand) do
+                    all_cards = all_cards + 1
+                    if scoring_card:get_id() == 2 then
+                        twos = twos + 1
+                    end
+                  end
+                  if twos == all_cards and all_cards > 0 then
+                      card.joker_display_values.chips = card.ability.extra.chips or 0
+                  end
+              end
+          end
+      }
   end
 }
 return { name = {"Jokers"}, items = {teeny_joker} }

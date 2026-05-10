@@ -83,11 +83,6 @@ local cctv = {
     joker_display_def = function(JokerDisplay)
         ---@type JDJokerDefinition
         return {
-            text = {
-                { text = "+$" },
-                { ref_table = "card.ability.extra", ref_value = "money" },
-            },
-            text_config = { colour = G.C.GOLD },
             reminder_text = {
                 { text = "(" },
                 { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE, retrigger_type = "mult" },

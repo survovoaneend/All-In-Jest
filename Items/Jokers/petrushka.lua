@@ -45,11 +45,10 @@ local petrushka = {
         return {
             text = {
                 { text = "+" },
-                { ref_table = "card.joker_display_values", ref_value = "mult" },
+                { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
             },
             text_config = { colour = G.C.MULT },
             calc_function = function(card)
-                local suit = G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit or "Spades"
                 local count = 0
                 active = false
                 local text, _, scoring_hand = JokerDisplay.evaluate_hand()

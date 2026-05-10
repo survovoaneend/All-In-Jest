@@ -92,12 +92,6 @@ local jeff_the_joker = {
                     }
                 }
             },
-            reminder_text = {
-                { ref_table = "card.joker_display_values", ref_value = "localized_text" },
-            },
-            calc_function = function(card)
-                card.joker_display_values.localized_text = "(" .. localize{type ='name_text', key = 'bl_small', set = 'Blind'} .. ")"
-            end
         }
     end
 }
