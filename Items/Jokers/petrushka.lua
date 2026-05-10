@@ -39,7 +39,31 @@ local petrushka = {
         end
 
         return nil
-    end
+    end,
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "+" },
+                { ref_table = "card.joker_display_values", ref_value = "mult" },
+            },
+            text_config = { colour = G.C.MULT },
+            calc_function = function(card)
+                local suit = G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit or "Spades"
+                local count = 0
+                active = false
+                local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+                if text ~= 'Unknown' then
+                    for _, scoring_card in pairs(scoring_hand) do
+                        if scoring_card:get_id() > 0 then
+                            count = count + scoring_card:get_id()
+                        end
+                    end
+                end
+                card.joker_display_values.mult = count
+            end,
+        }
+    end,
   
 }
 return { name = {"Jokers"}, items = {petrushka} }
