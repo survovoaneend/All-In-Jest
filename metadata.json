@@ -14,6 +14,8 @@
   "main_file": "nevernamed.lua",
   "badge_colour": "8b61ad",
   "version": "0.7.0~ALPHA",
+  "icon_path": "modicon.png",
+  "icon_width": 32,
   "dependencies": [
     "Steamodded (>=1.0.0~BETA-1606b)",
     "Lovely (>=0.7.1)"
