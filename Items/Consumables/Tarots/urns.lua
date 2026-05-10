@@ -30,7 +30,9 @@ local urns = {
         SMODS.destroy_cards(destroy_card, nil, true)
 		local valid_cards = {}
 		for k, v in pairs(G.hand.cards) do
-			valid_cards[#valid_cards+1] = v
+            if not v.highlighted then
+                valid_cards[#valid_cards+1] = v
+            end
 		end
 		local selected_cards = {}
 		for i = 1, card.ability.ran_cards do
