@@ -1131,6 +1131,7 @@ for hand, _ in pairs(poker_hands) do
     end
 end
 
+local winning_hand = (G.GAME.chips + math.floor(SMODS.calculate_round_score())) >= blind.chips
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_run + 1
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing] = {}
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].mult = mult
@@ -1141,6 +1142,7 @@ G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_hand = scorin
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_name = text 
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].poker_hands = poker_hands_saved
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].winning_hand = winning_hand
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_ante + 1
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing] = {}
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].mult = mult
@@ -1151,6 +1153,7 @@ G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_hand = scori
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_name = text
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].poker_hands = poker_hands_saved
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].winning_hand = winning_hand
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_blind + 1
 G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing] = {}
 G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].mult = mult
@@ -1161,6 +1164,7 @@ G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].scoring_hand = scor
 G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].scoring_name = text 
 G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].poker_hands = poker_hands_saved
+G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].winning_hand = winning_hand
 '''
 match_indent = true
 
