@@ -136,6 +136,8 @@ return {
             aij_torn = "Torn",
             -- Stickers
             aij_marked = "Marked",
+            aij_pc_perishable = "Perishable",
+            aij_pc_eternal = "Eternal",
             aij_unusual_doubled = "Doubled",
             aij_recherche_doubled = "Doubled",
             -- Seals
@@ -693,6 +695,49 @@ return {
                 text = {
                     'Must discard 5',
                     'cards at a time'
+                },
+            },
+            bl_aij_the_life = {
+                name = "The Life",
+                text = {
+                    'All scoring cards',
+                    'become Perishable',
+                },
+            },
+            bl_aij_the_man = {
+                name = "The Man",
+                text = {
+                    'All played face',
+                    'cards become permanently',
+                    'drawn face down',
+                },
+            },
+            bl_aij_the_solid = {
+                name = "The Solid",
+                text = {
+                    'All scoring cards',
+                    'become Eternal',
+                },
+            },
+            bl_aij_the_loan = {
+                name = "The Loan",
+                text = {
+                    'All played cards in the',
+                    'winning hand become Rental',
+                },
+            },
+            bl_aij_the_worm = {
+                name = "The Worm",
+                text = {
+                    'Destroy all',
+                    'Perishable Jokers',
+                },
+            },
+            bl_aij_the_silence = {
+                name = "The Silence",
+                text = {
+                    'Scored cards cannot',
+                    'be retriggered',
                 },
             },
             --Pit Blinds
@@ -4935,6 +4980,20 @@ return {
                 }
             },
             -- Stickers
+            aij_pc_perishable = {
+                name = "Perishable",
+                text = {
+                    'Debuff after',
+                    'scoring {C:attention}#1#{} times',
+                    '{C:inactive}({C:attention}#2#{C:inactive} remaining)'
+                }
+            },
+            aij_pc_eternal = {
+                name = "Eternal",
+                text = {
+                    "Can't be {C:red}destroyed",
+                }
+            },
             aij_marked = {
                 name = "Marked",
                 text = {

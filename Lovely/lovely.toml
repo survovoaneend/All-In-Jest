@@ -3,6 +3,24 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
+# Perishable for Playing Cards 
+# Card:set_debuff()
+# debuffs cards with sticker 
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.perishable and self.ability.perish_tally <= 0 then"
+position = "before"
+match_indent = true
+payload = '''
+if self.ability.aij_pc_perishable and self.ability.perish_tally <= 0 then 
+    if not self.debuff then
+        self.debuff = true
+    end
+    return
+end
+'''
+
 # Overstuffed Tag (1/4)
 # Card:open()
 # Add triggers for overstuffed tags

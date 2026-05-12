@@ -9,7 +9,6 @@ end
 --Stuff for destruction effects
 local start_dissolve_ref = Card.start_dissolve
 function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice)
-  local ref = start_dissolve_ref(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
   if G.jokers and self.ability.set == 'Joker' then
     SMODS.calculate_context({
       jest_destroying_or_selling_joker = true,
@@ -21,7 +20,7 @@ function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_jui
       jest_destroyed_joker = self
      })
     end
-  elseif (G.hand or G.play) and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
+  elseif self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
     SMODS.calculate_context({
       jest_destroying_or_selling_card = true,
       jest_destroyed_card = self,
@@ -32,11 +31,12 @@ function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_jui
       jest_destroyed_card = self
      })
     end
+    if self.ability.aij_pc_eternal then return end
   end
+  return start_dissolve_ref(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
 end
 local shatter_ref = Card.shatter
 function Card:shatter()
-  local ref = shatter_ref(self)
   if G.jokers and self.ability.set == 'Joker' then
     SMODS.calculate_context({
       jest_destroying_or_selling_joker = true,
@@ -48,7 +48,7 @@ function Card:shatter()
       jest_destroyed_joker = self
      })
     end
-  elseif (G.hand or G.play) and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
+  elseif self.ability.set == 'Enhanced' or self.ability.set == 'Default' then
     SMODS.calculate_context({
       jest_destroying_or_selling_card = true,
       jest_destroyed_card = self,
@@ -59,7 +59,9 @@ function Card:shatter()
       jest_destroyed_card = self
      })
     end
+    if self.ability.aij_pc_eternal then return end
   end
+  return shatter_ref(self)
 end
 
 -- Workshoping
