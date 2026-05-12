@@ -2977,6 +2977,7 @@ return {
                         "{C:attention}Requerida{} de las {C:attention}Ciegas{}"
                     }
                 },
+            },
             j_aij_hardy = {
                 name = "Hardy",
                 text = {
@@ -7047,6 +7048,5 @@ return {
                 }
             },
         }
-        },
-    }
+    },
 }
