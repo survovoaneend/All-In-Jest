@@ -21,6 +21,23 @@ if self.ability.aij_pc_perishable and self.ability.perish_tally <= 0 then
 end
 '''
 
+# Perma-flipped for Playing Cards
+# draw_card()
+# allows cards to stay flipped when drawn permanently
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "local stay_flipped = G.GAME and G.GAME.blind and G.GAME.blind:stay_flipped(to, card, from)"
+position = "after"
+match_indent = true
+payload = '''
+if card.ability.aij_perma_flipped then 
+    if to == G.hand then
+        stay_flipped = true
+    end
+end
+'''
+
 # Overstuffed Tag (1/4)
 # Card:open()
 # Add triggers for overstuffed tags
