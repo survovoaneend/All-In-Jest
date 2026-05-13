@@ -48,6 +48,22 @@ local lucky_seven = {
         end
     end
     return nil
+    end,
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "rank", colour = G.C.FILTER },
+                { text = " > " },
+                { ref_table = "card.joker_display_values", ref_value = "enhancement", colour = G.C.FILTER },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                card.joker_display_values.rank = localize('7', 'ranks')
+                card.joker_display_values.enhancement = localize { type = 'name_text', set = 'Enhanced', key = 'm_lucky' }
+            end,
+        }
     end
   
 }

@@ -35,6 +35,26 @@ local low_priest = {
         xmult = math.max(1, card.ability.extra.xmult)
       }
     end
-  end
+  end,
+
+  joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
+                    }
+                }
+            },
+            calc_function = function(card)
+                local text, _, _ = JokerDisplay.evaluate_hand()
+                card.joker_display_values.x_mult = math.max(0, card.ability.extra.initial_xmult - 
+                  ((text ~= "Unknown" and G.GAME and G.GAME.hands and G.GAME.hands[text]) and 
+                  to_number(G.GAME.hands[text].level) or 0) * card.ability.extra.xmult_mod)
+            end
+        }
+    end
 }
 return { name = { "Jokers" }, items = { low_priest } }

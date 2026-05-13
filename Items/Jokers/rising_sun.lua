@@ -31,7 +31,32 @@ local rising_sun = {
             }
         end
       end 
-    end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                local active = false
+                if (G.GAME.current_round.hands_played == 0 or (G.GAME.current_round.hands_played == 1 and G.STATE == G.STATES.HAND_PLAYED) or G.GAME.current_round.hands_left == 0 or (G.GAME.current_round.hands_left == 1 and G.STATE ~= G.STATES.HAND_PLAYED)) then
+                    active = true
+                end
+                card.joker_display_values.active = active
+                card.joker_display_values.localized_text = active and localize("k_active_ex") or localize("jdis_inactive")
+            end,
+            retrigger_function = function(playing_card, scoring_hand, held_in_hand, joker_card)
+                if held_in_hand then return 0 end
+                local first_card = scoring_hand and JokerDisplay.calculate_leftmost_card(scoring_hand)
+                local last_card = scoring_hand and JokerDisplay.calculate_rightmost_card(scoring_hand)
+                return first_card and last_card and (playing_card == first_card or playing_card == last_card) and joker_card.joker_display_values.active and JokerDisplay.calculate_joker_triggers(joker_card) * joker_card.ability.extra.retriggers or 0
+            end
+        }
+    end,
   
 }
 return { name = {"Jokers"}, items = {rising_sun} }

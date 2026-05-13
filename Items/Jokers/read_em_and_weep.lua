@@ -114,6 +114,20 @@ local read_em_and_weep = {
                 end
             end
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                card.joker_display_values.localized_text = localize('Straight', 'poker_hands')
+            end
+        }
     end
 
 }

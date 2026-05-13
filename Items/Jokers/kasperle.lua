@@ -36,7 +36,26 @@ local kasperle = {
                 }
             end
         end
-    end
+    end,
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
+                    }
+                }
+            },
+            calc_function = function(card)
+                card.joker_display_values.x_mult = card.ability.extra.xmult
+                if not G.GAME.jest_kasperle_voucher_ante then
+                    card.joker_display_values.x_mult = 1
+                end
+            end
+        }
+    end,
 }
 local aij_card_redeem_ref = Card.redeem
 function Card:redeem()

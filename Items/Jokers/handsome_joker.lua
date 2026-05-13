@@ -64,6 +64,40 @@ local handsome_joker = {
                 xmult = xmult,
             }
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
+                    }
+                }
+            },
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "card", colour = G.C.FILTER },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                local handsome_card = G.GAME.current_round.jest_handsome_joker_card
+                local card_text = "[enhancement] [card]"
+                local mult = 0
+                if G.playing_cards then 
+                    if handsome_card and handsome_card.rank and handsome_card.enhancement then
+                        local enhancement_name = localize { type = 'name_text', set = 'Enhanced', key = handsome_card.enhancement }
+                        enhancement_name = enhancement_name:gsub(" [Cc]ard$", "")
+                        card_text = enhancement_name ..
+                            " " .. localize(handsome_card.rank, 'ranks')
+                    end
+                end
+                card.joker_display_values.x_mult = (mult < 1 and 1) or mult*card.ability.extra.xmult_mod
+                card.joker_display_values.card = card_text or "[enhancement] [card]"
+            end
+        }
     end
 
 }

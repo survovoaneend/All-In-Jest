@@ -50,6 +50,22 @@ local heidelberg_tun = {
       card.ability.extra.active = true
     end
     return nil
-  end
+  end,
+
+  joker_display_def = function(JokerDisplay)
+      ---@type JDJokerDefinition
+      return {
+          reminder_text = {
+              { text = "(" },
+              { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+              { text = ")" },
+          },
+          calc_function = function(card)
+              card.joker_display_values.localized_text = card.ability.extra.active and localize("k_active_ex") or localize("jdis_inactive")
+          end,
+      }
+  end,
+
+
 }
 return { name = { "Jokers" }, items = { heidelberg_tun } }

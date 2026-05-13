@@ -64,6 +64,16 @@ local mistigri = {
             end
             card.ability.current_bonus_applied = 0
         end
+    end,
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "+" },
+                { ref_table = "card.ability", ref_value = "current_bonus_applied" }
+            },
+            text_config = { colour = G.C.FILTER },
+        }
     end
 }
 return { name = {"Jokers"}, items = {mistigri} }

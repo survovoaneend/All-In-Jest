@@ -43,6 +43,23 @@ local hei_tiki = {
                 xmult = 1 + card.ability.extra.xmult,
             }
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.joker_display_values", ref_value = "xmult", retrigger_type = "exp" }
+                    }
+                }
+            },
+            calc_function = function(card)
+                card.joker_display_values.xmult = 1 + card.ability.extra.xmult
+            end
+        }
     end
   
 }

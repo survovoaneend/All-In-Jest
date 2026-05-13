@@ -72,6 +72,27 @@ local bad_apple = {
                 xmult = card.ability.extra.xmult
             }
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.ability.extra", ref_value = "xmult", retrigger_type = "exp" }
+                    }
+                }
+            },
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.ability.extra", ref_value = "dark_suits", colour = lighten(G.C.SUITS.Spades, 0.35) },
+                { text = "," },
+                { ref_table = "card.ability.extra", ref_value = "light_suits", colour = lighten(G.C.SUITS.Hearts, 0.35) },
+                { text = ")" },
+            },
+        }
     end
 
 }
