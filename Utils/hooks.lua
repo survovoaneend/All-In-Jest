@@ -910,6 +910,18 @@ function Card:set_sprites(_center, _front)
     local orig_atlas = _center and _center.atlas
     local orig_pos = _center and _center.pos
 
+    -- For fusion enhancements
+    if _center and _center.set and self.ability then
+        if self.config.center and self.config.aij_other_center then
+            local atlas_key = _center.atlas or "centers"
+            local atlas, pos = All_in_Jest.get_multi_enhancement_atlas(self.config.center, self.config.aij_other_center['center'])
+            if atlas and pos then
+                _center.atlas = atlas.name
+                _center.pos = pos
+            end
+        end
+    end
+
     -- For scorched cards
     if _center and _center.set and self.ability then
         if SMODS.has_enhancement(self, "m_aij_scorched") then
@@ -952,52 +964,6 @@ end
 local cardupdateref = Card.update
 function Card:update(dt)
     local ref = cardupdateref(self, dt)
-    if self.config.center and self.config.aij_other_center and self.children.center then
-        local x, temp_atlas_1 = All_in_Jest.find_multi_enhancement_pos(self.config.center and self.config.center.key)
-        local y, temp_atlas_2 = All_in_Jest.find_multi_enhancement_pos(self.config.aij_other_center['center'].key)
-        local flip = false
-
-        -- For simulated and other animated sprites
-        if (x and not y) then
-            x, y = y, x
-            flip = true
-        end
-
-
-        local atlas = temp_atlas_1 or temp_atlas_2 or 'aij_multi_enhancements_atlas'
-
-        -- Flip pos so it only uses top-right half of spritesheet. Helps reduce redundancy.
-        if type(x) == "number" and type(y) == "number" then
-            if y > x then
-                x, y = y, x
-            end
-        end
-
-        local new_pos = {
-            x = x or (flip and self.config.aij_other_center['center'].pos.x or self.config.center.pos.x), 
-            y = y or (flip and self.config.aij_other_center['center'].pos.y or self.config.center.pos.y)
-        }
-        
-        local temp_image_data = G.ASSET_ATLAS[atlas].image_data
-        local has_sprite = aij_get_mcc_pixel(temp_image_data, new_pos, {bpx = G.ASSET_ATLAS[atlas].px, bpy = G.ASSET_ATLAS[atlas].py, check_invis = true})
-        local old_s = self.aij_meo_sprite
-        if has_sprite and (not old_s or old_s[1] ~= atlas or old_s[2] ~= new_pos.x or old_s[3] ~= new_pos.y) then
-           self.aij_meo_sprite = {atlas, new_pos.x, new_pos.y}
-           local new_image_data, new_atlas, newer_pos = All_in_Jest.multi_enhancement_auto_sprite(self, self.config.center, self.config.aij_other_center['center'], atlas)
-           
-           self.children.center.atlas = {
-               px = G.ASSET_ATLAS[new_atlas].px, py = G.ASSET_ATLAS[new_atlas].py, name = new_atlas,
-               image_data = new_image_data,
-               image = love.graphics.newImage(new_image_data, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
-           }
-           self.children.center:set_sprite_pos(newer_pos)
-        elseif not has_sprite then
-            self.aij_meo_sprite = {atlas, new_pos.x, new_pos.y}
-            self.children.center:set_sprite_pos(new_pos)
-            self.children.center.atlas = G.ASSET_ATLAS[atlas]
-        end
-
-    end
     if not self.front_hidden then self.front_hidden = self:should_hide_front() end
     if self.base.nominal > 0 and self.config.aij_other_center and self.ability.aij_other_center and ((self.ability.aij_other_center['ability'] and self.ability.aij_other_center['ability'].effect == 'Stone Card') or (self.config.aij_other_center['center'] and self.config.aij_other_center['center'].replace_base_card)) then
         self.base.nominal = 0

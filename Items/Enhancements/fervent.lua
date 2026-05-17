@@ -11,7 +11,7 @@ local fervent_planet = {
         }
     },
     all_in_jest = {
-        multi_enhancement_layer = "Foreground"
+        multi_enhancement_z_order = 1
     },
     loc_vars = function(self, info_queue, card)
         return {

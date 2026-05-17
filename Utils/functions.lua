@@ -130,11 +130,10 @@ function aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour, tolerance,
     return r, g, b, a
 end
 
-function aij_get_mcc_pixel(base, posb, args)
+function aij_get_mcc_pixel(data, posb, args)
     args = args or {}
     posb = posb or {x=0, y=0}
 
-    local data = base
     local bw, bh = data:getWidth(), data:getHeight()
     local bit = require("bit")
 
@@ -152,8 +151,8 @@ function aij_get_mcc_pixel(base, posb, args)
     local getPixel = data.getPixel 
 
     if args.check_invis then
-        for x = bx0, bx1 - 1 do
-            for y = by0, by1 - 1 do
+        for x = bx0, bx1 - 1, scale do
+            for y = by0, by1 - 1, scale do
                 local _, _, _, a = getPixel(data, x, y)
                 if a > 0 then
                     return false
@@ -190,6 +189,14 @@ function aij_get_mcc_pixel(base, posb, args)
     local b = bit.band(best_key, 0xFF)
 
     return {r, g, b}
+end
+
+function aij_check_if_sprite_exists(atlas, x, y)
+    return not aij_get_mcc_pixel(
+        G.ASSET_ATLAS[atlas].image_data, 
+        {x = x, y = y},
+        {bpx = G.ASSET_ATLAS[atlas].px, bpy = G.ASSET_ATLAS[atlas].py, check_invis = true}
+    )
 end
 
 function aij_blend_pixels(r, g, b, a, new_color, args)
@@ -2094,8 +2101,8 @@ function All_in_Jest.set_other_enhancement(card, enhancement)
     SMODS.aij_applying_thing = false
 end
 
-function All_in_Jest.find_multi_enhancement_pos(enhancement)
-    local pos = 500
+function All_in_Jest.find_multi_enhancement_pos(enhancement, get_index)
+    local pos = 0
     local atlas = nil
     if enhancement == 'm_bonus' then
         pos = 3
@@ -2122,106 +2129,169 @@ function All_in_Jest.find_multi_enhancement_pos(enhancement)
     elseif enhancement == 'm_aij_canvas' then
         pos = 13
     elseif enhancement == 'm_aij_simulated' then
-        pos = nil
-        atlas = 'aij_multi_simulated_atlas'
+        if get_index then
+            pos = 14
+        else
+            pos = {x = nil, y = 0}
+            atlas = 'aij_multi_simulated_atlas'
+        end
     elseif enhancement == 'm_aij_wood' then
         pos = 15
     end
     return pos, atlas
 end
 
-function All_in_Jest.multi_enhancement_get_vanilla_layer(key)
-    local layer = nil
+function All_in_Jest.multi_enhancement_get_vanilla_z_order(key)
+    local z_order = nil
     if key == 'm_bonus' then
-        layer = 'Foreground'
+        z_order = 1
     elseif key == 'm_mult' then
-        layer = 'Foreground'
+        z_order = 1
     elseif key == 'm_wild' then
-        layer = 'Foreground'
+        z_order = 1
     elseif key == 'm_glass' then
-        layer = 'Background'
+        z_order = 0
     elseif key == 'm_steel' then
-        layer = 'Background'
+        z_order = 0.9
     elseif key == 'm_stone' then
-        layer = 'Background'
+        z_order = 0
     elseif key == 'm_gold' then
-        layer = 'Background'
+        z_order = 0.1
     elseif key == 'm_lucky' then
-        layer = 'Background'
+        z_order = 0
     end
-    return layer
+    return z_order
 end
 
-function All_in_Jest.multi_enhancement_auto_sprite(card, center, other_center, atlas)
-    --Only Vanilla sprites don't have image data (luckly the Vanilla enhancements sprites also exist in this mod)
-    local has_img_data = center.atlas and G.ASSET_ATLAS[center.atlas].image_data
-    local o_has_img_data = other_center.atlas and G.ASSET_ATLAS[other_center.atlas].image_data
-
-    local center_sprite = (has_img_data and has_img_data:clone() or G.ASSET_ATLAS[atlas].image_data:clone())
-    local o_center_sprite = (o_has_img_data and o_has_img_data:clone() or G.ASSET_ATLAS[atlas].image_data:clone())
-
-    local center_pos = has_img_data and center.pos or {x = All_in_Jest.find_multi_enhancement_pos(center.key), y = 0}
-    local o_center_pos = o_has_img_data and other_center.pos or {x = All_in_Jest.find_multi_enhancement_pos(other_center.key), y = 0}
-
-    local center_preference = (center.all_in_jest and center.all_in_jest.multi_enhancement_layer) or All_in_Jest.multi_enhancement_get_vanilla_layer(center.key) or 'Undefined'
-    local o_center_preference = (other_center.all_in_jest and other_center.all_in_jest.multi_enhancement_layer) or All_in_Jest.multi_enhancement_get_vanilla_layer(other_center.key) or 'Undefined'
-    
-    local c_atlas = has_img_data and center.atlas or atlas
-    local  o_atlas = o_has_img_data and other_center.atlas or atlas
-    
-    if ((center_preference == 'Foreground' or o_center_preference == 'Foreground') and (center_preference == 'Background' or o_center_preference == 'Background')) or ((center_preference == 'Foreground' or o_center_preference == 'Foreground') and (center_preference == 'Undefined' or o_center_preference == 'Undefined')) then
-        -- If one is foreground and the other is either background or undefined
-        local replace_color = HEX('ffffff')
-        local new_colour = HEX('ffffff')
-        new_colour[4] = 0
-        local order_sprite, o_order_sprite = center_preference ~= 'Foreground' and center_sprite or o_center_sprite, center_preference ~= 'Foreground' and o_center_sprite or center_sprite
-        aij_recolour_atlas(nil, replace_color, new_colour, nil, nil, {image_data = o_order_sprite, return_val = true, replace_alpha = true})
-        local bpx, bpy, lpx, lpy = G.ASSET_ATLAS[c_atlas].px, G.ASSET_ATLAS[c_atlas].py, G.ASSET_ATLAS[o_atlas].px, G.ASSET_ATLAS[o_atlas].py
-        local order_pos, o_order_pos = center_preference ~= 'Foreground' and center_pos or o_center_pos, center_preference ~= 'Foreground' and o_center_pos or center_pos
-        aij_pasteAlpha(order_sprite, o_order_sprite, order_pos, o_order_pos, {lpx = lpx, lpy = lpy, bpx = bpx, bpy = bpy})
-        local order_atlas = center_preference ~= 'Foreground' and c_atlas or o_atlas
-        return order_sprite, order_atlas, order_pos
+function All_in_Jest.get_enhancement_z_order(center)
+    local z_order = 0
+    if center.all_in_jest and center.all_in_jest.multi_enhancement_z_order and type(center.all_in_jest.multi_enhancement_z_order) == "number" then
+        z_order = center.all_in_jest.multi_enhancement_z_order
     else
-        local c_order, o_order = 0, 0
-        for k, v in pairs(G.P_CENTER_POOLS.Enhanced) do
-            if v.key == center.key then c_order = k end
-            if v.key == other_center.key then o_order = k end
+        z_order = All_in_Jest.multi_enhancement_get_vanilla_z_order(center.key)
+    end
+
+    return z_order + center.order / 10000 -- Use center order to make every enhancement have a set "stacking order"
+end
+
+function process_texture_stack_enhancement_foreground(image, stacked_enhancement)
+    local foregrounds_atlas = G.ASSET_ATLAS["aij_multi_enhancements_foregrounds_atlas"]
+
+    local foreground_pos, _ = All_in_Jest.find_multi_enhancement_pos(stacked_enhancement, true)
+    
+    local w, h = 71, 95
+    local texW, texH = foregrounds_atlas.image:getDimensions()
+
+    local width, height = image:getDimensions()
+    local canvas = love.graphics.newCanvas(width, height, {type = '2d', readable = true, dpiscale = image:getDPIScale()})
+
+    love.graphics.push("all")
+
+    love.graphics.setCanvas( canvas )
+    love.graphics.clear({1, 1, 1, 0})
+    
+    love.graphics.setColor(1, 1, 1, 1)
+
+    G.SHADERS['aij_fusion_spritesheet']:send("enhancement_image_dims", {texW, texH})
+    G.SHADERS['aij_fusion_spritesheet']:send("old_image_dims", {image:getDimensions()})
+    G.SHADERS['aij_fusion_spritesheet']:send('maskTex', foregrounds_atlas.image)
+    G.SHADERS['aij_fusion_spritesheet']:send('maskUV', { foreground_pos * foregrounds_atlas.px / texW, 0, w / texW, h / texH })
+    love.graphics.setShader( G.SHADERS['aij_fusion_spritesheet'] )
+    
+    -- Draw image with foreground shader on new canvas
+    love.graphics.draw( image )
+
+    love.graphics.pop()
+
+    local image_data = canvas:newImageData()
+
+    return love.graphics.newImage(image_data, {mipmaps = true, dpiscale = image:getDPIScale()}), image_data
+end
+
+function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
+    local enhancement_1_key = center.key
+    local enhancement_2_key = other_center.key
+
+    local enhancements_1_fusion_pos, temp_atlas_1 = All_in_Jest.find_multi_enhancement_pos(enhancement_1_key)
+    local enhancements_2_fusion_pos, temp_atlas_2 = All_in_Jest.find_multi_enhancement_pos(enhancement_2_key)
+    
+    local new_pos = {
+        x = 0, 
+        y = 0
+    }
+
+    local new_atlas = 'aij_multi_enhancements_atlas'
+
+    if temp_atlas_1 == nil and temp_atlas_2 == nil then
+        if enhancements_1_fusion_pos > enhancements_2_fusion_pos then
+            new_pos.x, new_pos.y = enhancements_1_fusion_pos, enhancements_2_fusion_pos
+        else
+            new_pos.x, new_pos.y = enhancements_2_fusion_pos, enhancements_1_fusion_pos
         end
-        local replace_color = HEX('ffffff')
-        local new_colour = HEX('ffffff')
-        new_colour[4] = 0.5
-        local order_sprite = c_order < o_order and center_sprite or o_center_sprite
-        local o_order_sprite = c_order < o_order and o_center_sprite or center_sprite
-        
-        aij_recolour_atlas(nil, replace_color, new_colour, nil, nil, {
-            image_data = o_order_sprite, 
-            return_val = true, 
-            skip_check = true,
-            other_color = HEX('c0c8d6'),
-            return_pixel = function(r, g, b, a, old_colour, new_colour, args)
-                local tolerance = 0.01
-                if (math.abs(r - old_colour[1]) <= tolerance
-                and math.abs(g - old_colour[2]) <= tolerance
-                and math.abs(b - old_colour[3]) <= tolerance) or (math.abs(r - args.other_color[1]) <= tolerance
-                and math.abs(g - args.other_color[2]) <= tolerance
-                and math.abs(b - args.other_color[3]) <= tolerance) then
-                    return r, g, b, 0
-                end
-                return r, g, b, a
+    elseif type(temp_atlas_1) == "string" then
+        new_atlas = temp_atlas_1
+        if type(enhancements_1_fusion_pos) == "table" then
+            new_pos.x, new_pos.y = enhancements_1_fusion_pos.x, enhancements_1_fusion_pos.y
+        end
+        if new_pos.x == nil and type(enhancements_2_fusion_pos) == "number" then
+            new_pos.x = enhancements_2_fusion_pos
+        end
+        if new_pos.y == nil and type(enhancements_2_fusion_pos) == "number" then
+            new_pos.y = enhancements_2_fusion_pos
+        end
+    elseif type(temp_atlas_2) == "string" then
+        new_atlas = temp_atlas_2
+        if type(enhancements_2_fusion_pos) == "table" then
+            new_pos.x, new_pos.y = enhancements_2_fusion_pos.x, enhancements_2_fusion_pos.y
+        end
+        if new_pos.x == nil and type(enhancements_1_fusion_pos) == "number" then
+            new_pos.x = enhancements_1_fusion_pos
+        end
+        if new_pos.y == nil and type(enhancements_1_fusion_pos) == "number" then
+            new_pos.y = enhancements_1_fusion_pos
+        end
+    end
+
+    -- sendDebugMessage(atlas, "AIJ")
+    -- sendDebugMessage(tprint(new_pos), "AIJ")
+
+    if new_atlas == "aij_multi_enhancements_atlas" then
+        local has_sprite = aij_check_if_sprite_exists(
+            new_atlas, 
+            new_pos.x,
+            new_pos.y
+        )
+        if has_sprite then
+            -- If sprite has a unique sprite, use it
+            return G.ASSET_ATLAS[new_atlas], new_pos
+        else
+            -- Else, create sprite using the shader
+            local enhancement_1_z_order = All_in_Jest.get_enhancement_z_order(center)
+            local enhancement_2_z_order = All_in_Jest.get_enhancement_z_order(other_center)
+
+            local foreground_enhancement = enhancement_1_z_order > enhancement_2_z_order and center or other_center
+            local background_enhancement = enhancement_1_z_order > enhancement_2_z_order and other_center or center
+
+            local base_atlas = G.ASSET_ATLAS[background_enhancement.atlas]
+            local atlas_key = background_enhancement.atlas
+            local new_atlas_name = atlas_key .. "_aij_foreground_" .. foreground_enhancement.key
+            local fused_atlas = nil
+
+            if not G.ASSET_ATLAS[new_atlas_name] then
+                G.ASSET_ATLAS[new_atlas_name] = {}
+                G.ASSET_ATLAS[new_atlas_name].scorched = true
+                G.ASSET_ATLAS[new_atlas_name].name = base_atlas.name .. "_aij_foreground_" .. foreground_enhancement.key
+                G.ASSET_ATLAS[new_atlas_name].type = base_atlas.type
+                G.ASSET_ATLAS[new_atlas_name].px = base_atlas.px
+                G.ASSET_ATLAS[new_atlas_name].py = base_atlas.py
+                local image, image_data = process_texture_stack_enhancement_foreground(base_atlas.image, foreground_enhancement.key)
+                G.ASSET_ATLAS[new_atlas_name].image = image
+                G.ASSET_ATLAS[new_atlas_name].image_data = image_data
             end
-        })
 
-        local bpx, = G.ASSET_ATLAS[c_atlas].px
-        local bpy = G.ASSET_ATLAS[c_atlas].py
-        local lpx = G.ASSET_ATLAS[o_atlas].px
-        local lpy = G.ASSET_ATLAS[o_atlas].py
-
-        local order_pos = c_order < o_order and center_pos or o_center_pos
-        local o_order_pos = c_order < o_order and o_center_pos or center_pos
-
-        aij_pasteAlpha(order_sprite, o_order_sprite, order_pos, o_order_pos, {blend = true, force_blend_alpha = 0.5, lpx = lpx, lpy = lpy, bpx = bpx, bpy = bpy})
-        local order_atlas = c_order < o_order and c_atlas or o_atlas
-        return order_sprite, order_atlas, order_pos
+            return G.ASSET_ATLAS[new_atlas_name], background_enhancement.pos
+        end
+    else
     end
 end
 
@@ -2569,4 +2639,5 @@ end
 All_in_Jest.load_shaders = function()
     G.SHADERS['aij_wood_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/wood_spritesheet.fs"))
     G.SHADERS['aij_burnt_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/burnt_spritesheet.fs"))
+    G.SHADERS['aij_fusion_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/fusion_spritesheet.fs"))
 end

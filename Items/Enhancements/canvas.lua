@@ -10,7 +10,7 @@ local canvas = {
         }
     },
     all_in_jest = {
-        multi_enhancement_layer = "Background"
+        multi_enhancement_z_order = 0
     },
     loc_vars = function(self, info_queue, card)
         return {

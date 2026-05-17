@@ -103,6 +103,12 @@ SMODS.Atlas {
   py = 95
 }
 SMODS.Atlas {
+  key = "multi_enhancements_foregrounds_atlas",
+  path = "fusion_parts/foregrounds.png",
+  px = 71, 
+  py = 95
+}
+SMODS.Atlas {
   key = "vouchers_atlas",
   path = "vouchers.png",
   px = 71,
@@ -371,3 +377,5 @@ for _, filename in ipairs(png_files) do
         py = '95',
     })
 end
+
+All_in_Jest.load_shaders()

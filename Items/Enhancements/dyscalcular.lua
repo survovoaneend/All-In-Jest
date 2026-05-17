@@ -8,7 +8,7 @@ local dyscalcular = {
         
     },
     all_in_jest = {
-        multi_enhancement_layer = "Foreground"
+        multi_enhancement_z_order = 1
     },
     ignore = true,
     loc_vars = function(self, info_queue, card)
