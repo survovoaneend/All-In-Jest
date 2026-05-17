@@ -298,23 +298,18 @@ function SMODS.has_no_suit(card)
     return has_no_suit_ref(card)
 end
 
-local has_enhancement_ref = SMODS.has_enhancement
-function SMODS.has_enhancement(card, key)
-    local has_enhancement = has_enhancement_ref(card, key)
-    -- local effects = All_in_Jest.get_inherent_effects(card, 'enhancement')
-    -- for k, v in pairs(effects) do
-    --     if v.key == key then
-    --         return true
-    --     end
-    -- end
+
+local get_enhancements_ref = SMODS.get_enhancements
+function SMODS.get_enhancements(card, extra_only)
+    local enhancements = get_enhancements_ref(card, extra_only)
     if 
+        not extra_only and 
         card.config.aij_other_center and 
-        card.config.aij_other_center['center'].key and 
-        card.config.aij_other_center['center'].key == key 
+        card.config.aij_other_center['center'].key
     then 
-        return true 
+        enhancements[card.config.aij_other_center['center'].key] = true
     end
-    return has_enhancement
+    return enhancements
 end
 
 local has_no_rank_ref = SMODS.has_no_rank
