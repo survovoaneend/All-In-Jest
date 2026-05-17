@@ -445,87 +445,88 @@ function get_front_spriteinfo(_front)
             end
         end
     end
-    -- if _front and _front.suit and _front.value and G.SETTINGS.all_in_jest and G.SETTINGS.all_in_jest.Collabs then
-    --     local collab = G.SETTINGS.all_in_jest.Collabs[_front.suit][_front.value]
-    --     if collab and collab ~= 'default_'.._front.suit and collab ~= 'default' then
-    --         local deckSkin = SMODS.DeckSkins[collab]
-    --         if deckSkin then
-    --             if deckSkin.outdated then
-    --                 local hasRank = false
-    --                 for i = 1, #deckSkin.ranks do
-    --                     if deckSkin.ranks[i] == _front.value then hasRank = true break end
-    --                 end
-    --                 if hasRank then
-    --                     local atlas = G.ASSET_ATLAS[G.SETTINGS.all_in_jest.colour_palettes[_front.suit][_front.value] == 'hc' and deckSkin.hc_atlas or deckSkin.lc_atlas]
-    --                     if atlas then
-    --                         if deckSkin.pos_style == 'collab' then
-    --                             return atlas, G.COLLABS.pos[_front.value]
-    --                         elseif deckSkin.pos_style == 'suit' then
-    --                             return atlas, { x = _front.pos.x, y = 0}
-    --                         elseif deckSkin.pos_style == 'deck' then
-    --                             return atlas, _front.pos
-    --                         elseif deckSkin.pos_style == 'ranks' or nil then
-    --                             for i, rank in ipairs(deckSkin.ranks) do
-    --                                 if rank == _front.value then
-    --                                     return atlas, { x = i - 1, y = 0}
-    --                                 end
-    --                             end
-    --                         end
-    --                     end
-    --                 end
-    --                 return G.ASSET_ATLAS[G.SETTINGS.all_in_jest.colour_palettes[_front.suit][_front.value] == 'hc' and _front.hc_atlas or _front.lc_atlas or {}] or G.ASSET_ATLAS[_front.atlas] or G.ASSET_ATLAS["cards_"..(G.SETTINGS.all_in_jest.colour_palettes[_front.suit][_front.value] == 'hc' and 2 or 1)], _front.pos
-    --             else
-    --                 local palette = deckSkin.palette_map and deckSkin.palette_map[G.SETTINGS.all_in_jest.colour_palettes[_front.suit][_front.value] or ''] or (deckSkin.palettes or {})[1]
-    --                 local hasRank = false
-    --                 for i = 1, #palette.ranks do
-    --                     if palette.ranks[i] == _front.value then hasRank = true break end
-    --                 end
-    --                 if hasRank then
-    --                     local atlas = G.ASSET_ATLAS[palette.atlas]
-    --                     if type(palette.pos_style) == "table" then
-    --                         if palette.pos_style[_front.value] then
-    --                             if palette.pos_style[_front.value].atlas then
-    --                                 atlas = G.ASSET_ATLAS[palette.pos_style[_front.value].atlas]
-    --                             end
-    --                             if palette.pos_style[_front.value].pos then
-    --                                 return atlas, palette.pos_style[_front.value].pos
-    --                             end
-    --                         elseif palette.pos_style.fallback_style then
-    --                             if palette.pos_style.fallback_style == 'collab' then
-    --                                 return atlas, G.COLLABS.pos[_front.value]
-    --                             elseif palette.pos_style.fallback_style == 'suit' then
-    --                                 return atlas, { x = _front.pos.x, y = 0}
-    --                             elseif palette.pos_style.fallback_style == 'deck' then
-    --                                 return atlas, _front.pos
-    --                             end
-    --                         end
-    --                     elseif palette.pos_style == 'collab' then
-    --                         return atlas, G.COLLABS.pos[_front.value]
-    --                     elseif palette.pos_style == 'suit' then
-    --                         return atlas, { x = _front.pos.x, y = 0}
-    --                     elseif palette.pos_style == 'deck' then
-    --                         return atlas, _front.pos
-    --                     elseif palette.pos_style == 'ranks' or nil then
-    --                         for i, rank in ipairs(palette.ranks) do
-    --                             if rank == _front.value then
-    --                                 return atlas, { x = i - 1, y = 0}
-    --                             end
-    --                         end
-    --                     end
-    --                 end
-    --                 return G.ASSET_ATLAS[palette.hc_default and _front.hc_atlas or _front.lc_atlas or {}] or G.ASSET_ATLAS[_front.atlas] or G.ASSET_ATLAS["cards_"..(palette.hc_default and 2 or 1)], _front.pos
-    --             end
-    --         end
-    --     end
-    -- end
+
+    --[[
+    if _front and _front.suit and _front.value and G.SETTINGS.all_in_jest and G.SETTINGS.all_in_jest.Collabs then
+        local collab = G.SETTINGS.all_in_jest.Collabs[_front.suit][_front.value]
+        if collab and collab ~= 'default_'.._front.suit and collab ~= 'default' then
+            local deckSkin = SMODS.DeckSkins[collab]
+            if deckSkin then
+                if deckSkin.outdated then
+                    local hasRank = false
+                    for i = 1, #deckSkin.ranks do
+                        if deckSkin.ranks[i] == _front.value then hasRank = true break end
+                    end
+                    if hasRank then
+                        local atlas = G.ASSET_ATLAS[G.SETTINGS.all_in_jest.colour_palettes[_front.suit][_front.value] == 'hc' and deckSkin.hc_atlas or deckSkin.lc_atlas]
+                        if atlas then
+                            if deckSkin.pos_style == 'collab' then
+                                return atlas, G.COLLABS.pos[_front.value]
+                            elseif deckSkin.pos_style == 'suit' then
+                                return atlas, { x = _front.pos.x, y = 0}
+                            elseif deckSkin.pos_style == 'deck' then
+                                return atlas, _front.pos
+                            elseif deckSkin.pos_style == 'ranks' or nil then
+                                for i, rank in ipairs(deckSkin.ranks) do
+                                    if rank == _front.value then
+                                        return atlas, { x = i - 1, y = 0}
+                                    end
+                                end
+                            end
+                        end
+                    end
+                    return G.ASSET_ATLAS[G.SETTINGS.all_in_jest.colour_palettes[_front.suit][_front.value] == 'hc' and _front.hc_atlas or _front.lc_atlas or {}] or G.ASSET_ATLAS[_front.atlas] or G.ASSET_ATLAS["cards_"..(G.SETTINGS.all_in_jest.colour_palettes[_front.suit][_front.value] == 'hc' and 2 or 1)], _front.pos
+                else
+                    local palette = deckSkin.palette_map and deckSkin.palette_map[G.SETTINGS.all_in_jest.colour_palettes[_front.suit][_front.value] or ''] or (deckSkin.palettes or {})[1]
+                    local hasRank = false
+                    for i = 1, #palette.ranks do
+                        if palette.ranks[i] == _front.value then hasRank = true break end
+                    end
+                    if hasRank then
+                        local atlas = G.ASSET_ATLAS[palette.atlas]
+                        if type(palette.pos_style) == "table" then
+                            if palette.pos_style[_front.value] then
+                                if palette.pos_style[_front.value].atlas then
+                                    atlas = G.ASSET_ATLAS[palette.pos_style[_front.value].atlas]
+                                end
+                                if palette.pos_style[_front.value].pos then
+                                    return atlas, palette.pos_style[_front.value].pos
+                                end
+                            elseif palette.pos_style.fallback_style then
+                                if palette.pos_style.fallback_style == 'collab' then
+                                    return atlas, G.COLLABS.pos[_front.value]
+                                elseif palette.pos_style.fallback_style == 'suit' then
+                                    return atlas, { x = _front.pos.x, y = 0}
+                                elseif palette.pos_style.fallback_style == 'deck' then
+                                    return atlas, _front.pos
+                                end
+                            end
+                        elseif palette.pos_style == 'collab' then
+                            return atlas, G.COLLABS.pos[_front.value]
+                        elseif palette.pos_style == 'suit' then
+                            return atlas, { x = _front.pos.x, y = 0}
+                        elseif palette.pos_style == 'deck' then
+                            return atlas, _front.pos
+                        elseif palette.pos_style == 'ranks' or nil then
+                            for i, rank in ipairs(palette.ranks) do
+                                if rank == _front.value then
+                                    return atlas, { x = i - 1, y = 0}
+                                end
+                            end
+                        end
+                    end
+                    return G.ASSET_ATLAS[palette.hc_default and _front.hc_atlas or _front.lc_atlas or {}] or G.ASSET_ATLAS[_front.atlas] or G.ASSET_ATLAS["cards_"..(palette.hc_default and 2 or 1)], _front.pos
+                end
+            end
+        end
+    end
+    ]]--
+
     return get_front_spriteinfo_ref(_front)
 end
 
 local should_draw_base_shader_ref = Card.should_draw_base_shader
 function Card:should_draw_base_shader()
-    if SMODS.get_enhancements(self).m_aij_scorched then
-        return false
-    end
 	return should_draw_base_shader_ref(self)
 end
 
@@ -905,7 +906,27 @@ end
 
 local set_spritesref = Card.set_sprites
 function Card:set_sprites(_center, _front)
+
+    local orig_atlas = _center and _center.atlas
+    local orig_pos = _center and _center.pos
+
+    -- For scorched cards
+    if _center and _center.set and self.ability then
+        if SMODS.has_enhancement(self, "m_aij_scorched") then
+            local atlas_key = _center.atlas or "centers"
+            local atlas = SMODS.get_atlas(atlas_key)
+            _center.atlas = scorched_atlas(atlas).name
+        end
+    end
+
 	set_spritesref(self, _center, _front)
+
+    if _center then
+        _center.atlas = orig_atlas
+        _center.pos = orig_pos
+    end
+
+    -- For custom soul layers (e.g. baddata)
     if _center and _center.discovered and _center.all_in_jest and _center.all_in_jest.soul_layers then
         for k, v in pairs(_center.all_in_jest.soul_layers) do
             if _center.all_in_jest.soul_layers[k] and not self.children[k] then

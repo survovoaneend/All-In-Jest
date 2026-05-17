@@ -48,4 +48,64 @@ local wood = {
         end
     end
 }
+
+function process_texture_wood(image)
+    local width, height = image:getDimensions()
+    local canvas = love.graphics.newCanvas(width, height, {type = '2d', readable = true, dpiscale = image:getDPIScale()})
+
+    love.graphics.push("all")
+
+    love.graphics.setCanvas( canvas )
+    local wood_bg_colour = {57.3 / 255, 49.4 / 255, 36.1 / 255, 0}
+    -- local wood_bg_colour = { 255 / 255, 255 / 255, 255 / 255, 0}
+    -- local wood_bg_colour = { 21.6 / 255, 27.5 / 255, 28.6 / 255, 0}
+    love.graphics.clear( wood_bg_colour )
+    
+    love.graphics.setColor(1, 1, 1, 1)
+
+    love.graphics.setShader( G.SHADERS['aij_wood_spritesheet'] )
+    
+    -- Draw image with wood shader on new canvas
+    love.graphics.draw( image )
+
+    love.graphics.pop()
+
+    return love.graphics.newImage(canvas:newImageData(), {mipmaps = true, dpiscale = image:getDPIScale()})
+end
+
+function pre_wooded(a)
+    local atlas = a.name or a.key
+    local name = atlas.."_wooded"
+    if G.ASSET_ATLAS[name] then
+        return {
+            old_name = atlas,
+            new_name = name,
+            atlas = G.ASSET_ATLAS[name],
+        }
+    else
+        return {
+            old_name = atlas,
+            new_name = name,
+            atlas = nil
+        }
+    end
+end
+
+function wood_atlas(a)
+    local wooded = pre_wooded(a)
+
+    if not wooded.atlas then
+        G.ASSET_ATLAS[wooded.new_name] = {}
+        G.ASSET_ATLAS[wooded.new_name].wood = true
+        G.ASSET_ATLAS[wooded.new_name].name = G.ASSET_ATLAS[wooded.old_name].name .. "_wooded"
+        G.ASSET_ATLAS[wooded.new_name].type = G.ASSET_ATLAS[wooded.old_name].type
+        G.ASSET_ATLAS[wooded.new_name].px = G.ASSET_ATLAS[wooded.old_name].px
+        G.ASSET_ATLAS[wooded.new_name].py = G.ASSET_ATLAS[wooded.old_name].py
+        G.ASSET_ATLAS[wooded.new_name].image = process_texture_wood(G.ASSET_ATLAS[wooded.old_name].image)
+    end
+
+    return G.ASSET_ATLAS[wooded.new_name]
+end
+
+
 return {name = {"Enhancements"}, items = {wood, wood_shader, semitrasparent_shader}}
