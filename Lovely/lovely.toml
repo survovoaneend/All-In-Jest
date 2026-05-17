@@ -4115,3 +4115,21 @@ pattern = "self.in_blind = true"
 position = "after"
 match_indent = true
 payload = 'SMODS.calculate_context({aij_before_setting_blind = true, blind = G.GAME.round_resets.blind})'
+
+
+# Fusion Enhancements
+# Card:load()
+## Correctly load fused enhancements
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'self.config.center = G.P_CENTERS[self.config.center_key]'
+position = "after"
+match_indent = true
+payload = '''
+if cardTable.save_fields.aij_other_center then
+    self.config.aij_other_center = {}
+    self.config.aij_other_center['center'] = G.P_CENTERS[cardTable.save_fields.aij_other_center]
+    self.config.aij_other_center['ability'] = cardTable.aij_other_center_ability
+end
+'''

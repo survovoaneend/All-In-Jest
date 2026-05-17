@@ -966,7 +966,7 @@ function Card:update(dt)
     return ref
 end
 
--- Save/Load for tags in shop as cards
+-- Save/Load for tags in shop as cards and for fusion enhancements
 -- A lovely patch for Card:load() is also needed
 local card_save_ref = Card.save
 function Card:save()
@@ -975,6 +975,12 @@ function Card:save()
     if self.config.tag and self.config.tag.is and self.config.tag:is(Tag) then
         saveTable.aij.tag = self.config.tag:save()
     end
+
+    if self.config.aij_other_center then
+        saveTable.save_fields.aij_other_center = self.config.aij_other_center['center'].key
+        saveTable.aij_other_center_ability = self.config.aij_other_center['ability']
+    end
+
     return saveTable
 end
 
