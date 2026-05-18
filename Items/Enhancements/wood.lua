@@ -76,11 +76,11 @@ end
 function pre_wooded(a)
     local atlas = a.name or a.key
     local name = atlas.."_wooded"
-    if G.ASSET_ATLAS[name] then
+    if SMODS.get_atlas(name) then
         return {
             old_name = atlas,
             new_name = name,
-            atlas = G.ASSET_ATLAS[name],
+            atlas = SMODS.get_atlas(name),
         }
     else
         return {
@@ -95,17 +95,19 @@ function wood_atlas(a)
     local wooded = pre_wooded(a)
 
     if not wooded.atlas then
-        G.ASSET_ATLAS[wooded.new_name] = {}
-        G.ASSET_ATLAS[wooded.new_name].wood = true
-        G.ASSET_ATLAS[wooded.new_name].name = G.ASSET_ATLAS[wooded.old_name].name .. "_wooded"
-        G.ASSET_ATLAS[wooded.new_name].type = G.ASSET_ATLAS[wooded.old_name].type
-        G.ASSET_ATLAS[wooded.new_name].px = G.ASSET_ATLAS[wooded.old_name].px
-        G.ASSET_ATLAS[wooded.new_name].py = G.ASSET_ATLAS[wooded.old_name].py
-        G.ASSET_ATLAS[wooded.new_name].image = process_texture_wood(G.ASSET_ATLAS[wooded.old_name].image)
+        local atlas_type = a.atlas_table or "ASSET_ATLAS"
+        G[atlas_type][wooded.new_name] = {}
+        SMODS.get_atlas(wooded.new_name).wood = true
+        SMODS.get_atlas(wooded.new_name).name = SMODS.get_atlas(wooded.old_name).name .. "_wooded"
+        SMODS.get_atlas(wooded.new_name).type = SMODS.get_atlas(wooded.old_name).type
+        SMODS.get_atlas(wooded.new_name).px = SMODS.get_atlas(wooded.old_name).px
+        SMODS.get_atlas(wooded.new_name).py = SMODS.get_atlas(wooded.old_name).py
+        SMODS.get_atlas(wooded.new_name).frames = SMODS.get_atlas(wooded.old_name).frames
+        SMODS.get_atlas(wooded.new_name).image = process_texture_wood(SMODS.get_atlas(wooded.old_name).image)
     end
 
-    return G.ASSET_ATLAS[wooded.new_name]
+    return SMODS.get_atlas(wooded.new_name)
 end
 
 
-return {name = {"Enhancements"}, items = {wood, wood_shader, semitrasparent_shader}}
+return {name = {"Enhancements"}, items = {wood}}

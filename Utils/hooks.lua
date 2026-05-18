@@ -378,7 +378,7 @@ function get_front_spriteinfo(_front)
                         if deckSkin.ranks[i] == _front.value then hasRank = true break end
                     end
                     if hasRank then
-                        local atlas = G.ASSET_ATLAS[G.SETTINGS.colour_palettes[_front.suit] == 'hc' and deckSkin.hc_atlas or deckSkin.lc_atlas]
+                        local atlas = SMODS.get_atlas(G.SETTINGS.colour_palettes[_front.suit] == 'hc' and deckSkin.hc_atlas or deckSkin.lc_atlas)
                         if atlas then
                             if deckSkin.pos_style == 'collab' then
                                 return atlas, G.COLLABS.pos[_front.value]
@@ -395,7 +395,7 @@ function get_front_spriteinfo(_front)
                             end
                         end
                     end
-                    return G.ASSET_ATLAS[G.SETTINGS.colour_palettes[_front.suit] == 'hc' and _front.hc_atlas or _front.lc_atlas or {}] or G.ASSET_ATLAS[_front.atlas] or G.ASSET_ATLAS["cards_"..(G.SETTINGS.colour_palettes[_front.suit] == 'hc' and 2 or 1)], _front.pos
+                    return SMODS.get_atlas(G.SETTINGS.colour_palettes[_front.suit] == 'hc' and _front.hc_atlas or _front.lc_atlas or {}) or SMODS.get_atlas(_front.atlas) or SMODS.get_atlas("cards_"..(G.SETTINGS.colour_palettes[_front.suit] == 'hc' and 2 or 1)), _front.pos
                 else
                     local palette = deckSkin.palette_map and deckSkin.palette_map[G.SETTINGS.colour_palettes[_front.suit] or ''] or (deckSkin.palettes or {})[1]
                     local hasRank = false
@@ -403,11 +403,11 @@ function get_front_spriteinfo(_front)
                         if palette.ranks[i] == _front.value then hasRank = true break end
                     end
                     if hasRank then
-                        local atlas = G.ASSET_ATLAS[palette.atlas]
+                        local atlas = SMODS.get_atlas(palette.atlas)
                         if type(palette.pos_style) == "table" then
                             if palette.pos_style[_front.value] then
                                 if palette.pos_style[_front.value].atlas then
-                                    atlas = G.ASSET_ATLAS[palette.pos_style[_front.value].atlas]
+                                    atlas = SMODS.get_atlas(palette.pos_style[_front.value].atlas)
                                 end
                                 if palette.pos_style[_front.value].pos then
                                     return atlas, palette.pos_style[_front.value].pos
@@ -435,7 +435,7 @@ function get_front_spriteinfo(_front)
                             end
                         end
                     end
-                    return G.ASSET_ATLAS[palette.hc_default and _front.hc_atlas or _front.lc_atlas or {}] or G.ASSET_ATLAS[_front.atlas] or G.ASSET_ATLAS["cards_"..(palette.hc_default and 2 or 1)], _front.pos
+                    return SMODS.get_atlas(palette.hc_default and _front.hc_atlas or _front.lc_atlas or {}) or SMODS.get_atlas(_front.atlas) or SMODS.get_atlas("cards_"..(palette.hc_default and 2 or 1)), _front.pos
                 end
             end
         end

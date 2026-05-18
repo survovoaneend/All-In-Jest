@@ -59,7 +59,7 @@ function Card:hover()
     hoverref(self)
     if self.config.center.key == "j_aij_jumbo_joker" and self.config.center.discovered then
         local _pos = { x = 1, y = 0 }
-        local _atlas = G.ASSET_ATLAS['aij_jumbo_joker']
+        local _atlas = SMODS.get_atlas('aij_jumbo_joker')
         if self.children.front then
             self.children.front.atlas = _atlas
             self.children.front:set_sprite_pos(_pos)
@@ -87,7 +87,7 @@ function Card:stop_hover()
     stop_hoverref(self)
     if self.config.center.key == "j_aij_jumbo_joker" and self.config.center.discovered then
         local _pos = { x = 0, y = 0 }
-        local _atlas = G.ASSET_ATLAS['aij_jumbo_joker']
+        local _atlas = SMODS.get_atlas('aij_jumbo_joker')
         if self.children.front then
             self.children.front.atlas = _atlas
             self.children.front:set_sprite_pos(_pos)

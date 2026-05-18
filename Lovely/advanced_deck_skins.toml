@@ -46,11 +46,11 @@ local _atlas, _pos = get_front_spriteinfo(_false_front)
 -- End of All in Jest Overrides
 if SMODS.has_enhancement(self, "m_aij_scorched") then
     local atlas_id = _atlas.name or _atlas.key or "cards_1"
-    _atlas = scorched_atlas(G.ASSET_ATLAS[atlas_id])
+    _atlas = scorched_atlas(SMODS.get_atlas(atlas_id))
 end
 if SMODS.has_enhancement(self, "m_aij_wood") then
     local atlas_id = _atlas.name or _atlas.key or "cards_1"
-    _atlas = wood_atlas(G.ASSET_ATLAS[atlas_id])
+    _atlas = wood_atlas(SMODS.get_atlas(atlas_id))
 end
 '''
 

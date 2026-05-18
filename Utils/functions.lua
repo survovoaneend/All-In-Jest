@@ -193,9 +193,9 @@ end
 
 function aij_check_if_sprite_exists(atlas, x, y)
     return not aij_get_mcc_pixel(
-        G.ASSET_ATLAS[atlas].image_data, 
+        SMODS.get_atlas(atlas).image_data, 
         {x = x, y = y},
-        {bpx = G.ASSET_ATLAS[atlas].px, bpy = G.ASSET_ATLAS[atlas].py, check_invis = true}
+        {bpx = SMODS.get_atlas(atlas).px, bpy = SMODS.get_atlas(atlas).py, check_invis = true}
     )
 end
 
@@ -2132,7 +2132,7 @@ function All_in_Jest.find_multi_enhancement_pos(enhancement, get_index)
         if get_index then
             pos = 14
         else
-            pos = {x = nil, y = 0}
+            pos = {x = 0, y = nil}
             atlas = 'aij_multi_simulated_atlas'
         end
     elseif enhancement == 'm_aij_wood' then
@@ -2175,7 +2175,7 @@ function All_in_Jest.get_enhancement_z_order(center)
 end
 
 function process_texture_stack_enhancement_foreground(image, stacked_enhancement)
-    local foregrounds_atlas = G.ASSET_ATLAS["aij_multi_enhancements_foregrounds_atlas"]
+    local foregrounds_atlas = SMODS.get_atlas("aij_multi_enhancements_foregrounds_atlas")
 
     local foreground_pos, _ = All_in_Jest.find_multi_enhancement_pos(stacked_enhancement, true)
     
@@ -2252,46 +2252,44 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
         end
     end
 
-    -- sendDebugMessage(atlas, "AIJ")
-    -- sendDebugMessage(tprint(new_pos), "AIJ")
-
-    if new_atlas == "aij_multi_enhancements_atlas" then
-        local has_sprite = aij_check_if_sprite_exists(
-            new_atlas, 
-            new_pos.x,
-            new_pos.y
-        )
-        if has_sprite then
-            -- If sprite has a unique sprite, use it
-            return G.ASSET_ATLAS[new_atlas], new_pos
-        else
-            -- Else, create sprite using the shader
-            local enhancement_1_z_order = All_in_Jest.get_enhancement_z_order(center)
-            local enhancement_2_z_order = All_in_Jest.get_enhancement_z_order(other_center)
-
-            local foreground_enhancement = enhancement_1_z_order > enhancement_2_z_order and center or other_center
-            local background_enhancement = enhancement_1_z_order > enhancement_2_z_order and other_center or center
-
-            local base_atlas = G.ASSET_ATLAS[background_enhancement.atlas]
-            local atlas_key = background_enhancement.atlas
-            local new_atlas_name = atlas_key .. "_aij_foreground_" .. foreground_enhancement.key
-            local fused_atlas = nil
-
-            if not G.ASSET_ATLAS[new_atlas_name] then
-                G.ASSET_ATLAS[new_atlas_name] = {}
-                G.ASSET_ATLAS[new_atlas_name].scorched = true
-                G.ASSET_ATLAS[new_atlas_name].name = base_atlas.name .. "_aij_foreground_" .. foreground_enhancement.key
-                G.ASSET_ATLAS[new_atlas_name].type = base_atlas.type
-                G.ASSET_ATLAS[new_atlas_name].px = base_atlas.px
-                G.ASSET_ATLAS[new_atlas_name].py = base_atlas.py
-                local image, image_data = process_texture_stack_enhancement_foreground(base_atlas.image, foreground_enhancement.key)
-                G.ASSET_ATLAS[new_atlas_name].image = image
-                G.ASSET_ATLAS[new_atlas_name].image_data = image_data
-            end
-
-            return G.ASSET_ATLAS[new_atlas_name], background_enhancement.pos
-        end
+    local has_sprite = aij_check_if_sprite_exists(
+        new_atlas, 
+        new_pos.x,
+        new_pos.y
+    )
+    if has_sprite then
+        -- If sprite has a unique sprite, use it
+        return SMODS.get_atlas(new_atlas), new_pos
     else
+        -- Else, create sprite using the shader
+        local enhancement_1_z_order = All_in_Jest.get_enhancement_z_order(center)
+        local enhancement_2_z_order = All_in_Jest.get_enhancement_z_order(other_center)
+
+        local foreground_enhancement = enhancement_1_z_order > enhancement_2_z_order and center or other_center
+        local background_enhancement = enhancement_1_z_order > enhancement_2_z_order and other_center or center
+
+        local base_atlas = SMODS.get_atlas(background_enhancement.atlas)
+        local atlas_key = background_enhancement.atlas
+        local new_atlas_name = atlas_key .. "_aij_foreground_" .. foreground_enhancement.key
+        local fused_atlas = nil
+
+        if not SMODS.get_atlas(new_atlas_name) then
+            local atlas_type = base_atlas.atlas_table or "ASSET_ATLAS"
+            
+            G[atlas_type][new_atlas_name] = {}
+            SMODS.get_atlas(new_atlas_name).scorched = true
+            SMODS.get_atlas(new_atlas_name).name = base_atlas.name .. "_aij_foreground_" .. foreground_enhancement.key
+            SMODS.get_atlas(new_atlas_name).type = base_atlas.type
+            SMODS.get_atlas(new_atlas_name).atlas_table = atlas_type
+            SMODS.get_atlas(new_atlas_name).px = base_atlas.px
+            SMODS.get_atlas(new_atlas_name).py = base_atlas.py
+            SMODS.get_atlas(new_atlas_name).frames = base_atlas.frames
+            local image, image_data = process_texture_stack_enhancement_foreground(base_atlas.image, foreground_enhancement.key)
+            SMODS.get_atlas(new_atlas_name).image = image
+            SMODS.get_atlas(new_atlas_name).image_data = image_data
+        end
+
+        return SMODS.get_atlas(new_atlas_name), background_enhancement.pos
     end
 end
 
@@ -2609,6 +2607,10 @@ G.FUNCS.aij_hover_tag_branching = function(e)
     end
 end
 
+-- Function that defines when the tag area in the shop should appear (or not)
+All_in_Jest.show_shop_aij_tags = function(e)
+    return next(SMODS.find_card("j_aij_ijoker_co")) or next(SMODS.find_card("j_aij_death_of_a_salesman"))
+end
 
 local function load_file_content(path, id)
     if not path or path == "" then
@@ -2630,10 +2632,6 @@ local function load_file_content(path, id)
     local file_content, err = NFS.read(file_path)
     if not file_content then return  nil, "Error reading file '" .. path .. "' for mod with ID '" .. mod.id .. "': " .. err end
     return file_content
-end
--- Function that defines when the tag area in the shop should appear (or not)
-All_in_Jest.show_shop_aij_tags = function(e)
-    return next(SMODS.find_card("j_aij_ijoker_co")) or next(SMODS.find_card("j_aij_death_of_a_salesman"))
 end
 
 All_in_Jest.load_shaders = function()

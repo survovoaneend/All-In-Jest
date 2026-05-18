@@ -99,6 +99,8 @@ SMODS.Atlas {
 SMODS.Atlas {
   key = "multi_simulated_atlas",
   path = "multi_simulated.png",
+  atlas_table = 'ANIMATION_ATLAS',
+  frames = 10,
   px = 71, 
   py = 95
 }

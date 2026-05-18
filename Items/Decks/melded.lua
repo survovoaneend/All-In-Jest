@@ -41,18 +41,29 @@ local melded = {
 
 local aij_card_set_ability_ref = Card.set_ability
 function Card:set_ability(center, initial, delay_sprites)
-	if
+	local old_center_key = nil
+
+	if center.key == "c_base" and not SMODS.aij_applying_thing then
+		self.config.aij_other_center = nil
+	elseif
 		G.GAME.selected_back
 		and G.GAME.selected_back.name == "b_aij_melded"
 		and self.ability
 		and self.ability.set == "Enhanced"
         and not SMODS.aij_applying_thing
 	then
-		local old_center = self.config.center
-		All_in_Jest.set_other_enhancement(self, old_center.key)
+		old_center_key = self.config.center.key
 	end
 
-	return aij_card_set_ability_ref(self, center, initial, delay_sprites)
+	local ret = aij_card_set_ability_ref(self, center, initial, delay_sprites)
+
+	if old_center_key then
+		sendDebugMessage(self.config.center.key, "AIJ")
+		sendDebugMessage(old_center_key, "AIJ")
+		All_in_Jest.set_other_enhancement(self, old_center_key)
+	end
+
+	return ret
 end
 
 return { name = { "Decks" }, items = { melded } }

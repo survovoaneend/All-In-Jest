@@ -52,7 +52,7 @@ local scorched = {
 }
 
 function process_texture_scorched(image)
-    local enhancements_atlas = G.ASSET_ATLAS["aij_enhancements_atlas"]
+    local enhancements_atlas = SMODS.get_atlas("aij_enhancements_atlas")
     local pos = {x = 8, y = 0}
     local postwo = {x = 7, y = 0}
     local w, h = 71, 95 
@@ -86,11 +86,11 @@ end
 function pre_scorcheded(a)
     local atlas = a.name or a.key
     local name = atlas.."_scorcheded"
-    if G.ASSET_ATLAS[name] then
+    if SMODS.get_atlas(name) then
         return {
             old_name = atlas,
             new_name = name,
-            atlas = G.ASSET_ATLAS[name],
+            atlas = SMODS.get_atlas(name),
         }
     else
         return {
@@ -105,16 +105,18 @@ function scorched_atlas(a)
     local scorcheded = pre_scorcheded(a)
 
     if not scorcheded.atlas then
-        G.ASSET_ATLAS[scorcheded.new_name] = {}
-        G.ASSET_ATLAS[scorcheded.new_name].scorched = true
-        G.ASSET_ATLAS[scorcheded.new_name].name = G.ASSET_ATLAS[scorcheded.old_name].name .. "_scorcheded"
-        G.ASSET_ATLAS[scorcheded.new_name].type = G.ASSET_ATLAS[scorcheded.old_name].type
-        G.ASSET_ATLAS[scorcheded.new_name].px = G.ASSET_ATLAS[scorcheded.old_name].px
-        G.ASSET_ATLAS[scorcheded.new_name].py = G.ASSET_ATLAS[scorcheded.old_name].py
-        G.ASSET_ATLAS[scorcheded.new_name].image = process_texture_scorched(G.ASSET_ATLAS[scorcheded.old_name].image)
+        local atlas_type = a.atlas_table or "ASSET_ATLAS"
+        G[atlas_type][scorcheded.new_name] = {}
+        SMODS.get_atlas(scorcheded.new_name).scorched = true
+        SMODS.get_atlas(scorcheded.new_name).name = SMODS.get_atlas(scorcheded.old_name).name .. "_scorcheded"
+        SMODS.get_atlas(scorcheded.new_name).type = SMODS.get_atlas(scorcheded.old_name).type
+        SMODS.get_atlas(scorcheded.new_name).px = SMODS.get_atlas(scorcheded.old_name).px
+        SMODS.get_atlas(scorcheded.new_name).py = SMODS.get_atlas(scorcheded.old_name).py
+        SMODS.get_atlas(scorcheded.new_name).frames = SMODS.get_atlas(scorcheded.old_name).frames
+        SMODS.get_atlas(scorcheded.new_name).image = process_texture_scorched(SMODS.get_atlas(scorcheded.old_name).image)
     end
 
-    return G.ASSET_ATLAS[scorcheded.new_name]
+    return SMODS.get_atlas(scorcheded.new_name)
 end
 
-return {name = {"Enhancements"}, items = {scorched, scorched_shader}}
+return {name = {"Enhancements"}, items = {scorched}}
