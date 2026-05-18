@@ -130,31 +130,32 @@ target = '=[SMODS _ "src/utils.lua"]'
 pattern = "if not SMODS.optional_features.quantum_enhancements then return end"
 position = "before"
 payload = '''
-if context.aij_inherent_enhancement or context.aij_other_enhancement or SMODS.aij_inherent_enhancement_calc_in_progress then return end
-if card.aij_inherent_effects then
-    context.aij_inherent_enhancement = true
-    SMODS.aij_inherent_enhancement_calc_in_progress = true
-    local aij_inherent_enhancements = All_in_Jest.get_inherent_effects(card, 'enhancement')
-    local old_nominal = card.base.nominal
-    local old_ability = copy_table(card.ability)
-    local old_center = card.config.center
-    local old_center_key = card.config.center_key
-    local set_ability = Card.set_ability
-    for _, k in ipairs(aij_inherent_enhancements) do
-        card.base.nominal = 0
-        card.ability = k['ability']
-        card.config.center = k['center']
-        card.config.center_key = k['center'].key
-        card.ability.aij_inherent_enhancement = k['center']
-        local eval = eval_card(card, context)
-        table.insert(effects, eval)
+if not (context.aij_inherent_enhancement or context.aij_other_enhancement or SMODS.aij_inherent_enhancement_calc_in_progress) then
+    if card.aij_inherent_effects then
+        context.aij_inherent_enhancement = true
+        SMODS.aij_inherent_enhancement_calc_in_progress = true
+        local aij_inherent_enhancements = All_in_Jest.get_inherent_effects(card, 'enhancement')
+        local old_nominal = card.base.nominal
+        local old_ability = copy_table(card.ability)
+        local old_center = card.config.center
+        local old_center_key = card.config.center_key
+        local set_ability = Card.set_ability
+        for _, k in ipairs(aij_inherent_enhancements) do
+            card.base.nominal = 0
+            card.ability = k['ability']
+            card.config.center = G.P_CENTERS[k.center_key]
+            card.config.center_key = k.center_key
+            card.ability.aij_inherent_enhancement = k['center']
+            local eval = eval_card(card, context)
+            table.insert(effects, eval)
+        end
+        card.base.nominal = old_nominal
+        card.ability = old_ability
+        card.config.center = old_center
+        card.config.center_key = old_center_key
+        context.aij_inherent_enhancement = nil
+        SMODS.aij_inherent_enhancement_calc_in_progress = nil
     end
-    card.base.nominal = old_nominal
-    card.ability = old_ability
-    card.config.center = old_center
-    card.config.center_key = old_center_key
-    context.aij_inherent_enhancement = nil
-    SMODS.aij_inherent_enhancement_calc_in_progress = nil
 end
 '''
 match_indent = true
@@ -2518,15 +2519,16 @@ end
 if card and card.aij_inherent_effects then
     for k, v in pairs(card.aij_inherent_effects) do
         for _k, _v in pairs(card.aij_inherent_effects[k]) do
-            local ed_key = _v['center'] and _v['center'].key or _v.key
             if k == 'enhancements' then
-                if G.P_CENTERS[ed_key] and G.P_CENTERS[ed_key].set == 'Enhanced' then
-                    local t = copy_table(_v['center'])
+                local enhancement_key = _v.center_key
+                if G.P_CENTERS[enhancement_key] and G.P_CENTERS[enhancement_key].set == 'Enhanced' then
+                    local t = G.P_CENTERS[enhancement_key]
                     t.is_inherent_enhancement = true
-                    t.enhancement_key = ed_key
+                    t.enhancement_key = enhancement_key
                     info_queue[#info_queue + 1] = t
                 end
             elseif k == 'editions' then
+                local ed_key = _v.center_key
                 if G.P_CENTERS[ed_key] and G.P_CENTERS[ed_key].set == 'Edition' then
                     local t = {key = ed_key, set = 'Edition', config = {}}
                     if localize(SMODS.merge_defaults(t, {type = 'name_text'})) == 'ERROR' then t.key = ed_key end

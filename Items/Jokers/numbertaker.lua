@@ -26,7 +26,7 @@ local numbertaker = {
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.blueprint then
-            if not SMODS.has_no_rank(context.other_card) then
+            if not SMODS.has_no_rank(context.other_card) and not context.other_card:is_face() then
                 local rank = context.other_card.base.nominal
                 card.ability.extra.cur_mult = card.ability.extra.cur_mult + rank
                 aij_remove_rank(context.other_card)
