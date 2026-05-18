@@ -2534,9 +2534,9 @@ return {
             j_aij_feedback_form = {
                 name = "Feedback Form",
                 text = {
-                    "Each {C:attention}scoring{} card gives {C:mult}+#1#",
-                    "Mult if all {C:attention}scoring{} cards",
-                    "have different {C:attention}enhancements"
+                    "All {C:attention}unique{} enhancements in",
+                    "the {C:attention}played hand{} give {X:mult,C:white}X#1#{} Mult",
+                    "when scored"
                 }
             },
             j_aij_stultor = {

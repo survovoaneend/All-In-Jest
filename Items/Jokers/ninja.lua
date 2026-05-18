@@ -7,10 +7,10 @@ local ninja = {
             
         }
     },
-    rarity = 2,
+    rarity = 3,
     pos = { x = 20, y = 20 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 9,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
