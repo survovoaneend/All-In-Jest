@@ -61,13 +61,13 @@ local canvas = {
                                 end
                                 if G.hand.cards[k2].ability.all_in_jest and G.hand.cards[k2].ability.all_in_jest.random_aij_deck_skin then
                                     card.ability.all_in_jest = card.ability.all_in_jest or {}
-                                    if not (card.ability.all_in_jest.random_aij_deck_skin and (G.hand.cards[k2].ability.all_in_jest.random_aij_deck_skin[new_suit] == card.ability.all_in_jest.random_aij_deck_skin[new_suit])) then
+                                    if not (card.ability.all_in_jest and card.ability.all_in_jest.random_aij_deck_skin and (G.hand.cards[k2].ability.all_in_jest.random_aij_deck_skin[new_suit] == card.ability.all_in_jest.random_aij_deck_skin[new_suit])) then
                                         card.ability.all_in_jest = card.ability.all_in_jest or {}
                                         card.ability.all_in_jest.random_aij_deck_skin = G.hand.cards[k2].ability.all_in_jest.random_aij_deck_skin
                                         changed_random_aij_deck_skin = true
                                     end
                                 else
-                                    if not (card.ability.all_in_jest and card.ability.all_in_jest.random_aij_deck_skin["Spades"] == nil) then
+                                    if not (card.ability.all_in_jest and card.ability.all_in_jest.random_aij_deck_skin and card.ability.all_in_jest.random_aij_deck_skin["Spades"] == nil) then
                                         card.ability.all_in_jest = card.ability.all_in_jest or {}
                                         card.ability.all_in_jest.random_aij_deck_skin = {}
                                         changed_random_aij_deck_skin = true

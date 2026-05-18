@@ -74,25 +74,31 @@ if card.aij_inherent_effects then
     SMODS.aij_inherent_enhancement_calc_in_progress = nil
 end
 if card.config.aij_other_center and not SMODS.aij_applying_thing then
-    if card.config.aij_other_center['center'] and card.ability.aij_other_center['ability'] then
+    if card.config.aij_other_center['center'] and card.config.aij_other_center['ability'] then
         context.aij_inherent_enhancement = true
         SMODS.aij_inherent_enhancement_calc_in_progress = true
+
         local aij_oc = card.config.aij_other_center
+
         local old_nominal = card.base.nominal
         local old_ability = copy_table(card.ability)
         local old_center = card.config.center
         local old_center_key = card.config.center_key
+
         card.base.nominal = 0
-        card.ability = card.ability.aij_other_center['ability']
+
+        card.ability = card.config.aij_other_center['ability']
         card.config.center = aij_oc['center']
         card.config.center_key = aij_oc['center'].key
-        card.ability.aij_other_center = aij_oc['center']
+
         local eval = eval_card(card, context)
         table.insert(effects, eval)
+
         card.base.nominal = old_nominal
         card.ability = old_ability
         card.config.center = old_center
         card.config.center_key = old_center_key
+
         context.aij_inherent_enhancement = nil
         SMODS.aij_inherent_enhancement_calc_in_progress = nil
     end
@@ -2376,7 +2382,7 @@ match_indent = true
 payload = '''
     if card and card.config and card.config.aij_other_center then
         local aij_o_c = card.config.aij_other_center['center']
-        local aij_ocfg = card.ability.aij_other_center['ability']
+        local aij_ocfg = card.config.aij_other_center['ability']
         local fake_card = {config = {center = aij_o_c}, ability = aij_ocfg}
         local res = {}
         if aij_o_c.loc_vars and type(aij_o_c.loc_vars) == 'function' then
@@ -2555,10 +2561,10 @@ if other.config.aij_other_center then
     new_card.config.aij_other_center = {}
     new_card.config.aij_other_center['center'] = other.config.aij_other_center['center']
     new_card.config.aij_other_center['ability'] = other.config.aij_other_center['ability']
-    if not new_card.ability.aij_other_center or not new_card.ability.aij_other_center['ability'] then
-        new_card.ability.aij_other_center = new_card.ability.aij_other_center or {}
-        new_card.ability.aij_other_center['ability'] = new_card.config.aij_other_center and new_card.config.aij_other_center['ability']
-    end
+    -- if not new_card.ability.aij_other_center or not new_card.ability.aij_other_center['ability'] then
+    --     new_card.ability.aij_other_center = new_card.ability.aij_other_center or {}
+    --     new_card.ability.aij_other_center['ability'] = new_card.config.aij_other_center and new_card.config.aij_other_center['ability']
+    -- end
 end
 '''
 
@@ -4116,6 +4122,9 @@ position = "after"
 match_indent = true
 payload = 'SMODS.calculate_context({aij_before_setting_blind = true, blind = G.GAME.round_resets.blind})'
 
+#################################
+    # PATCHES FOR FUSIONS #
+#################################
 
 # Fusion Enhancements
 # Card:load()
@@ -4149,3 +4158,135 @@ if card.config and card.config.aij_other_center and card.config.aij_other_center
     badges[#badges + 1] = create_badge(other_card_type, card_type_colour, card_type_text_colour, 1.2)
 end
 '''
+
+# Fusion Enhancements
+# Card:set_ability
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'local obj = self.config.center'
+position = "before"
+match_indent = true
+payload = '''
+local obj = self.config.aij_other_center and self.config.aij_other_center.center
+if obj and obj.set_ability and type(obj.set_ability) == 'function' and not SMODS.aij_applying_thing then
+    local old_center = self.config.center
+    self.config.center = self.config.aij_other_center.center
+    local old_ability = copy_table(self.ability)
+    self.ability = self.config.aij_other_center.ability
+    obj:set_ability(self, initial, delay_sprites)
+    self.config.center = old_center
+    self.ability = old_ability
+end
+'''
+
+# Fusion Enhancements
+# Card:add_to_deck
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'local obj = self.config.center'
+position = "before"
+match_indent = true
+payload = '''
+local obj = self.config.aij_other_center and self.config.aij_other_center.center
+if obj and obj.add_to_deck and type(obj.add_to_deck) == 'function' and not SMODS.aij_applying_thing then
+    local old_center = self.config.center
+    self.config.center = self.config.aij_other_center.center
+    local old_ability = copy_table(self.ability)
+    self.ability = self.config.aij_other_center.ability
+    obj:add_to_deck(self, from_debuff)
+    self.config.center = old_center
+    self.ability = old_ability
+end
+'''
+
+# Fusion Enhancements
+# Card:remove_from_deck
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'local obj = self.config.center'
+position = "before"
+match_indent = true
+payload = '''
+local obj = self.config.aij_other_center and self.config.aij_other_center.center
+if obj and obj.remove_from_deck and type(obj.remove_from_deck) == 'function' and not SMODS.aij_applying_thing then
+    local old_center = self.config.center
+    self.config.center = self.config.aij_other_center.center
+    local old_ability = copy_table(self.ability)
+    self.ability = self.config.aij_other_center.ability
+    obj:remove_from_deck(self, from_debuff)
+    self.config.center = old_center
+    self.ability = old_ability
+end
+'''
+
+# Fusion Enhancements
+# Card:calculate_dollar_bonus
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'local obj = self.config.center'
+position = "before"
+match_indent = true
+payload = '''
+local obj = self.config.aij_other_center and self.config.aij_other_center.center
+if obj and obj.calculate_dollar_bonus and type(obj.calculate_dollar_bonus) == 'function' and not SMODS.aij_applying_thing then
+    local old_center = self.config.center
+    self.config.center = self.config.aij_other_center.center
+    local old_ability = copy_table(self.ability)
+    self.ability = self.config.aij_other_center.ability
+    obj:calculate_dollar_bonus(self)
+    self.config.center = old_center
+    self.ability = old_ability
+end
+'''
+
+# Fusion Enhancements
+# Card:update
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'local obj = self.config.center'
+position = "before"
+match_indent = true
+payload = '''
+local obj = self.config.aij_other_center and self.config.aij_other_center.center
+if obj and obj.update and type(obj.update) == 'function' and not SMODS.aij_applying_thing then
+    -- sendDebugMessage(tprint(self.ability), "AIJ")
+    local old_center = self.config.center
+    self.config.center = self.config.aij_other_center.center
+    local old_ability = copy_table(self.ability)
+    self.ability = self.config.aij_other_center.ability
+    obj:update(self, dt)
+    self.config.center = old_center
+    self.ability = old_ability
+    -- sendDebugMessage(tprint(self.ability), "AIJ")
+end
+'''
+
+# Fusion Enhancements
+# Card:load
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'local obj = self.config.center'
+position = "before"
+match_indent = true
+payload = '''
+local obj = self.config.aij_other_center and self.config.aij_other_center.center
+if obj and obj.load and type(obj.load) == 'function' and not SMODS.aij_applying_thing then
+    local old_center = self.config.center
+    self.config.center = self.config.aij_other_center.center
+    local old_ability = copy_table(self.ability)
+    self.ability = self.config.aij_other_center.ability
+    obj:load(self, cardTable, other_card)
+    self.config.center = old_center
+    self.ability = old_ability
+end
+'''
+
+######################################
+    # END OF PATCHES FOR FUSIONS #
+######################################

@@ -2095,10 +2095,10 @@ function All_in_Jest.set_other_enhancement(card, enhancement)
     card:set_ability(G.P_CENTERS[enhancement])
     card.config.aij_other_center['ability'] = copy_table(card.ability)
     card:set_ability(old_center)
-    if not card.ability.aij_other_center or not card.ability.aij_other_center['ability'] then
-        card.ability.aij_other_center = card.ability.aij_other_center or {}
-        card.ability.aij_other_center['ability'] = card.config.aij_other_center and card.config.aij_other_center['ability']
-    end
+    -- if not card.ability.aij_other_center or not card.ability.aij_other_center['ability'] then
+    --     card.ability.aij_other_center = card.ability.aij_other_center or {}
+    --     card.ability.aij_other_center['ability'] = card.config.aij_other_center and card.config.aij_other_center['ability']
+    -- end
     SMODS.aij_applying_thing = false
 end
 
@@ -2255,8 +2255,8 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
 
     local has_sprite = aij_check_if_sprite_exists(
         new_atlas, 
-        new_pos.x,
-        new_pos.y
+        new_pos.x or 0,
+        new_pos.y or 0
     )
     if has_sprite then
         -- If sprite has a unique sprite, use it
