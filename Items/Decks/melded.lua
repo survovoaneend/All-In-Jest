@@ -58,8 +58,6 @@ function Card:set_ability(center, initial, delay_sprites)
 	local ret = aij_card_set_ability_ref(self, center, initial, delay_sprites)
 
 	if old_center_key then
-		sendDebugMessage(self.config.center.key, "AIJ")
-		sendDebugMessage(old_center_key, "AIJ")
 		All_in_Jest.set_other_enhancement(self, old_center_key)
 	end
 

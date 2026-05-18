@@ -2086,8 +2086,9 @@ function All_in_Jest.apply_inherent_effect(card, effect, type)
 end
 
 function All_in_Jest.set_other_enhancement(card, enhancement)
+    if not G.P_CENTERS[enhancement] then return end -- enhancement must exist
+    if enhancement == card.config.center.key then return end -- enhancement must not be duplicate of main enhancement
     SMODS.aij_applying_thing = true
-    if not G.P_CENTERS[enhancement] then return end
     card.config.aij_other_center = {}
     card.config.aij_other_center['center'] = G.P_CENTERS[enhancement]
     local old_center = card.config.center
