@@ -4133,3 +4133,19 @@ if cardTable.save_fields.aij_other_center then
     self.config.aij_other_center['ability'] = cardTable.aij_other_center_ability
 end
 '''
+
+# Fusion Enhancements
+# CG.UIDEF.card_h_popup()
+## Add badge for 2nd enhancement
+[[patches]]
+[patches.regex]
+target = 'functions/UI_definitions.lua'
+pattern = '(?<indent>[\t ]*)badges\[#badges \+ 1\] = create_badge\(.*card_type.*\n'
+position = "after"
+line_prepend = '$indent'
+payload = '''
+if card.config and card.config.aij_other_center and card.config.aij_other_center.center then
+    local other_card_type = localize{type = 'name_text', key = card.config.aij_other_center.center.key, set = 'Enhanced'}
+    badges[#badges + 1] = create_badge(other_card_type, card_type_colour, card_type_text_colour, 1.2)
+end
+'''
