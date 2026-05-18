@@ -1,13 +1,3 @@
-local wood_shader = {
-    object_type = "Shader",
-    key = 'wood', 
-    path = 'wood.fs',
-}
-local semitrasparent_shader = {
-    object_type = "Shader",
-    key = 'semitrasparent', 
-    path = 'semitrasparent.fs',
-}
 local wood = {
     object_type = "Enhancement",
     key = 'wood',
