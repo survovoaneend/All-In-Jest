@@ -15,7 +15,7 @@ local laurel = {
     cost = 20,
     unlocked = false,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     soul_pos = { x = 5, y = 13 },
 

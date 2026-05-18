@@ -14,7 +14,7 @@ local cairoli = {
     cost = 20,
     unlocked = false,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     soul_pos = { x = 2, y = 15 },
 
