@@ -11,7 +11,10 @@ to_number = to_number or function(n)
   return n
 end
 SMODS.current_mod.optional_features = {
-  retrigger_joker = true
+  retrigger_joker = true,
+  cardareas = {
+      deck = true
+  }
 }
 SMODS.injectItems = function()
     injectitems_ref()

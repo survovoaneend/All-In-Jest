@@ -11,6 +11,20 @@ pattern = "-- TARGET: evaluate your own general effects"
 position = "before"
 match_indent = true
 payload = '''
+if context.end_of_round and not context.repetition and not context.individual then
+    if card.ability and card.ability.aij_pc_rental and card.area == G.deck and not card.ability.aij_pc_rental_triggered then
+        if G.GAME.all_in_jest and G.GAME.all_in_jest.sticker_effects and G.GAME.all_in_jest.sticker_effects['pc_rental'].active then
+            local temp = G.GAME.all_in_jest.sticker_effects['pc_rental']
+            if not SMODS.pseudorandom_probability(card, 'pc_rental', temp.num, temp.odds) then
+                card:calculate_rental()
+                card.ability.aij_pc_rental_triggered = true
+            end
+        else
+            card:calculate_rental()
+            card.ability.aij_pc_rental_triggered = true
+        end
+    end
+end
 if context.ending_booster and G.GAME.all_in_jest.dizzard_shop and G.shop.alignment.offset.y ~= -5.3 then
     G.E_MANAGER:add_event(Event({
         trigger = 'after',
@@ -31,6 +45,9 @@ if context.end_of_round then
     end
 end
 if context.setting_blind then
+    if card.ability.aij_pc_rental_triggered then
+        card.ability.aij_pc_rental_triggered = nil
+    end
     if G.GAME.aij_show_hand then
         G.hand.states.visible = true
         G.GAME.aij_show_hand = nil

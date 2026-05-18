@@ -138,6 +138,7 @@ return {
             aij_marked = "Marked",
             aij_pc_perishable = "Perishable",
             aij_pc_eternal = "Eternal",
+            aij_pc_rental = "Rental",
             aij_unusual_doubled = "Doubled",
             aij_recherche_doubled = "Doubled",
             -- Seals
@@ -697,6 +698,22 @@ return {
                     'cards at a time'
                 },
             },
+            bl_aij_the_kind = {
+                name = "The Kind",
+                text = {
+                    'Better skip tags this',
+                    'ante, X2 Blind size',
+                    'for each blind skipped',
+                    'this ante'
+                },
+            },
+            bl_aij_the_real = {
+                name = "The Real",
+                text = {
+                    'Cards are only considered',
+                    'their original rank and suit'
+                },
+            },
             bl_aij_the_life = {
                 name = "The Life",
                 text = {
@@ -738,6 +755,37 @@ return {
                 text = {
                     'Scored cards cannot',
                     'be retriggered',
+                },
+            },
+            bl_aij_the_fig = {
+                name = "The Fig",
+                text = {
+                    'Debuff the first and',
+                    'last scoring cards',
+                    'each hand played'
+                },
+            },
+            bl_aij_the_oil = {
+                name = "The Oil",
+                text = {
+                    'Enhanced cards have a',
+                    '#1# in #2# chance to be',
+                    'discarded when drawn',
+                },
+            },
+            bl_aij_the_wine = {
+                name = "The Wine",
+                text = {
+                    'When playing or discarding',
+                    'a card, discard a random',
+                    'card in your deck',
+                },
+            },
+            bl_aij_the_dagger = {
+                name = "The Dagger",
+                text = {
+                    'Hand must contain',
+                    'a Spade or Club'
                 },
             },
             --Pit Blinds
@@ -4992,6 +5040,21 @@ return {
                 name = "Eternal",
                 text = {
                     "Can't be {C:red}destroyed",
+                }
+            },
+            aij_pc_rental = {
+                name = "Rental",
+                text = {
+                    'Lose {C:money}$#1#{} at end of round',
+                    'when in your deck'
+                }
+            },
+            aij_pc_rental_alt = {
+                name = "Rental",
+                text = {
+                    '{C:green}#2# in #3#{} chance to not',
+                    'lose {C:money}$#1#{} at end of round',
+                    'when in your deck'
                 }
             },
             aij_marked = {
