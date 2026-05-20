@@ -2,7 +2,7 @@ local golem = {
 	object_type = "Consumable",
 	key = "golem",
 	set = "Tarot",
-	pos = { x = 15, y = 4 },
+	pos = { x = 7, y = 8 },
 	set_card_type_badge = function(self, card, badges)
 		badges[#badges + 1] = create_badge(localize("k_tarot_q"), G.C.SECONDARY_SET.Tarot, G.C.WHITE, 1.2)
 	end,
