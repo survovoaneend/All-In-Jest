@@ -2558,7 +2558,7 @@ if card and card.aij_inherent_effects then
                     info_queue[#info_queue + 1] = t
                 end
             elseif k == 'editions' then
-                local ed_key = _v.center_key
+                local ed_key = _v.key
                 if G.P_CENTERS[ed_key] and G.P_CENTERS[ed_key].set == 'Edition' then
                     local t = {key = ed_key, set = 'Edition', config = {}}
                     if localize(SMODS.merge_defaults(t, {type = 'name_text'})) == 'ERROR' then t.key = ed_key end
