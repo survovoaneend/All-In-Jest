@@ -2626,15 +2626,15 @@ function All_in_Jest.multi_enhancement_get_vanilla_z_order(key)
     elseif key == 'm_wild' then
         z_order = 1
     elseif key == 'm_glass' then
-        z_order = 0
+        z_order = -1
     elseif key == 'm_steel' then
         z_order = 0.9
     elseif key == 'm_stone' then
-        z_order = 0
+        z_order = -1
     elseif key == 'm_gold' then
         z_order = 0.1
     elseif key == 'm_lucky' then
-        z_order = 0
+        z_order = -1
     end
     return z_order
 end

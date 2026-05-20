@@ -15,7 +15,7 @@ local simulated = {
         }
     },
     all_in_jest = {
-        multi_enhancement_z_order = -1
+        multi_enhancement_z_order = -2
     },
     loc_vars = function(self, info_queue, card)
         return {
