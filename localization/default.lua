@@ -8063,6 +8063,14 @@ return {
                     "{C:attention}random{} cards in hand"
                 }
             },
+            c_aij_typhon = {
+                name = 'The Typhon',
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "cards into",
+                    "{C:attention}#2#s{}"
+                }
+            },
             c_aij_broken_fate = {
                 name = 'Broken Fate',
                 text = {
