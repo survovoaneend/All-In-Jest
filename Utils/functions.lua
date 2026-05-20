@@ -2544,7 +2544,7 @@ function All_in_Jest.get_inherent_effects(card, type, amt_only)
     end
 end
 
-function All_in_Jest.apply_inherent_effect(card, effect, type)
+function All_in_Jest.apply_inherent_effect(card, effect, effect_type)
     card.aij_inherent_effects = card.aij_inherent_effects or {}
     if not effect then return end
     if effect_type == 'edition' then
@@ -2557,6 +2557,12 @@ function All_in_Jest.apply_inherent_effect(card, effect, type)
         card.aij_inherent_effects[effect_type..'s'][index] = {}
         card.aij_inherent_effects[effect_type..'s'][index]['center_key'] = effect.key
         card.aij_inherent_effects[effect_type..'s'][index]['ability'] = copy_table(card.ability)
+    elseif effect_type == 'other_enhancement' then
+        card.aij_inherent_effects['enhancements'] = card.aij_inherent_effects['enhancements'] or {}
+        local index = #card.aij_inherent_effects['enhancements'] + 1
+        card.aij_inherent_effects['enhancements'][index] = {}
+        card.aij_inherent_effects['enhancements'][index]['center_key'] = effect.key
+        card.aij_inherent_effects['enhancements'][index]['ability'] = copy_table(card.config.aij_other_center.ability)
     end
 end
 
