@@ -1153,6 +1153,10 @@ function Card:save()
         saveTable.aij_other_center_ability = self.config.aij_other_center['ability']
     end
 
+    if self.aij_inherent_effects then
+        saveTable.aij_inherent_effects = self.aij_inherent_effects
+    end
+
     return saveTable
 end
 

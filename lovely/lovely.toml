@@ -4716,6 +4716,10 @@ if cardTable.save_fields.aij_other_center then
     self.config.aij_other_center['center'] = G.P_CENTERS[cardTable.save_fields.aij_other_center]
     self.config.aij_other_center['ability'] = cardTable.aij_other_center_ability
 end
+
+if cardTable.aij_inherent_effects then
+    self.aij_inherent_effects = cardTable.aij_inherent_effects
+end
 '''
 
 # Fusion Enhancements
