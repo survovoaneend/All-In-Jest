@@ -14,9 +14,7 @@ local dark_star = {
   atlas = 'consumable_atlas',
   loc_vars = function(self, info_queue, card)
     return {
-      vars = {
-
-      },
+      vars = { },
     }
   end,
   can_use = function(self, card)
@@ -32,10 +30,16 @@ local dark_star = {
     local hands_to_upgrade = {}
     for _, k in ipairs(G.handlist) do
       if G.GAME.hands[k].played == 0 then
-        table.insert(hands_to_upgrade, k)
+        if not G.GAME.hands[k].visible then
+            level_up_hand(card, k, true)
+        else
+            table.insert(hands_to_upgrade, k)
+        end
       end
     end
-    level_up_hand(card, hands_to_upgrade)
+    for _, k in ipairs(hands_to_upgrade) do
+        level_up_hand(card, k)
+    end
   end,
   in_pool = function(self, args)
     for _, k in ipairs(G.handlist) do

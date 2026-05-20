@@ -7,6 +7,7 @@ local the_dragon = {
           pit = true
       }
     },
+    lite = true,
     in_pool = function(self)
         return All_in_Jest.pit_blinds_in_play()
     end,

@@ -2,12 +2,13 @@ local calculate_lexicon_mult = function(card)
     local mult = 0
     if G.jokers then
         for i = 1, #G.jokers.cards do
-            if G.jokers.cards[i] ~= card and G.jokers.cards[i].config.center.key ~= 'j_aij_lexicon' then
+            if G.jokers.cards[i] ~= card and G.jokers.cards[i].config.center.key ~= 'j_aij_lexicon' and G.jokers.cards[i].config.center.key ~= 'j_aij_crayon_rubbing' then
                 local text = retrieve_joker_text(G.jokers.cards[i])
  
                 -- Consecutive spaces usually indicates some sort of missing dynatext
                 if string.match(text, "  ") then
-                    G.jokers.cards[i].ability_UIBox_table = G.jokers.cards[i]:generate_UIBox_ability_table()
+                    local other_vars, _, _ = G.jokers.cards[i]:generate_UIBox_ability_table(true)
+                    G.jokers.cards[i].ability_UIBox_table = generate_card_ui(G.jokers.cards[i].config.center, nil, other_vars)
                     text = retrieve_joker_text(G.jokers.cards[i])
                 end
 
@@ -22,7 +23,8 @@ local calculate_lexicon_mult = function(card)
                 -- Dynatext comes up as nothing in some situations
                 -- To mitigate this, try again once while forcing UIBox to (re)generate
                 if new_mult == 0 then
-                    G.jokers.cards[i].ability_UIBox_table = G.jokers.cards[i]:generate_UIBox_ability_table()
+                    local other_vars, _, _ = G.jokers.cards[i]:generate_UIBox_ability_table(true)
+                    G.jokers.cards[i].ability_UIBox_table = generate_card_ui(G.jokers.cards[i].config.center, nil, other_vars)
                     text = retrieve_joker_text(G.jokers.cards[i])
                     for num in string.gmatch(text, number_regex) do
                         new_mult = new_mult + tonumber(num)

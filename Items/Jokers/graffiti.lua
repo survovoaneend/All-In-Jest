@@ -30,16 +30,20 @@ local graffiti = {
             end
         end,
 
-        use_ability = function(self, card)
-            ease_dollars(-card.ability.extra.cost)
-            SMODS.scale_card(card, {
-                ref_table = card.ability.extra,
-                ref_value = "cost",
-                scalar_value = "cost_increase",
-                operation = 'X',
-                no_message = true,
-            })
-            card.ability.extra.cost = math.ceil(card.ability.extra.cost)
+        use_ability = function(self, card, args)
+            args = args or {}
+            SMODS.calculate_context({all_in_jest = {joker_ability_used = true, card = card, retriggered = args.retriggered, args = args}})
+            if not args.free then
+                ease_dollars(-card.ability.extra.cost)
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "cost",
+                    scalar_value = "cost_increase",
+                    operation = 'X',
+                    no_message = true,
+                })
+                card.ability.extra.cost = math.ceil(card.ability.extra.cost)
+            end
             G.E_MANAGER:add_event(Event({
                 trigger = 'before',
                 delay = 0.0,

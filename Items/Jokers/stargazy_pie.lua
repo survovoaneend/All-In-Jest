@@ -2,6 +2,7 @@ local stargazy_pie = {
     object_type = "Joker",
     order = 305,
     key = "stargazy_pie",
+    lite = true,
     config = {
         extra = { triggers = 5 }
     },

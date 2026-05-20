@@ -8,7 +8,8 @@ local obsidian_blade = {
     in_pool = function(self)
         return true
     end,
-    mult = 4,
+    mult = 3,
+    lite = true,
     boss_colour = HEX("635d91"),
     atlas = 'blinds',
     pos = { y = 31 },

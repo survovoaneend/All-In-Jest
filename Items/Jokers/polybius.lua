@@ -1,7 +1,7 @@
 local polybius = {
     object_type = "Joker",
     order = 61,
-
+    lite = true,
     key = "polybius",
     config = {
       

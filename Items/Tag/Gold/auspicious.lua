@@ -49,6 +49,16 @@ local auspicious_tag = {
               return true
             end
           }))
+          G.E_MANAGER:add_event(Event({
+              func = function()
+              for i = 1, #G.GAME.tags do
+                  if G.GAME.tags[i]:apply_to_run({ type = 'new_blind_choice' }) then
+                  break
+                  end
+              end
+              return true
+              end
+          }))
           return true
         end,
         function()

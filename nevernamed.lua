@@ -12,6 +12,9 @@ to_number = to_number or function(n)
 end
 SMODS.current_mod.optional_features = {
   retrigger_joker = true,
+  cardareas = {
+      deck = true
+  }
 }
 SMODS.injectItems = function()
     injectitems_ref()
@@ -41,10 +44,28 @@ SMODS.Atlas {
   py = 95
 }
 SMODS.Atlas {
+  key = "hires_joker",
+  path = "HiRes_Joker.png",
+  px = 1050,
+  py = 1409
+}
+SMODS.Atlas {
+  key = "misc_atlas",
+  path = "misc.png",
+  px = 71,
+  py = 95
+}
+SMODS.Atlas {
   key = "jumbo_joker",
   path = "jumbo_joker.png",
   px = 81,
   py = 111
+}
+SMODS.Atlas {
+  key = "trophy_kill",
+  path = "trophy_kill.png",
+  px = 91,
+  py = 95
 }
 SMODS.Atlas {
     key = "deck_atlas",
@@ -208,6 +229,7 @@ assert(SMODS.load_file('Utils/functions.lua'))()
 assert(SMODS.load_file('Utils/functions_value_mod.lua'))()
 assert(SMODS.load_file('Utils/hooks.lua'))()
 assert(SMODS.load_file('Utils/ui.lua'))()
+assert(SMODS.load_file('Utils/copiers.lua'))()
 if next(SMODS.find_mod("unBlindShopGUI")) then
     assert(SMODS.load_file('Utils/UnBlind_crossmod.lua'))()
 end
@@ -285,6 +307,9 @@ local function load_items(curr_obj)
         return
     end
     for _, item in ipairs(curr_obj.items) do
+        if All_in_Jest.config.aij_lite and not item.lite then
+            goto continue
+        end
         item.ignore             = item.ignore             or false
         item.jest_spec_moon     = item.jest_spec_moon     or false
         item.jest_rec_paperback = item.jest_rec_paperback or false
@@ -305,6 +330,11 @@ local function load_items(curr_obj)
         end
         if item.jest_spec_moon and not All_in_Jest.config.moons_enabled then
             goto continue
+        end
+        -- Add incompatibility to all jokers with an activated ability and to advanced copiers
+        if (item.all_in_jest and item.all_in_jest.use_ability) or (item.config and item.config["j_aij_" .. item.key]) then
+            item.j_aij_whats_left_compat = false
+            item.j_aij_clay_joker_compat = false
         end
         if SMODS[item.object_type] and not item.ignore then
             SMODS[item.object_type](item)
@@ -378,6 +408,18 @@ for _, filename in ipairs(png_files) do
         px = '71',
         py = '95',
     })
+    
+    -- 4. Function to handle the skip button
+    G.FUNCS.skip_aij_intro = function(e)
+        if G.OVERLAY_TUTORIAL then
+            G.OVERLAY_TUTORIAL.skip_steps = true
+            if G.OVERLAY_TUTORIAL.Jimbo then G.OVERLAY_TUTORIAL.Jimbo:remove() end
+            if G.OVERLAY_TUTORIAL.content then G.OVERLAY_TUTORIAL.content:remove() end
+            G.OVERLAY_TUTORIAL:remove()
+            G.OVERLAY_TUTORIAL = nil
+        end
+        G.E_MANAGER:clear_queue('tutorial')
+    end
 end
 
 All_in_Jest.load_shaders()

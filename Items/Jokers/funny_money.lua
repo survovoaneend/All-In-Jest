@@ -1,7 +1,7 @@
 local funny_money = {
     object_type = "Joker",
     order = 250,
-    
+    lite = true,
     key = "funny_money",
     config = {
       extra = {

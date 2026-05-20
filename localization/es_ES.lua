@@ -4030,6 +4030,12 @@ return {
             c_aij_scopophobia = {
                 name = 'Escopofobia',
                 text = {
+                    '',
+                }
+            },
+            c_aij_maw = {
+                name = 'Maw',
+                text = {
                     '{C:red}Destruye{} un {C:attention}Comodín{} al azar',
                     'y {C:attention}todas{} las cartas en mano',
                 }

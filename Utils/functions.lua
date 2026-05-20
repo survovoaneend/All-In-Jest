@@ -310,7 +310,10 @@ function retrieve_joker_text(joker, descip, name)
     else
         if joker.generate_UIBox_ability_table then
             if not joker.ability_UIBox_table then -- Removing this check causes memory leaks
-                joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
+                -- joker.ability_UIBox_table = joker:generate_UIBox_ability_table()
+                local other_vars, _, _ = joker:generate_UIBox_ability_table(true)
+                joker.ability_UIBox_table = generate_card_ui(joker.config.center, nil, other_vars)
+                text = retrieve_joker_text(joker)
             end
             local main = joker.ability_UIBox_table.main
             text = text .. get_text(main)
@@ -348,8 +351,8 @@ function level_up_hand_chips(card, hand, instant, amount)
     amount = amount or 1
     SMODS.upgrade_poker_hands({
         hands = hand,
-        func = function(base, hand, parameter)
-            return base + G.GAME.hands[hand]['l_' .. parameter] * amount * 2
+        func = function(base, hand, parameter, level_up)
+            return base + G.GAME.hands[hand]['l_' .. parameter] * level_up * 2
         end,
         level_up = amount,
         from = card,
@@ -362,8 +365,8 @@ function level_up_hand_mult(card, hand, instant, amount)
     amount = amount or 1
     SMODS.upgrade_poker_hands({
         hands = hand,
-        func = function(base, hand, parameter)
-            return base + G.GAME.hands[hand]['l_' .. parameter] * amount * 2
+        func = function(base, hand, parameter, level_up)
+            return base + G.GAME.hands[hand]['l_' .. parameter] * level_up * 2
         end,
         level_up = amount,
         from = card,
@@ -543,9 +546,27 @@ to_big = to_big or function(num)
 end
 
 AllInJest.touchstone_deck_preview = function()
-    local touchstone_card = SMODS.find_card('j_aij_touchstone')[1]
+    local max_future_sense = 0
+    if G.jokers and G.jokers.cards then
+        for _, area in ipairs(SMODS.get_card_areas('jokers')) do
+            if area.cards then
+                for _, v in pairs(area.cards) do
+                    if v and type(v) == 'table' and not v.debuff then
+                        if v.ability.future_sense and not v.debuff then
+                            max_future_sense = math.max(max_future_sense, to_number(v.ability.future_sense))
+                        end
+                        if v.ability[v.config.center.key] and v.ability[v.config.center.key].copied_joker_abilities then
+                            for index = #v.ability[v.config.center.key].copied_joker_abilities, math.max(1, #v.ability[v.config.center.key].copied_joker_abilities - v.ability[v.config.center.key].copy_limit + 1), -1 do
+                                max_future_sense = math.max(max_future_sense, to_number(v.ability[v.config.center.key].copied_joker_abilities[index].future_sense))
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
     local cards = {}
-    for i = #G.deck.cards, #G.deck.cards - touchstone_card.ability.future_sense + 1, -1 do
+    for i = #G.deck.cards, #G.deck.cards - max_future_sense + 1, -1 do
         if i > 0 then
             local card = copy_card(G.deck.cards[i], nil, nil, G.playing_card)
 
@@ -554,9 +575,7 @@ AllInJest.touchstone_deck_preview = function()
                 card:set_edition({negative = true}, nil, true)
             end
 
-            if G.jokers and touchstone_card.area == G.jokers then
-                card.facing = 'front' -- Using .flip() here plays the flipping animation
-            end
+            card.facing = 'front' -- Using .flip() here plays the flipping animation
 
             table.insert(cards, card)
         end
@@ -565,7 +584,7 @@ AllInJest.touchstone_deck_preview = function()
         override = true,
         cards = cards,
         w = 5,
-        h = 0.6,
+        h = 0.4,
         ml = 0,
         scale = 0.4,
         padding = 0,
@@ -575,7 +594,7 @@ end
 AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
     if not config then config = {} end
     local height = config.h or 1.25
-    local width = config.w or 1
+    local width = math.max(config.w or 1, 1)
     local card_limit = config.card_limit or #config.cards or 1
     local override = config.override or false
     local cards = config.cards or {}
@@ -584,31 +603,33 @@ AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
     local margin_top = config.mt or 0
     local alignment = config.alignment or "cm"
     local scale = config.scale or 1
-    local type = config.type or "title"
+    local type = config.type or "title_2"
     local box_height = config.box_height or 0
     local highlight_limit = config.highlight_limit or 0
     local x_offset = config.x_offset or 0
     if override or not cardArea then
         cardArea = CardArea(
-            G.ROOM.T.x + margin_left * G.ROOM.T.w - x_offset, G.ROOM.T.h + margin_top
-            ,G.CARD_W <= width * G.CARD_W and width * G.CARD_W or G.CARD_W, height * G.CARD_H,
-            {card_limit = card_limit, type = type, highlight_limit = highlight_limit, collection = true,temporary = true}
+            G.ROOM.T.x + margin_left * G.ROOM.T.w - x_offset, 
+            G.ROOM.T.h + margin_top,
+            width * G.CARD_W,
+            height * G.CARD_H,
+            {card_limit = card_limit, type = type, highlight_limit = highlight_limit, collection = true, temporary = true}
         )
-        for i, card in ipairs(cards) do
+        for _, card in ipairs(cards) do
             card.T.w = card.T.w * scale
             card.T.h = card.T.h * scale
             card.VT.h = card.T.h
             card.VT.h = card.T.h
             local area = cardArea
             if(card.config.center) then
-                card:set_sprites(card.config.center)
+                card:set_sprites(card.config.center, card.config.card)
             end
             area:emplace(card)
         end
     end
     local uiEX = {
         n = G.UIT.R,
-        config = { align = alignment , padding = padding, no_fill = true, minh = box_height },
+        config = { align = alignment, padding = padding, no_fill = true, minh = box_height },
         nodes = {
             {n=G.UIT.R, config={padding = padding, r = 0.12, colour = lighten(G.C.JOKER_GREY, 0.5), emboss = 0.07}, nodes={
                 {n = G.UIT.O, config = { object = cardArea }}
@@ -1066,7 +1087,7 @@ function Card:click(...)
 
     return _click(self, ...)
 end
-
+-- Also highlight context is here
 local _highlight = Card.highlight
 function Card:highlight(is_higlighted, ...)
     if not is_higlighted then
@@ -1433,20 +1454,37 @@ function Card:All_in_Jest_start_dissolve(dissolve_colours, silent, dissolve_time
     }))
 end
 
-function All_in_Jest.reroll_joker(card, key, append, temp_key)
+function All_in_Jest.reroll_joker(card, key, append, temp_key, extra)
+    extra = extra or {}
+    extra.type = extra.type or "Joker"
     local victim_joker = card
+
+    local vanilla_rarities = {"Common", "Uncommon", "Rare", "Legendary"}
       
-    local victim_rarity = victim_joker.config.center.rarity or 1
+    local victim_rarity = extra.forced_rarity or victim_joker.config.center.rarity or 1
     local is_legendary = victim_rarity == 4
+    if type(victim_rarity) == "number" then
+        victim_rarity = vanilla_rarities[victim_rarity]
+    end
     local victim_key = victim_joker.config.center.key
 
     
     local replacement_pool = {}
-    for _, center_data in ipairs(G.P_CENTER_POOLS.Joker) do
-        local current_rarity = center_data.rarity or 1
-        if current_rarity == victim_rarity then
+    local pool = get_current_pool("Joker", victim_rarity, is_legendary)
+    for _, center_key in ipairs(pool) do
+        -- If card is a joker, make sure the new card is of the desired rarity and is unlocked
+        -- Otherwise pick whatever
+
+        local center_data = G.P_CENTERS[center_key]
+
+        if 
+            center_data and (
+                (extra.type ~= "Joker") or 
+                (victim_rarity == (vanilla_rarities[center_data.rarity] or center_data.rarity or "Common") and (center_data.unlocked or G.GAME.modifiers.all_jokers_unlocked or center_data.rarity == 4))
+            )
+        then
             if center_data.key ~= victim_key then
-                if not center_data.demo and not center_data.wip and (center_data.unlocked or G.GAME.modifiers.all_jokers_unlocked or center_data.rarity == 4) then
+                if not center_data.demo and not center_data.wip then
                     local can_add = true
                     if center_data.in_pool and type(center_data.in_pool) == 'function' then
                         if not center_data:in_pool() then can_add = false end
@@ -1506,6 +1544,10 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key)
             return true 
         end 
     }))
+      G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+        G.jokers:unhighlight_all()
+        return true
+      end }))
     delay(0.5)
 end
 
@@ -1644,7 +1686,7 @@ function reset_the_auroch_blind()
 end
 function reset_the_journey_blind()
     local selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey'))
-    -- By default the special journey background will fade during the evaluate screen, nesting events here prevnts this
+    -- By default the special journey background will fade during the evaluate screen, nesting events here prevents this
     -- This *is* jank
     G.E_MANAGER:add_event(Event({
         func = function()
@@ -1679,6 +1721,8 @@ function All_in_Jest.reset_game_globals(run_start)
 	  G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
 
+    reset_jest_visage_cards()
+
     if G.GAME.round_resets.blind_states.Boss == 'Defeated' or run_start then
        -- Globals for a single ante (not a thing in Vanilla)
        -- Checks run_start as well to trigger at start of run, G.GAME.round_resets.blind_states.Boss == 'Defeated' only checks for the end of an ante
@@ -1697,77 +1741,46 @@ function All_in_Jest.reset_game_globals(run_start)
         G.GAME.all_in_jest.starting_prams.deck_size = #G.deck.cards
         
         local index = {4,5}
-        G.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
+        G.GAME.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed('pit_blinds'))
+
+        -- Reset Aureate Coin
+        G.P_BLINDS['bl_aij_aureate_coin'].boss.spent_money = 0
     end
 end
 
--- Function to allow for filtering joker-copy effects and applying blacklists to copiable jokers
--- Used by: Visage, Clay Joker, Joker.png, and Czar
---  from_collection - set true for jokers that copy a joker from collection, rather than a joker that was previously in-play
-function All_in_Jest.expanded_copier_compat(center, from_collection)
-    if not (center and type(center) == "table") then
-        return
+--Replaces shop voucher
+function All_in_Jest.reroll_shop_voucher(key)
+    if G.GAME.current_round.voucher.spawn[G.GAME.current_round.voucher[1]] then
+        G.GAME.current_round.voucher.spawn[G.GAME.current_round.voucher[1]] = nil
+        G.GAME.current_round.voucher[1] = nil
+        local new_voucher = key or get_next_voucher_key()
+        G.GAME.current_round.voucher[new_voucher] = true
+        G.GAME.current_round.voucher.spawn = {[new_voucher] = true}
+        local c = G.shop_vouchers:remove_card(G.shop_vouchers.cards[1])
+        c:remove()
+        c = nil
+        new_shop_card = SMODS.add_voucher_to_shop(G.GAME.current_round.voucher[1])
+        new_shop_card:juice_up()
     end
-    local blacklist = {
-        'j_blueprint',
-        'j_aij_lexicon' -- Crashes the game for some reason, temporary fix
-    }
-    if from_collection then
-        table.insert(blacklist, 'j_campfire')
+end
 
-        -- can remove these if they are made un-perishable
-        table.insert(blacklist, 'j_aij_egg_cc')
-        table.insert(blacklist, 'j_aij_toothy_joker')
-        table.insert(blacklist, 'j_aij_coulrorachne')
-    end
-
-    if center.blueprint_compat and 
-        (not from_collection or (center.discovered and 
-        center.perishable_compat and 
-        center.rarity ~= 4 and 
-        not G.GAME.banned_keys[center.key]))
-    then
-        for _, v in ipairs(blacklist) do
-            if center.key == v then
-                return false
-            end
+local contains = function (tbl, item)
+    for k, v in pairs(tbl) do
+        if v == item then
+            return true
         end
-
-        -- if from_collection then
-        --     if center.in_pool and type(center.in_pool) == 'function' then
-        --         return center:in_pool()
-        --     end
-
-        --     if center.yes_pool_flag and not G.GAME.pool_flags[center.yes_pool_flag] then
-        --         return false
-        --     end
-        --     if center.no_pool_flag and G.GAME.pool_flags[center.no_pool_flag] then
-        --         return false
-        --     end
-
-        --     if center.enhancement_gate then
-        --         for _, v in pairs(G.playing_cards) do
-        --             if SMODS.has_enhancement(v, center.enhancement_gate) then
-        --                 return true
-        --             end
-        --         end
-        --     end
-        -- end
-
-        return true
-    else
-        return false
     end
+    return false
 end
 
 -- Used for Elder
-function All_in_Jest.get_longest_held_joker()
+function All_in_Jest.get_longest_held_joker(exclusions)
     local longest_joker = nil
     local min_index = math.huge
+    exclusions = exclusions or {}
     if G.jokers and G.jokers.cards then
         for _, v in ipairs(G.jokers.cards) do
-            local is_elder = (v.config.center.key == "j_aij_elder")
-            if not is_elder and v.ability.jest_held_order then
+            if v.ability.jest_held_order and not contains(exclusions, v) then
                 if tonumber(v.ability.jest_held_order) < min_index then
                     min_index = tonumber(v.ability.jest_held_order)
                     longest_joker = v
@@ -1930,6 +1943,468 @@ function All_in_Jest.aij_refresh_boss_blind()
     end
 end
 
+--Sets an Astral cards grade
+function All_in_Jest.astral_set_grade(rarity)
+    local rand_val = pseudorandom('aij_astral_grade')
+    
+    rarity = rarity or {["Retrograde"] = 0.1, ["Passigrade"] = 0.45}
+    
+    local retro_chance = rarity["Retrograde"] or 0
+    local passi_chance = rarity["Passigrade"] or 0
+    
+    -- Check probabilities sequentially so they don't overwrite each other
+    if rand_val <= retro_chance then
+        return "Retrograde"
+    elseif rand_val <= (retro_chance + passi_chance) then
+        return "Passigrade"
+    else
+        return "Prograde"
+    end
+end
+
+-- Gets hand from grade type
+function All_in_Jest.astral_hand_from_grade(grade, cur_hand)
+    local _hand = "High Card"
+    if G.GAME.hands and G.handlist then 
+        if grade == "Retrograde" then
+            local _tally = 0
+            for k, v in ipairs(G.handlist) do
+                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played >= _tally then
+                    _hand = v
+                    _tally = G.GAME.hands[v].played
+                end
+            end
+        elseif grade == "Prograde" then 
+            local _tally = math.huge
+            for k, v in ipairs(G.handlist) do
+                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played < _tally then
+                    _hand = v
+                    _tally = G.GAME.hands[v].played
+                end
+            end
+        elseif grade == "Passigrade" then
+            local vaild_hands = {}
+            for k, v in ipairs(G.handlist) do
+                if SMODS.is_poker_hand_visible(v) then
+                    vaild_hands[#vaild_hands+1] = v
+                end
+            end
+            _hand = cur_hand or pseudorandom_element(vaild_hands, pseudoseed(grade))
+        end
+    end
+    return _hand
+end
+
+function All_in_Jest.create_astral_pin(card, index)
+    local index = index or #G.GAME.Astral_pins[card.ability.consumeable.hand]+1
+    G.GAME.Astral_pins[card.ability.consumeable.hand][index] = {}
+    G.GAME.Astral_pins[card.ability.consumeable.hand][index]['pin'] = card.ability.consumeable.pin
+    G.GAME.Astral_pins[card.ability.consumeable.hand][index].ability = {}
+    G.GAME.Astral_pins[card.ability.consumeable.hand][index].ability.extra = card.ability.extra
+end
+
+function All_in_Jest.use_astral_card(card)
+    if G.GAME.Astral_pins[card.ability.consumeable.hand] and #G.GAME.Astral_pins[card.ability.consumeable.hand] >= G.GAME.all_in_jest.astral_pin_per_hand then
+        if G.GAME.Astral_pins and G.aij_astral_pin_area and #G.aij_astral_pin_area.cards > 0 then
+            All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'only_remove', All_in_Jest.old_colours or nil, true)      
+            for _, v in pairs(G.aij_astral_pin_area.cards) do
+                v:remove()
+            end
+        end
+        if G.GAME.Astral_pins then
+            All_in_Jest.old_colours = All_in_Jest.old_colours or {
+                special_colour = copy_table(G.C.BACKGROUND.C),
+                tertiary_colour = copy_table(G.C.BACKGROUND.D),
+                new_colour = copy_table(G.C.BACKGROUND.L),
+            }
+            All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'no_remove')       
+        end
+        G.E_MANAGER:add_event(Event({
+            func = function() 
+                G.SETTINGS.paused = true
+				G.FUNCS.overlay_menu{
+                    config = {},
+                    definition = SMODS.jest_no_back_card_collection_UIBox(
+                        G.aij_astral_pin_area.cards, 
+                        {6,6}, 
+                        {
+                            from_area = true,
+                            card_scale = 2,
+                            hide_single_page = true,
+                            collapse_single_page = true,
+                            modify_card = function(cardd, center) 
+                                if cardd and cardd.config.center then
+                                    cardd.bypass_discovery_center = true
+                                    cardd.bypass_discovery_ui = true
+                                    cardd:set_ability(cardd.config.center)
+                                    for k, v in pairs(center.ability) do
+                                        if type(v) == 'table' then 
+                                            cardd.ability[k] = copy_table(v)
+                                        else
+                                            cardd.ability[k] = v
+                                        end
+                                    end
+                                    local index = nil
+                                    for k, v in pairs(G.aij_astral_pin_area.cards) do
+                                        if v == center then
+                                            index = k
+                                        end
+                                    end
+                                    jest_create_select_card_ui(cardd, G.aij_astral_pin_area, {
+                                        alt_text = localize('k_aij_replace'),
+                                        alt_colour = HEX("87a5c9"),
+                                        consumable_card = card,
+                                        astral_index = index
+                                    }, 'jest_astral_replace')
+                                end
+                            end, 
+                            h_mod = 1.05,
+                        }
+                    ),
+                }
+                if G.GAME.Astral_pins then
+                    All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'only_remove', All_in_Jest.old_colours or nil, true)      
+                    if G.aij_astral_pin_area then
+                        for _, v in pairs(G.aij_astral_pin_area.cards) do
+                            v:remove()
+                        end
+                    end
+                end
+                return true 
+            end 
+        }))
+    else
+        All_in_Jest.create_astral_pin(card)
+    end
+end
+
+function All_in_Jest.astral_background(type, colours)
+    if type then
+        ease_background_colour{special_colour = darken(colours.background[1], 0.5), new_colour = colours.background[2], tertiary_colour = colours.background[3], contrast = 1}
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.26,blocking = false, blockable = false,
+            func = function()
+                G.aij_astral_stars = G.aij_astral_stars or Particles(1, 1, 0,0, {
+                    timer = 0.07,
+                    scale = 0.1,
+                    initialize = true,
+                    lifespan = 15,
+                    speed = 0.1,
+                    padding = -4,
+                    attach = G.ROOM_ATTACH,
+                    colours = colours.stars,
+                    fill = true
+                })
+                G.aij_astral_meteors = G.aij_astral_meteors or Particles(1, 1, 0,0, {
+                    timer = 2,
+                    scale = 0.05,
+                    lifespan = 1.5,
+                    speed = 4,
+                    attach = G.ROOM_ATTACH,
+                    colours = {colours.stars[1]},
+                    fill = true
+                })
+                return true
+            end
+        }))
+    else
+        ease_background_colour({special_colour = colours.background[1], tertiary_colour = colours.background[2], new_colour = colours.background[3]})
+        if G.aij_astral_stars then G.aij_astral_stars:fade(0.25) end
+        if G.aij_astral_meteors then G.aij_astral_meteors:fade(0.25) end
+
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.25,blocking = false, blockable = false,
+            func = function()
+                if G.aij_astral_stars then G.aij_astral_stars:remove(); G.aij_astral_stars = nil end
+                if G.aij_astral_meteors then G.aij_astral_meteors:remove(); G.aij_astral_meteors = nil end
+                return true
+            end
+        }))
+    end
+end
+
+
+function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours)
+    local old_colours = old_colours or {
+        special_colour = copy_table(G.C.BACKGROUND.C),
+        tertiary_colour = copy_table(G.C.BACKGROUND.D),
+        new_colour = copy_table(G.C.BACKGROUND.L),
+    }
+    colours = colours or {}
+    if extra == 'only_color' then
+        if not immediate then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 1,
+                func = function()
+                    All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour}})
+                    return true
+            end}))
+        else
+            All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour}})
+        end
+        return
+    end
+    if extra ~= 'only_remove' then
+        -- Add astral pins
+        local astrals = 0
+        for k, v in pairs(G.GAME.Astral_pins) do
+            if hand == k then
+                for _, i in pairs(v) do
+                    astrals = astrals + 1
+                end
+            end
+        end
+        if astrals == 0 then
+            All_in_Jest.astral_visuals(hand, 'only_remove', All_in_Jest.old_colours or old_colours, true)  
+            All_in_Jest.old_colours = nil
+            return
+        end
+        for k, v in pairs(G.GAME.Astral_pins) do
+            if hand == k then
+                for _, i in pairs(v) do
+                    local center = G.Astral[i.pin]
+                    local card = Card(G.aij_astral_pin_area.T.x + G.aij_astral_pin_area.T.w/2,
+                    G.aij_astral_pin_area.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
+                    card.config.center_key = i.pin
+                    for k_, vi in pairs(card.config.center.config) do
+                        card.ability[k_] = vi 
+                    end
+                    for k_, vi in pairs(G.GAME.Astral_pins[k][_].ability) do
+                        card.ability[k_] = vi 
+                    end
+                    card.ability.extra.hand = k
+                    card.config.center.set_card_type_badge = function(self, card, badges)
+		                badges = {}
+	                end
+                    G.aij_astral_pin_area:emplace(card)
+                    card:start_materialize()
+                end
+            end
+        end
+        -- Change background colour
+        All_in_Jest.astral_background(true, {background = colours.background or {HEX("d1e2f6"), HEX("87a5c9"), HEX("d1e2f6")}, stars = colours.stars or {G.C.WHITE, HEX('d1e2f6'), HEX('9ec5d7')}})
+        delay(0.4)
+    end
+    if extra ~= 'no_remove' then
+        if not immediate then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 1,
+                func = function()
+                    All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour}})
+                    if G.aij_astral_pin_area then
+                        for _, v in pairs(G.aij_astral_pin_area.cards) do
+                            v:remove()
+                        end
+                    end
+                    return true
+            end}))
+        else
+            All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour}})
+            if G.aij_astral_pin_area then
+                for _, v in pairs(G.aij_astral_pin_area.cards) do
+                    v:remove()
+                end
+            end
+        end
+    end
+end
+
+
+G.FUNCS.aij_hover_tag_branching = function(e)
+    if not e.parent or not e.parent.states then return end
+    if e.states.hover.is and (e.created_on_pause == G.SETTINGS.paused) and not e.alert then
+        -- sendDebugMessage(tprint(e), "AIJ")
+        local _sprite = e.config.ref_table[2]:get_uibox_table()
+        e.alert = UIBox{
+            definition = G.UIDEF.card_h_popup(_sprite),
+            config = {align="tm", offset = {x = 0, y = -0.1},
+            major = e,
+            instance_type = 'POPUP'},
+        }
+        _sprite:juice_up(0.05, 0.02)
+        play_sound('paper1', math.random()*0.1 + 0.55, 0.42)
+        play_sound('tarot2', math.random()*0.1 + 0.55, 0.09)
+        e.alert.states.collide.can = false
+    elseif e.alert and (not e.states.hover.is or e.created_on_pause ~= G.SETTINGS.paused) then
+        e.alert:remove()
+        e.alert = nil
+    end
+end
+
+-- Function that defines when the tag area in the shop should appear (or not)
+All_in_Jest.show_shop_aij_tags = function(e)
+    return next(SMODS.find_card("j_aij_ijoker_co")) or next(SMODS.find_card("j_aij_death_of_a_salesman"))
+end
+function All_in_Jest_format_destroy(center_text)
+
+    if not All_in_Jest.config.red_destroy_text then
+        return center_text
+    end
+
+    if center_text == {} then
+        return center_text
+    end
+
+    local function add_red_text(text, start_index, end_index, base_format)
+        local destroyed_format = base_format
+        if base_format == "{}" then
+            destroyed_format = "{C:red}"
+        elseif string.match(base_format, "C:%w+") then -- Try to find an existing colour option
+            destroyed_format, _ = string.gsub(base_format, "C:%w+", "C:red")
+        else
+            destroyed_format = string.sub(base_format, 1, -2) .. ",C:red}"
+        end
+        return string.sub(text, 1, start_index - 1)..destroyed_format..string.sub(text, start_index, end_index)..base_format..string.sub(text, end_index + 1)
+    end
+
+    local destroy_texts = {
+        "destroying",
+        "destroyed",
+        "destroys",
+        "destroy"
+    }
+    local found_strings = {}
+    local one_box = true
+
+    if type(center_text[1]) == "table" then
+        -- Description has multiple boxes (e.g. "You got Mail" joker in this mod)
+        one_box = false
+        for j, box in ipairs(center_text) do
+            found_strings[j] = {}
+            for i, line in ipairs(box) do
+                found_strings[j][i] = {}
+                for _, text in ipairs(destroy_texts) do
+                    local start_index, end_index = string.find(string.lower(line), text)
+                    if start_index then
+                        local already_processed = false
+                        for _, t in ipairs(found_strings[j][i]) do
+                            if start_index == t.start_index then
+                                already_processed = true
+                                break
+                            end
+                        end
+
+                        if not already_processed then
+                            -- Try to extract any existing formatting on the destroy text
+                            -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
+                            local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
+                            -- Do not apply red text if text is:
+                            -- - Grey
+                            -- - Already red
+                            if not (string.match(applied_formatting, "C:red") or
+                               string.match(applied_formatting, "C:inactive"))
+                            then
+                                local t = {
+                                    start_index = start_index,
+                                    end_index = end_index,
+                                    format = applied_formatting
+                                }
+                                table.insert(found_strings[j][i], t)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    elseif type(center_text[1]) == "string" then
+        -- Description does not have multiple boxes
+        found_strings[1] = {}
+        for i, line in ipairs(center_text) do
+            found_strings[1][i] = {}
+            for _, text in ipairs(destroy_texts) do
+                local start_index, end_index = string.find(string.lower(line), text)
+                if start_index then
+                    local already_processed = false
+                    for _, t in ipairs(found_strings[1][i]) do
+                        if start_index == t.start_index then
+                            already_processed = true
+                            break
+                        end
+                    end
+
+                    if not already_processed then
+                        -- Try to extract any existing formatting on the destroy text
+                        -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
+                        local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
+                        -- Do not apply red text if text is already red
+                        if not string.match(applied_formatting, "C:red") then
+                            local t = {
+                                start_index = start_index,
+                                end_index = end_index,
+                                format = applied_formatting
+                            }
+                            table.insert(found_strings[1][i], t)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    for box_index, _ in ipairs(found_strings) do
+        for line_index, _ in ipairs(found_strings[box_index]) do
+            for _, t in ipairs(found_strings[box_index][line_index]) do
+                local start_index = t.start_index
+                local end_index = t.end_index
+                local base_format = t.format
+                if one_box then
+                    center_text[line_index] = add_red_text(center_text[line_index], start_index, end_index, base_format)
+                else
+                    center_text[box_index][line_index] = add_red_text(center_text[box_index][line_index], start_index, end_index, base_format)
+                end
+            end
+        end
+    end
+
+    return center_text
+end
+All_in_Jest.change_card = function(suit, rank, cards)
+    -- Using same code as suit tarots, stolen from old read em and weep
+    for i = 1, #cards do
+        local percent = 1.15 - (i - 0.999) / (#cards - 0.998) * 0.3
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.15,
+            func = function()
+                cards[i]:flip()
+                play_sound('card1', percent)
+                cards[i]:juice_up(0.3, 0.3)
+                return true
+            end
+        }))
+    end
+    delay(0.2)
+    for i = 1, #cards do
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                if cards[i].ability then -- This stuff is here bc its used in read em and weep and i dont think it matters much for other things that use it
+                    cards[i].ability.played_this_ante = false
+                end
+                SMODS.change_base(cards[i], suit, rank)
+                if cards[i].ability then
+                    cards[i].ability.played_this_ante = true
+                end
+                return true
+            end
+        }))
+    end
+    for i = 1, #cards do
+        local percent = 0.85 + (i - 0.999) / (#cards - 0.998) * 0.3
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.15,
+            func = function()
+                cards[i]:flip()
+                play_sound('tarot2', percent, 0.6)
+                cards[i]:juice_up(0.3, 0.3)
+                return true
+            end
+        }))
+    end
+end
+
 function All_in_Jest.get_random_joker_colours(colour)
     local clothes_and_makeup_colours = {
         HEX('fd5f55'), HEX('fda200'), HEX('009cfd'), HEX('55a383'), HEX('8dffd0'), HEX('7dc6f3'),
@@ -2072,16 +2547,16 @@ end
 function All_in_Jest.apply_inherent_effect(card, effect, type)
     card.aij_inherent_effects = card.aij_inherent_effects or {}
     if not effect then return end
-    if type == 'edition' then
-        card.aij_inherent_effects[type..'s'] = card.aij_inherent_effects[type..'s'] or {}
-        local index = #card.aij_inherent_effects[type..'s'] + 1
-        card.aij_inherent_effects[type..'s'][index] = copy_table(effect)
-    elseif type == 'enhancement' then
-        card.aij_inherent_effects[type..'s'] = card.aij_inherent_effects[type..'s'] or {}
-        local index = #card.aij_inherent_effects[type..'s'] + 1
-        card.aij_inherent_effects[type..'s'][index] = {}
-        card.aij_inherent_effects[type..'s'][index]['center'] = copy_table(effect)
-        card.aij_inherent_effects[type..'s'][index]['ability'] = copy_table(card.ability)
+    if effect_type == 'edition' then
+        card.aij_inherent_effects[effect_type..'s'] = card.aij_inherent_effects[effect_type..'s'] or {}
+        local index = #card.aij_inherent_effects[effect_type..'s'] + 1
+        card.aij_inherent_effects[effect_type..'s'][index] = copy_table(effect)
+    elseif effect_type == 'enhancement' then
+        card.aij_inherent_effects[effect_type..'s'] = card.aij_inherent_effects[effect_type..'s'] or {}
+        local index = #card.aij_inherent_effects[effect_type..'s'] + 1
+        card.aij_inherent_effects[effect_type..'s'][index] = {}
+        card.aij_inherent_effects[effect_type..'s'][index]['center_key'] = effect.key
+        card.aij_inherent_effects[effect_type..'s'][index]['ability'] = copy_table(card.ability)
     end
 end
 
@@ -2331,10 +2806,8 @@ function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
 	end
 
 	if not edition_type or edition_type == 'base' then
-		if self.aij_seal_edition == nil then -- early exit
-			return
-		end
-		self.aij_seal_edition = nil -- remove edition from card
+		if self.aij_seal_edition == nil then return end
+		self.aij_seal_edition = nil 
 		self:set_cost()
 		if not silent then
 			G.E_MANAGER:add_event(Event({
@@ -2350,13 +2823,7 @@ function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
 		end
 		if delay then
 			self.aij_delay_seal_edition = old_edition
-			G.E_MANAGER:add_event(Event({
-				trigger = 'immediate',
-				func = function()
-					self.aij_delay_seal_edition = nil
-					return true
-				end
-			}))
+			G.E_MANAGER:add_event(Event({ trigger = 'immediate', func = function() self.aij_delay_seal_edition = nil return true end }))
 		end
 		return
 	end
@@ -2368,59 +2835,36 @@ function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
 
 	local p_edition = G.P_CENTERS['e_' .. edition_type]
 
-	if p_edition.override_base_shader or p_edition.disable_base_shader then
-		self.ignore_base_shader[self.aij_seal_edition.key] = true
-	end
-	if p_edition.no_shadow or p_edition.disable_shadow then
-		self.ignore_shadow[self.aij_seal_edition.key] = true
-	end
+	if p_edition.override_base_shader or p_edition.disable_base_shader then self.ignore_base_shader[self.aij_seal_edition.key] = true end
+	if p_edition.no_shadow or p_edition.disable_shadow then self.ignore_shadow[self.aij_seal_edition.key] = true end
 
     if p_edition.aij_seal_config then
         for k, v in pairs(p_edition.aij_seal_config) do
-		    if type(v) == 'table' then
-			    self.aij_seal_edition[k] = copy_table(v)
-		    else
-			    self.aij_seal_edition[k] = v
-		    end
+		    if type(v) == 'table' then self.aij_seal_edition[k] = copy_table(v)
+		    else self.aij_seal_edition[k] = v end
 	    end
         for k, v in pairs(p_edition.config) do
-		    if type(v) == 'table' and not self.aij_seal_edition[k] then
-			    self.aij_seal_edition[k] = copy_table(v)
-		    elseif not self.aij_seal_edition[k] then
-			    self.aij_seal_edition[k] = v
-		    end
+		    if type(v) == 'table' and not self.aij_seal_edition[k] then self.aij_seal_edition[k] = copy_table(v)
+		    elseif not self.aij_seal_edition[k] then self.aij_seal_edition[k] = v end
 	    end
     else
 	    for k, v in pairs(p_edition.config) do
-		    if type(v) == 'table' then
-			    self.aij_seal_edition[k] = copy_table(v)
-		    else
-			    self.aij_seal_edition[k] = v
-		    end
+		    if type(v) == 'table' then self.aij_seal_edition[k] = copy_table(v)
+		    else self.aij_seal_edition[k] = v end
 	    end
-        if edition_type == 'polychrome' then
-            self.aij_seal_edition['x_mult'] = self.aij_seal_edition['x_mult'] - 1
-        end
+        if edition_type == 'polychrome' then self.aij_seal_edition['x_mult'] = self.aij_seal_edition['x_mult'] - 1 end
         jest_ability_calculate(self, "/", 2, nil, nil, false, nil, "aij_seal_edition")
-        if edition_type == 'polychrome' then
-            self.aij_seal_edition['x_mult'] = self.aij_seal_edition['x_mult'] + 1
-        end
+        if edition_type == 'polychrome' then self.aij_seal_edition['x_mult'] = self.aij_seal_edition['x_mult'] + 1 end
     end
 
 	local on_edition_applied = p_edition.on_apply
-	if type(on_edition_applied) == "function" then
-		on_edition_applied(self)
-	end
+	if type(on_edition_applied) == "function" then on_edition_applied(self) end
 
 	if self.area and self.area == G.jokers then
 		if self.aij_seal_edition then
-			if not G.P_CENTERS['e_' .. (self.aij_seal_edition.type)].discovered then
-				discover_card(G.P_CENTERS['e_' .. (self.aij_seal_edition.type)])
-			end
+			if not G.P_CENTERS['e_' .. (self.aij_seal_edition.type)].discovered then discover_card(G.P_CENTERS['e_' .. (self.aij_seal_edition.type)]) end
 		else
-			if not G.P_CENTERS['e_base'].discovered then
-				discover_card(G.P_CENTERS['e_base'])
-			end
+			if not G.P_CENTERS['e_base'].discovered then discover_card(G.P_CENTERS['e_base']) end
 		end
 	end
 
@@ -2428,9 +2872,7 @@ function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
 		local ed = G.P_CENTERS['e_' .. (self.aij_seal_edition.type)]
 		G.CONTROLLER.locks.aij_seal_edition = true
 		G.E_MANAGER:add_event(Event({
-			trigger = 'after',
-			delay = not immediate and 0.2 or 0,
-			blockable = not immediate,
+			trigger = 'after', delay = not immediate and 0.2 or 0, blockable = not immediate,
 			func = function()
 				if self.aij_seal_edition then
 					self:juice_up(1, 0.5)
@@ -2439,178 +2881,19 @@ function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
 				return true
 			end
 		}))
-		G.E_MANAGER:add_event(Event({
-			trigger = 'after',
-			delay = 0.1,
-			func = function()
-				G.CONTROLLER.locks.aij_seal_edition = false
-				return true
-			end
-		}))
+		G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.1, func = function() G.CONTROLLER.locks.aij_seal_edition = false return true end }))
 	end
 
 	if delay then
 		self.aij_delay_seal_edition = old_edition or {base = true}
-		G.E_MANAGER:add_event(Event({
-			trigger = 'immediate',
-			func = function()
-				self.aij_delay_seal_edition = nil
-				return true
-			end
-		}))
+		G.E_MANAGER:add_event(Event({ trigger = 'immediate', func = function() self.aij_delay_seal_edition = nil return true end }))
 	end
 
 	self.ability.card_limit = self.ability.card_limit + (self.aij_seal_edition.card_limit or 0)
 	self.ability.extra_slots_used = self.ability.extra_slots_used + (self.aij_seal_edition.extra_slots_used or 0)
 
-
-	if G.jokers and self.area == G.jokers then
-		check_for_unlock({ type = 'modify_jokers' })
-	end
-
+	if G.jokers and self.area == G.jokers then check_for_unlock({ type = 'modify_jokers' }) end
 	self:set_cost()
-end
-
-function All_in_Jest_format_destroy(center_text)
-
-    if center_text == {} then
-        return center_text
-    end
-
-    local function add_red_text(text, start_index, end_index, base_format)
-        local destroyed_format = base_format
-        if base_format == "{}" then
-            destroyed_format = "{C:red}"
-        elseif string.match(base_format, "C:%w+") then -- Try to find an existing colour option
-            destroyed_format, _ = string.gsub(base_format, "C:%w+", "C:red")
-        else
-            destroyed_format = string.sub(base_format, 1, -2) .. ",C:red}"
-        end
-        return string.sub(text, 1, start_index - 1)..destroyed_format..string.sub(text, start_index, end_index)..base_format..string.sub(text, end_index + 1)
-    end
-
-    local destroy_texts = {
-        "destroying",
-        "destroyed",
-        "destroys",
-        "destroy"
-    }
-    local found_strings = {}
-    local one_box = true
-
-    if type(center_text[1]) == "table" then
-        -- Description has multiple boxes (e.g. "You got Mail" joker in this mod)
-        one_box = false
-        for j, box in ipairs(center_text) do
-            found_strings[j] = {}
-            for i, line in ipairs(box) do
-                found_strings[j][i] = {}
-                for _, text in ipairs(destroy_texts) do
-                    local start_index, end_index = string.find(string.lower(line), text)
-                    if start_index then
-                        local already_processed = false
-                        for _, t in ipairs(found_strings[j][i]) do
-                            if start_index == t.start_index then
-                                already_processed = true
-                                break
-                            end
-                        end
-
-                        if not already_processed then
-                            -- Try to extract any existing formatting on the destroy text
-                            -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
-                            local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
-                            -- Do not apply red text if text is already red
-                            if not string.match(applied_formatting, "C:red") then
-                                local t = {
-                                    start_index = start_index,
-                                    end_index = end_index,
-                                    format = applied_formatting
-                                }
-                                table.insert(found_strings[j][i], t)
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    elseif type(center_text[1]) == "string" then
-        -- Description does not have multiple boxes
-        found_strings[1] = {}
-        for i, line in ipairs(center_text) do
-            found_strings[1][i] = {}
-            for _, text in ipairs(destroy_texts) do
-                local start_index, end_index = string.find(string.lower(line), text)
-                if start_index then
-                    local already_processed = false
-                    for _, t in ipairs(found_strings[1][i]) do
-                        if start_index == t.start_index then
-                            already_processed = true
-                            break
-                        end
-                    end
-
-                    if not already_processed then
-                        -- Try to extract any existing formatting on the destroy text
-                        -- Lua cannot perform string.match or string.find on last occurence, so use string.reverse to emulate this
-                        local applied_formatting = string.reverse(string.match(string.reverse(string.sub(line, 1, start_index - 1)), "}.-{") or "}{")
-                        -- Do not apply red text if text is already red
-                        if not string.match(applied_formatting, "C:red") then
-                            local t = {
-                                start_index = start_index,
-                                end_index = end_index,
-                                format = applied_formatting
-                            }
-                            table.insert(found_strings[1][i], t)
-                        end
-                    end
-                end
-            end
-        end
-    end
-
-    for box_index, _ in ipairs(found_strings) do
-        for line_index, _ in ipairs(found_strings[box_index]) do
-            for _, t in ipairs(found_strings[box_index][line_index]) do
-                local start_index = t.start_index
-                local end_index = t.end_index
-                local base_format = t.format
-                if one_box then
-                    center_text[line_index] = add_red_text(center_text[line_index], start_index, end_index, base_format)
-                else
-                    center_text[box_index][line_index] = add_red_text(center_text[box_index][line_index], start_index, end_index, base_format)
-                end
-            end
-        end
-    end
-
-    return center_text
-end
-
-G.FUNCS.aij_hover_tag_branching = function(e)
-    if not e.parent or not e.parent.states then return end
-    if e.states.hover.is and (e.created_on_pause == G.SETTINGS.paused) and not e.alert then
-        -- sendDebugMessage(tprint(e), "AIJ")
-        local _sprite = e.config.ref_table[2]:get_uibox_table()
-        e.alert = UIBox{
-            definition = G.UIDEF.card_h_popup(_sprite),
-            config = {align="tm", offset = {x = 0, y = -0.1},
-            major = e,
-            instance_type = 'POPUP'},
-        }
-        _sprite:juice_up(0.05, 0.02)
-        play_sound('paper1', math.random()*0.1 + 0.55, 0.42)
-        play_sound('tarot2', math.random()*0.1 + 0.55, 0.09)
-        e.alert.states.collide.can = false
-    elseif e.alert and (not e.states.hover.is or e.created_on_pause ~= G.SETTINGS.paused) then
-        e.alert:remove()
-        e.alert = nil
-    end
-end
-
--- Function that defines when the tag area in the shop should appear (or not)
-All_in_Jest.show_shop_aij_tags = function(e)
-    return next(SMODS.find_card("j_aij_ijoker_co")) or next(SMODS.find_card("j_aij_death_of_a_salesman"))
 end
 
 local function load_file_content(path, id)

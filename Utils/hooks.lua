@@ -362,11 +362,27 @@ function SMODS.has_no_rank(card)
             return true 
         end
     end
+    if card.config.aij_other_center and card.config.aij_other_center['center'] then
+        if card.config.aij_other_center['center'].key == 'm_stone' or card.config.aij_other_center['center'].no_rank then
+            card.front_hidden = card:should_hide_front()
+            return true 
+        end
+    end
+    if card.ability.numbertaker_rankless then return true end
     return has_no_rank_ref(card)
 end
 
 local get_front_spriteinfo_ref = get_front_spriteinfo
 function get_front_spriteinfo(_front)
+    if _front.card and _front.card.ability and _front.card.ability.numbertaker_rankless and _front.suit then
+        if G.SETTINGS.colour_palettes[_front.suit] == 'hc' and G.all_in_jest.numbertaker_rankless['hc_'.._front.suit] then 
+            return G.ASSET_ATLAS[G.all_in_jest.numbertaker_rankless['hc_'.._front.suit].atlas], G.all_in_jest.numbertaker_rankless['hc_'.._front.suit].pos 
+        elseif G.all_in_jest.numbertaker_rankless[_front.suit] then 
+            return G.ASSET_ATLAS[G.all_in_jest.numbertaker_rankless[_front.suit].atlas], G.all_in_jest.numbertaker_rankless[_front.suit].pos 
+        else
+            return SMODS.get_atlas(G.SETTINGS.colour_palettes[_front.suit] == 'hc' and _front.hc_atlas or _front.lc_atlas or {}) or SMODS.get_atlas(_front.atlas) or SMODS.get_atlas("cards_"..(G.SETTINGS.colour_palettes[_front.suit] == 'hc' and 2 or 1)), {x=12,y=_front.pos.y}
+        end
+    end
     if _front and _front.suit and _front.value and _front.card and _front.card.ability and _front.card.ability.all_in_jest and _front.card.ability.all_in_jest.random_aij_deck_skin and All_in_Jest.config.random_deck_skins then
         local collab = _front.card.ability.all_in_jest.random_aij_deck_skin[_front.suit]
         if collab then
@@ -692,6 +708,135 @@ SMODS.PokerHand {
     end,
 }
 
+SMODS.ConsumableType({
+    key = 'aij_astral',
+    primary_colour = HEX("d1e2f6"),
+    secondary_colour = HEX("87a5c9"),
+    collection_rows = {5, 4},
+    shop_rate = 0,
+    default = 'c_aij_algol',
+    no_buy_and_use = false,
+    inject_card = function(self, center)
+        local set_ability_ref = center.set_ability
+        center.set_ability = function(self, card, initial, delay_sprites)
+            card.ability = copy_table(card.ability)
+            local center_cfg = card.config.center
+            local grade = All_in_Jest.astral_set_grade(center_cfg.all_in_jest and center_cfg.all_in_jest.grades)
+            card.ability.consumeable.grade = grade
+            card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(grade)
+
+            if set_ability_ref then
+                return set_ability_ref(self, card, initial, delay_sprites)
+            end
+        end
+
+        local loc_vars_ref = center.loc_vars
+        center.loc_vars = function(self, info_queue, card)
+            local pin_count = 0
+            if G.GAME.Astral_pins and #G.GAME.Astral_pins and card.ability.consumeable and card.ability.consumeable.hand then 
+                pin_count = #G.GAME.Astral_pins[card.ability.consumeable.hand] or 0 
+            end
+            local pins_left = math.max((G.GAME.all_in_jest.astral_pin_per_hand or 3) - pin_count, 0)
+
+
+            local ret = {}
+            if loc_vars_ref then
+                ret = loc_vars_ref(self, info_queue, card)
+            end
+
+            if card.area and not card.area.config.collection then
+                if card.ability.consumeable.hand and card.ability.consumeable.grade then
+                    info_queue[#info_queue+1] = {key = 'aij_astral_'..string.lower(card.ability.consumeable.grade), set = 'Other'}
+                end
+                
+                ret.main_end = ret.main_end or {}
+                ret.main_end[#ret.main_end + 1] = {n = G.UIT.R, config = {align = "cm"}, nodes = {
+                    {n = G.UIT.R, config = {align = "cm", padding = 0.02}, nodes = {
+                        {n = G.UIT.T, config = {text = localize{type = "variable", key = "a_aij_slots_left", vars = {pins_left}}, colour = G.C.UI.TEXT_INACTIVE, scale = 0.32}},
+                    }}
+                }}
+            end
+
+            return ret
+        end
+        
+        if not center.can_use then
+            center.can_use = function(self, card)
+                return true 
+            end
+        end
+        if not center.use then
+            center.use = function(self, card, area, copier)
+                All_in_Jest.use_astral_card(card)
+            end
+        end
+        SMODS.ObjectType.inject_card(self, center)
+    end,
+})
+
+SMODS.UndiscoveredSprite({
+    key = 'aij_astral',
+    atlas = 'consumable_atlas',
+    pos = { x = 15, y = 4 },
+    overlay_pos = { x = 16, y = 4 },
+})
+
+G.Astral = {} -- stores Astral pins
+All_in_Jest.Astral = SMODS.Tag:extend {
+    set = 'aij_astral',
+    is_pin = true,
+    atlas = 'consumable_atlas',
+    class_prefix = 'c',
+    in_pool = function() return false end,
+    inject = function(self)
+        G.Astral[self.pin] = self
+    end,
+    generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+        if not card then
+            card = self:create_fake_card()
+        end
+        local set_check = self.alt_set or self.set
+        local target = {
+            type = 'descriptions',
+            key = self.key,
+            set = set_check,
+            nodes = desc_nodes,
+            AUT = full_UI_table,
+            vars =
+                specific_vars or {}
+        }
+        local res = {}
+        if self.loc_vars and type(self.loc_vars) == 'function' then
+            res = self:loc_vars(info_queue, card) or {}
+            target.vars = res.vars or target.vars
+            target.key = res.key or target.key
+            target.set = res.set or target.set
+            target.scale = res.scale
+            target.text_colour = res.text_colour
+        end
+
+        if desc_nodes == full_UI_table.main and not full_UI_table.name then
+            full_UI_table.name = set_check == 'Enhanced' and 'temp_value' or localize { type = 'name', set = target.set, key = res.name_key or target.key, nodes = full_UI_table.name, vars = res.name_vars or target.vars or {} }
+        elseif desc_nodes ~= full_UI_table.main and not desc_nodes.name and set_check ~= 'Enhanced' then
+            desc_nodes.name = localize{type = 'name_text', key = res.name_key or target.key, set = target.set }
+        end
+        if specific_vars and specific_vars.debuffed and not res.replace_debuff then
+            target = { type = 'other', key = 'debuffed_' ..
+            (specific_vars.playing_card and 'playing_card' or 'default'), nodes = desc_nodes, AUT = full_UI_table, }
+        end
+        if res.main_start then
+            desc_nodes[#desc_nodes + 1] = res.main_start
+        end
+
+        localize(target)
+            
+        if res.main_end then
+            desc_nodes[#desc_nodes + 1] = res.main_end
+        end
+        desc_nodes.background_colour = res.background_colour
+    end
+}
+
 local init_game_object_ref = Game.init_game_object
 function Game.init_game_object(self)
   local ret = init_game_object_ref(self)
@@ -726,8 +871,8 @@ function SMODS.upgrade_poker_hands(args)
         local new_args = {
             hands = "aij_Royal Flush",
             parameters = args.parameters,
-            func = function(base, hand, parameter)
-                return args.func(base, "Straight Flush", parameter)
+            func = function(base, hand, parameter, level_up)
+                return args.func(base, "Straight Flush", parameter, level_up)
             end,
             level_up = args.level_up,
             instant = true,
@@ -954,6 +1099,33 @@ function Card:set_sprites(_center, _front)
             self.children[k]:set_sprite_pos(_center.all_in_jest.soul_layers[k].pos)
         end
     end
+
+    -- For rankless cards
+    if self.ability and self.ability.numbertaker_rankless and _front and _front.suit then
+        if not G.all_in_jest.numbertaker_rankless[_front.suit] then 
+            local name = self.children.front.atlas.name
+            local base = G.ASSET_ATLAS[name].image_data:clone()
+            local pos = {x=12,y=self.children.front.sprite_pos.y}
+            local layer = G.ASSET_ATLAS[G.all_in_jest.numbertaker_rankless['Other'].atlas].image_data:clone()
+            local posl = G.all_in_jest.numbertaker_rankless['Other'].pos
+            local bpx, bpy = G.ASSET_ATLAS[name].px, G.ASSET_ATLAS[name].py
+            local lpx, lpy = G.ASSET_ATLAS[G.all_in_jest.numbertaker_rankless['Other'].atlas].px, G.ASSET_ATLAS[G.all_in_jest.numbertaker_rankless['Other'].atlas].py
+            local new_color = aij_get_mcc_pixel(base, pos, {bpx = bpx, bpy = bpy})
+            aij_pasteAlpha(base, layer, pos, {x=9, y=4}, {reverse = true, lpx = lpx, lpy = lpy, bpx = bpx, bpy = bpy})
+            aij_pasteAlpha(base, layer, pos, posl, {lpx = lpx, lpy = lpy, bpx = bpx, bpy = bpy})
+            local replace_color = HEX('f900ff')
+            self.children.front.atlas = {
+                px = bpx, py = bpy, name = name,
+                image_data = base,
+                image = love.graphics.newImage(base, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
+            }
+            if new_color then
+                new_color[4] = 255
+                aij_recolour_atlas(self, replace_color, new_color, self.children.front.atlas, true)
+            end
+            self.children.front:set_sprite_pos(pos)
+        end
+    end
 end
 
 local cardupdateref = Card.update
@@ -1107,4 +1279,45 @@ function CardArea:align_cards()
     else
         return aij_cardarea_align_cards_ref(self)
     end
+end
+
+-- Hook for The Arm's downgrades
+-- If one of chips/mult are at base levels, then downgrade the other appropriately
+local aij_level_up_hand_ref = level_up_hand
+function level_up_hand(card, hand, instant, amount)
+    if amount ~= nil and amount < 1 then
+        local obj = G.GAME.hands[hand]
+        local freeze_mult = false
+        local freeze_chips = false
+        if obj.mult <= obj.s_mult then
+            freeze_mult = true
+        end
+        if obj.chips <= obj.s_chips then
+            freeze_chips = true
+        end
+        if freeze_chips and freeze_mult then
+            return
+        elseif freeze_chips then
+            return level_up_hand_mult(card, hand, instant, amount)
+        elseif freeze_mult then
+            return level_up_hand_chips(card, hand, instant, amount)
+        end
+    end
+    return aij_level_up_hand_ref(card, hand, instant, amount)
+end
+
+-- Hook to make astral pins move out of the way outside of a round
+local aij_cardarea_move_ref = CardArea.move
+function CardArea:move(dt)
+    local ret = aij_cardarea_move_ref(self, dt)
+
+    if self == G.aij_astral_pin_area then 
+        local desired_y = G.ROOM.T.h/4
+        if not (G.STATE == G.STATES.SELECTING_HAND or G.STATE == G.STATES.HAND_PLAYED or G.STATE == G.STATES.DRAW_TO_HAND) then
+            desired_y = desired_y * -1
+        end
+        G.aij_astral_pin_area.T.y = desired_y
+    end
+
+    return ret
 end

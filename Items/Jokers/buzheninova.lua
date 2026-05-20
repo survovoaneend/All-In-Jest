@@ -2,7 +2,6 @@ local buzheninova = {
     object_type = "Joker",
     order = 1045,
     ignore = true,
-
     key = "buzheninova",
     config = {
       

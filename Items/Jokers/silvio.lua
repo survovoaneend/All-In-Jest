@@ -23,7 +23,7 @@ local silvio = {
     end,
 
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play then
+        if context.repetition then
             if context.other_card and context.other_card:get_id() == 13 then
                 local queen_count = 0
                 if G.hand and G.hand.cards then

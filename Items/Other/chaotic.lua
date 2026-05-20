@@ -24,7 +24,7 @@ local chaotic_card = {
                 xmult = 1.5
             }
         end
-        if card.ability.aij_jest_chaotic_card and card.config.center.set == "Enhanced" and context.after and context.scoring_hand then
+        if card.ability.aij_jest_chaotic_card and (card.config.center.set == "Enhanced" or card.config.center.set == "Default") and context.after and context.scoring_hand then
             local in_hand = false
             for _, scored_card in ipairs(context.scoring_hand) do
                 if scored_card == card then

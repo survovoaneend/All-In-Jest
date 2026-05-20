@@ -42,13 +42,13 @@ function Card:update(dt)
           self,
           "/", tonumber(self.ability.aij_recherche_doubled.prevmult),
           { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
-          nil, true, true, "ability.extra"
+          nil, true, nil, "ability"
         )
         jest_ability_calculate(
           self,
           "*", tonumber(self.ability.aij_recherche_doubled.mult),
           { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
-          nil, true, true, "ability.extra"
+          nil, true, nil, "ability"
         )
         if self.added_to_deck then
           self.added_to_deck = false

@@ -1,7 +1,7 @@
 local straight_to_hell = {
   object_type = "Joker",
   order = 156,
-
+  lite = true,
   key = "straight_to_hell",
   config = {
     extra = {

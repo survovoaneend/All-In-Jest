@@ -147,7 +147,7 @@ end
 local random_joker = {
     object_type = "Joker",
     order = 762,
-
+    ignore = true,
     key = "random_joker",
     config = {
         extra = {

@@ -6,10 +6,10 @@ local colour_test = {
     config = {
 
     },
-    rarity = 2,
+    rarity = 3,
     pos = { x = 15, y = 11 },
     atlas = 'joker_atlas',
-    cost = 7,
+    cost = 8,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

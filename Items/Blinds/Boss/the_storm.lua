@@ -7,7 +7,7 @@ local the_storm = {
     mult = 2,
     boss_colour = HEX("b48b52"),
     atlas = 'blinds',
-    pos = { X = 0, y = 53},
+    pos = { X = 0, y = 53 },
     order = 37,
     dollars = 5,
 
@@ -18,23 +18,18 @@ local the_storm = {
             return
         end
         if context.after and context.full_hand and context.scoring_hand and not temp then
-            local total_cards = {}
-            for i = 1, #context.full_hand do
-                local scoring = false
-                for j = 1, #context.scoring_hand do
-                    if context.full_hand[i] == context.scoring_hand[j] then
-                        scoring = true
-                    end
+            if #context.scoring_hand >= 3 then
+                local cards_to_destroy = {}
+                for i = 1, #context.full_hand do
+                    cards_to_destroy[#cards_to_destroy + 1] = context.full_hand[i]
                 end
-                if not scoring then
-                    total_cards[#total_cards+1] = context.full_hand[i]
+                if #cards_to_destroy > 0 then
+                    blind:wiggle()
+                    SMODS.destroy_cards(cards_to_destroy)
                 end
-            end
-            if #total_cards > 0 then
-                SMODS.destroy_cards(total_cards)
             end
         end
     end
 
 }
-return { name = {"Blinds"}, items = {the_storm} }
+return { name = { "Blinds" }, items = { the_storm } }

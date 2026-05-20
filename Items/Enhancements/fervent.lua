@@ -3,6 +3,7 @@ local fervent_planet = {
     key = 'fervent',
     atlas = 'enhancements_atlas',
     order = 0,
+    lite = true,
     pos = { x = 0, y = 0 },
     config = {
         bonus = 0,

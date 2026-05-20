@@ -1,6 +1,7 @@
 local witchfinder = {
     object_type = "Joker",
     order = 251,
+    lite = true,
     key = "witchfinder",
     config = {
         extra = {boosters = 1}

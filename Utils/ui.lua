@@ -53,6 +53,39 @@ SMODS.current_mod.config_tab = function()
                   },
                 },
               },
+              {
+                n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_lite_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_lite'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'aij_lite'
+                  },
+                },
+              },
+            }
+          },
+          {
+            n = G.UIT.R,
+            nodes = {
+              {
+                n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_red_destroy_text_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_red_destroy_text'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'red_destroy_text'
+                  },
+                },
+              },
+              -- {
+              --   n = G.UIT.C,
+              --   config = {},
+              --   nodes = {
+              --   },
+              -- },
             }
           },
         }},
@@ -97,6 +130,17 @@ SMODS.current_mod.config_tab = function()
                     ref_value = 'random_deck_skins'
                   },
                 },
+              },
+              {
+                n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_guess_names_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_guess_names'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'guess_names'
+                  },
+                },
               }
             }
           },
@@ -106,7 +150,7 @@ SMODS.current_mod.config_tab = function()
   }
 end
 local joker_listing = {
-	{"j_aij_nevernamed_credits_joker", "j_aij_survivalaren_credits_joker", "j_aij_rattling_snow_credits_joker", "j_aij_jumbocarrot_credits_joker"},
+	{"j_aij_nevernamed_credits_joker", "j_aij_survivalaren_credits_joker", "j_aij_rattling_snow_credits_joker", "j_aij_jumbocarrot_credits_joker","j_aij_heavenbrand_credits_joker"},
 }
 -- Modify main page
 All_in_Jest.custom_ui = function(mod_nodes)
@@ -144,6 +188,7 @@ All_in_Jest.custom_ui = function(mod_nodes)
 	}
 	mod_nodes[#mod_nodes + 1] = {
 		n = G.UIT.R,
+    config = { align = "cm" },
 		nodes = {
 			{
 				n = G.UIT.C,
@@ -177,6 +222,23 @@ end
 --  end
 --  G:save_settings()
 --end
+
+function aij_get_UIE_by_fob(self, id, node)
+    if not node then node = self end
+    if node.config and (node.config.func == id or node.config.button == id) then return node end
+    for k, v in pairs(node.children) do
+        local res = aij_get_UIE_by_fob(self, id, v)
+        if res then
+            return res
+        elseif v.config.object and v.config.object.aij_get_UIE_by_fob then
+            res = v.config.object:aij_get_UIE_by_fob(id, nil)
+            if res then
+                return res
+            end
+        end
+    end
+    return nil
+end
 
 G.FUNCS.jest_free_reroll_boss = function(e) 
     stop_use()
@@ -260,7 +322,29 @@ G.FUNCS.jest_free_reroll_boss_button = function(e)
             G.blind_prompt_box.definition.nodes[3].nodes[1].nodes[2].config.button_UIE.UIBox:recalculate()
         end
     end
-  end
+end
+G.FUNCS.jest_tag_choice_next_page = function(e)
+    local blind_choice = e.config.ref_table[2]
+    if blind_choice == G.GAME.blind_on_deck then G.GAME.all_in_jest.blind_tags.selected_index = nil end
+    G.GAME.all_in_jest.blind_tags[blind_choice].page = G.GAME.all_in_jest.blind_tags[blind_choice].page + e.config.ref_table[1]
+    local par = G.blind_select_opts[blind_choice:lower()].parent
+    G.blind_select_opts[blind_choice:lower()]:remove()
+    G.blind_select_opts[blind_choice:lower()] = UIBox{
+      T = {par.T.x, 0, 0, 0, },
+      definition =
+        {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
+          UIBox_dyn_container({create_UIBox_blind_choice(blind_choice)},false,get_blind_main_colour(blind_choice))
+        }},
+      config = {align="bmi",
+                offset = {x=0,y=G.ROOM.T.y + 9},
+                major = par,
+                xy_bond = 'Weak'
+              }
+    }
+    par.config.object = G.blind_select_opts[blind_choice:lower()]
+    par.config.object:recalculate()
+    G.blind_select_opts[blind_choice:lower()].parent = par
+end
 SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
     args = args or {}
     args.w_mod = args.w_mod or 1
@@ -309,9 +393,16 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
         for j = 1, #rows do
             for i = 1, rows[j] do
             local index = i+row_totals[j] + (cards_per_page*(e.cycle_config.current_option - 1))
-            local center = pool[index]
-            if not center then break end
-            local card = args.from_area and copy_card(center) or Card(G.your_collection[j].T.x + G.your_collection[j].T.w/2, G.your_collection[j].T.y, G.CARD_W*args.card_scale, G.CARD_H*args.card_scale, G.P_CARDS.empty, (args.center and G.P_CENTERS[args.center]) or center)
+            local center = nil
+            local card = nil
+            if args.create_card then 
+                center, card = args.create_card(pool, index, i, j) 
+                if not center then break end
+            else
+                center = pool[index]
+                if not center then break end
+                card = args.from_area and copy_card(center, nil, args.card_scale) or Card(G.your_collection[j].T.x + G.your_collection[j].T.w/2, G.your_collection[j].T.y, G.CARD_W*args.card_scale, G.CARD_H*args.card_scale, G.P_CARDS.empty, (args.center and G.P_CENTERS[args.center]) or center, args.bypass_extra)
+            end
 
             -- Re-adds negative to preview if it was stripped by the mod
             if center.edition and center.edition.negative and not All_in_Jest.config.no_copy_neg then
@@ -519,6 +610,17 @@ G.FUNCS.jest_next_tag = function(e)
       end
     end
 end
+G.FUNCS.jest_astral_replace = function(e)
+    local card = e.config.ref_table
+    local area = e.config.data[1]
+    local data = e.config.data[2]
+    All_in_Jest.create_astral_pin(data.consumable_card, data.astral_index)
+    G.SETTINGS.paused = false
+    if G.OVERLAY_MENU ~= nil then
+        G.OVERLAY_MENU:remove()
+        G.OVERLAY_MENU = nil
+    end
+end
 function jest_create_select_card_ui(card, area, extra_data, select_func)
     select_func = select_func or "jest_select"
     extra_data = extra_data or {}
@@ -599,7 +701,7 @@ G.FUNCS.All_in_Jest_select_tag = function(e)
         G.GAME.all_in_jest.blind_tags.selected_index = nil
     else
         for i = 1, #other_tags do
-            if i ~= number then
+            if i ~= number-(G.GAME.all_in_jest.blind_tags[G.GAME.blind_on_deck].page*3) then
                 other_tags[i].T.scale = 0.7
             else
                 other_tags[i].T.scale = 1

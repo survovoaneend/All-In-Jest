@@ -1,7 +1,7 @@
 local truhan = {
     object_type = "Joker",
     order = 220,
-
+    lite = true,
     key = "truhan",
     config = {
       extra = {

@@ -1,7 +1,7 @@
 local stultor = {
     object_type = "Joker",
     order = 181,
-
+    lite = true,
     key = "stultor",
     config = {
       extra = {

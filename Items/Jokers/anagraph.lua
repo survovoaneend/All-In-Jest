@@ -35,10 +35,10 @@ local anagraph = {
 }
 local sell_card_ref = Card.sell_card
 function Card:sell_card()
-  local ref = sell_card_ref(self)
   if self.ability then
     self.ability.jest_sold_self = true
   end
+  local ref = sell_card_ref(self)
   return ref
 end
 

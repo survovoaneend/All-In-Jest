@@ -7,6 +7,7 @@ local ghost_moon = {
     badges[#badges + 1] = create_badge(localize('k_moon'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2)
   end,
   cost = 3,
+  ignore = true,
   unlocked = true,
   discovered = false,
   order = 35,

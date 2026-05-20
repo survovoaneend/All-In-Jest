@@ -136,21 +136,21 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     vec2 onepixel = vec2(1.0,1.0) / image_details.xy;
 
     vec4 pixel = Texel(texture, texture_coords);
-    vec4 next_pixel = Texel(texture, texture_coords+vec2(onepixel.x*48*(card_x/71),0.0));
-    vec4 prev_pixel = Texel(texture, texture_coords+vec2(-onepixel.x*20*(card_x/71),0.0));
+    vec4 next_pixel = Texel(texture, texture_coords+vec2(onepixel.x*48.0*(card_x/71.0),0.0));
+    vec4 prev_pixel = Texel(texture, texture_coords+vec2(-onepixel.x*20.0*(card_x/71.0),0.0));
 
     float sprite_width = texture_details.z / image_details.x; // Normalized width
     float sprite_pos_x = texture_details.x * sprite_width; // Normalized pos_x
 
-    vec4 certain_pixel = Texel(texture, vec2(onepixel.x*42.5*(card_x/71)+(sprite_pos_x),texture_coords.y));
+    vec4 certain_pixel = Texel(texture, vec2(onepixel.x*42.5*(card_x/71.0)+(sprite_pos_x),texture_coords.y));
     
     vec2 uv = (((texture_coords)*(temp_image_details)) - texture_details.xy*texture_details.zw)/texture_details.zw;
     vec4 return_pixel = pixel;
-    if (uv.x <= 0.3*(card_x/71) && pixel.a > 0.0) 
+    if (uv.x <= 0.3*(card_x/71.0) && pixel.a > 0.0) 
         return_pixel = next_pixel; 
-    else if (uv.x > 0.3*(card_x/71) && pixel.a > 0.0 && uv.x <= 0.870*(card_x/71))
+    else if (uv.x > 0.3*(card_x/71.0) && pixel.a > 0.0 && uv.x <= 0.870*(card_x/71.0))
         return_pixel = prev_pixel;
-    else if (uv.x > 0.870*(card_x/71) && pixel.a > 0.0)
+    else if (uv.x > 0.870*(card_x/71.0) && pixel.a > 0.0)
         return_pixel = certain_pixel;
 
     if (uv.y + misprint.y + texture_coords.y + image_details.y == uv.y)

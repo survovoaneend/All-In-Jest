@@ -10,7 +10,7 @@ local error = {
     unlocked = true,
     discovered = false,
     hidden = true,
-    soul_rate = 0.01,
+    soul_rate = 0.003 / 5,
     soul_set = 'Tarot',
     order = 501,
     config = { max_highlight = 5 },

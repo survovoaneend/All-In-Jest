@@ -22,7 +22,7 @@ local bad_guy = {
     end,
   
     calculate = function(self, card, context)
-        if context.end_of_round and context.game_over == false and context.main_eval and context.beat_boss and #G.hand.cards > 0 then
+        if context.end_of_round and context.game_over == false and context.main_eval and #G.hand.cards > 0 then
             local foiled_card = pseudorandom_element(G.hand.cards, "bad_guy")
             G.E_MANAGER:add_event(Event({
                 func = function()

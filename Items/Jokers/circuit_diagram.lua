@@ -5,10 +5,10 @@ local circuit_diagram = {
     config = {
       
     },
-    rarity = 3,
+    rarity = 2,
     pos = { x = 10, y = 11},
     atlas = 'joker_atlas',
-    cost = 8,
+    cost = 7,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

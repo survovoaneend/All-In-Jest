@@ -5,7 +5,7 @@ local stagehand = {
     key = "stagehand",
     config = {
         extra = {
-            xmult = 1.1
+            xmult = 0.1
         }
     },
     rarity = 1,
@@ -20,21 +20,16 @@ local stagehand = {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.xmult
+                card.ability.extra.xmult,
+                1 + card.ability.extra.xmult * (G.jokers and #G.jokers.cards or 0)
             }
         }
     end,
 
     calculate = function(self, card, context)
-        if context.other_joker then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    context.other_joker:juice_up(0.5, 0.5)
-                    return true
-                end
-            }))
+        if context.joker_main then
             return {
-                xmult = card.ability.extra.xmult
+                xmult = 1 + card.ability.extra.xmult * #G.jokers.cards
             }
         end
     end

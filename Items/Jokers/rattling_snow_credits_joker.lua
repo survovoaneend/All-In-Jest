@@ -8,6 +8,7 @@ local rattling_snow = {
     config = {
     },
     rarity = 1,
+    lite = true,
     pos = { x = 5, y = 1},
     atlas = 'familiar_atlas',
     cost = 4,

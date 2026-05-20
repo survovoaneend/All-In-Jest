@@ -10,7 +10,7 @@ local the_ancestor = {
     pos = { X = 0, y = 61},
     order = 30,
     dollars = 5,
-
+    lite = true,
     set_blind = function(self)
         G.GAME.current_round.aij_the_ancestor = {banned_hands = {}}
     end,

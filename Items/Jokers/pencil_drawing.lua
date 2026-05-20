@@ -27,9 +27,13 @@ local pencil_drawing = {
             end
         end,
 
-        use_ability = function(self, card)
-            ease_dollars(-card.ability.extra.cost)
-            card_eval_status_text(card, 'dollars', -card.ability.extra.cost)
+        use_ability = function(self, card, args)
+            args = args or {}
+            SMODS.calculate_context({all_in_jest = {joker_ability_used = true, card = card, retriggered = args.retriggered, args = args}})
+            if not args.free then
+                ease_dollars(-card.ability.extra.cost)
+                card_eval_status_text(card, 'dollars', -card.ability.extra.cost)
+            end
             G.E_MANAGER:add_event(Event({
                 func = function()
                     local _card = create_playing_card({

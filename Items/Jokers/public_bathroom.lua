@@ -1,7 +1,7 @@
 local public_bathroom = {
   object_type = "Joker",
   order = 30,
-
+  lite = true,
   key = "public_bathroom",
   config = {
     extra = {

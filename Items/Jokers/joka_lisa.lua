@@ -9,7 +9,7 @@ local joka_lisa = {
     }
   },
   rarity = 3,
-  pos = { x = 14, y = 6},
+  pos = { x = 14, y = 6 },
   atlas = 'joker_atlas',
   cost = 8,
   unlocked = true,
@@ -19,10 +19,10 @@ local joka_lisa = {
   loc_vars = function(self, info_queue, card)
     local xmult = 1
     if G.hand then
-    G.hand.config.card_limit = G.hand.config.card_limit or 8
-    if G.hand.config.card_limit then 
-      xmult = (G.hand.config.card_limit - 7) * card.ability.extra.xmult_mod
-    end
+      G.hand.config.card_limit = G.hand.config.card_limit or 8
+      if G.hand.config.card_limit then
+        xmult = (G.hand.config.card_limit - 7) * card.ability.extra.xmult_mod
+      end
     end
     if xmult < 1 then
       xmult = 1
@@ -33,7 +33,6 @@ local joka_lisa = {
         xmult
       }
     }
-
   end,
 
   calculate = function(self, card, context)
@@ -51,4 +50,4 @@ local joka_lisa = {
     end
   end
 }
-return { name = {"Jokers"}, items = {joka_lisa} }
+return { name = { "Jokers" }, items = { joka_lisa } }

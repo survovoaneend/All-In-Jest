@@ -1,7 +1,7 @@
 local imageboard = {
     object_type = "Joker",
     order = 22,
-
+    lite = true,
     key = "imageboard",
     config = {
       extra = {

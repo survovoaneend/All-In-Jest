@@ -36,7 +36,7 @@ local two_ways = {
                 local hand_card_index = 1
                 for j = 1, #G.hand.cards do
                     if G.hand.cards[j] == hand_card then
-                      hand_card_index = j
+                        hand_card_index = j
                     end
                 end
                 G.playing_card = (G.playing_card and G.playing_card + 1) or 1
@@ -65,7 +65,7 @@ local two_ways = {
             G.E_MANAGER:add_event(Event({
                 func = function()
                     -- new_card:start_materialize()
-                    playing_card_joker_effects({ new_cards })
+                    playing_card_joker_effects(new_cards)
                     return true
                 end
             }))

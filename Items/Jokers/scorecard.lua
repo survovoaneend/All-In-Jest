@@ -1,7 +1,7 @@
 local scorecard = {
   object_type = "Joker",
   order = 69,
-
+  lite = true,
   key = "scorecard",
   config = {
     extra = {
@@ -35,7 +35,7 @@ local scorecard = {
       local hand = pseudorandom_element(_poker_hands, pseudoseed('scorecard'))
       return {
         message = localize('k_level_up_ex'),
-        level_up = 2,
+        level_up = card.ability.extra.levels,
         level_up_hand = hand
       }
     end

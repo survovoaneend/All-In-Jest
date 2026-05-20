@@ -14,9 +14,9 @@ extern bool shadow;
 extern MY_HIGHP_OR_MEDIUMP vec4 burn_colour_1;
 extern MY_HIGHP_OR_MEDIUMP vec4 burn_colour_2;
 
-uniform Image maskTex;
+uniform Image enhancementsTex;
+uniform vec4 overlayUV;
 uniform vec4 maskUV;
-uniform vec4 otherUV;
 
 vec4 RGB(vec4 c);
 
@@ -101,16 +101,17 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     vec2 uv = (((texture_coords)*(image_details)) - texture_details.xy*texture_details.zw)/texture_details.zw;
     vec4 pixel = Texel(texture, texture_coords);
 
-    vec2 maskuv = vec2(maskUV.x, maskUV.y) + uv * maskUV.zw;
-    vec4 tex = Texel(maskTex, maskuv);
+    vec2 overlayUV = vec2(overlayUV.x, overlayUV.y) + uv * overlayUV.zw;
+    vec4 tex = Texel(enhancementsTex, overlayUV);
 
-    vec2 otheruv = vec2(otherUV.x, otherUV.y) + uv * otherUV.zw;
-    vec4 mask = Texel(maskTex, otheruv);
+    vec2 maskUV = vec2(maskUV.x, maskUV.y) + uv * maskUV.zw;
+    vec4 mask = Texel(enhancementsTex, maskUV);
 
+    // Workaround to stop a crash
     if (uv.y + burnt.y == uv.y)
         uv.y = burnt.y;
 
-    vec3 finalRGB = mix(pixel.rgb, tex.rgb, tex.a);
+    vec3 finalRGB = mix(pixel.rgb, tex.rgb, tex.a); // Blends the base sprite with the scorch overlay
 
     float finalA = pixel.a * mask.a;
 

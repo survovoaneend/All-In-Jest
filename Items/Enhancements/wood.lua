@@ -2,7 +2,6 @@ local wood = {
     object_type = "Enhancement",
     key = 'wood',
     atlas = 'enhancements_atlas',
-    
     order = 4,
     pos = { x = 4, y = 0 },
     config = {

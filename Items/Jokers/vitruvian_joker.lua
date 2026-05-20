@@ -1,7 +1,7 @@
 local vitruvian_joker = {
     object_type = "Joker",
     order = 270,
-    
+    lite = true,
     key = "vitruvian_joker",
     config = {
       extra = {

@@ -7,6 +7,7 @@ local magus_tarot = {
 	unlocked = true,
 	discovered = false,
 	order = 0,
+	lite = true,
 	config = { mod_conv = 'm_aij_fervent', max_highlighted = 1 },
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)

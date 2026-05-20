@@ -1,0 +1,33 @@
+local run = {
+    object_type = "Joker",
+    order = 541,
+    key = "run",
+    config = {
+        extra = {
+            
+        }
+    },
+    rarity = 2,
+    pos = { x = 0, y = 26 },
+    atlas = 'joker_atlas',
+    cost = 6,
+    unlocked = true,
+    discovered = false,
+    blueprint_compat = false,
+    eternal_compat = true,
+    ignore = true,
+
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = {
+                
+            }
+        }
+    end,
+
+    calculate = function(self, card, context)
+        
+    end
+}
+
+return { name = { "Jokers" }, items = { run } }
