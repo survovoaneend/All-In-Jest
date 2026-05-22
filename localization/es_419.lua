@@ -1320,9 +1320,9 @@ return {
                 name = "Máquina Infame",
                 text = {
                     'Después de sacar la {C:attention}primera mano{} de cada',
-                    'ronda, {C:red}destruye{} la {C:attention}carta{} del',
-                    '{C:attention}del extremo izquierdo{} y este {C:attention}Comodín{}',
-                    'gana {C:mult}+#1#{} Multi',
+                    'ronda, se {C:red}destruye{} la {C:attention}carta{} del',
+                    '{C:attention}del extremo izquierdo{} y este',
+                    '{C:attention}Comodín{} gana {C:mult}+#1#{} Multi',
                     '{C:inactive}(Actualmente {C:mult}+#2#{C:inactive} Multi)'
                 }
             },
@@ -2328,7 +2328,7 @@ return {
                     },
                     {
                         "{C:chips}+#3#{} Fichas y {C:mult}+#4#{} Multi",
-                        "de lo contrario"
+                        "en el resto de manos jugadas"
                     },
                 }
             },
@@ -2364,8 +2364,9 @@ return {
                         'Ganas {C:money}$#3#{} al final de la {C:attention}ronda'
                     },
                     {
-                        '{C:attention}Parcialmente{} consumido',
-                        'después de {C:attention}#4#{} Rondas'
+                        'Se consueme {C:attention}parcialmente{}',
+                        'después de esta ronda por',
+                        "hasta {C:attention}#4#{} Rondas",
                     },
                 }
             },
@@ -2376,8 +2377,9 @@ return {
                         '{C:chips}+#1#{} Fichas y {C:mult}+#2#{} Multi',
                     },
                     {
-                        '{C:attention}Parcialmente{} consumido',
-                        'después de {C:attention}#3#{} Rondas'
+                        'Se consueme {C:attention}parcialmente{}',
+                        'después de esta ronda por',
+                        "hasta {C:attention}#4#{} Rondas",
                     },
                 }
             },
@@ -2389,8 +2391,9 @@ return {
                         'al final de la {C:attention}ronda'
                     },
                     {
-                        '{C:attention}Parcialmente{} consumido',
-                        'después de {C:attention}#3#{} Rondas'
+                        'Se consueme {C:attention}parcialmente{}',
+                        'después de esta ronda por',
+                        "hasta {C:attention}#4#{} Rondas",
                     },
                 }
             },
@@ -2402,8 +2405,9 @@ return {
                         'al final de la {C:attention}ronda'
                     },
                     {
-                        '{C:attention}Parcialmente{} consumido',
-                        'después de {C:attention}#3#{} Rondas'
+                        'Se consueme {C:attention}parcialmente{}',
+                        'después de esta ronda por',
+                        "hasta {C:attention}#4#{} Rondas",
                     },
                 }
             },
@@ -2414,8 +2418,9 @@ return {
                         '{C:chips}+#1#{} Fichas',
                     },
                     {
-                        '{C:attention}Parcialmente{} consumido',
-                        'después de {C:attention}#2#{} Ronda'
+                        'Se consueme {C:attention}parcialmente{}',
+                        'después de esta ronda por',
+                        "hasta {C:attention}#4#{} Rondas",
                     },
                 }
             },
@@ -2426,8 +2431,9 @@ return {
                         '{C:mult}+#1#{} Multi',
                     },
                     {
-                        '{C:attention}Parcialmente{} consumido',
-                        'después de {C:attention}#2#{} Ronda'
+                        'Se consueme {C:attention}parcialmente{}',
+                        'después de esta ronda por',
+                        "hasta {C:attention}#4#{} Rondas",
                     },
                 }
             },
@@ -2439,8 +2445,9 @@ return {
                         "de la {C:attention}ronda"
                     },
                     {
-                        '{C:attention}Parcialmente{} consumido',
-                        'después de {C:attention}#2#{} Ronda'
+                        'Se consueme {C:attention}parcialmente{}',
+                        'después de esta ronda por',
+                        "hasta {C:attention}#4#{} Rondas",
                     },
                 }
             },
