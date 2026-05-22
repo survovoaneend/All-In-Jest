@@ -2364,7 +2364,7 @@ return {
                         'Ganas {C:money}$#3#{} al final de la {C:attention}ronda'
                     },
                     {
-                        'Se consueme {C:attention}parcialmente{}',
+                        'Se consume {C:attention}parcialmente{}',
                         'después de esta ronda por',
                         "hasta {C:attention}#4#{} Rondas",
                     },
@@ -2377,7 +2377,7 @@ return {
                         '{C:chips}+#1#{} Fichas y {C:mult}+#2#{} Multi',
                     },
                     {
-                        'Se consueme {C:attention}parcialmente{}',
+                        'Se consume {C:attention}parcialmente{}',
                         'después de esta ronda por',
                         "hasta {C:attention}#4#{} Rondas",
                     },
@@ -2391,7 +2391,7 @@ return {
                         'al final de la {C:attention}ronda'
                     },
                     {
-                        'Se consueme {C:attention}parcialmente{}',
+                        'Se consume {C:attention}parcialmente{}',
                         'después de esta ronda por',
                         "hasta {C:attention}#4#{} Rondas",
                     },
@@ -2405,7 +2405,7 @@ return {
                         'al final de la {C:attention}ronda'
                     },
                     {
-                        'Se consueme {C:attention}parcialmente{}',
+                        'Se consume {C:attention}parcialmente{}',
                         'después de esta ronda por',
                         "hasta {C:attention}#4#{} Rondas",
                     },
@@ -2418,7 +2418,7 @@ return {
                         '{C:chips}+#1#{} Fichas',
                     },
                     {
-                        'Se consueme {C:attention}parcialmente{}',
+                        'Se consume {C:attention}parcialmente{}',
                         'después de esta ronda por',
                         "hasta {C:attention}#4#{} Rondas",
                     },
@@ -2431,7 +2431,7 @@ return {
                         '{C:mult}+#1#{} Multi',
                     },
                     {
-                        'Se consueme {C:attention}parcialmente{}',
+                        'Se consume {C:attention}parcialmente{}',
                         'después de esta ronda por',
                         "hasta {C:attention}#4#{} Rondas",
                     },
@@ -2445,7 +2445,7 @@ return {
                         "de la {C:attention}ronda"
                     },
                     {
-                        'Se consueme {C:attention}parcialmente{}',
+                        'Se consume {C:attention}parcialmente{}',
                         'después de esta ronda por',
                         "hasta {C:attention}#4#{} Rondas",
                     },
