@@ -2419,8 +2419,7 @@ return {
                     },
                     {
                         'Se consume {C:attention}parcialmente{}',
-                        'después de esta ronda por',
-                        "hasta {C:attention}#4#{} Rondas",
+                        'en esta ronda',
                     },
                 }
             },
@@ -2432,8 +2431,7 @@ return {
                     },
                     {
                         'Se consume {C:attention}parcialmente{}',
-                        'después de esta ronda por',
-                        "hasta {C:attention}#4#{} Rondas",
+                        'en esta ronda',
                     },
                 }
             },
@@ -2446,8 +2444,7 @@ return {
                     },
                     {
                         'Se consume {C:attention}parcialmente{}',
-                        'después de esta ronda por',
-                        "hasta {C:attention}#4#{} Rondas",
+                        'en esta ronda',
                     },
                 }
             },
