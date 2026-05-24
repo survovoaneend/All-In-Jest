@@ -33,7 +33,7 @@ local possession = {
                     local hand_card = G.hand.highlighted[i]
                     if hand_card.edition then
                         All_in_Jest.apply_inherent_effect(hand_card, hand_card.edition, 'edition')
-                        hand_card:set_edition(nil, true)
+                        hand_card:set_edition(nil, true, true)
                         triggered = true
                     end
                     if hand_card.ability.set == "Enhanced" then

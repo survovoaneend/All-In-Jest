@@ -2889,7 +2889,7 @@ pattern = """elseif self.seal == 'Gold' and not self.ability.extra_enhancement t
 position = "before"
 match_indent = true
 payload = '''
-elseif next(SMODS.find_card("j_aij_warhol")) and self.seal and not self.ability.extra_enhancement then
+elseif next(SMODS.find_card("j_aij_warhol")) and self.seal and not SMODS.aij_inherent_enhancement_calc_in_progress and not self.ability.extra_enhancement then
     ret = ret +  3
 '''
 
@@ -2962,6 +2962,7 @@ end
 # The Grim Joker (Blue Seals) (1/3)
 # Adds chance for negative planets to be created by blue seals
 # and forces card creation even if it "exceeds" the card limit
+# Also prevent inherent/fused enhancements from retriggering seals
 [[patches]]
 [patches.regex]
 target = "card.lua"
@@ -2972,6 +2973,7 @@ position = "at"
 line_prepend = '$indent'
 payload = '''
 -- All in Jest patch
+if context.aij_inherent_enhancement or context.aij_other_enhancement then return ret end
 local aij_blue_seal_is_negative = false
 if self.seal == 'Blue' or (next(SMODS.find_card("j_aij_warhol")) and self.seal) then
     local ret = SMODS.calculate_context({
@@ -4949,3 +4951,24 @@ payload = '''localize{type = 'descriptions', key = _c.key, set = _c.set, nodes =
 	 end
 '''
 match_indent = true
+
+# Card:calculate_seal()
+# Prevent seals from retriggering with inherent and fused enhancements
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''function Card:calculate_seal(context)'''
+position = 'after'
+payload = '''
+    if context.aij_inherent_enhancement or context.aij_other_enhancement then
+        return
+    end
+'''
+match_indent = true
+# Card:get_p_dollars()
+[[patches]]
+[patches.regex]
+target = "card.lua"
+pattern = '''elseif self\.seal == 'Gold' (?<post>.*) then$'''
+position = 'at'
+payload = '''elseif self.seal == 'Gold' and not SMODS.aij_inherent_enhancement_calc_in_progress $post then'''
