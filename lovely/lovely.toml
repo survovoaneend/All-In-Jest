@@ -132,8 +132,6 @@ if card and card.aij_inherent_effects then
 end
 '''
 match_indent = true
-
-
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
