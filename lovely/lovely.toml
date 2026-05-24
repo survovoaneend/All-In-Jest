@@ -4759,7 +4759,8 @@ end
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
-pattern = 'local obj = self.config.center'
+pattern = '''local obj = self.config.center
+if obj.set_ability and type(obj.set_ability) == 'function' then'''
 position = "before"
 match_indent = true
 payload = '''
@@ -4780,7 +4781,8 @@ end
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
-pattern = 'local obj = self.config.center'
+pattern = '''local obj = self.config.center
+if obj and obj.add_to_deck and type(obj.add_to_deck) == 'function' then'''
 position = "before"
 match_indent = true
 payload = '''
@@ -4801,7 +4803,8 @@ end
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
-pattern = 'local obj = self.config.center'
+pattern = '''local obj = self.config.center
+if obj and obj.remove_from_deck and type(obj.remove_from_deck) == 'function' then'''
 position = "before"
 match_indent = true
 payload = '''
@@ -4822,17 +4825,18 @@ end
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
-pattern = 'local obj = self.config.center'
+pattern = '''local obj = self.config.center
+if obj.calc_dollar_bonus and type(obj.calc_dollar_bonus) == 'function' then'''
 position = "before"
 match_indent = true
 payload = '''
 local obj = self.config.aij_other_center and self.config.aij_other_center.center
-if obj and obj.calculate_dollar_bonus and type(obj.calculate_dollar_bonus) == 'function' and not SMODS.aij_applying_thing then
+if obj and obj.calc_dollar_bonus and type(obj.calc_dollar_bonus) == 'function' and not SMODS.aij_applying_thing then
     local old_center = self.config.center
     self.config.center = self.config.aij_other_center.center
     local old_ability = copy_table(self.ability)
     self.ability = self.config.aij_other_center.ability
-    obj:calculate_dollar_bonus(self)
+    obj:calc_dollar_bonus(self)
     self.config.center = old_center
     self.ability = old_ability
 end
@@ -4843,7 +4847,8 @@ end
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
-pattern = 'local obj = self.config.center'
+pattern = '''local obj = self.config.center
+if obj.update and type(obj.update) == 'function' then'''
 position = "before"
 match_indent = true
 payload = '''
@@ -4866,7 +4871,8 @@ end
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
-pattern = 'local obj = self.config.center'
+pattern = '''local obj = self.config.center
+if obj.load and type(obj.load) == 'function' then'''
 position = "before"
 match_indent = true
 payload = '''
