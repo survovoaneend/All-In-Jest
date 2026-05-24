@@ -2555,6 +2555,8 @@ if card and card.aij_inherent_effects then
                     local t = G.P_CENTERS[enhancement_key]
                     t.is_inherent_enhancement = true
                     t.enhancement_key = enhancement_key
+                    t.specific_vars = t.specific_vars or {}
+                    t.specific_vars.bonus_chips = _v.ability.bonus
                     info_queue[#info_queue + 1] = t
                 end
             elseif k == 'editions' then
