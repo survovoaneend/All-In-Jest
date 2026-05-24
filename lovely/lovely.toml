@@ -304,7 +304,8 @@ end
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "if delay_sprites == 'quantum' then self.from_quantum = true end"
+pattern = """local was_added_to_deck = false
+if self.added_to_deck and old_center and not self.debuff then"""
 position = "before"
 match_indent = true
 payload = '''
@@ -343,7 +344,7 @@ end
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = 'if not initial and delay_sprites ~= "quantum" and G.GAME.blind then G.GAME.blind:debuff_card(self) end'
+pattern = 'if not initial and G.GAME.blind then G.GAME.blind:debuff_card(self) end'
 position = "before"
 match_indent = true
 payload = '''
@@ -379,7 +380,8 @@ end
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "if delay_sprites == 'quantum' then self.from_quantum = true end"
+pattern = """local was_added_to_deck = false
+if self.added_to_deck and old_center and not self.debuff then"""
 position = "before"
 match_indent = true
 payload = '''
