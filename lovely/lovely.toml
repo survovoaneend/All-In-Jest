@@ -108,6 +108,16 @@ payload = '''
 for _, key in ipairs({'aij_seal_edition'}) do
     SMODS.calculate_effect_table_key(effect_table, key, card, ret)
 end
+'''
+match_indent = true
+
+# Inherent effect calculation
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "for _, key in ipairs({'jokers', 'retriggers'}) do"
+position = "before"
+payload = '''
 if card and card.aij_inherent_effects then
     local i = 0
     local j = 0
@@ -2509,6 +2519,8 @@ if card and card.ability and card.ability.patches then
     end
 end
 '''
+
+# Add tootip for seal editions and inherent effects
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -4705,7 +4717,7 @@ payload = 'SMODS.calculate_context({aij_before_setting_blind = true, blind = G.G
 
 # Fusion Enhancements
 # Card:load()
-## Correctly load fused enhancements
+## Correctly load fused and inherent enhancements
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
