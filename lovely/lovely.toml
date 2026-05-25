@@ -4473,7 +4473,7 @@ pattern = "if specific_vars and specific_vars.sticker then info_queue[#info_queu
 position = "after"
 match_indent = true
 payload = '''
-if _c.generate_ui and type(_c.generate_ui) == 'function' then
+if _c.generate_ui and type(_c.generate_ui) == 'function' and _c.set ~= 'Enhanced' and _c.set ~= 'Default' and _c.set ~= 'Edition' then
     if specific_vars and specific_vars.bonus_chips then
         localize{type = 'other', key = 'card_extra_chips', nodes = desc_nodes, vars = {SMODS.signed(specific_vars.bonus_chips)}}
     end
