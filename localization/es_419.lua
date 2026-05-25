@@ -1789,7 +1789,7 @@ return {
                     "Gana {X:mult,C:white}X#2#{} Multi si la {C:blue}mano{}",
                     "contiene {C:attention}#4#{} de palo {C:spades}Oscuro{}",
                     "y {C:attention}#3#{} de palo {C:hearts}Claro{}",
-                    "{C:inactive,s:0.8}(La pproporción cambia cada ronda)",
+                    "{C:inactive,s:0.8}(La proporción cambia cada ronda)",
                     "{C:inactive}(Actualmente {X:mult,C:white}X#1#{} {C:inactive}Multi){}",
                 }
             },
@@ -1848,6 +1848,16 @@ return {
                     "Al anotar {V:1}#1#{}, anota sus",
                     "{C:chips}+Fichas{} como {C:mult}+Multi{}",
                     "{C:inactive,s:0.8}(Cambia cada ronda){}",
+                }
+            },
+            j_aij_hat_trick = {
+                name = "Sombrero Mágico",
+                text = {
+                    "Si la mano jugada",
+                    "es una {C:attention}Tercia{}, las",
+                    "cartas anotadas otorgan {C:mult}Multi{}",
+                    "igual a su {C:attention}nivel{}",
+                    "{C:inactive}(Actualmente {C:mult}+#1#{} {C:inactive}Multi)",
                 }
             },
             j_aij_magic_hat = {
