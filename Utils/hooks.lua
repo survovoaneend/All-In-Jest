@@ -1325,3 +1325,17 @@ function CardArea:move(dt)
 
     return ret
 end
+
+
+table.insert(SMODS.calculation_keys, "aij_return_to_hand")
+table.insert(SMODS.other_calculation_keys, "aij_return_to_hand")
+table.insert(SMODS.silent_calculation, "aij_return_to_hand")
+local aij_original_smods_calculate_individal_effect_ref = SMODS.calculate_individual_effect
+SMODS.calculate_individual_effect = function(effect, scored_card, key, amount, from_edition)
+    
+    if key == "aij_return_to_hand" then
+        return key
+    end
+
+    return aij_original_smods_calculate_individal_effect_ref(effect, scored_card, key, amount, from_edition)
+end

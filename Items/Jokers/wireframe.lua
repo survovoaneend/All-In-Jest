@@ -3,16 +3,7 @@ local wireframe = {
   order = 52,
 
   key = "wireframe",
-  config = {
-    extra = {
-      trigger = false,
-      all_in_jest = {
-        to_hand = {
-          cards = nil
-        }
-      }
-    }
-  },
+  config = { },
   rarity = 3,
   pos = { x = 5, y = 17 },
   soul_pos = {
@@ -37,15 +28,19 @@ local wireframe = {
 
   calculate = function(self, card, context)
     if context.first_hand_drawn then
-      card.ability.extra.trigger = true
+        local eval = function() return G.GAME.current_round.hands_played == 0 end
+        juice_card_until(card, eval, true)
     end
-    if context.joker_main and context.full_hand and card.ability.extra.trigger then
-      card.ability.extra.all_in_jest.to_hand.cards = context.full_hand
-      card.ability.extra.trigger = false
+    if context.after and G.GAME.current_round.hands_played == 0 then
+			return {
+        message = "Return!"
+			}
     end
-    if context.all_in_jest and context.all_in_jest.drew_cards then
-      card.ability.extra.all_in_jest.to_hand.cards = nil
-    end
+		if context.aij_discard_played_hand and G.GAME.current_round.hands_played == 0 then
+			return {
+				aij_return_to_hand = true
+			}
+		end
   end
 
 }

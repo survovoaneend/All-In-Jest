@@ -25,11 +25,6 @@ if context.ending_booster and G.GAME.all_in_jest.dizzard_shop and G.shop.alignme
 end
 if context.end_of_round then
     G.GAME.all_in_jest.dizzard_shop = false
-    for k, v in ipairs(G.playing_cards) do
-        if SMODS.has_enhancement(v, 'm_aij_simulated') then
-            v.ability.extra.all_in_jest.to_hand.trigger = false
-        end
-    end
 end
 if context.setting_blind then
     if G.GAME.aij_show_hand then
