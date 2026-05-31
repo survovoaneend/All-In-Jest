@@ -2557,12 +2557,14 @@ function All_in_Jest.apply_inherent_effect(card, effect, effect_type)
         card.aij_inherent_effects[effect_type..'s'][index] = {}
         card.aij_inherent_effects[effect_type..'s'][index]['center_key'] = effect.key
         card.aij_inherent_effects[effect_type..'s'][index]['ability'] = copy_table(card.ability)
+        card.aij_inherent_effects[effect_type..'s'][index]['ability'].extra_enhancement = effect.key
     elseif effect_type == 'other_enhancement' then
         card.aij_inherent_effects['enhancements'] = card.aij_inherent_effects['enhancements'] or {}
         local index = #card.aij_inherent_effects['enhancements'] + 1
         card.aij_inherent_effects['enhancements'][index] = {}
         card.aij_inherent_effects['enhancements'][index]['center_key'] = effect.key
         card.aij_inherent_effects['enhancements'][index]['ability'] = copy_table(card.config.aij_other_center.ability)
+        card.aij_inherent_effects[effect_type..'s'][index]['ability'].extra_enhancement = effect.key
     end
 end
 
@@ -2575,6 +2577,7 @@ function All_in_Jest.set_other_enhancement(card, enhancement)
     local old_center = card.config.center
     card:set_ability(G.P_CENTERS[enhancement])
     card.config.aij_other_center['ability'] = copy_table(card.ability)
+    card.config.aij_other_center['ability'].extra_enhancement = enhancement
     card:set_ability(old_center)
     -- if not card.ability.aij_other_center or not card.ability.aij_other_center['ability'] then
     --     card.ability.aij_other_center = card.ability.aij_other_center or {}

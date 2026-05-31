@@ -143,12 +143,10 @@ if not (context.aij_inherent_enhancement or context.aij_other_enhancement or SMO
         context.aij_inherent_enhancement = true
         SMODS.aij_inherent_enhancement_calc_in_progress = true
         local aij_inherent_enhancements = All_in_Jest.get_inherent_effects(card, 'enhancement')
-        local old_nominal = card.base.nominal
         local old_ability = copy_table(card.ability)
         local old_center = card.config.center
         local old_center_key = card.config.center_key
         for _, k in ipairs(aij_inherent_enhancements) do
-            card.base.nominal = 0
             card.ability = k['ability']
             card.config.center = G.P_CENTERS[k.center_key]
             card.config.center_key = k.center_key
@@ -156,7 +154,6 @@ if not (context.aij_inherent_enhancement or context.aij_other_enhancement or SMO
             local eval = eval_card(card, context)
             table.insert(effects, eval)
         end
-        card.base.nominal = old_nominal
         card.ability = old_ability
         card.config.center = old_center
         card.config.center_key = old_center_key
@@ -164,19 +161,16 @@ if not (context.aij_inherent_enhancement or context.aij_other_enhancement or SMO
         SMODS.aij_inherent_enhancement_calc_in_progress = nil
     end
 end
-if card.config.aij_other_center and not SMODS.aij_applying_thing then
+if card.config.aij_other_center and not (context.aij_inherent_enhancement or context.aij_other_enhancement) and not SMODS.aij_applying_thing and not SMODS.aij_inherent_enhancement_calc_in_progress then
     if card.config.aij_other_center['center'] and card.config.aij_other_center['ability'] then
-        context.aij_inherent_enhancement = true
+        context.aij_other_enhancement = true
         SMODS.aij_inherent_enhancement_calc_in_progress = true
 
         local aij_oc = card.config.aij_other_center
-
-        local old_nominal = card.base.nominal
+        
         local old_ability = copy_table(card.ability)
         local old_center = card.config.center
         local old_center_key = card.config.center_key
-
-        card.base.nominal = 0
 
         card.ability = card.config.aij_other_center['ability']
         card.config.center = aij_oc['center']
@@ -185,12 +179,11 @@ if card.config.aij_other_center and not SMODS.aij_applying_thing then
         local eval = eval_card(card, context)
         table.insert(effects, eval)
 
-        card.base.nominal = old_nominal
         card.ability = old_ability
         card.config.center = old_center
         card.config.center_key = old_center_key
 
-        context.aij_inherent_enhancement = nil
+        context.aij_other_enhancement = nil
         SMODS.aij_inherent_enhancement_calc_in_progress = nil
     end
 end

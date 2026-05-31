@@ -1132,9 +1132,6 @@ local cardupdateref = Card.update
 function Card:update(dt)
     local ref = cardupdateref(self, dt)
     if not self.front_hidden then self.front_hidden = self:should_hide_front() end
-    if self.base.nominal > 0 and self.config.aij_other_center and ((self.config.aij_other_center['ability'] and self.config.aij_other_center['ability'].effect == 'Stone Card') or (self.config.aij_other_center['center'] and self.config.aij_other_center['center'].replace_base_card)) then
-        self.base.nominal = 0
-    end
     return ref
 end
 
