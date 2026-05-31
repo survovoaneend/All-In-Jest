@@ -4730,13 +4730,13 @@ if obj.set_ability and type(obj.set_ability) == 'function' then'''
 position = "before"
 match_indent = true
 payload = '''
-local obj = self.config.aij_other_center and self.config.aij_other_center.center
-if obj and obj.set_ability and type(obj.set_ability) == 'function' and not SMODS.aij_applying_thing then
+local aij_other_obj = self.config.aij_other_center and self.config.aij_other_center.center
+if aij_other_obj and aij_other_obj.set_ability and type(aij_other_obj.set_ability) == 'function' and not SMODS.aij_applying_thing then
     local old_center = self.config.center
     self.config.center = self.config.aij_other_center.center
     local old_ability = copy_table(self.ability)
     self.ability = self.config.aij_other_center.ability
-    obj:set_ability(self, initial, delay_sprites)
+    aij_other_obj:set_ability(self, initial, delay_sprites)
     self.config.center = old_center
     self.ability = old_ability
 end
@@ -4752,13 +4752,13 @@ if obj and obj.add_to_deck and type(obj.add_to_deck) == 'function' then'''
 position = "before"
 match_indent = true
 payload = '''
-local obj = self.config.aij_other_center and self.config.aij_other_center.center
-if obj and obj.add_to_deck and type(obj.add_to_deck) == 'function' and not SMODS.aij_applying_thing then
+local aij_other_obj = self.config.aij_other_center and self.config.aij_other_center.center
+if aij_other_obj and aij_other_obj.add_to_deck and type(aij_other_obj.add_to_deck) == 'function' and not SMODS.aij_applying_thing then
     local old_center = self.config.center
     self.config.center = self.config.aij_other_center.center
     local old_ability = copy_table(self.ability)
     self.ability = self.config.aij_other_center.ability
-    obj:add_to_deck(self, from_debuff)
+    aij_other_obj:add_to_deck(self, from_debuff)
     self.config.center = old_center
     self.ability = old_ability
 end
@@ -4774,13 +4774,13 @@ if obj and obj.remove_from_deck and type(obj.remove_from_deck) == 'function' the
 position = "before"
 match_indent = true
 payload = '''
-local obj = self.config.aij_other_center and self.config.aij_other_center.center
-if obj and obj.remove_from_deck and type(obj.remove_from_deck) == 'function' and not SMODS.aij_applying_thing then
+local aij_other_obj = self.config.aij_other_center and self.config.aij_other_center.center
+if aij_other_obj and aij_other_obj.remove_from_deck and type(aij_other_obj.remove_from_deck) == 'function' and not SMODS.aij_applying_thing then
     local old_center = self.config.center
     self.config.center = self.config.aij_other_center.center
     local old_ability = copy_table(self.ability)
     self.ability = self.config.aij_other_center.ability
-    obj:remove_from_deck(self, from_debuff)
+    aij_other_obj:remove_from_deck(self, from_debuff)
     self.config.center = old_center
     self.ability = old_ability
 end
@@ -4796,13 +4796,13 @@ if obj.calc_dollar_bonus and type(obj.calc_dollar_bonus) == 'function' then'''
 position = "before"
 match_indent = true
 payload = '''
-local obj = self.config.aij_other_center and self.config.aij_other_center.center
-if obj and obj.calc_dollar_bonus and type(obj.calc_dollar_bonus) == 'function' and not SMODS.aij_applying_thing then
+local aij_other_obj = self.config.aij_other_center and self.config.aij_other_center.center
+if aij_other_obj and aij_other_obj.calc_dollar_bonus and type(aij_other_obj.calc_dollar_bonus) == 'function' and not SMODS.aij_applying_thing then
     local old_center = self.config.center
     self.config.center = self.config.aij_other_center.center
     local old_ability = copy_table(self.ability)
     self.ability = self.config.aij_other_center.ability
-    obj:calc_dollar_bonus(self)
+    aij_other_obj:calc_dollar_bonus(self)
     self.config.center = old_center
     self.ability = old_ability
 end
@@ -4818,14 +4818,14 @@ if obj.update and type(obj.update) == 'function' then'''
 position = "before"
 match_indent = true
 payload = '''
-local obj = self.config.aij_other_center and self.config.aij_other_center.center
-if obj and obj.update and type(obj.update) == 'function' and not SMODS.aij_applying_thing then
+local aij_other_obj = self.config.aij_other_center and self.config.aij_other_center.center
+if aij_other_obj and aij_other_obj.update and type(aij_other_obj.update) == 'function' and not SMODS.aij_applying_thing then
     -- sendDebugMessage(tprint(self.ability), "AIJ")
     local old_center = self.config.center
     self.config.center = self.config.aij_other_center.center
     local old_ability = copy_table(self.ability)
     self.ability = self.config.aij_other_center.ability
-    obj:update(self, dt)
+    aij_other_obj:update(self, dt)
     self.config.center = old_center
     self.ability = old_ability
     -- sendDebugMessage(tprint(self.ability), "AIJ")
@@ -4842,13 +4842,13 @@ if obj.load and type(obj.load) == 'function' then'''
 position = "before"
 match_indent = true
 payload = '''
-local obj = self.config.aij_other_center and self.config.aij_other_center.center
-if obj and obj.load and type(obj.load) == 'function' and not SMODS.aij_applying_thing then
+local aij_other_obj = self.config.aij_other_center and self.config.aij_other_center.center
+if aij_other_obj and aij_other_obj.load and type(aij_other_obj.load) == 'function' and not SMODS.aij_applying_thing then
     local old_center = self.config.center
     self.config.center = self.config.aij_other_center.center
     local old_ability = copy_table(self.ability)
     self.ability = self.config.aij_other_center.ability
-    obj:load(self, cardTable, other_card)
+    aij_other_obj:load(self, cardTable, other_card)
     self.config.center = old_center
     self.ability = old_ability
 end
