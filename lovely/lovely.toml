@@ -4854,6 +4854,32 @@ if aij_other_obj and aij_other_obj.load and type(aij_other_obj.load) == 'functio
 end
 '''
 
+# Make created enhanced cards sometimes be fused with melded deck
+# create_card()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+if card.ability.consumeable and not skip_materialize then card:start_materialize() end
+'''
+position = "before"
+match_indent = true
+payload = '''
+-- All in Jest patch
+if _type == 'Enhanced' and G.GAME.selected_back.name == "b_aij_melded" and pseudorandom('meldedfusion' .. G.GAME.round_resets.ante) > 0.6 then
+    local _pool, _pool_key = get_current_pool(_type, _rarity, legendary, key_append)
+    local other_center = pseudorandom_element(_pool, pseudoseed(_pool_key))
+    local it = 1
+    while other_center == 'UNAVAILABLE' or other_center == center.key do
+        it = it + 1
+        other_center = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
+    end
+
+    All_in_Jest.set_other_enhancement(card, other_center)
+end
+-- End of All in Jest patch
+'''
+
 ######################################
     # END OF PATCHES FOR FUSIONS #
 ######################################
