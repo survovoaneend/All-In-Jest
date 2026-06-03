@@ -2622,29 +2622,48 @@ function All_in_Jest.find_multi_enhancement_pos(enhancement, get_index)
         end
     elseif enhancement == 'm_aij_wood' then
         pos = 15
+    elseif enhancement == 'm_paperback_soaked' then
+        pos = 16
+    elseif enhancement == 'm_paperback_ceramic' then
+        pos = 17
+    elseif enhancement == 'm_paperback_wrapped' then
+        pos = 18
+    elseif enhancement == 'm_paperback_bandaged' then
+        pos = 19
+    elseif enhancement == 'm_paperback_domino' then
+        pos = 20
+    elseif enhancement == 'm_paperback_stained' then
+        pos = 21
     end
     return pos, atlas
 end
 
 function All_in_Jest.multi_enhancement_get_vanilla_z_order(key)
-    local z_order = nil
-    if key == 'm_bonus' then
-        z_order = 1
-    elseif key == 'm_mult' then
-        z_order = 1
-    elseif key == 'm_wild' then
-        z_order = 1
-    elseif key == 'm_glass' then
-        z_order = -1
-    elseif key == 'm_steel' then
-        z_order = 0.9
-    elseif key == 'm_stone' then
-        z_order = -1
-    elseif key == 'm_gold' then
-        z_order = 0.1
-    elseif key == 'm_lucky' then
-        z_order = -1
-    end
+
+    z_order_table = {
+        m_bonus = 1,
+        m_mult = 1,
+        m_wild = 1,
+        m_gladd = -1,
+        m_steel = 0.9,
+        m_stone = -1,
+        m_gold = 0.1,
+        m_lucky = -1,
+
+        -- Not vanilla but lol
+
+        m_paperback_soaked = -1,
+        m_paperback_ceramic = -1,
+        m_paperback_wrapped = 1,
+        m_paperback_bandaged = 1,
+        m_paperback_domino = 1,
+        m_paperback_stained = 1,
+        m_paperback_sleeved = 2,
+        m_paperback_antique = -1,
+    }
+
+    z_order = z_order_table[key] or 0
+
     return z_order
 end
 
@@ -2662,8 +2681,13 @@ end
 function process_texture_stack_enhancement_foreground(image, stacked_enhancement)
     local foregrounds_atlas = SMODS.get_atlas("aij_multi_enhancements_foregrounds_atlas")
 
-    local foreground_pos, _ = All_in_Jest.find_multi_enhancement_pos(stacked_enhancement, true)
-    
+    local foreground_pos, _ = {x = All_in_Jest.find_multi_enhancement_pos(stacked_enhancement, true), y = 0}
+
+    if foreground_pos.x == 0 then
+        foregrounds_atlas = SMODS.get_atlas(G.P_CENTERS[stacked_enhancement].atlas)
+        foreground_pos = G.P_CENTERS[stacked_enhancement].pos
+    end
+
     local w, h = 71, 95
     local texW, texH = foregrounds_atlas.image:getDimensions()
 
@@ -2680,7 +2704,7 @@ function process_texture_stack_enhancement_foreground(image, stacked_enhancement
     G.SHADERS['aij_fusion_spritesheet']:send("enhancement_image_dims", {texW, texH})
     G.SHADERS['aij_fusion_spritesheet']:send("old_image_dims", {image:getDimensions()})
     G.SHADERS['aij_fusion_spritesheet']:send('maskTex', foregrounds_atlas.image)
-    G.SHADERS['aij_fusion_spritesheet']:send('maskUV', { foreground_pos * foregrounds_atlas.px / texW, 0, w / texW, h / texH })
+    G.SHADERS['aij_fusion_spritesheet']:send('maskUV', { foreground_pos.x * foregrounds_atlas.px / texW, foreground_pos.y, w / texW, h / texH })
     love.graphics.setShader( G.SHADERS['aij_fusion_spritesheet'] )
     
     -- Draw image with foreground shader on new canvas
@@ -2738,11 +2762,11 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
     end
 
     local has_sprite = aij_check_if_sprite_exists(
-        new_atlas, 
+        new_atlas,
         new_pos.x or 0,
         new_pos.y or 0
     )
-    if has_sprite then
+    if has_sprite and new_pos.y > 0 then
         -- If sprite has a unique sprite, use it
         return SMODS.get_atlas(new_atlas), new_pos
     else
