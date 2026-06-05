@@ -1,6 +1,6 @@
 SMODS.Atlas({
     key = 'random_joker',
-    path = 'Parts/randomjoker.png',
+    path = 'parts/randomjoker.png',
     px = '71',
     py = '95',
 })
@@ -202,7 +202,7 @@ local random_joker = {
                 end
             end
             if outter_prefix ~= '' then
-                local location = outter_prefix:gsub("^%l", string.upper)
+                local location = outer_prefix
                 random_joker_files[location] = random_joker_files[location] or {}
                 local index = #random_joker_files[location]+1
                 local has_outline = true
@@ -217,10 +217,7 @@ local random_joker = {
         local layers = {}
         for k_, v_ in pairs(prefixes) do
             local key = v_.key
-            local location = key:gsub("^%l", string.upper)
-            local table = pseudorandom_element(random_joker_files[location], pseudoseed('randomjoker'))
-            local data = table.data.image_data:clone()
-            layers[v_.order+1] = {key = key, data = data, order = v_.order, chance = v_.chance or nil, outline = table.outline}
+            local location = key
         end
 
         local scale = G.SETTINGS.GRAPHICS.texture_scaling or 1

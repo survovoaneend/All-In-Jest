@@ -395,16 +395,16 @@ local function collect_png_files(base_fs, rel, out)
 end
 
 local png_files = {}
-collect_png_files(mod_path.."assets/1x/Parts", "Parts", png_files)
+collect_png_files(mod_path.."assets/1x/parts", "parts", png_files)
 
 for _, filename in ipairs(png_files) do
-    local path = mod_path.."assets/1x/Parts"..filename
+    local path = mod_path.."assets/1x/parts"..filename
     local name = filename:sub(1, -5) 
     name = name:sub(7)
 
     SMODS.Atlas({
         key = name,
-        path = 'Parts/'..name..'.png',
+        path = 'parts/'..name..'.png',
         px = '71',
         py = '95',
     })
