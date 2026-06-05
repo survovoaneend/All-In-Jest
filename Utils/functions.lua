@@ -162,11 +162,11 @@ function aij_get_mcc_pixel(data, posb, args)
         return true
     end
 
-    for x = bx0, bx1 - 1 do
-        for y = by0, by1 - 1 do
+    for x = bx0, bx1 - 1, scale do
+        for y = by0, by1 - 1, scale do
             local r, g, b, a = getPixel(data, x, y)
             if a > 0 then
-                local key = r * 65536 + g * 256 + b 
+                local key = math.floor(r * 255) * 256 ^ 2  + math.floor(g * 255) * 256 + math.floor(b * 255)
                 color_counts[key] = (color_counts[key] or 0) + 1
             end
         end
@@ -174,7 +174,7 @@ function aij_get_mcc_pixel(data, posb, args)
 
     local best_key, best_count = nil, 0
     for key, count in pairs(color_counts) do
-        if count > best_count then
+        if count > best_count and (key < (255 * 256 ^ 3 + 255 * 256 * 2 + 255 * 256) or best_key == nil) then
             best_key = key
             best_count = count
         end
@@ -184,9 +184,11 @@ function aij_get_mcc_pixel(data, posb, args)
         return nil
     end
 
-    local r = bit.band(bit.rshift(best_key, 16), 0xFF)
-    local g = bit.band(bit.rshift(best_key, 8), 0xFF)
-    local b = bit.band(best_key, 0xFF)
+    best_key = math.floor(best_key)
+
+    local r = bit.band(bit.rshift(best_key, 16), 0xFF) / 255
+    local g = bit.band(bit.rshift(best_key, 8), 0xFF) / 255
+    local b = bit.band(best_key, 0xFF) / 255
 
     return {r, g, b}
 end
