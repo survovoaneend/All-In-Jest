@@ -61,8 +61,10 @@ function aij_pasteAlpha(base, layer, posb, posl, args)
         for y = 0, math.min(ly1 - ly0, by1 - by0) - 1 do
 
             local r, g, b, a = getPixel(layer, lx0 + x, ly0 + y)
-            local br, bg, bb, ba = getPixel(base, lx0 + x, ly0 + y)
-            if args.blend then args.blend = {br, bg, bb, ba} end
+            if args.blend then 
+                local rb, gb, bb, ab = getPixel(base, lx0 + x, ly0 + y)
+                args.blend = {rb, gb, bb, ab} 
+            end
 
             if (not args.reverse and a > 0) or (args.reverse and a <= 0) then
                 if args.blend then
@@ -214,6 +216,17 @@ function aij_blend_pixels(r, g, b, a, new_color, args)
     local out_b = b_new * alpha + b * (1 - alpha)
 
     return out_r, out_g, out_b, a
+end
+
+function aij_remove_rank(card)
+    G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+            card.ability.numbertaker_rankless = true
+            card:set_sprites(nil, card.config.card)
+            return true
+        end
+    }))
 end
 
 function next_palindrome(n)
