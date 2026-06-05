@@ -1121,7 +1121,7 @@ function Card:set_sprites(_center, _front)
             }
             if new_color then
                 new_color[4] = 255
-                aij_recolour_atlas(self, replace_color, new_color, self.children.front.atlas, true)
+                self.children.front.atlas = aij_recolour_atlas(replace_color, new_color, self.children.front.atlas, true)
             end
             self.children.front:set_sprite_pos(pos)
         end

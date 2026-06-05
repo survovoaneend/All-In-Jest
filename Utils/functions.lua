@@ -76,43 +76,47 @@ function aij_pasteAlpha(base, layer, posb, posl, args)
     end
 end
 
-function aij_recolour_atlas(card, old_colour, new_colour, atlas, front, args)
+function aij_recolour_atlas(old_colour, new_colour, base_atlas, front, args)
     args = args or {}
-    local image_data = args.image_data or (atlas and atlas.image_data:clone())
 
-    image_data:mapPixel(function(x, y, r, g, b, a)
-        return aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour, args.tolerance, args)
-    end)
-    if args.return_val then return image_data end
-    if front then 
-        if self.children.front.atlas and self.children.front.atlas.image_data then
-            self.children.front.atlas.image_data = nil
-        end
-        card.children.front.atlas = {
-            px = atlas.px,
-            py = atlas.py,
-            name = atlas.name,
-            image_data = image_data,
-            image = love.graphics.newImage(image_data, {
-                mipmaps = true,
-                dpiscale = G.SETTINGS.GRAPHICS.texture_scaling
-            })
-        }
+    local r1 = old_colour[1]
+    local g1 = old_colour[2]
+    local b1 = old_colour[3]
+    local r2 = new_colour[1]
+    local g2 = new_colour[2]
+    local b2 = new_colour[3]
+    local new_atlas_name = base_atlas.name .. "_aij_recoloured_" .. (r1 * 256 ^ 3 + g1 * 256 ^ 2 + b1 * 256) .. "_" .. (r2 * 256 ^ 3 + g2 * 256 ^ 2 + b2 * 256)
+
+    if not SMODS.get_atlas(new_atlas_name) then
+        local atlas_image_data = args.image_data or (base_atlas and base_atlas.image_data and base_atlas.image_data:clone())
+
+        atlas_image_data:mapPixel(function(x, y, r, g, b, a)
+            return aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour, args.tolerance, args)
+        end)
+        if args.return_val then return atlas_image_data end
+
+        local atlas_type = base_atlas.atlas_table or "ASSET_ATLAS"
+        
+        G[atlas_type][new_atlas_name] = {}
+        SMODS.get_atlas(new_atlas_name).scorched = true
+        SMODS.get_atlas(new_atlas_name).name = new_atlas_name
+        SMODS.get_atlas(new_atlas_name).type = base_atlas.type
+        SMODS.get_atlas(new_atlas_name).atlas_table = atlas_type
+        SMODS.get_atlas(new_atlas_name).px = base_atlas.px
+        SMODS.get_atlas(new_atlas_name).py = base_atlas.py
+        SMODS.get_atlas(new_atlas_name).frames = base_atlas.frames
+        SMODS.get_atlas(new_atlas_name).image_data = atlas_image_data
+        SMODS.get_atlas(new_atlas_name).image = love.graphics.newImage(atlas_image_data, {
+            mipmaps = true,
+            dpiscale = G.SETTINGS.GRAPHICS.texture_scaling
+        })
+
+        return SMODS.get_atlas(new_atlas_name)
     else
-        if self.children.center.atlas and self.children.center.atlas.image_data then
-            self.children.center.atlas.image_data = nil
-        end
-        card.children.center.atlas = {
-            px = atlas.px,
-            py = atlas.py,
-            name = atlas.name,
-            image_data = image_data,
-            image = love.graphics.newImage(image_data, {
-                mipmaps = true,
-                dpiscale = G.SETTINGS.GRAPHICS.texture_scaling
-            })
-        }
+        if args.return_val then return SMODS.get_atlas(new_atlas_name).image_data end
+        return SMODS.get_atlas(new_atlas_name)
     end
+
 end
 
 function aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour, tolerance, args)
@@ -2215,7 +2219,6 @@ end
 G.FUNCS.aij_hover_tag_branching = function(e)
     if not e.parent or not e.parent.states then return end
     if e.states.hover.is and (e.created_on_pause == G.SETTINGS.paused) and not e.alert then
-        -- sendDebugMessage(tprint(e), "AIJ")
         local _sprite = e.config.ref_table[2]:get_uibox_table()
         e.alert = UIBox{
             definition = G.UIDEF.card_h_popup(_sprite),
@@ -2664,20 +2667,22 @@ function All_in_Jest.multi_enhancement_get_vanilla_z_order(key)
         m_paperback_antique = -1,
     }
 
-    z_order = z_order_table[key] or 0
+    z_order = z_order_table[key]
 
     return z_order
 end
 
 function All_in_Jest.get_enhancement_z_order(center)
-    local z_order = 0
+    local z_order = nil
     if center.all_in_jest and center.all_in_jest.multi_enhancement_z_order and type(center.all_in_jest.multi_enhancement_z_order) == "number" then
         z_order = center.all_in_jest.multi_enhancement_z_order
     else
         z_order = All_in_Jest.multi_enhancement_get_vanilla_z_order(center.key)
     end
 
-    return z_order + center.order / 10000 -- Use center order to make every enhancement have a set "stacking order"
+    if z_order ~= nil then
+        return z_order + center.order / 10000 -- Use center order to make every enhancement have a set "stacking order"
+    end
 end
 
 function process_texture_stack_enhancement_foreground(image, stacked_enhancement)
@@ -2772,35 +2777,54 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
         -- If sprite has a unique sprite, use it
         return SMODS.get_atlas(new_atlas), new_pos
     else
-        -- Else, create sprite using the shader
+        -- Else, create a new sprite
         local enhancement_1_z_order = All_in_Jest.get_enhancement_z_order(center)
         local enhancement_2_z_order = All_in_Jest.get_enhancement_z_order(other_center)
 
-        local foreground_enhancement = enhancement_1_z_order > enhancement_2_z_order and center or other_center
-        local background_enhancement = enhancement_1_z_order > enhancement_2_z_order and other_center or center
+        if enhancement_1_z_order == nil and enhancement_2_z_order == nil then
+            -- Recolour atlas
 
-        local base_atlas = SMODS.get_atlas(background_enhancement.atlas)
-        local atlas_key = background_enhancement.atlas
-        local new_atlas_name = atlas_key .. "_aij_foreground_" .. foreground_enhancement.key
-        local fused_atlas = nil
+            local base_enhancement = center.order < other_center.order and center or other_center
+            local other_enhancement = center.order < other_center.order and other_center or center
 
-        if not SMODS.get_atlas(new_atlas_name) then
-            local atlas_type = base_atlas.atlas_table or "ASSET_ATLAS"
-            
-            G[atlas_type][new_atlas_name] = {}
-            SMODS.get_atlas(new_atlas_name).scorched = true
-            SMODS.get_atlas(new_atlas_name).name = base_atlas.name .. "_aij_foreground_" .. foreground_enhancement.key
-            SMODS.get_atlas(new_atlas_name).type = base_atlas.type
-            SMODS.get_atlas(new_atlas_name).atlas_table = atlas_type
-            SMODS.get_atlas(new_atlas_name).px = base_atlas.px
-            SMODS.get_atlas(new_atlas_name).py = base_atlas.py
-            SMODS.get_atlas(new_atlas_name).frames = base_atlas.frames
-            local image, image_data = process_texture_stack_enhancement_foreground(base_atlas.image, foreground_enhancement.key)
-            SMODS.get_atlas(new_atlas_name).image = image
-            SMODS.get_atlas(new_atlas_name).image_data = image_data
+            local base_atlas = SMODS.get_atlas(base_enhancement.atlas)
+            local other_atlas = SMODS.get_atlas(other_enhancement.atlas)
+
+            local old_colour = aij_get_mcc_pixel(base_atlas.image_data, base_enhancement.pos, {bpx = base_atlas.px, bpy = base_atlas.py, check_invis = false})
+            local new_colour = aij_get_mcc_pixel(other_atlas.image_data, other_enhancement.pos, {bpx = other_atlas.px, bpy = other_atlas.py, check_invis = false})
+
+            return aij_recolour_atlas(old_colour, new_colour, base_atlas), base_enhancement.pos
+        else
+
+            enhancement_1_z_order = enhancement_1_z_order or 0
+            enhancement_2_z_order = enhancement_2_z_order or 0
+
+            -- Foreground shader
+            local foreground_enhancement = enhancement_1_z_order > enhancement_2_z_order and center or other_center
+            local background_enhancement = enhancement_1_z_order > enhancement_2_z_order and other_center or center
+
+            local base_atlas = SMODS.get_atlas(background_enhancement.atlas)
+            local atlas_key = background_enhancement.atlas
+            local new_atlas_name = atlas_key .. "_aij_foreground_" .. foreground_enhancement.key
+
+            if not SMODS.get_atlas(new_atlas_name) then
+                local atlas_type = base_atlas.atlas_table or "ASSET_ATLAS"
+                
+                G[atlas_type][new_atlas_name] = {}
+                SMODS.get_atlas(new_atlas_name).scorched = true
+                SMODS.get_atlas(new_atlas_name).name = base_atlas.name .. "_aij_foreground_" .. foreground_enhancement.key
+                SMODS.get_atlas(new_atlas_name).type = base_atlas.type
+                SMODS.get_atlas(new_atlas_name).atlas_table = atlas_type
+                SMODS.get_atlas(new_atlas_name).px = base_atlas.px
+                SMODS.get_atlas(new_atlas_name).py = base_atlas.py
+                SMODS.get_atlas(new_atlas_name).frames = base_atlas.frames
+                local image, image_data = process_texture_stack_enhancement_foreground(base_atlas.image, foreground_enhancement.key)
+                SMODS.get_atlas(new_atlas_name).image = image
+                SMODS.get_atlas(new_atlas_name).image_data = image_data
+            end
+
+            return SMODS.get_atlas(new_atlas_name), background_enhancement.pos
         end
-
-        return SMODS.get_atlas(new_atlas_name), background_enhancement.pos
     end
 end
 

@@ -53,38 +53,6 @@ function aij_outline_image(imagedata, outline_color)
     return out
 end
 
-
--- function aij_recolour_atlas(card, old_colour, new_colour, atlas)
---     local image_data = atlas.image_data:clone()
-
---     image_data:mapPixel(function(x, y, r, g, b, a)
---         return aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour)
---     end)
-
---     card.children.center.atlas = {
---         px = atlas.px,
---         py = atlas.py,
---         name = atlas.name,
---         image_data = image_data,
---         image = love.graphics.newImage(image_data, {
---             mipmaps = true,
---             dpiscale = G.SETTINGS.GRAPHICS.texture_scaling
---         })
---     }
--- end
-
--- function aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour, tolerance)
---     tolerance = tolerance or 0.01
-
---     if math.abs(r - old_colour[1]) <= tolerance
---     and math.abs(g - old_colour[2]) <= tolerance
---     and math.abs(b - old_colour[3]) <= tolerance then
---         return new_colour[1], new_colour[2], new_colour[3], a
---     end
-
---     return r, g, b, a
--- end
-
 local function aij_downscale_imagedata(src, scale)
     if scale == 1 then return src:clone() end
 
@@ -147,7 +115,7 @@ end
 local random_joker = {
     object_type = "Joker",
     order = 762,
-    ignore = true,
+    -- ignore = true,
     key = "random_joker",
     config = {
         extra = {
@@ -193,20 +161,20 @@ local random_joker = {
         local random_joker_files = {}
         for k, v in pairs(G.ASSET_ATLAS) do
             local prefix = 'aij_randomjoker_'
-            local outter_prefix = ''
+            local outer_prefix = ''
             for k_, v_ in pairs(prefixes) do
                 local key = v_.key
                 if string.find(k, prefix..key) then
-                    outter_prefix = key
+                    outer_prefix = key
                     break
                 end
             end
-            if outter_prefix ~= '' then
+            if outer_prefix ~= '' then
                 local location = outer_prefix
                 random_joker_files[location] = random_joker_files[location] or {}
                 local index = #random_joker_files[location]+1
                 local has_outline = true
-                if string.find(k, prefix..outter_prefix..'_nooutline') then
+                if string.find(k, prefix..outer_prefix..'_nooutline') then
                     has_outline = false
                 end
                 random_joker_files[location][index] = {data = v, outline = has_outline}
@@ -218,6 +186,11 @@ local random_joker = {
         for k_, v_ in pairs(prefixes) do
             local key = v_.key
             local location = key
+            if random_joker_files[location] then
+                local table = pseudorandom_element(random_joker_files[location], pseudoseed('randomjoker'))
+                local data = table.data.image_data:clone()
+                layers[v_.order+1] = {key = key, data = data, order = v_.order, chance = v_.chance or nil, outline = table.outline}
+            end
         end
 
         local scale = G.SETTINGS.GRAPHICS.texture_scaling or 1
@@ -259,17 +232,17 @@ local random_joker = {
         local replace_colours = {HEX('ff0000'), HEX('00fff8'), HEX('00ff05')}
         local new_colours = All_in_Jest.get_random_joker_colours('skintone')
         for k, v in pairs(replace_colours) do
-            aij_recolour_atlas(card, v, new_colours[k], card.children.center.atlas)
+            card.children.center.atlas = aij_recolour_atlas(v, new_colours[k], card.children.center.atlas)
         end
 
         local replace_colours1 = {HEX('a2ff00'), HEX('8600ff'), HEX('ff5300'), HEX('0082ff'), HEX('ff006f')}
         local replace_colours2 = {HEX('eeff00'), HEX('ff00e5'), HEX('0a00ff')}
         local new_clothes_colours, new_makeup_colours = All_in_Jest.get_random_joker_colours('clothes_and_makeup')
         for k, v in pairs(replace_colours1) do
-            aij_recolour_atlas(card, v, new_clothes_colours[k], card.children.center.atlas)
+            card.children.center.atlas = aij_recolour_atlas(v, new_clothes_colours[k], card.children.center.atlas)
         end
         for k, v in pairs(replace_colours2) do
-            aij_recolour_atlas(card, v, new_makeup_colours[k], card.children.center.atlas)
+            card.children.center.atlas = aij_recolour_atlas(v, new_makeup_colours[k], card.children.center.atlas)
         end
 
         local dark_replace_colours1 = {HEX('528100'), HEX('330061'), HEX('5c1e00'), HEX('00386d'), HEX('790035')}
@@ -282,10 +255,10 @@ local random_joker = {
             dark_new_makeup_colours[#dark_new_makeup_colours+1] = darken(v,0.31)
         end
         for k, v in pairs(dark_replace_colours1) do
-            aij_recolour_atlas(card, v, dark_new_clothes_colours[k], card.children.center.atlas)
+            card.children.center.atlas = aij_recolour_atlas(v, dark_new_clothes_colours[k], card.children.center.atlas)
         end
         for k, v in pairs(dark_replace_colours2) do
-            aij_recolour_atlas(card, v, dark_new_makeup_colours[k], card.children.center.atlas)
+            card.children.center.atlas = aij_recolour_atlas(v, dark_new_makeup_colours[k], card.children.center.atlas)
         end
 
         local light_replace_colours1 = {HEX('d2ff84'), HEX('c17dff'), HEX('ff9e6f'), HEX('82c2ff'), HEX('ff6fae')}
@@ -294,7 +267,7 @@ local random_joker = {
             light_new_clothes_colours[#light_new_clothes_colours+1] = lighten(v,0.26)
         end
         for k, v in pairs(light_replace_colours1) do
-            aij_recolour_atlas(card, v, light_new_clothes_colours[k], card.children.center.atlas)
+            card.children.center.atlas = aij_recolour_atlas(v, light_new_clothes_colours[k], card.children.center.atlas)
         end
 
         --Base, Light, Dark
@@ -308,7 +281,7 @@ local random_joker = {
             new_hair_colours = colours
         end
         for k, v in pairs(replace_colours3) do
-            aij_recolour_atlas(card, v, new_hair_colours[k], card.children.center.atlas)
+            card.children.center.atlas = aij_recolour_atlas(v, new_hair_colours[k], card.children.center.atlas)
         end
 
     end,
