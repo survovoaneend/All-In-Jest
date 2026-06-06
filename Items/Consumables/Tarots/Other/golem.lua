@@ -103,6 +103,33 @@ local golem = {
 		delay(0.5)
 	end,
 	in_pool = function(self, args)
+
+		if G.hand then
+			local cards_to_draw = {}
+			local space_taken = 0
+
+			local limit = (G.hand.config.card_limit - #G.hand.cards - (SMODS.cards_to_draw or 0))
+			local flags = SMODS.calculate_context({drawing_cards = true, amount = limit})
+			limit = flags.cards_to_draw or flags.modify or limit
+			local unfixed = not G.hand.config.fixed_limit
+			local n = 0
+			while n < #G.deck.cards and limit > 0 do
+				local card = G.deck.cards[#G.deck.cards-n]
+				local mod = unfixed and (card.ability.card_limit - card.ability.extra_slots_used) or 0
+				if limit - 1 + mod < 0 then
+				else
+					limit = limit - 1 + mod
+
+					if SMODS.has_enhancement(card, "m_stone") then
+						return true
+					end
+
+					space_taken = space_taken + (1 - mod)
+				end
+				n = n + 1
+			end
+		end
+
 		return false
 	end,
 }
