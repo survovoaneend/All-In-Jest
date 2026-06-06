@@ -276,6 +276,45 @@ function aij_get_mcc_pixel(data, posb, args)
     return {r, g, b}
 end
 
+function aij_get_saturation_range(data, posb, args)
+    args = args or {}
+    posb = posb or {x=0, y=0}
+
+    local bw, bh = data:getWidth(), data:getHeight()
+    local bit = require("bit")
+
+    local scale = G.SETTINGS.GRAPHICS.texture_scaling
+    local bpx = (args.bpx and args.bpx * scale) or bw
+    local bpy = (args.bpy and args.bpy * scale) or bh
+
+    local bx0 = posb.x * bpx
+    local by0 = posb.y * bpy
+
+    local bx1 = math.min(bx0 + bpx, bw)
+    local by1 = math.min(by0 + bpy, bh)
+
+    local color_counts = {}
+    local getPixel = data.getPixel 
+
+    local saturation_low = 1
+    local saturation_high = 0
+
+    for x = bx0, bx1 - 1, scale do
+        for y = by0, by1 - 1, scale do
+            local r, g, b, a = getPixel(data, x, y)
+            if a > 0 then
+                local _, s, v = rgb_to_hsv(r, g, b)
+                if v < 0.999 then -- Don't count pure white
+                    if s < saturation_low then saturation_low = s end
+                    if s > saturation_high then saturation_high = s end
+                end
+            end
+        end
+    end
+
+    return saturation_low, saturation_high
+end
+
 function aij_check_if_sprite_exists(atlas, x, y)
     return not aij_get_mcc_pixel(
         SMODS.get_atlas(atlas).image_data, 
@@ -2915,7 +2954,6 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
                 local foreground_atlas = aij_recolour_atlas({1, 1, 1, 1}, {1, 1, 1, 1}, foreground_atlas, nil, {return_pixel = remove_white, skip_check = true}), foreground_enhancement.pos
                 
                 local new_atlas_name = background_atlas.name .. "_aij_foreground_" .. foreground_enhancement.key
-                sendDebugMessage(new_atlas_name, "AIJ")
                 if not SMODS.get_atlas(new_atlas_name) then
                     local atlas_type = background_atlas.atlas_table or "ASSET_ATLAS"
                     
@@ -2949,12 +2987,18 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
                 end
 
                 local base_atlas = SMODS.get_atlas(base_enhancement.atlas)
-                
+                local other_atlas = SMODS.get_atlas(other_enhancement.atlas)
+                local s_base_low, s_base_high = aij_get_saturation_range(base_atlas.image_data, base_enhancement.pos, {bpx = base_atlas.px, bpy = base_atlas.py})
+                local s_other_low, s_other_high = aij_get_saturation_range(other_atlas.image_data, other_enhancement.pos, {bpx = other_atlas.px, bpy = other_atlas.py})
+
                 local set_hue = function(r, g, b, a, old_colour, new_colour, args)
                     local h_old, s_old, v_old = rgb_to_hsv(r, g, b)
                     local h_new, s_new, _ = rgb_to_hsv(new_colour[1], new_colour[2], new_colour[3])
 
-                    local r_new, g_new, b_new = hsv_to_rgb(h_new, (s_old + s_new) / 2, v_old)
+                    local s_merged = ((s_old - s_base_low) / (s_base_high - s_base_low)) * (s_other_high - s_other_low) + s_other_low
+                    s_merged = math.min(s_merged, 1)
+
+                    local r_new, g_new, b_new = hsv_to_rgb(h_new, s_merged, v_old)
 
                     return r_new, g_new, b_new, args.replace_alpha and new_colour[4] or a
                 end
