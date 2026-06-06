@@ -2902,7 +2902,7 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
         new_pos.x or 0,
         new_pos.y or 0
     )
-    if has_sprite and new_pos.y > 0 then
+    if has_sprite and new_pos.y and new_pos.y > 0 then
         -- If sprite has a unique sprite, use it
         return SMODS.get_atlas(new_atlas), new_pos
     else
@@ -2974,7 +2974,9 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
                 -- Recolour atlas
                 local base_enhancement, other_enhancement, old_colour, new_color
 
-                if center.order < other_center.order then
+                enhancement_1_z_order = enhancement_1_z_order or (0 + center.order / 10000) -- Makes picking the base atlas easier
+                enhancement_2_z_order = enhancement_2_z_order or (0 + center.order / 10000) -- Makes picking the base atlas easier
+                if enhancement_1_z_order < enhancement_2_z_order then
                     base_enhancement = center
                     other_enhancement = other_center
                     old_colour = enhancement_1_colour
