@@ -2749,11 +2749,11 @@ function All_in_Jest.multi_enhancement_get_vanilla_z_order(key)
 
         m_paperback_soaked = -1,
         m_paperback_ceramic = -1,
-        m_paperback_wrapped = 1,
-        m_paperback_bandaged = 1,
+        m_paperback_wrapped = 1.4,
+        m_paperback_bandaged = 1.6,
         m_paperback_domino = 1,
         m_paperback_stained = 1,
-        m_paperback_sleeved = 2,
+        m_paperback_sleeved = 3,
         m_paperback_antique = -1,
     }
 
