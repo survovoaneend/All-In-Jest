@@ -5003,3 +5003,12 @@ payload = '''
 self.ASSET_ATLAS[self.asset_images[i].name].image_data = love.image.newImageData(self.asset_atli[i].path)
 '''
 match_indent = true
+
+# Fused stone cards are ordered in hand correctly
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''if self.ability.effect == 'Stone Card' or (self.config.center.no_suit and self.config.center.no_rank) then'''
+position = 'at'
+payload = '''if SMODS.has_enhancement(self, "m_stone") or (self.config.center.no_suit and self.config.center.no_rank) then'''
+match_indent = true
