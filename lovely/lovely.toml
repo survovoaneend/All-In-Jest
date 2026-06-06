@@ -4972,3 +4972,34 @@ target = "card.lua"
 pattern = '''elseif self\.seal == 'Gold' (?<post>.*) then$'''
 position = 'at'
 payload = '''elseif self.seal == 'Gold' and not SMODS.aij_inherent_enhancement_calc_in_progress $post then'''
+
+
+
+# Add image_data to vanilla atlases
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''self.ANIMATION_ATLAS[self.animation_atli[i].name].image = *'''
+position = 'after'
+payload = '''
+self.ANIMATION_ATLAS[self.animation_atli[i].name].image_data = love.image.newImageData(self.animation_atli[i].path)
+'''
+match_indent = true
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''self.ASSET_ATLAS[self.asset_atli[i].name].image = *'''
+position = 'after'
+payload = '''
+self.ASSET_ATLAS[self.asset_atli[i].name].image_data = love.image.newImageData(self.asset_atli[i].path)
+'''
+match_indent = true
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''self.ASSET_ATLAS[self.asset_images[i].name].image = *'''
+position = 'after'
+payload = '''
+self.ASSET_ATLAS[self.asset_images[i].name].image_data = love.image.newImageData(self.asset_atli[i].path)
+'''
+match_indent = true

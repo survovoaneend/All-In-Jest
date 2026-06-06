@@ -100,7 +100,6 @@ function aij_recolour_atlas(old_colour, new_colour, base_atlas, front, args)
         local atlas_type = base_atlas.atlas_table or "ASSET_ATLAS"
         
         G[atlas_type][new_atlas_name] = {}
-        SMODS.get_atlas(new_atlas_name).scorched = true
         SMODS.get_atlas(new_atlas_name).name = new_atlas_name
         SMODS.get_atlas(new_atlas_name).type = base_atlas.type
         SMODS.get_atlas(new_atlas_name).atlas_table = atlas_type
@@ -126,14 +125,92 @@ function aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour, tolerance,
     args.tolerance = args.tolerance or tolerance
     args.pos = {x = x, y = y}
 
-    if (math.abs(r - old_colour[1]) <= tolerance
-    and math.abs(g - old_colour[2]) <= tolerance
-    and math.abs(b - old_colour[3]) <= tolerance) or args.skip_check then
+    if args.skip_check or (math.abs(r - old_colour[1]) <= tolerance
+                            and math.abs(g - old_colour[2]) <= tolerance
+                            and math.abs(b - old_colour[3]) <= tolerance) then
         if args.return_pixel then return args.return_pixel(r, g, b, a, old_colour, new_colour, args) end
         return new_colour[1], new_colour[2], new_colour[3], args.replace_alpha and new_colour[4] or a
     end
 
     return r, g, b, a
+end
+
+-- Assumes r, g, b are in [0, 1]
+function rgb_to_hsv(r, g, b)
+    assert(r <= 1 and g <= 1 and b <= 1, "rgb_to_hsv assumes values in range of [0, 1]")
+    
+    local max_colour = math.max(r, g, b)
+    local min_colour = math.min(r, g, b)
+
+    local hue = max_colour
+    local sat = max_colour
+    local val = max_colour
+
+    local delta = max_colour - min_colour
+    sat = max_colour == 0 and 0 or delta / max_colour
+
+    if (delta < 0.0001) then
+        hue = 0
+    else
+        if max_colour == r then
+            hue = (g - b) / delta + (g < b and 6 or 0)
+        elseif max_colour == g then
+            hue = (b - r) / delta + 2
+        elseif max_colour == b then
+            hue = (r - g) / delta + 4
+        end
+
+        hue = hue / 6
+    end
+
+    return hue, sat, val
+end
+
+-- Assumes hue, sat, val are in [0, 1]
+function hsv_to_rgb(hue, sat, val)
+    assert(hue <= 1 and sat <= 1 and val <= 1, "rgb_to_hsv assumes values in range of [0, 1]")
+    
+    local r = 0
+    local g = 0
+    local b = 0
+
+    local i = math.floor(hue * 6)
+    local f = hue * 6 - i
+    local p = val * (1 - sat)
+    local q = val * (1 - f * sat)
+    local t = val * (1 - (1 - f) * sat)
+
+    i = i % 6
+
+
+    if i == 0 then
+        r = val
+        g = t
+        b = p
+    elseif i == 1 then
+        r = q
+        g = val
+        b = p
+    elseif i == 2 then
+        r = p
+        g = val
+        b = t
+    elseif i == 3 then
+        r = p
+        g = q
+        b = val
+    elseif i == 4 then
+        r = t
+        g = p
+        b = val
+    elseif i == 5 then
+        r = val
+        g = p
+        b = q
+    end
+
+    return r, g, b
+
 end
 
 function aij_get_mcc_pixel(data, posb, args)
@@ -180,7 +257,7 @@ function aij_get_mcc_pixel(data, posb, args)
 
     local best_key, best_count = nil, 0
     for key, count in pairs(color_counts) do
-        if count > best_count and (key < (255 * 256 ^ 3 + 255 * 256 * 2 + 255 * 256) or best_key == nil) then
+        if count > best_count then
             best_key = key
             best_count = count
         end
@@ -2698,13 +2775,13 @@ function All_in_Jest.get_enhancement_z_order(center)
     end
 end
 
-function process_texture_stack_enhancement_foreground(image, stacked_enhancement)
-    local foregrounds_atlas = SMODS.get_atlas("aij_multi_enhancements_foregrounds_atlas")
+function process_texture_stack_enhancement_foreground(image, stacked_enhancement, foreground_atlas_name)
+    local foregrounds_atlas = SMODS.get_atlas(foreground_atlas_name or "aij_multi_enhancements_foregrounds_atlas")
 
     local foreground_pos, _ = {x = All_in_Jest.find_multi_enhancement_pos(stacked_enhancement, true), y = 0}
 
     if foreground_pos.x == 0 then
-        foregrounds_atlas = SMODS.get_atlas(G.P_CENTERS[stacked_enhancement].atlas)
+        foregrounds_atlas = SMODS.get_atlas(foreground_atlas_name or G.P_CENTERS[stacked_enhancement].atlas)
         foreground_pos = G.P_CENTERS[stacked_enhancement].pos
     end
 
@@ -2724,7 +2801,7 @@ function process_texture_stack_enhancement_foreground(image, stacked_enhancement
     G.SHADERS['aij_fusion_spritesheet']:send("enhancement_image_dims", {texW, texH})
     G.SHADERS['aij_fusion_spritesheet']:send("old_image_dims", {image:getDimensions()})
     G.SHADERS['aij_fusion_spritesheet']:send('maskTex', foregrounds_atlas.image)
-    G.SHADERS['aij_fusion_spritesheet']:send('maskUV', { foreground_pos.x * foregrounds_atlas.px / texW, foreground_pos.y, w / texW, h / texH })
+    G.SHADERS['aij_fusion_spritesheet']:send('maskUV', { foreground_pos.x * foregrounds_atlas.px / texW, foreground_pos.y * foregrounds_atlas.py / texH, w / texW, h / texH })
     love.graphics.setShader( G.SHADERS['aij_fusion_spritesheet'] )
     
     -- Draw image with foreground shader on new canvas
@@ -2793,22 +2870,99 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
         -- Else, create a new sprite
         local enhancement_1_z_order = All_in_Jest.get_enhancement_z_order(center)
         local enhancement_2_z_order = All_in_Jest.get_enhancement_z_order(other_center)
+        
 
-        if enhancement_1_z_order == nil and enhancement_2_z_order == nil then
-            -- Recolour atlas
+        if (enhancement_1_z_order == nil and enhancement_2_z_order == nil) or (enhancement_1_z_order == nil and enhancement_2_z_order < 0) or (enhancement_1_z_order < 0 and enhancement_2_z_order == nil) then
+            -- AiJ hasn't defined anything, so do it dynamically
 
-            local base_enhancement = center.order < other_center.order and center or other_center
-            local other_enhancement = center.order < other_center.order and other_center or center
+            local enhancement_1_atlas = SMODS.get_atlas(center.atlas)
+            local enhancement_2_atlas = SMODS.get_atlas(other_center.atlas)
 
-            local base_atlas = SMODS.get_atlas(base_enhancement.atlas)
-            local other_atlas = SMODS.get_atlas(other_enhancement.atlas)
+            local enhancement_1_colour = aij_get_mcc_pixel(enhancement_1_atlas.image_data, center.pos, {bpx = enhancement_1_atlas.px, bpy = enhancement_1_atlas.py, check_invis = false})
+            local enhancement_2_colour = aij_get_mcc_pixel(enhancement_2_atlas.image_data, other_center.pos, {bpx = enhancement_2_atlas.px, bpy = enhancement_2_atlas.py, check_invis = false})
 
-            local old_colour = aij_get_mcc_pixel(base_atlas.image_data, base_enhancement.pos, {bpx = base_atlas.px, bpy = base_atlas.py, check_invis = false})
-            local new_colour = aij_get_mcc_pixel(other_atlas.image_data, other_enhancement.pos, {bpx = other_atlas.px, bpy = other_atlas.py, check_invis = false})
+            local h1, s1, v1 = rgb_to_hsv(enhancement_1_colour[1], enhancement_1_colour[2], enhancement_1_colour[3])
+            local h2, s2, v2 = rgb_to_hsv(enhancement_2_colour[1], enhancement_2_colour[2], enhancement_2_colour[3])
 
-            return aij_recolour_atlas(old_colour, new_colour, base_atlas), base_enhancement.pos
+            if (v1 > 0.95 and s1 < 0.05) or (v2 > 0.95 and s2 < 0.05) then
+                -- If it looks like one of the enhancements could be a foreground, create a foreground sprite
+
+                local remove_white = function(r, g, b, a, old_colour, new_colour, args)
+                    local h_old, s_old, v_old = rgb_to_hsv(r, g, b)
+                    local new_a = a
+                    if v_old > 0.9 then
+                        new_a = math.min(1 - v_old, a)
+                    end
+
+                    return r, g, b, new_a
+                end
+
+                local foreground_enhancement, background_enhancement, foreground_atlas, background_atlas
+
+                if (v1 > 0.95 and s1 < 0.05) then
+                    foreground_enhancement = center
+                    background_enhancement = other_center
+                    foreground_atlas = enhancement_1_atlas
+                    background_atlas = enhancement_2_atlas
+                    background_atlas = enhancement_2_atlas
+                else
+                    foreground_enhancement = other_center
+                    background_enhancement = center
+                    foreground_atlas = enhancement_2_atlas
+                    background_atlas = enhancement_1_atlas
+                end
+
+                local foreground_atlas = aij_recolour_atlas({1, 1, 1, 1}, {1, 1, 1, 1}, foreground_atlas, nil, {return_pixel = remove_white, skip_check = true}), foreground_enhancement.pos
+                
+                local new_atlas_name = background_atlas.name .. "_aij_foreground_" .. foreground_enhancement.key
+                sendDebugMessage(new_atlas_name, "AIJ")
+                if not SMODS.get_atlas(new_atlas_name) then
+                    local atlas_type = background_atlas.atlas_table or "ASSET_ATLAS"
+                    
+                    G[atlas_type][new_atlas_name] = {}
+                    SMODS.get_atlas(new_atlas_name).name = new_atlas_name
+                    SMODS.get_atlas(new_atlas_name).type = background_atlas.type
+                    SMODS.get_atlas(new_atlas_name).atlas_table = atlas_type
+                    SMODS.get_atlas(new_atlas_name).px = background_atlas.px
+                    SMODS.get_atlas(new_atlas_name).py = background_atlas.py
+                    SMODS.get_atlas(new_atlas_name).frames = background_atlas.frames
+                    local image, image_data = process_texture_stack_enhancement_foreground(background_atlas.image, foreground_enhancement.key, foreground_atlas.name)
+                    SMODS.get_atlas(new_atlas_name).image = image
+                    SMODS.get_atlas(new_atlas_name).image_data = image_data
+                end
+
+                return SMODS.get_atlas(new_atlas_name), background_enhancement.pos
+            else
+                -- Recolour atlas
+                local base_enhancement, other_enhancement, old_colour, new_color
+
+                if center.order < other_center.order then
+                    base_enhancement = center
+                    other_enhancement = other_center
+                    old_colour = enhancement_1_colour
+                    new_colour = enhancement_2_colour
+                else
+                    base_enhancement = other_center
+                    other_enhancement = center
+                    old_colour = enhancement_2_colour
+                    new_colour = enhancement_1_colour
+                end
+
+                local base_atlas = SMODS.get_atlas(base_enhancement.atlas)
+                
+                local set_hue = function(r, g, b, a, old_colour, new_colour, args)
+                    local h_old, s_old, v_old = rgb_to_hsv(r, g, b)
+                    local h_new, s_new, _ = rgb_to_hsv(new_colour[1], new_colour[2], new_colour[3])
+
+                    local r_new, g_new, b_new = hsv_to_rgb(h_new, (s_old + s_new) / 2, v_old)
+
+                    return r_new, g_new, b_new, args.replace_alpha and new_colour[4] or a
+                end
+
+                return aij_recolour_atlas(old_colour, new_colour, base_atlas, nil, {return_pixel = set_hue, skip_check = true}), base_enhancement.pos
+            end
+
         else
-
             enhancement_1_z_order = enhancement_1_z_order or 0
             enhancement_2_z_order = enhancement_2_z_order or 0
 
@@ -2824,7 +2978,6 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
                 local atlas_type = base_atlas.atlas_table or "ASSET_ATLAS"
                 
                 G[atlas_type][new_atlas_name] = {}
-                SMODS.get_atlas(new_atlas_name).scorched = true
                 SMODS.get_atlas(new_atlas_name).name = base_atlas.name .. "_aij_foreground_" .. foreground_enhancement.key
                 SMODS.get_atlas(new_atlas_name).type = base_atlas.type
                 SMODS.get_atlas(new_atlas_name).atlas_table = atlas_type
