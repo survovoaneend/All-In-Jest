@@ -2972,25 +2972,25 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
                 return SMODS.get_atlas(new_atlas_name), background_enhancement.pos
             else
                 -- Recolour atlas
-                local base_enhancement, other_enhancement, old_colour, new_color
+                local enhancement_to_recolour, other_enhancement, old_colour, new_color
 
                 enhancement_1_z_order = enhancement_1_z_order or (0 + center.order / 10000) -- Makes picking the base atlas easier
                 enhancement_2_z_order = enhancement_2_z_order or (0 + center.order / 10000) -- Makes picking the base atlas easier
                 if enhancement_1_z_order < enhancement_2_z_order then
-                    base_enhancement = center
+                    enhancement_to_recolour = center
                     other_enhancement = other_center
                     old_colour = enhancement_1_colour
                     new_colour = enhancement_2_colour
                 else
-                    base_enhancement = other_center
+                    enhancement_to_recolour = other_center
                     other_enhancement = center
                     old_colour = enhancement_2_colour
                     new_colour = enhancement_1_colour
                 end
 
-                local base_atlas = SMODS.get_atlas(base_enhancement.atlas)
+                local base_atlas = SMODS.get_atlas(enhancement_to_recolour.atlas)
                 local other_atlas = SMODS.get_atlas(other_enhancement.atlas)
-                local s_base_low, s_base_high = aij_get_saturation_range(base_atlas.image_data, base_enhancement.pos, {bpx = base_atlas.px, bpy = base_atlas.py})
+                local s_base_low, s_base_high = aij_get_saturation_range(base_atlas.image_data, enhancement_to_recolour.pos, {bpx = base_atlas.px, bpy = base_atlas.py})
                 local s_other_low, s_other_high = aij_get_saturation_range(other_atlas.image_data, other_enhancement.pos, {bpx = other_atlas.px, bpy = other_atlas.py})
 
                 local set_hue = function(r, g, b, a, old_colour, new_colour, args)
@@ -3005,7 +3005,7 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
                     return r_new, g_new, b_new, args.replace_alpha and new_colour[4] or a
                 end
 
-                return aij_recolour_atlas(old_colour, new_colour, base_atlas, nil, {return_pixel = set_hue, skip_check = true}), base_enhancement.pos
+                return aij_recolour_atlas(old_colour, new_colour, base_atlas, nil, {return_pixel = set_hue, skip_check = true}), enhancement_to_recolour.pos
             end
 
         else
