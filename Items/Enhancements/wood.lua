@@ -5,7 +5,6 @@ local wood = {
     order = 4,
     pos = { x = 4, y = 0 },
     config = {
-        h_chips = 20,
         extra = {
             base_h_chips = 20,
             h_chips_mod = 5,
@@ -14,28 +13,52 @@ local wood = {
     all_in_jest = {
         multi_enhancement_z_order = -1
     },
+
     loc_vars = function(self, info_queue, card)
+        local hand_chips = card.ability.extra.base_h_chips
+
+        if G.hand and G.hand.cards then
+            local wood_cards = {}
+            for _, v in pairs(G.hand.cards) do
+                if SMODS.has_enhancement(v, "m_aij_wood") then
+                    wood_cards[#wood_cards+1] = v
+                end
+            end
+            if #wood_cards > 1 then
+                hand_chips = hand_chips + (card.ability.extra.h_chips_mod * (#wood_cards - 1))
+            end
+        end
+
         return { vars = {
-            card.ability.h_chips,
+            hand_chips,
             card.ability.extra.h_chips_mod,
             card.ability.extra.base_h_chips
         } }
     end,
-    update = function(self, card, dt)
-        if G.hand and G.hand.cards then
-            local cards = {}
-            for k, v in pairs(G.hand.cards) do
-                if SMODS.get_enhancements(G.hand.cards[k]).m_aij_wood then
-                    cards[#cards+1] = v
+    
+
+    calculate = function(self, card, context)
+        if context.cardarea == G.hand and context.main_scoring then
+            local hand_chips = card.ability.extra.base_h_chips
+
+            if G.hand and G.hand.cards then
+                local wood_cards = {}
+                for _, v in pairs(G.hand.cards) do
+                    if SMODS.has_enhancement(v, "m_aij_wood") then
+                        wood_cards[#wood_cards+1] = v
+                    end
+                end
+                if #wood_cards > 1 then
+                    hand_chips = hand_chips + (card.ability.extra.h_chips_mod * (#wood_cards - 1))
                 end
             end
-            if #cards - 1 >= 0 then
-                card.ability.h_chips = card.ability.extra.base_h_chips + (card.ability.extra.h_chips_mod * (#cards - 1))
-            end
-        else
-            card.ability.h_chips = card.ability.extra.base_h_chips
+
+            return {
+                chips = hand_chips
+            }
         end
     end
+
 }
 
 function process_texture_wood(image)
