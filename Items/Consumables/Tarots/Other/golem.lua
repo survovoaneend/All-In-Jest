@@ -131,10 +131,9 @@ local golem = {
 			add = nil
 			for kk, vv in pairs(G.playing_cards) do
 				if SMODS.has_enhancement(vv, "m_stone") then
-					add = true
+					return true
 				end
 			end
-			return true
 		end
 
 		return false
