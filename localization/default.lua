@@ -7950,7 +7950,7 @@ return {
                 text = {
                     "Enhances {C:attention}#1#{}",
                     "selected cards to",
-                    "{C:attention}#2#{}"
+                    "{C:attention}#2#s{}"
                 }
             },
             c_aij_isis_urania = {
