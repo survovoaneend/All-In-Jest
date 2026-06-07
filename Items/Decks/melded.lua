@@ -53,6 +53,8 @@ function Card:set_ability(center, initial, delay_sprites)
         and not SMODS.aij_applying_thing
 	then
 		old_center_key = self.config.center.key
+	elseif not SMODS.aij_applying_thing then
+		self.config.aij_other_center = nil
 	end
 
 	local ret = aij_card_set_ability_ref(self, center, initial, delay_sprites)
