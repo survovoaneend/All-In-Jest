@@ -1323,7 +1323,7 @@ function CardArea:move(dt)
     return ret
 end
 
-
+-- Hook for simulated card effect
 table.insert(SMODS.calculation_keys, "aij_return_to_hand")
 table.insert(SMODS.other_calculation_keys, "aij_return_to_hand")
 table.insert(SMODS.silent_calculation, "aij_return_to_hand")
@@ -1335,4 +1335,91 @@ SMODS.calculate_individual_effect = function(effect, scored_card, key, amount, f
     end
 
     return aij_original_smods_calculate_individal_effect_ref(effect, scored_card, key, amount, from_edition)
+end
+
+local aij_create_UIBox_hand_tip_ref = create_UIBox_hand_tip
+function create_UIBox_hand_tip(handname)
+    ret = aij_create_UIBox_hand_tip_ref(handname)
+
+    -- Show level of royal flush when hovered over
+    if handname == 'Straight Flush' and G.GAME.hands["aij_Royal Flush"] and G.GAME.hands["aij_Royal Flush"].level > G.GAME.hands["Straight Flush"].level then
+        ret = {n=G.UIT.R, config={align = "cm", r = 0.1}, nodes={
+            ret,
+            {n=G.UIT.R, config={align = "cm", padding = 0.05, r = 0.1, colour = darken(G.C.JOKER_GREY, 0.1), emboss = 0.05, hover = true, force_focus = true, on_demand_tooltip = {text = localize("aij_Royal Flush", 'poker_hand_descriptions'), filler = {func = create_UIBox_hand_tip, args = "aij_Royal Flush"}}}, nodes={
+                {n=G.UIT.C, config={align = "cl", padding = 0, minw = 5}, nodes={
+                    {n=G.UIT.C, config={align = "cm", padding = 0.01, r = 0.1, colour = G.C.HAND_LEVELS[math.min(7, math.max(G.GAME.hands["aij_Royal Flush"].level-G.GAME.hands["Straight Flush"].level))], minw = 1.5, outline = 0.8, outline_colour = G.C.WHITE}, nodes={
+                    {n=G.UIT.T, config={text = '+'..localize('k_level_prefix')..(G.GAME.hands["aij_Royal Flush"].level-G.GAME.hands["Straight Flush"].level), scale = 0.5, colour = G.C.UI.TEXT_DARK}}
+                    }},
+                    {n=G.UIT.C, config={align = "cm", minw = 4.5, maxw = 4.5}, nodes={
+                    {n=G.UIT.T, config={text = ' '..localize("aij_Royal Flush",'poker_hands'), scale = 0.45, colour = G.C.UI.TEXT_LIGHT, shadow = true}}
+                    }}
+                }},
+                {n=G.UIT.C, config={align = "cm", padding = 0.05, colour = G.C.BLACK,r = 0.1}, nodes={
+                    {n=G.UIT.C, config={align = "cr", padding = 0.01, r = 0.1, colour = G.C.CHIPS, minw = 1.1}, nodes={
+                    {n=G.UIT.T, config={text = '+'..number_format(G.GAME.hands["aij_Royal Flush"].chips-G.GAME.hands["Straight Flush"].chips, 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}},
+                    {n=G.UIT.B, config={w = 0.08, h = 0.01}}
+                    }},
+                    {n=G.UIT.T, config={text = "X", scale = 0.45, colour = G.C.MULT}},
+                    {n=G.UIT.C, config={align = "cl", padding = 0.01, r = 0.1, colour = G.C.MULT, minw = 1.1}, nodes={
+                    {n=G.UIT.B, config={w = 0.08,h = 0.01}},
+                    {n=G.UIT.T, config={text = '+'..number_format(G.GAME.hands["aij_Royal Flush"].mult-G.GAME.hands["Straight Flush"].mult, 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}}
+                    }}
+                }},
+                {n=G.UIT.C, config={align = "cm"}, nodes={
+                    {n=G.UIT.T, config={text = '  #', scale = 0.45, colour = G.C.UI.TEXT_LIGHT, shadow = true}}
+                    }},
+                {n=G.UIT.C, config={align = "cm", padding = 0.05, colour = G.C.L_BLACK,r = 0.1, minw = 0.9}, nodes={
+                    {n=G.UIT.T, config={text = G.GAME.hands["aij_Royal Flush"].played, scale = 0.45, colour = G.C.FILTER, shadow = true}},
+                }}
+            }},
+        }}
+    end
+
+    -- Show applied astral pins
+    local astrals = 0
+    if G.GAME.Astral_pins[handname] then
+        for _, _ in pairs(G.GAME.Astral_pins[handname]) do
+            astrals = astrals + 1
+        end
+    end
+    if astrals > 0 then
+        local astral_pins_cardarea = CardArea(
+            2, 2,
+            3.5*G.CARD_W,
+            0.5*G.CARD_H, 
+            {card_limit = 3, type = 'title', highlight_limit = 0})
+
+        if G.GAME.Astral_pins[handname] then
+            local v = G.GAME.Astral_pins[handname]
+            for _, i in pairs(v) do
+                local center = G.Astral[i.pin]
+                local card = Card(astral_pins_cardarea.T.x + astral_pins_cardarea.T.w/2,
+                astral_pins_cardarea.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
+                card.config.center_key = i.pin
+                for k_, vi in pairs(card.config.center.config) do
+                    card.ability[k_] = vi 
+                end
+                for k_, vi in pairs(G.GAME.Astral_pins[handname][_].ability) do
+                    card.ability[k_] = vi 
+                end
+                card.ability.extra.hand = handname
+                card.config.center.set_card_type_badge = function(self, card, badges)
+                    badges = {}
+                end
+                astral_pins_cardarea:emplace(card)
+                card:start_materialize()
+            end
+        end
+
+        ret = {n=G.UIT.R, config={align = "cm", r = 0.1}, nodes={
+                {n=G.UIT.R, config={align = "cm", colour = G.C.WHITE, r = 0.1}, nodes={
+                    {n=G.UIT.C, config={align = "cm"}, nodes={
+                        {n=G.UIT.O, config={object = astral_pins_cardarea}}
+                    }}
+                }},
+                ret
+            }}
+    end
+
+    return ret
 end

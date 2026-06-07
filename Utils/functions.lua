@@ -2281,11 +2281,9 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
     if extra ~= 'only_remove' then
         -- Add astral pins
         local astrals = 0
-        for k, v in pairs(G.GAME.Astral_pins) do
-            if hand == k then
-                for _, i in pairs(v) do
-                    astrals = astrals + 1
-                end
+        if G.GAME.Astral_pins[hand] then
+            for _, _ in pairs(G.GAME.Astral_pins[hand]) do
+                astrals = astrals + 1
             end
         end
         if astrals == 0 then
@@ -2293,26 +2291,26 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
             All_in_Jest.old_colours = nil
             return
         end
-        for k, v in pairs(G.GAME.Astral_pins) do
-            if hand == k then
-                for _, i in pairs(v) do
-                    local center = G.Astral[i.pin]
-                    local card = Card(G.aij_astral_pin_area.T.x + G.aij_astral_pin_area.T.w/2,
-                    G.aij_astral_pin_area.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
-                    card.config.center_key = i.pin
-                    for k_, vi in pairs(card.config.center.config) do
-                        card.ability[k_] = vi 
-                    end
-                    for k_, vi in pairs(G.GAME.Astral_pins[k][_].ability) do
-                        card.ability[k_] = vi 
-                    end
-                    card.ability.extra.hand = k
-                    card.config.center.set_card_type_badge = function(self, card, badges)
-		                badges = {}
-	                end
-                    G.aij_astral_pin_area:emplace(card)
-                    card:start_materialize()
+        if G.GAME.Astral_pins[hand] then
+            local k = hand
+            local v = G.GAME.Astral_pins[hand]
+            for _, i in pairs(v) do
+                local center = G.Astral[i.pin]
+                local card = Card(G.aij_astral_pin_area.T.x + G.aij_astral_pin_area.T.w/2,
+                G.aij_astral_pin_area.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
+                card.config.center_key = i.pin
+                for k_, vi in pairs(card.config.center.config) do
+                    card.ability[k_] = vi 
                 end
+                for k_, vi in pairs(G.GAME.Astral_pins[k][_].ability) do
+                    card.ability[k_] = vi 
+                end
+                card.ability.extra.hand = k
+                card.config.center.set_card_type_badge = function(self, card, badges)
+                    badges = {}
+                end
+                G.aij_astral_pin_area:emplace(card)
+                card:start_materialize()
             end
         end
         -- Change background colour
