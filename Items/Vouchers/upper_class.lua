@@ -16,19 +16,32 @@ local upper_class = {
     
   end,
 
+  redeem = function(self, card)
+      G.E_MANAGER:add_event(Event ({
+          trigger = 'before',
+          func = function()
+              local prev = G.GAME.aij_uncommon_packs_rate
+              G.GAME.aij_uncommon_packs_rate = 1
+              SMODS.add_booster_to_shop(get_pack('upper_class', 'aij_uncommon').key)
+              G.GAME.aij_uncommon_packs_rate = prev
+              return true
+          end 
+      }))
+  end,
+
   calculate = function(self, card, context)
-    if context.starting_shop then
-        G.E_MANAGER:add_event(Event ({
-            trigger = 'before',
-            func = function()
-                local prev = G.GAME.aij_uncommon_packs_rate
-                G.GAME.aij_uncommon_packs_rate = 1
-                SMODS.add_booster_to_shop(get_pack('upper_class', 'aij_uncommon').key)
-                aij_uncommon_packs_rate = prev
-                return true
-            end 
-        }))
-    end
+      if context.starting_shop then
+          G.E_MANAGER:add_event(Event ({
+              trigger = 'before',
+              func = function()
+                  local prev = G.GAME.aij_uncommon_packs_rate
+                  G.GAME.aij_uncommon_packs_rate = 1
+                  SMODS.add_booster_to_shop(get_pack('upper_class', 'aij_uncommon').key)
+                  G.GAME.aij_uncommon_packs_rate = prev
+                  return true
+              end 
+          }))
+      end
   end,
 }
 return {name = "Vouchers", items = {upper_class}}
