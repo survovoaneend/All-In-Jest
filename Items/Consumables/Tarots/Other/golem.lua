@@ -103,8 +103,7 @@ local golem = {
 		delay(0.5)
 	end,
 	in_pool = function(self, args)
-
-		if G.hand then
+		if G.STATE == G.STATES.SMODS_BOOSTER_OPENED and G.hand then
 			local cards_to_draw = {}
 			local space_taken = 0
 
@@ -128,6 +127,14 @@ local golem = {
 				end
 				n = n + 1
 			end
+		else
+			add = nil
+			for kk, vv in pairs(G.playing_cards) do
+				if SMODS.has_enhancement(vv, "m_stone") then
+					add = true
+				end
+			end
+			return true
 		end
 
 		return false
