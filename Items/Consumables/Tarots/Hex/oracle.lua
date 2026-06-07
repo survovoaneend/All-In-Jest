@@ -27,7 +27,8 @@ local oracle = {
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             play_sound('tarot1')
             card:juice_up(0.3, 0.5)
-            return true end }))
+            return true 
+        end }))
         for i=1, #G.hand.cards do
             local percent = 1.15 - (i-0.999)/(#G.hand.cards-0.998)*0.3
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.cards[i]:flip();play_sound('card1', percent);G.hand.cards[i]:juice_up(0.3, 0.3);return true end }))
@@ -35,15 +36,14 @@ local oracle = {
         delay(0.2)
         local cen_pool = {}
         for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-            if v.key ~= 'm_stone' then 
-                cen_pool[#cen_pool+1] = v
-            end
+            cen_pool[#cen_pool+1] = v
         end
+        local enhance = pseudorandom_element(cen_pool, pseudoseed('oracle'..G.GAME.round_resets.ante)).key
         for k, v in ipairs(G.hand.cards) do
-            local enhance = pseudorandom_element(cen_pool, pseudoseed('oracle'..G.GAME.round_resets.ante)).key
             G.E_MANAGER:add_event(Event({func = function()
                 v:set_ability(G.P_CENTERS[enhance])
-            return true end }))
+                return true 
+            end }))
         end
         for i=1, #G.hand.cards do
             local percent = 0.85 + (i-0.999)/(#G.hand.cards-0.998)*0.3
