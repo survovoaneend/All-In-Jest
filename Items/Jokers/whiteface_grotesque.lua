@@ -29,8 +29,7 @@ local whiteface_grotesque = {
     end,
   
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.hand and not context.end_of_round
-        and not context.blueprint then
+        if context.individual and context.cardarea == G.hand and not context.end_of_round and not context.blueprint then
             if context.other_card:is_face() then
                 SMODS.scale_card(card, {
                     ref_table = card.ability.extra,
@@ -40,8 +39,7 @@ local whiteface_grotesque = {
                 })
                 return {
                     message = localize('k_upgrade_ex'),
-                    message_card = card,
-                    delay = 0.2,
+                    message_card = card
                 }
             end
         end
