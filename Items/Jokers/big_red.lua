@@ -80,15 +80,16 @@ end
 
 local smods_add_to_pool_ref = SMODS.add_to_pool
 function SMODS.add_to_pool(prototype_obj, ...)
-    if #SMODS.find_card("j_aij_big_red") > 0 and #SMODS.find_card("j_aij_little_boy_blue") > 0 and not (is_mult_joker(prototype_obj) or is_chips_joker(prototype_obj)) then
-        return false
-    elseif #SMODS.find_card("j_aij_big_red") > 0 and not (is_mult_joker(prototype_obj) and not is_chips_joker(prototype_obj)) then
-        return false
-    elseif #SMODS.find_card("j_aij_little_boy_blue") > 0 and not (is_chips_joker(prototype_obj) and not is_mult_joker(prototype_obj)) then
-        return false
-    else
-        return smods_add_to_pool_ref(prototype_obj, ...)
+    if prototype_obj.set == "Joker" then
+        if #SMODS.find_card("j_aij_big_red") > 0 and #SMODS.find_card("j_aij_little_boy_blue") > 0 and not (is_mult_joker(prototype_obj) or is_chips_joker(prototype_obj)) then
+            return false
+        elseif #SMODS.find_card("j_aij_big_red") > 0 and not (is_mult_joker(prototype_obj) and not is_chips_joker(prototype_obj)) then
+            return false
+        elseif #SMODS.find_card("j_aij_little_boy_blue") > 0 and not (is_chips_joker(prototype_obj) and not is_mult_joker(prototype_obj)) then
+            return false
+        end
     end
+    return smods_add_to_pool_ref(prototype_obj, ...)
 end
 
 return { name = {"Jokers"}, items = {big_red} }
