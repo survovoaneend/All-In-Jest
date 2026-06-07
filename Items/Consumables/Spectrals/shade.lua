@@ -37,7 +37,6 @@ local shade_spectral = {
                 local i = 0
                 local valid_cards_remain = true
                 while activations < card.ability.extra and valid_cards_remain do
-                    sendDebugMessage(i, "AIJ")
                     local selected_card = pseudorandom_element(G.hand.cards, pseudoseed('shade_card' .. i))
                     if not selected_card.edition then
                         card:juice_up(0.3, 0.5)
