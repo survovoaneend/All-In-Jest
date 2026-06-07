@@ -673,14 +673,16 @@ target = '=[SMODS _ "src/utils.lua"]'
 pattern = "local flags = SMODS.calculate_context({drawing_cards = true, amount = hand_space})"
 position = "before"
 payload = '''
-local marked_cards = 0
-for k, v in pairs(G.hand.cards) do
-    if v.ability.aij_marked then
-        marked_cards = marked_cards + 1
+do
+    local marked_cards = 0
+    for k, v in pairs(G.hand.cards) do
+        if v.ability.aij_marked then
+            marked_cards = marked_cards + 1
+        end
     end
-end
-if marked_cards == #G.hand.cards and marked_cards >= G.hand.config.card_limit then
-    end_round()
+    if marked_cards == #G.hand.cards and marked_cards >= G.hand.config.card_limit then
+        end_round()
+    end
 end
 '''
 match_indent = true
