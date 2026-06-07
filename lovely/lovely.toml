@@ -141,6 +141,7 @@ payload = '''
 if not (context.aij_inherent_enhancement or context.aij_other_enhancement or SMODS.aij_inherent_enhancement_calc_in_progress) then
     if card.aij_inherent_effects then
         context.aij_inherent_enhancement = true
+        context.extra_enhancement = true
         SMODS.aij_inherent_enhancement_calc_in_progress = true
         local aij_inherent_enhancements = All_in_Jest.get_inherent_effects(card, 'enhancement')
         local old_ability = copy_table(card.ability)
@@ -158,12 +159,14 @@ if not (context.aij_inherent_enhancement or context.aij_other_enhancement or SMO
         card.config.center = old_center
         card.config.center_key = old_center_key
         context.aij_inherent_enhancement = nil
+        context.extra_enhancement = nil
         SMODS.aij_inherent_enhancement_calc_in_progress = nil
     end
 end
 if card.config.aij_other_center and not (context.aij_inherent_enhancement or context.aij_other_enhancement) and not SMODS.aij_applying_thing and not SMODS.aij_inherent_enhancement_calc_in_progress then
     if card.config.aij_other_center['center'] and card.config.aij_other_center['ability'] then
         context.aij_other_enhancement = true
+        context.extra_enhancement = true
         SMODS.aij_inherent_enhancement_calc_in_progress = true
 
         local aij_oc = card.config.aij_other_center
@@ -184,6 +187,7 @@ if card.config.aij_other_center and not (context.aij_inherent_enhancement or con
         card.config.center_key = old_center_key
 
         context.aij_other_enhancement = nil
+        context.extra_enhancement = nil
         SMODS.aij_inherent_enhancement_calc_in_progress = nil
     end
 end
