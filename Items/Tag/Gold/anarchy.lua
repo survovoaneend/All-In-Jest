@@ -243,9 +243,7 @@ local anarchy_tag = {
               cur_card:set_base(new_card)
               local cen_pool = {}
               for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-                if v.key ~= 'm_stone' then
-                  cen_pool[#cen_pool + 1] = v
-                end
+                cen_pool[#cen_pool + 1] = v
               end
               local enhance = pseudorandom_element(cen_pool, pseudoseed('jest_anarchy_tag' .. G.GAME.round_resets.ante))
               .key
@@ -261,9 +259,7 @@ local anarchy_tag = {
             local cur_ran = pseudorandom('jest_anarchy_tag', 3, 8)
             local cen_pool = {}
             for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-              if v.key ~= 'm_stone' then
-                cen_pool[#cen_pool + 1] = v
-              end
+              cen_pool[#cen_pool + 1] = v
             end
             for i = 1, cur_ran do
               local deck_cards = {}
