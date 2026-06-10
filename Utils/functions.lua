@@ -3014,8 +3014,8 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
             local foreground_enhancement = enhancement_1_z_order > enhancement_2_z_order and center or other_center
             local background_enhancement = enhancement_1_z_order > enhancement_2_z_order and other_center or center
 
-            local base_atlas = SMODS.get_atlas(background_enhancement.atlas)
-            local atlas_key = background_enhancement.atlas
+            local atlas_key = background_enhancement.atlas or 'centers' -- Fallback to vanilla atlas
+            local base_atlas = SMODS.get_atlas(atlas_key)
             local new_atlas_name = atlas_key .. "_aij_foreground_" .. foreground_enhancement.key
 
             if not SMODS.get_atlas(new_atlas_name) then
