@@ -23,7 +23,7 @@ local arecibo_message = {
         if G.consumeables and #G.consumeables.cards > 0 then
             for k, v in pairs(G.consumeables.cards) do
                 if v.ability.set == 'Planet' and v.config.center.config.hand_type and context.scoring_name == v.config.center.config.hand_type then
-                    if context.repetition and context.cardarea == G.play then
+                    if context.repetition then
                         return {
                             repetitions = 1
                         }

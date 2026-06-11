@@ -5,13 +5,13 @@ local cctv = {
     key = "cctv",
     config = {
       extra = {
-        money = 5,
+        money = 7,
       }
     },
     rarity = 2,
     pos = { x = 9, y = 1 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 7,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
