@@ -6713,9 +6713,10 @@ return {
             j_aij_lavatch = {
                 name = "Lavatch",
                 text = {
-                    "Scored {C:clubs}Clubs{} give {X:mult,C:white}X#1#{} Mult,",
+                    "Scored {V:1}#3#s{} give {X:mult,C:white}X#1#{} Mult,",
                     "increases by {X:mult,C:white}X#2#{} Mult",
-                    "when a {C:clubs}Club{} is scored",
+                    "when a {V:1}#3#{} is scored",
+                    "{s:0.8,C:inactive}(Suit changes at end of round)"
                 },
                 unlock = { "?????" }
             },

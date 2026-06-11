@@ -1819,6 +1819,15 @@ function reset_the_auroch_blind()
     end
     G.GAME.current_round.aij_the_auroch = {suit = common_suit or "Spades", rank = common_rank or "Ace"}
 end
+local function reset_jest_lavatch_card()
+    G.GAME.current_round.jest_lavatch_card = G.GAME.current_round.jest_lavatch_card or { suit = 'Spades' }
+    local ancient_suits = {}
+    for _, suit_key in ipairs({ 'Spades', 'Hearts', 'Clubs', 'Diamonds' }) do
+        if suit_key ~= G.GAME.current_round.jest_lavatch_card.suit then ancient_suits[#ancient_suits + 1] = suit_key end
+    end
+    local ancient_card = pseudorandom_element(ancient_suits, 'vremade_ancient' .. G.GAME.round_resets.ante)
+    G.GAME.current_round.jest_lavatch_card.suit = ancient_card
+end
 function reset_the_journey_blind()
     local selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey'))
     -- By default the special journey background will fade during the evaluate screen, nesting events here prevents this
@@ -1853,6 +1862,7 @@ function All_in_Jest.reset_game_globals(run_start)
     -- Globals for a single blind (like Idol)
     reset_jest_magick_joker_card()
     reset_jest_you_broke_it_card()
+    reset_jest_lavatch_card()
 	  G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
 

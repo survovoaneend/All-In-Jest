@@ -22,17 +22,20 @@ local lavatch = {
     soul_pos = { x = 7, y = 9},
   
     loc_vars = function(self, info_queue, card)
+      local suit = (G.GAME.current_round.jest_lavatch_card or {}).suit or 'Spades'
       return {
         vars = {
           card.ability.extra.xmult,
-          card.ability.extra.xmult_mod
+          card.ability.extra.xmult_mod,
+          localize(suit, 'suits_singular'), 
+          colours = { G.C.SUITS[suit] }
         }
       }
     end,
   
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then
-      if context.other_card:is_suit('Clubs') then
+      if context.other_card:is_suit(G.GAME.current_round.jest_lavatch_card.suit) then
         local message_ = nil
         if not context.blueprint then
           SMODS.scale_card(card, {
