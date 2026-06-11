@@ -2817,9 +2817,9 @@ return {
             j_aij_arecibo_message = {
                 name = "Arecibo",
                 text = {
-                    "{C:attention}Retrigger{} all scored",
-                    "cards if you hold",
-                    "the {C:planet}Planet Card{} for",
+                    "{C:attention}Retrigger{} all cards",
+                    "if you hold the",
+                    "{C:planet}Planet Card{} for",
                     "the played {C:attention}poker hand{}"
                 }
             },
@@ -3060,8 +3060,8 @@ return {
             j_aij_disco_joker = {
                 name = "Disco Joker",
                 text = {
-                    '{C:attention}Retrigger{} all scoring',
-                    'cards with {C:attention}Editions'
+                    '{C:attention}Retrigger{} all cards',
+                    'with {C:attention}Editions'
                 }
             },
             j_aij_oklo_reactor = {

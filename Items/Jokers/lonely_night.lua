@@ -26,7 +26,7 @@ local lonely_night = {
     end,
 
     calculate = function(self, card, context)
-         if context.repetition and context.cardarea == G.play then
+         if context.repetition then
             if #G.jokers.cards < G.jokers.config.card_limit then
                 return {
                     repetitions = 1,
