@@ -4600,8 +4600,8 @@ return {
             j_aij_lonely_night = {
                 name = "Lonely Night",
                 text = {
-                    '{C:attention}Retrigger{} all scored cards',
-                    'if at least one Joker Slot',
+                    '{C:attention}Retrigger{} all cards if',
+                    'at least one Joker Slot',
                     'is {C:attention}empty'
                 }
             },
@@ -5881,9 +5881,9 @@ return {
             j_aij_diamantaire = {
                 name = "Diamantaire",
                 text = {
-                    'If {C:attention}first hand{} of round is a',
-                    'single {C:diamonds}Diamond{}, make it a',
-                    '{C:attention}Gold Card{} and earn {C:money}$#1#'
+                    'If hand is a single {C:diamonds}Diamond{},',
+                    'make it a {C:attention}Gold Card{}',
+                    'and earn {C:money}$#1#'
                 }
             },
             j_aij_zenzizenzizenzic = {

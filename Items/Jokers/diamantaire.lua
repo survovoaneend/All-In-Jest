@@ -27,7 +27,7 @@ local diamantaire = {
     end,
 
     calculate = function(self, card, context)
-         if context.before and G.GAME.current_round.hands_played == 0 and not context.blueprint then
+         if context.before and not context.blueprint then
             if #context.full_hand == 1 and context.full_hand[1]:is_suit('Diamonds') then
                 context.full_hand[1]:set_ability('m_gold')
                 context.full_hand[1]:juice_up()
