@@ -4,8 +4,8 @@ local touchstone = {
 
     key = "touchstone",
     config = {
-      hand_size = 2,
-      future_sense = 10
+      hand_size = 4,
+      future_sense = 12
     },
     rarity = 4,
 	unlock_condition = {hidden = true},
