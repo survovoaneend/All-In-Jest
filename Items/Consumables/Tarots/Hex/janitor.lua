@@ -1,7 +1,7 @@
 local janitor = {
     object_type = "Consumable",
     key = 'janitor',
-    set = 'Tarot',
+    set = 'aij_hex_tarot',
     pos = { x = 1, y = 8 },
     set_card_type_badge = function(self, card, badges)
         badges[#badges + 1] = create_badge(localize('k_tarot_hex'), HEX('4f6367'), G.C.WHITE, 1.2)

@@ -781,6 +781,17 @@ SMODS.UndiscoveredSprite({
     overlay_pos = { x = 16, y = 4 },
 })
 
+SMODS.ConsumableType({
+    key = 'aij_hex_tarot',
+    primary_colour = HEX("4f6367"),
+    secondary_colour = G.C.SECONDARY_SET.Tarot,
+    no_collection = true,
+    collection_rows = {5},
+    shop_rate = 0,
+    default = 'c_aij_error',
+    no_buy_and_use = false,
+})
+
 G.Astral = {} -- stores Astral pins
 All_in_Jest.Astral = SMODS.Tag:extend {
     set = 'aij_astral',

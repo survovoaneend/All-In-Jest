@@ -8089,6 +8089,8 @@ return {
                     "selected {C:attention}Stone Cards"
                 }
             },
+        },
+        aij_hex_tarot = {
             c_aij_error = {
                 name = 'The Error',
                 text = {
