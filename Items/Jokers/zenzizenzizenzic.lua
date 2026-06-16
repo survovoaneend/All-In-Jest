@@ -16,8 +16,9 @@ local zenzizenzizenzic = {
     cost = 8,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = false,
 
     pixel_size = { w = 68, h = 68 },
 

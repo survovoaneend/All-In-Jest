@@ -13,6 +13,8 @@ return {
             k_tarot_hex = "The Hex",
             k_active = "Active",
             k_inactive = "Inactive",
+            k_aij_select = "Select",
+            k_aij_remove = "Remove",
             k_aij_party_time = "Party Time!",
             k_aij_replace = "Replace",
             k_aij_select = "Select",
@@ -278,6 +280,27 @@ return {
                     'Have at least {C:attention}13',
                     'cards with a {C:attention}suit',
                     '{C:attention}patch{} at once'
+                }
+            },
+            b_aij_melded = {
+                name = 'Melded Deck',
+                text = {
+                    'Each playing card may',
+                    'have {C:attention}two{} enhancements'
+                },
+                unlock = {
+                    "Win a run with {C:attention}#1#",
+                    "decks on at least",
+                    "{V:1}#2#{} difficulty",
+                }
+            },
+            b_aij_melded_hidden = {
+                name = 'Melded Deck',
+                text = {},
+                unlock = {
+                    "Win a run with {C:attention}#1#",
+                    "decks on at least",
+                    "{V:1}#2#{} difficulty",
                 }
             }
         },
@@ -2534,9 +2557,9 @@ return {
             j_aij_feedback_form = {
                 name = "Feedback Form",
                 text = {
-                    "Each {C:attention}scoring{} card gives {C:mult}+#1#",
-                    "Mult if all {C:attention}scoring{} cards",
-                    "have different {C:attention}enhancements"
+                    "All {C:attention}unique{} enhancements in",
+                    "the {C:attention}played hand{} give {X:mult,C:white}X#1#{} Mult",
+                    "when scored"
                 }
             },
             j_aij_stultor = {
@@ -2794,9 +2817,9 @@ return {
             j_aij_arecibo_message = {
                 name = "Arecibo",
                 text = {
-                    "{C:attention}Retrigger{} all scored",
-                    "cards if you hold",
-                    "the {C:planet}Planet Card{} for",
+                    "{C:attention}Retrigger{} all cards",
+                    "if you hold the",
+                    "{C:planet}Planet Card{} for",
                     "the played {C:attention}poker hand{}"
                 }
             },
@@ -3037,8 +3060,8 @@ return {
             j_aij_disco_joker = {
                 name = "Disco Joker",
                 text = {
-                    '{C:attention}Retrigger{} all scoring',
-                    'cards with {C:attention}Editions'
+                    '{C:attention}Retrigger{} all cards',
+                    'with {C:attention}Editions'
                 }
             },
             j_aij_oklo_reactor = {
@@ -4577,8 +4600,8 @@ return {
             j_aij_lonely_night = {
                 name = "Lonely Night",
                 text = {
-                    '{C:attention}Retrigger{} all scored cards',
-                    'if at least one Joker Slot',
+                    '{C:attention}Retrigger{} all cards if',
+                    'at least one Joker Slot',
                     'is {C:attention}empty'
                 }
             },
@@ -5858,9 +5881,9 @@ return {
             j_aij_diamantaire = {
                 name = "Diamantaire",
                 text = {
-                    'If {C:attention}first hand{} of round is a',
-                    'single {C:diamonds}Diamond{}, make it a',
-                    '{C:attention}Gold Card{} and earn {C:money}$#1#'
+                    'If hand is a single {C:diamonds}Diamond{},',
+                    'make it a {C:attention}Gold Card{}',
+                    'and earn {C:money}$#1#'
                 }
             },
             j_aij_zenzizenzizenzic = {
@@ -6690,9 +6713,10 @@ return {
             j_aij_lavatch = {
                 name = "Lavatch",
                 text = {
-                    "Scored {C:clubs}Clubs{} give {X:mult,C:white}X#1#{} Mult,",
+                    "Scored {V:1}#3#s{} give {X:mult,C:white}X#1#{} Mult,",
                     "increases by {X:mult,C:white}X#2#{} Mult",
-                    "when a {C:clubs}Club{} is scored",
+                    "when a {V:1}#3#{} is scored",
+                    "{s:0.8,C:inactive}(Suit changes at end of round)"
                 },
                 unlock = { "?????" }
             },
@@ -7274,6 +7298,14 @@ return {
                     'Add a {V:1}#2#',
                     'to {C:attention}#1#{} selected',
                     'cards in your hand'
+                }
+            },
+            c_aij_barathrum = {
+                name = 'Barathrum',
+                text = {
+                    'Permanently {C:red}removes{} a',
+                    '{C:tarot}Tarot{} Card of your ',
+                    'choice from the {C:attention}pool'
                 }
             },
             c_aij_ketu = {
@@ -7919,7 +7951,7 @@ return {
                 text = {
                     "Enhances {C:attention}#1#{}",
                     "selected cards to",
-                    "{C:attention}#2#{}"
+                    "{C:attention}#2#s{}"
                 }
             },
             c_aij_isis_urania = {
@@ -8030,6 +8062,14 @@ return {
                     "{C:red}Destroy{} {C:attention}#1#{} selected {C:attention}enhanced{} card",
                     "and apply its {C:attention}enhancement{} to {C:attention}#2#",
                     "{C:attention}random{} cards in hand"
+                }
+            },
+            c_aij_typhon = {
+                name = 'The Typhon',
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "cards into",
+                    "{C:attention}#2#s{}"
                 }
             },
             c_aij_broken_fate = {

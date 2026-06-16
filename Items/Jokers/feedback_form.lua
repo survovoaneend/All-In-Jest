@@ -5,13 +5,13 @@ local feedback_form = {
     key = "feedback_form",
     config = {
       extra = {
-          mult = 7
+          xmult = 1.5
       }
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 23, y = 6},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
@@ -20,35 +20,32 @@ local feedback_form = {
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.mult,
+                card.ability.extra.xmult,
             }
         }
     end,
   
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            local temp_val = true
-            local enhancements = {}
-            for i = 1, #context.scoring_hand do
-                local has_enhancement = false
-                for k, v in pairs(SMODS.get_enhancements(context.scoring_hand[i])) do
-                    -- BUG technical issue with multi-enhancements:
-                    -- should work like Flower Pot & Wild Cards,
-                    -- so a Stone/Steel + a Steel, the first can count as Stone
-                    if enhancements[k] then
-                        temp_val = false
-                    else
-                        enhancements[k] = v
-                        has_enhancement = true
+            local unique_enhancements = 0
+            
+            for k, v in pairs(SMODS.get_enhancements(context.other_card)) do
+                if v then
+                    local count = 0
+                    for i = 1, #context.scoring_hand do
+                        if SMODS.get_enhancements(context.scoring_hand[i])[k] then
+                            count = count + 1
+                        end
+                    end
+                    if count == 1 then
+                        unique_enhancements = unique_enhancements + 1
                     end
                 end
-                if not has_enhancement then
-                    temp_val = false
-                end
             end
-            if temp_val then
+            
+            if unique_enhancements > 0 then
                 return {
-                    mult = card.ability.extra.mult
+                    xmult = card.ability.extra.xmult
                 }
             end
         end

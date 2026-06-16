@@ -13,6 +13,7 @@ position = 'after'
 match_indent = true
 payload = '''
 jest_magick_joker_card = {suit = 'Spades'},
+jest_lavatch_card = {suit = 'Spades'},
 jest_highest_scored_mult = {amount = 0, trigger = true},
 jest_you_broke_it_card = {rank = nil, enhancement = nil, id = nil},	
 jest_handsome_joker_card = {rank = nil, suit = nil, enhancement = nil, id = nil},	
@@ -72,7 +73,6 @@ all_in_jest = {
 				}
 			}
 		},
-		m_aij_simulated = {frames_per_row = 'atlas_size', extra_yrows = 1, frames = 10, start_frame = 0, fps = 10,},
 		j_aij_chromatist = { frames_per_row = 'atlas_size', extra_yrows = 15, frames = 25, start_frame = 8, fps = 10, },
 		j_aij_neon_sign = { frames_per_row = 'atlas_size', extra_yrows = 21, frames = 12, start_frame = 6, fps = 4, },
 	},

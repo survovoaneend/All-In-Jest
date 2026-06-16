@@ -33,13 +33,19 @@ local possession = {
                     local hand_card = G.hand.highlighted[i]
                     if hand_card.edition then
                         All_in_Jest.apply_inherent_effect(hand_card, hand_card.edition, 'edition')
-                        hand_card:set_edition(nil, true)
+                        hand_card:set_edition(nil, true, true)
+                        triggered = true
                     end
-                    if hand_card.config.center.key ~= 'c_base' then
+                    if hand_card.ability.set == "Enhanced" then
                         All_in_Jest.apply_inherent_effect(hand_card, hand_card.config.center, 'enhancement')
-                        hand_card:set_ability(G.P_CENTERS.c_base, nil, true)
+                        triggered = true
+                    end
+                    if hand_card.config.aij_other_center and hand_card.config.aij_other_center['center'] then
+                        All_in_Jest.apply_inherent_effect(hand_card, hand_card.config.aij_other_center['center'], 'other_enhancement')
+                        triggered = true
                     end
                     if triggered then
+                        hand_card:set_ability(G.P_CENTERS.c_base, nil, true)
                         hand_card:juice_up(0.3, 0.5)
                         play_sound('negative', 1.5, 0.4)
                     end

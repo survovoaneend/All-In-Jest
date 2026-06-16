@@ -15,8 +15,8 @@ local bear = {
     cost = 4,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
-    eternal_compat = false,
+    blueprint_compat = true,
+    eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
         local diff = math.max(0, card.ability.extra.dollars - G.GAME.dollars)

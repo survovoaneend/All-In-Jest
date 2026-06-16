@@ -55,69 +55,174 @@ function aij_pasteAlpha(base, layer, posb, posl, args)
     local bx1 = math.min(bx0 + bpx, bw)
     local by1 = math.min(by0 + bpy, bh)
 
+    local getPixel = layer.getPixel
+
     for x = 0, math.min(lx1 - lx0, bx1 - bx0) - 1 do
         for y = 0, math.min(ly1 - ly0, by1 - by0) - 1 do
 
-            local r, g, b, a = layer:getPixel(lx0 + x, ly0 + y)
+            local r, g, b, a = getPixel(layer, lx0 + x, ly0 + y)
+            if args.blend then 
+                local rb, gb, bb, ab = getPixel(base, lx0 + x, ly0 + y)
+                args.blend = {rb, gb, bb, ab} 
+            end
 
             if (not args.reverse and a > 0) or (args.reverse and a <= 0) then
-                base:setPixel(bx0 + x, by0 + y, r, g, b, a)
+                if args.blend then
+                    local nr, ng, nb, na = aij_blend_pixels(r, g, b, a, args.blend, args)
+                    base:setPixel(bx0 + x, by0 + y, nr, ng, nb, args.force_alpha or na)
+                else
+                    base:setPixel(bx0 + x, by0 + y, r, g, b, args.force_alpha or a)
+                end
             end
         end
     end
 end
 
-function aij_recolour_atlas(card, old_colour, new_colour, atlas, front)
-    local image_data = atlas.image_data:clone()
+function aij_recolour_atlas(old_colour, new_colour, base_atlas, front, args)
+    args = args or {}
 
-    image_data:mapPixel(function(x, y, r, g, b, a)
-        return aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour)
-    end)
-    if front then 
-        card.children.front.atlas = {
-            px = atlas.px,
-            py = atlas.py,
-            name = atlas.name,
-            image_data = image_data,
-            image = love.graphics.newImage(image_data, {
-                mipmaps = true,
-                dpiscale = G.SETTINGS.GRAPHICS.texture_scaling
-            })
-        }
+    local r1 = old_colour[1]
+    local g1 = old_colour[2]
+    local b1 = old_colour[3]
+    local r2 = new_colour[1]
+    local g2 = new_colour[2]
+    local b2 = new_colour[3]
+    local new_atlas_name = base_atlas.name .. "_aij_recoloured_" .. (r1 * 256 ^ 3 + g1 * 256 ^ 2 + b1 * 256) .. "_" .. (r2 * 256 ^ 3 + g2 * 256 ^ 2 + b2 * 256)
+
+    if not SMODS.get_atlas(new_atlas_name) then
+        local atlas_image_data = args.image_data or (base_atlas and base_atlas.image_data and base_atlas.image_data:clone())
+
+        atlas_image_data:mapPixel(function(x, y, r, g, b, a)
+            return aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour, args.tolerance, args)
+        end)
+        if args.return_val then return atlas_image_data end
+
+        local atlas_type = base_atlas.atlas_table or "ASSET_ATLAS"
+        
+        G[atlas_type][new_atlas_name] = {}
+        SMODS.get_atlas(new_atlas_name).name = new_atlas_name
+        SMODS.get_atlas(new_atlas_name).type = base_atlas.type
+        SMODS.get_atlas(new_atlas_name).atlas_table = atlas_type
+        SMODS.get_atlas(new_atlas_name).px = base_atlas.px
+        SMODS.get_atlas(new_atlas_name).py = base_atlas.py
+        SMODS.get_atlas(new_atlas_name).frames = base_atlas.frames
+        SMODS.get_atlas(new_atlas_name).image_data = atlas_image_data
+        SMODS.get_atlas(new_atlas_name).image = love.graphics.newImage(atlas_image_data, {
+            mipmaps = true,
+            dpiscale = G.SETTINGS.GRAPHICS.texture_scaling
+        })
+
+        return SMODS.get_atlas(new_atlas_name)
     else
-        card.children.center.atlas = {
-            px = atlas.px,
-            py = atlas.py,
-            name = atlas.name,
-            image_data = image_data,
-            image = love.graphics.newImage(image_data, {
-                mipmaps = true,
-                dpiscale = G.SETTINGS.GRAPHICS.texture_scaling
-            })
-        }
+        if args.return_val then return SMODS.get_atlas(new_atlas_name).image_data end
+        return SMODS.get_atlas(new_atlas_name)
     end
+
 end
 
-function aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour, tolerance)
+function aij_recolour_pixel(x, y, r, g, b, a, old_colour, new_colour, tolerance, args)
     tolerance = tolerance or 0.01
+    args.tolerance = args.tolerance or tolerance
+    args.pos = {x = x, y = y}
 
-    if math.abs(r - old_colour[1]) <= tolerance
-    and math.abs(g - old_colour[2]) <= tolerance
-    and math.abs(b - old_colour[3]) <= tolerance then
-        return new_colour[1], new_colour[2], new_colour[3], a
+    if args.skip_check or (math.abs(r - old_colour[1]) <= tolerance
+                            and math.abs(g - old_colour[2]) <= tolerance
+                            and math.abs(b - old_colour[3]) <= tolerance) then
+        if args.return_pixel then return args.return_pixel(r, g, b, a, old_colour, new_colour, args) end
+        return new_colour[1], new_colour[2], new_colour[3], args.replace_alpha and new_colour[4] or a
     end
 
     return r, g, b, a
 end
 
-function aij_get_mcc_pixel(base, posb, args)
+-- Assumes r, g, b are in [0, 1]
+function rgb_to_hsv(r, g, b)
+    assert(r <= 1 and g <= 1 and b <= 1, "rgb_to_hsv assumes values in range of [0, 1]")
+    
+    local max_colour = math.max(r, g, b)
+    local min_colour = math.min(r, g, b)
+
+    local hue = max_colour
+    local sat = max_colour
+    local val = max_colour
+
+    local delta = max_colour - min_colour
+    sat = max_colour == 0 and 0 or delta / max_colour
+
+    if (delta < 0.0001) then
+        hue = 0
+    else
+        if max_colour == r then
+            hue = (g - b) / delta + (g < b and 6 or 0)
+        elseif max_colour == g then
+            hue = (b - r) / delta + 2
+        elseif max_colour == b then
+            hue = (r - g) / delta + 4
+        end
+
+        hue = hue / 6
+    end
+
+    return hue, sat, val
+end
+
+-- Assumes hue, sat, val are in [0, 1]
+function hsv_to_rgb(hue, sat, val)
+    assert(hue <= 1 and sat <= 1 and val <= 1, "rgb_to_hsv assumes values in range of [0, 1]")
+    
+    local r = 0
+    local g = 0
+    local b = 0
+
+    local i = math.floor(hue * 6)
+    local f = hue * 6 - i
+    local p = val * (1 - sat)
+    local q = val * (1 - f * sat)
+    local t = val * (1 - (1 - f) * sat)
+
+    i = i % 6
+
+
+    if i == 0 then
+        r = val
+        g = t
+        b = p
+    elseif i == 1 then
+        r = q
+        g = val
+        b = p
+    elseif i == 2 then
+        r = p
+        g = val
+        b = t
+    elseif i == 3 then
+        r = p
+        g = q
+        b = val
+    elseif i == 4 then
+        r = t
+        g = p
+        b = val
+    elseif i == 5 then
+        r = val
+        g = p
+        b = q
+    end
+
+    return r, g, b
+
+end
+
+function aij_get_mcc_pixel(data, posb, args)
     args = args or {}
     posb = posb or {x=0, y=0}
 
-    local bw, bh = base:getWidth(), base:getHeight()
+    local bw, bh = data:getWidth(), data:getHeight()
+    local bit = require("bit")
 
-    local bpx = args.bpx and args.bpx * G.SETTINGS.GRAPHICS.texture_scaling or bw
-    local bpy = args.bpy and args.bpy * G.SETTINGS.GRAPHICS.texture_scaling or bh
+    local scale = G.SETTINGS.GRAPHICS.texture_scaling
+    local bpx = (args.bpx and args.bpx * scale) or bw
+    local bpy = (args.bpy and args.bpy * scale) or bh
 
     local bx0 = posb.x * bpx
     local by0 = posb.y * bpy
@@ -126,13 +231,25 @@ function aij_get_mcc_pixel(base, posb, args)
     local by1 = math.min(by0 + bpy, bh)
 
     local color_counts = {}
+    local getPixel = data.getPixel 
 
-    for x = 0, (bx1 - bx0) - 1 do
-        for y = 0, (by1 - by0) - 1 do
-            local r, g, b, a = base:getPixel(bx0 + x, by0 + y)
+    if args.check_invis then
+        for x = bx0, bx1 - 1, scale do
+            for y = by0, by1 - 1, scale do
+                local _, _, _, a = getPixel(data, x, y)
+                if a > 0 then
+                    return false
+                end
+            end
+        end
+        return true
+    end
 
+    for x = bx0, bx1 - 1, scale do
+        for y = by0, by1 - 1, scale do
+            local r, g, b, a = getPixel(data, x, y)
             if a > 0 then
-                local key = r .. "," .. g .. "," .. b
+                local key = math.floor(r * 255) * 256 ^ 2  + math.floor(g * 255) * 256 + math.floor(b * 255)
                 color_counts[key] = (color_counts[key] or 0) + 1
             end
         end
@@ -150,12 +267,71 @@ function aij_get_mcc_pixel(base, posb, args)
         return nil
     end
 
-    local r, g, b = best_key:match("([^,]+),([^,]+),([^,]+)")
-    return {
-        [1] = tonumber(r),
-        [2] = tonumber(g),
-        [3] = tonumber(b)
-    }
+    best_key = math.floor(best_key)
+
+    local r = bit.band(bit.rshift(best_key, 16), 0xFF) / 255
+    local g = bit.band(bit.rshift(best_key, 8), 0xFF) / 255
+    local b = bit.band(best_key, 0xFF) / 255
+
+    return {r, g, b}
+end
+
+function aij_get_saturation_range(data, posb, args)
+    args = args or {}
+    posb = posb or {x=0, y=0}
+
+    local bw, bh = data:getWidth(), data:getHeight()
+    local bit = require("bit")
+
+    local scale = G.SETTINGS.GRAPHICS.texture_scaling
+    local bpx = (args.bpx and args.bpx * scale) or bw
+    local bpy = (args.bpy and args.bpy * scale) or bh
+
+    local bx0 = posb.x * bpx
+    local by0 = posb.y * bpy
+
+    local bx1 = math.min(bx0 + bpx, bw)
+    local by1 = math.min(by0 + bpy, bh)
+
+    local color_counts = {}
+    local getPixel = data.getPixel 
+
+    local saturation_low = 1
+    local saturation_high = 0
+
+    for x = bx0, bx1 - 1, scale do
+        for y = by0, by1 - 1, scale do
+            local r, g, b, a = getPixel(data, x, y)
+            if a > 0 then
+                local _, s, v = rgb_to_hsv(r, g, b)
+                if v < 0.999 then -- Don't count pure white
+                    if s < saturation_low then saturation_low = s end
+                    if s > saturation_high then saturation_high = s end
+                end
+            end
+        end
+    end
+
+    return saturation_low, saturation_high
+end
+
+function aij_check_if_sprite_exists(atlas, x, y)
+    return not aij_get_mcc_pixel(
+        SMODS.get_atlas(atlas).image_data, 
+        {x = x, y = y},
+        {bpx = SMODS.get_atlas(atlas).px, bpy = SMODS.get_atlas(atlas).py, check_invis = true}
+    )
+end
+
+function aij_blend_pixels(r, g, b, a, new_color, args)
+    local r_new, g_new, b_new = new_color[1], new_color[2], new_color[3]
+    local alpha = args.force_blend_alpha or a
+
+    local out_r = r_new * alpha + r * (1 - alpha)
+    local out_g = g_new * alpha + g * (1 - alpha)
+    local out_b = b_new * alpha + b * (1 - alpha)
+
+    return out_r, out_g, out_b, a
 end
 
 function aij_remove_rank(card)
@@ -606,34 +782,241 @@ AllInJest.card_area_preview = function(cardArea, desc_nodes, config)
 end
 
 AllInJest.deck_skins = {
-  { id = 'double_king', name = 'Double King', suits = { 'Hearts' } },
-  { id = 'balatro', name = 'Balatro', suits = { 'Hearts' } },
-  { id = 'wuppo', name = 'Wuppo', suits = { 'Hearts' } },
-  { id = 'control', name = 'Control', suits = { 'Hearts' } },
-  { id = 'megaman', name = 'Megaman', suits = { 'Hearts' } },
-  { id = 'mewgenics', name = 'Mewgenics', suits = { 'Hearts' } },
-  { id = 'super_meat_boy', name = 'Super Meat Boy', suits = { 'Hearts' } },
-  { id = 'slarpg', name = 'Super Lesbian Animal RPG', suits = { 'Hearts' } },
-  { id = 'spelunky', name = 'Spelunky', suits = { 'Diamonds' } },
-  { id = 'stellaris', name = 'Stellaris', suits = { 'Diamonds' } },
-  { id = 'fallout_nv', name = 'Fallout: New Vegas', suits = { 'Diamonds' } },
-  { id = 'off', name = 'OFF', suits = { 'Spades' } },
-  { id = 'portal_two', name = 'Portal 2', suits = { 'Spades' } },
-  { id = 'talos_principle', name = 'Talos Principle', suits = { 'Spades' } },
-  { id = 'gish', name = 'GISH', suits = { 'Spades' } },
-  { id = 'aooni', name = 'Aooni', suits = { 'Spades' } },
-  { id = 'minecraft', name = 'Minecraft', suits = { 'Clubs' } },
-  { id = 'petscop', name = 'Petscop', suits = { 'Clubs' } },
-  { id = 'we_happy_few', name = 'We Happy Few', suits = { 'Clubs' } },
-  { id = 'stanley_parable', name = 'The Stanley Parable', suits = { 'Clubs' } },
-  { id = 'sam_and_max', name = 'Sam & Max', suits = { 'Clubs' } },
-  { id = 'alan_wake', name = 'Alan Wake', suits = { 'Diamonds', 'Clubs' } },
-  { id = 'king_in_yellow', name = 'The King in Yellow', suits = { 'Diamonds', 'Clubs' } },
-  { id = 'tadc', name = 'The Amazing Digital Circus', suits = { 'Spades', 'Hearts', 'Clubs' } },
-  { id = 'inscryption', name = 'Inscryption', suits = { 'Clubs', 'Spades', 'Hearts', 'Diamonds' } },
-  { id = 'yume_nikki', name = 'Yume Nikki', suits = { 'Clubs', 'Spades', 'Hearts', 'Diamonds' } },
-  { id = 'etg', name = 'Enter the Gungeon', suits = { 'Clubs', 'Spades', 'Hearts' } },
-  { id = 'nuclear_throne', name = 'Nuclear Throne', suits = { 'Clubs', 'Spades', 'Hearts', 'Diamonds' } },
+  {
+    id = 'double_king',
+    name = 'Double King',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'balatro',
+    name = 'Balatro',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'wuppo',
+    name = 'Wuppo',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'control',
+    name = 'Control',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'megaman',
+    name = 'Megaman',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'mewgenics',
+    name = 'Mewgenics',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'super_meat_boy',
+    name = 'Super Meat Boy',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'slarpg',
+    name = 'Super Lesbian Animal RPG',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'spelunky',
+    name = 'Spelunky',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
+    id = 'stellaris',
+    name = 'Stellaris',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
+    id = 'cookie_clicker',
+    name = 'Cookie Clicker',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
+    id = 'guilty_gear',
+    name = 'Guilty Gear',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
+    id = 'fallout_nv',
+    name = 'Fallout: New Vegas',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
+    id = 'off',
+    name = 'OFF',
+    suits = {
+      'Spades',
+    }
+  },
+  {
+    id = 'portal_two',
+    name = 'Portal 2',
+    suits = {
+      'Spades',
+    }
+  },
+  {
+    id = 'talos_principle',
+    name = 'Talos Principle',
+    suits = {
+      'Spades',
+    }
+  },
+  {
+    id = 'gish',
+    name = 'GISH',
+    suits = {
+      'Spades',
+    }
+  },
+  {
+    id = 'aooni',
+    name = 'Aooni',
+    suits = {
+      'Spades',
+    }
+  },
+  {
+    id = 'minecraft',
+    name = 'Minecraft',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'petscop',
+    name = 'Petscop',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'we_happy_few',
+    name = 'We Happy Few',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'stanley_parable',
+    name = 'The Stanley Parable',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'sam_and_max',
+    name = 'Sam & Max',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'alan_wake',
+    name = 'Alan Wake',
+    suits = {
+      'Diamonds',
+      'Clubs',
+    }
+  },
+  {
+    id = 'king_in_yellow',
+    name = 'The King in Yellow',
+    suits = {
+      'Diamonds',
+      'Clubs',
+    }
+  },
+  {
+    id = 'tadc',
+    name = 'The Amazing Digital Circus',
+    suits = {
+      'Spades',
+      'Hearts',
+      'Clubs',
+    }
+  },
+  {
+    id = 'the_hex',
+    name = 'The Hex',
+    suits = {
+      'Spades',
+      'Hearts',
+      'Clubs',
+      'Diamonds'
+    }
+  },
+  {
+    id = 'inscryption',
+    name = 'Inscryption',
+    suits = {
+      'Clubs',
+      'Spades',
+      'Hearts',
+      'Diamonds'
+    }
+  },
+  {
+    id = 'yume_nikki',
+    name = 'Yume Nikki',
+    suits = {
+      'Clubs',
+      'Spades',
+      'Hearts',
+      'Diamonds'
+    }
+  },
+  {
+    id = 'etg',
+    name = 'Enter the Gungeon',
+    suits = {
+      'Clubs',
+      'Spades',
+      'Hearts',
+    }
+  },
+  {
+    id = 'nuclear_throne',
+    name = 'Nuclear Throne',
+    suits = {
+      'Clubs',
+      'Spades',
+      'Hearts',
+      'Diamonds'
+    }
+  },
 }
 
 --Taken from paperback
@@ -1436,6 +1819,15 @@ function reset_the_auroch_blind()
     end
     G.GAME.current_round.aij_the_auroch = {suit = common_suit or "Spades", rank = common_rank or "Ace"}
 end
+local function reset_jest_lavatch_card()
+    G.GAME.current_round.jest_lavatch_card = G.GAME.current_round.jest_lavatch_card or { suit = 'Spades' }
+    local ancient_suits = {}
+    for _, suit_key in ipairs({ 'Spades', 'Hearts', 'Clubs', 'Diamonds' }) do
+        if suit_key ~= G.GAME.current_round.jest_lavatch_card.suit then ancient_suits[#ancient_suits + 1] = suit_key end
+    end
+    local ancient_card = pseudorandom_element(ancient_suits, 'vremade_ancient' .. G.GAME.round_resets.ante)
+    G.GAME.current_round.jest_lavatch_card.suit = ancient_card
+end
 function reset_the_journey_blind()
     local selected_suit = pseudorandom_element(All_in_Jest.get_suits('key'), pseudoseed('the_journey'))
     -- By default the special journey background will fade during the evaluate screen, nesting events here prevents this
@@ -1470,6 +1862,7 @@ function All_in_Jest.reset_game_globals(run_start)
     -- Globals for a single blind (like Idol)
     reset_jest_magick_joker_card()
     reset_jest_you_broke_it_card()
+    reset_jest_lavatch_card()
 	  G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
 
@@ -1898,11 +2291,9 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
     if extra ~= 'only_remove' then
         -- Add astral pins
         local astrals = 0
-        for k, v in pairs(G.GAME.Astral_pins) do
-            if hand == k then
-                for _, i in pairs(v) do
-                    astrals = astrals + 1
-                end
+        if G.GAME.Astral_pins[hand] then
+            for _, _ in pairs(G.GAME.Astral_pins[hand]) do
+                astrals = astrals + 1
             end
         end
         if astrals == 0 then
@@ -1910,26 +2301,26 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
             All_in_Jest.old_colours = nil
             return
         end
-        for k, v in pairs(G.GAME.Astral_pins) do
-            if hand == k then
-                for _, i in pairs(v) do
-                    local center = G.Astral[i.pin]
-                    local card = Card(G.aij_astral_pin_area.T.x + G.aij_astral_pin_area.T.w/2,
-                    G.aij_astral_pin_area.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
-                    card.config.center_key = i.pin
-                    for k_, vi in pairs(card.config.center.config) do
-                        card.ability[k_] = vi 
-                    end
-                    for k_, vi in pairs(G.GAME.Astral_pins[k][_].ability) do
-                        card.ability[k_] = vi 
-                    end
-                    card.ability.extra.hand = k
-                    card.config.center.set_card_type_badge = function(self, card, badges)
-		                badges = {}
-	                end
-                    G.aij_astral_pin_area:emplace(card)
-                    card:start_materialize()
+        if G.GAME.Astral_pins[hand] then
+            local k = hand
+            local v = G.GAME.Astral_pins[hand]
+            for _, i in pairs(v) do
+                local center = G.Astral[i.pin]
+                local card = Card(G.aij_astral_pin_area.T.x + G.aij_astral_pin_area.T.w/2,
+                G.aij_astral_pin_area.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
+                card.config.center_key = i.pin
+                for k_, vi in pairs(card.config.center.config) do
+                    card.ability[k_] = vi 
                 end
+                for k_, vi in pairs(G.GAME.Astral_pins[k][_].ability) do
+                    card.ability[k_] = vi 
+                end
+                card.ability.extra.hand = k
+                card.config.center.set_card_type_badge = function(self, card, badges)
+                    badges = {}
+                end
+                G.aij_astral_pin_area:emplace(card)
+                card:start_materialize()
             end
         end
         -- Change background colour
@@ -1965,7 +2356,6 @@ end
 G.FUNCS.aij_hover_tag_branching = function(e)
     if not e.parent or not e.parent.states then return end
     if e.states.hover.is and (e.created_on_pause == G.SETTINGS.paused) and not e.alert then
-        -- sendDebugMessage(tprint(e), "AIJ")
         local _sprite = e.config.ref_table[2]:get_uibox_table()
         e.alert = UIBox{
             definition = G.UIDEF.card_h_popup(_sprite),
@@ -2296,7 +2686,7 @@ function All_in_Jest.get_inherent_effects(card, type, amt_only)
     end
 end
 
-function All_in_Jest.apply_inherent_effect(card, effect, type)
+function All_in_Jest.apply_inherent_effect(card, effect, effect_type)
     card.aij_inherent_effects = card.aij_inherent_effects or {}
     if not effect then return end
     if effect_type == 'edition' then
@@ -2309,42 +2699,353 @@ function All_in_Jest.apply_inherent_effect(card, effect, type)
         card.aij_inherent_effects[effect_type..'s'][index] = {}
         card.aij_inherent_effects[effect_type..'s'][index]['center_key'] = effect.key
         card.aij_inherent_effects[effect_type..'s'][index]['ability'] = copy_table(card.ability)
+        card.aij_inherent_effects[effect_type..'s'][index]['ability'].extra_enhancement = effect.key
+    elseif effect_type == 'other_enhancement' then
+        card.aij_inherent_effects['enhancements'] = card.aij_inherent_effects['enhancements'] or {}
+        local index = #card.aij_inherent_effects['enhancements'] + 1
+        card.aij_inherent_effects['enhancements'][index] = {}
+        card.aij_inherent_effects['enhancements'][index]['center_key'] = effect.key
+        card.aij_inherent_effects['enhancements'][index]['ability'] = copy_table(card.config.aij_other_center.ability)
+        card.aij_inherent_effects[effect_type..'s'][index]['ability'].extra_enhancement = effect.key
     end
 end
 
 function All_in_Jest.set_other_enhancement(card, enhancement)
+    if not G.P_CENTERS[enhancement] then return end -- enhancement must exist
+    if enhancement == card.config.center.key then return end -- enhancement must not be duplicate of main enhancement
     SMODS.aij_applying_thing = true
-    if not G.P_CENTERS[enhancement] then return end
-    card.config.aij_other_center = card.config.aij_other_center or {}
+    card.config.aij_other_center = {}
     card.config.aij_other_center['center'] = G.P_CENTERS[enhancement]
     local old_center = card.config.center
     card:set_ability(G.P_CENTERS[enhancement])
     card.config.aij_other_center['ability'] = copy_table(card.ability)
+    card.config.aij_other_center['ability'].extra_enhancement = enhancement
     card:set_ability(old_center)
-    if not card.ability.aij_other_center or not card.ability.aij_other_center['ability'] then
-        card.ability.aij_other_center = card.ability.aij_other_center or {}
-        card.ability.aij_other_center['ability'] = card.config.aij_other_center and card.config.aij_other_center['ability']
-    end
+    -- if not card.ability.aij_other_center or not card.ability.aij_other_center['ability'] then
+    --     card.ability.aij_other_center = card.ability.aij_other_center or {}
+    --     card.ability.aij_other_center['ability'] = card.config.aij_other_center and card.config.aij_other_center['ability']
+    -- end
     SMODS.aij_applying_thing = false
 end
 
-function All_in_Jest.find_multi_enhancement_pos(enhancement)
+function All_in_Jest.find_multi_enhancement_pos(enhancement, get_index)
     local pos = 0
-    if enhancement == 'm_bonus' then pos = 3
-    elseif enhancement == 'm_mult' then pos = 4
-    elseif enhancement == 'm_wild' then pos = 5
-    elseif enhancement == 'm_glass' then pos = 7
-    elseif enhancement == 'm_steel' then pos = 8
-    elseif enhancement == 'm_stone' then pos = 1
-    elseif enhancement == 'm_gold' then pos = 2
-    elseif enhancement == 'm_lucky' then pos = 6
-    elseif enhancement == 'm_aij_fervent' then pos = 10
-    elseif enhancement == 'm_aij_charged' then pos = 11
-    elseif enhancement == 'm_aij_ice' then pos = 12
-    elseif enhancement == 'm_aij_canvas' then pos = 13
-    elseif enhancement == 'm_aij_wood' then pos = 15
+    local atlas = nil
+    if enhancement == 'm_bonus' then
+        pos = 3
+    elseif enhancement == 'm_mult' then
+        pos = 4
+    elseif enhancement == 'm_wild' then
+        pos = 5
+    elseif enhancement == 'm_glass' then
+        pos = 7
+    elseif enhancement == 'm_steel' then
+        pos = 8
+    elseif enhancement == 'm_stone' then
+        pos = 1
+    elseif enhancement == 'm_gold' then
+        pos = 2
+    elseif enhancement == 'm_lucky' then
+        pos = 6
+    elseif enhancement == 'm_aij_fervent' then
+        pos = 10
+    elseif enhancement == 'm_aij_charged' then
+        pos = 11
+    elseif enhancement == 'm_aij_ice' then
+        pos = 12
+    elseif enhancement == 'm_aij_canvas' then
+        pos = 13
+    elseif enhancement == 'm_aij_simulated' then
+        if get_index then
+            pos = 14
+        else
+            pos = {x = 0, y = nil}
+            atlas = 'aij_multi_simulated_atlas'
+        end
+    elseif enhancement == 'm_aij_wood' then
+        pos = 15
+    elseif enhancement == 'm_paperback_soaked' then
+        pos = 16
+    elseif enhancement == 'm_paperback_ceramic' then
+        pos = 17
+    elseif enhancement == 'm_paperback_wrapped' then
+        pos = 18
+    elseif enhancement == 'm_paperback_bandaged' then
+        pos = 19
+    elseif enhancement == 'm_paperback_domino' then
+        pos = 20
+    elseif enhancement == 'm_paperback_stained' then
+        pos = 21
     end
-    return pos
+    return pos, atlas
+end
+
+function All_in_Jest.multi_enhancement_get_vanilla_z_order(key)
+
+    z_order_table = {
+        m_bonus = 1,
+        m_mult = 1,
+        m_wild = 1,
+        m_gladd = -1,
+        m_steel = 0.9,
+        m_stone = -1,
+        m_gold = 0.1,
+        m_lucky = -1,
+
+        -- Not vanilla but lol
+
+        m_paperback_soaked = -1,
+        m_paperback_ceramic = -1,
+        m_paperback_wrapped = 1.4,
+        m_paperback_bandaged = 1.6,
+        m_paperback_domino = 1,
+        m_paperback_stained = 1,
+        m_paperback_sleeved = 3,
+        m_paperback_antique = -1,
+    }
+
+    z_order = z_order_table[key]
+
+    return z_order
+end
+
+function All_in_Jest.get_enhancement_z_order(center)
+    local z_order = nil
+    if center.all_in_jest and center.all_in_jest.multi_enhancement_z_order and type(center.all_in_jest.multi_enhancement_z_order) == "number" then
+        z_order = center.all_in_jest.multi_enhancement_z_order
+    else
+        z_order = All_in_Jest.multi_enhancement_get_vanilla_z_order(center.key)
+    end
+
+    if z_order ~= nil then
+        return z_order + center.order / 10000 -- Use center order to make every enhancement have a set "stacking order"
+    end
+end
+
+function process_texture_stack_enhancement_foreground(image, stacked_enhancement, foreground_atlas_name)
+    local foregrounds_atlas = SMODS.get_atlas(foreground_atlas_name or "aij_multi_enhancements_foregrounds_atlas")
+
+    local foreground_pos, _ = {x = All_in_Jest.find_multi_enhancement_pos(stacked_enhancement, true), y = 0}
+
+    if foreground_pos.x == 0 then
+        foregrounds_atlas = SMODS.get_atlas(foreground_atlas_name or G.P_CENTERS[stacked_enhancement].atlas)
+        foreground_pos = G.P_CENTERS[stacked_enhancement].pos
+    end
+
+    local w, h = 71, 95
+    local texW, texH = foregrounds_atlas.image:getDimensions()
+
+    local width, height = image:getDimensions()
+    local canvas = love.graphics.newCanvas(width, height, {type = '2d', readable = true, dpiscale = image:getDPIScale()})
+
+    love.graphics.push("all")
+
+    love.graphics.setCanvas( canvas )
+    love.graphics.clear({1, 1, 1, 0})
+    
+    love.graphics.setColor(1, 1, 1, 1)
+
+    G.SHADERS['aij_fusion_spritesheet']:send("enhancement_image_dims", {texW, texH})
+    G.SHADERS['aij_fusion_spritesheet']:send("old_image_dims", {image:getDimensions()})
+    G.SHADERS['aij_fusion_spritesheet']:send('maskTex', foregrounds_atlas.image)
+    G.SHADERS['aij_fusion_spritesheet']:send('maskUV', { foreground_pos.x * foregrounds_atlas.px / texW, foreground_pos.y * foregrounds_atlas.py / texH, w / texW, h / texH })
+    love.graphics.setShader( G.SHADERS['aij_fusion_spritesheet'] )
+    
+    -- Draw image with foreground shader on new canvas
+    love.graphics.draw( image )
+
+    love.graphics.pop()
+
+    local image_data = canvas:newImageData()
+
+    return love.graphics.newImage(image_data, {mipmaps = true, dpiscale = image:getDPIScale()}), image_data
+end
+
+function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
+    local enhancement_1_key = center.key
+    local enhancement_2_key = other_center.key
+
+    local enhancements_1_fusion_pos, temp_atlas_1 = All_in_Jest.find_multi_enhancement_pos(enhancement_1_key)
+    local enhancements_2_fusion_pos, temp_atlas_2 = All_in_Jest.find_multi_enhancement_pos(enhancement_2_key)
+    
+    local new_pos = {
+        x = 0, 
+        y = 0
+    }
+
+    local new_atlas = 'aij_multi_enhancements_atlas'
+
+    if temp_atlas_1 == nil and temp_atlas_2 == nil then
+        if enhancements_1_fusion_pos > enhancements_2_fusion_pos then
+            new_pos.x, new_pos.y = enhancements_1_fusion_pos, enhancements_2_fusion_pos
+        else
+            new_pos.x, new_pos.y = enhancements_2_fusion_pos, enhancements_1_fusion_pos
+        end
+    elseif type(temp_atlas_1) == "string" then
+        new_atlas = temp_atlas_1
+        if type(enhancements_1_fusion_pos) == "table" then
+            new_pos.x, new_pos.y = enhancements_1_fusion_pos.x, enhancements_1_fusion_pos.y
+        end
+        if new_pos.x == nil and type(enhancements_2_fusion_pos) == "number" then
+            new_pos.x = enhancements_2_fusion_pos
+        end
+        if new_pos.y == nil and type(enhancements_2_fusion_pos) == "number" then
+            new_pos.y = enhancements_2_fusion_pos
+        end
+    elseif type(temp_atlas_2) == "string" then
+        new_atlas = temp_atlas_2
+        if type(enhancements_2_fusion_pos) == "table" then
+            new_pos.x, new_pos.y = enhancements_2_fusion_pos.x, enhancements_2_fusion_pos.y
+        end
+        if new_pos.x == nil and type(enhancements_1_fusion_pos) == "number" then
+            new_pos.x = enhancements_1_fusion_pos
+        end
+        if new_pos.y == nil and type(enhancements_1_fusion_pos) == "number" then
+            new_pos.y = enhancements_1_fusion_pos
+        end
+    end
+
+    local has_sprite = aij_check_if_sprite_exists(
+        new_atlas,
+        new_pos.x or 0,
+        new_pos.y or 0
+    )
+    if has_sprite and new_pos.y and new_pos.y > 0 then
+        -- If sprite has a unique sprite, use it
+        return SMODS.get_atlas(new_atlas), new_pos
+    else
+        -- Else, create a new sprite
+        local enhancement_1_z_order = All_in_Jest.get_enhancement_z_order(center)
+        local enhancement_2_z_order = All_in_Jest.get_enhancement_z_order(other_center)
+        
+
+        if (enhancement_1_z_order == nil and enhancement_2_z_order == nil) or (enhancement_1_z_order == nil and enhancement_2_z_order < 0) or (enhancement_1_z_order < 0 and enhancement_2_z_order == nil) then
+            -- AiJ hasn't defined anything, so do it dynamically
+
+            local enhancement_1_atlas = SMODS.get_atlas(center.atlas)
+            local enhancement_2_atlas = SMODS.get_atlas(other_center.atlas)
+
+            local enhancement_1_colour = aij_get_mcc_pixel(enhancement_1_atlas.image_data, center.pos, {bpx = enhancement_1_atlas.px, bpy = enhancement_1_atlas.py, check_invis = false})
+            local enhancement_2_colour = aij_get_mcc_pixel(enhancement_2_atlas.image_data, other_center.pos, {bpx = enhancement_2_atlas.px, bpy = enhancement_2_atlas.py, check_invis = false})
+
+            local h1, s1, v1 = rgb_to_hsv(enhancement_1_colour[1], enhancement_1_colour[2], enhancement_1_colour[3])
+            local h2, s2, v2 = rgb_to_hsv(enhancement_2_colour[1], enhancement_2_colour[2], enhancement_2_colour[3])
+
+            if (v1 > 0.95 and s1 < 0.05) or (v2 > 0.95 and s2 < 0.05) then
+                -- If it looks like one of the enhancements could be a foreground, create a foreground sprite
+
+                local remove_white = function(r, g, b, a, old_colour, new_colour, args)
+                    local h_old, s_old, v_old = rgb_to_hsv(r, g, b)
+                    local new_a = a
+                    if v_old > 0.9 then
+                        new_a = math.min(1 - v_old, a)
+                    end
+
+                    return r, g, b, new_a
+                end
+
+                local foreground_enhancement, background_enhancement, foreground_atlas, background_atlas
+
+                if (v1 > 0.95 and s1 < 0.05) then
+                    foreground_enhancement = center
+                    background_enhancement = other_center
+                    foreground_atlas = enhancement_1_atlas
+                    background_atlas = enhancement_2_atlas
+                    background_atlas = enhancement_2_atlas
+                else
+                    foreground_enhancement = other_center
+                    background_enhancement = center
+                    foreground_atlas = enhancement_2_atlas
+                    background_atlas = enhancement_1_atlas
+                end
+
+                local foreground_atlas = aij_recolour_atlas({1, 1, 1, 1}, {1, 1, 1, 1}, foreground_atlas, nil, {return_pixel = remove_white, skip_check = true}), foreground_enhancement.pos
+                
+                local new_atlas_name = background_atlas.name .. "_aij_foreground_" .. foreground_enhancement.key
+                if not SMODS.get_atlas(new_atlas_name) then
+                    local atlas_type = background_atlas.atlas_table or "ASSET_ATLAS"
+                    
+                    G[atlas_type][new_atlas_name] = {}
+                    SMODS.get_atlas(new_atlas_name).name = new_atlas_name
+                    SMODS.get_atlas(new_atlas_name).type = background_atlas.type
+                    SMODS.get_atlas(new_atlas_name).atlas_table = atlas_type
+                    SMODS.get_atlas(new_atlas_name).px = background_atlas.px
+                    SMODS.get_atlas(new_atlas_name).py = background_atlas.py
+                    SMODS.get_atlas(new_atlas_name).frames = background_atlas.frames
+                    local image, image_data = process_texture_stack_enhancement_foreground(background_atlas.image, foreground_enhancement.key, foreground_atlas.name)
+                    SMODS.get_atlas(new_atlas_name).image = image
+                    SMODS.get_atlas(new_atlas_name).image_data = image_data
+                end
+
+                return SMODS.get_atlas(new_atlas_name), background_enhancement.pos
+            else
+                -- Recolour atlas
+                local enhancement_to_recolour, other_enhancement, old_colour, new_color
+
+                enhancement_1_z_order = enhancement_1_z_order or (0 + center.order / 10000) -- Makes picking the base atlas easier
+                enhancement_2_z_order = enhancement_2_z_order or (0 + center.order / 10000) -- Makes picking the base atlas easier
+                if enhancement_1_z_order < enhancement_2_z_order then
+                    enhancement_to_recolour = center
+                    other_enhancement = other_center
+                    old_colour = enhancement_1_colour
+                    new_colour = enhancement_2_colour
+                else
+                    enhancement_to_recolour = other_center
+                    other_enhancement = center
+                    old_colour = enhancement_2_colour
+                    new_colour = enhancement_1_colour
+                end
+
+                local base_atlas = SMODS.get_atlas(enhancement_to_recolour.atlas)
+                local other_atlas = SMODS.get_atlas(other_enhancement.atlas)
+                local s_base_low, s_base_high = aij_get_saturation_range(base_atlas.image_data, enhancement_to_recolour.pos, {bpx = base_atlas.px, bpy = base_atlas.py})
+                local s_other_low, s_other_high = aij_get_saturation_range(other_atlas.image_data, other_enhancement.pos, {bpx = other_atlas.px, bpy = other_atlas.py})
+
+                local set_hue = function(r, g, b, a, old_colour, new_colour, args)
+                    local h_old, s_old, v_old = rgb_to_hsv(r, g, b)
+                    local h_new, s_new, _ = rgb_to_hsv(new_colour[1], new_colour[2], new_colour[3])
+
+                    local s_merged = ((s_old - s_base_low) / (s_base_high - s_base_low)) * (s_other_high - s_other_low) + s_other_low
+                    s_merged = math.min(s_merged, 1)
+
+                    local r_new, g_new, b_new = hsv_to_rgb(h_new, s_merged, v_old)
+
+                    return r_new, g_new, b_new, args.replace_alpha and new_colour[4] or a
+                end
+
+                return aij_recolour_atlas(old_colour, new_colour, base_atlas, nil, {return_pixel = set_hue, skip_check = true}), enhancement_to_recolour.pos
+            end
+
+        else
+            enhancement_1_z_order = enhancement_1_z_order or 0
+            enhancement_2_z_order = enhancement_2_z_order or 0
+
+            -- Foreground shader
+            local foreground_enhancement = enhancement_1_z_order > enhancement_2_z_order and center or other_center
+            local background_enhancement = enhancement_1_z_order > enhancement_2_z_order and other_center or center
+
+            local atlas_key = background_enhancement.atlas or 'centers' -- Fallback to vanilla atlas
+            local base_atlas = SMODS.get_atlas(atlas_key)
+            local new_atlas_name = atlas_key .. "_aij_foreground_" .. foreground_enhancement.key
+
+            if not SMODS.get_atlas(new_atlas_name) then
+                local atlas_type = base_atlas.atlas_table or "ASSET_ATLAS"
+                
+                G[atlas_type][new_atlas_name] = {}
+                SMODS.get_atlas(new_atlas_name).name = base_atlas.name .. "_aij_foreground_" .. foreground_enhancement.key
+                SMODS.get_atlas(new_atlas_name).type = base_atlas.type
+                SMODS.get_atlas(new_atlas_name).atlas_table = atlas_type
+                SMODS.get_atlas(new_atlas_name).px = base_atlas.px
+                SMODS.get_atlas(new_atlas_name).py = base_atlas.py
+                SMODS.get_atlas(new_atlas_name).frames = base_atlas.frames
+                local image, image_data = process_texture_stack_enhancement_foreground(base_atlas.image, foreground_enhancement.key)
+                SMODS.get_atlas(new_atlas_name).image = image
+                SMODS.get_atlas(new_atlas_name).image_data = image_data
+            end
+
+            return SMODS.get_atlas(new_atlas_name), background_enhancement.pos
+        end
+    end
 end
 
 function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
@@ -2472,4 +3173,32 @@ function Card:All_in_Jest_set_seal_edition(edition, immediate, silent, delay)
 
 	if G.jokers and self.area == G.jokers then check_for_unlock({ type = 'modify_jokers' }) end
 	self:set_cost()
+end
+
+local function load_file_content(path, id)
+    if not path or path == "" then
+        error("No path was provided to load.")
+    end
+    local mod
+    if not id then
+        if not SMODS.current_mod then
+            error("No ID was provided! Usage without an ID is only available when file is first loaded.")
+        end
+        mod = SMODS.current_mod
+    else
+        mod = SMODS.Mods[id]
+    end
+    if not mod then
+        error("Mod not found. Ensure you are passing the correct ID.")
+    end
+    local file_path = mod.path .. path
+    local file_content, err = NFS.read(file_path)
+    if not file_content then return  nil, "Error reading file '" .. path .. "' for mod with ID '" .. mod.id .. "': " .. err end
+    return file_content
+end
+
+All_in_Jest.load_shaders = function()
+    G.SHADERS['aij_wood_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/wood_spritesheet.fs"))
+    G.SHADERS['aij_burnt_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/burnt_spritesheet.fs"))
+    G.SHADERS['aij_fusion_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/fusion_spritesheet.fs"))
 end

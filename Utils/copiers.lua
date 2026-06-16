@@ -164,7 +164,7 @@ end
 local function event_insert_to_queue(manager, index, event, queue)
     queue = queue or 'base'
     if event:is(Event) then
-        table.insert(manager.queues[queue], math.min(index, #manager.queues[queue] + 1), event)
+        table.insert(manager.queues[queue], math.max(1, math.min(index, #manager.queues[queue] + 1)), event)
     end
 end
 

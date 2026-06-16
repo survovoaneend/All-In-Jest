@@ -5,7 +5,7 @@ local party_time = {
     key = "party_time",
     config = {
         extra = {
-            chip_mod = 2
+            chip_mod = 4
         }
     },
     rarity = 1,

@@ -29,9 +29,7 @@ local doormat = {
             local cur_card = SMODS.drawn_cards[1]
             local cen_pool = {}
             for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-                if v.key ~= 'm_stone' and v.key ~= 'm_aij_canvas' then 
-                    cen_pool[#cen_pool+1] = v
-                end
+                cen_pool[#cen_pool+1] = v
             end
             center = pseudorandom_element(cen_pool, pseudoseed('doormat'))
             play_sound('card1', 0.9 + 0.05, 0.5) 

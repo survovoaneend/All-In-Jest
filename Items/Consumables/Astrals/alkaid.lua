@@ -84,8 +84,18 @@ local alkaid_pin = {
                         enhancement_center = v
                     end
                 end
-                cur_card:set_ability(enhancement_center)
+                cur_card:set_ability(enhancement_center, nil, true)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        cur_card:juice_up()
+                        return true
+                    end
+                })) 
             end
+            return {
+                message = localize('k_aij_change_ex'),
+                colour = G.C.PURPLE
+            }
         end
     end,
 }

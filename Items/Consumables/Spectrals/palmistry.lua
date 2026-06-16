@@ -35,9 +35,7 @@ local palmistry = {
         delay(0.2)
         local cen_pool = {}
         for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-            if v.key ~= 'm_stone' then 
-                cen_pool[#cen_pool+1] = v
-            end
+            cen_pool[#cen_pool+1] = v
         end
         for k, v in ipairs(G.hand.cards) do
             local enhance = pseudorandom_element(cen_pool, pseudoseed('palmistry'..G.GAME.round_resets.ante)).key

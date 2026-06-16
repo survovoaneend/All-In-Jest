@@ -30,9 +30,7 @@ local crop_circle = {
                 for i = 1, card.ability.extra.cards do
                     local cen_pool = {}
                     for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-                        if v.key ~= 'm_stone' and v.key ~= 'm_aij_canvas' then 
-                            cen_pool[#cen_pool+1] = v
-                        end
+                        cen_pool[#cen_pool+1] = v
                     end
                     center = pseudorandom_element(cen_pool, pseudoseed('crop_circle'..i))
                     if G.hand and #G.hand.cards > 0 then

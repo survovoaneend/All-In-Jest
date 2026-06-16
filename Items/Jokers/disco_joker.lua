@@ -25,7 +25,7 @@ local disco_joker = {
     end,
 
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play then
+        if context.repetition then
             if context.other_card.edition then
                 return {
                     repetitions = 1,

@@ -112,6 +112,26 @@ SMODS.Atlas {
   py = 95
 }
 SMODS.Atlas {
+  key = "multi_enhancements_atlas",
+  path = "multi_enhancements.png",
+  px = 71, 
+  py = 95
+}
+SMODS.Atlas {
+  key = "multi_simulated_atlas",
+  path = "multi_simulated.png",
+  atlas_table = 'ANIMATION_ATLAS',
+  frames = 10,
+  px = 71, 
+  py = 95
+}
+SMODS.Atlas {
+  key = "multi_enhancements_foregrounds_atlas",
+  path = "fusion_parts/foregrounds.png",
+  px = 71, 
+  py = 95
+}
+SMODS.Atlas {
   key = "vouchers_atlas",
   path = "vouchers.png",
   px = 71,
@@ -375,28 +395,31 @@ local function collect_png_files(base_fs, rel, out)
 end
 
 local png_files = {}
-collect_png_files(mod_path.."assets/1x/Parts", "Parts", png_files)
+collect_png_files(mod_path.."assets/1x/parts", "parts", png_files)
 
 for _, filename in ipairs(png_files) do
-    local path = mod_path.."assets/1x/Parts"..filename
+    local path = mod_path.."assets/1x/parts"..filename
     local name = filename:sub(1, -5) 
     name = name:sub(7)
 
     SMODS.Atlas({
         key = name,
-        path = 'Parts/'..name..'.png',
+        path = 'parts/'..name..'.png',
         px = '71',
         py = '95',
     })
--- 4. Function to handle the skip button
-G.FUNCS.skip_aij_intro = function(e)
-    if G.OVERLAY_TUTORIAL then
-        G.OVERLAY_TUTORIAL.skip_steps = true
-        if G.OVERLAY_TUTORIAL.Jimbo then G.OVERLAY_TUTORIAL.Jimbo:remove() end
-        if G.OVERLAY_TUTORIAL.content then G.OVERLAY_TUTORIAL.content:remove() end
-        G.OVERLAY_TUTORIAL:remove()
-        G.OVERLAY_TUTORIAL = nil
+    
+    -- 4. Function to handle the skip button
+    G.FUNCS.skip_aij_intro = function(e)
+        if G.OVERLAY_TUTORIAL then
+            G.OVERLAY_TUTORIAL.skip_steps = true
+            if G.OVERLAY_TUTORIAL.Jimbo then G.OVERLAY_TUTORIAL.Jimbo:remove() end
+            if G.OVERLAY_TUTORIAL.content then G.OVERLAY_TUTORIAL.content:remove() end
+            G.OVERLAY_TUTORIAL:remove()
+            G.OVERLAY_TUTORIAL = nil
+        end
+        G.E_MANAGER:clear_queue('tutorial')
     end
-    G.E_MANAGER:clear_queue('tutorial')
 end
-end
+
+All_in_Jest.load_shaders()

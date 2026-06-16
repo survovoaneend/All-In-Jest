@@ -285,6 +285,28 @@ return {
                     'cartas con un {C:attention}parche{}',
                     "al mismo tiempo"
                 }
+            },
+            b_aij_melded = {
+                name = 'Baraja Derretida',
+                text = {
+                    'Las Cartas de Juego',
+                    'pueden tener {C:attention}dos{}',
+                    "mejoras únicas",
+                },
+                unlock = {
+                    "Gana una partida con {C:attention}#1#",
+                    "barajas en al menos",
+                    "el pozo {V:1}#2#{}",
+                }
+            },
+            b_aij_melded_hidden = {
+                name = 'Baraja Derretida',
+                text = {},
+                unlock = {
+                    "Gana una partida con {C:attention}#1#",
+                    "barajas en al menos",
+                    "el pozo {V:1}#2#{}",
+                }
             }
         },
         Stake = All_in_Jest.config.blue_stake_rework and {
@@ -1789,7 +1811,7 @@ return {
                     "Gana {X:mult,C:white}X#2#{} Multi si la {C:blue}mano{}",
                     "contiene {C:attention}#4#{} de palo {C:spades}Oscuro{}",
                     "y {C:attention}#3#{} de palo {C:hearts}Claro{}",
-                    "{C:inactive,s:0.8}(La pproporción cambia cada ronda)",
+                    "{C:inactive,s:0.8}(La proporción cambia cada ronda)",
                     "{C:inactive}(Actualmente {X:mult,C:white}X#1#{} {C:inactive}Multi){}",
                 }
             },
@@ -1848,6 +1870,16 @@ return {
                     "Al anotar {V:1}#1#{}, anota sus",
                     "{C:chips}+Fichas{} como {C:mult}+Multi{}",
                     "{C:inactive,s:0.8}(Cambia cada ronda){}",
+                }
+            },
+            j_aij_hat_trick = {
+                name = "Sombrero Mágico",
+                text = {
+                    "Si la mano jugada",
+                    "es una {C:attention}Tercia{}, las",
+                    "cartas anotadas otorgan {C:mult}Multi{}",
+                    "igual a su {C:attention}nivel{}",
+                    "{C:inactive}(Actualmente {C:mult}+#1#{} {C:inactive}Multi)",
                 }
             },
             j_aij_magic_hat = {
@@ -3888,9 +3920,9 @@ return {
             j_aij_feedback_form = { 
                 name = "Formulario de Quejas",
                 text = { 
-                    "Cada carta {C:attention}anotada{} otorga {C:mult}+#1#{}",
-                    "Multi si todas las cartas {C:attention}anotadas{}",
-                    "tienen diferentes {C:attention}mejoras{}" 
+                    "Todas las {C:attention}mejoras únicas{} en",
+                    "la {C:attention}mano jugada{} dan {X:mult,C:white}X#1#{} Multi",
+                    "al ser anotadas"
                 }
             },
             j_aij_stultor = { 
@@ -6011,6 +6043,14 @@ return {
                     'a {C:attention}#1#{} cartas seleccionadas',
                 }
             },
+            c_aij_barathrum = {
+                name = 'Barathrum',
+                text = {
+                    '{C:red}Elimina permanentemente{} una',
+                    'carta del {C:tarot}Tarot{} de tu',
+                    'elección del {C:attention}pozo'
+                }
+            },
         },
         aij_astral = {
             c_aij_algol = {
@@ -6745,6 +6785,14 @@ return {
                     "{C:red}Destruye{} {C:attention}#1#{} carta {C:attention}mejorada{} seleccionada",
                     "y aplica su {C:attention}mejora{} a {C:attention}#2#{}",
                     "cartas al {C:attention}azar{}"
+                }
+            },
+            c_aij_typhon = {
+                name = 'El Tifón',
+                text = {
+                    "Mejora {C:attention}#1#{} cartas",
+                    "seleccionadas en",
+                    "{C:attention}#2#s{}"
                 }
             },
         },

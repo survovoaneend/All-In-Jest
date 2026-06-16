@@ -11,6 +11,9 @@ local fervent_planet = {
             chips_extra = 10,
         }
     },
+    all_in_jest = {
+        multi_enhancement_z_order = 1
+    },
     loc_vars = function(self, info_queue, card)
         return {
             vars = {

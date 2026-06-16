@@ -5,7 +5,7 @@ local jokey_bear = {
     key = "jokey_bear",
     config = {
         extra = {
-            dollars = 5,
+            dollars = 3,
             temp_chips = '0'
         }
     },

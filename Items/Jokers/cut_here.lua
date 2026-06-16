@@ -22,9 +22,14 @@ local cut_here = {
         if context.joker_type_destroyed then
             local this_card = context.blueprint_card or card
             if context.card == this_card then
-                local temp_card = create_card('Joker', G.jokers, nil, 1, nil, nil, nil, 'cut_here')
-                temp_card:start_materialize()
-                G.jokers:emplace(temp_card)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        local temp_card = create_card('Joker', G.jokers, nil, 1, nil, nil, nil, 'cut_here')
+                        temp_card:start_materialize()
+                        G.jokers:emplace(temp_card)
+                        return true
+                    end
+                }))
                 return nil, true
             end
         end

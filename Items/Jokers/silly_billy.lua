@@ -31,7 +31,11 @@ local silly_billy = {
             for _, playing_card in ipairs(context.full_hand) do
                 if playing_card.edition then count = count + 1 end
                 if playing_card.seal then count = count + 1 end
-                if next(SMODS.get_enhancements(playing_card)) then count = count + 1 end
+                if next(SMODS.get_enhancements(playing_card)) then 
+                    for k, _ in pairs(SMODS.get_enhancements(playing_card)) do
+                        count = count + 1 
+                    end
+                end
             end
             if count > 0 then
                 return {

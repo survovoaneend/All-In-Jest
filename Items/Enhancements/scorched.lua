@@ -1,32 +1,17 @@
-local scorched_shader = {
-    object_type = "Shader",
-    key = 'burnt', 
-    path = 'burnt.fs',
-    send_vars = function(sprite)
-        local atlas = G.ASSET_ATLAS["aij_enhancements_atlas"]
-        local overlayPos = {x = 8, y = 0}
-        local maskPos = {x = 7, y = 0}
-        local w, h = 71, 95 
-        local texW, texH = atlas.image:getDimensions()
-    
-        return {
-            enhancementsTex = atlas.image,
-            overlayUV = { overlayPos.x * atlas.px / texW, overlayPos.y * atlas.py / texH, w / texW, h / texH },
-            maskUV = { maskPos.x * atlas.px / texW, maskPos.y * atlas.py / texH, w / texW, h / texH },
-        }
-    end
-} 
 local scorched = {
     object_type = "Enhancement",
     key = 'scorched',
-    atlas = 'enhancements_atlas',
+    -- atlas = 'centers',
     order = 7,
-    pos = { x = 7, y = 0 },
+    pos = { x = 1, y = 0 },
     config = {
         extra = {
             odds = 3,
             levels = 1
         }
+    },
+    all_in_jest = {
+        multi_enhancement_z_order = 2
     },
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
@@ -47,4 +32,73 @@ local scorched = {
         end
     end
 }
-return {name = {"Enhancements"}, items = {scorched, scorched_shader}}
+
+function process_texture_scorched(image)
+    local enhancements_atlas = SMODS.get_atlas("aij_enhancements_atlas")
+    local pos = {x = 8, y = 0}
+    local postwo = {x = 7, y = 0}
+    local w, h = 71, 95 
+    local texW, texH = enhancements_atlas.image:getDimensions()
+
+    local width, height = image:getDimensions()
+    local canvas = love.graphics.newCanvas(width, height, {type = '2d', readable = true, dpiscale = image:getDPIScale()})
+
+    love.graphics.push("all")
+
+    love.graphics.setCanvas( canvas )
+    love.graphics.clear({1, 1, 1, 0})
+    
+    love.graphics.setColor(1, 1, 1, 1)
+
+    G.SHADERS['aij_burnt_spritesheet']:send("enhancement_image_dims", {texW, texH})
+    G.SHADERS['aij_burnt_spritesheet']:send("old_image_dims", {image:getDimensions()})
+    G.SHADERS['aij_burnt_spritesheet']:send('maskTex', enhancements_atlas.image)
+    G.SHADERS['aij_burnt_spritesheet']:send('maskUV', { pos.x * enhancements_atlas.px / texW, pos.y * enhancements_atlas.py / texH, w / texW, h / texH })
+    G.SHADERS['aij_burnt_spritesheet']:send('otherUV', { postwo.x * enhancements_atlas.px / texW, postwo.y * enhancements_atlas.py / texH, w / texW, h / texH })
+    love.graphics.setShader( G.SHADERS['aij_burnt_spritesheet'] )
+    
+    -- Draw image with scorched shader on new canvas
+    love.graphics.draw( image )
+
+    love.graphics.pop()
+
+    return love.graphics.newImage(canvas:newImageData(), {mipmaps = true, dpiscale = image:getDPIScale()})
+end
+
+function pre_scorcheded(a)
+    local atlas = a.name or a.key
+    local name = atlas.."_scorcheded"
+    if SMODS.get_atlas(name) then
+        return {
+            old_name = atlas,
+            new_name = name,
+            atlas = SMODS.get_atlas(name),
+        }
+    else
+        return {
+            old_name = atlas,
+            new_name = name,
+            atlas = nil
+        }
+    end
+end
+
+function scorched_atlas(a)
+    local scorcheded = pre_scorcheded(a)
+
+    if not scorcheded.atlas then
+        local atlas_type = a.atlas_table or "ASSET_ATLAS"
+        G[atlas_type][scorcheded.new_name] = {}
+        SMODS.get_atlas(scorcheded.new_name).scorched = true
+        SMODS.get_atlas(scorcheded.new_name).name = SMODS.get_atlas(scorcheded.old_name).name .. "_scorcheded"
+        SMODS.get_atlas(scorcheded.new_name).type = SMODS.get_atlas(scorcheded.old_name).type
+        SMODS.get_atlas(scorcheded.new_name).px = SMODS.get_atlas(scorcheded.old_name).px
+        SMODS.get_atlas(scorcheded.new_name).py = SMODS.get_atlas(scorcheded.old_name).py
+        SMODS.get_atlas(scorcheded.new_name).frames = SMODS.get_atlas(scorcheded.old_name).frames
+        SMODS.get_atlas(scorcheded.new_name).image = process_texture_scorched(SMODS.get_atlas(scorcheded.old_name).image)
+    end
+
+    return SMODS.get_atlas(scorcheded.new_name)
+end
+
+return {name = {"Enhancements"}, items = {scorched}}

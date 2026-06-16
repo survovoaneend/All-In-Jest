@@ -27,12 +27,9 @@ local mushroom_cloud = {
             card.ability.using_ability = true
             args = args or {}
 
-            -- Wrap the entire effect in an event. 
-            -- This places it in the Balatro animation queue.
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',
                 func = function()
-                    -- Trigger visual feedback
                     card:juice_up(0.5, 0.5)
                     
                     SMODS.calculate_context({all_in_jest = {joker_ability_used = true, card = card, retriggered = args.retriggered, args = args}})

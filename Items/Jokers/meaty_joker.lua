@@ -6,7 +6,7 @@ local meaty_joker = {
     config = {
         extra = {
             xmult = 1,
-            cards = 25
+            cards = 20
         }
     },
     rarity = 3,

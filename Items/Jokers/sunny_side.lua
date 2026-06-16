@@ -5,10 +5,10 @@ local sunny_side = {
     config = {
       
     },
-    rarity = 2,
+    rarity = 3,
     pos = { x = 2, y = 10},
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 10,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

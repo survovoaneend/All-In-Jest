@@ -92,7 +92,7 @@ local error_404 = {
     end,
 
     calculate = function(self, card, context)
-        if context.after then
+        if context.after and not context.blueprint then
             local valid_jokers = get_valid_jokers(card.ability.extra.currently_copied)
             if #valid_jokers > 0 then
                 valid_jokers = get_valid_jokers()

@@ -33,7 +33,6 @@ local unusual_doubled = {
   end,
   apply = function(self, card, val)
     if val and not card.ability[self.key] then
-      sendDebugMessage("unusual_sticker_" .. card.config.center.key, "AIJ")
       SMODS.Sticker.apply(self, card, val)
       -- card.ability[self.key] = {mult = 2, prevmult = "2"}
       if card.added_to_deck then

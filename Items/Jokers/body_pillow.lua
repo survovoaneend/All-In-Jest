@@ -50,7 +50,6 @@ local body_pillow = {
                 ease_dollars(card.ability.extra.dollars)
                 delay(0.23)
             end
-            return true
         end
     end
 }
