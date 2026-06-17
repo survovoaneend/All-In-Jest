@@ -80,12 +80,12 @@ local anarchy_tag = {
             local bosses = {}
             local showdown_bosses = {}
             for k, v in pairs(G.P_BLINDS) do
-              if v and v.boss and v.boss.showdown then
+              if v and v.boss and v.boss.showdown and SMODS.add_to_pool(v) and not G.GAME.banned_keys[k] then
                 table.insert(showdown_bosses, v)
               end
             end
             for k, v in pairs(G.P_BLINDS) do
-              if v and v.boss then
+              if v and v.boss and SMODS.add_to_pool(v) and not G.GAME.banned_keys[k] then
                 table.insert(bosses, v)
                 if not v.boss.showdown then
                   local ran = pseudorandom('jest_chaos_tag', 1, #showdown_bosses)
@@ -124,13 +124,7 @@ local anarchy_tag = {
             G.blind_select_opts.boss.parent = par
             G.blind_select_opts.boss.alignment.offset.y = 0
           elseif effect == "open_booster" then
-            local boosters = {}
-            for k, v in pairs(G.P_CENTERS) do
-              if v.set == 'Booster' then
-                table.insert(boosters, k)
-              end
-            end
-            local key = boosters[pseudorandom('jest_chaos_tag', 1, #boosters)]
+            local key = get_pack('jest_chaos_tag').key
             local card = Card(G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
               G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2, G.CARD_W * 1.27, G.CARD_H * 1.27, G.P_CARDS.empty,
               G.P_CENTERS[key], { bypass_discovery_center = true, bypass_discovery_ui = true })
@@ -241,12 +235,7 @@ local anarchy_tag = {
               local cur_card = copy_card(temp_card)
 
               cur_card:set_base(new_card)
-              local cen_pool = {}
-              for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-                cen_pool[#cen_pool + 1] = v
-              end
-              local enhance = pseudorandom_element(cen_pool, pseudoseed('jest_anarchy_tag' .. G.GAME.round_resets.ante))
-              .key
+              local enhance = SMODS.poll_enhancement({guaranteed = true, key = 'jest_anarchy_tag' .. G.GAME.round_resets.ante})
               cur_card:set_ability(G.P_CENTERS[enhance])
               cur_card:add_to_deck()
               G.deck:emplace(cur_card)
@@ -257,13 +246,9 @@ local anarchy_tag = {
             temp_card:start_dissolve()
           elseif effect == "give_ran_enhance" then
             local cur_ran = pseudorandom('jest_anarchy_tag', 3, 8)
-            local cen_pool = {}
-            for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-              cen_pool[#cen_pool + 1] = v
-            end
             for i = 1, cur_ran do
               local deck_cards = {}
-              local enhance = pseudorandom_element(cen_pool, pseudoseed('jest_anarchy_tag' .. G.GAME.round_resets.ante)) .key
+              local enhance = SMODS.poll_enhancement({guaranteed = true, key = 'jest_anarchy_tag' .. G.GAME.round_resets.ante})
               for i = 1, #G.deck.cards do
                 table.insert(deck_cards, G.deck.cards[i])
               end

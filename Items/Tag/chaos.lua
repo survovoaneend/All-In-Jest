@@ -57,7 +57,7 @@ local chaos = {
           elseif effect == "boss_reroll" and not (MP and MP.LOBBY.code) then
             local bosses = {}
             for k, v in pairs(G.P_BLINDS) do
-              if v and v.boss then
+              if v and v.boss and SMODS.add_to_pool(v) and not G.GAME.banned_keys[k] then
                 table.insert(bosses, v)
               end
             end
@@ -93,13 +93,7 @@ local chaos = {
             G.blind_select_opts.boss.alignment.offset.y = 0
             play_sound('other1')
           elseif effect == "open_booster" then
-            local boosters = {}
-            for k, v in pairs(G.P_CENTERS) do
-              if v.set == 'Booster' then
-                table.insert(boosters, k)
-              end
-            end
-            local key = boosters[pseudorandom('jest_chaos_tag', 1, #boosters)]
+            local key = get_pack('jest_chaos_tag').key
             local card = Card(G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
               G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2, G.CARD_W * 1.27, G.CARD_H * 1.27, G.P_CARDS.empty,
               G.P_CENTERS[key], { bypass_discovery_center = true, bypass_discovery_ui = true })

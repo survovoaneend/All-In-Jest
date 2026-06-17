@@ -28,16 +28,12 @@ local crop_circle = {
         if context.using_consumeable then
             if context.consumeable.ability.set == 'Planet' then
                 for i = 1, card.ability.extra.cards do
-                    local cen_pool = {}
-                    for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-                        cen_pool[#cen_pool+1] = v
-                    end
-                    center = pseudorandom_element(cen_pool, pseudoseed('crop_circle'..i))
+                    local enhance = SMODS.poll_enhancement({guaranteed = true, key = 'crop_circle'..i})
                     if G.hand and #G.hand.cards > 0 then
                         local ran_card = pseudorandom_element(G.hand.cards, pseudoseed('crop_circle'..i))
                         play_sound('card1', 0.9 + i*0.05, 0.5) 
                         ran_card:juice_up(0.2, 0.1)
-                        ran_card:set_ability(center)
+                        ran_card:set_ability(G.P_CENTERS[enhance])
                         local juice_card = context.blueprint_card or card
                         juice_card:juice_up(0.5, 0.2)
                     end

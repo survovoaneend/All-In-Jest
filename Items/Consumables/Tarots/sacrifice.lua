@@ -26,15 +26,11 @@ local sacrifice = {
         SMODS.destroy_cards(destroy_card, nil, true)
         G.E_MANAGER:add_event(Event({
             func = function()
-				local cen_pool = {}
-                for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-                    if v.key ~= 'm_stone' then 
-                        cen_pool[#cen_pool+1] = v
-                    end
-                end
+                local front = pseudorandom_element(G.P_CARDS, pseudoseed('sacrifice'))
+                local enhance = SMODS.poll_enhancement({guaranteed = true, no_replace = true, key = 'sacrifice'})
                 local _card = create_playing_card({
-                    front = pseudorandom_element(G.P_CARDS, pseudoseed('sacrifice')),
-                    center = pseudorandom_element(cen_pool, pseudoseed('sacrifice'))}, G.hand, nil, nil, {G.C.SECONDARY_SET.Enhanced})
+                    front = front,
+                    center = G.P_CENTERS[enhance]}, G.hand, nil, nil, {G.C.SECONDARY_SET.Enhanced})
                 G.GAME.blind:debuff_card(_card)
                 G.hand:sort()
                 playing_card_joker_effects({_card})
