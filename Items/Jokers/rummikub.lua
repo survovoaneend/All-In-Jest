@@ -44,9 +44,10 @@ function create_UIBox_rummikub()
   local ranks_option_cycle = create_option_cycle({label = "Set Rank", text_scale = 0.4, scale = 0.8, w = 3, options = rank_pool, opt_callback = "tag_aij_nonstandard_set_rank", current_option = 1})
 
   local enhancement_pool = {localize("k_none")}
-  for _, enhancement in pairs(G.P_CENTER_POOLS.Enhanced) do
-      local enhancement_key = enhancement.key
-      table.insert(enhancement_pool, localize{key = enhancement_key, set = "Enhanced", type = "name_text"})
+  for _, enhancement in pairs(get_current_pool("Enhanced")) do
+    if enhancement ~= "UNAVAILABLE" then
+      table.insert(enhancement_pool, localize{key = enhancement, set = "Enhanced", type = "name_text"})
+    end
   end
   local enhancements_option_cycle = create_option_cycle({label = "Enhancement", text_scale = 0.4, scale = 0.8, w = 3, options = enhancement_pool, opt_callback = "tag_aij_nonstandard_set_enhancement", current_option = 1})
 

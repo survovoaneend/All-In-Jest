@@ -60,9 +60,9 @@ local golem = {
 		delay(0.2)
 
 		local cen_pool = {}
-		for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
+		for k, v in pairs(get_current_pool("Enhanced")) do
 			if v.key ~= "m_stone" then
-				cen_pool[#cen_pool + 1] = v.key
+				cen_pool[#cen_pool + 1] = v
 			end
 		end
 		for i = 1, #G.hand.highlighted do
@@ -70,8 +70,8 @@ local golem = {
 				trigger = "after",
 				delay = 0.1,
 				func = function()
-					center = pseudorandom_element(cen_pool, pseudoseed("golem"))
-					All_in_Jest.set_other_enhancement(G.hand.highlighted[i], center)
+					local enhance = SMODS.poll_enhancement({guaranteed = true, options = cen_pool, key = 'golem'})
+					All_in_Jest.set_other_enhancement(G.hand.highlighted[i], enhance)
 					return true
 				end,
 			}))

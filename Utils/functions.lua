@@ -1737,10 +1737,9 @@ end
 function reset_jest_you_broke_it_card()
   G.GAME.current_round.jest_you_broke_it_card.rank = 'Ace'
   G.GAME.current_round.jest_you_broke_it_card.enhancement = 'm_bonus'
-  local valid_enhancements = get_current_pool("Enhanced")
   local valid_jest_ybi_cards = {}
     for k, v in ipairs(G.playing_cards) do
-        if v.ability.effect ~= 'Stone Card' then
+        if not SMODS.has_no_rank(v) then
             valid_jest_ybi_cards[#valid_jest_ybi_cards+1] = v
         end
     end
@@ -1749,29 +1748,12 @@ function reset_jest_you_broke_it_card()
         G.GAME.current_round.jest_you_broke_it_card.rank = jest_ybi_card.base.value
         G.GAME.current_round.jest_you_broke_it_card.id = jest_ybi_card.base.id
     end
-    if valid_enhancements[1] then
-      local jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..G.GAME.round_resets.ante))
-      local it = 1
-      while jest_ybi_enhancement == 'UNAVAILABLE' do
-        it = it + 1
-        jest_ybi_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('ybi'..'_resample'..it))
-      end
-      G.GAME.current_round.jest_you_broke_it_card.enhancement = jest_ybi_enhancement
-    end
+    G.GAME.current_round.jest_you_broke_it_card.enhancement = SMODS.poll_enhancement({guaranteed = true, key = 'ybi'..G.GAME.round_resets.ante})
 end
 function reset_handsome_joker_card()
   G.GAME.current_round.jest_handsome_joker_card.rank = 'Ace'
   G.GAME.current_round.jest_handsome_joker_card.suit = 'Spades'
   G.GAME.current_round.jest_handsome_joker_card.enhancement = 'm_bonus'
-  local all_enhancements = get_current_pool("Enhanced")
-  local valid_enhancements = {}
-
-  -- Loop through the original list of all enhancements
-  for _, enhancement in ipairs(all_enhancements) do
-    if enhancement ~= "UNAVAILABLE" and not (enhancement == 'm_stone' or enhancement == 'm_aij_canvas' or G.P_CENTERS[enhancement].no_rank or G.P_CENTERS[enhancement].no_suit) then
-      valid_enhancements[#valid_enhancements + 1] = enhancement
-    end
-  end
   local valid_jest_handsome_cards = {}
     for k, v in ipairs(G.playing_cards) do
         local enhancement = v.ability.effect
@@ -1785,15 +1767,7 @@ function reset_handsome_joker_card()
         G.GAME.current_round.jest_handsome_joker_card.rank = jest_handsome_card.base.value
         G.GAME.current_round.jest_handsome_joker_card.id = jest_handsome_card.base.id
     end
-    if valid_enhancements[1] then
-      local jest_handsome_card_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('handsome'..G.GAME.round_resets.ante))
-      local it = 1
-      while jest_handsome_card_enhancement == 'UNAVAILABLE' do
-        it = it + 1
-        jest_handsome_card_enhancement = pseudorandom_element(valid_enhancements, pseudoseed('handsome'..'_resample'..it))
-      end
-      G.GAME.current_round.jest_handsome_joker_card.enhancement = jest_handsome_card_enhancement
-    end
+    G.GAME.current_round.jest_handsome_joker_card.enhancement = SMODS.poll_enhancement({guaranteed = true, no_replace = true, key = 'handsome'..G.GAME.round_resets.ante})
 end
 function reset_the_auroch_blind()
     local common_suit, common_rank = nil, nil
