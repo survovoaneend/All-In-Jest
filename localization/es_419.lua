@@ -285,6 +285,28 @@ return {
                     'cartas con un {C:attention}parche{}',
                     "al mismo tiempo"
                 }
+            },
+            b_aij_melded = {
+                name = 'Baraja Derretida',
+                text = {
+                    'Las Cartas de Juego',
+                    'pueden tener {C:attention}dos{}',
+                    "mejoras únicas",
+                },
+                unlock = {
+                    "Gana una partida con {C:attention}#1#",
+                    "barajas en al menos",
+                    "el pozo {V:1}#2#{}",
+                }
+            },
+            b_aij_melded_hidden = {
+                name = 'Baraja Derretida',
+                text = {},
+                unlock = {
+                    "Gana una partida con {C:attention}#1#",
+                    "barajas en al menos",
+                    "el pozo {V:1}#2#{}",
+                }
             }
         },
         Stake = All_in_Jest.config.blue_stake_rework and {
@@ -1320,9 +1342,9 @@ return {
                 name = "Máquina Infame",
                 text = {
                     'Después de sacar la {C:attention}primera mano{} de cada',
-                    'ronda, {C:red}destruye{} la {C:attention}carta{} del',
-                    '{C:attention}del extremo izquierdo{} y este {C:attention}Comodín{}',
-                    'gana {C:mult}+#1#{} Multi',
+                    'ronda, se {C:red}destruye{} la {C:attention}carta{} del',
+                    '{C:attention}del extremo izquierdo{} y este',
+                    '{C:attention}Comodín{} gana {C:mult}+#1#{} Multi',
                     '{C:inactive}(Actualmente {C:mult}+#2#{C:inactive} Multi)'
                 }
             },
@@ -1789,7 +1811,7 @@ return {
                     "Gana {X:mult,C:white}X#2#{} Multi si la {C:blue}mano{}",
                     "contiene {C:attention}#4#{} de palo {C:spades}Oscuro{}",
                     "y {C:attention}#3#{} de palo {C:hearts}Claro{}",
-                    "{C:inactive,s:0.8}(La pproporción cambia cada ronda)",
+                    "{C:inactive,s:0.8}(La proporción cambia cada ronda)",
                     "{C:inactive}(Actualmente {X:mult,C:white}X#1#{} {C:inactive}Multi){}",
                 }
             },
@@ -1848,6 +1870,16 @@ return {
                     "Al anotar {V:1}#1#{}, anota sus",
                     "{C:chips}+Fichas{} como {C:mult}+Multi{}",
                     "{C:inactive,s:0.8}(Cambia cada ronda){}",
+                }
+            },
+            j_aij_hat_trick = {
+                name = "Sombrero Mágico",
+                text = {
+                    "Si la mano jugada",
+                    "es una {C:attention}Tercia{}, las",
+                    "cartas anotadas otorgan {C:mult}Multi{}",
+                    "igual a su {C:attention}nivel{}",
+                    "{C:inactive}(Actualmente {C:mult}+#1#{} {C:inactive}Multi)",
                 }
             },
             j_aij_magic_hat = {
@@ -2328,7 +2360,7 @@ return {
                     },
                     {
                         "{C:chips}+#3#{} Fichas y {C:mult}+#4#{} Multi",
-                        "de lo contrario"
+                        "en el resto de manos jugadas"
                     },
                 }
             },
@@ -2364,8 +2396,9 @@ return {
                         'Ganas {C:money}$#3#{} al final de la {C:attention}ronda'
                     },
                     {
-                        '{C:attention}Parcialmente{} consumido',
-                        'después de {C:attention}#4#{} Rondas'
+                        'Se consume {C:attention}parcialmente{}',
+                        'después de esta ronda por',
+                        "hasta {C:attention}#4#{} Rondas",
                     },
                 }
             },
@@ -2376,8 +2409,9 @@ return {
                         '{C:chips}+#1#{} Fichas y {C:mult}+#2#{} Multi',
                     },
                     {
-                        '{C:attention}Parcialmente{} consumido',
-                        'después de {C:attention}#3#{} Rondas'
+                        'Se consume {C:attention}parcialmente{}',
+                        'después de esta ronda por',
+                        "hasta {C:attention}#4#{} Rondas",
                     },
                 }
             },
@@ -2389,8 +2423,9 @@ return {
                         'al final de la {C:attention}ronda'
                     },
                     {
-                        '{C:attention}Parcialmente{} consumido',
-                        'después de {C:attention}#3#{} Rondas'
+                        'Se consume {C:attention}parcialmente{}',
+                        'después de esta ronda por',
+                        "hasta {C:attention}#4#{} Rondas",
                     },
                 }
             },
@@ -2402,8 +2437,9 @@ return {
                         'al final de la {C:attention}ronda'
                     },
                     {
-                        '{C:attention}Parcialmente{} consumido',
-                        'después de {C:attention}#3#{} Rondas'
+                        'Se consume {C:attention}parcialmente{}',
+                        'después de esta ronda por',
+                        "hasta {C:attention}#4#{} Rondas",
                     },
                 }
             },
@@ -2414,8 +2450,8 @@ return {
                         '{C:chips}+#1#{} Fichas',
                     },
                     {
-                        '{C:attention}Parcialmente{} consumido',
-                        'después de {C:attention}#2#{} Ronda'
+                        'Se consume {C:attention}parcialmente{}',
+                        'en esta ronda',
                     },
                 }
             },
@@ -2426,8 +2462,8 @@ return {
                         '{C:mult}+#1#{} Multi',
                     },
                     {
-                        '{C:attention}Parcialmente{} consumido',
-                        'después de {C:attention}#2#{} Ronda'
+                        'Se consume {C:attention}parcialmente{}',
+                        'en esta ronda',
                     },
                 }
             },
@@ -2439,8 +2475,8 @@ return {
                         "de la {C:attention}ronda"
                     },
                     {
-                        '{C:attention}Parcialmente{} consumido',
-                        'después de {C:attention}#2#{} Ronda'
+                        'Se consume {C:attention}parcialmente{}',
+                        'en esta ronda',
                     },
                 }
             },
@@ -2793,9 +2829,9 @@ return {
             j_aij_diamantaire = {
                 name = "Diamantista",
                 text = {
-                    'Si la {C:attention}primera mano{} de la ronda es',
-                    'un solo {C:diamonds}Diamante{}, conviértelo en',
-                    'una {C:attention}Carta de Oro{} y gana {C:money}$#1#'
+                    'Si la mano es un solo {C:diamonds}Diamante{},',
+                    'conviértela en {C:attention}Carta de Oro{}',
+                    'y gana {C:money}$#1#'
                 }
             },
             j_aij_zenzizenzizenzic = {
@@ -2977,6 +3013,7 @@ return {
                         "{C:attention}Requerida{} de las {C:attention}Ciegas{}"
                     }
                 },
+            },
             j_aij_hardy = {
                 name = "Hardy",
                 text = {
@@ -3735,13 +3772,13 @@ return {
                     "{C:inactive}(Actualmente {X:mult,C:white}X#1#{C:inactive} Multi)"
                 }
             },
-            j_aij_arecibo = {
+            j_aij_arecibo_message = {
                 name = "Arecibo",
                 text = {
-                    "{C:attention}Reactiva{} todas las cartas",
-                    "anotadas si tienes la",
-                    "{C:planet}Carta de Planeta{} de la",
-                    "{C:attention}mano de póker{} jugada"
+                    "{C:attention}Reactiva{} todas las",
+                    "cartas si tienes la",
+                    "{C:planet}Carta de Planeta{}",
+                    "de la {C:attention}mano{} jugada"
                 }
             },
             j_aij_taikomochi = {
@@ -3883,9 +3920,9 @@ return {
             j_aij_feedback_form = { 
                 name = "Formulario de Quejas",
                 text = { 
-                    "Cada carta {C:attention}anotada{} otorga {C:mult}+#1#{}",
-                    "Multi si todas las cartas {C:attention}anotadas{}",
-                    "tienen diferentes {C:attention}mejoras{}" 
+                    "Todas las {C:attention}mejoras únicas{} en",
+                    "la {C:attention}mano jugada{} dan {X:mult,C:white}X#1#{} Multi",
+                    "al ser anotadas"
                 }
             },
             j_aij_stultor = { 
@@ -5553,10 +5590,11 @@ return {
             j_aij_lavatch = {
                 name = "Lavatch",
                 text = {
-                    "Los {C:clubs}Tréboles{} anotados",
-                    "otorgan {X:mult,C:white}X#1#{} Multi.",
-                    "Aumenta en {X:mult,C:white}X#2#{} Multi",
-                    "cuando anotas un {C:clubs}Trébol{}"
+                    "Los {V:1}#3#s{} anotados",
+                    "otorgan {X:mult,C:white}X#1#{} Multi,",
+                    "aumenta en {X:mult,C:white}X#2#{} Multi",
+                    "cuando anotas un {V:1}#3#{}",
+                    "{s:0.8,C:inactive}(El palo cambia al final de la ronda)"
                 },
                 unlock = { "?????" } },
             j_aij_martellino = {
@@ -6004,6 +6042,14 @@ return {
                 text = {
                     'Añade un {V:1}#2#',
                     'a {C:attention}#1#{} cartas seleccionadas',
+                }
+            },
+            c_aij_barathrum = {
+                name = 'Barathrum',
+                text = {
+                    '{C:red}Elimina permanentemente{} una',
+                    'carta del {C:tarot}Tarot{} de tu',
+                    'elección del {C:attention}pozo'
                 }
             },
         },
@@ -6742,6 +6788,14 @@ return {
                     "cartas al {C:attention}azar{}"
                 }
             },
+            c_aij_typhon = {
+                name = 'El Tifón',
+                text = {
+                    "Mejora {C:attention}#1#{} cartas",
+                    "seleccionadas en",
+                    "{C:attention}#2#s{}"
+                }
+            },
         },
         Other = {
             -- Other
@@ -7047,6 +7101,5 @@ return {
                 }
             },
         }
-        },
-    }
+    },
 }
