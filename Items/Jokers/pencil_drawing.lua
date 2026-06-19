@@ -22,7 +22,7 @@ local pencil_drawing = {
         end,
         
         can_use_ability = function(self, card, context)
-            if to_big(G.GAME.dollars) >= to_big(card.ability.extra.cost) and G.STATE == G.STATES.SELECTING_HAND then
+            if (to_big(G.GAME.dollars) - to_big(G.GAME.bankrupt_at)) >= to_big(card.ability.extra.cost) and G.STATE == G.STATES.SELECTING_HAND then
                 return true
             end
         end,

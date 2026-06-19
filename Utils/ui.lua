@@ -681,6 +681,8 @@ G.FUNCS.All_in_Jest_can_use_active_ability_button = function(e)
 end
 
 G.FUNCS.All_in_Jest_use_active_ability_button = function(e, mute, nosave)
+    stop_use()
+    
     local card = e.config.ref_table
     local area = card.area
 

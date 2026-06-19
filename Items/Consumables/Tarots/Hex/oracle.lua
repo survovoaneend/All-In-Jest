@@ -1,7 +1,7 @@
 local oracle = {
     object_type = "Consumable",
     key = 'oracle',
-    set = 'Tarot',
+    set = 'aij_hex_tarot',
     pos = { x = 4, y = 8 },
     set_card_type_badge = function(self, card, badges)
         badges[#badges + 1] = create_badge(localize('k_tarot_hex'), HEX('4f6367'), G.C.WHITE, 1.2)
@@ -34,11 +34,7 @@ local oracle = {
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.cards[i]:flip();play_sound('card1', percent);G.hand.cards[i]:juice_up(0.3, 0.3);return true end }))
         end
         delay(0.2)
-        local cen_pool = {}
-        for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-            cen_pool[#cen_pool+1] = v
-        end
-        local enhance = pseudorandom_element(cen_pool, pseudoseed('oracle'..G.GAME.round_resets.ante)).key
+        local enhance = SMODS.poll_enhancement({guaranteed = true, key = 'oracle'..G.GAME.round_resets.ante})
         for k, v in ipairs(G.hand.cards) do
             G.E_MANAGER:add_event(Event({func = function()
                 v:set_ability(G.P_CENTERS[enhance])

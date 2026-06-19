@@ -37,15 +37,11 @@ local chaotic_card = {
                     trigger = 'after',
                     delay = 0.1,
                     func = function()
-                        local cen_pool = {}
-                        for k, v in pairs(G.P_CENTER_POOLS["Enhanced"]) do
-                            cen_pool[#cen_pool+1] = v
-                        end
-                        center = pseudorandom_element(cen_pool, pseudoseed('jest_chaotic_card'))
+                        local enhance = SMODS.poll_enhancement({guaranteed = true, key = 'jest_chaotic_card'})
                         play_sound('tarot2')
                     
                         card:juice_up(0.3, 0.3)
-                        card:set_ability(center)
+                        card:set_ability(G.P_CENTERS[enhance])
                         return true
                     end
                 }))
