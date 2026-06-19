@@ -6748,20 +6748,6 @@ return {
                     "{C:attention}derecho{} entre {C:attention}X0.75{} y {C:attention}X2.5"
                 }
             },
-            c_aij_error = {
-                name = 'El Error',
-                text = {
-                    "Otorga {C:red}Caótico{} a hasta",
-                    "{C:attention}#1#{} cartas seleccionadas"
-                }
-            },
-            c_aij_janitor = {
-                name = 'El Conserje',
-                text = {
-                    "{C:red}Destruye{} todas las",
-                    "cartas en {C:attention}mano{}"
-                }
-            },
             c_aij_sacrifice = {
                 name = 'El Sacrificio',
                 text = {
@@ -6794,6 +6780,22 @@ return {
                     "Mejora {C:attention}#1#{} cartas",
                     "seleccionadas en",
                     "{C:attention}#2#s{}"
+                }
+            },
+        },
+        aij_hex_tarot = {
+            c_aij_error = {
+                name = 'El Error',
+                text = {
+                    "Otorga {C:red}Caótico{} a hasta",
+                    "{C:attention}#1#{} cartas seleccionadas"
+                }
+            },
+            c_aij_janitor = {
+                name = 'El Conserje',
+                text = {
+                    "{C:red}Destruye{} todas las",
+                    "cartas en {C:attention}mano{}"
                 }
             },
         },
