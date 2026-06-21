@@ -42,16 +42,6 @@ local sharpest_tool = {
 }
 local temp_create_card = create_card
 function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
-    -- AIJ/CRYPTID FIX: Intercept Cryptid's intentional crash card to prevent save corruption
-    if forced_key == 'c_cry_crash' then
-        -- Defuse the crash by swapping to a safe card and providing a safe fallback area
-        forced_key = 'c_fool'
-        _type = 'Tarot'
-        if not area then
-            area = G.deck or G.play
-        end
-    end
-
     local card = nil
     if ((area == G.shop_jokers) or (area == G.pack_cards and key_append == 'buf')) and _type == 'Joker' then
         if G.GAME.modifiers.aij_sharpest_tool_1 then

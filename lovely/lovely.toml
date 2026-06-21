@@ -3261,11 +3261,6 @@ self.all_in_jest_visage_last_sold = CardArea(
         -10, -10,
         CAI.discard_W,CAI.discard_H,
         {card_limit = 1, type = 'joker'})
-self.shop_aij_tags = CardArea(
-        -100, -100,
-        0.8,
-        1.15*G.CARD_H, 
-        {card_limit = 2, type = 'shop', highlight_limit = 1, card_w = 0.8})
 for k, v in pairs(G) do
     if string.sub(k, 13) == 'G_all_in_jest' then
         local key = string.gsub(k, 'G_all_in_jest', '')
