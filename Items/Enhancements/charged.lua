@@ -11,12 +11,8 @@ local charged = {
 	},
 	loc_vars = function(self, info_queue, card)
 		local charged_text
-		local has_founding_father = next(SMODS.find_card("j_aij_founding_father"))
-		if has_founding_father then
-			charged_text = 100
-		else
-			charged_text = 50
-		end
+		local founding_father_count = #SMODS.find_card("j_aij_founding_father")
+		charged_text = 50 * (2 ^ (founding_father_count))
 		return { vars = { charged_text } }
 	end,
 	calculate = function(self, card, context)
@@ -58,8 +54,8 @@ function Card:update(dt)
 	local applied = self.ability.jest_charged_applied or {}
 	self.ability.jest_charged_applied = applied
 	local prev_factor = applied.factor or 1
-	local has_founding_father = next(SMODS.find_card("j_aij_founding_father"))
-	local b = (has_founding_father and 1 or 0.5) -- base of exponential
+	local founding_father_count = #SMODS.find_card("j_aij_founding_father")
+	local b = (2 ^ (founding_father_count - 1)) -- base of exponential
 	local factor = 1 + (b * current_count)
 	local diff = factor / prev_factor
 
