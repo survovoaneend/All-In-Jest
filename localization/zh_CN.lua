@@ -56,13 +56,13 @@ return {
                 '加入牌组的{C:attention}游戏牌',
                 '会带有随机{C:attention}牌组皮肤'
             },
-            aij_guess_names = '小丑猜猜包显示名称',
+            aij_guess_names = '笑语猜谜包显示名称',
             aij_guess_names_tooltip = {
-                '{C:purple}小丑猜猜包{}内的小丑牌',
+                '{C:purple}笑语猜谜包{}内的小丑牌',
                 '会揭示其名称',
                 '{s:0.8,C:inactive}（描述文本仍不会显示）'
             },
-            k_aij_guess_the_jest = "猜猜小丑",
+            k_aij_guess_the_jest = "笑语猜谜",
             k_aij_memory_card = "Memorized!", -- Memory Card, currently unused
             aij_plus_tag = "标签+1", -- Various jokers
             aij_refreshed = '焕然一新', -- Office Assistant (When fixing a perishable sticker)
@@ -148,7 +148,7 @@ return {
         },
         labels = {
             -- Editions
-            aij_glimmer = "晶莹",
+            aij_glimmer = "闪粉",
             aij_silver = "银幕",
             aij_stellar = "星辰",
             aij_aureate = "鎏金",
@@ -721,11 +721,10 @@ return {
                 },
             },
             bl_aij_the_umbilical = {
-                name = "The Umbilical",
+                name = "巳",
                 text = {
-                    'Mark one random card each',
-                    'hand, marked cards cannot',
-                    'be played or discarded'
+                    '每次出牌随机标记一张牌',
+                    '使其无法打出或弃掉'
                 },
             },
             bl_aij_the_divine = {
@@ -831,14 +830,14 @@ return {
             v_aij_fairy_dust = {
                 name = "魔仙粉尘",
                 text = {
-                    "{C:dark_edition}晶莹{}、{C:dark_edition}银幕{}和{C:dark_edition}星辰{}牌",
+                    "{C:dark_edition}闪粉{}、{C:dark_edition}银幕{}和{C:dark_edition}星辰{}牌",
                     "出现频率{C:attention}X#1#",
                 },
             },
             v_aij_live_pixie = {
                 name = "精灵现世",
                 text = {
-                    "{C:dark_edition}晶莹{}、{C:dark_edition}银幕{}和{C:dark_edition}星辰{}牌",
+                    "{C:dark_edition}闪粉{}、{C:dark_edition}银幕{}和{C:dark_edition}星辰{}牌",
                     "出现频率{C:attention}X#1#",
                 },
             },
@@ -880,7 +879,7 @@ return {
                 },
             },
             e_aij_glimmer = {
-                name = "晶莹",
+                name = "闪粉",
                 text = {
                     "{C:aij_plasma}平衡{C:chips}筹码{}和",
                     "{C:mult}倍率{}的{C:attention}#1#%"
@@ -1361,7 +1360,7 @@ return {
             },
             j_aij_joker_baby = { name = "Joker Baby", text = { "" } },
             j_aij_anchor = {
-                name = "坚锚",
+                name = "船锚",
                 text = {
                     "本牌和相邻的小丑牌",
                     "{C:attention}无法{}被{C:red}摧毁"
@@ -1484,7 +1483,7 @@ return {
             },
             j_aij_cloudwatching = { name = "Cloudwatching", text = { "" } },
             j_aij_line_in_the_sand = {
-                name = "沙上划线",
+                name = "沙中画",
                 text = {
                     "{C:attention}弃掉{}的牌不会洗回{C:attention}牌组",
                     "直至底注结束"
@@ -1492,7 +1491,7 @@ return {
             },
             j_aij_hairy_joker = { name = "Hairy Joker", text = { "" } },
             j_aij_realty_sign = {
-                name = "房产标牌",
+                name = "卖房招牌",
                 text = {
                     "打出{C:attention}葫芦{}后",
                     "本牌{C:money}售价{}上涨{C:money}$#1#"
@@ -1630,7 +1629,7 @@ return {
                 }
             },
             j_aij_scaramouche = {
-                name = "虚势懦夫",
+                name = "胆小丑",
                 text = {
                     "若{C:attention}出牌牌型{}为{C:attention}#1#{}",
                     "{C:attention}重新触发{}所有计分牌",
@@ -1937,15 +1936,15 @@ return {
                 }
             },
             j_aij_dapper_dan = {
-                name = "Dapper Dan",
+                name = "潇洒小丹",
                 text = {
-                    "Joker {C:dark_edition}Editions{} are",
-                    "{C:attention}twice{} as effective",
-                    "{C:inactive}(Except Negative)"
+                    "小丑牌的{C:dark_edition}版本",
+                    "效果{C:attention}翻倍",
+                    "{C:inactive}（负片除外）"
                 }
             },
             j_aij_average_joe = {
-                name = "平均林君",
+                name = "平均平君",
                 text = {
                     "{C:aij_plasma}平衡{C:chips}筹码{}和{C:mult}倍率{}的{C:attention}#1#%"
                 }
@@ -1967,12 +1966,12 @@ return {
                 }
             },
             j_aij_sneaky_pete = {
-                name = "Sneaky Pete",
+                name = "鬼祟皮皮",
                 text = {
-                    'Earn {C:money}$#2#{} at end of round',
-                    'for every {C:money}Gold Seal{}',
-                    'in your {C:attention}full deck',
-                    '{C:inactive}(Currently {C:money}$#1#{C:inactive})'
+                    "完整牌组中每有一张牌",
+                    "带有{C:money}金色蜡封",
+                    "回合结束时赚取{C:money}$#2#",
+                    "{C:inactive}（当前为{C:money}$#1#{C:inactive}）"
                 },
             },
             j_aij_peeping_tom = { name = "Peeping tom", text = { "" } },
@@ -2000,11 +1999,10 @@ return {
                 },
             },
             j_aij_mummer = {
-                name = "Mummer",
+                name = "默剧伶人",
                 text = {
-                    "Trigger all {C:aij_silver}Steel{} cards",
-                    "{C:attention}held in hand{} when a {C:aij_silver}Steel",
-                    "card is {C:attention}scored",
+                    "{C:aij_silver}钢铁牌{C:attention}计分{}时",
+                    "触发所有{C:attention}留手{}的{C:aij_silver}钢铁牌"
                 }
             },
             j_aij_tipteerer = {
@@ -2068,7 +2066,7 @@ return {
                 },
             },
             j_aij_jongleur = {
-                name = "杂耍演员",
+                name = "行吟艺人",
                 text = {
                     "{C:green}重掷{}花费{C:attention}-$#1#",
                 },
@@ -2167,7 +2165,7 @@ return {
                 },
             },
             j_aij_charles = {
-                name = "查尔斯",
+                name = "查理",
                 text = {
                     "若{C:attention}出牌{}仅包含{C:hearts}红桃{C:attention}K",
                     "本牌获得{X:mult,C:white}X#1#{}倍率",
@@ -2203,7 +2201,7 @@ return {
                 -- possible error: scored/played
             },
             j_aij_fatuus = {
-                name = "痴丑",
+                name = "瞽愚之徒",
                 text = {
                     '若回合首次出牌仅包含{C:attention}K{}和{C:attention}Q',
                     '为随机一张出牌打上{C:blue}蓝色蜡封'
@@ -2241,7 +2239,7 @@ return {
                 }
             },
             j_aij_beanstalk = {
-                name = "豆茎",
+                name = "魔豆茎",
                 text = {
                     "{C:attention}J{C:attention}免疫{C:red}削弱",
                     "且{C:attention}强制{}计分"
@@ -2673,7 +2671,7 @@ return {
             j_aij_whatsisname = {
                 name = "叫啥来着",
                 text = {
-                    "{C:attention}小丑猜猜包{}更加常见"
+                    "{C:attention}笑语猜谜包{}更加常见"
                 }
             },
             j_aij_downing_street = {
@@ -4270,11 +4268,11 @@ return {
         },
         Tag = {
             tag_aij_glimmer = {
-                name = '晶莹标签',
+                name = '闪粉标签',
                 text = {
                     "商店内的下一张",
                     "无版本小丑牌",
-                    "将变为{C:aij_plasma}晶莹{}且售价为{C:money}$0"
+                    "将变为{C:aij_plasma}闪粉{}且售价为{C:money}$0"
                 }
             },
             tag_aij_silver = {
@@ -4538,7 +4536,7 @@ return {
                 text = {
                     '免费获得一个',
                     '内含{C:attention}5{}个易腐选项的',
-                    '{C:purple}小丑猜猜包'
+                    '{C:purple}笑语猜谜包'
                 }
             },
             tag_aij_auspicious = {
@@ -4553,7 +4551,7 @@ return {
                 text = {
                     '为{C:attention}随机2{}张',
                     '无版本小丑牌',
-                    '添加{C:aij_plasma}晶莹'
+                    '添加{C:aij_plasma}闪粉'
                 }
             },
             tag_aij_superlunary = {
@@ -4753,7 +4751,7 @@ return {
                 }
             },
             p_aij_guess_the_jest = {
-                name = "小丑猜猜包",
+                name = "笑语猜谜包",
                 text = {
                     '从{C:attention}#2#{}张隐秘的',
                     '{C:legendary,E:2}传奇{}小丑牌中',
