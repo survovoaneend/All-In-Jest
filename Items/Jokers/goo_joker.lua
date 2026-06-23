@@ -28,7 +28,7 @@ local goo_joker = {
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             local scored_card = context.other_card
-            if not scored_card.config.center == G.P_CENTERS.c_base then
+            if next(SMODS.get_enhancements(scored_card)) then
                 return {
                     mult = card.ability.extra.mult,
                     card = card
