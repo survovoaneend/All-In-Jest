@@ -57,7 +57,7 @@ local alkaid_pin = {
                 local enhancements = {}
                 for i = 1, #context.full_hand do
                     local has_enhancement = false
-                    for k, v in pairs(SMODS.get_enhancements(context.scoring_hand[i])) do
+                    for k, v in pairs(SMODS.get_enhancements(context.full_hand[i])) do
                         if enhancements[k] then
                             enhancements[k] = v
                             has_enhancement = true
