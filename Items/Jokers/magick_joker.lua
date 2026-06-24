@@ -28,7 +28,45 @@ local magick_joker = {
 
   calculate = function(self, card, context)
     -- Effect is in lovely patch on eval_card() in common_events.lua
-  end
+  end,
+
+  joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "+" },
+                { ref_table = "card.joker_display_values", ref_value = "mult" },
+            },
+            text_config = { colour = G.C.MULT },
+            reminder_text = {
+                { text = "(" },
+                {
+                    ref_table = "card.joker_display_values", ref_value = "localized_text",
+                },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                local suit = G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit or "Spades"
+                local count = 0
+                active = false
+                local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+                if text ~= 'Unknown' then
+                    for _, scoring_card in pairs(scoring_hand) do
+                        if scoring_card:is_suit(suit) then
+                            count = count + scoring_card:get_chip_bonus()
+                        end
+                    end
+                end
+                card.joker_display_values.mult = count
+                card.joker_display_values.localized_text = localize(suit, 'suits_plural')
+            end,
+            style_function = function(card, text, reminder_text, extra)
+                local suit = G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit or "Spades"
+                local suit_node = reminder_text and reminder_text.children and reminder_text.children[2]
+                if suit_node then suit_node.config.colour = lighten(G.C.SUITS[suit], 0.35) end
+            end
+        }
+    end,
 
 }
 return { name = { "Jokers" }, items = { magick_joker } }

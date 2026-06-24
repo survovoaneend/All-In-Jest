@@ -74,6 +74,20 @@ local punk_joker = {
             return false
         end
       end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE, retrigger_type = "mult" },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                card.joker_display_values.localized_text = localize { type = 'name_text', set = 'Enhanced', key = 'm_wild' }
+            end
+        }
+    end,
   
 }
 return { name = {"Jokers"}, items = {punk_joker} }

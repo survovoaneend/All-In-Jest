@@ -67,6 +67,37 @@ local sneaky_pete = {
         return false
     end
   end,
+
+  joker_display_def = function(JokerDisplay)
+    ---@type JDJokerDefinition
+    return {
+    text = {
+        { text = "+" },
+        { text = "$" },
+        { ref_table = "card.joker_display_values", ref_value = "dollar_bonus", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.GOLD },
+    reminder_text = {
+        { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+    },
+                
+    calc_function = function(card)
+        local seal_count = 0
+        card.joker_display_values.localized_text = "(" .. localize("k_round") .. ")"
+        if G.GAME and G.playing_cards then
+            for _, card in ipairs(G.playing_cards) do
+                if card.seal == 'Gold' then
+                    seal_count = seal_count + 1
+                end
+            end
+        end
+        card.joker_display_values.dollar_bonus = 0
+        if seal_count > 0 then
+            card.joker_display_values.dollar_bonus = (seal_count * card.ability.extra.money_per_seal) or 0
+        end
+    end
+    }
+  end,
   
 }
 return { name = {"Jokers"}, items = {sneaky_pete} }

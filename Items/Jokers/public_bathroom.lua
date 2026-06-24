@@ -54,6 +54,28 @@ local public_bathroom = {
         }
       end
     end
+  end,
+
+  joker_display_def = function(JokerDisplay)
+      ---@type JDJokerDefinition
+      return {
+          text = {
+              { text = "+" },
+              { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult" }
+          },
+          text_config = { colour = G.C.MULT },
+          reminder_text = {
+              { text = "(" },
+              { ref_table = "card.joker_display_values", ref_value = "localized_text_2", colour = G.C.ORANGE },
+              { text = ", " },
+              { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+              { text = ")" },
+          },
+          calc_function = function(card)
+              card.joker_display_values.localized_text = localize('Flush', 'poker_hands')
+              card.joker_display_values.localized_text_2 = localize('2', 'ranks')
+          end
+      }
   end
 
 }

@@ -46,6 +46,20 @@ local sunny_joker = {
 		end
 		return false
     end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "poker_hand", colour = G.C.ORANGE },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                card.joker_display_values.poker_hand = localize('aij_Royal Flush', 'poker_hands')
+            end
+        }
+    end,
   
 }
 return { name = {"Jokers"}, items = {sunny_joker} }

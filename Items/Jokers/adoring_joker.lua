@@ -40,6 +40,16 @@ local adoring_joker = {
       if (context.end_of_round and context.beat_boss) and context.cardarea == G.jokers then
         card.ability.highest_mult = 0
       end
+    end,
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "=" },
+                { ref_table = "card.ability.extra", ref_value = "highest_mult" }
+            },
+            text_config = { colour = G.C.MULT },
+        }
     end
   
 }

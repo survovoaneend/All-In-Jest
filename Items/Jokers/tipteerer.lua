@@ -52,7 +52,29 @@ local tipteerer = {
     if to_big(money) > to_big(0) then
       return money
     end
-  end
+  end,
+  joker_display_def = function(JokerDisplay)
+    ---@type JDJokerDefinition
+    return {
+    text = {
+        { text = "+" },
+        { text = "$" },
+        { ref_table = "card.joker_display_values", ref_value = "dollar_bonus", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.GOLD },       
+    calc_function = function(card)
+        local sell_cost = 0
+        if G.jokers and G.jokers.cards then
+          for i = 1, #G.jokers.cards do
+            if G.jokers.cards[i] ~= card and (G.jokers.cards[i].area and G.jokers.cards[i].area == G.jokers) then
+              sell_cost = sell_cost + G.jokers.cards[i].sell_cost
+            end
+          end
+        end
+        card.joker_display_values.dollar_bonus = math.ceil(sell_cost * card.ability.extra.percent/100)
+    end
+    }
+  end,
 }
 return { name = {"Jokers"}, items = {tipteerer} }
 

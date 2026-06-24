@@ -31,6 +31,26 @@ local mixel_perfect = {
           mult = card.ability.extra.mult
         }
       end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "+" },
+                { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
+            },
+            text_config = { colour = G.C.MULT },
+            calc_function = function(card)
+                local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+                card.joker_display_values.mult = 0
+                if text ~= 'Unknown' then
+                    if math.fmod(#scoring_hand, 2) == 1 then
+                        card.joker_display_values.mult = card.ability.extra.mult or 0
+                    end
+                end
+            end
+        }
     end
   
 }
