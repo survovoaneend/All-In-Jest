@@ -55,6 +55,9 @@ local happy_as_larry = {
                 }  
             end
         end
+        if context.after then
+            card.ability.extra.new_odds = card.ability.extra.odds
+        end
     end
 }
 
