@@ -7,7 +7,7 @@ local sphinx = {
 	unlocked = true,
 	discovered = false,
 	order = 9,
-	config = { mod_conv = 'm_aij_simulated', max_highlighted = 1 },
+	config = { mod_conv = 'm_aij_simulated', max_highlighted = 2 },
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_aij_simulated

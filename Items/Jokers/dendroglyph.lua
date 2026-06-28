@@ -8,10 +8,10 @@ local dendroglyph = {
             mult = 4
         }
     },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 19, y = 12 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
