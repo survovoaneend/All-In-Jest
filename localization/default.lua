@@ -8027,7 +8027,7 @@ return {
                 text = {
                     "Enhances {C:attention}#1#{} selected",
                     "cards into",
-                    "{C:attention}#2#{}s"
+                    "{C:attention}#2#s{}"
                 }
             },
             c_aij_tamed_lion = {
