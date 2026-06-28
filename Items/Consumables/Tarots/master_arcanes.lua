@@ -28,7 +28,14 @@ local master_arcanes = {
 	end,
 	use = function(self, card)
 		if SMODS.pseudorandom_probability(card, 'master_arcanes', 1, card.ability.extra.odds) then
-			create_consumable("Spectral", nil, nil, nil)
+			G.E_MANAGER:add_event(Event({
+				trigger = 'after',
+				delay = 0.4,
+				func = function()
+					create_consumable("Spectral", nil, nil, nil)
+					return true
+				end
+			}))
 		else
 			G.E_MANAGER:add_event(Event({
 				trigger = 'after',

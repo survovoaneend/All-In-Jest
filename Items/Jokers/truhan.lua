@@ -51,7 +51,6 @@ local truhan = {
 
 local ease_roundref = ease_round
 function ease_round(mod)
-    local ref = ease_roundref(mod)
     for i = 1, #G.jokers.cards do
         if G.jokers.cards[i].ability.jest_held_for ~= nil then
             G.jokers.cards[i].ability.jest_held_for = tostring(mod + tonumber(G.jokers.cards[i].ability.jest_held_for))
@@ -59,6 +58,7 @@ function ease_round(mod)
             G.jokers.cards[i].ability.jest_held_for = tostring(mod)
         end
     end
+    local ref = ease_roundref(mod)
     return ref
 end
 -- Unnecessary for Truhan, but needed for other effects

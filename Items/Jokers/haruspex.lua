@@ -62,8 +62,10 @@ local haruspex = {
             end
         end,
 
-        use_ability = function(self, card)
-            ease_discard(-1 * card.ability.extra.discards_to_spend)
+        use_ability = function(self, card, args)
+            args = args or {}
+            SMODS.calculate_context({all_in_jest = {joker_ability_used = true, card = card, retriggered = args.retriggered, args = args}})
+            if not args.free then ease_discard(-1 * card.ability.extra.discards_to_spend) end
             local triggers = math.min(card.ability.extra.cards_to_draw, #G.deck.cards)
             for i = 1, triggers do
                 G.E_MANAGER:add_event(Event({

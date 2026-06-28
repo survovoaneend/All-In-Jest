@@ -349,6 +349,20 @@ return {
                     'more {C:attention}frequently'
                 },
             },
+            sleeve_aij_branching = {
+                name = "Branching Sleeve",
+                text = {
+                    'Skips offer a choice',
+                    'between {C:attention}3{} Tags',
+                }
+            },
+            sleeve_aij_branching_alt = {
+                name = "Branching Sleeve",
+                text = {
+                    'Skips offer {C:attention}2{} additional',
+                    'Tag choices'
+                },
+            },
             sleeve_aij_patchwork = {
                 name = "Patchwork Sleeve",
                 text = {
@@ -1692,7 +1706,8 @@ return {
                 name = "String Theory", 
                 text = { 
                     "Hand always counts as",
-                    "containing a {C:attention}Straight" 
+                    "containing a {C:attention}Straight",
+                    "for Joker effects"
                 } 
             },
             j_aij_jesters_privelege = {
@@ -2268,12 +2283,12 @@ return {
                     "{C:inactive}(Currently{} {C:mult}+#2#{C:inactive} Mult){}",
                 } 
             },
-            j_aij_feedback_form = { 
-                name = "Feedback Form", 
-                text = { 
-                    "Each {C:attention}scoring{} card gives {C:mult}+#1#",
-                    "Mult if all {C:attention}scoring{} cards",
-                    "have different {C:attention}enhancements" 
+            j_aij_feedback_form = {
+                name = "Feedback Form",
+                text = {
+                    "All {C:attention}unique{} enhancements in",
+                    "the {C:attention}played hand{} give {X:mult,C:white}X#1#{} Mult",
+                    "when scored"
                 }
             },
             j_aij_stultor = { 
@@ -2341,21 +2356,97 @@ return {
                 },
             },
             j_aij_enraging_photo = { name = "Enraging Photo", text = { "" } },
-            j_aij_infuriating_note = { 
-                name = "Infuriating Note", 
-                text = {{ 
-                    "{X:mult,C:white}X#1#{} Mult",
-                    "{C:dark_edition}Negative{} duplicates of this",
-                    "Joker may appear in the",
-                    "{C:attention}Shop{} and {C:attention}Buffoon Packs{}", 
-                },
-                {
-                    "{C:inactive}\"I've taken your stuff,",
-                    "{C:inactive}but you keep pushing through;",
-                    "{C:inactive}I'll have to try harder,",
-                    "{C:inactive}so rats off to you!\" -R. R.",
+             j_aij_infuriating_note = {
+                name = "Infuriating Note",
+                text = {
+                    {
+                        "{X:mult,C:white}X#1#{} Mult",
+                        "{C:dark_edition}Negative{} duplicates of this",
+                        "Joker may appear in the",
+                        "{C:attention}Shop{} and {C:attention}Buffoon Packs{}",
+                    },
+                    {
+                        "{C:inactive}\"I've taken your stuff,",
+                        "{C:inactive}but you keep pushing through;",
+                        "{C:inactive}I'll have to try harder,",
+                        "{C:inactive}so rats off to you!\" -R. R.",
+                    }
                 }
-            }
+            },
+            j_aij_infuriating_note_2 = {
+                name = "Infuriating Note",
+                text = {
+                    {
+                        "{X:mult,C:white}X#1#{} Mult",
+                        "{C:dark_edition}Negative{} duplicates of this",
+                        "Joker may appear in the",
+                        "{C:attention}Shop{} and {C:attention}Buffoon Packs{}",
+                    },
+                    {
+                        "{C:inactive}\"Some packs are red,",
+                        "{C:inactive}but none of them blue;",
+                        "{C:inactive}no matter what's in 'em,",
+                        "{C:inactive}I'll steal them from you!",
+                        "",
+                        "{C:inactive,s:0.8}Thanks for the stuff, Joker!\" -R. R.{}",
+                    }
+                }
+            },
+            j_aij_infuriating_note_3 = {
+                name = "Infuriating Note",
+                text = {
+                    {
+                        "{X:mult,C:white}X#1#{} Mult",
+                        "{C:dark_edition}Negative{} duplicates of this",
+                        "Joker may appear in the",
+                        "{C:attention}Shop{} and {C:attention}Buffoon Packs{}",
+                    },
+                    {
+                        "{C:inactive}\"What I wouldn't give,",
+                        "{C:inactive}to see the look on your face.",
+                        "{C:inactive}You wished for a Joker,",
+                        "{C:inactive}and found this note in its place!",
+                        "",
+                        "{C:inactive,s:0.8}Thanks for your continued patronage{}",
+                        "{C:inactive,s:0.8}Fufufufufufu...!\" -R. R.{}",
+                    }
+                }
+            },
+            j_aij_infuriating_note_4 = {
+                name = "Infuriating Note",
+                text = {
+                    {
+                        "{X:mult,C:white}X#1#{} Mult",
+                        "{C:dark_edition}Negative{} duplicates of this",
+                        "Joker may appear in the",
+                        "{C:attention}Shop{} and {C:attention}Buffoon Packs{}",
+                    },
+                    {
+                        "{C:inactive}\"I should just kill you,",
+                        "{C:inactive}but that wouldn't be hard;",
+                        "{C:inactive}so just for a laugh,",
+                        "{C:inactive}I've stolen your card!",
+                        "",
+                        "{C:inactive,s:0.8}Good luck, fool!\" -R. R.{}",
+                    }
+                }
+            },
+            j_aij_infuriating_note_5 = {
+                name = "Infuriating Note",
+                text = {
+                    {
+                        "{X:mult,C:white}X#1#{} Mult",
+                        "{C:dark_edition}Negative{} duplicates of this",
+                        "Joker may appear in the",
+                        "{C:attention}Shop{} and {C:attention}Buffoon Packs{}",
+                    },
+                    {
+                        "{C:inactive}\"If you were to find me,",
+                        "{C:inactive}I'd make you bow on your knees.",
+                        "{C:inactive}You're just a rodent,",
+                        "{C:inactive}and I'm the Big Cheese!\" -R. R.",
+                    }
+                }
             },
             j_aij_magic_hat = { name = "Magic hat", text = { "" } },
             j_aij_anagraph = { 
@@ -3282,7 +3373,7 @@ return {
             },
             j_aij_jpeg = { name = ".jpeg", text = { "" } },
             j_aij_sherrif = { 
-                name = "Sherrif",
+                name = "Sheriff",
                 text = { 
                     "First scored {C:attention}Wild Card{}",
                     "each hand earns {C:money}$#1#{}"
@@ -3602,9 +3693,9 @@ return {
                 name = "Historian", 
                 text = {
                     "Adds {C:mult}Mult{} equal to",
-                    "{C:attention}triple{} the {C:money}Sell Value{} of",
+                    "{C:attention}x#1#{} the {C:money}Sell Value{} of",
                     "the last sold Joker",
-                    "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)"
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
                 } 
             },
             j_aij_baddata = {
@@ -3986,13 +4077,15 @@ return {
                 } 
             },
             j_aij_lavatch = {
-                 name = "Lavatch",
-                 text = {
-                    "Scored {C:clubs}Clubs{} give {X:mult,C:white}X#1#{} Mult,",
+                name = "Lavatch",
+                text = {
+                    "Scored {V:1}#3#s{} give {X:mult,C:white}X#1#{} Mult,",
                     "increases by {X:mult,C:white}X#2#{} Mult",
-                    "when a {C:clubs}Club{} is scored",
+                    "when a {V:1}#3#{} is scored",
+                    "{s:0.8,C:inactive}(Suit changes at end of round)"
                 },
-                 unlock = { "?????" } },
+                unlock = { "?????" }
+            },
             j_aij_Ffwllier = { name = "Ffwllier", text = { "" }, unlock = { "?????" } },
             j_aij_martellino = {
                 name = "Martellino",
@@ -4397,8 +4490,8 @@ return {
                     "{C:inactive}eternal){}"
                 }
             },
-            c_aij_scopophobia = {
-                name = 'Scopophobia',
+            c_aij_maw = {
+                name = 'Maw',
                 text = {
                     '{C:red}Destroys{} a random {C:attention}Joker',
                     'and {C:attention}all cards{} held in hand',
@@ -4855,8 +4948,8 @@ return {
                 name = 'Sphinx',
                 text = {
                     "Enhances {C:attention}#1#{} selected",
-                    "card into a",
-                    "{C:attention}#2#{}"
+                    "cards into",
+                    "{C:attention}#2#s{}"
                 }
             },
             c_aij_tamed_lion = {

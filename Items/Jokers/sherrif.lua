@@ -8,10 +8,10 @@ local sherrif = {
             dollars = 5
         }
     },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 8, y = 13},
     atlas = 'joker_atlas',
-    cost = 7,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

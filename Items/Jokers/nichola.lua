@@ -22,7 +22,7 @@ local nichola = {
     end,
   
     calculate = function(self, card, context)
-      if context.setting_blind then
+      if context.first_hand_drawn then
           G.E_MANAGER:add_event(Event({
               func = function()
                   local created_cards = {}

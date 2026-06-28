@@ -32,6 +32,7 @@ local smiley = {
                             end
                         end
                     return true end }))
+                    return nil, true
                 end
             end
         end

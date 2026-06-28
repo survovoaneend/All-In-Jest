@@ -28,11 +28,10 @@ local comedy_of_errors = {
     calculate = function(self, card, context)
         if context.discard then 
             if context.other_card:is_suit("Hearts") then
-                ease_dollars(card.ability.extra.dollars)
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
+                G.E_MANAGER:add_event(Event({func = (function() G.GAME.dollar_buffer = 0; return true end)}))
                 return {
-                    message = localize('$')..card.ability.extra.dollars,
-                    colour = G.C.MONEY,
-                    card = card
+                    dollars = card.ability.extra.dollars
                 }
             end
         end
