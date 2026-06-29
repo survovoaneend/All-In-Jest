@@ -335,6 +335,20 @@ return {
                     '将{C:attention}更加常见'
                 },
             },
+            sleeve_aij_branching = {
+                name = "岔路牌套",
+                text = {
+                    '跳过盲注奖励为',
+                    '标签{C:attention}三选一',
+                }
+            },
+            sleeve_aij_branching_alt = {
+                name = "岔路牌套",
+                text = {
+                    '跳过盲注奖励标签',
+                    '额外提供{C:attention}2{}个选项'
+                },
+            },
             sleeve_aij_patchwork = {
                 name = "拼布牌套",
                 text = {
@@ -1578,8 +1592,8 @@ return {
             j_aij_string_theory = {
                 name = "弦理论",
                 text = {
-                    "出牌恒视为",
-                    "包含{C:attention}顺子"
+                    "出牌对于小丑牌效果",
+                    "恒视为包含{C:attention}顺子"
                 }
             },
             j_aij_jesters_privelege = {
@@ -2143,9 +2157,8 @@ return {
             j_aij_feedback_form = {
                 name = "反馈表",
                 text = {
-                    "若所有{C:attention}计分{}牌",
-                    "具有不同的{C:attention}增强",
-                    "每张给予{C:mult}+#1#{}倍率"
+                    "{C:attention}出牌{}中的每{C:attention}种{}增强",
+                    "在计分时给予{X:mult,C:white}X#1#{}倍率"
                 }
             },
             j_aij_stultor = {
@@ -2196,7 +2209,7 @@ return {
                     '若出牌包含{C:attention}K{}或{C:attention}Q',
                     '有{C:green}#1#/#2#{}的几率',
                     '生成一张{C:tarot}塔罗牌',
-                    '{C:inactive}（必须有空位）'
+                    '{C:inactive}（必须有空间）'
                 },
                 -- possible error: scored/played
             },
@@ -2210,18 +2223,98 @@ return {
             j_aij_enraging_photo = { name = "Enraging Photo", text = { "" } },
             j_aij_infuriating_note = {
                 name = "令人气愤的纸条",
-                text = { {
-                    "{X:mult,C:white}X#1#{}倍率",
-                    "本牌的{C:dark_edition}负片{}复制",
-                    "可能会出现于",
-                    "{C:attention}商店{}及{C:attention}小丑包",
-                },
+                text = {
+                    {
+                        "{X:mult,C:white}X#1#{}倍率",
+                        "本牌的{C:dark_edition}负片{}复制",
+                        "可能会出现于",
+                        "{C:attention}商店{}及{C:attention}小丑包{}内",
+                    },
                     {
                         "{C:inactive}我拿走了你的货，",
                         "{C:inactive}你却奈何不了我；",
                         "{C:inactive}下回我再努把力，",
                         "{C:inactive}向你致敬我的哥！",
-                        "——机智·大鼠",
+                        "{C:inactive,s:0.8}——机智·大鼠",
+                    }
+                }
+            },
+            j_aij_infuriating_note_2 = {
+                name = "令人气愤的纸条",
+                text = {
+                    {
+                        "{X:mult,C:white}X#1#{}倍率",
+                        "本牌的{C:dark_edition}负片{}复制",
+                        "可能会出现于",
+                        "{C:attention}商店{}及{C:attention}小丑包{}内",
+                    },
+                    {
+                        "{C:inactive}有些个箱子是红的",
+                        "{C:inactive}没一个箱子是蓝的；",
+                        "{C:inactive}我从你身上随便偷，",
+                        "{C:inactive}反正也没啥困难的！",
+                        "",
+                        "{C:inactive,s:0.8}谢谢你又给我送快递啊，小丑！",
+                        "{C:inactive,s:0.8}——机智·大鼠",
+                    }
+                }
+            },
+            j_aij_infuriating_note_3 = {
+                name = "令人气愤的纸条",
+                text = {
+                    {
+                        "{X:mult,C:white}X#1#{}倍率",
+                        "本牌的{C:dark_edition}负片{}复制",
+                        "可能会出现于",
+                        "{C:attention}商店{}及{C:attention}小丑包{}内",
+                    },
+                    {
+                        "{C:inactive}我愿涉尽千万险，",
+                        "{C:inactive}只为看看你的脸。",
+                        "{C:inactive}看你开心开箱子，",
+                        "{C:inactive}发现啥都没得捡！",
+                        "",
+                        "{C:inactive,s:0.8}谢谢您长期以来的支持",
+                        "{C:inactive,s:0.8}嘻嘻嘻嘻嘻……！",
+                        "{C:inactive,s:0.8}——机智·大鼠",
+                    }
+                }
+            },
+            j_aij_infuriating_note_4 = {
+                name = "令人气愤的纸条",
+                text = {
+                    {
+                        "{X:mult,C:white}X#1#{}倍率",
+                        "本牌的{C:dark_edition}负片{}复制",
+                        "可能会出现于",
+                        "{C:attention}商店{}及{C:attention}小丑包{}内",
+                    },
+                    {
+                        "{C:inactive}其实早该崩掉你，",
+                        "{C:inactive}但那样做太流氓；",
+                        "{C:inactive}所以为了搞个笑，",
+                        "{C:inactive}我拿走了你的枪！",
+                        "",
+                        "{C:inactive,s:0.8}祝您好运哦，蠢蛋！",
+                        "{C:inactive,s:0.8}——机智·大鼠",
+                    }
+                }
+            },
+            j_aij_infuriating_note_5 = {
+                name = "令人气愤的纸条",
+                text = {
+                    {
+                        "{X:mult,C:white}X#1#{}倍率",
+                        "本牌的{C:dark_edition}负片{}复制",
+                        "可能会出现于",
+                        "{C:attention}商店{}及{C:attention}小丑包{}内",
+                    },
+                    {
+                        "{C:inactive}要想睹得我尊容，",
+                        "{C:inactive}你先下跪拜三拜。",
+                        "{C:inactive}好似鼠辈见奶酪，",
+                        "{C:inactive}溜你溜到九霄外！",
+                        "{C:inactive,s:0.8}——机智·大鼠",
                     }
                 }
             },
@@ -2383,7 +2476,7 @@ return {
                 text = {
                     "跳过{C:attention}盲注{}后，随机生成",
                     "{C:attention}#1#{}张{C:uncommon}罕见{C:attention}小丑牌",
-                    "{C:inactive}（必须有空位）"
+                    "{C:inactive}（必须有空间）"
                 },
             },
             j_aij_the_artist = {
@@ -2498,7 +2591,7 @@ return {
                     "击败{C:attention}Boss盲注{}后",
                     "{C:attention}任选{}并生成",
                     "一张{C:tarot}塔罗{}牌",
-                    "{C:inactive}（必须有空位）"
+                    "{C:inactive}（必须有空间）"
                 }
             },
             j_aij_visage = {
@@ -2713,7 +2806,7 @@ return {
                 text = {
                     "打开任意{C:attention}补充包{}时",
                     "随机生成一张{C:tarot}塔罗牌",
-                    "{C:inactive}（必须有空位）",
+                    "{C:inactive}（必须有空间）",
                     "开包{C:attention}#2#{}次后耗尽",
                     "{C:inactive}（{C:attention}#1#{C:inactive}/{C:attention}#2#{C:inactive}）"
                 }
@@ -3218,7 +3311,7 @@ return {
                     "打出的{C:diamonds}方片{}牌在计分时",
                     "有{C:green}#1#/#2#{}的几率",
                     "随机生成一张{C:tarot}塔罗{}牌",
-                    "{C:inactive}（必须有空位）"
+                    "{C:inactive}（必须有空间）"
                 }
             },
             j_aij_phlegmatic_joker = {
@@ -3227,7 +3320,7 @@ return {
                     "打出的{C:clubs}梅花{}牌在计分时",
                     "有{C:green}#1#/#2#{}的几率生成一张",
                     "对应{C:attention}所出牌型{}的{C:planet}星球{}牌",
-                    "{C:inactive}（必须有空位）"
+                    "{C:inactive}（必须有空间）"
                 }
             },
             j_aij_melancholic_joker = {
@@ -3236,7 +3329,7 @@ return {
                     "打出的{C:spades}黑桃{}牌",
                     "在计分时有{C:green}#1#/#2#{}的几率",
                     "随机生成一张{C:spectral}幻灵牌",
-                    "{C:inactive}（必须有空位）"
+                    "{C:inactive}（必须有空间）"
                 }
             },
             j_aij_majordomo = {
@@ -3827,10 +3920,11 @@ return {
             j_aij_lavatch = {
                 name = "拉瓦什",
                 text = {
-                    "计分的{C:clubs}梅花{}牌",
+                    "计分的{V:1}#3#{}牌",
                     "给予{X:mult,C:white}X#1#{}倍率",
-                    "{C:clubs}梅花{}牌计分后",
-                    "增加{X:mult,C:white}X#2#{}倍率"
+                    "{V:1}梅花{}牌计分后",
+                    "增加{X:mult,C:white}X#2#{}倍率",
+                    "{s:0.8,C:inactive}（回合结束时变更花色）"
                 },
                 unlock = { "?????" }
             },
@@ -3886,7 +3980,7 @@ return {
                     "击败{C:attention}Boss盲注{}后",
                     "{C:attention}任选{}并生成一张",
                     "非隐秘{C:spectral}幻灵{}牌",
-                    "{C:inactive}（必须有空位）"
+                    "{C:inactive}（必须有空间）"
                 },
                 unlock = { "?????" }
             },
@@ -4226,8 +4320,8 @@ return {
                     "{C:inactive}（不可为永恒）"
                 }
             },
-            c_aij_scopophobia = {
-                name = '畏睹',
+            c_aij_maw = {
+                name = '血口',
                 text = {
                     '随机{C:red}摧毁{}一张{C:attention}小丑牌',
                     '及{C:attention}所有手牌',
@@ -4304,7 +4398,7 @@ return {
                 text = {
                     '随机生成一张',
                     '{C:attention}易腐{C:legendary}传奇{}小丑牌',
-                    '{C:inactive}（必须有空位）'
+                    '{C:inactive}（必须有空间）'
                 }
             },
             tag_aij_fortunate = {
@@ -4312,7 +4406,7 @@ return {
                 text = {
                     '从所有{C:tarot}塔罗牌{}中',
                     '{C:attention}任选{}一张生成',
-                    '{C:inactive}（必须有空位）'
+                    '{C:inactive}（必须有空间）'
                 }
             },
             tag_aij_overstuffed = {
@@ -4357,7 +4451,7 @@ return {
                 text = {
                     '选择并生成一张',
                     '{C:attention}非隐秘{C:spectral}幻灵{}牌',
-                    '{C:inactive}（必须有空位）'
+                    '{C:inactive}（必须有空间）'
                 }
             },
             tag_aij_dark_matter = {
@@ -4478,7 +4572,7 @@ return {
                 text = {
                     '{C:attention}任选{}并生成一张',
                     '{C:common}普通{}或{C:uncommon}罕见{}小丑牌',
-                    '{C:inactive}（必须有空位）'
+                    '{C:inactive}（必须有空间）'
                 }
             },
             tag_aij_occult = {
@@ -4609,7 +4703,7 @@ return {
                 text = {
                     "有{C:green}#1#/#2#{}的几率",
                     "随机生成一张{C:spectral}幻灵牌",
-                    '{C:inactive}（必须有空位）'
+                    '{C:inactive}（必须有空间）'
                 }
             },
             c_aij_two_ways = {
