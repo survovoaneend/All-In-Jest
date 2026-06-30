@@ -944,6 +944,27 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'vvvvvv',
+    name = 'VVVVVV',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'subnautica',
+    name = 'Subnautica',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'henry_stickmen',
+    name = 'Henry Stickmen',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
     id = 'alan_wake',
     name = 'Alan Wake',
     suits = {
@@ -960,12 +981,30 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'metalocalypse',
+    name = 'Metalocalypse',
+    suits = {
+      'Spades',
+      'Hearts',
+    }
+  },
+  {
+    id = 'deltarune',
+    name = 'Deltarune',
+    suits = {
+      'Hearts',
+      'Clubs',
+      'Diamonds'
+    }
+  },
+  {
     id = 'tadc',
     name = 'The Amazing Digital Circus',
     suits = {
       'Spades',
       'Hearts',
       'Clubs',
+      'Diamonds'
     }
   },
   {
