@@ -1,14 +1,14 @@
-local constable = {
+local actdone_aregdone_staircase = {
     object_type = "Joker",
-    order = 663,
+    order = 702,
     ignore = true,
 
-    key = "constable",
+    key = "actdone_aregdone_staircase",
     config = {
 
     },
     rarity = 1,
-    pos = { x = 3, y = 37},
+    pos = { x = 17, y = 38},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
@@ -24,4 +24,4 @@ local constable = {
 
     end
 }
-return { name = {"Jokers"}, items = {constable} }
+return { name = {"Jokers"}, items = {actdone_aregdone_staircase} }

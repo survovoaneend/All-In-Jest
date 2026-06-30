@@ -1,30 +1,23 @@
 local barcode = {
     object_type = "Joker",
-    order = 656,
+    order = 669,
+    ignore = true,
 
     key = "barcode",
     config = {
-        extra = {
-            sale = 50
-        }
+
     },
     rarity = 1,
-    pos = { x = 22, y = 30},
+    pos = { x = 9, y = 37},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
 
-    pixel_size = { w = 57, h = 94 },
-
     loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.sale,
-            }
-        }
+        return { }
     end,
 
     calculate = function(self, card, context)

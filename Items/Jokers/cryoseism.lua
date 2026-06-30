@@ -1,14 +1,14 @@
-local constable = {
+local cryoseism = {
     object_type = "Joker",
-    order = 663,
+    order = 711,
     ignore = true,
 
-    key = "constable",
+    key = "cryoseism",
     config = {
 
     },
     rarity = 1,
-    pos = { x = 3, y = 37},
+    pos = { x = 1, y = 39},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
@@ -24,4 +24,4 @@ local constable = {
 
     end
 }
-return { name = {"Jokers"}, items = {constable} }
+return { name = {"Jokers"}, items = {cryoseism} }

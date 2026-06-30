@@ -1,14 +1,14 @@
-local constable = {
+local connect_the_dots = {
     object_type = "Joker",
-    order = 663,
+    order = 682,
     ignore = true,
 
-    key = "constable",
+    key = "connect_the_dots",
     config = {
 
     },
     rarity = 1,
-    pos = { x = 3, y = 37},
+    pos = { x = 22, y = 37},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
@@ -24,4 +24,4 @@ local constable = {
 
     end
 }
-return { name = {"Jokers"}, items = {constable} }
+return { name = {"Jokers"}, items = {connect_the_dots} }

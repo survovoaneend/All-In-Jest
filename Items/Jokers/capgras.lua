@@ -1,14 +1,14 @@
-local constable = {
+local capgras = {
     object_type = "Joker",
-    order = 663,
+    order = 707,
     ignore = true,
 
-    key = "constable",
+    key = "capgras",
     config = {
 
     },
     rarity = 1,
-    pos = { x = 3, y = 37},
+    pos = { x = 22, y = 38},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
@@ -24,4 +24,4 @@ local constable = {
 
     end
 }
-return { name = {"Jokers"}, items = {constable} }
+return { name = {"Jokers"}, items = {capgras} }

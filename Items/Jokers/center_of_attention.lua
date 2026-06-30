@@ -1,14 +1,14 @@
-local constable = {
+local center_of_attention = {
     object_type = "Joker",
-    order = 663,
+    order = 747,
     ignore = true,
 
-    key = "constable",
+    key = "center_of_attention",
     config = {
 
     },
     rarity = 1,
-    pos = { x = 3, y = 37},
+    pos = { x = 9, y = 40},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
@@ -24,4 +24,4 @@ local constable = {
 
     end
 }
-return { name = {"Jokers"}, items = {constable} }
+return { name = {"Jokers"}, items = {center_of_attention} }

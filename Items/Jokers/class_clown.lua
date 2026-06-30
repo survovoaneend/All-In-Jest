@@ -1,14 +1,14 @@
-local constable = {
+local class_clown = {
     object_type = "Joker",
-    order = 663,
+    order = 786,
     ignore = true,
 
-    key = "constable",
+    key = "class_clown",
     config = {
 
     },
     rarity = 1,
-    pos = { x = 3, y = 37},
+    pos = { x = 21, y = 41},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
@@ -24,4 +24,4 @@ local constable = {
 
     end
 }
-return { name = {"Jokers"}, items = {constable} }
+return { name = {"Jokers"}, items = {class_clown} }
