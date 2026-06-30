@@ -1,6 +1,6 @@
 local the_last_man = {
     object_type = "Joker",
-    order = 651,
+    order = 664,
     ignore = true,
 
     key = "the_last_man",
@@ -8,7 +8,7 @@ local the_last_man = {
 
     },
     rarity = 1,
-    pos = { x = 18, y = 30},
+    pos = { x = 4, y = 37},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,

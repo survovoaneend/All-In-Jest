@@ -1,14 +1,14 @@
-local jeez_louise = {
+local prenatal_quantum_nightmare = {
     object_type = "Joker",
-    order = 661,
+    order = 769,
     ignore = true,
 
-    key = "jeez_louise",
+    key = "prenatal_quantum_nightmare",
     config = {
 
     },
     rarity = 1,
-    pos = { x = 1, y = 37},
+    pos = { x = 6, y = 41},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
@@ -24,4 +24,4 @@ local jeez_louise = {
 
     end
 }
-return { name = {"Jokers"}, items = {jeez_louise} }
+return { name = {"Jokers"}, items = {prenatal_quantum_nightmare} }

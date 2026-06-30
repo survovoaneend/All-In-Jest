@@ -1,6 +1,6 @@
 local emoticon = {
     object_type = "Joker",
-    order = 654,
+    order = 667,
     ignore = true,
 
     key = "emoticon",
@@ -8,7 +8,7 @@ local emoticon = {
 
     },
     rarity = 1,
-    pos = { x = 20, y = 30},
+    pos = { x = 7, y = 37},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,

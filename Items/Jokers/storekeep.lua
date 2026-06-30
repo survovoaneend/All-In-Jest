@@ -1,14 +1,14 @@
-local jeez_louise = {
+local storekeep = {
     object_type = "Joker",
-    order = 661,
+    order = 752,
     ignore = true,
 
-    key = "jeez_louise",
+    key = "storekeep",
     config = {
 
     },
     rarity = 1,
-    pos = { x = 1, y = 37},
+    pos = { x = 14, y = 40},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
@@ -24,4 +24,4 @@ local jeez_louise = {
 
     end
 }
-return { name = {"Jokers"}, items = {jeez_louise} }
+return { name = {"Jokers"}, items = {storekeep} }

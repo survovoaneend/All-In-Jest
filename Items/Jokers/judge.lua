@@ -1,6 +1,6 @@
 local judge = {
     object_type = "Joker",
-    order = 646,
+    order = 659,
     ignore = true,
 
     key = "judge",
@@ -8,7 +8,7 @@ local judge = {
 
     },
     rarity = 1,
-    pos = { x = 13, y = 30},
+    pos = { x = 24, y = 36},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,

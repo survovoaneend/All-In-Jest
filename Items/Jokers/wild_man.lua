@@ -1,6 +1,6 @@
 local wild_man = {
     object_type = "Joker",
-    order = 647,
+    order = 660,
     ignore = true,
 
     key = "wild_man",
@@ -8,7 +8,7 @@ local wild_man = {
 
     },
     rarity = 1,
-    pos = { x = 14, y = 30},
+    pos = { x = 0, y = 37},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
