@@ -1,3 +1,13 @@
+local wood_shader = {
+    object_type = "Shader",
+    key = 'wood', 
+    path = 'wood.fs',
+}
+local semitrasparent_shader = {
+    object_type = "Shader",
+    key = 'semitrasparent', 
+    path = 'semitrasparent.fs',
+}
 local wood = {
     object_type = "Enhancement",
     key = 'wood',
@@ -5,103 +15,36 @@ local wood = {
     order = 4,
     pos = { x = 4, y = 0 },
     config = {
+        h_chips = 20,
         extra = {
             base_h_chips = 20,
             h_chips_mod = 5,
         }
     },
-    all_in_jest = {
-        multi_enhancement_z_order = -1
-    },
-
     loc_vars = function(self, info_queue, card)
-        local hand_chips = card.ability.extra.base_h_chips
-
-        if G.hand and G.hand.cards then
-            local wood_cards = {}
-            for _, v in pairs(G.hand.cards) do
-                if SMODS.has_enhancement(v, "m_aij_wood") then
-                    wood_cards[#wood_cards+1] = v
-                end
-            end
-            if #wood_cards > 1 then
-                hand_chips = hand_chips + (card.ability.extra.h_chips_mod * (#wood_cards - 1))
-            end
-        end
-
         return { vars = {
-            hand_chips,
+            card.ability.h_chips,
             card.ability.extra.h_chips_mod,
             card.ability.extra.base_h_chips
         } }
     end,
-    
-
-    calculate = function(self, card, context)
-        if context.cardarea == G.hand and context.main_scoring then
-            local hand_chips = card.ability.extra.base_h_chips
-
-            if G.hand and G.hand.cards then
-                local wood_cards = {}
-                for _, v in pairs(G.hand.cards) do
-                    if SMODS.has_enhancement(v, "m_aij_wood") then
-                        wood_cards[#wood_cards+1] = v
-                    end
-                end
-                if #wood_cards > 1 then
-                    hand_chips = hand_chips + (card.ability.extra.h_chips_mod * (#wood_cards - 1))
+    update = function(self, card, dt)
+        if G.hand and G.hand.cards then
+            local cards = {}
+            for k, v in pairs(G.hand.cards) do
+                if SMODS.get_enhancements(G.hand.cards[k]).m_aij_wood then
+                    cards[#cards+1] = v
                 end
             end
-
-            return {
-                chips = hand_chips
-            }
+            if #cards - 1 >= 0 then
+                card.ability.h_chips = card.ability.extra.base_h_chips + (card.ability.extra.h_chips_mod * (#cards - 1))
+            end
+        else
+            card.ability.h_chips = card.ability.extra.base_h_chips
         end
     end
-
 }
-
-function process_texture_wood(image)
-    local width, height = image:getDimensions()
-    local canvas = love.graphics.newCanvas(width, height, {type = '2d', readable = true, dpiscale = image:getDPIScale()})
-
-    love.graphics.push("all")
-
-    love.graphics.setCanvas( canvas )
-    local wood_bg_colour = {57.3 / 255, 49.4 / 255, 36.1 / 255, 0}
-    -- local wood_bg_colour = { 255 / 255, 255 / 255, 255 / 255, 0}
-    -- local wood_bg_colour = { 21.6 / 255, 27.5 / 255, 28.6 / 255, 0}
-    love.graphics.clear( wood_bg_colour )
-    
-    love.graphics.setColor(1, 1, 1, 1)
-
-    love.graphics.setShader( G.SHADERS['aij_wood_spritesheet'] )
-    
-    -- Draw image with wood shader on new canvas
-    love.graphics.draw( image )
-
-    love.graphics.pop()
-
-    return love.graphics.newImage(canvas:newImageData(), {mipmaps = true, dpiscale = image:getDPIScale()})
-end
-
-function pre_wooded(a)
-    local atlas = a.name or a.key
-    local name = atlas.."_wooded"
-    if SMODS.get_atlas(name) then
-        return {
-            old_name = atlas,
-            new_name = name,
-            atlas = SMODS.get_atlas(name),
-        }
-    else
-        return {
-            old_name = atlas,
-            new_name = name,
-            atlas = nil
-        }
-    end
-end
+return {name = {"Enhancements"}, items = {wood, wood_shader, semitrasparent_shader}}end
 
 function wood_atlas(a)
     local wooded = pre_wooded(a)
