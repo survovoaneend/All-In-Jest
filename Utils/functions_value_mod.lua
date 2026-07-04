@@ -72,7 +72,7 @@ local function process_table(t, base_table, equation, extra_value, do_round, exc
   end
 end
 
-function nested_tables(card, index)
+local function nested_tables(card, index)
     local current = card
     for key in string.gmatch(index, "[^%.]+") do
         if type(current) ~= "table" then
@@ -84,7 +84,7 @@ function nested_tables(card, index)
     return current
 end
 
-function save_value(card, index, value)
+local function save_value(card, index, value)
     local current = card
     keys = {}
     for key in string.gmatch(index, "[^%.]+") do
@@ -126,6 +126,16 @@ local jest_ability_get_items = function(card, equation, extra_value, exclusions,
   return keys, values
 end
 
+-- Function to modify values of a card
+-- Args:
+-- card (Card) = The card to change the values of
+-- equation (+ - * / % = nil) = The operation to use on the values
+-- extra_value (number) = The right hand side of the operation
+-- exclusions (table[string]) = A table of keys to not modify
+-- inclusions (table[string]) = A table of keys to filter the keys that can be modified. A key must either match or contain a key in inclusions to be modified
+-- do_round (bool) = If true, will round values to either the closest integer or closest 0.01 based on whether the original value is an integer or float
+-- only (bool) = If true and inclusions is set, this will only modify keys that have an exact match in the inclusions table
+-- extra_search (string) = Defines the table to modify in card. By default "ability". If table does not exist, will select the deepest table that does exist.
 jest_ability_calculate = function(card, equation, extra_value, exclusions, inclusions, do_round, only, extra_search)
   if do_round == nil then do_round = true end
   if only == nil then only = false end
