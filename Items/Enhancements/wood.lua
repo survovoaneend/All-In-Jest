@@ -44,25 +44,4 @@ local wood = {
         end
     end
 }
-return {name = {"Enhancements"}, items = {wood, wood_shader, semitrasparent_shader}}end
-
-function wood_atlas(a)
-    local wooded = pre_wooded(a)
-
-    if not wooded.atlas then
-        local atlas_type = a.atlas_table or "ASSET_ATLAS"
-        G[atlas_type][wooded.new_name] = {}
-        SMODS.get_atlas(wooded.new_name).wood = true
-        SMODS.get_atlas(wooded.new_name).name = SMODS.get_atlas(wooded.old_name).name .. "_wooded"
-        SMODS.get_atlas(wooded.new_name).type = SMODS.get_atlas(wooded.old_name).type
-        SMODS.get_atlas(wooded.new_name).px = SMODS.get_atlas(wooded.old_name).px
-        SMODS.get_atlas(wooded.new_name).py = SMODS.get_atlas(wooded.old_name).py
-        SMODS.get_atlas(wooded.new_name).frames = SMODS.get_atlas(wooded.old_name).frames
-        SMODS.get_atlas(wooded.new_name).image = process_texture_wood(SMODS.get_atlas(wooded.old_name).image)
-    end
-
-    return SMODS.get_atlas(wooded.new_name)
-end
-
-
-return {name = {"Enhancements"}, items = {wood}}
+return {name = {"Enhancements"}, items = {wood, wood_shader, semitrasparent_shader}}
