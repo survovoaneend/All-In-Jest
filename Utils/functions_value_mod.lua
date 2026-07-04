@@ -155,10 +155,14 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
     end
 
     if extra_search == "ability" and inclusions == nil then
-      jest_ability_calculate(card, equation, extra_value, exclusions, inclusions, do_round, only, "config.aij_other_center.ability")
+      if card.config.aij_other_center and card.config.aij_other_center.ability then
+        jest_ability_calculate(card, equation, extra_value, exclusions, inclusions, do_round, only, "config.aij_other_center.ability")
+      end
     end
     if extra_search == "ability.extra" and inclusions == nil then
-      jest_ability_calculate(card, equation, extra_value, exclusions, inclusions, do_round, only, "config.aij_other_center.ability.extra")
+      if card.config.aij_other_center and card.config.aij_other_center.ability and card.config.aij_other_center.ability.extra then
+        jest_ability_calculate(card, equation, extra_value, exclusions, inclusions, do_round, only, "config.aij_other_center.ability.extra")
+      end
     end
 
   end
