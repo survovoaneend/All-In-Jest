@@ -1,14 +1,15 @@
 local dot_matrix = {
     object_type = "Joker",
     order = 666,
-    ignore = true,
 
     key = "dot_matrix",
     config = {
-
+        extra = {
+            mult = 1
+        }
     },
     rarity = 1,
-    pos = { x = 6, y = 37},
+    pos = { x = 20, y = 30},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
@@ -17,11 +18,39 @@ local dot_matrix = {
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        return { }
+        local unique_ranks = {}
+        local count = 0
+        for _, c in ipairs(G.deck and G.deck.cards or {}) do
+            if not SMODS.has_no_rank(c) then
+                local id = c:get_id()
+                if not unique_ranks[id] then
+                    unique_ranks[id] = true
+                    count = count + 1
+                end
+            end
+        end
+        return { vars = { card.ability.extra.mult, count * card.ability.extra.mult } }
     end,
 
     calculate = function(self, card, context)
-
+        if context.joker_main then
+            local unique_ranks = {}
+            local count = 0
+            for _, c in ipairs(G.deck and G.deck.cards or {}) do
+                if not SMODS.has_no_rank(c) then
+                    local id = c:get_id()
+                    if not unique_ranks[id] then
+                        unique_ranks[id] = true
+                        count = count + 1
+                    end
+                end
+            end
+            if count > 0 then
+                return {
+                    mult = count * card.ability.extra.mult
+                }
+            end
+        end
     end
 }
 return { name = {"Jokers"}, items = {dot_matrix} }

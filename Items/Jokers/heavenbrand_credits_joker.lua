@@ -9,7 +9,7 @@ local heavenbrand = {
     },
     lite = true,
     rarity = 1,
-    pos = { x = 7, y = 1},
+    pos = { x = 2, y = 1},
     atlas = 'familiar_atlas',
     cost = 4,
     unlocked = true,

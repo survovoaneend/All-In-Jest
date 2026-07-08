@@ -9,7 +9,7 @@ local jumbocarrot_credits_joker = {
     },
     rarity = 1,
     lite = true,
-    pos = { x = 5, y = 3},
+    pos = { x = 0, y = 3},
     atlas = 'familiar_atlas',
     cost = 4,
     unlocked = true,

@@ -2799,7 +2799,7 @@ function All_in_Jest.multi_enhancement_get_vanilla_z_order(key)
         m_bonus = 1,
         m_mult = 1,
         m_wild = 1,
-        m_gladd = -1,
+        m_glass = -1,
         m_steel = 0.9,
         m_stone = -1,
         m_gold = 0.1,

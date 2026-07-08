@@ -1,15 +1,15 @@
-local survivalaren = {
+local notsoai_credits_joker = {
     object_type = "Joker",
-    order = 1362,
-    key = "survivalaren_credits_joker",
+    order = 1363,
+    key = "notsoai_credits_joker",
     set_card_type_badge = function(self, card, badges)
-		badges[#badges+1] = create_badge(localize('k_coder_badge'), HEX('007dcc'), G.C.WHITE, 1.2 )
+		badges[#badges+1] = create_badge(localize('k_playtester_badge'), HEX('6facba'), G.C.WHITE, 1.2 )
 	end,
     config = {
     },
     lite = true,
     rarity = 1,
-    pos = { x = 0, y = 0},
+    pos = { x = 2, y = 0},
     atlas = 'familiar_atlas',
     cost = 4,
     unlocked = true,
@@ -19,7 +19,7 @@ local survivalaren = {
     no_collection = true,
   
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = {set = 'Other', key = 'survivalaren_credits_info'}
+        info_queue[#info_queue+1] = {set = 'Other', key = 'notsoai_credits_info'}
     end,
   
     calculate = function(self, card, context)
@@ -30,4 +30,4 @@ local survivalaren = {
     end,
   
 }
-return { name = {"Jokers"}, items = {survivalaren} }
+return { name = {"Jokers"}, items = {notsoai_credits_joker} }

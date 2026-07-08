@@ -3,6 +3,9 @@ return {
         dictionary = {
             k_coder_badge = "Coder",
             k_artist_badge = "Artist",
+            k_playtester_badge = "Playtester",
+            k_community_member_badge = "Community Member",
+            k_content_creator_badge = "Content Creator",
             k_moon = "Moon",
             k_moon_q = "Moon?",
             k_star = "Star",
@@ -13,7 +16,6 @@ return {
             k_tarot_hex = "The Hex",
             k_active = "Active",
             k_inactive = "Inactive",
-            k_aij_select = "Select",
             k_aij_remove = "Remove",
             k_aij_party_time = "Party Time!",
             k_aij_replace = "Replace",
@@ -1178,6 +1180,170 @@ return {
                 text = {
                     '{C:inactive}"As they say in France,',
                     '{C:inactive}\'I\'ll take two.\'"'
+                },
+            },
+            j_aij_marcy_credits_joker = {
+                name = "Marcy",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_taylor_credits_joker = {
+                name = "Taylor",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_notsoai_credits_joker = {
+                name = "NotSoAI",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_jamie_credits_joker = {
+                name = "Jamie!",
+                text = {
+                    '{C:inactive}"me and nevernamed are very good friends"',
+                    '{C:inactive}"we kiss on the mouth sometimes"',
+                },
+            },
+            j_aij_papermoon_credits_joker = {
+                name = "Papermoon",
+                text = {
+                    "{C:inactive}\"We\'re invited to a lifelong",
+                    "{C:inactive}party, it\'s rude to overstay.\""
+                },
+            },
+            j_aij_cebee_credits_joker = {
+                name = "Cebee",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_default_credits_joker = {
+                name = "Default",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_prototype_credits_joker = {
+                name = "Prototype",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_heisenburger_credits_joker = {
+                name = "Heisenburger",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_conboi_credits_joker = {
+                name = "Conboi",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_gfsgfsgdsgf_credits_joker = {
+                name = "gfsgfsgdsgf",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_bygone_credits_joker = {
+                name = "Bygone",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_minibit_credits_joker = {
+                name = "Mini Bit",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_sophe_credits_joker = {
+                name = "Sophe",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_aphi_credits_joker = {
+                name = "Aphi",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_ghoti_credits_joker = {
+                name = "Ghoti",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_skilotar_credits_joker = {
+                name = "Skilotar",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_spoofy_credits_joker = {
+                name = "Spoofy",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_toyrapple_credits_joker = {
+                name = "Toyrapple",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_mythie_credits_joker = {
+                name = "Mythie",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_grass_credits_joker = {
+                name = "Grass",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_zan_credits_joker = {
+                name = "Zan",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_metrollen_credits_joker = {
+                name = "Metrollen",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_clay_credits_joker = {
+                name = "Clay",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_generic_credits_joker = {
+                name = "Gen-Eric",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_cheddar_credits_joker = {
+                name = "Cheddar",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_9ts_credits_joker = {
+                name = "9TS",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
                 },
             },
             -- Jokers
@@ -8476,6 +8642,171 @@ return {
                     "{s:0.8}-Lots of helpful playtesting and feedback",
                     "{s:0.8}-Started work on All in Jest stuff in February 2026"
                 }
+            },
+            marcy_credits_info = {
+                name = "Info",
+                text = {
+                    "{s:0.8}-Skibby Dee",
+                }
+            },
+            taylor_credits_info = {
+                name = "Taylor",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            notsoai_credits_info = {
+                name = "NotSoAI",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            jamie_credits_info = {
+                name = "Jamie!",
+                text = {
+                    "{s:0.8}-Made art for several Joker (not yet implemented)",
+                    "{s:0.8}-Good friend of Nevernamed",
+                    "{s:0.8}-The team Lil Guy",
+                    "{s:0.8}-Added to the team officially in June 2026"
+                },
+            },
+            papermoon_credits_info = {
+                name = "Papermoon",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            cebee_credits_info = {
+                name = "Cebee",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            default_credits_info = {
+                name = "Default",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            prototype_credits_info = {
+                name = "Prototype",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            heisenburger_credits_info = {
+                name = "Heisenburger",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            conboi_credits_info = {
+                name = "Conboi",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            gfsgfsgdsgf_credits_info = {
+                name = "gfsgfsgdsgf",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_bygone_credits_info = {
+                name = "Bygone",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_minibit_credits_info = {
+                name = "Mini Bit",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_sophe_credits_info = {
+                name = "Sophe",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_aphi_credits_info = {
+                name = "Aphi",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_ghoti_credits_info = {
+                name = "Ghoti",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_skilotar_credits_info = {
+                name = "Skilotar",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_spoofy_credits_info = {
+                name = "Spoofy",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_toyrapple_credits_info = {
+                name = "Toyrapple",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_mythie_credits_info = {
+                name = "Mythie",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_grass_credits_info = {
+                name = "Grass",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_zan_credits_info = {
+                name = "Zan",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_metrollen_credits_info = {
+                name = "Metrollen",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_clay_credits_info = {
+                name = "Clay",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_generic_credits_info = {
+                name = "Gen-Eric",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_cheddar_credits_info = {
+                name = "Cheddar",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
+            },
+            j_aij_9ts_credits_info = {
+                name = "9TS",
+                text = {
+                    '{C:inactive}"Skibby Dee"'
+                },
             },
         }
     }

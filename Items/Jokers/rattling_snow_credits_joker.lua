@@ -9,7 +9,7 @@ local rattling_snow = {
     },
     rarity = 1,
     lite = true,
-    pos = { x = 5, y = 1},
+    pos = { x = 0, y = 1},
     atlas = 'familiar_atlas',
     cost = 4,
     unlocked = true,
