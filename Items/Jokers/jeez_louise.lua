@@ -1,6 +1,6 @@
 local jeez_louise = {
     object_type = "Joker",
-    order = 648,
+    order = 661,
     ignore = true,
 
     key = "jeez_louise",
@@ -8,7 +8,7 @@ local jeez_louise = {
 
     },
     rarity = 1,
-    pos = { x = 15, y = 30},
+    pos = { x = 1, y = 37},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,

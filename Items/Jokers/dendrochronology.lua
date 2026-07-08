@@ -1,6 +1,6 @@
 local dendrochronology = {
     object_type = "Joker",
-    order = 649,
+    order = 662,
     ignore = true,
 
     key = "dendrochronology",
@@ -8,7 +8,7 @@ local dendrochronology = {
 
     },
     rarity = 1,
-    pos = { x = 16, y = 30},
+    pos = { x = 2, y = 37},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,

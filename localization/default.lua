@@ -2676,7 +2676,7 @@ return {
                     },
                     {
                         "{C:inactive}\"Some packs are red,",
-                        "{C:inactive}but none of them blue;",
+                        "{C:inactive}but more of them blue;",
                         "{C:inactive}no matter what's in 'em,",
                         "{C:inactive}I'll steal them from you!",
                         "",

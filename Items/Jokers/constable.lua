@@ -1,6 +1,6 @@
 local constable = {
     object_type = "Joker",
-    order = 650,
+    order = 663,
     ignore = true,
 
     key = "constable",
@@ -8,7 +8,7 @@ local constable = {
 
     },
     rarity = 1,
-    pos = { x = 17, y = 30},
+    pos = { x = 3, y = 37},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
