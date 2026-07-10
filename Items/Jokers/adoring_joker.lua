@@ -45,7 +45,7 @@ local adoring_joker = {
         ---@type JDJokerDefinition
         return {
             text = {
-                { text = "=" },
+                { text = ">=" },
                 { ref_table = "card.ability.extra", ref_value = "highest_mult" }
             },
             text_config = { colour = G.C.MULT },
