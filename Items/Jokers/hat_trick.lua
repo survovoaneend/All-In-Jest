@@ -53,11 +53,9 @@ local hat_trick = {
                 local mult = 0
                 local multt = to_number(G.GAME.hands['Three of a Kind'].level)
                 local text, _, scoring_hand = JokerDisplay.evaluate_hand()
-                if text ~= 'Unknown' then
+                if text ~= 'Unknown' and text == 'Three of a Kind' then
                     for _, scoring_card in pairs(scoring_hand) do
-                        if scoring_card:get_id() == 3 then
-                            mult = mult + multt * JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
-                        end
+                        mult = mult + multt * JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
                     end
                 end
                 card.joker_display_values.mult = mult
