@@ -19,7 +19,7 @@ local homemade_comic = {
         if G.deck then
             if #G.deck.cards > 0 then
                 for i = 1, #G.deck.cards do
-                    if G.deck.cards[i].config.center == G.P_CENTERS["m_aij_charged"] then
+                    if SMODS.has_enhancement(G.deck.cards[i], 'm_aij_charged') then
                         return true
                     end
                 end
@@ -35,7 +35,7 @@ local homemade_comic = {
   
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            if context.other_card.config.center == G.P_CENTERS["m_aij_charged"] then
+            if SMODS.has_enhancement(context.other_card, 'm_aij_charged') then
                 return {
                   xmult = card.ability.xmult,
                 }

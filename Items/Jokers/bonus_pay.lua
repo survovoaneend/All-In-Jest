@@ -16,6 +16,7 @@ local bonus_pay = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    enhancement_gate = "m_bonus",
   
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_bonus
@@ -28,25 +29,12 @@ local bonus_pay = {
   
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            if context.other_card.config.center == G.P_CENTERS["m_bonus"] then
+            if SMODS.has_enhancement(context.other_card, 'm_bonus')then
                 return {
                     dollars = card.ability.extra.money,
                 }
             end
         end
-    end,
-
-    in_pool = function(self, args)
-        if G.deck then
-            if #G.deck.cards > 0 then
-                for i = 1, #G.deck.cards do
-                    if G.deck.cards[i].config.center == G.P_CENTERS["m_bonus"] then
-                        return true
-                    end
-                end
-            end
-        end
-        return false
     end,
   
 }

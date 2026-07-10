@@ -24,7 +24,7 @@ local circuit_diagram = {
     in_pool = function(self, args)
         if G.GAME and G.playing_cards then
             for _, card in ipairs(G.playing_cards) do
-                if card.config.center == G.P_CENTERS["m_aij_charged"] then
+                if SMODS.has_enhancement(card, 'm_aij_charged') then
                     return true
                 end
             end

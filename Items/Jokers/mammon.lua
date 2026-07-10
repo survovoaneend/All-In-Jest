@@ -36,7 +36,7 @@ local mammon = {
             if #G.deck.cards > 0 then
                 local gold_card_count = 0
                 for i = 1, #G.deck.cards do
-                    if G.deck.cards[i].config.center == G.P_CENTERS["m_gold"] then
+                    if SMODS.has_enhancement(G.deck.cards[i], 'm_gold') then
                         gold_card_count = gold_card_count + 1
                     end
                 end
@@ -50,7 +50,7 @@ local mammon = {
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            if context.other_card.config.center == G.P_CENTERS["m_gold"] then
+            if SMODS.has_enhancement(context.other_card, 'm_gold') then
                 card.ability.extra.payout_increase_total = card.ability.extra.payout_increase_total + card.ability.extra.payout_increase_mod
                 G.GAME.all_in_jest.gold_card_amt = G.GAME.all_in_jest.gold_card_amt + card.ability.extra.payout_increase_mod
                 card_eval_status_text(card, "extra", nil, nil, nil, {message = localize('k_val_up'), colour = G.C.MONEY})

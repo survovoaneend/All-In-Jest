@@ -30,7 +30,7 @@ local cctv = {
         local glasses = 0
         if G.GAME and G.playing_cards then
             for _, card in ipairs(G.playing_cards) do
-                if card.config.center == G.P_CENTERS.m_glass then
+                if SMODS.has_enhancement(card, 'm_glass') then
                     glasses = glasses + 1
                 end
             end
@@ -46,11 +46,11 @@ local cctv = {
       if context.removed then
         local glass_shattered = 0
         for d = 1, #context.removed do
-            if context.removed[d].config.center == G.P_CENTERS.m_glass and context.removed[d].shattered then
+            if SMODS.has_enhancement(context.removed[d], 'm_glass') and context.removed[d].shattered then
                 if G.hand and G.hand.cards then
                     local valid_cards = {}
                     for i, v in ipairs(G.hand.cards) do
-                        if not (v.config.center == G.P_CENTERS.m_glass) then
+                        if not (SMODS.has_enhancement(v, 'm_glass')) then
                             table.insert(valid_cards, i)
                         end
                     end

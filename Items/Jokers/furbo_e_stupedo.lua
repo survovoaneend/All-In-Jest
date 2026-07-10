@@ -18,8 +18,8 @@ local furbo_e_stupido = {
     in_pool = function(self, args)
         if G.deck then
             if #G.deck.cards > 0 then
-                for i = 1, #G.deck.cards do
-                    if G.deck.cards[i].config.center == G.P_CENTERS["m_aij_dyscalcular"] then
+                for i = 1, ##G.deck.cards do
+                    if SMODS.has_enhancement(G.deck.cards[i], 'm_aij_dyscalcular') then
                         return true
                     end
                 end

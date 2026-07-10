@@ -32,7 +32,7 @@ local blue_star = {
         if context.before and not context.blueprint then
             local trigger = false
             for _, v in ipairs(context.scoring_hand) do
-                if v.config.center == G.P_CENTERS.m_bonus or (G.P_CENTERS.m_aij_fervent and v.config.center == G.P_CENTERS.m_aij_fervent)  then
+                if SMODS.has_enhancement(v, 'm_bonus') or (G.P_CENTERS.m_aij_fervent and SMODS.has_enhancement(v, 'm_aij_fervent'))  then
                     trigger = true
                     break
                 end

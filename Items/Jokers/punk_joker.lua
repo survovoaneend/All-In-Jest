@@ -23,7 +23,7 @@ local punk_joker = {
       if context.before and context.scoring_hand then
           local has_wild = false
           for _, scoring_card in ipairs(context.scoring_hand) do
-              if scoring_card.config.center.key == 'm_wild' then
+              if SMODS.has_enhancement(scoring_card, 'm_wild') then
                   has_wild = true
                   break
               end

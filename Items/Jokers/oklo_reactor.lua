@@ -16,6 +16,7 @@ local oklo_reactor = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    enhancement_gate = 'm_gold',
 
     loc_vars = function(self, info_queue, card)
         return {
@@ -33,18 +34,6 @@ local oklo_reactor = {
                 }
             end
         end
-    end,
-    in_pool = function(self, args)
-        if G.deck then
-            if #G.deck.cards > 0 then
-                for i = 1, #G.deck.cards do
-                    if G.deck.cards[i].config.center == G.P_CENTERS["m_gold"] then
-                        return true
-                    end
-                end
-            end
-        end
-        return false
     end,
 }
 

@@ -35,7 +35,7 @@ local krampus = {
       local enhanced_a_card = false
       if context.scoring_hand and #context.scoring_hand > 0 then
         for k, v in ipairs(context.scoring_hand) do
-          if v.config.center == G.P_CENTERS.m_gold and not v.debuff then
+          if SMODS.has_enhancement(v, 'm_gold') and not v.debuff then
             v:set_ability(G.P_CENTERS.m_stone, nil, true)
             enhanced_a_card = true
             G.E_MANAGER:add_event(Event({
@@ -57,7 +57,7 @@ local krampus = {
       end
     end
     if context.individual and context.cardarea == G.play then
-      if context.other_card.config.center == G.P_CENTERS.m_stone then
+      if SMODS.has_enhancement(context.other_card, 'm_stone') then
         local dollar_bonus = card.ability.extra.dollars
         return {
           dollars = dollar_bonus,

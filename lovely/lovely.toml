@@ -3169,7 +3169,7 @@ local has_circuit_diagram = next(SMODS.find_card("j_aij_circuit_diagram"))
 if has_circuit_diagram then
     for i = #self.cards, 1, -1 do
         local card = self.cards[i]
-        if card.config.center == G.P_CENTERS["m_aij_charged"] then
+        if SMODS.has_enhancement(card, 'm_aij_charged') then
             table.remove(self.cards, i)
             table.insert(self.cards, #self.cards + 1, card)
         end
