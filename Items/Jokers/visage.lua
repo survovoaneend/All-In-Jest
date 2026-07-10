@@ -46,17 +46,5 @@ local visage = {
     end
 
 }
-local sell_card_ref = Card.sell_card
-function Card:sell_card()
-    local ref = sell_card_ref(self)
-    if G.jokers and self.ability.set == 'Joker' then
-        G.all_in_jest_visage_last_sold.cards = {}
-        if not (self.ability.name == 'j_aij_visage' or self.ability.name == 'j_aij_clay_joker') then
-            local copied_card = copy_card(self, nil, 0) -- Creates a copy with 0 scale
-            G.all_in_jest_visage_last_sold:emplace(copied_card)
-        end
-    end
-    return ref
-end
 
 return { name = { "Jokers" }, items = { visage } }

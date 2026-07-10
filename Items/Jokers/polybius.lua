@@ -21,8 +21,8 @@ local polybius = {
   
     calculate = function(self, card, context)
         if context.joker_main then
-            local chip_total = 0
-            local mult_total = 0
+            local chip_total = to_big(0)
+            local mult_total = to_big(0)
             if context.scoring_name and context.poker_hands then
                 for k, v in pairs(context.poker_hands) do
                     if k ~= context.scoring_name and G.GAME.hands[k] and next(context.poker_hands[k]) then

@@ -25,19 +25,18 @@ local fantasio = {
       
     end,
 
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.banned_keys['bl_club'] = true
-        G.GAME.banned_keys['bl_window'] = true
-        G.GAME.banned_keys['bl_goad'] = true
-        G.GAME.banned_keys['bl_head'] = true
-    end,
-
-    remove_from_deck = function(self, card, from_debuff)
-        G.GAME.banned_keys['bl_club'] = nil
-        G.GAME.banned_keys['bl_window'] = nil
-        G.GAME.banned_keys['bl_goad'] = nil
-        G.GAME.banned_keys['bl_head'] = nil
-	end,
+    
   
 }
+local smods_add_to_pool_ref = SMODS.add_to_pool
+function SMODS.add_to_pool(prototype_obj, ...)
+    if
+        #SMODS.find_card("j_aij_fantasio") > 0 and
+        prototype_obj.key == "bl_club" or prototype_obj.key == "bl_window" or prototype_obj.key == "bl_goad" or prototype_obj.key == "bl_head"
+    then
+        return false
+    else
+        return smods_add_to_pool_ref(prototype_obj, ...)
+    end
+end
 return { name = {"Jokers"}, items = {fantasio} }

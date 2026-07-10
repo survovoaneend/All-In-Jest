@@ -56,7 +56,7 @@ local mp_blind_drawn = {
     end,
 
     mp_include = function(self)
-		    return MP.UTILS.is_standard_ruleset() and MP.LOBBY.code
+		    return MP.is_layer_active("standard") and MP.LOBBY.code
     end,
   
 }

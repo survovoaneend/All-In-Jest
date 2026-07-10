@@ -5,7 +5,7 @@ local funny_money = {
     key = "funny_money",
     config = {
       extra = {
-       dollars = 10
+       dollars = 15
       }
     },
     rarity = 1,

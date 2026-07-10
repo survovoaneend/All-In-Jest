@@ -35,6 +35,7 @@ local melted = {
                 play_sound('tarot1')
                 card:juice_up(0.3, 0.5)
                 card:set_seal(temp_card.seal, nil, true)
+                return nil, true
             end
         end
     end

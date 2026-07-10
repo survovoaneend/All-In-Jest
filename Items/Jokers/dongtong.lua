@@ -41,29 +41,20 @@ local dong_tong_double = function(card, mod_count)
         local prev_count = card.ability.jest_applied["j_aij_dongtong"] or 0
         local diff = current_count - prev_count
 
-        card.ability.jest_applied["j_aij_dongtong"] = current_count
+        if diff ~= 0 then
+            card.ability.jest_applied["j_aij_dongtong"] = current_count
 
-        if diff > 0 then
+            local prev_multiplier = 1 + prev_count
+            local new_multiplier = 1 + current_count
+            local ratio = new_multiplier / prev_multiplier
+
             card:remove_from_deck(true)
-            for _ = 1, math.abs(diff) do
-                jest_ability_calculate(
-                    card,
-                    "*", 2,
-                    { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit = true },
-                    nil, false, nil, "ability"
-                )
-            end
-            card:add_to_deck(true)
-        elseif diff < 0 then
-            card:remove_from_deck(true)
-            for _ = 1, math.abs(diff) do
-                jest_ability_calculate(
-                    card,
-                    "/", 2,
-                    { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit = true },
-                    nil, false, nil, "ability"
-                )
-            end
+            jest_ability_calculate(
+                card,
+                "*", ratio,
+                { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit = true },
+                nil, false, nil, "ability"
+            )
             card:add_to_deck(true)
         end
     end

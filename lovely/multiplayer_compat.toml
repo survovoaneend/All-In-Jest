@@ -19,7 +19,7 @@ do -- All in Jest multiplayer patch
     MP.DECK.ban_card("j_aij_blind_drawn") -- Downside becomes irrelevant
     MP.DECK.ban_card("j_aij_stultor") -- Rerolls blind
     MP.DECK.ban_card("j_aij_hofnarr_the_barbarian") -- Only cares about showdown blinds
-
+    MP.DECK.ban_card("j_aij_eulenspeigel") -- Messes with the current Ante
     MP.DECK.ban_tag("tag_aij_dominus") -- Can reroll blind
 
     -- Ban boss blinds that increase score requirement
