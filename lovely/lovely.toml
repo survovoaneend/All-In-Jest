@@ -205,40 +205,10 @@ target = "functions/state_events.lua"
 pattern = "draw_card(G.play,G.discard, it*100/play_count,'down', false, v)"
 position = "at"
 payload = '''
-local jest_to_hand = {}
-            
-if G.jokers ~= nil then
-    for _, joker in ipairs(G.jokers.cards) do
-        if joker.ability.extra and type(joker.ability.extra) == 'table' and joker.ability.extra.all_in_jest and joker.ability.extra.all_in_jest.to_hand and joker.ability.extra.all_in_jest.to_hand.cards and not joker.debuff then
-            for __, card in ipairs(joker.ability.extra.all_in_jest.to_hand.cards) do
-                table.insert(jest_to_hand, card)
-            end
-        end
-    end
-end
+local flags = SMODS.calculate_context({aij_discard_played_hand = true, other_card = v, scoring_hand = SMODS.last_hand.scoring_hand, scoring_name = SMODS.last_hand.scoring_name, full_hand = SMODS.last_hand.full_hand})
 
-if G.play ~= nil then
-    for _, play_card in ipairs(G.play.cards) do
-        if play_card.ability.extra and type(play_card.ability.extra) == 'table' and play_card.ability.extra.all_in_jest and play_card.ability.extra.all_in_jest.to_hand and play_card.ability.extra.all_in_jest.to_hand.cards and not play_card.debuff then
-            if play_card.ability.extra.all_in_jest.to_hand.cards == true then
-                table.insert(jest_to_hand, play_card)
-            end
-        end
-    end
-end
-            
-if #jest_to_hand > 0 then
-    local trigger = false
-    for _, jest_to_hand in ipairs(jest_to_hand) do
-        if v == jest_to_hand then
-            trigger = true
-        end
-    end
-    if trigger then
-        draw_card(G.play,G.hand, it*100/play_count,'up', true, v)
-    else
-        draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
-    end
+if flags.aij_return_to_hand then
+    draw_card(G.play,G.hand, it*100/play_count,'up', true, v)
 else
     draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
 end
