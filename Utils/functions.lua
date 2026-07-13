@@ -2789,6 +2789,8 @@ function All_in_Jest.find_multi_enhancement_pos(enhancement, get_index)
         pos = 20
     elseif enhancement == 'm_paperback_stained' then
         pos = 21
+    elseif enhancement == 'm_aij_scorched' then
+        pos = 22
     end
     return pos, atlas
 end
