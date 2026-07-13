@@ -14,7 +14,7 @@ local misprint_shader = {
 }
 SMODS.Sound {
   key = 'misprint',
-  path = 'glimmer.mp3'
+  path = 'misprinted.mp3'
 }
 local misprint = {
     object_type = "Edition",

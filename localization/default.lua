@@ -7386,9 +7386,17 @@ return {
             c_aij_tetragrammaton = {
                 name = 'Tetragrammaton',
                 text = {
-                    'Create {C:attention}any{} playing card and',
-                    '{C:attention}#1# random{} playing cards to',
-                    'add to your {C:attention}deck'
+                    {
+                        'Create a playing card with',
+                        'a chosen {C:attention}rank{}, {C:attention}suit{},',
+                        'and {C:attention}enhancement{}',
+                    },
+                    {
+                        'Create 4 {C:attention}random{} playing cards',
+                        'and add them to the deck'
+                    }
+                    
+
                 }
             },
             c_aij_trefle = {
