@@ -23,6 +23,7 @@ local event_horizon = {
            vars = {
                card.ability.extra.xmult_mod,
                card.ability.extra.xmult,
+               card.ability.extra.last_hand and card.ability.extra.last_hand ~= '' and localize(card.ability.extra.last_hand, 'poker_hands') or 'None'
            }
        }
     end,

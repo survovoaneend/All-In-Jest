@@ -2634,12 +2634,13 @@ return {
                     {
                         'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
                         'when a hand is {C:attention}leveled up',
-                        '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult){}'
+                        '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult){}',
                     },
                     {
                         '{C:attention}Resets{} when the same',
                         'hand is {C:attention}leveled up',
-                        'twice in a row'
+                        'twice in a row',
+                        '{C:inactive}(Last leveled hand: {C:attention}#3##{C:inactive}){}'
                     }
                 }
             },
