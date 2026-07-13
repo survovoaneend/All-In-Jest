@@ -40,11 +40,10 @@ local happy_as_larry = {
                 }
             end
         end
-        if context.repetition_only or (context.retrigger_joker_check) then
+        if context.retrigger_joker_check and context.other_card == card then
             local retriggers = 0
-            local new_odds = card.ability.extra.new_odds
-            while new_odds > 0 and SMODS.pseudorandom_probability(card, 'happy_as_larry'.. G.SEED, new_odds, card.ability.extra.odds) do
-                new_odds = new_odds - 1
+            while SMODS.pseudorandom_probability(card, 'happy_as_larry'.. G.SEED, card.ability.extra.new_odds, card.ability.extra.odds) do
+                card.ability.extra.new_odds = card.ability.extra.new_odds - 1
                 retriggers = retriggers + 1
             end
             if context.other_card == card and retriggers > 0 then
