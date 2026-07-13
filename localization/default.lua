@@ -8670,6 +8670,7 @@ return {
                     '{C:inactive}"Skibby Dee"'
                 },
             },
+            
             jamie_credits_info = {
                 name = "Jamie!",
                 text = {
@@ -8743,6 +8744,12 @@ return {
                 name = "Aphi",
                 text = {
                     '{C:inactive}"Skibby Dee"'
+                },
+            },
+            misprinted_credits_info = {
+                name = "Credit",
+                text = {
+                    '{s:0.8}Sound effect by Aphi S. Soos'
                 },
             },
             j_aij_ghoti_credits_info = {

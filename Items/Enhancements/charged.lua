@@ -60,14 +60,15 @@ function Card:update(dt)
 	local diff = factor / prev_factor
 
 	if diff ~= 1 then
-		local function extract_keys(tbl, ret)
+		local function extract_keys(tbl, ret, prefix)
 			if type(tbl) ~= "table" then
 				return
 			end
 			for k, v in pairs(tbl) do
-				table.insert(ret, k)
+				local key_path = prefix and (prefix .. "." .. k) or tostring(k)
+				table.insert(ret, key_path)
 				if type(v) == "table" then
-					extract_keys(v. ret)
+					extract_keys(v, ret, key_path)
 				end
 			end
 		end
@@ -76,8 +77,6 @@ function Card:update(dt)
 			["ability"] = self.config.center and self.config.center.key,
 			["config.aij_other_center.ability"] = self.config.aij_other_center and self.config.aij_other_center.center and self.config.aij_other_center.center.key,
 		}) do
-
-			sendDebugMessage(enhancement_key, "AIJ")
 
 			local inherent_keys = {}
 			if enhancement_key then
