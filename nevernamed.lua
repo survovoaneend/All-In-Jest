@@ -111,18 +111,6 @@ SMODS.Atlas {
   px = 71,
   py = 95
 }
-SMODS.Atlas({
-    key = 'joker_parts',
-    path = 'parts/joker_parts.png',
-    px = '71',
-    py = '95',
-})
-SMODS.Atlas({
-    key = 'nooutline_joker_parts',
-    path = 'parts/nooutline_joker_parts.png',
-    px = '71',
-    py = '95',
-})
 SMODS.Atlas {
   key = "enhancements_atlas",
   path = "enhancements.png",
