@@ -2,7 +2,7 @@ local melded = {
 	object_type = "Back",
 	key = "melded",
 	atlas = "deck_atlas",
-	order = 4,
+	order = 5,
 	pos = { x = 4, y = 0 },
 	unlocked = false,
 	unlock_condition = { hidden = true, stake = 5, count = 5 },
