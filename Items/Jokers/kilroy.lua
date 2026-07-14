@@ -49,6 +49,17 @@ local kilroy = {
                 }
             end
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "+" },
+                { ref_table = "G.GAME.all_in_jest", ref_value = "jest_kilroy_curvalue", retrigger_type = "mult" }
+            },
+            text_config = { colour = G.C.CHIPS },
+        }
     end
 }
 return { name = {"Jokers"}, items = {kilroy} }

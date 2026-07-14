@@ -61,7 +61,21 @@ local party_streamers = {
             }
         end
     end
-  end
+  end,
+
+  joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "localized_text" },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                card.joker_display_values.localized_text = G.GAME.current_round.hands_played == 0 and localize("k_active_ex") or localize("jdis_inactive")
+            end,
+        }
+  end,
   
 }
 return { name = {"Jokers"}, items = {party_streamers} }

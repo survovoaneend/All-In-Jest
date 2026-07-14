@@ -50,6 +50,17 @@ local la_commedia_e_finita = {
         mult = card.ability.extra.mult,
       }
     end
+  end,
+
+  joker_display_def = function(JokerDisplay)
+      ---@type JDJokerDefinition
+      return {
+          text = {
+              { text = "+" },
+              { ref_table = "card.ability.extra", ref_value = "mult", retrigger_type = "mult" }
+          },
+          text_config = { colour = G.C.MULT },
+      }
   end
 }
 return { name = {"Jokers"}, items = {la_commedia_e_finita} }

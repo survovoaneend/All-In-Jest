@@ -38,6 +38,33 @@ local pierrot = {
                 end
             end
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "+" },
+                { ref_table = "card.joker_display_values", ref_value = "chips", retrigger_type = "mult" }
+            },
+            text_config = { colour = G.C.CHIPS },
+            calc_function = function(card)
+                card.joker_display_values.chips = 0
+                local playing_hand = next(G.play.cards)
+                local count = 0
+                for _, playing_card in ipairs(G.hand.cards) do
+                    if playing_hand or not playing_card.highlighted then
+                        local val = playing_card:get_chip_bonus()
+                        local rank = SMODS.Ranks[playing_card.base.value]
+                        local id = playing_card:get_id()
+                        local is_numbered_card = rank and string.find(rank.key, "%d*%d?%d+") ~= nil
+                        if not (playing_card.facing == 'back') and not playing_card.debuff and is_numbered_card and to_big(val) > to_big(0) and (to_big(id) > to_big(0)) then
+                            card.joker_display_values.chips = card.joker_display_values.chips + playing_card:get_chip_bonus()
+                        end
+                    end
+                end
+            end
+        }
     end
   
 }

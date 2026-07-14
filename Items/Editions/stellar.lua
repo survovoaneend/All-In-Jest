@@ -39,4 +39,30 @@ local stellar = {
 
     shader = 'stellar'
 }
+
+if JokerDisplay then
+    local jd_edition_def = JokerDisplay.Edition_Definitions
+
+    jd_edition_def["e_aij_stellar"] = {
+        condition_function = function(card)
+            local edition = card.edition
+            return not card.debuff and edition and card.edition.key and card.edition.key == "e_aij_stellar"
+        end,
+        mod_function = function(card)
+            local edition = card.edition
+            local hand_text, _, _ = JokerDisplay.evaluate_hand()
+
+            local chip = 0
+            local mult = 0
+            if hand_text ~= 'Unknown' and G.GAME.hands[hand_text] then
+                chip = to_number(G.GAME.hands[hand_text].level) * edition.chips
+                mult = to_number(G.GAME.hands[hand_text].level) * edition.mult
+            end
+            
+            return { chips = chip, mult = mult }
+        end
+    }
+end
+
+
 return {name = "Editions", items = {stellar, stellar_shader}}

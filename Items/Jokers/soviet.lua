@@ -46,6 +46,29 @@ local soviet = {
             end
         end
         return nil
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "+" },
+                { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
+            },
+            text_config = { colour = G.C.MULT },
+            calc_function = function(card)
+                local contains_king_or_queen = false
+                local played_hand = JokerDisplay.current_hand
+                for _, scoring_card in pairs(played_hand) do
+                    if scoring_card:get_id() == 13 or scoring_card:get_id() == 12 
+                    then
+                        contains_king_or_queen = true
+                        break 
+                    end
+                end
+                card.joker_display_values.mult = contains_king_or_queen and 0 or card.ability.extra.mult
+            end
+        }
     end
   
 }

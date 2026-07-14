@@ -40,6 +40,32 @@ local silent_sam = {
         }
     end
       end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
+                    }
+                }
+            },
+            calc_function = function(card)
+                local playing_hand = next(G.play.cards)
+                local count = 0
+                for _, playing_card in ipairs(G.hand.cards) do
+                    if playing_hand or not playing_card.highlighted then
+                        if not (playing_card.facing == 'back') and not playing_card.debuff then
+                            count = count + JokerDisplay.calculate_card_triggers(playing_card, nil, true)
+                        end
+                    end
+                end
+                card.joker_display_values.x_mult = (1 + card.ability.extra.xmult) ^ count
+            end
+        }
     end
   
 }

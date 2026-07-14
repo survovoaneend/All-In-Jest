@@ -40,6 +40,36 @@ local word_art = {
                 xmult = 1 + card.ability.extra.xmult_per_card * _cards
             }
         end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                {
+                    border_nodes = {
+                        { text = "X" },
+                        { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
+                    }
+                }
+            },
+            reminder_text = {
+                { text = "(" },
+                { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+                { text = ")" },
+            },
+            calc_function = function(card)
+                local words = 0
+                local played_hand = JokerDisplay.current_hand
+                for _, scoring_card in pairs(played_hand) do
+                    if scoring_card:get_id() == 11 or scoring_card:get_id() == 12 or scoring_card:get_id() == 13 or scoring_card:get_id() == 14 then
+                        words = words + 1
+                    end
+                end
+                card.joker_display_values.x_mult = math.max(1, card.ability.extra.xmult_per_card * words)
+                card.joker_display_values.localized_text = localize('Ace', 'ranks') .. ", " .. localize('King', 'ranks') .. ", " .. localize('Queen', 'ranks') .. ", " .. localize('Jack', 'ranks')
+            end
+        }
     end
   
 }

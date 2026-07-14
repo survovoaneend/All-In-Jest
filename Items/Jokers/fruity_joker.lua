@@ -68,7 +68,37 @@ local fruity_joker = {
             }
         end
       end
+    end,
+
+    joker_display_def = function(JokerDisplay)
+        ---@type JDJokerDefinition
+        return {
+            text = {
+                { text = "+" },
+                { ref_table = "card.joker_display_values", ref_value = "mult", retrigger_type = "mult" }
+            },
+            text_config = { colour = G.C.MULT },
+            calc_function = function(card)
+                card.joker_display_values.x_mult = 0
+                local count = 0
+                local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+                if text ~= 'Unknown' then
+                    for _, scoring_card in pairs(scoring_hand) do
+                        if scoring_card.edition and scoring_card.edition.key == 'e_polychrome' then
+                            count = count + 1
+                        end
+                    end
+                end
+                if G.jokers then
+                    for _, joker_card in ipairs(G.jokers.cards) do
+                        if joker_card.edition and joker_card.edition.key == 'e_polychrome' then
+                            count = count + 1
+                        end
+                    end
+                end
+                card.joker_display_values.mult = card.ability.extra.mult * count
+            end
+        }
     end
-  
 }
 return { name = {"Jokers"}, items = {fruity_joker} }

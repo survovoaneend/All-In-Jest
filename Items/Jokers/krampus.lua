@@ -66,6 +66,35 @@ local krampus = {
         }
       end
     end
+  end,
+
+  joker_display_def = function(JokerDisplay)
+      ---@type JDJokerDefinition
+      return {
+          text = {
+              { text = "$" },
+              { ref_table = "card.joker_display_values", ref_value = "dollars", retrigger_type = "mult" }
+          },
+          text_config = { colour = G.C.GOLD },
+          reminder_text = {
+              { text = "(" },
+              { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
+              { text = ")" },
+          },
+          calc_function = function(card)
+              local dollars = 0
+              local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+              if text ~= 'Unknown' then
+                  for _, scoring_card in pairs(scoring_hand) do
+                      if scoring_card.ability.name and scoring_card.ability.name == 'Stone Card' then
+                          dollars = dollars + card.ability.extra.dollars * JokerDisplay.calculate_card_triggers(scoring_card, scoring_hand)
+                      end
+                  end
+              end
+              card.joker_display_values.dollars = dollars
+              card.joker_display_values.localized_text = localize { type = 'name_text', set = 'Enhanced', key = 'm_stone' }
+          end
+      }
   end
 }
 return { name = { "Jokers" }, items = { krampus } }
