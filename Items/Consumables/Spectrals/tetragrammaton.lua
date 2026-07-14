@@ -46,7 +46,7 @@ local tetragrammaton = {
 				-- G.SETTINGS.paused = true
 				G.FUNCS.overlay_menu({
 					config = { no_esc = true },
-					definition = create_UIBox_rummikub("c_aij_tetragrammaton_set_submit"),
+					definition = create_UIBox_nonstandard("c_aij_tetragrammaton_set_submit"),
 				})
 				return true
 			end,
