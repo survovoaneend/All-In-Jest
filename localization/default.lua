@@ -198,11 +198,13 @@ return {
             aij_torn = "Torn",
             -- Stickers
             aij_marked = "Marked",
+            pinned = "Pinned",
             aij_unusual_doubled = "Doubled",
             aij_recherche_doubled = "Doubled",
             -- Seals
             aij_smiley_seal = "Smiley Seal",
             aij_melted_seal = "Melted Seal",
+            aij_eye_seal = "Eye Seal",
             -- Other
             aij_jest_chaotic_card = "Chaotic", -- Treated internally as a sticker
         },
@@ -220,6 +222,26 @@ return {
             k_aij_line1 = { "Hey." },
             k_aij_line2 = { "You've been playing", "for a while now,", "and I was thinking..." },
             k_aij_line3 = { "Isn't it about time", "you went all in?" },
+        },
+        achievement_names = {
+            ach_aij_world_minus_one = "World -1",
+            ach_aij_world_minus_one_hidden = "???",
+            ach_aij_karat = "18 Karat",
+            ach_aij_karat_hidden = "???",
+        },
+        achievement_descriptions = {
+            ach_aij_world_minus_one = {
+                "Reach Ante -1",
+            },
+            ach_aij_world_minus_one_hidden = {
+                "Reach Ante -1",
+            },
+            ach_aij_karat = {
+                "Discover all Gold Tags"
+            },
+            ach_aij_karat_hidden = {
+                "Discover all Gold Tags"
+            },
         }
     },
     descriptions = {
@@ -284,6 +306,24 @@ return {
                     '{C:attention}patch{} at once'
                 }
             },
+            b_aij_coupon = {
+                name = 'Coupon Deck',
+                text = {
+                    '{C:attention}2{} Vouchers available for',
+                    'purchase each {C:attention}Ante',
+                    '{C:red}Weirder{} Vouchers may appear'
+                },
+                unlock = {
+                    '',
+                }
+            },
+            b_aij_coupon_hidden = {
+                name = 'Coupon Deck',
+                text = {},
+                unlock = {
+                    '',
+                }
+            },
             b_aij_melded = {
                 name = 'Melded Deck',
                 text = {
@@ -304,7 +344,27 @@ return {
                     "decks on at least",
                     "{V:1}#2#{} difficulty",
                 }
-            }
+            },
+            b_aij_madcap = {
+                name = 'Madcap Deck',
+                text = {
+                    '{C:attention}+2{} Options available in',
+                    '{C:attention}Standard Packs',
+                    'All cards in {C:attention}Standard Packs',
+                    'have a random {C:attention}Enhancement',
+                    '{C:red}Weirder{} Enhancements may appear'
+                },
+                unlock = {
+                    '',
+                }
+            },
+            b_aij_madcap_hidden = {
+                name = 'Madcap Deck',
+                text = {},
+                unlock = {
+                    '',
+                }
+            },
         },
         Stake = All_in_Jest.config.blue_stake_rework and {
             stake_blue = {
@@ -990,6 +1050,30 @@ return {
                     '{C:attention}poker hand{} by {C:attention}#3#{} level.'
                 }
             },
+            m_aij_memphis = {
+                name = "Memphis Card",
+                text = {
+                    '{X:mult,C:white}X#1#{} Mult for each',
+                    '{C:attention}Blind{} skipped this run',
+                    '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult)',
+                }
+            },
+            m_aij_lunar = {
+                name = "Lunar Card",
+                text = {
+                    'Apply {C:chips}Chips{} to {C:attention}Poker',
+                    '{C:attention}Hand permanently{}',
+                    'instead of scoring'
+                }
+            },
+            m_aij_cloud = {
+                name = "Cloud Card",
+                text = {
+                    '{C:attention}Always{} shuffled to',
+                    'the {C:attention}top half{} of',
+                    'the {C:attention}deck'
+                }
+            },
         },
         Voucher = {
             v_aij_fairy_dust = {
@@ -1084,6 +1168,18 @@ return {
                     '{C:attention}Adds{} an additional',
                     'random {C:uncommon}Uncommon Pack',
                     'to every {C:money}shop',
+                },
+            },
+            v_aij_raw_mult = {
+                name = "Raw Mult",
+                text = {
+                    '{C:mult}+#1#{} Mult',
+                },
+            },
+            v_aij_refined_mult = {
+                name = "Refined Mult",
+                text = {
+                    '{X:mult,C:white}X#1#{} Mult',
                 },
             },
         },
@@ -7395,8 +7491,6 @@ return {
                         'Create 4 {C:attention}random{} playing cards',
                         'and add them to the deck'
                     }
-                    
-
                 }
             },
             c_aij_trefle = {
@@ -7420,7 +7514,9 @@ return {
             c_aij_scopophobia = {
                 name = 'Scopophobia',
                 text = {
-                    '',
+                    'Add a {V:1}#2#',
+                    'to {C:attention}#1#{} selected',
+                    'cards in your hand'
                 }
             },
             c_aij_maw = {
@@ -7481,6 +7577,12 @@ return {
                     'Permanently {C:red}removes{} a',
                     '{C:tarot}Tarot{} Card of your ',
                     'choice from the {C:attention}pool'
+                }
+            },
+            c_aij_providence = {
+                name = 'Providence',
+                text = {
+                    'Gives an {C:attention}Astrology Tag{}'
                 }
             },
             c_aij_ketu = {
@@ -7849,6 +7951,13 @@ return {
                 name = 'Chaos Tag',
                 text = {
                     "Has a {C:red}random{} effect"
+                }
+            },
+            tag_aij_astrology = {
+                name = 'Astrology Tag',
+                text = {
+                    '{C:attention}Retrigger{} the next used',
+                    '{C:planet}Planet{} Card {C:attention}2-4{} times'
                 }
             },
             -- Gold Tags
@@ -8247,6 +8356,22 @@ return {
                     "{C:attention}#2#s{}"
                 }
             },
+            c_aij_star_magi = {
+                name = 'Star of the Magi',
+                text = {
+                    "{C:attention}Create{} a random",
+                    "Passigrade {C:aij_astral}Astral{}",
+                    "card",
+                }
+            },
+            c_aij_rising_dead = {
+                name = 'The Rising of the Dead',
+                text = {
+                    "Select {C:attention}#1#{} cards, give the",
+                    "{C:attention}right{} card the {C:attention}Enhancement",
+                    "and {C:attention}Seal{} of the {C:attention}left"
+                }
+            },
             c_aij_broken_fate = {
                 name = 'Broken Fate',
                 text = {
@@ -8565,6 +8690,13 @@ return {
                     'or {C:red}discarded'
                 }
             },
+            pinned = {
+                name = "Pinned",
+                text = {
+                    'This {C:attention}Joker{} is pinned to',
+                    'the {C:attention}leftmost{} position'
+                }
+            },
             aij_unusual_doubled = {
                 name = "Doubled",
                 text = {
@@ -8604,6 +8736,14 @@ return {
                     'When held in {C:attention}hand{},',
                     '{C:attention}transforms{} into first',
                     'non-{V:1}Melted{} {C:attention}seal{} scored'
+                }
+            },
+            aij_eye_seal = {
+                name = "Eye Seal",
+                text = {
+                    'Triggers {C:attention}held in hand',
+                    'effects when still in',
+                    'the {C:attention}deck'
                 }
             },
             -- Credits page jokers
@@ -8670,7 +8810,6 @@ return {
                     '{C:inactive}"Skibby Dee"'
                 },
             },
-            
             jamie_credits_info = {
                 name = "Jamie!",
                 text = {

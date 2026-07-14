@@ -59,6 +59,15 @@ if All_in_Jest.config.blue_stake_rework then
     },true)
 end
 
+SMODS.Sticker:take_ownership('pinned', { 
+    pos = { x = 4, y = 1 },
+    atlas = 'stickers_atlas',
+    inject = function(self)
+        SMODS.Sticker.inject(self)
+        G.shared_sticker_pinned = self.sticker_sprite
+    end,
+},true)
+
 -- [[ Overriding Deck Skins ]] --
 --G.FUNCS.change_collab = function(args)
 --  if args.cycle_config.rank_table.cycle_config.current_option == 1 then
@@ -666,9 +675,27 @@ function ease_ante(mod)
         G.GAME.all_in_jest.unused_discards.ante = 0
         G.GAME.jest_kasperle_voucher_ante = false
     end
+    check_for_unlock({type = 'ante_change', ante = G.GAME.round_resets.ante, ante_change = mod})
     
     local ref = ease_anteref(mod)
     return ref
+end
+
+local set_discover_talliesref = set_discover_tallies
+function set_discover_tallies()
+    set_discover_talliesref()
+    G.DISCOVER_TALLIES['gold_tags'] = {tally = 0, of = 0}
+    for _, v in pairs(G.P_TAGS) do
+        if not v.no_collection then
+            if v.config and v.config.aij and v.config.aij.upgrade then
+                G.DISCOVER_TALLIES.gold_tags.of = G.DISCOVER_TALLIES.gold_tags.of+1
+                if v.discovered then 
+                    G.DISCOVER_TALLIES.gold_tags.tally = G.DISCOVER_TALLIES.gold_tags.tally+1
+                end
+            end
+        end
+    end
+    if check_for_unlock then check_for_unlock({type = 'discover_gold_tag'}) end
 end
 
 SMODS.jest_Badge = {

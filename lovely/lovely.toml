@@ -34,6 +34,11 @@ if next(SMODS.find_card("j_aij_bouffon")) and context.cardarea == G.deck then
         end
     end
 end
+if card.seal and card.seal == 'aij_eye' and context.cardarea == G.deck then
+    context.cardarea = G.hand
+    SMODS.score_card(card, context)
+    context.cardarea = G.deck
+end
 if next(SMODS.find_card("j_aij_ninja")) and context.cardarea == G.play and not context.j_aij_ninja_triggered and #context.scoring_hand > 1 then
     for k, v in pairs(SMODS.find_card("j_aij_ninja")) do
         if card == context.scoring_hand[#context.scoring_hand] then
@@ -2797,6 +2802,18 @@ payload = '''
 SMODS.calculate_context({all_in_jest = {before_using_consumeable = true, consumeable = self, area = area }})
 '''
 
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = "SMODS.calculate_context({using_consumeable = true, consumeable = card, area = card.from_area})"
+position = "after" 
+match_indent = true
+payload = '''
+for i = #G.GAME.tags, 1, -1 do
+    if G.GAME.tags[i]:apply_to_run({type = 'using_consumeable', consumeable = card, area = card.from_area}) then break end
+end
+'''
+
 # TODO: fix this
 # This patch is weird, applies to too many places and creates dead code
 [[patches]]
@@ -3175,6 +3192,18 @@ if has_circuit_diagram then
         end
     end
 end
+for i = #self.cards, 1, -1 do
+    local card = self.cards[i]
+    if SMODS.has_enhancement(card, 'm_aij_cloud') then
+        table.remove(self.cards, i)
+
+        local half = math.floor(#self.cards / 2)
+        local pos = pseudorandom('jest_astrology_tag', half + 1, #self.cards + 1)
+
+        table.insert(self.cards, pos, card)
+    end
+end
+
 '''
 match_indent = true
 

@@ -44,6 +44,12 @@ SMODS.Atlas {
   py = 95
 }
 SMODS.Atlas {
+  key = "achievement_atlas",
+  path = "achievements.png",
+  px = 71,
+  py = 71
+}
+SMODS.Atlas {
   key = "hires_joker",
   path = "HiRes_Joker.png",
   px = 1050,
@@ -105,6 +111,18 @@ SMODS.Atlas {
   px = 71,
   py = 95
 }
+SMODS.Atlas({
+    key = 'joker_parts',
+    path = 'parts/joker_parts.png',
+    px = '71',
+    py = '95',
+})
+SMODS.Atlas({
+    key = 'nooutline_joker_parts',
+    path = 'parts/nooutline_joker_parts.png',
+    px = '71',
+    py = '95',
+})
 SMODS.Atlas {
   key = "enhancements_atlas",
   path = "enhancements.png",
