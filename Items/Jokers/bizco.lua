@@ -47,34 +47,32 @@ local bizco = {
                 end
             end
         end
-        if context.individual and context.cardarea == G.play then
-            if context.other_card == context.scoring_hand[#context.scoring_hand] and not context.repetition then
-                local juiced_card = context.blueprint_card or card
-                return {
-                    card = juiced_card,
-                    func = function()
-                        for i = 1, math.min(card.ability.extra.extra_scoring_cards, #G.hand.cards) do
-                            local target_card = G.hand.cards[i]
-                            if target_card then
-                                G.E_MANAGER:add_event(Event({
-                                    func = function()
-                                        juiced_card:juice_up()
-                                        return true
-                                    end
-                                }))
-                                local new_context = {
-                                  cardarea = context.cardarea,
-                                  full_hand = context.full_hand,
-                                  scoring_hand = context.scoring_hand,
-                                  scoring_name = context.scoring_name,
-                                  poker_hands = context.poker_hands
-                                }
-                                SMODS.score_card(target_card, new_context)
-                            end
+        if context.all_in_jest and context.all_in_jest.after_scoring_cards then
+            local juiced_card = context.blueprint_card or card
+            return {
+                card = juiced_card,
+                func = function()
+                    for i = 1, math.min(card.ability.extra.extra_scoring_cards, #G.hand.cards) do
+                        local target_card = G.hand.cards[i]
+                        if target_card then
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    juiced_card:juice_up()
+                                    return true
+                                end
+                            }))
+                            local new_context = {
+                              cardarea = G.play, 
+                              full_hand = context.full_hand,
+                              scoring_hand = context.scoring_hand,
+                              scoring_name = context.scoring_name,
+                              poker_hands = context.poker_hands
+                            }
+                            SMODS.score_card(target_card, new_context)
                         end
                     end
-                }
-            end
+                end
+            }
         end
 
         if context.after and not context.blueprint then

@@ -15,7 +15,7 @@ local event_horizon = {
     cost = 8,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = true,
     
     loc_vars = function(self, info_queue, card)
@@ -29,7 +29,7 @@ local event_horizon = {
     end,
     
     calculate = function(self, card, context)
-        if context.poker_hand_changed and context.new_level > context.old_level then
+        if context.poker_hand_changed and context.new_level > context.old_level and not context.blueprint then
             local amt = context.new_level - context.old_level
             if amt > 1 or card.ability.extra.last_hand == context.scoring_name then
                 card.ability.extra.xmult = 1

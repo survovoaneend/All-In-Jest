@@ -15,7 +15,7 @@ local glasgow_smile = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
+    blueprint_compat = true,
     eternal_compat = false,
     enhancement_gate = 'm_bonus',
 
