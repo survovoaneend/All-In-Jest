@@ -5,7 +5,7 @@ local astrology_tag = {
     ignore = true,
     atlas = 'tag_atlas',
     discovered = false,
-    order = 7,
+    order = 8,
 
     loc_vars = function(self, info_queue)
     end,

@@ -285,6 +285,28 @@ return {
                     'blinds in a run',
                 }
             },
+            b_aij_twofold = {
+                name = 'Twofold Deck',
+                text = {
+                    '{C:attention}Boss Blinds{} have {C:attention}2{} ',
+                    'Effects',
+                    '{C:attention}Doubles{} Joker effects,',
+                    'blind payouts, blind',
+                    'size, and shop slots',
+                    'Start with {C:attention}twice{} as many',
+                    '{C:attention}cards{} in your deck'
+                },
+                unlock = {
+                    '',
+                }
+            },
+            b_aij_twofold_hidden = {
+                name = 'Twofold Deck',
+                text = {},
+                unlock = {
+                    '',
+                }
+            },
             b_aij_patchwork = {
                 name = 'Patchwork Deck',
                 text = {
@@ -7951,6 +7973,14 @@ return {
                 name = 'Chaos Tag',
                 text = {
                     "Has a {C:red}random{} effect"
+                }
+            },
+            tag_aij_misprinted = {
+                name = 'Misprinted Tag',
+                text = {
+                    'Next base edition shop',
+                    'Joker is free and',
+                    'becomes {E:aij_misprinted_red}Misprinted{}'
                 }
             },
             tag_aij_astrology = {

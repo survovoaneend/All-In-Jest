@@ -3217,3 +3217,103 @@ All_in_Jest.load_shaders = function()
     G.SHADERS['aij_burnt_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/burnt_spritesheet.fs"))
     G.SHADERS['aij_fusion_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/fusion_spritesheet.fs"))
 end
+
+function dynatext_aij_draw(self)
+    if self.children.particle_effect then self.children.particle_effect:draw() end
+    self.font_buffer = self.font
+    self.font = self.strings[self.focused_string].font or self.font_buffer or G.LANG.font
+    self.text_offset = {
+        x = self.font.TEXT_OFFSET.x*self.scale + (self.config.x_offset or 0),
+        y = self.font.TEXT_OFFSET.y*self.scale + (self.config.y_offset or 0),
+    }
+    local start_index = 1
+    local end_index = #self.strings[self.focused_string].letters
+    if self.config.marquee and self.config.marquee ~= 'no' then
+        local padding = math.floor(#self.strings[self.focused_string].letters / (self.config.marquee_width or 1)) - 1
+        if self.dt and (self.dt - self.config.hold) / self.config.scroll_speed > (#self.strings[self.focused_string].letters + math.ceil(padding/4)) then self.dt = 0 end
+        if self.dt and self.dt > self.config.hold then
+            start_index = 1 + (math.floor((self.dt - self.config.hold) / self.config.scroll_speed) % (#self.strings[self.focused_string].letters + math.ceil(padding/4)))
+        end
+        end_index = math.min(start_index + padding, #self.strings[self.focused_string].letters)
+    end
+
+    if self.shadow then 
+        prep_draw(self, 1)
+        love.graphics.translate(self.strings[self.focused_string].W_offset + self.text_offset.x*self.font.FONTSCALE/G.TILESIZE, self.strings[self.focused_string].H_offset + self.text_offset.y*self.font.FONTSCALE/G.TILESIZE)
+        if self.config.spacing then love.graphics.translate(self.config.spacing*self.font.FONTSCALE/G.TILESIZE, 0) end
+        if self.config.shadow_colour then
+            love.graphics.setColor(self.config.shadow_colour)
+        else 
+            love.graphics.setColor(0, 0, 0, 0.3*self.colours[1][4])
+        end
+        for k=start_index, end_index do
+            local letter = self.strings[self.focused_string].letters[k]
+            local real_pop_in = self.config.min_cycle_time == 0 and 1 or letter.pop_in
+            if self.config.text_effect and SMODS.DynaTextEffects[self.config.text_effect] and type(SMODS.DynaTextEffects[self.config.text_effect].draw_shadow) == "function" then
+                SMODS.DynaTextEffects[self.config.text_effect].draw_shadow(self, k, letter) -- shadow
+            else
+                local letter_shaders = SMODS.resolve_ui_shaders(self, self.states.visible and letter.shader or (self.shaders and self.shaders[k%#self.shaders + 1]), nil)
+                for _, v in ipairs(letter_shaders) do
+                    if v then self:set_letter_shader(v.shader, v.send, true, letter) end
+                        love.graphics.draw(
+                            letter.letter,
+                            0.5*(letter.dims.x - letter.offset.x)*self.font.FONTSCALE/G.TILESIZE -self.shadow_parrallax.x*self.scale/(G.TILESIZE),
+                            0.5*(letter.dims.y)*self.font.FONTSCALE/G.TILESIZE -self.shadow_parrallax.y*self.scale/(G.TILESIZE), 
+                            letter.r or 0,
+                            real_pop_in*self.scale*self.font.FONTSCALE/G.TILESIZE,
+                            real_pop_in*self.scale*self.font.FONTSCALE/G.TILESIZE,
+                            0.5*letter.dims.x/self.scale,
+                            0.5*letter.dims.y/self.scale
+                        )
+                    if v then self:set_letter_shader() end
+                end
+            end
+            love.graphics.translate(letter.dims.x*self.font.FONTSCALE/G.TILESIZE, 0)
+        end
+        love.graphics.pop()
+    end
+
+    prep_draw(self, 1)
+    love.graphics.translate(self.strings[self.focused_string].W_offset + self.text_offset.x*self.font.FONTSCALE/G.TILESIZE, self.strings[self.focused_string].H_offset + self.text_offset.y*self.font.FONTSCALE/G.TILESIZE)
+    if self.config.spacing then love.graphics.translate(self.config.spacing*self.font.FONTSCALE/G.TILESIZE, 0) end
+    self.ARGS.draw_shadow_norm = self.ARGS.draw_shadow_norm or {}
+    local _shadow_norm = self.ARGS.draw_shadow_norm
+    _shadow_norm.x, _shadow_norm.y = 
+        self.shadow_parrallax.x/math.sqrt(self.shadow_parrallax.y*self.shadow_parrallax.y + self.shadow_parrallax.x*self.shadow_parrallax.x)*self.font.FONTSCALE/G.TILESIZE,
+        self.shadow_parrallax.y/math.sqrt(self.shadow_parrallax.y*self.shadow_parrallax.y + self.shadow_parrallax.x*self.shadow_parrallax.x)*self.font.FONTSCALE/G.TILESIZE
+    
+    for k=start_index, end_index do
+        local letter = self.strings[self.focused_string].letters[k]
+        local real_pop_in = self.config.min_cycle_time == 0 and 1 or letter.pop_in
+        love.graphics.setColor(letter.prefix or letter.suffix or letter.colour or self.colours[k%#self.colours + 1])
+
+        if self.config.text_effect and SMODS.DynaTextEffects[self.config.text_effect] and type(SMODS.DynaTextEffects[self.config.text_effect].draw_letter) == "function" then
+            SMODS.DynaTextEffects[self.config.text_effect].draw_letter(self, k, letter, false) -- actual text
+        else
+            local letter_shaders = SMODS.resolve_ui_shaders(self, self.states.visible and letter.shader or (self.shaders and self.shaders[k%#self.shaders + 1]), nil)
+            for _, v in ipairs(letter_shaders) do
+                if v then self:set_letter_shader(v.shader, v.send, false, letter) end
+                love.graphics.draw(
+                    letter.letter,
+                    0.5*(letter.dims.x - letter.offset.x)*self.font.FONTSCALE/G.TILESIZE + _shadow_norm.x,
+                    0.5*(letter.dims.y - letter.offset.y)*self.font.FONTSCALE/G.TILESIZE + _shadow_norm.y, 
+                    letter.r or 0,
+                    real_pop_in*letter.scale*self.scale*self.font.FONTSCALE/G.TILESIZE,
+                    real_pop_in*letter.scale*self.scale*self.font.FONTSCALE/G.TILESIZE,
+                    0.5*letter.dims.x/(self.scale),
+                    0.5*letter.dims.y/(self.scale)
+            )
+                if v then self:set_letter_shader() end
+            end
+        end
+        love.graphics.translate(letter.dims.x*self.font.FONTSCALE/G.TILESIZE, 0)
+    end
+    love.graphics.pop()
+
+    add_to_drawhash(self)
+    self:draw_boundingrect()
+    if self.font_buffer then
+        self.font = self.font_buffer
+        self.font_buffer = nil
+    end
+end
