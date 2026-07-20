@@ -1,9 +1,3 @@
-SMODS.Atlas({
-    key = 'random_joker',
-    path = 'parts/randomjoker_template.png',
-    px = '71',
-    py = '95',
-})
 function aij_outline_image(imagedata, outline_color)
     local scale = 1
     local w, h = imagedata:getWidth(), imagedata:getHeight()
