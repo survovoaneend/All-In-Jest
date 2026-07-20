@@ -1906,6 +1906,18 @@ function All_in_Jest.reset_game_globals(run_start)
     end
 end
 
+SMODS.current_mod.custom_card_areas = function(game)
+	game.aij_coconut_holder = CardArea(
+		game.jokers.T.x + 12.5, game.jokers.T.y - 4,
+        game.jokers.T.w / 5, game.jokers.T.h,
+        { card_limit = 1, type = 'joker', highlight_limit = 1 }
+	)
+    local temp_card = create_card('Joker', G.aij_coconut_holder, nil, nil, nil, nil, 'j_aij_coconut', 'aij_coconut_holder')
+    temp_card:start_materialize(nil, true)
+    temp_card.ability.jest_got_no_ui = true
+    G.aij_coconut_holder:emplace(temp_card)
+end
+
 --Replaces shop voucher
 function All_in_Jest.reroll_shop_voucher(key)
     if G.GAME.current_round.voucher.spawn[G.GAME.current_round.voucher[1]] then

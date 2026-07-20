@@ -3,7 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-#Eye Seal, For end of round scoring
+# Eye Seal, For end of round scoring
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
@@ -1568,6 +1568,28 @@ local use = nil
 position = 'after'
 payload = '''
 local aij_activate_ability = nil
+'''
+match_indent = true
+
+# Coconut
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+if card.ability.consumeable and card.area == G.pack_cards and G.pack_cards and booster_obj then
+'''
+position = 'before'
+payload = '''
+if card.area and card.area == G.aij_coconut_holder then
+    sell = nil
+    local use_button = {n=G.UIT.T, config={text = localize('k_delete'),colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true}}
+    aij_activate_ability = {n=G.UIT.C, config={align = "cr"}, nodes={
+        {n=G.UIT.C, config={ref_table = card, align = "cr",maxw = 1.25, padding = 0.1, r=0.08, minw = 1.25, minh = (card.area and card.area.config.type == 'joker') and 0 or 1.3, hover = true, shadow = true, colour = G.C.RED, button = 'aij_coconut_delete'}, nodes={
+            {n=G.UIT.B, config = {w=0.1,h=-0.3}},
+            use_button,
+        }}
+    }}
+end
 '''
 match_indent = true
 

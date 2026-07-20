@@ -10,6 +10,7 @@ return {
             k_moon_q = "Moon?",
             k_star = "Star",
             k_tag = "Tag",
+            k_delete = "Delete",
             k_star_q = "Star?",
             k_asteroid = "Asteroid",
             k_tarot_q = "Tarot?",

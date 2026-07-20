@@ -690,6 +690,22 @@ G.FUNCS.All_in_Jest_use_active_ability_button = function(e, mute, nosave)
     SMODS.calculate_context({all_in_jest = {using_ability = true, card = card, area = card.from_area}})
 end
 
+G.FUNCS.aij_coconut_delete = function(e, mute, nosave)
+    stop_use()
+    
+    local card = e.config.ref_table
+    local area = card.area
+
+    card:All_in_Jest_start_dissolve()
+    G.E_MANAGER:add_event(Event({
+        func = (function()
+            error("Coconut.joker not found")
+            return true
+        end)
+    }))
+end
+
+
 G.FUNCS.All_in_Jest_select_tag = function(e)
     local number = e.config.ref_table[1]
     local tag = e.config.ref_table[2]
