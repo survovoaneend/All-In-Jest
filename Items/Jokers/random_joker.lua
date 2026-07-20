@@ -1,6 +1,6 @@
 SMODS.Atlas({
     key = 'random_joker',
-    path = 'parts/randomjoker.png',
+    path = 'parts/randomjoker_template.png',
     px = '71',
     py = '95',
 })
@@ -25,10 +25,8 @@ function aij_outline_image(imagedata, outline_color)
             if alpha == 0 then
                 local hit = false
 
-                -- search radius = scale
                 for dy = -scale, scale do
                     for dx = -scale, scale do
-                        -- optional: Manhattan distance for sharper corners
                         if math.abs(dx) + math.abs(dy) <= scale then
                             local nx, ny = x + dx, y + dy
                             if nx >= 0 and nx < w and ny >= 0 and ny < h then
@@ -63,7 +61,6 @@ local function aij_downscale_imagedata(src, scale)
 
     for y = 0, nh - 1 do
         for x = 0, nw - 1 do
-            -- sample top-left pixel of the block
             local r,g,b,a = src:getPixel(x * scale, y * scale)
             dst:setPixel(x, y, r, g, b, a)
         end
@@ -99,23 +96,9 @@ local function aij_upscale_imagedata(src, scale)
     return dst
 end
 
-
-local function aij_pasteAlpha(base, layer, x, y)
-    local w, h = layer:getWidth(), layer:getHeight()
-    for i = 0, w-1 do
-        for j = 0, h-1 do
-            local r, g, b, a = layer:getPixel(i, j)
-            if a > 0 then
-                base:setPixel(x + i, y + j, r, g, b, a)
-            end
-        end
-    end
-end
-
 local random_joker = {
     object_type = "Joker",
     order = 762,
-    ignore = true,
     key = "random_joker",
     config = {
         extra = {
@@ -124,6 +107,7 @@ local random_joker = {
     },
     rarity = 1,
     pos = { x = 0, y = 0 },
+    ignore = true,
     atlas = 'aij_random_joker',
     cost = 4,
     unlocked = true,
@@ -148,36 +132,48 @@ local random_joker = {
         end
         --First to Last {Head, Other Misc, Ruff, Body Decal, Mouth, Eyes, Nose, Face Misc, Hat, Overlay}
         local prefixes = {
-            {key = 'eyes', order = 5}, 
-            {key = 'facemisc', order = 7, chance = 40}, 
-            {key = 'hat', order = 8},
-            {key = 'mouth', order = 4}, 
-            {key = 'nose', order = 6},
-            {key = 'ruff', order = 2}, 
-            {key = 'head', order = 0},
-            {key = 'bodydecal', order = 3, chance = 40},
-            {key = 'overlay', order = 9, chance = 20},
+            {key = 'eyes', order = 5, pos_y = 1, amt = 469}, 
+            {key = 'facemisc', order = 7, chance = 40, pos_y = 2, amt = 13}, 
+            {key = 'hat', order = 8, pos_y = 3, amt = 310, no_amt = 5},
+            {key = 'mouth', order = 4, pos_y = 4, amt = 38}, 
+            {key = 'nose', order = 6, pos_y = 5, amt = 29},
+            {key = 'ruff', order = 2, pos_y = 6, amt = 43}, 
+            {key = 'head', order = 0, pos_y = 7, amt = 1},
+            {key = 'bodydecal', order = 3, chance = 40, pos_y = 8, amt = 9},
+            {key = 'overlay', order = 9, chance = 20, pos_y = 9, amt = 17, no_amt = 24},
         }
+        local hypos = 0
+        for k, v in pairs(prefixes) do
+            if v.pos_y then
+                hypos = math.max(hypos, v.pos_y)
+            end
+        end
         local random_joker_files = {}
-        for k, v in pairs(G.ASSET_ATLAS) do
-            local prefix = 'aij_randomjoker_'
+        local base_data = G.ASSET_ATLAS['aij_joker_parts']
+        local nooutline_data = G.ASSET_ATLAS['aij_nooutline_joker_parts']
+        for i = 0, hypos do
             local outer_prefix = ''
+            local o_index = 0
             for k_, v_ in pairs(prefixes) do
-                local key = v_.key
-                if string.find(k, prefix..key) then
-                    outer_prefix = key
-                    break
+                if i == v_.pos_y then
+                    outer_prefix = v_.key
+                    o_index = k_
                 end
             end
             if outer_prefix ~= '' then
                 local location = outer_prefix
                 random_joker_files[location] = random_joker_files[location] or {}
                 local index = #random_joker_files[location]+1
-                local has_outline = true
-                if string.find(k, prefix..outer_prefix..'_nooutline') then
-                    has_outline = false
+                for j = 0, (prefixes[o_index].amt-1) do
+                    index = #random_joker_files[location]+1
+                    random_joker_files[location][index] = {data = base_data, outline = true, pos = {x=j,y=i}}
                 end
-                random_joker_files[location][index] = {data = v, outline = has_outline}
+                if prefixes[o_index].no_amt then
+                    for j = 0, (prefixes[o_index].no_amt-1) do
+                        index = #random_joker_files[location]+1
+                        random_joker_files[location][index] = {data = nooutline_data, outline = false, pos = {x=j,y=i}}
+                    end
+                end
             end
         end
         local base = G.ASSET_ATLAS['aij_random_joker'].image_data:clone()
@@ -189,28 +185,29 @@ local random_joker = {
             if random_joker_files[location] then
                 local table = pseudorandom_element(random_joker_files[location], pseudoseed('randomjoker'))
                 local data = table.data.image_data:clone()
-                layers[v_.order+1] = {key = key, data = data, order = v_.order, chance = v_.chance or nil, outline = table.outline}
+                layers[v_.order+1] = {key = key, data = data, order = v_.order, chance = v_.chance or nil, outline = table.outline, pos = table.pos}
             end
         end
 
         local scale = G.SETTINGS.GRAPHICS.texture_scaling or 1
         
         local first_layer = layers[1].data
+        local first_layer_pos = layers[1].pos
         local outline = layers[1].data:clone()
         for k, v in pairs(layers) do
             if v.data ~= first_layer then
                 if v.chance then
                     local has_part = pseudoseed('randomjoker_'..v.key)
                     if has_part <= (v.chance*0.01) then
-                        aij_pasteAlpha(first_layer, v.data, 0, 0)
+                        aij_pasteAlpha(first_layer, v.data, nil, v.pos, {lpx = 71, lpy = 95, bpx = 71, bpy = 95})
                         if v.outline then
-                            aij_pasteAlpha(outline, v.data, 0, 0)
+                            aij_pasteAlpha(outline, v.data, nil, v.pos, {lpx = 71, lpy = 95, bpx = 71, bpy = 95})
                         end
                     end
                 else
-                    aij_pasteAlpha(first_layer, v.data, 0, 0)
+                    aij_pasteAlpha(first_layer, v.data, nil, v.pos, {lpx = 71, lpy = 95, bpx = 71, bpy = 95})
                     if v.outline then
-                        aij_pasteAlpha(outline, v.data, 0, 0)
+                        aij_pasteAlpha(outline, v.data, nil, v.pos, {lpx = 71, lpy = 95, bpx = 71, bpy = 95})
                     end
                 end
             end
@@ -219,11 +216,9 @@ local random_joker = {
         outline = aij_downscale_imagedata(outline, scale) --Couldn't apply outline correctly so i just scaled it down and back up
         outline = aij_outline_image(outline, HEX('4f6367'))
         outline = aij_upscale_imagedata(outline, scale)
-        aij_pasteAlpha(base, outline, 0, 0)
-        aij_pasteAlpha(base, first_layer, 0, 0)
+        aij_pasteAlpha(base, outline, nil, first_layer_pos, {lpx = 71, lpy = 95, bpx = 71, bpy = 95})
+        aij_pasteAlpha(base, first_layer, nil, first_layer_pos, {lpx = 71, lpy = 95, bpx = 71, bpy = 95})
         
-
-
         card.children.center.atlas = {
             px = 71, py = 95, name = 'aij_random_joker',
             image_data = base,
