@@ -3317,3 +3317,47 @@ function dynatext_aij_draw(self)
         self.font_buffer = nil
     end
 end
+
+function aij_calculate_end_of_round_effects(context, i, card)
+    local reps = {1}
+    local j = 1
+    while j <= #reps do
+        card.repetition_trigger = j > 1 and j - 1
+        percent = (i-0.999)/(#context.cardarea.cards-0.998) + (j-1)*0.1
+        if reps[j] ~= 1 then
+            local _, eff = next(reps[j])
+            SMODS.calculate_effect(eff, eff.card)
+            percent = percent + 0.08
+        end
+
+        context.playing_card_end_of_round = true
+        --calculate the hand effects
+        local effects = {eval_card(card, context)}
+        SMODS.calculate_quantum_enhancements(card, effects, context)
+
+        context.playing_card_end_of_round = nil
+        context.individual = true
+        context.other_card = card
+        -- context.end_of_round individual calculations
+
+        SMODS.calculate_card_areas('jokers', context, effects, { main_scoring = true })
+        SMODS.calculate_card_areas('individual', context, effects, { main_scoring = true })
+
+        local flags = SMODS.trigger_effects(effects, card)
+
+        context.individual = nil
+        context.repetition = true
+        context.card_effects = effects
+        if reps[j] == 1 then
+            SMODS.calculate_repetitions(card, context, reps)
+        end
+
+        context.repetition = nil
+        context.card_effects = nil
+        context.other_card = nil
+        j = j + (flags.calculated and 1 or #reps)
+
+        -- TARGET: effects after end of round evaluation
+    end
+    card.repetition_trigger = nil
+end
