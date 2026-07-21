@@ -71,7 +71,11 @@ local golem = {
 				delay = 0.1,
 				func = function()
 					local enhance = SMODS.poll_enhancement({guaranteed = true, options = cen_pool, key = 'golem'})
-					All_in_Jest.set_other_enhancement(G.hand.highlighted[i], enhance)
+					if G.hand.highlighted[i].config.center.key == "m_stone" then
+						All_in_Jest.set_other_enhancement(G.hand.highlighted[i], enhance)
+					else
+						G.hand.highlighted[i]:set_ability(G.P_CENTERS[enhance], nil, true)
+					end
 					return true
 				end,
 			}))
