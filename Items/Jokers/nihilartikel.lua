@@ -44,5 +44,15 @@ local nihilartikel = {
     end
 }
 
-
+local ref_can_select_card = G.FUNCS.can_select_card
+G.FUNCS.can_select_card = function(e)
+    local card = e.config.ref_table
+    local card_limit = card.ability.card_limit - card.ability.extra_slots_used
+    if card.config.center.key == "j_aij_".."nihilartikel" then
+        e.config.colour = G.C.GREEN
+        e.config.button = 'use_card'
+    else
+        ref_can_select_card(e)
+    end
+end
 return { name = { "Jokers" }, items = { nihilartikel } }
