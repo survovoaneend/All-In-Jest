@@ -6,9 +6,10 @@ local youre_winner = {
     key = "youre_winner",
     pos = {x=3, y=1},
     hidden_pos = {x=2, y=1},
+    reset_on_version_change = true,
 
     unlock_condition = function(self, args)
-        if args.type and G.PROGRESS.aij_achievements then
+        if args.type and G.PROGRESS and G.PROGRESS.aij_achievements then
             if G.PROGRESS.aij_achievements.of == G.PROGRESS.aij_achievements.tally then
                 return true
             end
