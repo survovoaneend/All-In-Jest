@@ -229,6 +229,14 @@ return {
             ach_aij_world_minus_one_hidden = "???",
             ach_aij_karat = "18 Karat",
             ach_aij_karat_hidden = "???",
+            ach_aij_coupon_coupin_on = "Coupon Coupin' On",
+            ach_aij_coupon_coupin_on_hidden = "???",
+            ach_aij_cabinet_of_wonders = "Cabinet of Wonders",
+            ach_aij_cabinet_of_wonders_hidden = "???",
+            ach_aij_all_in = "All In",
+            ach_aij_all_in_hidden = "???",
+            ach_aij_youre_winner = "YOU'RE WINNER",
+            ach_aij_youre_winner_hidden = "???",
         },
         achievement_descriptions = {
             ach_aij_world_minus_one = {
@@ -242,6 +250,38 @@ return {
             },
             ach_aij_karat_hidden = {
                 "Discover all Gold Tags"
+            },
+            ach_aij_coupon_coupin_on = {
+                "Discover all new Vouchers",
+                "added by All in Jest"
+            },
+            ach_aij_coupon_coupin_on_hidden = {
+                "Discover all new Vouchers",
+                "added by All in Jest"
+            },
+            ach_aij_cabinet_of_wonders = {
+                "Discover all new Consumables",
+                "added by All in Jest"
+            },
+            ach_aij_cabinet_of_wonders_hidden = {
+                "Discover all new Consumables",
+                "added by All in Jest"
+            },
+            ach_aij_all_in = {
+                "Earn a Gold sticker on every",
+                "Joker added by All in Jest"
+            },
+            ach_aij_all_in_hidden = {
+                "Earn a Gold sticker on every",
+                "Joker added by All in Jest"
+            },
+            ach_aij_youre_winner = {
+                "Earn every other achievement",
+                "in All in Jest",
+            },
+            ach_aij_youre_winner_hidden = {
+                "Earn every other achievement",
+                "in All in Jest",
             },
         }
     },

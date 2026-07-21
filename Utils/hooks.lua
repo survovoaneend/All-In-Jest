@@ -700,6 +700,8 @@ local set_discover_talliesref = set_discover_tallies
 function set_discover_tallies()
     set_discover_talliesref()
     G.DISCOVER_TALLIES['gold_tags'] = {tally = 0, of = 0}
+    G.DISCOVER_TALLIES['aij_vouchers'] = {tally = 0, of = 0}
+    G.DISCOVER_TALLIES['aij_consumables'] = {tally = 0, of = 0}
     for _, v in pairs(G.P_TAGS) do
         if not v.no_collection then
             if v.config and v.config.aij and v.config.aij.upgrade then
@@ -710,7 +712,61 @@ function set_discover_tallies()
             end
         end
     end
-    if check_for_unlock then check_for_unlock({type = 'discover_gold_tag'}) end
+    for _, v in pairs(G.P_CENTERS) do
+        if not v.omit and not v.no_collection then
+            if v.mod and v.mod.name == 'All in Jest' then
+                if v.set and v.consumeable then
+                    G.DISCOVER_TALLIES.aij_consumables.of = G.DISCOVER_TALLIES.aij_consumables.of+1
+                    if v.discovered then 
+                        G.DISCOVER_TALLIES.aij_consumables.tally = G.DISCOVER_TALLIES.aij_consumables.tally+1
+                    end
+                    local tally = G.DISCOVER_TALLIES[v.set:lower()..'s']
+                    if tally then
+                        tally.of = tally.of + 1
+                        if v.discovered then
+                            tally.tally = tally.tally + 1
+                        end
+                    end
+                end
+                if v.set and v.set == 'Voucher' then
+                    G.DISCOVER_TALLIES.aij_vouchers.of = G.DISCOVER_TALLIES.aij_vouchers.of+1
+                    if v.discovered then 
+                        G.DISCOVER_TALLIES.aij_vouchers.tally = G.DISCOVER_TALLIES.aij_vouchers.tally+1
+                    end
+                end
+            end
+        end
+    end
+    if check_for_unlock then check_for_unlock({type = 'discover_aij'}) end
+end
+
+local set_profile_progressref = set_profile_progress
+function set_profile_progress()
+    set_profile_progressref()
+    local gold_stake = nil
+    for k, v in pairs(G.P_CENTER_POOLS.Stake) do
+        if v.key == 'stake_gold' then
+            gold_stake = k
+        end
+    end
+    G.PROGRESS['aij_joker_gold_stickers'] = {tally = 0, of = 0}
+    G.PROGRESS['aij_achievements'] = {tally = 0, of = 0}
+    for _, v in pairs(G.P_CENTERS) do
+        if v.set == 'Joker' and not v.no_collection and not v.omit and (v.mod and v.mod.name == 'All in Jest') then 
+            G.PROGRESS.aij_joker_gold_stickers.of = G.PROGRESS.aij_joker_gold_stickers.of + 1
+            if get_joker_win_sticker(v, true) >= gold_stake then
+                G.PROGRESS.aij_joker_gold_stickers.tally = G.PROGRESS.aij_joker_gold_stickers.tally + 1
+            end
+        end
+    end
+    for _, v in pairs(G.ACHIEVEMENTS) do
+        if v.mod and v.mod.name == 'All in Jest' then 
+            G.PROGRESS.aij_achievements.of = G.PROGRESS.aij_achievements.of + 1
+            if v.earned then
+                G.PROGRESS.aij_achievements.tally = G.PROGRESS.aij_achievements.tally + 1
+            end
+        end
+    end
 end
 
 SMODS.jest_Badge = {
