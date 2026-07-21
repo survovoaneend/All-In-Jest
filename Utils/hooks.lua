@@ -380,6 +380,16 @@ function SMODS.has_no_rank(card)
     if card.ability.numbertaker_rankless then return true end
     return has_no_rank_ref(card)
 end
+
+local get_chip_bonus_ref = Card.get_chip_bonus
+function Card:get_chip_bonus()
+    local chip_val = get_chip_bonus_ref(self)
+    if self.config.aij_other_center and self.config.aij_other_center['center'] and self.config.aij_other_center['ability'] then
+        chip_val = chip_val + (self.config.aij_other_center['ability'].bonus or 0)
+    end
+    return chip_val
+end
+
 -- For Bizco, taken from paperback
 local calculate_main_scoring_ref = SMODS.calculate_main_scoring
 function SMODS.calculate_main_scoring(context, scoring_hand)

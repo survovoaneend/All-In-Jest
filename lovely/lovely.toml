@@ -201,8 +201,11 @@ if card.config.aij_other_center and not (context.aij_inherent_enhancement or con
         card.config.center = aij_oc['center']
         card.config.center_key = aij_oc['center'].key
 
+        local temp_bonus = card.ability.bonus
+        card.ability.bonus = 0
         local eval = eval_card(card, context)
         table.insert(effects, eval)
+        card.ability.bonus = temp_bonus
 
         card.ability = old_ability
         card.config.center = old_center
