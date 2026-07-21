@@ -96,7 +96,8 @@ local youve_got_mail = {
             G.jokers:emplace(temp_card)
             temp_card:set_edition(edition, true)
             temp_card:start_materialize()
-            temp_card.ability.extra_value = (temp_card.ability.extra_value or 0) - temp_card.sell_cost
+            temp_card.aij_no_cost = true
+            temp_card.ability.extra_value = 0
             temp_card:set_cost()
             return {
                 message_card = temp_card,
