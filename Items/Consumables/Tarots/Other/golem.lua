@@ -10,18 +10,18 @@ local golem = {
 	unlocked = true,
 	discovered = false,
 	order = 24,
-	config = { max_highlight = 2 },
+	config = { max_highlighted = 2 },
 	atlas = "consumable_atlas",
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
-				card.ability.max_highlight,
+				card.ability.max_highlighted,
 			},
 		}
 	end,
 	can_use = function(self, card, area, copier)
 		if
-			card.ability.max_highlight >= #G.hand.highlighted
+			card.ability.max_highlighted >= #G.hand.highlighted
 			and #G.hand.highlighted >= 1
 		then
 			for k, v in ipairs(G.hand.highlighted) do
