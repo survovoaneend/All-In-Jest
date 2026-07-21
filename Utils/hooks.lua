@@ -390,6 +390,14 @@ function Card:get_chip_bonus()
     return chip_val
 end
 
+local set_sell_value_ref = Card.set_sell_value
+function Card:set_sell_value()
+    set_sell_value_ref(self)
+    if self.aij_no_cost then
+        self.sell_cost = self.ability.extra_value or 0
+    end
+end
+
 -- For Bizco, taken from paperback
 local calculate_main_scoring_ref = SMODS.calculate_main_scoring
 function SMODS.calculate_main_scoring(context, scoring_hand)
