@@ -8548,6 +8548,12 @@ return {
                     "Counts as a {V:1}#1#"
                 }
             },
+            aij_achievement_version = {
+                text = {
+                    "Earned during version",
+                    "{C:attention}All in Jest #1#{}"
+                }
+            },
             aij_jest_mark_of_the_spear = {
                 name = "Mark of the Spear",
                 text = {

@@ -427,6 +427,66 @@ payload = '''
 front_hidden = self.front_hidden,
 '''
 
+[[patches]] 
+[patches.pattern]
+target = '=[SMODS _ "src/ui.lua"]'
+pattern = "temp_achievement.states.collide.can = true"
+position = "after"
+payload = '''
+temp_achievement.config = {}
+temp_achievement.config.center = v
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = '=[SMODS _ "src/ui.lua"]'
+pattern = "Node.hover(temp_achievement)"
+position = "before"
+payload = '''
+if (G.ACHIEVEMENTS[temp_achievement.config.center.key].earned or G.SETTINGS.ACHIEVEMENTS_VERSIONS[temp_achievement.config.center.key]) and G.ACHIEVEMENTS[temp_achievement.config.center.key].reset_on_version_change then
+    temp_achievement.ability_UIBox_table = generate_card_ui({key = 'aij_achievement_version', set = 'Other', vars = {}}, nil, {G.SETTINGS.ACHIEVEMENTS_VERSIONS[temp_achievement.config.center.key]}, 'Other', nil, false)
+    temp_achievement.config.h_popup =  G.UIDEF.card_h_popup(temp_achievement)
+    temp_achievement.config.h_popup_config ={align = 'tm', offset = {x= 0,y=-0.1},parent = temp_achievement}
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''
+if self.reset_on_startup then
+'''
+position = "before"
+match_indent = true
+payload = '''
+local current_mod = G.ACHIEVEMENTS[self.key].mod
+if self.reset_on_version_change then
+    G.SETTINGS.ACHIEVEMENTS_VERSIONS = G.SETTINGS.ACHIEVEMENTS_VERSIONS or {}
+    if current_mod and not G.SETTINGS.ACHIEVEMENTS_VERSIONS[self.key] and G.SETTINGS.ACHIEVEMENTS_EARNED[self.key] then
+        G.SETTINGS.ACHIEVEMENTS_VERSIONS[self.key] = current_mod.version
+    end
+    if current_mod and G.SETTINGS.ACHIEVEMENTS_VERSIONS[self.key] and G.SETTINGS.ACHIEVEMENTS_VERSIONS[self.key] ~= current_mod.version then
+        if G.ACHIEVEMENTS[self.key].earned then G.ACHIEVEMENTS[self.key].earned = nil end
+        if G.SETTINGS.ACHIEVEMENTS_EARNED[self.key] then G.SETTINGS.ACHIEVEMENTS_EARNED[self.key] = nil end
+    end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "G.ACHIEVEMENTS[achievement_name].earned = true"
+position = "before"
+match_indent = true
+payload = '''
+if G.ACHIEVEMENTS[achievement_name].mod then
+    local current_mod = G.ACHIEVEMENTS[achievement_name].mod
+    G.SETTINGS.ACHIEVEMENTS_VERSIONS[achievement_name] = current_mod.version
+end
+'''
+
 # Canvas Cards (3/3)
 # generate_card_ui()
 # Removes name of card if canvas is blank
