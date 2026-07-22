@@ -2804,9 +2804,11 @@ pattern = "if not strip_edition then"
 position = "before"
 match_indent = true
 payload = '''
-if other.edition and other.edition.negative and not All_in_Jest.config.no_copy_neg and not G.VIEWING_DECK and not other.ability.jest_copy_edition then 
-    if other.ability.set == 'Enhanced' or other.ability.set == 'Default' then
-        strip_edition = true
+if not All_in_Jest.config.no_copy_neg and not G.VIEWING_DECK and not other.ability.jest_copy_edition then 
+    if other.edition and other.edition.negative then
+        if other.ability.set == 'Enhanced' or other.ability.set == 'Default' then
+            strip_edition = true
+        end
     end
 end
 other.ability.jest_copy_edition = false
@@ -2826,6 +2828,32 @@ if other.aij_inherent_effects then
             new_card.aij_inherent_effects[k] = copy_table(v)
         else
             new_card.aij_inherent_effects[k] = v
+        end
+    end
+end
+'''
+
+# Remove negative from copied cards
+# copy_card
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if other.edition and strip_edition then"
+position = "before"
+match_indent = true
+payload = '''
+-- Remove inherent negative
+if new_card.aij_inherent_effects and new_card.aij_inherent_effects.editions then
+    for i, effect in ipairs(new_card.aij_inherent_effects.editions) do
+        if effect.key == "e_negative" then
+            if effect.card_limit then
+                new_card.ability.card_limit = new_card.ability.card_limit - (effect.card_limit or 0)
+            end
+            if effect.extra_slots_used then
+                new_card.ability.extra_slots_used = new_card.ability.extra_slots_used - (effect.edition.extra_slots_used or 0)
+            end
+            table.remove(new_card.aij_inherent_effects.editions, i)
+            break
         end
     end
 end
