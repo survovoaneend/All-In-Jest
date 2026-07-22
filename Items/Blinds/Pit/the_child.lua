@@ -45,7 +45,7 @@ local the_child = {
           trigger = 'after',
           delay = 0.15,
           func = function()
-            if context.scoring_hand[i]:get_id() ~= 2 then
+            if context.scoring_hand[i]:get_id() ~= 2 and not SMODS.has_no_rank(context.scoring_hand[i]) then
               context.scoring_hand[i]:flip()
               play_sound('card1', percent)
               context.scoring_hand[i]:juice_up(0.3, 0.3)
@@ -59,7 +59,7 @@ local the_child = {
           trigger = 'after',
           delay = 0.1,
           func = function()
-            if context.scoring_hand[i]:get_id() ~= 2 then
+            if context.scoring_hand[i]:get_id() ~= 2 and not SMODS.has_no_rank(context.scoring_hand[i]) then
               assert(SMODS.modify_rank(context.scoring_hand[i], -1))
             end
             return true
