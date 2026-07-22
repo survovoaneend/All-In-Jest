@@ -2600,13 +2600,26 @@ if card and card.aij_inherent_effects then
                 end
             elseif k == 'editions' then
                 local ed_key = _v.key
+                local localization_key = _v.key
                 if G.P_CENTERS[ed_key] and G.P_CENTERS[ed_key].set == 'Edition' then
-                    local t = {key = ed_key, set = 'Edition', config = {}}
-                    if localize(SMODS.merge_defaults(t, {type = 'name_text'})) == 'ERROR' then t.key = ed_key end
+                    if G.P_CENTERS[ed_key].config.card_limit then
+                        localization_key = "e_" .. G.P_CENTERS[ed_key]:card_limit_key(card)
+                        if localization_key:sub(localization_key:len()-14) == '_SMODS_INTERNAL' then
+                            localization_key = localization_key:sub(1, localization_key:len()-15)
+                            if localization_key == "e_negative_playing_card" then
+                                localization_key = "e_aij_negative_playing_card"
+                            end
+                        end
+                    end
+
+                    local t = {key = localization_key, set = 'Edition', config = {}}
+                    if localize(SMODS.merge_defaults(t, {type = 'name_text'})) == 'ERROR' then t.key = localization_key end
+                    t.type = nil
                     t.is_inherent_edition = true
                     t.edition_key = ed_key
                     info_queue[#info_queue + 1] = t
                     local fake_card = {edition = _v}
+
                     if G.P_CENTERS[ed_key].loc_vars and type(G.P_CENTERS[ed_key].loc_vars) == 'function' then
                         local res = G.P_CENTERS[ed_key]:loc_vars(info_queue, fake_card) or {}
                         t.vars = res.vars
