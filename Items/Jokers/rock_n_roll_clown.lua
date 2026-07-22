@@ -43,7 +43,7 @@ local rock_n_roll_clown = {
                 end
             end
             
-            if total_level > 0 then
+            if total_level > to_big(0) then
                 return {
                     chips = total_level * card.ability.extra.chips_per_level
                 }
