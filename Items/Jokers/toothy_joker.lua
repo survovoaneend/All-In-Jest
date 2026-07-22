@@ -50,10 +50,10 @@ local toothy_joker = {
 
 local ease_ante_ref = ease_ante
 function ease_ante(mod)
-    ret_value = ease_ante_ref(mod)
     if SMODS.ante_end then
         G.GAME.jest_toothy_joker_tarots = 0
     end
+    ret_value = ease_ante_ref(mod)
     return ret_value
 end
 
