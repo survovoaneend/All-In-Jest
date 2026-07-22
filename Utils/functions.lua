@@ -1920,16 +1920,15 @@ end
 
 --Replaces shop voucher
 function All_in_Jest.reroll_shop_voucher(key)
-    if G.GAME.current_round.voucher.spawn[G.GAME.current_round.voucher[1]] then
-        G.GAME.current_round.voucher.spawn[G.GAME.current_round.voucher[1]] = nil
-        G.GAME.current_round.voucher[1] = nil
-        local new_voucher = key or get_next_voucher_key()
-        G.GAME.current_round.voucher[new_voucher] = true
-        G.GAME.current_round.voucher.spawn = {[new_voucher] = true}
+    G.GAME.current_round.voucher = SMODS.get_next_vouchers()
+
+    while #G.shop_vouchers.cards > 0 do
         local c = G.shop_vouchers:remove_card(G.shop_vouchers.cards[1])
         c:remove()
         c = nil
-        new_shop_card = SMODS.add_voucher_to_shop(G.GAME.current_round.voucher[1])
+    end
+    for i = 1, #G.GAME.current_round.voucher do
+        new_shop_card = SMODS.add_voucher_to_shop(G.GAME.current_round.voucher[i])
         new_shop_card:juice_up()
     end
 end
