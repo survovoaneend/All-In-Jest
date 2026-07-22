@@ -16,6 +16,7 @@ local requiem = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    pixel_size = { w = 59, h = 93 },
     add_to_deck = function(self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
             func = function()
