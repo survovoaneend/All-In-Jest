@@ -82,7 +82,9 @@ function process_texture_wood(image)
 
     love.graphics.pop()
 
-    return love.graphics.newImage(canvas:newImageData(), {mipmaps = true, dpiscale = image:getDPIScale()})
+    image_data = canvas:newImageData()
+
+    return love.graphics.newImage(image_data, {mipmaps = true, dpiscale = image:getDPIScale()}), image_data
 end
 
 function pre_wooded(a)
@@ -115,7 +117,10 @@ function wood_atlas(a)
         SMODS.get_atlas(wooded.new_name).px = SMODS.get_atlas(wooded.old_name).px
         SMODS.get_atlas(wooded.new_name).py = SMODS.get_atlas(wooded.old_name).py
         SMODS.get_atlas(wooded.new_name).frames = SMODS.get_atlas(wooded.old_name).frames
-        SMODS.get_atlas(wooded.new_name).image = process_texture_wood(SMODS.get_atlas(wooded.old_name).image)
+
+        image, image_data = process_texture_wood(SMODS.get_atlas(wooded.old_name).image)
+        SMODS.get_atlas(wooded.new_name).image = image
+        SMODS.get_atlas(wooded.new_name).image_data = image_data
     end
 
     return SMODS.get_atlas(wooded.new_name)
