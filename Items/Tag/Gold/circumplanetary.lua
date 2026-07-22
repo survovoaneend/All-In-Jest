@@ -28,7 +28,7 @@ local circumplanetary_tag = {
                 end
             end
         end
-        return {vars = {tag.config.extra.times,_hand or tag.config.extra._tag_hand}}
+        return {vars = {tag.config.extra and tag.config.extra.times or self.config.extra.times,_hand or (tag.config.extra and tag.config.extra._tag_hand or self.config.extra._tag_hand)}}
     end,
 
     apply = function(self, tag, context)
@@ -44,7 +44,7 @@ local circumplanetary_tag = {
             end
             if not _hand then return end
             tag:yep('+', G.C.FILTER ,function() 
-                local levels = tag.config.extra.times
+                local levels = tag.config.extra and tag.config.extra.times or self.config.extra.times
                 level_up_hand(nil, _hand, nil, levels)
                 return true
             end)

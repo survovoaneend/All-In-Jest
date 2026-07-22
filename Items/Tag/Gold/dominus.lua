@@ -305,13 +305,10 @@ local dominus_tag = {
           return true
         end,
         function()
-          return (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit
+          return true
         end)
-      if (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit then
-        tag.triggered = true
-        return true
-      end
-      return
+      tag.triggered = true
+      return true
     end
   end,
 }

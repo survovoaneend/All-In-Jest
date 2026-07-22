@@ -18,7 +18,7 @@ local capital_tag = {
     min_ante = 3,
 
     loc_vars = function(self, info_queue, tag)
-        return {vars = {tag.config.extra.dollars}}
+        return {vars = {tag.config.extra and tag.config.extra.dollars or self.config.extra.dollars}}
     end,
 
     apply = function(self, tag, context)
@@ -29,7 +29,7 @@ local capital_tag = {
                 end)
                 tag.triggered = true
                 return {
-                    dollars = tag.config.extra.dollars,
+                    dollars = tag.config.extra and tag.config.extra.dollars or self.config.extra.dollars,
                     condition = localize('ph_defeat_the_boss'),
                     pos = tag.pos,
                     tag = tag

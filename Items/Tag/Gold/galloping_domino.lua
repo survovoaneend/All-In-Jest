@@ -18,15 +18,15 @@ local galloping_domino_tag = {
     min_ante = 3,
 
     loc_vars = function(self, info_queue, tag)
-        return {vars = {tag.config.extra.money}}
+        return {vars = {tag.config.extra and tag.config.extra.money or self.config.extra.money}}
     end,
 
     apply = function(self, tag, context)
         if context.type == 'shop_start' then
             if not G.GAME.shop_galloping_dominoed then
-                G.GAME.shop_galloping_dominoed = tag.config.extra.money
+                G.GAME.shop_galloping_dominoed = tag.config.extra and tag.config.extra.money or self.config.extra.money
                 tag:yep('+', G.C.GREEN,function() 
-                    G.GAME.round_resets.temp_reroll_cost = tag.config.extra.money
+                    G.GAME.round_resets.temp_reroll_cost = tag.config.extra and tag.config.extra.money or self.config.extra.money
                     calculate_reroll_cost(true)
                     return true
                 end)
