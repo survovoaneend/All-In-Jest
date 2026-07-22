@@ -2695,6 +2695,8 @@ payload = '''
         card.front_hidden = card:should_hide_front()
     end
 '''
+
+
 # Add extra desc box for modded fused enhancements
 [[patches]]
 [patches.pattern]
@@ -4783,21 +4785,22 @@ if self.ability.set == 'Joker' then
     end
 end
 '''
-# # Perma Joker stuff Locaization
-# [[patches]]
-# [patches.regex]
-# target = "functions/common_events.lua"
-# pattern = """elseif _c\\.generate_ui and type\\(_c\\.generate_ui\\) == 'function' then(.|\n)*?(?<indent>[\t ]*)if specific_vars and specific_vars.sticker then info_queue\\[#info_queue\\+1\\] = \\{key = string\\.lower\\(specific_vars.sticker\\)\\.\\.'_sticker', set = 'Other'\\} end"""
-# position = "after"
-# line_prepend = "$indent"
-# payload = '''
-# if _c.generate_ui and type(_c.generate_ui) == 'function' then
-#     if specific_vars and specific_vars.bonus_chips then
-#         localize{type = 'other', key = 'card_extra_chips', nodes = desc_nodes, vars = {SMODS.signed(specific_vars.bonus_chips)}}
-#     end
-#     SMODS.localize_perma_bonuses(specific_vars, desc_nodes)
-# end
-# '''
+# Perma Joker stuff Locaization
+[[patches]]
+[patches.regex]
+target = "functions/common_events.lua"
+pattern = """elseif _c\\.generate_ui and type\\(_c\\.generate_ui\\) == 'function' then(.|\n)*?(?<indent>[\t ]*)if specific_vars and specific_vars.sticker then info_queue\\[#info_queue\\+1\\] = \\{key = string\\.lower\\(specific_vars.sticker\\)\\.\\.'_sticker', set = 'Other'\\} end"""
+position = "after"
+line_prepend = "$indent"
+payload = '''
+
+if _c.generate_ui and type(_c.generate_ui) == 'function' and _c.set ~= 'Enhanced' then
+    if specific_vars and specific_vars.bonus_chips then
+        localize{type = 'other', key = 'card_extra_chips', nodes = desc_nodes, vars = {SMODS.signed(specific_vars.bonus_chips)}}
+    end
+    SMODS.localize_perma_bonuses(specific_vars, desc_nodes)
+end
+'''
 # After Vanilla Jokers
 [[patches]]
 [patches.pattern]
