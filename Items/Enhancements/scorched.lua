@@ -10,6 +10,7 @@ local scorched = {
             levels = 1
         }
     },
+    set_collection_sprite = true,
     all_in_jest = {
         multi_enhancement_z_order = 2
     },
