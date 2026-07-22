@@ -2633,6 +2633,34 @@ if card and card.aij_inherent_effects then
 end
 '''
 
+# Remove "+x hand size" info box when card has inherent negative
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = """if not (card.edition and card.edition.card_limit == card.ability.card_limit) then
+    local amount = card.ability.card_limit - (card.edition and card.edition.card_limit or 0)"""
+position = "after"
+match_indent = true
+payload = '''
+    if card.aij_inherent_effects and card.aij_inherent_effects.editions then
+        for i, effect in ipairs(card.aij_inherent_effects.editions) do
+            amount = amount - (effect.card_limit or 0)
+        end
+    end
+'''
+[[patches]]
+[patches.regex]
+target = "functions/common_events.lua"
+pattern = "(?<indent>[\t ]*)(?<content>info_queue\\[#info_queue \\+ 1\\] = \\{set = 'Other', key = .* vars =\\{math\\.abs\\(amount\\).*)"
+position = "at"
+line_prepend = '$indent'
+payload = '''
+if amount ~= 0 then
+  $content
+end
+'''
+
+
 # Add extra desc box for vanilla fused enhancements
 # Modded enhancements (and overidden vanilla ones) are tired into generate_ui
 [[patches]]
