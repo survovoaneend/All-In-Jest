@@ -6,6 +6,7 @@ local coupon_coupin_on = {
     key = "coupon_coupin_on",
     pos = {x=5, y=0},
     hidden_pos = {x=4, y=0},
+    reset_on_version_change = true,
 
     unlock_condition = function(self, args)
         if args.type == 'discover_aij' and G.DISCOVER_TALLIES.aij_vouchers then

@@ -6,6 +6,7 @@ local all_in = {
     key = "all_in",
     pos = {x=5, y=1},
     hidden_pos = {x=4, y=1},
+    reset_on_version_change = true,
 
     unlock_condition = function(self, args)
         if args.type == 'win_stake' and G.PROGRESS.aij_joker_gold_stickers then
