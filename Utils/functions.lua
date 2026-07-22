@@ -1934,7 +1934,7 @@ function All_in_Jest.reroll_shop_voucher(key)
 end
 
 local contains = function (tbl, item)
-    for k, v in pairs(tbl) do
+    for _, v in pairs(tbl) do
         if v == item then
             return true
         end
@@ -1949,7 +1949,7 @@ function All_in_Jest.get_longest_held_joker(exclusions)
     exclusions = exclusions or {}
     if G.jokers and G.jokers.cards then
         for _, v in ipairs(G.jokers.cards) do
-            if v.ability.jest_held_order and not contains(exclusions, v) then
+            if v.ability.jest_held_order and not contains(exclusions, v.config.center.key) then
                 if tonumber(v.ability.jest_held_order) < min_index then
                     min_index = tonumber(v.ability.jest_held_order)
                     longest_joker = v
