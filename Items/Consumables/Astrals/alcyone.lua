@@ -9,7 +9,7 @@ local alcyone = {
 	unlocked = true,
 	discovered = false,
     order = 1,
-	config = { hand = nil, grade = '', pin = 'Alcyone', extra = {draw_amt = 1}},
+	config = { hand = nil, grade = '', pin = 'Alcyone', extra = {draw_amt = 1, trigger = false}},
     loc_vars = function(self, info_queue, card)
         -- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {
@@ -51,7 +51,13 @@ local alcyone_pin = {
     end,
 
     calculate = function(self, card, context)
-        if context.drawing_cards then
+        if context.press_play then
+            card.ability.extra.trigger = true
+        end
+        if context.pre_discard then
+            card.ability.extra.trigger = false
+        end
+        if context.drawing_cards and card.ability.extra.trigger then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 func = function()
