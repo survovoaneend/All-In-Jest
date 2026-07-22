@@ -13,7 +13,7 @@ local shade_spectral = {
         if All_in_Jest.config and All_in_Jest.config.no_copy_neg then
             info_queue[#info_queue+1] = {key = 'e_negative_playing_card', set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit} }
         else
-            info_queue[#info_queue+1] = G.P_CENTERS.e_aij_negative_playing_card
+            info_queue[#info_queue+1] = {key = 'e_aij_negative_playing_card', set = 'Edition', config = {extra = G.P_CENTERS['e_negative'].config.card_limit} }
         end
         return {vars = { card.ability.extra }}
 	  end,
