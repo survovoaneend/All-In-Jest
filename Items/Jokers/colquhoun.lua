@@ -19,6 +19,7 @@ local colquhoun = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = false,
     soul_pos = { x = 8, y = 3 },
 
     loc_vars = function(self, info_queue, card)

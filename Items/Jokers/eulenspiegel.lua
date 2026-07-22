@@ -17,6 +17,7 @@ local eulenspiegel = {
   discovered = false,
   blueprint_compat = true,
   eternal_compat = false,
+  perishable_compat = false, -- Maybe?
   soul_pos = { x = 2, y = 3 },
 
   loc_vars = function(self, info_queue, card)
