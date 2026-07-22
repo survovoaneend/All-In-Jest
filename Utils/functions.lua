@@ -2952,12 +2952,15 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
         local enhancement_1_z_order = All_in_Jest.get_enhancement_z_order(center)
         local enhancement_2_z_order = All_in_Jest.get_enhancement_z_order(other_center)
         
-
-        if (enhancement_1_z_order == nil and enhancement_2_z_order == nil) or (enhancement_1_z_order == nil and enhancement_2_z_order < 0) or (enhancement_1_z_order < 0 and enhancement_2_z_order == nil) then
+        local skip = true
+        local skip_two = true
+        if enhancement_1_z_order ~= nil then skip = false end
+        if enhancement_2_z_order ~= nil then skip_two = false end
+        if (skip_two and skip and enhancement_1_z_order == nil and enhancement_2_z_order == nil) or (skip and enhancement_1_z_order == nil and enhancement_2_z_order < 0) or (skip_two and enhancement_1_z_order < 0 and enhancement_2_z_order == nil) then
             -- AiJ hasn't defined anything, so do it dynamically
 
-            local enhancement_1_atlas = SMODS.get_atlas(center.atlas)
-            local enhancement_2_atlas = SMODS.get_atlas(other_center.atlas)
+            local enhancement_1_atlas = SMODS.get_atlas(center.atlas) or SMODS.get_atlas('centers')
+            local enhancement_2_atlas = SMODS.get_atlas(other_center.atlas) or SMODS.get_atlas('centers')
 
             local enhancement_1_colour = aij_get_mcc_pixel(enhancement_1_atlas.image_data, center.pos, {bpx = enhancement_1_atlas.px, bpy = enhancement_1_atlas.py, check_invis = false})
             local enhancement_2_colour = aij_get_mcc_pixel(enhancement_2_atlas.image_data, other_center.pos, {bpx = enhancement_2_atlas.px, bpy = enhancement_2_atlas.py, check_invis = false})
