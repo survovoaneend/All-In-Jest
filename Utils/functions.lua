@@ -3343,6 +3343,7 @@ end
 function aij_calculate_end_of_round_effects(context, i, card)
     local reps = {1}
     local j = 1
+    i = i or 1
     while j <= #reps do
         card.repetition_trigger = j > 1 and j - 1
         percent = (i-0.999)/(#context.cardarea.cards-0.998) + (j-1)*0.1
