@@ -33,15 +33,17 @@ local slippery_when_wet = {
         if left_card or right_card then
             local left_rank = 0
             local right_rank = 0
-            if left_card then
-                left_rank = left_card:get_id()
+            if left_card and not SMODS.has_no_rank(left_card) then
+                left_rank = math.max(left_card:get_id(), 0)
             end
-            if right_card then
-                right_rank = right_card:get_id()
+            if right_card and not SMODS.has_no_rank(right_card) then
+                right_rank = math.max(right_card:get_id(), 0)
             end
-            return {
-                chips = left_rank + right_rank
-            }
+            if left_rank + right_rank > 0 then
+                return {
+                    chips = left_rank + right_rank
+                }
+            end
         end
       end
     end
