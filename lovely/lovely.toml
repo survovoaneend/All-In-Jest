@@ -433,6 +433,18 @@ front_hidden = self.front_hidden,
 [[patches]] 
 [patches.pattern]
 target = '=[SMODS _ "src/ui.lua"]'
+pattern = "if not args.no_materialize then card:start_materialize(nil, i>1 or j>1) end"
+position = "before"
+payload = '''
+if center.set_collection_sprite then
+    card:set_sprites(center)
+end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = '=[SMODS _ "src/ui.lua"]'
 pattern = "temp_achievement.states.collide.can = true"
 position = "after"
 payload = '''
