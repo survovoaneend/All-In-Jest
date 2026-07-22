@@ -2717,7 +2717,15 @@ function All_in_Jest.apply_inherent_effect(card, effect, effect_type)
         card.aij_inherent_effects[effect_type..'s'] = card.aij_inherent_effects[effect_type..'s'] or {}
         local index = #card.aij_inherent_effects[effect_type..'s'] + 1
         card.aij_inherent_effects[effect_type..'s'][index] = copy_table(effect)
+
+        if effect.card_limit then
+            card.ability.card_limit = card.ability.card_limit + (effect.card_limit or 0)
+        end
+        if effect.extra_slots_used then
+            card.ability.extra_slots_used = card.ability.extra_slots_used + (effect.edition.extra_slots_used or 0)
+        end
     elseif effect_type == 'enhancement' then
+        -- There's a potential bug here surrounding enhancements that modify card limit akin to negative
         card.aij_inherent_effects[effect_type..'s'] = card.aij_inherent_effects[effect_type..'s'] or {}
         local index = #card.aij_inherent_effects[effect_type..'s'] + 1
         card.aij_inherent_effects[effect_type..'s'][index] = {}
