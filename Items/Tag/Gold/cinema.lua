@@ -18,32 +18,34 @@ local cinema_tag = {
   end,
 
   apply = function(self, tag, context)
-    if context.type == 'immediate' then
+    if context.type == 'new_blind_choice' then
       tag:jest_apply("+", G.C.ATTENTION, function()
-          local jokers = {}
-          for i = 1, #G.jokers.cards do
-            if G.jokers.cards[i].edition == nil then
-              table.insert(jokers, G.jokers.cards[i])
-            end
-          end
-          if #jokers > 0 then
-            local joker = jokers[1]
+          if #G.jokers.cards > 0 then
+            local joker = G.jokers.cards[1]
             local edition = { aij_silver = true }
             joker:set_edition(edition, true)
           end
+          G.E_MANAGER:add_event(Event({
+            func = function()
+              for i = 1, #G.GAME.tags do
+                if G.GAME.tags[i]:apply_to_run({ type = 'new_blind_choice' }) then
+                  break
+                end
+              end
+              return true
+            end
+          }))
           return true
         end,
         function()
           if #G.jokers.cards > 0 then
-            for i = 1, #G.jokers.cards do
-              if G.jokers.cards[i].edition == nil then
-                return true
-              end
-            end
+            return true
           end
           return false
         end)
-      tag.triggered = true
+      if #G.jokers.cards > 0 then
+        tag.triggered = true
+      end
       return true
     end
   end,

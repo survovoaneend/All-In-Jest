@@ -8091,8 +8091,8 @@ return {
                 name = 'Omnichrome Tag',
                 text = {
                     'Apply {C:dark_edition}Polychrome{} to',
-                    'the {C:attention}rightmost{} base',
-                    'edition Joker',
+                    'the {C:attention}rightmost{} Joker',
+                    '{C:inactive}(Replaces any existing edition)',
                 }
             },
             tag_aij_circumplanetary = {
@@ -8230,8 +8230,8 @@ return {
                 name = 'Cinema Tag',
                 text = {
                     'Apply {C:aij_silver}Silver{} to',
-                    'the {C:attention}leftmost{} base',
-                    'Edition Joker',
+                    'the {C:attention}leftmost{} Joker',
+                    '{C:inactive}(Replaces any existing edition)',
                 }
             },
             tag_aij_ventripotent = {

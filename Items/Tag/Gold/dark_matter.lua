@@ -18,14 +18,25 @@ local dark_matter_tag = {
   end,
 
   apply = function(self, tag, context)
-    if context.type == 'immediate' then
-      tag:jest_apply("+", G.C.ATTENTION, function()
+    if context.type == 'new_blind_choice' then
+      tag:jest_apply("+", G.C.ATTENTION,
+        function()
           local jokers = {}
           for i = 1, #G.jokers.cards do
             if G.jokers.cards[i].edition == nil then
               table.insert(jokers, G.jokers.cards[i])
             end
           end
+          G.E_MANAGER:add_event(Event({
+            func = function()
+              for i = 1, #G.GAME.tags do
+                if G.GAME.tags[i]:apply_to_run({ type = 'new_blind_choice' }) then
+                  break
+                end
+              end
+              return true
+            end
+          }))
           if #jokers > 0 then
             local joker = pseudorandom_element(jokers, pseudoseed('jest_dark_matter_tag'))
             local edition = { negative = true }
@@ -42,8 +53,15 @@ local dark_matter_tag = {
             end
           end
           return false
-        end)
-      tag.triggered = true
+        end
+      )
+      if #G.jokers.cards > 0 then
+        for i = 1, #G.jokers.cards do
+          if G.jokers.cards[i].edition == nil then
+            tag.triggered = true
+          end
+        end
+      end
       return true
     end
   end,
