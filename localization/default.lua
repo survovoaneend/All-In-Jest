@@ -3653,9 +3653,8 @@ return {
                 name = "Warhol",
                 text = {
                     "{C:attention}Seals{} have the effect of",
-                    "{C:red}Red{}, {C:blue}Blue{}, {C:money}Gold{}, and",
-                    "{C:purple}Purple{} {C:attention}Seals",
-                    "simultaneously"
+                    "{C:blue}Blue{}, {C:money}Gold{}, and {C:purple}Purple{}",
+                    "seals {C:attention}simultaneously",
                 }
             },
             j_aij_mistake = {

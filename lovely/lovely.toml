@@ -3039,7 +3039,7 @@ payload = '''
 if self.config.center.unlocked == false and not self.bypass_lock and not self.bypass_discovery_ui then --For everyting that is locked
 '''
 
-# Warhol (1/2)
+# Warhol
 # Gold Seal
 [[patches]]
 [patches.pattern]
@@ -3050,18 +3050,6 @@ match_indent = true
 payload = '''
 elseif next(SMODS.find_card("j_aij_warhol")) and self.seal and not SMODS.aij_inherent_enhancement_calc_in_progress and not self.ability.extra_enhancement then
     ret = ret +  3
-'''
-
-# Warhol (2/2)
-# Red Seal
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = """if self.seal == 'Red' then"""
-position = "at"
-match_indent = true
-payload = '''
-if self.seal == 'Red' or (next(SMODS.find_card("j_aij_warhol")) and self.seal) then
 '''
 
 # The Grim Joker (Purple Seals) (1/3)
