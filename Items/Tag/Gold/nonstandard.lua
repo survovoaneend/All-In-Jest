@@ -163,6 +163,7 @@ G.FUNCS.tag_aij_nonstandard_set_submit = function(args)
       G.customize_card.cards[1].aij_nonstandard_other_enhancement_setting = nil
       local new_cards = {}
       for i = 1, 2 do
+				G.customize_card.cards[1].ability.jest_copy_edition = true
         local new_card = copy_card(G.customize_card.cards[1], nil, nil, G.playing_card)
         new_card:add_to_deck()
         G.deck.config.card_limit = G.deck.config.card_limit + 1

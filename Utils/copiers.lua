@@ -386,7 +386,7 @@ All_in_Jest.single_copier = SMODS.Joker:extend {
     end,
 
     loc_vars = function(self, info_queue, card)
-        if card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_key ~= nil then
+        if card.ability and card.config and card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_key ~= nil then
             local copied_center = G.P_CENTERS[card.ability[card.config.center.key].copied_joker_key]
             local info_queue_center = { -- Create a simplified "fake" center that can be used without referencing/modifying the actual center object
                 key = copied_center.key,
