@@ -2956,11 +2956,11 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
         local enhancement_1_z_order = All_in_Jest.get_enhancement_z_order(center)
         local enhancement_2_z_order = All_in_Jest.get_enhancement_z_order(other_center)
         
-        local skip = true
-        local skip_two = true
-        if enhancement_1_z_order ~= nil then skip = false end
-        if enhancement_2_z_order ~= nil then skip_two = false end
-        if (skip_two and skip and enhancement_1_z_order == nil and enhancement_2_z_order == nil) or (skip and enhancement_1_z_order == nil and enhancement_2_z_order < 0) or (skip_two and enhancement_1_z_order < 0 and enhancement_2_z_order == nil) then
+        if 
+            (enhancement_1_z_order == nil and enhancement_2_z_order == nil) or 
+            (enhancement_1_z_order == nil and enhancement_2_z_order ~= nil and enhancement_2_z_order < 0) or 
+            (enhancement_2_z_order == nil and enhancement_1_z_order ~= nil and enhancement_1_z_order < 0) 
+        then
             -- AiJ hasn't defined anything, so do it dynamically
 
             local enhancement_1_atlas = SMODS.get_atlas(center.atlas) or SMODS.get_atlas('centers')
