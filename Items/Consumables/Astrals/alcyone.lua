@@ -61,7 +61,7 @@ local alcyone_pin = {
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 func = function()
-                    SMODS.destroy_cards(card, true)
+                    card:start_dissolve()
                     return true
             end}))
             return {
