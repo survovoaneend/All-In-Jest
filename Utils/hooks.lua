@@ -738,13 +738,6 @@ function set_discover_tallies()
                     if v.discovered then 
                         G.DISCOVER_TALLIES.aij_consumables.tally = G.DISCOVER_TALLIES.aij_consumables.tally+1
                     end
-                    local tally = G.DISCOVER_TALLIES[v.set:lower()..'s']
-                    if tally then
-                        tally.of = tally.of + 1
-                        if v.discovered then
-                            tally.tally = tally.tally + 1
-                        end
-                    end
                 end
                 if v.set and v.set == 'Voucher' then
                     G.DISCOVER_TALLIES.aij_vouchers.of = G.DISCOVER_TALLIES.aij_vouchers.of+1
