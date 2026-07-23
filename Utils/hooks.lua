@@ -1566,3 +1566,18 @@ SMODS.collection_pool = function(_base_pool)
 
     return pool
 end
+
+local set_joker_win_ref = set_joker_win
+function set_joker_win()
+  for k, v in pairs(G.consumeables.cards) do
+    if v.config.center_key and v.ability.set == 'Joker' then
+      G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] = G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] or {count = 1, order = v.config.center.order, wins = {}, losses = {}, wins_by_key = {}, losses_by_key = {}}
+      if G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] then
+        G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins = G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins or {}
+        G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins[G.GAME.stake] = (G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins[G.GAME.stake] or 0) + 1
+        G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] = (G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] or 0) + 1
+      end
+    end
+  end
+  set_joker_win_ref()
+end
