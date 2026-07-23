@@ -20,9 +20,9 @@ local spica = {
     end,
     all_in_jest = {
         grades = {
-            ["Retrograde"] = 0.1, 
-            ["Passigrade"] = 0.6, 
-            ["Prograde"] = 0.3,
+            ["Retrograde"] = 0.01, 
+            ["Passigrade"] = 0.5, 
+            ["Prograde"] = 0.49,
         }
     },
 }

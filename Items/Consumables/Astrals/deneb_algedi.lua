@@ -62,6 +62,8 @@ local deneb_algedi_pin = {
             end
             if trigger then
                 ease_hands_played(card.ability.extra.hands)
+                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_hands', vars = {card.ability.extra.hands}}})
+                return nil, true
             end
         end
     end,
