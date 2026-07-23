@@ -21,8 +21,8 @@ local algol = {
     end,
     all_in_jest = {
         grades = {
-            ["Retrograde"] = 0.6, 
-            ["Passigrade"] = 0.3, 
+            ["Retrograde"] = 0.3, 
+            ["Passigrade"] = 0.6, 
             ["Prograde"] = 0.1,
         }
     }

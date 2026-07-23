@@ -9,7 +9,7 @@ local procyon = {
 	unlocked = true,
 	discovered = false,
     order = 5,
-	config = { hand = nil, grade = '', pin = 'Procyon', extra = {sell_val = 3}},
+	config = { hand = nil, grade = '', pin = 'Procyon', extra = {sell_val = 2}},
     loc_vars = function(self, info_queue, card)
         -- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {

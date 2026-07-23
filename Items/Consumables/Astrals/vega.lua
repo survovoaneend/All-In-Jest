@@ -18,6 +18,13 @@ local vega = {
 			},
 		}
     end,
+    all_in_jest = {
+        grades = {
+            ["Retrograde"] = 0.2, 
+            ["Passigrade"] = 0.6, 
+            ["Prograde"] = 0.2,
+        }
+    },
 }
 local vega_pin = {
 	object_loader = All_in_Jest,
