@@ -18,7 +18,7 @@ local dark_matter_tag = {
   end,
 
   apply = function(self, tag, context)
-    if context.type == 'immediate' then
+    if context.type == 'new_blind_choice' then
       tag:jest_apply("+", G.C.ATTENTION, function()
           local jokers = {}
           for i = 1, #G.jokers.cards do
@@ -43,7 +43,13 @@ local dark_matter_tag = {
           end
           return false
         end)
-      tag.triggered = true
+      if #G.jokers.cards > 0 then
+        for i = 1, #G.jokers.cards do
+          if G.jokers.cards[i].edition == nil then
+            tag.triggered = true
+          end
+        end
+      end
       return true
     end
   end,
