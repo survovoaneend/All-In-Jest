@@ -3037,8 +3037,8 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
                     new_colour = enhancement_1_colour
                 end
 
-                local base_atlas = SMODS.get_atlas(enhancement_to_recolour.atlas)
-                local other_atlas = SMODS.get_atlas(other_enhancement.atlas)
+                local base_atlas = SMODS.get_atlas(enhancement_to_recolour.atlas) or SMODS.get_atlas('centers')
+                local other_atlas = SMODS.get_atlas(other_enhancement.atlas) or SMODS.get_atlas('centers')
                 local s_base_low, s_base_high = aij_get_saturation_range(base_atlas.image_data, enhancement_to_recolour.pos, {bpx = base_atlas.px, bpy = base_atlas.py})
                 local s_other_low, s_other_high = aij_get_saturation_range(other_atlas.image_data, other_enhancement.pos, {bpx = other_atlas.px, bpy = other_atlas.py})
 
