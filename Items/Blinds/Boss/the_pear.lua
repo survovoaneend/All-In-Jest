@@ -16,7 +16,7 @@ local the_pear = {
         if temp then
             return
         end
-        if context.final_scoring_step and context.cardarea == G.hand and not temp then
+        if context.final_scoring_step and G.hand and #G.hand.cards > 0 and not temp then
             for i = 1, #G.hand.cards do
                 G.hand.cards[i]:flip()
                 G.E_MANAGER:add_event(Event({
