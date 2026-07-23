@@ -4104,7 +4104,6 @@ return {
                     "{C:mult}+#1#{} Mult if {C:attention}played hand{} is",
                     "mentioned by one of your",
                     "{C:attention}Jokers",
-                    "{C:inactive}({C:mult}+#2#{C:inactive} Mult)"
                 }
             },
             j_aij_bingo_card = {
