@@ -4139,11 +4139,6 @@ update_hand_text({immediate = true, nopulse = nil, delay = 0}, {handname=disp_te
 payload = '''
 if G.GAME.Astral_pins then
     if text ~= G.aij_cur_astral_hand then
-        All_in_Jest.old_colours = All_in_Jest.old_colours or {
-            special_colour = copy_table(G.C.BACKGROUND.C),
-            tertiary_colour = copy_table(G.C.BACKGROUND.D),
-            new_colour = copy_table(G.C.BACKGROUND.L),
-        }
         All_in_Jest.astral_visuals(text, 'no_remove')
     end
     if text then
@@ -4180,6 +4175,9 @@ local text,disp_text,poker_hands = G.FUNCS.get_poker_hand_info(self.highlighted)
 payload = '''
 if G.GAME.Astral_pins and text ~= G.aij_cur_astral_hand then
     All_in_Jest.astral_visuals(text, 'only_remove', All_in_Jest.old_colours or nil, true)      
+    if text == "NULL" then
+        G.aij_cur_astral_hand = nil
+    end
     if G.aij_astral_pin_area then
         for _, v in pairs(G.aij_astral_pin_area.cards) do
             v:remove()
@@ -5148,7 +5146,9 @@ pattern = '-- TARGET: main end_of_round evaluation'
 position = 'after'
 match_indent = true
 payload = '''
-SMODS.destroy_cards(G.aij_astral_pin_area.cards, true)
+for _, v in ipairs(G.aij_astral_pin_area.cards) do
+    v:start_dissolve()
+end
 '''
 
 # evaluate_play()
@@ -5160,13 +5160,29 @@ pattern = '-- TARGET: effects after hand evaluation'
 position = 'after'
 match_indent = true
 payload = '''
-local pins_to_destroy = {}
 for _, v in ipairs(G.aij_astral_pin_area.cards) do
     if not v.ability.no_auto_destroy then
-        table.insert(pins_to_destroy, v)
+        v:start_dissolve()
     end
 end
-SMODS.destroy_cards(pins_to_destroy, true)
+'''
+
+# discard_cards_from_highlighted
+# Force astral pins to dissolve when discarding
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = '-- TARGET: pre_discard'
+position = 'after'
+match_indent = true
+payload = '''
+All_in_Jest.astral_visuals(text, 'only_remove', All_in_Jest.old_colours or nil, true)      
+G.aij_cur_astral_hand = nil
+if G.aij_astral_pin_area then
+    for _, v in ipairs(G.aij_astral_pin_area.cards) do
+        v:start_dissolve()
+    end
+end
 '''
 
 # This is so astral pins info queue can work

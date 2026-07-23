@@ -964,6 +964,25 @@ All_in_Jest.Astral = SMODS.Tag:extend {
     end
 }
 
+local aij_ease_bg_blind_ref = ease_background_colour_blind
+function ease_background_colour_blind(state, blind_override)
+    All_in_Jest.old_colours = nil
+    aij_ease_bg_blind_ref(state, blind_override)
+end
+
+local aij_ease_bg_ref = ease_background_colour
+function ease_background_colour(args)
+    if All_in_Jest.old_colours == nil then
+        All_in_Jest.old_colours = {
+            special_colour = copy_table(args['special_colour']),
+            tertiary_colour = copy_table(args['tertiary_colour']),
+            new_colour = copy_table(args['new_colour']),
+            contrast = args.contrast or 1,
+        }
+    end
+    aij_ease_bg_ref(args)
+end
+
 local init_game_object_ref = Game.init_game_object
 function Game.init_game_object(self)
   local ret = init_game_object_ref(self)

@@ -2181,11 +2181,6 @@ function All_in_Jest.use_astral_card(card)
             end
         end
         if G.GAME.Astral_pins then
-            All_in_Jest.old_colours = All_in_Jest.old_colours or {
-                special_colour = copy_table(G.C.BACKGROUND.C),
-                tertiary_colour = copy_table(G.C.BACKGROUND.D),
-                new_colour = copy_table(G.C.BACKGROUND.L),
-            }
             All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'no_remove')       
         end
         G.E_MANAGER:add_event(Event({
@@ -2276,7 +2271,7 @@ function All_in_Jest.astral_background(type, colours)
             end
         }))
     else
-        ease_background_colour({special_colour = colours.background[1], tertiary_colour = colours.background[2], new_colour = colours.background[3]})
+        ease_background_colour({special_colour = colours.background[1], tertiary_colour = colours.background[2], new_colour = colours.background[3], contrast = colours.background[4]})
         if G.aij_astral_stars then G.aij_astral_stars:fade(0.25) end
         if G.aij_astral_meteors then G.aij_astral_meteors:fade(0.25) end
 
@@ -2296,6 +2291,7 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
         special_colour = copy_table(G.C.BACKGROUND.C),
         tertiary_colour = copy_table(G.C.BACKGROUND.D),
         new_colour = copy_table(G.C.BACKGROUND.L),
+        contrast = 1,
     }
     colours = colours or {}
     if extra == 'only_color' then
@@ -2304,11 +2300,11 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
                 trigger = 'after',
                 delay = 1,
                 func = function()
-                    All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour}})
+                    All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour, old_colours.contrast}})
                     return true
             end}))
         else
-            All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour}})
+            All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour, old_colours.contrast}})
         end
         return
     end
@@ -2321,8 +2317,7 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
             end
         end
         if astrals == 0 then
-            All_in_Jest.astral_visuals(hand, 'only_remove', All_in_Jest.old_colours or old_colours, true)  
-            All_in_Jest.old_colours = nil
+            All_in_Jest.astral_visuals(hand, 'only_remove', All_in_Jest.old_colours or old_colours, true)
             return
         end
         if G.GAME.Astral_pins[hand] then
@@ -2357,7 +2352,7 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
                 trigger = 'after',
                 delay = 1,
                 func = function()
-                    All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour}})
+                    All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour, old_colours.contrast}})
                     if G.aij_astral_pin_area then
                         for _, v in pairs(G.aij_astral_pin_area.cards) do
                             v:remove()
@@ -2366,7 +2361,7 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
                     return true
             end}))
         else
-            All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour}})
+            All_in_Jest.astral_background(nil, {background = {old_colours.special_colour, old_colours.tertiary_colour, old_colours.new_colour, old_colours.contrast}})
             if G.aij_astral_pin_area then
                 for _, v in pairs(G.aij_astral_pin_area.cards) do
                     v:remove()
