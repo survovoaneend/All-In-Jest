@@ -5,7 +5,7 @@ local whiteface_grotesque = {
     key = "whiteface_grotesque",
     config = {
       extra = {
-          chip_mod = 2,
+          chip_mod = 1,
           cur_chips = 0
       }
     },

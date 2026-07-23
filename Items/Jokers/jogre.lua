@@ -4,7 +4,7 @@ local jogre = {
     key = "jogre",
     config = {
         extra = {
-            dollars = 15
+            dollars = 10
         }
     },
     rarity = 1,
