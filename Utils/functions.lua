@@ -965,6 +965,13 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'mario',
+    name = 'Super Mario Bros',
+    suits = {
+      'Hearts',
+    }
+  },
+  {
     id = 'alan_wake',
     name = 'Alan Wake',
     suits = {
@@ -992,8 +999,30 @@ AllInJest.deck_skins = {
     id = 'deltarune',
     name = 'Deltarune',
     suits = {
+      'Spades',
       'Hearts',
       'Clubs',
+      'Diamonds'
+    }
+  },
+  {
+    id = 'deltarune_ch_two',
+    name = 'Deltarune',
+    suits = {
+      'Spades',
+    }
+  },
+  {
+    id = 'deltarune_ch_three',
+    name = 'Deltarune',
+    suits = {
+      'Diamonds'
+    }
+  },
+  {
+    id = 'deltarune_ch_four',
+    name = 'Deltarune',
+    suits = {
       'Diamonds'
     }
   },
