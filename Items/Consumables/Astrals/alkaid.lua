@@ -73,7 +73,7 @@ local alkaid_pin = {
                 local valid_enhancements = {}
 
                 for _, enhancement in ipairs(all_enhancements) do
-                    if not (enhancement == 'm_stone' or enhancement == 'm_aij_canvas' or G.P_CENTERS[enhancement].no_rank) then
+                    if enhancement ~= "UNAVAILABLE" and not (enhancement == 'm_stone' or enhancement == 'm_aij_canvas' or G.P_CENTERS[enhancement].no_rank) then
                         valid_enhancements[#valid_enhancements + 1] = enhancement
                     end
                 end
