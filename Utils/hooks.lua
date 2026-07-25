@@ -1170,6 +1170,15 @@ end
 local gameupdateref = Game.update
 function Game:update(dt)
     local ref = gameupdateref(self, dt)
+    if G.GAME.Astral_pins and G.hand and #G.hand.highlighted <= 0 and G.aij_cur_astral_hand ~= nil and G.play and #G.play.cards <= 0 and G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND then
+        All_in_Jest.astral_visuals(text, 'only_remove', All_in_Jest.old_colours or nil, true)      
+        G.aij_cur_astral_hand = nil
+        if G.aij_astral_pin_area then
+            for _, v in pairs(G.aij_astral_pin_area.cards) do
+                v:remove()
+            end
+        end
+    end
     for k, v in pairs(G.GAME.all_in_jest.AIJAnimated) do
         All_in_Jest.update_frame(dt, k, G.P_CENTERS[k])
         if not G.P_CENTERS[k] then

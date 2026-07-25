@@ -4135,45 +4135,6 @@ if G.GAME.Astral_pins then
 end
 '''
 
-[[patches]]
-[patches.pattern]
-target = 'cardarea.lua'
-match_indent = true
-position = 'after'
-pattern = '''
-card:highlight(false)
-if self == G.hand and G.STATE == G.STATES.SELECTING_HAND then
-'''
-payload = '''
-    if #self.highlighted <= 0 then
-        G.aij_cur_astral_hand = nil
-    end
-'''
-
-
-# Remove astral pins
-[[patches]]
-[patches.pattern]
-target = 'cardarea.lua'
-match_indent = true
-position = 'after'
-pattern = '''
-local text,disp_text,poker_hands = G.FUNCS.get_poker_hand_info(self.highlighted)
-'''
-payload = '''
-if G.GAME.Astral_pins and text ~= G.aij_cur_astral_hand then
-    All_in_Jest.astral_visuals(text, 'only_remove', All_in_Jest.old_colours or nil, true)      
-    if text == "NULL" then
-        G.aij_cur_astral_hand = nil
-    end
-    if G.aij_astral_pin_area then
-        for _, v in pairs(G.aij_astral_pin_area.cards) do
-            v:remove()
-        end
-    end
-end
-'''
-
 # Adds Astral pin area to calculation pipeline
 [[patches]]
 [patches.pattern]
