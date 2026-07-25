@@ -5122,11 +5122,13 @@ pattern = '-- TARGET: pre_discard'
 position = 'after'
 match_indent = true
 payload = '''
-All_in_Jest.astral_visuals(text, 'only_remove', All_in_Jest.old_colours or nil, true)      
-G.aij_cur_astral_hand = nil
-if G.aij_astral_pin_area then
-    for _, v in ipairs(G.aij_astral_pin_area.cards) do
-        v:start_dissolve()
+if not hook then
+    All_in_Jest.astral_visuals(text, 'only_remove', All_in_Jest.old_colours or nil, true)      
+    G.aij_cur_astral_hand = nil
+    if G.aij_astral_pin_area then
+        for _, v in ipairs(G.aij_astral_pin_area.cards) do
+            v:start_dissolve()
+        end
     end
 end
 '''
