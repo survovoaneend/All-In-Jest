@@ -10,7 +10,7 @@ local youre_winner = {
 
     unlock_condition = function(self, args)
         if args.type and G.PROGRESS and G.PROGRESS.aij_achievements then
-            if G.PROGRESS.aij_achievements.of == G.PROGRESS.aij_achievements.tally then
+            if G.PROGRESS.aij_achievements.tally >= (G.PROGRESS.aij_achievements.of - 1) then
                 return true
             end
         end
