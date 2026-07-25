@@ -39,7 +39,6 @@ local misprinted = {
     object_type = "Tag",
     key = 'misprinted', 
     pos = { x = 3, y = 1},
-    ignore = true,
     atlas = 'tag_atlas',
     order = 7,
     min_ante = 2,
