@@ -8289,6 +8289,13 @@ return {
                     'Has a {C:red}RANDOM{} effect{C:red}!!!'
                 }
             },
+            tag_aij_err_tag_undefined = {
+                name = 'ERR_TAG_UNDEFINED',
+                text = {
+                    'All Jokers in the next',
+                    'shop are {E:aij_misprinted_red}Misprinted'
+                }
+            },
         },
         Tarot = {
             c_aij_magus = {

@@ -264,6 +264,9 @@ position = "before"
 match_indent = true
 payload = '''
 SMODS.calculate_context({all_in_jest = {modify_booster_cards = true, card = self, before_added = true, pack_cards = pack_cards}})
+for i = #G.GAME.tags, 1, -1 do
+    if G.GAME.tags[i]:apply_to_run({type = 'modify_booster_cards', card = self, before_added = true, pack_cards = pack_cards}) then break end
+end
 '''
 # Overstuffed Tag (3/4)
 # Card:open()
@@ -1250,6 +1253,9 @@ pattern = "SMODS.calculate_context({ending_shop = true})"
 position = "after"
 payload = '''
 G.GAME.all_in_jest.blind_tags.selected_index = nil
+for i = #G.GAME.tags, 1, -1 do
+    if G.GAME.tags[i]:apply_to_run({type = 'leaving_shop'}) then break end
+end
 '''
 match_indent = true
 
