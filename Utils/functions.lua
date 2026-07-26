@@ -2720,12 +2720,16 @@ function All_in_Jest.get_random_joker_colours(colour)
     end
 end
 
-function All_in_Jest.get_inherent_effects(card, type, amt_only)
-    if card.aij_inherent_effects and card.aij_inherent_effects[type..'s'] and #card.aij_inherent_effects[type..'s'] > 0 then
+function All_in_Jest.get_inherent_effects(card, type, amt_only, keys)
+    if card and card.aij_inherent_effects and card.aij_inherent_effects[type..'s'] and #card.aij_inherent_effects[type..'s'] > 0 then
         local effects = {}
         local amt = 0
         for k, v in pairs(card.aij_inherent_effects[type..'s']) do
-            effects[#effects + 1] = v
+            if keys then
+                effects[v.center_key] = true
+            else
+                effects[#effects + 1] = v
+            end
             amt = amt + 1
         end
         return amt_only and amt or effects
@@ -2762,7 +2766,7 @@ function All_in_Jest.apply_inherent_effect(card, effect, effect_type)
         card.aij_inherent_effects['enhancements'][index] = {}
         card.aij_inherent_effects['enhancements'][index]['center_key'] = effect.key
         card.aij_inherent_effects['enhancements'][index]['ability'] = copy_table(card.config.aij_other_center.ability)
-        card.aij_inherent_effects[effect_type..'s'][index]['ability'].extra_enhancement = effect.key
+        card.aij_inherent_effects['enhancements'][index]['ability'].extra_enhancement = effect.key
     end
 end
 

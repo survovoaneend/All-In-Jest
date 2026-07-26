@@ -243,6 +243,7 @@ function SMODS.has_any_suit(card)
     if card.config.aij_other_center and card.config.aij_other_center['center'] then
         if card.config.aij_other_center['center'].key == 'm_wild' or card.config.aij_other_center['center'].any_suit then return true end
     end
+    if All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_wild then return true end
     return has_any_suit_ref(card) or All_in_Jest.counts_as_all_suits(card)
 end
 
@@ -251,6 +252,7 @@ function SMODS.always_scores(card)
     if card.config.aij_other_center and card.config.aij_other_center['center'] then
         if card.config.aij_other_center['center'].key == 'm_stone' or card.config.aij_other_center['center'].always_scores then return true end
     end
+    if All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_stone then return true end
     return always_scores_ref(card)
 end
 
@@ -304,7 +306,9 @@ function SMODS.has_no_suit(card)
         if card.config.aij_other_center['center'].key == 'm_stone' or card.config.aij_other_center['center'].no_suit then no_suit = true end
         return no_suit and not any_suit
     end
-    return has_no_suit_ref(card)
+    if All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_wild then any_suit = true end
+    if All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_stone then no_suit = true end
+    return (no_suit or has_no_suit_ref(card)) and not any_suit
 end
 
 
@@ -376,6 +380,10 @@ function SMODS.has_no_rank(card)
             card.front_hidden = card:should_hide_front()
             return true 
         end
+    end
+    if All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_stone then
+        card.front_hidden = card:should_hide_front()
+        return true 
     end
     if card.ability.numbertaker_rankless then return true end
     return has_no_rank_ref(card)
