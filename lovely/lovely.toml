@@ -1572,6 +1572,22 @@ SMODS.calculate_context({all_in_jest = {before_reroll_shop = true, cost = reroll
 '''
 match_indent = true
 
+# Context for after the Shop is Rerolled
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "SMODS.calculate_context({reroll_shop = true, cost = reroll_cost})"
+position = "after"
+payload = '''
+G.E_MANAGER:add_event(Event({
+func = function()
+    SMODS.calculate_context({all_in_jest = {after_reroll_shop = true, cost = reroll_cost}})
+    return true
+    end
+}))
+'''
+match_indent = true
+
 # Scapino (1/3) (Booster pack rerolling)
 # Removes all booster packs on reroll
 # G.FUNCS.reroll_shop()
