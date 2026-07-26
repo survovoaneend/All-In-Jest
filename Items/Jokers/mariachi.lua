@@ -8,6 +8,7 @@ local mariachi = {
             mult = 4
         }
     },
+    attributes = { 'mult', 'enhancements', 'full_deck' },
     rarity = 1,
     pos = { x = 24, y = 29},
     atlas = 'joker_atlas',

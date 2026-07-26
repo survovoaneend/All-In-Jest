@@ -8,6 +8,7 @@ local sherrif = {
             dollars = 5
         }
     },
+    attributes = { 'economy', 'enhancements' },
     rarity = 1,
     pos = { x = 8, y = 13},
     atlas = 'joker_atlas',

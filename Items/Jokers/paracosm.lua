@@ -5,6 +5,7 @@ local paracosm = {
     config = {
       extra = {hand = "[Most played hand]"}
     },
+    attributes = { 'hand_level', 'hand_type', 'skip' },
     rarity = 2,
     pos = { x = 11, y = 11},
     atlas = 'joker_atlas',

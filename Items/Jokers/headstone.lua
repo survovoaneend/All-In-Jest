@@ -4,6 +4,7 @@ local headstone = {
     key = "headstone",
     config = {
     },
+    attributes = { 'draw_cards', 'face' },
     rarity = 2,
     pos = { x = 0, y = 13},
     atlas = 'joker_atlas',

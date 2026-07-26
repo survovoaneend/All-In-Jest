@@ -11,6 +11,7 @@ local cheese_squigglies = {
             limit = 10,
         }
     },
+    attributes = { 'xmult', 'scaling', 'reroll', 'food' },
     rarity = 2,
     pos = { x = 2, y = 24 },
     atlas = 'joker_atlas',
@@ -33,8 +34,18 @@ local cheese_squigglies = {
 
     calculate = function(self, card, context)
          if context.reroll_shop and not context.blueprint then
-            card.ability.extra.rolls = card.ability.extra.rolls + 1
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = 'xmult',
+                scalar_value = 'gain',
+                operation = function(ref_table, ref_value, initial, change)
+                    if change ~= 0 then
+                        ref_table[ref_value] = initial + change
+                        ref_table['rolls'] = ref_table['rolls'] + 1
+                    end
+                end,
+                message_colour = G.C.RED
+            })
             
             if card.ability.extra.rolls >= card.ability.extra.limit then
                 G.E_MANAGER:add_event(Event({
@@ -57,11 +68,6 @@ local cheese_squigglies = {
                 })) 
                 return {
                     message = localize('k_eaten_ex'), 
-                    colour = G.C.RED
-                } 
-            else
-                return {
-                    message = localize('k_upgrade_ex'),
                     colour = G.C.RED
                 }
             end

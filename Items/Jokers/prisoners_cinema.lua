@@ -7,6 +7,7 @@ local prisoners_cinema = {
             boosters = 1
         }
     },
+    attributes = { 'economy', 'shop', 'booster' },
     rarity = 2,
     pos = { x = 14, y = 20 },
     atlas = 'joker_atlas',

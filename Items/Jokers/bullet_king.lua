@@ -7,6 +7,7 @@ local bullet_king = {
             
         }
     },
+    attributes = { 'rank', 'king', 'trigger_cards', 'passive' },
     rarity = 2,
     pos = { x = 6, y = 27 },
     atlas = 'joker_atlas',

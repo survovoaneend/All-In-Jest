@@ -11,6 +11,7 @@ local a_young_hamlet = {
             discards_remaining = 6,
         }
     },
+    attributes = { 'mult', 'scaling', 'discard' },
     rarity = 1,
     pos = { x = 20, y = 19 },
     atlas = 'joker_atlas',

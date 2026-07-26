@@ -8,6 +8,7 @@ local party_time = {
             chip_mod = 4
         }
     },
+    attributes = { 'perma_bonus', 'joker', 'chips' },
     rarity = 1,
     pos = { x = 17, y = 24 },
     atlas = 'joker_atlas',

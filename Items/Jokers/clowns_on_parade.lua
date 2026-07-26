@@ -9,6 +9,7 @@ local clowns_on_parade = {
         chip_mod = 20
       }
     },
+    attributes = { 'chips', 'scaling', 'rank', 'two' },
     rarity = 2,
     pos = { x = 17, y = 4 },
     atlas = 'joker_atlas',

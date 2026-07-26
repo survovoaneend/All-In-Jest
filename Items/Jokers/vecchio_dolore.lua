@@ -5,6 +5,7 @@ local vecchio_dolore = {
     config = {
 
     },
+    attributes = { 'generation', 'editions', 'negative', 'reroll', 'shop' },
     rarity = 3,
     pos = { x = 24, y = 19},
     atlas = 'joker_atlas',

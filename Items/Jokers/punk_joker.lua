@@ -6,6 +6,7 @@ local punk_joker = {
     config = {
       
     },
+    attributes = { 'modify_card', 'enhancements' },
     rarity = 2,
     pos = { x = 21, y = 1 },
     atlas = 'joker_atlas',

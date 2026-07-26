@@ -7,6 +7,7 @@ local family_tree = {
             
         }
     },
+    attributes = { 'generation', 'tag', 'joker', 'rarity', 'position' },
     rarity = 2,
     pos = { x = 14, y = 26 },
     atlas = 'joker_atlas',

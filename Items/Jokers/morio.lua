@@ -5,6 +5,7 @@ local morio = {
     config = {
       trigger = false
     },
+    attributes = { 'generation', 'tarot', 'consumable', 'boss_blind', 'choice' },
     rarity = 3,
     pos = { x = 20, y = 8},
     atlas = 'joker_atlas',

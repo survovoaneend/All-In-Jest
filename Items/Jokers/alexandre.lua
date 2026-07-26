@@ -9,6 +9,7 @@ local alexandre = {
       mult_mod = 7,
     }
   },
+  attributes = { 'mult', 'scaling', 'rank', 'suit', 'king', 'clubs' },
   rarity = 3,
   pos = { x = 21, y = 9},
   atlas = 'joker_atlas',

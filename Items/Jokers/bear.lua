@@ -9,6 +9,7 @@ local bear = {
             dollars = 100
         }
     },
+    attributes = { 'mult' },
     rarity = 1,
     pos = { x = 11, y = 25 },
     atlas = 'joker_atlas',

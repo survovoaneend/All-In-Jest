@@ -10,6 +10,7 @@ local animatronic = {
       cap = 4
     }
   },
+  attributes = { 'hand_size', 'hand_type', 'scaling', 'reset' },
   rarity = 2,
   pos = { x = 12, y = 7 },
   atlas = 'joker_atlas',
@@ -34,12 +35,15 @@ local animatronic = {
       if context.poker_hands and next(context.poker_hands['Straight']) then
         if card.ability.extra.handsize < card.ability.extra.cap then
           SMODS.scale_card(card, {
-	            ref_table = card.ability.extra,
-                ref_value = "handsize",
-	            scalar_value = "handsize_mod",
-                message_key = 'a_handsize'
+            ref_table = card.ability.extra,
+            ref_value = "handsize",
+            scalar_value = "handsize_mod",
+            message_key = 'a_handsize',
+            operation = function(ref_table, ref_value, initial, change)
+              ref_table[ref_value] = initial + change
+              G.hand:change_size(change)
+            end
           })
-          G.hand:change_size(card.ability.extra.handsize_mod)
         end
       else
         if card.ability.extra.handsize > 0 then

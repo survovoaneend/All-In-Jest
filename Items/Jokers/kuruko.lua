@@ -8,6 +8,7 @@ local kuruko = {
             mult = 1
         }
     },
+    attributes = { 'mult', 'rank', 'full_deck' },
     rarity = 1,
     pos = { x = 0, y = 12 },
     atlas = 'joker_atlas',

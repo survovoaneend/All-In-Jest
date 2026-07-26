@@ -6,6 +6,7 @@ local line_in_the_sand = {
     config = {
       
     },
+    attributes = { 'draw_cards', 'discard' },
     rarity = 2,
     pos = { x = 1, y = 3 },
     atlas = 'joker_atlas',

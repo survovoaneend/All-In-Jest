@@ -8,6 +8,7 @@ local opening_move = {
           cur_xmult = 1,
       }
     },
+    attributes = { 'xmult' },
     lite = true,
     rarity = 2,
     pos = { x = 22, y = 10},

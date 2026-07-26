@@ -9,6 +9,7 @@ local lost_carcosa = {
             max = 200
         }
     },
+    attributes = { 'planet', 'consumable' },
     rarity = 2,
     pos = { x = 16, y = 7},
     atlas = 'joker_atlas',

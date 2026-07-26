@@ -9,6 +9,7 @@ local executioner = {
       chip_gain = 50
     }
   },
+  attributes = { 'chips', 'scaling', 'on_destroy', 'face' },
   rarity = 2,
   pos = { x = 11, y = 6},
   atlas = 'joker_atlas',

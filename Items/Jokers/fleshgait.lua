@@ -4,6 +4,7 @@ local fleshgait = {
     key = "fleshgait",
     config = {
     },
+    attributes = { 'modify_card', 'patches' },
     rarity = 2,
     pos = { x = 13, y = 14},
     atlas = 'joker_atlas',

@@ -7,6 +7,7 @@ local tetrominoker = {
           odds = 4
       }
     },
+    attributes = { 'generation', 'playing_card', 'rank', 'four', 'chance' },
     rarity = 2,
     pos = { x = 4, y = 11},
     atlas = 'joker_atlas',

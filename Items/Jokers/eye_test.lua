@@ -8,6 +8,7 @@ local eye_test = {
             count = 0
         }
     },
+    attributes = { 'mult', 'scaling', 'reset' },
     rarity = 1,
     pos = { x = 4, y = 25 },
     atlas = 'joker_atlas',

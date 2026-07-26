@@ -6,6 +6,7 @@ local stained_glass_joker = {
     config = {
       
     },
+    attributes = { 'passive', 'enhancements', 'suit' },
     rarity = 2,
     pos = { x = 17, y = 8},
     atlas = 'joker_atlas',

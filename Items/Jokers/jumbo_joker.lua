@@ -7,6 +7,7 @@ local jumbo_joker = {
       extra = {
       }
     },
+    attributes = { 'booster', 'shop' },
     rarity = 2,
     pos = { x = 0, y = 0 },
     atlas = 'jumbo_joker',

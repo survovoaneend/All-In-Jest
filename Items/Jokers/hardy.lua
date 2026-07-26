@@ -5,6 +5,7 @@ local hardy = {
     config = {
        
     },
+    attributes = { 'modify_card', 'enhancements', 'editions' },
     rarity = 4,
     pos = { x = 4, y = 12 },
     atlas = 'legendary_atlas',

@@ -8,6 +8,7 @@ local arngren = {
             bonus_slots = 1
         }
     },
+    attributes = { 'shop', 'shop_slot', 'voucher', 'booster', 'passive' },
     rarity = 3,
     pos = { x = 21, y = 12},
     atlas = 'joker_atlas',

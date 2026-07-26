@@ -8,6 +8,7 @@ local nedda = {
       xmult = 2
     }
   },
+  attributes = { 'xmult', 'rank', 'queen' },
   rarity = 4,
   unlock_condition = { hidden = true },
   pos = { x = 7, y = 0 },

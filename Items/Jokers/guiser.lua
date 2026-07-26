@@ -8,6 +8,7 @@ local guiser = {
       money = 5
     }
   },
+  attributes = { 'sell_value', 'scaling', 'tarot', 'consumable' },
   rarity = 3,
   pos = { x = 1, y = 6},
   atlas = 'joker_atlas',
@@ -36,11 +37,6 @@ local guiser = {
           scaling_message = {
             message = localize('k_val_up'),
             colour = G.C.MONEY
-          },
-          block_overrides = {
-            value = true,
-            scalar = true,
-            message = true,
           }
         })
         card:set_cost()

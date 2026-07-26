@@ -20,6 +20,7 @@ local the_grim_joker = {
           odds = 3,
       }
     },
+    attributes = { 'editions', 'negative', 'seals', 'tarot', 'planet', 'consumable', 'chance' },
     rarity = 2,
     pos = { x = 17, y = 12},
     atlas = 'joker_atlas',

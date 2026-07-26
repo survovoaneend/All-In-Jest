@@ -9,6 +9,7 @@ local phoney_baloney = {
             rerolls_remaining = 5
         }
     },
+    attributes = { 'economy', 'reroll', 'shop', 'food' },
     rarity = 2,
     pos = { x = 9, y = 7 },
     atlas = 'joker_atlas',

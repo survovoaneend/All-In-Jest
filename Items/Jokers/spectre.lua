@@ -6,6 +6,7 @@ local spectre = {
     config = {
       
     },
+    attributes = { 'generation', 'spectral', 'consumable' },
     rarity = 3,
     pos = { x = 17, y = 5 },
     atlas = 'joker_atlas',

@@ -9,6 +9,7 @@ local treasure_map = {
             remain_blinds = 0
         }
     },
+    attributes = { 'skip', 'generation', 'tag', 'gold_tag' },
     rarity = 2,
     pos = { x = 1, y = 21 },
     atlas = 'joker_atlas',

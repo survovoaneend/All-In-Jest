@@ -8,6 +8,7 @@ local histrio = {
             money = 2
         }
     },
+    attributes = { 'economy', 'hands' },
     rarity = 2,
     pos = { x = 12, y = 8 },
     atlas = 'joker_atlas',

@@ -6,6 +6,7 @@ local atom = {
   config = {
 
   },
+  attributes = { 'hand_level', 'hand_type', 'rank', 'ace' },
   rarity = 2,
   pos = { x = 14, y = 1 },
   atlas = 'joker_atlas',

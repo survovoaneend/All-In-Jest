@@ -6,6 +6,7 @@ local null_joker = {
   config = {
     extra = { }
   },
+  attributes = { 'mod_chance' },
   rarity = 1,
   pos = { x = 7, y = 3 },
   atlas = 'joker_atlas',

@@ -10,6 +10,7 @@ local coulrorachne = {
         amt_mod = 8,
       }
     },
+    attributes = { 'mult', 'scaling', 'rank', 'eight' },
     rarity = 1,
     pos = { x = 14, y = 13},
     atlas = 'joker_atlas',

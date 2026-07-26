@@ -8,6 +8,7 @@ local father_christmas = {
             dollars = 1
         }
     },
+    attributes = { 'economy' },
     rarity = 3,
     pos = { x = 5, y = 27 },
     atlas = 'joker_atlas',

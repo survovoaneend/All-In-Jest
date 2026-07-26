@@ -7,6 +7,7 @@ local blacklist = {
             banned_cards = {}
         }
     },
+    attributes = { 'passive' },
     rarity = 2,
     pos = { x = 22, y = 12},
     atlas = 'joker_atlas',

@@ -8,6 +8,7 @@ local tin = {
             
         }
     },
+    attributes = { 'retrigger', 'hand_type' },
     rarity = 3,
     pos = { x = 14, y = 28 },
     atlas = 'joker_atlas',

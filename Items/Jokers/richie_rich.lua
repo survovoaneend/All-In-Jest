@@ -9,6 +9,7 @@ local richie_rich = {
         xdollars = 0.1
       }
     },
+    attributes = { 'economy' },
     rarity = 2,
     pos = { x = 5, y = 9},
     atlas = 'joker_atlas',

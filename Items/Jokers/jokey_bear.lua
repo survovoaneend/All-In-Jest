@@ -9,6 +9,7 @@ local jokey_bear = {
             temp_chips = '0'
         }
     },
+    attributes = { 'xmult', 'economy', 'retrigger' },
     rarity = 2,
     pos = { x = 20, y = 24 },
     atlas = 'joker_atlas',

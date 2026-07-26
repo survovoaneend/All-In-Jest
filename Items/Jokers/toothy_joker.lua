@@ -6,6 +6,7 @@ local toothy_joker = {
     config = {
       extra = { chips = 25 }
     },
+    attributes = { 'chips', 'scaling', 'reset', 'tarot', 'consumable' },
     rarity = 1,
     pos = { x = 2, y = 8},
     atlas = 'joker_atlas',

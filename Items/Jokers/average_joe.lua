@@ -8,6 +8,7 @@ local average_joe = {
         percent = 20
       }
     },
+    attributes = { 'balance' },
     rarity = 2,
     pos = { x = 19, y = 5 },
     atlas = 'joker_atlas',

@@ -8,6 +8,7 @@ local bozo = {
             jokers = 2
         }
     },
+    attributes = { 'generation', 'joker', 'editions', 'negative' },
     rarity = 4,
     pos = { x = 0, y = 12 },
     atlas = 'legendary_atlas',

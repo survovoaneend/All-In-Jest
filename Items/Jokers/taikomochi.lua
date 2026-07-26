@@ -8,6 +8,7 @@ local taikomochi = {
       chips = 100
     }
   },
+  attributes = { 'chips', 'rank', 'jack' },
   rarity = 3,
   pos = { x = 8, y = 6},
   atlas = 'joker_atlas',

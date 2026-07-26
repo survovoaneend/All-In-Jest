@@ -10,6 +10,7 @@ local elf = {
             tags = 2
         }
     },
+    attributes = { 'skip', 'generation', 'tag', 'economy' },
     rarity = 2,
     pos = { x = 12, y = 13 },
     atlas = 'joker_atlas',

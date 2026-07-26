@@ -8,6 +8,7 @@ local vitruvian_joker = {
         xmult = 2
       }
     },
+    attributes = { 'xmult', 'joker' },
     rarity = 2,
     pos = { x = 17, y = 10},
     atlas = 'joker_atlas',

@@ -9,6 +9,7 @@ local mr_lonely = {
       chip_mod = 10
     }
   },
+  attributes = { 'chips', 'scaling', 'joker_slot' },
   rarity = 2,
   pos = { x = 18, y = 7 },
   atlas = 'joker_atlas',

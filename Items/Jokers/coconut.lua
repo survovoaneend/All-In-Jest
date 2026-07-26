@@ -7,6 +7,7 @@ local coconut = {
             
         }
     },
+    attributes = { 'generation', 'tag', 'on_sell' },
     rarity = 1,
     pos = { x = 12, y = 25 },
     atlas = 'joker_atlas',

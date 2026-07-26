@@ -8,6 +8,7 @@ local nobody = {
           cur_rounds = 0
       }
     },
+    attributes = { 'generation', 'joker', 'legendary' },
     rarity = 3,
     pos = { x = 10, y = 13},
     atlas = 'joker_atlas',

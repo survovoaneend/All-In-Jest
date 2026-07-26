@@ -6,6 +6,7 @@ local hand_drawn = {
     config = {
       
     },
+    attributes = { 'draw_cards', 'hand_type' },
     rarity = 3,
     pos = { x = 21, y = 2 },
     atlas = 'joker_atlas',

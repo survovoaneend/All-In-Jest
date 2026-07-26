@@ -11,6 +11,7 @@ local scrunched_joker = {
             mult_small = 2
         }
     },
+    attributes = { 'mult', 'chips', 'hands' },
     rarity = 1,
     pos = { x = 11, y = 24 },
     atlas = 'joker_atlas',

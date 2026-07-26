@@ -33,6 +33,7 @@ local haruspex = {
             cards_to_draw = 1
         }
     },
+    attributes = { 'activated', 'draw_cards', 'choice' },
     rarity = 2,
     pos = { x = 22, y = 2 },
     atlas = 'joker_atlas',

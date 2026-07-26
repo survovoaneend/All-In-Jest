@@ -8,6 +8,7 @@ local corpse_paint = {
       hand_size = 1,
       max_hand_size = "0"
     },
+    attributes = { 'hand_size', 'scaling', 'editions', 'negative' },
     rarity = 2,
     pos = { x = 1, y = 8},
     atlas = 'joker_atlas',
@@ -36,13 +37,12 @@ local corpse_paint = {
             if context.other_card.edition ~= nil and context.other_card.edition.negative then
                 context.other_card:set_edition(nil)
                 if SMODS.pseudorandom_probability(card, 'corpse_paint', 1, card.ability.odds) then
-                    G.hand:change_size(card.ability.hand_size)
-                    local hand_size = tonumber(card.ability.max_hand_size)
                     SMODS.scale_card(card, {
 	                    ref_table = card.ability,
                         ref_value = "max_hand_size",
 	                    scalar_value = "hand_size",
                         operation = function(ref_table, ref_value, initial, change)
+                            G.hand:change_size(change)
 	                        ref_table[ref_value] = tostring(tonumber(initial) + change)
                         end,
                         message_key = 'a_handsize'

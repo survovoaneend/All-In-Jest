@@ -6,6 +6,7 @@ local infinite_jest = {
     config = {
 
     },
+    attributes = { 'boss_blind', 'hand_level' },
     rarity = 3,
     pos = { x = 13, y = 0 },
     atlas = 'joker_atlas',

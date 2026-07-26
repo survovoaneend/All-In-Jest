@@ -8,6 +8,7 @@ local quadrangled_joker = {
             
         }
     },
+    attributes = { 'mult', 'chips', 'hand_type' },
     rarity = 2,
     pos = { x = 24, y = 26 },
     atlas = 'joker_atlas',

@@ -6,6 +6,7 @@ local nichola = {
     config = {
       
     },
+    attributes = { 'generation', 'playing_card', 'rank', 'queen', 'enhancements', 'seals', 'editions' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 6, y = 2},

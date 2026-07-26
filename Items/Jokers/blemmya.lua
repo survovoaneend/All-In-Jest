@@ -8,6 +8,7 @@ local blemmya = {
             
         }
     },
+    attributes = { 'modify_card', 'rank', 'face', 'jack', 'king', 'queen' },
     rarity = 2,
     pos = { x = 8, y = 23 },
     atlas = 'joker_atlas',

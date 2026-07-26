@@ -5,6 +5,7 @@ local jester_zombie = {
     config = {
       
     },
+    attributes = { 'retrigger', 'on_destroy' },
     rarity = 2,
     pos = { x = 4, y = 9},
     atlas = 'joker_atlas',

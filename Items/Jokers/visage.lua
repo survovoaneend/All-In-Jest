@@ -27,6 +27,7 @@ local visage = {
     key = "visage",
     config = {
     },
+    attributes = { 'trigger_cards', 'on_destroy', 'face' },
     rarity = 2,
     pos = { x = 21, y = 8 },
     atlas = 'joker_atlas',

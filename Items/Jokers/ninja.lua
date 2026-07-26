@@ -7,6 +7,7 @@ local ninja = {
             
         }
     },
+    attributes = { 'trigger_cards', 'position' },
     rarity = 3,
     pos = { x = 20, y = 20 },
     atlas = 'joker_atlas',

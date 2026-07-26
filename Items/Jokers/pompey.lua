@@ -8,6 +8,7 @@ local pompey = {
         xmult = 1.5
       }
     },
+    attributes = { 'xmult', 'joker' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 3, y = 0},

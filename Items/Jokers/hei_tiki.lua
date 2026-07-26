@@ -9,6 +9,7 @@ local hei_tiki = {
         xmult_mod = 0.1
       }
     },
+    attributes = { 'xmult', 'scaling' },
     rarity = 3,
     pos = { x = 6, y = 2 },
     atlas = 'joker_atlas',

@@ -6,6 +6,7 @@ local pierrot = {
     config = {
       
     },
+    attributes = { 'chips', 'rank', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine' },
     rarity = 1,
     pos = { x = 10, y = 0 },
     atlas = 'joker_atlas',

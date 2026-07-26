@@ -5,6 +5,7 @@ local sky_trees = {
     key = "sky_trees",
     config = {
     },
+    attributes = { 'generation', 'seals', 'planet', 'moon', 'consumable' },
     rarity = 2,
     pos = { x = 14, y = 12},
     atlas = 'joker_atlas',

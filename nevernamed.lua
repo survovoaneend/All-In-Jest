@@ -228,6 +228,98 @@ SMODS.Gradient {
     cycle = 5,
     interpolation = 'trig'
 }
+-- adds Chaotic to cards, or has to do with Chaotic
+SMODS.Attribute {
+    key = 'chaotic'
+}
+-- related to Moon planet cards
+SMODS.Attribute {
+    key = 'moon'
+}
+-- related to vouchers or voucher slots
+SMODS.Attribute {
+    key = 'voucher',
+    keys = { 'tag_voucher' }
+}
+-- related to shop or booster pack slots
+SMODS.Attribute {
+    key = 'shop_slot',
+    keys = {
+        'v_overstock_norm',
+        'v_overstock_plus'
+    }
+}
+-- triggers when a card or joker is destroyed
+SMODS.Attribute {
+    key = 'on_destroy'
+}
+-- adds Negative edition to cards, or has to do with Negative
+SMODS.Attribute {
+    key = 'negative',
+    keys = {
+        'j_perkeo',
+        'c_ectoplasm',
+        'tag_negative'
+    }
+}
+-- related to activated abilities
+SMODS.Attribute {
+    key = 'activated'
+}
+-- causes additional card effects to be triggered
+-- eg. Bizco adding cards, or Mummer triggering steel
+SMODS.Attribute {
+    key = 'trigger_cards'
+}
+-- related to joker stickers
+SMODS.Attribute {
+    key = 'stickers'
+}
+-- causes additional / different cards to be drawn
+SMODS.Attribute {
+    key = 'draw_cards',
+    keys = { 'bl_serpent' }
+}
+-- related to effects that give a multiplier to other effects
+-- eg. Dongtong or charged cards
+SMODS.Attribute {
+    key = 'multiplier'
+}
+-- literally just D'or but probably worth having for the sake of crossmod
+SMODS.Attribute {
+    key = 'emult'
+}
+-- egg
+SMODS.Attribute {
+    key = 'egg',
+    keys = { 'j_egg' }
+}
+-- related to suit patches
+SMODS.Attribute {
+    key = 'patches'
+}
+-- related to gold tags
+SMODS.Attribute {
+    key = 'gold_tag'
+}
+-- related to legendary jokers
+SMODS.Attribute {
+    key = 'legendary',
+    keys = { 'c_soul' }
+}
+-- effects that give you a customizable choice for a card
+-- eg. Morio, Martellino, Nonstandard Tag
+SMODS.Attribute {
+    key = 'choice'
+}
+-- reveals cards in your deck
+SMODS.Attribute {
+    key = 'future_sense'
+}
+-- affects card selection limit
+SMODS.Attribute {
+    key = 'select_limit'
+}
 AllInJest = {}
 assert(SMODS.load_file('Utils/context.lua'))()
 assert(SMODS.load_file('Utils/draw.lua'))()

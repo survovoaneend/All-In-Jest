@@ -9,6 +9,7 @@ local haggler = {
             dollars = 6
         }
     },
+    attributes = { 'economy', 'chance', 'discard', 'enhancements' },
     rarity = 1,
     pos = { x = 18, y = 28 },
     atlas = 'joker_atlas',

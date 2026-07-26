@@ -8,6 +8,7 @@ local tussaud = {
             xmult_gain = 0.5
         }
     },
+    attributes = { 'xmult', 'seals', 'full_deck' },
     rarity = 2,
     pos = { x = 6, y = 28 },
     atlas = 'joker_atlas',

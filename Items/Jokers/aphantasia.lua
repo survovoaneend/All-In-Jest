@@ -5,6 +5,7 @@ local aphantasia = {
     config = {
       
     },
+    attributes = { 'chaotic', 'modify_card', 'enhancements' },
     rarity = 3,
     pos = { x = 15, y = 10},
     atlas = 'joker_atlas',

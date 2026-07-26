@@ -9,6 +9,7 @@ local goblin_joker = {
             active = false
         }
     },
+    attributes = { 'draw_cards', 'discard' },
     rarity = 3,
     pos = { x = 13, y = 3 },
     atlas = 'joker_atlas',

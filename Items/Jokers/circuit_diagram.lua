@@ -5,6 +5,7 @@ local circuit_diagram = {
     config = {
       
     },
+    attributes = { 'enhancements', 'draw_cards' },
     rarity = 2,
     pos = { x = 10, y = 11},
     atlas = 'joker_atlas',

@@ -6,6 +6,7 @@ local beanstalk = {
     config = {
       
     },
+    attributes = { 'passive', 'debuff', 'rank', 'jack' },
     rarity = 1,
     pos = { x = 8, y = 7},
     atlas = 'joker_atlas',

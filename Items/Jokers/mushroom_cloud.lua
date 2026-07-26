@@ -8,6 +8,7 @@ local mushroom_cloud = {
             dollars = 50
         }
     },
+    attributes = { 'activated', 'economy', 'destroy_card' },
     rarity = 2,
     pos = { x = 18, y = 8},
     atlas = 'joker_atlas',

@@ -8,6 +8,7 @@ local scurra = {
           retriggers = 1
       }
   },
+  attributes = { 'retrigger', 'seals' },
   rarity = 2,
   pos = { x = 18, y = 6 }, 
   atlas = 'joker_atlas',   

@@ -78,6 +78,7 @@ local ijoker_co = {
           tags = 2
       }
     },
+    attributes = { 'shop', 'tag' },
     rarity = 3,
     pos = { x = 0, y = 8},
     atlas = 'joker_atlas',

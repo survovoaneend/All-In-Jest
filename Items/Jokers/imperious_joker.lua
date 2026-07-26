@@ -8,6 +8,7 @@ local imperious_joker = {
             mult = 120
         }
     },
+    attributes = { 'mult', 'hand_type' },
     rarity = 1,
     pos = { x = 3, y = 26 },
     atlas = 'joker_atlas',

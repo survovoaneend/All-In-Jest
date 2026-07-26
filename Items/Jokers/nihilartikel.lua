@@ -9,6 +9,7 @@ local nihilartikel = {
           cost = 3
         }
     },
+    attributes = { 'joker_slot', 'lose_economy' },
     rarity = 3,
     pos = { x = 15, y = 27 },
     atlas = 'joker_atlas',

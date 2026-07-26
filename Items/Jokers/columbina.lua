@@ -9,6 +9,7 @@ local columbina = {
       percent_mod = 5
     }
   },
+  attributes = { 'balance', 'scaling', 'spectral', 'consumable' },
   rarity = 2,
   pos = { x = 11, y = 4 },
   atlas = 'joker_atlas',

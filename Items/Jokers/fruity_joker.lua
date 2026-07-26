@@ -8,6 +8,7 @@ local fruity_joker = {
         mult = 15
       }
     },
+    attributes = { 'mult', 'editions' },
     rarity = 1,
     pos = { x = 17, y = 1 },
     atlas = 'joker_atlas',

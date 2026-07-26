@@ -5,6 +5,7 @@ local bartender = {
     config = {
       
     },
+    attributes = { 'consumable', 'editions', 'passive' },
     rarity = 1,
     pos = { x = 23, y = 10},
     atlas = 'joker_atlas',

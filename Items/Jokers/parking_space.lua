@@ -9,6 +9,7 @@ local parking_space = {
         target_slot = 1
       }
     },
+    attributes = { 'xmult', 'position' },
     rarity = 2,
     pos = { x = 0, y = 16},
     atlas = 'joker_atlas',

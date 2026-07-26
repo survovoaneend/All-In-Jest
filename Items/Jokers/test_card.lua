@@ -6,6 +6,7 @@ local test_card = {
   config = {
 
   },
+  attributes = { 'editions' },
   rarity = 2,
   pos = { x = 16, y = 11 },
   atlas = 'joker_atlas',

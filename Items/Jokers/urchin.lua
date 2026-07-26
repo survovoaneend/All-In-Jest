@@ -9,6 +9,7 @@ local urchin = {
             money_mod = 2
         }
     },
+    attributes = { 'economy', 'skip' },
     rarity = 1,
     pos = { x = 14, y = 9 },
     atlas = 'joker_atlas',

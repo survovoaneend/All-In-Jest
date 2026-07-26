@@ -8,6 +8,7 @@ local cairoli = {
         gain = 0.5
        }
     },
+    attributes = { 'xmult', 'scaling', 'booster', 'skip' },
     rarity = 4,
     pos = { x = 2, y = 14 },
     atlas = 'legendary_atlas',
@@ -25,11 +26,14 @@ local cairoli = {
 
     calculate = function(self, card, context)
         if (context.skip_blind or context.skipping_booster) and not context.blueprint then
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
-            return {
-                message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult } },
-                colour = G.C.MULT
-            }
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "xmult",
+                scalar_value = "gain",
+                message_key = 'a_xmult',
+                message_colour = G.C.MULT
+            })
+            return nil, true
         end
         if context.joker_main then
             return {

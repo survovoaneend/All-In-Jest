@@ -8,6 +8,7 @@ local astrologer = {
             picks = 1
         }
     },
+    attributes = { 'moon', 'planet', 'booster', 'passive', 'space' },
     rarity = 2,
     pos = { x = 10, y = 12},
     atlas = 'joker_atlas',

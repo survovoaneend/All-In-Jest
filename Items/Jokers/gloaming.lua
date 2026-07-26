@@ -8,6 +8,7 @@ local gloaming = {
             xmult = 1.5
         }
     },
+    attributes = { 'xmult', 'hands' },
     rarity = 3,
     pos = { x = 18, y = 27 },
     atlas = 'joker_atlas',

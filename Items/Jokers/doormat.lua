@@ -7,6 +7,7 @@ local doormat = {
             
         }
     },
+    attributes = { 'modify_card', 'enhancements' },
     rarity = 1,
     pos = { x = 16, y = 25 },
     atlas = 'joker_atlas',

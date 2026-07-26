@@ -8,6 +8,7 @@ local quantum_foam = {
             odds = 2
         }
     },
+    attributes = { 'retrigger', 'chance' },
     rarity = 1,
     pos = { x = 24, y = 27 },
     atlas = 'joker_atlas',

@@ -4,6 +4,7 @@ local fall_of_count_chaligny = {
     key = "fall_of_count_chaligny",
     config = {
     },
+    attributes = { 'passive' },
     rarity = 1,
     pos = { x = 13, y = 13},
     atlas = 'joker_atlas',

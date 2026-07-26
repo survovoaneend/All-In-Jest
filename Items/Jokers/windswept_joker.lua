@@ -8,6 +8,7 @@ local windswept_joker = {
             levels = 2
         }
     },
+    attributes = { 'hand_level', 'hand_type' },
     rarity = 3,
     pos = { x = 23, y = 20 },
     atlas = 'joker_atlas',

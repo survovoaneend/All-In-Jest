@@ -6,6 +6,7 @@ local cosmological_constant = {
     config = {
       
     },
+    attributes = { 'balance' },
     rarity = 3,
     pos = { x = 12, y = 5 },
     atlas = 'joker_atlas',

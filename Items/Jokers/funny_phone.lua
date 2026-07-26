@@ -11,6 +11,7 @@ local funny_phone = {
             min = 1,
         }
     },
+    attributes = { 'chips', 'scaling', 'reroll', 'shop' },
     rarity = 1,
     pos = { x = 8, y = 10 },
     atlas = 'joker_atlas',

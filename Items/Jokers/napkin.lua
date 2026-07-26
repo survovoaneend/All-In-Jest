@@ -10,6 +10,7 @@ local napkin = {
             state = false
         }
     },
+    attributes = { 'xmult', 'scaling', 'skip' },
     rarity = 2,
     pos = { x = 14, y = 7 },
     atlas = 'joker_atlas',

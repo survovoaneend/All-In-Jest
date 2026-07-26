@@ -8,6 +8,7 @@ local valentine = {
             x_mult = 1.5
         }
     },
+    attributes = { 'xmult', 'hand_type' },
     rarity = 2,
     pos = { x = 20, y = 16 },
     atlas = 'joker_atlas',

@@ -9,6 +9,7 @@ local skomorokh = {
             xmult_mod = 0.2,
         }
     },
+    attributes = { 'xmult', 'editions', 'full_deck' },
     rarity = 2,
     pos = { x = 23, y = 7 },
     atlas = 'joker_atlas',

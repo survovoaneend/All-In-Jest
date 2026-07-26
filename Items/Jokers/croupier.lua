@@ -7,6 +7,7 @@ local croupier = {
             mod_money = 10
         }
     },
+    attributes = { 'economy' },
     rarity = 1,
     pos = { x = 23, y = 12 },
     atlas = 'joker_atlas',

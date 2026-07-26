@@ -12,6 +12,7 @@ local whats_left = {
             silver_multiplier_buff = 100
         }
     },
+    attributes = { 'copying', 'on_sell' },
     rarity = 3,
     pos = { x = 21, y = 23 },
     atlas = 'joker_atlas',

@@ -9,6 +9,7 @@ local honker = {
             cur_mult = 0
         }
     },
+    attributes = { 'mult', 'scaling', 'enhancements' },
     rarity = 2,
     pos = { x = 3, y = 5 },
     atlas = 'joker_atlas',

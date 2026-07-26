@@ -8,6 +8,7 @@ local anagraph = {
         has_triggered = false,
       }
     },
+    attributes = { 'generation', 'destroy_card', 'joker', 'playing_card' },
     rarity = 1,
     pos = { x = 7, y = 7},
     atlas = 'joker_atlas',

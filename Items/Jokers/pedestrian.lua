@@ -8,6 +8,7 @@ local pedestrian = {
             
         }
     },
+    attributes = { 'retrigger', 'rank' },
     rarity = 2,
     pos = { x = 24, y = 16 },
     atlas = 'joker_atlas',

@@ -9,6 +9,7 @@ local imageboard = {
           mod_mult = 1
       }
     },
+    attributes = { 'mult', 'rank' },
     rarity = 1,
     pos = { x = 20, y = 0 },
     atlas = 'joker_atlas',

@@ -8,6 +8,7 @@ local le_fils_de_banane = {
           odds = 6
       }
     },
+    attributes = { 'mult', 'face', 'chance', 'destroy_card' },
     rarity = 2,
     pos = { x = 0, y = 11},
     atlas = 'joker_atlas',

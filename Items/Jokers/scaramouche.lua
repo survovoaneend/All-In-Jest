@@ -9,6 +9,7 @@ local scaramouche = {
             scaramouche_poker_hand = nil
         }
     },
+    attributes = { 'retrigger', 'hand_type' },
     rarity = 2,
     pos = { x = 21, y = 3 },
     atlas = 'joker_atlas',

@@ -8,6 +8,7 @@ local scorecard = {
       levels = 2,
     }
   },
+  attributes = { 'hand_level' },
   rarity = 1,
   pos = { x = 15, y = 2 },
   atlas = 'joker_atlas',

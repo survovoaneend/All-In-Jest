@@ -9,6 +9,7 @@ local tarlton = {
         last_chips = 0,
       }
     },
+    attributes = { 'chips' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 6, y = 4},

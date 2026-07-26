@@ -39,6 +39,7 @@ local spiders_georg = {
             base_xmult = 1 -- Purely so silver/dongtong can do something
         }
     },
+    attributes = { 'xmult', 'rank', 'eight' },
     rarity = 2,
     pos = { x = 19, y = 7},
     atlas = 'joker_atlas',

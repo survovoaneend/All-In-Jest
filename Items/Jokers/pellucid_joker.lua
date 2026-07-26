@@ -6,6 +6,7 @@ local pellucid_joker = {
     config = {
       
     },
+    attributes = { 'generation', 'playing_card', 'editions', 'on_sell', 'on_destroy' },
     rarity = 2,
     pos = { x = 11, y = 5 },
     atlas = 'joker_atlas',

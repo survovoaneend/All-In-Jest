@@ -12,6 +12,7 @@ local clay_joker = {
             silver_multiplier_buff = 100
         }
     },
+    attributes = { 'copying', 'on_destroy' },
     rarity = 3,
     pos = { x = 22, y = 3 },
     atlas = 'joker_atlas',

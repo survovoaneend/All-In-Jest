@@ -6,6 +6,7 @@ local anchor = {
     config = {
 
     },
+    attributes = { 'joker', 'position' },
     rarity = 2,
     pos = { x = 5, y = 2 },
     atlas = 'joker_atlas',

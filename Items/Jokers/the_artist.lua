@@ -8,6 +8,7 @@ local the_artist = {
           more_selection = 1,
       }
     },
+    attributes = { 'passive', 'tarot', 'select_limit' },
     rarity = 3,
     pos = { x = 5, y = 8},
     atlas = 'joker_atlas',

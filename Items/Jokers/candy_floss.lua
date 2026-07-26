@@ -9,6 +9,7 @@ local candy_floss = {
         percent_mod = 5
       }
     },
+    attributes = { 'balance', 'food', 'scaling' },
     rarity = 2,
     pos = { x = 1, y = 12},
     atlas = 'joker_atlas',

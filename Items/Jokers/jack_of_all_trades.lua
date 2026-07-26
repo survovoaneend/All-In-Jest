@@ -6,6 +6,7 @@ local jack_of_all_trades = {
     config = {
       
     },
+    attributes = { 'passive', 'rank', 'jack', 'suit' },
     rarity = 2,
     pos = { x = 9, y = 5 },
     atlas = 'joker_atlas',

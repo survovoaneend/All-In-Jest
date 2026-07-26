@@ -7,6 +7,7 @@ local the_jolly = {
             
         }
     },
+    attributes = { 'hand_type', 'hand_level' },
     rarity = 2,
     pos = { x = 3, y = 16 },
     atlas = 'joker_atlas',

@@ -7,6 +7,7 @@ local tool = {
             mult_mod = 3
         }
     },
+    attributes = { 'modify_card', 'perma_bonus', 'mult', 'suit' },
     rarity = 1,
     pos = { x = 6, y = 14 },
     atlas = 'joker_atlas',

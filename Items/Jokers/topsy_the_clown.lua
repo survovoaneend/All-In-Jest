@@ -6,6 +6,7 @@ local topsy_the_clown = {
     config = {
       
     },
+    attributes = { 'chips', 'mult' },
     rarity = 1,
     pos = { x = 24, y = 2 },
     atlas = 'joker_atlas',

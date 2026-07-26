@@ -8,6 +8,7 @@ local dead_president = {
       max = 50,
     }
   },
+  attributes = { 'on_sell', 'sell_value', 'joker', 'position' },
   rarity = 1,
   pos = { x = 15, y = 4 },
   atlas = 'joker_atlas',

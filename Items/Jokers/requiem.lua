@@ -8,6 +8,7 @@ local requiem = {
             
         }
     },
+    attributes = { 'economy', 'joker' },
     rarity = 3,
     pos = { x = 1, y = 26 },
     atlas = 'joker_atlas',

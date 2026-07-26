@@ -9,6 +9,7 @@ local candidate = {
            chips = 50
         }
     },
+    attributes = { 'mult', 'chips', 'joker', 'rarity' },
     rarity = 3,
     pos = { x = 14, y = 23 },
     atlas = 'joker_atlas',

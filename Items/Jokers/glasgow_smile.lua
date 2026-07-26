@@ -9,6 +9,7 @@ local glasgow_smile = {
             gain = 30
         }
     },
+    attributes = { 'chips', 'enhancements', 'destroy_card' },
     rarity = 2,
     pos = { x = 20, y = 23 },
     atlas = 'joker_atlas',

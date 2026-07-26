@@ -7,6 +7,7 @@ local totem_pole = {
             xmult = 2
         }
     },
+    attributes = { 'xmult', 'position' },
     rarity = 2,
     pos = { x = 4, y = 20 },
     atlas = 'joker_atlas',

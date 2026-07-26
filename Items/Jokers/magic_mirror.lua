@@ -6,6 +6,7 @@ local magic_mirror = {
     config = {
       
     },
+    attributes = { 'modify_card', 'editions', 'negative', 'face' },
     rarity = 3,
     pos = { x = 15, y = 7},
     atlas = 'joker_atlas',

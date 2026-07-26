@@ -9,6 +9,7 @@ local planetarium = {
           mult = 15,
       }
     },
+    attributes = { 'mult', 'chips', 'planet', 'moon', 'consumable' },
     rarity = 2,
     pos = { x = 11, y = 12},
     atlas = 'joker_atlas',

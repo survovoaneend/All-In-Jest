@@ -8,6 +8,7 @@ local elder = {
 
         }
     },
+    attributes = { 'copying' },
     lite = true,
     rarity = 3,
     pos = { x = 4, y = 21 },

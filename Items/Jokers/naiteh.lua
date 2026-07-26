@@ -9,6 +9,7 @@ local naiteh = {
         h_size_mod = 1,
       }
     },
+    attributes = { 'hand_size', 'scaling', 'boss_blind' },
     rarity = 4,
     pos = { x = 7, y = 10},
     atlas = 'legendary_atlas',
@@ -35,8 +36,11 @@ local naiteh = {
 	            ref_table = card.ability.extra,
                 ref_value = "h_size",
 	            scalar_value = "h_size_mod",
+                operation = function(ref_table, ref_value, initial, change)
+                    ref_table[ref_value] = initial + change
+                    G.hand:change_size(change)
+                end
             })
-            G.hand:change_size(card.ability.extra.h_size_mod)
             return nil, true
         end
     end,

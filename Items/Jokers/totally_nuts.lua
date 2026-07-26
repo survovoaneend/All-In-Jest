@@ -5,6 +5,7 @@ local totally_nuts = {
     config = {
       extra = { consumable_slots = "3" }
     },
+    attributes = { 'consumable_slot', 'food', 'on_sell' },
     rarity = 1,
     pos = { x = 7, y = 9},
     atlas = 'joker_atlas',

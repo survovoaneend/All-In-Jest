@@ -7,6 +7,7 @@ local jeremy_bearimy = {
             
         }
     },
+    attributes = { 'retrigger', 'joker' },
     rarity = 2,
     pos = { x = 22, y = 24 },
     atlas = 'joker_atlas',

@@ -6,6 +6,7 @@ local mistake = {
   config = {
     
   },
+  attributes = { 'passive', 'stickers' },
   rarity = 2,
   pos = { x = 9, y = 9},
   atlas = 'joker_atlas',

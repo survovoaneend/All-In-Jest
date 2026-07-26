@@ -6,6 +6,7 @@ local whatsisname = {
     config = {
       
     },
+    attributes = { 'passive', 'legendary', 'shop', 'booster' },
     rarity = 3,
     pos = { x = 9, y = 10},
     atlas = 'joker_atlas',

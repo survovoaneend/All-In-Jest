@@ -8,6 +8,7 @@ local uranium = {
             
         }
     },
+    attributes = { 'retrigger', 'hand_type' },
     rarity = 2,
     pos = { x = 1, y = 27 },
     atlas = 'joker_atlas',

@@ -6,6 +6,7 @@ local komar = {
     config = {
       
     },
+    attributes = { 'modify_card', 'perma_bonus', 'chips' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 6, y = 8},

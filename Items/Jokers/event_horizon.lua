@@ -9,6 +9,7 @@ local event_horizon = {
           last_hand = ''
       }
     },
+    attributes = { 'xmult', 'scaling', 'reset', 'hand_level' },
     rarity = 3,
     pos = { x = 13, y = 6},
     atlas = 'joker_atlas',
@@ -41,10 +42,12 @@ local event_horizon = {
             end
             if amt == 1 then
                 card.ability.extra.last_hand = context.scoring_name
-                card.ability.extra.xmult = card.ability.extra.xmult + (card.ability.extra.xmult_mod*amt)
-                return {
-                    message = localize('k_upgrade_ex')
-                }
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "xmult",
+                    scalar_value = "xmult_mod"
+                })
+                return nil, true
             end
         end
         if context.joker_main then

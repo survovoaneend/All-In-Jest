@@ -7,6 +7,7 @@ local crop_circle = {
             cards = 1
         }
     },
+    attributes = { 'modify_card', 'enhancements', 'planet', 'consumable' },
     rarity = 2,
     pos = { x = 20, y = 14 },
     atlas = 'joker_atlas',

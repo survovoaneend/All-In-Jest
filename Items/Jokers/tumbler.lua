@@ -9,6 +9,7 @@ local tumbler = {
             Xmult_loss = 0.02
         }
     },
+    attributes = { 'xmult', 'scaling' },
     rarity = 2,
     pos = { x = 8, y = 4 },
     atlas = 'joker_atlas',
@@ -36,12 +37,18 @@ local tumbler = {
                     colour = G.C.FILTER
                 }
             else
-                card.ability.extra.Xmult = card.ability.extra.Xmult - card.ability.extra.Xmult_loss
-                return {
-                    message = localize { type = 'variable', key = 'a_xmult_minus', vars = { card.ability.extra.Xmult_loss } },
-                    colour = G.C.RED,
-                    delay = 0.2
-                }
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "Xmult",
+                    scalar_value = "Xmult_loss",
+                    operation = '-',
+                    scaling_message = {
+                        message = localize { type = 'variable', key = 'a_xmult_minus', vars = { card.ability.extra.Xmult_loss } },
+                        colour = G.C.RED,
+                        delay = 0.2
+                    }
+                })
+                return nil, true
             end
         end
         if context.joker_main then

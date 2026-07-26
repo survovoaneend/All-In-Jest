@@ -8,6 +8,7 @@ local rising_sun = {
             retriggers = 1,
         }
     },
+    attributes = { 'retrigger', 'hands' },
     rarity = 1,
     pos = { x = 18, y = 4 },
     atlas = 'joker_atlas',

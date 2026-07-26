@@ -8,6 +8,7 @@ local yang = {
             mult = 5
         }
     },
+    attributes = { 'mult', 'suit', 'hearts', 'diamonds' },
     rarity = 2,
     pos = { x = 24, y = 25 },
     atlas = 'joker_atlas',

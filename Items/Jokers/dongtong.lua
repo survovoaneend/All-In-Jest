@@ -70,6 +70,7 @@ local dongtong = {
             has_doubled = false
         }
     },
+    attributes = { 'multiplier', 'joker', 'large_blind' },
     rarity = 4,
     pos = { x = 6, y = 10 },
     atlas = 'legendary_atlas',

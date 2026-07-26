@@ -8,6 +8,7 @@ local trypophobia = {
         mult = 20,
       }
     },
+    attributes = { 'mult', 'rank', 'eight' },
     rarity = 1,
     pos = All_in_Jest.config.alter_trypophobia and { x = 3, y = 14 } or { x = 15, y = 0 },
     atlas = 'joker_atlas',

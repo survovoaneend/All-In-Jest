@@ -6,6 +6,7 @@ local red_sky = {
   config = {
 
   },
+  attributes = { 'mult', 'hands' },
   rarity = 2,
   pos = { x = 19, y = 4 },
   atlas = 'joker_atlas',

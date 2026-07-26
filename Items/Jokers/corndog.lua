@@ -8,6 +8,7 @@ local corndog = {
             hands = 10,
         }
     },
+    attributes = { 'food', 'hand_type' },
     rarity = 2,
     pos = { x = 1, y = 24 },
     atlas = 'joker_atlas',

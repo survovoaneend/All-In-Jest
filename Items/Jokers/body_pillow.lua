@@ -8,6 +8,7 @@ local body_pillow = {
             dollars = 2
         }
     },
+    attributes = { 'economy' },
     rarity = 3,
     pos = { x = 0, y = 21 },
     atlas = 'joker_atlas',

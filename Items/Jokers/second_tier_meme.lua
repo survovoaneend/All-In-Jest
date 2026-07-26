@@ -6,6 +6,7 @@ local second_tier_meme = {
     config = {
       
     },
+    attributes = { 'retrigger', 'hand_type' },
     rarity = 2,
     pos = { x = 16, y = 4 },
     atlas = 'joker_atlas',

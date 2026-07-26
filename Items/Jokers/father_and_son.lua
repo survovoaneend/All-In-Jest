@@ -9,6 +9,7 @@ local father_and_son = {
             xmult = 1
         }
     },
+    attributes = { 'xmult', 'scaling', 'rank', 'king', 'jack' },
     rarity = 2,
     pos = { x = 8, y = 24 },
     atlas = 'joker_atlas',
@@ -38,11 +39,13 @@ local father_and_son = {
             end
             
             if kings == 1 and jacks == 1 then
-                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
-                return {
-                    message = localize('k_upgrade_ex'),
-                    colour = G.C.MULT
-                }
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "xmult",
+                    scalar_value = "gain",
+                    message_colour = G.C.MULT
+                })
+                return nil, true
             end
         end
         if context.joker_main then

@@ -8,6 +8,7 @@ local flibbertigibbit = {
             dollars = 1
         }
     },
+    attributes = { 'economy', 'discard', 'suit' },
     rarity = 1,
     pos = { x = 10, y = 28 },
     atlas = 'joker_atlas',

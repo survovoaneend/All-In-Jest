@@ -6,6 +6,7 @@ local colour_test = {
     config = {
 
     },
+    attributes = { 'modify_card', 'editions', 'hands' },
     rarity = 3,
     pos = { x = 15, y = 11 },
     atlas = 'joker_atlas',

@@ -5,6 +5,7 @@ local illuminated_joker = {
     config = {
 
     },
+    attributes = { 'tag', 'gold_tag' },
     rarity = 2,
     pos = { x = 5, y = 12},
     atlas = 'joker_atlas',

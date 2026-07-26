@@ -7,6 +7,7 @@ local ghosthunter = {
             
         }
     },
+    attributes = { 'shop', 'spectral', 'consumable' },
     rarity = 2,
     pos = { x = 17, y = 25 },
     atlas = 'joker_atlas',

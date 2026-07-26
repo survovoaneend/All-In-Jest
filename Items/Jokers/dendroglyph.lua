@@ -8,6 +8,7 @@ local dendroglyph = {
             mult = 4
         }
     },
+    attributes = { 'mult', 'enhancements' },
     rarity = 1,
     pos = { x = 19, y = 12 },
     atlas = 'joker_atlas',

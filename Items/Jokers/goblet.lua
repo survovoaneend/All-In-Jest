@@ -8,6 +8,7 @@ local goblet = {
             slots = 2
         }
     },
+    attributes = { 'passive', 'consumable_slot' },
     rarity = 1,
     pos = { x = 10, y = 24 },
     atlas = 'joker_atlas',

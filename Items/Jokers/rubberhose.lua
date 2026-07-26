@@ -8,6 +8,7 @@ local rubberhose = {
             mult = 10
         }
     },
+    attributes = { 'mult', 'suit' },
     rarity = 1,
     pos = { x = 19, y = 20 },
     atlas = 'joker_atlas',

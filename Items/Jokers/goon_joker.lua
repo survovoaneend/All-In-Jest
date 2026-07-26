@@ -9,6 +9,7 @@ local goon_joker = {
             mult = 20
         }
     },
+    attributes = { 'mult', 'boss_blind' },
     rarity = 1,
     pos = { x = 1, y = 25 },
     atlas = 'joker_atlas',

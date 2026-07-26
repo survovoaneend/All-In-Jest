@@ -7,6 +7,7 @@ local bogdonoff = {
             debt_limit = 50
         }
     },
+    attributes = { 'economy' },
     rarity = 4,
     pos = { x = 8, y = 12 },
     atlas = 'legendary_atlas',

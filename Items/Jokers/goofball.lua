@@ -8,6 +8,7 @@ local goofball = {
             percent = 8
         }
     },
+    attributes = { 'balance', 'face' },
     rarity = 3,
     pos = { x = 22, y = 8 },
     atlas = 'joker_atlas',

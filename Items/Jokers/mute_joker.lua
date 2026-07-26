@@ -9,6 +9,7 @@ local mute_joker = {
           trigger = false
       }
     },
+    attributes = { 'destroy_cards', 'hands', 'hand_type' },
     rarity = 2,
     pos = { x = 0, y = 4 },
     atlas = 'joker_atlas',

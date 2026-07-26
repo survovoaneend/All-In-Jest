@@ -8,6 +8,7 @@ local penny = {
         odds = 2
       }
     },
+    attributes = { 'retrigger', 'seals', 'chance' },
     rarity = 1,
     pos = { x = 1, y = 2 },
     atlas = 'joker_atlas',

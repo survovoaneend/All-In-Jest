@@ -8,6 +8,7 @@ local blind_drawn = {
             Xmult = 3
         }
     },
+    attributes = { 'xmult' },
     rarity = 2,
     pos = { x = 20, y = 4 },
     atlas = 'joker_atlas',

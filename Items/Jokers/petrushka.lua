@@ -6,6 +6,7 @@ local petrushka = {
     config = {
       
     },
+    attributes = { 'mult', 'rank' },
     rarity = 3,
     pos = { x = 5, y = 4 },
     atlas = 'joker_atlas',

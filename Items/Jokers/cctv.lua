@@ -8,6 +8,7 @@ local cctv = {
         money = 7,
       }
     },
+    attributes = { 'enhancements', 'on_destroy', 'economy', 'modify_card' },
     rarity = 2,
     pos = { x = 9, y = 1 },
     atlas = 'joker_atlas',

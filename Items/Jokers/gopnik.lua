@@ -10,6 +10,7 @@ local gopnik = {
             mult_mod = 5
         }
     },
+    attributes = { 'activated', 'lose_economy', 'mult', 'scaling' },
     rarity = 1,
     pos = { x = 24, y = 22 },
     atlas = 'joker_atlas',
@@ -47,8 +48,11 @@ local gopnik = {
             args = args or {}
             SMODS.calculate_context({all_in_jest = {joker_ability_used = true, card = card, retriggered = args.retriggered, args = args}})
             if not args.free then ease_dollars(-card.ability.extra.cost) end
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
-            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult",
+                scalar_value = "mult_mod",
+            })
         end,
     },
     update = function(self, card, dt)

@@ -6,6 +6,7 @@ local dim_bulb = {
   config = {
     extra = { xmult = 2 }
   },
+  attributes = { 'xmult', 'joker', 'rarity' },
   rarity = 1,
   pos = { x = 5, y = 3 },
   atlas = 'joker_atlas',

@@ -7,6 +7,7 @@ local disco_joker = {
             
         }
     },
+    attributes = { 'retrigger', 'editions' },
     rarity = 2,
     pos = { x = 6, y = 26 },
     atlas = 'joker_atlas',

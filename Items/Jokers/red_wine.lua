@@ -6,6 +6,7 @@ local red_wine = {
     config = {
 
     },
+    attributes = { 'modify_card', 'suit', 'hearts' },
     rarity = 2,
     pos = { x = 24, y = 3 },
     atlas = 'joker_atlas',

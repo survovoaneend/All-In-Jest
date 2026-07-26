@@ -8,6 +8,7 @@ local slubberdegullion = {
             discards = 1
         }
     },
+    attributes = { 'discard' },
     rarity = 2,
     pos = { x = 3, y = 28 },
     atlas = 'joker_atlas',

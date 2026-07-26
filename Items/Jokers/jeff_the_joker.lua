@@ -9,6 +9,7 @@ local jeff_the_joker = {
             x_mult_per_destroy = 0.5,
         }
     },
+    attributes = { 'xmult', 'scaling', 'destroy_card' },
     rarity = 2,
     pos = { x = 9, y = 3 },
     atlas = 'joker_atlas',

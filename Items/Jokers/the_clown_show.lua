@@ -8,6 +8,7 @@ local the_clown_show = {
           chips = 8
       }
     },
+    attributes = { 'chips', 'joker' },
     rarity = 1,
     pos = { x = 8, y = 0 },
     atlas = 'joker_atlas',

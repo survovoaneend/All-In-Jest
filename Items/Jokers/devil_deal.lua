@@ -9,6 +9,7 @@ local devil_deal = {
         xmult_mod = 0.25
       }
     },
+    attributes = { 'xmult', 'scaling', 'suit', 'hearts', 'on_destroy' },
     rarity = 2,
     pos = { x = 6, y = 9},
     atlas = 'joker_atlas',

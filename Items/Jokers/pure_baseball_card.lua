@@ -7,6 +7,7 @@ local pure_baseball_card = {
             x_mult_mod = 0.1
         }
     },
+    attributes = { 'perma_bonus', 'xmult', 'joker', 'rarity' },
     rarity = 3,
     pos = { x = 22, y = 19},
     atlas = 'joker_atlas',

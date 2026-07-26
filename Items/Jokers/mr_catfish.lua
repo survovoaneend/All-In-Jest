@@ -11,6 +11,7 @@ local mr_catfish = {
       trigger_on = nil
     }
   },
+  attributes = { 'economy', 'discard' },
   rarity = 2,
   pos = { x = 5, y = 11 },
   atlas = 'joker_atlas',

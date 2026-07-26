@@ -8,6 +8,7 @@ local dark_magician = {
 
         }
     },
+    attributes = { 'consumable', 'tarot', 'planet', 'spectral' },
     rarity = 3,
     pos = { x = 5, y = 21 },
     atlas = 'joker_atlas',

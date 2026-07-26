@@ -5,6 +5,7 @@ local jpeg = {
     key = "jpeg",
     config = {
     },
+    attributes = { 'modify_card', 'enhancements' },
     rarity = 2,
     pos = { x = 7, y = 13},
     atlas = 'joker_atlas',

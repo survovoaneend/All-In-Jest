@@ -8,6 +8,7 @@ local great_kraken = {
         xmult_mod = 1,
       }
     },
+    attributes = { 'xmult', 'hands' },
     rarity = 3,
     pos = { x = 8, y = 8},
     atlas = 'joker_atlas',

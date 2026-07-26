@@ -7,6 +7,7 @@ local splat = {
             odds = 6,
         }
     },
+    attributes = { 'modify_card', 'seals' },
     rarity = 2,
     pos = { x = 22, y = 20 },
     atlas = 'joker_atlas',

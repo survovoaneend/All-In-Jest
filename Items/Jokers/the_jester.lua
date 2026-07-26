@@ -8,6 +8,7 @@ local the_jester = {
             active = true,
         }
     },
+    attributes = { 'generation', 'tarot', 'consumable', 'on_sell' },
     rarity = 2,
     pos = { x = 17, y = 9 },
     atlas = 'joker_atlas',

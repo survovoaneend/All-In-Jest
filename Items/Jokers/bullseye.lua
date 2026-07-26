@@ -8,6 +8,7 @@ local bullseye = {
             xmult = 3
         }
     },
+    attributes = { 'xmult' },
     rarity = 2,
     pos = { x = 18, y = 23 },
     atlas = 'joker_atlas',

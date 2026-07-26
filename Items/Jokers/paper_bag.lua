@@ -9,6 +9,7 @@ local paper_bag = {
           cur_chips = 0
       }
     },
+    attributes = { 'chips', 'scaling' },
     rarity = 1,
     pos = { x = 16, y = 1 },
     atlas = 'joker_atlas',

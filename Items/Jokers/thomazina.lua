@@ -7,6 +7,7 @@ local thomazina = {
       chips = 0,
       chip_mod = 2
     },
+    attributes = { 'chips', 'scaling', 'rank', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 3, y = 4},
