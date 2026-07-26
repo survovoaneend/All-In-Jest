@@ -7,6 +7,7 @@ local great_pretender = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 38},
     atlas = 'joker_atlas',

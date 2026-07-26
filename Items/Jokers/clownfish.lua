@@ -8,6 +8,7 @@ local clownfish = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 16 },
     atlas = 'joker_atlas',

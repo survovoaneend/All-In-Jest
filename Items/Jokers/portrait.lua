@@ -7,6 +7,7 @@ local portrait = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 6, y = 38},
     atlas = 'joker_atlas',

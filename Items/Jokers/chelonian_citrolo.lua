@@ -8,6 +8,7 @@ local chelonian_citrolo = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 26 },
     atlas = 'joker_atlas',

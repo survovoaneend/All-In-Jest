@@ -8,6 +8,7 @@ local identity_theif = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 24 },
     atlas = 'joker_atlas',

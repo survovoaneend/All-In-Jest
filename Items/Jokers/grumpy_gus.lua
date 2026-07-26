@@ -7,6 +7,7 @@ local grumpy_gus = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 8, y = 39},
     atlas = 'joker_atlas',

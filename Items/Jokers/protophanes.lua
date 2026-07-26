@@ -7,6 +7,7 @@ local protophanes = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 7, y = 40},
     atlas = 'joker_atlas',

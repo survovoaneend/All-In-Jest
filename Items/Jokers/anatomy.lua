@@ -8,6 +8,7 @@ local anatomy = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 23 },
     atlas = 'joker_atlas',

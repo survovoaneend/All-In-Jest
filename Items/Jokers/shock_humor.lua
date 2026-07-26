@@ -5,6 +5,7 @@ local shock_humor = {
     key = "shock_humor",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 14},
     atlas = 'joker_atlas',

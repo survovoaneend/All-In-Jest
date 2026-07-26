@@ -7,6 +7,7 @@ local cinderclown = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 42},
     atlas = 'joker_atlas',

@@ -8,6 +8,7 @@ local cyclops = {
       repetitions = 4
     }
   },
+  attributes = {},
   rarity = 3,
   pos = { x = 20, y = 6 },
   atlas = 'joker_atlas',

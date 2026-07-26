@@ -8,6 +8,7 @@ local on_your_sleeve = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 4, y = 26 },
     atlas = 'joker_atlas',

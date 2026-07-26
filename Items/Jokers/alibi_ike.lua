@@ -7,6 +7,7 @@ local alibi_ike = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 41},
     atlas = 'joker_atlas',

@@ -8,6 +8,7 @@ local minus_world = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 24, y = 24 },
     atlas = 'joker_atlas',

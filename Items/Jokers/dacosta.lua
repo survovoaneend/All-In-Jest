@@ -7,6 +7,7 @@ local dacosta = {
     config = {
       
     },
+    attributes = {},
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 4, y = 2},

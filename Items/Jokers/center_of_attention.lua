@@ -7,6 +7,7 @@ local center_of_attention = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 40},
     atlas = 'joker_atlas',

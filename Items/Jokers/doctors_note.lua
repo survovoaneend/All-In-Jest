@@ -6,6 +6,7 @@ local doctors_note = {
     config = {
       
     },
+    attributes = {},
     rarity = 3,
     pos = { x = 2, y = 2 },
     atlas = 'joker_atlas',

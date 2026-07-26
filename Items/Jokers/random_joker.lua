@@ -99,6 +99,7 @@ local random_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 0 },
     ignore = true,

@@ -7,6 +7,7 @@ local actdone_aregdone_staircase = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 17, y = 38},
     atlas = 'joker_atlas',

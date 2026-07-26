@@ -8,6 +8,7 @@ local rounding_error = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 8, y = 29 },
     atlas = 'joker_atlas',

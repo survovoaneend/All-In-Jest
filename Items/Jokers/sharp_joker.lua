@@ -8,6 +8,7 @@ local sharp_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 22, y = 22 },
     atlas = 'joker_atlas',

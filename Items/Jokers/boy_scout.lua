@@ -8,6 +8,7 @@ local boy_scout = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 26 },
     atlas = 'joker_atlas',

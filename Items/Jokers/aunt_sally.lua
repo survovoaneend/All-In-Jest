@@ -7,6 +7,7 @@ local aunt_sally = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 41},
     atlas = 'joker_atlas',

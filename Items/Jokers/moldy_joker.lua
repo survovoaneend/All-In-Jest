@@ -7,6 +7,7 @@ local moldy_joker = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 10, y = 30},
     atlas = 'joker_atlas',

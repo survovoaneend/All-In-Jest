@@ -8,6 +8,7 @@ local blacklight = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 0 },
     atlas = 'joker_atlas',

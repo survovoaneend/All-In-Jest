@@ -8,6 +8,7 @@ local missing_poster = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 22 },
     atlas = 'joker_atlas',

@@ -7,6 +7,7 @@ local motley = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 40},
     atlas = 'joker_atlas',

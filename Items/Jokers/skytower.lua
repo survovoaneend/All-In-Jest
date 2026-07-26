@@ -7,6 +7,7 @@ local skytower = {
             levels = 5
         }
     },
+    attributes = {},
     rarity = 2,
     pos = { x = 5, y = 26 },
     atlas = 'joker_atlas',

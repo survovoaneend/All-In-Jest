@@ -7,6 +7,7 @@ local oil_and_water = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 2 },
     atlas = 'joker_atlas',

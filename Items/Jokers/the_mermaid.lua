@@ -6,6 +6,7 @@ local the_mermaid = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 14, y = 11},
     atlas = 'joker_atlas',

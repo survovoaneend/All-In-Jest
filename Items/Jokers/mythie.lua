@@ -7,6 +7,7 @@ local mythie = {
   config = {
     
   },
+  attributes = {},
   rarity = 'aij_familiar_face',
   unlock_condition = { hidden = true },
   pos = { x = 4, y = 0 },

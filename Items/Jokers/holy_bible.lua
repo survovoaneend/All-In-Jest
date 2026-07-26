@@ -7,6 +7,7 @@ local holy_bible = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 10, y = 2 },
     atlas = 'joker_atlas',

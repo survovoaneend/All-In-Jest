@@ -8,6 +8,7 @@ local toe_tag = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 22 },
     atlas = 'joker_atlas',

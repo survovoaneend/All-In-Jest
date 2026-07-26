@@ -7,6 +7,7 @@ local fifth_force = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 10, y = 38},
     atlas = 'joker_atlas',

@@ -8,6 +8,7 @@ local glam_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 22, y = 14 },
     atlas = 'joker_atlas',

@@ -8,6 +8,7 @@ local happygolucky = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 29 },
     atlas = 'joker_atlas',

@@ -7,6 +7,7 @@ local platinum_chip = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 8, y = 1 },
     atlas = 'joker_atlas',

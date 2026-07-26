@@ -7,6 +7,7 @@ local evil_f_wizard = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 8, y = 40},
     atlas = 'joker_atlas',

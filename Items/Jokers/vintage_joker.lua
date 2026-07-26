@@ -8,6 +8,7 @@ local vintage_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 14 },
     atlas = 'joker_atlas',

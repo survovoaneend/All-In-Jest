@@ -7,6 +7,7 @@ local bujo = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 24, y = 41},
     atlas = 'joker_atlas',

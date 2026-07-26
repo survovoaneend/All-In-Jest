@@ -7,6 +7,7 @@ local ribbon = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 40},
     atlas = 'joker_atlas',

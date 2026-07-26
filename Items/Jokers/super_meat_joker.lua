@@ -8,6 +8,7 @@ local super_meat_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 14, y = 29 },
     atlas = 'joker_atlas',

@@ -7,6 +7,7 @@ local synchronicity = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 38},
     atlas = 'joker_atlas',

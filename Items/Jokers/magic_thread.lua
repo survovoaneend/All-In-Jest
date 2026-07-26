@@ -7,6 +7,7 @@ local magic_thread = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 8, y = 41},
     atlas = 'joker_atlas',

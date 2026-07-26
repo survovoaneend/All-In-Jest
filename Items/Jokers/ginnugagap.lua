@@ -7,6 +7,7 @@ local ginnugagap = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 39},
     atlas = 'joker_atlas',

@@ -7,6 +7,7 @@ local old_scratch = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 37},
     atlas = 'joker_atlas',

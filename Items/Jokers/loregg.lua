@@ -7,6 +7,7 @@ local loregg = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 13, y = 8},
     atlas = 'joker_atlas',

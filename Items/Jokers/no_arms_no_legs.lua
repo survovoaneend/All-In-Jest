@@ -8,6 +8,7 @@ local no_arms_no_legs = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 17 },
     atlas = 'joker_atlas',

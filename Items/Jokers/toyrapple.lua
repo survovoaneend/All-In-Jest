@@ -7,6 +7,7 @@ local toyrapple = {
   config = {
     
   },
+  attributes = {},
   rarity = 'aij_familiar_face',
   unlock_condition = { hidden = true },
   pos = { x = 2, y = 0 },

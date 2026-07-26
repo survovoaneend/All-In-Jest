@@ -8,6 +8,7 @@ local scarecrow = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 14, y = 24 },
     atlas = 'joker_atlas',

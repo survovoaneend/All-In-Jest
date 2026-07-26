@@ -7,6 +7,7 @@ local steampunker = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 16, y = 39},
     atlas = 'joker_atlas',

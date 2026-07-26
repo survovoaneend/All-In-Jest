@@ -7,6 +7,7 @@ local poetry = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 41},
     atlas = 'joker_atlas',

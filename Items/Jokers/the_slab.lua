@@ -8,6 +8,7 @@ local the_slab = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 3, y = 29 },
     atlas = 'joker_atlas',

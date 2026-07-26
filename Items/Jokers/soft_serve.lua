@@ -8,6 +8,7 @@ local soft_serve = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 7, y = 25 },
     atlas = 'joker_atlas',

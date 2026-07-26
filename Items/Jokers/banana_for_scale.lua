@@ -7,6 +7,7 @@ local banana_for_scale = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 38},
     atlas = 'joker_atlas',

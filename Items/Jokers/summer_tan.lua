@@ -8,6 +8,7 @@ local summer_tan = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 20 },
     atlas = 'joker_atlas',

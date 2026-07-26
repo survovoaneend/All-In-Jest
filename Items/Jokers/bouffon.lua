@@ -7,6 +7,7 @@ local bouffon = {
             cards = 5
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 13, y = 24 },
     atlas = 'joker_atlas',

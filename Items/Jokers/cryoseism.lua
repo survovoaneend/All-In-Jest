@@ -7,6 +7,7 @@ local cryoseism = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 39},
     atlas = 'joker_atlas',

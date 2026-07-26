@@ -7,6 +7,7 @@ local snow_joker = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 8, y = 37},
     atlas = 'joker_atlas',

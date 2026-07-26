@@ -8,6 +8,7 @@ local origami_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 10, y = 23 },
     atlas = 'joker_atlas',

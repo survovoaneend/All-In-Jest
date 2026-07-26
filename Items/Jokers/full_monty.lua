@@ -5,6 +5,7 @@ local full_monty = {
     key = "full_monty",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 13},
     atlas = 'joker_atlas',

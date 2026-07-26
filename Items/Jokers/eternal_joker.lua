@@ -7,6 +7,7 @@ local eternal_joker = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 3, y = 42},
     atlas = 'joker_atlas',

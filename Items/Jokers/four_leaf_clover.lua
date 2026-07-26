@@ -5,6 +5,7 @@ local four_leaf_clover = {
     config = {
       
     },
+    attributes = {},
     rarity = 2,
     pos = { x = 14, y = 10},
     atlas = 'joker_atlas',

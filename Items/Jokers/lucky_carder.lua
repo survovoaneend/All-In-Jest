@@ -7,6 +7,7 @@ local lucky_carder = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 17, y = 3 },
     atlas = 'joker_atlas',

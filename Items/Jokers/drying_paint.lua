@@ -7,6 +7,7 @@ local drying_paint = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 30},
     atlas = 'joker_atlas',

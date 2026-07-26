@@ -7,6 +7,7 @@ local gnome = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 37},
     atlas = 'joker_atlas',

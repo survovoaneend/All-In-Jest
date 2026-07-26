@@ -7,6 +7,7 @@ local lich = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 38},
     atlas = 'joker_atlas',

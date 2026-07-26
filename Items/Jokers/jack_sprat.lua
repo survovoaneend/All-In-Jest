@@ -8,6 +8,7 @@ local jack_sprat = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 16, y = 23 },
     atlas = 'joker_atlas',

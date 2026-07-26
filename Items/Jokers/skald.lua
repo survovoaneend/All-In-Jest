@@ -5,6 +5,7 @@ local skald = {
     key = "skald",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 13, y = 12},
     atlas = 'joker_atlas',

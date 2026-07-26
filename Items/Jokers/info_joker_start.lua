@@ -7,6 +7,7 @@ local info_joker_start = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 40},
     atlas = 'joker_atlas',

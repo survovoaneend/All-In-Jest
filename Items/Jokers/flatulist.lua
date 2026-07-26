@@ -7,6 +7,7 @@ local flatulist = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 38},
     atlas = 'joker_atlas',

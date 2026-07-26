@@ -7,6 +7,7 @@ local unfalisifiable_ceramics = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 10, y = 40},
     atlas = 'joker_atlas',

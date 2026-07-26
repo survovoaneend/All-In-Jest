@@ -8,6 +8,7 @@ local tom_thumb = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 21, y = 14 },
     atlas = 'joker_atlas',

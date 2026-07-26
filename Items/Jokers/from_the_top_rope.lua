@@ -6,6 +6,7 @@ local from_the_top_rope = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 10},
     atlas = 'joker_atlas',

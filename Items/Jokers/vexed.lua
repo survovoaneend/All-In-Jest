@@ -8,6 +8,7 @@ local vexed = {
             chance = 20
         }
     },
+    attributes = {},
     rarity = 2,
     pos = { x = 11, y = 30},
     atlas = 'joker_atlas',

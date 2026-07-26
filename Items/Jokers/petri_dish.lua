@@ -7,6 +7,7 @@ local petri_dish = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 22, y = 41},
     atlas = 'joker_atlas',

@@ -7,6 +7,7 @@ local eartoear = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 39},
     atlas = 'joker_atlas',

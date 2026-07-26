@@ -8,6 +8,7 @@ local asphyxiation = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 20 },
     atlas = 'joker_atlas',

@@ -6,6 +6,7 @@ local american_comic = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 10},
     atlas = 'joker_atlas',

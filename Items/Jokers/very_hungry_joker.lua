@@ -7,6 +7,7 @@ local very_hungry_joker = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 21, y = 37},
     atlas = 'joker_atlas',

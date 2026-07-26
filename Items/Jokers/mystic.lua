@@ -8,6 +8,7 @@ local mystic = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 6, y = 25 },
     atlas = 'joker_atlas',

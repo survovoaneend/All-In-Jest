@@ -8,6 +8,7 @@ local pops = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 13, y = 23 },
     atlas = 'joker_atlas',

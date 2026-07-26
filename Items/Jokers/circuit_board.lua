@@ -7,6 +7,7 @@ local circuit_board = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 7, y = 1 },
     atlas = 'joker_atlas',

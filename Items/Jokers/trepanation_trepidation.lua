@@ -7,6 +7,7 @@ local trepanation_trepidation = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 10, y = 41},
     atlas = 'joker_atlas',

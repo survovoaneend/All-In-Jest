@@ -7,6 +7,7 @@ local jeez_louise = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 37},
     atlas = 'joker_atlas',

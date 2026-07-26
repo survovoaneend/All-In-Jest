@@ -6,6 +6,7 @@ local corny_joker = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 9},
     atlas = 'joker_atlas',

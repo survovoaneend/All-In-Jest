@@ -8,6 +8,7 @@ local foureyes = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 14, y = 16 },
     atlas = 'joker_atlas',

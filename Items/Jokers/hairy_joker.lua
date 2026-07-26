@@ -7,6 +7,7 @@ local hairy_joker = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 3 },
     atlas = 'joker_atlas',

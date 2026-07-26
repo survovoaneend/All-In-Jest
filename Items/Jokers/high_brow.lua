@@ -7,6 +7,7 @@ local high_brow = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 22, y = 40},
     atlas = 'joker_atlas',

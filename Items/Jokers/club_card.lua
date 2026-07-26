@@ -7,6 +7,7 @@ local club_card = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 41},
     atlas = 'joker_atlas',

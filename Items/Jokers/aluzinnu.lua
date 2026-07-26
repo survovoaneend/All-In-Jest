@@ -6,6 +6,7 @@ local aluzinnu = {
     config = {
       
     },
+    attributes = {},
     rarity = 3,
     pos = { x = 7, y = 8},
     atlas = 'joker_atlas',

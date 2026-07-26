@@ -7,6 +7,7 @@ local white_eyes = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 39},
     atlas = 'joker_atlas',

@@ -7,6 +7,7 @@ local froggy_joker = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 13, y = 41},
     atlas = 'joker_atlas',

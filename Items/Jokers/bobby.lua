@@ -8,6 +8,7 @@ local bobby = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 16 },
     atlas = 'joker_atlas',

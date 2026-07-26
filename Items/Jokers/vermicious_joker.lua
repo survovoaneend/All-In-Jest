@@ -7,6 +7,7 @@ local vermicious_joker = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 41},
     atlas = 'joker_atlas',

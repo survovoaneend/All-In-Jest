@@ -8,6 +8,7 @@ local sleazy_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 21, y = 24 },
     atlas = 'joker_atlas',

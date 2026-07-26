@@ -7,6 +7,7 @@ local stitches = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 24, y = 39},
     atlas = 'joker_atlas',

@@ -7,6 +7,7 @@ local silenzio = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 37},
     atlas = 'joker_atlas',

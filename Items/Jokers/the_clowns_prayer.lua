@@ -7,6 +7,7 @@ local the_clowns_prayer = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 40},
     atlas = 'joker_atlas',

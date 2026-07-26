@@ -8,6 +8,7 @@ local foliate_head = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 26 },
     atlas = 'joker_atlas',

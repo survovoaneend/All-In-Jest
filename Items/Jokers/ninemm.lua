@@ -7,6 +7,7 @@ local ninemm = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 3, y = 30},
     atlas = 'joker_atlas',

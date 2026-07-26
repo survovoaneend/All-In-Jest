@@ -7,6 +7,7 @@ local the_last_man = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 4, y = 37},
     atlas = 'joker_atlas',

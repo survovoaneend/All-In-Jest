@@ -7,6 +7,7 @@ local dirty_deed = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 22, y = 30},
     atlas = 'joker_atlas',

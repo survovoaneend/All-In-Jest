@@ -8,6 +8,7 @@ local durak = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 23 },
     atlas = 'joker_atlas',

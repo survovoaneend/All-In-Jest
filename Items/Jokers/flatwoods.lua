@@ -8,6 +8,7 @@ local flatwoods = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 22, y = 26 },
     atlas = 'joker_atlas',

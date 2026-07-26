@@ -7,6 +7,7 @@ local flower_arrangement = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 41},
     atlas = 'joker_atlas',

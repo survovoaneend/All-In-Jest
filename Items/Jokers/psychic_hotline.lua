@@ -7,6 +7,7 @@ local psychic_hotline = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 23, y = 41},
     atlas = 'joker_atlas',

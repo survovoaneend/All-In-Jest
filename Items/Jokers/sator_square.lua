@@ -8,6 +8,7 @@ local sator_square = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 16 },
     atlas = 'joker_atlas',

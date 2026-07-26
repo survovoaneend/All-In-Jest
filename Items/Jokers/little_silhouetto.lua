@@ -8,6 +8,7 @@ local little_silhouetto = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 22, y = 25 },
     atlas = 'joker_atlas',
