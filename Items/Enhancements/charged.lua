@@ -33,6 +33,9 @@ function Card:update(dt)
 			if c.config and SMODS.has_enhancement(c, "m_aij_charged") and not c.debuff then
 				current_count = current_count + 1
 			end
+			if All_in_Jest.get_inherent_effects(c, 'enhancement', nil, true).m_aij_charged and not c.debuff then
+				current_count = current_count + 1
+			end
 		end
 	end
 	if self.area == G.hand and G.hand then
@@ -44,6 +47,11 @@ function Card:update(dt)
 
 		for _, c in ipairs(G.hand.cards) do
 			if c.config and SMODS.has_enhancement(c, "m_aij_charged") and not c.debuff then
+				if is_highlighted[c] == self_is_highlighted then
+					current_count = current_count + 1
+				end
+			end
+			if All_in_Jest.get_inherent_effects(c, 'enhancement', nil, true).m_aij_charged and not c.debuff then
 				if is_highlighted[c] == self_is_highlighted then
 					current_count = current_count + 1
 				end
