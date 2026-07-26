@@ -47,35 +47,11 @@ end
 local is_mult_joker = function(center)
     if has_attribute(center, "mult") or has_attribute(center, "xmult") then
         return true
-    elseif center.mod ~= nil then -- Check descriptions for modded jokers, as vanilla has attributes set
-        local key = center.key
-        local text = retrieve_joker_text(center, true)
-        if text == "" then
-            -- Add exceptions for BAD_DATA
-            if key == "j_aij_baddata" then
-                return true
-            end
-        else
-            local text_has_mult = text:find('Mult') or text:find('mult')
-            return text_has_mult
-        end
     end
 end
 local is_chips_joker = function(center)
-    if has_attribute(center, "chips") then
+    if has_attribute(center, "chips") or has_attribute(center, "xchips") then
         return true
-    elseif center.mod ~= nil then -- Check descriptions for modded jokers, as vanilla has attributes set
-        local key = center.key
-        local text = retrieve_joker_text(center, true)
-        if text == "" then
-            -- Add exceptions for BAD_DATA
-            if key == "j_aij_baddata" then
-                return true
-            end
-        else
-            local text_has_chips = text:find('Chips') or text:find('chips')
-            return text_has_chips
-        end
     end
 end
 
