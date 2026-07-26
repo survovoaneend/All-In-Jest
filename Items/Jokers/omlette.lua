@@ -77,7 +77,12 @@ local omlette = {
 local start_dissolve_ref = Card.start_dissolve
 function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice)
   local ref = start_dissolve_ref(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
-  if G.jokers and (self.config.center.key == "j_egg" or self.ability.set == 'j_aij_egg_cc') then
+  if G.jokers and (
+    self.config.center.key == "j_egg" or 
+    self.config.center.key == 'j_aij_egg_cc' or 
+    self.config.center.key == "j_paperback_deviled_egg" or 
+    self.config.center.key == "j_paperback_golden_egg") 
+  then
       G.GAME.jest_omlette_appearence_eggs = G.GAME.jest_omlette_appearence_eggs + 1
   end
   return ref
