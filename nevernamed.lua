@@ -251,7 +251,11 @@ SMODS.Attribute {
 }
 -- triggers when a card or joker is destroyed
 SMODS.Attribute {
-    key = 'on_destroy'
+    key = 'on_destroy',
+    keys = {
+        'j_caino',
+        'j_glass'
+    }
 }
 -- adds Negative edition to cards, or has to do with Negative
 SMODS.Attribute {
