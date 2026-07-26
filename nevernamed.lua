@@ -273,7 +273,8 @@ SMODS.Attribute {
 -- causes additional card effects to be triggered
 -- eg. Bizco adding cards, or Mummer triggering steel
 SMODS.Attribute {
-    key = 'trigger_cards'
+    key = 'trigger_cards',
+    keys = { 'j_splash' }
 }
 -- related to joker stickers
 SMODS.Attribute {

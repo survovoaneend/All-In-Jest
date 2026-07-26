@@ -6,7 +6,7 @@ local punch_and_judy = {
     config = {
       
     },
-    attributes = { 'retrigger', 'rank', 'king', 'queen' },
+    attributes = { 'retrigger', 'trigger_cards', 'rank', 'king', 'queen' },
     rarity = 3,
     pos = { x = 16, y = 2 },
     atlas = 'joker_atlas',
