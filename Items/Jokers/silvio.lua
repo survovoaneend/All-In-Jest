@@ -7,6 +7,7 @@ local silvio = {
         extra = {
         }
     },
+    attributes = { 'retrigger', 'rank', 'king', 'queen' },
     rarity = 4,
     unlock_condition = { hidden = true },
     pos = { x = 8, y = 0 },

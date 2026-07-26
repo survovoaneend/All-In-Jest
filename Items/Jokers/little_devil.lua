@@ -3,6 +3,7 @@ local little_devil = {
   order = 10,
 
   key = "little_devil",
+  attributes = { 'skip', 'generation', 'tag', 'booster' },
   rarity = 2,
   cost = 6,
   unlocked = true,

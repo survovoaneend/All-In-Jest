@@ -8,6 +8,7 @@ local dot_matrix = {
             mult = 1
         }
     },
+    attributes = { 'mult', 'rank', 'full_deck' },
     rarity = 1,
     pos = { x = 20, y = 30},
     atlas = 'joker_atlas',

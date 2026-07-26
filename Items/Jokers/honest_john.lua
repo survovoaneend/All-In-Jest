@@ -7,6 +7,7 @@ local honest_john = {
   config = {
     
   },
+  attributes = {},
   rarity = 1,
   pos = { x = 4, y = 6},
   atlas = 'joker_atlas',

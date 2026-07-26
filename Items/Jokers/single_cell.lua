@@ -8,6 +8,7 @@ local single_cell = {
             chips = 100
         }
     },
+    attributes = { 'chips', 'rank', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten' },
     rarity = 2,
     pos = { x = 21, y = 22 },
     atlas = 'joker_atlas',

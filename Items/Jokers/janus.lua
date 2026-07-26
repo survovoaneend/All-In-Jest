@@ -7,6 +7,7 @@ local janus = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 5 },
     atlas = 'joker_atlas',

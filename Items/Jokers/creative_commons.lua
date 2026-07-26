@@ -8,6 +8,7 @@ local creative_commons = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 16, y = 29 },
     atlas = 'joker_atlas',

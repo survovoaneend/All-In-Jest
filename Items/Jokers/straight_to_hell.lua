@@ -9,6 +9,7 @@ local straight_to_hell = {
       xmult_mod = 0.25
     }
   },
+  attributes = { 'xmult', 'scaling', 'discard', 'hand_type' },
   rarity = 2,
   pos = { x = 0, y = 6},
   atlas = 'joker_atlas',

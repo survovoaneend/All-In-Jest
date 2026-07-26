@@ -5,6 +5,7 @@ local blue_eyes_white_joker = {
     config = {
       extra = { retriggers = 1 }
     },
+    attributes = { 'modify_card', 'perma_bonus', 'retrigger', 'hands' },
     rarity = 3,
     pos = { x = 8, y = 11},
     atlas = 'joker_atlas',

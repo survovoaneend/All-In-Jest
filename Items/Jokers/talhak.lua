@@ -6,6 +6,7 @@ local talhak = {
   config = {
     trigger = false
   },
+  attributes = { 'generation', 'spectral', 'consumable', 'choice' },
   rarity = 4,
   pos = { x = 8, y = 10 },
   atlas = 'legendary_atlas',

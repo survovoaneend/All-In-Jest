@@ -9,6 +9,7 @@ local headache = {
             mult = 15
         }
     },
+    attributes = { 'mult', 'reroll', 'shop' },
     rarity = 1,
     pos = { x = 0, y = 23 },
     atlas = 'joker_atlas',

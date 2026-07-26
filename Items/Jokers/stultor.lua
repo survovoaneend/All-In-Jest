@@ -8,6 +8,7 @@ local stultor = {
           free_rerolls = 1
       }
     },
+    attributes = { 'boss_blind' },
     rarity = 2,
     pos = { x = 24, y = 6},
     atlas = 'joker_atlas',

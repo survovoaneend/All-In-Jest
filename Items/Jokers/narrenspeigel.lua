@@ -7,6 +7,7 @@ local narrenspeigel = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 40},
     atlas = 'joker_atlas',

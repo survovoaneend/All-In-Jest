@@ -6,6 +6,7 @@ local stargazy_pie = {
     config = {
         extra = { triggers = 5 }
     },
+    attributes = { 'retrigger', 'planet', 'consumable', 'food' },
     rarity = 1,
     pos = { x = 2, y = 12},
     atlas = 'joker_atlas',

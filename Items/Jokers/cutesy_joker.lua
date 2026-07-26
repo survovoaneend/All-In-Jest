@@ -7,6 +7,7 @@ local cutesy_joker = {
             
         }
     },
+    attributes = { 'mod_chance', 'consumable' },
     rarity = 3,
     ignore = true,
     pos = { x = 23, y = 26 },

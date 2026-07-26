@@ -7,6 +7,7 @@ local bad_sun = {
         suit_count = 3,
       }
     },
+    attributes = { 'destroy_card', 'suit', 'hearts' },
     rarity = 2,
     pos = { x = 15, y = 13},
     atlas = 'joker_atlas',

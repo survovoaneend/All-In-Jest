@@ -8,6 +8,7 @@ local akahachi = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 5, y = 29 },
     atlas = 'joker_atlas',

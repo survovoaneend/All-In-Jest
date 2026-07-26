@@ -9,6 +9,7 @@ local lavatch = {
         xmult_mod = 0.05
       }
     },
+    attributes = { 'xmult', 'scaling', 'suit' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 7, y = 8},

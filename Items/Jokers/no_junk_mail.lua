@@ -7,6 +7,7 @@ local no_junk_mail = {
             
         }
     },
+    attributes = { 'economy', 'shop', 'booster' },
     rarity = 1,
     pos = { x = 18, y = 25 },
     atlas = 'joker_atlas',

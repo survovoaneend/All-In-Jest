@@ -7,6 +7,7 @@ local funny_bone = {
 
         }
     },
+    attributes = { 'generation', 'tarot', 'consumable', 'on_sell', 'on_destroy' },
     rarity = 2,
     pos = { x = 12, y = 24 },
     atlas = 'joker_atlas',

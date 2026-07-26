@@ -17,6 +17,7 @@ local blarney_stone = {
   config = {
 
   },
+  attributes = { 'mult' },
   rarity = 1,
   pos = { x = 21, y = 6 },
   atlas = 'joker_atlas',

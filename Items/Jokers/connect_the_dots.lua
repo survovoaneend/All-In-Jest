@@ -7,6 +7,7 @@ local connect_the_dots = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 22, y = 37},
     atlas = 'joker_atlas',

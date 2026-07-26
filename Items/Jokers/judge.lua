@@ -7,6 +7,7 @@ local judge = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 24, y = 36},
     atlas = 'joker_atlas',

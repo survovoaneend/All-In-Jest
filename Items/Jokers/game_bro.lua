@@ -8,6 +8,7 @@ local game_bro = {
             
         }
     },
+    attributes = { 'mult' },
     rarity = 1,
     pos = { x = 7, y = 22 },
     atlas = 'joker_atlas',

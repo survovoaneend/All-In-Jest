@@ -7,6 +7,7 @@ local invisible_man = {
     config = {
       
     },
+    attributes = {},
     rarity = 3,
     pos = { x = 4, y = 0 },
     atlas = 'joker_atlas',

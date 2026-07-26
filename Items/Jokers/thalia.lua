@@ -6,6 +6,7 @@ local thalia = {
     config = {
         extra = { retriggers = 1 }
     },
+    attributes = { 'modify_card', 'perma_bonus', 'retrigger', 'discard' },
     rarity = 4,
     pos = { x = 9, y = 10 },
     atlas = 'legendary_atlas',

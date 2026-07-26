@@ -11,6 +11,7 @@ local bad_apple = {
         dark_suits = "2"
         }
     },
+    attributes = { 'xmult', 'scaling', 'suit' },
     rarity = 3,
     pos = { x = 4, y = 3 },
     atlas = 'joker_atlas',

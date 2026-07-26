@@ -6,6 +6,7 @@ local pierrette = {
   config = {
 
   },
+  attributes = { 'retrigger', 'discard' },
   rarity = 2,
   pos = { x = 20, y = 3 },
   atlas = 'joker_atlas',

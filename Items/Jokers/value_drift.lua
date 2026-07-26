@@ -7,6 +7,7 @@ local value_drift = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 29},
     atlas = 'joker_atlas',

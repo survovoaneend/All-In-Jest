@@ -5,6 +5,7 @@ local stargazer = {
     key = "stargazer",
     config = {
     },
+    attributes = {},
     rarity = 1,
 
     cost = 4,

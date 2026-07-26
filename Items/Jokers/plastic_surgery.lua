@@ -8,6 +8,7 @@ local plastic_surgery = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 17, y = 20 },
     atlas = 'joker_atlas',

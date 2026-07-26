@@ -9,6 +9,7 @@ local cavalier = {
         mult_mod = 5
       }
     },
+    attributes = { 'mult', 'scaling', 'reset' },
     rarity = 1,
     pos = { x = 3, y = 21},
     atlas = 'joker_atlas',

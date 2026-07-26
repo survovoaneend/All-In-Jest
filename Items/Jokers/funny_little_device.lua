@@ -7,6 +7,7 @@ local funny_little_device = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 16, y = 40},
     atlas = 'joker_atlas',

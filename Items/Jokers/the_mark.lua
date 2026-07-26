@@ -8,6 +8,7 @@ local the_mark = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 29 },
     atlas = 'joker_atlas',

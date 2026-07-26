@@ -7,6 +7,7 @@ local hybrid_joker = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 24, y = 37},
     atlas = 'joker_atlas',

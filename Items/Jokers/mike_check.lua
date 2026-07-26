@@ -9,6 +9,7 @@ local mike_check = {
             target = 3
         }
     },
+    attributes = { 'generation', 'joker', 'rarity', 'on_sell' },
     rarity = 2,
     pos = { x = 21, y = 19},
     atlas = 'joker_atlas',

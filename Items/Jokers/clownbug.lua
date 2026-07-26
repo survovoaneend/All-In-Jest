@@ -5,6 +5,7 @@ local clownbug = {
     key = "clownbug",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 14},
     atlas = 'joker_atlas',

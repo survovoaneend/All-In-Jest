@@ -7,6 +7,7 @@ local beholder = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 16, y = 38},
     atlas = 'joker_atlas',

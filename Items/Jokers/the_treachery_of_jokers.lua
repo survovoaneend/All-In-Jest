@@ -7,6 +7,7 @@ local the_treachery_of_jokers = {
             xmult = 1.5
         }
     },
+    attributes = { 'xmult' },
     rarity = 2,
     pos = { x = 7, y = 16 },
     atlas = 'joker_atlas',

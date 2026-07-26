@@ -8,6 +8,7 @@ local mister_police = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 5, y = 20 },
     atlas = 'joker_atlas',

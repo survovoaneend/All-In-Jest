@@ -7,6 +7,7 @@ local sannio = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 7},
     atlas = 'joker_atlas',

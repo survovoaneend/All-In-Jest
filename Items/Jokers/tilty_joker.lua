@@ -7,6 +7,7 @@ local tilty_joker = {
           semi_x_chips = 2
       }
     },
+    attributes = { 'chips' },
     rarity = 1,
     pos = { x = 21, y = 10},
     atlas = 'joker_atlas',

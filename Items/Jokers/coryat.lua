@@ -10,6 +10,7 @@ local coryat = {
             voucher = 1
         }
     },
+    attributes = { 'shop', 'shop_slot', 'voucher', 'booster', 'passive' },
     rarity = 4,
     unlock_condition = { hidden = true },
     pos = { x = 9, y = 6 },

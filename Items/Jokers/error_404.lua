@@ -24,6 +24,7 @@ local error_404 = {
             currently_copied = '0'
         }
     },
+    attributes = { 'copying' },
     rarity = 2,
     pos = { x = 18, y = 14 },
     atlas = 'joker_atlas',

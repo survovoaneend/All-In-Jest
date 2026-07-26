@@ -7,6 +7,7 @@ local catgirl = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 14, y = 41},
     atlas = 'joker_atlas',

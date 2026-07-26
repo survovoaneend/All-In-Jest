@@ -5,6 +5,7 @@ local screamer = {
     key = "screamer",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 3, y = 13},
     atlas = 'joker_atlas',

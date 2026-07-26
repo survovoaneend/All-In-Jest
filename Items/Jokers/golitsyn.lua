@@ -6,6 +6,7 @@ local golitsyn = {
     config = {
       
     },
+    attributes = {},
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 3, y = 8},

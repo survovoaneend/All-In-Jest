@@ -8,6 +8,7 @@ local beale = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 20 },
     atlas = 'joker_atlas',

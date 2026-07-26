@@ -7,6 +7,7 @@ local my_beautiful_balloon = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 23, y = 37},
     atlas = 'joker_atlas',

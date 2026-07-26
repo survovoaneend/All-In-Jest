@@ -7,6 +7,7 @@ local banana_man = {
         odds = 15
       }
     },
+    attributes = { 'retrigger', 'joker', 'chance', 'destroy_card', 'food' },
     rarity = 3,
     pos = { x = 11, y = 9},
     atlas = 'joker_atlas',

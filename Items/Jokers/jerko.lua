@@ -9,6 +9,7 @@ local jerko = {
         max = 20
       }
     },
+    attributes = { 'mult', 'retrigger' },
     rarity = 3,
     pos = { x = 10, y = 7},
     atlas = 'joker_atlas',

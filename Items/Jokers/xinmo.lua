@@ -10,6 +10,7 @@ local xinmo = {
         h_size = 1
       }
     },
+    attributes = { 'joker_slot', 'hand_size' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 1, y = 10},

@@ -8,6 +8,7 @@ local jill_sprat = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 17, y = 23 },
     atlas = 'joker_atlas',

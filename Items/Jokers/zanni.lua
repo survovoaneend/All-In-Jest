@@ -8,6 +8,7 @@ local zanni = {
         odds = 10
       }
     },
+    attributes = { 'generation', 'tarot', 'consumable', 'chance', 'rank', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten' },
     rarity = 2,
     pos = { x = 10, y = 3 },
     atlas = 'joker_atlas',

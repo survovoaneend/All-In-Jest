@@ -6,6 +6,7 @@ local kasperle = {
     config = {
       extra = { xmult = 3 }
     },
+    attributes = { 'xmult', 'voucher' },
     rarity = 2,
     pos = { x = 7, y = 4 },
     atlas = 'joker_atlas',

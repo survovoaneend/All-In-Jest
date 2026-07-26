@@ -13,6 +13,7 @@ local tabula_rasa = {
            }
        }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 16, y = 10},
     atlas = 'joker_atlas',

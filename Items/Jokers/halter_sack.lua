@@ -9,6 +9,7 @@ local halter_sack = {
             loss = 0.5
         }
     },
+    attributes = { 'xmult', 'scaling', 'reset' },
     rarity = 2,
     pos = { x = 19, y = 28 },
     atlas = 'joker_atlas',

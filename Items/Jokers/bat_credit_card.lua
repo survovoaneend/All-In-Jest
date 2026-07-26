@@ -8,6 +8,7 @@ local bat_credit_card = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 22 },
     atlas = 'joker_atlas',

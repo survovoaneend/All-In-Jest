@@ -7,6 +7,7 @@ local causal_absent_paranoia = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 2 },
     atlas = 'joker_atlas',

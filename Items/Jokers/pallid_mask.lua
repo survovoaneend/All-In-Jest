@@ -7,6 +7,7 @@ local pallid_mask = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 6, y = 39},
     atlas = 'joker_atlas',

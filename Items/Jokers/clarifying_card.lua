@@ -7,6 +7,7 @@ local clarifying_card = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 4, y = 40},
     atlas = 'joker_atlas',

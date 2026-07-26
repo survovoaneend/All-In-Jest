@@ -5,6 +5,7 @@ local warhol = {
     config = {
       
     },
+    attributes = { 'passive', 'seals' },
     rarity = 3,
     pos = { x = 8, y = 9},
     atlas = 'joker_atlas',

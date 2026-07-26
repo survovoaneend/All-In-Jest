@@ -8,6 +8,7 @@ local killigrew = {
             Xmult_mod = 1
         }
     },
+    attributes = { 'xmult', 'voucher' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 0, y = 6},

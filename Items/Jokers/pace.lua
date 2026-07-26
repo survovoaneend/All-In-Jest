@@ -8,6 +8,7 @@ local pace = {
           price = 4
       }
     },
+    attributes = { 'economy', 'shop', 'joker' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 2, y = 4},

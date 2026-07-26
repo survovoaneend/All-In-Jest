@@ -8,6 +8,7 @@ local toynbee_joker = {
           first_hand = nil
       }
     },
+    attributes = { 'generation', 'planet', 'consumable', 'hand_type' },
     rarity = 2,
     pos = { x = 6, y = 8},
     atlas = 'joker_atlas',

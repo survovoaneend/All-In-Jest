@@ -7,6 +7,7 @@ local police_sketch = {
             
         }
     },
+    attributes = { 'modify_card', 'enhancements', 'hand_type' },
     rarity = 2,
     pos = { x = 23, y = 14 },
     atlas = 'joker_atlas',

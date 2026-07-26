@@ -6,6 +6,7 @@ local entropy = {
     config = {
       
     },
+    attributes = { 'generation', 'tag' },
     rarity = 2,
     pos = { x = 13, y = 9},
     atlas = 'joker_atlas',

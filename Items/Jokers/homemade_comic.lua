@@ -6,6 +6,7 @@ local homemade_comic = {
     config = {
        xmult = 1.5
     },
+    attributes = { 'xmult', 'enhancements' },
     rarity = 2,
     pos = { x = 20, y = 11},
     atlas = 'joker_atlas',

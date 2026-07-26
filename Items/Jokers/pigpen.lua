@@ -7,6 +7,7 @@ local pigpen = {
   config = {
     
   },
+  attributes = { 'chips', 'hand_level' },
   rarity = 3,
   pos = { x = 19, y = 6},
   atlas = 'joker_atlas',

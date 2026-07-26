@@ -8,6 +8,7 @@ local fulehung = {
           odds = 3,
       }
     },
+    attributes = { 'generation', 'tag', 'chance' },
     rarity = 2,
     pos = { x = 21, y = 7},
     atlas = 'joker_atlas',

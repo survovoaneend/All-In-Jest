@@ -8,6 +8,7 @@ local sanguine_joker = {
             odds = 13
         }
     },
+    attributes = { 'generation', 'tag', 'suit', 'hearts', 'chance' },
     rarity = 3,
     pos = { x = 19, y = 13},
     atlas = 'joker_atlas',

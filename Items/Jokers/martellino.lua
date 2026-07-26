@@ -7,6 +7,7 @@ local martellino = {
         marte_rounds = 0,
         total_rounds = 3,
     },
+    attributes = { 'generation', 'joker', 'on_sell', 'choice' },
     rarity = 4,
     unlock_condition = { hidden = true },
     pos = { x = 9, y = 8 },

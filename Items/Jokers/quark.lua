@@ -6,6 +6,7 @@ local quark = {
     config = {
 
     },
+    attributes = { 'hand_level', 'hand_type', 'rank', 'suit' },
     rarity = 2,
     pos = { x = 16, y = 3 },
     atlas = 'joker_atlas',

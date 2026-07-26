@@ -8,6 +8,7 @@ local game_cartridge = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 29 },
     atlas = 'joker_atlas',

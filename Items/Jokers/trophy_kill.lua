@@ -10,6 +10,7 @@ local trophy_kill = {
             suit = '',
         }
     },
+    attributes = { 'xmult', 'on_destroy', 'rank', 'suit' },
     rarity = 3,
     pos = { x = 18, y = 31 },
     soul_pos = { x = 0, y = 0, draw = function(card, scale_mod, rotate_mod)

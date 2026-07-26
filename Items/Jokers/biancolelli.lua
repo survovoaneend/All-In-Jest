@@ -6,6 +6,7 @@ local biancolelli = {
     config = {
       
     },
+    attributes = { 'balance' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 9, y = 0},

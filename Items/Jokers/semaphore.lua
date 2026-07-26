@@ -8,6 +8,7 @@ local semaphore = {
             mult = 1
         }
     },
+    attributes = { 'mult', 'discard' },
     rarity = 1,
     pos = { x = 19, y = 24 },
     atlas = 'joker_atlas',

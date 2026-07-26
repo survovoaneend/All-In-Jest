@@ -9,6 +9,7 @@ local maguelonne = {
             xmult_gain = 0.25
         }
     },
+    attributes = { 'xmult', 'scaling', 'destroy_card', 'face', 'full_deck' },
     rarity = 3,
     pos = { x = 7, y = 28 },
     atlas = 'joker_atlas',
@@ -38,14 +39,15 @@ local maguelonne = {
             end
             if #face_cards > 0 then
                 local destroyed_card = pseudorandom_element(face_cards, 'maguelonne')
-                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
-                     
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "xmult",
+                    scalar_value = "xmult_gain",
+                    message_key = 'a_xmult',
+                    message_colour = G.C.MULT
+                })
                 SMODS.destroy_cards(destroyed_card)
-
-                return {
-                    message = localize{type='variable', key='a_xmult', vars={card.ability.extra.xmult}},
-                    colour = G.C.MULT
-                }
+                return nil, true
             end
         end
         if context.joker_main then

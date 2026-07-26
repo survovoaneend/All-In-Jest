@@ -6,6 +6,7 @@ local open_mind = {
   config = {
     extra = { packs = 2 }
   },
+  attributes = { 'shop', 'shop_slot', 'booster' },
   rarity = 3,
   pos = { x = 22, y = 4 },
   atlas = 'joker_atlas',

@@ -8,6 +8,7 @@ local selene = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 24 },
     atlas = 'joker_atlas',

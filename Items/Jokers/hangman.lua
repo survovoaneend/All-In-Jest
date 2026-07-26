@@ -8,6 +8,7 @@ local hangman = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 29 },
     atlas = 'joker_atlas',

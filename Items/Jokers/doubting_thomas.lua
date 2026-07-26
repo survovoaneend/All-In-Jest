@@ -7,6 +7,7 @@ local doubting_thomas = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 39},
     atlas = 'joker_atlas',

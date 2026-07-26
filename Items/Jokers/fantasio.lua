@@ -6,6 +6,7 @@ local fantasio = {
     config = {
       
     },
+    attributes = { 'passive', 'suit' },
     rarity = 4,
 	  unlock_condition = {hidden = true},
     pos = { x = 3, y = 10},

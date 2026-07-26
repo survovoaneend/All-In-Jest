@@ -8,6 +8,7 @@ local blank_card = {
         can_copy = false
       }
     },
+    attributes = { 'playing_card' },
     rarity = 2,
     pos = { x = 5, y = 1 },
     atlas = 'joker_atlas',

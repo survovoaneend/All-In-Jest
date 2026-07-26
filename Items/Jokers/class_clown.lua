@@ -7,6 +7,7 @@ local class_clown = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 21, y = 41},
     atlas = 'joker_atlas',

@@ -7,6 +7,7 @@ local saltimbanco = {
           trigger = false
       }
     },
+    attributes = { 'xmult', 'chance' },
     rarity = 2,
     pos = { x = 3, y = 4 },
     atlas = 'joker_atlas',

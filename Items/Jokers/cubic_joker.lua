@@ -5,6 +5,7 @@ local cubic_joker = {
     key = "cubic_joker",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 5, y = 13},
     atlas = 'joker_atlas',

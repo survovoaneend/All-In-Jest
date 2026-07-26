@@ -9,6 +9,7 @@ local embroidery = {
             mult = 10
         }
     },
+    attributes = { 'mult', 'chips', 'enhancements' },
     rarity = 2,
     pos = { x = 5, y = 24 },
     atlas = 'joker_atlas',

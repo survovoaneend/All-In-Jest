@@ -7,6 +7,7 @@ local touchstone = {
       hand_size = 4,
       future_sense = 12
     },
+    attributes = { 'hand_size', 'future_sense' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 4, y = 0},

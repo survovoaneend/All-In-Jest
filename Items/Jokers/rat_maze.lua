@@ -8,6 +8,7 @@ local rat_maze = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 16 },
     atlas = 'joker_atlas',

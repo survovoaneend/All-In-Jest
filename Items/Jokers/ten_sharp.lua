@@ -8,6 +8,7 @@ local ten_sharp = {
             
         }
     },
+    attributes = { 'retrigger', 'rank', 'ten', 'position' },
     rarity = 1,
     pos = { x = 12, y = 20 },
     atlas = 'joker_atlas',

@@ -7,6 +7,7 @@ local wax_joker = {
             
         }
     },
+    attributes = { 'modify_card', 'seals' },
     rarity = 2,
     pos = { x = 21, y = 20 },
     atlas = 'joker_atlas',

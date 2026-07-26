@@ -7,6 +7,7 @@ local miss_bubblegum = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 37},
     atlas = 'joker_atlas',

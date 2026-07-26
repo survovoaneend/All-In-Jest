@@ -7,6 +7,7 @@ local beefeater = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 7, y = 5 },
     atlas = 'joker_atlas',

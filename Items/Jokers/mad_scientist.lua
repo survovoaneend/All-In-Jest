@@ -8,6 +8,7 @@ local mad_scientist = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 17, y = 14 },
     atlas = 'joker_atlas',

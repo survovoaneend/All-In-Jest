@@ -7,6 +7,7 @@ local economist = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 39},
     atlas = 'joker_atlas',

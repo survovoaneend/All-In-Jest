@@ -8,6 +8,7 @@ local funny_bunch = {
             xmult_mod = 0.5
         }
     },
+    attributes = { 'xmult', 'joker', 'rarity' },
     rarity = 2,
     pos = { x = 19, y = 22 },
     atlas = 'joker_atlas',

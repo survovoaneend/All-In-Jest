@@ -8,6 +8,7 @@ local springy_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 23, y = 23 },
     atlas = 'joker_atlas',

@@ -9,6 +9,7 @@ local heidelberg_tun = {
       active = true
     }
   },
+  attributes = { 'editions', 'negative', 'consumable' },
   rarity = 2,
   pos = { x = 21, y = 4 },
   atlas = 'joker_atlas',

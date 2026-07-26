@@ -8,6 +8,7 @@ local candy_wrapper = {
             mult_per_dollar = 4
         }
     },
+    attributes = { 'mult', 'sell_value', 'consumable' },
     rarity = 1,
     pos = { x = 6, y = 16 },
     atlas = 'joker_atlas',

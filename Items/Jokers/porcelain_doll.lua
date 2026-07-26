@@ -7,6 +7,7 @@ local porcelain_doll = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 17, y = 41},
     atlas = 'joker_atlas',

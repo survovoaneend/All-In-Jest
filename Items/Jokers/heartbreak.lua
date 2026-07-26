@@ -7,6 +7,7 @@ local heartbreak = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 41},
     atlas = 'joker_atlas',

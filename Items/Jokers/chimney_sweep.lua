@@ -8,6 +8,7 @@ local chimney_sweep = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 25 },
     atlas = 'joker_atlas',

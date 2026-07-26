@@ -6,6 +6,7 @@ local void = {
     config = {
       extra = { xmult = 3 }
     },
+    attributes = { 'xmult', 'planet', 'consumable' },
     rarity = 2,
     pos = { x = 6, y = 4 },
     atlas = 'joker_atlas',

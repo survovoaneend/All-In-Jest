@@ -7,6 +7,7 @@ local grass = {
   config = {
     
   },
+    attributes = {},
   rarity = 'aij_familiar_face',
   unlock_condition = { hidden = true },
   pos = { x = 3, y = 0 },

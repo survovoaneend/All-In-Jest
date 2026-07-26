@@ -9,6 +9,7 @@ local clapperdudgeon = {
             max_dollars = 4
         }
     },
+    attributes = { 'xmult' },
     rarity = 2,
     pos = { x = 23, y = 27 },
     atlas = 'joker_atlas',

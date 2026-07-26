@@ -6,6 +6,7 @@ local peeping_tom = {
   config = {
       future_sense = 3
   },
+  attributes = { 'future_sense' },
   rarity = 1,
   pos = { x = 23, y = 5 },
   atlas = 'joker_atlas',

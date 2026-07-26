@@ -8,6 +8,7 @@ local joka_lisa = {
       xmult_mod = 1,
     }
   },
+  attributes = { 'xmult', 'hand_size' },
   rarity = 3,
   pos = { x = 14, y = 6 },
   atlas = 'joker_atlas',

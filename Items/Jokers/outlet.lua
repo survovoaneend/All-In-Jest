@@ -7,6 +7,7 @@ local outlet = {
             
         },
     },
+    attributes = { 'generation', 'playing_card', 'enhancements' },
     rarity = 2,
     pos = { x = 6, y = 23 },
     atlas = 'joker_atlas',

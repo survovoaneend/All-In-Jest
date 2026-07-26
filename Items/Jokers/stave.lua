@@ -6,6 +6,7 @@ local stave = {
     config = {
       
     },
+    attributes = { 'editions', 'on_sell' },
     rarity = 2,
     pos = { x = 1, y = 10},
     atlas = 'joker_atlas',

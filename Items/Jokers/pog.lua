@@ -7,6 +7,7 @@ local pog = {
             
         }
     },
+    attributes = { 'generation', 'tag', 'booster' },
     rarity = 2,
     pos = { x = 4, y = 17 },
     atlas = 'joker_atlas',

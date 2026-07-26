@@ -7,6 +7,7 @@ local tomato_sauce = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 21, y = 29},
     atlas = 'joker_atlas',

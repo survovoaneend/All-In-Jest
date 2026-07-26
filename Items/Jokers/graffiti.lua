@@ -10,6 +10,7 @@ local graffiti = {
           cost_increase = 1.5,
       }
     },
+    attributes = { 'activated', 'generation', 'tag' },
     rarity = 2,
     pos = { x = 19, y = 14},
     atlas = 'joker_atlas',
@@ -39,10 +40,11 @@ local graffiti = {
                     ref_table = card.ability.extra,
                     ref_value = "cost",
                     scalar_value = "cost_increase",
-                    operation = 'X',
+                    operation = function(ref_table, ref_value, initial, change)
+                        ref_table[ref_value] = math.ceil(initial * change)
+                    end,
                     no_message = true,
                 })
-                card.ability.extra.cost = math.ceil(card.ability.extra.cost)
             end
             G.E_MANAGER:add_event(Event({
                 trigger = 'before',

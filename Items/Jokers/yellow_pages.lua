@@ -7,6 +7,7 @@ local yellow_pages = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 5, y = 38},
     atlas = 'joker_atlas',

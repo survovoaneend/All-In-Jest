@@ -7,6 +7,7 @@ local fly_agaric = {
             
         }
     },
+    attributes = { 'retrigger', 'activated' },
     rarity = 2,
     pos = { x = 16, y = 20 },
     atlas = 'joker_atlas',

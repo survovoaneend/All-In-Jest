@@ -8,6 +8,7 @@ local sparky = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 7, y = 23 },
     atlas = 'joker_atlas',

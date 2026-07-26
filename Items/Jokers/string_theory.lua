@@ -6,6 +6,7 @@ local string_theory = {
     config = {
       
     },
+    attributes = { 'hand_type' },
     rarity = 2,
     pos = { x = 14, y = 3 },
     atlas = 'joker_atlas',

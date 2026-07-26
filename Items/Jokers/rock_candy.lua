@@ -8,6 +8,7 @@ local rock_candy = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 10, y = 22 },
     atlas = 'joker_atlas',

@@ -7,6 +7,7 @@ local enigma = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 41},
     atlas = 'joker_atlas',

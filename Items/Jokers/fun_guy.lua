@@ -8,6 +8,7 @@ local fun_guy = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 24, y = 20 },
     atlas = 'joker_atlas',

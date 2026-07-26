@@ -7,6 +7,7 @@ local third_degree = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 30},
     atlas = 'joker_atlas',

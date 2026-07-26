@@ -5,6 +5,7 @@ local headfooter = {
     key = "headfooter",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 19},
     atlas = 'joker_atlas',

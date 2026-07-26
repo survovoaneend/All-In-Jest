@@ -5,6 +5,7 @@ local the_freezer = {
     key = "the_freezer",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 12},
     atlas = 'joker_atlas',

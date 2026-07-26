@@ -9,6 +9,7 @@ local arlecchina = {
       xmult_mod = 0.2
     }
   },
+  attributes = { 'xmult', 'scaling', 'booster' },
   rarity = 2,
   pos = { x = 7, y = 6},
   atlas = 'joker_atlas',

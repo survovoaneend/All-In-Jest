@@ -97,6 +97,7 @@ local rummikub = {
     config = {
       
     },
+    attributes = { 'generation', 'playing_card', 'choice', 'enhancements' },
     rarity = 2,
     pos = { x = 16, y = 0 },
     atlas = 'joker_atlas',

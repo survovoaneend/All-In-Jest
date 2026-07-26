@@ -8,6 +8,7 @@ local oklo_reactor = {
            retriggers = 2 
         }
     },
+    attributes = { 'retrigger', 'enhancements' },
     rarity = 2,
     pos = { x = 3, y = 22 },
     atlas = 'joker_atlas',

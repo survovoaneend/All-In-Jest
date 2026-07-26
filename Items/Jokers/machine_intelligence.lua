@@ -6,6 +6,7 @@ local machine_intelligence = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 9},
     atlas = 'joker_atlas',

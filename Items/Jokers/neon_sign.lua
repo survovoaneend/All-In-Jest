@@ -10,6 +10,7 @@ local neon_sign = {
 
         }
     },
+    attributes = { 'xmult', 'hand_type' },
     rarity = 2,
     pos = { x = 6, y = 21 },
     atlas = 'joker_atlas',

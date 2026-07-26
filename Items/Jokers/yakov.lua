@@ -7,6 +7,7 @@ local yakov = {
     config = {
       
     },
+    attributes = {},
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 5, y = 8},

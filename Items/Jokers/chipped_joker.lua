@@ -8,6 +8,7 @@ local chipped_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 23 },
     atlas = 'joker_atlas',

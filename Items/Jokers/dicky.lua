@@ -7,6 +7,7 @@ local dicky = {
         perma_mult = 0.1
        }
     },
+    attributes = { 'full_deck', 'modify_card', 'perma_bonus', 'xmult' },
     rarity = 4,
     pos = { x = 7, y = 12 },
     atlas = 'legendary_atlas',

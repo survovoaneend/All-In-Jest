@@ -5,6 +5,7 @@ local rudolph = {
     key = "rudolph",
     config = {
     },
+    attributes = { 'retrigger', 'seals' },
     rarity = 2,
     pos = { x = 19, y = 19 },
     atlas = 'joker_atlas',

@@ -8,6 +8,7 @@ local the_herald = {
             
         }
     },
+    attributes = {},
     rarity = 3,
     pos = { x = 3, y = 24 },
     atlas = 'joker_atlas',

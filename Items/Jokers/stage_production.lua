@@ -7,6 +7,7 @@ local stage_production = {
             trigger = true,
         }
     },
+    attributes = { 'activated', 'joker', 'rarity' },
     rarity = 2,
     pos = { x = 9, y = 14},
     atlas = 'joker_atlas',

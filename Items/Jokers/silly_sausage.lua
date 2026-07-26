@@ -10,6 +10,7 @@ local silly_sausage = {
             prev_discount = "0"
         }
     },
+    attributes = { 'economy', 'reroll', 'shop' },
     rarity = 1,
     pos = { x = 3, y = 2 },
     atlas = 'joker_atlas',

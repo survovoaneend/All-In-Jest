@@ -7,6 +7,7 @@ local blue_star = {
             odds = 2
         }
     },
+    attributes = { 'hand_level', 'hand_type', 'chance', 'enhancements' },
     rarity = 2,
     pos = { x = 4, y = 22 },
     atlas = 'joker_atlas',

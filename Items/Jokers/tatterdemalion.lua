@@ -7,6 +7,7 @@ local tatterdemalion = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 37},
     atlas = 'joker_atlas',

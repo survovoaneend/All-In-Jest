@@ -8,6 +8,7 @@ local lonely_night = {
             
         }
     },
+    attributes = { 'retrigger', 'joker_slot' },
     rarity = 2,
     pos = { x = 2, y = 16 },
     atlas = 'joker_atlas',

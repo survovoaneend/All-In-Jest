@@ -5,6 +5,7 @@ local bobblehead = {
     key = "bobblehead",
     config = {
     },
+    attributes = { 'rarity' },
     rarity = 2,
     pos = { x = 23, y = 2 },
     atlas = 'joker_atlas',

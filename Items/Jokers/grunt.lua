@@ -7,6 +7,7 @@ local grunt = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 39},
     atlas = 'joker_atlas',

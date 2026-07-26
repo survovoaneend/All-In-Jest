@@ -6,6 +6,7 @@ local right_angle = {
     config = {
       
     },
+    attributes = { 'trigger_cards', 'rank', 'nine', 'ten' },
     rarity = 2,
     pos = { x = 12, y = 2 },
     atlas = 'joker_atlas',

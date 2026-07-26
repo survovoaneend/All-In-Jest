@@ -7,6 +7,7 @@ local fuzzy_joker = {
            power = 2
         }
     },
+    attributes = { 'mult' },
     rarity = 1,
     pos = { x = 6, y = 10},
     atlas = 'joker_atlas',

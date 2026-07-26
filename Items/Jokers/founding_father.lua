@@ -6,6 +6,7 @@ local founding_father = {
     config = {
       
     },
+    attributes = { 'enhancements', 'multiplier' },
     rarity = 2,
     pos = { x = 23, y = 0 },
     atlas = 'joker_atlas',

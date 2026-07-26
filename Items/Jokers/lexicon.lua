@@ -44,6 +44,7 @@ local lexicon = {
     order = 322,
     key = "lexicon",
     config = {},
+    attributes = { 'mult', 'joker' },
     rarity = 1,
     pos = { x = 18, y = 12},
     atlas = 'joker_atlas',

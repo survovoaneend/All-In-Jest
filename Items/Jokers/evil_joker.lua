@@ -7,6 +7,7 @@ local evil_joker = {
         x_mult = 3,
       }
     },
+    attributes = { 'xmult', 'destroy_card' },
     lite = true,
     rarity = 3,
     pos = { x = 18, y = 13},

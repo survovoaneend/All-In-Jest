@@ -9,6 +9,7 @@ local sleepy_joker = {
         xmult = 2
       }
     },
+    attributes = { 'xmult', 'suit', 'spades', 'clubs' },
     rarity = 2,
     pos = { x = 6, y = 0 },
     atlas = 'joker_atlas',

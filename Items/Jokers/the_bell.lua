@@ -8,6 +8,7 @@ local the_bell = {
             cost = 5,
         }
     },
+    attributes = { 'activated', 'voucher' },
     rarity = 3,
     pos = { x = 5, y = 22 },
     atlas = 'joker_atlas',

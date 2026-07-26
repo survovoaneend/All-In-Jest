@@ -8,6 +8,7 @@ local you_got_a = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 26 },
     atlas = 'joker_atlas',

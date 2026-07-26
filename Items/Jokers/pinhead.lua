@@ -8,6 +8,7 @@ local pinhead = {
         money = 8
       }
     },
+    attributes = { 'economy', 'hands' },
     rarity = 2,
     pos = { x = 2, y = 4 },
     atlas = 'joker_atlas',

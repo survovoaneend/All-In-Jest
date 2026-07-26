@@ -9,6 +9,7 @@ local coffee_thermos = {
             rounds = 3
         }
     },
+    attributes = { 'retrigger', 'joker' },
     rarity = 1,
     pos = { x = 7, y = 30},
     atlas = 'joker_atlas',

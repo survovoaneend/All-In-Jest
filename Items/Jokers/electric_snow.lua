@@ -4,6 +4,7 @@ local electric_snow = {
     key = "electric_snow",
     config = {
     },
+    attributes = { 'hands' },
     rarity = 2,
     pos = { x = 0, y = 15},
     atlas = 'joker_atlas',

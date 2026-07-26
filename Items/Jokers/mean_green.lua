@@ -8,6 +8,7 @@ local mean_green = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 25 },
     atlas = 'joker_atlas',

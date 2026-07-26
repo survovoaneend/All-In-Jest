@@ -9,6 +9,7 @@ local bingo_card = {
           xmult = 2
       }
     },
+    attributes = { 'retrigger', 'xmult', 'chance', 'enhancements' },
     rarity = 2,
     pos = { x = 22, y = 11},
     atlas = 'joker_atlas',

@@ -8,6 +8,7 @@ local cosmonaut = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 10, y = 14 },
     atlas = 'joker_atlas',

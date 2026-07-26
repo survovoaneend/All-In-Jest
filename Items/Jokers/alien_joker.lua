@@ -7,6 +7,7 @@ local alien_joker = {
           xmult = 3,
       }
     },
+    attributes = { 'xmult' },
     rarity = 2,
     pos = { x = 9, y = 13},
     atlas = 'joker_atlas',

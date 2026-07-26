@@ -7,6 +7,7 @@ local ffwllier = {
     config = {
       
     },
+    attributes = {},
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 8, y = 8},

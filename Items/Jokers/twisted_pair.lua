@@ -4,6 +4,7 @@ local twisted_pair = {
     key = "twisted_pair",
     config = {
     },
+    attributes = { 'modify_card', 'patches', 'hand_type' },
     rarity = 2,
     pos = { x = 16, y = 12},
     atlas = 'joker_atlas',

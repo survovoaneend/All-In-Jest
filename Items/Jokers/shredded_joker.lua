@@ -9,6 +9,7 @@ local shredded_joker = {
             mult_gain = 1
         }
     },
+    attributes = { 'mult', 'scaling', 'discard' },
     rarity = 1,
     pos = { x = 16, y = 24 },
     atlas = 'joker_atlas',
@@ -29,12 +30,17 @@ local shredded_joker = {
 
     calculate = function(self, card, context)
         if context.discard and not context.blueprint and not context.other_card.debuff then
-             card.ability.extra.mult = card.ability.extra.mult + 1
-             return {
-                 message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult_gain } },
-                colour = G.C.MULT,
-                delay = 0.2
-             }
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult",
+                scalar_value = "mult_gain",
+                scaling_message = {
+                    message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult_gain } },
+                    colour = G.C.MULT,
+                    delay = 0.2
+                }
+            })
+            return nil, true
         end
         if context.end_of_round and not context.blueprint and card.ability.extra.mult > 0 then
             card.ability.extra.mult = 0

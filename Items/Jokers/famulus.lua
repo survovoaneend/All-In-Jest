@@ -8,6 +8,7 @@ local famulus = {
             dollars = 2
         }
     },
+    attributes = { 'economy', 'tarot', 'consumable' },
     rarity = 1,
     pos = { x = 8, y = 28 },
     atlas = 'joker_atlas',

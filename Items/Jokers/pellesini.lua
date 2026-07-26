@@ -4,6 +4,7 @@ local pellesini = {
 
 	key = "pellesini",
 	config = {},
+	attributes = { 'generation', 'joker', 'on_destroy' },
 	rarity = 4,
 	unlock_condition = { hidden = true },
 	pos = { x = 6, y = 0 },

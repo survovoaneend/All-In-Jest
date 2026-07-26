@@ -7,6 +7,7 @@ local nevernamed = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 23, y = 30},
     atlas = 'joker_atlas',

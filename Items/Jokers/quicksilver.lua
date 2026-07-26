@@ -8,6 +8,7 @@ local quicksilver = {
             
         }
     },
+    attributes = { 'retrigger', 'hand_type' },
     rarity = 1,
     pos = { x = 2, y = 27 },
     atlas = 'joker_atlas',

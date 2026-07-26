@@ -8,6 +8,7 @@ local feather_in_your_cap = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 25 },
     atlas = 'joker_atlas',

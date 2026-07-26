@@ -5,6 +5,7 @@ local sunny_side = {
     config = {
       
     },
+    attributes = { 'sell_value', 'scaling', 'lose_economy', 'food' },
     rarity = 3,
     pos = { x = 2, y = 10},
     atlas = 'joker_atlas',
@@ -34,11 +35,6 @@ local sunny_side = {
 	                message = localize('k_val_up'),
                     colour = G.C.MONEY
                 },
-                block_overrides = {
-	                value = true,
-	                scalar = true,
-	                message = true,
-                }
             })
             card:set_cost()
         end

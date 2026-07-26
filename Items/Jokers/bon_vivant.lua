@@ -10,6 +10,7 @@ local bon_vivant = {
             target = 10,
         }
     },
+    attributes = { 'economy' },
     rarity = 1,
     pos = { x = 0, y = 28 },
     atlas = 'joker_atlas',

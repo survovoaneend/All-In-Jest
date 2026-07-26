@@ -5,6 +5,7 @@ local prank_caller = {
     key = "prank_caller",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 12},
     atlas = 'joker_atlas',

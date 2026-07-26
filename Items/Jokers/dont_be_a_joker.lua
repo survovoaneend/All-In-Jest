@@ -7,6 +7,7 @@ local dont_be_a_joker = {
             
         }
     },
+    attributes = { 'sell_value', 'scaling', 'on_sell', 'on_destroy' },
     rarity = 3,
     pos = { x = 13, y = 20 },
     atlas = 'joker_atlas',
@@ -35,13 +36,9 @@ local dont_be_a_joker = {
 	                message = localize('k_val_up'),
                     colour = G.C.MONEY
                 },
-                block_overrides = {
-	                value = true,
-	                scalar = true,
-	                message = true,
-                }
             })
             card:set_cost()
+            return nil, true
         end
     end
 }

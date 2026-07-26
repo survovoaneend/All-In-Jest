@@ -8,6 +8,7 @@ local comic_panel = {
             odds = 10
         }
     },
+    attributes = { 'chance', 'modify_card', 'enhancements' },
     rarity = 1,
     pos = { x = 7, y = 24 },
     atlas = 'joker_atlas',

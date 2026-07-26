@@ -17,6 +17,7 @@ local greasepaint = {
           xmult = 2,
       }
     },
+    attributes = { 'xmult', 'debuff', 'position' },
     rarity = 3,
     pos = { x = 2, y = 1 },
     atlas = 'joker_atlas',

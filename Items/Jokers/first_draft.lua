@@ -7,6 +7,7 @@ local first_draft = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 17, y = 40},
     atlas = 'joker_atlas',

@@ -6,7 +6,7 @@ local bad_guy = {
     config = {
 
     },
-
+    attributes = { 'editions' },
     rarity = 2,
     pos = { x = 1, y = 20},
     atlas = 'joker_atlas',

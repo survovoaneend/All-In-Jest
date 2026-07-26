@@ -4,6 +4,7 @@ local read_em_and_weep = {
 
     key = "read_em_and_weep",
     config = { },
+    attributes = { 'modify_card', 'suit', 'hand_type' },
     rarity = 3,
     pos = { x = 12, y = 3 },
     atlas = 'joker_atlas',

@@ -8,6 +8,7 @@ local scapino = {
             reroll_sale = 5
         }
     },
+    attributes = { 'booster', 'reroll', 'shop' },
     rarity = 3,
     pos = { x = 1, y = 4 },
     atlas = 'joker_atlas',

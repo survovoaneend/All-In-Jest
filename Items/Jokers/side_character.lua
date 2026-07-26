@@ -7,6 +7,7 @@ local side_character = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 42},
     atlas = 'joker_atlas',

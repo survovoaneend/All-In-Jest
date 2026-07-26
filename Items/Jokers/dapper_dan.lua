@@ -6,6 +6,7 @@ local dapper_dan = {
     config = {
       
     },
+    attributes = { 'editions', 'multiplier' },
     rarity = 3,
     pos = { x = 18, y = 5 },
     atlas = 'joker_atlas',

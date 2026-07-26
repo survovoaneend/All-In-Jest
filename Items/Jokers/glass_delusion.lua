@@ -7,6 +7,7 @@ local glass_delusion = {
             odds = 2
         }
     },
+    attributes = {},
     rarity = 2,
     pos = { x = 8, y = 26 },
     atlas = 'joker_atlas',

@@ -10,7 +10,7 @@ local squeezy_pete = {
           xmult = 1
       }
   },
-
+  attributes = { 'xmult', 'scaling', 'reset', 'hand_type' },
   rarity = 2,
   pos = { x = 12, y = 0 },
   atlas = 'joker_atlas',

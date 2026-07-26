@@ -13,6 +13,7 @@ local negative_nancy = {
           amt = 5
       }
   },
+  attributes = { 'editions', 'negative' },
   unlocked = true,
   discovered = false,
   blueprint_compat = false,

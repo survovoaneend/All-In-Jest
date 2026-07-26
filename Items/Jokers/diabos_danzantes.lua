@@ -7,6 +7,7 @@ local diabos_danzantes = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 40},
     atlas = 'joker_atlas',

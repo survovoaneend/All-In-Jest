@@ -6,6 +6,7 @@ local pygmalion = {
     config = {
        
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 11},
     atlas = 'joker_atlas',

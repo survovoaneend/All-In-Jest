@@ -7,6 +7,7 @@ local pollyanna = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 42},
     atlas = 'joker_atlas',

@@ -110,6 +110,7 @@ local baddata = {
 			effect = ''
 		}
     },
+	attributes = { 'mult', 'chips', 'xmult', 'xchips', 'economy' },
   
     loc_vars = function(self, info_queue, card)
 		local effects = {

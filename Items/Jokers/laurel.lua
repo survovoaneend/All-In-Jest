@@ -9,6 +9,7 @@ local laurel = {
             xmult_mod = 0.25
         }
     },
+    attributes = { 'xmult', 'enhancements', 'full_deck' },
     rarity = 4,
     pos = { x = 5, y = 12 },
     atlas = 'legendary_atlas',

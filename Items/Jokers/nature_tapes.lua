@@ -9,6 +9,7 @@ local nature_tapes = {
           xmult_mod = 0.2
       }
     },
+    attributes = { 'xmult', 'scaling', 'planet', 'moon', 'consumable' },
     rarity = 3,
     pos = { x = 17, y = 2 },
     atlas = 'joker_atlas',

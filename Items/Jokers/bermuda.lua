@@ -8,6 +8,7 @@ local bermuda = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 24 },
     atlas = 'joker_atlas',

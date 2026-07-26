@@ -6,6 +6,7 @@ local mummer = {
   config = {
     triggers = "0"
   },
+  attributes = { 'trigger_cards', 'enhancements' },
   rarity = 3,
   pos = { x = 2, y = 6 },
   atlas = 'joker_atlas',

@@ -55,6 +55,7 @@ local crayon_rubbing = {
             
         }
     },
+    attributes = { 'chips', 'joker' },
     rarity = 2,
     pos = { x = 14, y = 25 },
     atlas = 'joker_atlas',

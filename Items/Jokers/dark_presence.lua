@@ -7,6 +7,7 @@ local dark_presence = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 40},
     atlas = 'joker_atlas',

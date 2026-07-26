@@ -6,6 +6,7 @@ local pablillos = {
     config = {
        
     },
+    attributes = { 'tag', 'gold_tag' },
     rarity = 4,
     pos = { x = 2, y = 12 },
     atlas = 'legendary_atlas',

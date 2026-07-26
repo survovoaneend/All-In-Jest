@@ -8,6 +8,7 @@ local tin_man = {
             
         }
     },
+    attributes = { 'modify_card', 'enhancements', 'suit', 'hearts' },
     rarity = 2,
     pos = { x = 13, y = 25 },
     atlas = 'joker_atlas',

@@ -9,6 +9,7 @@ local slim_joker = {
         mult_mod = 4
       }
     },
+    attributes = { 'mult' },
     rarity = 1,
     pos = { x = 22, y = 1 },
     atlas = 'joker_atlas',

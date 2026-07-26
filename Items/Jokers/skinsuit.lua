@@ -4,6 +4,7 @@ local skinsuit = {
     key = "skinsuit",
     config = {
     },
+    attributes = { 'modify_card', 'patches', 'on_destroy' },
     rarity = 1,
     pos = { x = 24, y = 13},
     atlas = 'joker_atlas',

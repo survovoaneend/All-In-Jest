@@ -8,6 +8,7 @@ local tar_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 17, y = 29 },
     atlas = 'joker_atlas',

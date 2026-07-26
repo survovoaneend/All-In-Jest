@@ -8,6 +8,7 @@ local gnasher = {
             active = true,
         }
     },
+    attributes = { 'activated', 'consumable', 'generation' },
     rarity = 2,
     pos = { x = 10, y = 6 },
     atlas = 'joker_atlas',

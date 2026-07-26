@@ -8,6 +8,7 @@ local circle_joker = {
             xmult = 3.14
         }
     },
+    attributes = { 'xmult', 'rank' },
     rarity = 3,
     pos = { x = 3, y = 17 },
     atlas = 'joker_atlas',

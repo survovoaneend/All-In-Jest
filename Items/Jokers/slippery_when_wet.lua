@@ -6,6 +6,7 @@ local slippery_when_wet = {
     config = {
       
     },
+    attributes = { 'chips', 'rank' },
     rarity = 1,
     pos = { x = 22, y = 0 },
     atlas = 'joker_atlas',

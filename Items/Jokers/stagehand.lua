@@ -8,6 +8,7 @@ local stagehand = {
             xmult = 0.1
         }
     },
+    attributes = { 'xmult', 'joker' },
     rarity = 1,
     pos = { x = 13, y = 11 },
     atlas = 'joker_atlas',

@@ -7,6 +7,7 @@ local earl = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 23, y = 38},
     atlas = 'joker_atlas',

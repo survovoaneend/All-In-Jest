@@ -35,6 +35,7 @@ local joker_png = {
             silver_multiplier_buff = 100, -- Make 100 instead of 1 to keep 2 decimals of precision
         }
     },
+    attributes = { 'copying', 'activated' },
     rarity = 2,
     pos = { x = 24, y = 11},
     atlas = 'joker_atlas',

@@ -9,6 +9,7 @@ local pantomimus = {
             chip_mod = 2
         }
     },
+    attributes = { 'chips', 'scaling' },
     rarity = 1,
     pos = { x = 21, y = 5 },
     atlas = 'joker_atlas',

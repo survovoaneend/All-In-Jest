@@ -8,6 +8,7 @@ local gameshow = {
           money = 3,
       }
     },
+    attributes = { 'chance', 'editions', 'lose_economy' },
     rarity = 2,
     pos = { x = 3, y = 12},
     atlas = 'joker_atlas',

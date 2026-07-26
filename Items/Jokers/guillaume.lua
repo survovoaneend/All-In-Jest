@@ -9,6 +9,7 @@ local guillaume = {
         joker_slots_mod = 1,
       }
     },
+    attributes = { 'joker_slot', 'joker', 'scaling', 'boss_blind' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 5, y = 4},
@@ -32,11 +33,14 @@ local guillaume = {
   
     calculate = function(self, card, context)
       if context.end_of_round and G.jokers and not context.blueprint and context.beat_boss and #G.jokers.cards < 5 and context.main_eval then
-        G.jokers:change_size(card.ability.extra.joker_slots_mod)
         SMODS.scale_card(card, {
 	        ref_table = card.ability.extra,
           ref_value = "joker_slots",
 	        scalar_value = "joker_slots_mod",
+            operation = function(ref_table, ref_value, initial, change)
+                ref_table[ref_value] = initial + change
+                G.jokers:change_size(change)
+            end,
           message_key = 'a_aij_joker_slots'
         })
       end

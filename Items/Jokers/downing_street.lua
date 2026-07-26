@@ -6,6 +6,7 @@ local downing_street = {
     config = {
       extra = { odds = 10}
     },
+    attributes = { 'chance', 'generation', 'tag', 'rank', 'ten' },
     rarity = 2,
     pos = { x = 12, y = 10},
     atlas = 'joker_atlas',

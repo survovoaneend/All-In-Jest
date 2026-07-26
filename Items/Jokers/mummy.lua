@@ -7,6 +7,7 @@ local mummy = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 4, y = 5 },
     atlas = 'joker_atlas',

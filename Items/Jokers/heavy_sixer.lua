@@ -6,6 +6,7 @@ local heavy_sixer = {
     config = {
 
     },
+    attributes = { 'modify_card', 'editions', 'rank', 'six' },
     rarity = 2,
     pos = { x = 3, y = 11 },
     atlas = 'joker_atlas',

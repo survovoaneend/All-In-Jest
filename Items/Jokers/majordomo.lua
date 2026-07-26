@@ -8,6 +8,7 @@ local majordomo = {
           rental_reduce = 2
       }
     },
+    attributes = { 'economy', 'passive', 'stickers' },
     rarity = 2,
     pos = { x = 23, y = 13},
     atlas = 'joker_atlas',

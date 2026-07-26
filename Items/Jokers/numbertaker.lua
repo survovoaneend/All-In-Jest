@@ -7,6 +7,7 @@ local numbertaker = {
             cur_mult = 0
         }
     },
+    attributes = { 'modify_card', 'rank', 'mult', 'scaling' },
     rarity = 2,
     pos = { x = 2, y = 25 },
     atlas = 'joker_atlas',
@@ -27,8 +28,13 @@ local numbertaker = {
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.blueprint then
             if not SMODS.has_no_rank(context.other_card) and not context.other_card:is_face() then
-                local rank = context.other_card.base.nominal
-                card.ability.extra.cur_mult = card.ability.extra.cur_mult + rank
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "cur_mult",
+                    scalar_table = {value = context.other_card.base.nominal},
+                    scalar_value = "value",
+                    no_message = true
+                })
                 aij_remove_rank(context.other_card)
                 card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
             end

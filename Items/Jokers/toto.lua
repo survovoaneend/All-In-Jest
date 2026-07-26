@@ -8,6 +8,7 @@ local toto = {
           tags = 2,
       }
     },
+    attributes = { 'generation', 'tag' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 0, y = 2},

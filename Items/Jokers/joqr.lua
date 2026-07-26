@@ -7,6 +7,7 @@ local joqr = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 1 },
     atlas = 'joker_atlas',

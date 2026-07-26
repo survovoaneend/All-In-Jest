@@ -8,6 +8,7 @@ local the_green_room = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 22 },
     atlas = 'joker_atlas',

@@ -7,6 +7,7 @@ local kingmaker = {
             odds = 5
         }
     },
+    attributes = { 'modify_card', 'rank', 'king', 'chance' },
     rarity = 3,
     pos = { x = 12, y = 23 },
     atlas = 'joker_atlas',

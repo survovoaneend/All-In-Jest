@@ -9,6 +9,7 @@ local fortune_cookie = {
         packs = 5
       }
     },
+    attributes = { 'generation', 'tarot', 'consumable', 'booster', 'food' },
     rarity = 1,
     pos = { x = 20, y = 10},
     atlas = 'joker_atlas',

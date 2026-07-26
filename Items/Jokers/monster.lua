@@ -7,6 +7,7 @@ local monster = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 13, y = 5 },
     atlas = 'joker_atlas',

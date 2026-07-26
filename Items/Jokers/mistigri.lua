@@ -6,6 +6,7 @@ local mistigri = {
     config = {
 
     },
+    attributes = { 'hand_size', 'scaling', 'rank', 'jack' },
     rarity = 3,
     pos = { x = 14, y = 5 },
     atlas = 'joker_atlas',

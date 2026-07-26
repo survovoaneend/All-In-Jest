@@ -7,6 +7,7 @@ local ghost_joker = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 13, y = 39},
     atlas = 'joker_atlas',

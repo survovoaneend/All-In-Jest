@@ -7,6 +7,7 @@ local prenatal_quantum_nightmare = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 6, y = 41},
     atlas = 'joker_atlas',

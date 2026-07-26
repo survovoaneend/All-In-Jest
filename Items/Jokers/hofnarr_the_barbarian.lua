@@ -9,6 +9,7 @@ local hofnarr_the_barbarian = {
             xmult = 10
         }
     },
+    attributes = { 'mult', 'xmult', 'boss_blind' },
     rarity = 2,
     pos = { x = 11, y = 8},
     atlas = 'joker_atlas',

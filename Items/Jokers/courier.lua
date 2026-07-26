@@ -8,6 +8,7 @@ local courier = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 4, y = 23 },
     atlas = 'joker_atlas',

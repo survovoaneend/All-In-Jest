@@ -6,6 +6,7 @@ local dizzard = {
   config = {
     
   },
+  attributes = { 'shop', 'skip' },
   rarity = 3,
   pos = { x = 5, y = 6},
   atlas = 'joker_atlas',

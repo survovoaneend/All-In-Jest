@@ -6,6 +6,7 @@ local memory_card = {
     config = {
       jest_stored_memory_card = nil
     },
+    attributes = {},
     rarity = 3,
     pos = { x = 3, y = 0 },
     atlas = 'joker_atlas',

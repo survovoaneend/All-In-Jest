@@ -7,6 +7,7 @@ local chef = {
             trigger = false
         }
     },
+    attributes = { 'editions', 'stickers', 'negative', 'shop' },
     rarity = 2,
     pos = { x = 2, y = 13},
     atlas = 'joker_atlas',

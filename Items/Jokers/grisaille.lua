@@ -7,6 +7,7 @@ local grisaille = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 7, y = 38},
     atlas = 'joker_atlas',

@@ -6,6 +6,7 @@ local witchfinder = {
     config = {
         extra = {boosters = 1}
     },
+    attributes = { 'shop', 'booster', 'tarot' },
     rarity = 1,
     pos = { x = 23, y = 9 },
     atlas = 'joker_atlas',

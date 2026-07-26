@@ -7,6 +7,7 @@ local odd_rod = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 22, y = 39},
     atlas = 'joker_atlas',

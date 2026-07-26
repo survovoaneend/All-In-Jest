@@ -7,6 +7,7 @@ local spy = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 7, y = 39},
     atlas = 'joker_atlas',

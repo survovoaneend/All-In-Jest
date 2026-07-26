@@ -6,6 +6,7 @@ local pipine = {
     config = {
       discards = 5
     },
+    attributes = { 'discard' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 2, y = 8},

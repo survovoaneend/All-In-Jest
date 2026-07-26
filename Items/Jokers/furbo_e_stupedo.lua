@@ -6,6 +6,7 @@ local furbo_e_stupido = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 3 },
     atlas = 'joker_atlas',

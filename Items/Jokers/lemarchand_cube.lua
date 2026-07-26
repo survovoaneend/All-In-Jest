@@ -9,6 +9,7 @@ local lemarchand_cube = {
             tarots_total = 5
         }
     },
+    attributes = { 'generation', 'spectral', 'tarot', 'consumable' },
     rarity = 2,
     pos = { x = 16, y = 13 },
     atlas = 'joker_atlas',

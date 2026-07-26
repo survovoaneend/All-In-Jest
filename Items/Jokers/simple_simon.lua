@@ -8,6 +8,7 @@ local simple_simon = {
         chips = 30
       }
     },
+    attributes = { 'chips' },
     rarity = 1,
     pos = { x = 15, y = 5 },
     atlas = 'joker_atlas',

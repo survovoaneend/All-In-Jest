@@ -8,6 +8,7 @@ local eulenspiegel = {
     Xmult_mod = 0.25,
     ante_mod = 1
   },
+  attributes = { 'xmult', 'scaling', 'ante' },
   rarity = 4,
   unlock_condition = { hidden = true },
   pos = { x = 2, y = 2 },

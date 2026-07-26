@@ -8,6 +8,7 @@ local cracked_up = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 25 },
     atlas = 'joker_atlas',

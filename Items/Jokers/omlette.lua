@@ -7,6 +7,7 @@ local omlette = {
           sell_gain = 3
       }
     },
+    attributes = { 'sell_value', 'scaling', 'hands', 'discard', 'food' },
     rarity = 2,
     pos = { x = 3, y = 10},
     atlas = 'joker_atlas',
@@ -38,11 +39,6 @@ local omlette = {
 	                    message = localize('k_val_up'),
                         colour = G.C.MONEY
                     },
-                    block_overrides = {
-	                    value = true,
-	                    scalar = true,
-	                    message = true,
-                    }
                 })
                 card:set_cost()
           end

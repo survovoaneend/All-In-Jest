@@ -5,6 +5,7 @@ local broken_dreams = {
     key = "broken_dreams",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 13},
     atlas = 'joker_atlas',

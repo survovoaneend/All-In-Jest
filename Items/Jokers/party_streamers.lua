@@ -6,6 +6,7 @@ local party_streamers = {
     config = {
       
     },
+    attributes = { 'modify_card', 'seals', 'hands' },
     rarity = 3,
     pos = { x = 0, y = 5 },
     atlas = 'joker_atlas',

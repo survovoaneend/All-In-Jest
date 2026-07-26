@@ -7,6 +7,7 @@ local chocolatier = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 41},
     atlas = 'joker_atlas',

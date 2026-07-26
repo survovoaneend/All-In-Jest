@@ -7,6 +7,7 @@ local gille = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 7},
     atlas = 'joker_atlas',

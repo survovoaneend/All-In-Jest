@@ -8,6 +8,7 @@ local debbie_downer = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 23 },
     atlas = 'joker_atlas',

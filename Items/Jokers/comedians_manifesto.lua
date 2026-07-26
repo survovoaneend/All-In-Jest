@@ -8,6 +8,7 @@ local comedians_manifesto = {
           trigger = false
       }
     },
+    attributes = { 'modify_card', 'rank', 'jack', 'booster' },
     rarity = 1,
     pos = { x = 6, y = 1 },
     atlas = 'joker_atlas',

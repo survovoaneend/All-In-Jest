@@ -7,6 +7,7 @@ local stupid_sauce = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 29},
     atlas = 'joker_atlas',

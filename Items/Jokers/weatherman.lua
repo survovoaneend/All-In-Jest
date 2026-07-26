@@ -5,6 +5,7 @@ local weatherman = {
     key = "weatherman",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 17, y = 19},
     atlas = 'joker_atlas',

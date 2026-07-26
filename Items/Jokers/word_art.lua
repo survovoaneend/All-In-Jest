@@ -9,6 +9,7 @@ local word_art = {
         xmult_per_card = 0.5
       }
     },
+    attributes = { 'xmult', 'rank', 'ace', 'king', 'queen', 'jack' },
     rarity = 3,
     pos = { x = 13, y = 1 },
     atlas = 'joker_atlas',

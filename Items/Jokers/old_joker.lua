@@ -15,6 +15,7 @@ local old_joker = {
             mult_mod = 5
         }
     },
+    attributes = { 'mult', 'chips', 'scaling', 'stickers' },
     rarity = 1,
     pos = { x = 19, y = 0 },
     atlas = 'joker_atlas',

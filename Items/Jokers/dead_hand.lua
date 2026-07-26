@@ -8,6 +8,7 @@ local dead_hand = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 26 },
     atlas = 'joker_atlas',

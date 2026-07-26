@@ -7,6 +7,7 @@ local independent_space_warrior = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 4, y = 41},
     atlas = 'joker_atlas',

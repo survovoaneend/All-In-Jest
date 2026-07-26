@@ -9,6 +9,7 @@ local dire_warning = {
             active = false
         }
     },
+    attributes = { 'xmult', 'hands' },
     rarity = 2,
     pos = { x = 16, y = 14 },
     atlas = 'joker_atlas',

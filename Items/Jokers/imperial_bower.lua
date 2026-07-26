@@ -5,6 +5,7 @@ local imperial_bower = {
     config = {
       
     },
+    attributes = {},
     rarity = 2,
     ignore = true,
     pos = { x = 17, y = 0 },

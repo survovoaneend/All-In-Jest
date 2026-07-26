@@ -9,6 +9,7 @@ local lawfirm = {
             odds = 2
         }
     },
+    attributes = {},
     rarity = 2,
     pos = { x = 16, y = 26 },
     atlas = 'joker_atlas',

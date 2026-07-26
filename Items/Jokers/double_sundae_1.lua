@@ -11,6 +11,7 @@ local double_sundae = {
             total_rounds = 3,
         }
     },
+    attributes = { 'food', 'chips', 'mult' },
     rarity = 2,
     pos = { x = 22, y = 21 },
     atlas = 'joker_atlas',

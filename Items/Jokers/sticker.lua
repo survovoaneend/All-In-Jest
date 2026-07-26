@@ -9,6 +9,7 @@ local sticker = {
         totalstickers = "0",
     }
   },
+  attributes = { 'mult', 'stickers' },
   rarity = 1,
   pos = { x = 22, y = 6},
   atlas = 'joker_atlas',

@@ -8,6 +8,7 @@ local taggart = {
           tags = 1,
       }
     },
+    attributes = { 'generation', 'tag' },
     rarity = 3,
     pos = { x = 10, y = 10},
     atlas = 'joker_atlas',

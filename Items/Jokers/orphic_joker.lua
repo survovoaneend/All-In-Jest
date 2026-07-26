@@ -8,6 +8,7 @@ local orphic_joker = {
             jokers = 1
         }
     },
+    attributes = { 'generation', 'joker', 'rarity', 'skip' },
     rarity = 3,
     pos = { x = 4, y = 8},
     atlas = 'joker_atlas',

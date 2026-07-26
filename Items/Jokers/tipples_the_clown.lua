@@ -8,6 +8,7 @@ local tipples_the_clown = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 7, y = 14 },
     atlas = 'joker_atlas',

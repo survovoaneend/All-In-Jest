@@ -8,6 +8,7 @@ local sneaky_pete = {
         money_per_seal = 2
       }
     },
+    attributes = { 'economy', 'seals', 'full_deck' },
     rarity = 2,
     pos = { x = 22, y = 5 },
     atlas = 'joker_atlas',

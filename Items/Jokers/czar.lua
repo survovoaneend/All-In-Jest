@@ -32,6 +32,7 @@ local czar = {
             silver_multiplier_buff = 100, -- Make 100 instead of 1 to keep 2 decimals of precision
         }
     },
+    attributes = { 'copying', 'reroll' },
     rarity = 2,
     pos = { x = 14, y = 14},
     atlas = 'joker_atlas',

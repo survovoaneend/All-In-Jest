@@ -8,6 +8,7 @@ local copper = {
             
         }
     },
+    attributes = { 'retrigger', 'hand_type' },
     rarity = 2,
     pos = { x = 12, y = 27 },
     atlas = 'joker_atlas',

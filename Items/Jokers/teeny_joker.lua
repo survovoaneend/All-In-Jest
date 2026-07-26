@@ -8,6 +8,7 @@ local teeny_joker = {
       chips = 150,
     }
   },
+  attributes = { 'chips', 'rank', 'two' },
   rarity = 1,
   pos = { x = 2, y = 9},
   atlas = 'joker_atlas',

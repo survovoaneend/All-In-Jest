@@ -6,6 +6,7 @@ local pedrolino = {
     config = {
         extra = { blind_reduction = 90 }
     },
+    attributes = { 'xblindsize', 'on_sell' },
     rarity = 2,
     pos = { x = 19, y = 3 },
     atlas = 'joker_atlas',

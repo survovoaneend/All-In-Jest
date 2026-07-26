@@ -5,6 +5,7 @@ local evil_twin = {
     key = "evil_twin",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 4, y = 13},
     atlas = 'joker_atlas',

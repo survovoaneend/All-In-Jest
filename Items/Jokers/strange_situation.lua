@@ -7,6 +7,7 @@ local strange_situation = {
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 23, y = 40},
     atlas = 'joker_atlas',

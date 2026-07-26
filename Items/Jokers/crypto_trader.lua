@@ -10,6 +10,7 @@ local crypto_trader = {
             multpliers = {},
         }
     },
+    attributes = { 'economy', 'chance' },
     rarity = 2,
     pos = { x = 2, y = 22 },
     atlas = 'joker_atlas',

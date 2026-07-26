@@ -9,6 +9,7 @@ local public_bathroom = {
       mult_mod = 2
     }
   },
+  attributes = { 'mult', 'scaling', 'hand_type', 'rank', 'two' },
   rarity = 1,
   pos = { x = 3, y = 1 },
   atlas = 'joker_atlas',

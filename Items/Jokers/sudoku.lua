@@ -9,6 +9,7 @@ local sudoku = {
       bonus = 0.3
     }
   },
+  attributes = { 'xmult', 'scaling', 'reset', 'hand_type' },
   rarity = 2,
   pos = { x = 9, y = 6},
   atlas = 'joker_atlas',
@@ -34,11 +35,12 @@ local sudoku = {
     if context.before and context.scoring_name then
           if not context.blueprint then
               if context.poker_hands and next(context.poker_hands['Straight']) then
-                  card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.bonus
-                  card_eval_status_text(card, 'extra', nil, nil, nil, {
-                      message = localize('k_upgrade_ex'),
-                  })
-                  return nil, true
+                  SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "xmult",
+                        scalar_value = "bonus",
+                    })
+                    return nil, true
               else
                   if card.ability.extra.xmult > 1 then
                       card.ability.extra.xmult = 1

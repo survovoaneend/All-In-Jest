@@ -7,6 +7,7 @@ local zan = {
   config = {
     
   },
+  attributes = {},
   rarity = 'aij_familiar_face',
   unlock_condition = { hidden = true },
   pos = { x = 0, y = 2 },

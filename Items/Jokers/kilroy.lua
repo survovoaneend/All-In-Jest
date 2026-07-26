@@ -14,6 +14,7 @@ local kilroy = {
     config = {
         silver_multiplier_buff = 100, -- Make 100 instead of 1 to keep 2 decimals of precision
     },
+    attributes = { 'chips', 'scaling', 'on_sell' },
     rarity = 1,
     pos = { x = 1, y = 5 },
     atlas = 'joker_atlas',

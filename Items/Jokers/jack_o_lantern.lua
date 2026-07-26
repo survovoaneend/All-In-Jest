@@ -5,6 +5,7 @@ local jack_o_lantern = {
     key = "jack_o_lantern",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 12},
     atlas = 'joker_atlas',

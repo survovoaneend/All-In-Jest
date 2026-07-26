@@ -7,6 +7,7 @@ local cool_joker = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 1 },
     atlas = 'joker_atlas',

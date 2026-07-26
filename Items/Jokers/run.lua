@@ -7,6 +7,7 @@ local run = {
             
         }
     },
+    attributes = {},
     rarity = 2,
     pos = { x = 0, y = 26 },
     atlas = 'joker_atlas',

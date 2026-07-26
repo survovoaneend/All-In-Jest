@@ -9,6 +9,7 @@ local a_v_g_m = {
             odds = 30
         }
     },
+    attributes = { 'generation', 'chance', 'joker', 'consumable', 'playing_card', 'tag' },
     rarity = 2,
     pos = { x = 22, y = 29},
     atlas = 'joker_atlas',

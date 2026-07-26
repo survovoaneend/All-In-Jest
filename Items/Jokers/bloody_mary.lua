@@ -7,6 +7,7 @@ local bloody_mary = {
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 14, y = 0 },
     atlas = 'joker_atlas',

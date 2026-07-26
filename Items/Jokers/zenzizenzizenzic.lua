@@ -10,6 +10,7 @@ local zenzizenzizenzic = {
             mod_mod = 2
         }
     },
+    attributes = { 'chips', 'scaling' },
     rarity = 3,
     pos = { x = 14, y = 27 },
     atlas = 'joker_atlas',
@@ -34,8 +35,18 @@ local zenzizenzizenzic = {
 
     calculate = function(self, card, context)
         if context.before and #context.scoring_hand == 4 and not context.blueprint then
-            card.ability.extra.mod = card.ability.extra.mod + card.ability.extra.mod_mod
-            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.mod
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mod",
+                scalar_value = "mod_mod",
+                no_message = true,
+            })
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "chips",
+                scalar_value = "mod",
+                no_message = true,
+            })
             return {
                 message = localize('k_upgrade_ex'),
                 colour = G.C.CHIPS

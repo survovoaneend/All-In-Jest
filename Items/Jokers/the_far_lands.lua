@@ -8,6 +8,7 @@ local the_far_lands = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 29 },
     atlas = 'joker_atlas',
