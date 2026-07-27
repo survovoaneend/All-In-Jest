@@ -2625,7 +2625,7 @@ if card and card.aij_inherent_effects then
             if k == 'enhancements' then
                 local enhancement_key = _v.center_key
                 if G.P_CENTERS[enhancement_key] and G.P_CENTERS[enhancement_key].set == 'Enhanced' then
-                    local t = G.P_CENTERS[enhancement_key]
+                    local t = SMODS.shallow_copy(G.P_CENTERS[enhancement_key])
                     t.is_inherent_enhancement = true
                     t.enhancement_key = enhancement_key
                     t.specific_vars = t.specific_vars or {}
