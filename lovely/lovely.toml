@@ -1445,10 +1445,12 @@ local blind = G.GAME.blind:save()
 local full_hand_saved = {}
 for k, v in pairs(G.play.cards) do
     full_hand_saved[k] = v:save()
+    full_hand_saved[k]['considered_rank'] = v:get_id()
 end
 local scoring_hand_saved = {}
 for k, v in pairs(scoring_hand) do
     scoring_hand_saved[k] = v:save()
+    scoring_hand_saved[k]['considered_rank'] = v:get_id()
 end
 local poker_hands_saved = {}
 for hand, _ in pairs(poker_hands) do
@@ -1457,6 +1459,7 @@ for hand, _ in pairs(poker_hands) do
         poker_hands_saved[hand][i] = {}
         for j, v in ipairs(poker_hands[hand][i]) do
             poker_hands_saved[hand][i][j] = v:save()
+            poker_hands_saved[hand][i][j]['considered_rank'] = v:get_id()
         end
     end
 end
