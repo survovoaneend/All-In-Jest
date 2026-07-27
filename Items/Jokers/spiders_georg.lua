@@ -8,18 +8,10 @@ local calculate_average_eights = function()
             if scoring_hand then
                 for j = 1, #scoring_hand do
                     local cur_card = scoring_hand[j] -- Card is a saveTable, so we need to load it to do proper stuff
-                    if cur_card.base.id == 8 then -- Only load cards that can have a rank of 8 (or are rankless)
-                        local temp_card = Card(0, 0, G.CARD_W, G.CARD_H, G.P_CENTERS.j_joker, G.P_CENTERS.c_base)
-                        temp_card:load(cur_card)
-                        -- Remove Canvas so that it doesn't mess up rank calculations
-                        -- This is very much a band-aid fix
-                        if SMODS.has_enhancement(temp_card, 'm_aij_canvas') then
-                            temp_card:set_ability(G.P_CENTERS.c_base)
-                        end
-                        if temp_card and temp_card:get_id() and temp_card:get_id() == 8 then
+                    if not (cur_card.save_fields.center == 'm_aij_canvas' or cur_card.save_fields.aij_other_center == 'm_aij_canvas') then -- Only load cards that can have a rank of 8 (or are rankless)
+                        if cur_card.considered_rank == 8 then -- considered_rank is the card ran through :get_id() which is more important than base id
                             eights = eights + 1
                         end
-                        temp_card:remove()
                     end
                 end
                 hands = hands + 1
