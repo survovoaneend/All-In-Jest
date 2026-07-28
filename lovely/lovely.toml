@@ -334,6 +334,7 @@ if self.added_to_deck and old_center and not self.debuff then"""
 position = "before"
 match_indent = true
 payload = '''
+if self.ability then self.ability.m_aij_charged_chaging = true end
 local aij_silver_reapply = false
 if self.edition and self.edition.aij_silver then
     if old_center ~= center and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
@@ -397,6 +398,7 @@ if self.edition and self.edition.aij_misprint then
         )
     end
 end
+if self.ability then self.ability.m_aij_charged_chaging = nil end
 '''
 
 # Canvas Cards (1/3)
@@ -2913,6 +2915,16 @@ if other.aij_inherent_effects then
 end
 '''
 
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "new_card:set_ability(other.config.center)"
+position = "before"
+match_indent = true
+payload = '''
+new_card.ability.m_aij_charged_chaging = true
+'''
+
 # Remove negative from copied cards
 # copy_card
 [[patches]]
@@ -2937,6 +2949,7 @@ if new_card.aij_inherent_effects and new_card.aij_inherent_effects.editions then
         end
     end
 end
+new_card.ability.m_aij_charged_chaging = nil
 '''
 
 # copy_card (before setting sprites)
