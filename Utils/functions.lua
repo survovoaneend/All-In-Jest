@@ -972,6 +972,13 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'voices_of_the_void',
+    name = 'Voices of the Void',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
     id = 'alan_wake',
     name = 'Alan Wake',
     suits = {
@@ -999,29 +1006,36 @@ AllInJest.deck_skins = {
     id = 'deltarune',
     name = 'Deltarune',
     suits = {
-      'Spades',
       'Hearts',
       'Clubs',
       'Diamonds'
     }
   },
   {
-    id = 'deltarune_ch_two',
-    name = 'Deltarune',
+    id = 'deltarune_ch_one',
+    name = 'Deltarune: Chapter 1',
     suits = {
       'Spades',
     }
   },
   {
+    id = 'deltarune_ch_two',
+    name = 'Deltarune: Chapter 2',
+    suits = {
+      'Spades',
+      'Clubs'
+    }
+  },
+  {
     id = 'deltarune_ch_three',
-    name = 'Deltarune',
+    name = 'Deltarune: Chapter 3',
     suits = {
       'Diamonds'
     }
   },
   {
     id = 'deltarune_ch_four',
-    name = 'Deltarune',
+    name = 'Deltarune: Chapter 4',
     suits = {
       'Diamonds'
     }
