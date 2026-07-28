@@ -7,7 +7,7 @@ local the_elk = {
     mult = 1,
     boss_colour = HEX("b575e8"),
     atlas = 'blinds',
-    pos = { X = 0, y = 54},
+    pos = { X = 0, y = 38},
     order = 42,
     dollars = 5,
 

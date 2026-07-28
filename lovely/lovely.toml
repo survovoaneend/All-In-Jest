@@ -3,6 +3,41 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
+# Perishable for Playing Cards 
+# Card:set_debuff()
+# debuffs cards with sticker 
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.perishable and self.ability.perish_tally <= 0 then"
+position = "before"
+match_indent = true
+payload = '''
+if self.ability.aij_pc_perishable and self.ability.perish_tally <= 0 then 
+    if not self.debuff then
+        self.debuff = true
+    end
+    return
+end
+'''
+
+# Perma-flipped for Playing Cards
+# draw_card()
+# allows cards to stay flipped when drawn permanently
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "local stay_flipped = G.GAME and G.GAME.blind and G.GAME.blind:stay_flipped(to, card, from)"
+position = "after"
+match_indent = true
+payload = '''
+if card.ability.aij_perma_flipped then 
+    if to == G.hand then
+        stay_flipped = true
+    end
+end
+'''
+
 # Eye Seal, For end of round scoring
 [[patches]]
 [patches.pattern]
@@ -539,6 +574,12 @@ end
 position = "before"
 match_indent = true
 payload = '''
+if G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_aij_the_real' and not G.GAME.blind.disabled then
+    if SMODS.has_no_suit(self) then
+        return false
+    end
+    return self.base.suit == suit
+end
 if All_in_Jest.has_patches(self, suit) then
     return All_in_Jest.has_patches(self, suit)
 end
@@ -1466,6 +1507,7 @@ for hand, _ in pairs(poker_hands) do
     end
 end
 
+local winning_hand = (G.GAME.chips + math.floor(SMODS.calculate_round_score())) >= blind.chips
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_run + 1
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing] = {}
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].mult = mult
@@ -1476,6 +1518,7 @@ G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_hand = scorin
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_name = text 
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].poker_hands = poker_hands_saved
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].winning_hand = winning_hand
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_ante + 1
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing] = {}
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].mult = mult
@@ -1486,6 +1529,7 @@ G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_hand = scori
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_name = text
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].poker_hands = poker_hands_saved
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].winning_hand = winning_hand
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_blind + 1
 G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing] = {}
 G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].mult = mult
@@ -1496,6 +1540,7 @@ G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].scoring_hand = scor
 G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].scoring_name = text 
 G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].poker_hands = poker_hands_saved
+G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].winning_hand = winning_hand
 '''
 match_indent = true
 
@@ -2054,7 +2099,7 @@ position = "after"
 match_indent = true
 payload = '''
 for k, v in pairs(G.GAME.all_in_jest.blind_tags) do
-    if append and append == 'aij_no_blind_dupes_'..k then
+    if type(v) == 'table' and append and (append == 'aij_no_blind_dupes_'..k or append == 'aij_no_blind_dupes_guarrented_gold_tag') then
         for k_, v_ in ipairs(v) do
             if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
                 for _, j in pairs(_gold_pool) do
@@ -2129,7 +2174,7 @@ if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
             _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
         end
     end
-    if append and append == 'all_in_jest_guarrented_gold_tag' then
+    if append and (append == 'all_in_jest_guarrented_gold_tag' or append == 'aij_no_blind_dupes_guarrented_gold_tag') then
         _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
     end
 end
@@ -2162,7 +2207,7 @@ if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
             _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
         end
     end
-    if append and append == 'all_in_jest_guarrented_gold_tag' then
+    if append and (append == 'all_in_jest_guarrented_gold_tag' or append == 'aij_no_blind_dupes_guarrented_gold_tag') then
         _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
     end
 end
@@ -2925,6 +2970,21 @@ payload = '''
 new_card.ability.m_aij_charged_chaging = true
 '''
 
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+local new_card = new_card or Card(other.T.x, other.T.y, G.CARD_W*(card_scale or 1), G.CARD_H*(card_scale or 1), G.P_CARDS.empty, G.P_CENTERS.c_base, {playing_card = playing_card, bypass_back = G.GAME.selected_back.pos})
+'''
+position = "before"
+match_indent = true
+payload = '''
+local has_other_copy_card = false
+if new_card then 
+    has_other_copy_card = true
+end
+'''
+
 # Remove negative from copied cards
 # copy_card
 [[patches]]
@@ -2948,6 +3008,9 @@ if new_card.aij_inherent_effects and new_card.aij_inherent_effects.editions then
             break
         end
     end
+end
+if (has_other_copy_card and new_card.ability and new_card.ability.all_in_jest and new_card.ability.all_in_jest.perma_debuff) then 
+    new_card.ability.all_in_jest.perma_debuff = nil
 end
 new_card.ability.m_aij_charged_chaging = nil
 '''
@@ -3639,6 +3702,7 @@ end
 '''
 position = "at"
 payload = '''
+SMODS.calculate_context({aij_set_or_reroll_blind = true, blind = blind_choice.config, run_info = run_info})
 if aij_has_blind_drawn then
     blind_desc_nodes[#blind_desc_nodes+1] = {n=G.UIT.R, config={align = "cm", maxw = 2.8}, nodes={
         {n=G.UIT.T, config={text = "???", scale = 0.32, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE, shadow = not disabled}}
@@ -5169,7 +5233,13 @@ match_indent = true
 payload = '''
 for _, v in ipairs(G.aij_astral_pin_area.cards) do
     if not v.ability.no_auto_destroy then
-        v:start_dissolve()
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                v:start_dissolve()
+                return true
+            end
+        }))
     end
 end
 '''

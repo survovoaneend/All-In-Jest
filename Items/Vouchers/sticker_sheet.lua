@@ -21,6 +21,8 @@ local sticker_sheet = {
   end,
 
   redeem = function(self)
+      G.GAME.all_in_jest.sticker_effects['pc_rental'].active = true
+      G.GAME.all_in_jest.sticker_effects['pc_rental'].num = G.GAME.all_in_jest.sticker_effects['pc_rental'].num + 1
       if self.config.sticker_effects ~= G.GAME.all_in_jest.sticker_effects then
           self.config.sticker_effects = G.GAME.all_in_jest.sticker_effects
       end

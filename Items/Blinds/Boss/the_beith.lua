@@ -7,7 +7,7 @@ local the_beith = {
     mult = 2,
     boss_colour = HEX("ddebe5"),
     atlas = 'blinds',
-    pos = {X = 0, y = 14 },
+    pos = {X = 0, y = 0 },
     order = 1,
     dollars = 5,
 

@@ -3430,3 +3430,81 @@ function aij_calculate_end_of_round_effects(context, i, card)
     end
     card.repetition_trigger = nil
 end
+
+function aij_reroll_tags(blind, args)
+    args = args or {}
+    blind = blind or 'All'
+    if blind == 'All' then
+        for k, v in pairs(G.GAME.round_resets.blind_tags) do
+            if (G.GAME.round_resets.blind_states[k] ~= 'Defeated' and G.GAME.round_resets.blind_states[k] ~= 'Skipped') then
+                if not args.gold then G.GAME.round_resets.blind_tags[k] = get_next_tag_key() end
+                if args.gold then G.GAME.round_resets.blind_tags[k] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+                if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
+                    for i = 1, G.GAME.all_in_jest.blind_tags.amt do
+                        if i == 1 then -- Leftmost tag matches vanilla skip tag
+                            G.GAME.all_in_jest.blind_tags[k][i] = G.GAME.round_resets.blind_tags[k]
+                        else
+                            if not args.gold then G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('aij_no_blind_dupes_'..k) end
+                            if args.gold then G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+                        end
+                    end
+                end
+            end
+        end
+        for k, v in pairs(G.GAME.round_resets.blind_choices) do
+            if k ~= 'Boss' and (G.GAME.round_resets.blind_states[k] ~= 'Defeated' and G.GAME.round_resets.blind_states[k] ~= 'Skipped') then
+                local blind_choice = k
+                local par = G.blind_select_opts[blind_choice:lower()].parent
+                G.blind_select_opts[blind_choice:lower()]:remove()
+                G.blind_select_opts[blind_choice:lower()] = UIBox{
+                  T = {par.T.x, 0, 0, 0, },
+                  definition =
+                    {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
+                      UIBox_dyn_container({create_UIBox_blind_choice(blind_choice)},false,get_blind_main_colour(blind_choice))
+                    }},
+                  config = {align="bmi",
+                            offset = {x=0,y=G.ROOM.T.y + 9},
+                            major = par,
+                            xy_bond = 'Weak'
+                          }
+                }
+                par.config.object = G.blind_select_opts[blind_choice:lower()]
+                par.config.object:recalculate()
+                G.blind_select_opts[blind_choice:lower()].parent = par
+            end
+        end
+    else
+        if (G.GAME.round_resets.blind_states[k] ~= 'Defeated' and G.GAME.round_resets.blind_states[k] ~= 'Skipped') then
+            if not args.gold then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key() end
+            if args.gold then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+            if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
+                for i = 1, G.GAME.all_in_jest.blind_tags.amt do
+                    if i == 1 then -- Leftmost tag matches vanilla skip tag
+                        G.GAME.all_in_jest.blind_tags[blind][i] = G.GAME.round_resets.blind_tags[blind]
+                    else
+                        if not args.gold then G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key('aij_no_blind_dupes_'..blind) end
+                        if args.gold then G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+                    end
+                end
+            end
+            local blind_choice = blind
+            local par = G.blind_select_opts[blind_choice:lower()].parent
+            G.blind_select_opts[blind_choice:lower()]:remove()
+            G.blind_select_opts[blind_choice:lower()] = UIBox{
+                T = {par.T.x, 0, 0, 0, },
+                definition =
+                {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
+                    UIBox_dyn_container({create_UIBox_blind_choice(blind_choice)},false,get_blind_main_colour(blind_choice))
+                }},
+                config = {align="bmi",
+                        offset = {x=0,y=G.ROOM.T.y + 9},
+                        major = par,
+                        xy_bond = 'Weak'
+                        }
+            }
+            par.config.object = G.blind_select_opts[blind_choice:lower()]
+            par.config.object:recalculate()
+            G.blind_select_opts[blind_choice:lower()].parent = par
+        end
+    end
+end

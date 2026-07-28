@@ -12,7 +12,7 @@ local the_moon = {
     end,
     mult = 2,
     boss_colour = HEX("95a8a9"),
-    atlas = 'blinds',
+    atlas = 'blinds_pit',
     pos = { y = 3 },
     order = 504,
     dollars = 6,
