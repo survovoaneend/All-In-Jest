@@ -1249,7 +1249,7 @@ return {
             v_aij_fairy_dust = {
                 name = "Fairy Dust",
                 text = {
-                    "{C:dark_edition}Glimmer{}, {C:dark_edition}Silver{}, and",
+                    "{C:dark_edition}Glimmer{}, {C:dark_edition}Aureate{}, and",
                     "{C:dark_edition}Stellar{} cards",
                     "appear {C:attention}#1#X{} more often",
                 },
@@ -1257,7 +1257,7 @@ return {
             v_aij_live_pixie = {
                 name = "Live Pixie",
                 text = {
-                    "{C:dark_edition}Glimmer{}, {C:dark_edition}Silver{}, and",
+                    "{C:dark_edition}Glimmer{}, {C:dark_edition}Aureate{}, and",
                     "{C:dark_edition}Stellar{} cards",
                     "appear {C:attention}#1#X{} more often",
                 },
@@ -4238,7 +4238,7 @@ return {
                     },
                     {
                         '{B:1,C:white,s:0.8}Activated Ability',
-                        'Pay {C:money}$#1#{} to reroll copied joker,',
+                        'Pay {C:money}$#1#{} to reroll copied Joker,',
                         'the next use this ante costs {C:money}+$#2#{}'
                     }
                 }
@@ -4811,7 +4811,7 @@ return {
                         'This Joker copies the',
                         'ability of a random discovered',
                         '{C:attention}Joker{} from your {C:attention}collection{},',
-                        'copied joker {C:attention}changes{} when',
+                        'copied Joker {C:attention}changes{} when',
                         'the shop is {C:green}rerolled{}'
                     }
                 }
@@ -6004,15 +6004,15 @@ return {
                 name = "Jokey Bear",
                 text = {
                     {
-                        'If score of {C:attention}played hand',
-                        'exceeds the {C:attention}total blind',
-                        '{C:attention}requirement{}, {X:mult,C:white}X#1#{} Mult',
-                        'and earn {C:money}$#2#'
+                        'If {C:attention}played hand',
+                        'sets the score {C:attention}on fire{},',
+                        '{X:mult,C:white}X#1#{} Mult and earn {C:money}$#2#',
+
                     },
                     {
                         '{C:attention}Retriggers{} until score',
-                        'does not exceed {C:attention}total',
-                        '{C:attention}blind requirement'
+                        'is no longer {C:attention}on fire{}',
+
                     }
                 }
             },
@@ -7684,7 +7684,7 @@ return {
                 text = {
                     'Add a {V:1}#2#',
                     'to {C:attention}#1#{} selected',
-                    'cards in your hand'
+                    'card in your hand'
                 }
             },
             c_aij_maw = {
