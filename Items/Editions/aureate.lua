@@ -20,6 +20,7 @@ local aureate = {
     money = 0.1,
     max = 10
   },
+  
   pools = {
     seal_edition_pool = true
   },
@@ -78,9 +79,8 @@ local aureate = {
   weight = 3,
   extra_cost = 4,
   get_weight = function(self)
-    return self.weight
+        return G.GAME.jest_fairy_edition_rate * self.weight
   end,
-
   shader = 'aureate'
 }
 return { name = "Editions", items = { aureate, aureate_shader } }

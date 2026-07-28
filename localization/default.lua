@@ -1242,7 +1242,7 @@ return {
             v_aij_fairy_dust = {
                 name = "Fairy Dust",
                 text = {
-                    "{C:dark_edition}Glimmer{}, {C:dark_edition}Silver{}, and",
+                    "{C:dark_edition}Glimmer{}, {C:dark_edition}Aureate{}, and",
                     "{C:dark_edition}Stellar{} cards",
                     "appear {C:attention}#1#X{} more often",
                 },
@@ -1250,7 +1250,7 @@ return {
             v_aij_live_pixie = {
                 name = "Live Pixie",
                 text = {
-                    "{C:dark_edition}Glimmer{}, {C:dark_edition}Silver{}, and",
+                    "{C:dark_edition}Glimmer{}, {C:dark_edition}Aureate{}, and",
                     "{C:dark_edition}Stellar{} cards",
                     "appear {C:attention}#1#X{} more often",
                 },
