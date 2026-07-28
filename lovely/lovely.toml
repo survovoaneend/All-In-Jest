@@ -3,6 +3,41 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
+# Perishable for Playing Cards 
+# Card:set_debuff()
+# debuffs cards with sticker 
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.perishable and self.ability.perish_tally <= 0 then"
+position = "before"
+match_indent = true
+payload = '''
+if self.ability.aij_pc_perishable and self.ability.perish_tally <= 0 then 
+    if not self.debuff then
+        self.debuff = true
+    end
+    return
+end
+'''
+
+# Perma-flipped for Playing Cards
+# draw_card()
+# allows cards to stay flipped when drawn permanently
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "local stay_flipped = G.GAME and G.GAME.blind and G.GAME.blind:stay_flipped(to, card, from)"
+position = "after"
+match_indent = true
+payload = '''
+if card.ability.aij_perma_flipped then 
+    if to == G.hand then
+        stay_flipped = true
+    end
+end
+'''
+
 # Eye Seal, For end of round scoring
 [[patches]]
 [patches.pattern]
@@ -539,6 +574,12 @@ end
 position = "before"
 match_indent = true
 payload = '''
+if G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_aij_the_real' and not G.GAME.blind.disabled then
+    if SMODS.has_no_suit(self) then
+        return false
+    end
+    return self.base.suit == suit
+end
 if All_in_Jest.has_patches(self, suit) then
     return All_in_Jest.has_patches(self, suit)
 end
@@ -1466,6 +1507,7 @@ for hand, _ in pairs(poker_hands) do
     end
 end
 
+local winning_hand = (G.GAME.chips + math.floor(SMODS.calculate_round_score())) >= blind.chips
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_run + 1
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing] = {}
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].mult = mult
@@ -1476,6 +1518,7 @@ G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_hand = scorin
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].scoring_name = text 
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].poker_hands = poker_hands_saved
+G.GAME.all_in_jest.advanced_hand_usage_run[hand_amt_thing].winning_hand = winning_hand
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_ante + 1
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing] = {}
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].mult = mult
@@ -1486,6 +1529,7 @@ G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_hand = scori
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].scoring_name = text
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].poker_hands = poker_hands_saved
+G.GAME.all_in_jest.advanced_hand_usage_ante[hand_amt_thing].winning_hand = winning_hand
 local hand_amt_thing = #G.GAME.all_in_jest.advanced_hand_usage_blind + 1
 G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing] = {}
 G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].mult = mult
@@ -1496,6 +1540,7 @@ G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].scoring_hand = scor
 G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].scoring_name = text 
 G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].blind = blind
 G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].poker_hands = poker_hands_saved
+G.GAME.all_in_jest.advanced_hand_usage_blind[hand_amt_thing].winning_hand = winning_hand
 '''
 match_indent = true
 
@@ -2940,7 +2985,6 @@ if new_card then
 end
 '''
 
-
 # Remove negative from copied cards
 # copy_card
 [[patches]]
@@ -4226,7 +4270,6 @@ if G.GAME.Astral_pins and text ~= G.aij_cur_astral_hand then
         end
     end
 end
-
 '''
 
 # When saving a run, save all data in G.all_in_jest as direct children of G

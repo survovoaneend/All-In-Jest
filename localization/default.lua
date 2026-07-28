@@ -199,6 +199,9 @@ return {
             aij_torn = "Torn",
             -- Stickers
             aij_marked = "Marked",
+            aij_pc_perishable = "Perishable",
+            aij_pc_eternal = "Eternal",
+            aij_pc_rental = "Rental",
             pinned = "Pinned",
             aij_unusual_doubled = "Doubled",
             aij_recherche_doubled = "Doubled",
@@ -921,6 +924,96 @@ return {
                     'cards at a time'
                 },
             },
+            bl_aij_the_kind = {
+                name = "The Kind",
+                text = {
+                    'Better skip tags this',
+                    'ante, X2 Blind size',
+                    'for each blind skipped',
+                    'this ante'
+                },
+            },
+            bl_aij_the_real = {
+                name = "The Real",
+                text = {
+                    'Cards are only considered',
+                    'their original rank and suit'
+                },
+            },
+            bl_aij_the_life = {
+                name = "The Life",
+                text = {
+                    'All scoring cards',
+                    'become Perishable',
+                },
+            },
+            bl_aij_the_man = {
+                name = "The Man",
+                text = {
+                    'All played face cards',
+                    'become permanently',
+                    'drawn face down',
+                },
+            },
+            bl_aij_the_solid = {
+                name = "The Solid",
+                text = {
+                    'All scoring cards',
+                    'become Eternal',
+                },
+            },
+            bl_aij_the_loan = {
+                name = "The Loan",
+                text = {
+                    'All played cards in the',
+                    'winning hand become Rental',
+                },
+            },
+            bl_aij_the_worm = {
+                name = "The Worm",
+                text = {
+                    'Destroy all',
+                    'Perishable Jokers',
+                },
+            },
+            bl_aij_the_silence = {
+                name = "The Silence",
+                text = {
+                    'Scored cards cannot',
+                    'be retriggered',
+                },
+            },
+            bl_aij_the_fig = {
+                name = "The Fig",
+                text = {
+                    'Debuff the first and',
+                    'last scoring cards',
+                    'each hand played'
+                },
+            },
+            bl_aij_the_oil = {
+                name = "The Oil",
+                text = {
+                    'Enhanced cards have a',
+                    '#1# in #2# chance to be',
+                    'discarded when drawn',
+                },
+            },
+            bl_aij_the_wine = {
+                name = "The Wine",
+                text = {
+                    'When playing or discarding',
+                    'a card, discard a random',
+                    'card in your deck',
+                },
+            },
+            bl_aij_the_dagger = {
+                name = "The Dagger",
+                text = {
+                    'Hand must contain',
+                    'a Spade or Club'
+                },
+            },
             --Pit Blinds
             bl_aij_the_heart = {
                 name = "The Heart",
@@ -1027,6 +1120,13 @@ return {
                     'Must meet the score',
                     'requirement twice',
                     '+2 Hands',
+                },
+            },
+            bl_aij_the_assistant = {
+                name = "The Assistant",
+                text = {
+                    'Becomes a boss blind',
+                    'that counters your build',
                 },
             },
             -- Finisher Blinds
@@ -8425,7 +8525,7 @@ return {
                 }
             },
             c_aij_typhon = {
-                name = 'Typhon',
+                name = 'The Typhon',
                 text = {
                     "Enhances {C:attention}#1#{} selected",
                     "cards into",
@@ -8765,6 +8865,21 @@ return {
                 },
             },
             -- Stickers
+            aij_pc_rental = {
+                name = "Rental",
+                text = {
+                    'Lose {C:money}$#1#{} at end of round',
+                    'when in your deck'
+                }
+            },
+            aij_pc_rental_alt = {
+                name = "Rental",
+                text = {
+                    '{C:green}#2# in #3#{} chance to not',
+                    'lose {C:money}$#1#{} at end of round',
+                    'when in your deck'
+                }
+            },
             aij_marked = {
                 name = "Marked",
                 text = {
