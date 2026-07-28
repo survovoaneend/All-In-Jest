@@ -2,7 +2,7 @@ local rising_dead_tarot = {
     object_type = "Consumable",
 	key = 'rising_dead',
 	set = 'Tarot',
-	pos = { x = 14, y = 8 },
+	pos = { x = 15, y = 8 },
 	cost = 3,
 	unlocked = true,
 	discovered = false,
