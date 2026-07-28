@@ -25,6 +25,9 @@ if context.end_of_round and not context.repetition and not context.individual th
         end
     end
 end
+if context.ante_end and G.GAME.aij_big_boss_reset_ante then
+    G.GAME.aij_has_big_boss = nil
+end
 if card.ability.numbertaker_rankless and card.base.nominal > 0 then card.base.nominal = 1 end
 if context.ending_booster and G.GAME.all_in_jest.dizzard_shop and G.shop.alignment.offset.y ~= -5.3 then
     G.E_MANAGER:add_event(Event({

@@ -1570,11 +1570,27 @@ SMODS.calculate_context({end_of_round = true, game_over = game_over, beat_boss =
 '''
 position = "before"
 payload = '''
-if G.GAME.blind.boss then
+G.GAME.aij_big_boss_avoid = true
+if G.GAME.blind_on_deck == 'Big_Boss' then
+    G.GAME.aij_temp_big_boss = true
+end
+if G.GAME.blind.boss and not G.GAME.aij_big_boss_avoid then
     for k, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_ante) do
         G.GAME.all_in_jest.advanced_hand_usage_ante[k] = nil
     end
 end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+G.FUNCS.draw_from_discard_to_deck()
+'''
+position = "before"
+payload = '''
+G.GAME.aij_big_boss_avoid = nil
 '''
 match_indent = true
 
@@ -2375,7 +2391,7 @@ pattern = "local blind_amt = *"
 position = 'after'
 match_indent = true
 payload = '''
-
+if type == 'Big_Boss' then extras = nil end
 if All_in_Jest.aij_alias_type(blind_choice.config.aij_blind_amount_display) == 'function' then
     local blind_mult = blind_choice.config.mult
     if next(SMODS.find_card("j_aij_fall_of_count_chaligny")) then
@@ -3685,9 +3701,117 @@ target = "functions/UI_definitions.lua"
 pattern = "if not run_info then G.GAME.round_resets.blind_states[G.GAME.blind_on_deck] = 'Select' end"
 position = "after"
 payload = '''
+local is_big_boss = false
 local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and type == 'Boss'
 '''
 match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "G.blind_select_opts = {}"
+position = "after"
+payload = '''
+if G.GAME.aij_has_big_boss then
+    if G.GAME.blind_on_deck == 'Big' then G.GAME.blind_on_deck = 'Big_Boss' end
+    G.GAME.round_resets.blind_states['Big'] = 'Hide'
+    G.blind_select_opts.big_boss = UIBox{definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={UIBox_dyn_container({create_UIBox_blind_choice('Big_Boss')},false,get_blind_main_colour('Big_Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Big_Boss'), 0.8))}}, config = {align="bmi", offset = {x=0,y=0}}} or nil
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = '''if self.name == "Small Blind" then'''
+position = "before"
+match_indent = true
+payload = '''
+if G.GAME.aij_big_boss_avoid and G.GAME.blind and G.GAME.blind_on_deck and G.GAME.blind == self and G.GAME.blind_on_deck == 'Big_Boss' then
+    return 'Big_Boss'
+end
+'''
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''G.GAME.round_resets.blind_states['Big'] ~= 'Hide' and {n=G.UIT.O, config={align = "cm", object = G.blind_select_opts.big}} or nil,'''
+position = "after"
+payload = '''
+G.GAME.aij_has_big_boss and {n=G.UIT.O, config={align = "cm", object = G.blind_select_opts.big_boss}} or nil,
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "G.GAME.round_resets.blind_choices.Boss = get_new_boss()"
+position = "after"
+match_indent = true
+payload = '''
+G.GAME.round_resets.blind_choices.Big_Boss = get_new_boss()
+G.GAME.round_resets.blind_states.Big_Boss = 'Upcoming'
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = 'elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big then'
+position = 'before'
+match_indent = true
+payload = '''
+elseif G.GAME.aij_temp_big_boss then
+    G.GAME.round_resets.blind_states.Big_Boss = 'Defeated'
+    G.GAME.aij_temp_big_boss = nil
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+G.GAME.round_resets.blind_states['Boss'] ~= 'Hide' and {n=G.UIT.C, config={align = "tm", padding = 0.1, outline = 2, r = 0.1, line_emboss = 0.2, outline_colour = G.C.BLACK}, nodes={
+'''
+position = "before"
+match_indent = true
+payload = '''
+G.GAME.aij_has_big_boss and {n=G.UIT.C, config={align = "tm", padding = 0.1, outline = 2, r = 0.1, line_emboss = 0.2, outline_colour = G.C.BLACK}, nodes={
+    create_UIBox_blind_choice('Big_Boss', true)
+}} or nil,
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.GAME.blind_on_deck == 'Small' and 'Big' or G.GAME.blind_on_deck == 'Big' and 'Boss' or 'Boss'"
+position = "before"
+match_indent = true
+payload = '''
+G.GAME.aij_has_big_boss and (G.GAME.blind_on_deck == 'Small' and 'Big_Boss' or G.GAME.blind_on_deck == 'Big_Boss' and 'Boss' or 'Boss') or
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "if blind == 'Boss' or blind == 'Small' or blind == 'Big' then"
+position = "before"
+match_indent = true
+payload = '''
+if blind == 'Big_Boss' then
+    G.GAME.round_resets.blind_states = G.GAME.round_resets.blind_states or {}
+    if G.GAME.round_resets.blind_states[blind] == 'Defeated' or G.GAME.round_resets.blind_states[blind] == 'Skipped' then disabled = true end
+    blind = G.GAME.round_resets.blind_choices[blind]
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''G.GAME.round_resets.loc_blind_states.Big = localize(G.GAME.round_resets.blind_states.Big,'blind_states')'''
+position = 'after'
+match_indent = true
+payload = '''
+G.GAME.round_resets.loc_blind_states.Big_Boss = localize(G.GAME.round_resets.blind_states.Big_Boss or 'Upcoming','blind_states')
+'''
 
 # Blind Drawn (2/6)
 # Replace blind ability description with ???
@@ -4778,8 +4902,8 @@ payload = '''if G.load_shop_aij_tags then
     end
     G.load_shop_aij_tags = nil
 end
-
 '''
+
 # Shop Tags (8/10)
 # Card:generate_UIBox_ability_table
 # Proper Shop Tag Text Generation
