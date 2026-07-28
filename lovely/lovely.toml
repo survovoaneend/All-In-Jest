@@ -2099,7 +2099,7 @@ position = "after"
 match_indent = true
 payload = '''
 for k, v in pairs(G.GAME.all_in_jest.blind_tags) do
-    if append and append == 'aij_no_blind_dupes_'..k then
+    if type(v) == 'table' and append and (append == 'aij_no_blind_dupes_'..k or append == 'aij_no_blind_dupes_guarrented_gold_tag') then
         for k_, v_ in ipairs(v) do
             if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
                 for _, j in pairs(_gold_pool) do
@@ -2174,7 +2174,7 @@ if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
             _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
         end
     end
-    if append and append == 'all_in_jest_guarrented_gold_tag' then
+    if append and (append == 'all_in_jest_guarrented_gold_tag' or append == 'aij_no_blind_dupes_guarrented_gold_tag') then
         _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
     end
 end
@@ -2207,7 +2207,7 @@ if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
             _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
         end
     end
-    if append and append == 'all_in_jest_guarrented_gold_tag' then
+    if append and (append == 'all_in_jest_guarrented_gold_tag' or append == 'aij_no_blind_dupes_guarrented_gold_tag') then
         _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
     end
 end
@@ -3702,6 +3702,7 @@ end
 '''
 position = "at"
 payload = '''
+SMODS.calculate_context({aij_set_or_reroll_blind = true, blind = blind_choice.config, run_info = run_info})
 if aij_has_blind_drawn then
     blind_desc_nodes[#blind_desc_nodes+1] = {n=G.UIT.R, config={align = "cm", maxw = 2.8}, nodes={
         {n=G.UIT.T, config={text = "???", scale = 0.32, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE, shadow = not disabled}}
