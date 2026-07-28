@@ -593,9 +593,9 @@ target = "functions/state_events.lua"
 pattern = "draw_card(G.play,G.discard, it*100/play_count,'down', false, v)"
 position = "at"
 payload = '''
-local flags = SMODS.calculate_context({aij_discard_played_hand = true, other_card = v, scoring_hand = SMODS.last_hand.scoring_hand, scoring_name = SMODS.last_hand.scoring_name, full_hand = SMODS.last_hand.full_hand})
+local flags = SMODS.last_hand and SMODS.calculate_context({aij_discard_played_hand = true, other_card = v, scoring_hand = SMODS.last_hand.scoring_hand, scoring_name = SMODS.last_hand.scoring_name, full_hand = SMODS.last_hand.full_hand}) or nil
 
-if flags.aij_return_to_hand then
+if flags and flags.aij_return_to_hand then
     draw_card(G.play,G.hand, it*100/play_count,'up', true, v)
 else
     draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
