@@ -7,7 +7,7 @@ local the_aspen = {
     mult = 1,
     boss_colour = HEX("efd265"),
     atlas = 'blinds',
-    pos = { X = 0, y = 40},
+    pos = { X = 0, y = 24},
     order = 19,
     dollars = 5,
 

@@ -8,7 +8,7 @@ local the_lake = {
     mult = 2,
     boss_colour = HEX("449d95"),
     atlas = 'blinds',
-    pos = { X = 0, y = 29},
+    pos = { X = 0, y = 15},
     order = 48,
     dollars = 5,
 

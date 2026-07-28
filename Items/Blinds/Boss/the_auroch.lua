@@ -7,7 +7,7 @@ local the_auroch = {
     mult = 2,
     boss_colour = HEX("7a7f89"),
     atlas = 'blinds',
-    pos = { X = 0, y = 51},
+    pos = { X = 0, y = 35},
     order = 27,
     dollars = 5,
 

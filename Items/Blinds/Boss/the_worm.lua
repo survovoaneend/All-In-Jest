@@ -1,14 +1,16 @@
-local the_beast = {
+local the_worm = {
     object_type = "Blind",
-    key = 'the_beast',
+    key = 'the_worm',
+    
     boss = {
         min = 3,
     },
     mult = 2,
-    boss_colour = HEX("4a834c"),
+    boss_colour = HEX("ba99be"),
     atlas = 'blinds',
-    pos = { X = 0, y = 36},
-    order = 32,
+    pos = { X = 0, y = 72},
+    ignore = true,
+    order = 73,
     dollars = 5,
 
     calculate = function(self, blind, context)
@@ -16,13 +18,12 @@ local the_beast = {
         if temp then
             return
         end
-        local exclude_contexts = context.individual or context.repetition or context.blueprint
-        if context.end_of_round and not temp and not exclude_contexts then
+        if context.setting_blind and not temp then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     local jokers_to_destroy = {}
                     for i = 1, #G.jokers.cards do
-                        if All_in_Jest.is_food(G.jokers.cards[i]) then
+                        if G.jokers.cards[i].ability.perishable then
                             table.insert(jokers_to_destroy, G.jokers.cards[i])
                         end
                     end
@@ -37,7 +38,7 @@ local the_beast = {
     in_pool = function(self)
         if G.jokers then
             for i = 1, #G.jokers.cards do
-                if All_in_Jest.is_food(G.jokers.cards[i]) then
+                if G.jokers.cards[i].ability.perishable then
                     return true
                 end
             end
@@ -45,4 +46,4 @@ local the_beast = {
         end
     end,
 }
-return { name = {"Blinds"}, items = {the_beast} }
+return { name = {"Blinds"}, items = {the_worm} }

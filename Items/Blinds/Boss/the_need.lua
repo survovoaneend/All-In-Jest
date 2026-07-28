@@ -14,7 +14,7 @@ local the_need = {
     mult = 2,
     boss_colour = HEX("98c350"),
     atlas = 'blinds',
-    pos = { X = 0, y = 25},
+    pos = { X = 0, y = 11},
     order = 34,
     dollars = 5,
 

@@ -12,7 +12,7 @@ local the_conflagration = {
     end,
     mult = 2,
     boss_colour = HEX("bc8866"),
-    atlas = 'blinds',
+    atlas = 'blinds_pit',
     pos = { y = 8 },
     order = 509,
     dollars = 6,

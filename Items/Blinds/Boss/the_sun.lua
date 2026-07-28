@@ -8,7 +8,7 @@ local the_sun = {
     mult = 2,
     boss_colour = HEX("c7b24a"),
     atlas = 'blinds',
-    pos = { X = 0, y = 59},
+    pos = { X = 0, y = 43},
     order = 43,
     dollars = 5,
 
