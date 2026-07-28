@@ -5,7 +5,7 @@ local desiderium = {
   
     config = {
         extra = {
-            xmult_mod = 0.25,
+            xmult_mod = 0.5,
             xmult = 1,
             trigger = false,
         }

@@ -56,10 +56,10 @@ local crayon_rubbing = {
         }
     },
     attributes = { 'chips', 'joker' },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 14, y = 25 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

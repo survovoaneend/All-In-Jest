@@ -5,14 +5,14 @@ local goo_joker = {
 
     config = {
         extra = {
-            mult = 5
+            mult = 8
         }
     },
     attributes = { 'mult', 'enhancements' },
     rarity = 1,
     pos = { x = 3, y = 25 },
     atlas = 'joker_atlas',
-    cost = 5,
+    cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

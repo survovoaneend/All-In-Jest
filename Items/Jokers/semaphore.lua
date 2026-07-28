@@ -27,7 +27,7 @@ local semaphore = {
     end,
 
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
+        if context.individual and context.cardarea == G.play and G.GAME.current_round.discards_left > 0 then
             return {
                 mult = card.ability.extra.mult * G.GAME.current_round.discards_left
             }
