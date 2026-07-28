@@ -131,14 +131,22 @@ if card.aij_inherent_effects then
     end
 end
 if context.aij_set_or_reroll_blind and context.blind.key ~= 'bl_aij_the_kind' and not context.run_info and G.has_been_bl_aij_the_kind then
-    G.has_been_bl_aij_the_kind = nil
-    G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = function()
-            aij_reroll_tags()
-            return true
+    local kind_present = false
+    for k, v in pairs(G.GAME.round_resets.blind_choices) do
+        if v == 'bl_aij_the_kind' then
+            kind_present = true
         end
-    }))
+    end
+    if not kind_present then
+        G.has_been_bl_aij_the_kind = nil
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                aij_reroll_tags()
+                return true
+            end
+        }))
+    end
 end
 if context.aij_set_or_reroll_blind and context.blind.key == 'bl_aij_the_kind' and not context.run_info then
     G.has_been_bl_aij_the_kind = true

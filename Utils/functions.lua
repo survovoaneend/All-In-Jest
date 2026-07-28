@@ -3436,7 +3436,7 @@ function aij_reroll_tags(blind, args)
     blind = blind or 'All'
     if blind == 'All' then
         for k, v in pairs(G.GAME.round_resets.blind_tags) do
-            if (G.GAME.round_resets.blind_states[k] ~= 'Defeated' and G.GAME.round_resets.blind_states[k] ~= 'Skipped') then
+            if (G.GAME.round_resets.blind_states[k] ~= 'Hide' and G.GAME.round_resets.blind_states[k] ~= 'Defeated' and G.GAME.round_resets.blind_states[k] ~= 'Skipped') then
                 if not args.gold then G.GAME.round_resets.blind_tags[k] = get_next_tag_key() end
                 if args.gold then G.GAME.round_resets.blind_tags[k] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
                 if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
@@ -3452,7 +3452,7 @@ function aij_reroll_tags(blind, args)
             end
         end
         for k, v in pairs(G.GAME.round_resets.blind_choices) do
-            if k ~= 'Boss' and (G.GAME.round_resets.blind_states[k] ~= 'Defeated' and G.GAME.round_resets.blind_states[k] ~= 'Skipped') then
+            if k ~= 'Boss' and k ~= 'Big_Boss' and (G.GAME.round_resets.blind_states[k] ~= 'Hide' and G.GAME.round_resets.blind_states[k] ~= 'Defeated' and G.GAME.round_resets.blind_states[k] ~= 'Skipped') then
                 local blind_choice = k
                 local par = G.blind_select_opts[blind_choice:lower()].parent
                 G.blind_select_opts[blind_choice:lower()]:remove()
@@ -3474,7 +3474,7 @@ function aij_reroll_tags(blind, args)
             end
         end
     else
-        if (G.GAME.round_resets.blind_states[k] ~= 'Defeated' and G.GAME.round_resets.blind_states[k] ~= 'Skipped') then
+        if (G.GAME.round_resets.blind_states[k] ~= 'Hide' and G.GAME.round_resets.blind_states[blind] ~= 'Defeated' and G.GAME.round_resets.blind_states[blind] ~= 'Skipped') then
             if not args.gold then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key() end
             if args.gold then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
             if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then

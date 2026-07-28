@@ -3716,6 +3716,8 @@ if G.GAME.aij_has_big_boss then
     if G.GAME.blind_on_deck == 'Big' then G.GAME.blind_on_deck = 'Big_Boss' end
     G.GAME.round_resets.blind_states['Big'] = 'Hide'
     G.blind_select_opts.big_boss = UIBox{definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={UIBox_dyn_container({create_UIBox_blind_choice('Big_Boss')},false,get_blind_main_colour('Big_Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Big_Boss'), 0.8))}}, config = {align="bmi", offset = {x=0,y=0}}} or nil
+else
+    G.GAME.round_resets.blind_states['Big_Boss'] = 'Hide'
 end
 '''
 match_indent = true
@@ -3826,7 +3828,7 @@ end
 '''
 position = "at"
 payload = '''
-SMODS.calculate_context({aij_set_or_reroll_blind = true, blind = blind_choice.config, run_info = run_info})
+SMODS.calculate_context({aij_set_or_reroll_blind = true, blind = blind_choice.config, run_info = run_info, type = type})
 if aij_has_blind_drawn then
     blind_desc_nodes[#blind_desc_nodes+1] = {n=G.UIT.R, config={align = "cm", maxw = 2.8}, nodes={
         {n=G.UIT.T, config={text = "???", scale = 0.32, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.WHITE, shadow = not disabled}}
