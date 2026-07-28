@@ -8,10 +8,10 @@ local pigpen = {
     
   },
   attributes = { 'chips', 'hand_level' },
-  rarity = 3,
+  rarity = 2,
   pos = { x = 19, y = 6},
   atlas = 'joker_atlas',
-  cost = 8,
+  cost = 6,
   unlocked = true,
   discovered = false,
   blueprint_compat = true,
