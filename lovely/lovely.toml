@@ -2925,6 +2925,22 @@ payload = '''
 new_card.ability.m_aij_charged_chaging = true
 '''
 
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+local new_card = new_card or Card(other.T.x, other.T.y, G.CARD_W*(card_scale or 1), G.CARD_H*(card_scale or 1), G.P_CARDS.empty, G.P_CENTERS.c_base, {playing_card = playing_card, bypass_back = G.GAME.selected_back.pos})
+'''
+position = "before"
+match_indent = true
+payload = '''
+local has_other_copy_card = false
+if new_card then 
+    has_other_copy_card = true
+end
+'''
+
+
 # Remove negative from copied cards
 # copy_card
 [[patches]]
@@ -2948,6 +2964,9 @@ if new_card.aij_inherent_effects and new_card.aij_inherent_effects.editions then
             break
         end
     end
+end
+if (has_other_copy_card and new_card.ability and new_card.ability.all_in_jest and new_card.ability.all_in_jest.perma_debuff) then 
+    new_card.ability.all_in_jest.perma_debuff = nil
 end
 new_card.ability.m_aij_charged_chaging = nil
 '''
@@ -4207,6 +4226,7 @@ if G.GAME.Astral_pins and text ~= G.aij_cur_astral_hand then
         end
     end
 end
+
 '''
 
 # When saving a run, save all data in G.all_in_jest as direct children of G
@@ -5169,7 +5189,13 @@ match_indent = true
 payload = '''
 for _, v in ipairs(G.aij_astral_pin_area.cards) do
     if not v.ability.no_auto_destroy then
-        v:start_dissolve()
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                v:start_dissolve()
+                return true
+            end
+        }))
     end
 end
 '''
