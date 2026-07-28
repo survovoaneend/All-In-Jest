@@ -6,7 +6,7 @@ local tonpraten = {
   key = "tonpraten",
   config = {
     extra = {
-      mult = 10
+      mult = 15
     }
   },
   attributes = { 'mult' },

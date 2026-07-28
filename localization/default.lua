@@ -2403,7 +2403,7 @@ return {
                 text = {
                     "At the start of the {C:attention}round{},",
                     "search {C:attention}#1#{} card from your",
-                    "{C:attention}deck{} to your hand"
+                    "{C:attention}deck{} to add to your hand"
                 }
             },
             j_aij_bumper_sticker = {
