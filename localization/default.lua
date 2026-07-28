@@ -8525,7 +8525,7 @@ return {
                 }
             },
             c_aij_typhon = {
-                name = 'The Typhon',
+                name = 'Typhon',
                 text = {
                     "Enhances {C:attention}#1#{} selected",
                     "cards into",
