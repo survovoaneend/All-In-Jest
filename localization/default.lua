@@ -1143,6 +1143,51 @@ return {
                     'must contain a Pair'
                 },
             },
+            bl_aij_the_clown = {
+                name = "The Clown",
+                text = {
+                    'On first draw of round, play',
+                    '5 random cards from your',
+                    'hand and add it to the',
+                    'score requirement'
+                },
+            },
+            bl_aij_the_business = {
+                name = "The Business",
+                text = {
+                    'When Blind is defeated,',
+                    'destroy leftmost or',
+                    'rightmost Joker and',
+                    'create an Eternal',
+                    'Common Joker'
+                },
+            },
+            bl_aij_the_multitude = {
+                name = "The Multitude",
+                text = {
+                    '#1# in #2# cards are debuffed',
+                    'Debuffed cards remaining in',
+                    'your deck at end of round',
+                    'are destroyed'
+                },
+            },
+            bl_aij_the_trio = {
+                name = "The Trio",
+                text = {
+                    'If hand contains 3 cards of the',
+                    'same rank after a hand is played',
+                    'or discarded, debuff 3 random',
+                    'cards in hand'
+                },
+            },
+            bl_aij_the_connection = {
+                name = "The Connection",
+                text = {
+                    'Excess score on this Blind',
+                    'is added to all subsequent',
+                    'Boss Blinds'
+                },
+            },
             -- Finisher Blinds
             bl_aij_aureate_coin = {
                 name = "Aureate Coin",

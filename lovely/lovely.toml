@@ -2404,6 +2404,9 @@ if All_in_Jest.aij_alias_type(blind_choice.config.aij_blind_amount_display) == '
 elseif next(SMODS.find_card("j_aij_fall_of_count_chaligny")) then
     blind_amt = get_blind_amount(G.GAME.round_resets.blind_ante)*1*G.GAME.starting_params.ante_scaling
 end
+if G.GAME.the_connection_extra_chips then
+    blind_amt = blind_amt + G.GAME.the_connection_extra_chips
+end
 '''
 
 # Pit Blinds (1/1)

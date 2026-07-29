@@ -253,6 +253,10 @@ function SMODS.always_scores(card)
         if card.config.aij_other_center['center'].key == 'm_stone' or card.config.aij_other_center['center'].always_scores then return true end
     end
     if All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_stone then return true end
+    if card.ability and (card.ability.aij_always_scores or card.ability.aij_temp_always_scores) then 
+        card.ability.aij_temp_always_scores = nil
+        return true 
+    end
     return always_scores_ref(card)
 end
 
