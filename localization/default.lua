@@ -1169,6 +1169,14 @@ return {
                     'not trigger'
                 },
             },
+            bl_aij_silver_stag = {
+                name = "Silver Stag",
+                text = {
+                    'All cards debuffed',
+                    'except ones discarded',
+                    'this ante'
+                },
+            },
             bl_aij_rubber_duck = {
                 name = "Rubber Duck",
                 text = {
@@ -1200,7 +1208,32 @@ return {
                     'Discard all cards in',
                     'your deck after your',
                     'first draw',
-                    
+                },
+            },
+            bl_aij_mysterious_myriad = {
+                name = "Mysterious Myriad",
+                text = {
+                    'Reduce final score each',
+                    'hand by 20% for each',
+                    'card under 5 in',
+                    'scored hand'
+                },
+            },
+            bl_aij_wooden_wheel = {
+                name = "Wooden Wheel",
+                text = {
+                    'Rerolls leftmost and',
+                    'rightmost Jokers when',
+                    'Blind is selected'
+                },
+            },
+            bl_aij_angling_hook = {
+                name = "Angling Hook",
+                text = {
+                    'Discard all cards',
+                    'played or discarded',
+                    'this ante when Blind',
+                    'is selected'
                 },
             },
         },

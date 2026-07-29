@@ -3665,6 +3665,7 @@ target = "functions/state_events.lua"
 pattern = "draw_card(G.hand, G.discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])"
 position = "at"
 payload = '''
+G.hand.highlighted[i].ability.aij_discarded_this_ante = true
 local has_line_in_the_sand = next(SMODS.find_card("j_aij_line_in_the_sand"))
 if has_line_in_the_sand then
     draw_card(G.hand, G.jest_super_discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])
@@ -3689,6 +3690,16 @@ if #G.jest_super_discard.cards > 0 and G.GAME.blind.boss then
         draw_card(G.jest_super_discard, G.deck, i*100/super_discard_count,'up', nil ,nil, 0.005, i%2==0, nil, math.max((21-i)/20,0.7))
     end
 end
+'''
+match_indent = true
+
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "v.ability.played_this_ante = nil"
+position = "after"
+payload = '''
+v.ability.aij_discarded_this_ante = nil
 '''
 match_indent = true
 
