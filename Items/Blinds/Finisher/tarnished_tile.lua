@@ -10,8 +10,8 @@ local tarnished_tile = {
     end,
     mult = 2,
     boss_colour = HEX("f28a3c"),
-    atlas = 'blinds_final',
     ignore = true,
+    atlas = 'blinds_final',
     pos = { y = 14},
     order = 1015,
     dollars = 8,
@@ -38,7 +38,6 @@ local tarnished_tile = {
     disable = function(self)
         if G.GAME.blind.triggered then
             G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) - G.hand.config.card_limit
-            G.FUNCS.draw_from_discard_to_deck(nil, true)
         end
     end,
 
