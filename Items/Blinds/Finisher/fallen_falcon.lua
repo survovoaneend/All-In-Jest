@@ -27,6 +27,7 @@ local fallen_falcon = {
                 G.hand:add_to_highlighted(v)
             end
             G.FUNCS.play_cards_from_highlighted(nil, true)
+            ease_hands_played(1)
             G.GAME.aij_add_next_hand_to_blind = true
         end
         if context.after and not temp then
@@ -48,7 +49,6 @@ local fallen_falcon = {
     end,
 
     disable = function(self)
-        ease_hands_played(1)
         if G.GAME.all_in_jest.advanced_hand_usage_blind[1] then
             All_in_Jest.ease_blind_requirement(nil, -G.GAME.all_in_jest.advanced_hand_usage_blind[1].total_chips)
         end
