@@ -734,3 +734,16 @@ G.FUNCS.All_in_Jest_select_tag = function(e)
         end
     end
 end
+
+G.FUNCS.aij_draw_from_discard_to_deck = function(e)
+    G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+            local deck_count = #G.deck.cards
+            for i=1, deck_count do --draw cards from deck
+                draw_card(G.deck, G.discard, i*100/deck_count,'up', nil ,nil, 0.005, i%2==0, nil, math.max((21-i)/20,0.7))
+            end
+            return true
+        end
+    }))
+end

@@ -1161,6 +1161,14 @@ return {
                     'Large Blind'
                 },
             },
+            bl_aij_wenge_wand = {
+                name = "Wenge Wand",
+                text = {
+                    'Enhancements have a',
+                    '#1# in #2# chance to',
+                    'not trigger'
+                },
+            },
             bl_aij_rubber_duck = {
                 name = "Rubber Duck",
                 text = {
@@ -1183,6 +1191,16 @@ return {
                     'Lose $2 per card played',
                     'All cards are debuffed',
                     'at $0 or less'
+                },
+            },
+            bl_aij_tarnished_tile = {
+                name = "Tarnished Tile",
+                text = {
+                    'Double your hand size',
+                    'Discard all cards in',
+                    'your deck after your',
+                    'first draw',
+                    
                 },
             },
         },
