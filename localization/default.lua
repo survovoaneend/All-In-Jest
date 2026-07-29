@@ -1136,7 +1136,22 @@ return {
                     'that counters your build',
                 },
             },
+            bl_aij_the_pair = {
+                name = "The Pair",
+                text = {
+                    'Cards held in hand',
+                    'must contain a Pair'
+                },
+            },
             -- Finisher Blinds
+            bl_aij_aureate_coin = {
+                name = "Aureate Coin",
+                text = {
+                    '+0.1X Base',
+                    'per $1 spent',
+                    'this ante'
+                },
+            },
             bl_aij_obsidian_blade = {
                 name = "Obsidian Blade",
                 text = {
@@ -1146,12 +1161,28 @@ return {
                     'Large Blind'
                 },
             },
-            bl_aij_aureate_coin = {
-                name = "Aureate Coin",
+            bl_aij_rubber_duck = {
+                name = "Rubber Duck",
                 text = {
-                    '+0.1X Base',
-                    'per $1 spent',
-                    'this ante'
+                    'All poker hands are',
+                    'scored as level 1'
+                },
+            },
+            bl_aij_fallen_falcon = {
+                name = "Fallen Falcon",
+                text = {
+                    'On first draw of round, play',
+                    'the highest level poker hand',
+                    'available and add it to the',
+                    'score requirement'
+                },
+            },
+            bl_aij_golden_string = {
+                name = "Golden String",
+                text = {
+                    'Lose $2 per card played',
+                    'All cards are debuffed',
+                    'at $0 or less'
                 },
             },
         },
