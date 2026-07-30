@@ -3096,7 +3096,15 @@ return {
                     "{C:attention}played{}, multiplied by its {C:attention}level"
                 }
             },
-            j_aij_cyclops = { name = "Cyclops", text = { "" } },
+            j_aij_cyclops = { 
+                name = "Cyclops", 
+                text = { 
+                    'This Joker gains {C:mult}+#1# Mult{} if',
+                    '{C:attention}first hand{} of round is',
+                    'exactly {C:attention}one{} card',
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult){}"
+                } 
+            },
             j_aij_blarney_stone = {
                 name = "Blarney Stone",
                 text = {
