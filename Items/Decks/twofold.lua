@@ -5,6 +5,7 @@ local twofold = {
     order = 2,
     pos = { x = 2, y = 0 },
     unlocked = false,
+    ignore = true,
 	unlock_condition = {hidden = true},
     config = {
         extra = {
