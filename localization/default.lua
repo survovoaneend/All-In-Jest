@@ -3099,7 +3099,7 @@ return {
             j_aij_cyclops = { 
                 name = "Cyclops", 
                 text = { 
-                    'This Joker gains {C:mult}+#1# Mult{} if',
+                    'This Joker gains {C:mult}+#1#{} Mult if',
                     '{C:attention}first hand{} of round is',
                     'exactly {C:attention}one{} card',
                     "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult){}"
@@ -5776,7 +5776,8 @@ return {
             j_aij_blacklight = {
                 name = "Blacklight",
                 text = {
-                    ''
+                    '{C:attention}+#1#{} Hand size on {C:attention}even{} Antes',
+                    "{C:inactive}(Currently {C:attention}+#2#{} {C:inactive}Hand Size){}",
                 }
             },
             j_aij_bullseye = {
@@ -5789,7 +5790,10 @@ return {
             j_aij_chipped_joker = {
                 name = "Chipped Joker",
                 text = {
-                    ''
+                    'When a {C:attention}Stone Card{} is scored',
+                    'it loses {C:red}-#1#{} Chips and this',
+                    '{C:attention}Joker{} gains {C:chips}+#1#{} Chips',
+                    "{C:inactive}(Currently {C:chips}+#2#{} {C:inactive}Chips)"
                 }
             },
             j_aij_glasgow_smile = {
@@ -6235,7 +6239,10 @@ return {
             j_aij_soft_serve = {
                 name = "Soft Serve",
                 text = {
-                    ''
+                    'Modded {C:attention}Jokers{}, {C:tarot}Tarots{}, and',
+                    '{C:planet}Planets{} may not appear in',
+                    'the {C:money}Shop{}, Consumed after',
+                    '{C:attention}#1#{} Shops'
                 }
             },
             j_aij_nosferatu = {

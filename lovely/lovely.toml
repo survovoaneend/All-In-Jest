@@ -48,6 +48,18 @@ pattern = '''
 card.repetition_trigger = nil
 '''
 payload = '''
+if next(SMODS.find_card("j_aij_bouffon")) and context.cardarea == G.deck then
+    for k, v in pairs(SMODS.find_card("j_aij_bouffon")) do
+        for _i = 1, v.ability.extra.cards do
+            local bouf_card = G.deck.cards[#G.deck.cards-(v.ability.extra.cards-_i)]
+            if bouf_card and bouf_card == card then
+                context.cardarea = G.hand
+                aij_calculate_end_of_round_effects(context, i, card)
+                context.cardarea = G.deck
+            end
+        end
+    end
+end
 if card.seal and card.seal == 'aij_eye' and context.cardarea == G.deck then
     context.cardarea = G.hand
     aij_calculate_end_of_round_effects(context, i, card)
@@ -370,6 +382,14 @@ position = "before"
 match_indent = true
 payload = '''
 if self.ability then self.ability.m_aij_charged_chaging = true end
+if self.ability and self.ability.chipped_joker_chips_taken and self.ability.chipped_joker_chips_taken > 0 and SMODS.has_enhancement(self, 'm_stone') then
+    local trigger = false
+    if self.config.center.key == 'm_stone' then
+        self.ability.bonus = self.config.center.config.bonus + self.ability.chipped_joker_chips_taken
+        trigger = true
+    end
+    if trigger then self.ability.chipped_joker_chips_taken = nil end
+end
 local aij_silver_reapply = false
 if self.edition and self.edition.aij_silver then
     if old_center ~= center and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
@@ -1838,8 +1858,8 @@ position = "before"
 match_indent = true
 payload = '''
 -- All in Jest patch
+local _pool, _pool_key = get_current_pool(_type, _rarity, legendary, key_append)
 if _type == 'Joker' then
-    local _pool, _pool_key = get_current_pool(_type, _rarity, legendary, key_append)
     for k, v in pairs(_pool) do
         if G.P_CENTERS[v] and G.P_CENTERS[v].all_in_jest then
             local appear = false
@@ -1851,13 +1871,23 @@ if _type == 'Joker' then
             if G.P_CENTERS[v].all_in_jest.only_shop_pool or G.P_CENTERS[v].all_in_jest.only_booster_pool then
                 if appear then
                     G.P_CENTERS[v].in_pool = function(self, args)
-    		                return true
+    		            return true
                     end
                 else
                     G.P_CENTERS[v].in_pool = function(self, args)
-    		                return false
+    		            return false
                     end
                 end
+            end
+        end
+    end
+end
+for k, v in pairs(_pool) do
+    if G.P_CENTERS[v] and G.P_CENTERS[v].aij_exculde_vanilla_in_shop then G.P_CENTERS[v].aij_exculde_vanilla_in_shop = nil end
+    if G.P_CENTERS[v] and G.GAME.aij_exculde_vanilla_in_shop then
+        for type_key, _ in pairs(G.GAME.aij_exculde_vanilla_in_shop) do
+            if type_key == _type and G.P_CENTERS[v].mod and (area == G.pack_cards or area == G.shop_jokers) then
+                G.P_CENTERS[v].aij_exculde_vanilla_in_shop = true
             end
         end
     end
@@ -2645,6 +2675,22 @@ if card and card.ability and card.ability.patches then
             info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {localize(k, "suits_singular"), colours = {SMODS.Suits[k].hc_colour}}}
         else
             info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {localize(k, "suits_singular"), colours = {SMODS.Suits[k].lc_colour}}}
+        end
+    end
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "add = in_pool and (add or pool_opts.override_base_checks)"
+position = "after"
+match_indent = true
+payload = '''
+if G.GAME.aij_exculde_vanilla_in_shop then
+    for type_key, _ in pairs(G.GAME.aij_exculde_vanilla_in_shop) do
+        if type_key == _type and v.mod and v.aij_exculde_vanilla_in_shop then
+            add = nil
         end
     end
 end
@@ -4194,6 +4240,16 @@ do -- All in Jest Patch
                             return false
                         end
                     end
+                end
+            end
+        end
+    end
+    for k, v in pairs(_pool) do
+        if G.P_CENTERS[v] and G.P_CENTERS[v].aij_exculde_vanilla_in_shop then G.P_CENTERS[v].aij_exculde_vanilla_in_shop = nil end
+        if G.P_CENTERS[v] and G.GAME.aij_exculde_vanilla_in_shop then
+            for type_key, _ in pairs(G.GAME.aij_exculde_vanilla_in_shop) do
+                if type_key == _type and G.P_CENTERS[v].mod and (area == G.pack_cards or area == G.shop_jokers) then
+                    G.P_CENTERS[v].aij_exculde_vanilla_in_shop = true
                 end
             end
         end

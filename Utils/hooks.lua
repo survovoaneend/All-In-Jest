@@ -720,6 +720,7 @@ function ease_ante(mod)
         G.GAME.all_in_jest.unused_discards.ante = 0
         G.GAME.jest_kasperle_voucher_ante = false
     end
+    G.GAME.blacklight_should_flicker = true
     check_for_unlock({type = 'ante_change', ante = G.GAME.round_resets.ante, ante_change = mod})
     
     local ref = ease_anteref(mod)
@@ -1079,8 +1080,12 @@ function All_in_Jest.update_frame(dt, k, obj, jkr)
                 end
             end
             if loc >= anim.frames then loc = anim.start_frame or 0 end
-            obj.pos.x = (anim.held_frame or loc)%(anim.frames_per_row or anim.frames)
-            obj.pos.y = math.floor((anim.held_frame or loc)/(anim.frames_per_row or anim.frames))
+            if obj.all_in_jest and obj.all_in_jest.animate_func then
+                obj.pos.x, obj.pos.y = obj.all_in_jest.animate_func(dt, anim, obj, loc, k)
+            else
+                obj.pos.x = (anim.held_frame or loc)%(anim.frames_per_row or anim.frames)
+                obj.pos.y = math.floor((anim.held_frame or loc)/(anim.frames_per_row or anim.frames))
+            end
             if obj.all_in_jest and obj.all_in_jest.layer_funcs and obj.all_in_jest.layer_funcs.pos and type(obj.all_in_jest.layer_funcs.pos) == "function" then
                 obj.all_in_jest.layer_funcs.pos(anim, obj, loc)
             end
