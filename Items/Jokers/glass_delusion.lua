@@ -7,16 +7,16 @@ local glass_delusion = {
             odds = 2
         }
     },
-    attributes = {},
+    attributes = { 'enhancements', 'chance', 'generation' },
     rarity = 2,
     pos = { x = 8, y = 26 },
+    ignore = true,
     atlas = 'joker_atlas',
     cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
-    ignore = true,
 
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'glass_delusion')

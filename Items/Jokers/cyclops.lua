@@ -8,7 +8,7 @@ local cyclops = {
             mult_mod = 3,
         }
     },
-    attributes = {},
+    attributes = { 'hands', 'mult', 'scaling', },
     rarity = 3,
     pos = { x = 20, y = 6 },
     ignore = true,

@@ -7,16 +7,16 @@ local skytower = {
             levels = 5
         }
     },
-    attributes = {},
+    attributes = { 'hand_type' },
     rarity = 2,
     pos = { x = 5, y = 26 },
+    ignore = true,
     atlas = 'joker_atlas',
     cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
-    ignore = true,
 
     loc_vars = function(self, info_queue, card)
         return {

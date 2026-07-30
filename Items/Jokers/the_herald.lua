@@ -8,16 +8,16 @@ local the_herald = {
             
         }
     },
-    attributes = {},
+    attributes = { 'hand_type' },
     rarity = 3,
     pos = { x = 3, y = 24 },
+    ignore = true,
     atlas = 'joker_atlas',
     cost = 8,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
-    ignore = true,
 
     loc_vars = function(self, info_queue, card)
         local most_played_hand = nil

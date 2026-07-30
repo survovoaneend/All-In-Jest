@@ -2,7 +2,6 @@ local in_memorium = {
     object_type = "Joker",
     order = 490,
     key = "in_memorium",
-    ignore = true,
     config = {
         extra = {
             xmult = 0,
@@ -10,9 +9,10 @@ local in_memorium = {
             triggered = false
         }
     },
-    attributes = {},
+    attributes = { 'spectral', 'scaling', 'xmult' },
     rarity = 1,
     pos = { x = 6, y = 24 },
+    ignore = true,
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,

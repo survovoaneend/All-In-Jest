@@ -7,16 +7,16 @@ local run = {
             
         }
     },
-    attributes = {},
+    attributes = { 'passive', },
     rarity = 2,
     pos = { x = 0, y = 26 },
+    ignore = true,
     atlas = 'joker_atlas',
     cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
-    ignore = true,
 
     loc_vars = function(self, info_queue, card)
         return {

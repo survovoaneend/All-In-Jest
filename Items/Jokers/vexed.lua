@@ -8,16 +8,16 @@ local vexed = {
             chance = 20
         }
     },
-    attributes = {},
+    attributes = { 'generation', 'joker', 'on_sell' },
     rarity = 2,
     pos = { x = 11, y = 30},
+    ignore = true,
     atlas = 'joker_atlas',
     cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
-    ignore = true,
 
     loc_vars = function(self, info_queue, card)
         return {

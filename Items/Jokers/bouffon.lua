@@ -7,16 +7,16 @@ local bouffon = {
             cards = 5
         }
     },
-    attributes = {},
+    attributes = { 'trigger_cards', },
     rarity = 1,
     pos = { x = 13, y = 24 },
+    ignore = true,
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
-    ignore = true,
 
     loc_vars = function(self, info_queue, card)
         return {
