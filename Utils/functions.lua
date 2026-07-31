@@ -1955,10 +1955,13 @@ SMODS.current_mod.custom_card_areas = function(game)
         game.jokers.T.w / 5, game.jokers.T.h,
         { card_limit = 1, type = 'joker', highlight_limit = 1 }
 	)
+    local temp = SMODS.bypass_create_card_edition
+    SMODS.bypass_create_card_edition = true
     local temp_card = create_card('Joker', G.aij_coconut_holder, nil, nil, nil, nil, 'j_aij_coconut', 'aij_coconut_holder')
-    temp_card:start_materialize(nil, true)
+    -- temp_card:start_materialize(nil, true)
     temp_card.ability.jest_got_no_ui = true
     G.aij_coconut_holder:emplace(temp_card)
+    SMODS.bypass_create_card_edition = temp
 end
 
 --Replaces shop voucher
