@@ -16,9 +16,11 @@ local the_groan = {
         if temp then
             return
         end
-        if context.all_in_jest and context.all_in_jest.drew_cards and not temp then
-            All_in_Jest.ease_blind_requirement(1, 0)
-            blind.triggered = true
+        if context.after then
+            if G.GAME.chips + SMODS.calculate_round_score() < G.GAME.blind.chips then
+                All_in_Jest.ease_blind_requirement(1, 0)
+                blind.triggered = true
+            end
         end
     end,
 
