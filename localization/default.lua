@@ -5467,7 +5467,9 @@ return {
                 text = {
                     '{X:mult,C:white}X#1#{} Mult per {C:attention}consecutive',
                     'hand played that does {C:attention}not',
-                    'set the score {C:attention}on fire',
+                    'score {C:attention}greater{} than the',
+                    '{C:attention}total{} required score',
+                    'of the {C:attention}blind{}',
                     '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult){}'
                 }
             },
