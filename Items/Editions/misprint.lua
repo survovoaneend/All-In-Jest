@@ -115,7 +115,7 @@ local misprint = {
             card.edition.mult = aij_precision_fix(card, value)
         end
         if context.after then
-            local string = tostring(card, card.edition.mult).."%"
+            local string = tostring(card.edition.mult*100).."%"
             return {
                 message = string,
             }
