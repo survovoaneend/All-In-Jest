@@ -341,6 +341,7 @@ pattern = "local _size = *"
 position = "after" 
 match_indent = true
 payload = '''
+if G.GAME.modifiers.arcana_booster_size_mod and booster_obj.kind == 'Arcana' then _size = _size + G.GAME.modifiers.arcana_booster_size_mod end
 if G.GAME.jest_change_booster_options.trigger or G.GAME.jest_change_booster_options.pack_choices == "unlimited" then
     if G.GAME.jest_change_booster_options.option == "size" or G.GAME.jest_change_booster_options.option == "both" then
         -- Pemdas order

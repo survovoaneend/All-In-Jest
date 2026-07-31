@@ -3173,6 +3173,24 @@ return {
                     "{C:inactive}(Currently{} {C:mult}+#2#{C:inactive} Mult){}",
                 },
             },
+            j_aij_ambrosius = {
+                name = "Ambrosius",
+                text = {
+                    '{C:tarot}Arcana{} Packs have {C:attention}#3#{} more options,',
+                    '{C:green}#1# in #2#{} chance to {C:attention}increase{} by {C:attention}#4#',
+                    'if {C:attention}played hand{} contains only',
+                    '{C:paperback_crowns}Crown{} {C:attention}Kings'
+                },
+            },
+            j_aij_suibhne = {
+                name = "Suibhne",
+                text = {
+                    "This Joker gains {X:chips,C:white}X#1#{} Chips per",
+                    "card in the {C:attention}played hand{} if hand",
+                    "contains only {C:paperback_stars}Star{} {C:attention}Kings{}",
+                    "{C:inactive}(Currently{} {X:chips,C:white}X#2#{C:inactive} Chips){}",
+                },
+            },
             j_aij_sannio = { name = "Sannio", text = { "" } },
             j_aij_stock_photo = {
                 name = "Stock Photo",
@@ -4757,6 +4775,27 @@ return {
                     "suit have a {C:green}#1# in #2#{} chance",
                     "to create a random",
                     "{C:spectral}Spectral{} card when scored",
+                    "{C:inactive}(Must have room){}"
+                }
+            },
+            j_aij_isonomic_joker = {
+                name = "Isonomic Joker",
+                text = {
+                    "Played cards with {C:paperback_stars}Star",
+                    "suit have a {C:green}#1# in #2#{} chance",
+                    "to create a random",
+                    "{C:attention}Consumable{} card when",
+                    "scored",
+                    "{C:inactive}(Must have room){}"
+                }
+            },
+            j_aij_monarchic_joker = {
+                name = "Monarchic Joker",
+                text = {
+                    "Played cards with {C:paperback_crowns}Crown",
+                    "suit have a {C:green}#1# in #2#{} chance",
+                    "to create a random {C:paperback_minor_arcana}Minor",
+                    "{C:paperback_minor_arcana}Arcana{} card when scored",
                     "{C:inactive}(Must have room){}"
                 }
             },

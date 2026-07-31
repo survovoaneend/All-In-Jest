@@ -434,9 +434,9 @@ local function load_items(curr_obj)
         item.jest_rec_paperback = item.jest_rec_paperback or false
         if item.jest_spec_moon and All_in_Jest.config.moons_enabled and not item.ignore then
             if item.jest_rec_paperback then
-                if (next(SMODS.find_mod("paperback")) or next(SMODS.find_mod("Bunco")))
+                if ((next(SMODS.find_mod("paperback")) or next(SMODS.find_mod("Bunco")))
                    and ((PB_UTIL and PB_UTIL.config and PB_UTIL.config.suits_enabled)
-                        or next(SMODS.find_mod("Bunco"))) then
+                        or next(SMODS.find_mod("Bunco")))) then
                     SMODS[item.object_type](item)
                     goto continue
                 else
@@ -454,6 +454,18 @@ local function load_items(curr_obj)
         if (item.all_in_jest and item.all_in_jest.use_ability) or (item.config and item.config["j_aij_" .. item.key]) then
             item.j_aij_whats_left_compat = false
             item.j_aij_clay_joker_compat = false
+        end
+        if item.jest_rec_paperback then
+            if next(SMODS.find_mod("paperback")) and (PB_UTIL and PB_UTIL.config and PB_UTIL.config.suits_enabled) then
+                if SMODS[item.object_type] and not item.ignore then
+                    SMODS[item.object_type](item)
+                elseif item.object_loader and not item.ignore then
+                    item.object_loader[item.object_type](item)
+                end
+                goto continue
+            else
+                goto continue
+            end
         end
         if SMODS[item.object_type] and not item.ignore then
             SMODS[item.object_type](item)
