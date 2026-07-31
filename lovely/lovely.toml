@@ -5496,3 +5496,17 @@ pattern = '''elseif self\.seal == 'Gold' (?<post>.*) then$'''
 position = 'at'
 payload = '''elseif self.seal == 'Gold' and not SMODS.aij_inherent_enhancement_calc_in_progress $post then'''
 
+# Seal Editions
+# Card:load()
+## Correctly load cards with seal editions
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'self.config.center = G.P_CENTERS[self.config.center_key]'
+position = "after"
+match_indent = true
+payload = '''
+if cardTable.aij_seal_edition then
+    self.aij_seal_edition = cardTable.aij_seal_edition
+end
+'''

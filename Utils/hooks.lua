@@ -1319,6 +1319,10 @@ function Card:save()
         saveTable.aij_inherent_effects = self.aij_inherent_effects
     end
 
+    if self.aij_seal_edition then
+        saveTable.aij_seal_edition = self.aij_seal_edition
+    end
+
     return saveTable
 end
 
