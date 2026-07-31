@@ -5624,7 +5624,7 @@ return {
                 text = {
                     'Gains {X:mult,C:white}X#1#{} Mult per',
                     '{C:common}Common{} Joker',
-                    "{C:inactive}(Minimum {X:mult,C:white}X#2#{C:inactive} Mult){}"
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult){}"
                 }
             },
             j_aij_wizard = {
