@@ -2056,51 +2056,38 @@ function All_in_Jest.ease_blind_requirement(mod_mult, mod_add, skip_animation)
     local step = 0
 
     local chips_text_integer = G.GAME.blind.chips -- Used to track animation
-    if skip_animation then
-        chips_text_integer = desired_chip_amount
-        G.GAME.blind.chip_text = number_format(chips_text_integer)
-    else
+    if not skip_animation then
+        G.BLIND_SIZE_DISPLAY_QUEUE = G.BLIND_SIZE_DISPLAY_QUEUE or {}
+
         if chips_text_integer < to_big(desired_chip_amount) then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                blocking = true,
-                func = function()
-                    chips_text_integer = chips_text_integer + G.SETTINGS.GAMESPEED * chip_mod
-                    if chips_text_integer < desired_chip_amount then
-                        G.GAME.blind.chip_text = number_format(chips_text_integer)
-                        if step % 5 == 0 then
-                            play_sound('chips1', 0.8 + (step * 0.005))
-                        end
-                        step = step + 1
-                    else
-                        chips_text_integer = desired_chip_amount
-                        G.GAME.blind.chip_text = number_format(chips_text_integer)
-                        G.GAME.blind:wiggle()
-                        return true
-                    end
-                end
-            }))
+            while chips_text_integer < desired_chip_amount do
+                table.insert(G.BLIND_SIZE_DISPLAY_QUEUE, chips_text_integer)
+                chips_text_integer = chips_text_integer + G.SETTINGS.GAMESPEED * chip_mod
+            end
         else
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                blocking = true,
-                func = function()
-                    chips_text_integer = chips_text_integer - G.SETTINGS.GAMESPEED * chip_mod
-                    if chips_text_integer > desired_chip_amount then
-                        G.GAME.blind.chip_text = number_format(chips_text_integer)
-                        if step % 5 == 0 then
-                            play_sound('chips1', 0.8 + (step * 0.005))
-                        end
-                        step = step - 1
-                    else
-                        chips_text_integer = desired_chip_amount
-                        G.GAME.blind.chip_text = number_format(chips_text_integer)
-                        G.GAME.blind:wiggle()
-                        return true
-                    end
-                end
-            }))
+            while chips_text_integer < desired_chip_amount do
+                table.insert(G.BLIND_SIZE_DISPLAY_QUEUE, chips_text_integer)
+                chips_text_integer = chips_text_integer - G.SETTINGS.GAMESPEED * chip_mod
+            end
         end
+
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            blocking = true,
+            func = function()
+                if #G.BLIND_SIZE_DISPLAY_QUEUE > 0 then
+                    table.remove(G.BLIND_SIZE_DISPLAY_QUEUE, 1)
+                    if step % 5 == 0 then
+                        play_sound('chips1', 0.8 + (step * 0.005))
+                    end
+                    step = step + 1
+                else
+                    G.GAME.blind:wiggle()
+                    return true
+                end
+            end
+        }))
+
     end
 
     G.GAME.blind.chips = desired_chip_amount -- Immediately set in case this function is called successively
