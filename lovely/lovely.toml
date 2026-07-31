@@ -1859,8 +1859,8 @@ position = "before"
 match_indent = true
 payload = '''
 -- All in Jest patch
-local _pool, _pool_key = get_current_pool(_type, _rarity, legendary, key_append)
 if _type == 'Joker' then
+    local _pool, _pool_key = get_current_pool(_type, _rarity, legendary, key_append)
     for k, v in pairs(_pool) do
         if G.P_CENTERS[v] and G.P_CENTERS[v].all_in_jest then
             local appear = false
@@ -1883,16 +1883,16 @@ if _type == 'Joker' then
         end
     end
 end
-for k, v in pairs(_pool) do
-    if G.P_CENTERS[v] and G.P_CENTERS[v].aij_exculde_vanilla_in_shop then G.P_CENTERS[v].aij_exculde_vanilla_in_shop = nil end
-    if G.P_CENTERS[v] and G.GAME.aij_exculde_vanilla_in_shop then
-        for type_key, _ in pairs(G.GAME.aij_exculde_vanilla_in_shop) do
-            if type_key == _type and G.P_CENTERS[v].mod and (area == G.pack_cards or area == G.shop_jokers) then
-                G.P_CENTERS[v].aij_exculde_vanilla_in_shop = true
-            end
-        end
-    end
-end
+-- for k, v in pairs(_pool) do
+--     if G.P_CENTERS[v] and G.P_CENTERS[v].aij_exculde_vanilla_in_shop then G.P_CENTERS[v].aij_exculde_vanilla_in_shop = nil end
+--     if G.P_CENTERS[v] and G.GAME.aij_exculde_vanilla_in_shop then
+--         for type_key, _ in pairs(G.GAME.aij_exculde_vanilla_in_shop) do
+--             if type_key == _type and G.P_CENTERS[v].mod and (area == G.pack_cards or area == G.shop_jokers) then
+--                 G.P_CENTERS[v].aij_exculde_vanilla_in_shop = true
+--             end
+--         end
+--     end
+-- end
 -- End of All in Jest patch
 '''
 
