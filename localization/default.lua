@@ -5468,7 +5468,7 @@ return {
                     '{X:mult,C:white}X#1#{} Mult per {C:attention}consecutive',
                     'hand played that does {C:attention}not',
                     'set the score {C:attention}on fire',
-                    '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Chips){}'
+                    '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult){}'
                 }
             },
             j_aij_tornado = {
