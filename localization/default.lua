@@ -6184,14 +6184,16 @@ return {
                 name = "Jokey Bear",
                 text = {
                     {
-                        'If {C:attention}played hand',
-                        'sets the score {C:attention}on fire{},',
-                        '{X:mult,C:white}X#1#{} Mult and earn {C:money}$#2#',
+                        'If score of {C:attention}played hand',
+                        'exceeds the {C:attention}total blind',
+                        '{C:attention}requirement{}, {X:mult,C:white}X#1#{} Mult',
+                        'and earn {C:money}$#2#',
 
                     },
                     {
                         '{C:attention}Retriggers{} until score',
-                        'is no longer {C:attention}on fire{}',
+                        'does not exceed {C:attention}total',
+                        '{C:attention}blind requirement'
 
                     }
                 }
