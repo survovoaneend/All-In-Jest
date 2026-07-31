@@ -874,6 +874,27 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'tetris',
+    name = 'Tetris',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
+    id = 'eternal_cylinder',
+    name = 'Eternal Cylinder',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
+    id = 'dungeon_clawler',
+    name = 'Dungeon Clawler',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
     id = 'off',
     name = 'OFF',
     suits = {
@@ -976,6 +997,14 @@ AllInJest.deck_skins = {
     name = 'Voices of the Void',
     suits = {
       'Clubs',
+    }
+  },
+  {
+    id = 'peggle',
+    name = 'Peggle',
+    suits = {
+      'Diamonds',
+      'Hearts',
     }
   },
   {
