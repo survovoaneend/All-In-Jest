@@ -4,7 +4,7 @@ local the_groan = {
     boss = {
         min = 4,
     },
-    mult = 1,
+    mult = 2,
     boss_colour = HEX("3d6065"),
     atlas = 'blinds',
     pos = { X = 0, y = 21},
