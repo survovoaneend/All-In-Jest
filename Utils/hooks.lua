@@ -1546,7 +1546,7 @@ function create_UIBox_hand_tip(handname)
 
     -- Show applied astral pins
     local astrals = 0
-    if G.GAME.Astral_pins[handname] then
+    if G.GAME and G.GAME.Astral_pins and G.GAME.Astral_pins[handname] then
         for _, _ in pairs(G.GAME.Astral_pins[handname]) do
             astrals = astrals + 1
         end
