@@ -980,7 +980,7 @@ AllInJest.deck_skins = {
   },
   {
     id = 'henry_stickmen',
-    name = 'Henry Stickmen',
+    name = 'Henry Stickmin',
     suits = {
       'Hearts',
     }
