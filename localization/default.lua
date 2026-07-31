@@ -7697,7 +7697,7 @@ return {
                 }
             },            
             j_aij_turrn = {
-                name = "Turr�n",
+                name = "Turrón",
                 text = {
                     ''
                 }
