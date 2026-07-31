@@ -7697,7 +7697,7 @@ return {
                 }
             },            
             j_aij_turrn = {
-                name = "Turrón",
+                name = "Turrï¿½n",
                 text = {
                     ''
                 }
@@ -8875,7 +8875,7 @@ return {
             c_aij_scopophobia = {
                 name = 'Scopophobia',
                 text = {
-                    'Add a {V:1}#2#',
+                    'Add an {V:1}#2#',
                     'to {C:attention}#1#{} selected',
                     'card in your hand'
                 }
