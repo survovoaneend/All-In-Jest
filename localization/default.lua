@@ -9355,3 +9355,1012 @@ return {
         }
     }
 }
+            
+            j_aij_shock_collar = {
+                name = "Shock Collar",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_stick_figure = {
+                name = "Stick Figure",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_profile = {
+                name = "Profile",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_bits_n_bob = {
+                name = "Bits n' Bob",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_glovely_joker = {
+                name = "Glovely Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_fabulist = {
+                name = "Fabulist",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_cliff = {
+                name = "Cliff",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_pinup_poster = {
+                name = "Pin-Up Poster",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_the_judge = {
+                name = "The Judge",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_so_retro = {
+                name = "So Retro",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_maschera = {
+                name = "Maschera",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_undead_joker = {
+                name = "Undead Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_beastly_joker = {
+                name = "Beastly Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_sticker_sheet_needs_renamed = {
+                name = "Sticker Sheet (Needs Renamed)",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_abacus = {
+                name = "Abacus",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_sd_card = {
+                name = "SD Card",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_matchbox = {
+                name = "Matchbox",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_antiquarian = {
+                name = "Antiquarian",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_you_are_susceptible = {
+                name = "You Are Susceptible",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_you_are_a_joker = {
+                name = "You are a Joker!",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_no_i_am_not_a_joker = {
+                name = "No, I Am Not a Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_fun_is_infinite = {
+                name = "Fun is Infinite",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_hacking_minigame = {
+                name = "Hacking Minigame",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_personalized_joker = {
+                name = "Personalized Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_circus_monkey = {
+                name = "Circus Monkey",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_bottle_opener = {
+                name = "Bottle Opener",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_balance = {
+                name = "Balance",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_antihero = {
+                name = "Anti-Hero",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_spider = {
+                name = "Spider",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_snow_cone = {
+                name = "Snow Cone",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_gelato = {
+                name = "Gelato",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_sorbet = {
+                name = "Sorbet",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_stracciatella = {
+                name = "Stracciatella",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_parfait = {
+                name = "Parfait",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_whiskey_shot = {
+                name = "Whiskey Shot",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_boomy_the_cat = {
+                name = "Boomy the Cat",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_sculptor = {
+                name = "Sculptor",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_glyphic_joker = {
+                name = "Glyphic Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_living_statue = {
+                name = "Living Statue",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_stereoscopic_joker = {
+                name = "Stereoscopic Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_triple_gooberberry_sunrise = {
+                name = "Triple Gooberberry Sunrise",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_blanca = {
+                name = "Blanca",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_nervous_joker = {
+                name = "Nervous Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_glacier = {
+                name = "Glacier",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_base_camp = {
+                name = "Base Camp",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_volcano = {
+                name = "Volcano",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_blizzard = {
+                name = "Blizzard",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_expressive_joker = {
+                name = "Expressive Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_buggy = {
+                name = "Buggy",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_moon_man = {
+                name = "Moon Man",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_volleyball = {
+                name = "Volleyball",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_sack_joker = {
+                name = "Sack Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_pain_joker = {
+                name = "Pain Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_copycat = {
+                name = "Copycat",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_conspiracy_theorist = {
+                name = "Conspiracy Theorist",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_train_conductor = {
+                name = "Train Conductor",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_bookmaker = {
+                name = "Bookmaker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_playjoy = {
+                name = "Playjoy",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_revolving_jubilation = {
+                name = "Revolving Jubilation",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_jestress = {
+                name = "Jestress",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_poppins = {
+                name = "Poppins",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_glizzy = {
+                name = "Glizzy",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_dizzy_lizzy = {
+                name = "Dizzy Lizzy",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_kaiju = {
+                name = "Kaiju",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_quicklime_heart = {
+                name = "Quicklime Heart",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_unpardonable_sin = {
+                name = "Unpardonable Sin",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_esther = {
+                name = "Esther",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_chaufournier = {
+                name = "Chaufournier",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_button_moulder = {
+                name = "Button Moulder",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_sapphic_joker = {
+                name = "Sapphic Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_yule_log = {
+                name = "Yule Log",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_cubewano = {
+                name = "Cubewano",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_evil_eye = {
+                name = "Evil Eye",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_onearmed_bandit = {
+                name = "One-armed Bandit",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_piss_take = {
+                name = "Piss Take",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_conspiracy_board = {
+                name = "Conspiracy Board",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_shapes = {
+                name = "Shapes",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_audiophile = {
+                name = "Audiophile",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_unicursal_joker = {
+                name = "Unicursal Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_senseless_joker = {
+                name = "Senseless Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_divine_comedy = {
+                name = "Divine Comedy",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_black_cat = {
+                name = "Black Cat",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_voynich_joker = {
+                name = "Voynich Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_rag_joker = {
+                name = "Rag Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_loselose = {
+                name = "LOSE/LOSE",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_dolly = {
+                name = "Dolly",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_cap_n_bells = {
+                name = "Cap n' Bells",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_beekeeper = {
+                name = "Beekeeper",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_queen_bee = {
+                name = "Queen Bee",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_his_majesty = {
+                name = "His Majesty",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_phantom_of_truth = {
+                name = "Phantom of Truth",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_pope = {
+                name = "Pope",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_screaming_joker = {
+                name = "Screaming Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_welded_joker = {
+                name = "Welded Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_war_mask = {
+                name = "War Mask",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_abuse_joker = {
+                name = "Abuse Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_glassblower = {
+                name = "Glassblower",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_landlord = {
+                name = "Landlord",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_skywriting = {
+                name = "Skywriting",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_rodeo_star = {
+                name = "Rodeo Star",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_santimariyambu = {
+                name = "Santimariyambu",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_gargoyle = {
+                name = "Gargoyle",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_corporate_memphis = {
+                name = "Corporate Memphis",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_tax_return = {
+                name = "Tax Return",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_jackpot = {
+                name = "Jackpot",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_autograph = {
+                name = "Autograph",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_emo_joker = {
+                name = "Emo Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_tax_collector = {
+                name = "Tax Collector",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_gumdrops = {
+                name = "Gumdrops",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_crapple_apple = {
+                name = "Crapple Apple",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_hermaean_joker = {
+                name = "Hermaean Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_cytherean_joker = {
+                name = "Cytherean Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_tellurian_joker = {
+                name = "Tellurian Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_martial_joker = {
+                name = "Martial Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_heel_turn = {
+                name = "Heel Turn",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_sandman = {
+                name = "Sandman",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_haunted_maze = {
+                name = "Haunted Maze",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_saveloy = {
+                name = "Saveloy",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_cheerio = {
+                name = "Cheerio",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_jaffas = {
+                name = "Jaffas",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_spirit_mask = {
+                name = "Spirit Mask",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_dog_treat = {
+                name = "Dog Treat",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_plum_pudding = {
+                name = "Plum Pudding",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_candy_box = {
+                name = "Candy Box",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_turrn = {
+                name = "Turrón",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_master_of_pegs = {
+                name = "Master of Pegs",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_emergent_pattern = {
+                name = "Emergent Pattern",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_mask_merchant = {
+                name = "Mask Merchant",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_the_dud = {
+                name = "The Dud",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_number_8_wire = {
+                name = "Number 8 Wire",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_zalgo = {
+                name = "Zalgo",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_2spooky4me = {
+                name = "2spooky4me",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_brick_game = {
+                name = "Brick Game",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_dead_joker = {
+                name = "Dead Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_kaleidoscope = {
+                name = "Kaleidoscope",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_soothsayer = {
+                name = "Soothsayer",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_surgeon = {
+                name = "Surgeon",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_nutcracker = {
+                name = "Nutcracker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_polymorphic_joker = {
+                name = "Polymorphic Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_juggle_game = {
+                name = "Juggle Game",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_bit_flip = {
+                name = "Bit Flip",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_the_hare = {
+                name = "The Hare",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_the_tape = {
+                name = "The Tape",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_harvest_spirit = {
+                name = "Harvest Spirit",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_jocker = {
+                name = "jocker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_grey_goo = {
+                name = "Grey Goo",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_force_the_hand_of_fate = {
+                name = "Force the Hand of Fate",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_scarab = {
+                name = "Scarab",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_blue_tongue = {
+                name = "Blue Tongue",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_mysterious_horizon = {
+                name = "Mysterious Horizon",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_comic_spirit = {
+                name = "Comic Spirit",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_loveabjuring_band = {
+                name = "Love-abjuring Band",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_caveat_emptor = {
+                name = "Caveat Emptor",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_a_modest_proposal = {
+                name = "A Modest Proposal",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_liftoff = {
+                name = "Liftoff",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_per_aspera_ad_astra = {
+                name = "Per Aspera ad Astra",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_atemporal_taco = {
+                name = "Atemporal Taco",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_pangram = {
+                name = "Pangram",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_sensational_news = {
+                name = "Sensational News",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_dark_angel = {
+                name = "Dark Angel",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_alleged_burger = {
+                name = "Alleged Burger",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_bingsu = {
+                name = "Bingsu",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_buzzy_bee = {
+                name = "Buzzy Bee",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_scott_free = {
+                name = "Scott Free",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_penny_dreadful = {
+                name = "Penny Dreadful",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_flushed_face = {
+                name = "Flushed Face",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_warning_notice = {
+                name = "Warning Notice",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_cutting_board = {
+                name = "Cutting Board",
+                text = {
+                    ''
+                }
+            },
