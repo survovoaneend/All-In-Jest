@@ -33,7 +33,7 @@ local deneb_algedi_pin = {
 	key = 'deneb_algedi_pin',
     pin = 'Deneb Algedi',
     atlas = 'misc_atlas',
-	pos = { x = 8, y = 1 },
+	pos = { x = 9, y = 1 },
     discovered = false,
     order = 14,
     config = {},
