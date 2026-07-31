@@ -2006,8 +2006,8 @@ end
 [[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
-pattern = "add_round_eval_row({dollars = G.GAME.current_round.hands_left*(G.GAME.modifiers.money_per_hand or 1), disp = G.GAME.current_round.hands_left, bonus = true, name='hands', pitch = pitch})"
-position = "before"
+pattern = "G.GAME.unused_discards = (G.GAME.unused_discards or 0) + G.GAME.current_round.discards_left"
+position = "after"
 match_indent = true
 payload = '''
 G.GAME.all_in_jest.unused_hands.run = G.GAME.all_in_jest.unused_hands.run + G.GAME.current_round.hands_left
