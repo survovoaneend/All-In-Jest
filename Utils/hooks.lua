@@ -869,6 +869,9 @@ SMODS.ConsumableType({
 
             if card.area and not card.area.config.collection then
                 if card.ability.consumeable.hand and card.ability.consumeable.grade then
+                    if card.ability.consumeable.grade == 'Retrograde' then
+                        card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade('Retrograde')
+                    end
                     info_queue[#info_queue+1] = {key = 'aij_astral_'..string.lower(card.ability.consumeable.grade), set = 'Other'}
                 end
                 

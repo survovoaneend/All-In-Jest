@@ -9833,8 +9833,8 @@ return {
             aij_astral_prograde = {
                 name = "Prograde",
                 text = {
-                    "Aligns to your {C:attention}least{}",
-                    "played hand"
+                    "Aligns to one of your",
+                    "{C:attention}least{} played hands"
                 }
             },
             aij_astral_retrograde = {

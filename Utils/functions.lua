@@ -2206,13 +2206,26 @@ function All_in_Jest.astral_hand_from_grade(grade, cur_hand)
                 end
             end
         elseif grade == "Prograde" then 
-            local _tally = math.huge
+            local _remove_tally = 0
             for k, v in ipairs(G.handlist) do
-                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played < _tally then
-                    _hand = v
-                    _tally = G.GAME.hands[v].played
+                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played >= _remove_tally then
+                    _remove_tally = G.GAME.hands[v].played
                 end
             end
+            local vaild_hands = {}
+            for k, v in ipairs(G.handlist) do
+                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played < _remove_tally then
+                    vaild_hands[#vaild_hands+1] = v
+                end
+            end
+            if #vaild_hands <= 0 then
+                for k, v in ipairs(G.handlist) do
+                    if SMODS.is_poker_hand_visible(v) then
+                        vaild_hands[#vaild_hands+1] = v
+                    end
+                end
+            end
+            _hand = cur_hand or pseudorandom_element(vaild_hands, pseudoseed(grade))
         elseif grade == "Passigrade" then
             local vaild_hands = {}
             for k, v in ipairs(G.handlist) do
