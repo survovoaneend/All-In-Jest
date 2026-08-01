@@ -894,6 +894,15 @@ SMODS.ConsumableType({
         if not center.use then
             center.use = function(self, card, area, copier)
                 All_in_Jest.use_astral_card(card)
+                if G.aij_cur_astral_hand and G.aij_cur_astral_hand == card.ability.consumeable.hand and G.GAME.Astral_pins then
+                    if G.aij_astral_pin_area and #G.aij_astral_pin_area.cards > 0 then
+                        All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'only_remove', All_in_Jest.old_colours or nil, true)      
+                        for _, v in pairs(G.aij_astral_pin_area.cards) do
+                            v:remove()
+                        end
+                    end
+                    All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'no_remove')
+                end
             end
         end
         SMODS.ObjectType.inject_card(self, center)
