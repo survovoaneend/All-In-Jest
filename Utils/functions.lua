@@ -50,6 +50,27 @@ function aij_update_hand_text(area)
         {handname=disp_text, level=G.GAME.hands[calculated_text or text].level, 
         mult = G.GAME.hands[calculated_text or text].mult, 
         chips = G.GAME.hands[calculated_text or text].chips})
+    if area == G.hand.highlighted then
+        if G.GAME.Astral_pins and text ~= G.aij_cur_astral_hand then
+            All_in_Jest.astral_visuals(text, 'only_remove', All_in_Jest.old_colours or nil, true)      
+            if text == "NULL" then
+                G.aij_cur_astral_hand = nil
+            end
+            if G.aij_astral_pin_area then
+                for _, v in pairs(G.aij_astral_pin_area.cards) do
+                    v:remove()
+                end
+            end
+        end
+        if G.GAME.Astral_pins then
+            if text ~= G.aij_cur_astral_hand then
+                All_in_Jest.astral_visuals(text, 'no_remove')
+            end
+            if text then
+                G.aij_cur_astral_hand = text
+            end
+        end
+    end
 end
 
 function aij_pasteAlpha(base, layer, posb, posl, args)
