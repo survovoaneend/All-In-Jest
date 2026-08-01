@@ -10,6 +10,7 @@ local dandiprat = {
     },
     attributes = { 'economy', 'rank', 'two', 'three', 'four', 'five' },
     rarity = 1,
+    lite = true,
     pos = { x = 22, y = 27 },
     atlas = 'joker_atlas',
     cost = 5,

@@ -10,6 +10,7 @@ local christmas_eve = {
     },
     attributes = { 'generation', 'tag', 'economy' },
     rarity = 2,
+    lite = true,
     pos = { x = 8, y = 27 },
     atlas = 'joker_atlas',
     cost = 7,

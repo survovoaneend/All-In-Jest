@@ -10,6 +10,7 @@ local flibbertigibbit = {
     },
     attributes = { 'economy', 'discard', 'suit' },
     rarity = 1,
+    lite = true,
     pos = { x = 10, y = 28 },
     atlas = 'joker_atlas',
     cost = 6,

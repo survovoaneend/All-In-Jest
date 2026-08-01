@@ -13,6 +13,7 @@ local famulus = {
     pos = { x = 8, y = 28 },
     atlas = 'joker_atlas',
     cost = 5,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

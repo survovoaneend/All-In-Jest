@@ -11,6 +11,7 @@ local laurel = {
     },
     attributes = { 'xmult', 'enhancements', 'full_deck' },
     rarity = 4,
+    lite = true,
     pos = { x = 5, y = 12 },
     atlas = 'legendary_atlas',
     cost = 20,
