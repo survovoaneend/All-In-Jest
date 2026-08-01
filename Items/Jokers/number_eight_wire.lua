@@ -1,9 +1,9 @@
-local number_8_wire = {
+local number_eight_wire = {
     object_type = "Joker",
     order = 927,
     ignore = true,
 
-    key = "number_8_wire",
+    key = "number_eight_wire",
     config = {
 
     },
@@ -25,4 +25,4 @@ local number_8_wire = {
 
     end
 }
-return { name = {"Jokers"}, items = {number_8_wire} }
+return { name = {"Jokers"}, items = {number_eight_wire} }

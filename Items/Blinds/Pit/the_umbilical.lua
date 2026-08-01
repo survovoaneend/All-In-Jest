@@ -25,7 +25,7 @@ local the_umbilical = {
         if context.after and not temp then
             local cards = {}
             for k, v in pairs(G.hand.cards) do
-                if not v.ability.aij_marked then
+                if not v.ability.aij_marked and not (next(SMODS.find_card("j_aij_beanstalk")) and v:get_id() == 11) then
                     cards[k] = v
                 end
             end

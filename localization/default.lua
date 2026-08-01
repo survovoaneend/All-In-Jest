@@ -3366,8 +3366,9 @@ return {
             j_aij_beanstalk = {
                 name = "Beanstalk",
                 text = {
-                    "{C:attention}Jacks{} {C:attention}cannot{} be {C:red}debuffed",
-                    "and {C:attention}always{} score"
+                    "{C:attention}Jacks{} {C:attention}cannot{} be {C:red}debuffed,",
+                    "{C:attention}flipped{}, or {C:attention}marked{}, and",
+                    "they {C:attention}always{} score"
                 }
             },
             j_aij_phoney_baloney = {
@@ -9832,8 +9833,8 @@ return {
             aij_astral_prograde = {
                 name = "Prograde",
                 text = {
-                    "Aligns to your {C:attention}least{}",
-                    "played hand"
+                    "Aligns to one of your",
+                    "{C:attention}least{} played hands"
                 }
             },
             aij_astral_retrograde = {
