@@ -2255,7 +2255,7 @@ function All_in_Jest.use_astral_card(card)
                         {6,6}, 
                         {
                             from_area = true,
-                            card_scale = 2,
+                            card_scale = 1,
                             hide_single_page = true,
                             collapse_single_page = true,
                             modify_card = function(cardd, center) 
