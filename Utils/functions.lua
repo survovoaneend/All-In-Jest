@@ -32,6 +32,26 @@ function jest_poll_tag(seed, options)
   return tag
 end
 
+function aij_update_hand_text(area)
+    local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(area)
+
+    local calculated_text = nil
+    if text == 'aij_Royal Flush' then
+        calculated_text = 'aij_Royal Flush'
+        text = 'Straight Flush'
+    end
+
+    update_hand_text({
+        sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, 
+        volume = 0.4, 
+        immediate = true, 
+        nopulse = nil,
+        delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, 
+        {handname=disp_text, level=G.GAME.hands[calculated_text or text].level, 
+        mult = G.GAME.hands[calculated_text or text].mult, 
+        chips = G.GAME.hands[calculated_text or text].chips})
+end
+
 function aij_pasteAlpha(base, layer, posb, posl, args)
     args = args or {}
     posb = posb or {x=0, y=0}
