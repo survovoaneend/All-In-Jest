@@ -31,7 +31,7 @@ local banana_man = {
   
     calculate = function(self, card, context)
       if context.repetition_only or (context.retrigger_joker_check) then
-        if context.other_card ~= card and not context.other_context.modify_scoring_hand then
+        if context.other_card ~= card and not context.other_context.modify_scoring_hand and context.other_card.ability.set == "Joker" then
             return {
                 repetitions = 1,
                 card = card,
