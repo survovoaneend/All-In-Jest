@@ -9,7 +9,7 @@ local all_in = {
     reset_on_version_change = true,
 
     unlock_condition = function(self, args)
-        if args.type == 'win_stake' and G.PROGRESS.aij_joker_gold_stickers then
+        if (args.type == 'discover_amount' or args.type == 'win_stake') and G.PROGRESS.aij_joker_gold_stickers then
             if G.PROGRESS.aij_joker_gold_stickers.of == G.PROGRESS.aij_joker_gold_stickers.tally then
                 return true
             end
