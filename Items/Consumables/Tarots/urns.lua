@@ -26,11 +26,12 @@ local urns = {
     end,
 	use = function(self, card)
         local center_key = G.hand.highlighted[1].config.center.key
+		local other_center = G.hand.highlighted[1].config.aij_other_center
         local destroy_card = G.hand.highlighted[1]
         SMODS.destroy_cards(destroy_card, nil, true)
 		local valid_cards = {}
 		for k, v in pairs(G.hand.cards) do
-            if not v.highlighted then
+            if not v.highlighted and not SMODS.has_enhancement(v, center_key)  then
                 valid_cards[#valid_cards+1] = v
             end
 		end
@@ -56,6 +57,11 @@ local urns = {
             func = function()
 				for i = 1, #selected_cards do
 					selected_cards[i]:set_ability(G.P_CENTERS[center_key])
+					if other_center then
+						selected_cards[i].config.aij_other_center = {}
+						selected_cards[i].config.aij_other_center['center'] = other_center['center']
+						selected_cards[i].config.aij_other_center['ability'] = other_center['ability']
+					end
 				end
                 return true
             end
