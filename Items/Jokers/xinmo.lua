@@ -44,6 +44,14 @@ local xinmo = {
       
     end
 }
+local aij_check_for_buy_space_ref = G.FUNCS.check_for_buy_space
+G.FUNCS.check_for_buy_space = function(card)
+    if card.config.center.key == "j_aij_xinmo" then
+        return true
+    end
+    local ret = aij_check_for_buy_space_ref(card)
+    return ret
+end
 local ref_can_select_card = G.FUNCS.can_select_card
 G.FUNCS.can_select_card = function(e)
     local card = e.config.ref_table

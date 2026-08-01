@@ -23,7 +23,7 @@ local melded = {
 		} }
 	end,
 	check_for_unlock = function(self, args)
-		if args.type == "win_stake" then
+		if args.type == 'discover_amount' or args.type == "win_stake" then
 			local req_stake_wins = 0
 			for _, deck in pairs(G.PROFILES[G.SETTINGS.profile].deck_usage) do
 				local deck_won_with = nil

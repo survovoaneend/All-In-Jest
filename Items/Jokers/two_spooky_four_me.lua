@@ -1,9 +1,9 @@
-local 2spooky4me = {
+local two_spooky_four_me = {
     object_type = "Joker",
     order = 929,
     ignore = true,
 
-    key = "2spooky4me",
+    key = "two_spooky_four_me",
     config = {
 
     },
@@ -25,4 +25,4 @@ local 2spooky4me = {
 
     end
 }
-return { name = {"Jokers"}, items = {2spooky4me} }
+return { name = {"Jokers"}, items = {two_spooky_four_me} }

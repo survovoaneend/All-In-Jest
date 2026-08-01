@@ -90,12 +90,17 @@ local joker_png = {
 
     set_ability = function(self, card, initial, delay_sprites)
         if G.playing_card then -- Check if in collection or not
-            local joker_center, index = select_random_valid_joker()
-            All_in_Jest.set_copied_joker(card, joker_center)
+            G.joker_png_set_ability = G.joker_png_set_ability or {}
+            G.joker_png_set_ability[card.sort_id] = true
         end
     end,
 
     loc_vars = function(self, info_queue, card)
+        if G.joker_png_set_ability and G.joker_png_set_ability[card.sort_id] and card.area and not card.area.config.collection then
+            G.joker_png_set_ability[card.sort_id] = nil
+            local joker_center, index = select_random_valid_joker()
+            All_in_Jest.set_copied_joker(card, joker_center)
+        end
         _ = All_in_Jest.single_copier.loc_vars(self, info_queue, card)
         return {
             vars = {

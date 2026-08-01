@@ -83,9 +83,21 @@ local canvas = {
                 if new_suit or new_rank or changed_random_aij_deck_skin then
                     assert(SMODS.change_base(card, new_suit, new_rank))
                 end
+                if G.hand and G.hand.highlighted then
+                    for k, v in pairs(G.hand.highlighted) do
+                        if v == card then
+                            aij_update_hand_text(G.hand.highlighted)
+                        end
+                    end
+                end
                 card.front_hidden = card:should_hide_front()
-                if card:get_id() <= -50 then
+                if card:get_id() <= -50 and card.base.nominal ~= 0 then
                     card.base.nominal = 0
+                    for k, v in pairs(G.hand.highlighted) do
+                        if v == card then
+                            aij_update_hand_text(G.hand.highlighted)
+                        end
+                    end
                 else
                     local rank = SMODS.Ranks[card.base.value] or {}
                     card.base.nominal = rank.nominal or 0

@@ -32,6 +32,47 @@ function jest_poll_tag(seed, options)
   return tag
 end
 
+function aij_update_hand_text(area)
+    local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(area)
+
+    local calculated_text = nil
+    if text == 'aij_Royal Flush' then
+        calculated_text = 'aij_Royal Flush'
+        text = 'Straight Flush'
+    end
+
+    update_hand_text({
+        sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, 
+        volume = 0.4, 
+        immediate = true, 
+        nopulse = nil,
+        delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, 
+        {handname=disp_text, level=G.GAME.hands[calculated_text or text].level, 
+        mult = G.GAME.hands[calculated_text or text].mult, 
+        chips = G.GAME.hands[calculated_text or text].chips})
+    if area == G.hand.highlighted then
+        if G.GAME.Astral_pins and text ~= G.aij_cur_astral_hand then
+            All_in_Jest.astral_visuals(text, 'only_remove', All_in_Jest.old_colours or nil, true)      
+            if text == "NULL" then
+                G.aij_cur_astral_hand = nil
+            end
+            if G.aij_astral_pin_area then
+                for _, v in pairs(G.aij_astral_pin_area.cards) do
+                    v:remove()
+                end
+            end
+        end
+        if G.GAME.Astral_pins then
+            if text ~= G.aij_cur_astral_hand then
+                All_in_Jest.astral_visuals(text, 'no_remove')
+            end
+            if text then
+                G.aij_cur_astral_hand = text
+            end
+        end
+    end
+end
+
 function aij_pasteAlpha(base, layer, posb, posl, args)
     args = args or {}
     posb = posb or {x=0, y=0}
@@ -2206,13 +2247,26 @@ function All_in_Jest.astral_hand_from_grade(grade, cur_hand)
                 end
             end
         elseif grade == "Prograde" then 
-            local _tally = math.huge
+            local _remove_tally = 0
             for k, v in ipairs(G.handlist) do
-                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played < _tally then
-                    _hand = v
-                    _tally = G.GAME.hands[v].played
+                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played >= _remove_tally then
+                    _remove_tally = G.GAME.hands[v].played
                 end
             end
+            local vaild_hands = {}
+            for k, v in ipairs(G.handlist) do
+                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played < _remove_tally then
+                    vaild_hands[#vaild_hands+1] = v
+                end
+            end
+            if #vaild_hands <= 0 then
+                for k, v in ipairs(G.handlist) do
+                    if SMODS.is_poker_hand_visible(v) then
+                        vaild_hands[#vaild_hands+1] = v
+                    end
+                end
+            end
+            _hand = cur_hand or pseudorandom_element(vaild_hands, pseudoseed(grade))
         elseif grade == "Passigrade" then
             local vaild_hands = {}
             for k, v in ipairs(G.handlist) do
