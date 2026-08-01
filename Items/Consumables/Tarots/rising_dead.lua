@@ -41,6 +41,11 @@ local rising_dead_tarot = {
                 for i = 1, #G.hand.highlighted do
 					if G.hand.highlighted[i] ~= conv_card then
 						G.hand.highlighted[i]:set_ability(G.P_CENTERS[conv_card.config.center.key], nil, true)
+							if other_center then
+							G.hand.highlighted[i].config.aij_other_center = {}
+							G.hand.highlighted[i].config.aij_other_center['center'] = other_center['center']
+							G.hand.highlighted[i].config.aij_other_center['ability'] = other_center['ability']
+						end
 						G.hand.highlighted[i]:set_seal(conv_card.seal, nil, true)
 					end
 				end

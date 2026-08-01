@@ -19,16 +19,29 @@ local urns = {
 	end,
 	can_use = function(self, card)
         if G.hand and #G.hand.cards >= card.ability.ran_cards and (#G.hand.highlighted <= card.ability.max_highlight and #G.hand.highlighted > 0) then
-			if G.hand.highlighted[1].config.center ~= G.P_CENTERS.c_base then
-				return true
+			for k, v in pairs(G.hand.highlighted) do
+				if v.config.center ~= G.P_CENTERS.c_base then
+					return true
+				end
 			end
         end
     end,
 	use = function(self, card)
         local center_key = G.hand.highlighted[1].config.center.key
+		for k, v in pairs(G.hand.highlighted) do
+			if v.config.center ~= G.P_CENTERS.c_base then
+				center_key = v.config.center.key
+				break
+			end
+		end
 		local other_center = G.hand.highlighted[1].config.aij_other_center
-        local destroy_card = G.hand.highlighted[1]
-        SMODS.destroy_cards(destroy_card, nil, true)
+		for k, v in pairs(G.hand.highlighted) do
+			if v.config.aij_other_center then
+				other_center = v.config.aij_other_center
+				break
+			end
+		end
+        SMODS.destroy_cards(G.hand.highlighted, nil, true)
 		local valid_cards = {}
 		for k, v in pairs(G.hand.cards) do
             if not v.highlighted and not SMODS.has_enhancement(v, center_key)  then
