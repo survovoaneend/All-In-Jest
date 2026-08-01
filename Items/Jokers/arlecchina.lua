@@ -11,6 +11,7 @@ local arlecchina = {
   },
   attributes = { 'xmult', 'scaling', 'booster' },
   rarity = 2,
+  lite = true,
   pos = { x = 7, y = 6},
   atlas = 'joker_atlas',
   cost = 6,

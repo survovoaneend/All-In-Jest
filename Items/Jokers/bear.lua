@@ -13,6 +13,7 @@ local bear = {
     rarity = 1,
     pos = { x = 11, y = 25 },
     atlas = 'joker_atlas',
+    lite = true,
     cost = 4,
     unlocked = true,
     discovered = false,

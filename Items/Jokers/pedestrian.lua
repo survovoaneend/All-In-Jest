@@ -13,6 +13,7 @@ local pedestrian = {
     pos = { x = 24, y = 16 },
     atlas = 'joker_atlas',
     cost = 5,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

@@ -55,7 +55,7 @@ return {
             aij_lite_tooltip = {
                 'Enables only a hand-picked selection',
                 'of the most {C:attention}vanilla-adjacent{} content',
-                '{s:0.8,C:inactive}(Currently 76 things)'
+                '{s:0.8,C:inactive}(Currently 110 things)'
 
             },
             aij_red_destroy_text = "Modify Joker Descriptions",

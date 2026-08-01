@@ -14,6 +14,7 @@ local psycho = {
     pos = { x = 10, y = 25 },
     atlas = 'joker_atlas',
     cost = 8,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

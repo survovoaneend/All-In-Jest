@@ -12,6 +12,7 @@ local baroque_joker = {
     },
     attributes = { 'xmult', 'scaling', 'hand_type' },
     rarity = 2,
+    lite = true,
     pos = { x = 0, y = 17 },
     atlas = 'joker_atlas',
     cost = 6,

@@ -13,6 +13,7 @@ local funny_bunch = {
     pos = { x = 19, y = 22 },
     atlas = 'joker_atlas',
     cost = 6,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

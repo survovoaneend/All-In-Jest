@@ -10,6 +10,7 @@ local valentine = {
     },
     attributes = { 'xmult', 'hand_type' },
     rarity = 2,
+    lite = true,
     pos = { x = 20, y = 16 },
     atlas = 'joker_atlas',
     cost = 7,

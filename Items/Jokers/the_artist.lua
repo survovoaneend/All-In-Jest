@@ -10,6 +10,7 @@ local the_artist = {
     },
     attributes = { 'passive', 'tarot', 'select_limit' },
     rarity = 3,
+    lite = true,
     pos = { x = 5, y = 8},
     atlas = 'joker_atlas',
     cost = 8,

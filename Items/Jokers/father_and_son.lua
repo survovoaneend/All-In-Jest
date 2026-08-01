@@ -14,6 +14,7 @@ local father_and_son = {
     pos = { x = 8, y = 24 },
     atlas = 'joker_atlas',
     cost = 7,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
