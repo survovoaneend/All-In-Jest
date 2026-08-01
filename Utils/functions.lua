@@ -2402,6 +2402,12 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
                 end
                 G.aij_astral_pin_area:emplace(card)
                 card:start_materialize()
+                -- We shouldn't need to do this but we have to anyway
+                -- This is to make a couple pins juice when active
+                local obj = card.config.center
+                if obj and obj.add_to_deck and type(obj.add_to_deck) == 'function' then
+                    obj:add_to_deck(card, from_debuff)
+                end
             end
         end
         -- Change background colour

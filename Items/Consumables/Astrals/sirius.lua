@@ -69,7 +69,6 @@ local sirius_pin = {
                     return {
                         message = localize('k_again_ex'),
                         repetitions = retriggers,
-                        card = context.other_card
                     }
                 end
             end
