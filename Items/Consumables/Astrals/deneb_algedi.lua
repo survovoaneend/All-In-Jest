@@ -41,11 +41,23 @@ local deneb_algedi_pin = {
     pixel_size = { w = 53, h = 28 },
 
     loc_vars = function(self, info_queue, card)
-        
+        local trigger = true
+        if G.GAME.all_in_jest and G.GAME.all_in_jest.advanced_hand_usage_blind then
+            for _, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_blind) do
+                if v.scoring_name == card.ability.extra.hand then
+                    trigger = false
+                end
+            end
+        end
+        local active_text = "("..localize('k_active')..")"
+        if not trigger then 
+            active_text = "("..localize('k_inactive')..")"
+        end
 		return {
 			vars = {
 				card.ability.extra.hand,
-                card.ability.extra.hands
+                card.ability.extra.hands,
+                active_text
 			},
 		}
     end,
@@ -67,5 +79,20 @@ local deneb_algedi_pin = {
             end
         end
     end,
+
+    add_to_deck = function(self, card, from_debuff)
+        local eval = function()
+            local trigger = true
+            if G.GAME.all_in_jest and G.GAME.all_in_jest.advanced_hand_usage_blind then
+                for _, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_blind) do
+                    if v.scoring_name == card.ability.extra.hand then
+                        trigger = false
+                    end
+                end
+            end
+            return trigger 
+        end
+        juice_card_until(card, eval, true)
+    end
 }
 return {name = {"Astrals"}, items = {deneb_algedi, deneb_algedi_pin}}

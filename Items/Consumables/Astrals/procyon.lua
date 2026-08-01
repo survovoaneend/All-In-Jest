@@ -56,19 +56,21 @@ local procyon_pin = {
                 local joker = pseudorandom_element(G.jokers.cards, pseudoseed('procyon'))
                 joker.ability.extra_value = joker.ability.extra_value + card.ability.extra.sell_val --Not sure if this should use scale_card
                 joker:set_cost()
-                 G.E_MANAGER:add_event(Event({
-                    func = function()
-                        card_eval_status_text(joker, 'extra', nil, nil, nil, {
-                            message = localize('k_val_up'), 
-                            colour = G.C.MONEY
-                        })
-                        return true
-                    end
-                })) 
-                return
+                --  G.E_MANAGER:add_event(Event({
+                --     func = function()
+                --         card_eval_status_text(joker, 'extra', nil, nil, nil, {
+                --             message = localize('k_val_up'), 
+                --             colour = G.C.MONEY
+                --         })
+                --         return true
+                --     end
+                -- })) 
+                return {
+                    message = localize('k_val_up'), colour = G.C.MONEY, message_card = joker
+                }
             else
                 return {
-                    {message = localize('k_nope_ex'), colour = G.C.SECONDARY_SET.Tarot}
+                    message = localize('k_nope_ex'), colour = G.C.SECONDARY_SET.Tarot
                 }
             end
         end

@@ -123,6 +123,7 @@ return {
 
             a_aij_hands_minus = "-#1# Hands",
             a_aij_discards_plus = "+#1# Discards",
+            a_aij_discards_plus_singular = "+#1# Discard",
 
             a_aij_handsize = "+#1# Handsize",
 
@@ -5624,7 +5625,7 @@ return {
                 text = {
                     'Gains {X:mult,C:white}X#1#{} Mult per',
                     '{C:common}Common{} Joker',
-                    "{C:inactive}(Minimum {X:mult,C:white}X#2#{C:inactive} Mult){}"
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult){}"
                 }
             },
             j_aij_wizard = {
@@ -7697,7 +7698,7 @@ return {
                 }
             },            
             j_aij_turrn = {
-                name = "Turrón",
+                name = "TurrÃ³n",
                 text = {
                     ''
                 }
@@ -8875,7 +8876,7 @@ return {
             c_aij_scopophobia = {
                 name = 'Scopophobia',
                 text = {
-                    'Add a {V:1}#2#',
+                    'Add an {V:1}#2#',
                     'to {C:attention}#1#{} selected',
                     'card in your hand'
                 }
@@ -9105,7 +9106,7 @@ return {
                     },
                     {
                         '{C:attention}Alkaid: {}Gives a random enhancement',
-                        'to a {C:attention}#2#{} random card',
+                        'to {C:attention}#2#{} random played card',
                     }
                 }
             },
@@ -9113,7 +9114,7 @@ return {
                 name = 'Alkaid',
                 text = {
                     'Gives a random enhancement',
-                    'to a {C:attention}#2#{} random card',
+                    'to {C:attention}#2#{} random played card',
                 }
             },
             c_aij_algorab = {
@@ -9152,6 +9153,7 @@ return {
                 text = {
                     '{C:red}Disable{} the {C:attention}Boss Blind{} on',
                     '{C:attention}first hand{} of round',
+                    '{C:inactive}#1#{}'
                 }
             },
             c_aij_arcturus = {
@@ -9235,18 +9237,19 @@ return {
                         'Align {C:attention}#1#{} to {C:attention}Deneb Algedi',
                     },
                     {
-                        '{C:attention}Deneb Algedi: {}{C:blue}+#2#{} Hand',
-                        'the first time',
-                        'this hand is played',
+                        '{C:attention}Deneb Algedi: {}{C:blue}+#2#{} Hand the {C:attention}first{}',
+                        'time this hand is',
+                        'played each round'
                     }
                 }
             },
             c_aij_deneb_algedi_pin = {
                 name = 'Deneb Algedi',
                 text = {
-                    '{C:blue}+#2#{} Hand the',
-                    'first time',
-                    'this hand is played'
+                    '{C:blue}+#2#{} Hand the {C:attention}first{}',
+                    'time this hand is',
+                    'played each round',
+                    '{C:inactive}#3#{}'
                 }
             },
 

@@ -980,7 +980,7 @@ AllInJest.deck_skins = {
   },
   {
     id = 'henry_stickmen',
-    name = 'Henry Stickmen',
+    name = 'Henry Stickmin',
     suits = {
       'Hearts',
     }
@@ -2255,7 +2255,7 @@ function All_in_Jest.use_astral_card(card)
                         {6,6}, 
                         {
                             from_area = true,
-                            card_scale = 2,
+                            card_scale = 1,
                             hide_single_page = true,
                             collapse_single_page = true,
                             modify_card = function(cardd, center) 
@@ -2402,6 +2402,12 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
                 end
                 G.aij_astral_pin_area:emplace(card)
                 card:start_materialize()
+                -- We shouldn't need to do this but we have to anyway
+                -- This is to make a couple pins juice when active
+                local obj = card.config.center
+                if obj and obj.add_to_deck and type(obj.add_to_deck) == 'function' then
+                    obj:add_to_deck(card, from_debuff)
+                end
             end
         end
         -- Change background colour

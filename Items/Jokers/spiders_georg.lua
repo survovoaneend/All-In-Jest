@@ -8,10 +8,8 @@ local calculate_average_eights = function()
             if scoring_hand then
                 for j = 1, #scoring_hand do
                     local cur_card = scoring_hand[j] -- Card is a saveTable, so we need to load it to do proper stuff
-                    if not (cur_card.save_fields.center == 'm_aij_canvas' or cur_card.save_fields.aij_other_center == 'm_aij_canvas') then -- Only load cards that can have a rank of 8 (or are rankless)
-                        if cur_card.considered_rank == 8 then -- considered_rank is the card ran through :get_id() which is more important than base id
-                            eights = eights + 1
-                        end
+                    if cur_card.considered_rank == 8 then -- considered_rank is the card ran through :get_id() which is more important than base id
+                        eights = eights + 1
                     end
                 end
                 hands = hands + 1
