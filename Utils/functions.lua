@@ -1818,6 +1818,9 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, extra)
                 victim_joker.ability.all_in_jest.has_been_rerolled_data = old_ability_data
             end
             victim_joker:set_cost()
+            if extra.shop_ui then
+                create_shop_card_ui(victim_joker, extra.type, extra.shop_ui)
+            end
             return true
         end
     }))
@@ -1831,10 +1834,10 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, extra)
             return true 
         end 
     }))
-      G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
         G.jokers:unhighlight_all()
         return true
-      end }))
+    end }))
     delay(0.5)
 end
 
