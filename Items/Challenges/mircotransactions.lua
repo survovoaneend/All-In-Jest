@@ -20,6 +20,7 @@ local mircotransactions = {
         banned_cards = {
             -- { id = 'j_aij_glass_delusion' },
             { id = 'j_aij_gameshow' },
+            { id = 'j_aij_cctv' },
             { id = 'j_aij_stained_glass_joker' },
             { id = 'j_aij_mummer' },
             { id = 'j_aij_tin_man' },
