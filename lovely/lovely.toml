@@ -3816,7 +3816,7 @@ pattern = "if not run_info then G.GAME.round_resets.blind_states[G.GAME.blind_on
 position = "after"
 payload = '''
 local is_big_boss = false
-local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and type == 'Boss'
+local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and (type == 'Boss' or type == 'Big_Boss')
 '''
 match_indent = true
 
