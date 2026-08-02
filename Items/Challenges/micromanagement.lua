@@ -6,7 +6,6 @@ local micromanagement = {
             return true 
         end
     end,
-    ignore = true,
     jokers = {
         { id = 'j_aij_office_assistant', eternal = true, edition = 'negative' },
     },

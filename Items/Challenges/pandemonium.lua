@@ -6,7 +6,6 @@ local pandemonium = {
             return true 
         end
     end,
-    ignore = true,
     rules = {
         custom = {
             {id = 'aij_pandemonium_1'},
