@@ -18,7 +18,6 @@ local a_v_g_m = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
-    ignore = true,
 
     pixel_size = { w = 65, h = 95 },
 

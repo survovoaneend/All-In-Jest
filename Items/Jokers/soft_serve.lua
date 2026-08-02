@@ -11,7 +11,6 @@ local soft_serve = {
     attributes = { 'passive', 'food', 'joker', 'tarot', 'planet', 'shop_slot', },
     rarity = 1,
     pos = { x = 7, y = 25 },
-    ignore = true,
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,

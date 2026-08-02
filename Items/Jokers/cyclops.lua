@@ -11,7 +11,6 @@ local cyclops = {
     attributes = { 'hands', 'mult', 'scaling', },
     rarity = 3,
     pos = { x = 20, y = 6 },
-    ignore = true,
     atlas = 'joker_atlas',
     cost = 9,
     unlocked = true,

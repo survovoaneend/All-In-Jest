@@ -11,7 +11,6 @@ local blacklight = {
     attributes = { 'hand_size' },
     rarity = 2,
     pos = { x = 18, y = 21 },
-    ignore = true,
     atlas = 'joker_atlas',
     cost = 6,
     unlocked = true,

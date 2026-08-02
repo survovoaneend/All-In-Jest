@@ -10,7 +10,6 @@ local skytower = {
     attributes = { 'hand_type' },
     rarity = 2,
     pos = { x = 5, y = 26 },
-    ignore = true,
     atlas = 'joker_atlas',
     cost = 6,
     unlocked = true,

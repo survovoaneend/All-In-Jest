@@ -11,7 +11,6 @@ local vexed = {
     attributes = { 'generation', 'joker', 'on_sell' },
     rarity = 2,
     pos = { x = 11, y = 30},
-    ignore = true,
     atlas = 'joker_atlas',
     cost = 6,
     unlocked = true,

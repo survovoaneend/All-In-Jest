@@ -12,7 +12,6 @@ local in_memorium = {
     attributes = { 'spectral', 'scaling', 'xmult' },
     rarity = 1,
     pos = { x = 6, y = 24 },
-    ignore = true,
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,

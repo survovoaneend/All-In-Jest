@@ -11,7 +11,6 @@ local the_herald = {
     attributes = { 'hand_type' },
     rarity = 3,
     pos = { x = 3, y = 24 },
-    ignore = true,
     atlas = 'joker_atlas',
     cost = 8,
     unlocked = true,
