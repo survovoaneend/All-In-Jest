@@ -20,7 +20,6 @@ local mircotransactions = {
         banned_cards = {
             -- { id = 'j_aij_glass_delusion' },
             { id = 'j_aij_gameshow' },
-            { id = 'j_aij_cctv' },
             { id = 'j_aij_stained_glass_joker' },
             { id = 'j_aij_mummer' },
             { id = 'j_aij_tin_man' },
@@ -33,6 +32,7 @@ local mircotransactions = {
             { id = 'c_chariot' },
             { id = 'c_justice' },
             { id = 'c_wheel_of_fortune' },
+            { id = 'c_aij_typhon' },
             { id = 'c_aura' },
             { id = 'c_hex' },
             { id = 'c_black_hole' },
@@ -42,6 +42,7 @@ local mircotransactions = {
             { id = 'm_glass' },
             { id = 'm_steel' },
             { id = 'm_lucky' },
+            { id = 'm_aij_scorched' },
         },
     }
 }
