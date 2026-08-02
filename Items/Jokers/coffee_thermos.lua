@@ -5,8 +5,8 @@ local coffee_thermos = {
     key = "coffee_thermos",
     config = {
         extra = {
-            total_rounds = 3,
-            rounds = 3
+            total_rounds = 5,
+            rounds = 5
         }
     },
     attributes = { 'retrigger', 'joker' },

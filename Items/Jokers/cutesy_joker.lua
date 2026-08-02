@@ -8,7 +8,7 @@ local cutesy_joker = {
         }
     },
     attributes = { 'mod_chance', 'consumable' },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 23, y = 26 },
     atlas = 'joker_atlas',
     cost = 5,
