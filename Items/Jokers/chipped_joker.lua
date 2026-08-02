@@ -11,7 +11,6 @@ local chipped_joker = {
     attributes = { 'chips', 'scaling', 'modify_card', 'enhancements', },
     rarity = 1,
     pos = { x = 19, y = 23 },
-    ignore = true,
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,

@@ -10,7 +10,7 @@ local bouffon = {
     attributes = { 'trigger_cards', },
     rarity = 1,
     pos = { x = 13, y = 24 },
-    ignore = true,
+
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,

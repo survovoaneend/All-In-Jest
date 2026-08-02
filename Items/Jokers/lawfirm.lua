@@ -12,7 +12,6 @@ local lawfirm = {
     attributes = { 'boss_blind', 'chance', 'activated', },
     rarity = 2,
     pos = { x = 16, y = 26 },
-    ignore = true,
     atlas = 'joker_atlas',
     cost = 6,
     unlocked = true,

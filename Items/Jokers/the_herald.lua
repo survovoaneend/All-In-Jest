@@ -9,11 +9,10 @@ local the_herald = {
         }
     },
     attributes = { 'hand_type' },
-    rarity = 3,
+    rarity = 2,
     pos = { x = 3, y = 24 },
-    ignore = true,
     atlas = 'joker_atlas',
-    cost = 8,
+    cost = 5,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
