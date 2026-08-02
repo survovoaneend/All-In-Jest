@@ -13,11 +13,11 @@ local select_random_valid_joker = function ()
             not (center.config.j_aij_czar_compat == false) and
             not (center.config[key]) -- Disallow copiers, bandaid fix for a bug
         then
-            jokers[#jokers+1] = center
+            jokers[#jokers+1] = key
         end
     end
-    local joker_center, index = pseudorandom_element(jokers, pseudoseed('czar'))
-    return joker_center, index
+    local joker_center_key, index = pseudorandom_element(jokers, pseudoseed('joker_png'))
+    return G.P_CENTERS[joker_center_key], index
 end
 
 local czar = {
@@ -42,18 +42,11 @@ local czar = {
     blueprint_compat = true, -- uses ability.aij_blueprint_compat
 
     set_ability = function(self, card, initial, delay_sprites)
-        if G.playing_card then -- Check if in collection or not
-            G.czar_set_ability = G.czar_set_ability or {}
-            G.czar_set_ability[card.sort_id] = true
-        end
+        local joker_center, index = select_random_valid_joker()
+        All_in_Jest.set_copied_joker(card, joker_center)
     end,
 
     loc_vars = function(self, info_queue, card)
-        if G.czar_set_ability and G.czar_set_ability[card.sort_id] and card.area and not card.area.config.collection then
-            G.czar_set_ability[card.sort_id] = nil
-            local joker_center, index = select_random_valid_joker()
-            All_in_Jest.set_copied_joker(card, joker_center)
-        end
         _ = All_in_Jest.single_copier.loc_vars(self, info_queue, card)
     end,
 

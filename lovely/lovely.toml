@@ -5492,3 +5492,31 @@ if cardTable.aij_seal_edition then
     self.aij_seal_edition = cardTable.aij_seal_edition
 end
 '''
+
+# Card:add_to_deck()
+[[patches]]
+[patches.regex]
+target = 'card.lua'
+pattern = '(?<indent>[\t ]*)if self.ability.h_size ~= 0 then\n[\t ]*G\.hand:change_size\(self.ability.h_size\)'
+line_prepend = '$indent'
+position = 'before'
+payload = '''
+if self.ability.name == 'j_aij_joker_png' or self.ability.name == 'j_aij_czar' then
+    return
+end
+'''
+
+
+
+# Card:remove_from_deck()
+[[patches]]
+[patches.regex]
+target = 'card.lua'
+pattern = '(?<indent>[\t ]*)if self.ability.h_size ~= 0 then\n[\t ]*G\.hand:change_size\(-self.ability.h_size\)'
+line_prepend = '$indent'
+position = 'before'
+payload = '''
+if self.ability.name == 'j_aij_joker_png' or self.ability.name == 'j_aij_czar' then
+    return
+end
+'''
