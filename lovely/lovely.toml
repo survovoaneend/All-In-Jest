@@ -3830,10 +3830,13 @@ if G.GAME.aij_has_big_boss then
     if G.GAME.blind_on_deck == 'Boss' and G.GAME.round_resets.blind_states.Big_Boss and not (G.GAME.round_resets.blind_states.Big_Boss == 'Defeated' or G.GAME.round_resets.blind_states.Big_Boss == 'Skipped' or G.GAME.round_resets.blind_states.Big_Boss == 'Hide') then 
         G.GAME.blind_on_deck = 'Big_Boss' 
         G.GAME.round_resets.blind_states['Big_Boss'] = 'Current'
+        G.GAME.round_resets.blind_states['Boss'] = 'Upcoming'
         G.GAME.round_resets.loc_blind_states.Big_Boss = localize(G.GAME.round_resets.blind_states.Big_Boss or 'Upcoming','blind_states')
     end
     G.GAME.round_resets.blind_states['Big'] = 'Hide'
-    G.blind_select_opts.big_boss = UIBox{definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={UIBox_dyn_container({create_UIBox_blind_choice('Big_Boss')},false,get_blind_main_colour('Big_Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Big_Boss'), 0.8))}}, config = {align="bmi", offset = {x=0,y=0}}} or nil
+    if G.GAME.round_resets.blind_states['Big_Boss'] ~= 'Hide' then
+        G.blind_select_opts.big_boss = UIBox{definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={UIBox_dyn_container({create_UIBox_blind_choice('Big_Boss')},false,get_blind_main_colour('Big_Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Big_Boss'), 0.8))}}, config = {align="bmi", offset = {x=0,y=0}}} or nil
+    end
 else
     G.GAME.round_resets.blind_states['Big_Boss'] = 'Hide'
 end
@@ -3858,7 +3861,7 @@ target = "functions/UI_definitions.lua"
 pattern = '''G.GAME.round_resets.blind_states['Big'] ~= 'Hide' and {n=G.UIT.O, config={align = "cm", object = G.blind_select_opts.big}} or nil,'''
 position = "after"
 payload = '''
-G.GAME.aij_has_big_boss and {n=G.UIT.O, config={align = "cm", object = G.blind_select_opts.big_boss}} or nil,
+G.GAME.aij_has_big_boss and G.GAME.round_resets.blind_states['Big_Boss'] ~= 'Hide' and {n=G.UIT.O, config={align = "cm", object = G.blind_select_opts.big_boss}} or nil,
 '''
 match_indent = true
 
@@ -3871,6 +3874,9 @@ match_indent = true
 payload = '''
 G.GAME.round_resets.blind_choices.Big_Boss = get_new_boss()
 G.GAME.round_resets.blind_states.Big_Boss = 'Upcoming'
+if G.GAME.aij_has_big_boss then
+    G.GAME.round_resets.blind_states['Big'] = 'Hide'
+end
 '''
 
 [[patches]]
@@ -3894,7 +3900,7 @@ G.GAME.round_resets.blind_states['Boss'] ~= 'Hide' and {n=G.UIT.C, config={align
 position = "before"
 match_indent = true
 payload = '''
-G.GAME.aij_has_big_boss and {n=G.UIT.C, config={align = "tm", padding = 0.1, outline = 2, r = 0.1, line_emboss = 0.2, outline_colour = G.C.BLACK}, nodes={
+G.GAME.aij_has_big_boss and G.GAME.round_resets.blind_states['Big_Boss'] ~= 'Hide' and {n=G.UIT.C, config={align = "tm", padding = 0.1, outline = 2, r = 0.1, line_emboss = 0.2, outline_colour = G.C.BLACK}, nodes={
     create_UIBox_blind_choice('Big_Boss', true)
 }} or nil,
 '''
