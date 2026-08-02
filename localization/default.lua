@@ -10135,6 +10135,20 @@ return {
                 },
             },
             -- Stickers
+            aij_pc_eternal = {
+                name = "Eternal",
+                text = {
+                    'Cannot be {C:red}destroyed',
+                }
+            },
+            aij_pc_perishable = {
+                name = "Perishable",
+                text = {
+                    'Debuffed after',
+                    'scoring {C:attention}#1#{} times',
+                    '{C:inactive}({C:attention}#2#{} remaining{C:inactive}){}'
+                }
+            },
             aij_pc_rental = {
                 name = "Rental",
                 text = {
