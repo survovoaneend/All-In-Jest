@@ -2586,7 +2586,7 @@ pattern = '''elseif _type == 'Joker' then _pool[#_pool + 1] = "j_joker"'''
 position = "before"
 match_indent = true
 payload = '''
-elseif _type == 'Joker' and next(SMODS.find_card("j_aij_little_boy_blue")) then _pool[#_pool + 1] = "j_aij_simple_simon"
+elseif _type == 'Joker' and (next(SMODS.find_card("j_aij_little_boy_blue")) or G.GAME.modifiers["aij_no_mult_in_pool"]) then _pool[#_pool + 1] = "j_aij_simple_simon"
 '''
 
 
@@ -2703,6 +2703,31 @@ payload = '''
 if G.GAME.aij_exculde_vanilla_in_shop then
     for type_key, _ in pairs(G.GAME.aij_exculde_vanilla_in_shop) do
         if type_key == _type and v.mod then
+            add = nil
+        end
+    end
+end
+if G.GAME.modifiers["aij_no_mult_in_pool"] then
+    if v.set == 'Planet' then
+        if not All_in_Jest.config.moons_enabled then
+            add = nil
+        elseif not v.config.chips then
+            add = nil
+        end
+    end
+    if _type == 'Joker' then
+        if v.attributes then
+            if not All_in_Jest.config.moons_enabled and v.attributes.planet then
+                add = nil
+            end
+            if v.attributes.mult or v.attributes.xmult or v.attributes.chaotic then
+                add = nil
+            end
+        end
+        
+    end
+    if _type == "Edition" then
+        if v.key == "e_holo" or v.key == "e_polychrome" or v.key == "e_aij_stellar" then
             add = nil
         end
     end

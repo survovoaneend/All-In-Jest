@@ -146,6 +146,7 @@ return {
             c_aij_bananarama = "Bananarama",
             c_aij_sharpest_tool = "Sharpest Tool",
             c_aij_the_pit = "The Pit",
+            c_aij_mircotransactions = "Mircotransactions",
         },
         v_text = {
             -- Challenges
@@ -157,6 +158,9 @@ return {
             },
             ch_c_aij_all_pit_blinds = {
                 'All regular boss blinds after Ante 1 are {C:attention}Pit Blinds{}'
+            },
+            ch_c_aij_no_mult_in_pool = {
+                'These Jokers are your {C:attention}only{} source of {C:mult}Mult'
             },
         },
         extra_joker_dictionary = {
@@ -6610,6 +6614,26 @@ return {
                     '{C:attention}discarded{} poker hand'
                 }
             },
+            j_aij_tortilla_chips = {
+                name = "Tortilla Chips",
+                text = {
+                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                    'when a card is enhanced to',
+                    '{C:attention}Bonus{}, loses {X:mult,C:white}X#2#{} Mult when',
+                    'hands {C:chips}Chips{} exceeds {C:mult}Mult',
+                    '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                }
+            },
+            j_aij_liquorice = {
+                name = "Liquorice",
+                text = {
+                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                    'when a card is enhanced to',
+                    '{C:attention}Mult{}, loses {X:mult,C:white}X#2#{} Mult when',
+                    'hands {C:mult}Mult{} exceeds {C:chips}Chips',
+                    '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                }
+            },
             j_aij_haggler = {
                 name = "Haggler",
                 text = {
@@ -6946,6 +6970,15 @@ return {
                 text = {
                     '{C:attention}Booster Packs{} are {C:attention}#1#%',
                     'less expensive'
+                }
+            },
+            j_aij_farceur = {
+                name = "Farceur",
+                text = {
+                    '{B:1,C:white,s:0.8}Activated Ability',
+                    'Pay {C:money}$#1#{} to grant',
+                    'this Joker {X:mult,C:white}X#3#{} Mult',
+                    '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult){}'
                 }
             },
             j_aij_dirty_deed = {
