@@ -20,6 +20,7 @@ local tarnished_tile = {
         if temp then
             return
         end
+        G.hand:change_size(G.hand.config.card_limit)
         G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) + G.hand.config.card_limit
         G.GAME.blind.triggered = true
     end,
