@@ -1219,6 +1219,15 @@ function Game:update(dt)
             end
         end
     end
+    if G.GAME.round_resets.blind_tags then
+        for k, v in pairs(G.GAME.round_resets.blind_tags) do
+            if G.GAME.all_in_jest.blind_tags[k] and G.GAME.all_in_jest.blind_tags[k][1] then
+                if G.GAME.round_resets.blind_tags[k] ~= G.GAME.all_in_jest.blind_tags[k][1] then
+                    G.GAME.round_resets.blind_tags[k] = G.GAME.all_in_jest.blind_tags[k][1]
+                end
+            end
+        end
+    end
     return ref
 end
 

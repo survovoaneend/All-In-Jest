@@ -45,6 +45,7 @@ local funny_phone = {
                         scalar_value = "chip_gain",
                         no_message = true
                     })
+                    save_run()
                 end
             }
         end

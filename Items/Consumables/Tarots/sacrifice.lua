@@ -22,8 +22,7 @@ local sacrifice = {
         end
     end,
 	use = function(self, card)
-        local destroy_card = G.hand.highlighted[1]
-        SMODS.destroy_cards(destroy_card, nil, true)
+        SMODS.destroy_cards(G.hand.highlighted, nil, true)
         G.E_MANAGER:add_event(Event({
             func = function()
                 local front = pseudorandom_element(G.P_CARDS, pseudoseed('sacrifice'))
