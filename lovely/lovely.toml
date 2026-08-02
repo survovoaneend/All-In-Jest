@@ -2748,7 +2748,7 @@ if G.GAME.modifiers["aij_no_mult_in_pool"] then
             if not All_in_Jest.config.moons_enabled and v.attributes.planet then
                 add = nil
             end
-            if v.attributes.mult or v.attributes.xmult or v.attributes.chaotic then
+            if v.attributes.mult or v.attributes.xmult or v.attributes.chaotic or v.attributes.hand_level then
                 add = nil
             end
         end
