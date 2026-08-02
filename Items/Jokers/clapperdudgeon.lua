@@ -11,6 +11,7 @@ local clapperdudgeon = {
     },
     attributes = { 'xmult' },
     rarity = 2,
+    lite = true,
     pos = { x = 23, y = 27 },
     atlas = 'joker_atlas',
     cost = 6,

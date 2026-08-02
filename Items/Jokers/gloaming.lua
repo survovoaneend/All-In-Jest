@@ -10,6 +10,7 @@ local gloaming = {
     },
     attributes = { 'xmult', 'hands' },
     rarity = 3,
+    lite = true,
     pos = { x = 18, y = 27 },
     atlas = 'joker_atlas',
     cost = 8,

@@ -10,6 +10,7 @@ local crab_in_a_bucket = {
     },
     attributes = { 'chips' },
     rarity = 1,
+    lite = true,
     pos = { x = 10, y = 20 },
     atlas = 'joker_atlas',
     cost = 4,

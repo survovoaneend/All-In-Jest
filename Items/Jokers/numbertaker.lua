@@ -8,10 +8,10 @@ local numbertaker = {
         }
     },
     attributes = { 'modify_card', 'rank', 'mult', 'scaling' },
-    rarity = 2,
+    rarity = 3,
     pos = { x = 2, y = 25 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 8,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

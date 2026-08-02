@@ -16,6 +16,7 @@ local scrunched_joker = {
     pos = { x = 11, y = 24 },
     atlas = 'joker_atlas',
     cost = 4,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

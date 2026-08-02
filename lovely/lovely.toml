@@ -2569,25 +2569,6 @@ payload = '''
 if G.GAME.shop_galloping_dominoed then skip_increment = true; G.GAME.round_resets.temp_reroll_cost = G.GAME.shop_galloping_dominoed end
 '''
 
-# Give consumables editions if Bartender is owned
-# create_card()
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "if card.ability.consumeable and not skip_materialize then card:start_materialize() end"
-position = "after"
-match_indent = true
-payload = '''
-if card.ability.consumeable and next(SMODS.find_card("j_aij_bartender")) then
-    if not SMODS.bypass_create_card_edition and not card.edition then
-        local edition = poll_edition('aura', nil, true)
-        if edition then
-            card:set_edition(edition)
-        end
-    end
-end
-'''
-
 # Make Infuriating Note negative in the shop and packs if Infuriating Note is owned
 # create_card()
 [[patches]]

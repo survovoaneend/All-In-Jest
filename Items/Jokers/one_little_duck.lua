@@ -15,6 +15,7 @@ local one_little_duck = {
     atlas = 'joker_atlas',
     cost = 5,
     unlocked = true,
+    lite = true,
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,

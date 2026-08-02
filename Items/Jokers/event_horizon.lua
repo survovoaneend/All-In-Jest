@@ -11,6 +11,7 @@ local event_horizon = {
     },
     attributes = { 'xmult', 'scaling', 'reset', 'hand_level' },
     rarity = 3,
+    lite = true,
     pos = { x = 13, y = 6},
     atlas = 'joker_atlas',
     cost = 8,

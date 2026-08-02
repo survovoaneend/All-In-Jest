@@ -13,6 +13,7 @@ local dot_matrix = {
     pos = { x = 20, y = 30},
     atlas = 'joker_atlas',
     cost = 4,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

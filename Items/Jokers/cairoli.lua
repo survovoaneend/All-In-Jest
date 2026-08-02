@@ -10,6 +10,7 @@ local cairoli = {
     },
     attributes = { 'xmult', 'scaling', 'booster', 'skip' },
     rarity = 4,
+    lite = true,
     pos = { x = 2, y = 14 },
     atlas = 'legendary_atlas',
     cost = 20,

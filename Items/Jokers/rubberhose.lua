@@ -13,6 +13,7 @@ local rubberhose = {
     pos = { x = 19, y = 20 },
     atlas = 'joker_atlas',
     cost = 5,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

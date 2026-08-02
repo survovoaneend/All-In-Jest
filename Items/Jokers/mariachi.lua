@@ -13,6 +13,7 @@ local mariachi = {
     pos = { x = 24, y = 29},
     atlas = 'joker_atlas',
     cost = 4,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

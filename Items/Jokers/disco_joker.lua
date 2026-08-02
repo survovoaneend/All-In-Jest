@@ -11,6 +11,7 @@ local disco_joker = {
     rarity = 2,
     pos = { x = 6, y = 26 },
     atlas = 'joker_atlas',
+    lite = true,
     cost = 6,
     unlocked = true,
     discovered = false,
