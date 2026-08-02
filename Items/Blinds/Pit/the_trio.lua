@@ -12,7 +12,6 @@ local the_trio = {
     end,
     mult = 2,
     boss_colour = HEX("d3b994"),
-    ignore = true,
     atlas = 'blinds_pit',
     pos = {y = 23},
     order = 524,

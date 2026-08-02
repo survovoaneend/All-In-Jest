@@ -1,19 +1,19 @@
-local liquorice = {
+local scroggin = {
     object_type = "Joker",
-    order = 602,
-    key = "liquorice",
+    order = 603,
+    key = "scroggin",
   
     config = {
         extra = {
-            xmult_minus_mod = 0.1,
-            xmult_mod = 0.25,
-            xmult = 0.2,
-            enhancement = 'm_mult'
+            xmult_minus_mod = 0.25,
+            xmult_mod = 0.5,
+            xmult = 0.25,
+            enhancement = 'm_wild'
         }
     },
     attributes = { 'xmult', 'scaling', 'enhancements', 'food' },
     rarity = 3,
-    pos = { x = 21, y = 34 },
+    pos = { x = 16, y = 28 },
     atlas = 'joker_atlas',
     cost = 8,
     unlocked = true,
@@ -49,8 +49,8 @@ local liquorice = {
                 })
             end
         end
-        if context.final_scoring_step and context.cardarea == G.jokers and not context.blueprint then
-            if mult > hand_chips then
+        if context.before and not context.blueprint then
+            if context.poker_hands and next(context.poker_hands['Flush']) then
                 if ((1+card.ability.extra.xmult) - card.ability.extra.xmult_minus_mod) <= 1 then
                     SMODS.destroy_cards(card, nil, nil, true)
                     return {
@@ -76,4 +76,4 @@ local liquorice = {
 }
 
 
-return { name = { "Jokers" }, items = { liquorice } }
+return { name = { "Jokers" }, items = { scroggin } }

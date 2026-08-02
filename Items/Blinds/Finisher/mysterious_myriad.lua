@@ -10,7 +10,6 @@ local mysterious_myriad = {
     end,
     mult = 2,
     boss_colour = HEX("9e74a4"),
-    ignore = true,
     atlas = 'blinds_final',
     pos = { y = 15},
     order = 1016,

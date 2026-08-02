@@ -14,7 +14,6 @@ local full_plate = {
             end
         end
     end,
-    ignore = true,
     rules = {
         custom = {
             {id = 'aij_all_jokers_is_food'},

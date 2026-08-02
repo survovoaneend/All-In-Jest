@@ -9,7 +9,6 @@ local the_oil = {
     boss_colour = HEX("b3986a"),
     atlas = 'blinds',
     pos = { X = 0, y = 86},
-    ignore = true,
     order = 86,
     dollars = 5,
 

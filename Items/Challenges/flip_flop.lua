@@ -6,7 +6,6 @@ local flip_flop = {
             return true 
         end
     end,
-    ignore = true,
     rules = {
         custom = {
             {id = 'aij_money_times_negative'},

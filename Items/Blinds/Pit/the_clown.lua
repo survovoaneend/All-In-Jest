@@ -12,7 +12,6 @@ local the_clown = {
     end,
     mult = 2,
     boss_colour = HEX("e8dede"),
-    ignore = true,
     atlas = 'blinds_pit',
     pos = {y = 19},
     order = 520,

@@ -9,7 +9,6 @@ local the_worm = {
     boss_colour = HEX("ba99be"),
     atlas = 'blinds',
     pos = { X = 0, y = 72},
-    ignore = true,
     order = 73,
     dollars = 5,
 

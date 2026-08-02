@@ -9,7 +9,6 @@ local the_fig = {
     boss_colour = HEX("95718b"),
     atlas = 'blinds',
     pos = { X = 0, y = 82},
-    ignore = true,
     order = 82,
     dollars = 5,
 

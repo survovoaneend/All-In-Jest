@@ -37,6 +37,7 @@ local czar = {
     pos = { x = 14, y = 14},
     atlas = 'joker_atlas',
     cost = 6,
+    ignore = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true, -- uses ability.aij_blueprint_compat

@@ -8,7 +8,6 @@ local four_leaf_clover = {
     attributes = { 'full_deck', 'shop_slot', 'four' },
     rarity = 2,
     pos = { x = 14, y = 10},
-    ignore = true,
     atlas = 'joker_atlas',
     cost = 6,
     unlocked = true,

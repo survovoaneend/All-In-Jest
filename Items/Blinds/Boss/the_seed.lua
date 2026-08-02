@@ -9,7 +9,6 @@ local the_seed = {
     boss_colour = HEX("d4ccbc"),
     atlas = 'blinds',
     pos = { X = 0, y = 85},
-    ignore = true,
     order = 85,
     dollars = 5,
 

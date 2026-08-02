@@ -16,7 +16,6 @@ local tortilla_chips = {
     pos = { x = 19, y = 34 },
     atlas = 'joker_atlas',
     cost = 8,
-    ignore = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

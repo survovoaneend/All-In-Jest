@@ -11,7 +11,6 @@ local golden_string = {
     mult = 2,
     boss_colour = HEX("efb855"),
     atlas = 'blinds_final',
-    ignore = true,
     pos = { y = 11},
     order = 1012,
     dollars = 8,

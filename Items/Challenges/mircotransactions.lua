@@ -6,7 +6,6 @@ local mircotransactions = {
             return true 
         end
     end,
-    ignore = true,
     jokers = { 
         { id = 'j_aij_gopnik' },
         { id = 'j_aij_farceur' },
@@ -18,7 +17,7 @@ local mircotransactions = {
     },
     restrictions = {
         banned_cards = {
-            -- { id = 'j_aij_glass_delusion' },
+            { id = 'j_aij_glass_delusion' },
             { id = 'j_aij_gameshow' },
             { id = 'j_aij_cctv' },
             { id = 'j_aij_stained_glass_joker' },

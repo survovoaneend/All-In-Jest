@@ -55,7 +55,7 @@ return {
             aij_lite_tooltip = {
                 'Enables only a hand-picked selection',
                 'of the most {C:attention}vanilla-adjacent{} content',
-                '{s:0.8,C:inactive}(Currently 110 things)'
+                '{s:0.8,C:inactive}(Currently 76 things)'
 
             },
             aij_red_destroy_text = "Modify Joker Descriptions",
@@ -4212,9 +4212,9 @@ return {
             j_aij_bartender = {
                 name = "Bartender",
                 text = {
-                    "Apply {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
-                    "{C:dark_edition}Polychrome{} to a random held ",
-                    "{C:attention}consumable when leaving the {C:attention}Shop"
+                    "{C:attention}Consumable{} cards may be",
+                    "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
+                    "{C:dark_edition}Polychrome"
                 }
             },
             j_aij_mahoney = {
@@ -4843,10 +4843,9 @@ return {
             j_aij_skinsuit = {
                 name = "Skinsuit",
                 text = {
-                    "If {C:attention}first hand{} of round is",
-                    "exactly {C:attention}one{} card, {C:red}destroy{} it and",
-                    "patch its {C:attention}suit{} to a random card",
-                    "held in hand"
+                    "When a card is {C:red}destroyed{},",
+                    "patch its {C:attention}suit{} onto a {C:attention}random",
+                    "{C:attention}card{} held in hand"
                 }
             },
             j_aij_shock_humor = { name = "Shock Humor", text = { "" } },
@@ -6527,7 +6526,7 @@ return {
                 name = "Diamantaire",
                 text = {
                     'If hand is a single {C:diamonds}Diamond{},',
-                    'enhance it to a {C:attention}Gold Card{}',
+                    'make it a {C:attention}Gold Card{}',
                     'and earn {C:money}$#1#'
                 }
             },
@@ -6654,6 +6653,16 @@ return {
                     'when a card is enhanced to',
                     '{C:attention}Mult{}, loses {X:mult,C:white}X#2#{} Mult when',
                     'hands {C:mult}Mult{} exceeds {C:chips}Chips',
+                    '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                }
+            },
+            j_aij_scroggin = {
+                name = "Scroggin",
+                text = {
+                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                    'when a card is enhanced to',
+                    '{C:attention}Wild{}, loses {X:mult,C:white}X#2#{} Mult when',
+                    'hand contains a {C:attention}Flush',
                     '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
                 }
             },

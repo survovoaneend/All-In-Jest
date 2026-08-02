@@ -21,7 +21,6 @@ local the_silence = {
     },
     mult = 2,
     boss_colour = HEX("5a537e"),
-    ignore = true,
     atlas = 'blinds',
     pos = { X = 0, y = 73},
     order = 74,

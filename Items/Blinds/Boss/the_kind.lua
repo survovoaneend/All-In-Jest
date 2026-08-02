@@ -9,7 +9,6 @@ local the_kind = {
     boss_colour = HEX("de7559"),
     atlas = 'blinds',
     pos = { X = 0, y = 52},
-    ignore = true,
     order = 53,
     dollars = 5,
 
