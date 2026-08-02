@@ -4186,9 +4186,9 @@ return {
             j_aij_bartender = {
                 name = "Bartender",
                 text = {
-                    "{C:attention}Consumable{} cards may be",
-                    "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
-                    "{C:dark_edition}Polychrome"
+                    "Apply {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
+                    "{C:dark_edition}Polychrome{} to a random held ",
+                    "{C:attention}consumable when leaving the {C:attention}Shop"
                 }
             },
             j_aij_mahoney = {
@@ -4817,9 +4817,10 @@ return {
             j_aij_skinsuit = {
                 name = "Skinsuit",
                 text = {
-                    "When a card is {C:red}destroyed{},",
-                    "patch its {C:attention}suit{} onto a {C:attention}random",
-                    "{C:attention}card{} held in hand"
+                    "If {C:attention}first hand{} of round is",
+                    "exactly {C:attention}one{} card, {C:red}destroy{} it and",
+                    "patch its {C:attention}suit{} to a random card",
+                    "held in hand"
                 }
             },
             j_aij_shock_humor = { name = "Shock Humor", text = { "" } },
@@ -6500,7 +6501,7 @@ return {
                 name = "Diamantaire",
                 text = {
                     'If hand is a single {C:diamonds}Diamond{},',
-                    'make it a {C:attention}Gold Card{}',
+                    'enhance it to a {C:attention}Gold Card{}',
                     'and earn {C:money}$#1#'
                 }
             },
