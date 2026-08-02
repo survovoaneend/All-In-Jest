@@ -1632,7 +1632,7 @@ G.GAME.aij_big_boss_avoid = true
 if G.GAME.blind_on_deck == 'Big_Boss' then
     G.GAME.aij_temp_big_boss = true
 end
-if G.GAME.blind.boss then
+if G.GAME.blind.boss and not G.GAME.aij_big_boss_reset_ante then
     for k, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_ante) do
         G.GAME.all_in_jest.advanced_hand_usage_ante[k] = nil
     end
@@ -3827,7 +3827,11 @@ pattern = "G.blind_select_opts = {}"
 position = "after"
 payload = '''
 if G.GAME.aij_has_big_boss then
-    if G.GAME.blind_on_deck == 'Big' then G.GAME.blind_on_deck = 'Big_Boss' end
+    if G.GAME.blind_on_deck == 'Boss' and G.GAME.round_resets.blind_states.Big_Boss and not (G.GAME.round_resets.blind_states.Big_Boss == 'Defeated' or G.GAME.round_resets.blind_states.Big_Boss == 'Skipped' or G.GAME.round_resets.blind_states.Big_Boss == 'Hide') then 
+        G.GAME.blind_on_deck = 'Big_Boss' 
+        G.GAME.round_resets.blind_states['Big_Boss'] = 'Current'
+        G.GAME.round_resets.loc_blind_states.Big_Boss = localize(G.GAME.round_resets.blind_states.Big_Boss or 'Upcoming','blind_states')
+    end
     G.GAME.round_resets.blind_states['Big'] = 'Hide'
     G.blind_select_opts.big_boss = UIBox{definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={UIBox_dyn_container({create_UIBox_blind_choice('Big_Boss')},false,get_blind_main_colour('Big_Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Big_Boss'), 0.8))}}, config = {align="bmi", offset = {x=0,y=0}}} or nil
 else

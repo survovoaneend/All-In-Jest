@@ -27,6 +27,10 @@ if context.end_of_round and not context.repetition and not context.individual th
 end
 if context.ante_end and G.GAME.aij_big_boss_reset_ante then
     G.GAME.aij_has_big_boss = nil
+    G.GAME.aij_big_boss_reset_ante = nil
+    for k, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_ante) do
+        G.GAME.all_in_jest.advanced_hand_usage_ante[k] = nil
+    end
 end
 if card.ability.numbertaker_rankless and card.base.nominal > 0 then card.base.nominal = 1 end
 if context.ending_booster and G.GAME.all_in_jest.dizzard_shop and G.shop.alignment.offset.y ~= -5.3 then
