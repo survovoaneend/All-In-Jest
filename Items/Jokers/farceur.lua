@@ -15,7 +15,6 @@ local farceur = {
     pos = { x = 24, y = 33},
     atlas = 'joker_atlas',
     cost = 8,
-    ignore = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

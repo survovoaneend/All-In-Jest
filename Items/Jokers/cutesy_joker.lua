@@ -8,11 +8,10 @@ local cutesy_joker = {
         }
     },
     attributes = { 'mod_chance', 'consumable' },
-    rarity = 3,
-    ignore = true,
+    rarity = 1,
     pos = { x = 23, y = 26 },
     atlas = 'joker_atlas',
-    cost = 8,
+    cost = 5,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

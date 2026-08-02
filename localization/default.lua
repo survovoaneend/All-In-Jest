@@ -6921,8 +6921,8 @@ return {
             j_aij_vexed = {
                 name = "Vexed",
                 text = {
-                    '{C:money}Sold{} Jokers have a {C:attention}#1#%{}',
-                    'chance to reappear',
+                    '{C:money}Sold{} Jokers have a fixed',
+                    '{C:attention}#1#%{} chance to reappear',
                     '{C:attention}immediately'
                 }
             },
