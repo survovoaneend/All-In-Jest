@@ -1280,6 +1280,21 @@ end
 '''
 match_indent = true
 
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = '_top_button.children[1].config.colour = G.C.WHITE'
+position = "after"
+payload = '''
+if (e.config.id == "Small" or e.config.id == "Big") and G.GAME.modifiers["aij_pandemonium_1"] then
+    _top_button.config.colour = G.C.UI.BACKGROUND_INACTIVE
+    _top_button.config.button = nil
+    _top_button.config.hover = false
+    _top_button.children[1].config.colour = G.C.UI.TEXT_INACTIVE
+end
+'''
+match_indent = true
+
 # Branching Deck (4/9)
 # Creates the popup of the selected tag when overing over the button
 # Popup when hovering over the tag itself is handled seperately in the G.FUNCS.aij_hover_tag_branching() function (in functions.lua)
@@ -2216,6 +2231,9 @@ if #_gold_pool == #_pool and #_gold_pool ~= 1 then
         end
     end
 end
+if G.GAME.modifiers["aij_pandemonium_1"] then
+    _tag = 'tag_aij_chaos'
+end
 if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
     if Tag(_tag).config.aij and Tag(_tag).config.aij.upgrade then -- True if it is a gold tag
         local gt = 1
@@ -2224,6 +2242,9 @@ if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
             if not (pseudorandom('gold_tag_rate') < (1 * G.GAME.all_in_jest.gold_tag_rate) / 30) then
                 gt = gt + 1
                 _tag = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample_gold'..gt))
+                if G.GAME.modifiers["aij_pandemonium_1"] then
+                    _tag = 'tag_aij_anarchy'
+                end
             else
                 gold = true
             end
@@ -2231,10 +2252,16 @@ if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
     else
         if pseudorandom('gold_tag_rate') < (1 * G.GAME.all_in_jest.gold_tag_rate) / 30 then
             _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
+            if G.GAME.modifiers["aij_pandemonium_1"] then
+                _tag = 'tag_aij_anarchy'
+            end
         end
     end
     if append and (append == 'all_in_jest_guarrented_gold_tag' or append == 'aij_no_blind_dupes_guarrented_gold_tag') then
         _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
+        if G.GAME.modifiers["aij_pandemonium_1"] then
+            _tag = 'tag_aij_anarchy'
+        end
     end
 end
 '''
@@ -2586,6 +2613,7 @@ pattern = '''elseif _type == 'Joker' then _pool[#_pool + 1] = "j_joker"'''
 position = "before"
 match_indent = true
 payload = '''
+elseif _type == 'Joker' and G.GAME.modifiers["aij_all_jokers_is_food"] then _pool[#_pool + 1] = "j_egg"
 elseif _type == 'Joker' and (next(SMODS.find_card("j_aij_little_boy_blue")) or G.GAME.modifiers["aij_no_mult_in_pool"]) then _pool[#_pool + 1] = "j_aij_simple_simon"
 '''
 
@@ -2730,6 +2758,11 @@ if G.GAME.modifiers["aij_no_mult_in_pool"] then
         if v.key == "e_holo" or v.key == "e_polychrome" or v.key == "e_aij_stellar" then
             add = nil
         end
+    end
+end
+if G.GAME.modifiers["aij_all_jokers_is_food"] and _type == 'Joker' then
+    if not v.attributes or (v.attributes and not v.attributes.food) then
+        add = nil
     end
 end
 '''
@@ -5366,6 +5399,21 @@ if _type == 'Enhanced' and G.GAME.selected_back.name == "b_aij_melded" and pseud
     All_in_Jest.set_other_enhancement(card, other_center)
 end
 -- End of All in Jest patch
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+if G.GAME.modifiers.all_eternal then
+'''
+position = "before"
+match_indent = true
+payload = '''
+if G.GAME.modifiers["aij_all_jokers_perishable_1"] then
+    card.ability.perishable = true
+    card.ability.perish_tally = G.GAME.perishable_rounds
+end
 '''
 
 # Add image_data to vanilla atlases

@@ -147,6 +147,10 @@ return {
             c_aij_sharpest_tool = "Sharpest Tool",
             c_aij_the_pit = "The Pit",
             c_aij_mircotransactions = "Mircotransactions",
+            c_aij_micromanagement = "Micromanagement",
+            c_aij_flip_flop = "Flip Flop",
+            c_aij_full_plate = "Full Plate",
+            c_aij_pandemonium = "Pandemonium",
         },
         v_text = {
             -- Challenges
@@ -161,6 +165,24 @@ return {
             },
             ch_c_aij_no_mult_in_pool = {
                 'These Jokers are your {C:attention}only{} source of {C:mult}Mult'
+            },
+            ch_c_aij_all_jokers_perishable_1 = {
+                'All Jokers are {C:attention}Perishable'
+            },
+            ch_c_aij_all_jokers_perishable_2 = {
+                '{C:attention}Perishable{} Cooldown reduced to {C:attention}2{} Rounds'
+            },
+            ch_c_aij_money_times_negative = {
+                '{C:attention}Multiply{} money by {C:red}-1{} at end of round'
+            },
+            ch_c_aij_all_jokers_is_food = {
+                'Only {C:attention}food{} Jokers can appear'
+            },
+            ch_c_aij_pandemonium_1 = {
+                'All Skip Tags are {C:attention}Chaos{} Tags'
+            },
+            ch_c_aij_pandemonium_2 = {
+                'Small and Big Blind cannot be {C:attention}selected'
             },
         },
         extra_joker_dictionary = {
