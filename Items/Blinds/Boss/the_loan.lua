@@ -9,7 +9,6 @@ local the_loan = {
     boss_colour = HEX("e8a94f"),
     atlas = 'blinds',
     pos = { X = 0, y = 70},
-    ignore = true,
     order = 71,
     dollars = 5,
 

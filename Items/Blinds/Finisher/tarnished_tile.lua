@@ -10,7 +10,6 @@ local tarnished_tile = {
     end,
     mult = 2,
     boss_colour = HEX("f28a3c"),
-    ignore = true,
     atlas = 'blinds_final',
     pos = { y = 14},
     order = 1015,

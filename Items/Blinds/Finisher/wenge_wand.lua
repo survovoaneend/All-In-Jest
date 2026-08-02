@@ -12,7 +12,6 @@ local wenge_wand = {
     boss_colour = HEX("645452"),
     atlas = 'blinds_final',
     pos = { y = 3},
-    ignore = true,
     order = 1004,
     dollars = 8,
     -- Doesn't do anything yet

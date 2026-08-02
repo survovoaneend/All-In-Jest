@@ -9,7 +9,6 @@ local the_man = {
     boss_colour = HEX("95a0a9"),
     atlas = 'blinds',
     pos = { X = 0, y = 64},
-    ignore = true,
     order = 65,
     dollars = 5,
 

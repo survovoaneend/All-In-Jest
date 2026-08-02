@@ -10,7 +10,6 @@ local wooden_wheel = {
     end,
     mult = 2,
     boss_colour = HEX("9f7b60"),
-    ignore = true,
     atlas = 'blinds_final',
     pos = { y = 22},
     order = 1023,
