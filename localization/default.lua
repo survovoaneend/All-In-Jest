@@ -8902,9 +8902,10 @@ return {
             c_aij_palmistry = {
                 name = 'Palmistry',
                 text = {
-                    'Gives all cards',
-                    'in hand a random',
-                    '{C:attention}enhancement{},',
+                    '{C:attention}Draw{} additional cards equal',
+                    'to your handsize, then apply',
+                    'a random {C:attention}enhancement{} to all',
+                    'cards {C:attention}held in hand',
                     '{C:red}-#1#{} hand size'
                 }
             },

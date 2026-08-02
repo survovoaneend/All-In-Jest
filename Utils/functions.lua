@@ -2871,12 +2871,15 @@ function All_in_Jest.set_other_enhancement(card, enhancement)
         return
     end
     SMODS.aij_applying_thing = true
+    local old_center_key = card.config.aij_other_center and card.config.aij_other_center['center'].key or 'c_base'
     card.config.aij_other_center = {}
     card.config.aij_other_center['center'] = G.P_CENTERS[enhancement]
     local old_center = card.config.center
+    card.aij_setting_other_enhancement = old_center_key
     card:set_ability(G.P_CENTERS[enhancement])
     card.config.aij_other_center['ability'] = copy_table(card.ability)
     card.config.aij_other_center['ability'].extra_enhancement = enhancement
+    card.aij_setting_other_enhancement_back = true
     card:set_ability(old_center)
     -- if not card.ability.aij_other_center or not card.ability.aij_other_center['ability'] then
     --     card.ability.aij_other_center = card.ability.aij_other_center or {}

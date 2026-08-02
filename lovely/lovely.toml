@@ -769,6 +769,28 @@ end
 '''
 match_indent = true
 
+[[patches]] 
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = "set_ability(self, center, initial, delay_sprites)"
+position = "after"
+payload = '''
+if self.aij_setting_other_enhancement_back then
+    self.aij_setting_other_enhancement_back = nil
+    self.front_hidden = self:should_hide_front()
+    return
+end
+if self.aij_setting_other_enhancement then
+    if not initial and (G.STATE ~= G.STATES.SMODS_BOOSTER_OPENED and G.STATE ~= G.STATES.SHOP and not G.SETTINGS.paused or G.TAROT_INTERRUPT) then
+		SMODS.calculate_context({setting_ability = true, old = self.aij_setting_other_enhancement, new = self.config.center_key, other_card = self, unchanged = self.aij_setting_other_enhancement == self.config.center.key})
+	end
+    self.aij_setting_other_enhancement = nil
+    self.front_hidden = self:should_hide_front()
+    return
+end
+'''
+match_indent = true
+
 # Ice Cards (4/4) + Marked Cards (1/3)
 # Make play button active regardless of if ice cards exceed limit
 # Make play button disabled if any selected card is marked
@@ -2735,7 +2757,9 @@ if card and card.aij_inherent_effects then
                     t.is_inherent_enhancement = true
                     t.enhancement_key = enhancement_key
                     t.specific_vars = t.specific_vars or {}
-                    t.specific_vars.bonus_chips = _v.ability.bonus
+                    if _v.ability.bonus > 0 then
+                        t.specific_vars.bonus_chips = _v.ability.bonus
+                    end
                     info_queue[#info_queue + 1] = t
                 end
             elseif k == 'editions' then
@@ -5488,5 +5512,33 @@ match_indent = true
 payload = '''
 if cardTable.aij_seal_edition then
     self.aij_seal_edition = cardTable.aij_seal_edition
+end
+'''
+
+# Card:add_to_deck()
+[[patches]]
+[patches.regex]
+target = 'card.lua'
+pattern = '(?<indent>[\t ]*)if self.ability.h_size ~= 0 then\n[\t ]*G\.hand:change_size\(self.ability.h_size\)'
+line_prepend = '$indent'
+position = 'before'
+payload = '''
+if self.ability.name == 'j_aij_joker_png' or self.ability.name == 'j_aij_czar' then
+    return
+end
+'''
+
+
+
+# Card:remove_from_deck()
+[[patches]]
+[patches.regex]
+target = 'card.lua'
+pattern = '(?<indent>[\t ]*)if self.ability.h_size ~= 0 then\n[\t ]*G\.hand:change_size\(-self.ability.h_size\)'
+line_prepend = '$indent'
+position = 'before'
+payload = '''
+if self.ability.name == 'j_aij_joker_png' or self.ability.name == 'j_aij_czar' then
+    return
 end
 '''
