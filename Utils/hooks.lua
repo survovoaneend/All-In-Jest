@@ -260,6 +260,21 @@ function SMODS.always_scores(card)
     return always_scores_ref(card)
 end
 
+local is_face_ref = Card.is_face
+function Card:is_face(from_boss)
+    if G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_aij_the_real' and not G.GAME.blind.disabled then
+        if self.debuff and not from_boss then return end
+        local id = self:get_id()
+        local rank = SMODS.Ranks[self.base.value]
+        if not id then return end
+        if (id > 0 and rank and rank.face) then
+            return true
+        end
+        return
+    end
+    return is_face_ref(self, from_boss)
+end
+
 local has_no_suit_ref = SMODS.has_no_suit
 function SMODS.has_no_suit(card)
     if SMODS.has_any_suit(card) then return false end
@@ -1042,6 +1057,7 @@ function SMODS.upgrade_poker_hands(args)
             level_up = args.level_up,
             instant = true,
             from = nil,
+            aij_level_with = true, -- Removes context call
         }
         aij_SMODS_upgrade_poker_hands_ref(new_args)
     end

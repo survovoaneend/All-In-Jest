@@ -50,6 +50,20 @@ payload = '''
 SMODS.calculate_context({aij_retriggered_card = true, card = effect_card, ret = ret, times = eval.repetitions})
 '''
 
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'after'
+pattern = '''
+local context = {card = args.from, poker_hand_changed = true}
+'''
+payload = '''
+if args.aij_level_with then
+    context.poker_hand_changed = nil
+end
+'''
+
 # Eye Seal, For end of round scoring
 [[patches]]
 [patches.pattern]
