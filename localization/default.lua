@@ -146,7 +146,7 @@ return {
             c_aij_bananarama = "Bananarama",
             c_aij_sharpest_tool = "Sharpest Tool",
             c_aij_the_pit = "The Pit",
-            c_aij_mircotransactions = "Mircotransactions",
+            c_aij_mircotransactions = "Microtransactions",
             c_aij_micromanagement = "Micromanagement",
             c_aij_flip_flop = "Flip Flop",
             c_aij_full_plate = "Full Plate",

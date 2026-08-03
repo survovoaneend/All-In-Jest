@@ -11,6 +11,9 @@ local mircotransactions = {
         { id = 'j_aij_farceur' },
     },
     rules = {
+        modifiers = {
+            { id = 'dollars',  value = 15 },
+        },
         custom = {
             {id = 'aij_no_mult_in_pool'},
         },
