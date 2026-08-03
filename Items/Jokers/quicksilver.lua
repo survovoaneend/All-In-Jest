@@ -1,6 +1,6 @@
 local quicksilver = {
     object_type = "Joker",
-    order = 564,
+    order = 562.1,
     key = "quicksilver",
     
     config = {

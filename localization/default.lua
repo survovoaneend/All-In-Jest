@@ -6477,6 +6477,49 @@ return {
                     'retrigger all scoring cards{}',
                 }
             },
+            j_aij_silver = {
+                name = "Silver",
+                text = {
+                    'If played hand is {C:attention}Full House{},',
+                    'retrigger all scoring cards{}',
+                }
+            },
+            j_aij_lead = {
+                name = "Lead",
+                text = {
+                    'If played hand is {C:attention}Straight{},',
+                    'retrigger all scoring cards{}',
+                }
+            },
+            j_aij_iron = {
+                name = "Iron",
+                text = {
+                    'If played hand is {C:attention}Four of a Kind{},',
+                    'retrigger all scoring cards{}',
+                }
+            },
+            j_aij_unobtanium = {
+                name = "Unobtanium",
+                text = {
+                    'If played hand is {C:attention}Five of a Kind{},',
+                    'retrigger all scoring cards{}',
+                }
+            },
+            j_aij_cerium = {
+                name = "Cerium",
+                text = {
+                    'If played hand is {C:attention}Flush House{},',
+                    'retrigger all scoring cards{}',
+                    '{C:attention}#1#{} times'
+                }
+            },
+            j_aij_neutronium = {
+                name = "Neutronium",
+                text = {
+                    'If played hand is {C:attention}Flush Five{},',
+                    'retrigger all scoring cards{}',
+                }
+            },
             j_aij_abandoned_joker = {
                 name = "Abandoned Joker",
                 text = {

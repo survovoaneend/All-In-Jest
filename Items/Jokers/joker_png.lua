@@ -40,6 +40,7 @@ local joker_png = {
     pos = { x = 24, y = 11},
     atlas = 'joker_atlas',
     cost = 6,
+    ignore = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true, -- uses ability.aij_blueprint_compat
