@@ -3498,6 +3498,9 @@ function aij_calculate_end_of_round_effects(context, i, card)
         SMODS.calculate_card_areas('individual', context, effects, { main_scoring = true })
 
         local flags = SMODS.trigger_effects(effects, card)
+        if context.cardarea == G.hand and (next(effects) or next(flags)) then
+            SMODS.calculate_context({aij_held_effect_triggered = true, card = card, effects = next(effects) and effects or flags})
+        end
 
         context.individual = nil
         context.repetition = true

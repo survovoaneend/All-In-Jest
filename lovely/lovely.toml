@@ -64,6 +64,20 @@ if args.aij_level_with then
 end
 '''
 
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'after'
+pattern = '''
+local flags = SMODS.trigger_effects(effects, card)
+'''
+payload = '''
+if context.cardarea == G.hand and next(flags) then
+    SMODS.calculate_context({aij_held_effect_triggered = true, card = card, effects = flags})
+end
+'''
+
 # Eye Seal, For end of round scoring
 [[patches]]
 [patches.pattern]

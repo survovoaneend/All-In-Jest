@@ -6735,7 +6735,7 @@ return {
                 text = {
                     'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
                     'when a card is enhanced to',
-                    '{C:attention}Gold{}, loses {X:mult,C:white}X#2#{} Mult if',
+                    '{C:attention}Gold{}, loses {X:mult,C:white}X#2#{} Mult',
                     'when {C:money}money{} is earned',
                     'during a {C:attention}blind',
                     '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
@@ -6748,6 +6748,17 @@ return {
                     'when a card is enhanced to',
                     '{C:attention}Fervent{}, loses {X:mult,C:white}X#2#{} Mult when',
                     'a card is {C:attention}retriggered',
+                    '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                }
+            },
+            j_aij_pretzel_sticks = {
+                name = "Pretzel Sticks",
+                text = {
+                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                    'when a card is enhanced to',
+                    '{C:attention}Wood{}, loses {X:mult,C:white}X#2#{} Mult when',
+                    'a {C:attention}held in hand{} effect',
+                    'is triggered',
                     '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
                 }
             },
