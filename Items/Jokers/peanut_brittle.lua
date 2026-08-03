@@ -49,8 +49,8 @@ local peanut_brittle = {
                 })
             end
         end
-        if context.remove_playing_cards and not context.blueprint then
-            for k, v in pairs(context.removed) do 
+        if (context.remove_playing_cards or context.cards_destroyed) and not context.blueprint then
+            for k, v in pairs(context.glass_shattered or context.removed) do 
                 if SMODS.has_enhancement(v, 'm_glass') and v.glass_trigger then
                     if ((1+card.ability.extra.xmult) - card.ability.extra.xmult_minus_mod) < 1 then
                         SMODS.destroy_cards(card, nil, nil, true)

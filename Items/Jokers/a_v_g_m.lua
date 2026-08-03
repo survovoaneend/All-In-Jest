@@ -32,7 +32,13 @@ local a_v_g_m = {
             end
         end,
 
-        use_ability = function(self, card)
+        use_ability = function(self, card, args)
+            args = args or {}
+            SMODS.calculate_context({all_in_jest = {joker_ability_used = true, card = card, retriggered = args.retriggered, args = args}})
+            if not args.free then
+                ease_dollars(-card.ability.extra.cost)
+                card_eval_status_text(card, 'dollars', -card.ability.extra.cost)
+            end
             if SMODS.pseudorandom_probability(card, 'a_v_g_m', 1, card.ability.extra.odds) then
                 local max = 2
                 local joker, consumable = false, false

@@ -27,23 +27,21 @@ local glass_delusion = {
     end,
 
     calculate = function(self, card, context)
-        if context.remove_playing_cards then
-            for k, v in pairs(context.removed) do 
+        if (context.remove_playing_cards or context.cards_destroyed) then
+            for k, v in pairs(context.glass_shattered or context.removed) do 
                 if SMODS.has_enhancement(v, 'm_glass') and v.glass_trigger then
                     v.glass_trigger = nil
                     v.shattered = nil
-                    context.removed[k] = nil
-                    for i = 1, 2 do
-                        local new_card = SMODS.add_card {
-                          key = v.config.center_key,
-                          area = G.deck
-                        }
-                        new_card = copy_card(v, new_card)
-                        new_card:add_to_deck()
-                        G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                        card.playing_card = G.playing_card
-                        table.insert(G.playing_cards, new_card)
-                    end
+                    local new_card = SMODS.add_card {
+                        key = v.config.center_key,
+                        area = G.deck
+                    }
+                    new_card = copy_card(v, new_card)
+                    new_card:add_to_deck()
+                    G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                    table.insert(G.playing_cards, new_card)
+                    v.glass_trigger = true
+                    v.shattered = true
                 end
             end
         end
