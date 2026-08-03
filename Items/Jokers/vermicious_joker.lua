@@ -1,6 +1,6 @@
 local vermicious_joker = {
     object_type = "Joker",
-    order = 772,
+    order = 794,
     ignore = true,
 
     key = "vermicious_joker",

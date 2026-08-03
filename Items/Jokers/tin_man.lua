@@ -1,6 +1,6 @@
 local tin_man = {
     object_type = "Joker",
-    order = 528,
+    order = 547,
     key = "tin_man",
     
     config = {

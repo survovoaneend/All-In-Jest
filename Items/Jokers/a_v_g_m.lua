@@ -1,6 +1,6 @@
 local a_v_g_m = {
     object_type = "Joker",
-    order = 630,
+    order = 665,
 
     key = "a_v_g_m",
     config = {

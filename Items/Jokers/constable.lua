@@ -1,6 +1,6 @@
 local constable = {
     object_type = "Joker",
-    order = 663,
+    order = 685,
     ignore = true,
 
     key = "constable",

@@ -1,6 +1,6 @@
 local silly_sausage = {
     object_type = "Joker",
-    order = 57,
+    order = 60,
     lite = true,
     key = "silly_sausage",
     config = {

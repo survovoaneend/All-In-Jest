@@ -1,6 +1,6 @@
 local no_arms_no_legs = {
     object_type = "Joker",
-    order = 368,
+    order = 387,
     key = "no_arms_no_legs",
     ignore = true,
     config = {

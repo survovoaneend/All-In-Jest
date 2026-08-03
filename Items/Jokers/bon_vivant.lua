@@ -1,6 +1,6 @@
 local bon_vivant = {
     object_type = "Joker",
-    order = 587,
+    order = 614,
     key = "bon_vivant",
   
     config = {

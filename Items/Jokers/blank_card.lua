@@ -1,6 +1,6 @@
 local blank_card = {
     object_type = "Joker",
-    order = 32,
+    order = 35,
     lite = true,
     key = "blank_card",
     config = {

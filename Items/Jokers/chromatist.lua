@@ -1,6 +1,6 @@
 local chromatist = {
     object_type = "Joker",
-    order = 380,
+    order = 399,
     key = "chromatist",
     config = {
         extra = {

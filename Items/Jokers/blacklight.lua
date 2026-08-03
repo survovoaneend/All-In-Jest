@@ -1,6 +1,6 @@
 local blacklight = {
     object_type = "Joker",
-    order = 476,
+    order = 495,
     key = "blacklight",
     config = {
         extra = {

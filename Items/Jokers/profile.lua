@@ -1,6 +1,6 @@
 local profile = {
     object_type = "Joker",
-    order = 796,
+    order = 821,
     ignore = true,
 
     key = "profile",

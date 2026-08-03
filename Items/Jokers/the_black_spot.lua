@@ -1,6 +1,6 @@
 local the_black_spot = {
     object_type = "Joker",
-    order = 508,
+    order = 527,
     key = "the_black_spot",
     ignore = true,
     config = {

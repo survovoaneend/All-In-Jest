@@ -1,6 +1,6 @@
 local blue_star = {
     object_type = "Joker",
-    order = 494,
+    order = 513,
     key = "blue_star",
     config = {
         extra = {

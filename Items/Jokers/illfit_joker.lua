@@ -1,6 +1,6 @@
 local illfit_joker = {
     object_type = "Joker",
-    order = 719,
+    order = 741,
     ignore = true,
 
     key = "illfit_joker",

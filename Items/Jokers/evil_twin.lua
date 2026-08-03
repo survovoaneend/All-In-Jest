@@ -1,6 +1,6 @@
 local evil_twin = {
     object_type = "Joker",
-    order = 333,
+    order = 340,
     ignore = true,
     key = "evil_twin",
     config = {

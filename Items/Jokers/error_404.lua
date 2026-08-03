@@ -17,7 +17,7 @@ end
 
 local error_404 = {
     object_type = "Joker",
-    order = 405,
+    order = 424,
     key = "error_404",
     config = {
         extra = {

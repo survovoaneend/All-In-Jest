@@ -1,6 +1,6 @@
 local grey_goo = {
     object_type = "Joker",
-    order = 943,
+    order = 970,
     ignore = true,
 
     key = "grey_goo",

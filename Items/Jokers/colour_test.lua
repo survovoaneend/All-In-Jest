@@ -1,6 +1,6 @@
 local colour_test = {
     object_type = "Joker",
-    order = 293,
+    order = 300,
 
     key = "colour_test",
     config = {

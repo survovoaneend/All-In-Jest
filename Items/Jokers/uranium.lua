@@ -1,6 +1,6 @@
 local uranium = {
     object_type = "Joker",
-    order = 562.2,
+    order = 583.2,
     key = "uranium",
     
     config = {

@@ -1,6 +1,6 @@
 local undead_joker = {
     object_type = "Joker",
-    order = 807,
+    order = 832,
     ignore = true,
 
     key = "undead_joker",

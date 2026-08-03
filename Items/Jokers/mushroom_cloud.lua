@@ -1,6 +1,6 @@
 local mushroom_cloud = {
     object_type = "Joker",
-    order = 229,
+    order = 234,
 
     key = "mushroom_cloud",
     config = {

@@ -1,6 +1,6 @@
 local crop_circle = {
     object_type = "Joker",
-    order = 403,
+    order = 422,
     key = "crop_circle",
     config = {
         extra = {

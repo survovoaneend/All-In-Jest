@@ -1,6 +1,6 @@
 local judge = {
     object_type = "Joker",
-    order = 659,
+    order = 681,
     ignore = true,
 
     key = "judge",

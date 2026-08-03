@@ -1,6 +1,6 @@
 local weatherman = {
     object_type = "Joker",
-    order = 358,
+    order = 367,
     ignore = true,
     key = "weatherman",
     config = {

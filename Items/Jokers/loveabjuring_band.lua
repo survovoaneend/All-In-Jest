@@ -1,6 +1,6 @@
 local loveabjuring_band = {
     object_type = "Joker",
-    order = 949,
+    order = 976,
     ignore = true,
 
     key = "loveabjuring_band",

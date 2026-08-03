@@ -1,6 +1,6 @@
 local playjoy = {
     object_type = "Joker",
-    order = 854,
+    order = 881,
     ignore = true,
 
     key = "playjoy",

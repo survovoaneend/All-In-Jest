@@ -1,6 +1,6 @@
 local pure_baseball_card = {
     object_type = "Joker",
-    order = 364,
+    order = 373,
     key = "pure_baseball_card",
     config = {
         extra = {

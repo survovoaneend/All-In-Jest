@@ -1,6 +1,6 @@
 local error_card = {
     object_type = "Joker",
-    order = 733,
+    order = 755,
     ignore = true,
 
     key = "error_card",

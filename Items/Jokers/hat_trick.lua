@@ -1,6 +1,6 @@
 local hat_trick = {
     object_type = "Joker",
-    order = 12,
+    order = 15,
 
     key = "hat_trick",
     config = {

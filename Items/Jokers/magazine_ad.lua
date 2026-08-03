@@ -1,6 +1,6 @@
 local magazine_ad = {
     object_type = "Joker",
-    order = 309,
+    order = 316,
 
     key = "magazine_ad",
     config = {

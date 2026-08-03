@@ -1,6 +1,6 @@
 local croupier = {
     object_type = "Joker",
-    order = 327,
+    order = 334,
     key = "croupier",
     config = {
         extra = {

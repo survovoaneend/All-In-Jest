@@ -1,6 +1,6 @@
 local crapple_apple = {
     object_type = "Joker",
-    order = 907,
+    order = 934,
     ignore = true,
 
     key = "crapple_apple",

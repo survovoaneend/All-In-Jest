@@ -1,6 +1,6 @@
 local scroggin = {
     object_type = "Joker",
-    order = 603,
+    order = 630,
     key = "scroggin",
   
     config = {

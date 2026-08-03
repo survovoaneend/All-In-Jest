@@ -1,6 +1,6 @@
 local coulrorachne = {
     object_type = "Joker",
-    order = 343,
+    order = 350,
     key = "coulrorachne",
     config = {
       extra = {

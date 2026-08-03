@@ -1,6 +1,6 @@
 local jeremy_bearimy = {
     object_type = "Joker",
-    order = 512,
+    order = 531,
     key = "jeremy_bearimy",
     config = {
         extra = {

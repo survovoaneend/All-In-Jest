@@ -1,6 +1,6 @@
 local lemarchand_cube = {
     object_type = "Joker",
-    order = 345,
+    order = 352,
 
     key = "lemarchand_cube",
     config = {

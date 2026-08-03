@@ -1,6 +1,6 @@
 local baddata = {
     object_type = "Joker",
-    order = 412,
+    order = 432,
     key = "baddata",
     rarity = 2,
     pos = { x = 15, y = 17},

@@ -1,6 +1,6 @@
 local fimbulwinter = {
     object_type = "Joker",
-    order = 713,
+    order = 735,
     ignore = true,
 
     key = "fimbulwinter",

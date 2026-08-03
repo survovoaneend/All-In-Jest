@@ -1,6 +1,6 @@
 local kolobathristes = {
     object_type = "Joker",
-    order = 699,
+    order = 721,
     ignore = true,
 
     key = "kolobathristes",

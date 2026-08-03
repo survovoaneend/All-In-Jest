@@ -1,6 +1,6 @@
 local farceur = {
     object_type = "Joker",
-    order = 720,
+    order = 742,
 
     key = "farceur",
     config = {

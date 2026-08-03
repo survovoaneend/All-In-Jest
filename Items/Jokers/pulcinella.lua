@@ -1,6 +1,6 @@
 local pulcinella = {
     object_type = "Joker",
-    order = 109,
+    order = 112,
     ignore = true,
 
     key = "pulcinella",

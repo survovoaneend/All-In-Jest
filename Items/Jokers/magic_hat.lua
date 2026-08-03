@@ -1,6 +1,6 @@
 local magic_hat = {
     object_type = "Joker",
-    order = 192,
+    order = 198,
 
     key = "magic_hat",
     config = {

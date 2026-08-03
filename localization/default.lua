@@ -7115,6 +7115,13 @@ return {
                     ''
                 }
             },
+            j_aij_first_draft = {
+                name = "First Draft",
+                text = {
+                    "Copies ability of",
+                    "{C:attention}Joker{} to the {C:attention}left",
+                }
+            },
             j_aij_shock_collar = {
                 name = "Shock Collar",
                 text = {

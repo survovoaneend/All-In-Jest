@@ -1,6 +1,6 @@
 local brick_game = {
     object_type = "Joker",
-    order = 930,
+    order = 957,
     ignore = true,
 
     key = "brick_game",

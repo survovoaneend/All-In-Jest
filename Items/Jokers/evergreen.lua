@@ -1,6 +1,6 @@
 local evergreen = {
     object_type = "Joker",
-    order = 389,
+    order = 408,
     key = "evergreen",
     ignore = true,
     config = {

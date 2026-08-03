@@ -1,6 +1,6 @@
 local in_memorium = {
     object_type = "Joker",
-    order = 490,
+    order = 509,
     key = "in_memorium",
     config = {
         extra = {

@@ -1,6 +1,6 @@
 local embroidery = {
     object_type = "Joker",
-    order = 499,
+    order = 508,
 
     key = "embroidery",
     config = {

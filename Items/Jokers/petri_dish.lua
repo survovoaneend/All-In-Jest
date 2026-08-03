@@ -1,6 +1,6 @@
 local petri_dish = {
     object_type = "Joker",
-    order = 787,
+    order = 809,
     ignore = true,
 
     key = "petri_dish",

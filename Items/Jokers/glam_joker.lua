@@ -1,6 +1,6 @@
 local glam_joker = {
     object_type = "Joker",
-    order = 401,
+    order = 420,
     key = "glam_joker",
     ignore = true,
     config = {

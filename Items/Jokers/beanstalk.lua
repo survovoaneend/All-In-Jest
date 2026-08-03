@@ -1,6 +1,6 @@
 local beanstalk = {
     object_type = "Joker",
-    order = 194,
+    order = 200,
     
     key = "beanstalk",
     config = {

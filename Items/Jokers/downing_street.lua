@@ -1,6 +1,6 @@
 local downing_street = {
     object_type = "Joker",
-    order = 265,
+    order = 271,
     
     key = "downing_street",
     config = {

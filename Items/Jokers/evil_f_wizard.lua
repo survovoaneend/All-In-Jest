@@ -1,6 +1,6 @@
 local evil_f_wizard = {
     object_type = "Joker",
-    order = 746,
+    order = 768,
     ignore = true,
 
     key = "evil_f_wizard",

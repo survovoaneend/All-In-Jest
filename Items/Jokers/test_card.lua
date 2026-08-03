@@ -1,6 +1,6 @@
 local test_card = {
   object_type = "Joker",
-  order = 296,
+  order = 301,
 
   key = "test_card",
   config = {

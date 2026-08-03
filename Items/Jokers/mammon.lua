@@ -1,6 +1,6 @@
 local mammon = {
     object_type = "Joker",
-    order = 560,
+    order = 569,
     key = "mammon",
     config = {
         extra = {

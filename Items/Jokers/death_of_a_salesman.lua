@@ -1,6 +1,6 @@
 local death_of_a_salesman = {
     object_type = "Joker",
-    order = 393,
+    order = 413,
 
     key = "death_of_a_salesman",
     config = {

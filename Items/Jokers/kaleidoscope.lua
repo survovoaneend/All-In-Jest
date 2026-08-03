@@ -1,6 +1,6 @@
 local kaleidoscope = {
     object_type = "Joker",
-    order = 932,
+    order = 959,
     ignore = true,
 
     key = "kaleidoscope",

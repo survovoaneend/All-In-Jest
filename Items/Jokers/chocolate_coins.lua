@@ -1,6 +1,6 @@
 local chocolate_coins = {
     object_type = "Joker",
-    order = 603.3,
+    order = 633.3,
     key = "chocolate_coins",
   
     config = {

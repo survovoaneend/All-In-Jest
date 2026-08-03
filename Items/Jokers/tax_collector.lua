@@ -1,6 +1,6 @@
 local tax_collector = {
     object_type = "Joker",
-    order = 905,
+    order = 932,
     ignore = true,
 
     key = "tax_collector",

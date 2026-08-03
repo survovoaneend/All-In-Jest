@@ -1,6 +1,6 @@
 local the_hare = {
     object_type = "Joker",
-    order = 939,
+    order = 966,
     ignore = true,
 
     key = "the_hare",

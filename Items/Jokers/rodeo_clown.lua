@@ -1,6 +1,6 @@
 local rodeo_clown = {
   object_type = "Joker",
-  order = 173,
+  order = 176,
 
   key = "rodeo_clown",
   config = {

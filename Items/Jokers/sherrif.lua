@@ -1,6 +1,6 @@
 local sherrif = {
     object_type = "Joker",
-    order = 337,
+    order = 344,
     lite = true,
     key = "sherrif",
     config = {

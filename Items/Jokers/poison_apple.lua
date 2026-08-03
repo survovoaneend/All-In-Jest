@@ -1,6 +1,6 @@
 local poison_apple = {
     object_type = "Joker",
-    order = 520,
+    order = 539,
     key = "poison_apple",
     ignore = true,
     config = {

@@ -1,6 +1,6 @@
 local stagehand = {
     object_type = "Joker",
-    order = 290,
+    order = 297,
 
     key = "stagehand",
     config = {

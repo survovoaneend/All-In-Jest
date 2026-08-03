@@ -1,6 +1,6 @@
 local a_modest_proposal = {
     object_type = "Joker",
-    order = 951,
+    order = 978,
     ignore = true,
 
     key = "a_modest_proposal",

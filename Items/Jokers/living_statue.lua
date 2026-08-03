@@ -1,6 +1,6 @@
 local living_statue = {
     object_type = "Joker",
-    order = 834,
+    order = 861,
     ignore = true,
 
     key = "living_statue",

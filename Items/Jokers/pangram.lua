@@ -1,6 +1,6 @@
 local pangram = {
     object_type = "Joker",
-    order = 955,
+    order = 983,
     ignore = true,
 
     key = "pangram",

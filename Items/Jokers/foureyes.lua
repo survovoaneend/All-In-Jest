@@ -1,6 +1,6 @@
 local foureyes = {
     object_type = "Joker",
-    order = 383,
+    order = 402,
     key = "foureyes",
     ignore = true,
     config = {

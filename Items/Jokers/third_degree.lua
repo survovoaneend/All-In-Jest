@@ -1,6 +1,6 @@
 local third_degree = {
     object_type = "Joker",
-    order = 633,
+    order = 668,
     ignore = true,
 
     key = "third_degree",

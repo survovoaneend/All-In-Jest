@@ -1,6 +1,6 @@
 local event_horizon = {
     object_type = "Joker",
-    order = 169,
+    order = 172,
     key = "event_horizon",
     config = {
       extra = {

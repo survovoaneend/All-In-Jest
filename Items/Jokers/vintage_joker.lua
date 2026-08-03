@@ -1,6 +1,6 @@
 local vintage_joker = {
     object_type = "Joker",
-    order = 393,
+    order = 412,
     key = "vintage_joker",
     ignore = true,
     config = {

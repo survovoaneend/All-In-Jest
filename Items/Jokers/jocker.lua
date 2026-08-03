@@ -1,6 +1,6 @@
 local jocker = {
     object_type = "Joker",
-    order = 942,
+    order = 969,
     ignore = true,
 
     key = "jocker",

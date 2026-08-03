@@ -1,6 +1,6 @@
 local semaphore = {
     object_type = "Joker",
-    order = 509,
+    order = 528,
     key = "semaphore",
 
     config = {

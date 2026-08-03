@@ -1,6 +1,6 @@
 local tax_return = {
     object_type = "Joker",
-    order = 901,
+    order = 928,
     ignore = true,
 
     key = "tax_return",

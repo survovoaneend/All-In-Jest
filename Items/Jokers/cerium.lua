@@ -1,6 +1,6 @@
 local cerium = {
     object_type = "Joker",
-    order = 562.91,
+    order = 591.91,
 
     key = "cerium",
     config = {

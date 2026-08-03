@@ -1,6 +1,6 @@
 local lawfirm = {
     object_type = "Joker",
-    order = 553,
+    order = 572,
     key = "lawfirm",
     config = {
         extra = {

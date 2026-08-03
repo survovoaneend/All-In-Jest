@@ -1,6 +1,6 @@
 local ginnugagap = {
     object_type = "Joker",
-    order = 712,
+    order = 734,
     ignore = true,
 
     key = "ginnugagap",

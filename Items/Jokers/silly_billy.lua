@@ -1,6 +1,6 @@
 local silly_billy = {
     object_type = "Joker",
-    order = 210,
+    order = 216,
 
     key = "silly_billy",
     config = {

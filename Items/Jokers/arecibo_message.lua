@@ -1,6 +1,6 @@
 local arecibo_message = {
     object_type = "Joker",
-    order = 199,
+    order = 205,
 
     key = "arecibo_message",
     config = {

@@ -1,6 +1,6 @@
 local silent_sam = {
     object_type = "Joker",
-    order = 151,
+    order = 154,
 
     key = "silent_sam",
     config = {

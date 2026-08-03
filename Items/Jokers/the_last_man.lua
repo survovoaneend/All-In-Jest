@@ -1,6 +1,6 @@
 local the_last_man = {
     object_type = "Joker",
-    order = 664,
+    order = 686,
     ignore = true,
 
     key = "the_last_man",

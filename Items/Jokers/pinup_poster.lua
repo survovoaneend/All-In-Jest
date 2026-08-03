@@ -1,6 +1,6 @@
 local pinup_poster = {
     object_type = "Joker",
-    order = 803,
+    order = 828,
     ignore = true,
 
     key = "pinup_poster",

@@ -1,6 +1,6 @@
 local chippy = {
     object_type = "Joker",
-    order = 221,
+    order = 227,
 
     key = "chippy",
     config = {

@@ -1,6 +1,6 @@
 local motley = {
     object_type = "Joker",
-    order = 735,
+    order = 757,
     ignore = true,
 
     key = "motley",

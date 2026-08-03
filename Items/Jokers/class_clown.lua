@@ -1,6 +1,6 @@
 local class_clown = {
     object_type = "Joker",
-    order = 786,
+    order = 808,
     ignore = true,
 
     key = "class_clown",

@@ -1,6 +1,6 @@
 local neptunium = {
     object_type = "Joker",
-    order = 562.8,
+    order = 589.8,
     key = "neptunium",
     
     config = {

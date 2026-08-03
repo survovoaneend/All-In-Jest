@@ -1,6 +1,6 @@
 local anagraph = {
     object_type = "Joker",
-    order = 193,
+    order = 199,
     key = "anagraph",
     config = {
       extra = {

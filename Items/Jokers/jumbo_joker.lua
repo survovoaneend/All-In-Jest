@@ -1,6 +1,6 @@
 local jumbo_joker = {
     object_type = "Joker",
-    order = 141,
+    order = 144,
     lite = true,
     key = "jumbo_joker",
     config = {

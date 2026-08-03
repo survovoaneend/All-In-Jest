@@ -1,6 +1,6 @@
 local psychobilly = {
     object_type = "Joker",
-    order = 698,
+    order = 720,
     ignore = true,
 
     key = "psychobilly",

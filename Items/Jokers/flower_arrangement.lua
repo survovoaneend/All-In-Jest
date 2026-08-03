@@ -1,6 +1,6 @@
 local flower_arrangement = {
     object_type = "Joker",
-    order = 775,
+    order = 797,
     ignore = true,
 
     key = "flower_arrangement",

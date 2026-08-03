@@ -1,6 +1,6 @@
 local silver = {
     object_type = "Joker",
-    order = 562.6,
+    order = 587.6,
 
     key = "silver",
     config = {

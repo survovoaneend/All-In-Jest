@@ -1,6 +1,6 @@
 local sticker = {
   object_type = "Joker",
-  order = 179,
+  order = 182,
   lite = true,
   key = "sticker",
   config = {

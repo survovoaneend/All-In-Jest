@@ -1,6 +1,6 @@
 local foliate_head = {
     object_type = "Joker",
-    order = 446,
+    order = 465,
     key = "foliate_head",
     ignore = true,
     config = {

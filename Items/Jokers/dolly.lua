@@ -1,6 +1,6 @@
 local dolly = {
     object_type = "Joker",
-    order = 882,
+    order = 909,
     ignore = true,
 
     key = "dolly",

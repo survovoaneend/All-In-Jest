@@ -1,6 +1,6 @@
 local saltimbanco = {
     object_type = "Joker",
-    order = 108,
+    order = 111,
     key = "saltimbanco",
     config = {
       extra = {

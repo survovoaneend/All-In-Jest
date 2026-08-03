@@ -1,6 +1,6 @@
 local vexed = {
     object_type = "Joker",
-    order = 644,
+    order = 679,
 
     key = "vexed",
     config = {

@@ -1,6 +1,6 @@
 local clownfish = {
     object_type = "Joker",
-    order = 379,
+    order = 398,
     key = "clownfish",
     ignore = true,
     config = {

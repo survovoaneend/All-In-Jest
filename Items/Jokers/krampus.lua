@@ -1,6 +1,6 @@
 local krampus = {
   object_type = "Joker",
-  order = 39,
+  order = 42,
 
   
   key = "krampus",

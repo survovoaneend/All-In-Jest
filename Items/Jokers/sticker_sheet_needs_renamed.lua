@@ -1,6 +1,6 @@
 local sticker_sheet_needs_renamed = {
     object_type = "Joker",
-    order = 809,
+    order = 835,
     ignore = true,
 
     key = "sticker_sheet_needs_renamed",

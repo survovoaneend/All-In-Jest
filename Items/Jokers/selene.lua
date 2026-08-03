@@ -1,6 +1,6 @@
 local selene = {
     object_type = "Joker",
-    order = 504,
+    order = 523,
     key = "selene",
     ignore = true,
     config = {

@@ -1,6 +1,6 @@
 local onifuda = {
     object_type = "Joker",
-    order = 637,
+    order = 672,
     ignore = true,
 
     key = "onifuda",

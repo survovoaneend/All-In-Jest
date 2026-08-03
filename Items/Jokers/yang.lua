@@ -1,6 +1,6 @@
 local yang = {
     object_type = "Joker",
-    order = 540,
+    order = 559,
     key = "yang",
     
     config = {

@@ -1,6 +1,6 @@
 local dendrochronology = {
     object_type = "Joker",
-    order = 662,
+    order = 684,
     ignore = true,
 
     key = "dendrochronology",

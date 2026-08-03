@@ -1,6 +1,6 @@
 local jack_sprat = {
     object_type = "Joker",
-    order = 474,
+    order = 493,
     key = "jack_sprat",
     ignore = true,
     config = {

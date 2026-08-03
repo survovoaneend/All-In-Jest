@@ -1,6 +1,6 @@
 local headstone = {
     object_type = "Joker",
-    order = 329,
+    order = 336,
     key = "headstone",
     config = {
     },

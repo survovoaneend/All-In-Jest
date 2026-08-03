@@ -1,6 +1,6 @@
 local kalyptos = {
     object_type = "Joker",
-    order = 744,
+    order = 766,
     ignore = true,
 
     key = "kalyptos",

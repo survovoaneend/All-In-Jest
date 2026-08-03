@@ -1,6 +1,6 @@
 local american_comic = {
     object_type = "Joker",
-    order = 271,
+    order = 277,
     ignore = true,
     key = "american_comic",
     config = {

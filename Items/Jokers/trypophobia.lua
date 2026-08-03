@@ -1,6 +1,6 @@
 local trypophobia = {
     object_type = "Joker",
-    order = 16,
+    order = 19,
 
     key = "trypophobia",
     config = {

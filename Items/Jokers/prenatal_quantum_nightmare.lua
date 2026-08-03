@@ -1,6 +1,6 @@
 local prenatal_quantum_nightmare = {
     object_type = "Joker",
-    order = 769,
+    order = 791,
     ignore = true,
 
     key = "prenatal_quantum_nightmare",

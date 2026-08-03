@@ -1,6 +1,6 @@
 local pog = {
     object_type = "Joker",
-    order = 366,
+    order = 385,
     key = "pog",
     config = {
         extra = {

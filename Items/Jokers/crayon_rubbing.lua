@@ -48,7 +48,7 @@ end
 
 local crayon_rubbing = {
     object_type = "Joker",
-    order = 529,
+    order = 548,
     key = "crayon_rubbing",
     config = {
         extra = {

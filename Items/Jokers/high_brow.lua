@@ -1,6 +1,6 @@
 local high_brow = {
     object_type = "Joker",
-    order = 760,
+    order = 782,
     ignore = true,
 
     key = "high_brow",

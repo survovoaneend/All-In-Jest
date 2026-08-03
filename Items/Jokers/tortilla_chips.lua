@@ -1,6 +1,6 @@
 local tortilla_chips = {
     object_type = "Joker",
-    order = 601,
+    order = 628,
     key = "tortilla_chips",
   
     config = {

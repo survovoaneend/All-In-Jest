@@ -1,6 +1,6 @@
 local sudoku = {
   object_type = "Joker",
-  order = 165,
+  order = 168,
 
   key = "sudoku",
   config = {

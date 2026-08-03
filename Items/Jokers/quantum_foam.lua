@@ -1,6 +1,6 @@
 local quantum_foam = {
     object_type = "Joker",
-    order = 586,
+    order = 613,
     key = "quantum_foam",
   
     config = {

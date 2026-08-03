@@ -1,6 +1,6 @@
 local lead = {
     object_type = "Joker",
-    order = 562.4,
+    order = 585.4,
 
     key = "lead",
     config = {

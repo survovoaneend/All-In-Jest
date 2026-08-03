@@ -1,6 +1,6 @@
 local fun_guy = {
     object_type = "Joker",
-    order = 424,
+    order = 443,
     key = "fun_guy",
     ignore = true,
     config = {

@@ -1,6 +1,6 @@
 local stick_figure = {
     object_type = "Joker",
-    order = 795,
+    order = 820,
     ignore = true,
 
     key = "stick_figure",

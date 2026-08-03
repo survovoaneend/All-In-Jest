@@ -1,6 +1,6 @@
 local minus_world = {
     object_type = "Joker",
-    order = 514,
+    order = 533,
     key = "minus_world",
     ignore = true,
     config = {

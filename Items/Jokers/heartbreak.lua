@@ -1,6 +1,6 @@
 local heartbreak = {
     object_type = "Joker",
-    order = 780,
+    order = 802,
     ignore = true,
 
     key = "heartbreak",

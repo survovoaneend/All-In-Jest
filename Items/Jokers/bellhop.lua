@@ -1,6 +1,6 @@
 local bellhop = {
     object_type = "Joker",
-    order = 750,
+    order = 772,
     ignore = true,
 
     key = "bellhop",

@@ -1,6 +1,6 @@
 local joculator = {
   object_type = "Joker",
-  order = 174,
+  order = 177,
 
   key = "joculator",
   config = {

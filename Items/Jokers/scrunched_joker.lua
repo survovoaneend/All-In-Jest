@@ -1,6 +1,6 @@
 local scrunched_joker = {
     object_type = "Joker",
-    order = 499,
+    order = 518,
     key = "scrunched_joker",
     
     config = {

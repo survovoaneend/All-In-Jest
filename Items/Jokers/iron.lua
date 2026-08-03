@@ -1,6 +1,6 @@
 local iron = {
     object_type = "Joker",
-    order = 562.7,
+    order = 588.7,
 
     key = "iron",
     config = {

@@ -1,6 +1,6 @@
 local war_mask = {
     object_type = "Joker",
-    order = 892,
+    order = 919,
     ignore = true,
 
     key = "war_mask",

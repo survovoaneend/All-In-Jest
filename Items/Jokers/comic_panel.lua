@@ -1,6 +1,6 @@
 local comic_panel = {
     object_type = "Joker",
-    order = 491,
+    order = 510,
     key = "comic_panel",
     
     config = {

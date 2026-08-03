@@ -1,6 +1,6 @@
 local enraging_photo = {
     object_type = "Joker",
-    order = 190,
+    order = 196,
 
     key = "enraging_photo",
     config = {

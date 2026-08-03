@@ -1,6 +1,6 @@
 local kaiju = {
     object_type = "Joker",
-    order = 860,
+    order = 887,
     ignore = true,
 
     key = "kaiju",

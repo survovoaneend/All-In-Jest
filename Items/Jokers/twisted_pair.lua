@@ -1,6 +1,6 @@
 local twisted_pair = {
     object_type = "Joker",
-    order = 320,
+    order = 327,
     key = "twisted_pair",
     config = {
     },

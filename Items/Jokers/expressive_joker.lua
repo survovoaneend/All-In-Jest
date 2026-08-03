@@ -1,6 +1,6 @@
 local expressive_joker = {
     object_type = "Joker",
-    order = 843,
+    order = 870,
     ignore = true,
 
     key = "expressive_joker",

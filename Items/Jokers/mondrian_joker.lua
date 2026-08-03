@@ -1,6 +1,6 @@
 local mondrian_joker = {
     object_type = "Joker",
-    order = 214,
+    order = 220,
     lite = true,
     key = "mondrian_joker",
     config = {

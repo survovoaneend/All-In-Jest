@@ -1,6 +1,6 @@
 local white_eyes = {
     object_type = "Joker",
-    order = 729,
+    order = 751,
     ignore = true,
 
     key = "white_eyes",

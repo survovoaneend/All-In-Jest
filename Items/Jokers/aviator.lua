@@ -1,6 +1,6 @@
 local aviator = {
     object_type = "Joker",
-    order = 725,
+    order = 747,
     ignore = true,
 
     key = "aviator",

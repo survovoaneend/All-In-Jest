@@ -1,6 +1,6 @@
 local fat_ed = {
     object_type = "Joker",
-    order = 227,
+    order = 232,
     ignore = true,
 
     key = "fat_ed",

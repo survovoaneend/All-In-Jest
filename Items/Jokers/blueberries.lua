@@ -1,6 +1,6 @@
 local blueberries = {
     object_type = "Joker",
-    order = 603.4,
+    order = 634.4,
     key = "blueberries",
   
     config = {

@@ -1,6 +1,6 @@
 local independent_space_warrior = {
     object_type = "Joker",
-    order = 767,
+    order = 789,
     ignore = true,
 
     key = "independent_space_warrior",

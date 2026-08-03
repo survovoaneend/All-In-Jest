@@ -1,6 +1,6 @@
 local skywriting = {
     object_type = "Joker",
-    order = 896,
+    order = 923,
     ignore = true,
 
     key = "skywriting",

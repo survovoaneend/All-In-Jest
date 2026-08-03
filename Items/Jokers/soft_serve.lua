@@ -1,6 +1,6 @@
 local soft_serve = {
     object_type = "Joker",
-    order = 522,
+    order = 541,
     key = "soft_serve",
     config = {
         extra = {

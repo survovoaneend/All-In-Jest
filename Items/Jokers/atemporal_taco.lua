@@ -1,6 +1,6 @@
 local atemporal_taco = {
     object_type = "Joker",
-    order = 954,
+    order = 981,
     ignore = true,
 
     key = "atemporal_taco",

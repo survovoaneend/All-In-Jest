@@ -1,6 +1,6 @@
 local antiquarian = {
     object_type = "Joker",
-    order = 813,
+    order = 840,
     ignore = true,
 
     key = "antiquarian",

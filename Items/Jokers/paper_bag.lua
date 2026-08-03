@@ -1,6 +1,6 @@
 local paper_bag = {
     object_type = "Joker",
-    order = 44,
+    order = 47,
 
     key = "paper_bag",
     config = {

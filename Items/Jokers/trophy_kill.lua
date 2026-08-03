@@ -1,6 +1,6 @@
 local trophy_kill = {
     object_type = "Joker",
-    order = 252,
+    order = 257,
     key = "trophy_kill",
     config = {
         extra = {

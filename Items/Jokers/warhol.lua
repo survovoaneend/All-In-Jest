@@ -1,6 +1,6 @@
 local warhol = {
     object_type = "Joker",
-    order = 240,
+    order = 245,
     key = "warhol",
     config = {
       

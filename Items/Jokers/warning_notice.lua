@@ -1,6 +1,6 @@
 local warning_notice = {
     object_type = "Joker",
-    order = 964,
+    order = 991,
     ignore = true,
 
     key = "warning_notice",

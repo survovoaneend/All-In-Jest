@@ -1,6 +1,6 @@
 local crab_in_a_bucket = {
     object_type = "Joker",
-    order = 432,
+    order = 451,
     key = "crab_in_a_bucket",
     
     config = {

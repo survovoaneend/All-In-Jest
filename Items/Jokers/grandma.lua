@@ -1,6 +1,6 @@
 local grandma = {
     object_type = "Joker",
-    order = 249,
+    order = 254,
     ignore = true,
     key = "grandma",
     config = {

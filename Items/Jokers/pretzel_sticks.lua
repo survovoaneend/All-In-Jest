@@ -1,6 +1,6 @@
 local pretzel_sticks = {
     object_type = "Joker",
-    order = 603.5,
+    order = 635.5,
     key = "pretzel_sticks",
   
     config = {

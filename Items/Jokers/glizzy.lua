@@ -1,6 +1,6 @@
 local glizzy = {
     object_type = "Joker",
-    order = 858,
+    order = 885,
     ignore = true,
 
     key = "glizzy",

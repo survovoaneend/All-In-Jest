@@ -1,6 +1,6 @@
 local chitty = {
   object_type = "Joker",
-  order = 263,
+  order = 269,
 
   key = "chitty",
   config = {

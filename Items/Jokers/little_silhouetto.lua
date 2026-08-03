@@ -1,6 +1,6 @@
 local little_silhouetto = {
     object_type = "Joker",
-    order = 538,
+    order = 557,
     key = "little_silhouetto",
     ignore = true,
     config = {

@@ -24,7 +24,7 @@ end
 
 local haruspex = {
     object_type = "Joker",
-    order = 77,
+    order = 80,
 
     key = "haruspex",
     config = {

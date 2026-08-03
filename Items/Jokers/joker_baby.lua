@@ -1,6 +1,6 @@
 local joker_baby = {
     object_type = "Joker",
-    order = 58,
+    order = 61,
 
 
     key = "joker_baby",

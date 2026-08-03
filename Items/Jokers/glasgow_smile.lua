@@ -1,6 +1,6 @@
 local glasgow_smile = {
     object_type = "Joker",
-    order = 479,
+    order = 498,
     key = "glasgow_smile",
     
     config = {

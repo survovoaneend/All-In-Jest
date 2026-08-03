@@ -1,6 +1,6 @@
 local big_ears = {
     object_type = "Joker",
-    order = 74,
+    order = 77,
 
     key = "big_ears",
     config = {

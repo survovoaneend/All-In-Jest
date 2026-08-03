@@ -1,6 +1,6 @@
 local circuit_board = {
     object_type = "Joker",
-    order = 34,
+    order = 37,
     ignore = true,
 
     key = "circuit_board",

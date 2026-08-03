@@ -1,6 +1,6 @@
 local parfait = {
     object_type = "Joker",
-    order = 829,
+    order = 856,
     ignore = true,
 
     key = "parfait",

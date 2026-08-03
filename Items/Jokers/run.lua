@@ -1,6 +1,6 @@
 local run = {
     object_type = "Joker",
-    order = 541,
+    order = 560,
     key = "run",
     config = {
         extra = {

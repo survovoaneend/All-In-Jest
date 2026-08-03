@@ -1,6 +1,6 @@
 local birthday_clown = {
     object_type = "Joker",
-    order = 3,
+    order = 5,
 
     key = "birthday_clown",
     config = {

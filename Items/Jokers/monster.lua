@@ -1,6 +1,6 @@
 local monster = {
     object_type = "Joker",
-    order = 144,
+    order = 147,
     ignore = true,
 
     key = "monster",

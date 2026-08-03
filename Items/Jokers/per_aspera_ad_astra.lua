@@ -1,6 +1,6 @@
 local per_aspera_ad_astra = {
     object_type = "Joker",
-    order = 953,
+    order = 980,
     ignore = true,
 
     key = "per_aspera_ad_astra",

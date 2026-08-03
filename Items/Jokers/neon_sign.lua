@@ -1,6 +1,6 @@
 local neon_sign = {
     object_type = "Joker",
-    order = 464,
+    order = 483,
     key = "neon_sign",
     
     config = {

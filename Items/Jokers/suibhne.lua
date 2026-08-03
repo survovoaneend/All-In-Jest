@@ -1,6 +1,6 @@
 local suibhne = {
     object_type = "Joker",
-    order = 187,
+    order = 190,
     
     key = "suibhne",
     config = {

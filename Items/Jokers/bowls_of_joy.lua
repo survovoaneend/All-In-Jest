@@ -1,6 +1,6 @@
 local bowls_of_joy = {
     object_type = "Joker",
-    order = 296,
+    order = 303,
 
     key = "bowls_of_joy",
     config = {

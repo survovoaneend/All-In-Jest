@@ -1,6 +1,6 @@
 local topsy_the_clown = {
     object_type = "Joker",
-    order = 79,
+    order = 82,
 
     key = "topsy_the_clown",
     config = {

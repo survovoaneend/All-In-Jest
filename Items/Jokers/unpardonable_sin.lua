@@ -1,6 +1,6 @@
 local unpardonable_sin = {
     object_type = "Joker",
-    order = 862,
+    order = 889,
     ignore = true,
 
     key = "unpardonable_sin",

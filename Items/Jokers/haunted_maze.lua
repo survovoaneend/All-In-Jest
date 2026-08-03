@@ -1,6 +1,6 @@
 local haunted_maze = {
     object_type = "Joker",
-    order = 914,
+    order = 941,
     ignore = true,
 
     key = "haunted_maze",

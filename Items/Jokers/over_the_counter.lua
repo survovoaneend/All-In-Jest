@@ -1,6 +1,6 @@
 local over_the_counter = {
     object_type = "Joker",
-    order = 535,
+    order = 554,
     key = "over_the_counter",
     config = {
         extra = {

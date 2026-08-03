@@ -1,6 +1,6 @@
 local economist = {
     object_type = "Joker",
-    order = 722,
+    order = 744,
     ignore = true,
 
     key = "economist",

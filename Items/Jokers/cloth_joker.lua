@@ -1,6 +1,6 @@
 local cloth_joker = {
     object_type = "Joker",
-    order = 763,
+    order = 785,
     ignore = true,
 
     key = "cloth_joker",

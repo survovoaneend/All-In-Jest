@@ -1,6 +1,6 @@
 local bartender = {
     object_type = "Joker",
-    order = 275,
+    order = 282,
     key = "bartender",
     config = {
       

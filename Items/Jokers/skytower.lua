@@ -1,6 +1,6 @@
 local skytower = {
     object_type = "Joker",
-    order = 547,
+    order = 566,
     key = "skytower",
     config = {
         extra = {

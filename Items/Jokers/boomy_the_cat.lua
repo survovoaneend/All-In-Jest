@@ -1,6 +1,6 @@
 local boomy_the_cat = {
     object_type = "Joker",
-    order = 831,
+    order = 858,
     ignore = true,
 
     key = "boomy_the_cat",

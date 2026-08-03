@@ -1,6 +1,6 @@
 local bouffon = {
     object_type = "Joker",
-    order = 501,
+    order = 520,
     key = "bouffon",
     config = {
         extra = {

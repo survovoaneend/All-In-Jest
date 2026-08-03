@@ -1,6 +1,6 @@
 local my_beautiful_balloon = {
     object_type = "Joker",
-    order = 683,
+    order = 705,
     ignore = true,
 
     key = "my_beautiful_balloon",

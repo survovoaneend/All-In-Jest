@@ -1,6 +1,6 @@
 local mask_merchant = {
     object_type = "Joker",
-    order = 925,
+    order = 952,
     ignore = true,
 
     key = "mask_merchant",

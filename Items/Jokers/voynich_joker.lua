@@ -1,6 +1,6 @@
 local voynich_joker = {
     object_type = "Joker",
-    order = 879,
+    order = 906,
     ignore = true,
 
     key = "voynich_joker",

@@ -1,6 +1,6 @@
 local kasperle = {
     object_type = "Joker",
-    order = 112,
+    order = 115,
     lite = true,
     key = "kasperle",
     config = {

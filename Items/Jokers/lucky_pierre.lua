@@ -1,6 +1,6 @@
 local lucky_pierre = {
     object_type = "Joker",
-    order = 557,
+    order = 576,
     key = "lucky_pierre",
     ignore = true,
     config = {

@@ -1,6 +1,6 @@
 local dead_president = {
   object_type = "Joker",
-  order = 120,
+  order = 123,
   lite = true,
   key = "dead_president",
   config = {

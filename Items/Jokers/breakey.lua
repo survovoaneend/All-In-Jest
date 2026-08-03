@@ -1,6 +1,6 @@
 local breakey = {
     object_type = "Joker",
-    order = 444,
+    order = 463,
     key = "breakey",
     ignore = true,
     config = {

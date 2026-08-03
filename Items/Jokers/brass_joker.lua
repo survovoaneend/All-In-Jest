@@ -1,6 +1,6 @@
 local brass_joker = {
     object_type = "Joker",
-    order = 443,
+    order = 462,
     key = "brass_joker",
     config = {
         extra = {

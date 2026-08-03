@@ -1,6 +1,6 @@
 local necromancer = {
     object_type = "Joker",
-    order = 558,
+    order = 577,
     key = "necromancer",
     ignore = true,
     config = {

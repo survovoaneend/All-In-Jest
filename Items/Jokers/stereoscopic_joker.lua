@@ -1,6 +1,6 @@
 local stereoscopic_joker = {
     object_type = "Joker",
-    order = 835,
+    order = 862,
     ignore = true,
 
     key = "stereoscopic_joker",

@@ -1,6 +1,6 @@
 local dot_matrix = {
     object_type = "Joker",
-    order = 666,
+    order = 688,
 
     key = "dot_matrix",
     config = {

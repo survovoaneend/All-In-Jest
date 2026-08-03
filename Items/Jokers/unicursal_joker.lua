@@ -1,6 +1,6 @@
 local unicursal_joker = {
     object_type = "Joker",
-    order = 875,
+    order = 902,
     ignore = true,
 
     key = "unicursal_joker",

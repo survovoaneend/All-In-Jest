@@ -1,6 +1,6 @@
 local meaty_joker = {
     object_type = "Joker",
-    order = 449,
+    order = 468,
     key = "meaty_joker",
 
     config = {

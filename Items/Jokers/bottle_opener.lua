@@ -1,6 +1,6 @@
 local bottle_opener = {
     object_type = "Joker",
-    order = 821,
+    order = 848,
     ignore = true,
 
     key = "bottle_opener",

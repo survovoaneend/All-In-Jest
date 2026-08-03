@@ -1,6 +1,6 @@
 local joka_lisa = {
   object_type = "Joker",
-  order = 171,
+  order = 174,
 
   key = "joka_lisa",
   config = {

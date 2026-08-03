@@ -1,6 +1,6 @@
 local cutting_board = {
     object_type = "Joker",
-    order = 965,
+    order = 834,
     ignore = true,
 
     key = "cutting_board",

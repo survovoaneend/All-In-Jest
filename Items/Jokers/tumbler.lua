@@ -1,6 +1,6 @@
 local tumbler = {
     object_type = "Joker",
-    order = 113,
+    order = 116,
 
     key = "tumbler",
     config = {

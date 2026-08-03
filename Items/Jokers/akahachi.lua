@@ -1,6 +1,6 @@
 local akahachi = {
     object_type = "Joker",
-    order = 617,
+    order = 648,
     key = "akahachi",
     ignore = true,
     config = {

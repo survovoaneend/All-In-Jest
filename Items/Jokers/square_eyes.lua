@@ -1,6 +1,6 @@
 local square_eyes = {
     object_type = "Joker",
-    order = 49,
+    order = 52,
   
     key = "square_eyes",
     config = {

@@ -1,6 +1,6 @@
 local ninemm = {
     object_type = "Joker",
-    order = 636,
+    order = 671,
     ignore = true,
 
     key = "ninemm",

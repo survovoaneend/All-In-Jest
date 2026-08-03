@@ -1,6 +1,6 @@
 local strange_situation = {
     object_type = "Joker",
-    order = 761,
+    order = 783,
     ignore = true,
 
     key = "strange_situation",

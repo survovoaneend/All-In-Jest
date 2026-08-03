@@ -1,6 +1,6 @@
 local stitches = {
     object_type = "Joker",
-    order = 734,
+    order = 756,
     ignore = true,
 
     key = "stitches",

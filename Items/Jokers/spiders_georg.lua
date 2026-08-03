@@ -21,7 +21,7 @@ end
 
 local spiders_georg = {
     object_type = "Joker",
-    order = 205,
+    order = 211,
 
     key = "spiders_georg",
     config = {

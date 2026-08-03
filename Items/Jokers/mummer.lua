@@ -1,6 +1,6 @@
 local mummer = {
   object_type = "Joker",
-  order = 158,
+  order = 161,
 
   key = "mummer",
   config = {

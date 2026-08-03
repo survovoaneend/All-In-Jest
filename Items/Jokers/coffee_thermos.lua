@@ -1,6 +1,6 @@
 local coffee_thermos = {
     object_type = "Joker",
-    order = 640,
+    order = 675,
 
     key = "coffee_thermos",
     config = {

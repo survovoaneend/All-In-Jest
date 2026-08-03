@@ -1,6 +1,6 @@
 local corporate_memphis = {
     object_type = "Joker",
-    order = 900,
+    order = 927,
     ignore = true,
 
     key = "corporate_memphis",

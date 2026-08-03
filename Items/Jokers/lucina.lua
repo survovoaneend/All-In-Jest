@@ -1,6 +1,6 @@
 local lucina = {
     object_type = "Joker",
-    order = 286,
+    order = 293,
     key = "lucina",
     config = {
       

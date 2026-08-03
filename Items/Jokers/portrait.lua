@@ -1,6 +1,6 @@
 local portrait = {
     object_type = "Joker",
-    order = 691,
+    order = 713,
     ignore = true,
 
     key = "portrait",

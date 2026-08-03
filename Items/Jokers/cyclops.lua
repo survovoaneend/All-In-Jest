@@ -1,6 +1,6 @@
 local cyclops = {
     object_type = "Joker",
-    order = 177,
+    order = 180,
     key = "cyclops",
     config = {
         extra = {

@@ -1,6 +1,6 @@
 local scapino = {
     object_type = "Joker",
-    order = 106,
+    order = 109,
 
     key = "scapino",
     config = {

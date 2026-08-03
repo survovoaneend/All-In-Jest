@@ -1,6 +1,6 @@
 local audiophile = {
     object_type = "Joker",
-    order = 874,
+    order = 901,
     ignore = true,
 
     key = "audiophile",

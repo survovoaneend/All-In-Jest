@@ -1,6 +1,6 @@
 local gnome = {
     object_type = "Joker",
-    order = 680,
+    order = 702,
     ignore = true,
 
     key = "gnome",

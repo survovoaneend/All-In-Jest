@@ -1,6 +1,6 @@
 local scopaesthesia = {
     object_type = "Joker",
-    order = 462,
+    order = 481,
     key = "scopaesthesia",
     config = {
         extra = {

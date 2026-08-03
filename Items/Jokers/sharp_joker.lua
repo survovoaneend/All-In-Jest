@@ -1,6 +1,6 @@
 local sharp_joker = {
     object_type = "Joker",
-    order = 454,
+    order = 473,
     key = "sharp_joker",
     ignore = true,
     config = {

@@ -1,6 +1,6 @@
 local blemmya = {
     object_type = "Joker",
-    order = 466,
+    order = 485,
     key = "blemmya",
     
     config = {

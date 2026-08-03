@@ -1,6 +1,6 @@
 local boiadeiro = {
     object_type = "Joker",
-    order = 706,
+    order = 728,
     ignore = true,
 
     key = "boiadeiro",

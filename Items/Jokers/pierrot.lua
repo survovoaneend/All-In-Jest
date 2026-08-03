@@ -1,6 +1,6 @@
 local pierrot = {
     object_type = "Joker",
-    order = 11,
+    order = 14,
 
     key = "pierrot",
     config = {

@@ -1,6 +1,6 @@
 local comic_spirit = {
     object_type = "Joker",
-    order = 948,
+    order = 975,
     ignore = true,
 
     key = "comic_spirit",

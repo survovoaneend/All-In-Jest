@@ -1,6 +1,6 @@
 local pinned_joker = {
     object_type = "Joker",
-    order = 796,
+    order = 818,
     ignore = true,
 
     key = "pinned_joker",

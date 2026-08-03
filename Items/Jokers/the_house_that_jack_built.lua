@@ -1,6 +1,6 @@
 local the_house_that_jack_built = {
     object_type = "Joker",
-    order = 355,
+    order = 364,
 
     key = "the_house_that_jack_built",
     config = {

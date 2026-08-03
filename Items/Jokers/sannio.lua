@@ -1,6 +1,6 @@
 local sannio = {
     object_type = "Joker",
-    order = 186,
+    order = 192,
     ignore = true,
 
     key = "sannio",

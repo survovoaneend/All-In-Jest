@@ -1,6 +1,6 @@
 local scurra = {
   object_type = "Joker",
-  order = 175,
+  order = 178,
   lite = true,
   key = "scurra",
   config = {

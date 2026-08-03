@@ -1,6 +1,6 @@
 local homemade_comic = {
     object_type = "Joker",
-    order = 300,
+    order = 305,
     
     key = "homemade_comic",
     config = {

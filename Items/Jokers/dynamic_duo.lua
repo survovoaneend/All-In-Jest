@@ -1,6 +1,6 @@
 local dynamic_duo = {
     object_type = "Joker",
-    order = 634,
+    order = 669,
     ignore = true,
 
     key = "dynamic_duo",

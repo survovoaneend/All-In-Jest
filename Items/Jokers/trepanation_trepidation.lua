@@ -1,6 +1,6 @@
 local trepanation_trepidation = {
     object_type = "Joker",
-    order = 774,
+    order = 796,
     ignore = true,
 
     key = "trepanation_trepidation",

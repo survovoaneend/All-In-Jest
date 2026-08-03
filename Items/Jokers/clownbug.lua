@@ -1,6 +1,6 @@
 local clownbug = {
     object_type = "Joker",
-    order = 356,
+    order = 365,
     ignore = true,
     key = "clownbug",
     config = {

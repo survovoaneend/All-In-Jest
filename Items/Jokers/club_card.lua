@@ -1,6 +1,6 @@
 local club_card = {
     object_type = "Joker",
-    order = 785,
+    order = 807,
     ignore = true,
 
     key = "club_card",

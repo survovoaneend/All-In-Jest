@@ -1,6 +1,6 @@
 local totem_pole = {
     object_type = "Joker",
-    order = 412,
+    order = 431,
     key = "totem_pole",
     config = {
         extra = {

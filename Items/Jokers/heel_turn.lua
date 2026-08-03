@@ -1,6 +1,6 @@
 local heel_turn = {
     object_type = "Joker",
-    order = 912,
+    order = 939,
     ignore = true,
 
     key = "heel_turn",

@@ -1,6 +1,6 @@
 local cavalier = {
     object_type = "Joker",
-    order = 445,
+    order = 454,
 
     key = "cavalier",
     config = {

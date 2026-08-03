@@ -1,6 +1,6 @@
 local muon = {
     object_type = "Joker",
-    order = 674,
+    order = 696,
     ignore = true,
 
     key = "muon",

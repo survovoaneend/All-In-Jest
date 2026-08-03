@@ -1,6 +1,6 @@
 local spirit_mask = {
     object_type = "Joker",
-    order = 918,
+    order = 945,
     ignore = true,
 
     key = "spirit_mask",

@@ -1,6 +1,6 @@
 local bermuda = {
     object_type = "Joker",
-    order = 484,
+    order = 503,
     key = "bermuda",
     ignore = true,
     config = {

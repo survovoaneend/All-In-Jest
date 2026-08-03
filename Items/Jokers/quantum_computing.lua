@@ -1,6 +1,6 @@
 local quantum_computing = {
     object_type = "Joker",
-    order = 616,
+    order = 647,
     key = "quantum_computing",
     ignore = true,
     config = {

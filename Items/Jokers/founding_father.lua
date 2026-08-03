@@ -1,6 +1,6 @@
 local founding_father = {
     object_type = "Joker",
-    order = 25,
+    order = 28,
      
     key = "founding_father",
     config = {

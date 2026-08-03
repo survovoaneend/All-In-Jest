@@ -1,6 +1,6 @@
 local monarchic_joker = {
     object_type = "Joker",
-    order = 351.5,
+    order = 360.5,
     
     key = "monarchic_joker",
     config = {

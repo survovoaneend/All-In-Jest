@@ -1,6 +1,6 @@
 local asphyxiation = {
     object_type = "Joker",
-    order = 418,
+    order = 437,
     key = "asphyxiation",
     ignore = true,
     config = {

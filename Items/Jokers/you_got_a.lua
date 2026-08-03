@@ -1,6 +1,6 @@
 local you_got_a = {
     object_type = "Joker",
-    order = 552,
+    order = 571,
     key = "you_got_a",
     ignore = true,
     config = {

@@ -1,6 +1,6 @@
 local wild_man = {
     object_type = "Joker",
-    order = 660,
+    order = 682,
     ignore = true,
 
     key = "wild_man",

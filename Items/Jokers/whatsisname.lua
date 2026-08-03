@@ -1,6 +1,6 @@
 local whatsisname = {
     object_type = "Joker",
-    order = 264,
+    order = 270,
     
     key = "whatsisname",
     config = {

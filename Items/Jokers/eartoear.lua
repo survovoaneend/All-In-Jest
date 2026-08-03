@@ -1,6 +1,6 @@
 local eartoear = {
     object_type = "Joker",
-    order = 728,
+    order = 750,
     ignore = true,
 
     key = "eartoear",

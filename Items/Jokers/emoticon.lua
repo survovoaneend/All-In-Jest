@@ -1,6 +1,6 @@
 local emoticon = {
     object_type = "Joker",
-    order = 667,
+    order = 689,
     ignore = true,
 
     key = "emoticon",

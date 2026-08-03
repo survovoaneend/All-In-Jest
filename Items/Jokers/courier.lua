@@ -1,6 +1,6 @@
 local courier = {
     object_type = "Joker",
-    order = 461,
+    order = 480,
     key = "courier",
     ignore = true,
     config = {

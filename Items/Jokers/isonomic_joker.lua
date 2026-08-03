@@ -1,6 +1,6 @@
 local isonomic_joker = {
     object_type = "Joker",
-    order = 351.4,
+    order = 359.4,
     
     key = "isonomic_joker",
     config = {

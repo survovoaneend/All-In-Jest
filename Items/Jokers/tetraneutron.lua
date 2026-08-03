@@ -1,6 +1,6 @@
 local tetraneutron = {
     object_type = "Joker",
-    order = 694,
+    order = 716,
     ignore = true,
 
     key = "tetraneutron",

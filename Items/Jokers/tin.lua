@@ -1,6 +1,6 @@
 local tin = {
     object_type = "Joker",
-    order = 562.5,
+    order = 586.5,
     key = "tin",
     
     config = {

@@ -1,6 +1,6 @@
 local neutronium = {
     object_type = "Joker",
-    order = 562.92,
+    order = 592.92,
 
     key = "neutronium",
     config = {

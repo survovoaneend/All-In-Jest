@@ -1,6 +1,6 @@
 local bobblehead = {
     object_type = "Joker",
-    order = 78,
+    order = 81,
 
     key = "bobblehead",
     config = {

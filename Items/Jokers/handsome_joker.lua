@@ -17,7 +17,7 @@ end
 
 local handsome_joker = {
     object_type = "Joker",
-    order = 7,
+    order = 8,
 
     key = "handsome_joker",
     config = {

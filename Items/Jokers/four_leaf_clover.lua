@@ -1,6 +1,6 @@
 local four_leaf_clover = {
     object_type = "Joker",
-    order = 267,
+    order = 273,
     key = "four_leaf_clover",
     config = {
       

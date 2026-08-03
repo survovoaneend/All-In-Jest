@@ -1,6 +1,6 @@
 local polymorphic_joker = {
     object_type = "Joker",
-    order = 936,
+    order = 963,
     ignore = true,
 
     key = "polymorphic_joker",

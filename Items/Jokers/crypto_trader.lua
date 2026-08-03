@@ -1,6 +1,6 @@
 local crypto_trader = {
     object_type = "Joker",
-    order = 507,
+    order = 514,
 
     key = "crypto_trader",
     config = {

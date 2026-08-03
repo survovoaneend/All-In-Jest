@@ -1,6 +1,6 @@
 local base_camp = {
     object_type = "Joker",
-    order = 840,
+    order = 867,
     ignore = true,
 
     key = "base_camp",

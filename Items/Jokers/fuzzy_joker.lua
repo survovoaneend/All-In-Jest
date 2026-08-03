@@ -1,6 +1,6 @@
 local fuzzy_joker = {
     object_type = "Joker",
-    order = 259,
+    order = 265,
     key = "fuzzy_joker",
     config = {
         extra = {

@@ -1,6 +1,6 @@
 local his_majesty = {
     object_type = "Joker",
-    order = 886,
+    order = 913,
     ignore = true,
 
     key = "his_majesty",

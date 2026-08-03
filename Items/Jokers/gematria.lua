@@ -1,6 +1,6 @@
 local gematria = {
     object_type = "Joker",
-    order = 299,
+    order = 306,
     key = "gematria",
     config = {
       extra = {

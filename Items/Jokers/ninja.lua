@@ -1,6 +1,6 @@
 local ninja = {
     object_type = "Joker",
-    order = 420,
+    order = 439,
     key = "ninja",
     config = {
         extra = {

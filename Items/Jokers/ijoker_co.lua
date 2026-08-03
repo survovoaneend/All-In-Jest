@@ -70,7 +70,7 @@ local tag_prices = {
 
 local ijoker_co = {
     object_type = "Joker",
-    order = 211,
+    order = 217,
 
     key = "ijoker_co",
     config = {

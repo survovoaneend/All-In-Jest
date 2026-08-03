@@ -1,6 +1,6 @@
 local vesti_la_guibba = {
 	object_type = "Joker",
-	order = 119,
+	order = 122,
 
 	key = "vesti_la_guibba",
 	config = {},

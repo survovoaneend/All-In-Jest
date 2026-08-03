@@ -1,6 +1,6 @@
 local pencil_drawing = {
     object_type = "Joker",
-    order = 63,
+    order = 66,
 
     key = "pencil_drawing",
     config = {

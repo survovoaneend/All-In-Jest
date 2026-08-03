@@ -1,6 +1,6 @@
 local autograph = {
     object_type = "Joker",
-    order = 903,
+    order = 930,
     ignore = true,
 
     key = "autograph",

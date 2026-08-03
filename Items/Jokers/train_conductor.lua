@@ -1,6 +1,6 @@
 local train_conductor = {
     object_type = "Joker",
-    order = 852,
+    order = 879,
     ignore = true,
 
     key = "train_conductor",

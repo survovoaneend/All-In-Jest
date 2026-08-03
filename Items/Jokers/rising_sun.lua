@@ -1,6 +1,6 @@
 local rising_sun = {
     object_type = "Joker",
-    order = 124,
+    order = 127,
     lite = true,
     key = "rising_sun",
     config = {

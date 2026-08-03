@@ -1,6 +1,6 @@
 local the_freezer = {
     object_type = "Joker",
-    order = 319,
+    order = 326,
     ignore = true,
     key = "the_freezer",
     config = {

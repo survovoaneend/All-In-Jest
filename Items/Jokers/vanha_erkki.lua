@@ -1,6 +1,6 @@
 local vanha_erkki = {
     object_type = "Joker",
-    order = 677,
+    order = 699,
     ignore = true,
 
     key = "vanha_erkki",

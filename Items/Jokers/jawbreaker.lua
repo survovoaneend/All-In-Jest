@@ -1,6 +1,6 @@
 local jawbreaker = {
     object_type = "Joker",
-    order = 603.2,
+    order = 632.2,
     key = "jawbreaker",
   
     config = {

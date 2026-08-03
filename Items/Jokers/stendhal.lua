@@ -1,6 +1,6 @@
 local stendhal = {
     object_type = "Joker",
-    order = 768,
+    order = 790,
     ignore = true,
 
     key = "stendhal",

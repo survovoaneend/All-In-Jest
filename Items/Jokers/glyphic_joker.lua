@@ -1,6 +1,6 @@
 local glyphic_joker = {
     object_type = "Joker",
-    order = 833,
+    order = 860,
     ignore = true,
 
     key = "glyphic_joker",

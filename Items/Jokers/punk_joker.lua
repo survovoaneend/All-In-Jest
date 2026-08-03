@@ -1,6 +1,6 @@
 local punk_joker = {
     object_type = "Joker",
-    order = 50,
+    order = 53,
 
     key = "punk_joker",
     config = {

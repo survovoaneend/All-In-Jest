@@ -1,6 +1,6 @@
 local fly_agaric = {
     object_type = "Joker",
-    order = 416,
+    order = 435,
     key = "fly_agaric",
     config = {
         extra = {

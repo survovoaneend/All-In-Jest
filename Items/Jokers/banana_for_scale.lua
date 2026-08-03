@@ -1,6 +1,6 @@
 local banana_for_scale = {
     object_type = "Joker",
-    order = 704,
+    order = 726,
     ignore = true,
 
     key = "banana_for_scale",

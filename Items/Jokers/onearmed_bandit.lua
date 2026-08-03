@@ -1,6 +1,6 @@
 local onearmed_bandit = {
     object_type = "Joker",
-    order = 870,
+    order = 897,
     ignore = true,
 
     key = "onearmed_bandit",

@@ -1,6 +1,6 @@
 local lich = {
     object_type = "Joker",
-    order = 696,
+    order = 718,
     ignore = true,
 
     key = "lich",

@@ -1,6 +1,6 @@
 local unobtanium = {
     object_type = "Joker",
-    order = 562.9,
+    order = 590,
 
     key = "unobtanium",
     config = {

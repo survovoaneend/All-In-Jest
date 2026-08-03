@@ -1,6 +1,6 @@
 local scarab = {
     object_type = "Joker",
-    order = 945,
+    order = 972,
     ignore = true,
 
     key = "scarab",

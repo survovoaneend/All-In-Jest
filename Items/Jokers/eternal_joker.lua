@@ -1,6 +1,6 @@
 local eternal_joker = {
     object_type = "Joker",
-    order = 793,
+    order = 815,
     ignore = true,
 
     key = "eternal_joker",

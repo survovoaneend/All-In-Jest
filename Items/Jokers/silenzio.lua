@@ -1,6 +1,6 @@
 local silenzio = {
     object_type = "Joker",
-    order = 672,
+    order = 694,
     ignore = true,
 
     key = "silenzio",

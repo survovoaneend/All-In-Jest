@@ -41,7 +41,7 @@ end
 
 local lexicon = {
     object_type = "Joker",
-    order = 322,
+    order = 329,
     key = "lexicon",
     config = {},
     attributes = { 'mult', 'joker' },

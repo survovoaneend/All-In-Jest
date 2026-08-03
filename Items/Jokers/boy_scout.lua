@@ -1,6 +1,6 @@
 local boy_scout = {
     object_type = "Joker",
-    order = 542,
+    order = 561,
     key = "boy_scout",
     ignore = true,
     config = {

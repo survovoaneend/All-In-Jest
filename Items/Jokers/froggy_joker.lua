@@ -1,6 +1,6 @@
 local froggy_joker = {
     object_type = "Joker",
-    order = 778,
+    order = 800,
     ignore = true,
 
     key = "froggy_joker",

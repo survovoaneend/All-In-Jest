@@ -1,6 +1,6 @@
 local glass_delusion = {
     object_type = "Joker",
-    order = 551,
+    order = 570,
     key = "glass_delusion",
     config = {
         extra = {

@@ -1,6 +1,6 @@
 local sea_of_night = {
     object_type = "Joker",
-    order = 686,
+    order = 708,
     ignore = true,
 
     key = "sea_of_night",

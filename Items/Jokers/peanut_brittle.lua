@@ -1,6 +1,6 @@
 local peanut_brittle = {
     object_type = "Joker",
-    order = 603.1,
+    order = 631.1,
     key = "peanut_brittle",
   
     config = {

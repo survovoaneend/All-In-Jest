@@ -1,6 +1,6 @@
 local cliff = {
     object_type = "Joker",
-    order = 802,
+    order = 827,
     ignore = true,
 
     key = "cliff",

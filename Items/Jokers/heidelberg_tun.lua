@@ -1,6 +1,6 @@
 local heidelberg_tun = {
   object_type = "Joker",
-  order = 127,
+  order = 130,
 
   key = "heidelberg_tun",
   config = {

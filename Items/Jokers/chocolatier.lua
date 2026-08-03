@@ -1,6 +1,6 @@
 local chocolatier = {
     object_type = "Joker",
-    order = 784,
+    order = 806,
     ignore = true,
 
     key = "chocolatier",

@@ -1,6 +1,6 @@
 local bonus_pay = {
     object_type = "Joker",
-    order = 307,
+    order = 314,
 
     key = "bonus_pay",
     config = {

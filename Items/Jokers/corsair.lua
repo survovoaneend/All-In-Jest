@@ -1,6 +1,6 @@
 local corsair = {
     object_type = "Joker",
-    order = 688,
+    order = 710,
     ignore = true,
 
     key = "corsair",

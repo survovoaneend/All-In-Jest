@@ -1,6 +1,6 @@
 local beholder = {
     object_type = "Joker",
-    order = 701,
+    order = 723,
     ignore = true,
 
     key = "beholder",

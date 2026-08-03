@@ -1,6 +1,6 @@
 local red_joker = {
     object_type = "Joker",
-    order = 438,
+    order = 457,
     key = "red_joker",
     ignore = true,
     config = {

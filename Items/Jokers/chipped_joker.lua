@@ -1,6 +1,6 @@
 local chipped_joker = {
     object_type = "Joker",
-    order = 478,
+    order = 497,
     key = "chipped_joker",
     config = {
         extra = {

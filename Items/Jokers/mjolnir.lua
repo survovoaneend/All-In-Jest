@@ -1,6 +1,6 @@
 local mjolnir = {
     object_type = "Joker",
-    order = 676,
+    order = 698,
     ignore = true,
 
     key = "mjolnir",

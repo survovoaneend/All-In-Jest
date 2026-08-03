@@ -1,6 +1,6 @@
 local blue_tongue = {
     object_type = "Joker",
-    order = 946,
+    order = 973,
     ignore = true,
 
     key = "blue_tongue",

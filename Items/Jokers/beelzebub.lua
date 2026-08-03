@@ -1,6 +1,6 @@
 local beelzebub = {
     object_type = "Joker",
-    order = 481,
+    order = 500,
     key = "beelzebub",
     
     config = {

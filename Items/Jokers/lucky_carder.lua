@@ -1,6 +1,6 @@
 local lucky_carder = {
     object_type = "Joker",
-    order = 97,
+    order = 100,
     ignore = true,
 
     key = "lucky_carder",

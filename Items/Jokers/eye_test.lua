@@ -1,6 +1,6 @@
 local eye_test = {
     object_type = "Joker",
-    order = 519,
+    order = 538,
     key = "eye_test",
     config = {
         extra = {

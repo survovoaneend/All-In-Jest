@@ -1,6 +1,6 @@
 local honker = {
     object_type = "Joker",
-    order = 134,
+    order = 137,
 
     key = "honker",
     config = {

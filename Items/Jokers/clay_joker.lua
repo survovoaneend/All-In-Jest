@@ -1,7 +1,7 @@
 local clay_joker = {
     object_type = "multi_copier",
     object_loader = All_in_Jest,
-    order = 102,
+    order = 105,
     key = "clay_joker",
     config = {
         j_aij_clay_joker_compat = true,

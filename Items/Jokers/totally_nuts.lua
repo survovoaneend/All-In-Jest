@@ -1,6 +1,6 @@
 local totally_nuts = {
     object_type = "Joker",
-    order = 239,
+    order = 244,
     key = "totally_nuts",
     config = {
       extra = { consumable_slots = "3" }

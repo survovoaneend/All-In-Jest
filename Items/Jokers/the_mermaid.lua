@@ -1,6 +1,6 @@
 local the_mermaid = {
     object_type = "Joker",
-    order = 291,
+    order = 298,
     ignore = true,
     key = "the_mermaid",
     config = {

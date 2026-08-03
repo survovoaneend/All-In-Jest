@@ -1,6 +1,6 @@
 local maschera = {
     object_type = "Joker",
-    order = 806,
+    order = 831,
     ignore = true,
 
     key = "maschera",

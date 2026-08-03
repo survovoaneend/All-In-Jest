@@ -1,6 +1,6 @@
 local mad_scientist = {
     object_type = "Joker",
-    order = 407,
+    order = 426,
     key = "mad_scientist",
     ignore = true,
     config = {

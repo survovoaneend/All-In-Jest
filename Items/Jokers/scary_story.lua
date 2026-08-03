@@ -1,7 +1,7 @@
 
 local scary_story = {
     object_type = "Joker",
-    order = 26,
+    order = 29,
 
     key = "scary_story",
     config = {

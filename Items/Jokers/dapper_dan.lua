@@ -1,6 +1,6 @@
 local dapper_dan = {
     object_type = "Joker",
-    order = 149,
+    order = 152,
 
     key = "dapper_dan",
     config = {

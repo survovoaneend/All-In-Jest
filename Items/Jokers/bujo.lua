@@ -1,6 +1,6 @@
 local bujo = {
     object_type = "Joker",
-    order = 789,
+    order = 811,
     ignore = true,
 
     key = "bujo",

@@ -1,6 +1,6 @@
 local engineer = {
     object_type = "Joker",
-    order = 724,
+    order = 746,
     ignore = true,
 
     key = "engineer",

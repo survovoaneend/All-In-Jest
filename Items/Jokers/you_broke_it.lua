@@ -1,6 +1,6 @@
 local you_broke_it = {
   object_type = "Joker",
-  order = 2,
+  order = 4,
 
   key = "you_broke_it",
   config = {

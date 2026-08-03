@@ -1,6 +1,6 @@
 local the_herald = {
     object_type = "Joker",
-    order = 497,
+    order = 506,
 
     key = "the_herald",
     config = {

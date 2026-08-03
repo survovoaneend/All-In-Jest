@@ -1,6 +1,6 @@
 local quicklime_heart = {
     object_type = "Joker",
-    order = 861,
+    order = 888,
     ignore = true,
 
     key = "quicklime_heart",

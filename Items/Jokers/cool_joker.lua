@@ -1,6 +1,6 @@
 local cool_joker = {
     object_type = "Joker",
-    order = 48,
+    order = 51,
     ignore = true,
 
     key = "cool_joker",

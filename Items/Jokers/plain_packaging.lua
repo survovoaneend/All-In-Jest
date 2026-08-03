@@ -1,6 +1,6 @@
 local plain_packaging = {
     object_type = "Joker",
-    order = 114,
+    order = 117,
 
     key = "plain_packaging",
     config = {

@@ -1,6 +1,6 @@
 local senseless_joker = {
     object_type = "Joker",
-    order = 876,
+    order = 903,
     ignore = true,
 
     key = "senseless_joker",

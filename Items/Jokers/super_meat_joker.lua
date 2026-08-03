@@ -1,6 +1,6 @@
 local super_meat_joker = {
     object_type = "Joker",
-    order = 626,
+    order = 657,
     key = "super_meat_joker",
     ignore = true,
     config = {

@@ -1,6 +1,6 @@
 local buzzy_bee = {
     object_type = "Joker",
-    order = 960,
+    order = 987,
     ignore = true,
 
     key = "buzzy_bee",

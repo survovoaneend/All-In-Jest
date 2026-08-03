@@ -1,6 +1,6 @@
 local stargazer = {
     object_type = "Joker",
-    order = 315,
+    order = 322,
     ignore = true,
     key = "stargazer",
     config = {

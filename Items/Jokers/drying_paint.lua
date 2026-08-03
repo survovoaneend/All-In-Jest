@@ -1,6 +1,6 @@
 local drying_paint = {
     object_type = "Joker",
-    order = 635,
+    order = 670,
     ignore = true,
 
     key = "drying_paint",

@@ -1,6 +1,6 @@
 local poker_face = {
     object_type = "Joker",
-    order = 430,
+    order = 449,
     key = "poker_face",
     
     config = {

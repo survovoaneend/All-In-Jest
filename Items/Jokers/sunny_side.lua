@@ -1,6 +1,6 @@
 local sunny_side = {
     object_type = "Joker",
-    order = 255,
+    order = 261,
     key = "sunny_side",
     config = {
       

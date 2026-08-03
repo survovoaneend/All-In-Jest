@@ -1,6 +1,6 @@
 local liquorice = {
     object_type = "Joker",
-    order = 602,
+    order = 629,
     key = "liquorice",
   
     config = {

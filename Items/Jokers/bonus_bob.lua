@@ -1,6 +1,6 @@
 local bonus_bob = {
     object_type = "Joker",
-    order = 310,
+    order = 317,
     
     key = "bonus_bob",
     config = {

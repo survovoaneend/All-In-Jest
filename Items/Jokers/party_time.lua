@@ -1,6 +1,6 @@
 local party_time = {
     object_type = "Joker",
-    order = 517,
+    order = 526,
 
     key = "party_time",
     config = {

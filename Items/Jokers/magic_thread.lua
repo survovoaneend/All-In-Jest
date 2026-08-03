@@ -1,6 +1,6 @@
 local magic_thread = {
     object_type = "Joker",
-    order = 771,
+    order = 793,
     ignore = true,
 
     key = "magic_thread",

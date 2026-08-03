@@ -1,6 +1,6 @@
 local gille = {
     object_type = "Joker",
-    order = 206,
+    order = 212,
     ignore = true,
 
     key = "gille",

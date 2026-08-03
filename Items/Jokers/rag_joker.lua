@@ -1,6 +1,6 @@
 local rag_joker = {
     object_type = "Joker",
-    order = 880,
+    order = 907,
     ignore = true,
 
     key = "rag_joker",

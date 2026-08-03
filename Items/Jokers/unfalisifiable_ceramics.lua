@@ -1,6 +1,6 @@
 local unfalisifiable_ceramics = {
     object_type = "Joker",
-    order = 748,
+    order = 770,
     ignore = true,
 
     key = "unfalisifiable_ceramics",

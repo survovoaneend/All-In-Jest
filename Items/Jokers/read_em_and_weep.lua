@@ -1,6 +1,6 @@
 local read_em_and_weep = {
     object_type = "Joker",
-    order = 92,
+    order = 95,
 
     key = "read_em_and_weep",
     config = { },

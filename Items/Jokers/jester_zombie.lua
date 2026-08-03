@@ -1,6 +1,6 @@
 local jester_zombie = {
     object_type = "Joker",
-    order = 236,
+    order = 241,
     key = "jester_zombie",
     config = {
       

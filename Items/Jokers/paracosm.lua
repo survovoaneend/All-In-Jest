@@ -1,6 +1,6 @@
 local paracosm = {
     object_type = "Joker",
-    order = 288,
+    order = 295,
     key = "paracosm",
     config = {
       extra = {hand = "[Most played hand]"}

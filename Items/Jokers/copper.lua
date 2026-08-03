@@ -1,6 +1,6 @@
 local copper = {
     object_type = "Joker",
-    order = 562.3,
+    order = 584.3,
     key = "copper",
     
     config = {

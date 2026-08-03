@@ -1,6 +1,6 @@
 local dark_angel = {
     object_type = "Joker",
-    order = 957,
+    order = 984,
     ignore = true,
 
     key = "dark_angel",

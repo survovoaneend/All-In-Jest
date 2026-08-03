@@ -1,6 +1,6 @@
 local plutonium = {
     object_type = "Joker",
-    order = 562.0,
+    order = 581.0,
     key = "plutonium",
 
     config = {

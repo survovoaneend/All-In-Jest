@@ -1,6 +1,6 @@
 local saveloy = {
     object_type = "Joker",
-    order = 915,
+    order = 942,
     ignore = true,
 
     key = "saveloy",

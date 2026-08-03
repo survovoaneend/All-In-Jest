@@ -1,6 +1,6 @@
 local pink_slip = {
     object_type = "Joker",
-    order = 375,
+    order = 394,
     key = "pink_slip",
     config = {
         extra = {

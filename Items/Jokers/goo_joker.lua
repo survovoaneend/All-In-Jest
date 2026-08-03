@@ -1,6 +1,6 @@
 local goo_joker = {
     object_type = "Joker",
-    order = 518,
+    order = 537,
     key = "goo_joker",
 
     config = {

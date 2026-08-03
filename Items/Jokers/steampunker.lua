@@ -1,6 +1,6 @@
 local steampunker = {
     object_type = "Joker",
-    order = 726,
+    order = 748,
     ignore = true,
 
     key = "steampunker",

@@ -1,6 +1,6 @@
 local catgirl = {
     object_type = "Joker",
-    order = 779,
+    order = 801,
     ignore = true,
 
     key = "catgirl",

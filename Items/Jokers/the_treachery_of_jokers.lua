@@ -1,6 +1,6 @@
 local the_treachery_of_jokers = {
     object_type = "Joker",
-    order = 390,
+    order = 409,
     key = "the_treachery_of_jokers",
     config = {
         extra = {
