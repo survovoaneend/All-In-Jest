@@ -38,6 +38,18 @@ if card.ability.aij_perma_flipped then
 end
 '''
 
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'before'
+pattern = '''
+if _type == 'joker_retrigger' then
+'''
+payload = '''
+SMODS.calculate_context({aij_retriggered_card = true, card = effect_card, ret = ret, times = eval.repetitions})
+'''
+
 # Eye Seal, For end of round scoring
 [[patches]]
 [patches.pattern]

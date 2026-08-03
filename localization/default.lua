@@ -6709,6 +6709,48 @@ return {
                     '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
                 }
             },
+            j_aij_peanut_brittle = {
+                name = "Peanut Brittle",
+                text = {
+                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                    'when a card is enhanced to',
+                    '{C:attention}Glass{}, loses {X:mult,C:white}X#2#{} Mult when',
+                    'when a Glass Card {C:attention}breaks{}',
+                    '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                }
+            },
+            j_aij_jawbreaker = {
+                name = "Jawbreaker",
+                text = {
+                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                    'when a card is enhanced to',
+                    '{C:attention}Stone{}, loses {X:mult,C:white}X#2#{} Mult if',
+                    'played hand cotains no',
+                    '{C:attention}unscored cards',
+                    '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                }
+            },
+            j_aij_chocolate_coins = {
+                name = "Chocolate Coins",
+                text = {
+                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                    'when a card is enhanced to',
+                    '{C:attention}Gold{}, loses {X:mult,C:white}X#2#{} Mult if',
+                    'when {C:money}money{} is earned',
+                    'during a {C:attention}blind',
+                    '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                }
+            },
+            j_aij_blueberries = {
+                name = "Blueberries",
+                text = {
+                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                    'when a card is enhanced to',
+                    '{C:attention}Fervent{}, loses {X:mult,C:white}X#2#{} Mult when',
+                    'a card is {C:attention}retriggered',
+                    '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                }
+            },
             j_aij_haggler = {
                 name = "Haggler",
                 text = {
