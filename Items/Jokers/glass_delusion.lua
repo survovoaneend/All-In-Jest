@@ -47,7 +47,22 @@ local glass_delusion = {
                 end
             end
         end
-    end
+    end,
+    in_pool = function(self, args)
+        local glass = 0
+        if G.GAME and G.playing_cards then
+            for _, card in ipairs(G.playing_cards) do
+                if card.config.center.key == 'm_glass' then
+                    glass = glass + 1
+                end
+            end
+        end
+        if glass > 0 then
+            return true
+        else
+            return false
+        end
+    end,
 }
 
 return { name = { "Jokers" }, items = { glass_delusion } }

@@ -74,7 +74,22 @@ local chipped_joker = {
                 chips = card.ability.extra.chips,
             }
         end
-    end
+    end,
+    in_pool = function(self, args)
+        local stone = 0
+        if G.GAME and G.playing_cards then
+            for _, card in ipairs(G.playing_cards) do
+                if card.config.center.key == 'm_stone' then
+                    stone = stone + 1
+                end
+            end
+        end
+        if stone > 0 then
+            return true
+        else
+            return false
+        end
+    end,
 }
 
 return { name = { "Jokers" }, items = { chipped_joker } }
