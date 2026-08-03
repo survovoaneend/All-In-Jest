@@ -3,7 +3,7 @@ local the_fig = {
     key = 'the_fig',
     
     boss = {
-        min = 1,
+        min = 2,
     },
     mult = 2,
     boss_colour = HEX("95718b"),

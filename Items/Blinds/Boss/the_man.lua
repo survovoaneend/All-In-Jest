@@ -3,7 +3,7 @@ local the_man = {
     key = 'the_man',
     
     boss = {
-        min = 4,
+        min = 3,
     },
     mult = 2,
     boss_colour = HEX("95a0a9"),

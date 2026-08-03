@@ -977,7 +977,7 @@ return {
             bl_aij_the_man = {
                 name = "The Man",
                 text = {
-                    'All played face cards',
+                    'All played cards',
                     'become permanently',
                     'drawn face down',
                 },

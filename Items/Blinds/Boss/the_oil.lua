@@ -3,7 +3,7 @@ local the_oil = {
     key = 'the_oil',
     
     boss = {
-        min = 1,
+        min = 5,
     },
     mult = 2,
     boss_colour = HEX("b3986a"),
@@ -11,7 +11,17 @@ local the_oil = {
     pos = { X = 0, y = 86},
     order = 86,
     dollars = 5,
-
+    in_pool = function(self)
+        if G.playing_cards then
+            local count = 0
+            for k, v in ipairs(G.playing_cards) do
+                if next(SMODS.get_enhancements(v)) then
+                    count = count + 1
+                end
+            end
+            return count >= 8
+        end
+    end,
     loc_vars = function(self, info_queue, card)
         local num, odds = SMODS.get_probability_vars(self, 1, 2)
         return {vars = {num, odds}}

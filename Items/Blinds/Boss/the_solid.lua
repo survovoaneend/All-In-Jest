@@ -3,7 +3,7 @@ local the_solid = {
     key = 'the_solid',
     
     boss = {
-        min = 1,
+        min = 3,
     },
     mult = 2,
     boss_colour = HEX("6f7070"),

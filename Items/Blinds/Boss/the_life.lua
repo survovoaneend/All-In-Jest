@@ -3,7 +3,7 @@ local the_life = {
     key = 'the_life',
     
     boss = {
-        min = 1,
+        min = 2,
     },
     mult = 2,
     boss_colour = HEX("507e66"),
