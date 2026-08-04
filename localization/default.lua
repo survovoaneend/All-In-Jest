@@ -7167,11 +7167,17 @@ return {
             j_aij_pinup_poster = {
                 name = "Pin-Up Poster",
                 text = {
-                    'Gains {X:mult,C:white}X#1#{} Mult per',
-                    '{C:red}Hearts{} suit card in',
-                    'your {C:attention}remaining deck',
-                    '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult){}',
-                    "{C:inactive,s:0.8}(Always Pinned)"
+                    {
+                        'This Joker is always',
+                        '{C:attention}pinned{} to the {C:attention}left',
+                        'of your Jokers'
+                    },
+                    {
+                        'Gains {X:mult,C:white}X#1#{} Mult per',
+                        '{C:red}Hearts{} suit card in',
+                        'your {C:attention}remaining deck',
+                        '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult){}',
+                    }
                 }
             },            
             j_aij_the_judge = {

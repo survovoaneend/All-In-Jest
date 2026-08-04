@@ -22,6 +22,30 @@ end
 '''
 
 [[patches]]
+[patches.regex]
+target = "cardarea.lua"
+pattern = '''
+(?<indent>[\t ]*)a\.pinned(?<post>.*)
+'''
+position = "at"
+line_prepend = '$indent'
+payload = '''
+$indent(a.ability and a.ability.aij_pinned or a.pinned)$post
+'''
+
+[[patches]]
+[patches.regex]
+target = "cardarea.lua"
+pattern = '''
+(?<indent>[\t ]*)b\.pinned(?<post>.*)
+'''
+position = "at"
+line_prepend = '$indent'
+payload = '''
+$indent(b.ability and b.ability.aij_pinned or b.pinned)$post
+'''
+
+[[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/game_object.lua"]'
 pattern = '''if not SMODS.Calculation_Controls.chips then return end'''
