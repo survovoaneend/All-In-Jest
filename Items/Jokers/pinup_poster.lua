@@ -29,7 +29,8 @@ local pinup_poster = {
     end,
 
     set_ability = function(self, card, initial)
-        card.pinned = true
+        card.ability = card.ability or {}
+        card.ability.aij_pinned = true
     end,
 
     calculate = function(self, card, context)
