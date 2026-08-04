@@ -7115,13 +7115,6 @@ return {
                     ''
                 }
             },
-            j_aij_first_draft = {
-                name = "First Draft",
-                text = {
-                    "Copies ability of",
-                    "{C:attention}Joker{} to the {C:attention}left",
-                }
-            },
             j_aij_shock_collar = {
                 name = "Shock Collar",
                 text = {
@@ -7167,7 +7160,11 @@ return {
             j_aij_pinup_poster = {
                 name = "Pin-Up Poster",
                 text = {
-                    ''
+                    'Gains {X:mult,C:white}X#1#{} Mult per',
+                    '{C:red}Hearts{} suit card in',
+                    'your {C:attention}remaining deck',
+                    '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult){}',
+                    "{C:inactive,s:0.8}(Always Pinned)"
                 }
             },            
             j_aij_the_judge = {
@@ -7455,7 +7452,17 @@ return {
             j_aij_train_conductor = {
                 name = "Train Conductor",
                 text = {
-                    ''
+                    {
+                        '{C:mult}+Mult{} Jokers instead give',
+                        '{C:mult}XMult{} equal to {C:attention}#1#%{} of',
+                        'their original values',
+                        '{C:inactive}(Minimum {X:mult,C:white}X1.2{C:inactive} Mult){}'
+                    },
+                    {
+                        '{C:mult}XMult{} Jokers instead give',
+                        '{C:mult}+Mult{} equal to {C:attention}#2#%{} of',
+                        'their original values'
+                    },
                 }
             },            
             j_aij_bookmaker = {

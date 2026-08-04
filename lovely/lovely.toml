@@ -21,6 +21,50 @@ if self.ability.aij_pc_perishable and self.ability.perish_tally <= 0 then
 end
 '''
 
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''if not SMODS.Calculation_Controls.chips then return end'''
+position = "after"
+payload = '''
+local flags = {}
+SMODS.calculate_context({aij_modify_card_effects = true, parameter = self, effects = effect, effect_type = key, card = scored_card, amount = amount, from_edition = from_edition}, flags)
+local override = false
+for _, eval in pairs(flags) do
+    for key, eval2 in pairs(eval) do
+        if type(eval2) == 'table' then
+            for key2, val in pairs(eval2) do
+                if key2 == 'override' then override = val end
+            end
+        end
+    end
+end
+if override then return true end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''if not SMODS.Calculation_Controls.mult then return end'''
+position = "after"
+payload = '''
+local flags = {}
+SMODS.calculate_context({aij_modify_card_effects = true, parameter = self, effects = effect, effect_type = key, card = scored_card, amount = amount, from_edition = from_edition}, flags)
+local override = false
+for _, eval in pairs(flags) do
+    for key, eval2 in pairs(eval) do
+        if type(eval2) == 'table' then
+            for key2, val in pairs(eval2) do
+                if key2 == 'override' then override = val end
+            end
+        end
+    end
+end
+if override then return true end
+'''
+match_indent = true
+
 # Perma-flipped for Playing Cards
 # draw_card()
 # allows cards to stay flipped when drawn permanently
