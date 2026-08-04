@@ -3,21 +3,22 @@
 All in Jest is a massive, vannila-adjacent mod that adds tons of new content focused on expanding the base game with high quality art and mechanics while still maintaining balance.
 
 Take a look at the [Wiki Page](https://balatromods.miraheze.org/wiki/All_in_Jest)!
-# Current content as of 0.6.0
-* 300 Jokers, 35 of which are Legendaries
-* 3 Decks
-* 6 Vouchers
-* 11 Tarot Cards
+# Current content as of 0.7.0
+* 500 Jokers, 45 of which are Legendaries
+* 4 Decks
+* 12 Vouchers
+* 22 Tarot Cards
 * 27 Planet Cards (+8 if Paperback or Bunco are enabled)
-* 9 Spectral Cards
-* 6 Enhancements
-* 2 Seals
-* 4 Editions
-* 1 Booster Pack
-* 40 Tags
+* 14 Spectral Cards
+* 14 of a brand new consumable type, Astral Cards
+* 7 Enhancements
+* 3 Seals
+* 5 Editions
+* 4 Booster Pack Types
+* 42 Tags
 * 64 Boss Blinds
-* 22 Deck Skins
-* Deck Sleeves for Fabled and Patchwork deck (Branching is coming soon trust)
+* 70 Deck Skins
+* Deck Sleeves compatibility
 * 6 Partners
 * Blue Stake rework
 * So much more planned...

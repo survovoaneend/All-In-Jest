@@ -89,8 +89,10 @@ local joker_png = {
     end,
 
     set_ability = function(self, card, initial, delay_sprites)
-        local joker_center, index = select_random_valid_joker()
-        All_in_Jest.set_copied_joker(card, joker_center)
+        if G.playing_card then
+            local joker_center, index = select_random_valid_joker()
+            All_in_Jest.set_copied_joker(card, joker_center)
+        end
     end,
 
     loc_vars = function(self, info_queue, card)

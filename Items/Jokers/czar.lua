@@ -16,7 +16,7 @@ local select_random_valid_joker = function ()
             jokers[#jokers+1] = key
         end
     end
-    local joker_center_key, index = pseudorandom_element(jokers, pseudoseed('joker_png'))
+    local joker_center_key, index = pseudorandom_element(jokers, pseudoseed('czar'))
     return G.P_CENTERS[joker_center_key], index
 end
 
@@ -42,8 +42,10 @@ local czar = {
     blueprint_compat = true, -- uses ability.aij_blueprint_compat
 
     set_ability = function(self, card, initial, delay_sprites)
-        local joker_center, index = select_random_valid_joker()
-        All_in_Jest.set_copied_joker(card, joker_center)
+        if G.playing_card then
+            local joker_center, index = select_random_valid_joker()
+            All_in_Jest.set_copied_joker(card, joker_center)
+        end
     end,
 
     loc_vars = function(self, info_queue, card)
