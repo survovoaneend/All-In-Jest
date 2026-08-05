@@ -8150,6 +8150,168 @@ return {
                     ''
                 }
             },
+            j_aij_shock_content = {
+                name = "Shock Content",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_hot_sauce = {
+                name = "Hot Sauce",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_ngmp = {
+                name = "Ng'Mp",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_friendly_face = {
+                name = "Friendly Face",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_outside_in_joker = {
+                name = "Outside In Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_tangled_joker = {
+                name = "Tangled Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_emptyhead = {
+                name = "Empty-head",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_minimalist = {
+                name = "Minimalist",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_capo = {
+                name = "Capo",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_investment_banker = {
+                name = "Investment Banker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_black_belt = {
+                name = "Black Belt",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_two_fifty_six = {
+                name = "256",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_jelly_beans = {
+                name = "Jelly Beans",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_zebra = {
+                name = "Zebra",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_draupnir = {
+                name = "Draupnir",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_te_aroha = {
+                name = "Te Aroha",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_lottery_ticket = {
+                name = "Lottery Ticket",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_booms_day = {
+                name = "Boom's Day",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_commentator = {
+                name = "Commentator",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_golden_effigy = {
+                name = "Golden Effigy",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_piece_of_mind = {
+                name = "Piece of Mind",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_one_bit_joker = {
+                name = "1-Bit Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_card_shop = {
+                name = "Card Shop",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_pour_one_out = {
+                name = "Pour One Out",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_suspend = {
+                name = "Suspend",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_chaos_orb = {
+                name = "Chaos Orb",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_big_fish = {
+                name = "Big Fish",
+                text = {
+                    ''
+                }
+            },
 
 
             j_aij_prototype = {
