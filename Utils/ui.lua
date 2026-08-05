@@ -750,3 +750,39 @@ G.FUNCS.aij_draw_from_discard_to_deck = function(e)
         end
     }))
 end
+
+G.FUNCS.aij_booster_discard_cards_from_highlighted = function(e, hook)
+    local highlighted_count = #G.hand.highlighted
+    for i=1, highlighted_count do
+        draw_card(G.hand, G.discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])
+    end
+    ease_discard(-1)
+    G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+            G.FUNCS.draw_from_deck_to_hand()
+            return true
+        end
+    }))
+end
+
+G.FUNCS.aij_booster_can_discard = function(e)
+    if G.GAME.current_round.discards_left <= 0 or #G.hand.highlighted <= 0 or #G.hand.highlighted > math.max(G.GAME.starting_params.discard_limit, 0) then 
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    else
+        local aij_can_discard = false
+        for k, v in pairs(G.hand.highlighted) do
+            if v.ability.aij_marked then
+                aij_can_discard = true
+            end
+        end
+        if aij_can_discard then
+            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+            e.config.button = nil
+        else
+            e.config.colour = G.C.RED
+            e.config.button = 'aij_booster_discard_cards_from_highlighted'
+        end
+    end
+  end

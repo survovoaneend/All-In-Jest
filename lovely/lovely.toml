@@ -89,6 +89,35 @@ if override then return true end
 '''
 match_indent = true
 
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''G.pack_cards = CardArea('''
+position = "before"
+payload = '''
+local text_scale = 0.45
+local button_height = 0.8
+local aij_discard_button_ui = {n=G.UIT.C, config={id = 'discard_button',align = "tm", padding = 0.3, r = 0.1, minw = 2.5, minh = button_height, hover = true, colour = G.C.RED, button = "aij_booster_discard_cards_from_highlighted", shadow = true, func = 'aij_booster_can_discard'}, nodes={
+    {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+        {n=G.UIT.T, config={text = localize('b_discard'), scale = text_scale, colour = G.C.UI.TEXT_LIGHT, focus_args = {button = 'y', orientation = 'bm'}, func = 'set_button_pip'}}
+    }},
+    {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+        {n=G.UIT.T, config={ref_table = SMODS.hand_limit_strings, ref_value = 'discard', scale = text_scale * 0.65, colour = G.C.UI.TEXT_LIGHT}}
+    }},
+}}
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''{n=G.UIT.C,config={align = "tm", padding = 0.05, minw = 2.4}, nodes={}},'''
+position = "before"
+payload = '''
+G.GAME and G.GAME.aij_discard_button and self.draw_hand == true and aij_discard_button_ui or
+'''
+match_indent = true
+
 # Perma-flipped for Playing Cards
 # draw_card()
 # allows cards to stay flipped when drawn permanently

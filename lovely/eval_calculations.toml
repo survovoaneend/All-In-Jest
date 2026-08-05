@@ -44,6 +44,25 @@ if context.ending_booster and G.GAME.all_in_jest.dizzard_shop and G.shop.alignme
         end
     }))
 end
+if context.ending_booster then
+    if G.GAME.current_round.discards_left ~= G.GAME.round_resets.discards and not G.GAME.aij_discared_end_booster then
+        G.GAME.current_round.discards_left = 0
+        ease_discard(G.GAME.round_resets.discards)
+        G.GAME.aij_discared_end_booster = true
+    end
+    if G.discard and #G.discard.cards > 0 then
+        G.FUNCS.draw_from_discard_to_deck()
+    end
+end
+if context.open_booster and G.GAME.aij_discard_button and not G.GAME.aij_discared_start_booster then
+    G.GAME.current_round.discards_left = 0
+    ease_discard(G.GAME.aij_booster_discards or 1)
+    G.GAME.aij_discared_end_booster = nil
+    G.GAME.aij_discared_start_booster = true
+end
+if context.other_drawn and G.GAME.aij_discared_start_booster then
+    G.GAME.aij_discared_start_booster = nil
+end
 if context.end_of_round then
     G.GAME.all_in_jest.dizzard_shop = false
 end
