@@ -79,6 +79,31 @@ return {
                 'names of the Jokers',
                 '{s:0.8,C:inactive}(but not their descriptions)'
             },
+            aij_borra_triggers = {
+                'card is scored',
+                'card is discarded',
+                'a consumable is used',
+                'anything is purchased',
+                'anything is sold',
+                'blind is selected',
+                'blind is skipped',
+                'blind is defeated',
+                'booster pack is skipped',
+                'hand is played',
+                'boss blind effect is triggered',
+                'card is destroyed',
+                'Joker is destroyed',
+                'discard is used',
+                'rerolling in the shop',
+                'a playing card is added to deck',
+                'interest is earned',
+                'lucky card triggers',
+                'steel card triggers',
+                'tag is gained',
+                'tag activates',
+                'poker hand levels up',
+                'consumable is acquired',
+            },
             k_aij_guess_the_jest = "Guess the Jest",
             k_aij_sidereal_packs = "Sidereal Pack",
             k_aij_common_packs = "Common Pack",
@@ -216,6 +241,9 @@ return {
             k_aij_ghosthunter_ghostless_2 = "in the",
             k_aij_ghosthunter_ghost_1 = "cards appear",
             k_aij_ghosthunter_ghost_2 = "more often",
+            -- Borra
+            k_aij_borra_gains = 'Gains',
+            k_aij_borra_when = 'Mult when',
         },
         labels = {
             -- Editions
@@ -5308,7 +5336,10 @@ return {
             j_aij_mad_scientist = {
                 name = "Mad Scientist",
                 text = {
-                    ''
+                    'When a card is {C:attention}enhanced{},',
+                    'a different {C:attention}random',
+                    '{C:attention}enhancement{} is',
+                    'fused to it'
                 }
             },
             j_aij_propaganda = {
@@ -8592,7 +8623,13 @@ return {
                 unlock = { "?????" }
             },
             j_aij_roland = { name = "Roland", text = { "" }, unlock = { "?????" } },
-            j_aij_borra = { name = "Borra", text = { "" }, unlock = { "?????" } },
+            j_aij_borra = { 
+                name = "Borra", 
+                text = { 
+                    '{C:inactive}(Currently {C:mult}+#1#{} {C:inactive}Mult)',
+                }, 
+                unlock = { "?????" } 
+            },
             j_aij_taillefer = {
                 name = "Taillefer",
                 text = {
