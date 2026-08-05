@@ -21,6 +21,7 @@ return {
             k_aij_party_time = "Party Time!",
             k_aij_replace = "Replace",
             k_aij_select = "Select",
+            b_aij_reroll_tags = "Reroll Tags",
             k_aij_astral = 'Astral',
             b_aij_astral_cards = 'Astral Cards',
             k_aij_inherent = "Inherent",
@@ -3492,7 +3493,12 @@ return {
                 -- BUG: "Number of 8s scored" implies retriggers count,
                 -- but they don't
             },
-            j_aij_gille = { name = "Gille", text = { "" } },
+            j_aij_gille = { 
+                name = "Gille", 
+                text = { 
+                    "May {C:attention}reroll{} available {C:attention}Tags" 
+                } 
+            },
             j_aij_fulehung = {
                 name = "Fulehung",
                 text = {
@@ -4338,7 +4344,13 @@ return {
                     '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
                 }
             },
-            j_aij_the_mermaid = { name = "The Mermaid", text = { "" } },
+            j_aij_the_mermaid = { 
+                name = "The Mermaid", 
+                text = { 
+                    'You may {C:red}discard{} at least',
+                    '{C:attention}once{} during {C:attention}Booster Packs '
+                } 
+            },
             j_aij_colour_test = {
                 name = "Colour Test",
                 text = {

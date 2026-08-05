@@ -2765,6 +2765,16 @@ payload = '''
 UIBox_button({label = {localize('b_reroll_boss'), localize('$')..'0'}, button = "jest_free_reroll_boss", func = 'jest_free_reroll_boss_button'}) or
 '''
 
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''UIBox_button({label = {localize('b_reroll_boss'), localize('$')..'10'}, button = "reroll_boss", func = 'reroll_boss_button'}) or nil'''
+position = "after"
+match_indent = true
+payload = ''',
+(G.GAME.aij_tag_rerolls and G.GAME.aij_tag_rerolls > 0) and UIBox_button({label = {localize('b_aij_reroll_tags'), localize('$')..(G.GAME.current_round.reroll_cost or 5)}, button = "aij_reroll_tag", func = 'aij_reroll_tag_button'}) or nil,
+'''
+
 # Grant lucky cards additional +mult from other effects (rather than only giving +20 mult on a trigger)
 # Card:get_chip_mult()
 [[patches]] 
