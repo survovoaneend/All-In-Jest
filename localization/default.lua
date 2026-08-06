@@ -104,6 +104,45 @@ return {
                 'poker hand levels up',
                 'consumable is acquired',
             },
+            aij_wanba_attributes = {
+                ['mult'] = '+Mult',
+                ['chips'] = '+Chips',
+                ['xmult'] = 'XMult',
+                ['balance'] = 'Balancing',
+                ['retrigger'] = 'Retrigger',
+                ['scaling'] = 'Scaling',
+                ['diamonds'] = 'Diamonds-related',
+                ['hearts'] = 'Hearts-related',
+                ['spades'] = 'Spades-related',
+                ['clubs'] = 'Clubs-related',
+                ['hand_type'] = 'Poker Hand',
+                ['ace'] = 'Ace-related',
+                ['two'] = 'Two-related',
+                ['three'] = 'Three-related',
+                ['four'] = 'Four-related',
+                ['five'] = 'Five-related',
+                ['six'] = 'Six-related',
+                ['seven'] = 'Seven-related',
+                ['eight'] = 'Eight-related',
+                ['nine'] = 'Nine-related',
+                ['ten'] = 'Ten-related',
+                ['jack'] = 'Jack-related',
+                ['queen'] = 'Queen-related',
+                ['king'] = 'King-related',
+                ['face'] = 'Face card related',
+                ['economy'] = 'Economy',
+                ['generation'] = 'Generating',
+                ['destroy_card'] = 'Card-destroying',
+                ['hand_size'] = 'Hand Size',
+                ['discard'] = 'Discard',
+                ['hands'] = 'Hand',
+                ['chance'] = 'Probability based',
+                ['mod_chance'] = 'Probability modifying',
+                ['tarot'] = 'Tarot related',
+                ['planet'] = 'Planet related',
+                ['spectral'] = 'Spectral related',
+                ['food'] = 'Food',
+            },
             k_aij_guess_the_jest = "Guess the Jest",
             k_aij_sidereal_packs = "Sidereal Pack",
             k_aij_common_packs = "Common Pack",
@@ -8676,7 +8715,14 @@ return {
                 -- TODO Should start at X1 as a legendary
                 unlock = { "?????" }
             },
-            j_aij_dongfang = { name = "Dongfang", text = { "" }, unlock = { "?????" } },
+            j_aij_dongfang = { 
+                name = "Dongfang", 
+                text = { 
+                    "Retrigger all {C:planet}Planet",
+                    "cards {C:attention}#1#{} times" 
+                }, 
+                unlock = { "?????" } 
+            },
             j_aij_zerco = {
                 name = "Zerco",
                 text = {
@@ -8973,7 +9019,15 @@ return {
             j_aij_wamba = {
                 name = "Wamba",
                 text = {
-                    ''
+                    {
+                        '{C:attention}#1#{} Jokers are',
+                        '{C:attention}#2#X{} more common'
+                    },
+                    {
+                        '{B:1,C:white,s:0.8}Activated Ability',
+                        'Cycle what {C:attention}type{} of',
+                        'Joker is more common'
+                    }
                 }
             },            
             j_aij_galet = {
