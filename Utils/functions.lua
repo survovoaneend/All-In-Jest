@@ -3596,3 +3596,46 @@ function aij_reroll_tags(blind, args)
         end
     end
 end
+
+function aij_change_shop_size_advanced(mod, remove_tag, type, rarity, key, func)
+    if not G.GAME.shop then return end
+    G.GAME.shop.joker_max = G.GAME.shop.joker_max + mod
+    for i = 1, math.abs(mod) do
+        if mod > 0 then
+            G.GAME.shop.slot_details = G.GAME.shop.slot_details or {}
+            local _type, _rarity, _key = func and type(func) == 'function' and func(type, rarity, key, card)
+            _type, _rarity, _key = _type or type, _rarity or rarity, _key or key
+            table.insert(G.GAME.shop.slot_details, 1,{
+                ['type'] = _type,
+                ['rarity'] = _rarity,
+                ['key'] = _key,
+                ['remove_tag'] = remove_tag
+            })
+        elseif mod < 0 and remove_tag then
+            for k, v in pairs(G.GAME.shop.slot_details) do
+                if v.remove_tag == remove_tag then
+                    table.remove(G.GAME.shop.slot_details, k)
+                    break
+                end
+            end
+        end
+    end
+    if G.shop_jokers and G.shop_jokers.cards then
+        if mod < 0 then
+            --Remove jokers in shop
+            for i = #G.shop_jokers.cards, G.GAME.shop.joker_max+1, -1 do
+                if G.shop_jokers.cards[i] then
+                    G.shop_jokers.cards[i]:remove()
+                end
+            end
+        end
+        G.shop_jokers.config.card_limit = G.GAME.shop.joker_max
+        G.shop_jokers.T.w = math.min(G.GAME.shop.joker_max*1.02*G.CARD_W,4.08*G.CARD_W)
+        G.shop:recalculate()
+        if mod > 0 then
+            for i = 1, G.GAME.shop.joker_max - #G.shop_jokers.cards do
+                G.shop_jokers:emplace(create_card_for_shop(G.shop_jokers))
+            end
+        end
+    end
+end

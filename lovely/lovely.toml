@@ -1223,6 +1223,36 @@ if (G.GAME.selected_back and G.GAME.selected_back.name == 'b_aij_patchwork') or 
 end
 '''
 
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+-- Use SMODS object weight system when enabled
+'''
+position = "before"
+payload = '''
+if G.GAME.shop and G.GAME.shop.slot_details and #G.GAME.shop.slot_details > 0 and G.shop_jokers and area == G.shop_jokers and G.GAME.shop.slot_details[G.GAME.shop.joker_max - #G.shop_jokers.cards] then
+    local slot = G.GAME.shop.slot_details[G.GAME.shop.joker_max - #G.shop_jokers.cards]
+    local args = {set = slot.type, key = slot.key, rarity = slot.rarity, area = area, key_append = (G.GAME.shop.joker_max - #G.shop_jokers.cards)..'aij_sho', front = false}
+    local card = SMODS.create_card(args)
+    SMODS.calculate_context({modify_shop_card = true, card = card})
+    create_shop_card_ui(card, slot.type, area)
+    G.E_MANAGER:add_event(Event({
+        func = (function()
+            for k, v in ipairs(G.GAME.tags) do
+                if v:apply_to_run({type = 'store_joker_modify', card = card}) then break end
+            end
+            return true
+        end)
+    }))
+    if (slot.type == 'Base' or slot.type == 'Enhanced') and G.GAME.used_vouchers["v_illusion"] and pseudorandom(pseudoseed('illusion')) > 0.8 then 
+        card:set_edition(poll_edition('illusion', nil, true, true))
+    end
+    return card
+end
+'''
+match_indent = true
+
 # Branching Deck (1/9)
 # Create UI for the three tag choices
 # create_UIBox_blind_tag()

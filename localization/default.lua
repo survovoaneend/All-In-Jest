@@ -4209,7 +4209,20 @@ return {
                     "Jokers are owned"
                 }
             },
-            j_aij_american_comic = { name = "American Comic", text = { "" } },
+            j_aij_american_comic = { 
+                name = "American Comic", 
+                text = { 
+                    {
+                        "Adds {C:attention}#1#{} extra slot to",
+                        "the {C:money}shop{}"
+                    },
+                    {
+                        "{C:attention}Added{} slot always contains",
+                        "a random {C:common}Common{} Joker ",
+                        "for sale"
+                    },
+                } 
+            },
             j_aij_from_the_top_rope = { name = "From the Top Rope", text = { "" } },
             j_aij_fortune_cookie = {
                 name = "Fortune Cookie",
@@ -5607,7 +5620,19 @@ return {
             j_aij_red_joker = {
                 name = "Red Joker",
                 text = {
-                    ''
+                    {
+                        'This {C:attention}Joker{} gains {C:mult}+#2#',
+                        'Mult when a card is',
+                        'scored, {C:attention}Resets{} when',
+                        'a previously {C:attention}scored',
+                        '{C:attention}card{} is played'
+                    },
+                    {
+                        'All previously {C:attention}scored',
+                        '{C:attention}cards{} are forgotten',
+                        'on {C:attention}resetting',
+                        '{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)'
+                    }
                 }
             },
             j_aij_the_green_room = {
