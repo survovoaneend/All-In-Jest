@@ -1,6 +1,6 @@
 local rock_n_roll_clown = {
     object_type = "Joker",
-    order = 365,
+    order = 374,
     
     key = "rock_n_roll_clown",
     config = {
@@ -8,6 +8,7 @@ local rock_n_roll_clown = {
             chips_per_level = 1
         }
     },
+    attributes = { 'chips', 'hand_level' },
     rarity = 1,
     pos = { x = 23, y = 19},
     atlas = 'joker_atlas',

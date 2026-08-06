@@ -1,6 +1,6 @@
 local tetraphobia = {
     object_type = "Joker",
-    order = 139,
+    order = 142,
     lite = true,
     key = "tetraphobia",
     config = {
@@ -8,6 +8,7 @@ local tetraphobia = {
             mult = 0,
             mult_mod = 1}
     },
+    attributes = { 'mult', 'scaling', 'reset', 'rank', 'four', 'discard' },
     rarity = 1,
     pos = {x = 8, y = 5 },
     atlas = 'joker_atlas',

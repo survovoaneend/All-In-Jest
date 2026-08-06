@@ -1,12 +1,13 @@
 local beholder = {
     object_type = "Joker",
-    order = 701,
+    order = 723,
     ignore = true,
 
     key = "beholder",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 16, y = 38},
     atlas = 'joker_atlas',

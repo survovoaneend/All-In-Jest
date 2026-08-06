@@ -1,12 +1,13 @@
 local enigma = {
     object_type = "Joker",
-    order = 765,
+    order = 787,
     ignore = true,
 
     key = "enigma",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 41},
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local lonely_night = {
     object_type = "Joker",
-    order = 396,
+    order = 415,
     key = "lonely_night",
    
     config = {
@@ -8,6 +8,7 @@ local lonely_night = {
             
         }
     },
+    attributes = { 'retrigger', 'joker_slot' },
     rarity = 2,
     pos = { x = 2, y = 16 },
     atlas = 'joker_atlas',

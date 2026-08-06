@@ -1,9 +1,10 @@
 local office_assistant = {
     object_type = "Joker",
-    order = 415,
+    order = 447,
     key = "office_assistant",
     config = {
     },
+    attributes = { 'activated', 'stickers' },
     rarity = 2,
     pos = { x = 2, y = 20},
     soul_pos = { x = 3, y = 20},

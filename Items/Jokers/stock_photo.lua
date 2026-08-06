@@ -1,6 +1,6 @@
 local stock_photo = {
     object_type = "Joker",
-    order = 187,
+    order = 193,
 
     key = "stock_photo",
     config = {
@@ -10,6 +10,7 @@ local stock_photo = {
             odds = 2
         }
     },
+    attributes = { 'generation', 'booster', 'playing_card', 'chance' },
     rarity = 2,
     pos = { x = 1, y = 7},
     atlas = 'joker_atlas',

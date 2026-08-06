@@ -1,11 +1,12 @@
 local petrushka = {
     object_type = "Joker",
-    order = 110,
+    order = 113,
     lite = true,
     key = "petrushka",
     config = {
       
     },
+    attributes = { 'mult', 'rank' },
     rarity = 3,
     pos = { x = 5, y = 4 },
     atlas = 'joker_atlas',

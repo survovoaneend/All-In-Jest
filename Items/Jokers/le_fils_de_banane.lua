@@ -1,6 +1,6 @@
 local le_fils_de_banane = {
     object_type = "Joker",
-    order = 277,
+    order = 284,
     key = "le_fils_de_banane",
     config = {
       extra = {
@@ -8,6 +8,7 @@ local le_fils_de_banane = {
           odds = 6
       }
     },
+    attributes = { 'mult', 'face', 'chance', 'destroy_card' },
     rarity = 2,
     pos = { x = 0, y = 11},
     atlas = 'joker_atlas',

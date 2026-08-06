@@ -1,10 +1,11 @@
 local adoring_joker = {
     object_type = "Joker",
-    order = 67,
+    order = 70,
     key = "adoring_joker",
     config = {
       highest_mult = 0
     },
+    attributes = { 'mult' },
     rarity = 3,
     pos = { x = 13, y = 2 },
     atlas = 'joker_atlas',

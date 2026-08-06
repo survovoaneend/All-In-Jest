@@ -1,12 +1,13 @@
 local kingmaker = {
     object_type = "Joker",
-    order = 470,
+    order = 489,
     key = "kingmaker",
     config = {
         extra = {
             odds = 5
         }
     },
+    attributes = { 'modify_card', 'rank', 'king', 'chance' },
     rarity = 3,
     pos = { x = 12, y = 23 },
     atlas = 'joker_atlas',

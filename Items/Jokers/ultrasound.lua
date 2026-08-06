@@ -1,11 +1,12 @@
 local ultrasound = {
   object_type = "Joker",
-  order = 19,
+  order = 22,
   ignore = true,
   key = "ultrasound",
   config = {
     
   },
+  attributes = {},
   rarity = 1,
   pos = { x = 0, y = 9},
   atlas = 'joker_atlas',

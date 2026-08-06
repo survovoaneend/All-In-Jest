@@ -1,12 +1,13 @@
 local chocolatier = {
     object_type = "Joker",
-    order = 784,
+    order = 806,
     ignore = true,
 
     key = "chocolatier",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 41},
     atlas = 'joker_atlas',

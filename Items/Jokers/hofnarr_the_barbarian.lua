@@ -1,6 +1,6 @@
 local hofnarr_the_barbarian = {
     object_type = "Joker",
-    order = 222,
+    order = 228,
 
     key = "hofnarr_the_barbarian",
     config = {
@@ -9,6 +9,7 @@ local hofnarr_the_barbarian = {
             xmult = 10
         }
     },
+    attributes = { 'mult', 'xmult', 'boss_blind' },
     rarity = 2,
     pos = { x = 11, y = 8},
     atlas = 'joker_atlas',

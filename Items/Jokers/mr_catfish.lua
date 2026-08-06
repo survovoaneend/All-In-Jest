@@ -1,6 +1,6 @@
 local mr_catfish = {
   object_type = "Joker",
-  order = 282,
+  order = 289,
 
   key = "mr_catfish",
   config = {
@@ -11,6 +11,7 @@ local mr_catfish = {
       trigger_on = nil
     }
   },
+  attributes = { 'economy', 'discard' },
   rarity = 2,
   pos = { x = 5, y = 11 },
   atlas = 'joker_atlas',

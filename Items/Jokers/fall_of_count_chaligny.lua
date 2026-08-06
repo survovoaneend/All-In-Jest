@@ -1,9 +1,10 @@
 local fall_of_count_chaligny = {
     object_type = "Joker",
-    order = 342,
+    order = 349,
     key = "fall_of_count_chaligny",
     config = {
     },
+    attributes = { 'passive' },
     rarity = 1,
     pos = { x = 13, y = 13},
     atlas = 'joker_atlas',

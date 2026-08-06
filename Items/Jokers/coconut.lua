@@ -1,13 +1,15 @@
 local coconut = {
     object_type = "Joker",
-    order = 527,
+    order = 546,
     key = "coconut",
     config = {
         extra = {
             
         }
     },
+    attributes = { 'generation', 'tag', 'on_sell' },
     rarity = 1,
+    lite = true,
     pos = { x = 12, y = 25 },
     atlas = 'joker_atlas',
     cost = 4,

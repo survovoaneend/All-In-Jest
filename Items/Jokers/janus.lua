@@ -1,12 +1,13 @@
 local janus = {
     object_type = "Joker",
-    order = 133,
+    order = 136,
     ignore = true,
 
     key = "janus",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 5 },
     atlas = 'joker_atlas',

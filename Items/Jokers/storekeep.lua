@@ -1,12 +1,13 @@
 local storekeep = {
     object_type = "Joker",
-    order = 752,
+    order = 774,
     ignore = true,
 
     key = "storekeep",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 14, y = 40},
     atlas = 'joker_atlas',

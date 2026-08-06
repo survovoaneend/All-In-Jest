@@ -1,6 +1,6 @@
 local neon_sign = {
     object_type = "Joker",
-    order = 464,
+    order = 483,
     key = "neon_sign",
     
     config = {
@@ -10,6 +10,7 @@ local neon_sign = {
 
         }
     },
+    attributes = { 'xmult', 'hand_type' },
     rarity = 2,
     pos = { x = 6, y = 21 },
     atlas = 'joker_atlas',

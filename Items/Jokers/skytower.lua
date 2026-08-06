@@ -1,12 +1,13 @@
 local skytower = {
     object_type = "Joker",
-    order = 547,
+    order = 566,
     key = "skytower",
     config = {
         extra = {
             levels = 5
         }
     },
+    attributes = { 'hand_type' },
     rarity = 2,
     pos = { x = 5, y = 26 },
     atlas = 'joker_atlas',
@@ -15,7 +16,6 @@ local skytower = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
-    ignore = true,
 
     loc_vars = function(self, info_queue, card)
         return {

@@ -1,12 +1,13 @@
 local doubting_thomas = {
     object_type = "Joker",
-    order = 730,
+    order = 752,
     ignore = true,
 
     key = "doubting_thomas",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 39},
     atlas = 'joker_atlas',

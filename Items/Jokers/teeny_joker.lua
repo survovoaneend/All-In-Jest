@@ -1,6 +1,6 @@
 local teeny_joker = {
   object_type = "Joker",
-  order = 122,
+  order = 125,
 
   key = "teeny_joker",
   config = {
@@ -8,6 +8,7 @@ local teeny_joker = {
       chips = 150,
     }
   },
+  attributes = { 'chips', 'rank', 'two' },
   rarity = 1,
   pos = { x = 2, y = 9},
   atlas = 'joker_atlas',

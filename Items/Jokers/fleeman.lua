@@ -6,6 +6,7 @@ local fleeman = {
     config = {
       
     },
+    attributes = {},
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 7, y = 2},

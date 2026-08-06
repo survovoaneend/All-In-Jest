@@ -1,11 +1,12 @@
 local whatsisname = {
     object_type = "Joker",
-    order = 264,
+    order = 270,
     
     key = "whatsisname",
     config = {
       
     },
+    attributes = { 'passive', 'legendary', 'shop', 'booster' },
     rarity = 3,
     pos = { x = 9, y = 10},
     atlas = 'joker_atlas',

@@ -1,12 +1,13 @@
 local class_clown = {
     object_type = "Joker",
-    order = 786,
+    order = 808,
     ignore = true,
 
     key = "class_clown",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 21, y = 41},
     atlas = 'joker_atlas',

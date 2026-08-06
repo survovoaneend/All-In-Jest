@@ -1,12 +1,13 @@
 local vermicious_joker = {
     object_type = "Joker",
-    order = 772,
+    order = 794,
     ignore = true,
 
     key = "vermicious_joker",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 41},
     atlas = 'joker_atlas',

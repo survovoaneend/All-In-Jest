@@ -99,6 +99,22 @@ SMODS.Atlas {
     frames = 21, 
     atlas_table = 'ANIMATION_ATLAS' 
 }
+SMODS.Atlas { 
+    key = 'blinds_pit', 
+    path = 'blinds_pit.png', 
+    px = 34, 
+    py = 34, 
+    frames = 21, 
+    atlas_table = 'ANIMATION_ATLAS' 
+}
+SMODS.Atlas { 
+    key = 'blinds_final', 
+    path = 'blinds_final.png', 
+    px = 34, 
+    py = 34, 
+    frames = 21, 
+    atlas_table = 'ANIMATION_ATLAS' 
+}
 SMODS.Atlas {
   key = "legendary_atlas",
   path = "legendaries.png",
@@ -228,6 +244,103 @@ SMODS.Gradient {
     cycle = 5,
     interpolation = 'trig'
 }
+-- adds Chaotic to cards, or has to do with Chaotic
+SMODS.Attribute {
+    key = 'chaotic'
+}
+-- related to Moon planet cards
+SMODS.Attribute {
+    key = 'moon'
+}
+-- related to vouchers or voucher slots
+SMODS.Attribute {
+    key = 'voucher',
+    keys = { 'tag_voucher' }
+}
+-- related to shop or booster pack slots
+SMODS.Attribute {
+    key = 'shop_slot',
+    keys = {
+        'v_overstock_norm',
+        'v_overstock_plus'
+    }
+}
+-- triggers when a card or joker is destroyed
+SMODS.Attribute {
+    key = 'on_destroy',
+    keys = {
+        'j_caino',
+        'j_glass'
+    }
+}
+-- adds Negative edition to cards, or has to do with Negative
+SMODS.Attribute {
+    key = 'negative',
+    keys = {
+        'j_perkeo',
+        'c_ectoplasm',
+        'tag_negative'
+    }
+}
+-- related to activated abilities
+SMODS.Attribute {
+    key = 'activated'
+}
+-- causes additional card effects to be triggered
+-- eg. Bizco adding cards, or Mummer triggering steel
+SMODS.Attribute {
+    key = 'trigger_cards',
+    keys = { 'j_splash' }
+}
+-- related to joker stickers
+SMODS.Attribute {
+    key = 'stickers'
+}
+-- causes additional / different cards to be drawn
+SMODS.Attribute {
+    key = 'draw_cards',
+    keys = { 'bl_serpent' }
+}
+-- related to effects that give a multiplier to other effects
+-- eg. Dongtong or charged cards
+SMODS.Attribute {
+    key = 'multiplier'
+}
+-- literally just D'or but probably worth having for the sake of crossmod
+SMODS.Attribute {
+    key = 'emult'
+}
+-- egg
+SMODS.Attribute {
+    key = 'egg',
+    keys = { 'j_egg' }
+}
+-- related to suit patches
+SMODS.Attribute {
+    key = 'patches'
+}
+-- related to gold tags
+SMODS.Attribute {
+    key = 'gold_tag'
+}
+-- related to legendary jokers
+SMODS.Attribute {
+    key = 'legendary',
+    keys = { 'c_soul' }
+}
+-- effects that give you a customizable choice for a card
+-- eg. Morio, Martellino, Nonstandard Tag
+SMODS.Attribute {
+    key = 'choice'
+}
+-- reveals cards in your deck
+SMODS.Attribute {
+    key = 'future_sense'
+}
+-- affects card selection limit
+SMODS.Attribute {
+    key = 'select_limit'
+}
 AllInJest = {}
 assert(SMODS.load_file('Utils/context.lua'))()
 assert(SMODS.load_file('Utils/draw.lua'))()
@@ -319,11 +432,14 @@ local function load_items(curr_obj)
         item.ignore             = item.ignore             or false
         item.jest_spec_moon     = item.jest_spec_moon     or false
         item.jest_rec_paperback = item.jest_rec_paperback or false
+        if item.attributes and (item.attributes.scaling or item.attributes.food) then
+            item.perishable_compat = item.perishable_compat or false
+        end
         if item.jest_spec_moon and All_in_Jest.config.moons_enabled and not item.ignore then
             if item.jest_rec_paperback then
-                if (next(SMODS.find_mod("paperback")) or next(SMODS.find_mod("Bunco")))
+                if ((next(SMODS.find_mod("paperback")) or next(SMODS.find_mod("Bunco")))
                    and ((PB_UTIL and PB_UTIL.config and PB_UTIL.config.suits_enabled)
-                        or next(SMODS.find_mod("Bunco"))) then
+                        or next(SMODS.find_mod("Bunco")))) then
                     SMODS[item.object_type](item)
                     goto continue
                 else
@@ -341,6 +457,18 @@ local function load_items(curr_obj)
         if (item.all_in_jest and item.all_in_jest.use_ability) or (item.config and item.config["j_aij_" .. item.key]) then
             item.j_aij_whats_left_compat = false
             item.j_aij_clay_joker_compat = false
+        end
+        if item.jest_rec_paperback then
+            if next(SMODS.find_mod("paperback")) and (PB_UTIL and PB_UTIL.config and PB_UTIL.config.suits_enabled) then
+                if SMODS[item.object_type] and not item.ignore then
+                    SMODS[item.object_type](item)
+                elseif item.object_loader and not item.ignore then
+                    item.object_loader[item.object_type](item)
+                end
+                goto continue
+            else
+                goto continue
+            end
         end
         if SMODS[item.object_type] and not item.ignore then
             SMODS[item.object_type](item)

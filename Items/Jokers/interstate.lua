@@ -1,6 +1,6 @@
 local interstate = {
     object_type = "Joker",
-    order = 295,
+    order = 302,
     lite = true,
     key = "interstate",
     config = {
@@ -8,6 +8,7 @@ local interstate = {
         hands = 2
       }
     },
+    attributes = { 'hands', 'hand_type' },
     rarity = 1,
     pos = { x = 17, y = 11},
     atlas = 'joker_atlas',

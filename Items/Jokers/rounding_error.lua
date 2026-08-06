@@ -1,6 +1,6 @@
 local rounding_error = {
     object_type = "Joker",
-    order = 620,
+    order = 651,
     key = "rounding_error",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local rounding_error = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 8, y = 29 },
     atlas = 'joker_atlas',

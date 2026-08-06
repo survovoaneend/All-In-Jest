@@ -1,12 +1,13 @@
 local ochre_joker = {
     object_type = "Joker",
-    order = 738,
+    order = 760,
     ignore = true,
 
     key = "ochre_joker",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 3, y = 40},
     atlas = 'joker_atlas',

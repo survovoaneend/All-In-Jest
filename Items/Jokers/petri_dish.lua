@@ -1,12 +1,13 @@
 local petri_dish = {
     object_type = "Joker",
-    order = 787,
+    order = 809,
     ignore = true,
 
     key = "petri_dish",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 22, y = 41},
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local picasso = {
     object_type = "Joker",
-    order = 370,
+    order = 389,
     key = "picasso",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local picasso = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 17 },
     atlas = 'joker_atlas',

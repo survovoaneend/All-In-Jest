@@ -1,7 +1,6 @@
 local headache = {
     object_type = "Joker",
-    order = 457,
-    ignore = true,
+    order = 476,
     key = "headache",
     config = {
         extra = {
@@ -9,6 +8,7 @@ local headache = {
             mult = 15
         }
     },
+    attributes = { 'mult', 'reroll', 'shop' },
     rarity = 1,
     pos = { x = 0, y = 23 },
     atlas = 'joker_atlas',

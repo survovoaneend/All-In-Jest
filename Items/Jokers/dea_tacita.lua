@@ -1,12 +1,13 @@
 local dea_tacita = {
     object_type = "Joker",
-    order = 673,
+    order = 695,
     ignore = true,
 
     key = "dea_tacita",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 13, y = 37},
     atlas = 'joker_atlas',

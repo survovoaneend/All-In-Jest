@@ -1,6 +1,6 @@
 local great_white_north = {
     object_type = "Joker",
-    order = 65,
+    order = 68,
     
     key = "great_white_north",
     config = {
@@ -8,6 +8,7 @@ local great_white_north = {
         mult = 2
       }
     },
+    attributes = { 'mult' },
     rarity = 1,
     pos = { x = 11, y = 2 },
     atlas = 'joker_atlas',

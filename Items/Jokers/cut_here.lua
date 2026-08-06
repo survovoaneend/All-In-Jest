@@ -1,10 +1,11 @@
 local cut_here = {
     object_type = "Joker",
-    order = 361,
+    order = 370,
     key = "cut_here",
     config = {
 
     },
+    attributes = { 'on_destroy', 'generation', 'joker', 'rarity' },
     rarity = 2,
     pos = { x = 4, y = 14},
     atlas = 'joker_atlas',

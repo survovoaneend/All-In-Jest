@@ -1,6 +1,6 @@
 local scarecrow = {
     object_type = "Joker",
-    order = 502,
+    order = 521,
     key = "scarecrow",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local scarecrow = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 14, y = 24 },
     atlas = 'joker_atlas',

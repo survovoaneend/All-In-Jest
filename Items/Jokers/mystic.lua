@@ -1,6 +1,6 @@
 local mystic = {
     object_type = "Joker",
-    order = 521,
+    order = 540,
     key = "mystic",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local mystic = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 6, y = 25 },
     atlas = 'joker_atlas',

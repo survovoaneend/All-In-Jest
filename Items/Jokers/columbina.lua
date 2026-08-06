@@ -1,6 +1,6 @@
 local columbina = {
   object_type = "Joker",
-  order = 116,
+  order = 119,
 
   key = "columbina",
   config = {
@@ -9,6 +9,7 @@ local columbina = {
       percent_mod = 5
     }
   },
+  attributes = { 'balance', 'scaling', 'spectral', 'consumable' },
   rarity = 2,
   pos = { x = 11, y = 4 },
   atlas = 'joker_atlas',

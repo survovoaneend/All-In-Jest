@@ -1,6 +1,6 @@
 local fou_du_roi = {
   object_type = "Joker",
-  order = 188,
+  order = 194,
   
   key = "fou_du_roi",
   config = {
@@ -8,6 +8,7 @@ local fou_du_roi = {
           odds = 2
       }
   },
+  attributes = { 'generation', 'tarot', 'consumable', 'chance', 'rank', 'king', 'queen' },
   rarity = 2,
   pos = { x = 2, y = 7 }, 
   atlas = 'joker_atlas', 

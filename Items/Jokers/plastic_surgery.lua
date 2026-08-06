@@ -1,6 +1,6 @@
 local plastic_surgery = {
     object_type = "Joker",
-    order = 417,
+    order = 436,
     key = "plastic_surgery",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local plastic_surgery = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 17, y = 20 },
     atlas = 'joker_atlas',

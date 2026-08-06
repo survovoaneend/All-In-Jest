@@ -1,6 +1,6 @@
 local flying_ace = {
     object_type = "Joker",
-    order = 0,
+    order = 2,
 
     key = "flying_ace",
     config = {
@@ -10,6 +10,7 @@ local flying_ace = {
         aces = {}
       }
     },
+    attributes = { 'economy', 'rank', 'ace', 'suit' },
     rarity = 1,
     pos = { x = 0, y = 0 },
     atlas = 'joker_atlas',

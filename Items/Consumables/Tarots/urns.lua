@@ -7,30 +7,44 @@ local urns = {
 	unlocked = true,
 	discovered = false,
 	order = 13,
-	config = { max_highlight = 1, ran_cards = 3 },
+	config = { max_highlighted = 1, ran_cards = 3 },
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
-				card.ability.max_highlight,
+				card.ability.max_highlighted,
 				card.ability.ran_cards,
 			}
 		}
 	end,
 	can_use = function(self, card)
-        if G.hand and #G.hand.cards >= card.ability.ran_cards and (#G.hand.highlighted <= card.ability.max_highlight and #G.hand.highlighted > 0) then
-			if G.hand.highlighted[1].config.center ~= G.P_CENTERS.c_base then
-				return true
+        if G.hand and #G.hand.cards >= card.ability.ran_cards and (#G.hand.highlighted <= card.ability.max_highlighted and #G.hand.highlighted > 0) then
+			for k, v in pairs(G.hand.highlighted) do
+				if v.config.center ~= G.P_CENTERS.c_base then
+					return true
+				end
 			end
         end
     end,
 	use = function(self, card)
         local center_key = G.hand.highlighted[1].config.center.key
-        local destroy_card = G.hand.highlighted[1]
-        SMODS.destroy_cards(destroy_card, nil, true)
+		for k, v in pairs(G.hand.highlighted) do
+			if v.config.center ~= G.P_CENTERS.c_base then
+				center_key = v.config.center.key
+				break
+			end
+		end
+		local other_center = G.hand.highlighted[1].config.aij_other_center
+		for k, v in pairs(G.hand.highlighted) do
+			if v.config.aij_other_center then
+				other_center = v.config.aij_other_center
+				break
+			end
+		end
+        SMODS.destroy_cards(G.hand.highlighted, nil, true)
 		local valid_cards = {}
 		for k, v in pairs(G.hand.cards) do
-            if not v.highlighted then
+            if not v.highlighted and not SMODS.has_enhancement(v, center_key)  then
                 valid_cards[#valid_cards+1] = v
             end
 		end
@@ -56,6 +70,11 @@ local urns = {
             func = function()
 				for i = 1, #selected_cards do
 					selected_cards[i]:set_ability(G.P_CENTERS[center_key])
+					if other_center then
+						selected_cards[i].config.aij_other_center = {}
+						selected_cards[i].config.aij_other_center['center'] = other_center['center']
+						selected_cards[i].config.aij_other_center['ability'] = other_center['ability']
+					end
 				end
                 return true
             end

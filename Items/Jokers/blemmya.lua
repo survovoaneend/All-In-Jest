@@ -1,6 +1,6 @@
 local blemmya = {
     object_type = "Joker",
-    order = 466,
+    order = 485,
     key = "blemmya",
     
     config = {
@@ -8,6 +8,7 @@ local blemmya = {
             
         }
     },
+    attributes = { 'modify_card', 'rank', 'face', 'jack', 'king', 'queen' },
     rarity = 2,
     pos = { x = 8, y = 23 },
     atlas = 'joker_atlas',

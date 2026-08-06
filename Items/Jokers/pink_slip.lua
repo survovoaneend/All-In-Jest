@@ -1,12 +1,13 @@
 local pink_slip = {
     object_type = "Joker",
-    order = 375,
+    order = 394,
     key = "pink_slip",
     config = {
         extra = {
             limit = 2,
         }
     },
+    attributes = { 'discard', 'select_limit' },
     rarity = 2,
     pos = { x = 22, y = 16},
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local rodeo_clown = {
   object_type = "Joker",
-  order = 173,
+  order = 176,
 
   key = "rodeo_clown",
   config = {
@@ -9,6 +9,7 @@ local rodeo_clown = {
       mult_mod = 5
     }
   },
+  attributes = { 'mult', 'scaling', 'hands' },
   rarity = 1,
   pos = { x = 16, y = 6},
   atlas = 'joker_atlas',

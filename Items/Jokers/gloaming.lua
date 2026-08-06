@@ -1,6 +1,6 @@
 local gloaming = {
     object_type = "Joker",
-    order = 581,
+    order = 608,
     key = "gloaming",
    
     config = {
@@ -8,7 +8,9 @@ local gloaming = {
             xmult = 1.5
         }
     },
+    attributes = { 'xmult', 'hands' },
     rarity = 3,
+    lite = true,
     pos = { x = 18, y = 27 },
     atlas = 'joker_atlas',
     cost = 8,

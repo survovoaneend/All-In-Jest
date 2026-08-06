@@ -1,6 +1,6 @@
 local hes_outside = {
     object_type = "Joker",
-    order = 397,
+    order = 416,
     key = "hes_outside",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local hes_outside = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 16 },
     atlas = 'joker_atlas',

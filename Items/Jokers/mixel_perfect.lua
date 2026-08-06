@@ -1,6 +1,6 @@
 local mixel_perfect = {
     object_type = "Joker",
-    order = 115,
+    order = 118,
     lite = true,
     key = "mixel_perfect",
     config = {
@@ -8,6 +8,7 @@ local mixel_perfect = {
         mult = 9
       }
     },
+    attributes = { 'mult' },
     rarity = 1,
     pos = { x = 10, y = 4 },
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local infuriating_note = {
     object_type = "Joker",
-    order = 191,
+    order = 197,
 
     key = "infuriating_note",
     config = {
@@ -9,6 +9,7 @@ local infuriating_note = {
             loc_vars_key = key
         }
     },
+    attributes = { 'xmult' },
     rarity = 1,
     pos = { x = 5, y = 7 },
     atlas = 'joker_atlas',

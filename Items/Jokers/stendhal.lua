@@ -1,12 +1,13 @@
 local stendhal = {
     object_type = "Joker",
-    order = 768,
+    order = 790,
     ignore = true,
 
     key = "stendhal",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 5, y = 41},
     atlas = 'joker_atlas',

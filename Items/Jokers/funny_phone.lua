@@ -1,6 +1,6 @@
 local funny_phone = {
     object_type = "Joker",
-    order = 261,
+    order = 267,
 
     key = "funny_phone",
     config = {
@@ -11,6 +11,7 @@ local funny_phone = {
             min = 1,
         }
     },
+    attributes = { 'chips', 'scaling', 'reroll', 'shop' },
     rarity = 1,
     pos = { x = 8, y = 10 },
     atlas = 'joker_atlas',
@@ -44,6 +45,7 @@ local funny_phone = {
                         scalar_value = "chip_gain",
                         no_message = true
                     })
+                    save_run()
                 end
             }
         end

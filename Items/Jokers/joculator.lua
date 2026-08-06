@@ -1,6 +1,6 @@
 local joculator = {
   object_type = "Joker",
-  order = 174,
+  order = 177,
 
   key = "joculator",
   config = {
@@ -8,6 +8,7 @@ local joculator = {
         hand_amount = 1,
     }
   },
+  attributes = { 'draw_cards', 'hands', 'discard' },
   rarity = 2,
   pos = { x = 17, y = 6},
   atlas = 'joker_atlas',

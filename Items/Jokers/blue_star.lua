@@ -1,12 +1,13 @@
 local blue_star = {
     object_type = "Joker",
-    order = 494,
+    order = 513,
     key = "blue_star",
     config = {
         extra = {
             odds = 2
         }
     },
+    attributes = { 'hand_level', 'hand_type', 'chance', 'enhancements' },
     rarity = 2,
     pos = { x = 4, y = 22 },
     atlas = 'joker_atlas',

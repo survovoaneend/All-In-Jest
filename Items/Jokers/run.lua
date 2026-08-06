@@ -1,12 +1,13 @@
 local run = {
     object_type = "Joker",
-    order = 541,
+    order = 560,
     key = "run",
     config = {
         extra = {
             
         }
     },
+    attributes = { 'passive', },
     rarity = 2,
     pos = { x = 0, y = 26 },
     atlas = 'joker_atlas',
@@ -15,7 +16,6 @@ local run = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
-    ignore = true,
 
     loc_vars = function(self, info_queue, card)
         return {

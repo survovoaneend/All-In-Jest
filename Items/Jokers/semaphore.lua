@@ -1,6 +1,6 @@
 local semaphore = {
     object_type = "Joker",
-    order = 509,
+    order = 528,
     key = "semaphore",
 
     config = {
@@ -8,6 +8,7 @@ local semaphore = {
             mult = 1
         }
     },
+    attributes = { 'mult', 'discard' },
     rarity = 1,
     pos = { x = 19, y = 24 },
     atlas = 'joker_atlas',
@@ -26,7 +27,7 @@ local semaphore = {
     end,
 
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
+        if context.individual and context.cardarea == G.play and G.GAME.current_round.discards_left > 0 then
             return {
                 mult = card.ability.extra.mult * G.GAME.current_round.discards_left
             }

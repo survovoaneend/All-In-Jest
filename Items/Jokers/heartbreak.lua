@@ -1,12 +1,13 @@
 local heartbreak = {
     object_type = "Joker",
-    order = 780,
+    order = 802,
     ignore = true,
 
     key = "heartbreak",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 41},
     atlas = 'joker_atlas',

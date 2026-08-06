@@ -1,11 +1,12 @@
 local dizzard = {
   object_type = "Joker",
-  order = 161,
+  order = 164,
 
   key = "dizzard",
   config = {
     
   },
+  attributes = { 'shop', 'skip' },
   rarity = 3,
   pos = { x = 5, y = 6},
   atlas = 'joker_atlas',

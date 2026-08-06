@@ -1,12 +1,13 @@
 local chef = {
     object_type = "Joker",
-    order = 331,
+    order = 338,
     key = "chef",
     config = {
         extra = {
             trigger = false
         }
     },
+    attributes = { 'editions', 'stickers', 'negative', 'shop' },
     rarity = 2,
     pos = { x = 2, y = 13},
     atlas = 'joker_atlas',
@@ -17,7 +18,7 @@ local chef = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-
+        info_queue[#info_queue+1] = {key = 'e_negative_consumable', set = 'Edition', config = {extra = 1}}
     end,
 
     in_pool = function(self, args)

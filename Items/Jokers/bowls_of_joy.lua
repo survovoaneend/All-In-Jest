@@ -1,6 +1,6 @@
 local bowls_of_joy = {
     object_type = "Joker",
-    order = 296,
+    order = 303,
 
     key = "bowls_of_joy",
     config = {
@@ -8,6 +8,7 @@ local bowls_of_joy = {
             chance = 4
         }
     },
+    attributes = { 'sell_value', 'scaling', 'reroll', 'chance' },
     rarity = 2,
     pos = { x = 18, y = 11 },
     atlas = 'joker_atlas',
@@ -26,12 +27,18 @@ local bowls_of_joy = {
     calculate = function(self, card, context)
         if context.reroll_shop and not context.blueprint then
             if SMODS.pseudorandom_probability(card, 'bowls_of_joy', 1, card.ability.extra.chance) then
-                card.ability.extra_value = card.ability.extra_value + context.cost
+                SMODS.scale_card(card, {
+                    ref_table = card.ability,
+                    ref_value = "extra_value",
+                    scalar_table = {value = context.cost},
+                    scalar_value = "value",
+                    scaling_message = {
+                        message = localize('k_val_up'),
+                        colour = G.C.MONEY
+                    },
+                })
                 card:set_cost()
-                return {
-                    message = localize('k_val_up'),
-                    colour = G.C.MONEY
-                }
+                return nil, true
             end
         end
     end

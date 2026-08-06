@@ -1,6 +1,6 @@
 local bat_credit_card = {
     object_type = "Joker",
-    order = 442,
+    order = 461,
     key = "bat_credit_card",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local bat_credit_card = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 22 },
     atlas = 'joker_atlas',

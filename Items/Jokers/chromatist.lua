@@ -1,12 +1,13 @@
 local chromatist = {
     object_type = "Joker",
-    order = 380,
+    order = 399,
     key = "chromatist",
     config = {
         extra = {
             xmult = 2,
         }
     },
+    attributes = { 'xmult', 'editions' },
     rarity = 3,
     pos = { x = 7, y = 15},
     atlas = 'joker_atlas',

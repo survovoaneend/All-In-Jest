@@ -1,10 +1,11 @@
 local full_monty = {
     object_type = "Joker",
-    order = 330,
+    order = 337,
     ignore = true,
     key = "full_monty",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 13},
     atlas = 'joker_atlas',

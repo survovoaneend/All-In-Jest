@@ -1,12 +1,13 @@
 local constable = {
     object_type = "Joker",
-    order = 663,
+    order = 685,
     ignore = true,
 
     key = "constable",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 3, y = 37},
     atlas = 'joker_atlas',

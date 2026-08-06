@@ -1,12 +1,13 @@
 local my_beautiful_balloon = {
     object_type = "Joker",
-    order = 683,
+    order = 705,
     ignore = true,
 
     key = "my_beautiful_balloon",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 23, y = 37},
     atlas = 'joker_atlas',

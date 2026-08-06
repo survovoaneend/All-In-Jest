@@ -1,12 +1,13 @@
 local cool_joker = {
     object_type = "Joker",
-    order = 48,
+    order = 51,
     ignore = true,
 
     key = "cool_joker",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 1 },
     atlas = 'joker_atlas',

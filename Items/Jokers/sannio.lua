@@ -1,12 +1,13 @@
 local sannio = {
     object_type = "Joker",
-    order = 186,
+    order = 192,
     ignore = true,
 
     key = "sannio",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 7},
     atlas = 'joker_atlas',

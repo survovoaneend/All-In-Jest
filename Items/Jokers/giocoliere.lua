@@ -1,6 +1,6 @@
 local giocoliere = {
     object_type = "Joker",
-    order = 147,
+    order = 150,
 
     key = "giocoliere",
     config = {
@@ -8,6 +8,7 @@ local giocoliere = {
         hand_size = 3
       },
     },
+    attributes = { 'hand_size', 'boss_blind' },
     rarity = 1,
     pos = { x = 16, y = 5 },
     atlas = 'joker_atlas',

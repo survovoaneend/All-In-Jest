@@ -1,6 +1,6 @@
 local fortune_cookie = {
     object_type = "Joker",
-    order = 272,
+    order = 279,
     
     key = "fortune_cookie",
     config = {
@@ -9,6 +9,7 @@ local fortune_cookie = {
         packs = 5
       }
     },
+    attributes = { 'generation', 'tarot', 'consumable', 'booster', 'food' },
     rarity = 1,
     pos = { x = 20, y = 10},
     atlas = 'joker_atlas',

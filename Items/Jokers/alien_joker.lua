@@ -1,12 +1,13 @@
 local alien_joker = {
     object_type = "Joker",
-    order = 338,
+    order = 345,
     key = "alien_joker",
     config = {
       extra = {
           xmult = 3,
       }
     },
+    attributes = { 'xmult' },
     rarity = 2,
     pos = { x = 9, y = 13},
     atlas = 'joker_atlas',

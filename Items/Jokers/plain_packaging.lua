@@ -1,6 +1,6 @@
 local plain_packaging = {
     object_type = "Joker",
-    order = 114,
+    order = 117,
 
     key = "plain_packaging",
     config = {
@@ -9,6 +9,7 @@ local plain_packaging = {
             mult_decrease = 5
         }
     },
+    attributes = { 'mult', 'scaling', 'on_sell', 'on_destroy' },
     rarity = 1,
     pos = { x = 9, y = 4 },
     atlas = 'joker_atlas',
@@ -36,11 +37,15 @@ local plain_packaging = {
                     colour = G.C.FILTER
                 }
             else
-                card.ability.extra.mult = card.ability.extra.mult - card.ability.extra.mult_decrease
-                return {
-                    message = localize { type = 'variable', key = 'a_mult_minus', vars = { card.ability.extra.mult_decrease } },
-                    colour = G.C.RED,
-                }
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "mult",
+                    scalar_value = "mult_decrease",
+                    operation = '-',
+                    message_key = 'a_mult_minus',
+                    message_colour = G.C.MULT
+                })
+                return nil, true
             end
         end
         if context.joker_main then

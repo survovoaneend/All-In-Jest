@@ -1,6 +1,6 @@
 local hat_trick = {
     object_type = "Joker",
-    order = 12,
+    order = 15,
 
     key = "hat_trick",
     config = {
@@ -8,6 +8,7 @@ local hat_trick = {
         mod = 1
       }
     },
+    attributes = { 'mult', 'hand_type' },
     rarity = 1,
     pos = { x = 11, y = 0 },
     atlas = 'joker_atlas',

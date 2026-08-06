@@ -1,6 +1,6 @@
 local funny_money = {
     object_type = "Joker",
-    order = 250,
+    order = 255,
     lite = true,
     key = "funny_money",
     config = {
@@ -8,6 +8,7 @@ local funny_money = {
        dollars = 15
       }
     },
+    attributes = { 'economy', 'skip' },
     rarity = 1,
     pos = { x = 22, y = 9},
     atlas = 'joker_atlas',

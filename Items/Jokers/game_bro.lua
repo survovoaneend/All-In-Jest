@@ -1,6 +1,6 @@
 local game_bro = {
     object_type = "Joker",
-    order = 437,
+    order = 456,
     key = "game_bro",
     
     config = {
@@ -8,6 +8,7 @@ local game_bro = {
             
         }
     },
+    attributes = { 'mult' },
     rarity = 1,
     pos = { x = 7, y = 22 },
     atlas = 'joker_atlas',

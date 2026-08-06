@@ -1,12 +1,13 @@
 local addlepate = {
     object_type = "Joker",
-    order = 753,
+    order = 775,
     ignore = true,
 
     key = "addlepate",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 40},
     atlas = 'joker_atlas',

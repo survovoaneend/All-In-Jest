@@ -1,6 +1,6 @@
 local tornado = {
     object_type = "Joker",
-    order = 418,
+    order = 450,
     key = "tornado",
     config = {
         extra = {
@@ -9,6 +9,7 @@ local tornado = {
             to_play_ranks = {},
         }
     },
+    attributes = { 'xmult', 'scaling', 'rank' },
     rarity = 2,
     pos = { x = 9, y = 20},
     atlas = 'joker_atlas',

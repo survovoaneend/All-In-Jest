@@ -1,12 +1,13 @@
 local fat_ed = {
     object_type = "Joker",
-    order = 227,
+    order = 232,
     ignore = true,
 
     key = "fat_ed",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 16, y = 8},
     atlas = 'joker_atlas',

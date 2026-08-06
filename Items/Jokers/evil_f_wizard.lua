@@ -1,12 +1,13 @@
 local evil_f_wizard = {
     object_type = "Joker",
-    order = 746,
+    order = 768,
     ignore = true,
 
     key = "evil_f_wizard",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 8, y = 40},
     atlas = 'joker_atlas',

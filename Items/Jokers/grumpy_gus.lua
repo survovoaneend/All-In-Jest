@@ -1,12 +1,13 @@
 local grumpy_gus = {
     object_type = "Joker",
-    order = 718,
+    order = 740,
     ignore = true,
 
     key = "grumpy_gus",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 8, y = 39},
     atlas = 'joker_atlas',

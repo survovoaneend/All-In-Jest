@@ -1,12 +1,13 @@
 local high_brow = {
     object_type = "Joker",
-    order = 760,
+    order = 782,
     ignore = true,
 
     key = "high_brow",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 22, y = 40},
     atlas = 'joker_atlas',

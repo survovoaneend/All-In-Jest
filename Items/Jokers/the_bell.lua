@@ -1,6 +1,6 @@
 local the_bell = {
     object_type = "Joker",
-    order = 503,
+    order = 512,
 
     key = "the_bell",
     config = {
@@ -8,6 +8,7 @@ local the_bell = {
             cost = 5,
         }
     },
+    attributes = { 'activated', 'voucher' },
     rarity = 3,
     pos = { x = 5, y = 22 },
     atlas = 'joker_atlas',

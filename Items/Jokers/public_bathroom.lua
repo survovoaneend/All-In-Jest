@@ -1,6 +1,6 @@
 local public_bathroom = {
   object_type = "Joker",
-  order = 30,
+  order = 33,
   lite = true,
   key = "public_bathroom",
   config = {
@@ -9,6 +9,7 @@ local public_bathroom = {
       mult_mod = 2
     }
   },
+  attributes = { 'mult', 'scaling', 'hand_type', 'rank', 'two' },
   rarity = 1,
   pos = { x = 3, y = 1 },
   atlas = 'joker_atlas',

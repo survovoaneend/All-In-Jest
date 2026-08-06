@@ -1,12 +1,13 @@
 local saltimbanco = {
     object_type = "Joker",
-    order = 108,
+    order = 111,
     key = "saltimbanco",
     config = {
       extra = {
           trigger = false
       }
     },
+    attributes = { 'xmult', 'chance' },
     rarity = 2,
     pos = { x = 3, y = 4 },
     atlas = 'joker_atlas',

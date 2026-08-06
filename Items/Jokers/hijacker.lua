@@ -1,6 +1,6 @@
 local hijacker = {
     object_type = "Joker",
-    order = 386,
+    order = 405,
     key = "hijacker",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local hijacker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 16 },
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local necromancer = {
     object_type = "Joker",
-    order = 558,
+    order = 577,
     key = "necromancer",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local necromancer = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 21, y = 26 },
     atlas = 'joker_atlas',

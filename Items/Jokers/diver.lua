@@ -1,6 +1,6 @@
 local diver = {
     object_type = "Joker",
-    order = 387,
+    order = 406,
     key = "diver",
 
     config = {
@@ -8,6 +8,7 @@ local diver = {
             pack_size = 2,
         }
     },
+    attributes = { 'booster', 'passive' },
     rarity = 2,
     pos = { x = 10, y = 16 },
     atlas = 'joker_atlas',

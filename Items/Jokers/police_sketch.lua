@@ -1,12 +1,13 @@
 local police_sketch = {
     object_type = "Joker",
-    order = 400,
+    order = 419,
     key = "police_sketch",
     config = {
         extra = {
             
         }
     },
+    attributes = { 'modify_card', 'enhancements', 'hand_type' },
     rarity = 2,
     pos = { x = 23, y = 14 },
     atlas = 'joker_atlas',

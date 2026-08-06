@@ -1,15 +1,16 @@
 local desiderium = {
     object_type = "Joker",
-    order = 571,
+    order = 598,
     key = "desiderium",
   
     config = {
         extra = {
-            xmult_mod = 0.25,
+            xmult_mod = 0.5,
             xmult = 1,
             trigger = false,
         }
     },
+    attributes = { 'xmult', 'scaling', 'shop' },
     rarity = 2,
     pos = { x = 9, y = 27 },
     atlas = 'joker_atlas',
@@ -38,10 +39,12 @@ local desiderium = {
             card.ability.extra.trigger = false
         end
         if context.ending_shop and not context.blueprint and card.ability.extra.trigger then
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_mod
-            return {
-                message = localize('k_upgrade_ex')
-            }
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "xmult",
+                scalar_value = "xmult_mod"
+            })
+            return nil, true
         end
         if context.joker_main then
             return {

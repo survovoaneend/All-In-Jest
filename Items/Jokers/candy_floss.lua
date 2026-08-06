@@ -1,6 +1,6 @@
 local candy_floss = {
     object_type = "Joker",
-    order = 304,
+    order = 311,
     
     key = "candy_floss",
     config = {
@@ -9,6 +9,7 @@ local candy_floss = {
         percent_mod = 5
       }
     },
+    attributes = { 'balance', 'food', 'scaling' },
     rarity = 2,
     pos = { x = 1, y = 12},
     atlas = 'joker_atlas',

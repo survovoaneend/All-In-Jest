@@ -1,11 +1,12 @@
 local sot = {
     object_type = "Joker",
-    order = 226,
+    order = 231,
 
     key = "sot",
     config = {
       extra = {modxmult = 1, curxmult = 1}
     },
+    attributes = { 'xmult', 'tag' },
     rarity = 2,
     pos = { x = 15, y = 8},
     atlas = 'joker_atlas',

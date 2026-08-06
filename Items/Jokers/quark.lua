@@ -1,11 +1,12 @@
 local quark = {
     object_type = "Joker",
-    order = 96,
+    order = 99,
     lite = true,
     key = "quark",
     config = {
 
     },
+    attributes = { 'hand_level', 'hand_type', 'rank', 'suit' },
     rarity = 2,
     pos = { x = 16, y = 3 },
     atlas = 'joker_atlas',

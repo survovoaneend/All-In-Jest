@@ -1,12 +1,13 @@
 local bellhop = {
     object_type = "Joker",
-    order = 750,
+    order = 772,
     ignore = true,
 
     key = "bellhop",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 40},
     atlas = 'joker_atlas',

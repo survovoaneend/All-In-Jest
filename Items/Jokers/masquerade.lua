@@ -1,12 +1,13 @@
 local masquerade = {
     object_type = "Joker",
-    order = 628,
+    order = 663,
     ignore = true,
 
     key = "masquerade",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 29},
     atlas = 'joker_atlas',

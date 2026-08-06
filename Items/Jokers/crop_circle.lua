@@ -1,12 +1,13 @@
 local crop_circle = {
     object_type = "Joker",
-    order = 403,
+    order = 422,
     key = "crop_circle",
     config = {
         extra = {
             cards = 1
         }
     },
+    attributes = { 'modify_card', 'enhancements', 'planet', 'consumable' },
     rarity = 2,
     pos = { x = 20, y = 14 },
     atlas = 'joker_atlas',

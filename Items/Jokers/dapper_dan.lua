@@ -1,11 +1,12 @@
 local dapper_dan = {
     object_type = "Joker",
-    order = 149,
+    order = 152,
 
     key = "dapper_dan",
     config = {
       
     },
+    attributes = { 'editions', 'multiplier' },
     rarity = 3,
     pos = { x = 18, y = 5 },
     atlas = 'joker_atlas',

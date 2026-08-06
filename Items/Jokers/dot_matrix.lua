@@ -1,6 +1,6 @@
 local dot_matrix = {
     object_type = "Joker",
-    order = 666,
+    order = 688,
 
     key = "dot_matrix",
     config = {
@@ -8,10 +8,12 @@ local dot_matrix = {
             mult = 1
         }
     },
+    attributes = { 'mult', 'rank', 'full_deck' },
     rarity = 1,
     pos = { x = 20, y = 30},
     atlas = 'joker_atlas',
     cost = 4,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

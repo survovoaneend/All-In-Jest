@@ -1,12 +1,13 @@
 local ominous_page = {
     object_type = "Joker",
-    order = 731,
+    order = 753,
     ignore = true,
 
     key = "ominous_page",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 21, y = 39},
     atlas = 'joker_atlas',

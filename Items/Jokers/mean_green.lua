@@ -1,6 +1,6 @@
 local mean_green = {
     object_type = "Joker",
-    order = 524,
+    order = 543,
     key = "mean_green",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local mean_green = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 25 },
     atlas = 'joker_atlas',

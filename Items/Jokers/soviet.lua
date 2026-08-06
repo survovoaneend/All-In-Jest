@@ -1,6 +1,6 @@
 local soviet = {
     object_type = "Joker",
-    order = 53,
+    order = 56,
     
     key = "soviet",
     config = {
@@ -8,6 +8,7 @@ local soviet = {
         mult = 20
       }
     },
+    attributes = { 'mult', 'rank', 'king', 'queen' },
     rarity = 2,
     pos = { x = 24, y = 1 },
     atlas = 'joker_atlas',

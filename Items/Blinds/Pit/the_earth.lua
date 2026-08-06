@@ -12,7 +12,7 @@ local the_earth = {
     end,
     mult = 2,
     boss_colour = HEX("7b6a62"),
-    atlas = 'blinds',
+    atlas = 'blinds_pit',
     pos = { y = 5 },
     order = 506,
     dollars = 6,

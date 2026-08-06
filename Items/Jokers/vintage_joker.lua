@@ -1,6 +1,6 @@
 local vintage_joker = {
     object_type = "Joker",
-    order = 393,
+    order = 412,
     key = "vintage_joker",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local vintage_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 14 },
     atlas = 'joker_atlas',

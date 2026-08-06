@@ -1,10 +1,11 @@
 local sky_trees = {
     object_type = "Joker",
-    order = 318,
+    order = 325,
     ignore = not All_in_Jest.config.moons_enabled,
     key = "sky_trees",
     config = {
     },
+    attributes = { 'generation', 'seals', 'planet', 'moon', 'consumable' },
     rarity = 2,
     pos = { x = 14, y = 12},
     atlas = 'joker_atlas',

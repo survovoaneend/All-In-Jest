@@ -1,12 +1,13 @@
 local psychobilly = {
     object_type = "Joker",
-    order = 698,
+    order = 720,
     ignore = true,
 
     key = "psychobilly",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 13, y = 38},
     atlas = 'joker_atlas',

@@ -6,6 +6,7 @@ local yu_sze = {
     config = {
       xmult = 2
     },
+    attributes = { 'xmult', 'joker' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 3, y = 6},

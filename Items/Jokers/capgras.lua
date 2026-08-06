@@ -1,12 +1,13 @@
 local capgras = {
     object_type = "Joker",
-    order = 707,
+    order = 729,
     ignore = true,
 
     key = "capgras",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 22, y = 38},
     atlas = 'joker_atlas',

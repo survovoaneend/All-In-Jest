@@ -1,6 +1,6 @@
 local cosmonaut = {
     object_type = "Joker",
-    order = 385,
+    order = 404,
     key = "cosmonaut",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local cosmonaut = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 10, y = 14 },
     atlas = 'joker_atlas',

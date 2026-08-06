@@ -1,11 +1,12 @@
 local theyre_laughing_at_you = {
     object_type = "Joker",
-    order = 257,
+    order = 263,
     
     key = "theyre_laughing_at_you",
     config = {
       
     },
+    attributes = { 'editions', 'negative', 'joker', 'rarity' },
     rarity = 3,
     pos = { x = 4, y = 10},
     atlas = 'joker_atlas',

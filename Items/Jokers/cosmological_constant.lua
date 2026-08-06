@@ -1,11 +1,12 @@
 local cosmological_constant = {
     object_type = "Joker",
-    order = 143,
+    order = 146,
     lite = true,
     key = "cosmological_constant",
     config = {
       
     },
+    attributes = { 'balance' },
     rarity = 3,
     pos = { x = 12, y = 5 },
     atlas = 'joker_atlas',

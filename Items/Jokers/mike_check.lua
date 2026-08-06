@@ -1,6 +1,6 @@
 local mike_check = {
     object_type = "Joker",
-    order = 363,
+    order = 372,
     
     key = "mike_check",
     config = {
@@ -9,6 +9,7 @@ local mike_check = {
             target = 3
         }
     },
+    attributes = { 'generation', 'joker', 'rarity', 'on_sell' },
     rarity = 2,
     pos = { x = 21, y = 19},
     atlas = 'joker_atlas',

@@ -1,8 +1,9 @@
 local little_devil = {
   object_type = "Joker",
-  order = 10,
+  order = 13,
 
   key = "little_devil",
+  attributes = { 'skip', 'generation', 'tag', 'booster' },
   rarity = 2,
   cost = 6,
   unlocked = true,

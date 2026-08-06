@@ -1,15 +1,17 @@
 local disco_joker = {
     object_type = "Joker",
-    order = 548,
+    order = 567,
     key = "disco_joker",
     config = {
         extra = {
             
         }
     },
+    attributes = { 'retrigger', 'editions' },
     rarity = 2,
     pos = { x = 6, y = 26 },
     atlas = 'joker_atlas',
+    lite = true,
     cost = 6,
     unlocked = true,
     discovered = false,

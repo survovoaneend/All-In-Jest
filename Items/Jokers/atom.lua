@@ -1,11 +1,12 @@
 local atom = {
   object_type = "Joker",
-  order = 42,
+  order = 45,
 
   key = "atom",
   config = {
 
   },
+  attributes = { 'hand_level', 'hand_type', 'rank', 'ace' },
   rarity = 2,
   pos = { x = 14, y = 1 },
   atlas = 'joker_atlas',

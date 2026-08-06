@@ -1,12 +1,13 @@
 local economist = {
     object_type = "Joker",
-    order = 722,
+    order = 744,
     ignore = true,
 
     key = "economist",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 39},
     atlas = 'joker_atlas',

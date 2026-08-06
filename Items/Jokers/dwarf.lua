@@ -1,6 +1,6 @@
 local dwarf = {
     object_type = "Joker",
-    order = 455,
+    order = 474,
     key = "dwarf",
     
     config = {
@@ -8,6 +8,7 @@ local dwarf = {
             mult = 6
         }
     },
+    attributes = { 'mult', 'rank', 'two', 'three', 'four', 'five' },
     rarity = 1,
     pos = { x = 23, y = 22 },
     atlas = 'joker_atlas',

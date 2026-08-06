@@ -1,11 +1,12 @@
 local test_card = {
   object_type = "Joker",
-  order = 296,
+  order = 301,
 
   key = "test_card",
   config = {
 
   },
+  attributes = { 'editions' },
   rarity = 2,
   pos = { x = 16, y = 11 },
   atlas = 'joker_atlas',

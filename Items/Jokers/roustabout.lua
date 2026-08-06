@@ -1,12 +1,13 @@
 local roustabout = {
     object_type = "Joker",
-    order = 766,
+    order = 788,
     ignore = true,
 
     key = "roustabout",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 3, y = 41},
     atlas = 'joker_atlas',

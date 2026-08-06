@@ -1,6 +1,6 @@
 local glam_joker = {
     object_type = "Joker",
-    order = 401,
+    order = 420,
     key = "glam_joker",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local glam_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 22, y = 14 },
     atlas = 'joker_atlas',

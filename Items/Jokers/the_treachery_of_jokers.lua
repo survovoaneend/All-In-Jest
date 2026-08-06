@@ -1,12 +1,13 @@
 local the_treachery_of_jokers = {
     object_type = "Joker",
-    order = 390,
+    order = 409,
     key = "the_treachery_of_jokers",
     config = {
         extra = {
             xmult = 1.5
         }
     },
+    attributes = { 'xmult' },
     rarity = 2,
     pos = { x = 7, y = 16 },
     atlas = 'joker_atlas',

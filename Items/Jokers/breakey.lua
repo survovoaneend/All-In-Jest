@@ -1,6 +1,6 @@
 local breakey = {
     object_type = "Joker",
-    order = 444,
+    order = 463,
     key = "breakey",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local breakey = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 14, y = 22 },
     atlas = 'joker_atlas',

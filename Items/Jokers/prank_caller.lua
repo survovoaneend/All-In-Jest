@@ -1,10 +1,11 @@
 local prank_caller = {
     object_type = "Joker",
-    order = 324,
+    order = 331,
     ignore = true,
     key = "prank_caller",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 12},
     atlas = 'joker_atlas',

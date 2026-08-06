@@ -1,6 +1,6 @@
 local neptunium = {
     object_type = "Joker",
-    order = 565,
+    order = 589.8,
     key = "neptunium",
     
     config = {
@@ -8,6 +8,7 @@ local neptunium = {
             retriggers = 2
         }
     },
+    attributes = { 'retrigger', 'hand_type' },
     rarity = 2,
     pos = { x = 3, y = 27 },
     atlas = 'joker_atlas',

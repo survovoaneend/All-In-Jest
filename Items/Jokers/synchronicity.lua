@@ -1,12 +1,13 @@
 local synchronicity = {
     object_type = "Joker",
-    order = 700,
+    order = 722,
     ignore = true,
 
     key = "synchronicity",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 38},
     atlas = 'joker_atlas',

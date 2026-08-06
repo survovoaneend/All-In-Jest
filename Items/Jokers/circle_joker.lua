@@ -1,6 +1,6 @@
 local circle_joker = {
     object_type = "Joker",
-    order = 367,
+    order = 386,
     key = "circle_joker",
 
     config = {
@@ -8,6 +8,7 @@ local circle_joker = {
             xmult = 3.14
         }
     },
+    attributes = { 'xmult', 'rank' },
     rarity = 3,
     pos = { x = 3, y = 17 },
     atlas = 'joker_atlas',

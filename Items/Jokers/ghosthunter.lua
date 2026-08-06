@@ -1,12 +1,13 @@
 local ghosthunter = {
     object_type = "Joker",
-    order = 532,
+    order = 551,
     key = "ghosthunter",
     config = {
         extra = {
             
         }
     },
+    attributes = { 'shop', 'spectral', 'consumable' },
     rarity = 2,
     pos = { x = 17, y = 25 },
     atlas = 'joker_atlas',

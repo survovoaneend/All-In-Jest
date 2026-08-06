@@ -8,6 +8,7 @@ local bizco = {
             extra_scoring_cards = 5
         }
     },
+    attributes = { 'passive', 'trigger_cards' },
     rarity = 4,
     pos = { x = 1, y = 12 },
     atlas = 'legendary_atlas',

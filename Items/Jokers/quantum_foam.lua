@@ -1,6 +1,6 @@
 local quantum_foam = {
     object_type = "Joker",
-    order = 586,
+    order = 613,
     key = "quantum_foam",
   
     config = {
@@ -8,6 +8,7 @@ local quantum_foam = {
             odds = 2
         }
     },
+    attributes = { 'retrigger', 'chance' },
     rarity = 1,
     pos = { x = 24, y = 27 },
     atlas = 'joker_atlas',

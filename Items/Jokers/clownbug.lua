@@ -1,10 +1,11 @@
 local clownbug = {
     object_type = "Joker",
-    order = 356,
+    order = 365,
     ignore = true,
     key = "clownbug",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 14},
     atlas = 'joker_atlas',

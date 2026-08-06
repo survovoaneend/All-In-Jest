@@ -1,6 +1,6 @@
 local durak = {
     object_type = "Joker",
-    order = 467,
+    order = 486,
     key = "durak",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local durak = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 23 },
     atlas = 'joker_atlas',

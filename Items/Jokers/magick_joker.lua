@@ -1,12 +1,13 @@
 local magick_joker = {
   object_type = "Joker",
-  order = 88,
+  order = 91,
   lite = true,
   key = "magick_joker",
   config = {
     current_suit = "Spades",
     _saved_chip_values = {}
   },
+  attributes = { 'mult', 'suit' },
   rarity = 2,
   pos = { x = 8, y = 3 },
   atlas = 'joker_atlas',

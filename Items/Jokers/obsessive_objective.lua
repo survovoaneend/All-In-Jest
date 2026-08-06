@@ -1,6 +1,6 @@
 local obsessive_objective = {
     object_type = "Joker",
-    order = 618,
+    order = 649,
     key = "obsessive_objective",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local obsessive_objective = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 6, y = 29 },
     atlas = 'joker_atlas',

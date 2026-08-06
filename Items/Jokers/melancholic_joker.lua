@@ -1,6 +1,6 @@
 local melancholic_joker = {
     object_type = "Joker",
-    order = 350,
+    order = 358,
     
     key = "melancholic_joker",
     config = {
@@ -8,6 +8,7 @@ local melancholic_joker = {
             odds = 8
         }
     },
+    attributes = { 'generation', 'spectral', 'consumable', 'suit', 'spade', 'chance' },
     rarity = 3,
     pos = { x = 22, y = 13},
     atlas = 'joker_atlas',

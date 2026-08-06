@@ -1,6 +1,6 @@
 local death_of_a_salesman = {
     object_type = "Joker",
-    order = 393,
+    order = 413,
 
     key = "death_of_a_salesman",
     config = {
@@ -8,6 +8,7 @@ local death_of_a_salesman = {
           tags = 1
       }
     },
+    attributes = { 'tag', 'shop' },
     rarity = 2,
     pos = { x = 4, y = 16 },
     atlas = 'joker_atlas',

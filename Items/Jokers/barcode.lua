@@ -1,6 +1,6 @@
 local barcode = {
     object_type = "Joker",
-    order = 669,
+    order = 691,
 
     key = "barcode",
     config = {
@@ -8,6 +8,7 @@ local barcode = {
             sale = 50
         }
     },
+    attributes = { 'shop', 'booster', 'economy', 'passive' },
     rarity = 1,
     pos = { x = 22, y = 30},
     atlas = 'joker_atlas',

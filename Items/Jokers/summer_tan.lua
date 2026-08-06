@@ -1,6 +1,6 @@
 local summer_tan = {
     object_type = "Joker",
-    order = 433,
+    order = 452,
     key = "summer_tan",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local summer_tan = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 20 },
     atlas = 'joker_atlas',

@@ -1,11 +1,12 @@
 local topsy_the_clown = {
     object_type = "Joker",
-    order = 79,
+    order = 82,
 
     key = "topsy_the_clown",
     config = {
       
     },
+    attributes = { 'chips', 'mult' },
     rarity = 1,
     pos = { x = 24, y = 2 },
     atlas = 'joker_atlas',

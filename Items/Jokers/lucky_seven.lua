@@ -1,11 +1,12 @@
 local lucky_seven = {
     object_type = "Joker",
-    order = 1,
+    order = 3,
 
     key = "lucky_seven",
     config = {
       
     },
+    attributes = { 'modify_card', 'enhancements', 'rank', 'seven' },
     rarity = 2,
     pos = { x = 1, y = 0 },
     atlas = 'joker_atlas',

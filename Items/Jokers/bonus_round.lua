@@ -1,6 +1,6 @@
 local bonus_round = {
     object_type = "Joker",
-    order = 311,
+    order = 318,
     
     key = "bonus_round",
     config = {
@@ -8,6 +8,7 @@ local bonus_round = {
             retriggers = 1
         }
     },
+    attributes = { 'retrigger', 'enhancements' },
     rarity = 1,
     pos = { x = 8, y = 12},
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local sneaky_pete = {
     object_type = "Joker",
-    order = 153,
+    order = 156,
 
     key = "sneaky_pete",
     config = {
@@ -8,6 +8,7 @@ local sneaky_pete = {
         money_per_seal = 2
       }
     },
+    attributes = { 'economy', 'seals', 'full_deck' },
     rarity = 2,
     pos = { x = 22, y = 5 },
     atlas = 'joker_atlas',

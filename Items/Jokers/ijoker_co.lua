@@ -70,7 +70,7 @@ local tag_prices = {
 
 local ijoker_co = {
     object_type = "Joker",
-    order = 211,
+    order = 217,
 
     key = "ijoker_co",
     config = {
@@ -78,6 +78,7 @@ local ijoker_co = {
           tags = 2
       }
     },
+    attributes = { 'shop', 'tag' },
     rarity = 3,
     pos = { x = 0, y = 8},
     atlas = 'joker_atlas',

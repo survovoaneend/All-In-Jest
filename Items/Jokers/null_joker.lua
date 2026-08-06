@@ -1,11 +1,12 @@
 local null_joker = {
   object_type = "Joker",
-  order = 87,
+  order = 90,
 
   key = "null_joker",
   config = {
     extra = { }
   },
+  attributes = { 'mod_chance' },
   rarity = 1,
   pos = { x = 7, y = 3 },
   atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local negative_space = {
     object_type = "Joker",
-    order = 316,
+    order = 323,
     key = "negative_space",
     config = {
         extra = {
@@ -9,6 +9,7 @@ local negative_space = {
             max_handsize = 5
         }
     },
+    attributes = { 'hand_size', 'editions', 'negative' },
     rarity = 2,
     pos = { x = 12, y = 12 },
     atlas = 'joker_atlas',

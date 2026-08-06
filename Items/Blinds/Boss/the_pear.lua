@@ -7,7 +7,7 @@ local the_pear = {
     mult = 2,
     boss_colour = HEX("84b1d2"),
     atlas = 'blinds',
-    pos = { X = 0, y = 50},
+    pos = { X = 0, y = 34},
     order = 41,
     dollars = 5,
 

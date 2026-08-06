@@ -1,12 +1,13 @@
 local sea_of_night = {
     object_type = "Joker",
-    order = 686,
+    order = 708,
     ignore = true,
 
     key = "sea_of_night",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 38},
     atlas = 'joker_atlas',

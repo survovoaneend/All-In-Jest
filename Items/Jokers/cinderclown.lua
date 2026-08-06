@@ -1,12 +1,13 @@
 local cinderclown = {
     object_type = "Joker",
-    order = 791,
+    order = 813,
     ignore = true,
 
     key = "cinderclown",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 42},
     atlas = 'joker_atlas',

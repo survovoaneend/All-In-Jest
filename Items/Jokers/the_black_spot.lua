@@ -1,6 +1,6 @@
 local the_black_spot = {
     object_type = "Joker",
-    order = 508,
+    order = 527,
     key = "the_black_spot",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local the_black_spot = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 24 },
     atlas = 'joker_atlas',

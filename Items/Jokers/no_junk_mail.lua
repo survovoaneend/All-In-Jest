@@ -1,12 +1,13 @@
 local no_junk_mail = {
     object_type = "Joker",
-    order = 534,
+    order = 553,
     key = "no_junk_mail",
     config = {
         extra = {
             
         }
     },
+    attributes = { 'economy', 'shop', 'booster' },
     rarity = 1,
     pos = { x = 18, y = 25 },
     atlas = 'joker_atlas',

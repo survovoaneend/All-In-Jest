@@ -1,6 +1,6 @@
 local red_joker = {
     object_type = "Joker",
-    order = 438,
+    order = 457,
     key = "red_joker",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local red_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 8, y = 22 },
     atlas = 'joker_atlas',

@@ -40,20 +40,38 @@ local spica_pin = {
     pixel_size = { w = 53, h = 28 },
 
     loc_vars = function(self, info_queue, card)
-        
+        local active_text = "("..localize('k_inactive')..")"
+        if G.GAME.blind and G.GAME.blind.boss and G.GAME.current_round.hands_played == 0 then 
+            active_text = "("..localize('k_active')..")"
+        end
 		return {
 			vars = {
-				card.ability.extra.hand
+                active_text
 			},
 		}
     end,
 
     calculate = function(self, card, context)
         if context.before and context.main_eval and G.GAME.blind and G.GAME.blind.boss and G.GAME.current_round.hands_played == 0 then
-            G.GAME.blind:disable()
-            play_sound('timpani')
-            return {message = localize('ph_boss_disabled')}
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    G.GAME.blind:disable()
+                    play_sound('timpani')
+                    delay(0.4)
+                    return true
+                end
+            })) 
+            return {
+                message = localize('ph_boss_disabled')
+            }
         end
     end,
+
+    add_to_deck = function(self, card, from_debuff)
+        local eval = function()
+            return G.GAME.blind and G.GAME.blind.boss and G.GAME.current_round.hands_played == 0 
+        end
+        juice_card_until(card, eval, true)
+    end
 }
 return {name = {"Astrals"}, items = {spica, spica_pin}}

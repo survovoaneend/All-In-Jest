@@ -12,7 +12,7 @@ local the_arrow = {
   end,
   mult = 2,
   boss_colour = HEX("967465"),
-  atlas = 'blinds',
+  atlas = 'blinds_pit',
   pos = { y = 12 },
   order = 513,
   dollars = 6,

@@ -1,12 +1,13 @@
 local steampunker = {
     object_type = "Joker",
-    order = 726,
+    order = 748,
     ignore = true,
 
     key = "steampunker",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 16, y = 39},
     atlas = 'joker_atlas',

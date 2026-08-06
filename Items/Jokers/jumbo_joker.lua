@@ -1,12 +1,13 @@
 local jumbo_joker = {
     object_type = "Joker",
-    order = 141,
+    order = 144,
     lite = true,
     key = "jumbo_joker",
     config = {
       extra = {
       }
     },
+    attributes = { 'booster', 'shop' },
     rarity = 2,
     pos = { x = 0, y = 0 },
     atlas = 'jumbo_joker',

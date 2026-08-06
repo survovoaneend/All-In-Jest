@@ -1,6 +1,6 @@
 local requiem = {
     object_type = "Joker",
-    order = 543,
+    order = 562,
     key = "requiem",
     
     config = {
@@ -8,6 +8,7 @@ local requiem = {
             
         }
     },
+    attributes = { 'economy', 'joker' },
     rarity = 3,
     pos = { x = 1, y = 26 },
     atlas = 'joker_atlas',

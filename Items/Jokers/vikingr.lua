@@ -1,12 +1,13 @@
 local vikingr = {
     object_type = "Joker",
-    order = 687,
+    order = 709,
     ignore = true,
 
     key = "vikingr",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 38},
     atlas = 'joker_atlas',

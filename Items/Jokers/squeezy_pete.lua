@@ -1,6 +1,6 @@
 local squeezy_pete = {
   object_type = "Joker",
-  order = 13,
+  order = 16,
 
   key = "squeezy_pete",
 
@@ -10,7 +10,7 @@ local squeezy_pete = {
           xmult = 1
       }
   },
-
+  attributes = { 'xmult', 'scaling', 'reset', 'hand_type' },
   rarity = 2,
   pos = { x = 12, y = 0 },
   atlas = 'joker_atlas',

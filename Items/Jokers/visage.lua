@@ -23,10 +23,11 @@ end
 
 local visage = {
     object_type = "Joker",
-    order = 232,
+    order = 237,
     key = "visage",
     config = {
     },
+    attributes = { 'trigger_cards', 'on_destroy', 'face' },
     rarity = 2,
     pos = { x = 21, y = 8 },
     atlas = 'joker_atlas',

@@ -1,12 +1,13 @@
 local ascii = {
     object_type = "Joker",
-    order = 652,
+    order = 687,
     ignore = true,
 
     key = "ascii",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 30},
     atlas = 'joker_atlas',

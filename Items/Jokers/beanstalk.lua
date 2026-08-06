@@ -1,11 +1,12 @@
 local beanstalk = {
     object_type = "Joker",
-    order = 194,
+    order = 200,
     
     key = "beanstalk",
     config = {
       
     },
+    attributes = { 'passive', 'trigger_cards', 'debuff', 'rank', 'jack' },
     rarity = 1,
     pos = { x = 8, y = 7},
     atlas = 'joker_atlas',
@@ -16,7 +17,7 @@ local beanstalk = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+        info_queue[#info_queue + 1] = {set = 'Other', key = 'aij_marked'}
     end,
   
     calculate = function(self, card, context)
@@ -32,8 +33,19 @@ local beanstalk = {
             if G.hand then
                 if #G.hand.cards > 0 then
                     for i = 1, #G.hand.cards do
-                        if G.hand.cards[i]:get_id() == 11 and G.hand.cards[i].debuff then
-                            G.hand.cards[i].debuff = false
+                        if G.hand.cards[i]:get_id() == 11 then
+                            if G.hand.cards[i].debuff then
+                                G.hand.cards[i].debuff = false
+                            end
+                            if G.hand.cards[i].ability['aij_marked'] then
+                                SMODS.Stickers['aij_marked']:apply(G.hand.cards[i], false)
+                            end
+                            if G.hand.cards[i].facing ~= 'front' then
+                                G.hand.cards[i].ability.wheel_flipped = nil
+                                G.hand.cards[i].flipping = 'b2f'
+                                G.hand.cards[i].facing='front'
+                                G.hand.cards[i].pinch.x = true
+                            end
                         end
                     end
                 end
@@ -41,8 +53,13 @@ local beanstalk = {
             if G.play then
                 if #G.play.cards > 0 then
                     for i = 1, #G.play.cards do
-                        if G.play.cards[i]:get_id() == 11 and G.play.cards[i].debuff then
-                            G.play.cards[i].debuff = false
+                        if G.play.cards[i]:get_id() == 11 then
+                            if G.play.cards[i].debuff then
+                                G.play.cards[i].debuff = false
+                            end
+                            if G.play.cards[i].ability['aij_marked'] then
+                                SMODS.Stickers['aij_marked']:apply(G.play.cards[i], false)
+                            end
                         end
                     end
                 end
@@ -50,8 +67,13 @@ local beanstalk = {
             if G.deck then
                 if #G.deck.cards > 0 then
                     for i = 1, #G.deck.cards do
-                        if G.deck.cards[i]:get_id() == 11 and G.deck.cards[i].debuff then
-                            G.deck.cards[i].debuff = false
+                        if G.deck.cards[i]:get_id() == 11 then
+                            if G.deck.cards[i].debuff then
+                                G.deck.cards[i].debuff = false
+                            end
+                            if G.deck.cards[i].ability['aij_marked'] then
+                                SMODS.Stickers['aij_marked']:apply(G.deck.cards[i], false)
+                            end
                         end
                     end
                 end

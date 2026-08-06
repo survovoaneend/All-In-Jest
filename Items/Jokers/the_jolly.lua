@@ -1,12 +1,13 @@
 local the_jolly = {
     object_type = "Joker",
-    order = 395,
+    order = 414,
     key = "the_jolly",
     config = {
         extra = {
             
         }
     },
+    attributes = { 'hand_type', 'hand_level' },
     rarity = 2,
     pos = { x = 3, y = 16 },
     atlas = 'joker_atlas',

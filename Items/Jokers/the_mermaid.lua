@@ -1,27 +1,33 @@
 local the_mermaid = {
     object_type = "Joker",
-    order = 291,
-    ignore = true,
+    order = 298,
     key = "the_mermaid",
     config = {
       
     },
-    rarity = 1,
+    attributes = { 'discard' },
+    rarity = 2,
     pos = { x = 14, y = 11},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
   
     end,
   
-    calculate = function(self, card, context)
-        
-    end
-  
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.aij_discard_button = true
+        G.GAME.aij_booster_discards = G.GAME.aij_booster_discards or 0
+        G.GAME.aij_booster_discards = G.GAME.aij_booster_discards + 1
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.aij_booster_discards = G.GAME.aij_booster_discards or 0
+        G.GAME.aij_booster_discards = G.GAME.aij_booster_discards - 1
+    end,
 }
 return { name = {"Jokers"}, items = {the_mermaid} }

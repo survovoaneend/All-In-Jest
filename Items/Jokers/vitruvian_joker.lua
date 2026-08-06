@@ -1,6 +1,6 @@
 local vitruvian_joker = {
     object_type = "Joker",
-    order = 270,
+    order = 276,
     lite = true,
     key = "vitruvian_joker",
     config = {
@@ -8,6 +8,7 @@ local vitruvian_joker = {
         xmult = 2
       }
     },
+    attributes = { 'xmult', 'joker' },
     rarity = 2,
     pos = { x = 17, y = 10},
     atlas = 'joker_atlas',

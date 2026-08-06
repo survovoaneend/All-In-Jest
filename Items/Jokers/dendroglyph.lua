@@ -1,6 +1,6 @@
 local dendroglyph = {
     object_type = "Joker",
-    order = 323,
+    order = 330,
 
     key = "dendroglyph",
     config = {
@@ -8,6 +8,7 @@ local dendroglyph = {
             mult = 4
         }
     },
+    attributes = { 'mult', 'enhancements' },
     rarity = 1,
     pos = { x = 19, y = 12 },
     atlas = 'joker_atlas',

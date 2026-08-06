@@ -1,6 +1,6 @@
 local devil_deal = {
     object_type = "Joker",
-    order = 238,
+    order = 243,
     lite = true,
     key = "devil_deal",
     config = {
@@ -9,6 +9,7 @@ local devil_deal = {
         xmult_mod = 0.25
       }
     },
+    attributes = { 'xmult', 'scaling', 'suit', 'hearts', 'on_destroy' },
     rarity = 2,
     pos = { x = 6, y = 9},
     atlas = 'joker_atlas',

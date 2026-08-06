@@ -1,6 +1,6 @@
 local fun_guy = {
     object_type = "Joker",
-    order = 424,
+    order = 443,
     key = "fun_guy",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local fun_guy = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 24, y = 20 },
     atlas = 'joker_atlas',

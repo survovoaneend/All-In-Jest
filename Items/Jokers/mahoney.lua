@@ -1,6 +1,6 @@
 local mahoney = {
     object_type = "Joker",
-    order = 276,
+    order = 283,
 
     key = "mahoney",
     config = {
@@ -8,6 +8,7 @@ local mahoney = {
         odds = 2
       }
     },
+    attributes = { 'generation', 'tag', 'voucher', 'skip', 'chance' },
     rarity = 2,
     pos = { x = 24, y = 10},
     atlas = 'joker_atlas',

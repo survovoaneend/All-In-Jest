@@ -1,6 +1,6 @@
 local glasgow_smile = {
     object_type = "Joker",
-    order = 479,
+    order = 498,
     key = "glasgow_smile",
     
     config = {
@@ -9,6 +9,7 @@ local glasgow_smile = {
             gain = 30
         }
     },
+    attributes = { 'chips', 'enhancements', 'destroy_card' },
     rarity = 2,
     pos = { x = 20, y = 23 },
     atlas = 'joker_atlas',

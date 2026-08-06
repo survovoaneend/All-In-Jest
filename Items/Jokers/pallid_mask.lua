@@ -1,12 +1,13 @@
 local pallid_mask = {
     object_type = "Joker",
-    order = 716,
+    order = 738,
     ignore = true,
 
     key = "pallid_mask",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 6, y = 39},
     atlas = 'joker_atlas',

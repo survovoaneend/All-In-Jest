@@ -1,12 +1,13 @@
 local clarifying_card = {
     object_type = "Joker",
-    order = 739,
+    order = 761,
     ignore = true,
 
     key = "clarifying_card",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 4, y = 40},
     atlas = 'joker_atlas',

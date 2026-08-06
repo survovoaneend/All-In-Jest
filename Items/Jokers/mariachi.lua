@@ -1,6 +1,6 @@
 local mariachi = {
     object_type = "Joker",
-    order = 632,
+    order = 667,
 
     key = "mariachi",
     config = {
@@ -8,10 +8,12 @@ local mariachi = {
             mult = 4
         }
     },
+    attributes = { 'mult', 'enhancements', 'full_deck' },
     rarity = 1,
     pos = { x = 24, y = 29},
     atlas = 'joker_atlas',
     cost = 4,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

@@ -1,11 +1,12 @@
 local founding_father = {
     object_type = "Joker",
-    order = 25,
+    order = 28,
      
     key = "founding_father",
     config = {
       
     },
+    attributes = { 'enhancements', 'multiplier' },
     rarity = 2,
     pos = { x = 23, y = 0 },
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local super_meat_joker = {
     object_type = "Joker",
-    order = 626,
+    order = 657,
     key = "super_meat_joker",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local super_meat_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 14, y = 29 },
     atlas = 'joker_atlas',

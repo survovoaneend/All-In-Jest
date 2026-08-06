@@ -1,6 +1,6 @@
 local bermuda = {
     object_type = "Joker",
-    order = 484,
+    order = 503,
     key = "bermuda",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local bermuda = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 24 },
     atlas = 'joker_atlas',

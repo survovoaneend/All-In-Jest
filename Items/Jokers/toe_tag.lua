@@ -1,6 +1,6 @@
 local toe_tag = {
     object_type = "Joker",
-    order = 445,
+    order = 464,
     key = "toe_tag",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local toe_tag = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 22 },
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local square_eyes = {
     object_type = "Joker",
-    order = 49,
+    order = 52,
   
     key = "square_eyes",
     config = {
@@ -8,6 +8,7 @@ local square_eyes = {
         mult_per_four = 4
       }
     },
+    attributes = { 'mult', 'rank', 'four' },
     rarity = 2,
     pos = { x = 20, y = 1 },
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local the_jester = {
     object_type = "Joker",
-    order = 170,
+    order = 173,
 
     key = "the_jester",
     config = {
@@ -8,6 +8,7 @@ local the_jester = {
             active = true,
         }
     },
+    attributes = { 'generation', 'tarot', 'consumable', 'on_sell' },
     rarity = 2,
     pos = { x = 17, y = 9 },
     atlas = 'joker_atlas',

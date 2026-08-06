@@ -1,6 +1,6 @@
 local bearded_joker = {
     object_type = "Joker",
-    order = 208,
+    order = 214,
     lite = true,
     key = "bearded_joker",
     config = {
@@ -8,6 +8,7 @@ local bearded_joker = {
         mult_mod = 2,
       }
     },
+    attributes = { 'mult', 'enhancements', 'full_deck' },
     rarity = 1,
     pos = { x = 22, y = 7},
     atlas = 'joker_atlas',

@@ -1,11 +1,12 @@
 local realty_sign = {
     object_type = "Joker",
-    order = 83,
+    order = 86,
     lite = true,
     key = "realty_sign",
     config = {
       extra = { sell_increase = 3 }
     },
+    attributes = { 'sell_value', 'scaling', 'hand_type' },
     rarity = 1,
     pos = { x = 3, y = 3 },
     atlas = 'joker_atlas',
@@ -30,11 +31,6 @@ local realty_sign = {
 	                message = localize('k_val_up'),
                     colour = G.C.MONEY
                 },
-                block_overrides = {
-	                value = true,
-	                scalar = true,
-	                message = true,
-                }
             })
             card:set_cost()
           end

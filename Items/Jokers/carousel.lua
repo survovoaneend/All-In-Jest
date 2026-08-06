@@ -1,11 +1,12 @@
 local carousel = {
     object_type = "Joker",
-    order = 23,
+    order = 26,
 
     key = "carousel",
     config = {
 
     },
+    attributes = { 'modify_card', 'suit' },
     rarity = 2,
     pos = { x = 21, y = 0 },
     atlas = 'joker_atlas',

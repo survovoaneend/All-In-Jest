@@ -1,12 +1,13 @@
 local bad_sun = {
     object_type = "Joker",
-    order = 344,
+    order = 351,
     key = "bad_sun",
     config = {
       extra = {
         suit_count = 3,
       }
     },
+    attributes = { 'destroy_card', 'suit', 'hearts' },
     rarity = 2,
     pos = { x = 15, y = 13},
     atlas = 'joker_atlas',

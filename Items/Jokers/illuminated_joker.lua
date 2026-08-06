@@ -1,10 +1,11 @@
 local illuminated_joker = {
     object_type = "Joker",
-    order = 308,
+    order = 315,
     key = "illuminated_joker",
     config = {
 
     },
+    attributes = { 'tag', 'gold_tag' },
     rarity = 2,
     pos = { x = 5, y = 12},
     atlas = 'joker_atlas',

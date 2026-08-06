@@ -1,6 +1,6 @@
 local magic_hat = {
     object_type = "Joker",
-    order = 192,
+    order = 198,
 
     key = "magic_hat",
     config = {
@@ -9,6 +9,7 @@ local magic_hat = {
             to_remove = '0'
         }
     },
+    attributes = { 'hand_size', 'booster' },
     rarity = 1,
     pos = { x = 6, y = 7},
     atlas = 'joker_atlas',

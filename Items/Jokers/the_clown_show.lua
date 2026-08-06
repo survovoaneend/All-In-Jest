@@ -1,6 +1,6 @@
 local the_clown_show = {
     object_type = "Joker",
-    order = 9,
+    order = 12,
 
     key = "the_clown_show",
     config = {
@@ -8,6 +8,7 @@ local the_clown_show = {
           chips = 8
       }
     },
+    attributes = { 'chips', 'joker' },
     rarity = 1,
     pos = { x = 8, y = 0 },
     atlas = 'joker_atlas',

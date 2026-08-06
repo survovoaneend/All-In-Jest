@@ -1,6 +1,6 @@
 local feedback_form = {
     object_type = "Joker",
-    order = 180,
+    order = 183,
 
     key = "feedback_form",
     config = {
@@ -8,6 +8,7 @@ local feedback_form = {
           xmult = 1.5
       }
     },
+    attributes = { 'xmult', 'enhancements' },
     rarity = 2,
     pos = { x = 23, y = 6},
     atlas = 'joker_atlas',

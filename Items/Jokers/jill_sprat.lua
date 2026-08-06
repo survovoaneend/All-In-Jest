@@ -1,6 +1,6 @@
 local jill_sprat = {
     object_type = "Joker",
-    order = 475,
+    order = 494,
     key = "jill_sprat",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local jill_sprat = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 17, y = 23 },
     atlas = 'joker_atlas',

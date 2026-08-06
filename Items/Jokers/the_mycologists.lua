@@ -1,12 +1,13 @@
 local the_mycologists = {
   object_type = "Joker",
-  order = 47,
+  order = 50,
 
   key = "the_mycologists",
   config = {
     poker_hand = "Pair",
     -- added = false
   },
+  attributes = { 'modify_card', 'destroy_card', 'hand_type', 'perma_bonus', 'chips', 'enhancements', 'editions', 'position' },
   rarity = 3,
   pos = { x = 18, y = 1 },
   atlas = 'joker_atlas',

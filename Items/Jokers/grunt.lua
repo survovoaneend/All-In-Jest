@@ -1,12 +1,13 @@
 local grunt = {
     object_type = "Joker",
-    order = 721,
+    order = 743,
     ignore = true,
 
     key = "grunt",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 39},
     atlas = 'joker_atlas',

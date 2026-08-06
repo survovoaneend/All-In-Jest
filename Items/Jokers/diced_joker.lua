@@ -1,6 +1,6 @@
 local diced_joker = {
     object_type = "Joker",
-    order = 483,
+    order = 502,
     key = "diced_joker",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local diced_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 24, y = 23 },
     atlas = 'joker_atlas',

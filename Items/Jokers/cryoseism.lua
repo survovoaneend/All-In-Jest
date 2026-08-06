@@ -1,12 +1,13 @@
 local cryoseism = {
     object_type = "Joker",
-    order = 711,
+    order = 733,
     ignore = true,
 
     key = "cryoseism",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 39},
     atlas = 'joker_atlas',

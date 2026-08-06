@@ -1,6 +1,6 @@
 local geoglyph = {
     object_type = "Joker",
-    order = 427,
+    order = 446,
     key = "geoglyph",
     
     config = {
@@ -8,6 +8,7 @@ local geoglyph = {
             mult = 1
         }
     },
+    attributes = { 'mult', 'suit' },
     rarity = 1,
     pos = { x = 7, y = 20 },
     atlas = 'joker_atlas',

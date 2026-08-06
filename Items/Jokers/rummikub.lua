@@ -91,12 +91,13 @@ G.FUNCS.aij_rummikub_set_submit = function(args)
 end
 local rummikub = {
     object_type = "Joker",
-    order = 17,
+    order = 20,
 
     key = "rummikub",
     config = {
       
     },
+    attributes = { 'generation', 'playing_card', 'choice', 'enhancements' },
     rarity = 2,
     pos = { x = 16, y = 0 },
     atlas = 'joker_atlas',

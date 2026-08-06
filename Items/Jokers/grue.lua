@@ -1,11 +1,12 @@
 local grue = {
     object_type = "Joker",
-    order = 279,
+    order = 286,
     ignore = true,
     key = "grue",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 11},
     atlas = 'joker_atlas',

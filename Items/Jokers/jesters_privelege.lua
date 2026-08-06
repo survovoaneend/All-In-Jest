@@ -1,11 +1,12 @@
 local jesters_privelege = {
     object_type = "Joker",
-    order = 95,
+    order = 98,
 
     key = "jesters_privelege",
     config = {
       
     },
+    attributes = { 'shop', 'legendary', 'rarity' },
     rarity = 3,
     pos = { x = 15, y = 3 },
     atlas = 'joker_atlas',

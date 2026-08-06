@@ -1,6 +1,6 @@
 local histrio = {
     object_type = "Joker",
-    order = 223,
+    order = 229,
     lite = true,
     key = "histrio",
     config = {
@@ -8,6 +8,7 @@ local histrio = {
             money = 2
         }
     },
+    attributes = { 'economy', 'hands' },
     rarity = 2,
     pos = { x = 12, y = 8 },
     atlas = 'joker_atlas',

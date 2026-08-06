@@ -1,6 +1,6 @@
 local tipples_the_clown = {
     object_type = "Joker",
-    order = 360,
+    order = 379,
     key = "tipples_the_clown",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local tipples_the_clown = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 7, y = 14 },
     atlas = 'joker_atlas',

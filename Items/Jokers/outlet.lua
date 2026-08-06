@@ -1,12 +1,13 @@
 local outlet = {
     object_type = "Joker",
-    order = 463,
+    order = 482,
     key = "outlet",
     config = {
         extra = {
             
         },
     },
+    attributes = { 'generation', 'playing_card', 'enhancements' },
     rarity = 2,
     pos = { x = 6, y = 23 },
     atlas = 'joker_atlas',

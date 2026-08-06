@@ -1,11 +1,12 @@
 local arecibo_message = {
     object_type = "Joker",
-    order = 199,
+    order = 205,
 
     key = "arecibo_message",
     config = {
 
     },
+    attributes = { 'retrigger', 'hand_type', 'planet' },
     rarity = 3,
     pos = { x = 13, y = 7 },
     atlas = 'joker_atlas',

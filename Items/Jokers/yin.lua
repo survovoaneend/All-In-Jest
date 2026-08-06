@@ -1,6 +1,6 @@
 local yin = {
     object_type = "Joker",
-    order = 539,
+    order = 558,
     key = "yin",
     
     config = {
@@ -8,6 +8,7 @@ local yin = {
             mult = 5
         }
     },
+    attributes = { 'mult', 'suit', 'spades', 'clubs' },
     rarity = 2,
     pos = { x = 23, y = 25 },
     atlas = 'joker_atlas',

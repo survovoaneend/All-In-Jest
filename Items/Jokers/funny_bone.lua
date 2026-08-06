@@ -1,12 +1,13 @@
 local funny_bone = {
     object_type = "Joker",
-    order = 500,
+    order = 519,
     key = "funny_bone",
     config = {
         extra = {
 
         }
     },
+    attributes = { 'generation', 'tarot', 'consumable', 'on_sell', 'on_destroy' },
     rarity = 2,
     pos = { x = 12, y = 24 },
     atlas = 'joker_atlas',

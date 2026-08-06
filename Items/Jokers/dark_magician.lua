@@ -1,6 +1,6 @@
 local dark_magician = {
     object_type = "Joker",
-    order = 515,
+    order = 524,
 
     key = "dark_magician",
     config = {
@@ -8,6 +8,7 @@ local dark_magician = {
 
         }
     },
+    attributes = { 'consumable', 'tarot', 'planet', 'spectral' },
     rarity = 3,
     pos = { x = 5, y = 21 },
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local bingo_card = {
     object_type = "Joker",
-    order = 300,
+    order = 307,
     key = "bingo_card",
     config = {
       extra = {
@@ -9,6 +9,7 @@ local bingo_card = {
           xmult = 2
       }
     },
+    attributes = { 'retrigger', 'xmult', 'chance', 'enhancements' },
     rarity = 2,
     pos = { x = 22, y = 11},
     atlas = 'joker_atlas',

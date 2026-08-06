@@ -1,6 +1,6 @@
 local cordyceps = {
     object_type = "Joker",
-    order = 460,
+    order = 479,
     key = "cordyceps",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local cordyceps = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 3, y = 23 },
     atlas = 'joker_atlas',

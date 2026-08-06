@@ -6,6 +6,7 @@ local angoulevent = {
     config = {
       repetitions = 2
     },
+    attributes = { 'retrigger' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 8, y = 6},

@@ -1,11 +1,12 @@
 local memory_card = {
     object_type = "Joker",
-    order = 4,
+    order = 6,
     ignore = true,
     key = "memory_card",
     config = {
       jest_stored_memory_card = nil
     },
+    attributes = {},
     rarity = 3,
     pos = { x = 3, y = 0 },
     atlas = 'joker_atlas',

@@ -1,12 +1,13 @@
 local autogenes = {
     object_type = "Joker",
-    order = 743,
+    order = 765,
     ignore = true,
 
     key = "autogenes",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 5, y = 40},
     atlas = 'joker_atlas',

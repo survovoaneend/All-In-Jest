@@ -1,6 +1,6 @@
 local egg_cc = {
     object_type = "Joker",
-    order = 225,
+    order = 230,
 
     key = "egg_cc",
     config = {
@@ -10,6 +10,7 @@ local egg_cc = {
         sell_value = 1
       }
     },
+    attributes = { 'food', 'scaling', 'sell_value', 'chips', 'egg' },
     rarity = 1,
     pos = { x = 14, y = 8},
     atlas = 'joker_atlas',
@@ -51,11 +52,6 @@ local egg_cc = {
                 scalar_table = card.ability.extra,
 	            scalar_value = "sell_value",
                 no_message = true,
-                block_overrides = {
-	                value = true,
-	                scalar = true,
-	                message = true,
-                }
               })
               card:set_cost()
               return true

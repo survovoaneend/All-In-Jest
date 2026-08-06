@@ -1,12 +1,13 @@
 local center_of_attention = {
     object_type = "Joker",
-    order = 747,
+    order = 769,
     ignore = true,
 
     key = "center_of_attention",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 40},
     atlas = 'joker_atlas',

@@ -1,12 +1,13 @@
 local diogenes = {
     object_type = "Joker",
-    order = 31,
+    order = 34,
     ignore = true,
 
     key = "diogenes",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 4, y = 1 },
     atlas = 'joker_atlas',

@@ -1,9 +1,10 @@
 local electric_snow = {
     object_type = "Joker",
-    order = 292,
+    order = 299,
     key = "electric_snow",
     config = {
     },
+    attributes = { 'hands' },
     rarity = 2,
     pos = { x = 0, y = 15},
     atlas = 'joker_atlas',

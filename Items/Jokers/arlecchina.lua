@@ -1,6 +1,6 @@
 local arlecchina = {
   object_type = "Joker",
-  order = 163,
+  order = 166,
 
   key = "arlecchina",
   config = {
@@ -9,7 +9,9 @@ local arlecchina = {
       xmult_mod = 0.2
     }
   },
+  attributes = { 'xmult', 'scaling', 'booster' },
   rarity = 2,
+  lite = true,
   pos = { x = 7, y = 6},
   atlas = 'joker_atlas',
   cost = 6,

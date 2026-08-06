@@ -1,6 +1,6 @@
 local polyphemus = {
     object_type = "Joker",
-    order = 619,
+    order = 650,
     key = "polyphemus",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local polyphemus = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 7, y = 29 },
     atlas = 'joker_atlas',

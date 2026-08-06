@@ -1,12 +1,13 @@
 local porcelain_doll = {
     object_type = "Joker",
-    order = 782,
+    order = 804,
     ignore = true,
 
     key = "porcelain_doll",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 17, y = 41},
     atlas = 'joker_atlas',

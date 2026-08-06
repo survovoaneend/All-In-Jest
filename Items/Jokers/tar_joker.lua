@@ -1,6 +1,6 @@
 local tar_joker = {
     object_type = "Joker",
-    order = 629,
+    order = 660,
     key = "tar_joker",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local tar_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 17, y = 29 },
     atlas = 'joker_atlas',

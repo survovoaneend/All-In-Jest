@@ -1,12 +1,13 @@
 local earl = {
     object_type = "Joker",
-    order = 708,
+    order = 730,
     ignore = true,
 
     key = "earl",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 23, y = 38},
     atlas = 'joker_atlas',

@@ -1,12 +1,13 @@
 local white_eyes = {
     object_type = "Joker",
-    order = 729,
+    order = 751,
     ignore = true,
 
     key = "white_eyes",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 39},
     atlas = 'joker_atlas',

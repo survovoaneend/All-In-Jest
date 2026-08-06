@@ -1,11 +1,12 @@
 local pierrette = {
   object_type = "Joker",
-  order = 100,
+  order = 103,
   lite = true,
   key = "pierrette",
   config = {
 
   },
+  attributes = { 'retrigger', 'discard' },
   rarity = 2,
   pos = { x = 20, y = 3 },
   atlas = 'joker_atlas',

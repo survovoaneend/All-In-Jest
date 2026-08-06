@@ -8,7 +8,7 @@ local the_giant = {
     mult = 6,
     boss_colour = HEX("7a73bb"),
     atlas = 'blinds',
-    pos = { X = 0, y = 47},
+    pos = { X = 0, y = 31},
     order = 26,
     dollars = 5,
 

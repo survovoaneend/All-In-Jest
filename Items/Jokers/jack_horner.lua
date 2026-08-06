@@ -1,6 +1,6 @@
 local jack_horner = {
     object_type = "Joker",
-    order = 376,
+    order = 395,
     key = "jack_horner",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local jack_horner = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 21, y = 16 },
     atlas = 'joker_atlas',

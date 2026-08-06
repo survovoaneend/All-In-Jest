@@ -1,12 +1,13 @@
 local magnasanti = {
     object_type = "Joker",
-    order = 710,
+    order = 732,
     ignore = true,
 
     key = "magnasanti",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 39},
     atlas = 'joker_atlas',

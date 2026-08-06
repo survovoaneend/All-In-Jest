@@ -1,12 +1,13 @@
 local mustachio = {
     object_type = "Joker",
-    order = 54,
+    order = 57,
     ignore = true,
 
     key = "mustachio",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 2 },
     atlas = 'joker_atlas',

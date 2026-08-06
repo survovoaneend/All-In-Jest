@@ -1,12 +1,13 @@
 local wild_man = {
     object_type = "Joker",
-    order = 660,
+    order = 682,
     ignore = true,
 
     key = "wild_man",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 37},
     atlas = 'joker_atlas',

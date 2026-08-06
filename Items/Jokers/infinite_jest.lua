@@ -1,11 +1,12 @@
 local infinite_jest = {
     object_type = "Joker",
-    order = 14,
+    order = 17,
 
     key = "infinite_jest",
     config = {
 
     },
+    attributes = { 'boss_blind', 'hand_level' },
     rarity = 3,
     pos = { x = 13, y = 0 },
     atlas = 'joker_atlas',

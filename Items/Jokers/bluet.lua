@@ -6,6 +6,7 @@ local bluet = {
     config = {
       
     },
+    attributes = { 'generation', 'spectral', 'consumable', 'editions', 'negative' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 0, y = 8},

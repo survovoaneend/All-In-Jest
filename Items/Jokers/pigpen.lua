@@ -1,16 +1,17 @@
 local pigpen = {
   object_type = "Joker",
-  order = 176,
+  order = 179,
   
 
   key = "pigpen",
   config = {
     
   },
-  rarity = 3,
+  attributes = { 'chips', 'hand_level' },
+  rarity = 2,
   pos = { x = 19, y = 6},
   atlas = 'joker_atlas',
-  cost = 8,
+  cost = 6,
   unlocked = true,
   discovered = false,
   blueprint_compat = true,

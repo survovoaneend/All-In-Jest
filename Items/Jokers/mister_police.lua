@@ -1,6 +1,6 @@
 local mister_police = {
     object_type = "Joker",
-    order = 415,
+    order = 434,
     key = "mister_police",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local mister_police = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 5, y = 20 },
     atlas = 'joker_atlas',

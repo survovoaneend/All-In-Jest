@@ -1,11 +1,12 @@
 local string_theory = {
     object_type = "Joker",
-    order = 94,
+    order = 97,
     
     key = "string_theory",
     config = {
       
     },
+    attributes = { 'hand_type' },
     rarity = 2,
     pos = { x = 14, y = 3 },
     atlas = 'joker_atlas',

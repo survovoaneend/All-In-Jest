@@ -1,12 +1,13 @@
 local tomato_sauce = {
     object_type = "Joker",
-    order = 629,
+    order = 664,
     ignore = true,
 
     key = "tomato_sauce",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 21, y = 29},
     atlas = 'joker_atlas',

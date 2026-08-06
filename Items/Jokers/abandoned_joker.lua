@@ -1,6 +1,6 @@
 local abandoned_joker = {
     object_type = "Joker",
-    order = 566,
+    order = 593,
     key = "abandoned_joker",
     
     config = {
@@ -8,6 +8,7 @@ local abandoned_joker = {
             
         }
     },
+    attributes = { 'destroy_card', 'face', 'hands' },
     rarity = 2,
     pos = { x = 4, y = 27 },
     atlas = 'joker_atlas',

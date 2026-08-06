@@ -13,13 +13,14 @@ end
 
 local the_grim_joker = {
     object_type = "Joker",
-    order = 321,
+    order = 328,
     key = "the_grim_joker",
     config = {
       extra = {
           odds = 3,
       }
     },
+    attributes = { 'editions', 'negative', 'seals', 'tarot', 'planet', 'consumable', 'chance' },
     rarity = 2,
     pos = { x = 17, y = 12},
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local evergreen = {
     object_type = "Joker",
-    order = 389,
+    order = 408,
     key = "evergreen",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local evergreen = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 8, y = 16 },
     atlas = 'joker_atlas',

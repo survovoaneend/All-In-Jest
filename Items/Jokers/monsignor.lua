@@ -1,12 +1,13 @@
 local monsignor = {
     object_type = "Joker",
-    order = 714,
+    order = 736,
     ignore = true,
 
     key = "monsignor",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 4, y = 39},
     atlas = 'joker_atlas',

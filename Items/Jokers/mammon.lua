@@ -1,6 +1,6 @@
 local mammon = {
     object_type = "Joker",
-    order = 560,
+    order = 569,
     key = "mammon",
     config = {
         extra = {
@@ -8,6 +8,7 @@ local mammon = {
             payout_increase_total = 0,
         }
     },
+    attributes = { 'economy', 'scaling', 'enhancements' },
     rarity = 2,
     pos = { x = 7, y = 26 },
     atlas = 'joker_atlas',

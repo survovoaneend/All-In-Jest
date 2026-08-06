@@ -1,6 +1,6 @@
 local hall_monitor = {
     object_type = "Joker",
-    order = 606,
+    order = 638,
     key = "hall_monitor",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local hall_monitor = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 28 },
     atlas = 'joker_atlas',

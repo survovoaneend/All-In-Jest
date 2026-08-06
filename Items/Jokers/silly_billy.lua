@@ -1,6 +1,6 @@
 local silly_billy = {
     object_type = "Joker",
-    order = 210,
+    order = 216,
 
     key = "silly_billy",
     config = {
@@ -8,6 +8,7 @@ local silly_billy = {
         mult = 3 
       }
     },
+    attributes = { 'mult', 'enhancements', 'editions', 'seals' },
     rarity = 1,
     pos = { x = 24, y = 7},
     atlas = 'joker_atlas',

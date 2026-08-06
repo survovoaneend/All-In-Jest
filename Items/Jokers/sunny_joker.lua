@@ -1,6 +1,6 @@
 local sunny_joker = {
     object_type = "Joker",
-    order = 103,
+    order = 106,
 
     key = "sunny_joker",
     config = {
@@ -8,6 +8,7 @@ local sunny_joker = {
           perma_mult = 0.2
       }
     },
+    attributes = { 'modify_card', 'perma_bonus', 'xmult', 'hand_type' },
     rarity = 2,
     pos = { x = 23, y = 3 },
     atlas = 'joker_atlas',

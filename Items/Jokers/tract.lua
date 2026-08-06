@@ -1,6 +1,6 @@
 local tract = {
     object_type = "Joker",
-    order = 252,
+    order = 258,
     
     key = "tract",
     config = {
@@ -9,6 +9,7 @@ local tract = {
         chip_mod = 50
       }
     },
+    attributes = { 'chips', 'voucher' },
     rarity = 3,
     pos = { x = 24, y = 9},
     atlas = 'joker_atlas',

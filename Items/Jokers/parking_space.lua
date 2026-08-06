@@ -1,6 +1,6 @@
 local parking_space = {
     object_type = "Joker",
-    order = 408,
+    order = 417,
 
     key = "parking_space",
     config = {
@@ -9,6 +9,7 @@ local parking_space = {
         target_slot = 1
       }
     },
+    attributes = { 'xmult', 'position' },
     rarity = 2,
     pos = { x = 0, y = 16},
     atlas = 'joker_atlas',

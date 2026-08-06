@@ -1,11 +1,12 @@
 local hires_joker = {
     object_type = "Joker",
-    order = 6.5,
+    order = 9,
     ignore = true,
     key = "hires_joker",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 0},
     atlas = 'hires_joker',

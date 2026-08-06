@@ -17,13 +17,14 @@ end
 
 local error_404 = {
     object_type = "Joker",
-    order = 405,
+    order = 424,
     key = "error_404",
     config = {
         extra = {
             currently_copied = '0'
         }
     },
+    attributes = { 'copying' },
     rarity = 2,
     pos = { x = 18, y = 14 },
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local pinhead = {
     object_type = "Joker",
-    order = 107,
+    order = 110,
 
     key = "pinhead",
     config = {
@@ -8,6 +8,7 @@ local pinhead = {
         money = 8
       }
     },
+    attributes = { 'economy', 'hands' },
     rarity = 2,
     pos = { x = 2, y = 4 },
     atlas = 'joker_atlas',

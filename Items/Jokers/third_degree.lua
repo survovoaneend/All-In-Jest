@@ -1,12 +1,13 @@
 local third_degree = {
     object_type = "Joker",
-    order = 633,
+    order = 668,
     ignore = true,
 
     key = "third_degree",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 30},
     atlas = 'joker_atlas',

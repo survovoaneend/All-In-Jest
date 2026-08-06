@@ -1,6 +1,6 @@
 local hangman = {
     object_type = "Joker",
-    order = 612,
+    order = 643,
     key = "hangman",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local hangman = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 29 },
     atlas = 'joker_atlas',

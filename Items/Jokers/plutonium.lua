@@ -1,6 +1,6 @@
 local plutonium = {
     object_type = "Joker",
-    order = 562,
+    order = 581.0,
     key = "plutonium",
 
     config = {
@@ -8,6 +8,7 @@ local plutonium = {
             retriggers = 2
         }
     },
+    attributes = { 'retrigger', 'hand_type' },
     rarity = 1,
     pos = { x = 0, y = 27 },
     atlas = 'joker_atlas',

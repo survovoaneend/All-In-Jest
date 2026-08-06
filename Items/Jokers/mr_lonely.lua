@@ -1,6 +1,6 @@
 local mr_lonely = {
   object_type = "Joker",
-  order = 204,
+  order = 210,
   lite = true,
   key = "mr_lonely",
   config = {
@@ -9,6 +9,7 @@ local mr_lonely = {
       chip_mod = 10
     }
   },
+  attributes = { 'chips', 'scaling', 'joker_slot' },
   rarity = 2,
   pos = { x = 18, y = 7 },
   atlas = 'joker_atlas',

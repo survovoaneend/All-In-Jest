@@ -1,12 +1,13 @@
 local catgirl = {
     object_type = "Joker",
-    order = 779,
+    order = 801,
     ignore = true,
 
     key = "catgirl",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 14, y = 41},
     atlas = 'joker_atlas',

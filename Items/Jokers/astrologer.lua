@@ -1,6 +1,6 @@
 local astrologer = {
     object_type = "Joker",
-    order = 313,
+    order = 320,
     ignore = not All_in_Jest.config.moons_enabled,
     key = "astrologer",
     config = {
@@ -8,6 +8,7 @@ local astrologer = {
             picks = 1
         }
     },
+    attributes = { 'moon', 'planet', 'booster', 'passive', 'space' },
     rarity = 2,
     pos = { x = 10, y = 12},
     atlas = 'joker_atlas',

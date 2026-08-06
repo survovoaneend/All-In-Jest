@@ -1,12 +1,13 @@
 local great_pretender = {
     object_type = "Joker",
-    order = 705,
+    order = 727,
     ignore = true,
 
     key = "great_pretender",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 38},
     atlas = 'joker_atlas',

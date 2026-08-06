@@ -1,6 +1,6 @@
 local goblin_joker = {
     object_type = "Joker",
-    order = 93,
+    order = 96,
 
     key = "goblin_joker",
     config = {
@@ -9,6 +9,7 @@ local goblin_joker = {
             active = false
         }
     },
+    attributes = { 'draw_cards', 'discard' },
     rarity = 3,
     pos = { x = 13, y = 3 },
     atlas = 'joker_atlas',

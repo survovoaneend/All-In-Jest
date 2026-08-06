@@ -1,6 +1,6 @@
 local enraging_photo = {
     object_type = "Joker",
-    order = 190,
+    order = 196,
 
     key = "enraging_photo",
     config = {
@@ -9,6 +9,7 @@ local enraging_photo = {
             active = false
         }
     },
+    attributes = { 'xmult', 'on_sell', 'on_destroy' },
     rarity = 2,
     pos = { x = 4, y = 7 },
     atlas = 'joker_atlas',

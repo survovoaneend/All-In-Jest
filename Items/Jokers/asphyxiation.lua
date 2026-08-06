@@ -1,6 +1,6 @@
 local asphyxiation = {
     object_type = "Joker",
-    order = 418,
+    order = 437,
     key = "asphyxiation",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local asphyxiation = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 20 },
     atlas = 'joker_atlas',

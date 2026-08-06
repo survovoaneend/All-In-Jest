@@ -1,6 +1,6 @@
 local anatomy = {
     object_type = "Joker",
-    order = 459,
+    order = 478,
     key = "anatomy",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local anatomy = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 23 },
     atlas = 'joker_atlas',

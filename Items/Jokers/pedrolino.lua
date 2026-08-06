@@ -1,11 +1,12 @@
 local pedrolino = {
     object_type = "Joker",
-    order = 99,
+    order = 102,
     lite = true,
     key = "pedrolino",
     config = {
         extra = { blind_reduction = 90 }
     },
+    attributes = { 'xblindsize', 'on_sell' },
     rarity = 2,
     pos = { x = 19, y = 3 },
     atlas = 'joker_atlas',

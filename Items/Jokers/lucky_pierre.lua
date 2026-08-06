@@ -1,6 +1,6 @@
 local lucky_pierre = {
     object_type = "Joker",
-    order = 557,
+    order = 576,
     key = "lucky_pierre",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local lucky_pierre = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 26 },
     atlas = 'joker_atlas',

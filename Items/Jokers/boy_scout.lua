@@ -1,6 +1,6 @@
 local boy_scout = {
     object_type = "Joker",
-    order = 542,
+    order = 561,
     key = "boy_scout",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local boy_scout = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 26 },
     atlas = 'joker_atlas',

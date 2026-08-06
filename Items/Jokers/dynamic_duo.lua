@@ -1,12 +1,13 @@
 local dynamic_duo = {
     object_type = "Joker",
-    order = 634,
+    order = 669,
     ignore = true,
 
     key = "dynamic_duo",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 30},
     atlas = 'joker_atlas',

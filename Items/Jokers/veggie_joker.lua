@@ -1,6 +1,6 @@
 local veggie_joker = {
     object_type = "Joker",
-    order = 448,
+    order = 467,
     key = "veggie_joker",
 
     config = {
@@ -8,6 +8,7 @@ local veggie_joker = {
             chips = 0
         }
     },
+    attributes = { 'chips', 'scaling', 'on_destroy', 'rank', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten' },
     rarity = 1,
     pos = { x = 17, y = 22 },
     atlas = 'joker_atlas',
@@ -35,11 +36,15 @@ local veggie_joker = {
                     total_ranks = total_ranks + rank
                 end
             end
-            card.ability.extra.chips = card.ability.extra.chips + total_ranks * 3
-            return { 
-                message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } },
-                colour = G.C.CHIPS
-            }
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "chips",
+                scalar_table = {value = total_ranks*3},
+                scalar_value = "value",
+                message_key = 'a_chips',
+                message_colour = G.C.CHIPS
+            })
+            return nil, true
         end
         if context.joker_main then
             return {

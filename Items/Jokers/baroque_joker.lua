@@ -1,6 +1,6 @@
 local baroque_joker = {
     object_type = "Joker",
-    order = 371,
+    order = 390,
     key = "baroque_joker",
 
     config = {
@@ -10,7 +10,9 @@ local baroque_joker = {
             last_hand = nil
         }
     },
+    attributes = { 'xmult', 'scaling', 'hand_type' },
     rarity = 2,
+    lite = true,
     pos = { x = 0, y = 17 },
     atlas = 'joker_atlas',
     cost = 6,
@@ -34,11 +36,13 @@ local baroque_joker = {
             local target_hand = card.ability.extra.last_hand
             if target_hand then
                 if context.poker_hands and next(context.poker_hands[target_hand]) and context.scoring_name ~= target_hand then
-                    card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
-                    return {
-                        message = localize('k_upgrade_ex'),
-                        colour = G.C.MULT
-                    }
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "xmult",
+                        scalar_value = "gain",
+                        message_colour = G.C.MULT
+                    })
+                    return nil, true
                 end
             end
         end

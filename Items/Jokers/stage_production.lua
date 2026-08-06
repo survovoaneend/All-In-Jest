@@ -1,12 +1,13 @@
 local stage_production = {
     object_type = "Joker",
-    order = 369,
+    order = 388,
     key = "stage_production",
     config = {
         extra = {
             trigger = true,
         }
     },
+    attributes = { 'activated', 'joker', 'rarity' },
     rarity = 2,
     pos = { x = 9, y = 14},
     atlas = 'joker_atlas',

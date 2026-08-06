@@ -1,6 +1,6 @@
 local art_of_the_deal = {
     object_type = "Joker",
-    order = 40,
+    order = 43,
 
     key = "art_of_the_deal",
     config = {
@@ -10,6 +10,7 @@ local art_of_the_deal = {
         money_reset = 25
       }
     },
+    attributes = { 'mult', 'scaling', 'reset' },
     rarity = 2,
     pos = { x = 12, y = 1 },
     atlas = 'joker_atlas',

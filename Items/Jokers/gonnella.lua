@@ -7,6 +7,7 @@ local gonnella = {
     config = {
       
     },
+    attributes = {},
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 6, y = 6},

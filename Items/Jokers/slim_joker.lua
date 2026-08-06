@@ -1,6 +1,6 @@
 local slim_joker = {
     object_type = "Joker",
-    order = 51,
+    order = 54,
      
     key = "slim_joker",
     config = {
@@ -9,6 +9,7 @@ local slim_joker = {
         mult_mod = 4
       }
     },
+    attributes = { 'mult' },
     rarity = 1,
     pos = { x = 22, y = 1 },
     atlas = 'joker_atlas',

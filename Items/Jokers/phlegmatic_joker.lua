@@ -1,6 +1,6 @@
 local phlegmatic_joker = {
     object_type = "Joker",
-    order = 351,
+    order = 357,
 
     key = "phlegmatic_joker",
     config = {
@@ -8,6 +8,7 @@ local phlegmatic_joker = {
             odds = 6
         }
     },
+    attributes = { 'generation', 'planet', 'consumable', 'hand_type', 'suit', 'clubs', 'chance' },
     rarity = 3,
     pos = { x = 21, y = 13 },
     atlas = 'joker_atlas',

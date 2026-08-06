@@ -1,11 +1,12 @@
 local fatuus = {
   object_type = "Joker",
-  order = 189,
+  order = 195,
 
   key = "fatuus",
   config = {
       extra = {}
   },
+  attributes = { 'modify_card', 'seals', 'rank', 'king', 'queen', 'hands' },
   rarity = 3, 
   pos = { x = 3, y = 7 }, 
   atlas = 'joker_atlas',   

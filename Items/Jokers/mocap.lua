@@ -1,10 +1,11 @@
 local mocap = {
     object_type = "Joker",
-    order = 289,
+    order = 296,
     key = "mocap",
     config = {
       
     },
+    attributes = { 'generation', 'joker', 'rarity', 'on_sell' },
     rarity = 2,
     pos = { x = 12, y = 11},
     atlas = 'joker_atlas',

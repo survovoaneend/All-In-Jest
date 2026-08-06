@@ -1,20 +1,20 @@
 local coffee_thermos = {
     object_type = "Joker",
-    order = 640,
+    order = 675,
 
     key = "coffee_thermos",
     config = {
         extra = {
-            total_rounds = 3,
-            rounds = 3
+            total_rounds = 5,
+            rounds = 5
         }
     },
+    attributes = { 'retrigger', 'joker' },
     rarity = 1,
     pos = { x = 7, y = 30},
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
-    ignore = true,
     discovered = false,
     blueprint_compat = true,
     eternal_compat = false,

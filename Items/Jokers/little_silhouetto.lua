@@ -1,6 +1,6 @@
 local little_silhouetto = {
     object_type = "Joker",
-    order = 538,
+    order = 557,
     key = "little_silhouetto",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local little_silhouetto = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 22, y = 25 },
     atlas = 'joker_atlas',

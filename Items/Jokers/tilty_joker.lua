@@ -1,12 +1,13 @@
 local tilty_joker = {
     object_type = "Joker",
-    order = 273,
+    order = 280,
     key = "tilty_joker",
     config = {
       extra = {
           semi_x_chips = 2
       }
     },
+    attributes = { 'chips' },
     rarity = 1,
     pos = { x = 21, y = 10},
     atlas = 'joker_atlas',

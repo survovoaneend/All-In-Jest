@@ -1,6 +1,6 @@
 local crypto_trader = {
     object_type = "Joker",
-    order = 507,
+    order = 514,
 
     key = "crypto_trader",
     config = {
@@ -10,6 +10,7 @@ local crypto_trader = {
             multpliers = {},
         }
     },
+    attributes = { 'economy', 'chance' },
     rarity = 2,
     pos = { x = 2, y = 22 },
     atlas = 'joker_atlas',

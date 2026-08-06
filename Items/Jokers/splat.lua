@@ -1,12 +1,13 @@
 local splat = {
     object_type = "Joker",
-    order = 422,
+    order = 441,
     key = "splat",
     config = {
         extra = {
             odds = 6,
         }
     },
+    attributes = { 'modify_card', 'seals' },
     rarity = 2,
     pos = { x = 22, y = 20 },
     atlas = 'joker_atlas',

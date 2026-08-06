@@ -1,6 +1,6 @@
 local brass_joker = {
     object_type = "Joker",
-    order = 443,
+    order = 462,
     key = "brass_joker",
     config = {
         extra = {
@@ -8,6 +8,7 @@ local brass_joker = {
             mult_mod = 0
         }
     },
+    attributes = { 'mult', 'scaling', 'activated' },
     rarity = 2,
     pos = { x = 13, y = 22 },
     atlas = 'joker_atlas',

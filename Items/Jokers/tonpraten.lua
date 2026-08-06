@@ -1,14 +1,15 @@
 local tonpraten = {
   object_type = "Joker",
-  order = 172,
+  order = 175,
   
 
   key = "tonpraten",
   config = {
     extra = {
-      mult = 10
+      mult = 15
     }
   },
+  attributes = { 'mult' },
   rarity = 1,
   pos = { x = 15, y = 6},
   atlas = 'joker_atlas',

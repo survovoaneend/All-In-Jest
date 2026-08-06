@@ -1,6 +1,6 @@
 local goblet = {
     object_type = "Joker",
-    order = 498,
+    order = 517,
     key = "goblet",
     
     config = {
@@ -8,10 +8,12 @@ local goblet = {
             slots = 2
         }
     },
+    attributes = { 'passive', 'consumable_slot' },
     rarity = 1,
     pos = { x = 10, y = 24 },
     atlas = 'joker_atlas',
     cost = 4,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

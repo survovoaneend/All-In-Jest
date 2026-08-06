@@ -1,6 +1,6 @@
 local a_v_g_m = {
     object_type = "Joker",
-    order = 630,
+    order = 665,
 
     key = "a_v_g_m",
     config = {
@@ -9,6 +9,7 @@ local a_v_g_m = {
             odds = 30
         }
     },
+    attributes = { 'generation', 'chance', 'joker', 'consumable', 'playing_card', 'tag' },
     rarity = 2,
     pos = { x = 22, y = 29},
     atlas = 'joker_atlas',
@@ -17,7 +18,6 @@ local a_v_g_m = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
-    ignore = true,
 
     pixel_size = { w = 65, h = 95 },
 
@@ -32,7 +32,13 @@ local a_v_g_m = {
             end
         end,
 
-        use_ability = function(self, card)
+        use_ability = function(self, card, args)
+            args = args or {}
+            SMODS.calculate_context({all_in_jest = {joker_ability_used = true, card = card, retriggered = args.retriggered, args = args}})
+            if not args.free then
+                ease_dollars(-card.ability.extra.cost)
+                card_eval_status_text(card, 'dollars', -card.ability.extra.cost)
+            end
             if SMODS.pseudorandom_probability(card, 'a_v_g_m', 1, card.ability.extra.odds) then
                 local max = 2
                 local joker, consumable = false, false

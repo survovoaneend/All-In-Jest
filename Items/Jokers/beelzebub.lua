@@ -1,6 +1,6 @@
 local beelzebub = {
     object_type = "Joker",
-    order = 481,
+    order = 500,
     key = "beelzebub",
     
     config = {
@@ -9,6 +9,7 @@ local beelzebub = {
             gain = 3
         }
     },
+    attributes = { 'mult', 'scaling' },
     rarity = 1,
     pos = { x = 22, y = 23 },
     atlas = 'joker_atlas',
@@ -29,11 +30,13 @@ local beelzebub = {
 
     calculate = function(self, card, context)
         if context.playing_card_added and not context.blueprint then
-             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
-             return {
-                 message = localize('k_upgrade_ex'),
-                 colour = G.C.MULT
-             }
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult",
+                scalar_value = "gain",
+                message_colour = G.C.MULT
+            })
+            return nil, true
         end
         if context.joker_main then
             return {

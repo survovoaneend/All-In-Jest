@@ -1,12 +1,13 @@
 local doormat = {
     object_type = "Joker",
-    order = 531,
+    order = 550,
     key = "doormat",
     config = {
         extra = {
             
         }
     },
+    attributes = { 'modify_card', 'enhancements' },
     rarity = 1,
     pos = { x = 16, y = 25 },
     atlas = 'joker_atlas',

@@ -1,12 +1,13 @@
 local mummy = {
     object_type = "Joker",
-    order = 135,
+    order = 138,
     ignore = true,
 
     key = "mummy",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 4, y = 5 },
     atlas = 'joker_atlas',

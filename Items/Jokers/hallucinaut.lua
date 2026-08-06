@@ -1,6 +1,6 @@
 local hallucinaut = {
     object_type = "Joker",
-    order = 607,
+    order = 639,
     key = "hallucinaut",
     
     config = {
@@ -9,6 +9,7 @@ local hallucinaut = {
             xmult_gain = 0.5
         }
     },
+    attributes = { 'xmult', 'scaling', 'reset', 'booster', 'boss_blind' },
     rarity = 2,
     pos = { x = 21, y = 28 },
     atlas = 'joker_atlas',
@@ -30,11 +31,14 @@ local hallucinaut = {
 
     calculate = function(self, card, context)
          if context.open_booster and not context.blueprint then
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
-            return {
-                message = localize{type='variable', key='a_xmult', vars={card.ability.extra.xmult}},
-                colour = G.C.MULT
-            }
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "xmult",
+                scalar_value = "xmult_gain",
+                message_key = 'a_xmult',
+                message_colour = G.C.MULT
+            })
+            return nil, true
         end
         if context.end_of_round and context.main_eval and context.beat_boss and not context.blueprint then
             if card.ability.extra.xmult > 1 then

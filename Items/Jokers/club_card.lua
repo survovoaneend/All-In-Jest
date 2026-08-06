@@ -1,12 +1,13 @@
 local club_card = {
     object_type = "Joker",
-    order = 785,
+    order = 807,
     ignore = true,
 
     key = "club_card",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 41},
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local father_christmas = {
     object_type = "Joker",
-    order = 567,
+    order = 594,
     key = "father_christmas",
     
     config = {
@@ -8,6 +8,7 @@ local father_christmas = {
             dollars = 1
         }
     },
+    attributes = { 'economy' },
     rarity = 3,
     pos = { x = 5, y = 27 },
     atlas = 'joker_atlas',

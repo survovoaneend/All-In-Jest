@@ -1,12 +1,13 @@
 local historian = {
     object_type = "Joker",
-    order = 409,
+    order = 418,
     key = "historian",
     config = {
         extra = {
             mult = 3
         }
     },
+    attributes = { 'mult', 'sell_value', 'on_sell' },
     rarity = 1,
     pos = { x = 24, y = 14},
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local lucky_horseshoe = {
     object_type = "Joker",
-    order = 406,
+    order = 425,
     key = "lucky_horseshoe",
     
     config = {
@@ -11,6 +11,7 @@ local lucky_horseshoe = {
             odds_mult = 3
         }
     },
+    attributes = { 'economy', 'xmult', 'chance', 'enhancements' },
     rarity = 2,
     pos = { x = 12, y = 14 },
     atlas = 'joker_atlas',

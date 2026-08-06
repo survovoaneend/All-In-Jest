@@ -1,6 +1,6 @@
 local idiot_box = {
     object_type = "Joker",
-    order = 362,
+    order = 381,
     key = "idiot_box",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local idiot_box = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 10, y = 26 },
     atlas = 'joker_atlas',

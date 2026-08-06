@@ -1,6 +1,6 @@
 local pencil_drawing = {
     object_type = "Joker",
-    order = 63,
+    order = 66,
 
     key = "pencil_drawing",
     config = {
@@ -8,6 +8,7 @@ local pencil_drawing = {
             cost = 2
         }
     },
+    attributes = { 'activated', 'generation', 'playing_card' },
     rarity = 2,
     pos = { x = 9, y = 2 },
     atlas = 'joker_atlas',

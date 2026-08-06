@@ -1,12 +1,13 @@
 local joqr = {
     object_type = "Joker",
-    order = 28,
+    order = 31,
     ignore = true,
 
     key = "joqr",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 1 },
     atlas = 'joker_atlas',

@@ -1,11 +1,12 @@
 local aluzinnu = {
     object_type = "Joker",
-    order = 218,
+    order = 224,
     ignore = true,
     key = "aluzinnu",
     config = {
       
     },
+    attributes = {},
     rarity = 3,
     pos = { x = 7, y = 8},
     atlas = 'joker_atlas',

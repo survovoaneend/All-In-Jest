@@ -1,6 +1,6 @@
 local you_broke_it = {
   object_type = "Joker",
-  order = 2,
+  order = 4,
 
   key = "you_broke_it",
   config = {
@@ -8,6 +8,7 @@ local you_broke_it = {
 
     }
   },
+  attributes = { 'modify_card', 'enhancements', 'rank' },
   rarity = 2,
   pos = { x = 24, y = 8 },
   atlas = 'joker_atlas',

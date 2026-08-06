@@ -1,6 +1,6 @@
 local meaty_joker = {
     object_type = "Joker",
-    order = 449,
+    order = 468,
     key = "meaty_joker",
 
     config = {
@@ -9,10 +9,12 @@ local meaty_joker = {
             cards = 20
         }
     },
+    attributes = { 'xmult', 'full_deck' },
     rarity = 3,
     pos = { x = 18, y = 22 },
     atlas = 'joker_atlas',
     cost = 8,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

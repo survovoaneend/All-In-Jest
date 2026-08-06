@@ -1,11 +1,12 @@
 local lucignolo = {
   object_type = "Joker",
-  order = 68,
+  order = 71,
 
   key = "lucignolo",
   config = {
     extra = { dollars = 5 }
   },
+  attributes = { 'economy', 'on_destroy' },
   rarity = 1,
   pos = { x = 14, y = 2 },
   atlas = 'joker_atlas',

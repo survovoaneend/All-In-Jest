@@ -1,6 +1,6 @@
 local the_ludovico_technique = {
     object_type = "Joker",
-    order = 328,
+    order = 335,
 
     key = "the_ludovico_technique",
     config = {
@@ -8,6 +8,7 @@ local the_ludovico_technique = {
             first_hand = nil
         }
     },
+    attributes = { 'hand_level', 'hand_type', 'hands' },
     rarity = 1,
     pos = { x = 24, y = 12 },
     atlas = 'joker_atlas',

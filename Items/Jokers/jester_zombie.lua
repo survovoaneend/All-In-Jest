@@ -1,10 +1,11 @@
 local jester_zombie = {
     object_type = "Joker",
-    order = 236,
+    order = 241,
     key = "jester_zombie",
     config = {
       
     },
+    attributes = { 'retrigger', 'on_destroy' },
     rarity = 2,
     pos = { x = 4, y = 9},
     atlas = 'joker_atlas',

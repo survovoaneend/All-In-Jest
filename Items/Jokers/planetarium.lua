@@ -1,6 +1,6 @@
 local planetarium = {
     object_type = "Joker",
-    order = 314,
+    order = 321,
     ignore = not All_in_Jest.config.moons_enabled,
     key = "planetarium",
     config = {
@@ -9,6 +9,7 @@ local planetarium = {
           mult = 15,
       }
     },
+    attributes = { 'mult', 'chips', 'planet', 'moon', 'consumable' },
     rarity = 2,
     pos = { x = 11, y = 12},
     atlas = 'joker_atlas',

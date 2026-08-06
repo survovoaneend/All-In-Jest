@@ -1,10 +1,11 @@
 local jpeg = {
     object_type = "Joker",
-    order = 336,
+    order = 343,
     
     key = "jpeg",
     config = {
     },
+    attributes = { 'modify_card', 'enhancements' },
     rarity = 2,
     pos = { x = 7, y = 13},
     atlas = 'joker_atlas',

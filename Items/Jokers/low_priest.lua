@@ -1,6 +1,6 @@
 local low_priest = {
   object_type = "Joker",
-  order = 72,
+  order = 75,
   lite = true,
   key = "low_priest",
   config = {
@@ -10,6 +10,7 @@ local low_priest = {
       xmult_mod = 0.2
     }
   },
+  attributes = { 'xmult', 'hand_level' },
   rarity = 2,
   pos = { x = 1, y = 9 },
   atlas = 'joker_atlas',

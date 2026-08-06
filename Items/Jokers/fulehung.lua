@@ -1,6 +1,6 @@
 local fulehung = {
     object_type = "Joker",
-    order = 207,
+    order = 213,
 
     key = "fulehung",
     config = {
@@ -8,6 +8,7 @@ local fulehung = {
           odds = 3,
       }
     },
+    attributes = { 'generation', 'tag', 'chance' },
     rarity = 2,
     pos = { x = 21, y = 7},
     atlas = 'joker_atlas',

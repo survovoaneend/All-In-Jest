@@ -7,6 +7,7 @@ local doink = {
     config = {
       
     },
+    attributes = {},
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 1, y = 0},

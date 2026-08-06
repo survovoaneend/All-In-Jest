@@ -1,6 +1,6 @@
 local nosferatu = {
     object_type = "Joker",
-    order = 523,
+    order = 542,
     key = "nosferatu",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local nosferatu = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 8, y = 25 },
     atlas = 'joker_atlas',

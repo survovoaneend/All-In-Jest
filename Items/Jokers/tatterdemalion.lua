@@ -1,12 +1,13 @@
 local tatterdemalion = {
     object_type = "Joker",
-    order = 678,
+    order = 700,
     ignore = true,
 
     key = "tatterdemalion",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 37},
     atlas = 'joker_atlas',

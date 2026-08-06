@@ -1,12 +1,13 @@
 local onifuda = {
     object_type = "Joker",
-    order = 637,
+    order = 672,
     ignore = true,
 
     key = "onifuda",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 4, y = 30},
     atlas = 'joker_atlas',

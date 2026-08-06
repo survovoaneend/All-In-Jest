@@ -1,6 +1,6 @@
 local legerdemain = {
     object_type = "Joker",
-    order = 436,
+    order = 455,
     key = "legerdemain",
     
     config = {
@@ -8,6 +8,7 @@ local legerdemain = {
             discards = 2
         }
     },
+    attributes = { 'discard', 'on_sell' },
     rarity = 2,
     pos = { x = 6, y = 22 },
     atlas = 'joker_atlas',

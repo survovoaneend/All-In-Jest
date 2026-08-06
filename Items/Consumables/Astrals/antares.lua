@@ -42,13 +42,18 @@ local antares_pin = {
     end,
 
     calculate = function(self, card, context)
-        if context.before and context.main_eval and (G.hand and G.hand.cards and #G.hand.cards > 0) then
-            local o_card = pseudorandom_element(G.hand.cards, pseudoseed('jest_antares'))
-            local total_cards = {}
-            if not o_card.destroyed then
-                table.insert(total_cards, o_card)
+        if context.after then
+            if #G.hand.cards > 0 then
+                local o_card = pseudorandom_element(G.hand.cards, pseudoseed('jest_antares'))
+                local total_cards = {}
+                if not o_card.destroyed then
+                    table.insert(total_cards, o_card)
+                end
+                SMODS.destroy_cards(total_cards)
+                return {
+                    message = localize('k_aij_destroyed_ex'),
+                }
             end
-            SMODS.destroy_cards(total_cards)
         end
     end,
 }

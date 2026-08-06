@@ -1,10 +1,11 @@
 local imperial_bower = {
     object_type = "Joker",
-    order = 18,
+    order = 21,
     key = "imperial_bower",
     config = {
       
     },
+    attributes = {},
     rarity = 2,
     ignore = true,
     pos = { x = 17, y = 0 },

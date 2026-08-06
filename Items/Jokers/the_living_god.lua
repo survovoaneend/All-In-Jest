@@ -1,12 +1,13 @@
 local the_living_god = {
     object_type = "Joker",
-    order = 642,
+    order = 677,
     ignore = true,
 
     key = "the_living_god",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 30},
     atlas = 'joker_atlas',

@@ -1,12 +1,13 @@
 local oil_and_water = {
     object_type = "Joker",
-    order = 73,
+    order = 76,
     ignore = true,
 
     key = "oil_and_water",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 2 },
     atlas = 'joker_atlas',

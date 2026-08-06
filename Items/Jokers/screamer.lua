@@ -1,10 +1,11 @@
 local screamer = {
     object_type = "Joker",
-    order = 332,
+    order = 339,
     ignore = true,
     key = "screamer",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 3, y = 13},
     atlas = 'joker_atlas',

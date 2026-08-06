@@ -1,12 +1,13 @@
 local velzquez = {
     object_type = "Joker",
-    order = 685,
+    order = 707,
     ignore = true,
 
     key = "velzquez",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 38},
     atlas = 'joker_atlas',

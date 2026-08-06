@@ -1,9 +1,10 @@
 local wireframe = {
   object_type = "Joker",
-  order = 52,
+  order = 55,
 
   key = "wireframe",
   config = { },
+  attributes = { 'draw_cards', 'hands' },
   rarity = 3,
   pos = { x = 5, y = 17 },
   soul_pos = {

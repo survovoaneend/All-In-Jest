@@ -1,6 +1,6 @@
 local bumper_sticker = {
     object_type = "Joker",
-    order = 118,
+    order = 121,
     lite = true,
     key = "bumper_sticker",
     config = {
@@ -8,6 +8,7 @@ local bumper_sticker = {
         mult_mod = 1
       }
     },
+    attributes = { 'modify_card', 'perma_bonus', 'mult' },
     rarity = 2,
     pos = { x = 13, y = 4 },
     atlas = 'joker_atlas',

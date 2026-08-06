@@ -1,12 +1,13 @@
 local wire_joker = {
     object_type = "Joker",
-    order = 762,
+    order = 784,
     ignore = true,
 
     key = "wire_joker",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 24, y = 40},
     atlas = 'joker_atlas',

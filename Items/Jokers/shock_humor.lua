@@ -1,10 +1,11 @@
 local shock_humor = {
     object_type = "Joker",
-    order = 354,
+    order = 363,
     ignore = true,
     key = "shock_humor",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 14},
     atlas = 'joker_atlas',

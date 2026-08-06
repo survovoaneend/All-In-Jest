@@ -1,6 +1,6 @@
 local tin_man = {
     object_type = "Joker",
-    order = 528,
+    order = 547,
     key = "tin_man",
     
     config = {
@@ -8,6 +8,7 @@ local tin_man = {
             
         }
     },
+    attributes = { 'modify_card', 'enhancements', 'suit', 'hearts' },
     rarity = 2,
     pos = { x = 13, y = 25 },
     atlas = 'joker_atlas',

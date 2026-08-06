@@ -48,17 +48,18 @@ end
 
 local crayon_rubbing = {
     object_type = "Joker",
-    order = 529,
+    order = 548,
     key = "crayon_rubbing",
     config = {
         extra = {
             
         }
     },
-    rarity = 2,
+    attributes = { 'chips', 'joker' },
+    rarity = 1,
     pos = { x = 14, y = 25 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

@@ -1,6 +1,6 @@
 local chitty = {
   object_type = "Joker",
-  order = 263,
+  order = 269,
 
   key = "chitty",
   config = {
@@ -8,6 +8,7 @@ local chitty = {
       slot_count = 1,
     }
   },
+  attributes = { 'voucher', 'shop' },
   rarity = 2,
   pos = { x = 11, y = 10 },
   atlas = 'joker_atlas',

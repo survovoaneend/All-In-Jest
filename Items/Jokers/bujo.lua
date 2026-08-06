@@ -1,12 +1,13 @@
 local bujo = {
     object_type = "Joker",
-    order = 789,
+    order = 811,
     ignore = true,
 
     key = "bujo",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 24, y = 41},
     atlas = 'joker_atlas',

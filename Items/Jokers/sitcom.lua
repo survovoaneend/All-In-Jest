@@ -1,12 +1,13 @@
 local sitcom = {
     object_type = "Joker",
-    order = 136,
+    order = 139,
     ignore = true,
 
     key = "sitcom",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 5, y = 5 },
     atlas = 'joker_atlas',

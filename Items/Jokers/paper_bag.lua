@@ -1,6 +1,6 @@
 local paper_bag = {
     object_type = "Joker",
-    order = 44,
+    order = 47,
 
     key = "paper_bag",
     config = {
@@ -9,6 +9,7 @@ local paper_bag = {
           cur_chips = 0
       }
     },
+    attributes = { 'chips', 'scaling' },
     rarity = 1,
     pos = { x = 16, y = 1 },
     atlas = 'joker_atlas',

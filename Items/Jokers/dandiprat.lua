@@ -1,6 +1,6 @@
 local dandiprat = {
     object_type = "Joker",
-    order = 584,
+    order = 611,
     key = "dandiprat",
   
     config = {
@@ -8,7 +8,9 @@ local dandiprat = {
             dollars = 1
         }
     },
+    attributes = { 'economy', 'rank', 'two', 'three', 'four', 'five' },
     rarity = 1,
+    lite = true,
     pos = { x = 22, y = 27 },
     atlas = 'joker_atlas',
     cost = 5,

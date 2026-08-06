@@ -1,6 +1,6 @@
 local eye_test = {
     object_type = "Joker",
-    order = 519,
+    order = 538,
     key = "eye_test",
     config = {
         extra = {
@@ -8,6 +8,7 @@ local eye_test = {
             count = 0
         }
     },
+    attributes = { 'mult', 'scaling', 'reset' },
     rarity = 1,
     pos = { x = 4, y = 25 },
     atlas = 'joker_atlas',

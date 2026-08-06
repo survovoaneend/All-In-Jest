@@ -1,12 +1,13 @@
 local dragon = {
     object_type = "Joker",
-    order = 639,
+    order = 674,
     ignore = true,
 
     key = "dragon",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 6, y = 30},
     atlas = 'joker_atlas',

@@ -6,10 +6,12 @@ local melpomene = {
     config = {
        
     },
+    attributes = { 'chips', 'mult', 'hand_type', 'face' },
     rarity = 4,
     pos = { x = 3, y = 12 },
     atlas = 'legendary_atlas',
     cost = 20,
+    lite = true,
     unlocked = false,
     discovered = false,
     blueprint_compat = true,

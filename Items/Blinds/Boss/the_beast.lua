@@ -7,7 +7,7 @@ local the_beast = {
     mult = 2,
     boss_colour = HEX("4a834c"),
     atlas = 'blinds',
-    pos = { X = 0, y = 52},
+    pos = { X = 0, y = 36},
     order = 32,
     dollars = 5,
 

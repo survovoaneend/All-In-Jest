@@ -1,12 +1,13 @@
 local kolobathristes = {
     object_type = "Joker",
-    order = 699,
+    order = 721,
     ignore = true,
 
     key = "kolobathristes",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 14, y = 38},
     atlas = 'joker_atlas',

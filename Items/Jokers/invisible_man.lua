@@ -1,12 +1,13 @@
 
 local invisible_man = {
     object_type = "Joker",
-    order = 6,
+    order = 7,
     ignore = true,
     key = "invisible_man",
     config = {
       
     },
+    attributes = {},
     rarity = 3,
     pos = { x = 4, y = 0 },
     atlas = 'joker_atlas',

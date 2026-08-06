@@ -1,12 +1,13 @@
 local spy = {
     object_type = "Joker",
-    order = 717,
+    order = 739,
     ignore = true,
 
     key = "spy",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 7, y = 39},
     atlas = 'joker_atlas',

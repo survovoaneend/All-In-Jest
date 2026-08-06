@@ -1,6 +1,6 @@
 local bonus_pay = {
     object_type = "Joker",
-    order = 307,
+    order = 314,
 
     key = "bonus_pay",
     config = {
@@ -8,6 +8,7 @@ local bonus_pay = {
             money = 3
         }
     },
+    attributes = { 'economy', 'enhancements' },
     rarity = 1,
     pos = { x = 4, y = 12},
     atlas = 'joker_atlas',

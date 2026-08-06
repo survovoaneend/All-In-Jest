@@ -1,6 +1,6 @@
 local blind_drawn = {
     object_type = "Joker",
-    order = 126,
+    order = 129,
     lite = true,
     key = "blind_drawn",
     config = {
@@ -8,6 +8,7 @@ local blind_drawn = {
             Xmult = 3
         }
     },
+    attributes = { 'xmult' },
     rarity = 2,
     pos = { x = 20, y = 4 },
     atlas = 'joker_atlas',

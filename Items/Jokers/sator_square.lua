@@ -1,6 +1,6 @@
 local sator_square = {
     object_type = "Joker",
-    order = 388,
+    order = 407,
     key = "sator_square",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local sator_square = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 16 },
     atlas = 'joker_atlas',

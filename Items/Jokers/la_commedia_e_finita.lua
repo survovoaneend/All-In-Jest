@@ -1,6 +1,6 @@
 local la_commedia_e_finita = {
   object_type = "Joker",
-  order = 155,
+  order = 158,
 
   key = "la_commedia_e_finita",
   config = {
@@ -9,6 +9,7 @@ local la_commedia_e_finita = {
       mult_gain = 5
     }
   },
+  attributes = { 'mult', 'scaling', 'face' },
   rarity = 1,
   pos = { x = 24, y = 5 },
   atlas = 'joker_atlas',

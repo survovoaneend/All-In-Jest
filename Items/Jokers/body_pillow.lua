@@ -1,6 +1,6 @@
 local body_pillow = {
     object_type = "Joker",
-    order = 425,
+    order = 444,
     key = "body_pillow",
 
     config = {
@@ -8,6 +8,7 @@ local body_pillow = {
             dollars = 2
         }
     },
+    attributes = { 'economy' },
     rarity = 3,
     pos = { x = 0, y = 21 },
     atlas = 'joker_atlas',

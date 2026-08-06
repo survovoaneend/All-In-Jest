@@ -29,7 +29,7 @@ local the_clay = {
     mult = 2,
     boss_colour = HEX("95a4a9"),
     atlas = 'blinds',
-    pos = { X = 0, y = 39},
+    pos = { X = 0, y = 23},
     order = 18,
     dollars = 5,
 

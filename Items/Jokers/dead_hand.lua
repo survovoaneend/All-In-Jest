@@ -1,6 +1,6 @@
 local dead_hand = {
     object_type = "Joker",
-    order = 555,
+    order = 574,
     key = "dead_hand",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local dead_hand = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 26 },
     atlas = 'joker_atlas',

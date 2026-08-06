@@ -1,6 +1,6 @@
 local remina = {
   object_type = "Joker",
-  order = 335,
+  order = 342,
   key = "remina",
   config = {
     extra = {
@@ -8,6 +8,7 @@ local remina = {
       chips = 0,
     }
   },
+  attributes = { 'mult', 'chips', 'scaling', 'planet', 'consumable', 'destroy_card' },
   rarity = 3,
   pos = { x = 6, y = 13 },
   atlas = 'joker_atlas',

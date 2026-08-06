@@ -1,6 +1,6 @@
 local handyman = {
     object_type = "Joker",
-    order = 488,
+    order = 507,
     key = "handyman",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local handyman = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 4, y = 24 },
     atlas = 'joker_atlas',

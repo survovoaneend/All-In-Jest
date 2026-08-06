@@ -1,6 +1,6 @@
 local tin = {
     object_type = "Joker",
-    order = 565.4,
+    order = 586.5,
     key = "tin",
     
     config = {
@@ -8,6 +8,7 @@ local tin = {
             
         }
     },
+    attributes = { 'retrigger', 'hand_type' },
     rarity = 3,
     pos = { x = 14, y = 28 },
     atlas = 'joker_atlas',

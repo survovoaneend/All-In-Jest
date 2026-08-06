@@ -10,6 +10,7 @@ local colquhoun = {
             dollar_mod = 1
         }
     },
+    attributes = { 'economy', 'scaling' },
     rarity = 4,
     unlock_condition = { hidden = true },
     pos = { x = 8, y = 2 },

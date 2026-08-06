@@ -1,11 +1,12 @@
 local mummer = {
   object_type = "Joker",
-  order = 158,
+  order = 161,
 
   key = "mummer",
   config = {
     triggers = "0"
   },
+  attributes = { 'trigger_cards', 'enhancements' },
   rarity = 3,
   pos = { x = 2, y = 6 },
   atlas = 'joker_atlas',

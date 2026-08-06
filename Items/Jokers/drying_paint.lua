@@ -1,12 +1,13 @@
 local drying_paint = {
     object_type = "Joker",
-    order = 635,
+    order = 670,
     ignore = true,
 
     key = "drying_paint",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 30},
     atlas = 'joker_atlas',

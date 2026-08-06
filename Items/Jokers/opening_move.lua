@@ -1,6 +1,6 @@
 local opening_move = {
     object_type = "Joker",
-    order = 274,
+    order = 281,
     key = "opening_move",
     config = {
       extra = {
@@ -8,6 +8,7 @@ local opening_move = {
           cur_xmult = 1,
       }
     },
+    attributes = { 'xmult' },
     lite = true,
     rarity = 2,
     pos = { x = 22, y = 10},

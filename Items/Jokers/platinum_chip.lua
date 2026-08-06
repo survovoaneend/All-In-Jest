@@ -1,12 +1,13 @@
 local platinum_chip = {
     object_type = "Joker",
-    order = 35,
+    order = 38,
     ignore = true,
 
     key = "platinum_chip",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 8, y = 1 },
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local wizard = {
     object_type = "Joker",
-    order = 451,
+    order = 470,
     key = "wizard",
     
     config = {
@@ -8,6 +8,7 @@ local wizard = {
             odds = 4
         }
     },
+    attributes = { 'modify_card', 'enhancements', 'chance' },
     rarity = 3,
     pos = { x = 13, y = 26 },
     atlas = 'joker_atlas',

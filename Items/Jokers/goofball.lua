@@ -1,6 +1,6 @@
 local goofball = {
     object_type = "Joker",
-    order = 233,
+    order = 238,
 
     key = "goofball",
     config = {
@@ -8,6 +8,7 @@ local goofball = {
             percent = 8
         }
     },
+    attributes = { 'balance', 'face' },
     rarity = 3,
     pos = { x = 22, y = 8 },
     atlas = 'joker_atlas',

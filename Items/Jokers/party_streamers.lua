@@ -1,11 +1,12 @@
 local party_streamers = {
     object_type = "Joker",
-    order = 131,
+    order = 134,
     lite = true,
     key = "party_streamers",
     config = {
       
     },
+    attributes = { 'modify_card', 'seals', 'hands' },
     rarity = 3,
     pos = { x = 0, y = 5 },
     atlas = 'joker_atlas',

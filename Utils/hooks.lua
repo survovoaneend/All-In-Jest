@@ -243,6 +243,7 @@ function SMODS.has_any_suit(card)
     if card.config.aij_other_center and card.config.aij_other_center['center'] then
         if card.config.aij_other_center['center'].key == 'm_wild' or card.config.aij_other_center['center'].any_suit then return true end
     end
+    if All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_wild then return true end
     return has_any_suit_ref(card) or All_in_Jest.counts_as_all_suits(card)
 end
 
@@ -251,11 +252,32 @@ function SMODS.always_scores(card)
     if card.config.aij_other_center and card.config.aij_other_center['center'] then
         if card.config.aij_other_center['center'].key == 'm_stone' or card.config.aij_other_center['center'].always_scores then return true end
     end
+    if All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_stone then return true end
+    if card.ability and (card.ability.aij_always_scores or card.ability.aij_temp_always_scores) then 
+        card.ability.aij_temp_always_scores = nil
+        return true 
+    end
     return always_scores_ref(card)
+end
+
+local is_face_ref = Card.is_face
+function Card:is_face(from_boss)
+    if G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_aij_the_real' and not G.GAME.blind.disabled then
+        if self.debuff and not from_boss then return end
+        local id = self:get_id()
+        local rank = SMODS.Ranks[self.base.value]
+        if not id then return end
+        if (id > 0 and rank and rank.face) then
+            return true
+        end
+        return
+    end
+    return is_face_ref(self, from_boss)
 end
 
 local has_no_suit_ref = SMODS.has_no_suit
 function SMODS.has_no_suit(card)
+    if SMODS.has_any_suit(card) then return false end
     if card.base.suit == nil then return true end
     if SMODS.has_enhancement(card, 'm_aij_canvas') then
         if (card.area == G.hand or card.area == G.play) and not card.debuff then
@@ -304,7 +326,9 @@ function SMODS.has_no_suit(card)
         if card.config.aij_other_center['center'].key == 'm_stone' or card.config.aij_other_center['center'].no_suit then no_suit = true end
         return no_suit and not any_suit
     end
-    return has_no_suit_ref(card)
+    if All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_wild then any_suit = true end
+    if All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_stone then no_suit = true end
+    return (no_suit or has_no_suit_ref(card)) and not any_suit
 end
 
 
@@ -376,6 +400,10 @@ function SMODS.has_no_rank(card)
             card.front_hidden = card:should_hide_front()
             return true 
         end
+    end
+    if All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_stone then
+        card.front_hidden = card:should_hide_front()
+        return true 
     end
     if card.ability.numbertaker_rankless then return true end
     return has_no_rank_ref(card)
@@ -708,6 +736,7 @@ function ease_ante(mod)
         G.GAME.all_in_jest.unused_discards.ante = 0
         G.GAME.jest_kasperle_voucher_ante = false
     end
+    G.GAME.blacklight_should_flicker = true
     check_for_unlock({type = 'ante_change', ante = G.GAME.round_resets.ante, ante_change = mod})
     
     local ref = ease_anteref(mod)
@@ -855,6 +884,9 @@ SMODS.ConsumableType({
 
             if card.area and not card.area.config.collection then
                 if card.ability.consumeable.hand and card.ability.consumeable.grade then
+                    if card.ability.consumeable.grade == 'Retrograde' then
+                        card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade('Retrograde')
+                    end
                     info_queue[#info_queue+1] = {key = 'aij_astral_'..string.lower(card.ability.consumeable.grade), set = 'Other'}
                 end
                 
@@ -877,6 +909,15 @@ SMODS.ConsumableType({
         if not center.use then
             center.use = function(self, card, area, copier)
                 All_in_Jest.use_astral_card(card)
+                if G.aij_cur_astral_hand and G.aij_cur_astral_hand == card.ability.consumeable.hand and G.GAME.Astral_pins then
+                    if G.aij_astral_pin_area and #G.aij_astral_pin_area.cards > 0 then
+                        All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'only_remove', All_in_Jest.old_colours or nil, true)      
+                        for _, v in pairs(G.aij_astral_pin_area.cards) do
+                            v:remove()
+                        end
+                    end
+                    All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'no_remove')
+                end
             end
         end
         SMODS.ObjectType.inject_card(self, center)
@@ -1016,6 +1057,7 @@ function SMODS.upgrade_poker_hands(args)
             level_up = args.level_up,
             instant = true,
             from = nil,
+            aij_level_with = true, -- Removes context call
         }
         aij_SMODS_upgrade_poker_hands_ref(new_args)
     end
@@ -1067,8 +1109,12 @@ function All_in_Jest.update_frame(dt, k, obj, jkr)
                 end
             end
             if loc >= anim.frames then loc = anim.start_frame or 0 end
-            obj.pos.x = (anim.held_frame or loc)%(anim.frames_per_row or anim.frames)
-            obj.pos.y = math.floor((anim.held_frame or loc)/(anim.frames_per_row or anim.frames))
+            if obj.all_in_jest and obj.all_in_jest.animate_func then
+                obj.pos.x, obj.pos.y = obj.all_in_jest.animate_func(dt, anim, obj, loc, k)
+            else
+                obj.pos.x = (anim.held_frame or loc)%(anim.frames_per_row or anim.frames)
+                obj.pos.y = math.floor((anim.held_frame or loc)/(anim.frames_per_row or anim.frames))
+            end
             if obj.all_in_jest and obj.all_in_jest.layer_funcs and obj.all_in_jest.layer_funcs.pos and type(obj.all_in_jest.layer_funcs.pos) == "function" then
                 obj.all_in_jest.layer_funcs.pos(anim, obj, loc)
             end
@@ -1189,6 +1235,15 @@ function Game:update(dt)
             end
         end
     end
+    if G.GAME.round_resets.blind_tags then
+        for k, v in pairs(G.GAME.round_resets.blind_tags) do
+            if G.GAME.all_in_jest.blind_tags[k] and G.GAME.all_in_jest.blind_tags[k][1] then
+                if G.GAME.round_resets.blind_tags[k] ~= G.GAME.all_in_jest.blind_tags[k][1] then
+                    G.GAME.round_resets.blind_tags[k] = G.GAME.all_in_jest.blind_tags[k][1]
+                end
+            end
+        end
+    end
     return ref
 end
 
@@ -1300,6 +1355,10 @@ function Card:save()
 
     if self.aij_inherent_effects then
         saveTable.aij_inherent_effects = self.aij_inherent_effects
+    end
+
+    if self.aij_seal_edition then
+        saveTable.aij_seal_edition = self.aij_seal_edition
     end
 
     return saveTable
@@ -1525,7 +1584,7 @@ function create_UIBox_hand_tip(handname)
 
     -- Show applied astral pins
     local astrals = 0
-    if G.GAME.Astral_pins[handname] then
+    if G.GAME and G.GAME.Astral_pins and G.GAME.Astral_pins[handname] then
         for _, _ in pairs(G.GAME.Astral_pins[handname]) do
             astrals = astrals + 1
         end

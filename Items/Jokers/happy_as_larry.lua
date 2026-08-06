@@ -1,6 +1,6 @@
 local happy_as_larry = {
     object_type = "Joker",
-    order = 537,
+    order = 556,
     key = "happy_as_larry",
     config = {
         extra = {
@@ -10,6 +10,7 @@ local happy_as_larry = {
             decrease_odds = 1
         }
     },
+    attributes = { 'xmult', 'chance', 'retrigger' },
     rarity = 2,
     pos = { x = 21, y = 25 },
     atlas = 'joker_atlas',

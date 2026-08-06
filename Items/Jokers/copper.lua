@@ -1,6 +1,6 @@
 local copper = {
     object_type = "Joker",
-    order = 565.2,
+    order = 584.3,
     key = "copper",
     
     config = {
@@ -8,6 +8,7 @@ local copper = {
             
         }
     },
+    attributes = { 'retrigger', 'hand_type' },
     rarity = 2,
     pos = { x = 12, y = 27 },
     atlas = 'joker_atlas',

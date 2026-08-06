@@ -1,6 +1,6 @@
 local golden_record = {
     object_type = "Joker",
-    order = 373,
+    order = 392,
     key = "golden_record",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local golden_record = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 5, y = 14 },
     atlas = 'joker_atlas',

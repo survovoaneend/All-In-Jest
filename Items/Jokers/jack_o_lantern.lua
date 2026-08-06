@@ -1,10 +1,11 @@
 local jack_o_lantern = {
     object_type = "Joker",
-    order = 312,
+    order = 319,
     ignore = true,
     key = "jack_o_lantern",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 12},
     atlas = 'joker_atlas',

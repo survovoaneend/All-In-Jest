@@ -1,12 +1,13 @@
 local boiadeiro = {
     object_type = "Joker",
-    order = 706,
+    order = 728,
     ignore = true,
 
     key = "boiadeiro",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 21, y = 38},
     atlas = 'joker_atlas',

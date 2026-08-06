@@ -1,6 +1,6 @@
 local gematria = {
     object_type = "Joker",
-    order = 299,
+    order = 306,
     key = "gematria",
     config = {
       extra = {
@@ -9,6 +9,7 @@ local gematria = {
           should_trigger = false
       }
     },
+    attributes = { 'mult' },
     rarity = 1,
     pos = { x = 21, y = 11},
     atlas = 'joker_atlas',

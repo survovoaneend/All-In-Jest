@@ -8,6 +8,7 @@ local sommers = {
         levels = 2
       }
     },
+    attributes = { 'hand_level', 'hand_type' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 1, y = 4},

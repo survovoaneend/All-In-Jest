@@ -1,12 +1,13 @@
 local flora = {
     object_type = "Joker",
-    order = 703,
+    order = 725,
     ignore = true,
 
     key = "flora",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 38},
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local stock_broker = {
     object_type = "Joker",
-    order = 253,
+    order = 259,
     key = "stock_broker",
     config = {
       extra = {
@@ -8,6 +8,7 @@ local stock_broker = {
           maxvalue = 3
       }
     },
+    attributes = { 'economy' },
     rarity = 2,
     pos = { x = 0, y = 10},
     atlas = 'joker_atlas',

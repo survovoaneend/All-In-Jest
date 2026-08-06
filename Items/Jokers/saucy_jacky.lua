@@ -1,6 +1,6 @@
 local saucy_jacky = {
     object_type = "Joker",
-    order = 260,
+    order = 266,
 
     key = "saucy_jacky",
     config = {
@@ -9,6 +9,7 @@ local saucy_jacky = {
             mult_per_queen = 5,
         }
     },
+    attributes = { 'mult', 'scaling', 'destroy_card', 'rank', 'jack', 'queen' },
     rarity = 3,
     pos = { x = 7, y = 10 },
     atlas = 'joker_atlas',
@@ -35,15 +36,20 @@ local saucy_jacky = {
             for i = 1, #context.scoring_hand do
                 if context.scoring_hand[i]:get_id() == 12 then
                     table.insert(queens, context.scoring_hand[i])
-                    card.ability.extra.curr_mult = card.ability.extra.curr_mult + card.ability.extra.mult_per_queen
                     destroyed_queen = true
                 end
             end
             SMODS.destroy_cards(queens)
             if destroyed_queen then
-                return {
-                    message = localize('k_upgrade_ex')
-                }
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "curr_mult",
+                    scalar_value = "mult_per_queen",
+                    operation = function(ref_table, ref_value, initial, change)
+                        ref_table[ref_value] = initial + change * #queens
+                    end,
+                })
+                return nil, true
             end
         end
         if context.individual and context.cardarea == G.play and context.other_card:get_id() == 11 and card.ability.extra.curr_mult > 0 then

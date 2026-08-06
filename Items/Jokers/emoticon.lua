@@ -1,12 +1,13 @@
 local emoticon = {
     object_type = "Joker",
-    order = 667,
+    order = 689,
     ignore = true,
 
     key = "emoticon",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 7, y = 37},
     atlas = 'joker_atlas',

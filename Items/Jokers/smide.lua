@@ -1,6 +1,6 @@
 local smide = {
     object_type = "Joker",
-    order = 429,
+    order = 448,
     key = "smide",
     
     config = {
@@ -8,6 +8,7 @@ local smide = {
             chips = 7
         }
     },
+    attributes = { 'chips', 'face', 'full_deck' },
     rarity = 1,
     pos = { x = 2, y = 21 },
     atlas = 'joker_atlas',

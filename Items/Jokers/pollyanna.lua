@@ -1,12 +1,13 @@
 local pollyanna = {
     object_type = "Joker",
-    order = 792,
+    order = 814,
     ignore = true,
 
     key = "pollyanna",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 42},
     atlas = 'joker_atlas',

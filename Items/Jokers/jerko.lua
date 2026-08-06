@@ -1,6 +1,6 @@
 local jerko = {
     object_type = "Joker",
-    order = 196,
+    order = 202,
     key = "jerko",
     config = {
       extra = {
@@ -9,6 +9,7 @@ local jerko = {
         max = 20
       }
     },
+    attributes = { 'mult', 'retrigger' },
     rarity = 3,
     pos = { x = 10, y = 7},
     atlas = 'joker_atlas',

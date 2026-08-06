@@ -1,6 +1,6 @@
 local napkin = {
     object_type = "Joker",
-    order = 200,
+    order = 206,
 
     key = "napkin",
     config = {
@@ -10,6 +10,7 @@ local napkin = {
             state = false
         }
     },
+    attributes = { 'xmult', 'scaling', 'skip' },
     rarity = 2,
     pos = { x = 14, y = 7 },
     atlas = 'joker_atlas',

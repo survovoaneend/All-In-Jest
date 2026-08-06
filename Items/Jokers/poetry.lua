@@ -1,12 +1,13 @@
 local poetry = {
     object_type = "Joker",
-    order = 764,
+    order = 786,
     ignore = true,
 
     key = "poetry",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 41},
     atlas = 'joker_atlas',

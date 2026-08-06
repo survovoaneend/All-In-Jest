@@ -1,6 +1,6 @@
 local mad_hatter = {
     object_type = "Joker",
-    order = 392,
+    order = 411,
     key = "mad_hatter",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local mad_hatter = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 5, y = 16 },
     atlas = 'joker_atlas',

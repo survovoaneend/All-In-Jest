@@ -1,17 +1,17 @@
 local cutesy_joker = {
     object_type = "Joker",
-    order = 560,
+    order = 579,
     key = "cutesy_joker",
     config = {
         extra = {
             
         }
     },
-    rarity = 3,
-    ignore = true,
+    attributes = { 'mod_chance', 'consumable' },
+    rarity = 2,
     pos = { x = 23, y = 26 },
     atlas = 'joker_atlas',
-    cost = 8,
+    cost = 5,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

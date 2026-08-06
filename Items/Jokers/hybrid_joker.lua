@@ -1,12 +1,13 @@
 local hybrid_joker = {
     object_type = "Joker",
-    order = 684,
+    order = 706,
     ignore = true,
 
     key = "hybrid_joker",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 24, y = 37},
     atlas = 'joker_atlas',

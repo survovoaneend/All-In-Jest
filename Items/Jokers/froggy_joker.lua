@@ -1,12 +1,13 @@
 local froggy_joker = {
     object_type = "Joker",
-    order = 778,
+    order = 800,
     ignore = true,
 
     key = "froggy_joker",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 13, y = 41},
     atlas = 'joker_atlas',

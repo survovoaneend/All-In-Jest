@@ -1,6 +1,6 @@
 local sam_mcgee = {
     object_type = "Joker",
-    order = 469,
+    order = 488,
     key = "sam_mcgee",
     
     config = {
@@ -9,6 +9,7 @@ local sam_mcgee = {
             gain = 1 
         }
     },
+    attributes = { 'xmult' },
     rarity = 2,
     pos = { x = 11, y = 23 },
     atlas = 'joker_atlas',

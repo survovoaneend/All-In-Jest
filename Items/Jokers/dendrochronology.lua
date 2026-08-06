@@ -1,12 +1,13 @@
 local dendrochronology = {
     object_type = "Joker",
-    order = 662,
+    order = 684,
     ignore = true,
 
     key = "dendrochronology",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 37},
     atlas = 'joker_atlas',

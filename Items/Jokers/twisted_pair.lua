@@ -1,9 +1,10 @@
 local twisted_pair = {
     object_type = "Joker",
-    order = 320,
+    order = 327,
     key = "twisted_pair",
     config = {
     },
+    attributes = { 'modify_card', 'patches', 'hand_type' },
     rarity = 2,
     pos = { x = 16, y = 12},
     atlas = 'joker_atlas',

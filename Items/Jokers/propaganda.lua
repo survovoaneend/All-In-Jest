@@ -1,6 +1,6 @@
 local propaganda = {
     object_type = "Joker",
-    order = 408,
+    order = 427,
     key = "propaganda",
 
     config = {
@@ -8,6 +8,7 @@ local propaganda = {
             mult = 5
         }
     },
+    attributes = { 'mult', 'suit', 'full_deck' },
     rarity = 2,
     pos = { x = 15, y = 14 },
     atlas = 'joker_atlas',

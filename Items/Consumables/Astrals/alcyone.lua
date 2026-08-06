@@ -1,74 +1,76 @@
 local alcyone = {
-    object_type = "Consumable",
-	key = 'alcyone',
-	set = 'aij_astral',
-    atlas = 'consumable_atlas',
+	object_type = "Consumable",
+	key = "alcyone",
+	set = "aij_astral",
+	atlas = "consumable_atlas",
 	pos = { x = 11, y = 3 },
-    soul_pos = { x = 11, y = 4 },
+	soul_pos = { x = 11, y = 4 },
 	cost = 4,
 	unlocked = true,
 	discovered = false,
-    order = 1,
-	config = { hand = nil, grade = '', pin = 'Alcyone', extra = {draw_amt = 1, trigger = false}},
-    loc_vars = function(self, info_queue, card)
-        -- Rest of loc_vars is defined in the ConsumableType in hooks.lua
+	order = 1,
+	config = { hand = nil, grade = "", pin = "Alcyone", extra = { draw_amt = 1, trigger = false } },
+	loc_vars = function(self, info_queue, card)
+		-- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {
 			vars = {
-				(card.area and not card.area.config.collection) and card.ability.consumeable.hand or '(hand)',
-                card.ability.extra.draw_amt
+				(card.area and not card.area.config.collection) and card.ability.consumeable.hand or "(hand)",
+				card.ability.extra.draw_amt,
 			},
 		}
-    end,
-    all_in_jest = {
-        grades = {
-            ["Retrograde"] = 0.3, 
-            ["Passigrade"] = 0.5, 
-            ["Prograde"] = 0.2,
-        }
-    },
+	end,
+	all_in_jest = {
+		grades = {
+			["Retrograde"] = 0.3,
+			["Passigrade"] = 0.5,
+			["Prograde"] = 0.2,
+		},
+	},
 }
 local alcyone_pin = {
 	object_loader = All_in_Jest,
-    object_type = "Astral",
-	key = 'alcyone_pin',
-    pin = 'Alcyone',
-    atlas = 'misc_atlas',
+	object_type = "Astral",
+	key = "alcyone_pin",
+	pin = "Alcyone",
+	atlas = "misc_atlas",
 	pos = { x = 3, y = 0 },
-    discovered = false,
-    order = 1,
-    config = {no_auto_destroy = true},
+	discovered = false,
+	order = 1,
+	config = { no_auto_destroy = true },
 
-    pixel_size = { w = 53, h = 28 },
+	pixel_size = { w = 53, h = 28 },
 
-    loc_vars = function(self, info_queue, card)
-        
+	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
 				card.ability.extra.hand,
-                card.ability.extra.draw_amt
+				card.ability.extra.draw_amt,
 			},
 		}
-    end,
+	end,
 
-    calculate = function(self, card, context)
-        if context.press_play then
-            card.ability.extra.trigger = true
-        end
-        if context.pre_discard then
-            card.ability.extra.trigger = false
-        end
-        if context.drawing_cards and card.ability.extra.trigger then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
+	calculate = function(self, card, context)
+		if context.press_play then
+			card.ability.extra.trigger = true
+		end
+		if context.pre_discard then
+			card.ability.extra.trigger = false
+		end
+		if context.drawing_cards and card.ability.extra.trigger then
+			return {
+				cards_to_draw = context.amount + card.ability.extra.draw_amt,
+				message = "+" .. card.ability.extra.draw_amt,
                 func = function()
-                    card:start_dissolve()
-                    return true
-            end}))
-            return {
-                cards_to_draw = context.amount + card.ability.extra.draw_amt,
-                message = "+" .. card.ability.extra.draw_amt
-            }
-        end
-    end,
+                    G.E_MANAGER:add_event(Event({
+                        trigger = "after",
+                        func = function()
+                            card:start_dissolve()
+                            return true
+                        end,
+                    }))
+                end
+			}
+		end
+	end,
 }
-return {name = {"Astrals"}, items = {alcyone, alcyone_pin}}
+return { name = { "Astrals" }, items = { alcyone, alcyone_pin } }

@@ -1,6 +1,6 @@
 local infamous_machine = {
     object_type = "Joker",
-    order = 357,
+    order = 366,
     key = "infamous_machine",
     config = {
         extra = {
@@ -8,6 +8,7 @@ local infamous_machine = {
             mult = 0
         }
     },
+    attributes = { 'mult', 'scaling', 'destroy_card' },
     rarity = 3,
     pos = { x = 16, y = 19},
     atlas = 'joker_atlas',

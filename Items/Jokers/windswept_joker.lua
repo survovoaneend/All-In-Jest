@@ -1,6 +1,6 @@
 local windswept_joker = {
     object_type = "Joker",
-    order = 423,
+    order = 442,
     key = "windswept_joker",
 
     config = {
@@ -8,6 +8,7 @@ local windswept_joker = {
             levels = 2
         }
     },
+    attributes = { 'hand_level', 'hand_type' },
     rarity = 3,
     pos = { x = 23, y = 20 },
     atlas = 'joker_atlas',

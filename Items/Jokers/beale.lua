@@ -1,6 +1,6 @@
 local beale = {
     object_type = "Joker",
-    order = 414,
+    order = 433,
     key = "beale",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local beale = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 20 },
     atlas = 'joker_atlas',

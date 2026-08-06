@@ -1,6 +1,6 @@
 local springy_joker = {
     object_type = "Joker",
-    order = 482,
+    order = 501,
     key = "springy_joker",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local springy_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 23, y = 23 },
     atlas = 'joker_atlas',

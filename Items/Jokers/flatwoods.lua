@@ -1,6 +1,6 @@
 local flatwoods = {
     object_type = "Joker",
-    order = 559,
+    order = 578,
     key = "flatwoods",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local flatwoods = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 22, y = 26 },
     atlas = 'joker_atlas',

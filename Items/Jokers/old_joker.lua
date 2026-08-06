@@ -1,6 +1,6 @@
 local old_joker = {
     object_type = "Joker",
-    order = 21,
+    order = 24,
 
     all_in_jest = {
         only_shop_pool = true,
@@ -15,6 +15,7 @@ local old_joker = {
             mult_mod = 5
         }
     },
+    attributes = { 'mult', 'chips', 'scaling', 'stickers' },
     rarity = 1,
     pos = { x = 19, y = 0 },
     atlas = 'joker_atlas',

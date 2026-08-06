@@ -1,6 +1,6 @@
 local elf = {
     object_type = "Joker",
-    order = 341,
+    order = 348,
 
     key = "elf",
     config = {
@@ -10,6 +10,7 @@ local elf = {
             tags = 2
         }
     },
+    attributes = { 'skip', 'generation', 'tag', 'economy' },
     rarity = 2,
     pos = { x = 12, y = 13 },
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local flibbertigibbit = {
     object_type = "Joker",
-    order = 597,
+    order = 624,
     key = "flibbertigibbit",
   
     config = {
@@ -8,7 +8,9 @@ local flibbertigibbit = {
             dollars = 1
         }
     },
+    attributes = { 'economy', 'discard', 'suit' },
     rarity = 1,
+    lite = true,
     pos = { x = 10, y = 28 },
     atlas = 'joker_atlas',
     cost = 6,

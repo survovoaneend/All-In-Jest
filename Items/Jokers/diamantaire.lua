@@ -1,6 +1,6 @@
 local diamantaire = {
     object_type = "Joker",
-    order = 574,
+    order = 601,
     key = "diamantaire",
   
     config = {
@@ -8,6 +8,7 @@ local diamantaire = {
             dollars = 3
         }
     },
+    attributes = { 'modify_card', 'enhancements', 'suit', 'diamonds', 'economy' },
     rarity = 2,
     pos = { x = 13, y = 27 },
     atlas = 'joker_atlas',

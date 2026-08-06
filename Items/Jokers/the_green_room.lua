@@ -1,6 +1,6 @@
 local the_green_room = {
     object_type = "Joker",
-    order = 439,
+    order = 458,
     key = "the_green_room",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local the_green_room = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 22 },
     atlas = 'joker_atlas',

@@ -1,11 +1,12 @@
 local witchfinder = {
     object_type = "Joker",
-    order = 251,
+    order = 256,
     lite = true,
     key = "witchfinder",
     config = {
         extra = {boosters = 1}
     },
+    attributes = { 'shop', 'booster', 'tarot' },
     rarity = 1,
     pos = { x = 23, y = 9 },
     atlas = 'joker_atlas',

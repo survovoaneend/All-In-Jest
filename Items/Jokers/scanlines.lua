@@ -1,12 +1,13 @@
 local scanlines = {
     object_type = "Joker",
-    order = 641,
+    order = 676,
     ignore = true,
 
     key = "scanlines",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 8, y = 30},
     atlas = 'joker_atlas',

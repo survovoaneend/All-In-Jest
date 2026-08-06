@@ -1,6 +1,6 @@
 local duende = {
     object_type = "Joker",
-    order = 346,
+    order = 353,
 
     key = "duende",
     config = {
@@ -8,6 +8,7 @@ local duende = {
             dollars = 2
         }
     },
+    attributes = { 'economy', 'joker_slot' },
     rarity = 1,
     pos = { x = 17, y = 13 },
     atlas = 'joker_atlas',

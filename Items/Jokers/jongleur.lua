@@ -1,6 +1,6 @@
 local jongleur = {
   object_type = "Joker",
-  order = 168,
+  order = 171,
   lite = true,
   key = "jongleur",
   config = {
@@ -8,6 +8,7 @@ local jongleur = {
       reroll_sale = 2
     }
   },
+  attributes = { 'economy', 'reroll', 'shop', 'passive' },
   rarity = 1,
   pos = { x = 12, y = 6},
   atlas = 'joker_atlas',

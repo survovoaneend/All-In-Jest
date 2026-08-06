@@ -1,12 +1,13 @@
 local pulcinella = {
     object_type = "Joker",
-    order = 109,
+    order = 112,
     ignore = true,
 
     key = "pulcinella",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 4, y = 4 },
     atlas = 'joker_atlas',

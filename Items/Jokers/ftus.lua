@@ -1,12 +1,13 @@
 local ftus = {
     object_type = "Joker",
-    order = 631,
+    order = 666,
     ignore = true,
 
     key = "ftus",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 23, y = 29},
     atlas = 'joker_atlas',

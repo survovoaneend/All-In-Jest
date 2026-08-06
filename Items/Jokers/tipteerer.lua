@@ -1,6 +1,6 @@
 local tipteerer = {
   object_type = "Joker",
-  order = 159,
+  order = 162,
 
   key = "tipteerer",
   config = {
@@ -8,6 +8,7 @@ local tipteerer = {
       percent = 25,
     }
   },
+  attributes = { 'economy', 'sell_value' },
   rarity = 2,
   pos = { x = 3, y = 6 },
   atlas = 'joker_atlas',

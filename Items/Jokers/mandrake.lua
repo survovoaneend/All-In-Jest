@@ -1,6 +1,6 @@
 local mandrake = {
     object_type = "Joker",
-    order = 235,
+    order = 240,
 
     key = "mandrake",
     config = {
@@ -9,6 +9,7 @@ local mandrake = {
             total_rounds = 2
         }
     },
+    attributes = { 'destroy_card' },
     rarity = 2,
     pos = { x = 3, y = 9 },
     atlas = 'joker_atlas',

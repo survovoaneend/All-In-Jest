@@ -1,6 +1,6 @@
 local one_little_duck = {
     object_type = "Joker",
-    order = 266,
+    order = 272,
     
     key = "one_little_duck",
     config = {
@@ -9,11 +9,13 @@ local one_little_duck = {
         mult_gain = 2
       }
     },
+    attributes = { 'mult', 'scaling', 'rank', 'two' },
     rarity = 1,
     pos = { x = 13, y = 10},
     atlas = 'joker_atlas',
     cost = 5,
     unlocked = true,
+    lite = true,
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
@@ -43,11 +45,16 @@ local one_little_duck = {
             end
             
             if twos_unscored > 0 then
-                card.ability.extra.mult = card.ability.extra.mult + (twos_unscored * card.ability.extra.mult_gain)
-                return {
-                    message = localize('k_upgrade_ex'),
-                    colour = G.C.MULT
-                }
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "mult",
+                    scalar_value = "mult_gain",
+                    operation = function(ref_table, ref_value, initial, change)
+                        ref_table[ref_value] = initial + change * twos_unscored
+                    end,
+                    message_colour = G.C.MULT
+                })
+                return nil, true
             end
         end
         if context.joker_main then

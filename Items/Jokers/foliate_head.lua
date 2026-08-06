@@ -1,6 +1,6 @@
 local foliate_head = {
     object_type = "Joker",
-    order = 446,
+    order = 465,
     key = "foliate_head",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local foliate_head = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 26 },
     atlas = 'joker_atlas',

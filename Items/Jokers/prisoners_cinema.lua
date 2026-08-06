@@ -1,12 +1,13 @@
 local prisoners_cinema = {
     object_type = "Joker",
-    order = 411,
+    order = 430,
     key = "prisoners_cinema",
     config = {
         extra = {
             boosters = 1
         }
     },
+    attributes = { 'economy', 'shop', 'booster' },
     rarity = 2,
     pos = { x = 14, y = 20 },
     atlas = 'joker_atlas',

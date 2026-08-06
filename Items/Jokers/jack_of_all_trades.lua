@@ -1,11 +1,12 @@
 local jack_of_all_trades = {
     object_type = "Joker",
-    order = 140,
+    order = 143,
 
     key = "jack_of_all_trades",
     config = {
       
     },
+    attributes = { 'passive', 'rank', 'jack', 'suit' },
     rarity = 2,
     pos = { x = 9, y = 5 },
     atlas = 'joker_atlas',

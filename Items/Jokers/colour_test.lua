@@ -1,11 +1,12 @@
 local colour_test = {
     object_type = "Joker",
-    order = 293,
+    order = 300,
 
     key = "colour_test",
     config = {
 
     },
+    attributes = { 'modify_card', 'editions', 'hands' },
     rarity = 3,
     pos = { x = 15, y = 11 },
     atlas = 'joker_atlas',

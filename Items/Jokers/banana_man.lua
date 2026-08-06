@@ -1,12 +1,13 @@
 local banana_man = {
     object_type = "Joker",
-    order = 244,
+    order = 249,
     key = "banana_man",
     config = {
       extra = {
         odds = 15
       }
     },
+    attributes = { 'retrigger', 'joker', 'chance', 'destroy_card', 'food' },
     rarity = 3,
     pos = { x = 11, y = 9},
     atlas = 'joker_atlas',
@@ -30,7 +31,7 @@ local banana_man = {
   
     calculate = function(self, card, context)
       if context.repetition_only or (context.retrigger_joker_check) then
-        if context.other_card ~= card and not context.other_context.modify_scoring_hand then
+        if context.other_card ~= card and not context.other_context.modify_scoring_hand and context.other_card.ability.set == "Joker" then
             return {
                 repetitions = 1,
                 card = card,

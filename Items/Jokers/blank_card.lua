@@ -1,6 +1,6 @@
 local blank_card = {
     object_type = "Joker",
-    order = 32,
+    order = 35,
     lite = true,
     key = "blank_card",
     config = {
@@ -8,6 +8,7 @@ local blank_card = {
         can_copy = false
       }
     },
+    attributes = { 'playing_card' },
     rarity = 2,
     pos = { x = 5, y = 1 },
     atlas = 'joker_atlas',

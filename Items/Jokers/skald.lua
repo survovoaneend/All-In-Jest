@@ -1,10 +1,11 @@
 local skald = {
     object_type = "Joker",
-    order = 317,
+    order = 324,
     ignore = true,
     key = "skald",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 13, y = 12},
     atlas = 'joker_atlas',

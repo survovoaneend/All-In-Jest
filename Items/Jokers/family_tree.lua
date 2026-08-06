@@ -1,12 +1,13 @@
 local family_tree = {
     object_type = "Joker",
-    order = 533,
+    order = 552,
     key = "family_tree",
     config = {
         extra = {
             
         }
     },
+    attributes = { 'generation', 'tag', 'joker', 'rarity', 'position' },
     rarity = 2,
     pos = { x = 14, y = 26 },
     atlas = 'joker_atlas',

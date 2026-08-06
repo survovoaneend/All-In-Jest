@@ -1,12 +1,13 @@
 local circus_elephant = {
     object_type = "Joker",
-    order = 645,
+    order = 680,
     ignore = true,
 
     key = "circus_elephant",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 30},
     atlas = 'joker_atlas',

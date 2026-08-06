@@ -1,6 +1,6 @@
 local creative_commons = {
     object_type = "Joker",
-    order = 628,
+    order = 659,
     key = "creative_commons",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local creative_commons = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 16, y = 29 },
     atlas = 'joker_atlas',

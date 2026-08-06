@@ -1,11 +1,12 @@
 local peeping_tom = {
   object_type = "Joker",
-  order = 154,
+  order = 157,
 
   key = "peeping_tom",
   config = {
       future_sense = 3
   },
+  attributes = { 'future_sense' },
   rarity = 1,
   pos = { x = 23, y = 5 },
   atlas = 'joker_atlas',

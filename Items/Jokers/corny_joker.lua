@@ -1,11 +1,12 @@
 local corny_joker = {
     object_type = "Joker",
-    order = 245,
+    order = 250,
     ignore = true,
     key = "corny_joker",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 9},
     atlas = 'joker_atlas',

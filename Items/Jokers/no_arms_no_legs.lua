@@ -1,6 +1,6 @@
 local no_arms_no_legs = {
     object_type = "Joker",
-    order = 368,
+    order = 387,
     key = "no_arms_no_legs",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local no_arms_no_legs = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 17 },
     atlas = 'joker_atlas',

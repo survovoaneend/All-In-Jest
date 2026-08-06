@@ -1,12 +1,13 @@
 local info_joker_start = {
     object_type = "Joker",
-    order = 736,
+    order = 758,
     ignore = true,
 
     key = "info_joker_start",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 40},
     atlas = 'joker_atlas',

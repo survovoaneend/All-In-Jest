@@ -1,12 +1,13 @@
 local actdone_aregdone_staircase = {
     object_type = "Joker",
-    order = 702,
+    order = 724,
     ignore = true,
 
     key = "actdone_aregdone_staircase",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 17, y = 38},
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local truhan = {
     object_type = "Joker",
-    order = 220,
+    order = 226,
     lite = true,
     key = "truhan",
     config = {
@@ -9,6 +9,7 @@ local truhan = {
         xmult_mod = 0.1
       }
     },
+    attributes = { 'xmult', 'scaling', 'on_sell', 'on_destroy' },
     rarity = 2,
     pos = { x = 9, y = 8},
     atlas = 'joker_atlas',

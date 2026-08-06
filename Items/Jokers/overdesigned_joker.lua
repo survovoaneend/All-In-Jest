@@ -74,13 +74,14 @@ end
 
 local overdesigned_joker = {
     object_type = "Joker",
-    order = 230,
+    order = 235,
     
     key = "overdesigned_joker",
     config = {
         suit = "Hearts",
         silver_multiplier_buff = 100, -- Make 100 instead of 1 to keep 2 decimals of precision
     },
+    attributes = { 'xmult', 'mult', 'chips', 'economy', 'suit', 'hearts', 'clubs', 'spades', 'diamonds' },
     rarity = 2,
     pos = { x = 19, y = 8},
     atlas = 'joker_atlas',

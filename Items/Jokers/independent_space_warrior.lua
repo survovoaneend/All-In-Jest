@@ -1,12 +1,13 @@
 local independent_space_warrior = {
     object_type = "Joker",
-    order = 767,
+    order = 789,
     ignore = true,
 
     key = "independent_space_warrior",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 4, y = 41},
     atlas = 'joker_atlas',

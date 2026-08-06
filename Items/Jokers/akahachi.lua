@@ -1,6 +1,6 @@
 local akahachi = {
     object_type = "Joker",
-    order = 617,
+    order = 648,
     key = "akahachi",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local akahachi = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 5, y = 29 },
     atlas = 'joker_atlas',

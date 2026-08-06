@@ -11,6 +11,27 @@ pattern = "-- TARGET: evaluate your own general effects"
 position = "before"
 match_indent = true
 payload = '''
+if context.end_of_round and not context.repetition and not context.individual then
+    if card.ability and card.ability.aij_pc_rental and card.area == G.deck and not card.ability.aij_pc_rental_triggered then
+        if G.GAME.all_in_jest and G.GAME.all_in_jest.sticker_effects and G.GAME.all_in_jest.sticker_effects['pc_rental'].active then
+            local temp = G.GAME.all_in_jest.sticker_effects['pc_rental']
+            if not SMODS.pseudorandom_probability(card, 'pc_rental', temp.num, temp.odds) then
+                card:calculate_rental()
+                card.ability.aij_pc_rental_triggered = true
+            end
+        else
+            card:calculate_rental()
+            card.ability.aij_pc_rental_triggered = true
+        end
+    end
+end
+if context.ante_end and G.GAME.aij_big_boss_reset_ante then
+    G.GAME.aij_has_big_boss = nil
+    G.GAME.aij_big_boss_reset_ante = nil
+    for k, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_ante) do
+        G.GAME.all_in_jest.advanced_hand_usage_ante[k] = nil
+    end
+end
 if card.ability.numbertaker_rankless and card.base.nominal > 0 then card.base.nominal = 1 end
 if context.ending_booster and G.GAME.all_in_jest.dizzard_shop and G.shop.alignment.offset.y ~= -5.3 then
     G.E_MANAGER:add_event(Event({
@@ -23,10 +44,26 @@ if context.ending_booster and G.GAME.all_in_jest.dizzard_shop and G.shop.alignme
         end
     }))
 end
+if context.ending_booster then
+    if G.discard and #G.discard.cards > 0 and G.GAME.aij_discared_start_booster then
+        G.FUNCS.draw_from_discard_to_deck()
+    end
+    G.GAME.aij_discared_start_booster = nil
+end
+if context.open_booster and G.GAME.aij_discard_button and G.GAME.aij_booster_discards and G.GAME.aij_booster_discards > 0 and not G.GAME.aij_discared_start_booster then
+    G.GAME.current_round.discards_left = G.GAME.aij_booster_discards
+    G.GAME.aij_discared_start_booster = true
+end
 if context.end_of_round then
     G.GAME.all_in_jest.dizzard_shop = false
 end
+if context.ending_shop and (G.GAME.aij_tag_rerolls and G.GAME.aij_tag_rerolls > 0) then
+    G.GAME.current_round.reroll_cost_increase = 0
+end
 if context.setting_blind then
+    if card.ability.aij_pc_rental_triggered then
+        card.ability.aij_pc_rental_triggered = nil
+    end
     if G.GAME.aij_show_hand then
         G.hand.states.visible = true
         G.GAME.aij_show_hand = nil
@@ -110,6 +147,34 @@ if card.aij_inherent_effects then
         end
     end
 end
+if context.aij_set_or_reroll_blind and context.blind.key ~= 'bl_aij_the_kind' and not context.run_info and G.has_been_bl_aij_the_kind then
+    local kind_present = false
+    for k, v in pairs(G.GAME.round_resets.blind_choices) do
+        if v == 'bl_aij_the_kind' then
+            kind_present = true
+        end
+    end
+    if not kind_present then
+        G.has_been_bl_aij_the_kind = nil
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                aij_reroll_tags()
+                return true
+            end
+        }))
+    end
+end
+if context.aij_set_or_reroll_blind and context.blind.key == 'bl_aij_the_kind' and not context.run_info then
+    G.has_been_bl_aij_the_kind = true
+    G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+            aij_reroll_tags(nil, {gold = true})
+            return true
+        end
+    }))
+end
 -- if not card.ability.aij_other_center or not card.ability.aij_other_center['ability'] then
 --     card.ability.aij_other_center = card.ability.aij_other_center or {}
 --     card.ability.aij_other_center['ability'] = card.config.aij_other_center and card.config.aij_other_center['ability']
@@ -126,43 +191,43 @@ payload = '''
 if context.aij_inherent_enhancement or context.aij_other_enhancement then return ret end
 '''
 
-# [[patches]] #For >run
-# [patches.pattern]
-# target = "functions/common_events.lua"
-# pattern = "if not card:can_calculate(context.ignore_debuff, context.remove_playing_cards*"
-# position = "before"
-# match_indent = true
-# payload = '''
-# if (context.joker_main or context.initial_scoring_step or context.main_eval) and not context.aij_ran_away_new_before then
-#     if next(SMODS.find_card("j_aij_run")) and card.ability.set == "Joker" then
-#         local index, run_index = 0, 0
-#         local runs = SMODS.find_card("j_aij_run")
-#         local run_index = runs[#runs].rank
-#         local cur_index = card.rank
-#         if cur_index < run_index then
-#             local new_context = {joker_main = context.joker_main}
+[[patches]] #For >run
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if not card:can_calculate(context.ignore_debuff, context.remove_playing_cards*"
+position = "before"
+match_indent = true
+payload = '''
+if (context.joker_main or context.initial_scoring_step or context.main_eval) and not context.aij_ran_away_new_before then
+    if next(SMODS.find_card("j_aij_run")) and card.ability.set == "Joker" then
+        local index, run_index = 0, 0
+        local runs = SMODS.find_card("j_aij_run")
+        local run_index = runs[#runs].rank
+        local cur_index = card.rank
+        if cur_index < run_index then
+            local new_context = {joker_main = context.joker_main}
 
-#             if context.joker_main and not context.initial_scoring_step then
-#                 context.joker_main = nil
-#                 context.aij_ran_away = true
-#             end
-#             if context.initial_scoring_step and context.main_eval and not context.aij_ran_away_new_before then
-#                 context.aij_ran_away_before = true
-#                 context.aij_ran_away_new_before = true
-#                 for k, v in pairs(context) do 
-#                     if k ~= 'joker_main' then
-#                         new_context[k] = v
-#                     end
-#                 end
-#                 SMODS.calculate_context(new_context) -- Allows initial_scoring_step to still be called
-#                 context.joker_main = true
-#                 context.initial_scoring_step = nil
-#                 context.aij_ran_away_new_before = nil
-#             end
-#         end
-#     end
-# end
-# '''
+            if context.joker_main and not context.initial_scoring_step then
+                context.joker_main = nil
+                context.aij_ran_away = true
+            end
+            if context.initial_scoring_step and context.main_eval and not context.aij_ran_away_new_before then
+                context.aij_ran_away_before = true
+                context.aij_ran_away_new_before = true
+                for k, v in pairs(context) do 
+                    if k ~= 'joker_main' then
+                        new_context[k] = v
+                    end
+                end
+                SMODS.calculate_context(new_context) -- Allows initial_scoring_step to still be called
+                context.joker_main = true
+                context.initial_scoring_step = nil
+                context.aij_ran_away_new_before = nil
+            end
+        end
+    end
+end
+'''
 
 [[patches]] #For debuffed joker cards
 [patches.pattern]
@@ -178,37 +243,37 @@ if context.joker_main and next(SMODS.find_card("j_aij_greasepaint")) and not con
 end
 '''
 
-# [[patches]]
-# [patches.pattern]
-# target = "functions/common_events.lua"
-# pattern = "return ret, post_trig"
-# position = "before"
-# match_indent = true
-# payload = '''
-# if next(SMODS.find_card("j_aij_run")) and card.config.center_key ~= 'j_aij_run' and card.ability.set == "Joker" then
-#     local index, cur_index, run_index = 0, 0, 0
-#     for k, v in pairs(G.jokers.cards) do
-#         index = index + 1
-#         if v.config.center_key == 'j_aij_run' then
-#             run_index = index
-#         end
-#         if v == card then
-#             cur_index = index
-#         end
-#     end
-#     if cur_index < run_index then
-#         if context.aij_ran_away_before then
-#             context.initial_scoring_step = true
-#             context.joker_main = nil
-#             context.aij_ran_away_before = nil
-#         end
-#         if context.aij_ran_away then
-#             context.joker_main = true
-#             context.aij_ran_away = nil
-#         end
-#     end
-# end
-# '''
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "return ret, post_trig"
+position = "before"
+match_indent = true
+payload = '''
+if next(SMODS.find_card("j_aij_run")) and card.config.center_key ~= 'j_aij_run' and card.ability.set == "Joker" then
+    local index, cur_index, run_index = 0, 0, 0
+    for k, v in pairs(G.jokers.cards) do
+        index = index + 1
+        if v.config.center_key == 'j_aij_run' then
+            run_index = index
+        end
+        if v == card then
+            cur_index = index
+        end
+    end
+    if cur_index < run_index then
+        if context.aij_ran_away_before then
+            context.initial_scoring_step = true
+            context.joker_main = nil
+            context.aij_ran_away_before = nil
+        end
+        if context.aij_ran_away then
+            context.joker_main = true
+            context.aij_ran_away = nil
+        end
+    end
+end
+'''
 
 
 

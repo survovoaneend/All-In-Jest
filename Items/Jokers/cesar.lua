@@ -1,6 +1,6 @@
 local cesar = {
     object_type = "Joker",
-    order = 182,
+    order = 187,
 
     key = "cesar",
     config = {
@@ -9,6 +9,7 @@ local cesar = {
         money_mod = 1
         }
     },
+    attributes = { 'economy', 'scaling', 'rank', 'suit', 'king', 'diamonds' },
     rarity = 3,
     pos = { x = 20, y = 9 },
     atlas = 'joker_atlas',

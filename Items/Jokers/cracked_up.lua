@@ -1,6 +1,6 @@
 local cracked_up = {
     object_type = "Joker",
-    order = 536,
+    order = 555,
     key = "cracked_up",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local cracked_up = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 25 },
     atlas = 'joker_atlas',

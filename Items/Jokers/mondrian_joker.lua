@@ -1,6 +1,6 @@
 local mondrian_joker = {
     object_type = "Joker",
-    order = 214,
+    order = 220,
     lite = true,
     key = "mondrian_joker",
     config = {
@@ -9,6 +9,7 @@ local mondrian_joker = {
         mult_mod = 4
       }
     },
+    attributes = { 'mult', 'rank', 'four', 'full_deck' },
     rarity = 2,
     pos = { x = 3, y = 8},
     atlas = 'joker_atlas',

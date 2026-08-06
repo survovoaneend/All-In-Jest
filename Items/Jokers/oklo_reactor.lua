@@ -1,6 +1,6 @@
 local oklo_reactor = {
     object_type = "Joker",
-    order = 549,
+    order = 568,
     key = "oklo_reactor",
     
     config = {
@@ -8,6 +8,7 @@ local oklo_reactor = {
            retriggers = 2 
         }
     },
+    attributes = { 'retrigger', 'enhancements' },
     rarity = 2,
     pos = { x = 3, y = 22 },
     atlas = 'joker_atlas',

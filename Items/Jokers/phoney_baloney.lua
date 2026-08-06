@@ -1,6 +1,6 @@
 local phoney_baloney = {
     object_type = "Joker",
-    order = 195,
+    order = 201,
 
     key = "phoney_baloney",
     config = {
@@ -9,6 +9,7 @@ local phoney_baloney = {
             rerolls_remaining = 5
         }
     },
+    attributes = { 'economy', 'reroll', 'shop', 'food' },
     rarity = 2,
     pos = { x = 9, y = 7 },
     atlas = 'joker_atlas',
@@ -28,7 +29,8 @@ local phoney_baloney = {
     end,
 
     calculate = function(self, card, context)
-        if context.reroll_shop and not context.blueprint then
+        if context.reroll_shop and not context.blueprint and not G.aij_phoney_baloney_triggered then
+            G.aij_phoney_baloney_triggered = true
             if card.ability.extra.rerolls_remaining <= 1 and context.cost == 0 then
                 SMODS.destroy_cards(card, nil, nil, true)
                 return {
@@ -44,6 +46,9 @@ local phoney_baloney = {
                     colour = G.C.FILTER
                 }
             end
+        end
+        if context.all_in_jest and context.all_in_jest.after_reroll_shop then
+            G.aij_phoney_baloney_triggered = nil
         end
         if context.end_of_round and context.main_eval and not context.blueprint then
             if context.beat_boss then

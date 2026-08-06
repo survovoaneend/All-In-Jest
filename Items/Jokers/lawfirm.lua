@@ -1,6 +1,6 @@
 local lawfirm = {
     object_type = "Joker",
-    order = 553,
+    order = 572,
     key = "lawfirm",
     config = {
         extra = {
@@ -9,6 +9,7 @@ local lawfirm = {
             odds = 2
         }
     },
+    attributes = { 'boss_blind', 'chance', 'activated', },
     rarity = 2,
     pos = { x = 16, y = 26 },
     atlas = 'joker_atlas',
@@ -17,7 +18,6 @@ local lawfirm = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
-    ignore = true,
 
     all_in_jest = {
         ability_cost = function(self, card)

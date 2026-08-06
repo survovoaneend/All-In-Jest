@@ -1,12 +1,13 @@
 local rando = {
     object_type = "Joker",
-    order = 770,
+    order = 792,
     ignore = true,
 
     key = "rando",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 7, y = 41},
     atlas = 'joker_atlas',

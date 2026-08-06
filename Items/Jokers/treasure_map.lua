@@ -1,6 +1,6 @@
 local treasure_map = {
     object_type = "Joker",
-    order = 426,
+    order = 445,
     key = "treasure_map",
     config = {
         extra = {
@@ -9,6 +9,7 @@ local treasure_map = {
             remain_blinds = 0
         }
     },
+    attributes = { 'skip', 'generation', 'tag', 'gold_tag' },
     rarity = 2,
     pos = { x = 1, y = 21 },
     atlas = 'joker_atlas',

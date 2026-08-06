@@ -1,10 +1,11 @@
 local lucina = {
     object_type = "Joker",
-    order = 286,
+    order = 293,
     key = "lucina",
     config = {
       
     },
+    attributes = { 'destroy_card', 'joker', 'editions', 'position' },
     rarity = 3,
     pos = { x = 9, y = 11},
     atlas = 'joker_atlas',

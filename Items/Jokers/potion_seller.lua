@@ -1,12 +1,13 @@
 local potion_seller = {
     object_type = "Joker",
-    order = 751,
+    order = 773,
     ignore = true,
 
     key = "potion_seller",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 13, y = 40},
     atlas = 'joker_atlas',

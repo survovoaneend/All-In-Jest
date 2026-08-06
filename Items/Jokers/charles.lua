@@ -1,6 +1,6 @@
 local charles = {
   object_type = "Joker",
-  order = 183,
+  order = 186,
 
   key = "charles",
   config = {
@@ -9,6 +9,7 @@ local charles = {
       xmult_mod = 0.25
     }
   },
+  attributes = { 'xmult', 'scaling', 'rank', 'suit', 'king', 'hearts' },
   rarity = 3,
   pos = { x = 19, y = 9},
   atlas = 'joker_atlas',

@@ -1,11 +1,12 @@
 local hand_drawn = {
     object_type = "Joker",
-    order = 76,
+    order = 79,
 
     key = "hand_drawn",
     config = {
       
     },
+    attributes = { 'draw_cards', 'hand_type' },
     rarity = 3,
     pos = { x = 21, y = 2 },
     atlas = 'joker_atlas',

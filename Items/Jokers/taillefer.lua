@@ -11,6 +11,7 @@ local taillefer = {
         current_boss_blinds = 0
       }
     },
+    attributes = { 'xmult', 'scaling', 'boss_blind' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 9, y = 4},

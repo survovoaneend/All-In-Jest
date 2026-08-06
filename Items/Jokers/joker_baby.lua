@@ -1,6 +1,6 @@
 local joker_baby = {
     object_type = "Joker",
-    order = 58,
+    order = 61,
 
 
     key = "joker_baby",
@@ -9,6 +9,7 @@ local joker_baby = {
             mult_mod = 1
         }
     },
+    attributes = { 'modify_card', 'perma_bonus', 'mult', 'rank', 'two', 'three', 'four', 'five' },
     rarity = 1,
     pos = { x = 4, y = 2 },
     atlas = 'joker_atlas',

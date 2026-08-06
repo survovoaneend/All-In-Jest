@@ -1,9 +1,10 @@
 local vesti_la_guibba = {
 	object_type = "Joker",
-	order = 119,
+	order = 122,
 
 	key = "vesti_la_guibba",
 	config = {},
+	attributes = { 'generation', 'joker', 'rarity', 'hand_type' },
 	rarity = 2,
 	pos = { x = 14, y = 4 },
 	atlas = "joker_atlas",

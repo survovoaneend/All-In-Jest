@@ -1,6 +1,6 @@
 local taikomochi = {
   object_type = "Joker",
-  order = 164,
+  order = 167,
 
   key = "taikomochi",
   config = {
@@ -8,6 +8,7 @@ local taikomochi = {
       chips = 100
     }
   },
+  attributes = { 'chips', 'rank', 'jack' },
   rarity = 3,
   pos = { x = 8, y = 6},
   atlas = 'joker_atlas',

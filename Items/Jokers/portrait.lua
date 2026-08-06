@@ -1,12 +1,13 @@
 local portrait = {
     object_type = "Joker",
-    order = 691,
+    order = 713,
     ignore = true,
 
     key = "portrait",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 6, y = 38},
     atlas = 'joker_atlas',

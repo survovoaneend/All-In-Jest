@@ -1,12 +1,13 @@
 local blacklist = {
     object_type = "Joker",
-    order = 326,
+    order = 333,
     key = "blacklist",
     config = {
         extra = {
             banned_cards = {}
         }
     },
+    attributes = { 'passive' },
     rarity = 2,
     pos = { x = 22, y = 12},
     atlas = 'joker_atlas',

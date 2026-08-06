@@ -1,11 +1,12 @@
 local mistigri = {
     object_type = "Joker",
-    order = 145,
+    order = 148,
 
     key = "mistigri",
     config = {
 
     },
+    attributes = { 'hand_size', 'scaling', 'rank', 'jack' },
     rarity = 3,
     pos = { x = 14, y = 5 },
     atlas = 'joker_atlas',

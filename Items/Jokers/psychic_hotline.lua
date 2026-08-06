@@ -1,12 +1,13 @@
 local psychic_hotline = {
     object_type = "Joker",
-    order = 788,
+    order = 810,
     ignore = true,
 
     key = "psychic_hotline",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 23, y = 41},
     atlas = 'joker_atlas',

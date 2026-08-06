@@ -18,7 +18,7 @@ local the_bullion = {
     mult = 2,
     boss_colour = HEX("f3aa46"),
     atlas = 'blinds',
-    pos = { X = 0, y = 43},
+    pos = { X = 0, y = 27},
     order = 22,
     dollars = 5,
 

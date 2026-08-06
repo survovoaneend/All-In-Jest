@@ -1,11 +1,12 @@
 local curse_of_scotland = {
     object_type = "Joker",
-    order = 243,
+    order = 248,
 
     key = "curse_of_scotland",
     config = {
 
     },
+    attributes = { 'modify_card', 'rank', 'suit', 'nine', 'diamonds' },
     rarity = 2,
     pos = { x = 10, y = 9 },
     atlas = 'joker_atlas',

@@ -1,10 +1,11 @@
 local warhol = {
     object_type = "Joker",
-    order = 240,
+    order = 245,
     key = "warhol",
     config = {
       
     },
+    attributes = { 'passive', 'seals' },
     rarity = 3,
     pos = { x = 8, y = 9},
     atlas = 'joker_atlas',

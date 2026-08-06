@@ -1,12 +1,13 @@
 local chiaroscuro = {
     object_type = "Joker",
-    order = 759,
+    order = 781,
     ignore = true,
 
     key = "chiaroscuro",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 21, y = 40},
     atlas = 'joker_atlas',

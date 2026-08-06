@@ -40,6 +40,7 @@ all_in_jest = {
 	}, 
 	sticker_effects = {
       ['rental'] = 1,
+	  ['pc_rental'] = {num = 0, odds = 3, active = false},
       ['perishable'] = 2
     },
 	dizzard_shop = false,
@@ -75,6 +76,13 @@ all_in_jest = {
 		},
 		j_aij_chromatist = { frames_per_row = 'atlas_size', extra_yrows = 15, frames = 25, start_frame = 8, fps = 10, },
 		j_aij_neon_sign = { frames_per_row = 'atlas_size', extra_yrows = 21, frames = 12, start_frame = 6, fps = 4, },
+		j_aij_blacklight = {
+			frames_per_row = 'atlas_size',
+			extra_yrows = 21,
+			frames = 20,
+			start_frame = 18,
+			fps = 10,
+		}
 	},
 	reset_score = {chips = false, mult = false, chip_total = false, blind_total = false},
 	secret_hands = {},

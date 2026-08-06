@@ -1,6 +1,6 @@
 local angel_number = {
     object_type = "Joker",
-    order = 283,
+    order = 290,
     key = "angel_number",
     config = {
       extra = {
@@ -8,6 +8,7 @@ local angel_number = {
           sevens = "0"
       }
     },
+    attributes = { 'mod_chance', 'rank', 'seven' },
     rarity = 2,
     pos = { x = 6, y = 11},
     atlas = 'joker_atlas',

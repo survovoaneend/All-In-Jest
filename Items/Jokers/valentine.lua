@@ -1,6 +1,6 @@
 local valentine = {
     object_type = "Joker",
-    order = 378,
+    order = 397,
     key = "valentine",
     
     config = {
@@ -8,7 +8,9 @@ local valentine = {
             x_mult = 1.5
         }
     },
+    attributes = { 'xmult', 'hand_type' },
     rarity = 2,
+    lite = true,
     pos = { x = 20, y = 16 },
     atlas = 'joker_atlas',
     cost = 7,

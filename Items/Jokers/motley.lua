@@ -1,12 +1,13 @@
 local motley = {
     object_type = "Joker",
-    order = 735,
+    order = 757,
     ignore = true,
 
     key = "motley",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 40},
     atlas = 'joker_atlas',

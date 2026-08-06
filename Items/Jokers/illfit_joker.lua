@@ -1,12 +1,13 @@
 local illfit_joker = {
     object_type = "Joker",
-    order = 719,
+    order = 741,
     ignore = true,
 
     key = "illfit_joker",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 39},
     atlas = 'joker_atlas',

@@ -1,11 +1,12 @@
 local spectre = {
     object_type = "Joker",
-    order = 148,
+    order = 151,
 
     key = "spectre",
     config = {
       
     },
+    attributes = { 'generation', 'spectral', 'consumable' },
     rarity = 3,
     pos = { x = 17, y = 5 },
     atlas = 'joker_atlas',

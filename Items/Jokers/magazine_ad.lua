@@ -1,10 +1,11 @@
 local magazine_ad = {
     object_type = "Joker",
-    order = 309,
+    order = 316,
 
     key = "magazine_ad",
     config = {
     },
+    attributes = { 'modify_card', 'seals', 'full_deck', 'boss_blind' },
     rarity = 2,
     pos = { x = 6, y = 12 },
     atlas = 'joker_atlas',

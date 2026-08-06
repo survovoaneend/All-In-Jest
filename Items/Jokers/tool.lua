@@ -1,12 +1,13 @@
 local tool = {
     object_type = "Joker",
-    order = 359,
+    order = 378,
     key = "tool",
     config = {
         extra = {
             mult_mod = 3
         }
     },
+    attributes = { 'modify_card', 'perma_bonus', 'mult', 'suit' },
     rarity = 1,
     pos = { x = 6, y = 14 },
     atlas = 'joker_atlas',

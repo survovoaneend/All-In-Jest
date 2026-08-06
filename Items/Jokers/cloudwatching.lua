@@ -1,6 +1,6 @@
 local cloudwatching = {
     object_type = "Joker",
-    order = 80,
+    order = 83,
 
     key = "cloudwatching",
     config = {
@@ -8,6 +8,7 @@ local cloudwatching = {
           tags = "1"
       }
     },
+    attributes = { 'tag' },
     rarity = 1,
     pos = { x = 0, y = 3 },
     atlas = 'joker_atlas',

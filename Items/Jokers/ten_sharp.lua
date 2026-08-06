@@ -1,6 +1,6 @@
 local ten_sharp = {
     object_type = "Joker",
-    order = 434,
+    order = 453,
     key = "ten_sharp",
     
     config = {
@@ -8,6 +8,7 @@ local ten_sharp = {
             
         }
     },
+    attributes = { 'retrigger', 'rank', 'ten', 'position' },
     rarity = 1,
     pos = { x = 12, y = 20 },
     atlas = 'joker_atlas',

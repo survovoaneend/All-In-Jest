@@ -1,12 +1,13 @@
 local banana_for_scale = {
     object_type = "Joker",
-    order = 704,
+    order = 726,
     ignore = true,
 
     key = "banana_for_scale",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 38},
     atlas = 'joker_atlas',

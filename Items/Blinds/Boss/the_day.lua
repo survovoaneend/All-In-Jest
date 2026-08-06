@@ -8,7 +8,7 @@ local the_day = {
     mult = 2,
     boss_colour = HEX("fda9c0"),
     atlas = 'blinds',
-    pos = { X = 0, y = 62},
+    pos = { X = 0, y = 46},
     order = 35,
     dollars = 5,
 

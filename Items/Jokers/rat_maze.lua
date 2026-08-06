@@ -1,6 +1,6 @@
 local rat_maze = {
     object_type = "Joker",
-    order = 377,
+    order = 396,
     key = "rat_maze",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local rat_maze = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 16 },
     atlas = 'joker_atlas',

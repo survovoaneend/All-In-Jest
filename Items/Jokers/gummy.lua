@@ -1,6 +1,6 @@
 local gummy = {
     object_type = "Joker",
-    order = 622,
+    order = 653,
     key = "gummy",
     config = {
         extra = {
@@ -8,6 +8,7 @@ local gummy = {
             mult = 2
         }
     },
+    attributes = { 'mult', 'chips' },
     rarity = 1,
     pos = { x = 10, y = 29 },
     atlas = 'joker_atlas',

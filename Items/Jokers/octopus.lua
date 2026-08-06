@@ -1,6 +1,6 @@
 local octopus = {
     object_type = "Joker",
-    order = 384,
+    order = 403,
     key = "octopus",
 
     config = {
@@ -8,6 +8,7 @@ local octopus = {
 
         }
     },
+    attributes = { 'modify_card', 'rank', 'seven', 'eight', 'nine' },
     rarity = 1,
     pos = { x = 13, y = 16 },
     atlas = 'joker_atlas',

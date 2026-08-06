@@ -1,6 +1,6 @@
 local triple_sundae = {
     object_type = "Joker",
-    order = 506,
+    order = 515,
 
     key = "triple_sundae",
     config = {
@@ -12,6 +12,7 @@ local triple_sundae = {
             total_rounds = 3,
         }
     },
+    attributes = { 'food', 'chips', 'mult', 'economy' },
     rarity = 3,
     pos = { x = 20, y = 21 },
     atlas = 'joker_atlas',

@@ -1,12 +1,13 @@
 local yellow_pages = {
     object_type = "Joker",
-    order = 690,
+    order = 712,
     ignore = true,
 
     key = "yellow_pages",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 5, y = 38},
     atlas = 'joker_atlas',

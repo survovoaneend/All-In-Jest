@@ -1,10 +1,11 @@
 local cubic_joker = {
     object_type = "Joker",
-    order = 334,
+    order = 341,
     ignore = true,
     key = "cubic_joker",
     config = {
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 5, y = 13},
     atlas = 'joker_atlas',

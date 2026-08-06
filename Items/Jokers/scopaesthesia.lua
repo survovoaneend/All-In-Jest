@@ -1,6 +1,6 @@
 local scopaesthesia = {
     object_type = "Joker",
-    order = 462,
+    order = 481,
     key = "scopaesthesia",
     config = {
         extra = {
@@ -8,6 +8,7 @@ local scopaesthesia = {
         },
         future_sense = '1'
     },
+    attributes = { 'future_sense', 'xmult', 'rank' },
     rarity = 2,
     pos = { x = 5, y = 23 },
     atlas = 'joker_atlas',

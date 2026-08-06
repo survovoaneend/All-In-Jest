@@ -1,11 +1,12 @@
 local silver_screen = {
     object_type = "Joker",
-    order = 98,
+    order = 101,
 
     key = "silver_screen",
     config = {
       
     },
+    attributes = { 'modify_card', 'editions', 'face', 'on_destroy' },
     rarity = 2,
     pos = { x = 18, y = 3 },
     atlas = 'joker_atlas',

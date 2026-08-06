@@ -1,6 +1,6 @@
 local executioner = {
   object_type = "Joker",
-  order = 167,
+  order = 170,
 
   key = "executioner",
   config = {
@@ -9,6 +9,7 @@ local executioner = {
       chip_gain = 50
     }
   },
+  attributes = { 'chips', 'scaling', 'on_destroy', 'face' },
   rarity = 2,
   pos = { x = 11, y = 6},
   atlas = 'joker_atlas',

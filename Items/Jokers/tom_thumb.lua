@@ -1,6 +1,6 @@
 local tom_thumb = {
     object_type = "Joker",
-    order = 402,
+    order = 421,
     key = "tom_thumb",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local tom_thumb = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 21, y = 14 },
     atlas = 'joker_atlas',

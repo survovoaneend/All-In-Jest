@@ -1,6 +1,6 @@
 local krampus = {
   object_type = "Joker",
-  order = 39,
+  order = 42,
 
   
   key = "krampus",
@@ -10,6 +10,7 @@ local krampus = {
           dollars = 5
       }
   },
+  attributes = { 'modify_card', 'enhancements', 'economy' },
 
   rarity = 2,
   pos = { x = 11, y = 1 }, 

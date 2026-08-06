@@ -1,6 +1,6 @@
 local missing_poster = {
     object_type = "Joker",
-    order = 452,
+    order = 471,
     key = "missing_poster",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local missing_poster = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 20, y = 22 },
     atlas = 'joker_atlas',

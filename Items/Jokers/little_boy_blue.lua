@@ -1,6 +1,6 @@
 local little_boy_blue = {
     object_type = "Joker",
-    order = 129,
+    order = 132,
 
     key = "little_boy_blue",
     config = {
@@ -8,6 +8,7 @@ local little_boy_blue = {
           chips = 100,
       }
     },
+    attributes = { 'chips' },
     rarity = 1,
     pos = { x = 23, y = 4 },
     atlas = 'joker_atlas',

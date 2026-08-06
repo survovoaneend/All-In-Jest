@@ -1,6 +1,6 @@
 local pedestrian = {
     object_type = "Joker",
-    order = 372,
+    order = 391,
     key = "pedestrian",
     
     config = {
@@ -8,10 +8,12 @@ local pedestrian = {
             
         }
     },
+    attributes = { 'retrigger', 'rank' },
     rarity = 2,
     pos = { x = 24, y = 16 },
     atlas = 'joker_atlas',
     cost = 5,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

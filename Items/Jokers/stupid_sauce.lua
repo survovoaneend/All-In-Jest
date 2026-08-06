@@ -1,12 +1,13 @@
 local stupid_sauce = {
     object_type = "Joker",
-    order = 626,
+    order = 661,
     ignore = true,
 
     key = "stupid_sauce",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 29},
     atlas = 'joker_atlas',

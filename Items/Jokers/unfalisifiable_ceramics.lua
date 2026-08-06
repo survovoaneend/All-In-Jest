@@ -1,12 +1,13 @@
 local unfalisifiable_ceramics = {
     object_type = "Joker",
-    order = 748,
+    order = 770,
     ignore = true,
 
     key = "unfalisifiable_ceramics",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 10, y = 40},
     atlas = 'joker_atlas',

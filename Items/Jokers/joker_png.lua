@@ -13,17 +13,17 @@ local select_random_valid_joker = function ()
             not (center.config.j_aij_joker_png_compat == false) and
             not (center.config[key]) -- Disallow copiers, bandaid fix for a bug
         then
-            jokers[#jokers+1] = center
+            jokers[#jokers+1] = key
         end
     end
-    local joker_center, index = pseudorandom_element(jokers, pseudoseed('joker_png'))
-    return joker_center, index
+    local joker_center_key, index = pseudorandom_element(jokers, pseudoseed('joker_png'))
+    return G.P_CENTERS[joker_center_key], index
 end
 
 local joker_png = {
     object_type = "single_copier",
     object_loader = All_in_Jest,
-    order = 302,
+    order = 309,
     key = "joker_png",
     config = {
         aij_blueprint_compat = true,
@@ -35,6 +35,7 @@ local joker_png = {
             silver_multiplier_buff = 100, -- Make 100 instead of 1 to keep 2 decimals of precision
         }
     },
+    attributes = { 'copying', 'activated' },
     rarity = 2,
     pos = { x = 24, y = 11},
     atlas = 'joker_atlas',
@@ -88,7 +89,7 @@ local joker_png = {
     end,
 
     set_ability = function(self, card, initial, delay_sprites)
-        if G.playing_card then -- Check if in collection or not
+        if G.playing_card then
             local joker_center, index = select_random_valid_joker()
             All_in_Jest.set_copied_joker(card, joker_center)
         end

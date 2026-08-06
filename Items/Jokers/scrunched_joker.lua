@@ -1,6 +1,6 @@
 local scrunched_joker = {
     object_type = "Joker",
-    order = 499,
+    order = 518,
     key = "scrunched_joker",
     
     config = {
@@ -11,10 +11,12 @@ local scrunched_joker = {
             mult_small = 2
         }
     },
+    attributes = { 'mult', 'chips', 'hands' },
     rarity = 1,
     pos = { x = 11, y = 24 },
     atlas = 'joker_atlas',
     cost = 4,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

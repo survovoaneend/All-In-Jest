@@ -1,6 +1,6 @@
 local gnasher = {
     object_type = "Joker",
-    order = 166,
+    order = 169,
 
     key = "gnasher",
     config = {
@@ -8,6 +8,7 @@ local gnasher = {
             active = true,
         }
     },
+    attributes = { 'activated', 'consumable', 'generation' },
     rarity = 2,
     pos = { x = 10, y = 6 },
     atlas = 'joker_atlas',

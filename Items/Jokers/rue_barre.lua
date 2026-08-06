@@ -8,6 +8,7 @@ local rue_barre = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 29 },
     atlas = 'joker_atlas',

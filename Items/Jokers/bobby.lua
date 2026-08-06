@@ -1,6 +1,6 @@
 local bobby = {
     object_type = "Joker",
-    order = 382,
+    order = 401,
     key = "bobby",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local bobby = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 16 },
     atlas = 'joker_atlas',

@@ -1,12 +1,13 @@
 local holy_bible = {
     object_type = "Joker",
-    order = 64,
+    order = 67,
     ignore = true,
 
     key = "holy_bible",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 10, y = 2 },
     atlas = 'joker_atlas',

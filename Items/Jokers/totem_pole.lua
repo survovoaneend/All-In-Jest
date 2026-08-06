@@ -1,12 +1,13 @@
 local totem_pole = {
     object_type = "Joker",
-    order = 412,
+    order = 431,
     key = "totem_pole",
     config = {
         extra = {
             xmult = 2
         }
     },
+    attributes = { 'xmult', 'position' },
     rarity = 2,
     pos = { x = 4, y = 20 },
     atlas = 'joker_atlas',

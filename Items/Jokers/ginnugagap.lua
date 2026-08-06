@@ -1,12 +1,13 @@
 local ginnugagap = {
     object_type = "Joker",
-    order = 712,
+    order = 734,
     ignore = true,
 
     key = "ginnugagap",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 2, y = 39},
     atlas = 'joker_atlas',

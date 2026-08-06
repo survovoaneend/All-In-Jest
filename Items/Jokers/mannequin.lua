@@ -1,6 +1,6 @@
 local mannequin = {
     object_type = "Joker",
-    order = 556,
+    order = 575,
     key = "mannequin",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local mannequin = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 26 },
     atlas = 'joker_atlas',

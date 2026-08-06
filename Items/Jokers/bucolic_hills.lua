@@ -1,6 +1,6 @@
 local bucolic_hills = {
     object_type = "Joker",
-    order = 381,
+    order = 400,
     key = "bucolic_hills",
    
     config = {
@@ -8,6 +8,7 @@ local bucolic_hills = {
             dollars = 8
         }
     },
+    attributes = { 'economy', 'hands' },
     rarity = 1,
     pos = { x = 18, y = 16 },
     atlas = 'joker_atlas',

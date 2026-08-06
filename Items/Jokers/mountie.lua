@@ -1,6 +1,6 @@
 local mountie = {
     object_type = "Joker",
-    order = 458,
+    order = 477,
     key = "mountie",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local mountie = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 23 },
     atlas = 'joker_atlas',

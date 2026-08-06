@@ -1,6 +1,6 @@
 local tabula_rasa = {
     object_type = "Joker",
-    order = 269,
+    order = 275,
     ignore = true,
 
     key = "tabula_rasa",
@@ -13,6 +13,7 @@ local tabula_rasa = {
            }
        }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 16, y = 10},
     atlas = 'joker_atlas',

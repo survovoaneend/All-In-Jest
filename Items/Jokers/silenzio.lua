@@ -1,12 +1,13 @@
 local silenzio = {
     object_type = "Joker",
-    order = 672,
+    order = 694,
     ignore = true,
 
     key = "silenzio",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 37},
     atlas = 'joker_atlas',

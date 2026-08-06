@@ -1,11 +1,12 @@
 local furbo_e_stupido = {
     object_type = "Joker",
-    order = 91,
+    order = 94,
     ignore = true,
     key = "furbo_e_stupido",
     config = {
       
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 3 },
     atlas = 'joker_atlas',

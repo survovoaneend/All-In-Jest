@@ -1,11 +1,12 @@
 local arlecchino = {
   object_type = "Joker",
-  order = 162,
+  order = 165,
 
   key = "arlecchino",
   config = {
     
   },
+  attributes = { 'booster' },
   rarity = 2,
   pos = { x = 6, y = 6},
   atlas = 'joker_atlas',

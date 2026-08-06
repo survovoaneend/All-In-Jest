@@ -1,6 +1,6 @@
 local famulus = {
     object_type = "Joker",
-    order = 595,
+    order = 622,
     key = "famulus",
   
     config = {
@@ -8,10 +8,12 @@ local famulus = {
             dollars = 2
         }
     },
+    attributes = { 'economy', 'tarot', 'consumable' },
     rarity = 1,
     pos = { x = 8, y = 28 },
     atlas = 'joker_atlas',
     cost = 5,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

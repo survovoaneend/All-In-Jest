@@ -1,12 +1,13 @@
 local design_document = {
     object_type = "Joker",
-    order = 197,
+    order = 203,
     key = "design_document",
     config = {
         extra = {
             money = 2
         }
     },
+    attributes = { 'economy', 'chance' },
     rarity = 2,
     pos = { x = 11, y = 7},
     atlas = 'joker_atlas',

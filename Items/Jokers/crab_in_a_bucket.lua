@@ -1,6 +1,6 @@
 local crab_in_a_bucket = {
     object_type = "Joker",
-    order = 432,
+    order = 451,
     key = "crab_in_a_bucket",
     
     config = {
@@ -8,7 +8,9 @@ local crab_in_a_bucket = {
             chips  = 8
         }
     },
+    attributes = { 'chips' },
     rarity = 1,
+    lite = true,
     pos = { x = 10, y = 20 },
     atlas = 'joker_atlas',
     cost = 4,

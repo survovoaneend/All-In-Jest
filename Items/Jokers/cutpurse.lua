@@ -1,12 +1,13 @@
 local cutpurse = {
     object_type = "Joker",
-    order = 727,
+    order = 749,
     ignore = true,
 
     key = "cutpurse",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 17, y = 39},
     atlas = 'joker_atlas',

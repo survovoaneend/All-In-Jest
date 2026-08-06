@@ -1,6 +1,6 @@
 local shrinkflation = {
     object_type = "Joker",
-    order = 621,
+    order = 652,
     key = "shrinkflation",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local shrinkflation = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 29 },
     atlas = 'joker_atlas',

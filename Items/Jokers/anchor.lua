@@ -1,11 +1,12 @@
 local anchor = {
     object_type = "Joker",
-    order = 59,
+    order = 62,
     
     key = "anchor",
     config = {
 
     },
+    attributes = { 'joker', 'position' },
     rarity = 2,
     pos = { x = 5, y = 2 },
     atlas = 'joker_atlas',

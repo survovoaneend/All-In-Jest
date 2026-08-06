@@ -1,6 +1,6 @@
 local steven = {
     object_type = "Joker",
-    order = 625,
+    order = 656,
     key = "steven",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local steven = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 13, y = 29 },
     atlas = 'joker_atlas',

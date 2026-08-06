@@ -1,6 +1,6 @@
 local in_vino_veritas = {
     object_type = "Joker",
-    order = 137,
+    order = 140,
 
     key = "in_vino_veritas",
     config = {
@@ -10,6 +10,7 @@ local in_vino_veritas = {
             h_size_mod = 1,
         }
     },
+    attributes = { 'hand_size', 'scaling', 'consumable', 'reset' },
     rarity = 2,
     pos = { x = 6, y = 5 },
     atlas = 'joker_atlas',
@@ -31,11 +32,14 @@ local in_vino_veritas = {
 
     calculate = function(self, card, context)
         if context.using_consumeable and not context.blueprint and card.ability.extra.current_h_size < card.ability.extra.max_h_size then
-            G.hand:change_size(card.ability.extra.h_size_mod)
             SMODS.scale_card(card, {
                 ref_table = card.ability.extra,
                 ref_value = "current_h_size",
                 scalar_value = "h_size_mod",
+                operation = function(ref_table, ref_value, initial, change)
+                    ref_table[ref_value] = initial + change
+                    G.hand:change_size(change)
+                end,
                 no_message = true
             })
             return {

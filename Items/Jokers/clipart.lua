@@ -1,6 +1,6 @@
 local clipart = {
     object_type = "Joker",
-    order = 592,
+    order = 619,
     key = "bon_vivant",
   
     config = {

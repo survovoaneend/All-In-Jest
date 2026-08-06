@@ -1,6 +1,6 @@
 local average_joe = {
     object_type = "Joker",
-    order = 150,
+    order = 153,
     
     key = "average_joe",
     config = {
@@ -8,6 +8,7 @@ local average_joe = {
         percent = 20
       }
     },
+    attributes = { 'balance' },
     rarity = 2,
     pos = { x = 19, y = 5 },
     atlas = 'joker_atlas',

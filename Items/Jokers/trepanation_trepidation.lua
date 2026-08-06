@@ -1,12 +1,13 @@
 local trepanation_trepidation = {
     object_type = "Joker",
-    order = 774,
+    order = 796,
     ignore = true,
 
     key = "trepanation_trepidation",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 10, y = 41},
     atlas = 'joker_atlas',

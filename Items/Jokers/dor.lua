@@ -11,6 +11,7 @@ local dor = {
   config = {
     powmult = 0.3
   },
+  attributes = { 'hands', 'emult' },
   rarity = 4,
   unlock_condition = { hidden = true },
   pos = { x = 9, y = 2 },

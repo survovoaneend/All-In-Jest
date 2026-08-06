@@ -1,6 +1,6 @@
 local game_cartridge = {
     object_type = "Joker",
-    order = 624,
+    order = 655,
     key = "game_cartridge",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local game_cartridge = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 29 },
     atlas = 'joker_atlas',

@@ -10,6 +10,7 @@ local sundae = {
             total_rounds = 3,
         }
     },
+    attributes = { 'food', 'chips' },
     rarity = 1,
     pos = { x = 24, y = 21 },
     atlas = 'joker_atlas',

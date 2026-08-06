@@ -1,6 +1,6 @@
 local bonus_bob = {
     object_type = "Joker",
-    order = 310,
+    order = 317,
     
     key = "bonus_bob",
     config = {
@@ -8,6 +8,7 @@ local bonus_bob = {
             xchips = 1.5
         }
     },
+    attributes = { 'xchips', 'enhancements' },
     rarity = 3,
     pos = { x = 7, y = 12},
     atlas = 'joker_atlas',

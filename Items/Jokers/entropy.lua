@@ -1,11 +1,12 @@
 local entropy = {
     object_type = "Joker",
-    order = 246,
+    order = 251,
     
     key = "entropy",
     config = {
       
     },
+    attributes = { 'generation', 'tag' },
     rarity = 2,
     pos = { x = 13, y = 9},
     atlas = 'joker_atlas',

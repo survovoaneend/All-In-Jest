@@ -1,6 +1,6 @@
 local embroidery = {
     object_type = "Joker",
-    order = 499,
+    order = 508,
 
     key = "embroidery",
     config = {
@@ -9,6 +9,7 @@ local embroidery = {
             mult = 10
         }
     },
+    attributes = { 'mult', 'chips', 'enhancements' },
     rarity = 2,
     pos = { x = 5, y = 24 },
     atlas = 'joker_atlas',
@@ -17,7 +18,6 @@ local embroidery = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
-    ignore = true,
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_aij_canvas

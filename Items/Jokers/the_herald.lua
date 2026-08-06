@@ -1,6 +1,6 @@
 local the_herald = {
     object_type = "Joker",
-    order = 497,
+    order = 506,
 
     key = "the_herald",
     config = {
@@ -8,15 +8,15 @@ local the_herald = {
             
         }
     },
-    rarity = 3,
+    attributes = { 'hand_type' },
+    rarity = 2,
     pos = { x = 3, y = 24 },
     atlas = 'joker_atlas',
-    cost = 8,
+    cost = 5,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
-    ignore = true,
 
     loc_vars = function(self, info_queue, card)
         local most_played_hand = nil

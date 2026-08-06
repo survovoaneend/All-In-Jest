@@ -1,12 +1,13 @@
 local fifth_force = {
     object_type = "Joker",
-    order = 695,
+    order = 717,
     ignore = true,
 
     key = "fifth_force",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 10, y = 38},
     atlas = 'joker_atlas',

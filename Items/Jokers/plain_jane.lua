@@ -1,6 +1,6 @@
 local plain_jane = {
     object_type = "Joker",
-    order = 43,
+    order = 46,
 
     key = "plain_jane",
     config = {
@@ -8,6 +8,7 @@ local plain_jane = {
         mult = 5
       }
     },
+    attributes = { 'mult' },
     rarity = 1,
     pos = { x = 15, y = 1 },
     atlas = 'joker_atlas',

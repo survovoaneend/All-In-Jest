@@ -1,6 +1,6 @@
 local burly_joker = {
     object_type = "Joker",
-    order = 513,
+    order = 532,
     key = "burly_joker",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local burly_joker = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 23, y = 24 },
     atlas = 'joker_atlas',

@@ -1,12 +1,13 @@
 local lich = {
     object_type = "Joker",
-    order = 696,
+    order = 718,
     ignore = true,
 
     key = "lich",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 38},
     atlas = 'joker_atlas',

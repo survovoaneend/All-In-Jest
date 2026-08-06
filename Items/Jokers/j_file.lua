@@ -1,6 +1,6 @@
 local j_file = {
     object_type = "Joker",
-    order = 117,
+    order = 120,
 
     key = "j_file",
     config = {
@@ -8,6 +8,7 @@ local j_file = {
             cards_to_draw = 1
         }
     },
+    attributes = { 'draw_cards', 'choice' },
     rarity = 2,
     pos = { x = 12, y = 4 },
     atlas = 'joker_atlas',

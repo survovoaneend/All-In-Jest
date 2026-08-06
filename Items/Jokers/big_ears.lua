@@ -1,6 +1,6 @@
 local big_ears = {
     object_type = "Joker",
-    order = 74,
+    order = 77,
 
     key = "big_ears",
     config = {
@@ -10,6 +10,7 @@ local big_ears = {
             chip_dec = 1
         }
     },
+    attributes = { 'chips', 'scaling', 'rank', 'ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten' },
     rarity = 2,
     pos = { x = 19, y = 2 },
     atlas = 'joker_atlas',
@@ -33,22 +34,32 @@ local big_ears = {
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.blueprint then
             if (context.other_card:get_id() <= 10 and context.other_card:get_id() >= 0 and context.other_card:get_id() % 2 == 0) then
-                card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "chips",
+                    scalar_value = "chip_mod",
+                    no_message = true
+                })
                 return {
                     message = localize('k_upgrade_ex'),
                     colour = G.C.CHIPS,
                     message_card = card
                 }
-            elseif ((context.other_card:get_id() <= 10 and context.other_card:get_id() >= 0 and context.other_card:get_id() % 2 == 1) or (context.other_card:get_id() == 14)) then
-               local prev_chips = card.ability.extra.chips
-                card.ability.extra.chips = math.max(0, card.ability.extra.chips - card.ability.extra.chip_dec)
-                 if card.ability.extra.chips ~= prev_chips then
+            elseif card.ability.extra.chips > 0 and ((context.other_card:get_id() <= 10 and context.other_card:get_id() >= 0 and context.other_card:get_id() % 2 == 1) or (context.other_card:get_id() == 14)) then
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "chips",
+                    scalar_value = "chip_dec",
+                    operation = function(ref_table, ref_value, initial, change)
+                        ref_table[ref_value] = math.max(0, initial - change)
+                    end,
+                    no_message = true
+                })
                 return {
                     message = localize('k_aij_downgrade_ex'),
                     colour = G.C.RED,
                     message_card = card
                 }
-            end
             end
         end
         if context.joker_main then

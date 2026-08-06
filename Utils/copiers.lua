@@ -269,7 +269,8 @@ end
 -- Joker.png + Czar
 All_in_Jest.set_copied_joker = function(copier_card, copied_center)
     -- Set added_to_deck before and after as remove_from_deck does not execute if card is not added to deck
-    if copier_card.ability[copier_card.config.center.key].copied_joker_key ~= nil then
+    local had_prev_ability = copier_card.ability[copier_card.config.center.key].copied_joker_key ~= nil
+    if had_prev_ability then
         copier_card.added_to_deck = true
         All_in_Jest.use_copied_joker_function(copier_card, "remove_from_deck", "remove_from_deck", {copier_card, true}, {true})
         copier_card.added_to_deck = true
@@ -295,9 +296,11 @@ All_in_Jest.set_copied_joker = function(copier_card, copied_center)
     copier_card.ability[copier_card.config.center.key] = copier_ability
 
     -- Set added_to_deck before and after as add_to_deck does not execute if card is already added to deck
-    copier_card.added_to_deck = false
-    All_in_Jest.use_copied_joker_function(copier_card, "add_to_deck", "add_to_deck", {copier_card, true}, {true})
-    copier_card.added_to_deck = true
+    if had_prev_ability then
+        copier_card.added_to_deck = false
+        All_in_Jest.use_copied_joker_function(copier_card, "add_to_deck", "add_to_deck", {copier_card, true}, {true})
+        copier_card.added_to_deck = true
+    end
 end
 
 -- Adds a joker for a multi-copier joker to copy
@@ -371,13 +374,13 @@ end
 All_in_Jest.single_copier = SMODS.Joker:extend {
     add_to_deck = function(self, card, from_debuff)
         card.added_to_deck = false
-        All_in_Jest.use_copied_joker_function(card, "add_to_deck", "add_to_deck", {card, true}, {true})
+        All_in_Jest.use_copied_joker_function(card, "add_to_deck", "add_to_deck", {card, from_debuff}, {from_debuff})
         card.added_to_deck = true
     end,
 
     remove_from_deck = function(self, card, from_debuff)
         card.added_to_deck = true
-        All_in_Jest.use_copied_joker_function(card, "remove_from_deck", "remove_from_deck", {card, true}, {true})
+        All_in_Jest.use_copied_joker_function(card, "remove_from_deck", "remove_from_deck", {card, from_debuff}, {from_debuff})
         card.added_to_deck = true
     end,
 
@@ -441,7 +444,7 @@ All_in_Jest.multi_copier = SMODS.Joker:extend {
                 local center_to_copy = G.P_CENTERS[card.ability[card.config.center.key].copied_joker_abilities[index].key]
                 if center_to_copy[card.config.center.key .. "_compat"] ~= false then
                     card.added_to_deck = false
-                    All_in_Jest.use_copied_joker_function(card, "add_to_deck", "add_to_deck", {card, true}, {true}, index)
+                    All_in_Jest.use_copied_joker_function(card, "add_to_deck", "add_to_deck", {card, from_debuff}, {from_debuff}, index)
                     card.added_to_deck = true
                 end
             end
@@ -454,7 +457,7 @@ All_in_Jest.multi_copier = SMODS.Joker:extend {
                 local center_to_copy = G.P_CENTERS[card.ability[card.config.center.key].copied_joker_abilities[index].key]
                 if center_to_copy[card.config.center.key .. "_compat"] ~= false then
                     card.added_to_deck = false
-                    All_in_Jest.use_copied_joker_function(card, "remove_from_deck", "remove_from_deck", {card, true}, {true}, index)
+                    All_in_Jest.use_copied_joker_function(card, "remove_from_deck", "remove_from_deck", {card, from_debuff}, {from_debuff}, index)
                     card.added_to_deck = true
                 end
             end

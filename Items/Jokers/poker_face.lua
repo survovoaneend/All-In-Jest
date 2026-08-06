@@ -1,6 +1,6 @@
 local poker_face = {
     object_type = "Joker",
-    order = 430,
+    order = 449,
     key = "poker_face",
     
     config = {
@@ -9,6 +9,7 @@ local poker_face = {
             xmult_gain = 1
         }
     },
+    attributes = { 'xmult', 'scaling', 'reset' },
     rarity = 3,
     pos = { x = 8, y = 20 },
     atlas = 'joker_atlas',
@@ -38,11 +39,13 @@ local poker_face = {
         
         if context.after and not context.blueprint then
             if not SMODS.last_hand_oneshot then
-                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
-                return {
-                    message = localize('k_upgrade_ex'),
-                    colour = G.C.MULT
-                }
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "xmult",
+                    scalar_value = "xmult_gain",
+                    message_colour = G.C.MULT
+                })
+                return nil, true
             else
                 if card.ability.extra.xmult > 1 then
                     card.ability.extra.xmult = 1

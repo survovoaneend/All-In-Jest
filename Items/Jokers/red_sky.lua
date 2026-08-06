@@ -1,11 +1,12 @@
 local red_sky = {
   object_type = "Joker",
-  order = 125,
+  order = 128,
   lite = true,
   key = "red_sky",
   config = {
 
   },
+  attributes = { 'mult', 'hands' },
   rarity = 2,
   pos = { x = 19, y = 4 },
   atlas = 'joker_atlas',

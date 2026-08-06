@@ -11,12 +11,13 @@ end
 
 local blarney_stone = {
   object_type = "Joker",
-  order = 178,
+  order = 181,
 
   key = "blarney_stone",
   config = {
 
   },
+  attributes = { 'mult' },
   rarity = 1,
   pos = { x = 21, y = 6 },
   atlas = 'joker_atlas',

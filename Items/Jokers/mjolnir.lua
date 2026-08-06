@@ -1,12 +1,13 @@
 local mjolnir = {
     object_type = "Joker",
-    order = 676,
+    order = 698,
     ignore = true,
 
     key = "mjolnir",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 16, y = 37},
     atlas = 'joker_atlas',

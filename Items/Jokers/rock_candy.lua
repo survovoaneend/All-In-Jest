@@ -1,6 +1,6 @@
 local rock_candy = {
     object_type = "Joker",
-    order = 440,
+    order = 459,
     key = "rock_candy",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local rock_candy = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 10, y = 22 },
     atlas = 'joker_atlas',

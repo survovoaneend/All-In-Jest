@@ -1,6 +1,6 @@
 local choleric_joker = {
     object_type = "Joker",
-    order = 348,
+    order = 356,
 
     key = "choleric_joker",
     config = {
@@ -8,6 +8,7 @@ local choleric_joker = {
             odds = 3
         }
     },
+    attributes = { 'generation', 'tarot', 'consumable', 'chance', 'suit', 'diamonds' },
     rarity = 3,
     pos = { x = 20, y = 13},
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local kuruko = {
     object_type = "Joker",
-    order = 303,
+    order = 310,
 
     key = "kuruko",
     config = {
@@ -8,10 +8,12 @@ local kuruko = {
             mult = 1
         }
     },
+    attributes = { 'mult', 'rank', 'full_deck' },
     rarity = 1,
     pos = { x = 0, y = 12 },
     atlas = 'joker_atlas',
     cost = 4,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

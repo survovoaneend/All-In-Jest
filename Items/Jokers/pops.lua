@@ -1,6 +1,6 @@
 local pops = {
     object_type = "Joker",
-    order = 471,
+    order = 490,
     key = "pops",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local pops = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 13, y = 23 },
     atlas = 'joker_atlas',

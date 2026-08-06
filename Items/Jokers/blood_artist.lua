@@ -1,6 +1,6 @@
 local blood_artist = {
     object_type = "Joker",
-    order = 86,
+    order = 89,
 
     key = "blood_artist",
     config = {
@@ -8,6 +8,7 @@ local blood_artist = {
             blind_reduction = 20
         }
     },
+    attributes = { 'xblindsize', 'on_sell', 'on_destroy' },
     rarity = 2,
     pos = { x = 6, y = 3 },
     atlas = 'joker_atlas',

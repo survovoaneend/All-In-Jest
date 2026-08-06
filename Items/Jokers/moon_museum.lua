@@ -1,6 +1,6 @@
 local moon_museum = {
     object_type = "Joker",
-    order = 374,
+    order = 393,
     key = "moon_museum",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local moon_museum = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 23, y = 16 },
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local whiteface_grotesque = {
     object_type = "Joker",
-    order = 8,
+    order = 11,
 
     key = "whiteface_grotesque",
     config = {
@@ -9,6 +9,7 @@ local whiteface_grotesque = {
           cur_chips = 0
       }
     },
+    attributes = { 'chips', 'scaling', 'face' },
     rarity = 1,
     pos = { x = 7, y = 0 },
     atlas = 'joker_atlas',

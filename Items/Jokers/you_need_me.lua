@@ -1,12 +1,13 @@
 local you_need_me = {
     object_type = "Joker",
-    order = 671,
+    order = 693,
     ignore = true,
 
     key = "you_need_me",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 11, y = 37},
     atlas = 'joker_atlas',

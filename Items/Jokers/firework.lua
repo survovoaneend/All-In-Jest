@@ -1,6 +1,6 @@
 local firework = {
     object_type = "Joker",
-    order = 367,
+    order = 376,
    
     key = "firework",
     config = {
@@ -8,6 +8,7 @@ local firework = {
             xmult = 3
         }
     },
+    attributes = { 'xmult', 'enhancements', 'position' },
     rarity = 2,
     pos = { x = 0, y = 20},
     atlas = 'joker_atlas',

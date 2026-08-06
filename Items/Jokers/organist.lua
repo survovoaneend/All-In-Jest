@@ -1,12 +1,13 @@
 local organist = {
     object_type = "Joker",
-    order = 715,
+    order = 737,
     ignore = true,
 
     key = "organist",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 5, y = 39},
     atlas = 'joker_atlas',

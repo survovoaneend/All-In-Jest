@@ -1,6 +1,6 @@
 local psalmanazar = {
     object_type = "Joker",
-    order = 554,
+    order = 573,
     key = "psalmanazar",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local psalmanazar = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 17, y = 26 },
     atlas = 'joker_atlas',

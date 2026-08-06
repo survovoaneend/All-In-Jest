@@ -1,6 +1,6 @@
 local sherrif = {
     object_type = "Joker",
-    order = 337,
+    order = 344,
     lite = true,
     key = "sherrif",
     config = {
@@ -8,6 +8,7 @@ local sherrif = {
             dollars = 5
         }
     },
+    attributes = { 'economy', 'enhancements' },
     rarity = 1,
     pos = { x = 8, y = 13},
     atlas = 'joker_atlas',

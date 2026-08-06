@@ -1,10 +1,11 @@
 local the_house_that_jack_built = {
     object_type = "Joker",
-    order = 355,
+    order = 364,
 
     key = "the_house_that_jack_built",
     config = {
     },
+    attributes = { 'mult', 'chips', 'rank', 'jack', 'hand_level' },
     rarity = 1,
     pos = { x = 1, y = 14 },
     atlas = 'joker_atlas',

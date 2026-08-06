@@ -1,10 +1,11 @@
 local rudolph = {
     object_type = "Joker",
-    order = 360,
+    order = 369,
 
     key = "rudolph",
     config = {
     },
+    attributes = { 'retrigger', 'seals' },
     rarity = 2,
     pos = { x = 19, y = 19 },
     atlas = 'joker_atlas',

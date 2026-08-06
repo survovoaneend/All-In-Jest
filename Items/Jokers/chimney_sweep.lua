@@ -1,6 +1,6 @@
 local chimney_sweep = {
     object_type = "Joker",
-    order = 530,
+    order = 549,
     key = "chimney_sweep",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local chimney_sweep = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 25 },
     atlas = 'joker_atlas',

@@ -1,11 +1,12 @@
 local magic_mirror = {
     object_type = "Joker",
-    order = 202,
+    order = 208,
 
     key = "magic_mirror",
     config = {
       
     },
+    attributes = { 'modify_card', 'editions', 'negative', 'face' },
     rarity = 3,
     pos = { x = 15, y = 7},
     atlas = 'joker_atlas',

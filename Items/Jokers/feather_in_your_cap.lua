@@ -1,6 +1,6 @@
 local feather_in_your_cap = {
     object_type = "Joker",
-    order = 515,
+    order = 534,
     key = "feather_in_your_cap",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local feather_in_your_cap = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 25 },
     atlas = 'joker_atlas',

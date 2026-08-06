@@ -1,11 +1,12 @@
 local polybius = {
     object_type = "Joker",
-    order = 61,
+    order = 64,
     lite = true,
     key = "polybius",
     config = {
       
     },
+    attributes = { 'mult', 'chips', 'hand_type' },
     rarity = 3,
     pos = { x = 7, y = 2 },
     atlas = 'joker_atlas',

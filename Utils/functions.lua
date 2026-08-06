@@ -32,6 +32,47 @@ function jest_poll_tag(seed, options)
   return tag
 end
 
+function aij_update_hand_text(area)
+    local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(area)
+
+    local calculated_text = nil
+    if text == 'aij_Royal Flush' then
+        calculated_text = 'aij_Royal Flush'
+        text = 'Straight Flush'
+    end
+
+    update_hand_text({
+        sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, 
+        volume = 0.4, 
+        immediate = true, 
+        nopulse = nil,
+        delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, 
+        {handname=disp_text, level=G.GAME.hands[calculated_text or text].level, 
+        mult = G.GAME.hands[calculated_text or text].mult, 
+        chips = G.GAME.hands[calculated_text or text].chips})
+    if area == G.hand.highlighted then
+        if G.GAME.Astral_pins and text ~= G.aij_cur_astral_hand then
+            All_in_Jest.astral_visuals(text, 'only_remove', All_in_Jest.old_colours or nil, true)      
+            if text == "NULL" then
+                G.aij_cur_astral_hand = nil
+            end
+            if G.aij_astral_pin_area then
+                for _, v in pairs(G.aij_astral_pin_area.cards) do
+                    v:remove()
+                end
+            end
+        end
+        if G.GAME.Astral_pins then
+            if text ~= G.aij_cur_astral_hand then
+                All_in_Jest.astral_visuals(text, 'no_remove')
+            end
+            if text then
+                G.aij_cur_astral_hand = text
+            end
+        end
+    end
+end
+
 function aij_pasteAlpha(base, layer, posb, posl, args)
     args = args or {}
     posb = posb or {x=0, y=0}
@@ -874,6 +915,27 @@ AllInJest.deck_skins = {
     }
   },
   {
+    id = 'tetris',
+    name = 'Tetris',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
+    id = 'eternal_cylinder',
+    name = 'Eternal Cylinder',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
+    id = 'dungeon_clawler',
+    name = 'Dungeon Clawler',
+    suits = {
+      'Diamonds',
+    }
+  },
+  {
     id = 'off',
     name = 'OFF',
     suits = {
@@ -959,7 +1021,7 @@ AllInJest.deck_skins = {
   },
   {
     id = 'henry_stickmen',
-    name = 'Henry Stickmen',
+    name = 'Henry Stickmin',
     suits = {
       'Hearts',
     }
@@ -968,6 +1030,21 @@ AllInJest.deck_skins = {
     id = 'mario',
     name = 'Super Mario Bros',
     suits = {
+      'Hearts',
+    }
+  },
+  {
+    id = 'voices_of_the_void',
+    name = 'Voices of the Void',
+    suits = {
+      'Clubs',
+    }
+  },
+  {
+    id = 'peggle',
+    name = 'Peggle',
+    suits = {
+      'Diamonds',
       'Hearts',
     }
   },
@@ -999,29 +1076,36 @@ AllInJest.deck_skins = {
     id = 'deltarune',
     name = 'Deltarune',
     suits = {
-      'Spades',
       'Hearts',
       'Clubs',
       'Diamonds'
     }
   },
   {
-    id = 'deltarune_ch_two',
-    name = 'Deltarune',
+    id = 'deltarune_ch_one',
+    name = 'Deltarune: Chapter 1',
     suits = {
       'Spades',
     }
   },
   {
+    id = 'deltarune_ch_two',
+    name = 'Deltarune: Chapter 2',
+    suits = {
+      'Spades',
+      'Clubs'
+    }
+  },
+  {
     id = 'deltarune_ch_three',
-    name = 'Deltarune',
+    name = 'Deltarune: Chapter 3',
     suits = {
       'Diamonds'
     }
   },
   {
     id = 'deltarune_ch_four',
-    name = 'Deltarune',
+    name = 'Deltarune: Chapter 4',
     suits = {
       'Diamonds'
     }
@@ -1734,6 +1818,9 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, extra)
                 victim_joker.ability.all_in_jest.has_been_rerolled_data = old_ability_data
             end
             victim_joker:set_cost()
+            if extra.shop_ui then
+                create_shop_card_ui(victim_joker, extra.type, extra.shop_ui)
+            end
             return true
         end
     }))
@@ -1747,10 +1834,10 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, extra)
             return true 
         end 
     }))
-      G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
         G.jokers:unhighlight_all()
         return true
-      end }))
+    end }))
     delay(0.5)
 end
 
@@ -1941,10 +2028,13 @@ SMODS.current_mod.custom_card_areas = function(game)
         game.jokers.T.w / 5, game.jokers.T.h,
         { card_limit = 1, type = 'joker', highlight_limit = 1 }
 	)
+    local temp = SMODS.bypass_create_card_edition
+    SMODS.bypass_create_card_edition = true
     local temp_card = create_card('Joker', G.aij_coconut_holder, nil, nil, nil, nil, 'j_aij_coconut', 'aij_coconut_holder')
-    temp_card:start_materialize(nil, true)
+    -- temp_card:start_materialize(nil, true)
     temp_card.ability.jest_got_no_ui = true
     G.aij_coconut_holder:emplace(temp_card)
+    SMODS.bypass_create_card_edition = temp
 end
 
 --Replaces shop voucher
@@ -2042,51 +2132,38 @@ function All_in_Jest.ease_blind_requirement(mod_mult, mod_add, skip_animation)
     local step = 0
 
     local chips_text_integer = G.GAME.blind.chips -- Used to track animation
-    if skip_animation then
-        chips_text_integer = desired_chip_amount
-        G.GAME.blind.chip_text = number_format(chips_text_integer)
-    else
+    if not skip_animation then
+        G.BLIND_SIZE_DISPLAY_QUEUE = G.BLIND_SIZE_DISPLAY_QUEUE or {}
+
         if chips_text_integer < to_big(desired_chip_amount) then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                blocking = true,
-                func = function()
-                    chips_text_integer = chips_text_integer + G.SETTINGS.GAMESPEED * chip_mod
-                    if chips_text_integer < desired_chip_amount then
-                        G.GAME.blind.chip_text = number_format(chips_text_integer)
-                        if step % 5 == 0 then
-                            play_sound('chips1', 0.8 + (step * 0.005))
-                        end
-                        step = step + 1
-                    else
-                        chips_text_integer = desired_chip_amount
-                        G.GAME.blind.chip_text = number_format(chips_text_integer)
-                        G.GAME.blind:wiggle()
-                        return true
-                    end
-                end
-            }))
+            while chips_text_integer < desired_chip_amount do
+                table.insert(G.BLIND_SIZE_DISPLAY_QUEUE, chips_text_integer)
+                chips_text_integer = chips_text_integer + G.SETTINGS.GAMESPEED * chip_mod
+            end
         else
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                blocking = true,
-                func = function()
-                    chips_text_integer = chips_text_integer - G.SETTINGS.GAMESPEED * chip_mod
-                    if chips_text_integer > desired_chip_amount then
-                        G.GAME.blind.chip_text = number_format(chips_text_integer)
-                        if step % 5 == 0 then
-                            play_sound('chips1', 0.8 + (step * 0.005))
-                        end
-                        step = step - 1
-                    else
-                        chips_text_integer = desired_chip_amount
-                        G.GAME.blind.chip_text = number_format(chips_text_integer)
-                        G.GAME.blind:wiggle()
-                        return true
-                    end
-                end
-            }))
+            while chips_text_integer < desired_chip_amount do
+                table.insert(G.BLIND_SIZE_DISPLAY_QUEUE, chips_text_integer)
+                chips_text_integer = chips_text_integer - G.SETTINGS.GAMESPEED * chip_mod
+            end
         end
+
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            blocking = true,
+            func = function()
+                if #G.BLIND_SIZE_DISPLAY_QUEUE > 0 then
+                    table.remove(G.BLIND_SIZE_DISPLAY_QUEUE, 1)
+                    if step % 5 == 0 then
+                        play_sound('chips1', 0.8 + (step * 0.005))
+                    end
+                    step = step + 1
+                else
+                    G.GAME.blind:wiggle()
+                    return true
+                end
+            end
+        }))
+
     end
 
     G.GAME.blind.chips = desired_chip_amount -- Immediately set in case this function is called successively
@@ -2173,13 +2250,26 @@ function All_in_Jest.astral_hand_from_grade(grade, cur_hand)
                 end
             end
         elseif grade == "Prograde" then 
-            local _tally = math.huge
+            local _remove_tally = 0
             for k, v in ipairs(G.handlist) do
-                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played < _tally then
-                    _hand = v
-                    _tally = G.GAME.hands[v].played
+                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played >= _remove_tally then
+                    _remove_tally = G.GAME.hands[v].played
                 end
             end
+            local vaild_hands = {}
+            for k, v in ipairs(G.handlist) do
+                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played < _remove_tally then
+                    vaild_hands[#vaild_hands+1] = v
+                end
+            end
+            if #vaild_hands <= 0 then
+                for k, v in ipairs(G.handlist) do
+                    if SMODS.is_poker_hand_visible(v) then
+                        vaild_hands[#vaild_hands+1] = v
+                    end
+                end
+            end
+            _hand = cur_hand or pseudorandom_element(vaild_hands, pseudoseed(grade))
         elseif grade == "Passigrade" then
             local vaild_hands = {}
             for k, v in ipairs(G.handlist) do
@@ -2222,7 +2312,7 @@ function All_in_Jest.use_astral_card(card)
                         {6,6}, 
                         {
                             from_area = true,
-                            card_scale = 2,
+                            card_scale = 1,
                             hide_single_page = true,
                             collapse_single_page = true,
                             modify_card = function(cardd, center) 
@@ -2369,6 +2459,12 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
                 end
                 G.aij_astral_pin_area:emplace(card)
                 card:start_materialize()
+                -- We shouldn't need to do this but we have to anyway
+                -- This is to make a couple pins juice when active
+                local obj = card.config.center
+                if obj and obj.add_to_deck and type(obj.add_to_deck) == 'function' then
+                    obj:add_to_deck(card, from_debuff)
+                end
             end
         end
         -- Change background colour
@@ -2720,12 +2816,16 @@ function All_in_Jest.get_random_joker_colours(colour)
     end
 end
 
-function All_in_Jest.get_inherent_effects(card, type, amt_only)
-    if card.aij_inherent_effects and card.aij_inherent_effects[type..'s'] and #card.aij_inherent_effects[type..'s'] > 0 then
+function All_in_Jest.get_inherent_effects(card, type, amt_only, keys)
+    if card and card.aij_inherent_effects and card.aij_inherent_effects[type..'s'] and #card.aij_inherent_effects[type..'s'] > 0 then
         local effects = {}
         local amt = 0
         for k, v in pairs(card.aij_inherent_effects[type..'s']) do
-            effects[#effects + 1] = v
+            if keys then
+                effects[v.center_key] = true
+            else
+                effects[#effects + 1] = v
+            end
             amt = amt + 1
         end
         return amt_only and amt or effects
@@ -2762,7 +2862,7 @@ function All_in_Jest.apply_inherent_effect(card, effect, effect_type)
         card.aij_inherent_effects['enhancements'][index] = {}
         card.aij_inherent_effects['enhancements'][index]['center_key'] = effect.key
         card.aij_inherent_effects['enhancements'][index]['ability'] = copy_table(card.config.aij_other_center.ability)
-        card.aij_inherent_effects[effect_type..'s'][index]['ability'].extra_enhancement = effect.key
+        card.aij_inherent_effects['enhancements'][index]['ability'].extra_enhancement = effect.key
     end
 end
 
@@ -2774,12 +2874,15 @@ function All_in_Jest.set_other_enhancement(card, enhancement)
         return
     end
     SMODS.aij_applying_thing = true
+    local old_center_key = card.config.aij_other_center and card.config.aij_other_center['center'].key or 'c_base'
     card.config.aij_other_center = {}
     card.config.aij_other_center['center'] = G.P_CENTERS[enhancement]
     local old_center = card.config.center
+    card.aij_setting_other_enhancement = old_center_key
     card:set_ability(G.P_CENTERS[enhancement])
     card.config.aij_other_center['ability'] = copy_table(card.ability)
     card.config.aij_other_center['ability'].extra_enhancement = enhancement
+    card.aij_setting_other_enhancement_back = true
     card:set_ability(old_center)
     -- if not card.ability.aij_other_center or not card.ability.aij_other_center['ability'] then
     --     card.ability.aij_other_center = card.ability.aij_other_center or {}
@@ -3395,6 +3498,9 @@ function aij_calculate_end_of_round_effects(context, i, card)
         SMODS.calculate_card_areas('individual', context, effects, { main_scoring = true })
 
         local flags = SMODS.trigger_effects(effects, card)
+        if context.cardarea == G.hand and (next(effects) or next(flags)) then
+            SMODS.calculate_context({aij_held_effect_triggered = true, card = card, effects = next(effects) and effects or flags})
+        end
 
         context.individual = nil
         context.repetition = true
@@ -3411,4 +3517,82 @@ function aij_calculate_end_of_round_effects(context, i, card)
         -- TARGET: effects after end of round evaluation
     end
     card.repetition_trigger = nil
+end
+
+function aij_reroll_tags(blind, args)
+    args = args or {}
+    blind = blind or 'All'
+    if blind == 'All' then
+        for k, v in pairs(G.GAME.round_resets.blind_tags) do
+            if (G.GAME.round_resets.blind_states[k] ~= 'Hide' and G.GAME.round_resets.blind_states[k] ~= 'Defeated' and G.GAME.round_resets.blind_states[k] ~= 'Skipped') then
+                if not args.gold then G.GAME.round_resets.blind_tags[k] = get_next_tag_key() end
+                if args.gold then G.GAME.round_resets.blind_tags[k] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+                if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
+                    for i = 1, G.GAME.all_in_jest.blind_tags.amt do
+                        if i == 1 then -- Leftmost tag matches vanilla skip tag
+                            G.GAME.all_in_jest.blind_tags[k][i] = G.GAME.round_resets.blind_tags[k]
+                        else
+                            if not args.gold then G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('aij_no_blind_dupes_'..k) end
+                            if args.gold then G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+                        end
+                    end
+                end
+            end
+        end
+        for k, v in pairs(G.GAME.round_resets.blind_choices) do
+            if k ~= 'Boss' and k ~= 'Big_Boss' and (G.GAME.round_resets.blind_states[k] ~= 'Hide' and G.GAME.round_resets.blind_states[k] ~= 'Defeated' and G.GAME.round_resets.blind_states[k] ~= 'Skipped') then
+                local blind_choice = k
+                local par = G.blind_select_opts[blind_choice:lower()].parent
+                G.blind_select_opts[blind_choice:lower()]:remove()
+                G.blind_select_opts[blind_choice:lower()] = UIBox{
+                  T = {par.T.x, 0, 0, 0, },
+                  definition =
+                    {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
+                      UIBox_dyn_container({create_UIBox_blind_choice(blind_choice)},false,get_blind_main_colour(blind_choice))
+                    }},
+                  config = {align="bmi",
+                            offset = {x=0,y=G.ROOM.T.y + 9},
+                            major = par,
+                            xy_bond = 'Weak'
+                          }
+                }
+                par.config.object = G.blind_select_opts[blind_choice:lower()]
+                par.config.object:recalculate()
+                G.blind_select_opts[blind_choice:lower()].parent = par
+            end
+        end
+    else
+        if (G.GAME.round_resets.blind_states[k] ~= 'Hide' and G.GAME.round_resets.blind_states[blind] ~= 'Defeated' and G.GAME.round_resets.blind_states[blind] ~= 'Skipped') then
+            if not args.gold then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key() end
+            if args.gold then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+            if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
+                for i = 1, G.GAME.all_in_jest.blind_tags.amt do
+                    if i == 1 then -- Leftmost tag matches vanilla skip tag
+                        G.GAME.all_in_jest.blind_tags[blind][i] = G.GAME.round_resets.blind_tags[blind]
+                    else
+                        if not args.gold then G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key('aij_no_blind_dupes_'..blind) end
+                        if args.gold then G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+                    end
+                end
+            end
+            local blind_choice = blind
+            local par = G.blind_select_opts[blind_choice:lower()].parent
+            G.blind_select_opts[blind_choice:lower()]:remove()
+            G.blind_select_opts[blind_choice:lower()] = UIBox{
+                T = {par.T.x, 0, 0, 0, },
+                definition =
+                {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
+                    UIBox_dyn_container({create_UIBox_blind_choice(blind_choice)},false,get_blind_main_colour(blind_choice))
+                }},
+                config = {align="bmi",
+                        offset = {x=0,y=G.ROOM.T.y + 9},
+                        major = par,
+                        xy_bond = 'Weak'
+                        }
+            }
+            par.config.object = G.blind_select_opts[blind_choice:lower()]
+            par.config.object:recalculate()
+            G.blind_select_opts[blind_choice:lower()].parent = par
+        end
+    end
 end

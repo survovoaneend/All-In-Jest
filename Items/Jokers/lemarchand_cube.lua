@@ -1,6 +1,6 @@
 local lemarchand_cube = {
     object_type = "Joker",
-    order = 345,
+    order = 352,
 
     key = "lemarchand_cube",
     config = {
@@ -9,10 +9,12 @@ local lemarchand_cube = {
             tarots_total = 5
         }
     },
+    attributes = { 'generation', 'spectral', 'tarot', 'consumable' },
     rarity = 2,
     pos = { x = 16, y = 13 },
     atlas = 'joker_atlas',
     cost = 7,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

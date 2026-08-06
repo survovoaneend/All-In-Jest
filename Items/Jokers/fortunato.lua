@@ -10,6 +10,7 @@ local fortunato = {
       activated = false,
     }
   },
+  attributes = { 'xmult', 'scaling', 'modify_card', 'enhancements' },
   rarity = 4,
   unlock_condition = { hidden = true },
   pos = { x = 5, y = 0 },

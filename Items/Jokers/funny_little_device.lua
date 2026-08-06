@@ -1,12 +1,13 @@
 local funny_little_device = {
     object_type = "Joker",
-    order = 754,
+    order = 776,
     ignore = true,
 
     key = "funny_little_device",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 16, y = 40},
     atlas = 'joker_atlas',

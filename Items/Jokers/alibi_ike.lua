@@ -1,12 +1,13 @@
 local alibi_ike = {
     object_type = "Joker",
-    order = 777,
+    order = 799,
     ignore = true,
 
     key = "alibi_ike",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 12, y = 41},
     atlas = 'joker_atlas',

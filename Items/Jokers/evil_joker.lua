@@ -1,12 +1,13 @@
 local evil_joker = {
     object_type = "Joker",
-    order = 347,
+    order = 354,
     key = "evil_joker",
     config = {
       extra = {
         x_mult = 3,
       }
     },
+    attributes = { 'xmult', 'destroy_card' },
     lite = true,
     rarity = 3,
     pos = { x = 18, y = 13},

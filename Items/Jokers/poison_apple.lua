@@ -1,6 +1,6 @@
 local poison_apple = {
     object_type = "Joker",
-    order = 520,
+    order = 539,
     key = "poison_apple",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local poison_apple = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 5, y = 25 },
     atlas = 'joker_atlas',

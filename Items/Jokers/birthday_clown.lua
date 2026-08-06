@@ -1,6 +1,6 @@
 local birthday_clown = {
     object_type = "Joker",
-    order = 3,
+    order = 5,
 
     key = "birthday_clown",
     config = {
@@ -9,6 +9,7 @@ local birthday_clown = {
         active = true
       }
     },
+    attributes = { 'xmult' },
     rarity = 1,
     pos = { x = 2, y = 0 },
     atlas = 'joker_atlas',

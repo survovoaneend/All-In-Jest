@@ -1,12 +1,13 @@
 local fairground = {
     object_type = "Joker",
-    order = 709,
+    order = 731,
     ignore = true,
 
     key = "fairground",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 24, y = 38},
     atlas = 'joker_atlas',

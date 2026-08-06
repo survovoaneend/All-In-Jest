@@ -1,12 +1,13 @@
 local error_card = {
     object_type = "Joker",
-    order = 733,
+    order = 755,
     ignore = true,
 
     key = "error_card",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 23, y = 39},
     atlas = 'joker_atlas',

@@ -1,12 +1,13 @@
 local stitches = {
     object_type = "Joker",
-    order = 734,
+    order = 756,
     ignore = true,
 
     key = "stitches",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 24, y = 39},
     atlas = 'joker_atlas',

@@ -1,12 +1,13 @@
 local protophanes = {
     object_type = "Joker",
-    order = 745,
+    order = 767,
     ignore = true,
 
     key = "protophanes",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 7, y = 40},
     atlas = 'joker_atlas',

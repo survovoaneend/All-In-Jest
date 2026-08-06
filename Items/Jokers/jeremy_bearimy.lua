@@ -1,12 +1,13 @@
 local jeremy_bearimy = {
     object_type = "Joker",
-    order = 512,
+    order = 531,
     key = "jeremy_bearimy",
     config = {
         extra = {
             
         }
     },
+    attributes = { 'retrigger', 'joker' },
     rarity = 2,
     pos = { x = 22, y = 24 },
     atlas = 'joker_atlas',

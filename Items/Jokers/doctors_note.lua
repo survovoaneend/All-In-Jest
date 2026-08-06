@@ -1,11 +1,12 @@
 local doctors_note = {
     object_type = "Joker",
-    order = 56,
+    order = 59,
     ignore = true,
     key = "doctors_note",
     config = {
       
     },
+    attributes = {},
     rarity = 3,
     pos = { x = 2, y = 2 },
     atlas = 'joker_atlas',

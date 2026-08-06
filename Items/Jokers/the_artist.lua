@@ -1,6 +1,6 @@
 local the_artist = {
     object_type = "Joker",
-    order = 216,
+    order = 222,
 
     key = "the_artist",
     config = {
@@ -8,7 +8,9 @@ local the_artist = {
           more_selection = 1,
       }
     },
+    attributes = { 'passive', 'tarot', 'select_limit' },
     rarity = 3,
+    lite = true,
     pos = { x = 5, y = 8},
     atlas = 'joker_atlas',
     cost = 8,

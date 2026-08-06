@@ -1,6 +1,6 @@
 local richie_rich = {
     object_type = "Joker",
-    order = 237,
+    order = 242,
     
     key = "richie_rich",
     config = {
@@ -9,6 +9,7 @@ local richie_rich = {
         xdollars = 0.1
       }
     },
+    attributes = { 'economy' },
     rarity = 2,
     pos = { x = 5, y = 9},
     atlas = 'joker_atlas',

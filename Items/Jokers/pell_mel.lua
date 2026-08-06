@@ -1,6 +1,6 @@
 local pell_mel = {
     object_type = "Joker",
-    order = 37,
+    order = 40,
 
     key = "pell_mel",
     config = {
@@ -8,6 +8,7 @@ local pell_mel = {
         xmult_mod = 0.4,
       }
     },
+    attributes = { 'xmult', 'suit' },
     rarity = 2,
     pos = { x = 10, y = 1 },
     atlas = 'joker_atlas',

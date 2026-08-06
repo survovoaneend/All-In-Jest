@@ -1,9 +1,10 @@
 local headstone = {
     object_type = "Joker",
-    order = 329,
+    order = 336,
     key = "headstone",
     config = {
     },
+    attributes = { 'draw_cards', 'face' },
     rarity = 2,
     pos = { x = 0, y = 13},
     atlas = 'joker_atlas',

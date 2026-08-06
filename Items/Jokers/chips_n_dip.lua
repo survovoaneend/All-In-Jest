@@ -1,6 +1,6 @@
 local chips_n_dip = {
     object_type = "Joker",
-    order = 297,
+    order = 304,
     
     key = "chips_n_dip",
     config = {
@@ -9,6 +9,7 @@ local chips_n_dip = {
             xchips_mod = 0.25
         }
     },
+    attributes = { 'xchips', 'scaling', 'food' },
     rarity = 2,
     pos = { x = 19, y = 11},
     atlas = 'joker_atlas',

@@ -1,12 +1,13 @@
 local bullet_king = {
     object_type = "Joker",
-    order = 568,
+    order = 595,
     key = "bullet_king",
     config = {
         extra = {
             
         }
     },
+    attributes = { 'rank', 'king', 'trigger_cards', 'passive' },
     rarity = 2,
     pos = { x = 6, y = 27 },
     atlas = 'joker_atlas',

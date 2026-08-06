@@ -1,12 +1,13 @@
 local muon = {
     object_type = "Joker",
-    order = 674,
+    order = 696,
     ignore = true,
 
     key = "muon",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 14, y = 37},
     atlas = 'joker_atlas',

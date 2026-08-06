@@ -1,11 +1,12 @@
 local pygmalion = {
     object_type = "Joker",
-    order = 280,
+    order = 285,
     ignore = true,
     key = "pygmalion",
     config = {
        
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 1, y = 11},
     atlas = 'joker_atlas',

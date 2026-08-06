@@ -1,7 +1,7 @@
 
 local scary_story = {
     object_type = "Joker",
-    order = 26,
+    order = 29,
 
     key = "scary_story",
     config = {
@@ -9,6 +9,7 @@ local scary_story = {
             chance = 3
         }
     },
+    attributes = { 'modify_card', 'editions', 'negative', 'chance', 'booster' },
     rarity = 3,
     pos = { x = 0, y = 1 },
     atlas = 'joker_atlas',

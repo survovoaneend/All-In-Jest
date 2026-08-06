@@ -1,6 +1,6 @@
 local corndog = {
     object_type = "Joker",
-    order = 495,
+    order = 504,
 
     key = "corndog",
     config = {
@@ -8,6 +8,7 @@ local corndog = {
             hands = 10,
         }
     },
+    attributes = { 'food', 'hand_type' },
     rarity = 2,
     pos = { x = 1, y = 24 },
     atlas = 'joker_atlas',

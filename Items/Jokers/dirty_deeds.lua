@@ -1,12 +1,13 @@
 local dirty_deeds = {
     object_type = "Joker",
-    order = 670,
+    order = 692,
     ignore = true,
 
     key = "dirty_deeds",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 10, y = 37},
     atlas = 'joker_atlas',

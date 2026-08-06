@@ -1,12 +1,13 @@
 local cloth_joker = {
     object_type = "Joker",
-    order = 763,
+    order = 785,
     ignore = true,
 
     key = "cloth_joker",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 0, y = 41},
     atlas = 'joker_atlas',

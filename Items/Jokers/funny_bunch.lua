@@ -1,6 +1,6 @@
 local funny_bunch = {
     object_type = "Joker",
-    order = 450,
+    order = 469,
     key = "funny_bunch",
 
     config = {
@@ -8,10 +8,12 @@ local funny_bunch = {
             xmult_mod = 0.5
         }
     },
+    attributes = { 'xmult', 'joker', 'rarity' },
     rarity = 2,
     pos = { x = 19, y = 22 },
     atlas = 'joker_atlas',
     cost = 6,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

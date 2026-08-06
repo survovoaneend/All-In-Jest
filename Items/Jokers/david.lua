@@ -1,6 +1,6 @@
 local david = {
     object_type = "Joker",
-    order = 184,
+    order = 185,
 
     key = "david",
     config = {
@@ -9,6 +9,7 @@ local david = {
         chip_mod = 50
       }
     },
+    attributes = { 'chips', 'scaling', 'rank', 'suit', 'king', 'spades' },
     rarity = 3,
     pos = { x = 18, y = 9},
     atlas = 'joker_atlas',

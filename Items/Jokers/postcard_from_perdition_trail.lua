@@ -1,6 +1,6 @@
 local postcard_from_perdition_trail = {
   object_type = "Joker",
-  order = 203,
+  order = 209,
 
   key = "postcard_from_perdition_trail",
   config = {
@@ -9,6 +9,7 @@ local postcard_from_perdition_trail = {
       xmult_mod = 0.5
     }
   },
+  attributes = { 'modify_card', 'seals', 'xmult', 'scaling' },
   rarity = 3,
   pos = { x = 17, y = 7 },
   atlas = 'joker_atlas',
@@ -41,10 +42,15 @@ local postcard_from_perdition_trail = {
         end
       end
       if removed_a_seal then
-        card.ability.extra.xmult = card.ability.extra.xmult + (card.ability.extra.xmult_mod * seals_removed)
-        return {
-          message = localize('k_upgrade_ex')
-        }
+        SMODS.scale_card(card, {
+          ref_table = card.ability.extra,
+          ref_value = "xmult",
+          scalar_value = "xmult_mod",
+          operation = function(ref_table, ref_value, initial, change)
+              ref_table[ref_value] = initial + change * seals_removed
+          end,
+        })
+        return nil, true
       end
     end
     if context.joker_main then

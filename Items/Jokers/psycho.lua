@@ -1,6 +1,6 @@
 local psycho = {
     object_type = "Joker",
-    order = 525,
+    order = 544,
     key = "psycho",
 
     config = {
@@ -9,10 +9,12 @@ local psycho = {
             xmult = 1
         }
     },
+    attributes = { 'xmult', 'scaling', 'sell_value', 'destroy_card', 'position' },
     rarity = 3,
     pos = { x = 10, y = 25 },
     atlas = 'joker_atlas',
     cost = 8,
+    lite = true,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
@@ -41,7 +43,16 @@ local psycho = {
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         G.GAME.joker_buffer = 0
-                        card.ability.extra.xmult = card.ability.extra.xmult + (sliced_card.sell_cost * card.ability.extra.xmult_gain)
+                        SMODS.scale_card(card, {
+                            ref_table = card.ability.extra,
+                            ref_value = "xmult",
+                            scalar_value = "xmult_gain",
+                            operation = function(ref_table, ref_value, initial, change)
+                                ref_table[ref_value] = initial + change * sliced_card.sell_cost
+                            end,
+                            message_key = 'a_xmult',
+                            message_colour = G.C.MULT
+                        })
                         card:juice_up(0.8, 0.8)
                         
                         sliced_card:start_dissolve({ G.C.RED }, nil, 1.6)
@@ -50,11 +61,7 @@ local psycho = {
                     end
                 }))
                 
-                return {
-                    message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult + (sliced_card.sell_cost * card.ability.extra.xmult_gain) } },
-                    colour = G.C.XMULT,
-                    no_juice = true
-                }
+                return nil, true
             end
         end
         

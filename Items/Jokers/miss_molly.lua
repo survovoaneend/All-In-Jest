@@ -1,12 +1,13 @@
 local miss_molly = {
     object_type = "Joker",
-    order = 781,
+    order = 803,
     ignore = true,
 
     key = "miss_molly",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 16, y = 41},
     atlas = 'joker_atlas',

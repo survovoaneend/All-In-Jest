@@ -24,7 +24,7 @@ end
 
 local haruspex = {
     object_type = "Joker",
-    order = 77,
+    order = 80,
 
     key = "haruspex",
     config = {
@@ -33,6 +33,7 @@ local haruspex = {
             cards_to_draw = 1
         }
     },
+    attributes = { 'activated', 'draw_cards', 'choice' },
     rarity = 2,
     pos = { x = 22, y = 2 },
     atlas = 'joker_atlas',

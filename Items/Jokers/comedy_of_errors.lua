@@ -1,6 +1,6 @@
 local comedy_of_errors = {
     object_type = "Joker",
-    order = 258,
+    order = 264,
     lite = true,
     key = "comedy_of_errors",
     config = {
@@ -8,6 +8,7 @@ local comedy_of_errors = {
         dollars = 1
       }
     },
+    attributes = { 'discard', 'economy', 'suit', 'hearts' },
     rarity = 1,
     pos = { x = 5, y = 10},
     atlas = 'joker_atlas',

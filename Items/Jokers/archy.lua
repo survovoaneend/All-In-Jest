@@ -6,6 +6,7 @@ local archy = {
     config = {
       
     },
+    attributes = { 'shop', 'economy' },
     rarity = 4,
 	unlock_condition = {hidden = true},
     pos = { x = 0, y = 4},

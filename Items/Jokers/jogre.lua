@@ -1,12 +1,13 @@
 local jogre = {
     object_type = "Joker",
-    order = 569,
+    order = 596,
     key = "jogre",
     config = {
         extra = {
             dollars = 10
         }
     },
+    attributes = { 'economy' },
     rarity = 1,
     pos = { x = 7, y = 27 },
     atlas = 'joker_atlas',

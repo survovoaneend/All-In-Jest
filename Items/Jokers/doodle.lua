@@ -1,6 +1,6 @@
 local doodle = {
   object_type = "Joker",
-  order = 27,
+  order = 30,
 
   key = "doodle",
   config = {
@@ -9,6 +9,7 @@ local doodle = {
       should_activate = false
     }
   },
+  attributes = { 'copying', 'chance', 'position' },
   rarity = 3,
   pos = { x = 24, y = 0 },
   atlas = 'joker_atlas',

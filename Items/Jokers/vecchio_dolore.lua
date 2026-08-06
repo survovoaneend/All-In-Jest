@@ -1,10 +1,11 @@
 local vecchio_dolore = {
     object_type = "Joker",
-    order = 366,
+    order = 375,
     key = "vecchio_dolore",
     config = {
 
     },
+    attributes = { 'generation', 'editions', 'negative', 'reroll', 'shop' },
     rarity = 3,
     pos = { x = 24, y = 19},
     atlas = 'joker_atlas',

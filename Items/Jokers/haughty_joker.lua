@@ -1,6 +1,6 @@
 local haughty_joker = {
     object_type = "Joker",
-    order = 544,
+    order = 563,
     key = "haughty_joker",
     
     config = {
@@ -8,6 +8,7 @@ local haughty_joker = {
             chips = 1000
         }
     },
+    attributes = { 'chips', 'hand_type' },
     rarity = 1,
     pos = { x = 2, y = 26 },
     atlas = 'joker_atlas',

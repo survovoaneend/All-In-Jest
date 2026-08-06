@@ -1,6 +1,6 @@
 local simple_simon = {
     object_type = "Joker",
-    order = 146,
+    order = 149,
     lite = true,
     key = "simple_simon",
     config = {
@@ -8,6 +8,7 @@ local simple_simon = {
         chips = 30
       }
     },
+    attributes = { 'chips' },
     rarity = 1,
     pos = { x = 15, y = 5 },
     atlas = 'joker_atlas',

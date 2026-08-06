@@ -1,12 +1,13 @@
 local fuzzy_joker = {
     object_type = "Joker",
-    order = 259,
+    order = 265,
     key = "fuzzy_joker",
     config = {
         extra = {
            power = 2
         }
     },
+    attributes = { 'mult' },
     rarity = 1,
     pos = { x = 6, y = 10},
     atlas = 'joker_atlas',

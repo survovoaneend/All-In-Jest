@@ -1,12 +1,12 @@
 local bad_guy = {
     object_type = "Joker",
-    order = 368,
+    order = 377,
     
     key = "bad_guy",
     config = {
 
     },
-
+    attributes = { 'editions' },
     rarity = 2,
     pos = { x = 1, y = 20},
     atlas = 'joker_atlas',

@@ -1,12 +1,13 @@
 local tetraneutron = {
     object_type = "Joker",
-    order = 694,
+    order = 716,
     ignore = true,
 
     key = "tetraneutron",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 9, y = 38},
     atlas = 'joker_atlas',

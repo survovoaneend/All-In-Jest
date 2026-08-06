@@ -1,12 +1,13 @@
 local eartoear = {
     object_type = "Joker",
-    order = 728,
+    order = 750,
     ignore = true,
 
     key = "eartoear",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 18, y = 39},
     atlas = 'joker_atlas',

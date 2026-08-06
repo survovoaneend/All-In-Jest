@@ -1,12 +1,13 @@
 local pog = {
     object_type = "Joker",
-    order = 366,
+    order = 385,
     key = "pog",
     config = {
         extra = {
             
         }
     },
+    attributes = { 'generation', 'tag', 'booster' },
     rarity = 2,
     pos = { x = 4, y = 17 },
     atlas = 'joker_atlas',

@@ -1,6 +1,6 @@
 local fish_fingers = {
     object_type = "Joker",
-    order = 301,
+    order = 308,
 
     key = "fish_fingers",
     config = {
@@ -9,6 +9,7 @@ local fish_fingers = {
         hand_mod = 1
       }
     },
+    attributes = { 'hands', 'food' },
     rarity = 2,
     pos = { x = 23, y = 11},
     atlas = 'joker_atlas',

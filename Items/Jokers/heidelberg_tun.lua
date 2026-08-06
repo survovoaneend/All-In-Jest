@@ -1,6 +1,6 @@
 local heidelberg_tun = {
   object_type = "Joker",
-  order = 127,
+  order = 130,
 
   key = "heidelberg_tun",
   config = {
@@ -9,6 +9,7 @@ local heidelberg_tun = {
       active = true
     }
   },
+  attributes = { 'editions', 'negative', 'consumable' },
   rarity = 2,
   pos = { x = 21, y = 4 },
   atlas = 'joker_atlas',

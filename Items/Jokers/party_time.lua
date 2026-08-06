@@ -1,6 +1,6 @@
 local party_time = {
     object_type = "Joker",
-    order = 517,
+    order = 526,
 
     key = "party_time",
     config = {
@@ -8,6 +8,7 @@ local party_time = {
             chip_mod = 4
         }
     },
+    attributes = { 'perma_bonus', 'joker', 'chips' },
     rarity = 1,
     pos = { x = 17, y = 24 },
     atlas = 'joker_atlas',

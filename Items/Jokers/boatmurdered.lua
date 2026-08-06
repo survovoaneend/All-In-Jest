@@ -1,12 +1,13 @@
 local boatmurdered = {
     object_type = "Joker",
-    order = 689,
+    order = 711,
     ignore = true,
 
     key = "boatmurdered",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 4, y = 38},
     atlas = 'joker_atlas',

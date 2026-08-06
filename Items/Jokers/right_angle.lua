@@ -1,11 +1,12 @@
 local right_angle = {
     object_type = "Joker",
-    order = 66,
+    order = 69,
 
     key = "right_angle",
     config = {
       
     },
+    attributes = { 'trigger_cards', 'rank', 'nine', 'ten' },
     rarity = 2,
     pos = { x = 12, y = 2 },
     atlas = 'joker_atlas',

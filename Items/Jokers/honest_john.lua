@@ -1,12 +1,13 @@
 local honest_john = {
   object_type = "Joker",
-  order = 160,
+  order = 163,
   ignore = true,
 
   key = "honest_john",
   config = {
     
   },
+  attributes = {},
   rarity = 1,
   pos = { x = 4, y = 6},
   atlas = 'joker_atlas',

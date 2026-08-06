@@ -1,6 +1,6 @@
 local comic_panel = {
     object_type = "Joker",
-    order = 491,
+    order = 510,
     key = "comic_panel",
     
     config = {
@@ -8,6 +8,7 @@ local comic_panel = {
             odds = 10
         }
     },
+    attributes = { 'chance', 'modify_card', 'enhancements' },
     rarity = 1,
     pos = { x = 7, y = 24 },
     atlas = 'joker_atlas',

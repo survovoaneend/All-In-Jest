@@ -1,12 +1,13 @@
 local aviator = {
     object_type = "Joker",
-    order = 725,
+    order = 747,
     ignore = true,
 
     key = "aviator",
     config = {
 
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 39},
     atlas = 'joker_atlas',

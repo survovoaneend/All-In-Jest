@@ -1,6 +1,6 @@
 local selene = {
     object_type = "Joker",
-    order = 504,
+    order = 523,
     key = "selene",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local selene = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 15, y = 24 },
     atlas = 'joker_atlas',

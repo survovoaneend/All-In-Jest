@@ -1,11 +1,12 @@
 local pellucid_joker = {
     object_type = "Joker",
-    order = 142,
+    order = 145,
 
     key = "pellucid_joker",
     config = {
       
     },
+    attributes = { 'generation', 'playing_card', 'editions', 'on_sell', 'on_destroy' },
     rarity = 2,
     pos = { x = 11, y = 5 },
     atlas = 'joker_atlas',

@@ -1,10 +1,11 @@
 local bobblehead = {
     object_type = "Joker",
-    order = 78,
+    order = 81,
 
     key = "bobblehead",
     config = {
     },
+    attributes = { 'rarity' },
     rarity = 2,
     pos = { x = 23, y = 2 },
     atlas = 'joker_atlas',

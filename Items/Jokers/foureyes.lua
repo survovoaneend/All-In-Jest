@@ -1,6 +1,6 @@
 local foureyes = {
     object_type = "Joker",
-    order = 383,
+    order = 402,
     key = "foureyes",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local foureyes = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 14, y = 16 },
     atlas = 'joker_atlas',

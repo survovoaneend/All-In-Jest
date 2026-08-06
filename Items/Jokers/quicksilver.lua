@@ -1,6 +1,6 @@
 local quicksilver = {
     object_type = "Joker",
-    order = 564,
+    order = 582.1,
     key = "quicksilver",
     
     config = {
@@ -8,6 +8,7 @@ local quicksilver = {
             
         }
     },
+    attributes = { 'retrigger', 'hand_type' },
     rarity = 1,
     pos = { x = 2, y = 27 },
     atlas = 'joker_atlas',

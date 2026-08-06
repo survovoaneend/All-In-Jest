@@ -1,6 +1,6 @@
 local clownfish = {
     object_type = "Joker",
-    order = 379,
+    order = 398,
     key = "clownfish",
     ignore = true,
     config = {
@@ -8,6 +8,7 @@ local clownfish = {
             
         }
     },
+    attributes = {},
     rarity = 1,
     pos = { x = 19, y = 16 },
     atlas = 'joker_atlas',
