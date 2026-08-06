@@ -8940,6 +8940,102 @@ return {
                 },
                 unlock = { "?????" }
             },
+            j_aij_de_morra = {
+                name = "de Morra",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_de_acedo = {
+                name = "de Acedo",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_antonio = {
+                name = "Antonio",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_li_keji = {
+                name = "Li Keji",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_panasco = {
+                name = "Panasco",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_wamba = {
+                name = "Wamba",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_galet = {
+                name = "Galet",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_carequinha = {
+                name = "Carequinha",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_skeeter = {
+                name = "Skeeter",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_muckle = {
+                name = "Muckle",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_pengelding = {
+                name = "Pengelding",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_robin = {
+                name = "Robin",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_stone = {
+                name = "Stone",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_low = {
+                name = "Low",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_simnell = {
+                name = "Simnell",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_moros = {
+                name = "Moros",
+                text = {
+                    ''
+                }
+            },
         },
         Planet = {
             c_aij_vulcanoid = {
