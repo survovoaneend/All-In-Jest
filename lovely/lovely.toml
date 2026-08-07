@@ -142,6 +142,16 @@ end
 
 [[patches]]
 [patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if not G.GAME.shop then return end"
+position = "after"
+match_indent = true
+payload = '''
+if G.GAME.modifiers.aij_sharpest_tool_1 then aij_change_shop_size_advanced(mod, 'ch_sharpest_tool', nil, 0) end
+'''
+
+[[patches]]
+[patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
 match_indent = true
 position = 'before'
