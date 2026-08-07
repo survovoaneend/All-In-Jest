@@ -101,7 +101,6 @@ local wamba = {
                         end
                     end
                 end
-                print(context.pool)
             end
         end
     end
