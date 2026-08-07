@@ -1069,6 +1069,7 @@ return {
                 text = {
                     'Destroy all',
                     'Perishable Jokers',
+                    'when selecting Blind'
                 },
             },
             bl_aij_the_silence = {
@@ -1280,7 +1281,7 @@ return {
                 text = {
                     'Excess score on this Blind',
                     'is added to all subsequent',
-                    'Boss Blinds'
+                    'Blinds'
                 },
             },
             -- Finisher Blinds
@@ -5812,12 +5813,9 @@ return {
             j_aij_headache = {
                 name = "Headache",
                 text = {
-                    {
+                        '{C:mult}+#2#{} Mult',
                         '{C:attention}+$#1#{} {C:green}reroll{} cost'
-                    },
-                    {
-                        '{C:mult}+#2#{} Mult'
-                    }
+
                 }
             },
             j_aij_mountie = {
@@ -6482,10 +6480,9 @@ return {
                 name = "Lawfirm",
                 text = {
                     "{B:1,C:white,s:0.8}Activated Ability",
-                    "{C:attention}Once{} per round, pay {C:money}$#3#{} to",
-                    "have a {C:green}#1# in #2#{} chance to",
+                    "Pay {C:money}$#3#{} for a",
+                    "{C:green}#1# in #2#{} chance to",
                     "disable the {C:attention}Boss Blind",
-                    "{C:inactive}#4#"
                 }
             },
             j_aij_psalmanazar = {
@@ -10318,6 +10315,15 @@ return {
                     "{C:attention}Create{} a random",
                     "Passigrade {C:aij_astral}Astral{}",
                     "card",
+                }
+            },
+            c_aij_twilight = {
+                name = 'Twilight',
+                text = {
+                    "Earn {C:money}$#1#{} for each level of",
+                    "your most played poker hand",
+                    "{C:inactive}(Max of {C:money}$#2#{C:inactive})",
+                    "{C:inactive}(Currently {C:money}$#3#{C:inactive} - #4#)"
                 }
             },
             c_aij_rising_dead = {

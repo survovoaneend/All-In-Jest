@@ -4,7 +4,6 @@ local lawfirm = {
     key = "lawfirm",
     config = {
         extra = {
-            active = true,
             cost = 5,
             odds = 2
         }
@@ -25,7 +24,7 @@ local lawfirm = {
         end,
 
         can_use_ability = function(self, card, context)
-            if card.ability.extra.active and G.GAME.blind and G.GAME.blind.boss then
+            if G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then
                 return true
             end
         end,
@@ -48,24 +47,16 @@ local lawfirm = {
                         return true
                     end }))
                 end
-                card.ability.extra.active = false
             end
         end,
     },
 
     loc_vars = function(self, info_queue, card)
-        local active_text = ""
-        if not card.ability.extra.active then
-            active_text = "(" .. localize('k_inactive') .. ")"
-        else
-            active_text = "(" .. localize('k_active') .. ")"
-        end
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'lawfirm')
         return {
             vars = {
                 numerator, denominator,
                 card.ability.extra.cost,
-                active_text,
                 colours = {
                     G.C.SECONDARY_SET.Enhanced
                 }
@@ -78,12 +69,6 @@ local lawfirm = {
             card.aij_ability_cost_label = card.config.center.all_in_jest:ability_cost(card) or "??"
         end
     end,
-
-    calculate = function(self, card, context)
-        if context.end_of_round and context.main_eval and not context.blueprint then
-            card.ability.extra.active = true
-        end
-    end
 }
 
 return { name = { "Jokers" }, items = { lawfirm } }
