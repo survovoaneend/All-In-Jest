@@ -4299,9 +4299,9 @@ return {
             j_aij_bartender = {
                 name = "Bartender",
                 text = {
-                    "Apply {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
-                    "{C:dark_edition}Polychrome{} to a random held ",
-                    "{C:attention}consumable when leaving the {C:attention}Shop"
+                    "{C:attention}Consumable{} cards may be",
+                    "{C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
+                    "{C:dark_edition}Polychrome"
                 }
             },
             j_aij_mahoney = {
@@ -4936,10 +4936,9 @@ return {
             j_aij_skinsuit = {
                 name = "Skinsuit",
                 text = {
-                    "If {C:attention}first hand{} of round is",
-                    "exactly {C:attention}one{} card, {C:red}destroy{} it and",
-                    "patch its {C:attention}suit{} to a random card",
-                    "held in hand"
+                    "When a card is {C:red}destroyed{},",
+                    "patch its {C:attention}suit{} onto a {C:attention}random",
+                    "{C:attention}card{} held in hand"
                 }
             },
             j_aij_shock_humor = { name = "Shock Humor", text = { "" } },
@@ -5813,9 +5812,8 @@ return {
             j_aij_headache = {
                 name = "Headache",
                 text = {
-                        '{C:mult}+#2#{} Mult',
-                        '{C:attention}+$#1#{} {C:green}reroll{} cost'
-
+                    '{C:mult}+#2#{} Mult',
+                    '{C:attention}+$#1#{} {C:green}reroll{} cost'
                 }
             },
             j_aij_mountie = {
@@ -10185,6 +10183,14 @@ return {
                 text = {
                     'All Jokers in the next',
                     'shop are {E:aij_misprinted_red}Misprinted'
+                }
+            },
+            tag_aij_grand_astrologer = {
+                name = 'Grand Astrologer Tag',
+                text = {
+                    'The next used {C:planet}Planet',
+                    'card levels up all',
+                    'Poker hands {C:attention}2-4{} times'
                 }
             },
         },
