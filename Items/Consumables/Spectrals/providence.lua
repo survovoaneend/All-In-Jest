@@ -4,7 +4,6 @@ local providence = {
 	set = 'Spectral',
     atlas = 'consumable_atlas',
 	pos = { x = 17, y = 8 },
-	ignore = true,
 	cost = 4,
 	unlocked = true,
 	discovered = false,
