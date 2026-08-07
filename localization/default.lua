@@ -14,13 +14,14 @@ return {
             k_star_q = "Star?",
             k_asteroid = "Asteroid",
             k_tarot_q = "Tarot?",
-            k_tarot_hex = "The Hex",
+            k_tarot_hex = "Hex",
             k_active = "Active",
             k_inactive = "Inactive",
             k_aij_remove = "Remove",
             k_aij_party_time = "Party Time!",
             k_aij_replace = "Replace",
             k_aij_select = "Select",
+            b_aij_reroll_tags = "Reroll Tags",
             k_aij_astral = 'Astral',
             b_aij_astral_cards = 'Astral Cards',
             k_aij_inherent = "Inherent",
@@ -77,6 +78,70 @@ return {
                 '{C:purple}the Jest Packs{}, showing the',
                 'names of the Jokers',
                 '{s:0.8,C:inactive}(but not their descriptions)'
+            },
+            aij_borra_triggers = {
+                'card is scored',
+                'card is discarded',
+                'a consumable is used',
+                'anything is purchased',
+                'anything is sold',
+                'blind is selected',
+                'blind is skipped',
+                'blind is defeated',
+                'booster pack is skipped',
+                'hand is played',
+                'boss blind effect is triggered',
+                'card is destroyed',
+                'Joker is destroyed',
+                'discard is used',
+                'rerolling in the shop',
+                'a playing card is added to deck',
+                'interest is earned',
+                'lucky card triggers',
+                'steel card triggers',
+                'tag is gained',
+                'tag activates',
+                'poker hand levels up',
+                'consumable is acquired',
+            },
+            aij_wanba_attributes = {
+                ['mult'] = '+Mult',
+                ['chips'] = '+Chips',
+                ['xmult'] = 'XMult',
+                ['balance'] = 'Balancing',
+                ['retrigger'] = 'Retrigger',
+                ['scaling'] = 'Scaling',
+                ['diamonds'] = 'Diamonds-related',
+                ['hearts'] = 'Hearts-related',
+                ['spades'] = 'Spades-related',
+                ['clubs'] = 'Clubs-related',
+                ['hand_type'] = 'Poker Hand',
+                ['ace'] = 'Ace-related',
+                ['two'] = 'Two-related',
+                ['three'] = 'Three-related',
+                ['four'] = 'Four-related',
+                ['five'] = 'Five-related',
+                ['six'] = 'Six-related',
+                ['seven'] = 'Seven-related',
+                ['eight'] = 'Eight-related',
+                ['nine'] = 'Nine-related',
+                ['ten'] = 'Ten-related',
+                ['jack'] = 'Jack-related',
+                ['queen'] = 'Queen-related',
+                ['king'] = 'King-related',
+                ['face'] = 'Face card related',
+                ['economy'] = 'Economy',
+                ['generation'] = 'Generating',
+                ['destroy_card'] = 'Card-destroying',
+                ['hand_size'] = 'Hand Size',
+                ['discard'] = 'Discard',
+                ['hands'] = 'Hand',
+                ['chance'] = 'Probability based',
+                ['mod_chance'] = 'Probability modifying',
+                ['tarot'] = 'Tarot related',
+                ['planet'] = 'Planet related',
+                ['spectral'] = 'Spectral related',
+                ['food'] = 'Food',
             },
             k_aij_guess_the_jest = "Guess the Jest",
             k_aij_sidereal_packs = "Sidereal Pack",
@@ -215,6 +280,9 @@ return {
             k_aij_ghosthunter_ghostless_2 = "in the",
             k_aij_ghosthunter_ghost_1 = "cards appear",
             k_aij_ghosthunter_ghost_2 = "more often",
+            -- Borra
+            k_aij_borra_gains = 'Gains',
+            k_aij_borra_when = 'Mult when',
         },
         labels = {
             -- Editions
@@ -3492,7 +3560,12 @@ return {
                 -- BUG: "Number of 8s scored" implies retriggers count,
                 -- but they don't
             },
-            j_aij_gille = { name = "Gille", text = { "" } },
+            j_aij_gille = { 
+                name = "Gille", 
+                text = { 
+                    "May {C:attention}reroll{} available {C:attention}Tags" 
+                } 
+            },
             j_aij_fulehung = {
                 name = "Fulehung",
                 text = {
@@ -4175,7 +4248,20 @@ return {
                     "Jokers are owned"
                 }
             },
-            j_aij_american_comic = { name = "American Comic", text = { "" } },
+            j_aij_american_comic = { 
+                name = "American Comic", 
+                text = { 
+                    {
+                        "Adds {C:attention}#1#{} extra slot to",
+                        "the {C:money}shop{}"
+                    },
+                    {
+                        "{C:attention}Added{} slot always contains",
+                        "a random {C:common}Common{} Joker ",
+                        "for sale"
+                    },
+                } 
+            },
             j_aij_from_the_top_rope = { name = "From the Top Rope", text = { "" } },
             j_aij_fortune_cookie = {
                 name = "Fortune Cookie",
@@ -4338,7 +4424,13 @@ return {
                     '{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)'
                 }
             },
-            j_aij_the_mermaid = { name = "The Mermaid", text = { "" } },
+            j_aij_the_mermaid = { 
+                name = "The Mermaid", 
+                text = { 
+                    'You may {C:red}discard{} at least',
+                    '{C:attention}once{} during {C:attention}Booster Packs '
+                } 
+            },
             j_aij_colour_test = {
                 name = "Colour Test",
                 text = {
@@ -5297,7 +5389,10 @@ return {
             j_aij_mad_scientist = {
                 name = "Mad Scientist",
                 text = {
-                    ''
+                    'When a card is {C:attention}enhanced{},',
+                    'a different {C:attention}random',
+                    '{C:attention}enhancement{} is',
+                    'fused to it'
                 }
             },
             j_aij_propaganda = {
@@ -5565,7 +5660,19 @@ return {
             j_aij_red_joker = {
                 name = "Red Joker",
                 text = {
-                    ''
+                    {
+                        'This {C:attention}Joker{} gains {C:mult}+#2#',
+                        'Mult when a card is',
+                        'scored, {C:attention}Resets{} when',
+                        'a previously {C:attention}scored',
+                        '{C:attention}card{} is played'
+                    },
+                    {
+                        'All previously {C:attention}scored',
+                        '{C:attention}cards{} are forgotten',
+                        'on {C:attention}resetting',
+                        '{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)'
+                    }
                 }
             },
             j_aij_the_green_room = {
@@ -7168,7 +7275,17 @@ return {
             j_aij_pinup_poster = {
                 name = "Pin-Up Poster",
                 text = {
-                    ''
+                    {
+                        'This Joker is always',
+                        '{C:attention}pinned{} to the {C:attention}left',
+                        'of your Jokers'
+                    },
+                    {
+                        'Gains {X:mult,C:white}X#1#{} Mult per',
+                        '{C:red}Hearts{} suit card in',
+                        'your {C:attention}remaining deck',
+                        '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult){}',
+                    }
                 }
             },            
             j_aij_the_judge = {
@@ -7456,7 +7573,17 @@ return {
             j_aij_train_conductor = {
                 name = "Train Conductor",
                 text = {
-                    ''
+                    {
+                        '{C:mult}+Mult{} Jokers instead give',
+                        '{C:mult}XMult{} equal to {C:attention}#1#%{} of',
+                        'their original values',
+                        '{C:inactive}(Minimum {X:mult,C:white}X1.2{C:inactive} Mult){}'
+                    },
+                    {
+                        '{C:mult}XMult{} Jokers instead give',
+                        '{C:mult}+Mult{} equal to {C:attention}#2#%{} of',
+                        'their original values'
+                    },
                 }
             },            
             j_aij_bookmaker = {
@@ -8131,6 +8258,168 @@ return {
                     ''
                 }
             },
+            j_aij_shock_content = {
+                name = "Shock Content",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_hot_sauce = {
+                name = "Hot Sauce",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_ngmp = {
+                name = "Ng'Mp",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_friendly_face = {
+                name = "Friendly Face",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_outside_in_joker = {
+                name = "Outside In Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_tangled_joker = {
+                name = "Tangled Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_emptyhead = {
+                name = "Empty-head",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_minimalist = {
+                name = "Minimalist",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_capo = {
+                name = "Capo",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_investment_banker = {
+                name = "Investment Banker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_black_belt = {
+                name = "Black Belt",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_two_fifty_six = {
+                name = "256",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_jelly_beans = {
+                name = "Jelly Beans",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_zebra = {
+                name = "Zebra",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_draupnir = {
+                name = "Draupnir",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_te_aroha = {
+                name = "Te Aroha",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_lottery_ticket = {
+                name = "Lottery Ticket",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_booms_day = {
+                name = "Boom's Day",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_commentator = {
+                name = "Commentator",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_golden_effigy = {
+                name = "Golden Effigy",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_piece_of_mind = {
+                name = "Piece of Mind",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_one_bit_joker = {
+                name = "1-Bit Joker",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_card_shop = {
+                name = "Card Shop",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_pour_one_out = {
+                name = "Pour One Out",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_suspend = {
+                name = "Suspend",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_chaos_orb = {
+                name = "Chaos Orb",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_big_fish = {
+                name = "Big Fish",
+                text = {
+                    ''
+                }
+            },
 
 
             j_aij_prototype = {
@@ -8399,7 +8688,13 @@ return {
                 unlock = { "?????" }
             },
             j_aij_roland = { name = "Roland", text = { "" }, unlock = { "?????" } },
-            j_aij_borra = { name = "Borra", text = { "" }, unlock = { "?????" } },
+            j_aij_borra = { 
+                name = "Borra", 
+                text = { 
+                    '{C:inactive}(Currently {C:mult}+#1#{} {C:inactive}Mult)',
+                }, 
+                unlock = { "?????" } 
+            },
             j_aij_taillefer = {
                 name = "Taillefer",
                 text = {
@@ -8421,7 +8716,14 @@ return {
                 -- TODO Should start at X1 as a legendary
                 unlock = { "?????" }
             },
-            j_aij_dongfang = { name = "Dongfang", text = { "" }, unlock = { "?????" } },
+            j_aij_dongfang = { 
+                name = "Dongfang", 
+                text = { 
+                    "Retrigger all {C:planet}Planet",
+                    "cards {C:attention}#1#{} times" 
+                }, 
+                unlock = { "?????" } 
+            },
             j_aij_zerco = {
                 name = "Zerco",
                 text = {
@@ -8684,6 +8986,110 @@ return {
                     "{C:inactive}(Currently{} {X:mult,C:white}X#2#{} {C:inactive}Mult){}"
                 },
                 unlock = { "?????" }
+            },
+            j_aij_de_morra = {
+                name = "de Morra",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_de_acedo = {
+                name = "de Acedo",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_antonio = {
+                name = "Antonio",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_li_keji = {
+                name = "Li Keji",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_panasco = {
+                name = "Panasco",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_wamba = {
+                name = "Wamba",
+                text = {
+                    {
+                        '{C:attention}#1#{} Jokers are',
+                        '{C:attention}#2#X{} more common'
+                    },
+                    {
+                        '{B:1,C:white,s:0.8}Activated Ability',
+                        'Cycle what {C:attention}type{} of',
+                        'Joker is more common'
+                    }
+                }
+            },            
+            j_aij_galet = {
+                name = "Galet",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_carequinha = {
+                name = "Carequinha",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_skeeter = {
+                name = "Skeeter",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_muckle = {
+                name = "Muckle",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_pengelding = {
+                name = "Pengelding",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_robin = {
+                name = "Robin",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_stone = {
+                name = "Stone",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_low = {
+                name = "Low",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_simnell = {
+                name = "Simnell",
+                text = {
+                    ''
+                }
+            },            
+            j_aij_moros = {
+                name = "Moros",
+                text = {
+                    ''
+                }
             },
         },
         Planet = {

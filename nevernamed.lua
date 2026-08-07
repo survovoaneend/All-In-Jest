@@ -248,6 +248,10 @@ SMODS.Gradient {
 SMODS.Attribute {
     key = 'chaotic'
 }
+-- triggers during a hand or when a hand is played
+SMODS.Attribute {
+    key = 'during_hand'
+}
 -- related to Moon planet cards
 SMODS.Attribute {
     key = 'moon'

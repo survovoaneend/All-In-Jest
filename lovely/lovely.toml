@@ -21,6 +21,103 @@ if self.ability.aij_pc_perishable and self.ability.perish_tally <= 0 then
 end
 '''
 
+[[patches]]
+[patches.regex]
+target = "cardarea.lua"
+pattern = '''
+(?<indent>[\t ]*)a\.pinned(?<post>.*)
+'''
+position = "at"
+line_prepend = '$indent'
+payload = '''
+$indent(a.ability and a.ability.aij_pinned or a.pinned)$post
+'''
+
+[[patches]]
+[patches.regex]
+target = "cardarea.lua"
+pattern = '''
+(?<indent>[\t ]*)b\.pinned(?<post>.*)
+'''
+position = "at"
+line_prepend = '$indent'
+payload = '''
+$indent(b.ability and b.ability.aij_pinned or b.pinned)$post
+'''
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''if not SMODS.Calculation_Controls.chips then return end'''
+position = "after"
+payload = '''
+local flags = {}
+SMODS.calculate_context({aij_modify_card_effects = true, parameter = self, effects = effect, effect_type = key, card = scored_card, amount = amount, from_edition = from_edition}, flags)
+local override = false
+for _, eval in pairs(flags) do
+    for key, eval2 in pairs(eval) do
+        if type(eval2) == 'table' then
+            for key2, val in pairs(eval2) do
+                if key2 == 'override' then override = val end
+            end
+        end
+    end
+end
+if override then return true end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''if not SMODS.Calculation_Controls.mult then return end'''
+position = "after"
+payload = '''
+local flags = {}
+SMODS.calculate_context({aij_modify_card_effects = true, parameter = self, effects = effect, effect_type = key, card = scored_card, amount = amount, from_edition = from_edition}, flags)
+local override = false
+for _, eval in pairs(flags) do
+    for key, eval2 in pairs(eval) do
+        if type(eval2) == 'table' then
+            for key2, val in pairs(eval2) do
+                if key2 == 'override' then override = val end
+            end
+        end
+    end
+end
+if override then return true end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''G.pack_cards = CardArea('''
+position = "before"
+payload = '''
+local text_scale = 0.45
+local button_height = 0.8
+local aij_discard_button_ui = {n=G.UIT.C, config={id = 'discard_button',align = "tm", padding = 0.3, r = 0.1, minw = 2.5, minh = button_height, hover = true, colour = G.C.RED, button = "aij_booster_discard_cards_from_highlighted", shadow = true, func = 'aij_booster_can_discard'}, nodes={
+    {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+        {n=G.UIT.T, config={text = localize('b_discard'), scale = text_scale, colour = G.C.UI.TEXT_LIGHT, focus_args = {button = 'y', orientation = 'bm'}, func = 'set_button_pip'}}
+    }},
+    {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+        {n=G.UIT.T, config={ref_table = SMODS.hand_limit_strings, ref_value = 'discard', scale = text_scale * 0.65, colour = G.C.UI.TEXT_LIGHT}}
+    }},
+}}
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''{n=G.UIT.C,config={align = "tm", padding = 0.05, minw = 2.4}, nodes={}},'''
+position = "before"
+payload = '''
+G.GAME and G.GAME.aij_discard_button and self.draw_hand == true and aij_discard_button_ui or
+'''
+match_indent = true
+
 # Perma-flipped for Playing Cards
 # draw_card()
 # allows cards to stay flipped when drawn permanently
@@ -1125,6 +1222,36 @@ if (G.GAME.selected_back and G.GAME.selected_back.name == 'b_aij_patchwork') or 
     end
 end
 '''
+
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+-- Use SMODS object weight system when enabled
+'''
+position = "before"
+payload = '''
+if G.GAME.shop and G.GAME.shop.slot_details and #G.GAME.shop.slot_details > 0 and G.shop_jokers and area == G.shop_jokers and G.GAME.shop.slot_details[G.GAME.shop.joker_max - #G.shop_jokers.cards] then
+    local slot = G.GAME.shop.slot_details[G.GAME.shop.joker_max - #G.shop_jokers.cards]
+    local args = {set = slot.type, key = slot.key, rarity = slot.rarity, area = area, key_append = (G.GAME.shop.joker_max - #G.shop_jokers.cards)..'aij_sho', front = false}
+    local card = SMODS.create_card(args)
+    SMODS.calculate_context({modify_shop_card = true, card = card})
+    create_shop_card_ui(card, slot.type, area)
+    G.E_MANAGER:add_event(Event({
+        func = (function()
+            for k, v in ipairs(G.GAME.tags) do
+                if v:apply_to_run({type = 'store_joker_modify', card = card}) then break end
+            end
+            return true
+        end)
+    }))
+    if (slot.type == 'Base' or slot.type == 'Enhanced') and G.GAME.used_vouchers["v_illusion"] and pseudorandom(pseudoseed('illusion')) > 0.8 then 
+        card:set_edition(poll_edition('illusion', nil, true, true))
+    end
+    return card
+end
+'''
+match_indent = true
 
 # Branching Deck (1/9)
 # Create UI for the three tag choices
@@ -2666,6 +2793,16 @@ match_indent = true
 payload = '''
 (G.GAME.jest_free_stultor_rerolls > 0) and
 UIBox_button({label = {localize('b_reroll_boss'), localize('$')..'0'}, button = "jest_free_reroll_boss", func = 'jest_free_reroll_boss_button'}) or
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''UIBox_button({label = {localize('b_reroll_boss'), localize('$')..'10'}, button = "reroll_boss", func = 'reroll_boss_button'}) or nil'''
+position = "after"
+match_indent = true
+payload = ''',
+(G.GAME.aij_tag_rerolls and G.GAME.aij_tag_rerolls > 0) and UIBox_button({label = {localize('b_aij_reroll_tags'), localize('$')..(G.GAME.current_round.reroll_cost or 5)}, button = "aij_reroll_tag", func = 'aij_reroll_tag_button'}) or nil,
 '''
 
 # Grant lucky cards additional +mult from other effects (rather than only giving +20 mult on a trigger)

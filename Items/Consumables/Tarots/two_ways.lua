@@ -8,13 +8,13 @@ local two_ways = {
     unlocked = true,
     discovered = false,
     order = 5,
-    config = { max_highlight = 1 },
+    config = { max_highlighted = 1 },
     atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.max_highlight } }
+        return { vars = { card.ability.max_highlighted } }
     end,
     can_use = function(self, card, area, copier)
-        if G.hand and (#G.hand.highlighted <= card.ability.max_highlight and #G.hand.highlighted > 0) then
+        if G.hand and (#G.hand.highlighted <= card.ability.max_highlighted and #G.hand.highlighted > 0) then
             for i = 1, #G.hand.highlighted do
                 if G.hand.highlighted[i].base.id == 2 or G.hand.highlighted[i].base.id == 3 or SMODS.has_enhancement(G.hand.highlighted[i], 'm_aij_canvas') then
                     return false

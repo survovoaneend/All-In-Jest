@@ -7,18 +7,18 @@ local urns = {
 	unlocked = true,
 	discovered = false,
 	order = 13,
-	config = { max_highlight = 1, ran_cards = 3 },
+	config = { max_highlighted = 1, ran_cards = 3 },
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
-				card.ability.max_highlight,
+				card.ability.max_highlighted,
 				card.ability.ran_cards,
 			}
 		}
 	end,
 	can_use = function(self, card)
-        if G.hand and #G.hand.cards >= card.ability.ran_cards and (#G.hand.highlighted <= card.ability.max_highlight and #G.hand.highlighted > 0) then
+        if G.hand and #G.hand.cards >= card.ability.ran_cards and (#G.hand.highlighted <= card.ability.max_highlighted and #G.hand.highlighted > 0) then
 			for k, v in pairs(G.hand.highlighted) do
 				if v.config.center ~= G.P_CENTERS.c_base then
 					return true
