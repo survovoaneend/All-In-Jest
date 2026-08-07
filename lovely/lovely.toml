@@ -147,7 +147,7 @@ pattern = "if not G.GAME.shop then return end"
 position = "after"
 match_indent = true
 payload = '''
-if G.GAME.modifiers.aij_sharpest_tool_1 then aij_change_shop_size_advanced(mod, 'ch_sharpest_tool', nil, 0) end
+if G.GAME.modifiers.aij_sharpest_tool_1 then aij_change_shop_size_advanced(mod, 'ch_sharpest_tool', nil, 0); return end
 '''
 
 [[patches]]
