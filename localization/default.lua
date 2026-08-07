@@ -6418,7 +6418,7 @@ return {
                     'Modded {C:attention}Jokers{}, {C:tarot}Tarots{}, and',
                     '{C:planet}Planets{} may not appear in',
                     'the {C:money}Shop{}, Consumed after',
-                    '{C:attention}#1#{} Shops'
+                    '{C:attention}#1#{} Purchases'
                 }
             },
             j_aij_nosferatu = {
