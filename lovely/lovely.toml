@@ -78,7 +78,6 @@ target = '=[SMODS _ "src/utils.lua"]'
 pattern = '''if (key == 'p_dollars' or key == 'dollars' or key == 'h_dollars') and amount then'''
 position = "before"
 payload = '''
-if not SMODS.Calculation_Controls[self.key] then return end
 local flags = {}
 SMODS.calculate_context({aij_modify_card_effects = true, effects = effect, effect_type = key, card = scored_card, amount = amount, from_edition = from_edition}, flags)
 local override = false
