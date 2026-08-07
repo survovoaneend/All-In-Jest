@@ -2300,7 +2300,7 @@ position = "after"
 match_indent = true
 payload = '''
 local jest_golden = false
-if _type == 'Jest Golden Tag' then
+if _type == 'Jest_Golden_Tag' then
     jest_golden = true
     _type = 'Tag'
 end
@@ -2338,147 +2338,17 @@ end
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = "local _pool, _pool_key = get_current_pool('Tag', nil, nil, append)"
-position = "before"
-match_indent = true
-payload = '''
-local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest Golden Tag', nil, nil, append and append..'_gold' or '_gold')
-_gold_pool = {}
-for i = 1, #_temp_gold_pool do
-    _gold_pool[i] = _temp_gold_pool[i]
-end
-'''
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "local _pool, _pool_key = get_current_pool('Tag', nil, nil, append)"
+pattern = "if G.FORCE_TAG then return G.FORCE_TAG end"
 position = "after"
 match_indent = true
 payload = '''
-for k, v in pairs(G.GAME.all_in_jest.blind_tags) do
-    if type(v) == 'table' and append and (append == 'aij_no_blind_dupes_'..k or append == 'aij_no_blind_dupes_guarrented_gold_tag') then
-        for k_, v_ in ipairs(v) do
-            if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
-                for _, j in pairs(_gold_pool) do
-                    if v == j or j == G.GAME.round_resets.blind_tags[k] then
-                        j = 'UNAVAILABLE'
-                    end
-                end
-            end
-            if #_pool > 0 and _pool[1] ~= 'tag_handy'  then
-                for _, j in pairs(_pool) do
-                    if v == j or j == G.GAME.round_resets.blind_tags[k] then
-                        j = 'UNAVAILABLE'
-                    end
-                end
-            end
-        end
-    end
-end
-local t_index = 0
-for _, j in pairs(_pool) do
-    if j == 'UNAVAILABLE' then
-        t_index = t_index + 1
-    end
-end
-if t_index == #_pool then _pool, _pool_key = get_current_pool('Tag', nil, nil, append) end
-t_index = 0
-for _, j in pairs(_gold_pool) do
-    if j == 'UNAVAILABLE' then
-        t_index = t_index + 1
-    end
-end
-if t_index == #_gold_pool then 
-    _temp_gold_pool, _gold_pool_key = get_current_pool('Jest Golden Tag', nil, nil, append and append..'_gold' or '_gold')
-    _gold_pool = {}
-    for i = 1, #_temp_gold_pool do
-        _gold_pool[i] = _temp_gold_pool[i]
-    end
-end
-'''
-
-# Gold tags (6/9)
-# Determines whether or not to generate a gold tag
-# get_next_tag_key()
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "local _tag = pseudorandom_element(_pool, pseudoseed(_pool_key))"
-position = "after"
-match_indent = true
-payload = '''
-if #_gold_pool == #_pool and #_gold_pool ~= 1 then
-    for i = 1, #_pool do
-        if _gold_pool[i] ~= 'UNAVAILABLE' and _pool[i] == 'UNAVAILABLE' then
-            _pool[i] = _gold_pool[i]
-        end
-    end
-end
 if G.GAME.modifiers["aij_pandemonium_1"] then
-    _tag = 'tag_aij_chaos'
+    return 'tag_aij_chaos'
 end
-if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
-    if Tag(_tag).config.aij and Tag(_tag).config.aij.upgrade then -- True if it is a gold tag
-        local gt = 1
-        local gold = false
-        while Tag(_tag).config.aij and Tag(_tag).config.aij.upgrade and not gold do
-            if not (pseudorandom('gold_tag_rate') < (1 * G.GAME.all_in_jest.gold_tag_rate) / 30) then
-                gt = gt + 1
-                _tag = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample_gold'..gt))
-                if G.GAME.modifiers["aij_pandemonium_1"] then
-                    _tag = 'tag_aij_anarchy'
-                end
-            else
-                gold = true
-            end
-        end
-    else
-        if pseudorandom('gold_tag_rate') < (1 * G.GAME.all_in_jest.gold_tag_rate) / 30 then
-            _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
-            if G.GAME.modifiers["aij_pandemonium_1"] then
-                _tag = 'tag_aij_anarchy'
-            end
-        end
-    end
-    if append and (append == 'all_in_jest_guarrented_gold_tag' or append == 'aij_no_blind_dupes_guarrented_gold_tag') then
-        _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
-        if G.GAME.modifiers["aij_pandemonium_1"] then
-            _tag = 'tag_aij_anarchy'
-        end
-    end
-end
-'''
-
-# Gold tags (7/9)
-# Determines whether or not to generate a gold tag again, if first tag happened to be UNAVAILABLE
-# get_next_tag_key()
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "_tag = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))"
-position = "after"
-match_indent = true
-payload = '''
-if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
-    if Tag(_tag).config.aij and Tag(_tag).config.aij.upgrade then
-        local gt = 1
-        local gold = false
-        while Tag(_tag).config.aij and Tag(_tag).config.aij.upgrade and not gold do
-            if not (pseudorandom('gold_tag_rate') < (1 * G.GAME.all_in_jest.gold_tag_rate) / 30) then
-                gt = gt + 1
-                _tag = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample_gold'..gt))
-            else
-                gold = true
-            end
-        end
-    else
-        if pseudorandom('gold_tag_rate') < (1 * G.GAME.all_in_jest.gold_tag_rate) / 30 then
-            _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
-        end
-    end
-    if append and (append == 'all_in_jest_guarrented_gold_tag' or append == 'aij_no_blind_dupes_guarrented_gold_tag') then
-        _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key..'_resample_gold'))
+if SMODS.optional_features.object_weights then 
+    if ((pseudorandom('gold_tag_rate') < (1 * G.GAME.all_in_jest.gold_tag_rate) / 30)) or (append == 'all_in_jest_guarrented_gold_tag' or append == 'aij_no_blind_dupes_guarrented_gold_tag') then
+        local tag_key = SMODS.poll_object({type = 'Jest_Golden_Tag', append = append and append..'_gold' or '_gold'}) 
+        if tag_key ~= 'tag_handy' then return tag_key end
     end
 end
 '''
@@ -2668,8 +2538,8 @@ end
 # get_new_boss()
 [[patches]]
 [patches.pattern]
-target = "functions/common_events.lua"
-pattern = '''for k, v in pairs(G.GAME.bosses_used) do'''
+target = '=[SMODS _ "src/utils/weights.lua"]'
+pattern = '''for k, v in pairs(G.GAME.banned_keys) do'''
 position = "before"
 match_indent = true
 payload = '''
