@@ -2750,7 +2750,7 @@ pattern = "if not skip_increment then G.GAME.current_round.reroll_cost_increase 
 position = "before"
 match_indent = true
 payload = '''
-if G.GAME.shop_galloping_dominoed then skip_increment = true; G.GAME.round_resets.temp_reroll_cost = G.GAME.shop_galloping_dominoed end
+if G.GAME.shop_galloping_dominoed_amt and G.GAME.shop_galloping_dominoed_amt > 0 then skip_increment = true; G.GAME.round_resets.temp_reroll_cost = 0; G.GAME.shop_galloping_dominoed_amt = G.GAME.shop_galloping_dominoed_amt - 1 end
 '''
 
 # Make Infuriating Note negative in the shop and packs if Infuriating Note is owned
