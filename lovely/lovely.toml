@@ -1238,7 +1238,9 @@ position = "before"
 payload = '''
 if G.GAME.shop and G.GAME.shop.slot_details and #G.GAME.shop.slot_details > 0 and G.shop_jokers and area == G.shop_jokers and G.GAME.shop.slot_details[G.GAME.shop.joker_max - #G.shop_jokers.cards] then
     local slot = G.GAME.shop.slot_details[G.GAME.shop.joker_max - #G.shop_jokers.cards]
-    local args = {set = slot.type, key = slot.key, rarity = slot.rarity, area = area, key_append = (G.GAME.shop.joker_max - #G.shop_jokers.cards)..'aij_sho', front = false}
+    local type = slot.type or SMODS.poll_object_type({seed = 'cdt'..G.GAME.round_resets.ante})
+    if slot.func and type(slot.func) == 'function' then slot.func(type, area, slot.key, slot.rarity, slot.remove_tag) end
+    local args = {set = type, key = slot.key, rarity = slot.rarity, area = area, key_append = (G.GAME.shop.joker_max - #G.shop_jokers.cards)..'aij_sho', front = false}
     local card = SMODS.create_card(args)
     SMODS.calculate_context({modify_shop_card = true, card = card})
     create_shop_card_ui(card, slot.type, area)

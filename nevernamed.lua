@@ -12,6 +12,7 @@ to_number = to_number or function(n)
 end
 SMODS.current_mod.optional_features = {
   retrigger_joker = true,
+  object_weights = true,
   cardareas = {
       deck = true
   }
