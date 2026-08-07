@@ -45,7 +45,7 @@ local wamba = {
                 'planet',
                 'spectral',
                 'food',
-            }
+            },
         }
     },
     attributes = { 'activated', 'passive' },
@@ -59,7 +59,6 @@ local wamba = {
     blueprint_compat = false,
     eternal_compat = true,
     soul_pos = { x = 0, y = 19},
-    ignore = true,
 
     loc_vars = function(self, info_queue, card)
         local localized = localize('aij_wanba_attributes')[card.ability.extra.current_mult]
@@ -82,30 +81,29 @@ local wamba = {
         use_ability = function(self, card, args)
             args = args or {}
             if not args.retriggered then 
-                G.GAME.aij_modify_weight['attributes'][card.ability.extra.current_mult] = G.GAME.aij_modify_weight['attributes'][card.ability.extra.current_mult] - card.ability.extra.multiplier
                 for k, v in pairs(card.ability.extra.list) do
                     if v == card.ability.extra.current_mult then
                         card.ability.extra.current_mult = card.ability.extra.list[k+1] or card.ability.extra.list[1]
                         break
                     end
                 end
-                G.GAME.aij_modify_weight['attributes'][card.ability.extra.current_mult] = G.GAME.aij_modify_weight['attributes'][card.ability.extra.current_mult] or 0
-                G.GAME.aij_modify_weight['attributes'][card.ability.extra.current_mult] = G.GAME.aij_modify_weight['attributes'][card.ability.extra.current_mult] + card.ability.extra.multiplier
             end
         end,
     },
-
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.aij_modify_weight = G.GAME.aij_modify_weight or {}
-        G.GAME.aij_modify_weight['attributes'] = G.GAME.aij_modify_weight['attributes'] or {}
-        G.GAME.aij_modify_weight['attributes'][card.ability.extra.current_mult] = G.GAME.aij_modify_weight['attributes'][card.ability.extra.current_mult] or 0
-        G.GAME.aij_modify_weight['attributes'][card.ability.extra.current_mult] = G.GAME.aij_modify_weight['attributes'][card.ability.extra.current_mult] + card.ability.extra.multiplier
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        G.GAME.aij_modify_weight = G.GAME.aij_modify_weight or {}
-        G.GAME.aij_modify_weight['attributes'] = G.GAME.aij_modify_weight['attributes'] or {}
-        G.GAME.aij_modify_weight['attributes'][card.ability.extra.current_mult] = G.GAME.aij_modify_weight['attributes'][card.ability.extra.current_mult] or 0
-        G.GAME.aij_modify_weight['attributes'][card.ability.extra.current_mult] = G.GAME.aij_modify_weight['attributes'][card.ability.extra.current_mult] - card.ability.extra.multiplier
+    calculate = function(self, card, context)
+        if context.modify_weights then
+            if context.pool_types['Joker'] then
+                local filtered_pool = SMODS.get_attribute_pool(card.ability.extra.current_mult)
+                for _, key in pairs(filtered_pool) do
+                    for k, v in pairs(context.pool) do
+                        if key == k then
+                            v.weight = v.weight * card.ability.extra.multiplier
+                        end
+                    end
+                end
+                print(context.pool)
+            end
+        end
     end
 }
 return { name = {"Jokers"}, items = {wamba} }
