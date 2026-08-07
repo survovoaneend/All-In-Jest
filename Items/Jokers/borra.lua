@@ -43,7 +43,7 @@ local borra = {
     end,
   
     calculate = function(self, card, context)
-        local triggers = (context.setting_ability and not context.unchanged) or (context.press_play) or (context.debuff_hand) or (context.ante_change) or (context.joker_type_destroyed) or (context.card_added) or (context.playing_card_added) or (context.tag_triggered) or (context.tag_added) or (context.skip_blind) or (context.poker_hand_changed) or (context.reroll_shop) or (context.using_consumeable) or (context.selling_card) or (context.buying_card) or (context.ending_booster) or (context.open_booster) or (context.skipping_booster) or (context.ending_shop) or (context.starting_shop) or (context.blind_defeated) or (context.discard) or (context.setting_blind) or (context.individual and context.cardarea == G.play) or (context.destroy_card and context.cardarea == G.play)
+        local triggers = (context.setting_ability and not context.unchanged) or (context.individual and context.cardarea == G.play) or (context.press_play) or (context.ante_change) or (context.joker_type_destroyed) or (context.card_added) or (context.playing_card_added) or (context.tag_triggered) or (context.tag_added) or (context.skip_blind) or (context.poker_hand_changed) or (context.reroll_shop) or (context.using_consumeable) or (context.selling_card) or (context.buying_card) or (context.ending_booster) or (context.open_booster) or (context.skipping_booster) or (context.ending_shop) or (context.starting_shop) or (context.blind_defeated) or (context.discard) or (context.setting_blind) or (context.destroy_card and context.cardarea == G.play)
         if triggers and not context.blueprint then
             if (context.setting_ability and not context.unchanged) then
                 local can_proceed = false
