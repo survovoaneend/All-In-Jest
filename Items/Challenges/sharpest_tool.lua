@@ -40,17 +40,4 @@ local sharpest_tool = {
         },
     },
 }
-local temp_create_card = create_card
-function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
-    local card = nil
-    if ((area == G.shop_jokers) or (area == G.pack_cards and key_append == 'buf')) and _type == 'Joker' then
-        if G.GAME.modifiers.aij_sharpest_tool_1 then
-            card = temp_create_card(_type, area, false, 0, skip_materialize, soulable, nil, key_append)
-        end
-    end
-    if not card then
-        card = temp_create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
-    end
-    return card
-end
 return { name = {"Challenges"}, items = {sharpest_tool} }
