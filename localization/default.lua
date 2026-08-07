@@ -8755,7 +8755,17 @@ return {
             },
             j_aij_brusquet = { name = "Brusquet", text = { "" }, unlock = { "?????" } },
             j_aij_rahere = { name = "Rahere", text = { "" }, unlock = { "?????" } },
-            j_aij_gonnella = { name = "Gonnella", text = { "" }, unlock = { "?????" } },
+            j_aij_gonnella = { 
+                name = "Gonella", 
+                text = { 
+                    
+                    '{C:attention}Create{} a random {C:dark_edition}Negative',
+                    'Joker of the same rarity',
+                    'when a non-{C:dark_edition}Negative',
+                    'Joker is {C:money}sold' 
+                }, 
+                unlock = { "?????" } 
+            },
             j_aij_gong_gil = { name = "Gong-Gil", text = { "" }, unlock = { "?????" } },
             j_aij_angoulevent = {
                 name = "Angoulevent",
@@ -9012,7 +9022,10 @@ return {
             j_aij_antonio = {
                 name = "Antonio",
                 text = {
-                    ''
+                    'All cards in your {C:attention}deck{} of',
+                    'the same rank permanently',
+                    'gain {C:mult}+#1#{} Mult when any',
+                    'card is {C:attention}scored'
                 }
             },            
             j_aij_li_keji = {
