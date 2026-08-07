@@ -39,5 +39,17 @@ local sharpest_tool = {
             {id = 'tag_aij_recherche'},
         },
     },
+    apply = function(self) 
+        G.GAME.shop = G.GAME.shop or {}
+        G.GAME.shop.slot_details = G.GAME.shop.slot_details or {}
+        for i = 1, 2 do
+            table.insert(G.GAME.shop.slot_details, 1,{
+                ['type'] = nil,
+                ['rarity'] = 0,
+                ['key'] = nil,
+                ['remove_tag'] = 'ch_sharpest_tool'
+            })
+        end
+    end,
 }
 return { name = {"Challenges"}, items = {sharpest_tool} }
