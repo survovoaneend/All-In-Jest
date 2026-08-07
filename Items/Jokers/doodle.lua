@@ -22,7 +22,7 @@ local doodle = {
   loc_vars = function(self, info_queue, card)
     local active_text = ""
     local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'doodle')
-    if card.ability.extra.should_activate then
+    if card.ability.extra and card.ability.extra.should_activate then
       active_text = "(" .. localize('k_active') .. ")"
     else
       active_text = "(" .. localize('k_inactive') .. ")"
@@ -38,13 +38,13 @@ local doodle = {
   calculate = function(self, card, context)
     if context.setting_blind and not context.blueprint then
       if SMODS.pseudorandom_probability(card, 'doodle', 1, card.ability.extra.odds) then
-        card.ability.extra.should_activate = true
+        if card.ability.extra then card.ability.extra.should_activate = true end
         return {
           message = localize('k_active'),
           colour = G.C.GREEN
         }
       else
-        card.ability.extra.should_activate = false
+         if card.ability.extra then card.ability.extra.should_activate = false end
         return {
           message = localize('k_inactive'),
           colour = G.C.RED
@@ -87,7 +87,7 @@ local doodle = {
     local effect_to_return = nil
     local did_probability_pass = false
 
-    if card.ability.extra.should_activate then
+    if card.ability.extra and card.ability.extra.should_activate then
       did_probability_pass = true
 
       local effect1_def
