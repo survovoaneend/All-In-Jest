@@ -7075,7 +7075,11 @@ return {
             j_aij_drying_paint = {
                 name = "Drying Paint",
                 text = {
-                    ''
+                    "{B:1,C:white,s:0.8}Activated Ability",
+                    "During a {C:attention}Blind{}, spend",
+                    "{C:attention}#3#{} {C:blue}Hand{} to give",
+                    "this Joker {X:mult,C:white}X#1#{} Mult",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult){}"
                 }
             },
             j_aij_9mm = {
@@ -7227,6 +7231,14 @@ return {
                     "{C:attention}Joker{} to the {C:attention}left",
                 }
             },
+            j_aij_club_card = {
+                name = "Club Card",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult if full deck",
+                    "has at least {C:attention}#2# {C:clubs}Clubs{}",
+                    "{C:inactive}(Currently {C:attention}#3#{C:inactive})"
+                }
+            },
             j_aij_shock_collar = {
                 name = "Shock Collar",
                 text = {
@@ -7242,7 +7254,9 @@ return {
             j_aij_profile = {
                 name = "Profile",
                 text = {
-                    ''
+                    "Scoring cards to the",
+                    "left and right of {C:attention}face cards{}",
+                    "give {C:mult}+#1#{} Mult"
                 }
             },            
             j_aij_bits_n_bob = {
