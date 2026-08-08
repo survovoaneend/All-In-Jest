@@ -338,6 +338,7 @@ function SMODS.get_enhancements(card, extra_only)
     if 
         not extra_only and 
         card.config.aij_other_center and 
+        card.config.aij_other_center['center'] and
         card.config.aij_other_center['center'].key
     then 
         enhancements[card.config.aij_other_center['center'].key] = true
@@ -1255,7 +1256,7 @@ function Card:set_sprites(_center, _front)
 
     -- For fusion enhancements
     if _center and _center.set and self.ability then
-        if self.config.center and self.config.aij_other_center then
+        if self.config.center and self.config.aij_other_center and self.config.aij_other_center['center'] then
             local atlas_key = _center.atlas or "centers"
             local atlas, pos = All_in_Jest.get_multi_enhancement_atlas(self.config.center, self.config.aij_other_center['center'])
             if atlas and pos then

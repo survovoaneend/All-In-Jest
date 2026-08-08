@@ -3212,13 +3212,7 @@ if other.ability.numbertaker_rankless and other.config.card then
     new_card:set_sprites(nil, other.config.card)
 end
 if other.config.aij_other_center then
-    new_card.config.aij_other_center = {}
-    new_card.config.aij_other_center['center'] = other.config.aij_other_center['center']
-    new_card.config.aij_other_center['ability'] = other.config.aij_other_center['ability']
-    -- if not new_card.ability.aij_other_center or not new_card.ability.aij_other_center['ability'] then
-    --     new_card.ability.aij_other_center = new_card.ability.aij_other_center or {}
-    --     new_card.ability.aij_other_center['ability'] = new_card.config.aij_other_center and new_card.config.aij_other_center['ability']
-    -- end
+    All_in_Jest.set_other_enhancement(new_card, other.config.aij_other_center['center'].key)
 end
 '''
 
