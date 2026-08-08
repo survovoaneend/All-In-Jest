@@ -71,9 +71,7 @@ local urns = {
 				for i = 1, #selected_cards do
 					selected_cards[i]:set_ability(G.P_CENTERS[center_key])
 					if other_center then
-						selected_cards[i].config.aij_other_center = {}
-						selected_cards[i].config.aij_other_center['center'] = other_center['center']
-						selected_cards[i].config.aij_other_center['ability'] = other_center['ability']
+						All_in_Jest.set_other_enhancement(selected_cards[i], other_center['center'].key)
 					end
 				end
                 return true
