@@ -1992,7 +1992,6 @@ function All_in_Jest.reset_game_globals(run_start)
     reset_jest_magick_joker_card()
     reset_jest_you_broke_it_card()
     reset_jest_lavatch_card()
-	  G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
 
     reset_jest_visage_cards()

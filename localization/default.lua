@@ -10043,10 +10043,8 @@ return {
             tag_aij_galloping_domino = {
                 name = 'Galloping Domino Tag',
                 text = {
-                    '{C:attention}All{} rerolls cost',
-                    '{C:money}$#1#{} next shop'
-                    -- TODO Needs a limit due to effectively quadratic
-                    -- money scaling
+                    '{C:attention}+#1#{} free rerolls',
+                    'next {C:money}Shop'
                 }
             },
             tag_aij_gioco = {
