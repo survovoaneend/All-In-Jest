@@ -7,11 +7,12 @@ local chocolate_coins = {
         extra = {
             xmult_minus_mod = 0.1,
             xmult_mod = 0.5,
-            xmult = 0.3,
-            enhancement = 'm_gold'
+            xmult = 0,
+            enhancement = 'm_gold',
+            tarot = 'c_devil'
         }
     },
-    attributes = { 'xmult', 'scaling', 'enhancements', 'food' },
+    attributes = { 'xmult', 'scaling', 'enhancements', 'food', 'generation', 'tarot', 'consumable' },
     rarity = 3,
     pos = { x = 22, y = 34 },
     atlas = 'joker_atlas',
@@ -23,6 +24,7 @@ local chocolate_coins = {
 
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS[card.ability.extra.tarot]
         return {
             vars = {
                 card.ability.extra.xmult_mod,
@@ -30,6 +32,19 @@ local chocolate_coins = {
                 1+card.ability.extra.xmult,
             }
         }
+    end,
+
+    add_to_deck = function(self, card, from_debuff)
+        if not from_debuff and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    SMODS.add_card({ key = card.ability.extra.tarot, area = G.consumeables })
+                    G.GAME.consumeable_buffer = 0
+                    return true
+                end
+            }))
+        end
     end,
 
     calculate = function(self, card, context)

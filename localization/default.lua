@@ -6781,84 +6781,140 @@ return {
             j_aij_tortilla_chips = {
                 name = "Tortilla Chips",
                 text = {
-                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
-                    'when a card is enhanced to',
-                    '{C:attention}Bonus{}, loses {X:mult,C:white}X#2#{} Mult when',
-                    'hands {C:chips}Chips{} exceeds {C:mult}Mult',
-                    '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                    {
+                        'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                        'when a card is enhanced to',
+                        '{C:attention}Bonus{}, loses {X:mult,C:white}X#2#{} Mult when',
+                        'hands {C:chips}Chips{} exceeds {C:mult}Mult',
+                        '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                    },
+                    {
+                        'Creates {C:tarot}The Hierophant{}',
+                        'when {C:attention}obtained{}',
+                        '{C:inactive}(Must have room){}'
+                    }
                 }
             },
             j_aij_liquorice = {
                 name = "Liquorice",
                 text = {
-                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
-                    'when a card is enhanced to',
-                    '{C:attention}Mult{}, loses {X:mult,C:white}X#2#{} Mult when',
-                    'hands {C:mult}Mult{} exceeds {C:chips}Chips',
-                    '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                    {
+                        'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                        'when a card is enhanced to',
+                        '{C:attention}Mult{}, loses {X:mult,C:white}X#2#{} Mult when',
+                        'hands {C:mult}Mult{} exceeds {C:chips}Chips',
+                        '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                    },
+                    {
+                        'Creates {C:tarot}The Empress{}',
+                        'when {C:attention}obtained{}',
+                        '{C:inactive}(Must have room){}'
+                    }
                 }
             },
             j_aij_scroggin = {
                 name = "Scroggin",
                 text = {
-                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
-                    'when a card is enhanced to',
-                    '{C:attention}Wild{}, loses {X:mult,C:white}X#2#{} Mult when',
-                    'hand contains a {C:attention}Flush',
-                    '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                    {
+                        'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                        'when a card is enhanced to',
+                        '{C:attention}Wild{}, loses {X:mult,C:white}X#2#{} Mult when',
+                        'hand contains a {C:attention}Flush',
+                        '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                    },
+                    {
+                        'Creates {C:tarot}The Lovers{}',
+                        'when {C:attention}obtained{}',
+                        '{C:inactive}(Must have room){}'
+                    }
                 }
             },
             j_aij_peanut_brittle = {
                 name = "Peanut Brittle",
                 text = {
-                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
-                    'when a card is enhanced to',
-                    '{C:attention}Glass{}, loses {X:mult,C:white}X#2#{} Mult when',
-                    'when a Glass Card {C:attention}breaks{}',
-                    '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                    {
+                        'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                        'when a card is enhanced to',
+                        '{C:attention}Glass{}, loses {X:mult,C:white}X#2#{} Mult when',
+                        'when a Glass Card {C:attention}breaks{}',
+                        '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                    },
+                    {
+                        'Creates {C:tarot}Justice{}',
+                        'when {C:attention}obtained{}',
+                        '{C:inactive}(Must have room){}'
+                    }
                 }
             },
             j_aij_jawbreaker = {
                 name = "Jawbreaker",
                 text = {
-                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
-                    'when a card is enhanced to',
-                    '{C:attention}Stone{}, loses {X:mult,C:white}X#2#{} Mult if',
-                    'played hand cotains no',
-                    '{C:attention}unscored cards',
-                    '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                    {
+                        'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                        'when a card is enhanced to',
+                        '{C:attention}Stone{}, loses {X:mult,C:white}X#2#{} Mult if',
+                        'played hand cotains no',
+                        '{C:attention}unscored cards',
+                        '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                    },
+                    {
+                        'Creates {C:tarot}The Tower{}',
+                        'when {C:attention}obtained{}',
+                        '{C:inactive}(Must have room){}'
+                    }
                 }
             },
             j_aij_chocolate_coins = {
                 name = "Chocolate Coins",
                 text = {
-                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
-                    'when a card is enhanced to',
-                    '{C:attention}Gold{}, loses {X:mult,C:white}X#2#{} Mult',
-                    'when {C:money}money{} is earned',
-                    'during a {C:attention}blind',
-                    '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                    {
+                        'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                        'when a card is enhanced to',
+                        '{C:attention}Gold{}, loses {X:mult,C:white}X#2#{} Mult',
+                        'when {C:money}money{} is earned',
+                        'during a {C:attention}blind',
+                        '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                    },
+                    {
+                        'Creates {C:tarot}The Devil{}',
+                        'when {C:attention}obtained{}',
+                        '{C:inactive}(Must have room){}'
+                    }
                 }
             },
             j_aij_blueberries = {
                 name = "Blueberries",
                 text = {
-                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
-                    'when a card is enhanced to',
-                    '{C:attention}Fervent{}, loses {X:mult,C:white}X#2#{} Mult when',
-                    'a card is {C:attention}retriggered',
-                    '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                    {
+                        'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                        'when a card is enhanced to',
+                        '{C:attention}Fervent{}, loses {X:mult,C:white}X#2#{} Mult when',
+                        'a card is {C:attention}retriggered',
+                        '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                    },
+                    {
+                        'Creates {C:tarot}The Magus{}',
+                        'when {C:attention}obtained{}',
+                        '{C:inactive}(Must have room){}'
+                    }
                 }
             },
             j_aij_pretzel_sticks = {
                 name = "Pretzel Sticks",
                 text = {
-                    'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
-                    'when a card is enhanced to',
-                    '{C:attention}Wood{}, loses {X:mult,C:white}X#2#{} Mult when',
-                    'a {C:attention}held in hand{} effect',
-                    'is triggered',
-                    '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                    {
+                        'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
+                        'when a card is enhanced to',
+                        '{C:attention}Wood{}, loses {X:mult,C:white}X#2#{} Mult when',
+                        'a {C:attention}held in hand{} effect',
+                        'is triggered',
+                        '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
+                    },
+                    {
+                        'Creates {C:tarot}The Sanctuary Gate{}',
+                        'when {C:attention}obtained{}',
+                        '{C:inactive}(Must have room){}'
+                    }
                 }
             },
             j_aij_haggler = {
