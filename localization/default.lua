@@ -4227,10 +4227,10 @@ return {
             j_aij_four_leaf_clover = {
                 name = "Four-leaf Clover",
                 text = {
-                    "Increase the {C:attention}quality{} of",
-                    "{C:attention}Jokers{} in the {C:money}Shop{} for each",
-                    "{C:attention}4{} in your {C:attention}full deck",
-                    "{C:inactive}(4s: {C:attention}#1#{C:inactive})"
+                    "{C:attention}#1#%{} chance to increase the {C:attention}rarity{}",
+                    "of Jokers in the {C:attention}Shop{}",
+                    "Percentage is equal to the",
+                    "number of {C:attention}4s{} in your {C:attention}full deck"
                 }
             },
             j_aij_aphantasia = {
@@ -4260,13 +4260,10 @@ return {
                 text = { 
                     {
                         "Adds {C:attention}#1#{} extra slot to",
-                        "the {C:money}shop{}"
-                    },
-                    {
-                        "{C:attention}Added{} slot always contains",
-                        "a random {C:common}Common{} Joker ",
-                        "for sale"
-                    },
+                        "the {C:money}shop{}, which {C:attention}always",
+                        "contains a random {C:common}Common{}",
+                        "Joker"
+                    }
                 } 
             },
             j_aij_from_the_top_rope = { name = "From the Top Rope", text = { "" } },
@@ -5667,19 +5664,11 @@ return {
             j_aij_red_joker = {
                 name = "Red Joker",
                 text = {
-                    {
-                        'This {C:attention}Joker{} gains {C:mult}+#2#',
-                        'Mult when a card is',
-                        'scored, {C:attention}Resets{} when',
-                        'a previously {C:attention}scored',
-                        '{C:attention}card{} is played'
-                    },
-                    {
-                        'All previously {C:attention}scored',
-                        '{C:attention}cards{} are forgotten',
-                        'on {C:attention}resetting',
-                        '{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)'
-                    }
+                    'Gains {C:mult}+#2#{} Mult per card scored.',
+                    '{C:attention}Resets{} when playing a card',
+                    'that was previously scored.',
+                    '{C:inactive}(Card history clears on reset){}',
+                    '{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)'
                 }
             },
             j_aij_the_green_room = {
@@ -6076,7 +6065,7 @@ return {
                 }
             },
             j_aij_in_memorium = {
-                name = "In Memorium",
+                name = "In Memoriam",
                 text = {
                     {
                         'This {C:attention}Joker{} gains',
