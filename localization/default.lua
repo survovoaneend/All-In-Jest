@@ -33,6 +33,12 @@ return {
                 'Enables {C:chips}Chips{} and {C:mult}Mult{}-type',
                 '{C:planet}Planets{} to show up',
             },
+            aij_moons_blocking = "Moon Blocking",
+            aij_moons_blocking_tooltip = {
+                'If {C:planet}Moons{} are enabled, prevents',
+                'multiple {C:planet}Planets{} of the same',
+                'hand type from appearing at once',
+            },
             aij_alter_trypophobia = "Alter Trypophobia",
             aij_alter_trypophobia_tooltip = {
                 '{C:attention}Changes{} the sprite of',
