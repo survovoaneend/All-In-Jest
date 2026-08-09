@@ -81,7 +81,7 @@ local chipped_joker = {
         local stone = 0
         if G.GAME and G.playing_cards then
             for _, card in ipairs(G.playing_cards) do
-                if card.config.center.key == 'm_stone' then
+                if SMODS.has_enhancement(card, 'm_stone') then
                     stone = stone + 1
                 end
             end

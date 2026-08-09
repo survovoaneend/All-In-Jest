@@ -46,7 +46,22 @@ local blue_star = {
                 }
             end
         end
-    end
+    end,
+    in_pool = function(self, args)
+        local chip_cards = 0
+        if G.GAME and G.playing_cards then
+            for _, card in ipairs(G.playing_cards) do
+                if SMODS.has_enhancement(card, 'm_bonus') or SMODS.has_enhancement(card, 'm_aij_fervent' then
+                    chip_cards = chip_cards + 1
+                end
+            end
+        end
+        if chip_cards > 0 then
+            return true
+        else
+            return false
+        end
+    end,
 }
 
 return { name = { "Jokers" }, items = { blue_star } }
