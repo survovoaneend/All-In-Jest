@@ -27,6 +27,9 @@ local mammon = {
         }
     end,
 
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.all_in_jest.gold_card_amt = G.GAME.all_in_jest.gold_card_amt + card.ability.extra.payout_increase_total
+    end,
     remove_from_deck = function(self, card, from_debuff)
         G.GAME.all_in_jest.gold_card_amt = G.GAME.all_in_jest.gold_card_amt - card.ability.extra.payout_increase_total
         card.ability.extra.payout_increase_total = 0
