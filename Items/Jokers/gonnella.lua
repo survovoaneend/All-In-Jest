@@ -23,9 +23,14 @@ local gonnella = {
     end,
   
     calculate = function(self, card, context)
-        if context.selling_card and context.card.ability.set == "Joker" and (not context.card.edition or context.card.edition.key ~= 'e_negative') then
+        if context.selling_card and context.card.ability.set == "Joker" and not context.card.edition then
             local vanilla_rarities = {"Common", "Uncommon", "Rare", "Legendary"}
-            SMODS.add_card { set = "Joker", edition = 'e_negative', rarity = vanilla_rarities[context.card.config.center.rarity] or context.card.config.center.rarity, legendary = context.card:is_rarity('Legendary') }
+            SMODS.add_card {
+                set = "Joker",
+                edition = poll_edition('joker_sold', nil, nil, true),
+                rarity = vanilla_rarities[context.card.config.center.rarity] or context.card.config.center.rarity,
+                legendary = context.card:is_rarity('Legendary')
+            }
             return {
                 message = localize{type = "variable", key = "a_aij_jokers", vars = {1}},
             }

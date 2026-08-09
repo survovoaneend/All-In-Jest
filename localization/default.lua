@@ -8754,9 +8754,9 @@ return {
                 name = "Gonella", 
                 text = { 
                     
-                    '{C:attention}Create{} a random {C:dark_edition}Negative',
+                    '{C:attention}Create{} a random {C:dark_edition}Editioned',
                     'Joker of the same rarity',
-                    'when a non-{C:dark_edition}Negative',
+                    'when a non-{C:dark_edition}editioned',
                     'Joker is {C:money}sold' 
                 }, 
                 unlock = { "?????" } 
