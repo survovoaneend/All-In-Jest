@@ -51,7 +51,7 @@ local blue_star = {
         local chip_cards = 0
         if G.GAME and G.playing_cards then
             for _, card in ipairs(G.playing_cards) do
-                if SMODS.has_enhancement(card, 'm_bonus') or SMODS.has_enhancement(card, 'm_aij_fervent' then
+                if SMODS.has_enhancement(card, 'm_bonus') or SMODS.has_enhancement(card, 'm_aij_fervent') then
                     chip_cards = chip_cards + 1
                 end
             end
