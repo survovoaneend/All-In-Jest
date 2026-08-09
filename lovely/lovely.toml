@@ -1939,25 +1939,16 @@ match_indent = true
 # create_card_for_shop()
 [[patches]]
 [patches.pattern]
-target = 'functions/UI_definitions.lua'
+target = '=[SMODS _ "src/utils/weights.lua"]'
 pattern = '''
-if area == G.shop_jokers and G.SETTINGS.tutorial_progress and G.SETTINGS.tutorial_progress.forced_shop and G.SETTINGS.tutorial_progress.forced_shop[#G.SETTINGS.tutorial_progress.forced_shop] then
-        local t = G.SETTINGS.tutorial_progress.forced_shop
-        local _center = G.P_CENTERS[t[#t]] or G.P_CENTERS.c_empress
-        local card = Card(area.T.x + area.T.w/2, area.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, _center, {bypass_discovery_center = true, bypass_discovery_ui = true})
-        t[#t] = nil
-        if not t[1] then G.SETTINGS.tutorial_progress.forced_shop = nil end
-        
-        create_shop_card_ui(card)
-        return card
+card_args.key = SMODS.poll_object({type = card_args.type, append = 'sho', guaranteed = card_args.type == 'Enhanced'})
 '''
-position = 'after'
+position = 'before'
 payload = '''
-elseif area == G.shop_booster then
-    local card = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
-    G.shop_booster.T.y, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS[get_pack('shop_pack').key], {bypass_discovery_center = true, bypass_discovery_ui = true})
-    create_shop_card_ui(card, 'Booster', G.shop_booster)
-    return card
+if area == G.shop_booster then
+    card_args.type = 'Booster'
+    card_args.scale = {w = 1.27, h = 1.27}
+end
 '''
 match_indent = true
 
