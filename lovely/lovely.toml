@@ -4052,6 +4052,38 @@ payload = '''$pre
 $indent{n=G.UIT.T, config={text = aij_has_blind_drawn and "???" or $post
 '''
 
+# Block planets / moons of the same hand type from appearing at once
+# get_current_pool()
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''pool_opts = pool_opts or {}'''
+position = "after"
+match_indent = true
+payload = '''
+local aij_manual_block = false
+if v.set == 'Planet' and All_in_Jest.config.moons_blocking and not G.GAME.used_jokers[v.key] then
+    for k, other in pairs(G.P_CENTER_POOLS.Planet) do
+        if other.config.hand_type == v.config.hand_type and G.GAME.used_jokers[other.key] then
+            aij_manual_block = true
+            G.GAME.used_jokers[v.key] = true
+            break
+        end
+    end
+end
+'''
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = nil end'''
+position = "before"
+match_indent = true
+payload = '''
+if aij_manual_block then
+    G.GAME.used_jokers[v.key] = nil
+end
+'''
+
 # Blind Drawn (5/6)
 # Hide blind reward if blind drawn is owned
 # create_UIBox_blind_choice()

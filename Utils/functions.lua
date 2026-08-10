@@ -103,7 +103,7 @@ function aij_pasteAlpha(base, layer, posb, posl, args)
 
             local r, g, b, a = getPixel(layer, lx0 + x, ly0 + y)
             if args.blend then 
-                local rb, gb, bb, ab = getPixel(base, bx0 + x, by0 + y)
+                local rb, gb, bb, ab = getPixel(base, lx0 + x, ly0 + y)
                 args.blend = {rb, gb, bb, ab} 
             end
 
