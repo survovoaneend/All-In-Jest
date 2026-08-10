@@ -184,6 +184,7 @@ return {
             a_aij_exp_mult = "^#1# Mult",
 
             a_aij_mult_equal = "=#1# Mult",
+            a_aij_chips_equal = "=#1# Chips",
 
             a_aij_ante_minus = "-#1# Ante",
 
@@ -3186,7 +3187,7 @@ return {
                 text = {
                     'Retrigger all played cards',
                     'with a {C:red}Red Seal',
-                    'an additional time'
+                    '{C:attention}#1#{} additional time'
                 },
             },
             j_aij_pigpen = {
@@ -3195,7 +3196,7 @@ return {
                 text = {
                     "Gives {C:chips}Chips{} equal to the number",
                     "of times {C:attention}poker hand{} has been",
-                    "{C:attention}played{}, multiplied by its {C:attention}level"
+                    'an additional time'
                 }
             },
             j_aij_cyclops = { 
@@ -4263,7 +4264,7 @@ return {
                         "the {C:money}shop{}, which {C:attention}always",
                         "contains a random {C:common}Common{}",
                         "Joker"
-                    }
+                    },
                 } 
             },
             j_aij_from_the_top_rope = { name = "From the Top Rope", text = { "" } },
@@ -4304,7 +4305,7 @@ return {
                 text = {
                     "Apply {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
                     "{C:dark_edition}Polychrome{} to a random held ",
-                    "{C:attention}consumable when leaving the {C:attention}Shop"
+                    "{C:attention}consumable{} when leaving the {C:attention}Shop"
                 }
             },
             j_aij_mahoney = {

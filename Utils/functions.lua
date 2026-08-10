@@ -1,6 +1,10 @@
 -- Used in Vanilla functions where 'type' is overridden
 All_in_Jest.aij_alias_type = type
 
+SMODS.current_mod.calculate = function(self, context)
+    
+end
+
 --repurposd from paperback
 function jest_poll_tag(seed, options)
   -- This part is basically a copy of how the base game does it
@@ -649,6 +653,16 @@ table.insert(SMODS.calculation_keys, "aij_balance_percent")
 if SMODS.other_calculation_keys then
     table.insert(SMODS.other_calculation_keys, "aij_balance_percent")
 end
+table.insert(SMODS.calculation_keys, "aij_set_mult")
+if SMODS.scoring_parameter_keys then
+    table.insert(SMODS.scoring_parameter_keys, "aij_set_mult")
+    table.insert(SMODS.Scoring_Parameters['mult'], "aij_set_mult")
+end
+table.insert(SMODS.calculation_keys, "aij_set_chips")
+if SMODS.scoring_parameter_keys then
+    table.insert(SMODS.scoring_parameter_keys, "aij_set_chips")
+    table.insert(SMODS.Scoring_Parameters['chips'], "aij_set_chips")
+end
 -- table.insert(SMODS.calculation_keys, 1, "aij_balance_percent") -- This version would put the effect at the start, making it go before chip/mult/etc. effects.
 local aij_balance_mixed = false
 local aij_original_smods_calculate_individal_effect = SMODS.calculate_individual_effect
@@ -701,6 +715,30 @@ SMODS.calculate_individual_effect = function(effect, scored_card, key, amount, f
             end
         end
 
+        return true
+    end
+    if key == 'aij_set_mult' then
+        if effect.card and effect.card ~= scored_card then juice_card(effect.card) end
+        SMODS.Scoring_Parameters.mult:modify(amount - mult)
+        if not effect.remove_default_message then
+            if effect.aij_set_mult_message then
+                card_eval_status_text(effect.message_card or effect.juice_card or scored_card or effect.card or effect.focus, 'extra', nil, percent, nil, effect.aij_set_mult_message)
+            else
+                card_eval_status_text(effect.message_card or effect.juice_card or scored_card or effect.card or effect.focus, 'jokers', nil, percent, nil, {message = localize{type='variable',key='a_aij_mult_equal',vars={amount}}})
+            end
+        end
+        return true
+    end
+    if key == 'aij_set_chips' then
+        if effect.card and effect.card ~= scored_card then juice_card(effect.card) end
+        SMODS.Scoring_Parameters.chips:modify(amount - hand_chips)
+        if not effect.remove_default_message then
+            if effect.aij_set_mult_message then
+                card_eval_status_text(effect.message_card or effect.juice_card or scored_card or effect.card or effect.focus, 'extra', nil, percent, nil, effect.aij_set_mult_message)
+            else
+                card_eval_status_text(effect.message_card or effect.juice_card or scored_card or effect.card or effect.focus, 'jokers', nil, percent, nil, {message = localize{type='variable',key='a_aij_chips_equal',vars={amount}}})
+            end
+        end
         return true
     end
 
@@ -3524,15 +3562,15 @@ function aij_reroll_tags(blind, args)
     if blind == 'All' then
         for k, v in pairs(G.GAME.round_resets.blind_tags) do
             if (G.GAME.round_resets.blind_states[k] ~= 'Hide' and G.GAME.round_resets.blind_states[k] ~= 'Defeated' and G.GAME.round_resets.blind_states[k] ~= 'Skipped') then
-                if not args.gold then G.GAME.round_resets.blind_tags[k] = get_next_tag_key() end
-                if args.gold then G.GAME.round_resets.blind_tags[k] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+                if not args.gold and not args.refresh then G.GAME.round_resets.blind_tags[k] = get_next_tag_key() end
+                if args.gold and not args.refresh then G.GAME.round_resets.blind_tags[k] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
                 if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
                     for i = 1, G.GAME.all_in_jest.blind_tags.amt do
                         if i == 1 then -- Leftmost tag matches vanilla skip tag
                             G.GAME.all_in_jest.blind_tags[k][i] = G.GAME.round_resets.blind_tags[k]
                         else
-                            if not args.gold then G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('aij_no_blind_dupes_'..k) end
-                            if args.gold then G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+                            if not args.gold and not args.refresh then G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('aij_no_blind_dupes_'..k) end
+                            if args.gold and not args.refresh then G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
                         end
                     end
                 end
@@ -3562,15 +3600,15 @@ function aij_reroll_tags(blind, args)
         end
     else
         if (G.GAME.round_resets.blind_states[k] ~= 'Hide' and G.GAME.round_resets.blind_states[blind] ~= 'Defeated' and G.GAME.round_resets.blind_states[blind] ~= 'Skipped') then
-            if not args.gold then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key() end
-            if args.gold then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+            if not args.gold and not args.refresh then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key() end
+            if args.gold and not args.refresh then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
             if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
                 for i = 1, G.GAME.all_in_jest.blind_tags.amt do
                     if i == 1 then -- Leftmost tag matches vanilla skip tag
                         G.GAME.all_in_jest.blind_tags[blind][i] = G.GAME.round_resets.blind_tags[blind]
                     else
-                        if not args.gold then G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key('aij_no_blind_dupes_'..blind) end
-                        if args.gold then G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+                        if not args.gold and not args.refresh then G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key('aij_no_blind_dupes_'..blind) end
+                        if args.gold and not args.refresh then G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
                     end
                 end
             end

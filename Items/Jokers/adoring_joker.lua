@@ -30,7 +30,7 @@ local adoring_joker = {
         card.ability.highest_mult = math.max(card.ability.highest_mult, mult)
         if card.ability.highest_mult > mult then
             return {
-                mult = card.ability.highest_mult - mult,
+                aij_set_mult = card.ability.highest_mult,
                 remove_default_message = true,
                 message = localize{type='variable',key='a_aij_mult_equal',vars={card.ability.highest_mult}},
                 colour = G.C.RED,
