@@ -1,6 +1,6 @@
 local phoney_baloney = {
     object_type = "Joker",
-    order = 195,
+    order = 201,
 
     key = "phoney_baloney",
     config = {

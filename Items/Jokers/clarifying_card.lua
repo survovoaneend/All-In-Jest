@@ -1,6 +1,6 @@
 local clarifying_card = {
     object_type = "Joker",
-    order = 739,
+    order = 761,
     ignore = true,
 
     key = "clarifying_card",

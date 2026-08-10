@@ -1,6 +1,6 @@
 local cap_n_bells = {
     object_type = "Joker",
-    order = 883,
+    order = 910,
     ignore = true,
 
     key = "cap_n_bells",

@@ -1,6 +1,6 @@
 local force_the_hand_of_fate = {
     object_type = "Joker",
-    order = 944,
+    order = 971,
     ignore = true,
 
     key = "force_the_hand_of_fate",

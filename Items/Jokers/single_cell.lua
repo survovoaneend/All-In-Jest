@@ -1,6 +1,6 @@
 local single_cell = {
     object_type = "Joker",
-    order = 453,
+    order = 472,
     key = "single_cell",
     
     config = {

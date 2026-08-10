@@ -1,6 +1,6 @@
 local toothy_joker = {
     object_type = "Joker",
-    order = 213,
+    order = 219,
 
     key = "toothy_joker",
     config = {

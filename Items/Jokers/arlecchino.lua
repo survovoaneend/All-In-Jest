@@ -1,6 +1,6 @@
 local arlecchino = {
   object_type = "Joker",
-  order = 162,
+  order = 165,
 
   key = "arlecchino",
   config = {

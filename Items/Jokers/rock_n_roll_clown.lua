@@ -1,6 +1,6 @@
 local rock_n_roll_clown = {
     object_type = "Joker",
-    order = 365,
+    order = 374,
     
     key = "rock_n_roll_clown",
     config = {

@@ -1,6 +1,6 @@
 local bad_guy = {
     object_type = "Joker",
-    order = 368,
+    order = 377,
     
     key = "bad_guy",
     config = {

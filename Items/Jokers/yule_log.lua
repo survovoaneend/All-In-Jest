@@ -1,6 +1,6 @@
 local yule_log = {
     object_type = "Joker",
-    order = 867,
+    order = 894,
     ignore = true,
 
     key = "yule_log",

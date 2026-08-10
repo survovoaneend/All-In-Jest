@@ -1,6 +1,6 @@
 local the_tape = {
     object_type = "Joker",
-    order = 940,
+    order = 967,
     ignore = true,
 
     key = "the_tape",

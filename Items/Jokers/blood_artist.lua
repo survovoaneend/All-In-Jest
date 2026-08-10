@@ -1,6 +1,6 @@
 local blood_artist = {
     object_type = "Joker",
-    order = 86,
+    order = 89,
 
     key = "blood_artist",
     config = {

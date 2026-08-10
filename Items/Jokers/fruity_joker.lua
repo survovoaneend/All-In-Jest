@@ -1,6 +1,6 @@
 local fruity_joker = {
     object_type = "Joker",
-    order = 45,
+    order = 48,
 
     key = "fruity_joker",
     config = {

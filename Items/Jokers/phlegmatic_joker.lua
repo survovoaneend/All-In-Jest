@@ -1,6 +1,6 @@
 local phlegmatic_joker = {
     object_type = "Joker",
-    order = 351,
+    order = 357,
 
     key = "phlegmatic_joker",
     config = {

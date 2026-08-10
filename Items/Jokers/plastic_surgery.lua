@@ -1,6 +1,6 @@
 local plastic_surgery = {
     object_type = "Joker",
-    order = 417,
+    order = 436,
     key = "plastic_surgery",
     ignore = true,
     config = {

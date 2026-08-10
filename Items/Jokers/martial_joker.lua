@@ -1,6 +1,6 @@
 local martial_joker = {
     object_type = "Joker",
-    order = 911,
+    order = 938,
     ignore = true,
 
     key = "martial_joker",

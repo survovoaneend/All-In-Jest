@@ -1,6 +1,6 @@
 local cyclops = {
     object_type = "Joker",
-    order = 177,
+    order = 180,
     key = "cyclops",
     config = {
         extra = {
@@ -9,11 +9,10 @@ local cyclops = {
         }
     },
     attributes = { 'hands', 'mult', 'scaling', },
-    rarity = 3,
+    rarity = 1,
     pos = { x = 20, y = 6 },
-    ignore = true,
     atlas = 'joker_atlas',
-    cost = 9,
+    cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

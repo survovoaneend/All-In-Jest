@@ -1,6 +1,6 @@
 local on_your_sleeve = {
     object_type = "Joker",
-    order = 546,
+    order = 565,
     key = "on_your_sleeve",
     ignore = true,
     config = {

@@ -1,6 +1,6 @@
 local cryoseism = {
     object_type = "Joker",
-    order = 711,
+    order = 733,
     ignore = true,
 
     key = "cryoseism",

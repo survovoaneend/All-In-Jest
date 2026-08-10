@@ -1,6 +1,6 @@
 local triple_sundae = {
     object_type = "Joker",
-    order = 506,
+    order = 515,
 
     key = "triple_sundae",
     config = {

@@ -74,7 +74,7 @@ end
 
 local overdesigned_joker = {
     object_type = "Joker",
-    order = 230,
+    order = 235,
     
     key = "overdesigned_joker",
     config = {

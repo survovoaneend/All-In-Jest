@@ -1,6 +1,6 @@
 local cutpurse = {
     object_type = "Joker",
-    order = 727,
+    order = 749,
     ignore = true,
 
     key = "cutpurse",

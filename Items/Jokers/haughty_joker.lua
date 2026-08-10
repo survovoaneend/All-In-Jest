@@ -1,6 +1,6 @@
 local haughty_joker = {
     object_type = "Joker",
-    order = 544,
+    order = 563,
     key = "haughty_joker",
     
     config = {

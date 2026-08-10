@@ -1,6 +1,6 @@
 local tomato_sauce = {
     object_type = "Joker",
-    order = 629,
+    order = 664,
     ignore = true,
 
     key = "tomato_sauce",

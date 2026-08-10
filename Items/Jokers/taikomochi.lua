@@ -1,6 +1,6 @@
 local taikomochi = {
   object_type = "Joker",
-  order = 164,
+  order = 167,
 
   key = "taikomochi",
   config = {

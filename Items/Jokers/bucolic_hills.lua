@@ -1,6 +1,6 @@
 local bucolic_hills = {
     object_type = "Joker",
-    order = 381,
+    order = 400,
     key = "bucolic_hills",
    
     config = {

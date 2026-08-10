@@ -1,6 +1,6 @@
 local tract = {
     object_type = "Joker",
-    order = 252,
+    order = 258,
     
     key = "tract",
     config = {

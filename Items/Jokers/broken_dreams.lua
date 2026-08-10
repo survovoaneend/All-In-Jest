@@ -1,6 +1,6 @@
 local broken_dreams = {
     object_type = "Joker",
-    order = 340,
+    order = 347,
     ignore = true,
     key = "broken_dreams",
     config = {

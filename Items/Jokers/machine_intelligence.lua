@@ -1,6 +1,6 @@
 local machine_intelligence = {
     object_type = "Joker",
-    order = 248,
+    order = 253,
     ignore = true,
     key = "machine_intelligence",
     config = {

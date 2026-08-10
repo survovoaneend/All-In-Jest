@@ -1,6 +1,6 @@
 local grumpy_gus = {
     object_type = "Joker",
-    order = 718,
+    order = 740,
     ignore = true,
 
     key = "grumpy_gus",

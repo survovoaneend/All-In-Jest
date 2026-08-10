@@ -1,6 +1,6 @@
 local imperious_joker = {
     object_type = "Joker",
-    order = 545,
+    order = 564,
     key = "imperious_joker",
     
     config = {

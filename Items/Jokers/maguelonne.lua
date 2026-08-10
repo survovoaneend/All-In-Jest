@@ -1,6 +1,6 @@
 local maguelonne = {
     object_type = "Joker",
-    order = 594,
+    order = 621,
     key = "maguelonne",
   
     config = {

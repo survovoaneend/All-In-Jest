@@ -1,6 +1,6 @@
 local boatmurdered = {
     object_type = "Joker",
-    order = 689,
+    order = 711,
     ignore = true,
 
     key = "boatmurdered",

@@ -1,6 +1,6 @@
 local mean_green = {
     object_type = "Joker",
-    order = 524,
+    order = 543,
     key = "mean_green",
     ignore = true,
     config = {

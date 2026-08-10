@@ -1,6 +1,6 @@
 local christmas_eve = {
     object_type = "Joker",
-    order = 570,
+    order = 597,
     key = "christmas_eve",
   
     config = {

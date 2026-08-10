@@ -1,6 +1,6 @@
 local tonpraten = {
   object_type = "Joker",
-  order = 172,
+  order = 175,
   
 
   key = "tonpraten",

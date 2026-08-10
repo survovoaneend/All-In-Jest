@@ -1,6 +1,6 @@
 local the_dud = {
     object_type = "Joker",
-    order = 926,
+    order = 953,
     ignore = true,
 
     key = "the_dud",

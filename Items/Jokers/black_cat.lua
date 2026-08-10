@@ -1,6 +1,6 @@
 local black_cat = {
     object_type = "Joker",
-    order = 878,
+    order = 905,
     ignore = true,
 
     key = "black_cat",

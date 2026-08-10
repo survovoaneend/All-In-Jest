@@ -1,6 +1,6 @@
 local cut_here = {
     object_type = "Joker",
-    order = 361,
+    order = 370,
     key = "cut_here",
     config = {
 

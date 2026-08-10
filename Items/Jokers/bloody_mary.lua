@@ -1,6 +1,6 @@
 local bloody_mary = {
     object_type = "Joker",
-    order = 15,
+    order = 18,
     ignore = true,
 
     key = "bloody_mary",

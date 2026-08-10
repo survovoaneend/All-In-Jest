@@ -1,6 +1,6 @@
 local mysterious_horizon = {
     object_type = "Joker",
-    order = 947,
+    order = 974,
     ignore = true,
 
     key = "mysterious_horizon",

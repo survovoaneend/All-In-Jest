@@ -13,7 +13,6 @@ local the_pair = {
     mult = 2,
     boss_colour = HEX("82bee4"),
     atlas = 'blinds_pit',
-    ignore = true,
     pos = { y = 16 },
     order = 517,
     dollars = 6,

@@ -1,6 +1,6 @@
 local j_file = {
     object_type = "Joker",
-    order = 117,
+    order = 120,
 
     key = "j_file",
     config = {

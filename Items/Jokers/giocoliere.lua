@@ -1,6 +1,6 @@
 local giocoliere = {
     object_type = "Joker",
-    order = 147,
+    order = 150,
 
     key = "giocoliere",
     config = {

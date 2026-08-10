@@ -1,6 +1,6 @@
 local velzquez = {
     object_type = "Joker",
-    order = 685,
+    order = 707,
     ignore = true,
 
     key = "velzquez",

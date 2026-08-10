@@ -1,6 +1,6 @@
 local blue_eyes_white_joker = {
     object_type = "Joker",
-    order = 285,
+    order = 292,
     key = "blue_eyes_white_joker",
     config = {
       extra = { retriggers = 1 }

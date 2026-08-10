@@ -1,6 +1,6 @@
 local red_wine = {
     object_type = "Joker",
-    order = 104,
+    order = 107,
 
     key = "red_wine",
     config = {

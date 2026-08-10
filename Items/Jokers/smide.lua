@@ -1,6 +1,6 @@
 local smide = {
     object_type = "Joker",
-    order = 429,
+    order = 448,
     key = "smide",
     
     config = {

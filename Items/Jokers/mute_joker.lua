@@ -1,6 +1,6 @@
 local mute_joker = {
     object_type = "Joker",
-    order = 105,
+    order = 108,
 
     key = "mute_joker",
     config = {

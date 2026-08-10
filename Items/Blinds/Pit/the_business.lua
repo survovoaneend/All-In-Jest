@@ -12,7 +12,6 @@ local the_business = {
     end,
     mult = 2,
     boss_colour = HEX("3e4b4d"),
-    ignore = true,
     atlas = 'blinds_pit',
     pos = {y = 21},
     order = 522,

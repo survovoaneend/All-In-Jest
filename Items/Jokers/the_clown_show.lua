@@ -1,6 +1,6 @@
 local the_clown_show = {
     object_type = "Joker",
-    order = 9,
+    order = 12,
 
     key = "the_clown_show",
     config = {

@@ -1,6 +1,6 @@
 local flushed_face = {
     object_type = "Joker",
-    order = 963,
+    order = 990,
     ignore = true,
 
     key = "flushed_face",

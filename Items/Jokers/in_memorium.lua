@@ -1,6 +1,6 @@
 local in_memorium = {
     object_type = "Joker",
-    order = 490,
+    order = 509,
     key = "in_memorium",
     config = {
         extra = {
@@ -12,7 +12,6 @@ local in_memorium = {
     attributes = { 'spectral', 'scaling', 'xmult' },
     rarity = 1,
     pos = { x = 6, y = 24 },
-    ignore = true,
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
@@ -56,7 +55,7 @@ local in_memorium = {
             G.E_MANAGER:add_event(Event ({
                 trigger = 'before',
                 func = function()
-                    All_in_Jest.reroll_joker(G.shop_booster.cards[1], get_pack('in_memorium', 'Spectral').key, 'in_memorium', nil, {type = "Booster"})
+                    All_in_Jest.reroll_joker(G.shop_booster.cards[1], get_pack('in_memorium', 'Spectral').key, 'in_memorium', nil, {type = "Booster", shop_ui = G.shop_booster})
                     return true
                 end
             }))

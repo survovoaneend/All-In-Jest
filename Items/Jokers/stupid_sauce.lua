@@ -1,6 +1,6 @@
 local stupid_sauce = {
     object_type = "Joker",
-    order = 626,
+    order = 661,
     ignore = true,
 
     key = "stupid_sauce",

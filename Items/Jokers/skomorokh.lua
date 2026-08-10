@@ -1,6 +1,6 @@
 local skomorokh = {
     object_type = "Joker",
-    order = 209,
+    order = 215,
 
     key = "skomorokh",
     config = {

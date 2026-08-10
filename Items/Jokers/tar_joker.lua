@@ -1,6 +1,6 @@
 local tar_joker = {
     object_type = "Joker",
-    order = 629,
+    order = 660,
     key = "tar_joker",
     ignore = true,
     config = {

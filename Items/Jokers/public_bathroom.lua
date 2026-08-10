@@ -1,6 +1,6 @@
 local public_bathroom = {
   object_type = "Joker",
-  order = 30,
+  order = 33,
   lite = true,
   key = "public_bathroom",
   config = {

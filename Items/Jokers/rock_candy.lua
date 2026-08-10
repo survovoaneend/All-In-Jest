@@ -1,6 +1,6 @@
 local rock_candy = {
     object_type = "Joker",
-    order = 440,
+    order = 459,
     key = "rock_candy",
     ignore = true,
     config = {

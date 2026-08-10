@@ -1,6 +1,6 @@
 local the_mycologists = {
   object_type = "Joker",
-  order = 47,
+  order = 50,
 
   key = "the_mycologists",
   config = {

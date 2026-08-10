@@ -1,6 +1,6 @@
 local missing_poster = {
     object_type = "Joker",
-    order = 452,
+    order = 471,
     key = "missing_poster",
     ignore = true,
     config = {

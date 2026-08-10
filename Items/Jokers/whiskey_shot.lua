@@ -1,6 +1,6 @@
 local whiskey_shot = {
     object_type = "Joker",
-    order = 830,
+    order = 857,
     ignore = true,
 
     key = "whiskey_shot",

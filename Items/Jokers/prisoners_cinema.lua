@@ -1,6 +1,6 @@
 local prisoners_cinema = {
     object_type = "Joker",
-    order = 411,
+    order = 430,
     key = "prisoners_cinema",
     config = {
         extra = {

@@ -1,6 +1,6 @@
 local oil_and_water = {
     object_type = "Joker",
-    order = 73,
+    order = 76,
     ignore = true,
 
     key = "oil_and_water",

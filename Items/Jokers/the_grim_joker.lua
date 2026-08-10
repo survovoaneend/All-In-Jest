@@ -13,7 +13,7 @@ end
 
 local the_grim_joker = {
     object_type = "Joker",
-    order = 321,
+    order = 328,
     key = "the_grim_joker",
     config = {
       extra = {

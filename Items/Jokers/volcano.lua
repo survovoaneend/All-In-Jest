@@ -1,6 +1,6 @@
 local volcano = {
     object_type = "Joker",
-    order = 841,
+    order = 868,
     ignore = true,
 
     key = "volcano",

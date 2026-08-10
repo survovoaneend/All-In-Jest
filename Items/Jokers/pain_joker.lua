@@ -1,6 +1,6 @@
 local pain_joker = {
     object_type = "Joker",
-    order = 849,
+    order = 876,
     ignore = true,
 
     key = "pain_joker",

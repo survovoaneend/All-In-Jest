@@ -1,6 +1,6 @@
 local imageboard = {
     object_type = "Joker",
-    order = 22,
+    order = 25,
     lite = true,
     key = "imageboard",
     config = {

@@ -1,6 +1,6 @@
 local prank_caller = {
     object_type = "Joker",
-    order = 324,
+    order = 331,
     ignore = true,
     key = "prank_caller",
     config = {

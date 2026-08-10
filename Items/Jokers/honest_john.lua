@@ -1,6 +1,6 @@
 local honest_john = {
   object_type = "Joker",
-  order = 160,
+  order = 163,
   ignore = true,
 
   key = "honest_john",

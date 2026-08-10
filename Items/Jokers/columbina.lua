@@ -1,6 +1,6 @@
 local columbina = {
   object_type = "Joker",
-  order = 116,
+  order = 119,
 
   key = "columbina",
   config = {

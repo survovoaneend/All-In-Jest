@@ -1,6 +1,6 @@
 local fun_is_infinite = {
     object_type = "Joker",
-    order = 817,
+    order = 844,
     ignore = true,
 
     key = "fun_is_infinite",

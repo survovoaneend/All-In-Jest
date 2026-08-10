@@ -70,7 +70,7 @@ local tag_prices = {
 
 local ijoker_co = {
     object_type = "Joker",
-    order = 211,
+    order = 217,
 
     key = "ijoker_co",
     config = {
@@ -87,6 +87,7 @@ local ijoker_co = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    dongtong_compat = false,
   
     loc_vars = function(self, info_queue, card)
         return {

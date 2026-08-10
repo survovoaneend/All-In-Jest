@@ -1,6 +1,6 @@
 local alibi_ike = {
     object_type = "Joker",
-    order = 777,
+    order = 799,
     ignore = true,
 
     key = "alibi_ike",

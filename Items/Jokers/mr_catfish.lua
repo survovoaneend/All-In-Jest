@@ -1,6 +1,6 @@
 local mr_catfish = {
   object_type = "Joker",
-  order = 282,
+  order = 289,
 
   key = "mr_catfish",
   config = {

@@ -1,6 +1,6 @@
 local roustabout = {
     object_type = "Joker",
-    order = 766,
+    order = 788,
     ignore = true,
 
     key = "roustabout",

@@ -1,6 +1,6 @@
 local old_scratch = {
     object_type = "Joker",
-    order = 679,
+    order = 701,
     ignore = true,
 
     key = "old_scratch",

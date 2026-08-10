@@ -1818,6 +1818,9 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, extra)
                 victim_joker.ability.all_in_jest.has_been_rerolled_data = old_ability_data
             end
             victim_joker:set_cost()
+            if extra.shop_ui then
+                create_shop_card_ui(victim_joker, extra.type, extra.shop_ui)
+            end
             return true
         end
     }))
@@ -1831,10 +1834,10 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, extra)
             return true 
         end 
     }))
-      G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
         G.jokers:unhighlight_all()
         return true
-      end }))
+    end }))
     delay(0.5)
 end
 
@@ -1989,7 +1992,6 @@ function All_in_Jest.reset_game_globals(run_start)
     reset_jest_magick_joker_card()
     reset_jest_you_broke_it_card()
     reset_jest_lavatch_card()
-	  G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
 
     reset_jest_visage_cards()
@@ -3495,6 +3497,9 @@ function aij_calculate_end_of_round_effects(context, i, card)
         SMODS.calculate_card_areas('individual', context, effects, { main_scoring = true })
 
         local flags = SMODS.trigger_effects(effects, card)
+        if context.cardarea == G.hand and (next(effects) or next(flags)) then
+            SMODS.calculate_context({aij_held_effect_triggered = true, card = card, effects = next(effects) and effects or flags})
+        end
 
         context.individual = nil
         context.repetition = true
@@ -3587,6 +3592,49 @@ function aij_reroll_tags(blind, args)
             par.config.object = G.blind_select_opts[blind_choice:lower()]
             par.config.object:recalculate()
             G.blind_select_opts[blind_choice:lower()].parent = par
+        end
+    end
+end
+
+function aij_change_shop_size_advanced(mod, remove_tag, type, rarity, key, func)
+    if not G.GAME.shop then return end
+    G.GAME.shop.joker_max = G.GAME.shop.joker_max + mod
+    for i = 1, math.abs(mod) do
+        if mod > 0 then
+            G.GAME.shop.slot_details = G.GAME.shop.slot_details or {}
+            local _type, _rarity, _key = _type or type, _rarity or rarity, _key or key
+            table.insert(G.GAME.shop.slot_details, 1,{
+                ['type'] = _type,
+                ['rarity'] = _rarity,
+                ['key'] = _key,
+                ['func'] = func,
+                ['remove_tag'] = remove_tag
+            })
+        elseif mod < 0 and remove_tag then
+            for k, v in pairs(G.GAME.shop.slot_details) do
+                if v.remove_tag == remove_tag then
+                    table.remove(G.GAME.shop.slot_details, k)
+                    break
+                end
+            end
+        end
+    end
+    if G.shop_jokers and G.shop_jokers.cards then
+        if mod < 0 then
+            --Remove jokers in shop
+            for i = #G.shop_jokers.cards, G.GAME.shop.joker_max+1, -1 do
+                if G.shop_jokers.cards[i] then
+                    G.shop_jokers.cards[i]:remove()
+                end
+            end
+        end
+        G.shop_jokers.config.card_limit = G.GAME.shop.joker_max
+        G.shop_jokers.T.w = math.min(G.GAME.shop.joker_max*1.02*G.CARD_W,4.08*G.CARD_W)
+        G.shop:recalculate()
+        if mod > 0 then
+            for i = 1, G.GAME.shop.joker_max - #G.shop_jokers.cards do
+                G.shop_jokers:emplace(create_card_for_shop(G.shop_jokers))
+            end
         end
     end
 end

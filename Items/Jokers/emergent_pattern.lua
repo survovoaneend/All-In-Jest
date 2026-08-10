@@ -1,6 +1,6 @@
 local emergent_pattern = {
     object_type = "Joker",
-    order = 924,
+    order = 951,
     ignore = true,
 
     key = "emergent_pattern",

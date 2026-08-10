@@ -1,6 +1,6 @@
 local fish_fingers = {
     object_type = "Joker",
-    order = 301,
+    order = 308,
 
     key = "fish_fingers",
     config = {

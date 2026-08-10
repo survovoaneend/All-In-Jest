@@ -1,6 +1,6 @@
 local shock_collar = {
     object_type = "Joker",
-    order = 794,
+    order = 819,
     ignore = true,
 
     key = "shock_collar",

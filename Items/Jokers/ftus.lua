@@ -1,6 +1,6 @@
 local ftus = {
     object_type = "Joker",
-    order = 631,
+    order = 666,
     ignore = true,
 
     key = "ftus",

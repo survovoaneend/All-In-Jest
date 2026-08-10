@@ -1,6 +1,6 @@
 local hes_outside = {
     object_type = "Joker",
-    order = 397,
+    order = 416,
     key = "hes_outside",
     ignore = true,
     config = {

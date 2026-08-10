@@ -1,6 +1,6 @@
 local chaufournier = {
     object_type = "Joker",
-    order = 864,
+    order = 891,
     ignore = true,
 
     key = "chaufournier",

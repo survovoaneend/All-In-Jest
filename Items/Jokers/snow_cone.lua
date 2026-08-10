@@ -1,6 +1,6 @@
 local snow_cone = {
     object_type = "Joker",
-    order = 825,
+    order = 852,
     ignore = true,
 
     key = "snow_cone",

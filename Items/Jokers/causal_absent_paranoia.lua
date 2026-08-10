@@ -1,6 +1,6 @@
 local causal_absent_paranoia = {
     object_type = "Joker",
-    order = 75,
+    order = 78,
     ignore = true,
 
     key = "causal_absent_paranoia",

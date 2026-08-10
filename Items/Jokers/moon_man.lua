@@ -1,6 +1,6 @@
 local moon_man = {
     object_type = "Joker",
-    order = 845,
+    order = 872,
     ignore = true,
 
     key = "moon_man",

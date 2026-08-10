@@ -1,6 +1,6 @@
 local rodeo_star = {
     object_type = "Joker",
-    order = 897,
+    order = 924,
     ignore = true,
 
     key = "rodeo_star",

@@ -1,6 +1,6 @@
 local bad_sun = {
     object_type = "Joker",
-    order = 344,
+    order = 351,
     key = "bad_sun",
     config = {
       extra = {

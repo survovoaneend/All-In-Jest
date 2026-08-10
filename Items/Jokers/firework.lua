@@ -1,6 +1,6 @@
 local firework = {
     object_type = "Joker",
-    order = 367,
+    order = 376,
    
     key = "firework",
     config = {

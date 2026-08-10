@@ -1,6 +1,6 @@
 local spectre = {
     object_type = "Joker",
-    order = 148,
+    order = 151,
 
     key = "spectre",
     config = {

@@ -1,6 +1,6 @@
 local jack_horner = {
     object_type = "Joker",
-    order = 376,
+    order = 395,
     key = "jack_horner",
     ignore = true,
     config = {

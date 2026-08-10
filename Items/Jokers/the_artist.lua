@@ -1,6 +1,6 @@
 local the_artist = {
     object_type = "Joker",
-    order = 216,
+    order = 222,
 
     key = "the_artist",
     config = {

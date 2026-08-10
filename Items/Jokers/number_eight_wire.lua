@@ -1,6 +1,6 @@
 local number_eight_wire = {
     object_type = "Joker",
-    order = 927,
+    order = 954,
     ignore = true,
 
     key = "number_eight_wire",

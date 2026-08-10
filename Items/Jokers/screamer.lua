@@ -1,6 +1,6 @@
 local screamer = {
     object_type = "Joker",
-    order = 332,
+    order = 339,
     ignore = true,
     key = "screamer",
     config = {

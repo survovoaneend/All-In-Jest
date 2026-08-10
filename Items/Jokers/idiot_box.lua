@@ -1,6 +1,6 @@
 local idiot_box = {
     object_type = "Joker",
-    order = 362,
+    order = 381,
     key = "idiot_box",
     ignore = true,
     config = {

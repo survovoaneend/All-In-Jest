@@ -1,6 +1,6 @@
 local fulehung = {
     object_type = "Joker",
-    order = 207,
+    order = 213,
 
     key = "fulehung",
     config = {

@@ -1,6 +1,6 @@
 local infinite_jest = {
     object_type = "Joker",
-    order = 14,
+    order = 17,
 
     key = "infinite_jest",
     config = {

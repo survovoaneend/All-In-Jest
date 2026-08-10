@@ -1,6 +1,6 @@
 local the_slab = {
     object_type = "Joker",
-    order = 615,
+    order = 646,
     key = "the_slab",
     ignore = true,
     config = {

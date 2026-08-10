@@ -1,6 +1,6 @@
 local arngren = {
     object_type = "Joker",
-    order = 325,
+    order = 332,
 
     key = "arngren",
     config = {

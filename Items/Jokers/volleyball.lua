@@ -1,6 +1,6 @@
 local volleyball = {
     object_type = "Joker",
-    order = 846,
+    order = 873,
     ignore = true,
 
     key = "volleyball",

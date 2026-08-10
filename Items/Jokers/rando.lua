@@ -1,6 +1,6 @@
 local rando = {
     object_type = "Joker",
-    order = 770,
+    order = 792,
     ignore = true,
 
     key = "rando",

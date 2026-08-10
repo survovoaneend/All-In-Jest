@@ -1,6 +1,6 @@
 local postcard_from_perdition_trail = {
   object_type = "Joker",
-  order = 203,
+  order = 209,
 
   key = "postcard_from_perdition_trail",
   config = {

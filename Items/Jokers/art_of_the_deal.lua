@@ -1,6 +1,6 @@
 local art_of_the_deal = {
     object_type = "Joker",
-    order = 40,
+    order = 43,
 
     key = "art_of_the_deal",
     config = {

@@ -1,6 +1,6 @@
 local propaganda = {
     object_type = "Joker",
-    order = 408,
+    order = 427,
     key = "propaganda",
 
     config = {

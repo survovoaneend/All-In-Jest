@@ -1,6 +1,6 @@
 local side_character = {
     object_type = "Joker",
-    order = 790,
+    order = 812,
     ignore = true,
 
     key = "side_character",

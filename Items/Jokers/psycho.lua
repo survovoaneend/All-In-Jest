@@ -1,6 +1,6 @@
 local psycho = {
     object_type = "Joker",
-    order = 525,
+    order = 544,
     key = "psycho",
 
     config = {

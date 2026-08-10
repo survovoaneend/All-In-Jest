@@ -1,6 +1,6 @@
 local pell_mel = {
     object_type = "Joker",
-    order = 37,
+    order = 40,
 
     key = "pell_mel",
     config = {

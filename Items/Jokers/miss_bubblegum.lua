@@ -1,6 +1,6 @@
 local miss_bubblegum = {
     object_type = "Joker",
-    order = 675,
+    order = 697,
     ignore = true,
 
     key = "miss_bubblegum",

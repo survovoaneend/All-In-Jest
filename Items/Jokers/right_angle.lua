@@ -1,6 +1,6 @@
 local right_angle = {
     object_type = "Joker",
-    order = 66,
+    order = 69,
 
     key = "right_angle",
     config = {

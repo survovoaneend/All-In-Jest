@@ -1,6 +1,6 @@
 local info_joker_start = {
     object_type = "Joker",
-    order = 736,
+    order = 758,
     ignore = true,
 
     key = "info_joker_start",

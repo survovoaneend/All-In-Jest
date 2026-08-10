@@ -1,6 +1,6 @@
 local devil_deal = {
     object_type = "Joker",
-    order = 238,
+    order = 243,
     lite = true,
     key = "devil_deal",
     config = {

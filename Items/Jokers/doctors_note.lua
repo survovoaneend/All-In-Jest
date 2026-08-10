@@ -1,6 +1,6 @@
 local doctors_note = {
     object_type = "Joker",
-    order = 56,
+    order = 59,
     ignore = true,
     key = "doctors_note",
     config = {

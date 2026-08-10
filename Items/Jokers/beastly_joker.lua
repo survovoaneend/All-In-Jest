@@ -1,6 +1,6 @@
 local beastly_joker = {
     object_type = "Joker",
-    order = 808,
+    order = 833,
     ignore = true,
 
     key = "beastly_joker",

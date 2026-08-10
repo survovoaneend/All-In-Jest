@@ -1,6 +1,6 @@
 local grue = {
     object_type = "Joker",
-    order = 279,
+    order = 286,
     ignore = true,
     key = "grue",
     config = {

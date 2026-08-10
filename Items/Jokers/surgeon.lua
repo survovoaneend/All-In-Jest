@@ -1,6 +1,6 @@
 local surgeon = {
     object_type = "Joker",
-    order = 934,
+    order = 961,
     ignore = true,
 
     key = "surgeon",

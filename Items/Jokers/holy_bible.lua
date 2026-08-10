@@ -1,6 +1,6 @@
 local holy_bible = {
     object_type = "Joker",
-    order = 64,
+    order = 67,
     ignore = true,
 
     key = "holy_bible",

@@ -1,6 +1,6 @@
 local desiderium = {
     object_type = "Joker",
-    order = 571,
+    order = 598,
     key = "desiderium",
   
     config = {

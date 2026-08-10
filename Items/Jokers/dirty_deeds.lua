@@ -1,6 +1,6 @@
 local dirty_deeds = {
     object_type = "Joker",
-    order = 670,
+    order = 692,
     ignore = true,
 
     key = "dirty_deeds",

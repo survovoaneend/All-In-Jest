@@ -1,6 +1,6 @@
 local revolving_jubilation = {
     object_type = "Joker",
-    order = 855,
+    order = 882,
     ignore = true,
 
     key = "revolving_jubilation",

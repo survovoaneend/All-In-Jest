@@ -1,6 +1,6 @@
 local scanlines = {
     object_type = "Joker",
-    order = 641,
+    order = 676,
     ignore = true,
 
     key = "scanlines",

@@ -1,6 +1,6 @@
 local game_bro = {
     object_type = "Joker",
-    order = 437,
+    order = 456,
     key = "game_bro",
     
     config = {

@@ -1,6 +1,6 @@
 local flatwoods = {
     object_type = "Joker",
-    order = 559,
+    order = 578,
     key = "flatwoods",
     ignore = true,
     config = {

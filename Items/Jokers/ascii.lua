@@ -1,6 +1,6 @@
 local ascii = {
     object_type = "Joker",
-    order = 652,
+    order = 687,
     ignore = true,
 
     key = "ascii",

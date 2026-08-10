@@ -1,6 +1,6 @@
 local animatronic = {
   object_type = "Joker",
-  order = 198,
+  order = 204,
 
   key = "animatronic",
   config = {

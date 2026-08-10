@@ -1,6 +1,6 @@
 local obsessive_objective = {
     object_type = "Joker",
-    order = 618,
+    order = 649,
     key = "obsessive_objective",
     ignore = true,
     config = {

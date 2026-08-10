@@ -1,6 +1,6 @@
 local cracked_up = {
     object_type = "Joker",
-    order = 536,
+    order = 555,
     key = "cracked_up",
     ignore = true,
     config = {

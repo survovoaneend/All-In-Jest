@@ -1,6 +1,6 @@
 local origami_joker = {
     object_type = "Joker",
-    order = 468,
+    order = 487,
     key = "origami_joker",
     ignore = true,
     config = {

@@ -1,6 +1,6 @@
 local orphic_joker = {
     object_type = "Joker",
-    order = 215,
+    order = 221,
 
     key = "orphic_joker",
     config = {

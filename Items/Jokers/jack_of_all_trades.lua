@@ -1,6 +1,6 @@
 local jack_of_all_trades = {
     object_type = "Joker",
-    order = 140,
+    order = 143,
 
     key = "jack_of_all_trades",
     config = {

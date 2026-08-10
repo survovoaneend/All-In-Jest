@@ -1,6 +1,6 @@
 local adoring_joker = {
     object_type = "Joker",
-    order = 67,
+    order = 70,
     key = "adoring_joker",
     config = {
       highest_mult = 0

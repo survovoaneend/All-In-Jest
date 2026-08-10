@@ -1,6 +1,6 @@
 local stargazy_pie = {
     object_type = "Joker",
-    order = 305,
+    order = 312,
     key = "stargazy_pie",
     lite = true,
     config = {

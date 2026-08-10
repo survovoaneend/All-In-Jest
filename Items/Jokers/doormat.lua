@@ -1,6 +1,6 @@
 local doormat = {
     object_type = "Joker",
-    order = 531,
+    order = 550,
     key = "doormat",
     config = {
         extra = {

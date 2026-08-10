@@ -1,6 +1,6 @@
 local chimney_sweep = {
     object_type = "Joker",
-    order = 530,
+    order = 549,
     key = "chimney_sweep",
     ignore = true,
     config = {

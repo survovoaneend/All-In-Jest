@@ -1,6 +1,6 @@
 local hall_monitor = {
     object_type = "Joker",
-    order = 606,
+    order = 638,
     key = "hall_monitor",
     ignore = true,
     config = {

@@ -1,6 +1,6 @@
 local janus = {
     object_type = "Joker",
-    order = 133,
+    order = 136,
     ignore = true,
 
     key = "janus",

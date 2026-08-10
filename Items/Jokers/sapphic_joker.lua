@@ -1,6 +1,6 @@
 local sapphic_joker = {
     object_type = "Joker",
-    order = 866,
+    order = 893,
     ignore = true,
 
     key = "sapphic_joker",

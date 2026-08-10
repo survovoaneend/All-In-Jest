@@ -1,6 +1,6 @@
 local bingsu = {
     object_type = "Joker",
-    order = 959,
+    order = 986,
     ignore = true,
 
     key = "bingsu",

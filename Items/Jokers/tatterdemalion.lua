@@ -1,6 +1,6 @@
 local tatterdemalion = {
     object_type = "Joker",
-    order = 678,
+    order = 700,
     ignore = true,
 
     key = "tatterdemalion",

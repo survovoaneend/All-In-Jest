@@ -1,6 +1,6 @@
 local magick_joker = {
   object_type = "Joker",
-  order = 88,
+  order = 91,
   lite = true,
   key = "magick_joker",
   config = {

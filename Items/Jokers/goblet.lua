@@ -1,6 +1,6 @@
 local goblet = {
     object_type = "Joker",
-    order = 498,
+    order = 517,
     key = "goblet",
     
     config = {

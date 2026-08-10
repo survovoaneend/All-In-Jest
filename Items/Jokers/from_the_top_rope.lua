@@ -1,6 +1,6 @@
 local from_the_top_rope = {
     object_type = "Joker",
-    order = 271.1,
+    order = 278.1,
     ignore = true,
     key = "from_the_top_rope",
     config = {

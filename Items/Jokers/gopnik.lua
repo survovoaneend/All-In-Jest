@@ -1,6 +1,6 @@
 local gopnik = {
     object_type = "Joker",
-    order = 456,
+    order = 475,
     key = "gopnik",
     
     config = {

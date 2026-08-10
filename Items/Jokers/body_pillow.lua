@@ -1,6 +1,6 @@
 local body_pillow = {
     object_type = "Joker",
-    order = 425,
+    order = 444,
     key = "body_pillow",
 
     config = {

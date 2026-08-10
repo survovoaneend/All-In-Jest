@@ -1,6 +1,6 @@
 local hairy_joker = {
     object_type = "Joker",
-    order = 82,
+    order = 85,
     ignore = true,
 
     key = "hairy_joker",

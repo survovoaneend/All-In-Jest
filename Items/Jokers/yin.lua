@@ -1,6 +1,6 @@
 local yin = {
     object_type = "Joker",
-    order = 539,
+    order = 558,
     key = "yin",
     
     config = {

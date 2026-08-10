@@ -1,6 +1,6 @@
 local hallucinaut = {
     object_type = "Joker",
-    order = 607,
+    order = 639,
     key = "hallucinaut",
     
     config = {

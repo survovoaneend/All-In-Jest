@@ -13,6 +13,10 @@ local eye = {
     loc_vars = function(self, info_queue, card)
         return { vars = {  } }
     end,
+    get_weight = function(self)
+        -- Its normally 10 for seals
+        return 3
+    end,
     calculate = function(self, card, context)
         
     end

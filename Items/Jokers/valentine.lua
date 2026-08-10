@@ -1,6 +1,6 @@
 local valentine = {
     object_type = "Joker",
-    order = 378,
+    order = 397,
     key = "valentine",
     
     config = {

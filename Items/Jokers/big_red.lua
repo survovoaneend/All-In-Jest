@@ -1,6 +1,6 @@
 local big_red = {
     object_type = "Joker",
-    order = 130,
+    order = 133,
 
     key = "big_red",
     config = {

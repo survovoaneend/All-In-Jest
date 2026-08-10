@@ -1,6 +1,6 @@
 local wire_joker = {
     object_type = "Joker",
-    order = 762,
+    order = 784,
     ignore = true,
 
     key = "wire_joker",

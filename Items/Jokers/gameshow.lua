@@ -1,6 +1,6 @@
 local gameshow = {
     object_type = "Joker",
-    order = 306,
+    order = 313,
     key = "gameshow",
     config = {
       extra = {

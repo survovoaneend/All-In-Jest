@@ -1,6 +1,6 @@
 local guiser = {
   object_type = "Joker",
-  order = 157,
+  order = 160,
 
   key = "guiser",
   config = {

@@ -1,6 +1,6 @@
 local omlette = {
     object_type = "Joker",
-    order = 256,
+    order = 262,
     key = "omlette",
     config = {
       extra = {

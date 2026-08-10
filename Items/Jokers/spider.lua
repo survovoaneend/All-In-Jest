@@ -1,6 +1,6 @@
 local spider = {
     object_type = "Joker",
-    order = 824,
+    order = 851,
     ignore = true,
 
     key = "spider",

@@ -1,6 +1,6 @@
 local hofnarr_the_barbarian = {
     object_type = "Joker",
-    order = 222,
+    order = 228,
 
     key = "hofnarr_the_barbarian",
     config = {

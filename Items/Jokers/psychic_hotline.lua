@@ -1,6 +1,6 @@
 local psychic_hotline = {
     object_type = "Joker",
-    order = 788,
+    order = 810,
     ignore = true,
 
     key = "psychic_hotline",

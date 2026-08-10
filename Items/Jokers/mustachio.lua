@@ -1,6 +1,6 @@
 local mustachio = {
     object_type = "Joker",
-    order = 54,
+    order = 57,
     ignore = true,
 
     key = "mustachio",

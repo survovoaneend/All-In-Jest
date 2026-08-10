@@ -1,6 +1,6 @@
 local capgras = {
     object_type = "Joker",
-    order = 707,
+    order = 729,
     ignore = true,
 
     key = "capgras",

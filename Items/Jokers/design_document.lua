@@ -1,6 +1,6 @@
 local design_document = {
     object_type = "Joker",
-    order = 197,
+    order = 203,
     key = "design_document",
     config = {
         extra = {

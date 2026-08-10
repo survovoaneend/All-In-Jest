@@ -1,6 +1,6 @@
 local organist = {
     object_type = "Joker",
-    order = 715,
+    order = 737,
     ignore = true,
 
     key = "organist",

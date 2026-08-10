@@ -1,6 +1,6 @@
 local sculptor = {
     object_type = "Joker",
-    order = 832,
+    order = 859,
     ignore = true,
 
     key = "sculptor",

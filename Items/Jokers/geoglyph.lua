@@ -1,6 +1,6 @@
 local geoglyph = {
     object_type = "Joker",
-    order = 427,
+    order = 446,
     key = "geoglyph",
     
     config = {

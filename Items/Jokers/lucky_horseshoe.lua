@@ -1,6 +1,6 @@
 local lucky_horseshoe = {
     object_type = "Joker",
-    order = 406,
+    order = 425,
     key = "lucky_horseshoe",
     
     config = {

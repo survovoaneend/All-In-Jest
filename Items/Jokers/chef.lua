@@ -1,6 +1,6 @@
 local chef = {
     object_type = "Joker",
-    order = 331,
+    order = 338,
     key = "chef",
     config = {
         extra = {

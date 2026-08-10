@@ -1,6 +1,6 @@
 local sticker = {
   object_type = "Joker",
-  order = 179,
+  order = 182,
   lite = true,
   key = "sticker",
   config = {
@@ -44,7 +44,7 @@ local sticker = {
     fake_center.set = "Joker"
     for _, v in ipairs(SMODS.Sticker.obj_buffer) do
         local sticker = SMODS.Stickers[v]
-        local is_paperclip = next(SMODS.find_mod("paperback")) and PB_UTIL.Paperclips_keys and PB_UTIL.Paperclips_keys[v]
+        local is_paperclip = next(SMODS.find_mod("paperback")) and PB_UTIL.Paperclips_keys and  PB_UTIL.Paperclips_keys[v]
         if sticker and not is_paperclip and sticker.should_apply and type(sticker.should_apply) == 'function' and sticker:should_apply(fake_card, fake_center, nil, true) then
             return true
         end

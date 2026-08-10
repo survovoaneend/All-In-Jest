@@ -1,6 +1,6 @@
 local null_joker = {
   object_type = "Joker",
-  order = 87,
+  order = 90,
 
   key = "null_joker",
   config = {

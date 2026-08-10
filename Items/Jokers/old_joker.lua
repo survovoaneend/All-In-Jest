@@ -1,6 +1,6 @@
 local old_joker = {
     object_type = "Joker",
-    order = 21,
+    order = 24,
 
     all_in_jest = {
         only_shop_pool = true,

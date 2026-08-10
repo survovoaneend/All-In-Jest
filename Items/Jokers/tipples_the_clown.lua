@@ -1,6 +1,6 @@
 local tipples_the_clown = {
     object_type = "Joker",
-    order = 360,
+    order = 379,
     key = "tipples_the_clown",
     ignore = true,
     config = {

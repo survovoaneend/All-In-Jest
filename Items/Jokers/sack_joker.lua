@@ -1,6 +1,6 @@
 local sack_joker = {
     object_type = "Joker",
-    order = 847,
+    order = 874,
     ignore = true,
 
     key = "sack_joker",

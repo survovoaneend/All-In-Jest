@@ -1,6 +1,6 @@
 local le_fils_de_banane = {
     object_type = "Joker",
-    order = 277,
+    order = 284,
     key = "le_fils_de_banane",
     config = {
       extra = {

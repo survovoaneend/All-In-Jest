@@ -1,6 +1,6 @@
 local peeping_tom = {
   object_type = "Joker",
-  order = 154,
+  order = 157,
 
   key = "peeping_tom",
   config = {

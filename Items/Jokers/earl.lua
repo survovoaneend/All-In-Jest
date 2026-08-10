@@ -1,6 +1,6 @@
 local earl = {
     object_type = "Joker",
-    order = 708,
+    order = 730,
     ignore = true,
 
     key = "earl",

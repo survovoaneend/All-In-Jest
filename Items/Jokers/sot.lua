@@ -1,6 +1,6 @@
 local sot = {
     object_type = "Joker",
-    order = 226,
+    order = 231,
 
     key = "sot",
     config = {

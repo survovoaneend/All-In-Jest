@@ -1,6 +1,6 @@
 local spy = {
     object_type = "Joker",
-    order = 717,
+    order = 739,
     ignore = true,
 
     key = "spy",

@@ -1,6 +1,6 @@
 local dark_magician = {
     object_type = "Joker",
-    order = 515,
+    order = 524,
 
     key = "dark_magician",
     config = {

@@ -1,6 +1,6 @@
 local negative_nancy = {
   object_type = "Joker",
-  order = 20,
+  order = 23,
 
   key = "negative_nancy",
 

@@ -1,6 +1,6 @@
 local oklo_reactor = {
     object_type = "Joker",
-    order = 549,
+    order = 568,
     key = "oklo_reactor",
     
     config = {
@@ -17,6 +17,7 @@ local oklo_reactor = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    dongtong_compat = false,
     enhancement_gate = 'm_gold',
 
     loc_vars = function(self, info_queue, card)

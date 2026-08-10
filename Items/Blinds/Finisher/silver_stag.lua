@@ -10,7 +10,6 @@ local silver_stag = {
     end,
     mult = 2,
     boss_colour = HEX("9cacbe"),
-    ignore = true,
     atlas = 'blinds_final',
     pos = { y = 4},
     order = 1005,

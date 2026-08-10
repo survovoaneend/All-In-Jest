@@ -1,6 +1,6 @@
 local elder = {
     object_type = "Joker",
-    order = 513,
+    order = 522,
 
     key = "elder",
     config = {

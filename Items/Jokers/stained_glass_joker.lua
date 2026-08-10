@@ -1,6 +1,6 @@
 local stained_glass_joker = {
     object_type = "Joker",
-    order = 228,
+    order = 233,
 
     key = "stained_glass_joker",
     config = {

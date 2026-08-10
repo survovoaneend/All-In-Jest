@@ -1,6 +1,6 @@
 local atom = {
   object_type = "Joker",
-  order = 42,
+  order = 45,
 
   key = "atom",
   config = {

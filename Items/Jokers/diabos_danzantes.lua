@@ -1,6 +1,6 @@
 local diabos_danzantes = {
     object_type = "Joker",
-    order = 758,
+    order = 780,
     ignore = true,
 
     key = "diabos_danzantes",

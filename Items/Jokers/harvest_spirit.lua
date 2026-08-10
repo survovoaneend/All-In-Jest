@@ -1,6 +1,6 @@
 local harvest_spirit = {
     object_type = "Joker",
-    order = 941,
+    order = 968,
     ignore = true,
 
     key = "harvest_spirit",

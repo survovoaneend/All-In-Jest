@@ -1,6 +1,6 @@
 local alien_joker = {
     object_type = "Joker",
-    order = 338,
+    order = 345,
     key = "alien_joker",
     config = {
       extra = {

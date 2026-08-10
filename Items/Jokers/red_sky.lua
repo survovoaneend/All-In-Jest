@@ -1,6 +1,6 @@
 local red_sky = {
   object_type = "Joker",
-  order = 125,
+  order = 128,
   lite = true,
   key = "red_sky",
   config = {

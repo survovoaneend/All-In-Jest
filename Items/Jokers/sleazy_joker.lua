@@ -1,6 +1,6 @@
 local sleazy_joker = {
     object_type = "Joker",
-    order = 511,
+    order = 530,
     key = "sleazy_joker",
     ignore = true,
     config = {

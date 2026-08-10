@@ -1,6 +1,6 @@
 local debbie_downer = {
     object_type = "Joker",
-    order = 473,
+    order = 492,
     key = "debbie_downer",
     ignore = true,
     config = {

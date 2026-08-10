@@ -1,6 +1,6 @@
 local shapes = {
     object_type = "Joker",
-    order = 873,
+    order = 900,
     ignore = true,
 
     key = "shapes",

@@ -1,6 +1,6 @@
 local alleged_burger = {
     object_type = "Joker",
-    order = 958,
+    order = 985,
     ignore = true,
 
     key = "alleged_burger",

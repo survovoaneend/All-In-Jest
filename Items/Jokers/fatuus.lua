@@ -1,6 +1,6 @@
 local fatuus = {
   object_type = "Joker",
-  order = 189,
+  order = 195,
 
   key = "fatuus",
   config = {

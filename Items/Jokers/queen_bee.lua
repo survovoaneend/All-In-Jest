@@ -1,6 +1,6 @@
 local queen_bee = {
     object_type = "Joker",
-    order = 885,
+    order = 912,
     ignore = true,
 
     key = "queen_bee",

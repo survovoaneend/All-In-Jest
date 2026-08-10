@@ -1,6 +1,6 @@
 local jill_sprat = {
     object_type = "Joker",
-    order = 475,
+    order = 494,
     key = "jill_sprat",
     ignore = true,
     config = {

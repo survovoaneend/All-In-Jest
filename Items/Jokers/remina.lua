@@ -1,6 +1,6 @@
 local remina = {
   object_type = "Joker",
-  order = 335,
+  order = 342,
   key = "remina",
   config = {
     extra = {

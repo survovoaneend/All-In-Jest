@@ -1,6 +1,6 @@
 local pops = {
     object_type = "Joker",
-    order = 471,
+    order = 490,
     key = "pops",
     ignore = true,
     config = {

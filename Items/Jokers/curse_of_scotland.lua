@@ -1,6 +1,6 @@
 local curse_of_scotland = {
     object_type = "Joker",
-    order = 243,
+    order = 248,
 
     key = "curse_of_scotland",
     config = {

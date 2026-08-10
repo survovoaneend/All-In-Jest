@@ -1,6 +1,6 @@
 local nobody = {
     object_type = "Joker",
-    order = 339,
+    order = 346,
     key = "nobody",
     config = {
       extra = {

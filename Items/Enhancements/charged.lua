@@ -73,8 +73,7 @@ function Card:update(dt)
 				return
 			end
 			for k, v in pairs(tbl) do
-				local key_path = prefix and (prefix .. "." .. k) or tostring(k)
-				table.insert(ret, key_path)
+				table.insert(ret, k)
 				if type(v) == "table" then
 					extract_keys(v, ret, key_path)
 				end
@@ -82,15 +81,15 @@ function Card:update(dt)
 		end
 
 		for extra_search, enhancement_key in pairs({
-			["ability"] = self.config.center and self.config.center.key,
-			["config.aij_other_center.ability"] = self.config.aij_other_center and self.config.aij_other_center.center and self.config.aij_other_center.center.key,
+			["ability"] = self.config.center,
+			["config.aij_other_center.ability"] = self.config.aij_other_center and self.config.aij_other_center.center,
 		}) do
 
-			sendDebugMessage(enhancement_key, "AIJ")
+			sendDebugMessage(enhancement_key.key, "AIJ")
 
 			local inherent_keys = {}
 			if enhancement_key then
-				extract_keys(G.P_CENTERS[enhancement_key].config, inherent_keys)
+				extract_keys(enhancement_key.config, inherent_keys)
 				if #inherent_keys > 0 then
 					jest_ability_calculate(self, "*", diff, {
 						h_x_chips = 1,

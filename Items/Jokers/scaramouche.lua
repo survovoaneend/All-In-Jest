@@ -1,6 +1,6 @@
 local scaramouche = {
     object_type = "Joker",
-    order = 101,
+    order = 104,
 
     key = "scaramouche",
     config = {

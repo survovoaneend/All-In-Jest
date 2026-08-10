@@ -1,6 +1,6 @@
 local corny_joker = {
     object_type = "Joker",
-    order = 245,
+    order = 250,
     ignore = true,
     key = "corny_joker",
     config = {

@@ -1,6 +1,6 @@
 local funny_bunch = {
     object_type = "Joker",
-    order = 450,
+    order = 469,
     key = "funny_bunch",
 
     config = {

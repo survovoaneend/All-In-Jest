@@ -1,6 +1,6 @@
 local realty_sign = {
     object_type = "Joker",
-    order = 83,
+    order = 86,
     lite = true,
     key = "realty_sign",
     config = {

@@ -1,23 +1,23 @@
 local vexed = {
     object_type = "Joker",
-    order = 644,
+    order = 679,
 
     key = "vexed",
     config = {
         extra = {
-            chance = 20
+            chance = 50
         }
     },
     attributes = { 'generation', 'joker', 'on_sell' },
     rarity = 2,
     pos = { x = 11, y = 30},
-    ignore = true,
     atlas = 'joker_atlas',
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
+    dongtong_compat = false,
 
     loc_vars = function(self, info_queue, card)
         return {

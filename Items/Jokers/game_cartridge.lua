@@ -1,6 +1,6 @@
 local game_cartridge = {
     object_type = "Joker",
-    order = 624,
+    order = 655,
     key = "game_cartridge",
     ignore = true,
     config = {

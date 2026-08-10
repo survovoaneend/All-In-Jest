@@ -1,6 +1,6 @@
 local shrinkflation = {
     object_type = "Joker",
-    order = 621,
+    order = 652,
     key = "shrinkflation",
     ignore = true,
     config = {

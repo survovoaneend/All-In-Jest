@@ -1,6 +1,6 @@
 local ghosthunter = {
     object_type = "Joker",
-    order = 532,
+    order = 551,
     key = "ghosthunter",
     config = {
         extra = {

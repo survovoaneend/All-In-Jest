@@ -1,6 +1,6 @@
 local hacking_minigame = {
     object_type = "Joker",
-    order = 818,
+    order = 845,
     ignore = true,
 
     key = "hacking_minigame",

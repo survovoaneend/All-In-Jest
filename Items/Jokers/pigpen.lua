@@ -1,6 +1,6 @@
 local pigpen = {
   object_type = "Joker",
-  order = 176,
+  order = 179,
   
 
   key = "pigpen",

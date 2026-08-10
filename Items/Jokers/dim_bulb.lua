@@ -1,6 +1,6 @@
 local dim_bulb = {
   object_type = "Joker",
-  order = 85,
+  order = 88,
   lite = true,
   key = "dim_bulb",
   config = {

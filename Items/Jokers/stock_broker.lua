@@ -1,6 +1,6 @@
 local stock_broker = {
     object_type = "Joker",
-    order = 253,
+    order = 259,
     key = "stock_broker",
     config = {
       extra = {

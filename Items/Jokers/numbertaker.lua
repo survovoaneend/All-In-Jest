@@ -1,6 +1,6 @@
 local numbertaker = {
     object_type = "Joker",
-    order = 516,
+    order = 535,
     key = "numbertaker",
     config = {
         extra = {

@@ -1,6 +1,6 @@
 local liftoff = {
     object_type = "Joker",
-    order = 952,
+    order = 979,
     ignore = true,
 
     key = "liftoff",

@@ -1,6 +1,6 @@
 local dark_presence = {
     object_type = "Joker",
-    order = 749,
+    order = 771,
     ignore = true,
 
     key = "dark_presence",

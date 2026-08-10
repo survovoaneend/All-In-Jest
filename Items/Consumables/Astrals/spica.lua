@@ -53,14 +53,9 @@ local spica_pin = {
 
     calculate = function(self, card, context)
         if context.before and context.main_eval and G.GAME.blind and G.GAME.blind.boss and G.GAME.current_round.hands_played == 0 then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    G.GAME.blind:disable()
-                    play_sound('timpani')
-                    delay(0.4)
-                    return true
-                end
-            })) 
+            G.GAME.blind:disable()
+            play_sound('timpani')
+            delay(0.4)
             return {
                 message = localize('ph_boss_disabled')
             }

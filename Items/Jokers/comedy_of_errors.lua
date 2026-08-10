@@ -1,6 +1,6 @@
 local comedy_of_errors = {
     object_type = "Joker",
-    order = 258,
+    order = 264,
     lite = true,
     key = "comedy_of_errors",
     config = {

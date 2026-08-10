@@ -1,6 +1,6 @@
 local nihilartikel = {
     object_type = "Joker",
-    order = 576,
+    order = 603,
     key = "nihilartikel",
   
     config = {

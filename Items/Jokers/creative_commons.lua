@@ -1,6 +1,6 @@
 local creative_commons = {
     object_type = "Joker",
-    order = 628,
+    order = 659,
     key = "creative_commons",
     ignore = true,
     config = {

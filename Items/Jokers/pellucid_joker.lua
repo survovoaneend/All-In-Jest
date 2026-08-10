@@ -1,6 +1,6 @@
 local pellucid_joker = {
     object_type = "Joker",
-    order = 142,
+    order = 145,
 
     key = "pellucid_joker",
     config = {

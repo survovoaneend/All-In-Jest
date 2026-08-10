@@ -1,6 +1,6 @@
 local great_kraken = {
     object_type = "Joker",
-    order = 219,
+    order = 225,
     lite = true,
     key = "great_kraken",
     config = {

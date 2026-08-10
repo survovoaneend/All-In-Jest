@@ -1,6 +1,6 @@
 local opening_move = {
     object_type = "Joker",
-    order = 274,
+    order = 281,
     key = "opening_move",
     config = {
       extra = {

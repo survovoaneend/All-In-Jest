@@ -1,6 +1,6 @@
 local glacier = {
     object_type = "Joker",
-    order = 839,
+    order = 866,
     ignore = true,
 
     key = "glacier",

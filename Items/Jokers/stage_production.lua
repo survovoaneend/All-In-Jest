@@ -1,6 +1,6 @@
 local stage_production = {
     object_type = "Joker",
-    order = 369,
+    order = 388,
     key = "stage_production",
     config = {
         extra = {

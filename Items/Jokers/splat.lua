@@ -1,6 +1,6 @@
 local splat = {
     object_type = "Joker",
-    order = 422,
+    order = 441,
     key = "splat",
     config = {
         extra = {

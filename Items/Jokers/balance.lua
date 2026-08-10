@@ -1,6 +1,6 @@
 local balance = {
     object_type = "Joker",
-    order = 822,
+    order = 849,
     ignore = true,
 
     key = "balance",

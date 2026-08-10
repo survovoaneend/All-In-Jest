@@ -1,6 +1,6 @@
 local pedestrian = {
     object_type = "Joker",
-    order = 372,
+    order = 391,
     key = "pedestrian",
     
     config = {

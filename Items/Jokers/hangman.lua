@@ -1,6 +1,6 @@
 local hangman = {
     object_type = "Joker",
-    order = 612,
+    order = 643,
     key = "hangman",
     ignore = true,
     config = {

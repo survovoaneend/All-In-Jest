@@ -1,6 +1,6 @@
 local void = {
     object_type = "Joker",
-    order = 111,
+    order = 114,
     lite = true,
     key = "void",
     config = {

@@ -1,6 +1,6 @@
 local very_hungry_joker = {
     object_type = "Joker",
-    order = 681,
+    order = 703,
     ignore = true,
 
     key = "very_hungry_joker",

@@ -1,6 +1,6 @@
 local loselose = {
     object_type = "Joker",
-    order = 881,
+    order = 908,
     ignore = true,
 
     key = "loselose",

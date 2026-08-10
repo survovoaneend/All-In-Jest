@@ -1,6 +1,6 @@
 local pygmalion = {
     object_type = "Joker",
-    order = 280,
+    order = 285,
     ignore = true,
     key = "pygmalion",
     config = {

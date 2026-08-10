@@ -1,6 +1,6 @@
 local the_far_lands = {
     object_type = "Joker",
-    order = 623,
+    order = 654,
     key = "the_far_lands",
     ignore = true,
     config = {

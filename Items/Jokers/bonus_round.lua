@@ -1,6 +1,6 @@
 local bonus_round = {
     object_type = "Joker",
-    order = 311,
+    order = 318,
     
     key = "bonus_round",
     config = {

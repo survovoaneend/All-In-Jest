@@ -1,6 +1,6 @@
 local ten_sharp = {
     object_type = "Joker",
-    order = 434,
+    order = 453,
     key = "ten_sharp",
     
     config = {

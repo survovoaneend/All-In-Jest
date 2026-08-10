@@ -1,6 +1,6 @@
 local bat_credit_card = {
     object_type = "Joker",
-    order = 442,
+    order = 461,
     key = "bat_credit_card",
     ignore = true,
     config = {

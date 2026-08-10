@@ -1,6 +1,6 @@
 local second_tier_meme = {
     object_type = "Joker",
-    order = 121,
+    order = 124,
 
     key = "second_tier_meme",
     config = {

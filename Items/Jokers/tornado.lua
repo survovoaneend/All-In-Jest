@@ -1,6 +1,6 @@
 local tornado = {
     object_type = "Joker",
-    order = 418,
+    order = 450,
     key = "tornado",
     config = {
         extra = {

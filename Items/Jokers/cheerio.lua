@@ -1,6 +1,6 @@
 local cheerio = {
     object_type = "Joker",
-    order = 916,
+    order = 943,
     ignore = true,
 
     key = "cheerio",

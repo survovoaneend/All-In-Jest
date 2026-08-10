@@ -1,6 +1,6 @@
 local clapperdudgeon = {
     object_type = "Joker",
-    order = 585,
+    order = 612,
     key = "clapperdudgeon",
   
     config = {

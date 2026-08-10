@@ -12,7 +12,6 @@ local the_connection = {
     end,
     mult = 0.5,
     boss_colour = HEX("b8c8cd"),
-    ignore = true,
     atlas = 'blinds_pit',
     pos = {y = 24},
     order = 525,

@@ -1,6 +1,6 @@
 local word_art = {
     object_type = "Joker",
-    order = 41,
+    order = 44,
    
 
     key = "word_art",

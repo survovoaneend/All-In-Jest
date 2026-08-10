@@ -1,6 +1,6 @@
 local infamous_machine = {
     object_type = "Joker",
-    order = 357,
+    order = 366,
     key = "infamous_machine",
     config = {
         extra = {

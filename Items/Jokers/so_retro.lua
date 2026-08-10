@@ -1,6 +1,6 @@
 local so_retro = {
     object_type = "Joker",
-    order = 805,
+    order = 830,
     ignore = true,
 
     key = "so_retro",

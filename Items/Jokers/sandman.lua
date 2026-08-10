@@ -1,6 +1,6 @@
 local sandman = {
     object_type = "Joker",
-    order = 913,
+    order = 940,
     ignore = true,
 
     key = "sandman",

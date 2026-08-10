@@ -1,6 +1,6 @@
 local gumdrops = {
     object_type = "Joker",
-    order = 906,
+    order = 933,
     ignore = true,
 
     key = "gumdrops",

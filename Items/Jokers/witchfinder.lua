@@ -1,6 +1,6 @@
 local witchfinder = {
     object_type = "Joker",
-    order = 251,
+    order = 256,
     lite = true,
     key = "witchfinder",
     config = {

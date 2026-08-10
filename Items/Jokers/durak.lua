@@ -1,6 +1,6 @@
 local durak = {
     object_type = "Joker",
-    order = 467,
+    order = 486,
     key = "durak",
     ignore = true,
     config = {

@@ -1,6 +1,6 @@
 local punch_and_judy = {
     object_type = "Joker",
-    order = 70,
+    order = 73,
 
     key = "punch_and_judy",
     config = {

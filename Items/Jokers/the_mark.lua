@@ -1,6 +1,6 @@
 local the_mark = {
     object_type = "Joker",
-    order = 627,
+    order = 658,
     key = "the_mark",
     ignore = true,
     config = {

@@ -1,6 +1,6 @@
 local penny = {
     object_type = "Joker",
-    order = 55,
+    order = 58,
 
     key = "penny",
     config = {

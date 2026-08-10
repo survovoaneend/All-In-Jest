@@ -1,6 +1,6 @@
 local candy_floss = {
     object_type = "Joker",
-    order = 304,
+    order = 311,
     
     key = "candy_floss",
     config = {

@@ -1,6 +1,6 @@
 local fou_du_roi = {
   object_type = "Joker",
-  order = 188,
+  order = 194,
   
   key = "fou_du_roi",
   config = {

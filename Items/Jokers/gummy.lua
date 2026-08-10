@@ -1,6 +1,6 @@
 local gummy = {
     object_type = "Joker",
-    order = 622,
+    order = 653,
     key = "gummy",
     config = {
         extra = {

@@ -1,6 +1,6 @@
 local graffiti = {
     object_type = "Joker",
-    order = 403,
+    order = 423,
 
     key = "graffiti",
     config = {

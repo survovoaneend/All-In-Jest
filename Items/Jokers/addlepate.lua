@@ -1,6 +1,6 @@
 local addlepate = {
     object_type = "Joker",
-    order = 753,
+    order = 775,
     ignore = true,
 
     key = "addlepate",

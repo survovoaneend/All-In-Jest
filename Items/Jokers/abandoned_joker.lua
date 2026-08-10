@@ -1,6 +1,6 @@
 local abandoned_joker = {
     object_type = "Joker",
-    order = 566,
+    order = 593,
     key = "abandoned_joker",
     
     config = {

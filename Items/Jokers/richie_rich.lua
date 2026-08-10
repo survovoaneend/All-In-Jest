@@ -1,6 +1,6 @@
 local richie_rich = {
     object_type = "Joker",
-    order = 237,
+    order = 242,
     
     key = "richie_rich",
     config = {

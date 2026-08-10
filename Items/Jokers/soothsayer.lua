@@ -1,6 +1,6 @@
 local soothsayer = {
     object_type = "Joker",
-    order = 933,
+    order = 960,
     ignore = true,
 
     key = "soothsayer",

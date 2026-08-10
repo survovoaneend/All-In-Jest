@@ -1,6 +1,6 @@
 local tipteerer = {
   object_type = "Joker",
-  order = 159,
+  order = 162,
 
   key = "tipteerer",
   config = {

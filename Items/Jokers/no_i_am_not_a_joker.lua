@@ -1,6 +1,6 @@
 local no_i_am_not_a_joker = {
     object_type = "Joker",
-    order = 816,
+    order = 843,
     ignore = true,
 
     key = "no_i_am_not_a_joker",

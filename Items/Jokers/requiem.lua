@@ -1,6 +1,6 @@
 local requiem = {
     object_type = "Joker",
-    order = 543,
+    order = 562,
     key = "requiem",
     
     config = {

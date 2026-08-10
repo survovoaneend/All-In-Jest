@@ -1,6 +1,6 @@
 local identity_theif = {
     object_type = "Joker",
-    order = 497,
+    order = 516,
     key = "identity_theif",
     ignore = true,
     config = {

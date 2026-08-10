@@ -1,6 +1,6 @@
 local glassblower = {
     object_type = "Joker",
-    order = 894,
+    order = 921,
     ignore = true,
 
     key = "glassblower",

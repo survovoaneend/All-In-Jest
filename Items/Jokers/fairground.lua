@@ -1,6 +1,6 @@
 local fairground = {
     object_type = "Joker",
-    order = 709,
+    order = 731,
     ignore = true,
 
     key = "fairground",

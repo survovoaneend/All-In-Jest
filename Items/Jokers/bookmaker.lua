@@ -1,6 +1,6 @@
 local bookmaker = {
     object_type = "Joker",
-    order = 853,
+    order = 880,
     ignore = true,
 
     key = "bookmaker",

@@ -1,6 +1,6 @@
 local one_little_duck = {
     object_type = "Joker",
-    order = 266,
+    order = 272,
     
     key = "one_little_duck",
     config = {

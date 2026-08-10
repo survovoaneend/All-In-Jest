@@ -1,7 +1,6 @@
 local anagraph = {
     object_type = "Joker",
-    order = 193,
-    ignore = true,
+    order = 199,
     key = "anagraph",
     config = {
       extra = {
@@ -31,6 +30,23 @@ local anagraph = {
       elseif card.ability.extra.has_triggered then
         card.ability.extra.has_triggered = false
       end
+    end
+    if (context.remove_playing_cards or context.cards_destroyed) and not context.blueprint then
+      local removed_cards = context.glass_shattered or context.removed
+      local destroy_cards_again = {}
+      for _, card in ipairs(removed_cards) do
+          if not card.ability.has_anagraph_triggered and not SMODS.is_eternal(card, {destroy_cards = true}) then
+              local o_card = copy_card(card, nil, nil, nil, false)
+              o_card:start_materialize()
+              o_card:add_to_deck()
+              o_card.ability.has_anagraph_triggered = true
+              card.ability.has_anagraph_triggered = true
+              destroy_cards_again[#destroy_cards_again + 1] = o_card
+              card.area:emplace(o_card)
+              o_card.ability.jest_sold_self = nil
+          end
+      end
+      SMODS.destroy_cards(destroy_cards_again)
     end
   end
 }

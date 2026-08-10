@@ -1,6 +1,6 @@
 local scott_free = {
     object_type = "Joker",
-    order = 961,
+    order = 988,
     ignore = true,
 
     key = "scott_free",

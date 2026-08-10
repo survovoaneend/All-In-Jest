@@ -1,6 +1,6 @@
 local candy_box = {
     object_type = "Joker",
-    order = 921,
+    order = 948,
     ignore = true,
 
     key = "candy_box",

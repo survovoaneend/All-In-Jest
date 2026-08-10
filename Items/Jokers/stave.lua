@@ -1,6 +1,6 @@
 local stave = {
     object_type = "Joker",
-    order = 254,
+    order = 260,
     
     key = "stave",
     config = {

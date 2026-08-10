@@ -1,6 +1,6 @@
 local cosmonaut = {
     object_type = "Joker",
-    order = 385,
+    order = 404,
     key = "cosmonaut",
     ignore = true,
     config = {

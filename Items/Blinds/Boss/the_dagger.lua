@@ -9,7 +9,6 @@ local the_dagger = {
     boss_colour = HEX("692a2a"),
     atlas = 'blinds',
     pos = { X = 0, y = 90},
-    ignore = true,
     order = 90,
     dollars = 5,
 

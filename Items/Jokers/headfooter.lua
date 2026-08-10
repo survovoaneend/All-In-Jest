@@ -1,6 +1,6 @@
 local headfooter = {
     object_type = "Joker",
-    order = 359,
+    order = 368,
     ignore = true,
     key = "headfooter",
     config = {

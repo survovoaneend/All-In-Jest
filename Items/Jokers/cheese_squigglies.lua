@@ -1,6 +1,6 @@
 local cheese_squigglies = {
     object_type = "Joker",
-    order = 486,
+    order = 505,
     key = "cheese_squigglies",
     
     config = {

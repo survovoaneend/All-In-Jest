@@ -1,6 +1,6 @@
 local anchor = {
     object_type = "Joker",
-    order = 59,
+    order = 62,
     
     key = "anchor",
     config = {

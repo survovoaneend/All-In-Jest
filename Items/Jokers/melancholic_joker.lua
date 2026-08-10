@@ -1,6 +1,6 @@
 local melancholic_joker = {
     object_type = "Joker",
-    order = 350,
+    order = 358,
     
     key = "melancholic_joker",
     config = {

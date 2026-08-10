@@ -1,6 +1,6 @@
 local saucy_jacky = {
     object_type = "Joker",
-    order = 260,
+    order = 266,
 
     key = "saucy_jacky",
     config = {

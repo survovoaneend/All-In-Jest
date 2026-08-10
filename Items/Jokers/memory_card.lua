@@ -1,6 +1,6 @@
 local memory_card = {
     object_type = "Joker",
-    order = 4,
+    order = 6,
     ignore = true,
     key = "memory_card",
     config = {

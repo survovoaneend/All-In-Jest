@@ -12,6 +12,7 @@ to_number = to_number or function(n)
 end
 SMODS.current_mod.optional_features = {
   retrigger_joker = true,
+  object_weights = true,
   cardareas = {
       deck = true
   }
@@ -248,6 +249,10 @@ SMODS.Gradient {
 SMODS.Attribute {
     key = 'chaotic'
 }
+-- triggers during a hand or when a hand is played
+SMODS.Attribute {
+    key = 'during_hand'
+}
 -- related to Moon planet cards
 SMODS.Attribute {
     key = 'moon'
@@ -432,6 +437,9 @@ local function load_items(curr_obj)
         item.ignore             = item.ignore             or false
         item.jest_spec_moon     = item.jest_spec_moon     or false
         item.jest_rec_paperback = item.jest_rec_paperback or false
+        if item.attributes and (item.attributes.scaling or item.attributes.food) then
+            item.perishable_compat = item.perishable_compat or false
+        end
         if item.jest_spec_moon and All_in_Jest.config.moons_enabled and not item.ignore then
             if item.jest_rec_paperback then
                 if ((next(SMODS.find_mod("paperback")) or next(SMODS.find_mod("Bunco")))

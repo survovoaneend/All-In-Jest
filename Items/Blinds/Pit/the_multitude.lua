@@ -12,7 +12,6 @@ local the_multitude = {
     end,
     mult = 2,
     boss_colour = HEX("8d759f"),
-    ignore = true,
     atlas = 'blinds_pit',
     pos = {y = 22},
     order = 523,

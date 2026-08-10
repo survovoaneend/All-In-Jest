@@ -1,6 +1,6 @@
 local diver = {
     object_type = "Joker",
-    order = 387,
+    order = 406,
     key = "diver",
 
     config = {

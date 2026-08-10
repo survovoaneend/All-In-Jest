@@ -12,7 +12,6 @@ local rubber_duck = {
     boss_colour = HEX("e6c56f"),
     atlas = 'blinds_final',
     pos = { y = 6},
-    ignore = true,
     order = 1007,
     dollars = 8,
 

@@ -1,6 +1,6 @@
 local parking_space = {
     object_type = "Joker",
-    order = 408,
+    order = 417,
 
     key = "parking_space",
     config = {
