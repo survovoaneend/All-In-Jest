@@ -8,10 +8,10 @@ local fly_agaric = {
         }
     },
     attributes = { 'retrigger', 'activated' },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 16, y = 20 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 5,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

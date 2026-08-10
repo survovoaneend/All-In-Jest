@@ -8,10 +8,10 @@ local blue_star = {
         }
     },
     attributes = { 'hand_level', 'hand_type', 'chance', 'enhancements' },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 4, y = 22 },
     atlas = 'joker_atlas',
-    cost = 5,
+    cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
