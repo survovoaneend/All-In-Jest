@@ -9073,10 +9073,10 @@ return {
             j_aij_antonio = {
                 name = "Antonio",
                 text = {
-                    'All cards in your {C:attention}deck{} of',
-                    'the same rank permanently',
-                    'gain {C:mult}+#1#{} Mult when any',
-                    'card is {C:attention}scored'
+                    'When a card is {C:attention}scored{}, all',
+                    'cards in full deck with',
+                    'matching {C:attention}rank{} permanently',
+                    'gain {C:mult}+#1#{} Mult'
                 }
             },            
             j_aij_li_keji = {
