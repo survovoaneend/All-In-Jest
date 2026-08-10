@@ -4304,7 +4304,7 @@ return {
                 text = {
                     "Apply {C:dark_edition}Foil{}, {C:dark_edition}Holographic{}, or",
                     "{C:dark_edition}Polychrome{} to a random held ",
-                    "{C:attention}consumable when leaving the {C:attention}Shop"
+                    "{C:attention}consumable{} when leaving the {C:attention}Shop"
                 }
             },
             j_aij_mahoney = {
