@@ -1,6 +1,10 @@
 -- Used in Vanilla functions where 'type' is overridden
 All_in_Jest.aij_alias_type = type
 
+SMODS.current_mod.calculate = function(self, context)
+    
+end
+
 --repurposd from paperback
 function jest_poll_tag(seed, options)
   -- This part is basically a copy of how the base game does it
@@ -3558,15 +3562,15 @@ function aij_reroll_tags(blind, args)
     if blind == 'All' then
         for k, v in pairs(G.GAME.round_resets.blind_tags) do
             if (G.GAME.round_resets.blind_states[k] ~= 'Hide' and G.GAME.round_resets.blind_states[k] ~= 'Defeated' and G.GAME.round_resets.blind_states[k] ~= 'Skipped') then
-                if not args.gold then G.GAME.round_resets.blind_tags[k] = get_next_tag_key() end
-                if args.gold then G.GAME.round_resets.blind_tags[k] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+                if not args.gold and not args.refresh then G.GAME.round_resets.blind_tags[k] = get_next_tag_key() end
+                if args.gold and not args.refresh then G.GAME.round_resets.blind_tags[k] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
                 if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
                     for i = 1, G.GAME.all_in_jest.blind_tags.amt do
                         if i == 1 then -- Leftmost tag matches vanilla skip tag
                             G.GAME.all_in_jest.blind_tags[k][i] = G.GAME.round_resets.blind_tags[k]
                         else
-                            if not args.gold then G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('aij_no_blind_dupes_'..k) end
-                            if args.gold then G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+                            if not args.gold and not args.refresh then G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('aij_no_blind_dupes_'..k) end
+                            if args.gold and not args.refresh then G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
                         end
                     end
                 end
@@ -3596,15 +3600,15 @@ function aij_reroll_tags(blind, args)
         end
     else
         if (G.GAME.round_resets.blind_states[k] ~= 'Hide' and G.GAME.round_resets.blind_states[blind] ~= 'Defeated' and G.GAME.round_resets.blind_states[blind] ~= 'Skipped') then
-            if not args.gold then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key() end
-            if args.gold then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+            if not args.gold and not args.refresh then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key() end
+            if args.gold and not args.refresh then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
             if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
                 for i = 1, G.GAME.all_in_jest.blind_tags.amt do
                     if i == 1 then -- Leftmost tag matches vanilla skip tag
                         G.GAME.all_in_jest.blind_tags[blind][i] = G.GAME.round_resets.blind_tags[blind]
                     else
-                        if not args.gold then G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key('aij_no_blind_dupes_'..blind) end
-                        if args.gold then G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+                        if not args.gold and not args.refresh then G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key('aij_no_blind_dupes_'..blind) end
+                        if args.gold and not args.refresh then G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
                     end
                 end
             end

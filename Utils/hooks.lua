@@ -1245,6 +1245,15 @@ function Game:update(dt)
             end
         end
     end
+    if G.GAME and G.GAME.all_in_jest and G.GAME.all_in_jest.blind_tags and G.GAME.all_in_jest.blind_tags.amt >= 1 then
+        G.GAME.all_in_jest.blind_tags.prev_amt = G.GAME.all_in_jest.blind_tags.prev_amt or G.GAME.all_in_jest.blind_tags.amt
+        local blind_tags = 0
+        blind_tags = blind_tags + G.GAME.all_in_jest.blind_tags.amt
+        if blind_tags ~= G.GAME.all_in_jest.blind_tags.prev_amt then
+            aij_reroll_tags(nil, {refresh = true})
+            G.GAME.all_in_jest.blind_tags.prev_amt = G.GAME.all_in_jest.blind_tags.amt
+        end
+    end
     return ref
 end
 
