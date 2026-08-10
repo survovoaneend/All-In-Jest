@@ -103,7 +103,7 @@ function aij_pasteAlpha(base, layer, posb, posl, args)
 
             local r, g, b, a = getPixel(layer, lx0 + x, ly0 + y)
             if args.blend then 
-                local rb, gb, bb, ab = getPixel(base, lx0 + x, ly0 + y)
+                local rb, gb, bb, ab = getPixel(base, bx0 + x, by0 + y)
                 args.blend = {rb, gb, bb, ab} 
             end
 
@@ -649,6 +649,16 @@ table.insert(SMODS.calculation_keys, "aij_balance_percent")
 if SMODS.other_calculation_keys then
     table.insert(SMODS.other_calculation_keys, "aij_balance_percent")
 end
+table.insert(SMODS.calculation_keys, "aij_set_mult")
+if SMODS.scoring_parameter_keys then
+    table.insert(SMODS.scoring_parameter_keys, "aij_set_mult")
+    table.insert(SMODS.Scoring_Parameters['mult'], "aij_set_mult")
+end
+table.insert(SMODS.calculation_keys, "aij_set_chips")
+if SMODS.scoring_parameter_keys then
+    table.insert(SMODS.scoring_parameter_keys, "aij_set_chips")
+    table.insert(SMODS.Scoring_Parameters['chips'], "aij_set_chips")
+end
 -- table.insert(SMODS.calculation_keys, 1, "aij_balance_percent") -- This version would put the effect at the start, making it go before chip/mult/etc. effects.
 local aij_balance_mixed = false
 local aij_original_smods_calculate_individal_effect = SMODS.calculate_individual_effect
@@ -701,6 +711,30 @@ SMODS.calculate_individual_effect = function(effect, scored_card, key, amount, f
             end
         end
 
+        return true
+    end
+    if key == 'aij_set_mult' then
+        if effect.card and effect.card ~= scored_card then juice_card(effect.card) end
+        SMODS.Scoring_Parameters.mult:modify(amount - mult)
+        if not effect.remove_default_message then
+            if effect.aij_set_mult_message then
+                card_eval_status_text(effect.message_card or effect.juice_card or scored_card or effect.card or effect.focus, 'extra', nil, percent, nil, effect.aij_set_mult_message)
+            else
+                card_eval_status_text(effect.message_card or effect.juice_card or scored_card or effect.card or effect.focus, 'jokers', nil, percent, nil, {message = localize{type='variable',key='a_aij_mult_equal',vars={amount}}})
+            end
+        end
+        return true
+    end
+    if key == 'aij_set_chips' then
+        if effect.card and effect.card ~= scored_card then juice_card(effect.card) end
+        SMODS.Scoring_Parameters.chips:modify(amount - hand_chips)
+        if not effect.remove_default_message then
+            if effect.aij_set_mult_message then
+                card_eval_status_text(effect.message_card or effect.juice_card or scored_card or effect.card or effect.focus, 'extra', nil, percent, nil, effect.aij_set_mult_message)
+            else
+                card_eval_status_text(effect.message_card or effect.juice_card or scored_card or effect.card or effect.focus, 'jokers', nil, percent, nil, {message = localize{type='variable',key='a_aij_chips_equal',vars={amount}}})
+            end
+        end
         return true
     end
 
