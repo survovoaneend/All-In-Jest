@@ -7,10 +7,10 @@ local punk_joker = {
       
     },
     attributes = { 'modify_card', 'enhancements' },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 21, y = 1 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 5,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

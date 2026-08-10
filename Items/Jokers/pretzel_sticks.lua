@@ -7,11 +7,12 @@ local pretzel_sticks = {
         extra = {
             xmult_minus_mod = 0.1,
             xmult_mod = 0.25,
-            xmult = 0.2,
-            enhancement = 'm_aij_wood'
+            xmult = 0,
+            enhancement = 'm_aij_wood',
+            tarot = 'c_aij_sanctuary_gate'
         }
     },
-    attributes = { 'xmult', 'scaling', 'enhancements', 'food' },
+    attributes = { 'xmult', 'scaling', 'enhancements', 'food', 'generation', 'tarot', 'consumable' },
     rarity = 3,
     pos = { x = 20, y = 34 },
     atlas = 'joker_atlas',
@@ -23,6 +24,7 @@ local pretzel_sticks = {
 
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS[card.ability.extra.tarot]
         return {
             vars = {
                 card.ability.extra.xmult_mod,
@@ -30,6 +32,19 @@ local pretzel_sticks = {
                 1+card.ability.extra.xmult,
             }
         }
+    end,
+
+    add_to_deck = function(self, card, from_debuff)
+        if not from_debuff and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    SMODS.add_card({ key = card.ability.extra.tarot, area = G.consumeables })
+                    G.GAME.consumeable_buffer = 0
+                    return true
+                end
+            }))
+        end
     end,
 
     calculate = function(self, card, context)
