@@ -1570,6 +1570,19 @@ return {
                     'to every {C:money}shop',
                 },
             },
+            v_aij_recursion = {
+                name = "Recursion",
+                text = {
+                    '{C:attention}+#1# Voucher{} for sale',
+                },
+            },
+            v_aij_recursion_2 = {
+                name = "Recursion",
+                text = {
+                    '{C:attention}+#1# Voucher{} for sale,',
+                    'vouchers cost {C:money}$#2#{} less',
+                },
+            },
             v_aij_raw_mult = {
                 name = "Raw Mult",
                 text = {
