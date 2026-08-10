@@ -14,8 +14,6 @@ local calculate_crayon_rubbing_chips = function(card)
  
                 -- Consecutive spaces usually indicates some sort of missing dynatext
                 if string.match(text, "  ") then
-                    local other_vars, _, _ = right_joker:generate_UIBox_ability_table(true)
-                    right_joker.ability_UIBox_table = generate_card_ui(right_joker.config.center, nil, other_vars)
                     text = retrieve_joker_text(right_joker)
                 end
 
@@ -30,8 +28,6 @@ local calculate_crayon_rubbing_chips = function(card)
                 -- Dynatext comes up as nothing in some situations
                 -- To mitigate this, try again once while forcing UIBox to (re)generate
                 if new_chips == 0 then
-                    local other_vars, _, _ = right_joker:generate_UIBox_ability_table(true)
-                    right_joker.ability_UIBox_table = generate_card_ui(right_joker.config.center, nil, other_vars)
                     text = retrieve_joker_text(right_joker)
                     for num in string.gmatch(text, number_regex) do
                         new_chips = new_chips + tonumber(num)
