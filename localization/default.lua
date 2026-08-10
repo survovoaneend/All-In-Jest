@@ -3044,9 +3044,9 @@ return {
             j_aij_mummer = {
                 name = "Mummer",
                 text = {
-                    "Trigger all {C:aij_silver}Steel{} cards",
-                    "{C:attention}held in hand{} when a {C:aij_silver}Steel",
-                    "card is {C:attention}scored",
+                    "Retrigger all {C:attention}Steel Cards{}",
+                    "once per {C:attention}Steel Card{} in",
+                    "scored hand"
                 }
             },
             j_aij_tipteerer = {
@@ -3186,7 +3186,7 @@ return {
                 text = {
                     'Retrigger all played cards',
                     'with a {C:red}Red Seal',
-                    '{C:attention}#1#{} additional time'
+                    'an additional time'
                 },
             },
             j_aij_pigpen = {
@@ -3762,7 +3762,7 @@ return {
                 name = "Oklo Reactor",
                 text = {
                     '{C:attention}Retrigger{} all played {C:attention}Gold',
-                    '{C:attention}Cards #1#{} additional times'
+                    '{C:attention}Cards twice{} '
                 }
             },
             j_aij_skomorokh = {
@@ -3785,7 +3785,7 @@ return {
             j_aij_ijoker_co = {
                 name = "iJoker.co",
                 text = {
-                    "{C:attention}#1#{} random {C:attention}Tags{} available",
+                    "{C:attention}Two{} random {C:attention}Tags{} available",
                     "for purchase each {C:money}shop"
                 }
             },
@@ -8918,7 +8918,7 @@ return {
                 name = "Bozo",
                 text = {
                     "When {C:attention}Boss Blind{} is",
-                    "defeated, create {C:attention}#1#{}",
+                    "defeated, create {C:attention}two{}",
                     "random {C:dark_edition}Negative{} Jokers",
                 },
                 unlock = { "?????" }
