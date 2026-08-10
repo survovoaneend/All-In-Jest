@@ -7088,7 +7088,7 @@ return {
                 name = "A. V. G. M",
                 text = {
                     "{B:1,C:white,s:0.8}Activated Ability",
-                    "Spend {C:money}$#3#{} for a {C:green}#1# in #2#{}",
+                    "Spend {C:money}$#2#{} for a {C:attention}#1#%{}",
                     "chance to create a",
                     "{C:attention}completely random{} Joker,",
                     "consumable, playing card,",
