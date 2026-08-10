@@ -1682,6 +1682,19 @@ SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, 
 '''
 match_indent = true
 
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+delay(0.3)
+SMODS.last_hand_oneshot = SMODS.calculate_round_score() >= G.GAME.blind.chips
+'''
+position = "before"
+payload = '''
+SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, all_in_jest = {before_round_end_check = true}, total_chips = math.floor(SMODS.calculate_round_score())})
+'''
+match_indent = true
+
 # # Currently unused patch, used to be used for the brilliance
 # # G.FUNCS.evaluate_play()
 # [[patches]] 
