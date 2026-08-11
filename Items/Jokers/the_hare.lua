@@ -8,7 +8,7 @@ local the_hare = {
             score = 200
         }
     },
-    attributes = {},
+    attributes = { 'score' },
     rarity = 1,
     pos = { x = 15, y = 44},
     atlas = 'joker_atlas',

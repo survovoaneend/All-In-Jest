@@ -9,7 +9,7 @@ local bit_flip = {
             score_mod = 1
         }
     },
-    attributes = { 'chance', },
+    attributes = { 'chance', 'score' },
     rarity = 2,
     pos = { x = 14, y = 44},
     atlas = 'joker_atlas',
