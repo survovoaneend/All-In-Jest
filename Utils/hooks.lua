@@ -1676,7 +1676,7 @@ local poll_obj_ref = SMODS.poll_object
 function SMODS.poll_object(args)
     -- spawn mostly mult jokers until you pick one up
     local rate = ({0, 0.3, 0.6})[All_in_Jest.config.mult_appearance]
-    if rate > 0 and args.type == 'Joker' and (args.append == 'sho' or args.append == 'buf') and not G.GAME.aij_found_mult and not args.attributes then
+    if rate > 0 and args.type == 'Joker' and (args.append == 'sho' or args.append == 'buf') and not G.GAME.aij_found_mult and not args.attributes and not (#SMODS.find_card("j_aij_little_boy_blue") > 0) then
         if pseudorandom('aij_mult_poll') <= rate then
             args.attributes = {'mult'}
         end
