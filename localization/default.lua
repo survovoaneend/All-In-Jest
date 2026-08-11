@@ -8168,13 +8168,17 @@ return {
             j_aij_bit_flip = {
                 name = "Bit Flip",
                 text = {
-                    ''
+                    'After hand is played, each',
+                    '{C:attention}digit{} in your {C:aij_plasma}total score',
+                    'has a {C:green}#1# in #2#{} chance',
+                    'to be increased by {C:attention}#3#'
                 }
             },            
             j_aij_the_hare = {
                 name = "The Hare",
                 text = {
-                    ''
+                    'Adds {C:aij_plasma}#1#{} to your final',
+                    'score every hand'
                 }
             },            
             j_aij_the_tape = {
