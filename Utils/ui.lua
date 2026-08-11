@@ -133,11 +133,6 @@ SMODS.current_mod.config_tab = function()
                 }
               },
               {
-                n = G.UIT.R,
-                config = {align = 'cm'},
-                nodes = {
-              },
-              {
                 n = G.UIT.C,
                 config = {tooltip = {text = localize('aij_guess_names_tooltip')}},
                 nodes = {
@@ -148,6 +143,12 @@ SMODS.current_mod.config_tab = function()
                   },
                 },
               },
+            },
+          },
+          {
+            n = G.UIT.R,
+            config = {align = 'cm'},
+            nodes = {
               {
                 n = G.UIT.C,
                 config = {tooltip = {text = localize('aij_moons_blocking_tooltip')}},
@@ -158,14 +159,34 @@ SMODS.current_mod.config_tab = function()
                     ref_value = 'moons_blocking'
                   },
                 },
-              }
-            }}
-          },
+              },
+              {
+                n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_mult_appearance_tooltip')}},
+                nodes = {
+                  create_option_cycle {
+                    scale = 0.8,
+                    label = localize('aij_mult_appearance'),
+                    options = localize('aij_mult_appearance_opt'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'mult_appearance',
+                    current_option = All_in_Jest.config.mult_appearance,
+                    opt_callback = 'aij_generic_cycle',
+                  },
+                },
+              },
+            },
+          }
         }},
       }},
     }   
   }
 end
+
+G.FUNCS.aij_generic_cycle = function(e)
+  e.cycle_config.ref_table[e.cycle_config.ref_value] = e.to_key
+end
+
 local joker_listing = {
 	{"j_aij_nevernamed_credits_joker", "j_aij_survivalaren_credits_joker", "j_aij_rattling_snow_credits_joker", "j_aij_jumbocarrot_credits_joker","j_aij_heavenbrand_credits_joker", "j_aij_jamie_credits_joker"},
 }

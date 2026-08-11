@@ -85,6 +85,17 @@ return {
                 'names of the Jokers',
                 '{s:0.8,C:inactive}(but not their descriptions)'
             },
+            aij_mult_appearance = 'More common Mult',
+            aij_mult_appearance_tooltip = {
+                'Makes {C:mult}Mult{} Jokers appear',
+                'more consistently at',
+                'the {C:attention}start{} of a run',
+            },
+            aij_mult_appearance_opt = {
+                'Off',
+                'Standard',
+                'Strong',
+            },
             aij_borra_triggers = {
                 'card is scored',
                 'card is discarded',
