@@ -8030,7 +8030,9 @@ return {
             j_aij_saveloy = {
                 name = "Saveloy",
                 text = {
-                    ''
+                    '{C:mult}+#1#{} Mult, {C:mult}-#2#{} Mult for',
+                    'every {C:green}reroll{} in the',
+                    '{C:money}shop'
                 }
             },            
             j_aij_cheerio = {
@@ -8054,7 +8056,9 @@ return {
             j_aij_dog_treat = {
                 name = "Dog Treat",
                 text = {
-                    ''
+                    'If Blind is won in {C:attention}one{}',
+                    'hand, earn {C:money}$#1#{} and',
+                    '{C:red}self destruct'
                 }
             },            
             j_aij_plum_pudding = {
@@ -8215,7 +8219,7 @@ return {
                 name = "Scarab",
                 text = {
                     '{C:attention}-#1#{} Ante while this',
-                    'Joker is held'
+                    'Joker is held',
                     '{C:inactive, s:0.8}(Cannot be sold or destroyed',
                     '{C:inactive, s:0.8}during the Win Ante)'
                 }
@@ -8301,7 +8305,10 @@ return {
             j_aij_bingsu = {
                 name = "Bingsu",
                 text = {
-                    ''
+                    'All scoring cards give {C:chips}+#1#{} Chips',
+                    '{C:green}#3# in #4#{} chance to reduce',
+                    'by {C:chips}-#2#{} Chips when a card',
+                    'is scored'
                 }
             },            
             j_aij_buzzy_bee = {
