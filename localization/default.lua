@@ -8177,7 +8177,7 @@ return {
             j_aij_the_hare = {
                 name = "The Hare",
                 text = {
-                    'Adds {C:aij_plasma}#1#{} to your final',
+                    'Adds {C:aij_plasma}#1#{} to your total',
                     'score every hand'
                 }
             },            
@@ -8214,7 +8214,10 @@ return {
             j_aij_scarab = {
                 name = "Scarab",
                 text = {
-                    ''
+                    '{C:attention}-#1#{} Ante while this',
+                    'Joker is held'
+                    '{C:inactive, s:0.8}(Cannot be sold or destroyed',
+                    '{C:inactive, s:0.8}during the Win Ante)'
                 }
             },            
             j_aij_blue_tongue = {
