@@ -8,10 +8,10 @@ local blue_star = {
         }
     },
     attributes = { 'hand_level', 'hand_type', 'chance', 'enhancements' },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 4, y = 22 },
     atlas = 'joker_atlas',
-    cost = 5,
+    cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
@@ -46,7 +46,22 @@ local blue_star = {
                 }
             end
         end
-    end
+    end,
+    in_pool = function(self, args)
+        local chip_cards = 0
+        if G.GAME and G.playing_cards then
+            for _, card in ipairs(G.playing_cards) do
+                if SMODS.has_enhancement(card, 'm_bonus') or SMODS.has_enhancement(card, 'm_aij_fervent') then
+                    chip_cards = chip_cards + 1
+                end
+            end
+        end
+        if chip_cards > 0 then
+            return true
+        else
+            return false
+        end
+    end,
 }
 
 return { name = { "Jokers" }, items = { blue_star } }

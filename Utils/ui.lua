@@ -108,6 +108,7 @@ SMODS.current_mod.config_tab = function()
         {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('4a6972'), minw = 8.5}, nodes = {
           {
             n = G.UIT.R,
+            config = {align = 'cm'},
             nodes = {
               {
                 n = G.UIT.C,
@@ -130,7 +131,13 @@ SMODS.current_mod.config_tab = function()
                     ref_value = 'random_deck_skins'
                   },
                 },
-              },
+              }
+            }
+          },
+          {
+            n = G.UIT.R,
+            config = {align = 'cm'},
+            nodes = {
               {
                 n = G.UIT.C,
                 config = {tooltip = {text = localize('aij_guess_names_tooltip')}},
@@ -139,6 +146,17 @@ SMODS.current_mod.config_tab = function()
                     label = localize('aij_guess_names'),
                     ref_table = All_in_Jest.config,
                     ref_value = 'guess_names'
+                  },
+                },
+              },
+              {
+                n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_moons_blocking_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_moons_blocking'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'moons_blocking'
                   },
                 },
               }

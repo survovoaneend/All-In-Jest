@@ -7,10 +7,10 @@ local unobtanium = {
 
     },
     attributes = {},
-    rarity = 3,
+    rarity = 2,
     pos = { x = 23, y = 32},
     atlas = 'joker_atlas',
-    cost = 9,
+    cost = 7,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

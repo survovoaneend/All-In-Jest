@@ -12,6 +12,7 @@ to_number = to_number or function(n)
 end
 SMODS.current_mod.optional_features = {
   retrigger_joker = true,
+  object_weights = true,
   cardareas = {
       deck = true
   }
@@ -247,6 +248,10 @@ SMODS.Gradient {
 -- adds Chaotic to cards, or has to do with Chaotic
 SMODS.Attribute {
     key = 'chaotic'
+}
+-- triggers during a hand or when a hand is played
+SMODS.Attribute {
+    key = 'during_hand'
 }
 -- related to Moon planet cards
 SMODS.Attribute {

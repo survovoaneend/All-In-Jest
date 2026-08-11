@@ -10,7 +10,7 @@ local neutronium = {
     rarity = 3,
     pos = { x = 21, y = 32},
     atlas = 'joker_atlas',
-    cost = 10,
+    cost = 9,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

@@ -15,7 +15,7 @@ local vexed = {
     cost = 6,
     unlocked = true,
     discovered = false,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     dongtong_compat = false,
 

@@ -1,28 +1,35 @@
 local american_comic = {
     object_type = "Joker",
     order = 277,
-    ignore = true,
     key = "american_comic",
     config = {
-      
+        extra = {
+            slots = 1
+        }
     },
-    attributes = {},
-    rarity = 1,
+    attributes = { 'shop', 'shop_slot', 'passive' },
+    rarity = 2,
     pos = { x = 18, y = 10},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
+    eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-  
+        return {
+            vars = {
+                card.ability.extra.slots,
+            }
+        }
     end,
   
-    calculate = function(self, card, context)
-        
+    add_to_deck = function(self, card, from_debuff)
+        aij_change_shop_size_advanced(card.ability.extra.slots, 'american_comic_'..card.sort_id, 'Joker', 0)
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        aij_change_shop_size_advanced(-card.ability.extra.slots, 'american_comic_'..card.sort_id, 'Joker', 0)
     end
-  
 }
 return { name = {"Jokers"}, items = {american_comic} }

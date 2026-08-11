@@ -7,11 +7,12 @@ local tortilla_chips = {
         extra = {
             xmult_minus_mod = 0.05,
             xmult_mod = 0.25,
-            xmult = 0.25,
-            enhancement = 'm_bonus'
+            xmult = 0,
+            enhancement = 'm_bonus',
+            tarot = 'c_heirophant'
         }
     },
-    attributes = { 'xmult', 'scaling', 'enhancements', 'food' },
+    attributes = { 'xmult', 'scaling', 'enhancements', 'food', 'generation', 'tarot', 'consumable' },
     rarity = 3,
     pos = { x = 19, y = 34 },
     atlas = 'joker_atlas',
@@ -23,6 +24,7 @@ local tortilla_chips = {
 
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_CENTERS[card.ability.extra.tarot]
         return {
             vars = {
                 card.ability.extra.xmult_mod,
@@ -32,9 +34,21 @@ local tortilla_chips = {
         }
     end,
 
+    add_to_deck = function(self, card, from_debuff)
+        if not from_debuff and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    SMODS.add_card({ key = card.ability.extra.tarot, area = G.consumeables })
+                    G.GAME.consumeable_buffer = 0
+                    return true
+                end
+            }))
+        end
+    end,
+
     calculate = function(self, card, context)
         if context.setting_ability and not context.unchanged and not context.blueprint then
-            if card.config.center.set == 'Joker' then return end
             local enhancements = get_current_pool("Enhanced")
             local can_proceed = false
             for k, v in pairs(enhancements) do

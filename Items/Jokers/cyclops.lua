@@ -9,10 +9,10 @@ local cyclops = {
         }
     },
     attributes = { 'hands', 'mult', 'scaling', },
-    rarity = 3,
+    rarity = 1,
     pos = { x = 20, y = 6 },
     atlas = 'joker_atlas',
-    cost = 9,
+    cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

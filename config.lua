@@ -1,5 +1,6 @@
 return {
   ['moons_enabled'] = true,
+  ['moons_blocking'] = false,
   ['alter_trypophobia'] = false,
   ['no_copy_neg'] = false,
   ['blue_stake_rework'] = true,
