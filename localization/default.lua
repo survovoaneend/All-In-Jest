@@ -6363,7 +6363,8 @@ return {
             j_aij_minus_world = {
                 name = "Minus World",
                 text = {
-                    ''
+                    '{C:attention}-#1#{} Ante to win',
+                    '{C:attention}-#2#{} Ante when {C:money}sold'
                 }
             },
             j_aij_feather_in_your_cap = {
