@@ -70,7 +70,7 @@ local scarab = {
                 local ante_mod = 0
                 ante_mod = ante_mod + card.ability.extra.ante_mod
                 card.ability.extra.prev_ante_mod = tostring(tonumber(card.ability.extra.prev_ante_mod) or 0)
-                if ante_mod ~= tonumber(card.ability.extra.prev_ante_mod) and (G.GAME.round_resets.ante + (ante_mod - tonumber(card.ability.extra.prev_ante_mod))) <= G.GAME.win_ante then
+                if ante_mod ~= tonumber(card.ability.extra.prev_ante_mod) and (G.GAME.round_resets.ante + (tonumber(card.ability.extra.prev_ante_mod) - ante_mod)) <= G.GAME.win_ante then
                     card.ability.extra.prev_ante_mod = tostring(ante_mod)
                     ease_ante(tonumber(card.ability.extra.prev_ante_mod) - ante_mod)
                 end
