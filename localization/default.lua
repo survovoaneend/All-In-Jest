@@ -6363,7 +6363,8 @@ return {
             j_aij_minus_world = {
                 name = "Minus World",
                 text = {
-                    ''
+                    '{C:attention}-#1#{} Ante to win',
+                    '{C:attention}-#2#{} Ante when {C:money}sold'
                 }
             },
             j_aij_feather_in_your_cap = {
@@ -8215,7 +8216,7 @@ return {
                 name = "Scarab",
                 text = {
                     '{C:attention}-#1#{} Ante while this',
-                    'Joker is held'
+                    'Joker is held',
                     '{C:inactive, s:0.8}(Cannot be sold or destroyed',
                     '{C:inactive, s:0.8}during the Win Ante)'
                 }
