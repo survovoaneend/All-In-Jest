@@ -163,7 +163,6 @@ local random_joker = {
     rarity = 1,
     pos = { x = 0, y = 0 },
     atlas = 'aij_joker_parts_base',
-    ignore = true,
     cost = 4,
     unlocked = true,
     discovered = false,
@@ -197,6 +196,7 @@ local random_joker = {
             {key = 'head', order = 0, pos_y = 7, amt = 1},
             {key = 'bodydecal', order = 3, chance = 40, pos_y = 8, amt = 17},
             {key = 'overlay', order = 9, chance = 20, pos_y = 9, amt = 28, no_amt = 31},
+            {key = 'text', order = 11, pos_y = 10, amt = 1},
         }
         local hypos = 0
         for k, v in pairs(prefixes) do
@@ -257,13 +257,13 @@ local random_joker = {
                     local has_part = pseudoseed('randomjoker_'..v.key)
                     if has_part <= (v.chance*0.01) then
                         aij_ran_pasteAlpha(first_layer, v.data, {x=0, y=0}, v.pos)
-                        if v.outline then
+                        if v.outline and v.key ~= 'text' then
                             aij_ran_pasteAlpha(outline, v.data, {x=0, y=0}, v.pos)
                         end
                     end
                 else
                     aij_ran_pasteAlpha(first_layer, v.data, {x=0, y=0}, v.pos)
-                    if v.outline then
+                    if v.outline and v.key ~= 'text' then
                         aij_ran_pasteAlpha(outline, v.data, {x=0, y=0}, v.pos)
                     end
                 end
