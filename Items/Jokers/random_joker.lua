@@ -169,6 +169,7 @@ local random_joker = {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
+    ignore = true,
 
     loc_vars = function(self, info_queue, card)
         return {
