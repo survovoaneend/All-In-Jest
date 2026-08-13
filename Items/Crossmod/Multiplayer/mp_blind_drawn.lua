@@ -56,7 +56,11 @@ local mp_blind_drawn = {
     end,
 
     mp_include = function(self)
-		    return MP.UTILS.is_standard_ruleset() and MP.LOBBY.code
+        if MP.is_practice_mode() then
+		    return false
+        else
+            return MP.current_ruleset() and MP.LOBBY.code
+        end
     end,
   
 }
