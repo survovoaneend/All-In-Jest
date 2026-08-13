@@ -1,6 +1,6 @@
 local jpeg = {
     object_type = "Joker",
-    order = 336,
+    order = 343,
     
     key = "jpeg",
     config = {

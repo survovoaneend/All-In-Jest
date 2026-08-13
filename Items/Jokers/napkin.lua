@@ -1,6 +1,6 @@
 local napkin = {
     object_type = "Joker",
-    order = 200,
+    order = 206,
 
     key = "napkin",
     config = {

@@ -1,6 +1,6 @@
 local isonomic_joker = {
     object_type = "Joker",
-    order = 351.4,
+    order = 359.4,
     
     key = "isonomic_joker",
     config = {
@@ -18,7 +18,6 @@ local isonomic_joker = {
     blueprint_compat = true,
     eternal_compat = true,
     jest_rec_paperback = true,
-    ignore = true,
   
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)

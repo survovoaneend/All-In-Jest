@@ -1,6 +1,6 @@
 local famulus = {
     object_type = "Joker",
-    order = 595,
+    order = 622,
     key = "famulus",
   
     config = {

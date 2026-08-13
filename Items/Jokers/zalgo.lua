@@ -1,6 +1,6 @@
 local zalgo = {
     object_type = "Joker",
-    order = 928,
+    order = 955,
     ignore = true,
 
     key = "zalgo",

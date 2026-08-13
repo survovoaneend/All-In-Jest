@@ -1,6 +1,6 @@
 local fortune_cookie = {
     object_type = "Joker",
-    order = 272,
+    order = 279,
     
     key = "fortune_cookie",
     config = {

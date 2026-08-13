@@ -1,6 +1,6 @@
 local wizard = {
     object_type = "Joker",
-    order = 451,
+    order = 470,
     key = "wizard",
     
     config = {

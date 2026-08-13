@@ -1,6 +1,6 @@
 local run = {
     object_type = "Joker",
-    order = 541,
+    order = 560,
     key = "run",
     config = {
         extra = {
@@ -10,7 +10,6 @@ local run = {
     attributes = { 'passive', },
     rarity = 2,
     pos = { x = 0, y = 26 },
-    ignore = true,
     atlas = 'joker_atlas',
     cost = 6,
     unlocked = true,

@@ -89,6 +89,66 @@ local function aij_upscale_imagedata(src, scale)
 
     return dst
 end
+SMODS.Atlas {
+    key = "aij_nooutline_joker_parts",
+    path = "parts/nooutline_joker_parts.png",
+    px = 71,
+    py = 95
+}
+SMODS.Atlas {
+    key = "aij_joker_parts",
+    path = "parts/joker_parts.png",
+    px = 71,
+    py = 95
+}
+SMODS.Atlas {
+    key = "aij_joker_parts_base",
+    path = "parts/joker_parts_base.png",
+    px = 71,
+    py = 95
+}
+
+local function aij_ran_pasteAlpha(base, layer, posb, posl, args)
+    args = args or {}
+    posb = posb or {x = 0, y = 0}
+    posl = posl or {x = 0, y = 0}
+
+    local lpx = (args.lpx or 71) * (args.scale or 1)
+    local lpy = (args.lpy or 95) * (args.scale or 1)
+    local bpx = (args.bpx or 71) * (args.scale or 1)
+    local bpy = (args.bpy or 95) * (args.scale or 1)
+
+    local lx0 = posl.x * lpx
+    local ly0 = posl.y * lpy
+    local bx0 = posb.x * bpx
+    local by0 = posb.y * bpy
+
+    local lw, lh = layer:getWidth(), layer:getHeight()
+    local bw, bh = base:getWidth(), base:getHeight()
+
+    local w = math.min(lpx, lw - lx0, bw - bx0)
+    local h = math.min(lpy, lh - ly0, bh - by0)
+
+    if w <= 0 or h <= 0 then
+        return
+    end
+
+    local getPixel = layer.getPixel
+
+    for x = 0, w - 1 do
+        for y = 0, h - 1 do
+            local r, g, b, a = getPixel(layer, lx0 + x, ly0 + y)
+
+            if a > 0 then
+                base:setPixel(
+                    bx0 + x,
+                    by0 + y,
+                    r, g, b, a
+                )
+            end
+        end
+    end
+end
 
 local random_joker = {
     object_type = "Joker",
@@ -102,14 +162,14 @@ local random_joker = {
     attributes = {},
     rarity = 1,
     pos = { x = 0, y = 0 },
-    ignore = true,
-    atlas = 'aij_random_joker',
+    atlas = 'aij_joker_parts_base',
     cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
+    ignore = true,
 
     loc_vars = function(self, info_queue, card)
         return {
@@ -127,15 +187,17 @@ local random_joker = {
         end
         --First to Last {Head, Other Misc, Ruff, Body Decal, Mouth, Eyes, Nose, Face Misc, Hat, Overlay}
         local prefixes = {
-            {key = 'eyes', order = 5, pos_y = 1, amt = 469}, 
-            {key = 'facemisc', order = 7, chance = 40, pos_y = 2, amt = 13}, 
-            {key = 'hat', order = 8, pos_y = 3, amt = 310, no_amt = 5},
-            {key = 'mouth', order = 4, pos_y = 4, amt = 38}, 
-            {key = 'nose', order = 6, pos_y = 5, amt = 29},
-            {key = 'ruff', order = 2, pos_y = 6, amt = 43}, 
+            {key = 'background', order = 10, pos_y = 0, amt = 1},
+            {key = 'eyes', order = 5, pos_y = 1, amt = 687}, 
+            {key = 'facemisc', order = 7, chance = 40, pos_y = 2, amt = 24}, 
+            {key = 'hat', order = 8, pos_y = 3, amt = 475, no_amt = 13},
+            {key = 'mouth', order = 4, pos_y = 4, amt = 72}, 
+            {key = 'nose', order = 6, pos_y = 5, amt = 54},
+            {key = 'ruff', order = 2, pos_y = 6, amt = 74}, 
             {key = 'head', order = 0, pos_y = 7, amt = 1},
-            {key = 'bodydecal', order = 3, chance = 40, pos_y = 8, amt = 9},
-            {key = 'overlay', order = 9, chance = 20, pos_y = 9, amt = 17, no_amt = 24},
+            {key = 'bodydecal', order = 3, chance = 40, pos_y = 8, amt = 17},
+            {key = 'overlay', order = 9, chance = 20, pos_y = 9, amt = 28, no_amt = 31},
+            {key = 'text', order = 11, pos_y = 10, amt = 1},
         }
         local hypos = 0
         for k, v in pairs(prefixes) do
@@ -171,7 +233,7 @@ local random_joker = {
                 end
             end
         end
-        local base = G.ASSET_ATLAS['aij_random_joker'].image_data:clone()
+        local base = G.ASSET_ATLAS['aij_joker_parts_base'].image_data:clone()
 
         local layers = {}
         for k_, v_ in pairs(prefixes) do
@@ -179,52 +241,63 @@ local random_joker = {
             local location = key
             if random_joker_files[location] then
                 local table = pseudorandom_element(random_joker_files[location], pseudoseed('randomjoker'))
-                local data = table.data.image_data:clone()
+                local data = table.data.image_data
                 layers[v_.order+1] = {key = key, data = data, order = v_.order, chance = v_.chance or nil, outline = table.outline, pos = table.pos}
             end
         end
 
         local scale = G.SETTINGS.GRAPHICS.texture_scaling or 1
         
-        local first_layer = layers[1].data
-        local first_layer_pos = layers[1].pos
-        local outline = layers[1].data:clone()
+        local first_layer = G.ASSET_ATLAS['aij_joker_parts_base'].image_data:clone()
+        first_layer = aij_downscale_imagedata(first_layer, scale)
+        local outline = first_layer:clone()
+        local background = first_layer:clone()
         for k, v in pairs(layers) do
-            if v.data ~= first_layer then
+            if v.key ~= 'background' then
                 if v.chance then
                     local has_part = pseudoseed('randomjoker_'..v.key)
                     if has_part <= (v.chance*0.01) then
-                        aij_pasteAlpha(first_layer, v.data, nil, v.pos, {lpx = 71, lpy = 95, bpx = 71, bpy = 95})
-                        if v.outline then
-                            aij_pasteAlpha(outline, v.data, nil, v.pos, {lpx = 71, lpy = 95, bpx = 71, bpy = 95})
+                        aij_ran_pasteAlpha(first_layer, v.data, {x=0, y=0}, v.pos)
+                        if v.outline and v.key ~= 'text' then
+                            aij_ran_pasteAlpha(outline, v.data, {x=0, y=0}, v.pos)
                         end
                     end
                 else
-                    aij_pasteAlpha(first_layer, v.data, nil, v.pos, {lpx = 71, lpy = 95, bpx = 71, bpy = 95})
-                    if v.outline then
-                        aij_pasteAlpha(outline, v.data, nil, v.pos, {lpx = 71, lpy = 95, bpx = 71, bpy = 95})
+                    aij_ran_pasteAlpha(first_layer, v.data, {x=0, y=0}, v.pos)
+                    if v.outline and v.key ~= 'text' then
+                        aij_ran_pasteAlpha(outline, v.data, {x=0, y=0}, v.pos)
                     end
                 end
+            else
+                aij_ran_pasteAlpha(background, v.data, {x=0, y=0}, v.pos)
             end
         end
 
-        outline = aij_downscale_imagedata(outline, scale) --Couldn't apply outline correctly so i just scaled it down and back up
         outline = aij_outline_image(outline, HEX('4f6367'))
         outline = aij_upscale_imagedata(outline, scale)
-        aij_pasteAlpha(base, outline, nil, first_layer_pos, {lpx = 71, lpy = 95, bpx = 71, bpy = 95})
-        aij_pasteAlpha(base, first_layer, nil, first_layer_pos, {lpx = 71, lpy = 95, bpx = 71, bpy = 95})
-        
-        card.children.center.atlas = {
-            px = 71, py = 95, name = 'aij_random_joker',
+        first_layer = aij_upscale_imagedata(first_layer, scale)
+        background = aij_upscale_imagedata(background, scale)
+        aij_ran_pasteAlpha(base, background, {x=0, y=0}, {x=0, y=0}, {scale = scale})
+        aij_ran_pasteAlpha(base, outline, {x=0, y=0}, {x=0, y=0}, {scale = scale})
+        aij_ran_pasteAlpha(base, first_layer, {x=0, y=0}, {x=0, y=0}, {scale = scale})
+        local name = 'aij_joker_parts_base'..pseudoseed('randomjoker')
+        G.ASSET_ATLAS[name] = {
+            px = 71, py = 95, name = name,
             image_data = base,
             image = love.graphics.newImage(base, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
         }
+        card.children.center = SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h, name, {x=0, y=0})
+        card.children.center.states.hover = card.states.hover
+		card.children.center.states.click = card.states.click
+		card.children.center.states.drag = card.states.drag
+		card.children.center.states.collide.can = false
+		card.children.center:set_role({major = card, role_type = 'Glued', draw_major = card})
         local replace_colours = {HEX('ff0000'), HEX('00fff8'), HEX('00ff05')}
         local new_colours = All_in_Jest.get_random_joker_colours('skintone')
         for k, v in pairs(replace_colours) do
             card.children.center.atlas = aij_recolour_atlas(v, new_colours[k], card.children.center.atlas)
         end
-
+        
         local replace_colours1 = {HEX('a2ff00'), HEX('8600ff'), HEX('ff5300'), HEX('0082ff'), HEX('ff006f')}
         local replace_colours2 = {HEX('eeff00'), HEX('ff00e5'), HEX('0a00ff')}
         local new_clothes_colours, new_makeup_colours = All_in_Jest.get_random_joker_colours('clothes_and_makeup')
@@ -234,7 +307,7 @@ local random_joker = {
         for k, v in pairs(replace_colours2) do
             card.children.center.atlas = aij_recolour_atlas(v, new_makeup_colours[k], card.children.center.atlas)
         end
-
+        
         local dark_replace_colours1 = {HEX('528100'), HEX('330061'), HEX('5c1e00'), HEX('00386d'), HEX('790035')}
         local dark_replace_colours2 = {HEX('ff9900'), HEX('8c007e'), HEX('05007e')}
         local dark_new_clothes_colours, dark_new_makeup_colours = {}, {}
@@ -250,7 +323,7 @@ local random_joker = {
         for k, v in pairs(dark_replace_colours2) do
             card.children.center.atlas = aij_recolour_atlas(v, dark_new_makeup_colours[k], card.children.center.atlas)
         end
-
+        
         local light_replace_colours1 = {HEX('d2ff84'), HEX('c17dff'), HEX('ff9e6f'), HEX('82c2ff'), HEX('ff6fae')}
         local light_new_clothes_colours = {}
         for k, v in pairs(new_clothes_colours) do
@@ -259,7 +332,7 @@ local random_joker = {
         for k, v in pairs(light_replace_colours1) do
             card.children.center.atlas = aij_recolour_atlas(v, light_new_clothes_colours[k], card.children.center.atlas)
         end
-
+        
         --Base, Light, Dark
         local replace_colours3 = {HEX('8bffc0'), HEX('ccffe3'), HEX('59a37b')}
         local new_hair_colours = All_in_Jest.get_random_joker_colours('hair')
@@ -273,7 +346,6 @@ local random_joker = {
         for k, v in pairs(replace_colours3) do
             card.children.center.atlas = aij_recolour_atlas(v, new_hair_colours[k], card.children.center.atlas)
         end
-
     end,
 
     calculate = function(self, card, context)

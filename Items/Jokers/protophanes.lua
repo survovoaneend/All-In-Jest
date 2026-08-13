@@ -1,6 +1,6 @@
 local protophanes = {
     object_type = "Joker",
-    order = 745,
+    order = 767,
     ignore = true,
 
     key = "protophanes",

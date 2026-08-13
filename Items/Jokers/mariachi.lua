@@ -1,6 +1,6 @@
 local mariachi = {
     object_type = "Joker",
-    order = 632,
+    order = 667,
 
     key = "mariachi",
     config = {

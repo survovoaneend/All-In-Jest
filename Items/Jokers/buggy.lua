@@ -1,6 +1,6 @@
 local buggy = {
     object_type = "Joker",
-    order = 844,
+    order = 871,
     ignore = true,
 
     key = "buggy",

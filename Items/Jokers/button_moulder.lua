@@ -1,6 +1,6 @@
 local button_moulder = {
     object_type = "Joker",
-    order = 865,
+    order = 892,
     ignore = true,
 
     key = "button_moulder",

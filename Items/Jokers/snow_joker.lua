@@ -1,6 +1,6 @@
 local snow_joker = {
     object_type = "Joker",
-    order = 668,
+    order = 690,
     ignore = true,
 
     key = "snow_joker",

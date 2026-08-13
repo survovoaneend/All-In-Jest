@@ -1,6 +1,6 @@
 local circle_joker = {
     object_type = "Joker",
-    order = 367,
+    order = 386,
     key = "circle_joker",
 
     config = {

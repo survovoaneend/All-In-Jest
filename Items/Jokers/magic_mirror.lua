@@ -1,6 +1,6 @@
 local magic_mirror = {
     object_type = "Joker",
-    order = 202,
+    order = 208,
 
     key = "magic_mirror",
     config = {

@@ -1,6 +1,6 @@
 local duende = {
     object_type = "Joker",
-    order = 346,
+    order = 353,
 
     key = "duende",
     config = {

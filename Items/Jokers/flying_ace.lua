@@ -1,6 +1,6 @@
 local flying_ace = {
     object_type = "Joker",
-    order = 0,
+    order = 2,
 
     key = "flying_ace",
     config = {

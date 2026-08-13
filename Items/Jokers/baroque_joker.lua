@@ -1,6 +1,6 @@
 local baroque_joker = {
     object_type = "Joker",
-    order = 371,
+    order = 390,
     key = "baroque_joker",
 
     config = {

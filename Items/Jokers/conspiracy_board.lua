@@ -1,6 +1,6 @@
 local conspiracy_board = {
     object_type = "Joker",
-    order = 872,
+    order = 899,
     ignore = true,
 
     key = "conspiracy_board",

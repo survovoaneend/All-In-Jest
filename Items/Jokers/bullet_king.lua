@@ -1,6 +1,6 @@
 local bullet_king = {
     object_type = "Joker",
-    order = 568,
+    order = 595,
     key = "bullet_king",
     config = {
         extra = {

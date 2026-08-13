@@ -1,6 +1,6 @@
 local quadrangled_joker = {
     object_type = "Joker",
-    order = 561,
+    order = 580,
     key = "quadrangled_joker",
     
     config = {

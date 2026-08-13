@@ -1,6 +1,6 @@
 local pedrolino = {
     object_type = "Joker",
-    order = 99,
+    order = 102,
     lite = true,
     key = "pedrolino",
     config = {

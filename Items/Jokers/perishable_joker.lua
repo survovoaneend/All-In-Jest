@@ -1,6 +1,6 @@
 local perishable_joker = {
     object_type = "Joker",
-    order = 794,
+    order = 816,
     ignore = true,
 
     key = "perishable_joker",

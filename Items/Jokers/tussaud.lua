@@ -1,6 +1,6 @@
 local tussaud = {
     object_type = "Joker",
-    order = 593,
+    order = 620,
     key = "tussaud",
   
     config = {

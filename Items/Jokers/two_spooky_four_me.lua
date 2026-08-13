@@ -1,6 +1,6 @@
 local two_spooky_four_me = {
     object_type = "Joker",
-    order = 929,
+    order = 956,
     ignore = true,
 
     key = "two_spooky_four_me",

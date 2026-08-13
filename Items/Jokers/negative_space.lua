@@ -1,6 +1,6 @@
 local negative_space = {
     object_type = "Joker",
-    order = 316,
+    order = 323,
     key = "negative_space",
     config = {
         extra = {

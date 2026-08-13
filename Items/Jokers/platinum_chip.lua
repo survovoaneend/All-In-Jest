@@ -1,6 +1,6 @@
 local platinum_chip = {
     object_type = "Joker",
-    order = 35,
+    order = 38,
     ignore = true,
 
     key = "platinum_chip",

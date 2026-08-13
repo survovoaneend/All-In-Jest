@@ -1,6 +1,6 @@
 local bobby = {
     object_type = "Joker",
-    order = 382,
+    order = 401,
     key = "bobby",
     ignore = true,
     config = {

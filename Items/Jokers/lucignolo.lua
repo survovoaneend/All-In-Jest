@@ -1,6 +1,6 @@
 local lucignolo = {
   object_type = "Joker",
-  order = 68,
+  order = 71,
 
   key = "lucignolo",
   config = {

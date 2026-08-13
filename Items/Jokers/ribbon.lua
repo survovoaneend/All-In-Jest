@@ -1,6 +1,6 @@
 local ribbon = {
     object_type = "Joker",
-    order = 757,
+    order = 779,
     ignore = true,
 
     key = "ribbon",

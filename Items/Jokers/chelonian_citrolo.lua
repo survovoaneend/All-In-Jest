@@ -1,6 +1,6 @@
 local chelonian_citrolo = {
     object_type = "Joker",
-    order = 363,
+    order = 382,
     key = "chelonian_citrolo",
     ignore = true,
     config = {

@@ -1,6 +1,6 @@
 local tool = {
     object_type = "Joker",
-    order = 359,
+    order = 378,
     key = "tool",
     config = {
         extra = {

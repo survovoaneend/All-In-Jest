@@ -1,6 +1,6 @@
 local sanguine_joker = {
     object_type = "Joker",
-    order = 349,
+    order = 355,
     
     key = "sanguine_joker",
     config = {

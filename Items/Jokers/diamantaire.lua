@@ -1,6 +1,6 @@
 local diamantaire = {
     object_type = "Joker",
-    order = 574,
+    order = 601,
     key = "diamantaire",
   
     config = {

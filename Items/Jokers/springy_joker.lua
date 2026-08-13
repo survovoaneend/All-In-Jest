@@ -1,6 +1,6 @@
 local springy_joker = {
     object_type = "Joker",
-    order = 482,
+    order = 501,
     key = "springy_joker",
     ignore = true,
     config = {

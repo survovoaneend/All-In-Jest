@@ -1,6 +1,6 @@
 local moldy_joker = {
     object_type = "Joker",
-    order = 643,
+    order = 678,
     ignore = true,
 
     key = "moldy_joker",

@@ -1,6 +1,6 @@
 local dizzy_lizzy = {
     object_type = "Joker",
-    order = 859,
+    order = 886,
     ignore = true,
 
     key = "dizzy_lizzy",

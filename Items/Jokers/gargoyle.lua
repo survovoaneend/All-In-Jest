@@ -1,6 +1,6 @@
 local gargoyle = {
     object_type = "Joker",
-    order = 899,
+    order = 926,
     ignore = true,
 
     key = "gargoyle",

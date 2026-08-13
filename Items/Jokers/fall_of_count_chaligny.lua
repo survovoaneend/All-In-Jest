@@ -1,6 +1,6 @@
 local fall_of_count_chaligny = {
     object_type = "Joker",
-    order = 342,
+    order = 349,
     key = "fall_of_count_chaligny",
     config = {
     },

@@ -1,6 +1,6 @@
 local circus_elephant = {
     object_type = "Joker",
-    order = 645,
+    order = 680,
     ignore = true,
 
     key = "circus_elephant",

@@ -23,7 +23,7 @@ end
 local joker_png = {
     object_type = "single_copier",
     object_loader = All_in_Jest,
-    order = 302,
+    order = 309,
     key = "joker_png",
     config = {
         aij_blueprint_compat = true,

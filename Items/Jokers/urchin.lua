@@ -1,6 +1,6 @@
 local urchin = {
     object_type = "Joker",
-    order = 247,
+    order = 252,
 
     key = "urchin",
     config = {

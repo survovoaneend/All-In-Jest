@@ -1,6 +1,6 @@
 local skald = {
     object_type = "Joker",
-    order = 317,
+    order = 324,
     ignore = true,
     key = "skald",
     config = {

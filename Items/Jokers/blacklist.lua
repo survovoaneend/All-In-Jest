@@ -1,6 +1,6 @@
 local blacklist = {
     object_type = "Joker",
-    order = 326,
+    order = 333,
     key = "blacklist",
     config = {
         extra = {

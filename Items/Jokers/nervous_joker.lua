@@ -1,6 +1,6 @@
 local nervous_joker = {
     object_type = "Joker",
-    order = 838,
+    order = 865,
     ignore = true,
 
     key = "nervous_joker",

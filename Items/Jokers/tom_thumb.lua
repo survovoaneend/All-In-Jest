@@ -1,6 +1,6 @@
 local tom_thumb = {
     object_type = "Joker",
-    order = 402,
+    order = 421,
     key = "tom_thumb",
     ignore = true,
     config = {

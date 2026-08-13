@@ -1,6 +1,6 @@
 local santimariyambu = {
     object_type = "Joker",
-    order = 898,
+    order = 925,
     ignore = true,
 
     key = "santimariyambu",

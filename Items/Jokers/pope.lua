@@ -1,6 +1,6 @@
 local pope = {
     object_type = "Joker",
-    order = 889,
+    order = 916,
     ignore = true,
 
     key = "pope",

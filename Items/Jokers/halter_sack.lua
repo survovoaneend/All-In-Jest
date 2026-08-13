@@ -1,6 +1,6 @@
 local halter_sack = {
     object_type = "Joker",
-    order = 605,
+    order = 637,
     key = "halter_sack",
     
     config = {

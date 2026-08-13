@@ -1,6 +1,6 @@
 local shock_humor = {
     object_type = "Joker",
-    order = 354,
+    order = 363,
     ignore = true,
     key = "shock_humor",
     config = {

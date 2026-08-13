@@ -1,7 +1,6 @@
 local headache = {
     object_type = "Joker",
-    order = 457,
-    ignore = true,
+    order = 476,
     key = "headache",
     config = {
         extra = {

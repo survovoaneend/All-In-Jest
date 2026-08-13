@@ -1,6 +1,6 @@
 local hei_tiki = {
     object_type = "Joker",
-    order = 60,
+    order = 63,
     lite = true,
     key = "hei_tiki",
     config = {

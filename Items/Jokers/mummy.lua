@@ -1,6 +1,6 @@
 local mummy = {
     object_type = "Joker",
-    order = 135,
+    order = 138,
     ignore = true,
 
     key = "mummy",

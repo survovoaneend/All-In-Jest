@@ -1,6 +1,6 @@
 local elf = {
     object_type = "Joker",
-    order = 341,
+    order = 348,
 
     key = "elf",
     config = {

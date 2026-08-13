@@ -1,6 +1,6 @@
 local haggler = {
     object_type = "Joker",
-    order = 604,
+    order = 636,
     key = "haggler",
   
     config = {

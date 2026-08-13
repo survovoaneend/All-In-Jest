@@ -1,6 +1,6 @@
 local father_christmas = {
     object_type = "Joker",
-    order = 567,
+    order = 594,
     key = "father_christmas",
     
     config = {

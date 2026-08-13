@@ -1,6 +1,6 @@
 local funny_phone = {
     object_type = "Joker",
-    order = 261,
+    order = 267,
 
     key = "funny_phone",
     config = {

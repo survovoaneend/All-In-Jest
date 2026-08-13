@@ -1,6 +1,6 @@
 local vikingr = {
     object_type = "Joker",
-    order = 687,
+    order = 709,
     ignore = true,
 
     key = "vikingr",

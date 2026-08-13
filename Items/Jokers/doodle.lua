@@ -1,6 +1,6 @@
 local doodle = {
   object_type = "Joker",
-  order = 27,
+  order = 30,
 
   key = "doodle",
   config = {

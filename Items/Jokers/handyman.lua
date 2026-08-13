@@ -1,6 +1,6 @@
 local handyman = {
     object_type = "Joker",
-    order = 488,
+    order = 507,
     key = "handyman",
     ignore = true,
     config = {

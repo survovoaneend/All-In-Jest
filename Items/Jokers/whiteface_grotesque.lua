@@ -1,6 +1,6 @@
 local whiteface_grotesque = {
     object_type = "Joker",
-    order = 8,
+    order = 11,
 
     key = "whiteface_grotesque",
     config = {

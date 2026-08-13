@@ -91,7 +91,7 @@ G.FUNCS.aij_rummikub_set_submit = function(args)
 end
 local rummikub = {
     object_type = "Joker",
-    order = 17,
+    order = 20,
 
     key = "rummikub",
     config = {

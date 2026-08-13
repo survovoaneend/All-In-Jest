@@ -7,18 +7,18 @@ local urns = {
 	unlocked = true,
 	discovered = false,
 	order = 13,
-	config = { max_highlight = 1, ran_cards = 3 },
+	config = { max_highlighted = 1, ran_cards = 3 },
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
-				card.ability.max_highlight,
+				card.ability.max_highlighted,
 				card.ability.ran_cards,
 			}
 		}
 	end,
 	can_use = function(self, card)
-        if G.hand and #G.hand.cards >= card.ability.ran_cards and (#G.hand.highlighted <= card.ability.max_highlight and #G.hand.highlighted > 0) then
+        if G.hand and #G.hand.cards >= card.ability.ran_cards and (#G.hand.highlighted <= card.ability.max_highlighted and #G.hand.highlighted > 0) then
 			for k, v in pairs(G.hand.highlighted) do
 				if v.config.center ~= G.P_CENTERS.c_base then
 					return true
@@ -71,9 +71,7 @@ local urns = {
 				for i = 1, #selected_cards do
 					selected_cards[i]:set_ability(G.P_CENTERS[center_key])
 					if other_center then
-						selected_cards[i].config.aij_other_center = {}
-						selected_cards[i].config.aij_other_center['center'] = other_center['center']
-						selected_cards[i].config.aij_other_center['ability'] = other_center['ability']
+						All_in_Jest.set_other_enhancement(selected_cards[i], other_center['center'].key)
 					end
 				end
                 return true

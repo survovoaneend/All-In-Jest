@@ -1,6 +1,6 @@
 local center_of_attention = {
     object_type = "Joker",
-    order = 747,
+    order = 769,
     ignore = true,
 
     key = "center_of_attention",

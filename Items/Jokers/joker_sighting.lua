@@ -1,6 +1,6 @@
 local joker_sighting = {
     object_type = "Joker",
-    order = 62,
+    order = 65,
     ignore = true,
 
     key = "joker_sighting",

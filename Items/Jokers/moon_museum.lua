@@ -1,6 +1,6 @@
 local moon_museum = {
     object_type = "Joker",
-    order = 374,
+    order = 393,
     key = "moon_museum",
     ignore = true,
     config = {

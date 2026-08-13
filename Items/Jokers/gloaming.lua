@@ -1,6 +1,6 @@
 local gloaming = {
     object_type = "Joker",
-    order = 581,
+    order = 608,
     key = "gloaming",
    
     config = {

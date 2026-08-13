@@ -1,6 +1,6 @@
 local piss_take = {
     object_type = "Joker",
-    order = 871,
+    order = 898,
     ignore = true,
 
     key = "piss_take",

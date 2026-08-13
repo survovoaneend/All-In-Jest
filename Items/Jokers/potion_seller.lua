@@ -1,6 +1,6 @@
 local potion_seller = {
     object_type = "Joker",
-    order = 751,
+    order = 773,
     ignore = true,
 
     key = "potion_seller",

@@ -1,6 +1,6 @@
 local hybrid_joker = {
     object_type = "Joker",
-    order = 684,
+    order = 706,
     ignore = true,
 
     key = "hybrid_joker",

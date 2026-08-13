@@ -1,6 +1,6 @@
 local the_ludovico_technique = {
     object_type = "Joker",
-    order = 328,
+    order = 335,
 
     key = "the_ludovico_technique",
     config = {

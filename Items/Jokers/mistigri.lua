@@ -1,6 +1,6 @@
 local mistigri = {
     object_type = "Joker",
-    order = 145,
+    order = 148,
 
     key = "mistigri",
     config = {

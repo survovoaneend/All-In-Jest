@@ -1,6 +1,6 @@
 local dead_hand = {
     object_type = "Joker",
-    order = 555,
+    order = 574,
     key = "dead_hand",
     ignore = true,
     config = {

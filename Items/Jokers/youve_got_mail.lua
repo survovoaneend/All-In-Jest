@@ -9,7 +9,7 @@ SMODS.Sound {
 
 local youve_got_mail = {
     object_type = "Joker",
-    order = 361,
+    order = 380,
     key = "youve_got_mail",
     config = {
         extra = {

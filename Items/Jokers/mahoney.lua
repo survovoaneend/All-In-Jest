@@ -1,6 +1,6 @@
 local mahoney = {
     object_type = "Joker",
-    order = 276,
+    order = 283,
 
     key = "mahoney",
     config = {

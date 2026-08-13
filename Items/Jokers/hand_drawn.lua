@@ -1,6 +1,6 @@
 local hand_drawn = {
     object_type = "Joker",
-    order = 76,
+    order = 79,
 
     key = "hand_drawn",
     config = {

@@ -1,6 +1,6 @@
 local alas = {
     object_type = "Joker",
-    order = 441,
+    order = 460,
     key = "alas",
 
     config = {

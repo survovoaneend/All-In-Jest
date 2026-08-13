@@ -1,6 +1,6 @@
 local wax_joker = {
     object_type = "Joker",
-    order = 421,
+    order = 440,
     key = "wax_joker",
     config = {
         extra = {

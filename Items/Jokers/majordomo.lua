@@ -1,6 +1,6 @@
 local majordomo = {
     object_type = "Joker",
-    order = 352,
+    order = 361,
     key = "majordomo",
     config = {
       extra = {

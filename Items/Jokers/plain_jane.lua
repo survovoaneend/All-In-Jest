@@ -1,6 +1,6 @@
 local plain_jane = {
     object_type = "Joker",
-    order = 43,
+    order = 46,
 
     key = "plain_jane",
     config = {

@@ -1,6 +1,6 @@
 local office_assistant = {
     object_type = "Joker",
-    order = 415,
+    order = 447,
     key = "office_assistant",
     config = {
     },

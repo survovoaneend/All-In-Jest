@@ -1,6 +1,6 @@
 local mannequin = {
     object_type = "Joker",
-    order = 556,
+    order = 575,
     key = "mannequin",
     ignore = true,
     config = {

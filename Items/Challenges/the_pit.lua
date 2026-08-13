@@ -1,7 +1,6 @@
 local the_pit = {
     object_type = "Challenge",
     key = 'the_pit',
-    ignore = true,
     unlocked = function(self) -- Unlocks if player has discovered at least one pit blind
         if G and G.P_BLINDS then
             local discovered_amt = 0

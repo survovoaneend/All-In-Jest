@@ -1,6 +1,6 @@
 local glovely_joker = {
     object_type = "Joker",
-    order = 800,
+    order = 825,
     ignore = true,
 
     key = "glovely_joker",

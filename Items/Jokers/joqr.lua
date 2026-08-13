@@ -1,6 +1,6 @@
 local joqr = {
     object_type = "Joker",
-    order = 28,
+    order = 31,
     ignore = true,
 
     key = "joqr",

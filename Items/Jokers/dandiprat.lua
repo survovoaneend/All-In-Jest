@@ -1,6 +1,6 @@
 local dandiprat = {
     object_type = "Joker",
-    order = 584,
+    order = 611,
     key = "dandiprat",
   
     config = {

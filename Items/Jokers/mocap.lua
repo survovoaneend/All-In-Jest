@@ -1,6 +1,6 @@
 local mocap = {
     object_type = "Joker",
-    order = 289,
+    order = 296,
     key = "mocap",
     config = {
       

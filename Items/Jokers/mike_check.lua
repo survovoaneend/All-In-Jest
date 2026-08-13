@@ -1,6 +1,6 @@
 local mike_check = {
     object_type = "Joker",
-    order = 363,
+    order = 372,
     
     key = "mike_check",
     config = {

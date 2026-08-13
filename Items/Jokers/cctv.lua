@@ -1,6 +1,6 @@
 local cctv = {
     object_type = "Joker",
-    order = 36,
+    order = 39,
 
     key = "cctv",
     config = {

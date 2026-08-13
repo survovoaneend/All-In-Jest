@@ -1,6 +1,6 @@
 local tilty_joker = {
     object_type = "Joker",
-    order = 273,
+    order = 280,
     key = "tilty_joker",
     config = {
       extra = {

@@ -1,6 +1,6 @@
 local heyokha = {
     object_type = "Joker",
-    order = 234,
+    order = 239,
     ignore = true,
 
     key = "heyokha",

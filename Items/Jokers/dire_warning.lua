@@ -1,6 +1,6 @@
 local dire_warning = {
     object_type = "Joker",
-    order = 409,
+    order = 428,
     key = "dire_warning",
     
     config = {

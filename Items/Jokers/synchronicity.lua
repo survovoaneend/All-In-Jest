@@ -1,6 +1,6 @@
 local synchronicity = {
     object_type = "Joker",
-    order = 700,
+    order = 722,
     ignore = true,
 
     key = "synchronicity",

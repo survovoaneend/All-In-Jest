@@ -1,6 +1,6 @@
 local personalized_joker = {
     object_type = "Joker",
-    order = 819,
+    order = 846,
     ignore = true,
 
     key = "personalized_joker",

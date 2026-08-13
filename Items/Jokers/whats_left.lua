@@ -1,7 +1,7 @@
 local whats_left = {
     object_type = "multi_copier",
     object_loader = All_in_Jest,
-    order = 480,
+    order = 499,
     key = "whats_left",
     config = {
         j_aij_whats_left_compat = true,

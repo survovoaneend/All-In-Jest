@@ -1,6 +1,6 @@
 local lonely_night = {
     object_type = "Joker",
-    order = 396,
+    order = 415,
     key = "lonely_night",
    
     config = {

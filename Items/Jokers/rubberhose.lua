@@ -1,6 +1,6 @@
 local rubberhose = {
     object_type = "Joker",
-    order = 419,
+    order = 438,
     key = "rubberhose",
     
     config = {

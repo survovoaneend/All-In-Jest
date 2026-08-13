@@ -1,6 +1,6 @@
 local you_need_me = {
     object_type = "Joker",
-    order = 671,
+    order = 693,
     ignore = true,
 
     key = "you_need_me",

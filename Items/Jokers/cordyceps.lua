@@ -1,6 +1,6 @@
 local cordyceps = {
     object_type = "Joker",
-    order = 460,
+    order = 479,
     key = "cordyceps",
     ignore = true,
     config = {

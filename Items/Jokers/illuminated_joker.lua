@@ -1,6 +1,6 @@
 local illuminated_joker = {
     object_type = "Joker",
-    order = 308,
+    order = 315,
     key = "illuminated_joker",
     config = {
 

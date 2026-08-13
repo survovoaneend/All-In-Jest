@@ -1,6 +1,6 @@
 local funny_little_device = {
     object_type = "Joker",
-    order = 754,
+    order = 776,
     ignore = true,
 
     key = "funny_little_device",

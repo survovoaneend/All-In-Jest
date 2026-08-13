@@ -1,6 +1,6 @@
 local flora = {
     object_type = "Joker",
-    order = 703,
+    order = 725,
     ignore = true,
 
     key = "flora",

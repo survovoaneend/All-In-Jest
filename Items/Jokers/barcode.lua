@@ -1,6 +1,6 @@
 local barcode = {
     object_type = "Joker",
-    order = 669,
+    order = 691,
 
     key = "barcode",
     config = {

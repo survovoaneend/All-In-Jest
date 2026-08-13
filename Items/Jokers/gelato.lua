@@ -1,6 +1,6 @@
 local gelato = {
     object_type = "Joker",
-    order = 826,
+    order = 853,
     ignore = true,
 
     key = "gelato",

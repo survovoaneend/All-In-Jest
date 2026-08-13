@@ -1,6 +1,6 @@
 local actdone_aregdone_staircase = {
     object_type = "Joker",
-    order = 702,
+    order = 724,
     ignore = true,
 
     key = "actdone_aregdone_staircase",

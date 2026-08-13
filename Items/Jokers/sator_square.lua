@@ -1,6 +1,6 @@
 local sator_square = {
     object_type = "Joker",
-    order = 388,
+    order = 407,
     key = "sator_square",
     ignore = true,
     config = {

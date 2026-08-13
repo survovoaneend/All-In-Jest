@@ -1,6 +1,6 @@
 local bingo_card = {
     object_type = "Joker",
-    order = 300,
+    order = 307,
     key = "bingo_card",
     config = {
       extra = {

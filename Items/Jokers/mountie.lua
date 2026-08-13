@@ -1,6 +1,6 @@
 local mountie = {
     object_type = "Joker",
-    order = 458,
+    order = 477,
     key = "mountie",
     ignore = true,
     config = {

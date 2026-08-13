@@ -1,6 +1,6 @@
 local silver_screen = {
     object_type = "Joker",
-    order = 98,
+    order = 101,
 
     key = "silver_screen",
     config = {

@@ -1,6 +1,6 @@
 local dont_be_a_joker = {
     object_type = "Joker",
-    order = 410,
+    order = 429,
     key = "dont_be_a_joker",
     config = {
         extra = {

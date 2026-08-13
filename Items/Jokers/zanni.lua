@@ -1,6 +1,6 @@
 local zanni = {
     object_type = "Joker",
-    order = 90,
+    order = 93,
 
     key = "zanni",
     config = {

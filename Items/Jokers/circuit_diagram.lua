@@ -1,6 +1,6 @@
 local circuit_diagram = {
     object_type = "Joker",
-    order = 287,
+    order = 294,
     key = "circuit_diagram",
     config = {
       

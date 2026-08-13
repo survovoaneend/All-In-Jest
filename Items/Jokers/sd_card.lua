@@ -1,6 +1,6 @@
 local sd_card = {
     object_type = "Joker",
-    order = 811,
+    order = 837,
     ignore = true,
 
     key = "sd_card",

@@ -1,6 +1,6 @@
 local master_of_pegs = {
     object_type = "Joker",
-    order = 923,
+    order = 950,
     ignore = true,
 
     key = "master_of_pegs",

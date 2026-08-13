@@ -1,6 +1,6 @@
 local caveat_emptor = {
     object_type = "Joker",
-    order = 950,
+    order = 977,
     ignore = true,
 
     key = "caveat_emptor",

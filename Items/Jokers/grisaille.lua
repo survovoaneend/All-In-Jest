@@ -1,6 +1,6 @@
 local grisaille = {
     object_type = "Joker",
-    order = 692,
+    order = 714,
     ignore = true,
 
     key = "grisaille",

@@ -1,6 +1,6 @@
 local shredded_joker = {
     object_type = "Joker",
-    order = 506,
+    order = 525,
     key = "shredded_joker",
     
     config = {

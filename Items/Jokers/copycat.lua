@@ -1,6 +1,6 @@
 local copycat = {
     object_type = "Joker",
-    order = 850,
+    order = 877,
     ignore = true,
 
     key = "copycat",

@@ -1,6 +1,6 @@
 local entropy = {
     object_type = "Joker",
-    order = 246,
+    order = 251,
     
     key = "entropy",
     config = {

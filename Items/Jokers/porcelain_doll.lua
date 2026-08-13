@@ -1,6 +1,6 @@
 local porcelain_doll = {
     object_type = "Joker",
-    order = 782,
+    order = 804,
     ignore = true,
 
     key = "porcelain_doll",

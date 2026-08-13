@@ -1,6 +1,6 @@
 local stock_photo = {
     object_type = "Joker",
-    order = 187,
+    order = 193,
 
     key = "stock_photo",
     config = {

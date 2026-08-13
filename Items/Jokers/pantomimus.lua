@@ -1,6 +1,6 @@
 local pantomimus = {
     object_type = "Joker",
-    order = 152,
+    order = 155,
     lite = true,
     key = "pantomimus",
     config = {

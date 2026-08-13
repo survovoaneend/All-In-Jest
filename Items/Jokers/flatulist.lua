@@ -1,6 +1,6 @@
 local flatulist = {
     object_type = "Joker",
-    order = 697,
+    order = 719,
     ignore = true,
 
     key = "flatulist",

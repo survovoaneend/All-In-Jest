@@ -1,6 +1,6 @@
 local police_sketch = {
     object_type = "Joker",
-    order = 400,
+    order = 419,
     key = "police_sketch",
     config = {
         extra = {

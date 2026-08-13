@@ -1,6 +1,6 @@
 local monsignor = {
     object_type = "Joker",
-    order = 714,
+    order = 736,
     ignore = true,
 
     key = "monsignor",

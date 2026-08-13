@@ -1,6 +1,6 @@
 local jestress = {
     object_type = "Joker",
-    order = 856,
+    order = 883,
     ignore = true,
 
     key = "jestress",

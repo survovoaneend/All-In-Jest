@@ -1,6 +1,6 @@
 local in_vino_veritas = {
     object_type = "Joker",
-    order = 137,
+    order = 140,
 
     key = "in_vino_veritas",
     config = {

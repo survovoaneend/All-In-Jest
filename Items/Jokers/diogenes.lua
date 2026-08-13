@@ -1,6 +1,6 @@
 local diogenes = {
     object_type = "Joker",
-    order = 31,
+    order = 34,
     ignore = true,
 
     key = "diogenes",

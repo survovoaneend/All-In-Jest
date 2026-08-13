@@ -1,6 +1,6 @@
 local angel_number = {
     object_type = "Joker",
-    order = 283,
+    order = 290,
     key = "angel_number",
     config = {
       extra = {

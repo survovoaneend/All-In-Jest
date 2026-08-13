@@ -1,6 +1,6 @@
 local flibbertigibbit = {
     object_type = "Joker",
-    order = 597,
+    order = 624,
     key = "flibbertigibbit",
   
     config = {

@@ -1,6 +1,6 @@
 local mister_police = {
     object_type = "Joker",
-    order = 415,
+    order = 434,
     key = "mister_police",
     ignore = true,
     config = {

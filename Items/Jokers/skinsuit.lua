@@ -1,6 +1,6 @@
 local skinsuit = {
     object_type = "Joker",
-    order = 353,
+    order = 362,
     key = "skinsuit",
     config = {
     },

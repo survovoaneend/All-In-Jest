@@ -1,6 +1,6 @@
 local carousel = {
     object_type = "Joker",
-    order = 23,
+    order = 26,
 
     key = "carousel",
     config = {

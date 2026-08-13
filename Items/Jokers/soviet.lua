@@ -1,6 +1,6 @@
 local soviet = {
     object_type = "Joker",
-    order = 53,
+    order = 56,
     
     key = "soviet",
     config = {

@@ -1,6 +1,6 @@
 local sleepy_joker = {
     object_type = "Joker",
-    order = 8,
+    order = 10,
  
 
     key = "sleepy_joker",

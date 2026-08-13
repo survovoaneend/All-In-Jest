@@ -1,6 +1,6 @@
 local the_jester = {
     object_type = "Joker",
-    order = 170,
+    order = 173,
 
     key = "the_jester",
     config = {

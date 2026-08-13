@@ -1,6 +1,6 @@
 local mummer = {
   object_type = "Joker",
-  order = 158,
+  order = 161,
 
   key = "mummer",
   config = {
@@ -34,29 +34,24 @@ local mummer = {
   end,
 
   calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.play then
+    if context.repetition and context.cardarea == G.hand then
       if SMODS.has_enhancement(context.other_card, 'm_steel') then
-        local juiced_card = context.blueprint_card or card;
-        return {
-          card = juiced_card,
-          func = function()
-            if G.hand then
-              if #G.hand.cards > 0 then
-                for i = 1, #G.hand.cards do
-                  if SMODS.has_enhancement(G.hand.cards[i], 'm_steel') then
-                    G.E_MANAGER:add_event(Event({
-                      func = function()
-                        juiced_card:juice_up()
-                        return true
-                      end
-                    }))
-                    SMODS.score_card(G.hand.cards[i], { cardarea = G.hand, main_scoring = true })
-                  end
-                end
-              end
+        local steel_count = 0
+        if context.scoring_hand then
+          for _, scoring_card in ipairs(context.scoring_hand) do
+            if SMODS.has_enhancement(scoring_card, 'm_steel') then
+              steel_count = steel_count + 1
             end
           end
-        }
+        end
+
+        if steel_count > 0 then
+          return {
+            message = localize('k_again_ex'),
+            repetitions = steel_count,
+            card = card
+          }
+        end
       end
     end
   end

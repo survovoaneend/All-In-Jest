@@ -1,6 +1,6 @@
 local plum_pudding = {
     object_type = "Joker",
-    order = 920,
+    order = 947,
     ignore = true,
 
     key = "plum_pudding",

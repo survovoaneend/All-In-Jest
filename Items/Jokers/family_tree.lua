@@ -1,6 +1,6 @@
 local family_tree = {
     object_type = "Joker",
-    order = 533,
+    order = 552,
     key = "family_tree",
     config = {
         extra = {

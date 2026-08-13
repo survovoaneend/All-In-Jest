@@ -1,6 +1,6 @@
 local magazine_ad = {
     object_type = "Joker",
-    order = 309,
+    order = 316,
 
     key = "magazine_ad",
     config = {
@@ -22,7 +22,7 @@ local magazine_ad = {
     calculate = function(self, card, context)
         if context.end_of_round and context.beat_boss and context.main_eval then
             local temp_deck = {}
-            for _, v in ipairs(G.deck.cards) do
+            for _, v in ipairs(G.playing_cards) do
                 if not v.seal then
                     table.insert(temp_deck, v)
                 end

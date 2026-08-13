@@ -1,6 +1,6 @@
 local phantom_of_truth = {
     object_type = "Joker",
-    order = 888,
+    order = 915,
     ignore = true,
 
     key = "phantom_of_truth",

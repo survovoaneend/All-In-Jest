@@ -1,6 +1,6 @@
 local wireframe = {
   object_type = "Joker",
-  order = 52,
+  order = 55,
 
   key = "wireframe",
   config = { },

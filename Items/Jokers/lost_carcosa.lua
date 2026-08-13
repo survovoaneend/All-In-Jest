@@ -1,6 +1,6 @@
 local lost_carcosa = {
     object_type = "Joker",
-    order = 201,
+    order = 207,
 
     key = "lost_carcosa",
     config = {

@@ -1,6 +1,6 @@
 local chromatic_aberrant = {
     object_type = "Joker",
-    order = 693,
+    order = 715,
     ignore = true,
 
     key = "chromatic_aberrant",

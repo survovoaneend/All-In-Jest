@@ -1,6 +1,6 @@
 local divine_comedy = {
     object_type = "Joker",
-    order = 877,
+    order = 904,
     ignore = true,
 
     key = "divine_comedy",

@@ -1,6 +1,6 @@
 local veggie_joker = {
     object_type = "Joker",
-    order = 448,
+    order = 467,
     key = "veggie_joker",
 
     config = {

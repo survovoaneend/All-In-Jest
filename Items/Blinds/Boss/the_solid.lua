@@ -3,13 +3,12 @@ local the_solid = {
     key = 'the_solid',
     
     boss = {
-        min = 1,
+        min = 3,
     },
     mult = 2,
     boss_colour = HEX("6f7070"),
     atlas = 'blinds',
     pos = { X = 0, y = 68},
-    ignore = true,
     order = 69,
     dollars = 5,
 

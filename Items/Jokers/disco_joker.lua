@@ -1,6 +1,6 @@
 local disco_joker = {
     object_type = "Joker",
-    order = 548,
+    order = 567,
     key = "disco_joker",
     config = {
         extra = {

@@ -1,6 +1,6 @@
 local grunt = {
     object_type = "Joker",
-    order = 721,
+    order = 743,
     ignore = true,
 
     key = "grunt",

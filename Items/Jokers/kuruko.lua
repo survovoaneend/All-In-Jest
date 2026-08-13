@@ -1,6 +1,6 @@
 local kuruko = {
     object_type = "Joker",
-    order = 303,
+    order = 310,
 
     key = "kuruko",
     config = {

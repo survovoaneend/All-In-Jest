@@ -1,6 +1,6 @@
 local cinderclown = {
     object_type = "Joker",
-    order = 791,
+    order = 813,
     ignore = true,
 
     key = "cinderclown",

@@ -1,6 +1,6 @@
 local penny_dreadful = {
     object_type = "Joker",
-    order = 962,
+    order = 989,
     ignore = true,
 
     key = "penny_dreadful",

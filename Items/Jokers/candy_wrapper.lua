@@ -1,6 +1,6 @@
 local candy_wrapper = {
     object_type = "Joker",
-    order = 391,
+    order = 410,
     key = "candy_wrapper",
     
     config = {

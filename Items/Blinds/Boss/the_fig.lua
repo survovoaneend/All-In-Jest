@@ -3,13 +3,12 @@ local the_fig = {
     key = 'the_fig',
     
     boss = {
-        min = 1,
+        min = 2,
     },
     mult = 2,
     boss_colour = HEX("95718b"),
     atlas = 'blinds',
     pos = { X = 0, y = 82},
-    ignore = true,
     order = 82,
     dollars = 5,
 

@@ -1,6 +1,6 @@
 local bullseye = {
     object_type = "Joker",
-    order = 477,
+    order = 496,
     key = "bullseye",
     
     config = {

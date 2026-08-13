@@ -1,6 +1,6 @@
 local burly_joker = {
     object_type = "Joker",
-    order = 513,
+    order = 532,
     key = "burly_joker",
     ignore = true,
     config = {

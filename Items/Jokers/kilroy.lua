@@ -8,7 +8,7 @@ end
 
 local kilroy = {
     object_type = "Joker",
-    order = 132,
+    order = 135,
 
     key = "kilroy",
     config = {

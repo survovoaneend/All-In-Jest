@@ -1,6 +1,6 @@
 local toe_tag = {
     object_type = "Joker",
-    order = 445,
+    order = 464,
     key = "toe_tag",
     ignore = true,
     config = {

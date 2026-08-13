@@ -1,6 +1,6 @@
 local dragon = {
     object_type = "Joker",
-    order = 639,
+    order = 674,
     ignore = true,
 
     key = "dragon",

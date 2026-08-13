@@ -23,7 +23,7 @@ end
 
 local visage = {
     object_type = "Joker",
-    order = 232,
+    order = 237,
     key = "visage",
     config = {
     },

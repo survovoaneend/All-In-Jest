@@ -10,7 +10,6 @@ local angling_hook = {
     end,
     mult = 2,
     boss_colour = HEX("9b4e64"),
-    ignore = true,
     atlas = 'blinds_final',
     pos = { y = 24},
     order = 1025,

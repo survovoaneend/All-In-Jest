@@ -1,6 +1,6 @@
 local stracciatella = {
     object_type = "Joker",
-    order = 828,
+    order = 855,
     ignore = true,
 
     key = "stracciatella",

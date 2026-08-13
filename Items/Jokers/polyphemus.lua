@@ -1,6 +1,6 @@
 local polyphemus = {
     object_type = "Joker",
-    order = 619,
+    order = 650,
     key = "polyphemus",
     ignore = true,
     config = {

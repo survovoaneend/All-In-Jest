@@ -1,6 +1,6 @@
 local psalmanazar = {
     object_type = "Joker",
-    order = 554,
+    order = 573,
     key = "psalmanazar",
     ignore = true,
     config = {

@@ -1,6 +1,6 @@
 local scarecrow = {
     object_type = "Joker",
-    order = 502,
+    order = 521,
     key = "scarecrow",
     ignore = true,
     config = {

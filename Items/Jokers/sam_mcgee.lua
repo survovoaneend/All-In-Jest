@@ -1,6 +1,6 @@
 local sam_mcgee = {
     object_type = "Joker",
-    order = 469,
+    order = 488,
     key = "sam_mcgee",
     
     config = {

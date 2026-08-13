@@ -11,7 +11,6 @@ local fallen_falcon = {
     mult = 2,
     boss_colour = HEX("ac7e5b"),
     atlas = 'blinds_final',
-    ignore = true,
     pos = { y = 7},
     order = 1008,
     dollars = 8,

@@ -1,6 +1,6 @@
 local jesters_privelege = {
     object_type = "Joker",
-    order = 95,
+    order = 98,
 
     key = "jesters_privelege",
     config = {

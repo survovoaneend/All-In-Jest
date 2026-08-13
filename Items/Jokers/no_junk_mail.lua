@@ -1,6 +1,6 @@
 local no_junk_mail = {
     object_type = "Joker",
-    order = 534,
+    order = 553,
     key = "no_junk_mail",
     config = {
         extra = {

@@ -1,6 +1,6 @@
 local beekeeper = {
     object_type = "Joker",
-    order = 884,
+    order = 911,
     ignore = true,
 
     key = "beekeeper",

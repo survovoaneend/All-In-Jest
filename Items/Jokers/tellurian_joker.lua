@@ -1,6 +1,6 @@
 local tellurian_joker = {
     object_type = "Joker",
-    order = 910,
+    order = 937,
     ignore = true,
 
     key = "tellurian_joker",

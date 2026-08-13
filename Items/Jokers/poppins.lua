@@ -1,6 +1,6 @@
 local poppins = {
     object_type = "Joker",
-    order = 857,
+    order = 884,
     ignore = true,
 
     key = "poppins",

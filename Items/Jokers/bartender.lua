@@ -1,6 +1,6 @@
 local bartender = {
     object_type = "Joker",
-    order = 275,
+    order = 282,
     key = "bartender",
     config = {
       
@@ -33,7 +33,6 @@ local bartender = {
             if #valid_consumables > 0 then
                 local target_consumable = pseudorandom_element(valid_consumables, pseudoseed('glimmer_target'))
                 
-                -- Randomly select between Foil, Holographic, and Polychrome
                 local editions = { { foil = true }, { holo = true }, { polychrome = true } }
                 local chosen_edition = pseudorandom_element(editions, pseudoseed('glimmer_edition'))
 

@@ -1,6 +1,6 @@
 local gnasher = {
     object_type = "Joker",
-    order = 166,
+    order = 169,
 
     key = "gnasher",
     config = {

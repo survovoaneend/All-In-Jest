@@ -1,6 +1,6 @@
 local windswept_joker = {
     object_type = "Joker",
-    order = 423,
+    order = 442,
     key = "windswept_joker",
 
     config = {

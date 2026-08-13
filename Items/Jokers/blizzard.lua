@@ -1,6 +1,6 @@
 local blizzard = {
     object_type = "Joker",
-    order = 842,
+    order = 869,
     ignore = true,
 
     key = "blizzard",

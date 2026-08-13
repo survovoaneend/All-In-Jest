@@ -1,6 +1,6 @@
 local pallid_mask = {
     object_type = "Joker",
-    order = 716,
+    order = 738,
     ignore = true,
 
     key = "pallid_mask",

@@ -1,6 +1,6 @@
 local cubewano = {
     object_type = "Joker",
-    order = 868,
+    order = 895,
     ignore = true,
 
     key = "cubewano",

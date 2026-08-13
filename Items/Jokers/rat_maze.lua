@@ -1,6 +1,6 @@
 local rat_maze = {
     object_type = "Joker",
-    order = 377,
+    order = 396,
     key = "rat_maze",
     ignore = true,
     config = {

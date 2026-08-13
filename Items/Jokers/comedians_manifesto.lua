@@ -1,6 +1,6 @@
 local comedians_manifesto = {
     object_type = "Joker",
-    order = 33,
+    order = 36,
 
     key = "comedians_manifesto",
     config = {

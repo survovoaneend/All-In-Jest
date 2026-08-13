@@ -1,6 +1,6 @@
 local yellow_pages = {
     object_type = "Joker",
-    order = 690,
+    order = 712,
     ignore = true,
 
     key = "yellow_pages",

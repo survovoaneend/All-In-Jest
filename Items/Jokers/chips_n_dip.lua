@@ -1,6 +1,6 @@
 local chips_n_dip = {
     object_type = "Joker",
-    order = 297,
+    order = 304,
     
     key = "chips_n_dip",
     config = {

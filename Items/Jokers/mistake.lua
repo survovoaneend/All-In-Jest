@@ -1,6 +1,6 @@
 local mistake = {
   object_type = "Joker",
-  order = 241,
+  order = 246,
   
   key = "mistake",
   config = {

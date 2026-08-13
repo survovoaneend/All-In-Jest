@@ -1,6 +1,6 @@
 local diced_joker = {
     object_type = "Joker",
-    order = 483,
+    order = 502,
     key = "diced_joker",
     ignore = true,
     config = {

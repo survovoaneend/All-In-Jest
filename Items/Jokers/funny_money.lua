@@ -1,6 +1,6 @@
 local funny_money = {
     object_type = "Joker",
-    order = 250,
+    order = 255,
     lite = true,
     key = "funny_money",
     config = {

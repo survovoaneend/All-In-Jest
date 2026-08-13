@@ -1,6 +1,6 @@
 local mystic = {
     object_type = "Joker",
-    order = 521,
+    order = 540,
     key = "mystic",
     ignore = true,
     config = {

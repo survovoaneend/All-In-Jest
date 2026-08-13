@@ -1,6 +1,6 @@
 local evil_eye = {
     object_type = "Joker",
-    order = 869,
+    order = 896,
     ignore = true,
 
     key = "evil_eye",

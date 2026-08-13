@@ -1,6 +1,6 @@
 local abuse_joker = {
     object_type = "Joker",
-    order = 893,
+    order = 920,
     ignore = true,
 
     key = "abuse_joker",

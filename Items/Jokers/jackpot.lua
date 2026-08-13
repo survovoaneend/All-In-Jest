@@ -1,6 +1,6 @@
 local jackpot = {
     object_type = "Joker",
-    order = 902,
+    order = 929,
     ignore = true,
 
     key = "jackpot",

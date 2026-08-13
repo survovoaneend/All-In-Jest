@@ -1,6 +1,6 @@
 local jerko = {
     object_type = "Joker",
-    order = 196,
+    order = 202,
     key = "jerko",
     config = {
       extra = {

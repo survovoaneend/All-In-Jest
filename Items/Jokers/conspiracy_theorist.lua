@@ -1,6 +1,6 @@
 local conspiracy_theorist = {
     object_type = "Joker",
-    order = 851,
+    order = 878,
     ignore = true,
 
     key = "conspiracy_theorist",

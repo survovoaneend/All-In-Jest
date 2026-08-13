@@ -1,6 +1,6 @@
 local ochre_joker = {
     object_type = "Joker",
-    order = 738,
+    order = 760,
     ignore = true,
 
     key = "ochre_joker",

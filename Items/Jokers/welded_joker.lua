@@ -1,6 +1,6 @@
 local welded_joker = {
     object_type = "Joker",
-    order = 891,
+    order = 918,
     ignore = true,
 
     key = "welded_joker",

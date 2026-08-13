@@ -1,6 +1,6 @@
 local jaffas = {
     object_type = "Joker",
-    order = 917,
+    order = 944,
     ignore = true,
 
     key = "jaffas",

@@ -1,6 +1,6 @@
 local sorbet = {
     object_type = "Joker",
-    order = 827,
+    order = 854,
     ignore = true,
 
     key = "sorbet",

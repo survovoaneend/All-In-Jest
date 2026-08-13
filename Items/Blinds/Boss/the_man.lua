@@ -3,13 +3,12 @@ local the_man = {
     key = 'the_man',
     
     boss = {
-        min = 4,
+        min = 3,
     },
     mult = 2,
     boss_colour = HEX("95a0a9"),
     atlas = 'blinds',
     pos = { X = 0, y = 64},
-    ignore = true,
     order = 65,
     dollars = 5,
 
@@ -28,13 +27,15 @@ local the_man = {
           }))
           for i = 1, #context.full_hand do
             G.E_MANAGER:add_event(Event({
-              trigger = 'after',
-              delay = 0.15,
-              func = function()
-                  context.full_hand[i].ability.aij_perma_flipped = true
-                  context.full_hand[i]:flip()
-                  return true
-              end
+            trigger = 'after',
+            delay = 0.15,
+            func = function()
+                if context.full_hand[i] then
+                    context.full_hand[i].ability.aij_perma_flipped = true
+                    context.full_hand[i]:flip()
+                end
+                return true
+            end
             }))
           end
         end

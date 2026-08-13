@@ -1,6 +1,6 @@
 local coconut = {
     object_type = "Joker",
-    order = 527,
+    order = 546,
     key = "coconut",
     config = {
         extra = {

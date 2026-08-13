@@ -1,6 +1,6 @@
 local matchbox = {
     object_type = "Joker",
-    order = 812,
+    order = 839,
     ignore = true,
 
     key = "matchbox",

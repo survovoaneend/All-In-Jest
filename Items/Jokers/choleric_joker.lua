@@ -1,6 +1,6 @@
 local choleric_joker = {
     object_type = "Joker",
-    order = 348,
+    order = 356,
 
     key = "choleric_joker",
     config = {

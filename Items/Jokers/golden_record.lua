@@ -1,6 +1,6 @@
 local golden_record = {
     object_type = "Joker",
-    order = 373,
+    order = 392,
     key = "golden_record",
     ignore = true,
     config = {

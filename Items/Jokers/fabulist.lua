@@ -1,6 +1,6 @@
 local fabulist = {
     object_type = "Joker",
-    order = 801,
+    order = 826,
     ignore = true,
 
     key = "fabulist",

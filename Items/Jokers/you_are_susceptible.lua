@@ -1,6 +1,6 @@
 local you_are_susceptible = {
     object_type = "Joker",
-    order = 814,
+    order = 841,
     ignore = true,
 
     key = "you_are_susceptible",

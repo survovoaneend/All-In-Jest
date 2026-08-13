@@ -1,6 +1,6 @@
 local antihero = {
     object_type = "Joker",
-    order = 823,
+    order = 850,
     ignore = true,
 
     key = "antihero",

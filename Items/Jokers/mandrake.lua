@@ -1,6 +1,6 @@
 local mandrake = {
     object_type = "Joker",
-    order = 235,
+    order = 240,
 
     key = "mandrake",
     config = {

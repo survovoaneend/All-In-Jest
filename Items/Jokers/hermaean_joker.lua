@@ -1,6 +1,6 @@
 local hermaean_joker = {
     object_type = "Joker",
-    order = 908,
+    order = 935,
     ignore = true,
 
     key = "hermaean_joker",

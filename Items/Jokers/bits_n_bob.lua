@@ -1,6 +1,6 @@
 local bits_n_bob = {
     object_type = "Joker",
-    order = 799,
+    order = 824,
     ignore = true,
 
     key = "bits_n_bob",

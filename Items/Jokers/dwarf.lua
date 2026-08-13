@@ -1,6 +1,6 @@
 local dwarf = {
     object_type = "Joker",
-    order = 455,
+    order = 474,
     key = "dwarf",
     
     config = {

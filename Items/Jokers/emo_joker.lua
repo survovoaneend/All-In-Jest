@@ -1,6 +1,6 @@
 local emo_joker = {
     object_type = "Joker",
-    order = 904,
+    order = 931,
     ignore = true,
 
     key = "emo_joker",

@@ -1,6 +1,6 @@
 local executioner = {
   object_type = "Joker",
-  order = 167,
+  order = 170,
 
   key = "executioner",
   config = {

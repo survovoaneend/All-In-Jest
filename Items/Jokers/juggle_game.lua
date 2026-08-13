@@ -1,6 +1,6 @@
 local juggle_game = {
     object_type = "Joker",
-    order = 937,
+    order = 964,
     ignore = true,
 
     key = "juggle_game",

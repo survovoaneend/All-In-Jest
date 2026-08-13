@@ -1,6 +1,6 @@
 local heavy_sixer = {
     object_type = "Joker",
-    order = 280,
+    order = 287,
 
     key = "heavy_sixer",
     config = {

@@ -1,6 +1,6 @@
 local egg_cc = {
     object_type = "Joker",
-    order = 225,
+    order = 230,
 
     key = "egg_cc",
     config = {

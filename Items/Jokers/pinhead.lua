@@ -1,6 +1,6 @@
 local pinhead = {
     object_type = "Joker",
-    order = 107,
+    order = 110,
 
     key = "pinhead",
     config = {

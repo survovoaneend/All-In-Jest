@@ -1,6 +1,6 @@
 local candidate = {
     object_type = "Joker",
-    order = 472,
+    order = 491,
     key = "candidate",
     
     config = {

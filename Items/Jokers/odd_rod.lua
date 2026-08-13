@@ -1,6 +1,6 @@
 local odd_rod = {
     object_type = "Joker",
-    order = 732,
+    order = 754,
     ignore = true,
 
     key = "odd_rod",

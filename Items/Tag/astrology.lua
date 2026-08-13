@@ -2,7 +2,6 @@ local astrology_tag = {
     object_type = "Tag",
     key = 'astrology',
     pos = { x = 0, y = 4 },
-    ignore = true,
     atlas = 'tag_atlas',
     discovered = false,
     order = 8,

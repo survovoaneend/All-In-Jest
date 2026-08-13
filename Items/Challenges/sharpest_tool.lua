@@ -39,18 +39,17 @@ local sharpest_tool = {
             {id = 'tag_aij_recherche'},
         },
     },
-}
-local temp_create_card = create_card
-function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
-    local card = nil
-    if ((area == G.shop_jokers) or (area == G.pack_cards and key_append == 'buf')) and _type == 'Joker' then
-        if G.GAME.modifiers.aij_sharpest_tool_1 then
-            card = temp_create_card(_type, area, false, 0, skip_materialize, soulable, nil, key_append)
+    apply = function(self) 
+        G.GAME.shop = G.GAME.shop or {}
+        G.GAME.shop.slot_details = G.GAME.shop.slot_details or {}
+        for i = 1, 2 do
+            table.insert(G.GAME.shop.slot_details, 1,{
+                ['type'] = nil,
+                ['rarity'] = 0,
+                ['key'] = nil,
+                ['remove_tag'] = 'ch_sharpest_tool'
+            })
         end
-    end
-    if not card then
-        card = temp_create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
-    end
-    return card
-end
+    end,
+}
 return { name = {"Challenges"}, items = {sharpest_tool} }

@@ -1,6 +1,6 @@
 local bear = {
     object_type = "Joker",
-    order = 526,
+    order = 545,
     key = "bear",
    
     config = {

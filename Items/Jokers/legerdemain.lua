@@ -1,6 +1,6 @@
 local legerdemain = {
     object_type = "Joker",
-    order = 436,
+    order = 455,
     key = "legerdemain",
     
     config = {

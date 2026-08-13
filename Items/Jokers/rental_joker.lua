@@ -1,6 +1,6 @@
 local rental_joker = {
     object_type = "Joker",
-    order = 795,
+    order = 817,
     ignore = true,
 
     key = "rental_joker",

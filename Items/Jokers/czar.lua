@@ -23,7 +23,7 @@ end
 local czar = {
     object_type = "single_copier",
     object_loader = All_in_Jest,
-    order = 365,
+    order = 384,
     key = "czar",
     config = {
         aij_blueprint_compat = true,

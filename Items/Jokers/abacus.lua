@@ -1,6 +1,6 @@
 local abacus = {
     object_type = "Joker",
-    order = 810,
+    order = 836,
     ignore = true,
 
     key = "abacus",

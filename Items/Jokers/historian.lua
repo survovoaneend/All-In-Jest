@@ -1,6 +1,6 @@
 local historian = {
     object_type = "Joker",
-    order = 409,
+    order = 418,
     key = "historian",
     config = {
         extra = {

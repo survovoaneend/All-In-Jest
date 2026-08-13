@@ -1,6 +1,6 @@
 local la_commedia_e_finita = {
   object_type = "Joker",
-  order = 155,
+  order = 158,
 
   key = "la_commedia_e_finita",
   config = {

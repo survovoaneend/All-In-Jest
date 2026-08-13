@@ -1,6 +1,6 @@
 local corpse_paint = {
     object_type = "Joker",
-    order = 212,
+    order = 218,
     
     key = "corpse_paint",
     config = {

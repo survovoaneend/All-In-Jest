@@ -1,6 +1,6 @@
 local vecchio_dolore = {
     object_type = "Joker",
-    order = 366,
+    order = 375,
     key = "vecchio_dolore",
     config = {
 

@@ -1,6 +1,6 @@
 local dendroglyph = {
     object_type = "Joker",
-    order = 323,
+    order = 330,
 
     key = "dendroglyph",
     config = {

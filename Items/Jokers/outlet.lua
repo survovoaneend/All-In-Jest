@@ -1,6 +1,6 @@
 local outlet = {
     object_type = "Joker",
-    order = 463,
+    order = 482,
     key = "outlet",
     config = {
         extra = {

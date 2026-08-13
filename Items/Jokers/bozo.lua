@@ -17,6 +17,7 @@ local bozo = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    dongtong_compat = false,
     soul_pos = { x = 0, y = 13 },
 
     loc_vars = function(self, info_queue, card)

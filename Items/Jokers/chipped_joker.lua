@@ -1,17 +1,17 @@
 local chipped_joker = {
     object_type = "Joker",
-    order = 478,
+    order = 497,
     key = "chipped_joker",
     config = {
         extra = {
             chips_mod = 10,
             chips = 0,
+            old_chips = 0,
         }
     },
     attributes = { 'chips', 'scaling', 'modify_card', 'enhancements', },
     rarity = 1,
     pos = { x = 19, y = 23 },
-    ignore = true,
     atlas = 'joker_atlas',
     cost = 4,
     unlocked = true,
@@ -30,31 +30,32 @@ local chipped_joker = {
 
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
-            for k, v in pairs(context.scoring_hand) do
-                if SMODS.has_enhancement(v, 'm_stone') then
-                    local ability_table = (v.config.center.key == 'm_stone' and v.ability) or (v.config.aij_other_center and v.config.aij_other_center.center.key == 'm_stone' and v.config.aij_other_center.ability) or nil
-                    local chip_increase = 0
-                    local base_ability_table = v.ability
-                    if ability_table and (ability_table.bonus - card.ability.extra.chips_mod) >= 0 then
-                        chip_increase = card.ability.extra.chips_mod
-                        ability_table.bonus = ability_table.bonus - chip_increase
-                        base_ability_table.chipped_joker_chips_taken = base_ability_table.chipped_joker_chips_taken or 0
-                        base_ability_table.chipped_joker_chips_taken = base_ability_table.chipped_joker_chips_taken + chip_increase
-                    elseif ability_table  then
-                        chip_increase = ability_table.bonus
-                        base_ability_table.chipped_joker_chips_taken = base_ability_table.chipped_joker_chips_taken or 0
-                        base_ability_table.chipped_joker_chips_taken = base_ability_table.chipped_joker_chips_taken + chip_increase
-                        ability_table.bonus = 0
-                    end
-                    if chip_increase > 0 then
-                        local table = {chip_increase = chip_increase}
-                        SMODS.scale_card(card, {
-	                        ref_table = card.ability.extra,
-                            ref_value = "chips",
-                            scalar_table = table,
-	                        scalar_value = "chip_increase",
-                        })
-                    end
+            card.ability.extra.old_chips = card.ability.extra.chips
+        end
+        if context.individual and context.cardarea == G.play and not context.blueprint then
+            if SMODS.has_enhancement(context.other_card, 'm_stone') then
+                local ability_table = (context.other_card.config.center.key == 'm_stone' and context.other_card.ability) or (context.other_card.config.aij_other_center and context.other_card.config.aij_other_center.center.key == 'm_stone' and context.other_card.config.aij_other_center.ability) or nil
+                local chip_increase = 0
+                local base_ability_table = context.other_card.ability
+                if ability_table and (ability_table.bonus - card.ability.extra.chips_mod) >= 0 then
+                    chip_increase = card.ability.extra.chips_mod
+                    ability_table.bonus = ability_table.bonus - chip_increase
+                    base_ability_table.chipped_joker_chips_taken = base_ability_table.chipped_joker_chips_taken or 0
+                    base_ability_table.chipped_joker_chips_taken = base_ability_table.chipped_joker_chips_taken + chip_increase
+                elseif ability_table  then
+                    chip_increase = ability_table.bonus
+                    base_ability_table.chipped_joker_chips_taken = base_ability_table.chipped_joker_chips_taken or 0
+                    base_ability_table.chipped_joker_chips_taken = base_ability_table.chipped_joker_chips_taken + chip_increase
+                    ability_table.bonus = 0
+                end
+                if chip_increase > 0 then
+                    local table = {chip_increase = chip_increase}
+                    SMODS.scale_card(card, {
+	                    ref_table = card.ability.extra,
+                        ref_value = "chips",
+                        scalar_table = table,
+	                    scalar_value = "chip_increase",
+                    })
                 end
             end
         end
@@ -72,10 +73,25 @@ local chipped_joker = {
         end
         if context.joker_main then
             return {
-                chips = card.ability.extra.chips,
+                chips = card.ability.extra.old_chips,
             }
         end
-    end
+    end,
+    in_pool = function(self, args)
+        local stone = 0
+        if G.GAME and G.playing_cards then
+            for _, card in ipairs(G.playing_cards) do
+                if SMODS.has_enhancement(card, 'm_stone') then
+                    stone = stone + 1
+                end
+            end
+        end
+        if stone > 0 then
+            return true
+        else
+            return false
+        end
+    end,
 }
 
 return { name = { "Jokers" }, items = { chipped_joker } }

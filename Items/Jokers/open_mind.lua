@@ -1,6 +1,6 @@
 local open_mind = {
   object_type = "Joker",
-  order = 128,
+  order = 131,
 
   key = "open_mind",
   config = {

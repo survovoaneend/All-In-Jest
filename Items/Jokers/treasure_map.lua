@@ -1,6 +1,6 @@
 local treasure_map = {
     object_type = "Joker",
-    order = 426,
+    order = 445,
     key = "treasure_map",
     config = {
         extra = {

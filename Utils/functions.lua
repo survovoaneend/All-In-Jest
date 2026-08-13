@@ -1,6 +1,10 @@
 -- Used in Vanilla functions where 'type' is overridden
 All_in_Jest.aij_alias_type = type
 
+SMODS.current_mod.calculate = function(self, context)
+    
+end
+
 --repurposd from paperback
 function jest_poll_tag(seed, options)
   -- This part is basically a copy of how the base game does it
@@ -649,6 +653,16 @@ table.insert(SMODS.calculation_keys, "aij_balance_percent")
 if SMODS.other_calculation_keys then
     table.insert(SMODS.other_calculation_keys, "aij_balance_percent")
 end
+table.insert(SMODS.calculation_keys, "aij_set_mult")
+if SMODS.scoring_parameter_keys then
+    table.insert(SMODS.scoring_parameter_keys, "aij_set_mult")
+    table.insert(SMODS.Scoring_Parameters['mult'], "aij_set_mult")
+end
+table.insert(SMODS.calculation_keys, "aij_set_chips")
+if SMODS.scoring_parameter_keys then
+    table.insert(SMODS.scoring_parameter_keys, "aij_set_chips")
+    table.insert(SMODS.Scoring_Parameters['chips'], "aij_set_chips")
+end
 -- table.insert(SMODS.calculation_keys, 1, "aij_balance_percent") -- This version would put the effect at the start, making it go before chip/mult/etc. effects.
 local aij_balance_mixed = false
 local aij_original_smods_calculate_individal_effect = SMODS.calculate_individual_effect
@@ -701,6 +715,30 @@ SMODS.calculate_individual_effect = function(effect, scored_card, key, amount, f
             end
         end
 
+        return true
+    end
+    if key == 'aij_set_mult' then
+        if effect.card and effect.card ~= scored_card then juice_card(effect.card) end
+        SMODS.Scoring_Parameters.mult:modify(amount - mult)
+        if not effect.remove_default_message then
+            if effect.aij_set_mult_message then
+                card_eval_status_text(effect.message_card or effect.juice_card or scored_card or effect.card or effect.focus, 'extra', nil, percent, nil, effect.aij_set_mult_message)
+            else
+                card_eval_status_text(effect.message_card or effect.juice_card or scored_card or effect.card or effect.focus, 'jokers', nil, percent, nil, {message = localize{type='variable',key='a_aij_mult_equal',vars={amount}}})
+            end
+        end
+        return true
+    end
+    if key == 'aij_set_chips' then
+        if effect.card and effect.card ~= scored_card then juice_card(effect.card) end
+        SMODS.Scoring_Parameters.chips:modify(amount - hand_chips)
+        if not effect.remove_default_message then
+            if effect.aij_set_mult_message then
+                card_eval_status_text(effect.message_card or effect.juice_card or scored_card or effect.card or effect.focus, 'extra', nil, percent, nil, effect.aij_set_mult_message)
+            else
+                card_eval_status_text(effect.message_card or effect.juice_card or scored_card or effect.card or effect.focus, 'jokers', nil, percent, nil, {message = localize{type='variable',key='a_aij_chips_equal',vars={amount}}})
+            end
+        end
         return true
     end
 
@@ -1818,6 +1856,9 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, extra)
                 victim_joker.ability.all_in_jest.has_been_rerolled_data = old_ability_data
             end
             victim_joker:set_cost()
+            if extra.shop_ui then
+                create_shop_card_ui(victim_joker, extra.type, extra.shop_ui)
+            end
             return true
         end
     }))
@@ -1831,10 +1872,10 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, extra)
             return true 
         end 
     }))
-      G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
         G.jokers:unhighlight_all()
         return true
-      end }))
+    end }))
     delay(0.5)
 end
 
@@ -1989,7 +2030,6 @@ function All_in_Jest.reset_game_globals(run_start)
     reset_jest_magick_joker_card()
     reset_jest_you_broke_it_card()
     reset_jest_lavatch_card()
-	  G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
 
     reset_jest_visage_cards()
@@ -2693,6 +2733,23 @@ function All_in_Jest.get_random_joker_colours(colour)
         HEX('fd5f55'), HEX('fda200'), HEX('009cfd'), HEX('55a383'), HEX('8dffd0'), HEX('7dc6f3'),
         HEX('597a90'), HEX('83c4b4'), HEX('608d81'), HEX('d9dd61'), HEX('f66178'), HEX('e39571'),
         HEX('ff7e5f'), HEX('71d0e4'), HEX('fde487'), HEX('eeeeee'), HEX('4f6367'), HEX('d5495e'),
+        HEX('be8663'), HEX('8d7a65'), HEX('848d8f'), HEX('a6605d'), HEX('fd918a'), HEX('fddad8'),
+        HEX('f3b98b'), HEX('f28a3c'), HEX('f2c255'), HEX('c09533'), HEX('d7c258'), HEX('9ad87b'),
+        HEX('dff2fd'), HEX('5a86d1'), HEX('42a4e2'), HEX('b7a2fd'), HEX('8a71e1'), HEX('6b618b'),
+        HEX('6a60c2'), HEX('9a7ec4'), HEX('f1a8ea'), HEX('ff92a3'), HEX('ffdfe4'), HEX('dca2fd'),
+        HEX('debc84'), HEX('927e5c'), HEX('db9a4d'), HEX('a67e5d'), HEX('c75062'), HEX('b2d99f'),
+        HEX('f06b3f'), HEX('55ac69'), HEX('efe6d4'), HEX('a2b3ad'), HEX('88a0a5'), HEX('e2caf3'),
+        HEX('7f83a7'), HEX('90ced1'), HEX('c9e2e3'), HEX('fde700'), HEX('d0e5f5'), HEX('84c5d2'),
+        HEX('f4cfd0'), HEX('c4c1ea'), HEX('ab97ef'), HEX('96b7ce'), HEX('ee8f8d'), HEX('88beb0'),
+        HEX('90c7e6'), HEX('f7f1e4'), HEX('bbc9bb'), HEX('d0c3a9'), HEX('d37150'), HEX('537a82'),
+        HEX('f9eed1'), HEX('869ed0'), HEX('9debfd'), HEX('517a6b'), HEX('cbc4b8'), HEX('eb7944'),
+        HEX('86d4e0'), HEX('48f7b0'), HEX('f0f0a3'), HEX('fc66e2'), HEX('d67a5a'), HEX('98cd6e'),
+        HEX('d37783'), HEX('dcc677'), HEX('c65a85'), HEX('697be8'), HEX('caae3f'), HEX('858a5a'),
+        HEX('559caa'), HEX('ecaa8b'), HEX('d6bfa6'), HEX('ca6430'), HEX('dab772'), HEX('a58547'),
+        HEX('7a73bb'), HEX('7ad5bb'), HEX('84b1d2'), HEX('dd463c'), HEX('fd8086'), HEX('c46f6f'),
+        HEX('e77f77'), HEX('fd7f55'), HEX('fd5560'), HEX('db6e67'), HEX('cc6b4f'), HEX('e18058'),
+        HEX('e6857f'), HEX('c35959'), HEX('ff6368'), HEX('7a73bb'), HEX('efd265'), HEX('e2b25c'),
+        HEX('c2c29d'), HEX('507e66'), HEX('b069b7'),
     }
     if colour == 'skintone' then
         local seed = pseudoseed('randomjoker')
@@ -3495,6 +3552,9 @@ function aij_calculate_end_of_round_effects(context, i, card)
         SMODS.calculate_card_areas('individual', context, effects, { main_scoring = true })
 
         local flags = SMODS.trigger_effects(effects, card)
+        if context.cardarea == G.hand and (next(effects) or next(flags)) then
+            SMODS.calculate_context({aij_held_effect_triggered = true, card = card, effects = next(effects) and effects or flags})
+        end
 
         context.individual = nil
         context.repetition = true
@@ -3519,15 +3579,15 @@ function aij_reroll_tags(blind, args)
     if blind == 'All' then
         for k, v in pairs(G.GAME.round_resets.blind_tags) do
             if (G.GAME.round_resets.blind_states[k] ~= 'Hide' and G.GAME.round_resets.blind_states[k] ~= 'Defeated' and G.GAME.round_resets.blind_states[k] ~= 'Skipped') then
-                if not args.gold then G.GAME.round_resets.blind_tags[k] = get_next_tag_key() end
-                if args.gold then G.GAME.round_resets.blind_tags[k] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+                if not args.gold and not args.refresh then G.GAME.round_resets.blind_tags[k] = get_next_tag_key() end
+                if args.gold and not args.refresh then G.GAME.round_resets.blind_tags[k] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
                 if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
                     for i = 1, G.GAME.all_in_jest.blind_tags.amt do
                         if i == 1 then -- Leftmost tag matches vanilla skip tag
                             G.GAME.all_in_jest.blind_tags[k][i] = G.GAME.round_resets.blind_tags[k]
                         else
-                            if not args.gold then G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('aij_no_blind_dupes_'..k) end
-                            if args.gold then G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+                            if not args.gold and not args.refresh then G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('aij_no_blind_dupes_'..k) end
+                            if args.gold and not args.refresh then G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
                         end
                     end
                 end
@@ -3557,15 +3617,15 @@ function aij_reroll_tags(blind, args)
         end
     else
         if (G.GAME.round_resets.blind_states[k] ~= 'Hide' and G.GAME.round_resets.blind_states[blind] ~= 'Defeated' and G.GAME.round_resets.blind_states[blind] ~= 'Skipped') then
-            if not args.gold then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key() end
-            if args.gold then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+            if not args.gold and not args.refresh then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key() end
+            if args.gold and not args.refresh then G.GAME.round_resets.blind_tags[blind] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
             if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
                 for i = 1, G.GAME.all_in_jest.blind_tags.amt do
                     if i == 1 then -- Leftmost tag matches vanilla skip tag
                         G.GAME.all_in_jest.blind_tags[blind][i] = G.GAME.round_resets.blind_tags[blind]
                     else
-                        if not args.gold then G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key('aij_no_blind_dupes_'..blind) end
-                        if args.gold then G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
+                        if not args.gold and not args.refresh then G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key('aij_no_blind_dupes_'..blind) end
+                        if args.gold and not args.refresh then G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key('aij_no_blind_dupes_guarrented_gold_tag') end
                     end
                 end
             end
@@ -3587,6 +3647,49 @@ function aij_reroll_tags(blind, args)
             par.config.object = G.blind_select_opts[blind_choice:lower()]
             par.config.object:recalculate()
             G.blind_select_opts[blind_choice:lower()].parent = par
+        end
+    end
+end
+
+function aij_change_shop_size_advanced(mod, remove_tag, type, rarity, key, func)
+    if not G.GAME.shop then return end
+    G.GAME.shop.joker_max = G.GAME.shop.joker_max + mod
+    for i = 1, math.abs(mod) do
+        if mod > 0 then
+            G.GAME.shop.slot_details = G.GAME.shop.slot_details or {}
+            local _type, _rarity, _key = _type or type, _rarity or rarity, _key or key
+            table.insert(G.GAME.shop.slot_details, 1,{
+                ['type'] = _type,
+                ['rarity'] = _rarity,
+                ['key'] = _key,
+                ['func'] = func,
+                ['remove_tag'] = remove_tag
+            })
+        elseif mod < 0 and remove_tag then
+            for k, v in pairs(G.GAME.shop.slot_details) do
+                if v.remove_tag == remove_tag then
+                    table.remove(G.GAME.shop.slot_details, k)
+                    break
+                end
+            end
+        end
+    end
+    if G.shop_jokers and G.shop_jokers.cards then
+        if mod < 0 then
+            --Remove jokers in shop
+            for i = #G.shop_jokers.cards, G.GAME.shop.joker_max+1, -1 do
+                if G.shop_jokers.cards[i] then
+                    G.shop_jokers.cards[i]:remove()
+                end
+            end
+        end
+        G.shop_jokers.config.card_limit = G.GAME.shop.joker_max
+        G.shop_jokers.T.w = math.min(G.GAME.shop.joker_max*1.02*G.CARD_W,4.08*G.CARD_W)
+        G.shop:recalculate()
+        if mod > 0 then
+            for i = 1, G.GAME.shop.joker_max - #G.shop_jokers.cards do
+                G.shop_jokers:emplace(create_card_for_shop(G.shop_jokers))
+            end
         end
     end
 end

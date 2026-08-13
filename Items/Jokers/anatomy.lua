@@ -1,6 +1,6 @@
 local anatomy = {
     object_type = "Joker",
-    order = 459,
+    order = 478,
     key = "anatomy",
     ignore = true,
     config = {

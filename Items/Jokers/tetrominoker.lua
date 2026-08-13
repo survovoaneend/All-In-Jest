@@ -1,6 +1,6 @@
 local tetrominoker = {
     object_type = "Joker",
-    order = 281,
+    order = 288,
     key = "tetrominoker",
     config = {
       extra = {

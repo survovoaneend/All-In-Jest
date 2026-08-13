@@ -1,6 +1,6 @@
 local line_in_the_sand = {
     object_type = "Joker",
-    order = 81,
+    order = 84,
     lite = true,
     key = "line_in_the_sand",
     config = {

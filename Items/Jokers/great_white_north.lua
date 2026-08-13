@@ -1,6 +1,6 @@
 local great_white_north = {
     object_type = "Joker",
-    order = 65,
+    order = 68,
     
     key = "great_white_north",
     config = {

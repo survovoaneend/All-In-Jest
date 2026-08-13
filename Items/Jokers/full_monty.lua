@@ -1,6 +1,6 @@
 local full_monty = {
     object_type = "Joker",
-    order = 330,
+    order = 337,
     ignore = true,
     key = "full_monty",
     config = {

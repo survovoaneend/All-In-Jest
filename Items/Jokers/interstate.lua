@@ -1,6 +1,6 @@
 local interstate = {
     object_type = "Joker",
-    order = 295,
+    order = 302,
     lite = true,
     key = "interstate",
     config = {

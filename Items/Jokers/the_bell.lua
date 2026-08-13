@@ -1,6 +1,6 @@
 local the_bell = {
     object_type = "Joker",
-    order = 503,
+    order = 512,
 
     key = "the_bell",
     config = {

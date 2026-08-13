@@ -1,6 +1,6 @@
 local goofball = {
     object_type = "Joker",
-    order = 233,
+    order = 238,
 
     key = "goofball",
     config = {

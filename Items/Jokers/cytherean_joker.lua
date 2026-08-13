@@ -1,6 +1,6 @@
 local cytherean_joker = {
     object_type = "Joker",
-    order = 909,
+    order = 936,
     ignore = true,
 
     key = "cytherean_joker",

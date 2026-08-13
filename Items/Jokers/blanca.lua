@@ -1,6 +1,6 @@
 local blanca = {
     object_type = "Joker",
-    order = 837,
+    order = 864,
     ignore = true,
 
     key = "blanca",

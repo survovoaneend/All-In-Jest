@@ -1,6 +1,6 @@
 local infuriating_note = {
     object_type = "Joker",
-    order = 191,
+    order = 197,
 
     key = "infuriating_note",
     config = {

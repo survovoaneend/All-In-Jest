@@ -1,6 +1,6 @@
 local sensational_news = {
     object_type = "Joker",
-    order = 956,
+    order = 982,
     ignore = true,
 
     key = "sensational_news",

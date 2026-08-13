@@ -1,6 +1,6 @@
 local corndog = {
     object_type = "Joker",
-    order = 495,
+    order = 504,
 
     key = "corndog",
     config = {

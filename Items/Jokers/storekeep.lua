@@ -1,6 +1,6 @@
 local storekeep = {
     object_type = "Joker",
-    order = 752,
+    order = 774,
     ignore = true,
 
     key = "storekeep",

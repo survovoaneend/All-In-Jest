@@ -1,6 +1,6 @@
 local aluzinnu = {
     object_type = "Joker",
-    order = 218,
+    order = 224,
     ignore = true,
     key = "aluzinnu",
     config = {

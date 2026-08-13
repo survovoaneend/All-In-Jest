@@ -1,6 +1,6 @@
 local feedback_form = {
     object_type = "Joker",
-    order = 180,
+    order = 183,
 
     key = "feedback_form",
     config = {

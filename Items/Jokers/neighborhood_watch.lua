@@ -1,6 +1,6 @@
 local neighborhood_watch = {
     object_type = "Joker",
-    order = 447,
+    order = 466,
     key = "neighborhood_watch",
     ignore = true,
     config = {

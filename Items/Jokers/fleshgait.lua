@@ -1,6 +1,6 @@
 local fleshgait = {
     object_type = "Joker",
-    order = 364,
+    order = 383,
     key = "fleshgait",
     config = {
     },

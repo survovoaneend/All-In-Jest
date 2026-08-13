@@ -1,6 +1,6 @@
 local beale = {
     object_type = "Joker",
-    order = 414,
+    order = 433,
     key = "beale",
     ignore = true,
     config = {

@@ -5,7 +5,7 @@ local martellino = {
     key = "martellino",
     config = {
         marte_rounds = 0,
-        total_rounds = 3,
+        total_rounds = 5,
     },
     attributes = { 'generation', 'joker', 'on_sell', 'choice' },
     rarity = 4,

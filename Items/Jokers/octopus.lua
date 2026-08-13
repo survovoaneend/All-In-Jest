@@ -1,6 +1,6 @@
 local octopus = {
     object_type = "Joker",
-    order = 384,
+    order = 403,
     key = "octopus",
 
     config = {

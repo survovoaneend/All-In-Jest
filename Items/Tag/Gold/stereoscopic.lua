@@ -21,10 +21,10 @@ local stereoscopic_tag = {
     apply = function(self, tag, context)
         if context.type == 'tag_add' then 
             if context.tag.key ~= 'tag_double' and context.tag.key ~= 'tag_aij_stereoscopic' then
-                local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest Golden Tag', nil, nil, '_gold')
+                local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest_Golden_Tag', nil, nil, '_gold')
                 _gold_pool = {}
                 for i = 1, #_temp_gold_pool do
-                        _gold_pool[i] = _temp_gold_pool[i]
+                    _gold_pool[i] = _temp_gold_pool[i]
                 end
                 local tag_key = nil
                 if #_gold_pool > 0 and _gold_pool[1] == 'tag_handy' then return end

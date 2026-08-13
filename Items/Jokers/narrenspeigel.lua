@@ -1,6 +1,6 @@
 local narrenspeigel = {
     object_type = "Joker",
-    order = 756,
+    order = 778,
     ignore = true,
 
     key = "narrenspeigel",

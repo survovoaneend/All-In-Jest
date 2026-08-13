@@ -10,7 +10,6 @@ local tarnished_tile = {
     end,
     mult = 2,
     boss_colour = HEX("f28a3c"),
-    ignore = true,
     atlas = 'blinds_final',
     pos = { y = 14},
     order = 1015,
@@ -21,6 +20,8 @@ local tarnished_tile = {
         if temp then
             return
         end
+        G.hand:change_size(G.hand.config.card_limit)
+        G.GAME.tarnished_tile_reset_handsize = G.hand.config.card_limit
         G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) + G.hand.config.card_limit
         G.GAME.blind.triggered = true
     end,
@@ -37,7 +38,8 @@ local tarnished_tile = {
 
     disable = function(self)
         if G.GAME.blind.triggered then
-            G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) - G.hand.config.card_limit
+            G.hand:change_size(-G.GAME.tarnished_tile_reset_handsize)
+            G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) - G.GAME.tarnished_tile_reset_handsize
         end
     end,
 

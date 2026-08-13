@@ -1,6 +1,6 @@
 local aphantasia = {
     object_type = "Joker",
-    order = 268,
+    order = 274,
     key = "aphantasia",
     config = {
       

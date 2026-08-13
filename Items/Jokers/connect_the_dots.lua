@@ -1,6 +1,6 @@
 local connect_the_dots = {
     object_type = "Joker",
-    order = 682,
+    order = 704,
     ignore = true,
 
     key = "connect_the_dots",

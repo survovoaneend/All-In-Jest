@@ -1,6 +1,6 @@
 local slippery_when_wet = {
     object_type = "Joker",
-    order = 24,
+    order = 27,
 
     key = "slippery_when_wet",
     config = {

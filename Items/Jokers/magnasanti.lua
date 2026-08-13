@@ -1,6 +1,6 @@
 local magnasanti = {
     object_type = "Joker",
-    order = 710,
+    order = 732,
     ignore = true,
 
     key = "magnasanti",

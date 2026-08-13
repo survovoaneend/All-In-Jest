@@ -1,6 +1,6 @@
 local hijacker = {
     object_type = "Joker",
-    order = 386,
+    order = 405,
     key = "hijacker",
     ignore = true,
     config = {

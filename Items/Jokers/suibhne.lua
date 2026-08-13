@@ -1,6 +1,6 @@
 local suibhne = {
     object_type = "Joker",
-    order = 187,
+    order = 190,
     
     key = "suibhne",
     config = {
@@ -20,7 +20,6 @@ local suibhne = {
     eternal_compat = true,
     perishable_compat = false,
     jest_rec_paperback = true,
-    ignore = true,
     
     loc_vars = function(self, info_queue, card)
         return {

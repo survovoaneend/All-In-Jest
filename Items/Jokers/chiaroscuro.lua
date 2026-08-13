@@ -1,6 +1,6 @@
 local chiaroscuro = {
     object_type = "Joker",
-    order = 759,
+    order = 781,
     ignore = true,
 
     key = "chiaroscuro",

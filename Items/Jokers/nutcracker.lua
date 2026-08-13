@@ -1,6 +1,6 @@
 local nutcracker = {
     object_type = "Joker",
-    order = 935,
+    order = 962,
     ignore = true,
 
     key = "nutcracker",

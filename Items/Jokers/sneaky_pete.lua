@@ -1,6 +1,6 @@
 local sneaky_pete = {
     object_type = "Joker",
-    order = 153,
+    order = 156,
 
     key = "sneaky_pete",
     config = {

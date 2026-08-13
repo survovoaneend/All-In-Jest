@@ -1,6 +1,6 @@
 local poetry = {
     object_type = "Joker",
-    order = 764,
+    order = 786,
     ignore = true,
 
     key = "poetry",
