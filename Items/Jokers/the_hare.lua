@@ -1,7 +1,7 @@
 local the_hare = {
     object_type = "Joker",
     order = 966,
-
+    ignore = true,
     key = "the_hare",
     config = {
         extra = {
