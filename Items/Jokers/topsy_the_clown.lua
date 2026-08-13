@@ -32,8 +32,8 @@ local topsy_the_clown = {
             new_mult = next_palindrome(to_number(mult)+1)
         end
         return {
-          chips = new_chips - to_number(hand_chips),
-          mult = new_mult - to_number(mult),
+          aij_set_chips = new_chips,
+          aij_set_mult = new_mult,
         }
       end
     end

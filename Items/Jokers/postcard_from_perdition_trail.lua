@@ -58,6 +58,8 @@ local postcard_from_perdition_trail = {
         xmult = card.ability.extra.xmult
       }
     end
+  end,
+  in_pool = function(self, args)
     local seal_count = 0
     if G.GAME and G.playing_cards then
       for _, card in ipairs(G.playing_cards) do
@@ -72,7 +74,5 @@ local postcard_from_perdition_trail = {
       return false
     end
   end,
-
-
 }
 return { name = { "Jokers" }, items = { postcard_from_perdition_trail } }

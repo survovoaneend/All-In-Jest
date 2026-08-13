@@ -1682,6 +1682,19 @@ SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, 
 '''
 match_indent = true
 
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+delay(0.3)
+SMODS.last_hand_oneshot = SMODS.calculate_round_score() >= G.GAME.blind.chips
+'''
+position = "before"
+payload = '''
+SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, all_in_jest = {before_round_end_check = true}, total_chips = math.floor(SMODS.calculate_round_score())})
+'''
+match_indent = true
+
 # # Currently unused patch, used to be used for the brilliance
 # # G.FUNCS.evaluate_play()
 # [[patches]] 
@@ -4052,6 +4065,38 @@ payload = '''$pre
 $indent{n=G.UIT.T, config={text = aij_has_blind_drawn and "???" or $post
 '''
 
+# Block planets / moons of the same hand type from appearing at once
+# get_current_pool()
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''pool_opts = pool_opts or {}'''
+position = "after"
+match_indent = true
+payload = '''
+local aij_manual_block = false
+if v.set == 'Planet' and All_in_Jest.config.moons_blocking and not G.GAME.used_jokers[v.key] then
+    for k, other in pairs(G.P_CENTER_POOLS.Planet) do
+        if other.config.hand_type == v.config.hand_type and G.GAME.used_jokers[other.key] then
+            aij_manual_block = true
+            G.GAME.used_jokers[v.key] = true
+            break
+        end
+    end
+end
+'''
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = nil end'''
+position = "before"
+match_indent = true
+payload = '''
+if aij_manual_block then
+    G.GAME.used_jokers[v.key] = nil
+end
+'''
+
 # Blind Drawn (5/6)
 # Hide blind reward if blind drawn is owned
 # create_UIBox_blind_choice()
@@ -4449,38 +4494,6 @@ do -- All in Jest Patch
         end
     end
 end -- End of All in Jest Patch
-'''
-
-# Block planets / moons of the same hand type from appearing at once
-# get_current_pool()
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = '''pool_opts = pool_opts or {}'''
-position = "after"
-match_indent = true
-payload = '''
-local aij_manual_block = false
-if v.set == 'Planet' and All_in_Jest.config.moons_blocking and not G.GAME.used_jokers[v.key] then
-    for k, other in pairs(G.P_CENTER_POOLS.Planet) do
-        if other.config.hand_type == v.config.hand_type and G.GAME.used_jokers[other.key] then
-            aij_manual_block = true
-            G.GAME.used_jokers[v.key] = true
-            break
-        end
-    end
-end
-'''
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = '''if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = nil end'''
-position = "before"
-match_indent = true
-payload = '''
-if aij_manual_block then
-    G.GAME.used_jokers[v.key] = nil
-end
 '''
 
 # Handle aij_weight on objects
