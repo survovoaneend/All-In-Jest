@@ -3420,9 +3420,9 @@ local function load_file_content(path, id)
 end
 
 All_in_Jest.load_shaders = function()
-    G.SHADERS['aij_wood_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/wood_spritesheet.fs"))
-    G.SHADERS['aij_burnt_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/burnt_spritesheet.fs"))
-    G.SHADERS['aij_fusion_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/fusion_spritesheet.fs"))
+    G.SHADERS['aij_wood_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/wood_spritesheet.fs"))
+    G.SHADERS['aij_burnt_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/burnt_spritesheet.fs"))
+    G.SHADERS['aij_fusion_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/fusion_spritesheet.fs"))
 end
 
 function dynatext_aij_draw(self)
