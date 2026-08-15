@@ -2402,6 +2402,10 @@ if G.GAME.previous_jest_upgrade_tab ~= G.GAME.jest_upgrade_tab then
     G.FUNCS.your_collection_tags_page({cycle_config = {current_option = 1}})
     G.GAME.previous_jest_upgrade_tab = G.GAME.jest_upgrade_tab
 end
+if G.GAME.previous_jest_pc_stickers_tab ~= G.GAME.jest_pc_stickers_tab then
+    G.FUNCS.your_collection_stickers_page({cycle_config = {current_option = 1}})
+    G.GAME.previous_jest_pc_stickers_tab = G.GAME.jest_pc_stickers_tab
+end
 '''
 # Make cards and boosters free if set by jest_shop_perma_free
 # Used by the Frugal tag (golden coupon tag)
@@ -5700,3 +5704,12 @@ if self.ability.name == 'j_aij_joker_png' or self.ability.name == 'j_aij_czar' t
     return
 end
 '''
+
+# Add important comment to create_UIBox_your_collection_stickers function
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/ui.lua"]'
+pattern = "create_UIBox_your_collection_stickers = function()"
+position = "before"
+payload = "-- Function overridden by All in Jest in Utils/overrides.lua"
+match_indent = true
