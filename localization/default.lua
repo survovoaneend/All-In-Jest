@@ -5892,7 +5892,16 @@ return {
             j_aij_sparky = {
                 name = "Sparky",
                 text = {
-                    ''
+                    {
+                        '{C:attention}Charged Cards{} held in',
+                        'hand also affect cards',
+                        'in {C:attention}played hand'
+                    },
+                    {
+                        '{C:attention}Charged Cards{} in played',
+                        'hand also affect cards',
+                        '{C:attention}held in hand'
+                    }
                 }
             },
             j_aij_blemmya = {
