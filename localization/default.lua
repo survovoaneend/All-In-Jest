@@ -7581,7 +7581,8 @@ return {
             j_aij_triple_gooberberry_sunrise = {
                 name = "Triple Gooberberry Sunrise",
                 text = {
-                    ''
+                    '{C:green}+#1#{} to all {C:attention}listed{} {C:green}probabilities{},',
+                    '{C:attention}consumed{} after {C:attention}#2#{} Antes',
                 }
             },            
             j_aij_blanca = {
