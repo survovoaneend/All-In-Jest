@@ -7521,7 +7521,10 @@ return {
             j_aij_gelato = {
                 name = "Gelato",
                 text = {
-                    ''
+                    'Earn {C:money}$#1#{} at end of',
+                    '{C:attention}round{}, {C:red}self-destructs{}',
+                    'if Blind is not beaten',
+                    'in a {C:attention}single hand{}'
                 }
             },            
             j_aij_sorbet = {

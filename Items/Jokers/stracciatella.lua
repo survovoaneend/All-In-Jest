@@ -1,28 +1,38 @@
 local stracciatella = {
     object_type = "Joker",
     order = 855,
-    ignore = true,
 
     key = "stracciatella",
     config = {
-
+        extra = {
+            dollars = 10
+        }
     },
-    attributes = {},
-    rarity = 1,
+    attributes = {'economy', 'food'},
+    rarity = 2,
     pos = { x = 2, y = 40},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
-    eternal_compat = true,
+    eternal_compat = false,
 
     loc_vars = function(self, info_queue, card)
         return { }
     end,
 
     calculate = function(self, card, context)
-
+        if context.after and not context.blueprint and G.GAME.current_round.hands_played > 1 then
+            SMODS.destroy_cards(card, nil, nil, true)
+            return {
+                message = localize('k_melted_ex'),
+                colour = G.C.RED
+            }
+        end
+    end,
+    calc_dollar_bonus = function(self, card)
+        return card.ability.extra.dollars
     end
 }
 return { name = {"Jokers"}, items = {stracciatella} }
