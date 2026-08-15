@@ -3531,6 +3531,7 @@ if next(SMODS.find_card("j_aij_barcode")) and self.ability.set == 'Booster' then
         self.cost = math.max(1, math.floor((self.cost + self.extra_cost + 0.5)*(100-v.ability.extra.sale)/100))
     end
 end
+if self.ability.aij_mint_condition then self.cost = self.cost + 10 end
 '''
 
 #Multi-Rank stuff
