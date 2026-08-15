@@ -7536,7 +7536,17 @@ return {
             j_aij_stracciatella = {
                 name = "Stracciatella",
                 text = {
-                    ''
+                    {
+                        'After each hand, {C:green}#1# in #2#{}',
+                        'chance for each {C:attention}scoring{} card',
+                        'to {C:attention}permanently{} earn {C:money}$#3#{}',
+                        'when scored',
+                    },
+                    {
+                        '{C:red}Self-destructs{} after triggering'
+                    }
+
+
                 }
             },            
             j_aij_parfait = {

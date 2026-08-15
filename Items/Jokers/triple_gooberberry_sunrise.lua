@@ -35,7 +35,6 @@ local triple_gooberberry_sunrise = {
             }
         end
 
-        -- Decrement after defeating each Boss Blind (each Ante), then consume when expired
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint and context.beat_boss then
             if card.ability.extra.antes_remaining - 1 <= 0 then
                 SMODS.destroy_cards(card, nil, nil, true)
