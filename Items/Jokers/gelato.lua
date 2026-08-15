@@ -4,7 +4,9 @@ local gelato = {
 
     key = "gelato",
     config = {
-
+        extra = {
+            dollars = 10
+        }
     },
     attributes = {'economy', 'food'},
     rarity = 2,
@@ -25,7 +27,7 @@ local gelato = {
     end,
 
     calculate = function(self, card, context)
-        if context.after and not context.blueprint and G.GAME.current_round.hands_played > 1 then
+        if context.after and not context.blueprint and G.GAME.current_round.hands_played > 0 then
             SMODS.destroy_cards(card, nil, nil, true)
             return {
                 message = localize('k_melted_ex'),
