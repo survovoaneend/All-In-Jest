@@ -46,7 +46,7 @@ local rising_dead_tarot = {
             func = function()
                 for i = 1, #G.hand.highlighted do
 					if G.hand.highlighted[i] ~= conv_card then
-						G.hand.highlighted[i]:set_ability(G.P_CENTERS[conv_card.config.center.key], nil, true)
+						G.hand.highlighted[i]:set_ability(G.P_CENTERS[conv_card.config.center.key])
 						if conv_card.config.aij_other_center and conv_card.config.aij_other_center['center'] then
 							All_in_Jest.set_other_enhancement(G.hand.highlighted[i], conv_card.config.aij_other_center['center'].key)
 						end

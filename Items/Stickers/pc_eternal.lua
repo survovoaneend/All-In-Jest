@@ -9,11 +9,12 @@ function Card:set_eternal(_eternal)
          return set_eternal_ref(self, _eternal)
     end
 end
+
+
 local pc_eternal = {
     object_type = "Sticker",
     key = "pc_eternal",
-	no_collection = true,
-	config = { extra = {  } },
+	config = { aij = { pc_sticker = true }, extra = {  } },
     pos = { x = 0, y = 0 },
     badge_colour = HEX 'c75985',
     order = 1,

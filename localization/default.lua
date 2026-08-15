@@ -28,6 +28,7 @@ return {
             aij_requires_restart = "Requires Restart",
             aij_doesnt_requires_restart = "Doesn't Require Restart",
             aij_upgraded_tags = "Gold Tags",
+            aij_pc_stickers = "Playing Card Stickers",
             aij_enable_moons = "Enable Moons",
             aij_enable_moons_tooltip = {
                 'Enables {C:chips}Chips{} and {C:mult}Mult{}-type',
@@ -84,6 +85,17 @@ return {
                 '{C:purple}the Jest Packs{}, showing the',
                 'names of the Jokers',
                 '{s:0.8,C:inactive}(but not their descriptions)'
+            },
+            aij_mult_appearance = 'More common Mult',
+            aij_mult_appearance_tooltip = {
+                'Makes {C:mult}Mult{} Jokers appear',
+                'more consistently at',
+                'the {C:attention}start{} of a run',
+            },
+            aij_mult_appearance_opt = {
+                'Off',
+                'Standard',
+                'Strong',
             },
             aij_borra_triggers = {
                 'card is scored',
@@ -2411,8 +2423,9 @@ return {
                 name = "Big-Ears",
                 text = {
                     "This Joker gains {C:chips}+#2#{} Chips when",
-                    "an {C:attention}even{} card is scored, {C:red}-#3#{}",
-                    "Chips when an {C:attention}odd{} card is scored",
+                    "an {C:attention}even{} card is scored,",
+                    "{C:red}-#3#{} Chips when",
+                    "an {C:attention}odd{} card is scored",
                     "{C:inactive}(Currently {C:chips}+#1#{} {C:inactive}Chips)"
                 }
             },
@@ -3880,9 +3893,9 @@ return {
                 name = "Truhan",
                 text = {
                     "When any Joker is {C:money}sold{} or",
-                    "{C:red}destroyed{}, this Joker gains {X:mult,C:white}X#2#{}",
-                    "Mult per {C:attention}round{} that Joker",
-                    "has been held",
+                    "{C:red}destroyed{}, this Joker gains ",
+                    "{X:mult,C:white}X#2#{} Mult per {C:attention}round{} that",
+                    "Joker has been held",
                     "{C:inactive}(Currently {X:mult,C:white}X#1#{} {C:inactive}Mult)"
                     -- TODO This description's confusing, not sure when
                     -- Jokers increment their "rounds held". I would assume at
@@ -4498,9 +4511,9 @@ return {
             j_aij_gematria = {
                 name = "Gematria",
                 text = {
-                    "{C:mult}+#1#{} Mult if {C:attention}played hand{} is",
-                    "mentioned by one of your",
-                    "{C:attention}Jokers",
+                    "{C:mult}+#1#{} Mult if {C:attention}played hand{}",
+                    "is mentioned by any",
+                    "of your {C:attention}Jokers",
                 }
             },
             j_aij_bingo_card = {
