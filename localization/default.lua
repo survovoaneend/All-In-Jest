@@ -7894,13 +7894,18 @@ return {
             j_aij_beekeeper = {
                 name = "Beekeeper",
                 text = {
-                    ''
+                    '{C:attention}6s{} held in hand',
+                    'give {C:chips}+#1#{} Chips and',
+                    '{C:mult}+#2#{} Mult'
                 }
             },            
             j_aij_queen_bee = {
                 name = "Queen Bee",
                 text = {
-                    ''
+                    'Scoring {C:attention}Queens{} give',
+                    '{X:mult,C:white}X1{} Mult, plus {X:mult,C:white}X#1#{} Mult',
+                    'per {C:attention}6{} held in hand',
+                    '{C:inactive}(Will give {X:mult,C:white}X#2#{} {C:inactive}Mult)'
                 }
             },            
             j_aij_his_majesty = {
