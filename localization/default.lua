@@ -3222,7 +3222,7 @@ return {
                 text = {
                     "Gives {C:chips}Chips{} equal to the number",
                     "of times {C:attention}poker hand{} has been",
-                    'an additional time'
+                    'played, multiplied by its {C:attention}level'
                 }
             },
             j_aij_cyclops = { 
@@ -7552,7 +7552,14 @@ return {
             j_aij_parfait = {
                 name = "Parfait",
                 text = {
-                    ''
+                    {
+                        'At end of round, {C:green}#1# in #2#{}',
+                        'chance for Joker to the {C:attention}right',
+                        'to {C:attention}permanently{} gain {X:mult,C:white}X#3#{} Mult',
+                    },
+                    {
+                        '{C:red}Self-destructs{} after triggering'
+                    }
                 }
             },            
             j_aij_whiskey_shot = {
@@ -8075,7 +8082,9 @@ return {
             j_aij_cheerio = {
                 name = "Cheerio",
                 text = {
-                    ''
+                    '{C:chips}+#1#{} Chips, when {C:attention}rerolling{}',
+                    'in the {C:money}Shop{}, lose {C:chips}Chips{} equal',
+                    'to the {C:money}cost{} of rerolling'
                 }
             },            
             j_aij_jaffas = {

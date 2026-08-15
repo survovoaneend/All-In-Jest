@@ -9,7 +9,7 @@ local stracciatella = {
             odds = 10
         }
     },
-    attributes = {},
+    attributes = {'food', 'economy', 'modify_card', 'perma_bonus'},
     rarity = 1,
     pos = { x = 2, y = 40},
     atlas = 'joker_atlas',
