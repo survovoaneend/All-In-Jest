@@ -224,7 +224,10 @@ return {
             a_aij_times_money = "X$#1#",
             a_aij_discards = "+#1# Discards",
 
-            a_aij_slots_left = "(#1# slots left)"
+            a_aij_slots_left = "(#1# slots left)",
+
+            a_aij_slots_minus = "-#1# Slots",
+            a_aij_slots = "+#1# Slots"
         },
         challenge_names = {
             c_aij_bananarama = "Bananarama",
@@ -6890,7 +6893,7 @@ return {
                         'This {C:attention}Joker{} gains {X:mult,C:white}X#1#{} Mult',
                         'when a card is enhanced to',
                         '{C:attention}Stone{}, loses {X:mult,C:white}X#2#{} Mult if',
-                        'played hand cotains no',
+                        'played hand contains no',
                         '{C:attention}unscored cards',
                         '{C:inactive}(Currently {X:mult,C:white}X#3#{} {C:inactive}Mult){}'
                     },
@@ -7732,7 +7735,9 @@ return {
             j_aij_poppins = {
                 name = "Poppins",
                 text = {
-                    ''
+                    'Earn {C:money}$#1#{} per {C:attention}unique{}',
+                    'poker hand {C:attention}contained{}',
+                    '{C:attention}within{} played hand'
                 }
             },            
             j_aij_glizzy = {
@@ -7989,7 +7994,9 @@ return {
             j_aij_corporate_memphis = {
                 name = "Corporate Memphis",
                 text = {
-                    ''
+                    'When Blind is {C:attention}skipped{}, the next',
+                    '{C:money}Shop{} gains {C:attention}+#1# Shop Slots',
+                    '{C:inactive}(Currently {C:attention}+#2#{} {C:inactive}Shop Slots)'
                 }
             },            
             j_aij_tax_return = {
@@ -8001,7 +8008,9 @@ return {
             j_aij_jackpot = {
                 name = "Jackpot",
                 text = {
-                    ''
+                    'Earn {C:money}$#1#{} at end of round,',
+                    'increases by {C:money}$#2#{} when a {C:attention}Lucky',
+                    '{C:attention}Card{} successfully triggers'
                 }
             },            
             j_aij_autograph = {
@@ -8127,7 +8136,9 @@ return {
             j_aij_turrn = {
                 name = "Turrón",
                 text = {
-                    ''
+                    '{C:attention}+#1#{} Shop Slots',
+                    "{C:red}-#2#{} Shop Slot at",
+                    "end of round"
                 }
             },            
             j_aij_master_of_pegs = {
@@ -8139,7 +8150,8 @@ return {
             j_aij_emergent_pattern = {
                 name = "Emergent Pattern",
                 text = {
-                    ''
+                    'Retrigger scored cards if {C:attention}played',
+                    '{C:attention}hand{} contains exactly {C:attention}#1#{} cards'
                 }
             },            
             j_aij_mask_merchant = {
@@ -8383,7 +8395,9 @@ return {
             j_aij_flushed_face = {
                 name = "Flushed Face",
                 text = {
-                    ''
+                    "This Joker gains {C:mult}+#1#{} Mult",
+                    "per scored {C:attention}Face Card{} in a {C:attention}Flush{}",
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
                 }
             },            
             j_aij_warning_notice = {
