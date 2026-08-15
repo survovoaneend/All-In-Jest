@@ -322,6 +322,7 @@ return {
             pinned = "Pinned",
             aij_unusual_doubled = "Doubled",
             aij_recherche_doubled = "Doubled",
+            aij_mint_condition = "Mint Condition",
             -- Seals
             aij_smiley_seal = "Smiley Seal",
             aij_melted_seal = "Melted Seal",
@@ -10882,6 +10883,13 @@ return {
                 text = {
                     '{C:attention}X2{} effects',
                     '{C:inactive,s:0.8}(Granted by a Recherche Tag){}'
+                }
+            },
+            aij_mint_condition = {
+                name = "Mint Condition",
+                text = {
+                    'This {C:attention}Joker{} costs an',
+                    'additional {C:money}$10'
                 }
             },
             -- (not a sticker but treated as such)
