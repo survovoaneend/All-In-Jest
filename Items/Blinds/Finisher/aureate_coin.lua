@@ -26,7 +26,7 @@ local aureate_coin = {
     in_pool = function(self)
         return true
     end,
-    mult = 2,
+    mult = 1,
     aij_variable_req = true,
     boss_colour = HEX("eba03a"),
     atlas = 'blinds_final',

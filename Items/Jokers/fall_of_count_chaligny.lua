@@ -5,10 +5,10 @@ local fall_of_count_chaligny = {
     config = {
     },
     attributes = { 'passive' },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 13, y = 13},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,

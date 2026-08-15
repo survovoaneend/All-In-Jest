@@ -775,7 +775,7 @@ return {
             bl_aij_the_ash = {
                 name = "The Ash",
                 text = {
-                    '+0.2X Base per',
+                    '+0.25X Base per',
                     'card below #1# in',
                     'full deck',
                 },
@@ -796,7 +796,7 @@ return {
             bl_aij_the_evergreen = {
                 name = "The Evergreen",
                 text = {
-                    '+0.2X Base per',
+                    '+0.25X Base per',
                     'card above #1# in',
                     'full deck',
                 },
@@ -914,7 +914,7 @@ return {
             bl_aij_the_celebration = {
                 name = "The Celebration",
                 text = {
-                    '+0.2X Base per unused',
+                    '+0.5X Base per unused',
                     'hand/discard this Ante'
                 },
             },
@@ -1046,9 +1046,8 @@ return {
                 name = "The Kind",
                 text = {
                     'Better skip tags this',
-                    'ante, X2 Blind size',
-                    'for each blind skipped',
-                    'this ante'
+                    'ante, +2X Base per',
+                    'blind skipped this ante'
                 },
             },
             bl_aij_the_real = {
