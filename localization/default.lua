@@ -7323,6 +7323,64 @@ return {
                     ''
                 }
             },
+            j_aij_autogenes = {
+                name = "Autogenes",
+                text = {
+                    {
+                        'After {C:attention}drawing{} a new hand,',
+                        'you will be presented',
+                        'with {C:attention}#1#{} random cards',
+                        'from your {C:attention}remaining',
+                        'deck'
+                    },
+                    {
+                        'Choose {C:attention}#2#{} to draw to',
+                        'your hand',
+                        
+                    }
+                }
+            },
+            j_aij_kalyptos = {
+                name = "Kalyptos",
+                text = {
+                    {
+                        "Reveals the next {C:attention}#1#{}",
+                        "cards in your deck",
+                    },
+                    {
+                        "{B:1,C:white,s:0.8}Activated Ability",
+                        "{C:attention}Flip{} your deck upside",
+                        "down, drawing from and",
+                        "revealing the cards",
+                        "previously on the",
+                        "bottom"
+                    }
+                }
+            },
+            j_aij_protophanes = {
+                name = "Protophanes",
+                text = {
+                    '{C:attention}Reveal{} the last card in',
+                    'your {C:attention}deck',
+                    '{C:attention}Cards{} that share its {C:attention}rank',
+                    'give {X:mult,C:white}X#1#{} Mult'
+                }
+            },
+            j_aij_dark_presence = {
+                name = "Dark Presence",
+                text = {
+                    {
+                        'Retrigger the {C:attention}held in',
+                        '{C:attention}hand{} effects of {C:attention}face',
+                        '{C:attention}cards #1#{} additional',
+                        'times'
+                    },
+                    {
+                        '{C:attention}Face cards{} cannot',
+                        'be played'
+                    }
+                }
+            },
             j_aij_first_draft = {
                 name = "First Draft",
                 text = {
