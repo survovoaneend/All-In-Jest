@@ -289,6 +289,10 @@ return {
             aij_misprint = "Mal Impresa",
             -- Stickers
             aij_marked = "Marcado",
+            aij_pc_perishable = "Perecedero",
+            aij_pc_eternal = "Eterno",
+            aij_pc_rental = "Alquiler",
+            aij_mint_condition = "Prístino",
             -- Seals
             aij_smiley_seal = "Sello Sonriente",
             aij_melted_seal = "Sello derretido",
@@ -1387,6 +1391,19 @@ return {
                 text = {
                     '{C:attention}Reduce{} la severidad',
                     'de los {C:attention}stickers',
+                },
+            },
+            v_aij_recursion = {
+                name = "Recursión",
+                text = {
+                    '{C:attention}+#1# Vale{} a la venta',
+                },
+            },
+            v_aij_recursion_2 = {
+                name = "Recursión",
+                text = {
+                    '{C:attention}+#1# Vale{} a la venta,',
+                    'los vales cuestan {C:money}$#2#{} menos',
                 },
             },
         },
@@ -6785,8 +6802,8 @@ return {
                 name = 'Wamba',
                 text = {
                     {
-                        '{C:attention}#1#{} aparecen',
-                        '{C:attention}#2#X{} más a menudo',
+                        'Los Comodines {C:attention}#1#{} son',
+                        '{C:attention}#2#X{} más comunes',
                     },
                     {
                         '{B:1,C:white,s:0.8}Habilidad Activable',
@@ -6794,6 +6811,163 @@ return {
                         'que aparece con más frecuencia',
                     },
                 },
+            },
+            j_aij_gelato = {
+                name = 'Gelato',
+                text = {
+                    'Gana {C:money}$#1#{} al final de la ronda, {C:red}se autodestruye{}',
+                    'si la Ciega no se derrota en una {C:attention}sola mano{}'
+                }
+            },
+            j_aij_stracciatella = {
+                name = 'Stracciatella',
+                text = {
+                    {
+                        'Después de cada mano, prob. de {C:green}#1# en #2#{}',
+                        'de que cada carta anotada obtenga {C:money}$#3#{}',
+                        'al anotar',
+                    },
+                    {
+                        '{C:red}Se autodestruye{} después de activarse'
+                    }
+                }
+            },
+            j_aij_parfait = {
+                name = 'Parfait',
+                text = {
+                    {
+                        'Al final de la ronda, prob. de {C:green}#1# en #2#{}',
+                        'de que el Comodín de la derecha obtenga {X:mult,C:white}X#3#{} Multi',
+                    },
+                    {
+                        '{C:red}Se autodestruye{} después de activarse'
+                    }
+                }
+            },
+            j_aij_triple_gooberberry_sunrise = {
+                name = 'Triple Gooberberry Sunrise',
+                text = {
+                    '{C:green}+#1#{} a todas las {C:attention}probabilidades{},',
+                    'se {C:attention}consume{} tras {C:attention}#2#{} Apuestas',
+                }
+            },
+            j_aij_poppins = {
+                name = 'Poppins',
+                text = {
+                    'Gana {C:money}$#1#{} por cada mano de póker {C:attention}única{}',
+                    'contenida en la mano jugada'
+                }
+            },
+            j_aij_beekeeper = {
+                name = 'Apicultor',
+                text = {
+                    'Los {C:attention}6s{} en mano',
+                    'otorgan {C:chips}+#1#{} Fichas y',
+                    '{C:mult}+#2#{} Multi'
+                }
+            },
+            j_aij_queen_bee = {
+                name = 'Abeja Reina',
+                text = {
+                    'Las {C:attention}Reinas{} anotadas otorgan',
+                    '{X:mult,C:white}X1{} Multi, más {X:mult,C:white}X#1#{} Multi',
+                    'por cada {C:attention}6{} en mano',
+                    '{C:inactive}(Otorgará {X:mult,C:white}X#2#{} {C:inactive}Multi)'
+                }
+            },
+            j_aij_corporate_memphis = {
+                name = 'Corporate Memphis',
+                text = {
+                    'Al {C:attention}omitir{} una Ciega, la siguiente',
+                    '{C:money}Tienda{} gana {C:attention}+#1#{} Ranuras de Tienda',
+                    '{C:inactive}(Actualmente {C:attention}+#2#{} {C:inactive}Ranuras de Tienda)'
+                }
+            },
+            j_aij_jackpot = {
+                name = 'Olla de Oro',
+                text = {
+                    'Gana {C:money}$#1#{} al final de la ronda,',
+                    'aumenta en {C:money}$#2#{} cuando una',
+                    '{C:attention}Carta de la Suerte{} se activa con éxito'
+                }
+            },
+            j_aij_saveloy = {
+                name = 'Saveloy',
+                text = {
+                    '{C:mult}+#1#{} Multi, {C:mult}-#2#{} Multi',
+                    'al {C:green}renovar{} la {C:money}tienda'
+                }
+            },
+            j_aij_cheerio = {
+                name = 'Cheerio',
+                text = {
+                    '{C:chips}+#1#{} Fichas, al {C:attention}renovar{}',
+                    'en la {C:money}Tienda{}, pierdes Fichas igual',
+                    'al {C:money}costo{} de renovar'
+                }
+            },
+            j_aij_dog_treat = {
+                name = 'Galleta de Perro',
+                text = {
+                    'Si la Ciega se gana en una {C:attention}mano{},',
+                    'ganas {C:money}$#1#{} y {C:red}se autodestruye{}'
+                }
+            },
+            j_aij_turrn = {
+                name = 'Turrón',
+                text = {
+                    '{C:attention}+#1#{} Ranuras de Tienda',
+                    '{C:red}-#2#{} Ranura de Tienda al final de la ronda'
+                }
+            },
+            j_aij_emergent_pattern = {
+                name = 'Patrón Emergente',
+                text = {
+                    'Reactiva las cartas anotadas',
+                    'si la {C:attention}mano jugada{} contiene'
+                    "exactamente {C:attention}#1#{} cartas",
+                }
+            },
+            j_aij_bit_flip = {
+                name = 'Bit Flip',
+                text = {
+                    'Después de jugar la mano, cada {C:attention}dígito{}',
+                    "de tu {C:aij_plasma}puntuación total{}"
+                    'tiene una prob. de {C:green}#1# en #2#{}',
+                    'de aumentar en {C:attention}#3#{}'
+                }
+            },
+            j_aij_the_hare = {
+                name = 'La Liebre',
+                text = {
+                    'Añade {C:aij_plasma}#1#{} a tu',
+                    'puntuación total cada mano'
+                }
+            },
+            j_aij_scarab = {
+                name = 'Escarabajo',
+                text = {
+                    '{C:attention}-#1#{} Apuesta mientras',
+                    'tengas este Comodín',
+                    '{C:inactive, s:0.8}(No puede venderse ni destruirse',
+                    '{C:inactive, s:0.8}durante la Apuesta Final)'
+                }
+            },
+            j_aij_bingsu = {
+                name = 'Bingsu',
+                text = {
+                    'Todas las cartas anotadas otorgan {C:chips}+#1#{} Fichas,',
+                    'prob. de {C:green}#3# en #4#{} de reducir en',
+                    '{C:chips}-#2#{} Fichas al anotar'
+                }
+            },
+            j_aij_flushed_face = {
+                name = 'Comodín Sonrojado',
+                text = {
+                    'Obtiene {C:mult}+#1#{} Multi por cada',
+                    '{C:attention}Carta de Figura{} anotada en un {C:attention}Color{}',
+                    '{C:inactive}(Actualmente {C:mult}+#2#{C:inactive} Multi)'
+                }
             },
             j_aij_the_herald = {
                 name = 'El Heraldo',
@@ -7241,6 +7415,12 @@ return {
                     'elección del {C:attention}pozo'
                 }
             },
+            c_aij_providence = {
+                name = 'Providencia',
+                text = {
+                    'Otorga una {C:attention}Etiqueta de Astrología{}',
+                },
+            },
         },
         aij_astral = {
             c_aij_algol = {
@@ -7521,12 +7701,6 @@ return {
                     'primera vez',
                     'que se juegue esta mano'
                 }
-            },
-            c_aij_providence = {
-                name = 'Providencia',
-                text = {
-                    'Otorga una {C:attention}Etiqueta de Astrología{}',
-                },
             },
         },
         Tag = {
@@ -7998,6 +8172,14 @@ return {
                     "{C:attention}#2#s{}"
                 }
             },
+            c_aij_rising_dead = {
+                name = 'El Despertar de los Muertos',
+                text = {
+                    "Selecciona {C:attention}#1#{} cartas, otorga a la",
+                    "carta de la {C:attention}derecha{} la {C:attention}Mejora{}",
+                    "y el {C:attention}Sello{} de la izquierda"
+                }
+            },
         },
         aij_hex_tarot = {
             c_aij_error = {
@@ -8263,6 +8445,41 @@ return {
                 text = {
                     'No se puede {C:blue}jugar',
                     'o {C:red}descartar'
+                }
+            },
+            aij_pc_eternal = {
+                name = "Eterno",
+                text = {
+                    '{C:red}No puede ser destruido{}',
+                }
+            },
+            aij_pc_perishable = {
+                name = "Perecedero",
+                text = {
+                    'Se debilita tras anotar {C:attention}#1#{} veces',
+                    '{C:inactive}({C:attention}#2#{} restantes{C:inactive}){}'
+                }
+            },
+            aij_pc_rental = {
+                name = "Alquiler",
+                text = {
+                    'Pierde {C:money}$#1#{} al final de la ronda',
+                    'cuando está en tu baraja'
+                }
+            },
+            aij_pc_rental_alt = {
+                name = "Alquiler",
+                text = {
+                    'Prob. de {C:green}#2# en #3#{} de no perder',
+                    '{C:money}$#1#{} al final de la ronda',
+                    'cuando está en tu baraja'
+                }
+            },
+            aij_mint_condition = {
+                name = "Prístino",
+                text = {
+                    'Este {C:attention}Comodín{} cuesta',
+                    '{C:money}$10{} adicionales'
                 }
             },
             -- Seals
