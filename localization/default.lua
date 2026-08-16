@@ -4771,15 +4771,6 @@ return {
             j_aij_chef = {
                 name = "Chef",
                 text = {
-                    -- {
-                    --     "Base-edition {C:attention}Perishable{}",
-                    --     "Jokers become {C:dark_edition}Negative",
-                    -- },
-                    -- {
-                    --     "{C:attention}Editions{} on {C:attention}Perishable",
-                    --     "Jokers no longer come with",
-                    --     "a mark-up in the {C:money}shop"
-                    -- }
                     "{C:attention}Perishable {C:common}Common{} Jokers",
                     "are {C:dark_edition}Negative{} and {C:money}free{}",
                 }
@@ -9747,8 +9738,8 @@ return {
             c_aij_barathrum = {
                 name = 'Barathrum',
                 text = {
-                    'Permanently {C:red}removes{} a',
-                    '{C:tarot}Tarot{} Card of your ',
+                    'Permanently {C:red}removes {C:attention}#1#{}',
+                    '{C:tarot}Tarot{} Cards of your ',
                     'choice from the {C:attention}pool'
                 }
             },
