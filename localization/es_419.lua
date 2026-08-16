@@ -6910,21 +6910,21 @@ return {
                 name = 'Galleta de Perro',
                 text = {
                     'Si la Ciega se gana en una {C:attention}mano{},',
-                    'ganas {C:money}$#1#{} y {C:red}se autodestruye{}'
+                    'ganas {C:money}$#1#{} y {C:red}se autodestruye{}',
                 }
             },
             j_aij_turrn = {
                 name = 'Turrón',
                 text = {
                     '{C:attention}+#1#{} Ranuras de Tienda',
-                    '{C:red}-#2#{} Ranura de Tienda al final de la ronda'
+                    '{C:red}-#2#{} Ranura de Tienda al final de la ronda',
                 }
             },
             j_aij_emergent_pattern = {
                 name = 'Patrón Emergente',
                 text = {
                     'Reactiva las cartas anotadas',
-                    'si la {C:attention}mano jugada{} contiene'
+                    'si la {C:attention}mano jugada{} contiene',
                     "exactamente {C:attention}#1#{} cartas",
                 }
             },
@@ -6932,16 +6932,16 @@ return {
                 name = 'Bit Flip',
                 text = {
                     'Después de jugar la mano, cada {C:attention}dígito{}',
-                    "de tu {C:aij_plasma}puntuación total{}"
+                    "de tu {C:aij_plasma}puntuación total{}",
                     'tiene una prob. de {C:green}#1# en #2#{}',
-                    'de aumentar en {C:attention}#3#{}'
+                    'de aumentar en {C:attention}#3#{}',
                 }
             },
             j_aij_the_hare = {
                 name = 'La Liebre',
                 text = {
                     'Añade {C:aij_plasma}#1#{} a tu',
-                    'puntuación total cada mano'
+                    'puntuación total cada mano',
                 }
             },
             j_aij_scarab = {
@@ -6950,7 +6950,7 @@ return {
                     '{C:attention}-#1#{} Apuesta mientras',
                     'tengas este Comodín',
                     '{C:inactive, s:0.8}(No puede venderse ni destruirse',
-                    '{C:inactive, s:0.8}durante la Apuesta Final)'
+                    '{C:inactive, s:0.8}durante la Apuesta Final)',
                 }
             },
             j_aij_bingsu = {
@@ -6958,7 +6958,7 @@ return {
                 text = {
                     'Todas las cartas anotadas otorgan {C:chips}+#1#{} Fichas,',
                     'prob. de {C:green}#3# en #4#{} de reducir en',
-                    '{C:chips}-#2#{} Fichas al anotar'
+                    '{C:chips}-#2#{} Fichas al anotar',
                 }
             },
             j_aij_flushed_face = {
@@ -6966,7 +6966,7 @@ return {
                 text = {
                     'Obtiene {C:mult}+#1#{} Multi por cada',
                     '{C:attention}Carta de Figura{} anotada en un {C:attention}Color{}',
-                    '{C:inactive}(Actualmente {C:mult}+#2#{C:inactive} Multi)'
+                    '{C:inactive}(Actualmente {C:mult}+#2#{C:inactive} Multi)',
                 }
             },
             j_aij_the_herald = {
@@ -7120,7 +7120,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_2013_nd15 = {
@@ -7128,7 +7128,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_kamooalewa = {
@@ -7136,7 +7136,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_deimos = {
@@ -7144,7 +7144,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_callisto = {
@@ -7152,7 +7152,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_iapetus = {
@@ -7160,7 +7160,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_oberon = {
@@ -7168,7 +7168,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_proteus = {
@@ -7176,7 +7176,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_charon = {
@@ -7184,7 +7184,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_nibiru = {
@@ -7192,7 +7192,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_2000_eu16 = {
@@ -7200,7 +7200,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_kuiper = {
@@ -7208,7 +7208,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_rogue = {
