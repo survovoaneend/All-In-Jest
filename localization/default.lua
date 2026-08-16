@@ -4765,15 +4765,17 @@ return {
             j_aij_chef = {
                 name = "Chef",
                 text = {
-                    {
-                        "Base-edition {C:attention}Perishable{}",
-                        "Jokers become {C:dark_edition}Negative",
-                    },
-                    {
-                        "{C:attention}Editions{} on {C:attention}Perishable",
-                        "Jokers no longer come with",
-                        "a mark-up in the {C:money}shop"
-                    }
+                    -- {
+                    --     "Base-edition {C:attention}Perishable{}",
+                    --     "Jokers become {C:dark_edition}Negative",
+                    -- },
+                    -- {
+                    --     "{C:attention}Editions{} on {C:attention}Perishable",
+                    --     "Jokers no longer come with",
+                    --     "a mark-up in the {C:money}shop"
+                    -- }
+                    "{C:attention}Perishable {C:common}Common{} Jokers",
+                    "are {C:dark_edition}Negative{} and {C:money}free{}",
                 }
             },
             j_aij_screamer = { name = "Screamer", text = { "" } },

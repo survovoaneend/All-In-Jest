@@ -7,7 +7,7 @@ local chef = {
             trigger = false
         }
     },
-    attributes = { 'editions', 'stickers', 'negative', 'shop' },
+    attributes = { 'editions', 'stickers', 'rarity', 'negative', 'shop' },
     rarity = 2,
     pos = { x = 2, y = 13},
     atlas = 'joker_atlas',
@@ -18,7 +18,7 @@ local chef = {
     eternal_compat = true,
   
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = {key = 'e_negative_consumable', set = 'Edition', config = {extra = 1}}
+        info_queue[#info_queue+1] = G.P_CENTERS.e_negative
     end,
 
     in_pool = function(self, args)
@@ -32,24 +32,22 @@ local chef = {
     update = function(self, card, dt)
         if G.jokers and next(SMODS.find_card("j_aij_chef")) then
             if G.shop_jokers and G.shop_jokers.cards then 
-                for i = 1, #G.shop_jokers.cards do
-                    if G.shop_jokers.cards[i].ability.set == "Joker" then
-                        if G.shop_jokers.cards[i].ability.perishable and G.shop_jokers.cards[i].edition == nil then
-                            G.shop_jokers.cards[i]:set_edition({negative = true})
-                            G.shop_jokers.cards[i]:set_cost()
+                for _, v in ipairs(G.shop_jokers.cards) do
+                    if v.ability.set == "Joker" then
+                        if v.ability.perishable and v:is_rarity("Common") and (not v.edition or not v.edition.negative) then
+                            v:set_edition({negative = true})
+                            v:set_cost()
                         end
                     end
                 end
             end
-            if G.pack_cards and card.ability.extra.trigger then
-                if G.pack_cards.cards then
-                    for i = 1, #G.pack_cards.cards do
-                        if G.pack_cards.cards[i].ability.set == "Joker" then
-                            if G.pack_cards.cards[i].ability.perishable and G.pack_cards.cards[i].edition == nil then
-                                G.pack_cards.cards[i]:set_edition({negative = true})
-                                G.pack_cards.cards[i]:set_cost()
-                                card.ability.extra.trigger = false
-                            end
+            if G.pack_cards and G.pack_cards.cards and card.ability.extra.trigger then
+                for _, v in ipairs(G.pack_cards.cards) do
+                    if v.ability.set == "Joker" then
+                        if v.ability.perishable and v:is_rarity("Common") and (not v.edition or not v.edition.negative) then
+                            v:set_edition({negative = true})
+                            v:set_cost()
+                            card.ability.extra.trigger = false
                         end
                     end
                 end
@@ -57,4 +55,13 @@ local chef = {
         end
     end,
 }
+
+local aij_card_set_cost_ref = Card.set_cost_value
+function Card:set_cost_value()
+    aij_card_set_cost_ref(self)
+    if self.ability.perishable and self:is_rarity("Common") and next(SMODS.find_card("j_aij_chef")) then
+        self.cost = 0
+    end
+end
+
 return { name = {"Jokers"}, items = {chef} }

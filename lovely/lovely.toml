@@ -2676,8 +2676,6 @@ pattern = "self.extra_cost = self.extra_cost + v.extra_cost"
 position = "after"
 match_indent = true
 payload = '''
-local has_chef = next(SMODS.find_card("j_aij_chef"))
-if has_chef and self.ability.perishable then self.extra_cost = 0 end
 local has_note = next(SMODS.find_card("j_aij_infuriating_note"))
 if has_note and self.config.center_key == 'j_aij_infuriating_note' then self.extra_cost = 0 end
 '''
