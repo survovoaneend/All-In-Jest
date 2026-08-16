@@ -324,6 +324,11 @@ return {
             aij_recherche_doubled = "Doubled",
             aij_undecisive = "Undecisive",
             aij_mint_condition = "Mint Condition",
+            aij_spade = "Spade",
+            aij_diamond = "Diamond",
+            aij_heart = "Heart",
+            aij_club = "Club",
+            aij_face = "Face",
             -- Seals
             aij_smiley_seal = "Smiley Seal",
             aij_melted_seal = "Melted Seal",
@@ -6771,9 +6776,8 @@ return {
             j_aij_bon_vivant = {
                 name = "Bon Vivant",
                 text = {
-                    'Earn {C:money}$#1#{} after {C:attention}#3#{}{C:inactive}{} cards',
-                    'have been scored {C:attention}this round',
-                    '{C:inactive}(#2# Remaining){}'
+                    'Earn {C:money}$#1#{} after {C:attention}#3#{}{C:inactive}[#2#]{} cards',
+                    'have been scored {C:attention}this round'
                 }
             },
             j_aij_slubberdegullion = {
@@ -10901,6 +10905,46 @@ return {
                 text = {
                     'This {C:attention}Joker{} costs an',
                     'additional {C:money}$10'
+                }
+            },
+            aij_spade = {
+                name = "Spade",
+                text = {
+                    'This {C:attention}Joker{} is debuffed',
+                    'if a {C:spades}Spade{} is played',
+                    'this round'
+                }
+            },
+            aij_diamond = {
+                name = "Diamond",
+                text = {
+                    'This {C:attention}Joker{} is debuffed',
+                    'if a {C:diamonds}Diamond{} is played',
+                    'this round'
+                }
+            },
+            aij_heart = {
+                name = "Heart",
+                text = {
+                    'This {C:attention}Joker{} is debuffed',
+                    'if a {C:hearts}Heart{} is played',
+                    'this round'
+                }
+            },
+            aij_club = {
+                name = "Club",
+                text = {
+                    'This {C:attention}Joker{} is debuffed',
+                    'if a {C:clubs}Club{} is played',
+                    'this round'
+                }
+            },
+            aij_face = {
+                name = "Face",
+                text = {
+                    'This {C:attention}Joker{} is debuffed',
+                    'if a {C:attention}Face Card{} is ',
+                    'played this round'
                 }
             },
             -- (not a sticker but treated as such)
