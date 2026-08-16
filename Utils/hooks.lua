@@ -1245,6 +1245,15 @@ function Game:update(dt)
             end
         end
     end
+    if G.GAME and G.GAME.all_in_jest and G.GAME.all_in_jest.blind_tags and G.GAME.all_in_jest.blind_tags.amt >= 1 then
+        G.GAME.all_in_jest.blind_tags.prev_amt = G.GAME.all_in_jest.blind_tags.prev_amt or G.GAME.all_in_jest.blind_tags.amt
+        local blind_tags = 0
+        blind_tags = blind_tags + G.GAME.all_in_jest.blind_tags.amt
+        if blind_tags ~= G.GAME.all_in_jest.blind_tags.prev_amt then
+            aij_reroll_tags(nil, {refresh = true})
+            G.GAME.all_in_jest.blind_tags.prev_amt = G.GAME.all_in_jest.blind_tags.amt
+        end
+    end
     return ref
 end
 
@@ -1661,4 +1670,24 @@ function set_joker_win()
     end
   end
   set_joker_win_ref()
+end
+
+local poll_obj_ref = SMODS.poll_object
+function SMODS.poll_object(args)
+    -- spawn mostly mult jokers until you pick one up
+    local rate = ({0, 0.3, 0.6})[All_in_Jest.config.mult_appearance]
+    if rate > 0 and args.type == 'Joker' and (args.append == 'sho' or args.append == 'buf') and not G.GAME.aij_found_mult and not args.attributes and not (#SMODS.find_card("j_aij_little_boy_blue") > 0) then
+        if pseudorandom('aij_mult_poll') <= rate then
+            args.attributes = {'mult'}
+        end
+    end
+    return poll_obj_ref(args)
+end
+
+local card_add_ref = Card.add_to_deck
+function Card:add_to_deck(...)
+    if self:has_attribute('mult') then
+        G.GAME.aij_found_mult = true
+    end
+    return card_add_ref(self, ...)
 end

@@ -3083,7 +3083,7 @@ return {
                 text = {
                     'Al abrir un {C:attention}Paquete',
                     '{C:attention}Potenciador{}, elige {C:attention}#1#{} carta',
-                    'de tu {C:attention}baraja{} para robar'
+                    'de tu {C:attention}baraja{} para sacarla'
                 }
             },
             j_aij_happy_as_larry = {
@@ -6282,7 +6282,7 @@ return {
             j_aij_imperial_bower = {
                 name = 'Imperial Bower',
                 text = {
-                    '{C:attention}Primera carta{} robada',
+                    '{C:attention}Primera carta{} sacada',
                     'cada ronda cuenta como',
                     '{C:attention}cualquier{} categoría y palo',
                     '{C:inactive}(Las categorías no pueden formar manos de póker)',

@@ -6,6 +6,8 @@ function Card:calculate_rental()
     end
     return calculate_rental_ref(self)
 end
+
+
 local set_rental_ref = Card.set_rental
 function Card:set_rental(_rental) 
     if self.config.center.set == 'Default' or self.config.center.set == 'Base' or self.config.center.set == 'Enhanced' then
@@ -14,17 +16,15 @@ function Card:set_rental(_rental)
          return set_rental_ref(self, _rental)
     end
 end
+
+
 local pc_rental = {
     object_type = "Sticker",
     key = "pc_rental",
-	no_collection = true,
-	config = { extra = {  } },
+	config = { aij = { pc_sticker = true }, extra = {  } },
     pos = { x = 1, y = 2 },
     badge_colour = HEX 'b18f43',
     order = 1,
-    apply = function(self, card, val)
-        card.ability['aij_'..self.key] = val
-    end,
     loc_vars = function(self, info_queue, card)
         local key, num, odds = self.key, 1, 1
         if G.GAME.all_in_jest and G.GAME.all_in_jest.sticker_effects and G.GAME.all_in_jest.sticker_effects['pc_rental'].active then

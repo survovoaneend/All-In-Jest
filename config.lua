@@ -8,4 +8,5 @@ return {
   ['red_destroy_text'] = true,
   ['aij_lite'] = false,
   ['guess_names'] = false,
+  ['mult_appearance'] = 1,
 }

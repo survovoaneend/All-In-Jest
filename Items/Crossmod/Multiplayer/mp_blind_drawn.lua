@@ -17,7 +17,7 @@ local mp_blind_drawn = {
         extra = {
             Xmult = 3
         }, 
-        mp_sticker_balanced = true
+        mp_balanced = true
     },
     rarity = 2,
     pos = { x = 20, y = 4 },
@@ -56,7 +56,11 @@ local mp_blind_drawn = {
     end,
 
     mp_include = function(self)
-		    return MP.UTILS.is_standard_ruleset() and MP.LOBBY.code
+        if MP.is_practice_mode() then
+		    return false
+        else
+            return MP.current_ruleset() and MP.LOBBY.code
+        end
     end,
   
 }

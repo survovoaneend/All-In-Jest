@@ -54,7 +54,7 @@ local wamba = {
     pos = { x = 0, y = 18},
     atlas = 'legendary_atlas',
     cost = 20,
-    unlocked = true,
+    unlocked = false,
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,

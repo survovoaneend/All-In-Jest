@@ -38,7 +38,7 @@ local train_conductor = {
 
     calculate = function(self, card, context)
         if context.aij_modify_card_effects and not context.from_edition and not context.blueprint then
-            if context.effects.card and context.effects.card.config.center.set == 'Joker' and context.parameter then
+            if (context.effects.card and context.effects.card.config.center.set == 'Joker') or (context.card and context.card.config.center.set == 'Joker') and context.parameter then
                 if (context.effect_type == 'mult' or context.effect_type == 'h_mult' or context.effect_type == 'mult_mod') and context.amount and context.amount > 0 then
                     if context.effects.card and context.effects.card ~= context.card then juice_card(context.effects.card) end
                     local amount = math.max(1.2, (context.amount * (card.ability.extra.mult_to_xmult/100)))

@@ -31,7 +31,7 @@ local fuzzy_joker = {
             end
             if (new_mult - mult) > to_big(0) then
                 return {
-                    mult = new_mult - mult,
+                    aij_set_mult = new_mult,
                     remove_default_message = true,
                     message = localize{type='variable',key='a_aij_mult_equal',vars={new_mult}},
                     colour = G.C.RED,

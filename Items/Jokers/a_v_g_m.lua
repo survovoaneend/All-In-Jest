@@ -6,7 +6,7 @@ local a_v_g_m = {
     config = {
         extra = {
             cost = 1,
-            odds = 30
+            odds = 3
         }
     },
     attributes = { 'generation', 'chance', 'joker', 'consumable', 'playing_card', 'tag' },
@@ -39,7 +39,7 @@ local a_v_g_m = {
                 ease_dollars(-card.ability.extra.cost)
                 card_eval_status_text(card, 'dollars', -card.ability.extra.cost)
             end
-            if SMODS.pseudorandom_probability(card, 'a_v_g_m', 1, card.ability.extra.odds) then
+            if pseudorandom('a_v_g_m') < (card.ability.extra.odds / 100) then
                 local max = 2
                 local joker, consumable = false, false
                 if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then max = max + 1; joker = true end
@@ -115,10 +115,9 @@ local a_v_g_m = {
     },
 
     loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'a_v_g_m')
         return {
             vars = {
-                numerator, denominator,
+                card.ability.extra.odds,
                 card.ability.extra.cost,
                 colours = {
                     G.C.SECONDARY_SET.Enhanced

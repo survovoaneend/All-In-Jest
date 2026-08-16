@@ -12,6 +12,8 @@ function Card:calculate_perishable()
     end
     return calculate_perishable_ref(self)
 end
+
+
 local set_perishable_ref = Card.set_perishable
 function Card:set_perishable(_perishable) 
     if self.config.center.set == 'Default' or self.config.center.set == 'Base' or self.config.center.set == 'Enhanced' then
@@ -24,17 +26,18 @@ function Card:set_perishable(_perishable)
          return set_perishable_ref(self, _perishable)
     end
 end
+
+
 local pc_perishable = {
     object_type = "Sticker",
     key = "pc_perishable",
-	no_collection = true,
-	config = { extra = {  } },
+	config = { aij = { pc_sticker = true }, extra = {  } },
     pos = { x = 0, y = 2 },
     badge_colour = HEX '4f5da1',
     order = 1,
     apply = function(self, card, val)
-        card.ability['aij_'..self.key] = val
-        if card.ability['aij_'..self.key] then card.ability.perish_tally = G.GAME.perishable_rounds end
+        card.ability[self.key] = val
+        if card.ability[self.key] then card.ability.perish_tally = G.GAME.perishable_rounds end
     end,
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.perishable_rounds or 5, card.ability.perish_tally or G.GAME.perishable_rounds}}

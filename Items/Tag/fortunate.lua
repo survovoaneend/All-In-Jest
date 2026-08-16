@@ -27,7 +27,7 @@ local fortunate_tag = {
                                         modify_card = function(card, center) 
                                             if G.GAME.banned_keys[card.config.center.key] and not (type(G.GAME.banned_keys[card.config.center.key]) == "string" and G.GAME.banned_keys[card.config.center.key]:sub(1, 5) == "j_aij") then
                                                 card.debuff = true
-                                            elseif card.config.center.discovered then
+                                            elseif card.config.center.discovered and card.config.center.set ~= 'aij_hex_tarot' then
                                                 jest_create_select_card_ui(card, G.consumeables)
                                             end
                                         end, 
