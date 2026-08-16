@@ -6776,8 +6776,9 @@ return {
             j_aij_bon_vivant = {
                 name = "Bon Vivant",
                 text = {
-                    'Earn {C:money}$#1#{} after {C:attention}#3#{}{C:inactive}[#2#]{} cards',
-                    'have been scored {C:attention}this round'
+                    'Earn {C:money}$#1#{} after {C:attention}#3#{}{C:inactive}{} cards',
+                    'have been scored {C:attention}this round',
+                    '{C:inactive}(#2# Remaining){}'
                 }
             },
             j_aij_slubberdegullion = {
