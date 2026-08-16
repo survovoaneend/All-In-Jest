@@ -972,7 +972,7 @@ payload = '''
 do
     local aij_exceeds_hand_limit = 0
     for k, v in pairs(G.hand.highlighted) do
-        if v.ability.aij_marked then
+        if v.ability.aij_marked or (next(SMODS.find_card("j_aij_dark_presence")) and v:is_face()) then
             e.config.colour = G.C.UI.BACKGROUND_INACTIVE
             e.config.button = nil
             return
@@ -1030,7 +1030,7 @@ payload = '''
 do
     local marked_cards = 0
     for k, v in pairs(G.hand.cards) do
-        if v.ability.aij_marked then
+        if v.ability.aij_marked or (next(SMODS.find_card("j_aij_dark_presence")) and v:is_face()) then
             marked_cards = marked_cards + 1
         end
     end
