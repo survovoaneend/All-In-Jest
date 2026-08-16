@@ -45,7 +45,7 @@ local undecisive = {
 	end,
 	sets = { Joker = true },
 	should_apply = function(self, card, center, area, bypass_reroll)
-		if not card:has_attribute('passive') then return false end
+		if card:has_attribute('passive') then return false end
 		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll)
 	end,
 }
