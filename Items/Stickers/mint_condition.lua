@@ -6,6 +6,7 @@ local mint_condition = {
 	order = 2,
 	pos = {x = 3, y = 1},
 	badge_colour = HEX('d56f7e'),
+	ignore = true,
 	loc_vars = function(self, info_queue, card)
 		return { vars = {}}
 	end,
