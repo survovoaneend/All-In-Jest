@@ -61,7 +61,7 @@ local wood = {
 
 }
 
-function process_texture_wood(image)
+function process_texture_wood(image, high_contrast)
     local width, height = image:getDimensions()
     local canvas = love.graphics.newCanvas(width, height, {type = '2d', readable = true, dpiscale = image:getDPIScale()})
 
@@ -75,7 +75,8 @@ function process_texture_wood(image)
     
     love.graphics.setColor(1, 1, 1, 1)
 
-    love.graphics.setShader( G.SHADERS['aij_wood_spritesheet'] )
+    G.SHADERS['aij_wood_new_spritesheet']:send("image_dims", {image:getDimensions()})
+    love.graphics.setShader( G.SHADERS['aij_wood_new_spritesheet'] )
     
     -- Draw image with wood shader on new canvas
     love.graphics.draw( image )
@@ -87,9 +88,42 @@ function process_texture_wood(image)
     return love.graphics.newImage(image_data, {mipmaps = true, dpiscale = image:getDPIScale()}), image_data
 end
 
-function pre_wooded(a)
+-- function process_texture_wood(image, high_contrast)
+--     local width, height = image:getDimensions()
+--     local canvas = love.graphics.newCanvas(width, height, {type = '2d', readable = true, dpiscale = image:getDPIScale()})
+
+--     love.graphics.push("all")
+
+--     love.graphics.setCanvas( canvas )
+--     local wood_bg_colour = {57.3 / 255, 49.4 / 255, 36.1 / 255, 0}
+--     -- local wood_bg_colour = { 255 / 255, 255 / 255, 255 / 255, 0}
+--     -- local wood_bg_colour = { 21.6 / 255, 27.5 / 255, 28.6 / 255, 0}
+--     love.graphics.clear( wood_bg_colour )
+    
+--     love.graphics.setColor(1, 1, 1, 1)
+
+--     if high_contrast then
+--         love.graphics.setShader( G.SHADERS['aij_wood_hc_spritesheet'] )
+--     else
+--         love.graphics.setShader( G.SHADERS['aij_wood_spritesheet'] )
+--     end
+    
+--     -- Draw image with wood shader on new canvas
+--     love.graphics.draw( image )
+
+--     love.graphics.pop()
+
+--     image_data = canvas:newImageData()
+
+--     return love.graphics.newImage(image_data, {mipmaps = true, dpiscale = image:getDPIScale()}), image_data
+-- end
+
+function pre_wooded(a, high_contrast)
     local atlas = a.name or a.key
     local name = atlas.."_wooded"
+    if high_contrast then
+        name = name .. "_hc"
+    end
     if SMODS.get_atlas(name) then
         return {
             old_name = atlas,
@@ -105,20 +139,24 @@ function pre_wooded(a)
     end
 end
 
-function wood_atlas(a)
-    local wooded = pre_wooded(a)
+function wood_atlas(a, high_contrast)
+    local wooded = pre_wooded(a, high_contrast)
 
     if not wooded.atlas then
         local atlas_type = a.atlas_table or "ASSET_ATLAS"
         G[atlas_type][wooded.new_name] = {}
         SMODS.get_atlas(wooded.new_name).wood = true
-        SMODS.get_atlas(wooded.new_name).name = SMODS.get_atlas(wooded.old_name).name .. "_wooded"
+        if high_contrast then
+            SMODS.get_atlas(wooded.new_name).name = SMODS.get_atlas(wooded.old_name).name .. "_wooded_hc"
+        else
+            SMODS.get_atlas(wooded.new_name).name = SMODS.get_atlas(wooded.old_name).name .. "_wooded"
+        end
         SMODS.get_atlas(wooded.new_name).type = SMODS.get_atlas(wooded.old_name).type
         SMODS.get_atlas(wooded.new_name).px = SMODS.get_atlas(wooded.old_name).px
         SMODS.get_atlas(wooded.new_name).py = SMODS.get_atlas(wooded.old_name).py
         SMODS.get_atlas(wooded.new_name).frames = SMODS.get_atlas(wooded.old_name).frames
 
-        image, image_data = process_texture_wood(SMODS.get_atlas(wooded.old_name).image)
+        image, image_data = process_texture_wood(SMODS.get_atlas(wooded.old_name).image, high_contrast)
         SMODS.get_atlas(wooded.new_name).image = image
         SMODS.get_atlas(wooded.new_name).image_data = image_data
     end
