@@ -322,6 +322,7 @@ return {
             pinned = "Pinned",
             aij_unusual_doubled = "Doubled",
             aij_recherche_doubled = "Doubled",
+            aij_undecisive = "Undecisive",
             aij_mint_condition = "Mint Condition",
             -- Seals
             aij_smiley_seal = "Smiley Seal",
@@ -10884,6 +10885,14 @@ return {
                 text = {
                     '{C:attention}X2{} effects',
                     '{C:inactive,s:0.8}(Granted by a Recherche Tag){}'
+                }
+            },
+            aij_undecisive = {
+                name = "Undecisive",
+                text = {
+                    'This {C:attention}Joker{} has a',
+                    '{C:green}#1# in #2#{} chance',
+                    'to not trigger'
                 }
             },
             aij_mint_condition = {
