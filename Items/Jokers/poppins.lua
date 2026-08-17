@@ -1,7 +1,7 @@
 local poppins = {
     object_type = "Joker",
     order = 884,
-
+    ignore = true,
     key = "poppins",
     config = {
         extra = {

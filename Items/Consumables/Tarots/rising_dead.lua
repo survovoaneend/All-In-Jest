@@ -19,7 +19,7 @@ local rising_dead_tarot = {
 	can_use = function(self, card)
         if G.hand and (#G.hand.highlighted == card.ability.max_highlight) then
 			local conv_card = G.hand.highlighted[1]
-			for i=1, #G.hand.highlighted do if G.hand.highlighted[i].T.x < conv_card.T.x then conv_card = G.hand.highlighted[i] end end
+			for i=1, #G.hand.highlighted do if G.hand.highlighted[i].T.x > conv_card.T.x then conv_card = G.hand.highlighted[i] end end
 			if conv_card.config.center ~= G.P_CENTERS.c_base or conv_card.seal then
 				return true
 			end
@@ -27,7 +27,7 @@ local rising_dead_tarot = {
     end,
 	use = function(self, card)
 		local conv_card = G.hand.highlighted[1]
-		for i=1, #G.hand.highlighted do if G.hand.highlighted[i].T.x < conv_card.T.x then conv_card = G.hand.highlighted[i] end end
+		for i=1, #G.hand.highlighted do if G.hand.highlighted[i].T.x > conv_card.T.x then conv_card = G.hand.highlighted[i] end end
 		G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             play_sound('tarot1')
             card:juice_up(0.3, 0.5)

@@ -47,7 +47,7 @@ if SMODS.has_enhancement(self, "m_aij_scorched") then
     local atlas_id = _atlas.name or _atlas.key or "cards_1"
     _atlas = scorched_atlas(SMODS.get_atlas(atlas_id))
 end
-if SMODS.has_enhancement(self, "m_aij_wood") then
+if SMODS.has_enhancement(self, "m_aij_wood") and self.base and self.base.suit then
     local atlas_id = _atlas.name or _atlas.key or "cards_1"
     _atlas = wood_atlas(SMODS.get_atlas(atlas_id), G.SETTINGS.colour_palettes[self.base.suit] ~= "lc")
 end

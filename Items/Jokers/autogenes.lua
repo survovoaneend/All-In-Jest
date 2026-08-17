@@ -1,7 +1,7 @@
 local autogenes = {
     object_type = "Joker",
     order = 765,
-
+    ignore = true,
     key = "autogenes",
     config = {
         extra = {

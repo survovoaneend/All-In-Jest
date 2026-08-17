@@ -188,7 +188,13 @@ G.FUNCS.aij_generic_cycle = function(e)
 end
 
 local joker_listing = {
-	{"j_aij_nevernamed_credits_joker", "j_aij_survivalaren_credits_joker", "j_aij_rattling_snow_credits_joker", "j_aij_jumbocarrot_credits_joker","j_aij_heavenbrand_credits_joker", "j_aij_jamie_credits_joker"},
+	{"j_aij_nevernamed_credits_joker", 
+  "j_aij_survivalaren_credits_joker", 
+  "j_aij_rattling_snow_credits_joker", 
+  "j_aij_jumbocarrot_credits_joker",
+  "j_aij_heavenbrand_credits_joker", 
+  "j_aij_jamie_credits_joker", 
+  "j_aij_vitellary_credits_joker"},
 }
 -- Modify main page
 All_in_Jest.custom_ui = function(mod_nodes)

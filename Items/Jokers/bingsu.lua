@@ -1,7 +1,7 @@
 local bingsu = {
     object_type = "Joker",
     order = 986,
-
+    ignore = true,
     key = "bingsu",
     config = {
         extra = {

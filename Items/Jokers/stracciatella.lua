@@ -1,7 +1,7 @@
 local stracciatella = {
     object_type = "Joker",
-    order = 855,
-
+    order = 855,   
+    ignore = true,
     key = "stracciatella",
     config = {
         extra = {
