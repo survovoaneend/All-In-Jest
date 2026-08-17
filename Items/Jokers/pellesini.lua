@@ -4,7 +4,7 @@ local pellesini = {
 
 	key = "pellesini",
 	config = {},
-	attributes = { 'generation', 'joker', 'on_destroy' },
+	attributes = { 'generation', 'joker', 'on_destroy', 'destroy_card', 'economy', 'sell_value' },
 	rarity = 4,
 	unlock_condition = { hidden = true },
 	pos = { x = 6, y = 0 },
@@ -12,7 +12,7 @@ local pellesini = {
 	cost = 20,
 	unlocked = false,
 	discovered = false,
-	blueprint_compat = true,
+	blueprint_compat = false,
 	eternal_compat = true,
 	soul_pos = { x = 6, y = 1 },
 
@@ -46,6 +46,17 @@ local pellesini = {
 					}))
 					return nil, true
 				end
+			end
+		end
+		if context.setting_blind then
+			local other_card = G.jokers.cards[#G.jokers.cards]
+			if not other_card.getting_sliced and not SMODS.is_eternal(other_card, card) then
+				other_card.getting_sliced = true
+				G.E_MANAGER:add_event(Event({func = function()
+					other_card:start_dissolve({G.C.MONEY}, nil, 1.6)
+					return true
+				end}))
+				return {dollars = other_card.sell_cost}
 			end
 		end
 	end,
