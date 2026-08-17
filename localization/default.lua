@@ -6991,7 +6991,15 @@ return {
             j_aij_hangman = {
                 name = "Hangman",
                 text = {
-                    ''
+                    {
+                        "If played hand contains a {C:attention}#1#{} of {V:1}#2#{},",
+                        "create a {C:tarot}The Hanged Man{}.",
+                        "{C:inactive}(Card changes every round){}",
+                    },
+                    {
+                        "If not triggered in {C:attention}#3# rounds,",
+                        "{C:red}self-destructs{} and creates a {C:tarot}Death{}"
+                    }
                 }
             },
             j_aij_rue_barre = {
