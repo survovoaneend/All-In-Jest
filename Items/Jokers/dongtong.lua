@@ -6,6 +6,14 @@ G.P_CENTERS["j_oops"].dongtong_compat = false
 -- Set Burnt Joker to be incompatible, since it has unused internal values that make it look compatible
 G.P_CENTERS["j_burnt"].dongtong_compat = false
 
+
+G.P_CENTERS["j_mime"].dongtong_compat = false
+G.P_CENTERS["j_sock_and_buskin"].dongtong_compat = false
+G.P_CENTERS["j_dusk"].dongtong_compat = false
+G.P_CENTERS["j_hack"].dongtong_compat = false
+G.P_CENTERS["j_supernova"].dongtong_compat = false
+G.P_CENTERS["j_swashbuckler"].dongtong_compat = false
+
 local function contains_number(table, exclusions)
     for k, v in pairs(table) do
         if exclusions and exclusions[k] ~= nil and (exclusions[k] == true or exclusions[k] == v) then
