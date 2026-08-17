@@ -11117,7 +11117,7 @@ return {
             jamie_credits_info = {
                 name = "Jamie!",
                 text = {
-                    "{s:0.8}-Made art for several Joker (not yet implemented)",
+                    "{s:0.8}-Made art for several Jokers (Most of which not implemented)",
                     "{s:0.8}-Good friend of Nevernamed",
                     "{s:0.8}-The team Lil Guy",
                     "{s:0.8}-Added to the team officially in June 2026"
