@@ -8470,7 +8470,8 @@ return {
             j_aij_scott_free = {
                 name = "Scott Free",
                 text = {
-                    ''
+                    '{C:attention}Un-enhanced{} cards held in hand',
+                    'at {C:attention}end of round{} earn {C:money}$#1#'
                 }
             },            
             j_aij_penny_dreadful = {
