@@ -6,6 +6,7 @@ local bomb = {
     atlas = "stickers_atlas",
     badge_colour = HEX '61767a',
     order = 1,
+    ignore = true,
     loc_vars = function(self, info_queue, card)
         
     end,
