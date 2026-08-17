@@ -6993,11 +6993,11 @@ return {
                 text = {
                     {
                         "If played hand contains a {C:attention}#1#{} of {V:1}#2#{},",
-                        "create a {C:tarot}The Hanged Man{}.",
+                        "create {C:tarot}The Hanged Man{}.",
                         "{C:inactive}(Card changes every round){}",
                     },
                     {
-                        "If not triggered in {C:attention}#3# rounds,",
+                        "If not triggered for {C:attention}#3# rounds,",
                         "{C:red}self-destructs{} and creates a {C:tarot}Death{}"
                     }
                 }
@@ -7389,6 +7389,20 @@ return {
                 text = {
                     "Copies ability of",
                     "{C:attention}Joker{} to the {C:attention}left",
+                }
+            },
+            j_aij_wire_joker = {
+                name = "Wire Joker",
+                text = {
+                    '{C:attention}Queens{} give {X:mult,C:white}X#2#{} Mult',
+                    'and {C:money}$#1#{} when scored'
+                }
+            },
+            j_aij_cloth_joker = {
+                name = "Cloth Joker",
+                text = {
+                    '{C:attention}Queens{} give {X:mult,C:white}X#2#{} Mult',
+                    'and {C:red}-$#1#{} when scored'
                 }
             },
             j_aij_club_card = {
@@ -10555,6 +10569,14 @@ return {
                     "{C:red}Destroy{} {C:attention}#1#{} selected {C:attention}enhanced{} card",
                     "and apply its {C:attention}enhancement{} to {C:attention}#2#",
                     "{C:attention}random{} cards in hand"
+                }
+            },
+            c_aij_typhon = {
+                name = 'Typhon',
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "cards into",
+                    "{C:attention}#2#s{}"
                 }
             },
             c_aij_beheaded = {

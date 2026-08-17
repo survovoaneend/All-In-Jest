@@ -55,7 +55,6 @@ local hangman = {
                     card.ability.extra.inactive_rounds = 0
                 end
 
-                -- Create The Hanged Man if there is consumable room
                 if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({
@@ -80,18 +79,13 @@ local hangman = {
             end
         end
 
-        -- Round End Check: Handle countdown & Death creation
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
             if card.ability.extra.triggered_this_round then
-                -- Successfully triggered this round; reset flag
                 card.ability.extra.triggered_this_round = false
                 card.ability.extra.inactive_rounds = 0
             else
-                -- Did not trigger; increment inactive counter
                 card.ability.extra.inactive_rounds = card.ability.extra.inactive_rounds + 1
-
                 if card.ability.extra.inactive_rounds >= card.ability.extra.max_inactive then
-                    -- Spawn Death upon self-destruction
                     if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                         G.E_MANAGER:add_event(Event({
