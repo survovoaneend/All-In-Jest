@@ -24,7 +24,7 @@ local bon_vivant = {
         return {
             vars = {
                 card.ability.extra.dollars,
-                card.ability.extra.count,
+                math.max(card.ability.extra.target - card.ability.extra.count, 0),
                 card.ability.extra.target
             }
         }

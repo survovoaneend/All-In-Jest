@@ -27,6 +27,7 @@ function Card:update(dt)
 		return ref
 	end
 
+	local has_sparky = #SMODS.find_card("j_aij_sparky") > 0
 	local current_count = 0
 	if self.area == G.play and G.play then
 		for _, c in ipairs(G.play.cards) do
@@ -35,6 +36,16 @@ function Card:update(dt)
 			end
 			if All_in_Jest.get_inherent_effects(c, 'enhancement', nil, true).m_aij_charged and not c.ability.m_aij_charged_chaging and not c.debuff then
 				current_count = current_count + 1
+			end
+		end
+		if has_sparky and G.hand then
+			for _, c in ipairs(G.hand.cards) do
+				if c.config and SMODS.has_enhancement(c, "m_aij_charged") and not c.ability.m_aij_charged_chaging and not c.debuff then
+					current_count = current_count + 1
+				end
+				if All_in_Jest.get_inherent_effects(c, 'enhancement', nil, true).m_aij_charged and not c.ability.m_aij_charged_chaging and not c.debuff then
+					current_count = current_count + 1
+				end
 			end
 		end
 	end
@@ -53,6 +64,16 @@ function Card:update(dt)
 			end
 			if All_in_Jest.get_inherent_effects(c, 'enhancement', nil, true).m_aij_charged and not c.ability.m_aij_charged_chaging and not c.debuff then
 				if is_highlighted[c] == self_is_highlighted then
+					current_count = current_count + 1
+				end
+			end
+		end
+		if has_sparky and G.play then
+			for _, c in ipairs(G.play.cards) do
+				if c.config and SMODS.has_enhancement(c, "m_aij_charged") and not c.ability.m_aij_charged_chaging and not c.debuff then
+					current_count = current_count + 1
+				end
+				if All_in_Jest.get_inherent_effects(c, 'enhancement', nil, true).m_aij_charged and not c.ability.m_aij_charged_chaging and not c.debuff then
 					current_count = current_count + 1
 				end
 			end

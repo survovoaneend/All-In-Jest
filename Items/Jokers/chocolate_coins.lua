@@ -20,7 +20,8 @@ local chocolate_coins = {
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
-    eternal_compat = true,
+    eternal_compat = false,
+    perishable_compat = false,
 
 
     loc_vars = function(self, info_queue, card)

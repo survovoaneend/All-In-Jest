@@ -6,6 +6,14 @@ G.P_CENTERS["j_oops"].dongtong_compat = false
 -- Set Burnt Joker to be incompatible, since it has unused internal values that make it look compatible
 G.P_CENTERS["j_burnt"].dongtong_compat = false
 
+
+G.P_CENTERS["j_mime"].dongtong_compat = false
+G.P_CENTERS["j_sock_and_buskin"].dongtong_compat = false
+G.P_CENTERS["j_dusk"].dongtong_compat = false
+G.P_CENTERS["j_hack"].dongtong_compat = false
+G.P_CENTERS["j_supernova"].dongtong_compat = false
+G.P_CENTERS["j_swashbuckler"].dongtong_compat = false
+
 local function contains_number(table, exclusions)
     for k, v in pairs(table) do
         if exclusions and exclusions[k] ~= nil and (exclusions[k] == true or exclusions[k] == v) then
@@ -114,7 +122,7 @@ local dongtong = {
 -- (E.g., without this Juggler would only give +1 hand size even with Dongtong owned)
 local aij_card_add_to_deck = Card.add_to_deck
 function Card:add_to_deck(from_debuff)
-    if not self.added_to_deck and G.jokers and (self.config.center.dongtong_compat == nil or self.config.center.dongtong_compat) and contains_number(self.config.center.config, { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit = true }) and (self.area == nil or contains(SMODS.get_card_areas('jokers'), self.area)) then
+    if not self.added_to_deck and G.jokers and (self.area == nil or contains(SMODS.get_card_areas('jokers'), self.area)) and (self.config.center.dongtong_compat ~= false) and contains_number(self.config.center.config, { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit = true }) then
         dong_tong_double(self)
     end
     return aij_card_add_to_deck(self, from_debuff)
@@ -124,7 +132,7 @@ end
 local updateref = Card.update
 function Card:update(dt)
     local ref = updateref(self, dt)
-    if G.jokers and self.ability.set == 'Joker' and (self.config.center.dongtong_compat == nil or self.config.center.dongtong_compat) and contains_number(self.config.center.config, { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit = true }) and contains(SMODS.get_card_areas('jokers'), self.area) then
+    if G.jokers and self.ability.set == 'Joker' and contains(SMODS.get_card_areas('jokers'), self.area) and (self.config.center.dongtong_compat ~= false) and contains_number(self.config.center.config, { x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit = true }) then
         dong_tong_double(self)
     end
     return ref

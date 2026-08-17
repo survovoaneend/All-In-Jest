@@ -2159,6 +2159,12 @@ function All_in_Jest.ease_blind_requirement(mod_mult, mod_add, skip_animation)
     local previously_added = G.GAME.blind.aij_added_chips -- Only accounts chips added via mod_add
     local current_mult = All_in_Jest.get_current_blind_mult() -- Takes into account previous ease_blind_requirement calls
     local desired_chip_amount = (original_chips / original_mult) * (current_mult + mod_mult) + mod_add + previously_added
+    if desired_chip_amount > original_chips and (#SMODS.find_card('j_aij_fall_of_count_chaligny') > 0) then
+        local card = SMODS.find_card('j_aij_fall_of_count_chaligny')[1]
+        card:juice_up()
+        play_sound('tarot2', 0.76, 0.4)
+        return
+    end
 
     local chip_mod -- Calculate how much the chips count changes each "tick", set to iterate over ~120 ticks
     if type(G.GAME.blind.chips) ~= 'table' then
@@ -3420,9 +3426,11 @@ local function load_file_content(path, id)
 end
 
 All_in_Jest.load_shaders = function()
-    G.SHADERS['aij_wood_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/wood_spritesheet.fs"))
-    G.SHADERS['aij_burnt_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/burnt_spritesheet.fs"))
-    G.SHADERS['aij_fusion_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/fusion_spritesheet.fs"))
+    G.SHADERS['aij_wood_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/wood_spritesheet.fs"))
+    G.SHADERS['aij_wood_new_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/wood_new_spritesheet.fs"))
+    G.SHADERS['aij_wood_hc_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/wood_hc_spritesheet.fs"))
+    G.SHADERS['aij_burnt_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/burnt_spritesheet.fs"))
+    G.SHADERS['aij_fusion_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/fusion_spritesheet.fs"))
 end
 
 function dynatext_aij_draw(self)

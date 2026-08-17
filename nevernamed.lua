@@ -352,6 +352,7 @@ assert(SMODS.load_file('Utils/draw.lua'))()
 assert(SMODS.load_file('Utils/functions.lua'))()
 assert(SMODS.load_file('Utils/functions_value_mod.lua'))()
 assert(SMODS.load_file('Utils/hooks.lua'))()
+assert(SMODS.load_file('Utils/overrides.lua'))()
 assert(SMODS.load_file('Utils/ui.lua'))()
 assert(SMODS.load_file('Utils/copiers.lua'))()
 if next(SMODS.find_mod("unBlindShopGUI")) then

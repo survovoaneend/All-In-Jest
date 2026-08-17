@@ -4,7 +4,7 @@ local the_evergreen = {
     boss = {
         min = 5,
     },
-    mult = 2,
+    mult = 1,
     boss_colour = HEX("62844b"),
     atlas = 'blinds',
     pos = { X = 0, y = 25},
@@ -26,7 +26,7 @@ local the_evergreen = {
     aij_blind_amount_display = function(self, blind, base_blind_amount, mult)
         local extra_mult = 0
         if #G.playing_cards >= G.GAME.all_in_jest.starting_prams.deck_size then
-            extra_mult = (#G.playing_cards - G.GAME.all_in_jest.starting_prams.deck_size) * 0.20
+            extra_mult = (#G.playing_cards - G.GAME.all_in_jest.starting_prams.deck_size) * 0.25
         end
         return base_blind_amount * (mult + extra_mult)
     end,
@@ -34,7 +34,7 @@ local the_evergreen = {
     set_blind = function(self)
         local extra_mult = 0
         if #G.playing_cards >= G.GAME.all_in_jest.starting_prams.deck_size then
-            extra_mult = (#G.playing_cards - G.GAME.all_in_jest.starting_prams.deck_size) * 0.20
+            extra_mult = (#G.playing_cards - G.GAME.all_in_jest.starting_prams.deck_size) * 0.25
         end
         All_in_Jest.ease_blind_requirement(extra_mult, 0)
     end,
@@ -45,14 +45,14 @@ local the_evergreen = {
             return
         end
         if context.playing_card_added then
-            local extra_mult = #context.cards * 0.2
+            local extra_mult = #context.cards * 0.25
             if extra_mult ~= 0 then
                 All_in_Jest.ease_blind_requirement(extra_mult, 0)
                 blind.triggered = true
             end
         end
         if context.remove_playing_cards then
-            local extra_mult = #context.removed * -0.2
+            local extra_mult = #context.removed * -0.25
             if (All_in_Jest.get_current_blind_mult() + extra_mult) < G.GAME.blind.aij_original_mult then
                 extra_mult = G.GAME.blind.aij_original_mult - All_in_Jest.get_current_blind_mult()
             end
@@ -76,8 +76,8 @@ local the_evergreen = {
     end,
 
     in_pool = function(self)
-        if G.deck and #G.playing_cards > G.GAME.all_in_jest.starting_prams.deck_size then
-            return (#G.playing_cards - G.GAME.all_in_jest.starting_prams.deck_size) >= 2
+        if G.deck and #G.playing_cards > (G.GAME.all_in_jest.starting_prams.deck_size + 4) then
+            return true
         end
     end,
 }

@@ -4,7 +4,7 @@ local the_celebration = {
     boss = {
         min = 3,
     },
-    mult = 2,
+    mult = 1,
     boss_colour = HEX("ff6368"),
     atlas = 'blinds',
     pos = { X = 0, y = 33},
@@ -13,12 +13,12 @@ local the_celebration = {
 
     aij_blind_amount_display = function(self, blind, base_blind_amount, mult)
         local unused = (G.GAME.all_in_jest.unused_discards.ante + G.GAME.all_in_jest.unused_hands.ante)
-        return base_blind_amount * (mult + unused * 0.2)
+        return base_blind_amount * (mult + unused * 0.5)
     end,
 
     set_blind = function(self)
         local unused = (G.GAME.all_in_jest.unused_discards.ante + G.GAME.all_in_jest.unused_hands.ante)
-        All_in_Jest.ease_blind_requirement(unused * 0.2, 0)
+        All_in_Jest.ease_blind_requirement(unused * 0.5, 0)
     end,
 
     disable = function()

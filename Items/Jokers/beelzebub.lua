@@ -34,7 +34,10 @@ local beelzebub = {
                 ref_table = card.ability.extra,
                 ref_value = "mult",
                 scalar_value = "gain",
-                message_colour = G.C.MULT
+                message_colour = G.C.MULT,
+                operation = function(ref_table, ref_value, initial, scaling)
+                    ref_table[ref_value] = initial + scaling*#context.cards
+                end
             })
             return nil, true
         end

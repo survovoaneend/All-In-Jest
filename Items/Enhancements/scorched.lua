@@ -47,7 +47,7 @@ function process_texture_scorched(image)
     love.graphics.push("all")
 
     love.graphics.setCanvas( canvas )
-    love.graphics.clear({1, 1, 1, 0})
+    love.graphics.clear({.31, .388, .404, 0})
     
     love.graphics.setColor(1, 1, 1, 1)
 
