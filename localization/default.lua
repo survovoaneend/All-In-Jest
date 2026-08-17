@@ -329,6 +329,7 @@ return {
             aij_heart = "Heart",
             aij_club = "Club",
             aij_face = "Face",
+            aij_bomb = "Bomb",
             -- Seals
             aij_smiley_seal = "Smiley Seal",
             aij_melted_seal = "Melted Seal",
@@ -10544,12 +10545,11 @@ return {
                     "{C:attention}random{} cards in hand"
                 }
             },
-            c_aij_typhon = {
-                name = 'Typhon',
+            c_aij_beheaded = {
+                name = 'The Beheaded',
                 text = {
-                    "Enhances {C:attention}#1#{} selected",
-                    "cards into",
-                    "{C:attention}#2#s{}"
+                    "Apply a {C:attention}Bomb Sticker{}",
+                    'to {C:attention}#1#{} selected card'
                 }
             },
             c_aij_star_magi = {
@@ -11004,6 +11004,14 @@ return {
                     'This {C:attention}Joker{} is debuffed',
                     'if a {C:attention}Face Card{} is ',
                     'played this round'
+                }
+            },
+            aij_bomb = {
+                name = "Bomb",
+                text = {
+                    "{C:red}Destroys{} itself and",
+                    'adjacent cards after',
+                    'hand is played'
                 }
             },
             -- (not a sticker but treated as such)
