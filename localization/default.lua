@@ -10567,8 +10567,8 @@ return {
                 name = 'The Rising of the Dead',
                 text = {
                     "Select {C:attention}#1#{} cards, give the",
-                    "{C:attention}right{} card the {C:attention}Enhancement",
-                    "and {C:attention}Seal{} of the {C:attention}left"
+                    "{C:attention}left{} card the {C:attention}Enhancement",
+                    "and {C:attention}Seal{} of the {C:attention}right"
                 }
             },
             c_aij_broken_fate = {
