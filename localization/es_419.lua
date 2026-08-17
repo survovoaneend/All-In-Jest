@@ -21,6 +21,12 @@ return {
                 '{C:planet}Planeta{} de {C:chips}Fichas{} y {C:mult}Multi{}',
                 "aparezcan en la tienda",
             },
+            aij_moons_blocking = "Bloqueo de Lunas",
+            aij_moons_blocking_tooltip = {
+                'Si las {C:planet}Lunas{} están activadas, evita',
+                'que aparezcan a la vez varios {C:planet}Planetas{}',
+                'del mismo tipo de mano',
+            },
             aij_alter_trypophobia = "Alterar Tripofobia",
             aij_alter_trypophobia_tooltip = {
                 '{C:attention}Cambia{} el sprite de',
@@ -89,6 +95,91 @@ return {
             k_aij_splat_ex = '¡Splat!',
             k_aij_party_time = "¡Fiesta!",
 
+            aij_borra_triggers = {
+                'la carta se anota',
+                'la carta se descarta',
+                'se usa un consumible',
+                'se juega una mano',
+                'se descarta una mano',
+                'se selecciona una ciega',
+                'se derrota una ciega jefe',
+                'se omite una ciega',
+                'se abre un paquete',
+                'se gana dinero',
+                'se pierde dinero',
+                'se renueva una carta',
+                'se activa un comodín',
+                'se vende un comodín',
+                'se destruye un comodín',
+                'se crea una carta',
+                'se usa una mejora',
+                'se usa un sello',
+                'se cambia el palo',
+                'se cambia la categoría',
+                'se mejora una carta',
+                'se rompe una carta',
+                'se consume un consumible',
+            },
+            aij_wanba_attributes = {
+                ['mult'] = '+Multi',
+                ['chips'] = '+Fichas',
+                ['xmult'] = 'XMulti',
+                ['balance'] = 'Equilibrio',
+                ['retrigger'] = 'Reactivación',
+                ['scaling'] = 'Escalado',
+                ['diamonds'] = 'Relacionado con Diamantes',
+                ['hearts'] = 'Relacionado con Corazones',
+                ['spades'] = 'Relacionado con Espadas',
+                ['clubs'] = 'Relacionado con Tréboles',
+                ['hand_type'] = 'Mano de póker',
+                ['ace'] = 'Relacionado con As',
+                ['two'] = 'Relacionado con 2',
+                ['three'] = 'Relacionado con 3',
+                ['four'] = 'Relacionado con 4',
+                ['five'] = 'Relacionado con 5',
+                ['six'] = 'Relacionado con 6',
+                ['seven'] = 'Relacionado con 7',
+                ['eight'] = 'Relacionado con 8',
+                ['nine'] = 'Relacionado con 9',
+                ['ten'] = 'Relacionado con 10',
+                ['jack'] = 'Relacionado con Jota',
+                ['queen'] = 'Relacionado con Reina',
+                ['king'] = 'Relacionado con Rey',
+                ['face'] = 'Relacionado con cartas de figura',
+                ['economy'] = 'Economía',
+                ['generation'] = 'Generación',
+                ['destroy_card'] = 'Destrucción de cartas',
+                ['hand_size'] = 'Tamaño de mano',
+                ['discard'] = 'Descarte',
+                ['hands'] = 'Mano',
+                ['chance'] = 'Basado en probabilidades',
+                ['mod_chance'] = 'Modificación de probabilidades',
+                ['tarot'] = 'Relacionado con Tarot',
+                ['planet'] = 'Relacionado con Planetas',
+                ['spectral'] = 'Relacionado con Espectrales',
+                ['food'] = 'Comida',
+            },
+            b_aij_astral_cards = 'Cartas Astrales',
+            b_aij_reroll_tags = 'Renovar Etiquetas',
+            k_aij_bullet_king_ex = '¡Rey Bala!',
+            k_aij_chaos_ex = '¡Caos!',
+            k_aij_create = 'Crear',
+            k_aij_destroyed_ex = '¡Destruido!',
+            k_aij_does_not_score_ex = '¡No anota!',
+            k_aij_downgrade_ex = '¡Degradado!',
+            k_aij_hunted_ex = '¡Cazado!',
+            k_aij_inherent = 'Inherente',
+            k_aij_melted_ex = 'Derretido',
+            k_aij_plus_two_moons = '+2 Lunas',
+            k_aij_remove = 'Quitar',
+            k_aij_replace = 'Reemplazar',
+            k_aij_select = 'Seleccionar',
+            k_aij_two_into_one_ex = '¡Dos en uno!',
+            k_community_member_badge = 'Miembro de la Comunidad',
+            k_content_creator_badge = 'Creador de Contenido',
+            k_delete = 'Eliminar',
+            k_playtester_badge = 'Probador',
+            k_tarot_hex = 'Maleficio',
         },
         v_dictionary = {
             a_aij_exp_mult="^#1# Multi",
@@ -109,6 +200,11 @@ return {
             c_aij_bananarama = "Bananarama",
             c_aij_sharpest_tool = "Herramientas Perfectas",
             c_aij_the_pit = "El Pozo",
+            c_aij_mircotransactions = "Microtransacciones",
+            c_aij_micromanagement = "Microgestión",
+            c_aij_flip_flop = "Voltereta",
+            c_aij_full_plate = "Plato Completo",
+            c_aij_pandemonium = "Pandemonio",
         },
         v_text = {
             -- Challenges
@@ -119,10 +215,40 @@ return {
                 'en la {C:attention}Tienda{} o en {C:attention}Paquetes de Bufón'
             },
             ch_c_aij_all_pit_blinds = {
-                'Todos las {C:attention}Ciegas{} después de la {C:attention}Apuesta 1{} son {C:attention}Ciegas de Pozo{}'
+                'Todas las {C:attention}Ciegas Jefe{} normales después',
+                'de la {C:attention}Apuesta 1{} son {C:attention}Ciegas de Pozo{}'
+            },
+            ch_c_aij_no_mult_in_pool = {
+                'Estos Comodines son tu {C:attention}única{} fuente de',
+                '{C:mult}Multi{}'
+            },
+            ch_c_aij_all_jokers_perishable_1 = {
+                'Todos los Comodines son {C:attention}Perecederos{}'
+            },
+            ch_c_aij_all_jokers_perishable_2 = {
+                'El tiempo de {C:attention}Perecedero{} se reduce',
+                'a {C:attention}2{} rondas'
+            },
+            ch_c_aij_money_times_negative = {
+                '{C:attention}Multiplica{} el dinero por {C:red}-1{}',
+                'al final de la ronda'
+            },
+            ch_c_aij_all_jokers_is_food = {
+                'Solo pueden aparecer Comodines de',
+                '{C:attention}comida{}'
+            },
+            ch_c_aij_pandemonium_1 = {
+                'Todas las Etiquetas de Omitir son',
+                'Etiquetas del {C:attention}Caos{}'
+            },
+            ch_c_aij_pandemonium_2 = {
+                'No puedes {C:attention}seleccionar{} la Ciega',
+                'Pequeña ni la Ciega Grande'
             },
         },
         extra_joker_dictionary = {
+            k_aij_borra_gains = "Gana",
+            k_aij_borra_when = "Multi cuando",
             -- You've got Mail (also reused in overdesigned)
             k_aij_youve_got_mail = "¡Tienes Correo!",
             k_aij_youve_got_mail_goodbye = "Adiós",
@@ -163,11 +289,15 @@ return {
             aij_misprint = "Mal Impresa",
             -- Stickers
             aij_marked = "Marcado",
+            aij_pc_perishable = "Perecedero",
+            aij_pc_eternal = "Eterno",
+            aij_pc_rental = "Alquiler",
+            aij_mint_condition = "Prístino",
             -- Seals
             aij_smiley_seal = "Sello Sonriente",
             aij_melted_seal = "Sello derretido",
+            aij_eye_seal = "Sello Ocular",
             -- Other
-            k_aij_jest_chaotic_card = "Cáos",
         },
         poker_hands = {
             ['aij_Royal Flush'] = "Escalera Real",
@@ -178,51 +308,6 @@ return {
             },
         },
         -- Credits page jokers
-        nevernamed_credits_info = {
-            name = "Info",
-            text = {
-                "{s:0.8}-Hizo todo el arte del Mod",
-                "{s:0.8}-Conceptualizó la mitad de los efectos",
-                "{s:0.8}-Empezó a hacer arte de Balatro desde Diciembre del 2024"
-
-            }
-        },
-        survivalaren_credits_info = {
-            name = "Info",
-            text = {
-                "{s:0.8}-Codificó alrededor de la mitad del contenido",
-                "{s:0.8}-Conceptualizó la mitad de los efectos",
-                "{s:0.8}-Empezó el mod desde el principio",
-                "{s:0.8}-Parte significativa de la prueba de juego",
-                "{s:0.8}-Creó el mod a principios de Abril del 2025"
-            }
-        },
-        rattling_snow_credits_info = {
-            name = "Info",
-            text = {
-                "{s:0.8}-Codificó la mayor parte de las funciones avanzadas",
-                "{s:0.8}-Codificó casi toda la interfaz de usuario",
-                "{s:0.8}-Codificó todos los shaders",
-                "{s:0.8}-Se unió al equipo a finales de Abril del 2025"
-            }
-        },
-        jumbocarrot_credits_info = {
-            name = "Info",
-            text = {
-                "{s:0.8}-Ayuda mucho con las correcciones de errores y el pulido",
-                "{s:0.8}-En serio, muchas correcciones de errores",
-                "{s:0.8}-Se unió al equipo en Septiembre del 2025"
-            }
-        },
-        heavenbrand_credits_info = {
-            name = "Info",
-            text = {
-                "{s:0.8}-Hizo el trailer del mod y su Banda Sonora",
-                "{s:0.8}-Creó los SOnidos para ediciones Áurea y Plateada",
-                "{s:0.8}-Un montón de Playtesting y Feedback útil",
-                "{s:0.8}-Empezó a trabajar en el mod a principios de Febrero del 2026"
-            }
-        },
     },
     descriptions = {
         Back = {
@@ -506,8 +591,8 @@ return {
                 name = "El Aullido",
                 text = {
                     'Aumenta la puntuación',
-                    'requerida un 100% después',
-                    'de jugar una mano',
+                    '+1X Base tras jugar',
+                    'una mano',
                 },
             },
             bl_aij_the_ash = {
@@ -665,8 +750,9 @@ return {
             bl_aij_the_storm = {
                 name = "La Tormenta",
                 text = {
-                    'Destruye las cartas',
-                    'que no anoten'
+                    'Si la mano jugada contiene',
+                    '3 o más cartas, destruye',
+                    'todas las cartas jugadas',
                 },
             },
             bl_aij_the_frost = {
@@ -741,8 +827,8 @@ return {
             bl_aij_the_figure = {
                 name = "La Figura",
                 text = {
-                    'La Mano no puede contener',
-                    'más de 2 cartas de figura',
+                    'La mano no puede contener',
+                    '3 o más cartas de figura',
                 },
             },
             bl_aij_the_lake = {
@@ -759,7 +845,7 @@ return {
                 text = {
                     'Las cartas se',
                     'debilitan hasta que',
-                    'descartes 10 cartas'
+                    'descartes #1# cartas'
                 },
             },
             bl_aij_the_wound = {
@@ -895,9 +981,8 @@ return {
             bl_aij_the_brilliance = {
                 name = "La Brillantez",
                 text = {
-                    'Debes anotar la',
-                    'puntucación requerida',
-                    "2 veces para ganar",
+                    'Debes anotar la puntucación',
+                    'requerida 2 veces',
                     '+2 Manos',
                 },
             },
@@ -916,6 +1001,237 @@ return {
                 text = {
                     '+0.1X a la puntuación',
                     'por cada $1 que tengas',
+                },
+            },
+            bl_aij_angling_hook = {
+                name = 'Anzuelo Amaranto',
+                text = {
+                    'Descarta todas las cartas',
+                    'jugadas o descartadas',
+                    'esta Apuesta al seleccionar',
+                    'la Ciega',
+                },
+            },
+            bl_aij_fallen_falcon = {
+                name = 'El Halcón Caído',
+                text = {
+                    'Al iniciar la ronda, se juega',
+                    'la mano de póker de mayor',
+                    'nivel disponible y se añade',
+                    'a la puntuación requerida',
+                },
+            },
+            bl_aij_golden_string = {
+                name = 'Ajuga Aúrea',
+                text = {
+                    'Pierdes {C:red}-$2{} por carta jugada',
+                    'Todas las cartas se debilitan',
+                    'con $0 o menos',
+                },
+            },
+            bl_aij_mysterious_myriad = {
+                name = 'Miríada Misteriosa',
+                text = {
+                    'Reduce la puntuación final',
+                    'de cada mano un 20% por',
+                    'cada carta menor a 5 en',
+                    'la mano anotada',
+                },
+            },
+            bl_aij_rubber_duck = {
+                name = 'Patito Prímula',
+                text = {
+                    'Todas las manos de póker',
+                    'vuelven a nivel 1',
+                },
+            },
+            bl_aij_silver_stag = {
+                name = 'Ciervo Ceniciento',
+                text = {
+                    'Todas las cartas son',
+                    'debilitadas excepto las',
+                    'descartadas esta Apuesta',
+                },
+            },
+            bl_aij_tarnished_tile = {
+                name = 'Cerámica Cobriza',
+                text = {
+                    'Al iniciar la ronda, duplica',
+                    'el tamaño de tu mano y descarta',
+                    'todas las cartas de tu baraja',
+                },
+            },
+            bl_aij_the_assistant = {
+                name = 'El Asistente',
+                text = {
+                    'Se convierte una Ciega Jefe',
+                    'que contrarresta tu estrategia',
+                },
+            },
+            bl_aij_the_business = {
+                name = 'El Negocio',
+                text = {
+                    'Al ser derrotado, destruye',
+                    'el Comodín del extremo izquierdo',
+                    'o derecho y crea un',
+                    'Comodín Común {C:dark_edition}Eterno{}',
+                },
+            },
+            bl_aij_the_clown = {
+                name = 'El Payaso',
+                text = {
+                    'Al iniciar la ronda,',
+                    'se juegan 5 cartas al azar de',
+                    'tu mano y se añaden a la',
+                    'puntuación requerida',
+                },
+            },
+            bl_aij_the_connection = {
+                name = 'La Conexión',
+                text = {
+                    'La sobrepuntuación anotada',
+                    'en esta Ciega se añade a',
+                    'todas las Ciegas posteriores',
+                },
+            },
+            bl_aij_the_dagger = {
+                name = 'La Daga',
+                text = {
+                    'La mano debe contener',
+                    'un Trébol o una Espada',
+                },
+            },
+            bl_aij_the_fig = {
+                name = 'El Higo',
+                text = {
+                    'Debilita la primera y',
+                    'última carta anotada',
+                    'en cada mano jugada',
+                },
+            },
+            bl_aij_the_kind = {
+                name = 'El Generoso',
+                text = {
+                    'Mejores Etiquetas de {C:attention}Omitir{} en',
+                    'esta Apuesta; duplica el tamaño de la',
+                    'Ciega por cada Ciega omitida',
+                },
+            },
+            bl_aij_the_life = {
+                name = 'La Vida',
+                text = {
+                    'Todas las cartas que anotan',
+                    'se vuelven Perecederas',
+                },
+            },
+            bl_aij_the_loan = {
+                name = 'El Préstamo',
+                text = {
+                    'Todas las cartas jugadas',
+                    'en la última mano de la ronda',
+                    'se vuelven de {C:attention}Alquiler{}',
+                },
+            },
+            bl_aij_the_man = {
+                name = 'El Hombre',
+                text = {
+                    'Todas las cartas jugadas',
+                    'quedan permanentemente',
+                    'boca abajo',
+                },
+            },
+            bl_aij_the_multitude = {
+                name = 'La Multitud',
+                text = {
+                    '#1# de #2# cartas están debilitadas',
+                    'Las cartas debilitadas que queden',
+                    'en tu baraja al final de la ronda',
+                    'son destruidas',
+                },
+            },
+            bl_aij_the_oil = {
+                name = 'El Aceite',
+                text = {
+                    'Las cartas mejoradas tienen',
+                    'una prob. de #1# en #2# de',
+                    'ser descartadas al sacarse',
+                    "de la baraja",
+                },
+            },
+            bl_aij_the_pair = {
+                name = 'El Par',
+                text = {
+                    'Las cartas en mano',
+                    'deben contener un Par',
+                },
+            },
+            bl_aij_the_real = {
+                name = 'El Interior',
+                text = {
+                    'Las cartas solo se consideran',
+                    'de su categoría y palo originales',
+                },
+            },
+            bl_aij_the_seed = {
+                name = 'La Semilla',
+                text = {
+                    'La Ciega Grande de la próxima',
+                    'Apuesta es una Ciega Jefe',
+                },
+            },
+            bl_aij_the_silence = {
+                name = 'El Silencio',
+                text = {
+                    'Las cartas anotadas no',
+                    'pueden reactivarse',
+                },
+            },
+            bl_aij_the_solid = {
+                name = 'El Macizo',
+                text = {
+                    'Todas las cartas que anotan',
+                    'se vuelven Eternas',
+                },
+            },
+            bl_aij_the_trio = {
+                name = 'El Trío',
+                text = {
+                    'Si la mano contiene 3 cartas de la',
+                    'misma categoría tras jugar',
+                    'o descartar una mano, debilita 3',
+                    'cartas al azar en mano',
+                },
+            },
+            bl_aij_the_wine = {
+                name = 'El Vino',
+                text = {
+                    'Al jugar o descartar',
+                    'una carta, descarta una',
+                    'carta al azar de tu baraja',
+                },
+            },
+            bl_aij_the_worm = {
+                name = 'El Gusano',
+                text = {
+                    'Destruye todos',
+                    'los Comodines Perecederos',
+                    'al seleccionar la Ciega',
+                },
+            },
+            bl_aij_wenge_wand = {
+                name = 'La Vara de Wenge',
+                text = {
+                    'Las mejoras tienen',
+                    'una prob. de #1# en #2# de',
+                    'no activarse',
+                },
+            },
+            bl_aij_wooden_wheel = {
+                name = 'Rueda de Roble',
+                text = {
+                    'Cambia los Comodines del',
+                    'extremo izquierdo y derecho',
+                    'al seleccionar la Ciega',
                 },
             },
         },
@@ -1077,6 +1393,19 @@ return {
                     'de los {C:attention}stickers',
                 },
             },
+            v_aij_recursion = {
+                name = "Recursión",
+                text = {
+                    '{C:attention}+#1# Vale{} a la venta',
+                },
+            },
+            v_aij_recursion_2 = {
+                name = "Recursión",
+                text = {
+                    '{C:attention}+#1# Vale{} a la venta,',
+                    'los vales cuestan {C:money}$#2#{} menos',
+                },
+            },
         },
         Edition = {
             e_aij_negative_playing_card = {
@@ -1138,6 +1467,134 @@ return {
                     '{C:inactive}"Pese a lo que indica',
                     '{C:inactive}su nombre, es mencionado',
                     '{C:inactive}con frecuencia"',
+                },
+            },
+            j_aij_taylor_credits_joker = {
+                name = 'Taylor',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_toyrapple_credits_joker = {
+                name = 'Toyrapple',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_zan_credits_joker = {
+                name = 'Zan',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_aphi_credits_joker = {
+                name = 'Aphi',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_bygone_credits_joker = {
+                name = 'Bygone',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_cebee_credits_joker = {
+                name = 'Cebee',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_cheddar_credits_joker = {
+                name = 'Cheddar',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_ghoti_credits_joker = {
+                name = 'Ghoti',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_grass_credits_joker = {
+                name = 'Grass',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_heisenburger_credits_joker = {
+                name = 'Heisenburger',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_jamie_credits_joker = {
+                name = 'Jamie!',
+                text = {
+                    '{C:inactive}"nevernamed y yo somos muy buenos amigos"',
+                    '{C:inactive}"a veces nos besamos en la boca"',
+                },
+            },
+            j_aij_marcy_credits_joker = {
+                name = 'Marcy',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_metrollen_credits_joker = {
+                name = 'Metrollen',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_minibit_credits_joker = {
+                name = 'Mini Bit',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_mythie = {
+                name = 'Mythie',
+                text = {
+                    '{C:inactive}"Comer tostada en la cama es"',
+                },
+            },
+            j_aij_mythie_credits_joker = {
+                name = 'Mythie',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_papermoon_credits_joker = {
+                name = 'Papermoon',
+                text = {
+                    '{C:inactive}"Estamos invitados a una',
+                    '{C:inactive}fiesta de por vida, es de mala educación quedarse demás."',
+                },
+            },
+            j_aij_prototype = {
+                name = 'Prototype',
+                text = {
+                    '{C:inactive}"Jaja, no sé si yo"',
+                },
+            },
+            j_aij_prototype_credits_joker = {
+                name = 'Prototype',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_sophe_credits_joker = {
+                name = 'Sophe',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_spoofy_credits_joker = {
+                name = 'Spoofy',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
                 },
             },
             j_aij_survivalaren_credits_joker = {
@@ -1211,13 +1668,13 @@ return {
                 text = {
                     '{C:attention}Reactiva{} todas las {V:1}Habilidades{}',
                     '{V:1}Activables{}'
-                }
+                },
             },
             j_aij_lucky_seven = {
                 name = "Siete de la Suerte",
                 text = {
                     "Convierte todos los {C:attention}7{}",
-                    "sin mejoras anotados en",
+                    "sin mejoras jugados en",
                     "{C:attention}Cartas de la Suerte{}"
                 },
             },
@@ -1237,7 +1694,7 @@ return {
                     "de cada ronda al jugar",
                     "la {C:attention}última mano{} de la ronda",
                     "{C:inactive}(Actualmente {C:attention}#1#{C:inactive})"
-                }
+                },
             },
             j_aij_you_broke_it = {
                 name = "¡Lo Rompiste!",
@@ -1279,7 +1736,7 @@ return {
                     "carta de {C:attention}figura{} en {C:attention}mano{}",
                     "al jugar una mano",
                     "{C:inactive}(Actualmente {C:chips}+#2#{C:inactive} Fichas)"
-                }
+                },
             },
             j_aij_the_clown_show = {
                 name = "El Show de Jimbo",
@@ -1313,14 +1770,6 @@ return {
                     "mano otorgan sus {C:chips}Fichas{}"
                 }
             },
-            -- j_aij_hat_trick = {
-            --     name = "Truco con Sombrero",
-            --     text = { 
-            --         "Los {C:attention}3s{} jugados otorgan",
-            --         "{C:mult}+#1#{} Multi por cada nivel",
-            --         "de {C:attention}Tercia{} al anotar"
-            --     } 
-            -- },
             j_aij_squeezy_pete = {
                 name = "Pedro el Apretable",
                 text = {
@@ -1392,15 +1841,15 @@ return {
             j_aij_imageboard = {
                 name = "Post satírico",
                 text = {
-                    "{C:attention}Anotar{} cartas otorgan {C:mult}+#1#{} Multi",
-                    "cada {C:attention}vez{} que",
+                    "Las cartas {C:attention}anotadas{} otorgan",
+                    "{C:mult}+#1#{} Multi cada {C:attention}vez{} que",
                     "su {C:attention}categoría{} anota",
                     "{C:inactive}(ej. {C:attention}2 2 2{C:inactive} -> {C:mult}+#1#{C:inactive}, {C:mult}+#2#{C:inactive}, {C:mult}+#3#{C:inactive})"
                 }
             },
             j_aij_carousel = {
                 name = "Carrusel",
-                text = { 
+                text = {
                     "{C:attention}Rota{} el palo de las cartas",
                     "{C:attention}anotadas{} después de anotar",
                     "{C:inactive,s:0.8}(Espadas -> Corazones",
@@ -1695,7 +2144,7 @@ return {
             -- Page 4
             j_aij_pencil_drawing = {
                 name = "Lápiz de Dibujante",
-                text = { 
+                text = {
                     "{B:1,C:white,s:0.8}Habilidad Activable",
                     "Paga {C:money}$#1#{} para añadir una {C:attention}carta",
                     "de juego{} {C:attention}al azar{} a tu mano",
@@ -1785,9 +2234,9 @@ return {
             j_aij_topsy_the_clown = {
                 name = "Topsy el Payaso",
                 text = {
-                    "Redondea las {C:chips}Fichas{} y {C:mult}Multi{}",
-                    "a la siguiente {C:attention}Capicúa{}",
-                }
+                    '{C:chips}Redondea{} las Fichas y el',
+                    '{C:mult}Multi{} al {C:attention}palíndromo{} más cercano',
+                },
             },
             j_aij_line_in_the_sand = {
                 name = "Línea en la Arena",
@@ -1921,7 +2370,7 @@ return {
                 text = {
                     "Si la mano contiene una {C:attention}Escalera{},",
                     "convierte las {C:attention}cartas{}",
-                    "al mismo {C:attention}palo{}",
+                    "a un mismo {C:attention}palo{}",
                     "antes de anotar",
                 }
             },
@@ -2027,9 +2476,9 @@ return {
             j_aij_wax_joker = {
                 name = "Comodín de Cera",
                 text = {
-                    'Después de que la mano sea {C:attention}anotada{}, todos',
-                    'los {C:attention}Sellos{} en la mano jugada',
-                    'se convierten en Sellos {C:jest_melted}Derretidos{}'
+                    'Después de {C:attention}anotar{} la mano, todos los',
+                    '{C:attention}Sellos{} en la mano jugada se',
+                    'convierten en Sellos {C:jest_melted}Derretidos{}'
                 }
             },
             j_aij_splat = {
@@ -2081,9 +2530,9 @@ return {
             j_aij_poker_face = {
                 name = "Cara de Póker",
                 text = {
-                    '{X:mult,C:white}X#1#{} Multi por mano',
-                    '{C:attention}consecutiva{} jugada que {C:attention}no',
-                    'ponga la puntuación {C:attention}en llamas{}',
+                    '{X:mult,C:white}X#1#{} Multi por mano {C:attention}consecutiva{}',
+                    'jugada que{C:attention} no anote ´por encima',
+                    'de la {C:attention}puntuación requerida{}',
                     '{C:inactive}(Actualmente {X:mult,C:white}X#2#{} {C:inactive}Multi){}'
                 }
             },
@@ -2099,7 +2548,7 @@ return {
                 name = "Diez en Punto",
                 text = {
                     '{C:attention}Reactiva{} todas las cartas',
-                    'anotadas {C:attention}adyacentes{} a los {C:attention}10{}'
+                    'anotadas {C:attention}adyacentes{} a un {C:attention}10{}'
                 }
             },
             j_aij_legerdemain = {
@@ -2107,16 +2556,16 @@ return {
                 text = {
                     '{C:red}+#1# Descartes{} esta ronda',
                     'cuando se {C:money}vende{} un {C:attention}Comodín{}',
-                    'durante una {C:attention}Ciega'
-                }
+                    'durante una {C:attention}Ciega{}',
+                },
             },
             j_aij_game_bro = {
                 name = "Game Bro",
                 text = {
-                    'Da {C:mult}Multi{} igual a',
-                    '{C:attention}doble{} la {C:attention}ronda{} actual',
-                    '{C:inactive}(Actualmente {C:mult}+#1#{C:inactive} Multi)'
-                }
+                    'Otorga {C:mult}Multi{} igual a',
+                    'el {C:attention}doble{} de la {C:attention}ronda{} actual',
+                    '{C:inactive}(Actualmente {C:mult}+#1#{C:inactive} Multi)',
+                },
             },
             j_aij_alas = {
                 name = "¡Ay!",
@@ -2265,7 +2714,7 @@ return {
                 name = "Diana",
                 text = {
                     '{X:mult,C:white}X#1#{} Multi si las {C:chips}Fichas{}',
-                    'de la mano jugada son múltiplo de {C:attention}10{}'
+                    'totales son múltiplo de {C:attention}10{}'
                 }
             },
             j_aij_glasgow_smile = {
@@ -2530,7 +2979,7 @@ return {
                 text = {
                     'Todos los {C:attention}Comodines{} ganan',
                     '{C:chips}+#1#{} Fichas cuando se',
-                    '{C:attention}derrota{} la {C:attention}Ciega{}',
+                    '{C:attention}derrota{} una {C:attention}Ciega{}',
                 }
             },
             j_aij_goon_joker = {
@@ -2554,7 +3003,7 @@ return {
                     '{C:attention}consecutiva{} con {C:attention}más{} cartas',
                     'que la mano {C:attention}anterior',
                     '{C:inactive}(Actualmente {C:mult}+#2#{C:inactive} Multi)',
-                }
+                },
             },
             j_aij_jokey_bear = {
                 name = "Oso Comediante",
@@ -2575,7 +3024,7 @@ return {
             j_aij_psycho = {
                 name = "Psicópata",
                 text = {
-                    'Cuando se {C:attention}selecciona{} la Ciega,',
+                    'Cuando se {C:attention}selecciona{} una Ciega,',
                     '{C:red}destruye{} el Comodín a su {C:attention}izquierda',
                     'y gana {X:mult,C:white}X#1#{} Multi por {C:money}$1{}',
                     'de su valor de {C:money}venta{}',
@@ -2618,7 +3067,7 @@ return {
             j_aij_doormat = {
                 name = "Alfombra de Bienvenida",
                 text = {
-                    'Da una {C:attention}mejora{} al azar',
+                    'Otorga una {C:attention}mejora{} al azar',
                     'a la primera carta que saques',
                     'cada {C:attention}ronda{}'
                 }
@@ -2651,14 +3100,14 @@ return {
                 text = {
                     'Al abrir un {C:attention}Paquete',
                     '{C:attention}Potenciador{}, elige {C:attention}#1#{} carta',
-                    'de tu {C:attention}baraja{} para robar'
+                    'de tu {C:attention}baraja{} para sacarla'
                 }
             },
             j_aij_happy_as_larry = {
                 name = "Felipe Feliz",
                 text = {
                     {
-                        '{X:mult,C:white}X#1#{} Multi'
+                        '{X:mult,C:white}X#1#{} Multi',
                     },
                     {
                         'Prob. de {C:green}#2# en #3#{} de {C:attention}reactivarse{},',
@@ -3129,10 +3578,10 @@ return {
             j_aij_sunny_joker = {
                 name = "Comodín Soleado",
                 text = {
-                    "Si tu {C:blue}mano{} es una",
-                    "{C:attention}Escalera Real{}, las cartas",
-                    "jugadas obtienen {X:mult,C:white}X#1#{} Multi",
-                }
+                    'Si la mano jugada {C:attention}contiene{} una',
+                    '{C:attention}Escalera Real{}, todas las cartas',
+                    'jugadas ganan {X:mult,C:white}X#1#{} Multi',
+                },
             },
             j_aij_sunny_side = {
                 name = "Lado Soleado",
@@ -3227,8 +3676,8 @@ return {
             j_aij_petrushka = {
                 name = "Petrushka",
                 text = {
-                    "Otorga {C:mult}+Multi{} a las",
-                    "{C:attention}categorías{} aotadas",
+                    "Otorga igual {C:mult}+Multi{} a las",
+                    "{C:attention}categorías{} anotadas",
                     "{C:inactive,s:0.8}(A=14, K=13, Q=12, J=11)"
                 },
             },
@@ -3701,11 +4150,19 @@ return {
             j_aij_vecchio_dolore = {
                 name = "Vecchio Dolore",
                 text = {
-                    'En la siguiente {C:green}renovación{}, crea',
-                    'un {C:attention}Comodín{} al azar que',
-                    'tiene la misma {C:attention}rareza{} que',
-                    'el {C:attention}Comodín{} más barato'
-                }
+                    {
+                        'En la próxima {C:green}renovación{}, crea',
+                        'copias {C:dark_edition}Negativas{} de todos los',
+                        'artículos ofrecidos en la {C:money}Tienda{}',
+                        'antes de renovar',
+                    },
+                    {
+                        'En la siguiente {C:green}renovación{}, crea',
+                        'un {C:attention}Comodín{} al azar que',
+                        'tiene la misma {C:attention}rareza{} que',
+                        'el {C:attention}Comodín{} más barato',
+                    },
+                },
             },
             j_aij_guiser = {
                 name = "Cuentista", -- It was hard to get a good translation for this
@@ -3718,9 +4175,9 @@ return {
             j_aij_mummer = {
                 name = "Mummer",
                 text = {
-                    "Activa todas las cartas de",
-                    "{C:aij_silver}Acero{} {C:attention}en mano{} cuando se anota",
-                    "una carta de {C:aij_silver}Acero{}",
+                    "Reactiva todas las {C:attention}Cartas de",
+                    "Acero{} en mano una vez por cada",
+                    "{C:attention}Carta de Acero{} en la mano anotada",
                 }
             },
             j_aij_mushroom_cloud = {
@@ -3811,9 +4268,9 @@ return {
             j_aij_executioner = {
                 name = "Comodín Verdugo",
                 text = {
-                    "Gana {C:chips}+#1#{} Fichas cuando una",
-                    "carta de {C:attention}figura{} es {C:red}destruida",
-                    "{C:inactive}(Actualmente {C:chips}+#2#{C:inactive} Fichas)",
+                    'Este Comodín gana {C:chips}+#1#{} Fichas',
+                    'cuando se {C:attention}destruye{} una carta de {C:attention}figura{}',
+                    '{C:inactive}(Actualmente {C:chips}+#2#{C:inactive} Fichas)',
                 },
             },
             j_aij_jongleur = {
@@ -3826,9 +4283,18 @@ return {
             j_aij_event_horizon = { 
                 name = "Horizonte de Sucesos",
                 text = {
-                    "{C:dark_edition}Agujero Negro{} tiene la misma",
-                    "rareza que otras cartas de {C:planet}Planeta{}",
-                }
+                    {
+                        'Obtiene {X:mult,C:white}X#1#{} Multi',
+                        'cuando una mano sube de nivel',
+                        '{C:inactive}(Actualmente {X:mult,C:white}X#2#{} {C:inactive}Multi){}',
+                    },
+                    {
+                        '{C:attention}Se reinicia{} cuando la misma',
+                        '{C:attention}mano{} sube de nivel',
+                        'dos veces seguidas',
+                        '{C:inactive}(Última mano subida: {C:attention}#3#{C:inactive}){}',
+                    },
+                },
             },
             j_aij_the_jester = {
                 name = "El Bufón",
@@ -3927,7 +4393,7 @@ return {
             },
             j_aij_stultor = { 
                 name = "Stultor",
-                text = { 
+                text = {
                     "Renueva la {C:attention}Ciega Jefe{}",
                     "{C:attention}#1#{} vez por Apuesta,",
                     "sin {C:green}costo{}",
@@ -4006,9 +4472,9 @@ return {
             },
             j_aij_beanstalk = { 
                 name = "Tallo de Frijoles",
-                text = { 
-                    "Las {C:attention}Jotas{} no pueden",
-                    "ser {C:red}debilitadas{}",
+                text = {
+                    "Las {C:attention}Jotas{} no pueden ser",
+                    "{C:red}debilitadas{}, {C:red}volteadas{} o {C:red}marcadas{}",
                     "y {C:attention}siempre{} anotan",
                 } 
             },
@@ -4045,7 +4511,7 @@ return {
             },
             j_aij_napkin = { 
                 name = "Servilleta",
-                text = { 
+                text = {
                     "Gana {X:mult,C:white}X#1#{} Multi",
                     "cuando se omiten",
                     "{C:attention}2{} Ciegas {C:attention}seguidas{}",
@@ -4142,14 +4608,14 @@ return {
             },
             j_aij_ijoker_co = { 
                 name = "iJoker.co",
-                text = { 
-                    "La {C:money}Tienda{} tiene {C:attention}#1#{} {C:attention}Etiquetas{}",
-                    "disponibles para comprar",
+                text = {
+                    "Hay {C:attention}dos{} {C:attention}Etiquetas{} al azar",
+                    "disponibles para comprar en cada {C:money}Tienda{}",
                 } 
             },
             j_aij_corpse_paint = { 
                 name = "Corpse Paint",
-                text = { 
+                text = {
                     "Remueve la edición {C:dark_edition}Negativa{}",
                     "de las cartas anotadas y tiene una",
                     "prob. {C:green}#1# en #2#{} de obtener",
@@ -4199,7 +4665,7 @@ return {
                 text = {
                     "{X:mult,C:white}X#1#{} Multi por cada",
                     "{C:blue}mano{} restante",
-                    "{C:inactive}(Actuamente {X:mult,C:white}X#2#{} {C:inactive}Multi{})",
+                    "{C:inactive}(Actualmente {X:mult,C:white}X#2#{} {C:inactive}Multi{})",
                     "{C:inactive,s:0.8}(Mínimo {X:mult,C:white,s:0.8}X1{} {C:inactive,s:0.8}Multi){}",
                 }
             },
@@ -4217,7 +4683,6 @@ return {
                     "o {C:red}destruido{}, Gana {X:mult,C:white}X#2#{} Multi por cada",
                     "{C:attention}ronda{} superada con ese {C:attention}Comodín{}",
                     "{C:inactive}(Actualmente {X:mult,C:white}X#1#{} {C:inactive}Multi)",
-                    -- There is no way to know how much Mult will get from each joker
                 }
             },
             j_aij_trophy_kill = {
@@ -4393,7 +4858,7 @@ return {
             },
             j_aij_banana_man = { 
                 name = "Hombre Plátano", 
-                text = { 
+                text = {
                     {
                         "{C:attention}Reactiva{} todos",
                         "los Comodines",
@@ -4420,7 +4885,7 @@ return {
                     'un {C:attention}Comodín{} al azar',
                     '{C:attention}Cambia{} cada mano',
                     "{C:inactive}(Actualmente: {C:attention}#1#{C:inactive})"
-                }
+                },
             },
             j_aij_urchin = { 
                 name = "Pilluelo", 
@@ -4457,14 +4922,13 @@ return {
                 name = "Warhol",
                 text = {
                     "Los {C:attention}Sellos{} tienen los efectos de los",
-                    "sellos {C:red}Rojo{}, {C:blue}Azul{},",
-                    "{C:money}Dorado{}, y {C:purple}Morado{}",
-                    "simultáneamente"
+                    "sellos {C:blue}Azul{}, {C:money}Oro{}",
+                    "y {C:purple}Morado{} simultáneamente",
                 }
             },
             j_aij_tract = { 
                 name = "Tract", 
-                text = { 
+                text = {
                     "{C:chips}+#1#{} Fichas por",
                     "{C:attention}Vale{} poseido",
                     "{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#2#{} {C:inactive,s:0.8}Fichas){}",
@@ -4526,10 +4990,10 @@ return {
             },
             j_aij_fuzzy_joker = { 
                 name = "Comodín Difuso",
-                text = { 
-                    "Redondea el {C:mult}Multi{} por encima",
-                    "de la siguiente potencia de {C:attention}#1#{}" 
-                } 
+                text = {
+                    '{C:mult}Redondea{} el Multi al',
+                    'siguiente múltiplo de {C:attention}#1#{}',
+                },
             },
             j_aij_taggart = { 
                 name = "Taggart", 
@@ -4541,7 +5005,7 @@ return {
             },
             j_aij_chitty = { 
                 name = "Comodín Canjeable", 
-                text = { 
+                text = {
                     "{C:attention}+#1#{} {C:attention}Vale{} disponible",
                     "en la {C:money}Tienda{}",
                 } 
@@ -4556,7 +5020,7 @@ return {
             },
             j_aij_downing_street = { 
                 name = "Downing Street", 
-                text = { 
+                text = {
                     "Los {C:attention}10s{} anotados tienen una",
                     "prob. de {C:green}#1# en #2#{} de crear una ",
                     "{C:attention}Etiqueta{} al azar",
@@ -4578,7 +5042,7 @@ return {
             },
             j_aij_fortune_cookie = { 
                 name = "Galleta de la Fortuna", 
-                text = { 
+                text = {
                     "Crea una carta del {C:tarot}Tarot{}",
                     "al abrir {C:attention}Paquetes Potenciadores{}",
                     "se consume después de {C:attention}#1#{} paquetes",
@@ -4618,7 +5082,7 @@ return {
             },
             j_aij_bartender = { 
                 name = "Bartender", 
-                text = { 
+                text = {
                     "Los {C:attention}Consumibles{} pueden tener",
                     "edición {C:dark_edition}Laminada{}, {C:dark_edition}Holográfica{}",
                     "o {C:dark_edition}Policroma{}" 
@@ -4626,8 +5090,8 @@ return {
             },
             j_aij_mahoney = { 
                 name = "Mahoney", 
-                text = { 
-                    "Pro. de {C:green}#1# en #2#{} de",
+                text = {
+                    "Prob. de {C:green}#1# en #2#{} de",
                     "crear una {C:attention}Etiqueta de Vale{}",
                     "al {C:attention}omitir{} una Ciega",
                 } 
@@ -4652,16 +5116,16 @@ return {
             },
             j_aij_mr_catfish = { 
                 name = "Sr. Bagre", 
-                text = { 
+                text = {
                     "Gana {C:money}$#1#{} cada {C:attention}#2#{C:inactive} [#3#]{}",
                     "cartas {C:red}descartadas{}"
                 } 
             },
             j_aij_angel_number = { 
                 name = "Número Angelical", 
-                text = { 
+                text = {
                     "Aumenta todas las",
-                    "{C:green}probabilidades{} en {C:attention}+#1#{}",
+                    "{C:green}probabilidades{} en {C:attention}#1#{}",
                     "por cada {C:attention}7{} anotado",
                     "{C:inactive,s:0.8}(Se Reinicia en cada mano){}",
                 } 
@@ -4684,7 +5148,7 @@ return {
             },
             j_aij_lucina = { 
                 name = "Bufón Fiestero", 
-                text = { 
+                text = {
                     "Cuando se {C:attention}selecciona{} una Ciega,",
                     "{C:red}destruye{} el Comodín de la {C:attention}izquierda",
                     "y otorga una {C:dark_edition}Edición{} al azar",
@@ -4701,7 +5165,7 @@ return {
             },
             j_aij_paracosm = { 
                 name = "Paracosmos", 
-                text = { 
+                text = {
                     "Sube el {C:planet}nivel{} de la",
                     "{C:attention}mano de póker{} más jugada",
                     "al omitir una {C:attention}Ciega{}",
@@ -4725,22 +5189,23 @@ return {
             },
             j_aij_stagehand = { 
                 name = "Tramoyista", 
-                text = { 
-                    "Todos los {C:attention}Comodines{}",
-                    "otorgan {X:mult,C:white}X#1#{} Multi"
-                } 
+                text = {
+                    'Obtiene {X:mult,C:white}X#1#{} Multi',
+                    'por cada {C:attention}Comodín{} que poseas',
+                    '{C:inactive}(Actualmente {X:mult,C:white}X#2#{C:inactive} Multi)',
+                },
             },
             j_aij_electric_snow = { 
                 name = "Ruido Blanco", 
-                text = { 
+                text = {
                     "La ronda termina {C:attention}cuando{} te",
                     "quedas sin {C:blue}manos{}",
                 } 
             },
             j_aij_colour_test = { 
                 name = "Prueba de Color", 
-                text = { 
-                    "Otorga edición {C:attention}Policroma{} a la",
+                text = {
+                    "Otorga edición {C:attention}Polícroma{} a la",
                     "primera carta anotada en la {C:attention}última{}",
                     "{C:attention}mano{} de la ronda"
                 } 
@@ -4770,7 +5235,7 @@ return {
             -- Page 15
             j_aij_bingo_card = { 
                 name = "Cartón de Bingo", 
-                text = { 
+                text = {
                     "Las {C:attention}Cartas de la Suerte{}",
                     "anotadas tienen una prob. de",
                     "{C:green}#1# en #2#{} de otorgar {X:mult,C:white}X#5#{} Multi y una",
@@ -4786,7 +5251,7 @@ return {
             },
             j_aij_fish_fingers = { 
                 name = "Dedos de Pescado", 
-                text = { 
+                text = {
                     "{C:blue}+#1#{} Manos",
                     "se reduce en {C:red}-#2#{}",
                     "al derrotar una {C:attention}Ciega{}"
@@ -4806,14 +5271,14 @@ return {
                     '{C:mult}+#1#{} Multi por cada {C:money}$1{} de',
                     '{C:money}valor de venta{} de todos los',
                     '{C:attention}consumibles{} que poseas',
-                    '{C:inactive}(Actualmente {C:mult}+#2#{C:inactive} Multi)'
+                    '{C:inactive}(Actualmente {C:mult}+#2#{C:inactive} Multi)',
                 }
             },
             j_aij_stargazy_pie = { 
-                name = "Pie de Atún?", 
+                name = "¿Pie de Atún?", 
                 text = { 
                     "Reactiva las siguientes {C:attention}#1#{}",
-                    "cartas de {C:planet}Planeta{}" ,
+                    "cartas de {C:planet}Planeta{}",
                 } 
             },
             j_aij_gameshow = { 
@@ -4865,9 +5330,9 @@ return {
             },
             j_aij_astrologer = { 
                 name = "Astrologo", 
-                text = { 
+                text = {
                     {
-                        "Slecciona {C:attention}+#1#{} carta adicional",
+                        "Selecciona {C:attention}+#1#{} carta adicional",
                         "en los Paquetes {C:planet}Celestiales{} ",
                     },
                     {
@@ -4877,11 +5342,11 @@ return {
                         "y su variante de {C:chips}Fichas{}",
                         "en apuestas {C:attention}pares{}",
                     },
-                } 
+                },
             },
             j_aij_planetarium = { 
                 name = "Planetario", 
-                text = { 
+                text = {
                     {
                         "Las cartas de {C:planet}Planeta{} de tipo {C:chips}Fichas{}",
                         "tu área de {C:attention}consumibles{}",
@@ -4894,11 +5359,11 @@ return {
                         "otorgan {C:mult}+#2#{} Multi",
                         "para su {C:attention}mano de póker{}" 
                     },
-                } 
+                },
             },
             j_aij_negative_space = { 
                 name = "Espacio Negativo", 
-                text = { 
+                text = {
                     "{C:attention}+#1#{} al Tamaño de mano por cada",
                     "Comodín {C:dark_edition}Negativo{} que poseas",
                     "{C:inactive,s:0.8}(Actualmente {C:attention,s:0.8}+#2#{} {C:inactive,s:0.8}Tamaño de Mano){}",
@@ -4933,7 +5398,7 @@ return {
             },
             j_aij_lexicon = { 
                 name = "Léxico", 
-                text = { 
+                text = {
                     "Su {C:mult}Multi{} es igual a la",
                     "{C:attention}suma{} de todos los dígitos",
                     "en los valores de tus",
@@ -4943,7 +5408,7 @@ return {
             },
             j_aij_arngren = { 
                 name = "Arngren", 
-                text = { 
+                text = {
                     "{C:attention}+#1#{} Ranura de carta",
                     "{C:attention}+#1#{} Paquete potenciador",
                     "{C:attention}+#1#{} Ranura de Vale",
@@ -4997,7 +5462,7 @@ return {
             },
             j_aij_remina = { 
                 name = "Remina", 
-                text = { 
+                text = {
                     "Al seleccionar la {C:attention}Ciega Pequeña{} o {C:attention}Grande{},",
                     "{C:red}destruye{} todas tus Cartas de {C:planet}Planeta{}",
                     "obtiene sus {C:chips}Fichas{} y {C:mult}Multi{}",
@@ -5030,7 +5495,7 @@ return {
             },
             j_aij_elf = { 
                 name = "Elfo", 
-                text = { 
+                text = {
                     "Después de omitir {C:attention}#2#{} Ciegas,",
                     "{C:money}vende{} este Comodín",
                     "para crear {C:attention}#3#{} Etiquetas",
@@ -5048,7 +5513,7 @@ return {
             },
             j_aij_coulrorachne = { 
                 name = "Coulrorachne", 
-                text = { 
+                text = {
                     "Gana {C:mult}+#1#{} Multi cada",
                     "{C:attention}#4# {C:inactive}[#3#]{} {C:attention}Ochos{} anotados",
                     "{C:inactive}(Actualmente {C:mult}+#2#{C:inactive} Multi)" 
@@ -5056,7 +5521,7 @@ return {
             },
             j_aij_bad_sun = { 
                 name = "El Sol Malo", 
-                text = { 
+                text = {
                     "Si la mano {C:attention}jugada{}",
                     "contiene {C:attention}#1#{} o más {C:hearts}Corazones{},",
                     "destruye una carta jugada" 
@@ -5073,7 +5538,7 @@ return {
             },
             j_aij_sanguine_joker = { 
                 name = "Comodín Sanguíneo", 
-                text = { 
+                text = {
                     "Los {C:hearts}Corazones{} tienen una",
                     "prob. de {C:green}#1# en #2#{} de crear",
                     "una {C:attention}Etiqueta{} al azar",
@@ -5082,7 +5547,7 @@ return {
             },
             j_aij_choleric_joker = { 
                 name = "Comodín Colérico", 
-                text = { 
+                text = {
                     "Los {C:diamonds}Diamantes{} tienen una",
                     "prob. de {C:green}#1# en #2#{} de crear",
                     "una carta de {C:tarot}Tarot{}",
@@ -5092,7 +5557,7 @@ return {
             },
             j_aij_melancholic_joker = { 
                 name = "Comodín Melancólico", 
-                text = { 
+                text = {
                     "Las {C:spades}Espadas{} tienen una",
                     "prob. de {C:green}#1# en #2#{} de crear",
                     "una carta {C:spectral}Espectral{}",
@@ -5102,7 +5567,7 @@ return {
             },
             j_aij_phlegmatic_joker = { 
                 name = "Comodín Flemático", 
-                text = { 
+                text = {
                     "Los {C:clubs}Tréboles{} tienen una",
                     "prob. de {C:green}#1# en #2#{} de crear",
                     "una carta de {C:planet}Planeta{} para",
@@ -5335,11 +5800,11 @@ return {
             },
             j_aij_pellesini = { 
                 name = "Pellesini", 
-                text = { 
-                    "Cuando cualquier Comodín",
-                    "es {C:red}destruido{}, crea una",
-                    "copia {C:attention}exacta{}",
-					"{C:inactive}(Incluyéndose a sí mismo)"
+                text = {
+                    'Cuando cualquier Comodín se',
+                    '{C:red}destruye{}, crea una',
+                    "{C:attention}copia{} exacta{}",
+					'{C:inactive}(Debe haber espacio){}',
                 },
                 unlock = { 
                     "?????" 
@@ -5368,11 +5833,11 @@ return {
             },
             j_aij_biancolelli = { 
                 name = "Biancolelli", 
-                text = { 
+                text = {
                     "{C:aij_plasma}Equilibra{} las {C:chips}Fichas{} y {C:mult}Multi{}", 
-                    "después de que los",
+                    "después de que los otros",
                     "{C:attention}Comodines{} se activan",
-                }, 
+                },
                 unlock = { 
                     "?????" 
                 } 
@@ -5390,12 +5855,12 @@ return {
             },
             j_aij_eulenspiegel = { 
                 name = "Eulenspiegel", 
-                text = { 
+                text = {
                     "Al derrotar una {C:attention}Ciega Jefe{},",
                     "retrocede {C:attention}#1#{} Apuesta y",
                     "pierde {X:mult,C:white}X#2#{} Multi",
                     "{C:inactive}(Actualmente {X:mult,C:white}X#3#{C:inactive} Multi)"
-                }, 
+                },
                 unlock = { 
                     "?????" 
                 } 
@@ -5492,23 +5957,23 @@ return {
             },
             j_aij_tarlton = { 
                 name = "Tarlton", 
-                text = { 
+                text = {
                     "Otorga {C:chips}+Fichas{} igual al",
                     "{C:attention}total{} de {C:chips}Fichas{} de la {C:attention}anterior{}",
                     "mano jugada esta ronda",
                     "{C:inactive}(Actualmente {C:chips}+#1#{} {C:inactive}Fichas){}",
-                }, 
+                },
                 unlock = { "?????" }
             },
             j_aij_taillefer = { 
                 name = "Taillefer", 
-                text = { 
+                text = {
                     "Gana {X:mult,C:white}X#2#{} Multi por {C:blue}mano{} ",
                     "jugada, se {C:red}autodestruye{}",
                     "tras derrotar {C:attention}#3#{}",
                     "{C:attention}Ciegas Jefe{}",
                     "{C:inactive}(Actualmente {X:mult,C:white}X#1#{} {C:inactive}Multi, {C:attention}#4#{C:inactive}/{C:attention}#3#{C:inactive}){}",
-                }, 
+                },
                 unlock = { "?????" } 
             },
             j_aij_killigrew = {
@@ -5540,11 +6005,11 @@ return {
             },
             j_aij_angoulevent = { 
                 name = "Angoulevent", 
-                text = { 
+                text = {
                     "{C:attention}Reactiva{} las",
                     "cartas anotadas",
                     "{C:attention}#1#{} veces adicionales",
-                }, 
+                },
                 unlock = { 
                     "?????" 
                 } 
@@ -5609,11 +6074,10 @@ return {
             },
             j_aij_fantasio = { 
                 name = "Fantasio", 
-                text = { 
-                    "Todas las cartas",
-                    "como se consideran",
-                    "{C:attention}todos los palos{}",
-                }, 
+                text = {
+                    'Todas las cartas cuentan',
+                    'como {C:attention}todos los palos{}',
+                },
                 unlock = { 
                     "?????" 
                 } 
@@ -5643,7 +6107,7 @@ return {
                 text = {
                     "Al derrotar la",
                     "{C:attention}Ciega Jefe{},",
-                    "crea {C:attention}#1#{} Comodines",
+                    "crea {C:attention}dos{} Comodines",
                     "{C:dark_edition}Negativos{} al azar"
                 },
                 unlock = { "?????" }
@@ -5658,6 +6122,900 @@ return {
 
                 },
                 unlock = { "?????" }
+            },
+            j_aij_a_v_g_m = {
+                name = 'A.V.G.M',
+                text = {
+                    '{B:1,C:white,s:0.8}Habilidad Activable',
+                    'Gasta {C:money}$#3#{} por una prob. de {C:green}#1# en #2#{}',
+                    'de crear al azar un {C:attention}Comodín{} ,',
+                    '{C:attention}consumible{}, {C:attention}carta de juego{},',
+                    'o {C:attention}etiqueta{}',
+                },
+            },
+            j_aij_aluzinnu = {
+                name = 'Aluzinnu',
+                text = {
+                    'Los vales {C:attention}Jeroglífico{} y {C:attention}Petroglifo{}',
+                    'no tienen {C:red}desventajas{} y',
+                    'pueden aparecer {C:attention}varias{} veces',
+                },
+            },
+            j_aij_ambrosius = {
+                name = 'Ambrosio',
+                text = {
+                    'Los {C:tarot}Paquetes Arcanos{} tienen {C:attention}#3#{} opciones más,',
+                    'una prob. de {C:green}#1# en #2#{} de {C:attention}aumentar{} en {C:attention}#4#',
+                    'si la {C:attention}mano jugada{} contiene solo',
+                    '{C:attention}Reyes{} de {C:paperback_crowns}Coronas{}',
+                },
+            },
+            j_aij_anagraph = {
+                name = 'Anágrafo',
+                text = {
+                    'Cuando un {C:attention}Comodín{} o {C:attention}carta de juego{}',
+                    'se {C:money}venda{} o {C:red}destruya{}',
+                    "crea una {C:attention}copia{} exacta y",
+                    'la {C:red}destruye{} de inmediato',
+                }
+            },
+            j_aij_blacklight = {
+                name = 'Blacklight',
+                text = {
+                    '{C:attention}+#1#{} tamaño de mano en Apuestas {C:attention}pares{}',
+                    '{C:inactive}(Actualmente {C:attention}+#2#{} {C:inactive}tamaño de mano){}',
+                },
+            },
+            j_aij_cerium = {
+                name = 'Cerio',
+                text = {
+                    'Si la mano jugada es un {C:attention}Full de Color{},',
+                    '{C:attention}reactiva{} todas las cartas {C:attention}#1#{} veces',
+                },
+            },
+            j_aij_chipped_joker = {
+                name = 'Comodín Astillado',
+                text = {
+                    'Cuando se anota una {C:attention}Carta de Piedra{}',
+                    'pierde {C:red}-#1#{} Fichas y este',
+                    '{C:attention}Comodín{} gana {C:chips}+#1#{} Fichas',
+                    '{C:inactive}(Actualmente {C:chips}+#2#{} {C:inactive}Fichas)',
+                },
+            },
+            j_aij_chocolate_coins = {
+                name = 'Monedas de Chocolate',
+                text = {
+                    {
+                    'Este {C:attention}Comodín{} gana {X:mult,C:white}X#1#{} Multi',
+                    'cuando una carta se mejora a',
+                    '{C:attention}Oro{}, pierde {X:mult,C:white}X#2#{} Multi',
+                    'cuando se gana {C:money}dinero{}',
+                    'durante una {C:attention}Ciega{}',
+                    '{C:inactive}(Actualmente {X:mult,C:white}X#3#{} {C:inactive}Multi){}',
+                    },
+                    {
+                        'Crea {C:tarot}El Diablo{} al obtenerse',
+                        '{C:inactive}(Debe haber espacio){}',
+                    },
+                },
+            },
+            j_aij_clay_credits_joker = {
+                name = 'Clay',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_coffee_thermos = {
+                name = 'Termo de Café',
+                text = {
+                    '{C:attention}Reactiva{} todos los efectos',
+                    '{C:attention}en mano{} durante las próximas',
+                    '{C:attention}#1#{} rondas',
+                },
+            },
+            j_aij_conboi_credits_joker = {
+                name = 'Conboi',
+                text = {
+                    '{C:inactive}"Skibby Dee"',
+                },
+            },
+            j_aij_cool_joker = {
+                name = 'Cool Joker',
+                text = {
+                    '{B:1,C:white,s:0.8}Habilidad Activada',
+                    '{V:1}Activa{} este {C:attention}Comodín{} cuando',
+                    '{C:attention}normalmente{} anotaría',
+                    '{X:mult,C:white}X#1#{} Multi',
+                },
+            },
+            j_aij_embroidery = {
+                name = 'Bordado',
+                text = {
+                    {
+                        'Las {C:attention}Cartas de Lienzo{} dan {C:mult}+#2#',
+                        'Multi si tienen {C:attention}categoría{}',
+                    },
+                    {
+                        'Las {C:attention}Cartas de Lienzo{} dan {C:chips}+#1#',
+                        'Fichas si {C:red}no{}',
+                        'tienen {C:attention}categoría{}',
+                    },
+                },
+            },
+            j_aij_farceur = {
+                name = 'Farceur',
+                text = {
+                    '{B:1,C:white,s:0.8}Habilidad Activada',
+                    'Paga {C:money}$#1#{} para otorgar',
+                    'a este Comodín {X:mult,C:white}X#3#{} Multi',
+                    '{C:inactive}(Actualmente {X:mult,C:white}X#2#{} {C:inactive}Multi){}',
+                },
+            },
+            j_aij_first_draft = {
+                name = 'Primer Borrador',
+                text = {
+                    'Copia la habilidad del',
+                    '{C:attention}Comodín{} de la izquierda',
+                },
+            },
+            j_aij_four_leaf_clover = {
+                name = 'Trébol de Cuatro Hojas',
+                text = {
+                    '{C:attention}#1#%{} de prob. de aumentar la',
+                    '{C:attention}rareza{} de los Comodines en la {C:money}Tienda{}',
+                    'El porcentaje equivale al número de',
+                    '{C:attention}4{} en tu {C:attention}Baraja{}',
+                },
+            },
+            j_aij_furbo_e_stupido = {
+                name = 'Furbo e Stupido',
+                text = {
+                    'Las cartas {C:attention}Discalculares{} también',
+                    'cuentan como {C:attention}Ases{} y {C:attention}Jotas{}',
+                },
+            },
+            j_aij_gille = {
+                name = 'Gille',
+                text = {
+                    'Puede {C:attention}renovar{} las {C:attention}Etiquetas{} disponibles',
+                },
+            },
+            j_aij_glass_delusion = {
+                name = 'Ilusión de Vidrio',
+                text = {
+                    'Cuando se rompe una {C:attention}Carta de Vidrio{},',
+                    'una prob. de {C:green}#1# en #2#{} de',
+                    'añadir {C:attention}dos copias{} de ella a',
+                    'tu baraja',
+                },
+            },
+            j_aij_headache = {
+                name = 'Dolor de Cabeza',
+                text = {
+                    '{C:mult}+#2#{} Multi',
+                    '{C:attention}+$#1#{} costo de {C:green}renovación{}',
+                },
+            },
+            j_aij_imperial_bower = {
+                name = 'Imperial Bower',
+                text = {
+                    '{C:attention}Primera carta{} sacada',
+                    'cada ronda cuenta como',
+                    '{C:attention}cualquier{} categoría y palo',
+                    '{C:inactive}(Las categorías no pueden formar manos de póker)',
+                },
+            },
+            j_aij_in_memorium = {
+                name = 'In Memoriam',
+                text = {
+                    {
+                        'Este {C:attention}Comodín{} gana',
+                        '{X:mult,C:white}X#1#{} Multi cada vez que se abre',
+                        'un {C:spectral}Paquete Espectral{}',
+                        '{C:inactive}(Actualmente {X:mult,C:white}X#2#{C:inactive} Multi)',
+                    },
+                    {
+                        'Tras obtener este {C:attention}Comodín{},',
+                        'un {C:attention}paquete{} en la próxima {C:money}Tienda{}',
+                        'será un {C:spectral}Paquete Espectral{}',
+                    },
+                },
+            },
+            j_aij_infuriating_note_2 = {
+                name = 'Infuriating Note',
+                text = {
+                    {
+                        '{X:mult,C:white}X#1#{} Multi',
+                        'Pueden aparecer copias {C:dark_edition}Negativas{}',
+                        'de este Comodín en la {C:attention}Tienda{}',
+                        'y los {C:attention}Paquetes de Comodines{}',
+                    },
+                    {
+                        '{C:inactive}"Algunos paquetes son rojos,',
+                        '{C:inactive}pero más de ellos azules;',
+                        '{C:inactive}no importa lo que traigan,',
+                        '{C:inactive}te los robaré a ti!',
+                        '{C:inactive}',
+                        '{C:inactive,s:0.8}¡Gracias por las cosas, comodín! -R. R.{}',
+                    },
+                },
+            },
+            j_aij_infuriating_note_3 = {
+                name = 'Infuriating Note',
+                text = {
+                    {
+                        '{X:mult,C:white}X#1#{} Multi',
+                        'Pueden aparecer copias {C:dark_edition}Negativas{}',
+                        'de este Comodín en la {C:attention}Tienda{}',
+                        'y los {C:attention}Paquetes de Comodines{}',
+                    },
+                    {
+                        '{C:inactive}Lo que daría',
+                        '{C:inactive}por ver la cara que pones.',
+                        '{C:inactive}Pediste un objeto,',
+                        '{C:inactive}y hallaste esta nota en su lugar!',
+                        '{C:inactive}',
+                        '{C:inactive,s:0.8}Gracias por tu constante apoyo{}',
+                        '{C:inactive,s:0.8}¡Jujujujujulu...! -R. R.{}',
+                    },
+                },
+            },
+            j_aij_infuriating_note_4 = {
+                name = 'Infuriating Note',
+                text = {
+                    {
+                        '{X:mult,C:white}X#1#{} Multi',
+                        'Pueden aparecer copias {C:dark_edition}Negativas{}',
+                        'de este Comodín en la {C:attention}Tienda{}',
+                        'y los {C:attention}Paquetes de Comodines{}',
+                    },
+                    {
+                        '{C:inactive}Debería matarte,',
+                        '{C:inactive}pero no sería difícil;',
+                        '{C:inactive}así que por una risa,',
+                        '{C:inactive}¡robé tu carta!',
+                        '{C:inactive}',
+                        '{C:inactive,s:0.8}¡Buena suerte, tonto! -R. R.{}',
+                    },
+                },
+            },
+            j_aij_infuriating_note_5 = {
+                name = 'Infuriating Note',
+                text = {
+                    {
+                        '{X:mult,C:white}X#1#{} Multi',
+                        'Pueden aparecer copias {C:dark_edition}Negativas{}',
+                        'de este Comodín en la {C:attention}Tienda{}',
+                        'y los {C:attention}Paquetes de Comodines{}',
+                    },
+                    {
+                        '{C:inactive}Si llegaras a encontrarme,',
+                        '{C:inactive}te haría arrodillar.',
+                        '{C:inactive}Eres solo un roedor,',
+                        '{C:inactive}y yo soy el Gran Queso! -R. R.',
+                    },
+                },
+            },
+            j_aij_infuriating_note_6 = {
+                name = 'Infuriating Note',
+                text = {
+                    {
+                        '{X:mult,C:white}X#1#{} Multi',
+                        'Pueden aparecer copias {C:dark_edition}Negativas{}',
+                        'de este Comodín en la {C:attention}Tienda{}',
+                        'y los {C:attention}Paquetes de Comodines{}',
+                    },
+                    {
+                        '{C:inactive}Quieres una salida,',
+                        '{C:inactive}pero aún no sabes lo bastante;',
+                        '{C:inactive}el camino es para ti,',
+                        '{C:inactive}¡así que no hagas trampa en la red! -R. R.',
+                    },
+                },
+            },
+            j_aij_invisible_man = {
+                name = 'Invisible Man',
+                text = {
+                    'Todas las {C:attention}cartas de figura{} cuentan como',
+                    '{C:attention}Reyes{}, {C:attention}Reinas{} y {C:attention}Jotas{}',
+                    '{C:inactive}(Excepto para formar manos de póker)',
+                },
+            },
+            j_aij_iron = {
+                name = 'Hierro',
+                text = {
+                    'Si la mano jugada es {C:attention}Cuarteto{},',
+                    '{C:attention}reactiva{} todas las cartas que anotan',
+                },
+            },
+            j_aij_isonomic_joker = {
+                name = 'Isonomic Joker',
+                text = {
+                    'Las cartas jugadas con palo {C:paperback_stars}Estrella',
+                    'tienen una prob. de {C:green}#1# en #2#{}',
+                    'de crear un',
+                    '{C:attention}Consumible{} al azar al',
+                    'anotarse',
+                    '{C:inactive}(Debe haber espacio){}',
+                },
+            },
+            j_aij_jawbreaker = {
+                name = 'Rompe Mandíbulas',
+                text = {
+                    {
+                    'Este {C:attention}Comodín{} gana {X:mult,C:white}X#1#{} Multi',
+                    'cuando una carta se mejora a',
+                    '{C:attention}Piedra{}, pierde {X:mult,C:white}X#2#{} Multi si',
+                    'la mano jugada no contiene',
+                    'ninguna {C:attention}carta sin anotar{}',
+                    '{C:inactive}(Actualmente {X:mult,C:white}X#3#{} {C:inactive}Multi){}',
+                    },
+                    {
+                        'Crea {C:tarot}La Torre{} al obtenerse',
+                        '{C:inactive}(Debe haber espacio){}',
+                    },
+                },
+            },
+            j_aij_liquorice = {
+                name = 'Regaliz',
+                text = {
+                    {
+                    'Este {C:attention}Comodín{} gana {X:mult,C:white}X#1#{} Multi',
+                    'cuando una carta se mejora a',
+                    '{C:attention}Multi{}, pierde {X:mult,C:white}X#2#{} Multi cuando',
+                    'el {C:mult}Multi{} de la mano supera las {C:chips}Fichas{}',
+                    '{C:inactive}(Actualmente {X:mult,C:white}X#3#{} {C:inactive}Multi){}',
+                    },
+                    {
+                        'Crea {C:tarot}La Emperatriz{} al obtenerse',
+                        '{C:inactive}(Debe haber espacio){}',
+                    },
+                },
+            },
+            j_aij_mad_scientist = {
+                name = 'Científico Loco',
+                text = {
+                    'Cuando una carta está {C:attention}mejorada{},',
+                    'una {C:attention}mejora{}',
+                    '{C:attention}aleatoria{} distinta se le',
+                    'fusiona',
+                },
+            },
+            j_aij_memory_card = {
+                name = 'Tarjeta de Memoria',
+                text = {
+                    'Si la primera mano de la ronda',
+                    'es exactamente 1 carta,',
+                    'sacala primero en Ciegas futuras',
+                    '{C:inactive}(Solo puede guardar una carta)',
+                    '{C:inactive,s:0.8}(Solo se activa en la posición del extremo izquierdo)',
+                },
+            },
+            j_aij_monarchic_joker = {
+                name = 'Comodín Monocromático',
+                text = {
+                    'Las cartas jugadas con palo {C:paperback_crowns}Corona',
+                    'tienen una prob. de {C:green}#1# en #2#{}',
+                    'de crear un {C:paperback_minor_arcana}Arcano',
+                    '{C:paperback_minor_arcana}Menor{} al azar al anotarse',
+                },
+            },
+            j_aij_mp_blind_drawn = {
+                name = 'Dibujo a Ciegas',
+                text = {
+                    '{X:mult,C:white}X#1#{} Multi',
+                    'No puedes ver al {X:purple,C:white}Némesis{}',
+                    'ni la puntuación ni las manos restantes',
+                    'durante las {C:attention}Ciegas PvP{}',
+                },
+            },
+            j_aij_mp_fall_of_count_chaligny = {
+                name = 'Caída del Conde Chaligny',
+                text = {
+                    'Fija la {C:attention}puntuación{} requerida',
+                    'de todas las {C:attention}Ciegas{} a {C:attention}1X{} Base',
+                    '{C:inactive}(No afecta a las ciegas PvP){}',
+                },
+            },
+            j_aij_peanut_brittle = {
+                name = 'Crocante de Maní',
+                text = {
+                    {
+                    'Obtiene {X:mult,C:white}X#1#{} Multi cuando una',
+                    'carta se mejora a {C:attention}Vidrio{}, pierde {X:mult,C:white}X#2#{} Multi',
+                    'cuando se rompe una {C:attention}Carta de Vidrio{}',
+                    '{C:inactive}(Actualmente {X:mult,C:white}X#3#{} {C:inactive}Multi){}',
+                    },
+                    {
+                        'Crea {C:tarot}La Justicia{} al obtenerse',
+                        '{C:inactive}(Debe haber espacio){}',
+                    },
+                },
+            },
+            j_aij_pinup_poster = {
+                name = 'Póster Pin-Up',
+                text = {
+                    {
+                        'Este {C:attention}Comodín{} siempre está',
+                        '{C:attention}fijado{} a la ranura izquierda',
+                    },
+                    {
+                        'Gana {X:mult,C:white}X#1#{} Multi por',
+                        'cada carta de {C:red}Corazones{} que',
+                        'siga en tu {C:attention}baraja{}',
+                        '{C:inactive}(Actualmente {X:mult,C:white}X#2#{} {C:inactive}Multi){}',
+                    },
+                },
+            },
+            j_aij_pretzel_sticks = {
+                name = 'Palitos de Pretzel',
+                text = {
+                    {
+                    'Obtiene {X:mult,C:white}X#1#{} Multi cuando una',
+                    'carta se mejora a carta de {C:attention}Madera{}, pierde',
+                    '{X:mult,C:white}X#2#{} Multi cuando se activa un',
+                    'efecto de {C:attention}carta en mano{}',
+                    '{C:inactive}(Actualmente {X:mult,C:white}X#3#{} {C:inactive}Multi){}',
+                    },
+                    {
+                        'Crea {C:tarot}La Puerta del Santuario{}',
+                        'al obtenerse {C:inactive}(Debe haber espacio){}',
+                    },
+                },
+            },
+            j_aij_pygmalion = {
+                name = 'Pygmalion',
+                text = {
+                    'Todas las {C:attention}Cartas de Piedra{}',
+                    'cuentan como {C:attention}Reinas{}',
+                },
+            },
+            j_aij_run = {
+                name = '>RUN',
+                text = {
+                    'Los {C:attention}Comodines{} a la {C:attention}izquierda{}',
+                    'de este {C:attention}Comodín{} se activan {C:attention}antes{} de que',
+                    'la mano se anote, en vez de {C:attention}después{}',
+                    '{C:inactive}(Si aplica){}',
+                },
+            },
+            j_aij_suibhne = {
+                name = 'Suibhne',
+                text = {
+                    'Obtiene {X:chips,C:white}X#1#{} Fichas por cada carta',
+                    'en la {C:attention}mano jugada{} si la mano',
+                    'contiene solo {C:attention}Reyes{} de {C:paperback_stars}Estrellas{}',
+                    '{C:inactive}(Actualmente {X:chips,C:white}X#2#{C:inactive} Fichas){}',
+                },
+            },
+            j_aij_tabula_rasa = {
+                name = 'Tabula Rasa',
+                text = {
+                    'Al seleccionar una {C:attention}Ciega{},',
+                    'este Comodín remueve su propia {C:dark_edition}Edición{}',
+                    'y sus efectos se vuelven {C:jest_inherent}inerentes{}',
+                },
+            },
+            j_aij_cyclops = {
+                name = 'Cíclope',
+                text = {
+                    'Gana {C:mult}+#1#{} Multi si la',
+                    '{C:attention}primera mano{} de la ronda tiene',
+                    'exactamente {C:attention}una{} carta',
+                    '{C:inactive}(Actualmente {C:mult}+#2#{C:inactive} Multi){}',
+                },
+            },
+            j_aij_american_comic = {
+                name = 'Cómic Americano',
+                text = {
+                    'Añade {C:attention}#1#{} ranura extra a la',
+                    '{C:money}Tienda{}, que siempre contiene',
+                    'un {C:common}Comodín Común{} al azar',
+                },
+            },
+            j_aij_red_joker = {
+                name = 'Comodín Rojo',
+                text = {
+                    'Gana {C:mult}+#2#{} Multi por cada carta anotada',
+                    'Se {C:attention}reinicia{} al jugar una carta',
+                    'que ya se había anotado',
+                    '{C:inactive}(El historial de cartas se borra al reiniciar){}',
+                    '{C:inactive}(Actualmente {C:mult}+#1#{C:inactive} Multi)',
+                },
+            },
+            j_aij_bouffon = {
+                name = 'Bouffon',
+                text = {
+                    'Activa los efectos de las cartas',
+                    '{C:attention}en mano{} de las {C:attention}#1#{} cartas',
+                    '{C:attention}restantes{} en tu baraja',
+                },
+            },
+            j_aij_soft_serve = {
+                name = 'Helado Suave',
+                text = {
+                    'Los {C:attention}Comodines{}, {C:tarot}Tarots{} y',
+                    '{C:planet}Planetas{} de mods no pueden aparecer',
+                    'en la {C:money}Tienda{}; se consume tras',
+                    '{C:attention}#1#{} compras',
+                },
+            },
+            j_aij_skytower = {
+                name = 'Torre Celeste',
+                text = {
+                    'Las manos distintas de tu',
+                    '{C:attention}mano{} más jugada se anotan',
+                    'con {C:attention}#1#{} niveles adicionales',
+                },
+            },
+            j_aij_lawfirm = {
+                name = 'Bufete',
+                text = {
+                    '{B:1,C:white,s:0.8}Habilidad Activable',
+                    'Paga {C:money}$#3#{} por una prob. de',
+                    '{C:green}#1# en #2#{} de desactivar la',
+                    '{C:attention}Ciega Jefe{}',
+                },
+            },
+            j_aij_cutesy_joker = {
+                name = 'Comodín Adorable',
+                text = {
+                    'Las {C:green}probabilidades{} de los',
+                    '{C:attention}Consumibles{} están garantizadas',
+                },
+            },
+            j_aij_lead = {
+                name = 'Plomo',
+                text = {
+                    'Si la mano jugada es una',
+                    '{C:attention}Escalera{}, reactiva todas',
+                    'las cartas anotadas',
+                },
+            },
+            j_aij_silver = {
+                name = 'Plata',
+                text = {
+                    'Si la mano jugada es un',
+                    '{C:attention}Full House{}, reactiva todas las',
+                    'cartas anotadas',
+                },
+            },
+            j_aij_unobtanium = {
+                name = 'Unobtanio',
+                text = {
+                    'Si la mano jugada es un',
+                    '{C:attention}Quintilla{}, reactiva todas',
+                    'las cartas anotadas',
+                },
+            },
+            j_aij_neutronium = {
+                name = 'Neutronio',
+                text = {
+                    'Si la mano jugada es un',
+                    '{C:attention}Cinco de Color{}, reactiva todas',
+                    'las cartas anotadas',
+                },
+            },
+            j_aij_scroggin = {
+                name = 'Scroggin',
+                text = {
+                    {
+                        'Gana {X:mult,C:white}X#1#{} Multi cuando una carta',
+                        'se mejora a {C:attention}Versátil{}; pierde',
+                        '{X:mult,C:white}X#2#{} Multi cuando la mano contiene',
+                        'un {C:attention}Color{}',
+                        '{C:inactive}(Actualmente {X:mult,C:white}X#3#{} {C:inactive}Multi){}',
+                    },
+                    {
+                        'Crea {C:tarot}Los Enamorados{} al obtenerse',
+                        '{C:inactive}(Debe haber espacio){}',
+                    },
+                },
+            },
+            j_aij_blueberries = {
+                name = 'Arándanos',
+                text = {
+                    {
+                        'Gana {X:mult,C:white}X#1#{} Multi cuando una carta',
+                        'se mejora a {C:attention}Ferviente{}; pierde',
+                        '{X:mult,C:white}X#2#{} Multi cuando una carta',
+                        'se {C:attention}reactiva',
+                        '{C:inactive}(Actualmente {X:mult,C:white}X#3#{} {C:inactive}Multi){}',
+                    },
+                    {
+                        'Crea {C:tarot}El Mago{} al obtenerse',
+                        '{C:inactive}(Debe haber espacio){}',
+                    },
+                },
+            },
+            j_aij_drying_paint = {
+                name = 'Pintura Secándose',
+                text = {
+                    '{B:1,C:white,s:0.8}Habilidad Activable',
+                    'Durante una {C:attention}Ciega{}, gasta',
+                    '{C:attention}#3#{} {C:blue}mano{} para darle',
+                    'a este Comodín {X:mult,C:white}X#1#{} Multi',
+                    '{C:inactive}(Actualmente {X:mult,C:white}X#2#{} {C:inactive}Multi){}',
+                },
+            },
+            j_aij_vexed = {
+                name = 'Irritado',
+                text = {
+                    'Los Comodines {C:money}vendidos{} tienen una',
+                    'prob. fija de {C:attention}#1#%{} de reaparecer',
+                    '{C:attention}inmediatamente',
+                },
+            },
+            j_aij_club_card = {
+                name = 'Carta de Tréboles',
+                text = {
+                    '{X:mult,C:white}X#1#{} Multi si la baraja tiene',
+                    'al menos {C:attention}#2# {C:clubs}Tréboles{}',
+                    '{C:inactive}(Actualmente {C:attention}#3#{C:inactive})',
+                },
+            },
+            j_aij_profile = {
+                name = 'Perfil',
+                text = {
+                    'Las cartas anotadas a la',
+                    'izquierda y derecha de las',
+                    'cartas de {C:attention}figura{} dan {C:mult}+#1#{} Multi',
+                },
+            },
+            j_aij_borra = {
+                name = 'Borra',
+                text = {
+                    'Gana {C:mult}+#1#{} Multi cuando ocurre',
+                    'cualquier cosa',
+                    '{C:inactive}(Actualmente {C:mult}+#1#{} {C:inactive}Multi)',
+                },
+                unlock = { "?????" },
+            },
+            j_aij_dongfang = {
+                name = 'Dongfang',
+                text = {
+                    'Reactiva todas las cartas {C:planet}Planeta{}',
+                    '{C:attention}#1#{} veces',
+                },
+                unlock = { "?????" },
+            },
+            j_aij_gonnella = {
+                name = 'Gonella',
+                text = {
+                    'Crea un Comodín con {C:dark_edition}Edición{}',
+                    'al azar y de la misma rareza',
+                    'cuando se {C:money}vende{} un Comodín',
+                    'sin {C:dark_edition}Edición{}',
+                },
+                unlock = { "?????" },
+            },
+            j_aij_antonio = {
+                name = 'Antonio',
+                text = {
+                    'Al anotar una carta, todas las',
+                    'cartas de la baraja con la misma',
+                    '{C:attention}categoría{} ganan permanentemente',
+                    '{C:mult}+#1#{} Multi',
+                },
+            },
+            j_aij_wamba = {
+                name = 'Wamba',
+                text = {
+                    {
+                        'Los Comodines {C:attention}#1#{} son',
+                        '{C:attention}#2#X{} más comunes',
+                    },
+                    {
+                        '{B:1,C:white,s:0.8}Habilidad Activable',
+                        'Cambia el {C:attention}tipo{} de Comodín',
+                        'que aparece con más frecuencia',
+                    },
+                },
+            },
+            j_aij_gelato = {
+                name = 'Gelato',
+                text = {
+                    'Gana {C:money}$#1#{} al final de la ronda, {C:red}se autodestruye{}',
+                    'si la Ciega no se derrota en una {C:attention}sola mano{}'
+                }
+            },
+            j_aij_stracciatella = {
+                name = 'Stracciatella',
+                text = {
+                    {
+                        'Después de cada mano, prob. de {C:green}#1# en #2#{}',
+                        'de que cada carta anotada obtenga {C:money}$#3#{}',
+                        'al anotar',
+                    },
+                    {
+                        '{C:red}Se autodestruye{} después de activarse'
+                    }
+                }
+            },
+            j_aij_parfait = {
+                name = 'Parfait',
+                text = {
+                    {
+                        'Al final de la ronda, prob. de {C:green}#1# en #2#{}',
+                        'de que el Comodín de la derecha obtenga {X:mult,C:white}X#3#{} Multi',
+                    },
+                    {
+                        '{C:red}Se autodestruye{} después de activarse'
+                    }
+                }
+            },
+            j_aij_triple_gooberberry_sunrise = {
+                name = 'Triple Gooberberry Sunrise',
+                text = {
+                    '{C:green}+#1#{} a todas las {C:attention}probabilidades{},',
+                    'se {C:attention}consume{} tras {C:attention}#2#{} Apuestas',
+                }
+            },
+            j_aij_poppins = {
+                name = 'Poppins',
+                text = {
+                    'Gana {C:money}$#1#{} por cada mano de póker {C:attention}única{}',
+                    'contenida en la mano jugada'
+                }
+            },
+            j_aij_beekeeper = {
+                name = 'Apicultor',
+                text = {
+                    'Los {C:attention}6s{} en mano',
+                    'otorgan {C:chips}+#1#{} Fichas y',
+                    '{C:mult}+#2#{} Multi'
+                }
+            },
+            j_aij_queen_bee = {
+                name = 'Abeja Reina',
+                text = {
+                    'Las {C:attention}Reinas{} anotadas otorgan',
+                    '{X:mult,C:white}X1{} Multi, más {X:mult,C:white}X#1#{} Multi',
+                    'por cada {C:attention}6{} en mano',
+                    '{C:inactive}(Otorgará {X:mult,C:white}X#2#{} {C:inactive}Multi)'
+                }
+            },
+            j_aij_corporate_memphis = {
+                name = 'Corporate Memphis',
+                text = {
+                    'Al {C:attention}omitir{} una Ciega, la siguiente',
+                    '{C:money}Tienda{} gana {C:attention}+#1#{} Ranuras de Tienda',
+                    '{C:inactive}(Actualmente {C:attention}+#2#{} {C:inactive}Ranuras de Tienda)'
+                }
+            },
+            j_aij_jackpot = {
+                name = 'Olla de Oro',
+                text = {
+                    'Gana {C:money}$#1#{} al final de la ronda,',
+                    'aumenta en {C:money}$#2#{} cuando una',
+                    '{C:attention}Carta de la Suerte{} se activa con éxito'
+                }
+            },
+            j_aij_saveloy = {
+                name = 'Saveloy',
+                text = {
+                    '{C:mult}+#1#{} Multi, {C:mult}-#2#{} Multi',
+                    'al {C:green}renovar{} la {C:money}tienda'
+                }
+            },
+            j_aij_cheerio = {
+                name = 'Cheerio',
+                text = {
+                    '{C:chips}+#1#{} Fichas, al {C:attention}renovar{}',
+                    'en la {C:money}Tienda{}, pierdes Fichas igual',
+                    'al {C:money}costo{} de renovar'
+                }
+            },
+            j_aij_dog_treat = {
+                name = 'Galleta de Perro',
+                text = {
+                    'Si la Ciega se gana en una {C:attention}mano{},',
+                    'ganas {C:money}$#1#{} y {C:red}se autodestruye{}',
+                }
+            },
+            j_aij_turrn = {
+                name = 'Turrón',
+                text = {
+                    '{C:attention}+#1#{} Ranuras de Tienda',
+                    '{C:red}-#2#{} Ranura de Tienda al final de la ronda',
+                }
+            },
+            j_aij_emergent_pattern = {
+                name = 'Patrón Emergente',
+                text = {
+                    'Reactiva las cartas anotadas',
+                    'si la {C:attention}mano jugada{} contiene',
+                    "exactamente {C:attention}#1#{} cartas",
+                }
+            },
+            j_aij_bit_flip = {
+                name = 'Bit Flip',
+                text = {
+                    'Después de jugar la mano, cada {C:attention}dígito{}',
+                    "de tu {C:aij_plasma}puntuación total{}",
+                    'tiene una prob. de {C:green}#1# en #2#{}',
+                    'de aumentar en {C:attention}#3#{}',
+                }
+            },
+            j_aij_the_hare = {
+                name = 'La Liebre',
+                text = {
+                    'Añade {C:aij_plasma}#1#{} a tu',
+                    'puntuación total cada mano',
+                }
+            },
+            j_aij_scarab = {
+                name = 'Escarabajo',
+                text = {
+                    '{C:attention}-#1#{} Apuesta mientras',
+                    'tengas este Comodín',
+                    '{C:inactive, s:0.8}(No puede venderse ni destruirse',
+                    '{C:inactive, s:0.8}durante la Apuesta Final)',
+                }
+            },
+            j_aij_bingsu = {
+                name = 'Bingsu',
+                text = {
+                    'Todas las cartas anotadas otorgan {C:chips}+#1#{} Fichas,',
+                    'prob. de {C:green}#3# en #4#{} de reducir en',
+                    '{C:chips}-#2#{} Fichas al anotar',
+                }
+            },
+            j_aij_flushed_face = {
+                name = 'Comodín Sonrojado',
+                text = {
+                    'Obtiene {C:mult}+#1#{} Multi por cada',
+                    '{C:attention}Carta de Figura{} anotada en un {C:attention}Color{}',
+                    '{C:inactive}(Actualmente {C:mult}+#2#{C:inactive} Multi)',
+                }
+            },
+            j_aij_the_herald = {
+                name = 'El Heraldo',
+                text = {
+                    '{C:blue}La mano{} siempre cuenta como',
+                    'que contiene la {C:attention}mano',
+                    '{C:attention}jugada{} más',
+                    '{C:inactive}(Actualmente: {C:attention}#1#{C:inactive})',
+                },
+            },
+            j_aij_the_mermaid = {
+                name = 'La Sirena',
+                text = {
+                    'Puedes {C:red}descartar{} {C:attention}1{} vez',
+                    'dentro de {C:attention}Paquetes Potenciadores{}',
+                },
+            },
+            j_aij_tortilla_chips = {
+                name = 'Chips de Tortilla',
+                text = {
+                    {
+                    'Obtiene {X:mult,C:white}X#1#{} Multi cuando una',
+                    'carta se convierte en una carta {C:attention}Adicional{},',
+                    'pierde {X:mult,C:white}X#2#{} Multi cuando',
+                    'las {C:chips}Fichas{} de la mano superan al {C:mult}Multi{}',
+                    '{C:inactive}(Actualmente {X:mult,C:white}X#3#{} {C:inactive}Multi){}',
+                    },
+                    {
+                        'Crea {C:tarot}El Hierofante{} al obtenerse',
+                        '{C:inactive}(Debe haber espacio){}',
+                    },
+                },
+            },
+            j_aij_train_conductor = {
+                name = 'Conductor de Tren',
+                text = {
+                    {
+                        'Los Comodines de {C:mult}+Multi{} otorgan en su lugar',
+                        '{C:mult}XMulti{} igual al {C:attention}#1#%{} de',
+                        'sus valores originales',
+                        '{C:inactive}(Mínimo {X:mult,C:white}X1.2{C:inactive} Multi)',
+                    },
+                    {
+                        'Los Comodines de {C:mult}XMulti{} otorgan en su lugar',
+                        '{C:mult}+Multi{} igual al {C:attention}#2#%{} de',
+                        'sus valores originales',
+                    },
+                },
             },
         },
         Planet = {
@@ -5762,7 +7120,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_2013_nd15 = {
@@ -5770,7 +7128,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_kamooalewa = {
@@ -5778,7 +7136,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_deimos = {
@@ -5786,7 +7144,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_callisto = {
@@ -5794,7 +7152,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_iapetus = {
@@ -5802,7 +7160,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_oberon = {
@@ -5810,7 +7168,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_proteus = {
@@ -5818,7 +7176,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_charon = {
@@ -5826,7 +7184,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_nibiru = {
@@ -5834,7 +7192,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_2000_eu16 = {
@@ -5842,7 +7200,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_kuiper = {
@@ -5850,7 +7208,7 @@ return {
                 text = {
                     "{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Aumento de nivel",
                     "{C:attention}#2#{}",
-                    "{C:chips}+#3#{} Chips",
+                    "{C:chips}+#3#{} Fichas",
                 }
             },
             c_aij_rogue = {
@@ -6025,10 +7383,15 @@ return {
             c_aij_tetragrammaton = {
                 name = 'Tetragrámaton',
                 text = {
-                    'Crea {C:attention}cualquier{} carta de juego y',
-                    '{C:attention}#1#{} cartas de juego al {C:attention}azar{}',
-                    'para añadir a tu {C:attention}baraja{}'
-                }
+                    {
+                        'Crea una carta de juego con',
+                        'una {C:attention}categoría{}, {C:attention}palo{},',
+                        'y {C:attention}mejora{} elegidos',
+                    },
+                    {
+                        'Crea {C:attention}#1#{} cartas de juego al {C:attention}azar{}',
+                    },
+                },
             },
             c_aij_maw = {
                 name = 'Fauces',
@@ -6051,6 +7414,12 @@ return {
                     'carta del {C:tarot}Tarot{} de tu',
                     'elección del {C:attention}pozo'
                 }
+            },
+            c_aij_providence = {
+                name = 'Providencia',
+                text = {
+                    'Otorga una {C:attention}Etiqueta de Astrología{}',
+                },
             },
         },
         aij_astral = {
@@ -6502,11 +7871,8 @@ return {
             tag_aij_galloping_domino = {
                 name = 'Etiqueta Tragaperras',
                 text = {
-                    'Todas las {C:green}renovaciones{}',
-                    'costarán {C:money}$#1#{} en la',
-                    "próxima tienda"
-                    -- TODO Needs a limit due to effectively quadratic
-                    -- money scaling
+                    '{C:attention}+#1#{} renovaciones gratis',
+                    'en la próxima {C:money}Tienda{}',
                 }
             },
             tag_aij_gioco = {
@@ -6647,6 +8013,21 @@ return {
                     '¡Bajo tu {C:red,E:2}PROPIO{} riesgo{C:red}!!!'
                 }
             },
+            tag_aij_astrology = {
+                name = 'Etiqueta de Astrología',
+                text = {
+                    '{C:attention}Reactiva{} la próxima carta',
+                    '{C:planet}Planeta{} usada entre {C:attention}2y 4{} veces',
+                },
+            },
+            tag_aij_grand_astrologer = {
+                name = 'Etiqueta del Gran Astrólogo',
+                text = {
+                    'La próxima carta {C:planet}Planeta{} usada',
+                    'sube de nivel todas las manos de',
+                    'póker entre {C:attention}2 y 4{} veces',
+                },
+            },
         },
         Tarot = {
             c_aij_magus = {
@@ -6664,6 +8045,15 @@ return {
                     "seleccionada en una",
                     "{C:attention}#2#{}"
                 }
+            },
+            c_aij_twilight = {
+                name = 'Crepúsculo',
+                text = {
+                    'Ganas {C:money}$#1#{} por cada nivel de',
+                    'tu mano de póker más jugada',
+                    '{C:inactive}(Máx. de {C:money}$#2#{C:inactive})',
+                    '{C:inactive}(Actualmente {C:money}$#3#{C:inactive} - #4#)',
+                },
             },
             c_aij_isis_urania = {
                 name = 'Isis-Urania',
@@ -6780,6 +8170,14 @@ return {
                     "Mejora {C:attention}#1#{} cartas",
                     "seleccionadas en",
                     "{C:attention}#2#s{}"
+                }
+            },
+            c_aij_rising_dead = {
+                name = 'El Despertar de los Muertos',
+                text = {
+                    "Selecciona {C:attention}#1#{} cartas, otorga a la",
+                    "carta de la {C:attention}derecha{} la {C:attention}Mejora{}",
+                    "y el {C:attention}Sello{} de la izquierda"
                 }
             },
         },
@@ -7049,6 +8447,41 @@ return {
                     'o {C:red}descartar'
                 }
             },
+            aij_pc_eternal = {
+                name = "Eterno",
+                text = {
+                    '{C:red}No puede ser destruido{}',
+                }
+            },
+            aij_pc_perishable = {
+                name = "Perecedero",
+                text = {
+                    'Se debilita tras anotar {C:attention}#1#{} veces',
+                    '{C:inactive}({C:attention}#2#{} restantes{C:inactive}){}'
+                }
+            },
+            aij_pc_rental = {
+                name = "Alquiler",
+                text = {
+                    'Pierde {C:money}$#1#{} al final de la ronda',
+                    'cuando está en tu baraja'
+                }
+            },
+            aij_pc_rental_alt = {
+                name = "Alquiler",
+                text = {
+                    'Prob. de {C:green}#2# en #3#{} de no perder',
+                    '{C:money}$#1#{} al final de la ronda',
+                    'cuando está en tu baraja'
+                }
+            },
+            aij_mint_condition = {
+                name = "Prístino",
+                text = {
+                    'Este {C:attention}Comodín{} cuesta',
+                    '{C:money}$10{} adicionales'
+                }
+            },
             -- Seals
             aij_smiley_seal = {
                 name = "Sello Jubiloso",
@@ -7065,6 +8498,14 @@ return {
                     'se {C:attention}convierte{} en la primera',
                     'carta anotada sin este {V:1}sello{}'
                 }
+            },
+            aij_eye_seal = {
+                name = "Sello Ocular",
+                text = {
+                    'Activa los efectos de {C:attention}en mano{}',
+                    'mientras permanece en la',
+                    '{C:attention}baraja{}',
+                },
             },
             nevernamed_credits_info = {
                 name = "Info",
