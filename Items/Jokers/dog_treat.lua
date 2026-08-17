@@ -1,7 +1,7 @@
 local dog_treat = {
     object_type = "Joker",
     order = 946,
-    ignore = true,
+    
     key = "dog_treat",
     config = {
         extra = {

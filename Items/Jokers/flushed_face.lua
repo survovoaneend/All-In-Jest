@@ -1,7 +1,7 @@
 local flushed_face = {
     object_type = "Joker",
     order = 990,
-    ignore = true,
+    
     key = "flushed_face",
     config = {
         extra = {

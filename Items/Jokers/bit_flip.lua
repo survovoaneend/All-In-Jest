@@ -1,7 +1,7 @@
 local bit_flip = {
     object_type = "Joker",
     order = 965,
-    ignore = true,
+
     key = "bit_flip",
     config = {
         extra = {

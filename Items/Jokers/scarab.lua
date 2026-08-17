@@ -1,7 +1,7 @@
 local scarab = {
     object_type = "Joker",
     order = 972,
-    ignore = true,
+    
     key = "scarab",
     config = {
         extra = {

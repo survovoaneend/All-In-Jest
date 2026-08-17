@@ -1,7 +1,7 @@
 local turrn = {
     object_type = "Joker",
     order = 949,
-    ignore = true,
+    
     key = "turrn",
     config = {
         extra = {

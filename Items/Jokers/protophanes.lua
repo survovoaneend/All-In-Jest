@@ -1,7 +1,7 @@
 local protophanes = {
     object_type = "Joker",
     order = 767,
-    ignore = true,
+
     key = "protophanes",
     config = {
         extra = {

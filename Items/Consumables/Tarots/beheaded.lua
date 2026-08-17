@@ -2,7 +2,7 @@ local beheaded_tarot = {
     object_type = "Consumable",
 	key = 'beheaded',
 	set = 'Tarot',
-	ignore = true,
+	
 	pos = { x = 11, y = 8 },
 	cost = 3,
 	unlocked = true,
