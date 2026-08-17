@@ -6728,12 +6728,8 @@ return {
             j_aij_nihilartikel = {
                 name = "Nihilartikel",
                 text = {
-                    {
-                        '{C:dark_edition}+#1#{} Joker Slots'
-                    },
-                    {
-                        '{C:red}-$#2#{} at end of round'
-                    }
+                    '{C:dark_edition}+#1#{} Joker Slots,',
+                    '{C:red}-$#2#{} at end of round'
                 }
             },
             j_aij_gloaming = {
