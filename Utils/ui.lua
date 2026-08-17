@@ -388,6 +388,7 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
     args.w_mod = args.w_mod or 1
     args.h_mod = args.h_mod or 1
     args.card_scale = args.card_scale or 1
+    args.offset = args.offset or {x=0,y=0}
     local deck_tables = {}
     local pool = SMODS.collection_pool(_pool)
     if args.sort then args.sort(pool) end
@@ -402,7 +403,7 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
             row_totals[j] = cards_per_page
             cards_per_page = cards_per_page + rows[j]
             G.your_collection[j] = CardArea(
-                G.ROOM.T.x + 0.2*G.ROOM.T.w/2,G.ROOM.T.h,
+                G.ROOM.T.x + 0.2*G.ROOM.T.w/2 + args.offset.x,G.ROOM.T.h + args.offset.y,
                 (args.w_mod*rows[j]+0.25)*G.CARD_W,
                 args.h_mod*G.CARD_H, 
                 {card_limit = rows[j], type = args.area_type or 'title', highlight_limit = 0, collection = true}
@@ -449,6 +450,7 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
 
             if args.modify_card then args.modify_card(card, center, i, j, pool, index) end
             if not args.no_materialize then card:start_materialize(nil, i>1 or j>1) end
+            if args.juice_card then card:juice_up(unpack(args.juice_card)) end
             G.your_collection[j]:emplace(card)
             end
         end
@@ -676,7 +678,7 @@ function jest_create_select_card_ui(card, area, extra_data, select_func)
             align="bm",
             offset = {x=-0,y=-0.15},
             major = card,
-            bond = 'Weak',
+            bond = extra_data.bond or 'Weak',
             parent = card
         }
     }
