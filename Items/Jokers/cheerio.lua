@@ -1,7 +1,7 @@
 local cheerio = {
     object_type = "Joker",
     order = 943,
-
+    ignore = true,
     key = "cheerio",
     config = {
         extra = {

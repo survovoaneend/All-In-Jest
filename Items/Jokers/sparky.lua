@@ -1,6 +1,7 @@
 local sparky = {
     object_type = "Joker",
     order = 484,
+    ignore = true,
     key = "sparky",
     config = {
         extra = {

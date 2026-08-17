@@ -1,7 +1,7 @@
 local corporate_memphis = {
     object_type = "Joker",
     order = 927,
-
+    ignore = true,
     key = "corporate_memphis",
     config = {
         extra = {

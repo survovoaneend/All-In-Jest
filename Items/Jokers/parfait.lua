@@ -1,7 +1,7 @@
 local parfait = {
     object_type = "Joker",
     order = 856,
-
+    ignore = true,
     key = "parfait",
     config = {
         extra = {
