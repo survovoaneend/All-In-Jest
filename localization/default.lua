@@ -10545,6 +10545,14 @@ return {
                     "{C:attention}random{} cards in hand"
                 }
             },
+            c_aij_typhon = {
+                name = 'Typhon',
+                text = {
+                    "Enhances {C:attention}#1#{} selected",
+                    "cards into",
+                    "{C:attention}#2#s{}"
+                }
+            },
             c_aij_beheaded = {
                 name = 'The Beheaded',
                 text = {
