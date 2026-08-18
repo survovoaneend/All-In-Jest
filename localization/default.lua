@@ -8827,7 +8827,16 @@ return {
                 }
             },
             j_aij_deburau = { name = "Deburau", text = { "" }, unlock = { "?????" } },
-            j_aij_dacosta = { name = "D'acosta", text = { "" }, unlock = { "?????" } },
+            j_aij_dacosta = { 
+                name = "D'acosta", 
+                text = { 
+                    "Copies the abilities of",
+                    "{C:attention}both{} adjacent Jokers" 
+                }, 
+                unlock = { 
+                    "?????"
+                } 
+            },
             j_aij_durie = { name = "Durie", text = { "" }, unlock = { "?????" } },
             j_aij_nichola = {
                 name = "Nichola",
