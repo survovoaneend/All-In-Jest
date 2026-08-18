@@ -9982,16 +9982,16 @@ return {
                         'Align {C:attention}#1#{} to {C:attention}Spica',
                     },
                     {
-                        '{C:attention}Spica: {}{C:red}Disable{} the {C:attention}Boss Blind{} on',
-                        '{C:attention}first hand{} of round',
+                        '{C:attention}Spica: {}If first hand of round,',
+                        'disable the current {C:attention}Boss Blind{}',
                     }
                 }
             },
             c_aij_spica_pin = {
                 name = 'Spica',
                 text = {
-                    '{C:red}Disable{} the {C:attention}Boss Blind{} on',
-                    '{C:attention}first hand{} of round',
+                    'If first hand of round,',
+                    'disable the current {C:attention}Boss Blind{}',
                     '{C:inactive}#1#{}'
                 }
             },
