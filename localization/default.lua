@@ -990,8 +990,8 @@ return {
             bl_aij_the_spear = {
                 name = "The Spear",
                 text = {
-                    'All played cards in the',
-                    'winning hand are',
+                    'First scoring card',
+                    'each hand is',
                     'permanently debuffed'
                 },
             },
@@ -1074,9 +1074,9 @@ return {
             bl_aij_the_man = {
                 name = "The Man",
                 text = {
-                    'All played cards',
-                    'become permanently',
-                    'drawn face down',
+                    'Cards played previously',
+                    'this Ante are',
+                    'drawn face down'
                 },
             },
             bl_aij_the_solid = {
