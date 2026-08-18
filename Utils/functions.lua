@@ -2024,12 +2024,27 @@ function reset_the_heart_blind()
     local chosen_hand = pseudorandom_element(hands, pseudoseed('jest_the_heart_blind'..G.GAME.round_resets.ante))
     G.GAME.current_round.aij_the_heart = {hand = chosen_hand or "Two Pair"}
 end
-
+function reset_jest_hangman_card()
+    G.GAME.current_round.aij_hangman_card = { rank = 'Ace', suit = 'Spades' }
+    local valid_hangman_cards = {}
+    for _, playing_card in ipairs(G.playing_cards) do
+        if not SMODS.has_no_suit(playing_card) and not SMODS.has_no_rank(playing_card) then
+            valid_hangman_cards[#valid_hangman_cards + 1] = playing_card
+        end
+    end
+    local hangman_card = pseudorandom_element(valid_hangman_cards, 'vremade_idol' .. G.GAME.round_resets.ante)
+    if hangman_card then
+        G.GAME.current_round.aij_hangman_card.rank = hangman_card.base.value
+        G.GAME.current_round.aij_hangman_card.suit = hangman_card.base.suit
+        G.GAME.current_round.aij_hangman_card.id = hangman_card.base.id
+    end
+end
 function All_in_Jest.reset_game_globals(run_start)
     -- Globals for a single blind (like Idol)
     reset_jest_magick_joker_card()
     reset_jest_you_broke_it_card()
     reset_jest_lavatch_card()
+    reset_jest_hangman_card()
     G.GAME.jest_shop_perma_free = false
 
     reset_jest_visage_cards()
@@ -3427,6 +3442,8 @@ end
 
 All_in_Jest.load_shaders = function()
     G.SHADERS['aij_wood_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/wood_spritesheet.fs"))
+    G.SHADERS['aij_wood_new_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/wood_new_spritesheet.fs"))
+    G.SHADERS['aij_wood_hc_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/wood_hc_spritesheet.fs"))
     G.SHADERS['aij_burnt_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/burnt_spritesheet.fs"))
     G.SHADERS['aij_fusion_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/fusion_spritesheet.fs"))
 end

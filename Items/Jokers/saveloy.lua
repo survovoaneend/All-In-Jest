@@ -1,7 +1,7 @@
 local saveloy = {
     object_type = "Joker",
     order = 942,
-
+    
     key = "saveloy",
     config = {
         extra = {

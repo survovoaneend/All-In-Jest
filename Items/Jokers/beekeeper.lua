@@ -1,7 +1,7 @@
 local beekeeper = {
     object_type = "Joker",
     order = 911,
-
+    
     key = "beekeeper",
     config = {
         extra = {

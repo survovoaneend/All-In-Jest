@@ -1,7 +1,7 @@
 local gelato = {
     object_type = "Joker",
     order = 853,
-
+    
     key = "gelato",
     config = {
         extra = {

@@ -1,7 +1,7 @@
 local jackpot = {
     object_type = "Joker",
     order = 929,
-
+    
     key = "jackpot",
     config = {
         extra = {

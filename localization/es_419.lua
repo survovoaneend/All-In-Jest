@@ -73,6 +73,17 @@ return {
                 'nombres de los Comodines ocultos',
                 '{s:0.8,C:inactive}(pero no sus descripciones)'
             },
+            aij_mult_appearance = 'Multi más común',
+            aij_mult_appearance_tooltip = {
+                'Hace que los Comodines de {C:mult}Multi{} aparezcan',
+                'más consistentemente al',
+                '{C:attention}inicio{} de una partida',
+            },
+            aij_mult_appearance_opt = {
+                'Apagado',
+                'Estándar',
+                'Fuerte',
+            },
             k_aij_guess_the_jest = "Adivina el Comodín",
             k_aij_sidereal_packs = "Paquete Sideral",
             k_aij_common_packs = "Paquete Común",
@@ -1618,6 +1629,12 @@ return {
                     '{C:inactive}"Como dicen en Francia,',
                     '{C:inactive}\'Tomaré dos.\'"',
                     "{C:inactive,s:0.7}\'Mis más sincero pésame por tu condición - Marffe\'{}"
+                },
+            },
+            j_aij_vitellary_credits_joker = {
+                name = "Vitellary",
+                text = {
+                    '{C:inactive}"Learning everything all the time"',
                 },
             },
             j_aij_rummikub = {
@@ -3999,8 +4016,7 @@ return {
                 text = {
                     "{C:mult}+#1#{} Multi si la {C:attention}mano jugada{} es",
                     "mencionada por uno de tus",
-                    "{C:attention}Comodines",
-                    "{C:inactive}({C:mult}+#2#{C:inactive} Multi)"
+                    "{C:attention}Comodines"
                 }
             },
             j_aij_spectre = {
@@ -4795,8 +4811,10 @@ return {
             j_aij_visage = { 
                 name = "Semblante",
                 text = {
-                    "Copia el efecto del",
-                    "último comodín {C:money}vendido{}",
+                    "Al jugar una mano, añade una",
+                    "{C:attention}copia temporal{} de la última carta de",
+                    "{C:attention}figura{} {C:red}destruida{} a la mano anotada",
+                    "{C:inactive}(No cambia el tipo de mano){}"
                 }
             },
             j_aij_goofball = { 
@@ -5083,9 +5101,9 @@ return {
             j_aij_bartender = { 
                 name = "Bartender", 
                 text = {
-                    "Los {C:attention}Consumibles{} pueden tener",
-                    "edición {C:dark_edition}Laminada{}, {C:dark_edition}Holográfica{}",
-                    "o {C:dark_edition}Policroma{}" 
+                    "Aplica {C:dark_edition}Laminada{}, {C:dark_edition}Holográfica{} o",
+                    "{C:dark_edition}Policroma{} a un {C:attention}consumible{} en mano",
+                    "al azar al salir de la {C:attention}Tienda"
                 } 
             },
             j_aij_mahoney = { 
@@ -5448,16 +5466,8 @@ return {
             j_aij_chef = { 
                 name = "Chef", 
                 text = {
-                    {
-                        "Los Comodines {C:attention}Perecederos{}",
-                        "sin edición se vuelven",
-                        "{C:dark_edition}Negativos{}",
-                    },
-                    {
-                        "Los Comodines {C:attention}Perecederos{}",
-                        "con {C:attention}Ediciones{}",
-                        "son más {C:money}baratos{}" 
-                    }
+                    "Los Comodines {C:attention}Perecederos{} {C:common}Comunes{}",
+                    "son {C:dark_edition}Negativos{} y {C:money}gratis{}"
                 } 
             },
             j_aij_remina = { 
@@ -5507,8 +5517,8 @@ return {
                 name = "Caída del Conde Chaligny",
                 text = { 
                     "La puntuación {C:attention}requerida{}",
-                    "de todas las {C:attention}Ciegas{}",
-                    "es la baja de la {C:attention}Apuesta{}",
+                    "de todas las {C:attention}Ciegas{} es",
+                    "{C:attention}1X{} la base",
                 } 
             },
             j_aij_coulrorachne = { 
@@ -5801,10 +5811,18 @@ return {
             j_aij_pellesini = { 
                 name = "Pellesini", 
                 text = {
-                    'Cuando cualquier Comodín se',
-                    '{C:red}destruye{}, crea una',
-                    "{C:attention}copia{} exacta{}",
-					'{C:inactive}(Debe haber espacio){}',
+                    {
+                        'Cuando cualquier Comodín se',
+                        '{C:red}destruye{}, crea una',
+                        "{C:attention}copia{} exacta{}",
+                        '{C:inactive}(Debe haber espacio){}',
+                    },
+                    {
+                        '{C:red}Destruye{} el Comodín del',
+                        '{C:attention}extremo derecho{} y gana su',
+                        '{C:money}valor de venta{} al seleccionar',
+                        'una {C:attention}Ciega{}'
+                    }
                 },
                 unlock = { 
                     "?????" 
@@ -6127,10 +6145,10 @@ return {
                 name = 'A.V.G.M',
                 text = {
                     '{B:1,C:white,s:0.8}Habilidad Activable',
-                    'Gasta {C:money}$#3#{} por una prob. de {C:green}#1# en #2#{}',
-                    'de crear al azar un {C:attention}Comodín{} ,',
-                    '{C:attention}consumible{}, {C:attention}carta de juego{},',
-                    'o {C:attention}etiqueta{}',
+                    'Gasta {C:money}$#2#{} por una prob. de {C:attention}#1#%{}',
+                    'de crear un {C:attention}Comodín{} totalmente',
+                    'al azar, un {C:attention}consumible{}, una',
+                    '{C:attention}carta de juego{} o una {C:attention}Etiqueta{}',
                 },
             },
             j_aij_aluzinnu = {
@@ -7017,6 +7035,111 @@ return {
                     },
                 },
             },
+            j_aij_autogenes = {
+                name = "Autogenes",
+                text = {
+                    {
+                        'Al {C:attention}sacar{} una nueva mano,',
+                        'se te presentan {C:attention}#1#{}',
+                        'cartas al azar de tu',
+                        '{C:attention}baraja'
+                    },
+                    {
+                        'Elige {C:attention}#2#{} para',
+                        'añadirla a tu mano'
+                    }
+                }
+            },
+            j_aij_kalyptos = {
+                name = "Kalyptos",
+                text = {
+                    {
+                        "Revela las siguientes {C:attention}#1#{}",
+                        "cartas de tu baraja",
+                    },
+                    {
+                        "{B:1,C:white,s:0.8}Habilidad Activable",
+                        "Invierte tu {C:attention}baraja{},",
+                        "sacando y revelando las",
+                        "cartas que estaban",
+                        "en el fondo"
+                    }
+                }
+            },
+            j_aij_protophanes = {
+                name = "Protophanes",
+                text = {
+                    '{C:attention}Revela{} la última carta en',
+                    'tu {C:attention}baraja',
+                    'Las {C:attention}cartas{} que compartan su {C:attention}categoría{}',
+                    'otorgan {X:mult,C:white}X#1#{} Multi'
+                }
+            },
+            j_aij_dark_presence = {
+                name = "Presencia Oscura",
+                text = {
+                    {
+                        'Reactiva los efectos {C:attention}en mano{}',
+                        'de las {C:attention}cartas de figura{}',
+                        '{C:attention}#1#{} veces adicionales',
+                    },
+                    {
+                        'Las {C:attention}cartas de figura{}',
+                        'no pueden jugarse'
+                    }
+                }
+            },
+            j_aij_hangman = {
+                name = "Colgado",
+                text = {
+                    {
+                        "Si la mano jugada contiene un {C:attention}#1#{} de {V:1}#2#{},",
+                        "crea {C:tarot}El Colgado{}",
+                        "{C:inactive}(La carta cambia cada ronda){}",
+                    },
+                    {
+                        "Si no se activa durante {C:attention}#3#{} rondas,",
+                        "se {C:red}autodestruye{} y crea una {C:tarot}Muerte{}"
+                    }
+                }
+            },
+            j_aij_vanha_erkki = {
+                name = "Vanha Erkki",
+                text = {
+                    '{X:mult,C:white}X#1#{} Multi, se activa en un',
+                    '{C:attention}momento al azar{} durante la anotación'
+                }
+            },
+            j_aij_wire_joker = {
+                name = "Comodín de cables",
+                text = {
+                    'Las {C:attention}Reinas{} anotadas otorgan',
+                    '{X:mult,C:white}X#2#{} Multi y {C:money}$#1#{}'
+                }
+            },
+            j_aij_cloth_joker = {
+                name = "Comodín de Tela",
+                text = {
+                    'Las {C:attention}Reinas{} anotadas otorgan',
+                    '{X:mult,C:white}X#2#{} Multi y {C:red}-$#1#{}'
+                }
+            },
+            j_aij_sapphic_joker = {
+                name = "Comodín Sáfico",
+                text = {
+                    'Las {C:attention}Reinas{} anotadas otorgan {C:chips}+#2#{} Fichas',
+                    'y {C:mult}+#1#{} Multi por cada {C:attention}Reina{} en',
+                    'la {C:attention}baraja{}',
+                    "{C:inactive,s:0.8}(Actualmente {C:chips,s:0.8}+#4#{}{C:inactive,s:0.8} Fichas, {C:mult,s:0.8}+#3#{}{C:inactive,s:0.8} Multi)"
+                }
+            },
+            j_aij_scott_free = {
+                name = "Scott Free",
+                text = {
+                    'Las cartas {C:attention}sin mejorar{} en mano',
+                    'al {C:attention}final de la ronda{} otorgan {C:money}$#1#{}'
+                }
+            },
         },
         Planet = {
             c_aij_vulcanoid = {
@@ -7337,8 +7460,9 @@ return {
             c_aij_scopophobia = {
                 name = 'Escopofobia',
                 text = {
-                    '{C:red}Destruye{} un {C:attention}Comodín{} al azar',
-                    'y {C:attention}todas{} las cartas en mano',
+                    'Añade un {V:1}#2#{} a',
+                    '{C:attention}#1#{} carta seleccionada',
+                    'en tu mano'
                 }
             },
             c_aij_reshape = {
@@ -8172,6 +8296,20 @@ return {
                     "{C:attention}#2#s{}"
                 }
             },
+            c_aij_beheaded = {
+                name = 'El Decapitado',
+                text = {
+                    "Aplica un {C:attention}Sticker Bomba{}",
+                    'a {C:attention}#1#{} carta seleccionada'
+                }
+            },
+            c_aij_star_magi = {
+                name = 'Estrella de los Magos',
+                text = {
+                    "{C:attention}Crea{} una carta {C:aij_astral}Astral{}",
+                    "{C:attention}Pasígrada{} al azar",
+                }
+            },
             c_aij_rising_dead = {
                 name = 'El Despertar de los Muertos',
                 text = {
@@ -8482,6 +8620,14 @@ return {
                     '{C:money}$10{} adicionales'
                 }
             },
+            aij_bomb = {
+                name = "Bomba",
+                text = {
+                    "{C:red}Se destruye{} a sí misma y a las",
+                    'cartas adyacentes después de',
+                    'jugar la mano'
+                }
+            },
             -- Seals
             aij_smiley_seal = {
                 name = "Sello Jubiloso",
@@ -8541,6 +8687,15 @@ return {
                     "{s:0.8}-Ayudó un montón con bugfixing y mejoras",
                     "{s:0.8}-Playtester principal",
                     "{s:0.8}-Se unió al equipo en septiembre de 2025"
+                }
+            },
+            vitellary_credits_info = {
+                name = "Info",
+                text = {
+                    "{s:0.8}-Ayuda con corrección de errores y pulido",
+                    "{s:0.8}-Ayuda mucho con el balance",
+                    "{s:0.8}-Jugador de Pozo Dorado",
+                    "{s:0.8}-Se unió al equipo en agosto de 2026"
                 }
             },
         }
