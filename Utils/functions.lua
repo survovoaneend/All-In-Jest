@@ -1627,7 +1627,7 @@ function All_in_Jest.has_patches(card, suit)
   return false
 end
 
-function All_in_Jest.add_patch(card, suit, instant, append)
+function All_in_Jest.add_patch(card, suit, instant, append, silent)
   if not suit then
     local keys = {}
 	  for k, v in pairs(SMODS.Suits) do
@@ -1645,8 +1645,10 @@ function All_in_Jest.add_patch(card, suit, instant, append)
         func = function() 
           card.ability.patches = card.ability.patches or {}
           card.ability.patches[suit] = true
-          play_sound('tarot1')
-          card:juice_up(0.3, 0.5)
+          if not silent then
+            play_sound('tarot1')
+            card:juice_up(0.3, 0.5)
+          end
           return true
         end
       }))
@@ -2059,6 +2061,7 @@ function All_in_Jest.reset_game_globals(run_start)
     reset_jest_you_broke_it_card()
     reset_jest_lavatch_card()
     reset_jest_hangman_card()
+	G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
 
     reset_jest_visage_cards()
