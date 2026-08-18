@@ -9,26 +9,11 @@ local palmistry = {
 	unlocked = true,
 	discovered = false,
     order = 0,
-	config ={ hand_size = 1 },
-    loc_vars = function(self, info_queue, card)
-		return {
-			vars = {
-				card.ability.consumeable.hand_size
-			},
-		}
-    end,
+	config = {},
     can_use = function(self, card)
-        if G.hand and G.hand.cards and #G.hand.cards > 0 then
-            return true 
-        end
-        return false
+        return true
     end,
 	use = function(self, card, area, copier)
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            play_sound('tarot1')
-            card:juice_up(0.3, 0.5)
-            return true end }))
-        SMODS.draw_cards(G.hand.config.card_limit)
         G.E_MANAGER:add_event(Event({func = function()
             for i=1, #G.hand.cards do
                 local percent = 1.15 - (i-0.999)/(#G.hand.cards-0.998)*0.3
@@ -41,7 +26,6 @@ local palmistry = {
                     v:set_ability(G.P_CENTERS[enhance])
                 return true end }))
             end
-            G.hand:change_size(-card.ability.consumeable.hand_size)
             for i=1, #G.hand.cards do
                 local percent = 0.85 + (i-0.999)/(#G.hand.cards-0.998)*0.3
                 G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.cards[i]:flip();play_sound('tarot2', percent, 0.6);G.hand.cards[i]:juice_up(0.3, 0.3);return true end }))

@@ -9738,21 +9738,18 @@ return {
             c_aij_reshape = {
                 name = 'Reshape',
                 text = {
-                    'Turn all {C:attention}Jokers{} into copies',
-                    'of a random held {C:attention}Joker',
-                    '{C:inactive}(Jokers keep their original',
-                    '{C:inactive}stickers and editions)'
+                    'Turn the rightmost {C:attention}50%{}',
+                    'of Jokers {C:inactive}(rounding up)',
+                    'into {C:attention}copies{} of one of them',
+                    '{C:inactive,s:0.8}(Jokers keep their original',
+                    '{C:inactive,s:0.8}stickers and editions)'
                 }
-                -- must rework
             },
             c_aij_palmistry = {
                 name = 'Palmistry',
                 text = {
-                    '{C:attention}Draw{} additional cards equal',
-                    'to your handsize, then apply',
-                    'a random {C:attention}enhancement{} to all',
-                    'cards {C:attention}held in hand',
-                    '{C:red}-#1#{} hand size'
+                    'Apply a random {C:attention}enhancement{}',
+                    'to all cards {C:attention}held in hand',
                 }
             },
             c_aij_gegenschein = {
