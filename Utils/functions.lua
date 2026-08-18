@@ -45,15 +45,29 @@ function aij_update_hand_text(area)
         text = 'Straight Flush'
     end
 
-    update_hand_text({
-        sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, 
-        volume = 0.4, 
-        immediate = true, 
-        nopulse = nil,
-        delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, 
-        {handname=disp_text, level=G.GAME.hands[calculated_text or text].level, 
-        mult = G.GAME.hands[calculated_text or text].mult, 
-        chips = G.GAME.hands[calculated_text or text].chips})
+    local backwards = nil
+    for k, v in pairs(area) do
+        if v.facing == 'back' then
+            backwards = true
+            break
+        end
+    end
+    if backwards then
+        update_hand_text({immediate = true, nopulse = nil, delay = 0}, {handname='????', level='?', mult = '?', chips = '?'})
+        for name, parameter in pairs(SMODS.Scoring_Parameters) do
+            update_hand_text({immediate = true, nopulse = nil, delay = 0}, {[name] = '?'})
+        end
+    else
+        update_hand_text({
+            sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, 
+            volume = 0.4, 
+            immediate = true, 
+            nopulse = nil,
+            delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, 
+            {handname=disp_text, level=G.GAME.hands[calculated_text or text].level, 
+            mult = G.GAME.hands[calculated_text or text].mult, 
+            chips = G.GAME.hands[calculated_text or text].chips})
+    end
     if area == G.hand.highlighted then
         if G.GAME.Astral_pins and text ~= G.aij_cur_astral_hand then
             All_in_Jest.astral_visuals(text, 'only_remove', All_in_Jest.old_colours or nil, true)      
