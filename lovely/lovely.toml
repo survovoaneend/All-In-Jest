@@ -13,8 +13,13 @@ pattern = "if self.ability.perishable and self.ability.perish_tally <= 0 then"
 position = "before"
 match_indent = true
 payload = '''
+if self.ability.aij_pc_perishable and self.ability.perish_tally <= 0 then 
+    if not self.debuff then
+        self.debuff = true
+        return
+    end
+end
 local aij_debuff_list = {
-    ['aij_pc_perishable'] = 'perish_tally',
     ['aij_spade'] = 'should_debuff',
     ['aij_diamond'] = 'should_debuff',
     ['aij_heart'] = 'should_debuff',
