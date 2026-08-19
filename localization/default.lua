@@ -1738,6 +1738,12 @@ return {
                     '{C:inactive}"we kiss on the mouth sometimes"',
                 },
             },
+            j_aij_vitellary_credits_joker = {
+                name = "Vitellary",
+                text = {
+                    '{C:inactive}"Learning everything all the time"',
+                },
+            },
             j_aij_papermoon_credits_joker = {
                 name = "Papermoon",
                 text = {
@@ -10614,8 +10620,8 @@ return {
                 name = 'The Rising of the Dead',
                 text = {
                     "Select {C:attention}#1#{} cards, give the",
-                    "{C:attention}right{} card the {C:attention}Enhancement",
-                    "and {C:attention}Seal{} of the {C:attention}left"
+                    "{C:attention}left{} card the {C:attention}Enhancement",
+                    "and {C:attention}Seal{} of the {C:attention}card"
                 }
             },
             c_aij_broken_fate = {
@@ -11157,10 +11163,19 @@ return {
             jamie_credits_info = {
                 name = "Jamie!",
                 text = {
-                    "{s:0.8}-Made art for several Joker (not yet implemented)",
+                    "{s:0.8}-Made art for several Joker (Most of which not implemented)",
                     "{s:0.8}-Good friend of Nevernamed",
                     "{s:0.8}-The team Lil Guy",
                     "{s:0.8}-Added to the team officially in June 2026"
+                },
+            },
+            vitellary_credits_info = {
+                name = "Info",
+                text = {
+                    "{s:0.8}-Helps with bugfixing and polish",
+                    "{s:0.8}-Helps a lot with balance feedback",
+                    "{s:0.8}-Gold stake player",
+                    "{s:0.8}-Added to the team in August 2026"
                 },
             },
             papermoon_credits_info = {
