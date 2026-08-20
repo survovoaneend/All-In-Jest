@@ -5413,7 +5413,7 @@ return {
                 name = "Error 404",
                 text = {
                     '{C:attention}Copies{} the ability of',
-                    'a random held {C:attention}Joker',
+                    'a random held {C:attention}Joker,',
                     '{C:attention}Changes{} every hand',
                     "{C:inactive}(Currently: {C:attention}#1#{C:inactive})"
                 }
