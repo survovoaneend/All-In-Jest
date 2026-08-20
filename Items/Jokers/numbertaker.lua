@@ -28,16 +28,28 @@ local numbertaker = {
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and not context.blueprint then
-            if not SMODS.has_no_rank(context.other_card) and not context.other_card:is_face() then
-                SMODS.scale_card(card, {
-                    ref_table = card.ability.extra,
-                    ref_value = "cur_mult",
-                    scalar_table = {value = context.other_card.base.nominal},
-                    scalar_value = "value",
-                    no_message = true
-                })
-                aij_remove_rank(context.other_card)
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
+            if not SMODS.has_no_rank(context.other_card) then
+                local numbers = {}
+                for _, v in ipairs(SMODS.Rank.obj_buffer) do
+                    local r = SMODS.Ranks[v]
+                    if v ~= 'Ace' and not r.face then numbers[v] = true end
+                end
+                local other_card_rank = context.other_card.base.value
+                if numbers[other_card_rank] then
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "cur_mult",
+                        scalar_table = {value = context.other_card.base.nominal},
+                        scalar_value = "value",
+                        no_message = true
+                    })
+                    return {
+                        func = function()
+                            aij_remove_rank(context.other_card)
+                            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
+                        end
+                    }
+                end
             end
         end
         if context.joker_main then
