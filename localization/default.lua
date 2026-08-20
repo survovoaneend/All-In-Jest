@@ -165,6 +165,7 @@ return {
             k_aij_sidereal_packs = "Sidereal Pack",
             k_aij_common_packs = "Common Pack",
             k_aij_uncommon_packs = "Uncommon Pack",
+            k_aij_rare_packs = "Rare Pack",
             k_aij_memory_card = "Memorized!",           -- Memory Card, currently unused
             aij_plus_tag = "+1 Tag",                    -- Various jokers
             aij_refreshed = 'Refreshed',                -- Office Assistant (When fixing a perishable sticker)
@@ -9261,6 +9262,19 @@ return {
                 },
                 unlock = { "?????" }
             },
+            j_aij_saluto = {
+                name = "Saluto",
+                text = {
+                    'Create a free {C:rare}Rare Pack{}',
+                    'in each shop'
+                }
+            },
+            j_aij_bell = {
+                name = "Bell",
+                text = {
+                    ''
+                }
+            },
             j_aij_de_morra = {
                 name = "de Morra",
                 text = {
@@ -10826,97 +10840,127 @@ return {
             p_aij_common_normal_1 = {
                 name = "Common Pack",
                 text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:common}Common{} Joker",
-                    "cards"
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:common}Common{} Joker cards"
                 }
             },
             p_aij_common_normal_2 = {
                 name = "Common Pack",
                 text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:common}Common{} Joker",
-                    "cards"
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:common}Common{} Joker cards"
                 }
             },
             p_aij_common_normal_3 = {
                 name = "Common Pack",
                 text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:common}Common{} Joker",
-                    "cards"
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:common}Common{} Joker cards"
                 }
             },
             p_aij_common_jumbo_1 = {
                 name = "Jumbo Common Pack",
                 text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:common}Common{} Joker",
-                    "cards"
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:common}Common{} Joker cards"
                 }
             },
             p_aij_common_jumbo_2 = {
                 name = "Jumbo Common Pack",
                 text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:common}Common{} Joker",
-                    "cards"
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:common}Common{} Joker cards"
                 }
             },
             p_aij_common_mega_1 = {
                 name = "Mega Common Pack",
                 text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:common}Common{} Joker",
-                    "cards"
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:common}Common{} Joker cards"
                 }
             },
             p_aij_uncommon_normal_1 = {
                 name = "Uncommon Pack",
                 text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:uncommon}Uncommon{} Joker",
-                    "cards"
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:uncommon}Uncommon{} Joker cards"
                 }
             },
             p_aij_uncommon_normal_2 = {
                 name = "Uncommon Pack",
                 text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:uncommon}Uncommon{} Joker",
-                    "cards"
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:uncommon}Uncommon{} Joker cards"
                 }
             },
             p_aij_uncommon_normal_3 = {
                 name = "Uncommon Pack",
                 text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:uncommon}Uncommon{} Joker",
-                    "cards"
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:uncommon}Uncommon{} Joker cards"
                 }
             },
             p_aij_uncommon_jumbo_1 = {
                 name = "Jumbo Uncommon Pack",
                 text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:uncommon}Uncommon{} Joker",
-                    "cards"
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:uncommon}Uncommon{} Joker cards"
                 }
             },
             p_aij_uncommon_jumbo_2 = {
                 name = "Jumbo Uncommon Pack",
                 text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:uncommon}Uncommon{} Joker",
-                    "cards"
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:uncommon}Uncommon{} Joker cards"
                 }
             },
             p_aij_uncommon_mega_1 = {
                 name = "Mega Uncommon Pack",
                 text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:uncommon}Uncommon{} Joker",
-                    "cards"
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:uncommon}Uncommon{} Joker cards"
+                }
+            },
+            p_aij_rare_normal_1 = {
+                name = "Rare Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:rare}Rare{} Joker cards"
+                }
+            },
+            p_aij_rare_normal_2 = {
+                name = "Rare Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:rare}Rare{} Joker cards"
+                }
+            },
+            p_aij_rare_normal_3 = {
+                name = "Rare Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:rare}Rare{} Joker cards"
+                }
+            },
+            p_aij_rare_jumbo_1 = {
+                name = "Jumbo Rare Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:rare}Rare{} Joker cards"
+                }
+            },
+            p_aij_rare_jumbo_2 = {
+                name = "Jumbo Rare Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:rare}Rare{} Joker cards"
+                }
+            },
+            p_aij_rare_mega_1 = {
+                name = "Mega Rare Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to {C:attention}#2#{}",
+                    "{C:rare}Rare{} Joker cards"
                 }
             },
             m_aij_dyscalcular_numbered_rank = {
