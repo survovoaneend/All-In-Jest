@@ -5751,3 +5751,38 @@ pattern = "create_UIBox_your_collection_stickers = function()"
 position = "before"
 payload = "-- Function overridden by All in Jest in Utils/overrides.lua"
 match_indent = true
+
+
+
+## A Far Land 1/2
+## Count cards as matching in poker hands if both are stone cards and A Far Land is owned
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "table.insert(curr, hand[j])"
+position = "after"
+payload = '''
+elseif next(SMODS.find_card("j_aij_the_far_lands")) and SMODS.has_enhancement(hand[i], 'm_stone') and SMODS.has_enhancement(hand[j], 'm_stone') and i ~= j then
+    table.insert(curr, hand[j])
+'''
+match_indent = true
+times = 1
+
+## A Far Land 2/2
+## Count matching stone cards as a different rank than their cards
+## Prevents counting 2 stone cards as two pair, 3 as full house, etc.
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "vals[curr[1]:get_id()] = curr"
+position = "at"
+payload = '''
+if next(SMODS.find_card("j_aij_the_far_lands")) and SMODS.has_enhancement(hand[i], 'm_stone') then
+    vals[SMODS.Rank.max_id.value + 1] = curr
+else
+    vals[curr[1]:get_id()] = curr
+end
+'''
+match_indent = true
+times = 1
+

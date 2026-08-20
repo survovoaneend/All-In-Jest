@@ -7071,9 +7071,10 @@ return {
                 }
             },
             j_aij_the_far_lands = {
-                name = "The Far Lands",
+                name = "A Far Land",
                 text = {
-                    ''
+                    '{C:attention}#1#s{} count as',
+                    '{C:attention}the same rank{}'
                 }
             },
             j_aij_game_cartridge = {
