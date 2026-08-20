@@ -399,6 +399,7 @@ function aij_remove_rank(card)
         func = function()
             card.ability.numbertaker_rankless = true
             card:set_sprites(nil, card.config.card)
+            card:juice_up()
             return true
         end
     }))
