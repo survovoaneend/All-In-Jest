@@ -9,7 +9,7 @@ local wire_joker = {
             dollars = 4
         }
     },
-    attributes = {},
+    attributes = { "queen", "economy", "xmult" },
     rarity = 3,
     pos = { x = 16, y = 35},
     atlas = 'joker_atlas',

@@ -6,7 +6,7 @@ local lead = {
     config = {
 
     },
-    attributes = {},
+    attributes = { 'retrigger', 'hand_type' },
     rarity = 2,
     pos = { x = 19, y = 32},
     atlas = 'joker_atlas',

@@ -3,7 +3,7 @@ local saluto = {
 	order = 1077,
 	key = "saluto",
 	config = {},
-	attributes = {},
+	attributes = { "generation" },
 	rarity = 4,
 	pos = { x = 3, y = 14 },
 	atlas = "legendary_atlas",

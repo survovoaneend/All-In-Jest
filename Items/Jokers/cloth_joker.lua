@@ -9,7 +9,7 @@ local cloth_joker = {
             dollars = 4
         }
     },
-    attributes = {},
+    attributes = { "queen", "xmult", "lose_economy" },
     rarity = 3,
     pos = { x = 17, y = 35},
     atlas = 'joker_atlas',

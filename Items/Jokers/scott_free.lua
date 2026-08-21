@@ -8,7 +8,7 @@ local scott_free = {
             dollars = 2
         }
     },
-    attributes = {},
+    attributes = { "economy" },
     rarity = 2,
     pos = { x = 12, y = 45},
     atlas = 'joker_atlas',

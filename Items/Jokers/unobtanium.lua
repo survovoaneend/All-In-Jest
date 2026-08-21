@@ -6,7 +6,7 @@ local unobtanium = {
     config = {
 
     },
-    attributes = {},
+    attributes = { 'retrigger', 'hand_type' },
     rarity = 2,
     pos = { x = 23, y = 32},
     atlas = 'joker_atlas',

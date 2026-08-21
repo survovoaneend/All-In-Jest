@@ -6,7 +6,7 @@ local iron = {
     config = {
 
     },
-    attributes = {},
+    attributes = { 'retrigger', 'hand_type' },
     rarity = 2,
     pos = { x = 13, y = 32},
     atlas = 'joker_atlas',
