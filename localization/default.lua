@@ -7775,7 +7775,10 @@ return {
             j_aij_copycat = {
                 name = "Copycat",
                 text = {
-                    ''
+                    'After {C:attention}#2#{} rounds, {C:money}sell{} this joker',
+                    'to create a random {C:attention}copy joker{}',
+                    "{C:inactive}(Must have room){}",
+                    "{C:inactive}(Currently {C:attention}#1#{C:inactive}/#2#)",
                 }
             },            
             j_aij_conspiracy_theorist = {
