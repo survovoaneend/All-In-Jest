@@ -3585,10 +3585,9 @@ return {
             j_aij_postcard_from_perdition_trail = {
                 name = "Postcard from Perdition Trail",
                 text = {
-                    "All scoring cards with {C:attention}seals{} have",
-                    "their seals {C:red}removed{} and this Joker",
-                    "gains {X:mult,C:white}X#2#{} Mult for each",
-                    "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
+                    "Scoring cards with {C:attention}seals{} have",
+                    "their seals {C:red}removed{}, then",
+                    "{C:attention}permanently{} gain {X:mult,C:white}X#1#{} Mult"
                 }
             },
             j_aij_mr_lonely = {
@@ -5048,10 +5047,9 @@ return {
             j_aij_pure_baseball_card = {
                 name = "Pure Baseball Card",
                 text = {
-                    "{C:uncommon}Uncommon{} and {C:rare}Rare",
-                    "{C:attention}Jokers{} permanently gain",
-                    "{X:mult,C:white}X#1#{} Mult when {C:attention}Blind{} is",
-                    "{C:attention}defeated"
+                    "{C:rare}Rare {C:attention}Jokers{} permanently",
+                    "gain {X:mult,C:white}X#1#{} Mult when",
+                    "{C:attention}Blind{} is {C:attention}defeated"
                 }
             },
             j_aij_rock_n_roll_clown = {
@@ -6478,8 +6476,8 @@ return {
             j_aij_psycho = {
                 name = "Psycho",
                 text = {
-                    'When {C:attention}Blind{} is selected',
-                    '{C:red}destroy{} Joker to the {C:attention}left',
+                    "{B:1,C:white,s:0.8}Activated Ability",
+                    '{C:red}Destroy{} Joker to the {C:attention}left',
                     'and gain {X:mult,C:white}X#1#{} Mult per {C:money}$1',
                     'of its {C:money}sell value{}',
                     '{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult){}'

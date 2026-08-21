@@ -28,7 +28,7 @@ local pure_baseball_card = {
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval and G.jokers and #G.jokers.cards > 0 then
             for k, v in pairs(G.jokers.cards) do
-                if v.config.center.rarity == 2 or v.config.center.rarity == 3 then
+                if v:is_rarity("Rare") then
                     v.ability.perma_x_mult = v.ability.perma_x_mult or 0
                     v.ability.perma_x_mult = v.ability.perma_x_mult + card.ability.extra.x_mult_mod
                     card_eval_status_text(v, 'extra', nil, nil, nil, {
