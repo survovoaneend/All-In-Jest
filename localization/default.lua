@@ -10535,7 +10535,8 @@ return {
                     "{C:red}Destroy{} {C:attention}1{} selected",
                     "Joker and earn triple",
                     "its {C:money}sell value",
-                    "{C:inactive}(Currently{} {C:money}$#1#{}{C:inactive}){}"
+                    "{C:inactive}(Currently{} {C:money}$#1#{}{C:inactive}){}",
+                    "{C:inactive}(Max of {C:money}$#2#{C:inactive})"
                 }
             },
             c_aij_osiris_controller = {
