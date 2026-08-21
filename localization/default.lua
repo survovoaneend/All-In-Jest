@@ -7580,7 +7580,9 @@ return {
             j_aij_circus_monkey = {
                 name = "Circus Monkey",
                 text = {
-                    ''
+                    'When Blind is {C:attention}selected{},',
+                    '{C:attention}leftmost{} Joker permanently',
+                    'gains {C:mult}+#1#{} Mult'
                 }
             },            
             j_aij_bottle_opener = {
