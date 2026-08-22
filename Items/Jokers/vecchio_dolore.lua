@@ -30,6 +30,7 @@ local vecchio_dolore = {
                             local temp_card = create_card('Joker', G.jokers, nil, nil, nil, nil, v.config.center.key, 'vecchio_dolore')
                             temp_card:set_edition({ negative = true })
                             temp_card:start_materialize()
+                            temp_card:add_to_deck()
                             G.jokers:emplace(temp_card)
                         elseif v.config.center.consumeable then
                             local temp_card = create_card('Consumeables', G.consumeables, nil, nil, nil, nil, v.config.center.key, 'vecchio_dolore')
