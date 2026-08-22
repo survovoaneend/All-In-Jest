@@ -9365,7 +9365,10 @@ return {
             j_aij_pengelding = {
                 name = "Pengelding",
                 text = {
-                    ''
+                    'Cards held in hand give {X:mult,C:white}X#3#{}',
+                    'Mult, increases by {X:mult,C:white}X#1#{} per',
+                    '{C:money}$#2#{} of {C:money}sell value{} in all',
+                    'owned Jokers'
                 }
             },            
             j_aij_robin = {
@@ -9396,6 +9399,21 @@ return {
                 name = "Moros",
                 text = {
                     ''
+                }
+            },
+            j_aij_marceau = {
+                name = "Marceau",
+                text = {
+                    'Retrigger all {C:attention}on discard{}',
+                    'and {C:attention}held in hand{} effects',
+                    '{C:attention}#1#{} additional times'
+                }
+            },
+            j_aij_servillus = {
+                name = "Servilius",
+                text = {
+                    'Create a {C:attention}Nonstandard Tag{} when',
+                    '{C:attention}Boss Blind{} is defeated'
                 }
             },
         },
