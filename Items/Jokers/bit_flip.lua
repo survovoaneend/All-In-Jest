@@ -5,15 +5,15 @@ local bit_flip = {
     key = "bit_flip",
     config = {
         extra = {
-            odds = 3,
+            odds = 2,
             score_mod = 1
         }
     },
     attributes = { 'chance', 'score' },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 14, y = 44},
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

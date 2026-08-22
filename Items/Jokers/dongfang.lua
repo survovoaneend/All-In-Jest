@@ -17,7 +17,7 @@ local dongfang = {
     cost = 20,
     unlocked = false,
     discovered = false,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     soul_pos = { x = 1, y = 7},
   
