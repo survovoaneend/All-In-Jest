@@ -10640,7 +10640,7 @@ return {
                 text = {
                     "Select {C:attention}#1#{} cards, give the",
                     "{C:attention}left{} card the {C:attention}Enhancement",
-                    "and {C:attention}Seal{} of the {C:attention}card"
+                    "and {C:attention}Seal{} of the {C:attention}right"
                 }
             },
             c_aij_broken_fate = {
