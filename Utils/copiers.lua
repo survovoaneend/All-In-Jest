@@ -134,6 +134,8 @@ All_in_Jest.set_copied_ability = function(copier_card, center_to_copy, ability_t
             k == 'bonus' or
             k == 'name' or
             k == 'key' or
+            k == 'card_limit' or
+            k == 'extra_slots_used' or
             SMODS.Stickers[k] ~= nil
         ) then
             if type(v) == 'table' then
