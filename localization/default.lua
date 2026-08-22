@@ -8180,7 +8180,10 @@ return {
             j_aij_haunted_maze = {
                 name = "Haunted Maze",
                 text = {
-                    ''
+                    'If played hand contains a',
+                    '{C:attention}Straight{}, scoring cards give',
+                    '{C:mult}Mult{} equal to the number of',
+                    'times hand has been played',
                 }
             },            
             j_aij_saveloy = {
@@ -8551,7 +8554,9 @@ return {
             j_aij_tangled_joker = {
                 name = "Tangled Joker",
                 text = {
-                    ''
+                    '{C:chips}+#1#{} Chips for each {C:attention}Joker{} held',
+                    '{C:mult}+#2#{} Mult per empty {C:attention}Joker slot',
+                    "{C:inactive,s:0.8}(Currently {C:chips,s:0.8}+#3#{}{C:inactive,s:0.8} Chips, {C:mult,s:0.8}+#4#{}{C:inactive,s:0.8} Mult)",
                 }
             },            
             j_aij_emptyhead = {
