@@ -9,7 +9,7 @@ local pangram = {
             xmult_base = 1,
         }
     },
-    attributes = {},
+    attributes = {'xmult', 'rank'},
     rarity = 2,
     pos = { x = 6, y = 45},
     atlas = 'joker_atlas',

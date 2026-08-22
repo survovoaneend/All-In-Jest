@@ -8436,7 +8436,9 @@ return {
             j_aij_atemporal_taco = {
                 name = "Atemporal Taco",
                 text = {
-                    ''
+                    '{C:green}#1# in #2#{} chance to',
+                    '{C:red}self-destruct{} at end of round,',
+                    '{C:attention}-#3# Ante{} when {C:red}destroyed'
                 }
             },            
             j_aij_pangram = {
