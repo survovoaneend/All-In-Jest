@@ -8442,7 +8442,9 @@ return {
             j_aij_pangram = {
                 name = "Pangram",
                 text = {
-                    ''
+                    'Gains {X:mult,C:white}X#1#{} Mult per {C:attention}unique{}',
+                    'rank {C:attention}held in hand{}',
+                    '{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult)'
                 }
             },            
             j_aij_sensational_news = {
