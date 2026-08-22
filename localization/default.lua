@@ -8479,7 +8479,10 @@ return {
             j_aij_buzzy_bee = {
                 name = "Buzzy Bee",
                 text = {
-                    ''
+                    '{C:attention}6s{} held in hand{} give',
+                    '{C:chips}+#1#{} Chips per {C:attention}6{} in',
+                    '{C:attention}full deck',
+                    '{C:inactive}(Currently {C:chips}+#2#{}{C:inactive} Chips)'
                 }
             },            
             j_aij_scott_free = {
