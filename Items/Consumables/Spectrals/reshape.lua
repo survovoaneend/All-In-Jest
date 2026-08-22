@@ -58,9 +58,11 @@ local reshape = {
                                 end
                             end
                         end
+                        targets[i]:remove_from_deck(true)
                         targets[i]:set_edition(nil, true, true)
                         copy_card(selected_joker, targets[i], nil, nil, true)
                         targets[i]:set_edition(original_edition, true, true)
+                        targets[i]:add_to_deck(true)
                         for k, _ in pairs(G.shared_stickers) do
                             if original_stickers[k] then
                                 targets[i].ability[k] = original_stickers[k]
