@@ -1454,9 +1454,15 @@ return {
             m_aij_simulated = {
                 name = "Simulated Card",
                 text = {
-                    '{C:attention}Returns{} to hand',
-                    'when played for the',
-                    '{C:attention}first{} time each round'
+                    {
+                        '{C:attention}Returns{} to hand',
+                        'when played for the',
+                        '{C:attention}first{} time each round'
+                    },
+                    {
+                        '{C:attention}+#1#{} hand size while {C:attention}held',
+                        'after returning',
+                    }
                 }
             },
             m_aij_canvas = {
