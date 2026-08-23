@@ -1460,8 +1460,9 @@ return {
                         '{C:attention}first{} time each round'
                     },
                     {
-                        '{C:attention}+#1#{} hand size while {C:attention}held',
-                        'after returning',
+                        'Discarding {C:attention}only',
+                        '{C:attention}Simulated{} cards does',
+                        '{C:attention}not{} consume a {C:red}discard{}'
                     }
                 }
             },

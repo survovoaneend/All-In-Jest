@@ -1046,6 +1046,54 @@ end
 '''
 match_indent = true
 
+# Simulated Cards (1/2)
+# Make discard button always active if only simulated cards are highlighted
+# G.FUNCS.can_discard
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "if G.GAME.current_round.discards_left <= 0 or #G.hand.highlighted <= 0 or #G.hand.highlighted > math.max(G.GAME.starting_params.discard_limit, 0) then "
+position = "before"
+payload = '''
+if #G.hand.highlighted > 0 then
+    local aij_only_simulated = true
+    for k, v in pairs(G.hand.highlighted) do
+        if not (SMODS.get_enhancements(v).m_aij_simulated or All_in_Jest.get_inherent_effects(v, 'enhancement', nil, true).m_aij_simulated) or v.debuff then
+            aij_only_simulated = false
+            break
+        end
+    end
+    if aij_only_simulated then
+        e.config.colour = G.C.RED
+        e.config.button = 'discard_cards_from_highlighted'
+        return
+    end
+end
+'''
+match_indent = true
+
+# Simulated Cards (2/2)
+# Don't consume discard if hand is all simulated cards
+# G.FUNCS.evaluate_play()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "ease_discard(-1)"
+position = "at"
+payload = '''
+local aij_only_simulated = true
+for k, v in pairs(G.hand.highlighted) do
+    if not (SMODS.get_enhancements(v).m_aij_simulated or All_in_Jest.get_inherent_effects(v, 'enhancement', nil, true).m_aij_simulated) or v.debuff then
+        aij_only_simulated = false
+        break
+    end
+end
+if not aij_only_simulated then
+    ease_discard(-1)
+end
+'''
+match_indent = true
+
 # Adds a context used to modify the hand type that was played
 # G.FUNCS.evaluate_play()
 [[patches]] 
