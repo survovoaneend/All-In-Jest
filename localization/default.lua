@@ -190,6 +190,7 @@ return {
             k_aij_empty_ex = "Empty!",                   -- Tumbler
             k_aij_editioned_ex = "Editioned!",           -- Stave
             k_aij_destroyed_ex = "Destroyed!",
+            k_aij_plus_consumable = "+1 Consumable",     -- Dizzy Lizzy and Pour One Out
             k_aij_create = "Create",                     -- Nonstandard tag
 
         },
@@ -7317,6 +7318,37 @@ return {
                     '{C:attention}random point{} during scoring'
                 }
             },
+            j_aij_chromatic_aberrant = {
+                name = "Chromatic Aberrant",
+                text = {
+                    {
+                        '{C:green}+#5#{} Odds this hand if',
+                        'hand contains a {C:attention}Straight{} or',
+                        'a {C:attention}Flush'
+                    },
+                    {
+                        '{C:green}+#3{} Odds {C:attention}permanently{} if',
+                        'hand contains a {C:attention}Straight Flush',
+                        '{C:inactive}(Currently {C:green}+#1#{} {C:inactive}Odds)',
+                        '{C:inactive}(Max of {C:green}+#2#{} {C:inactive}Odds)'
+                    }
+                }
+            },
+            j_aij_earl = {
+                name = "Earl",
+                text = {
+                    '{C:attention}Kings{} held in',
+                    'hand earn {C:money}$#1#'
+                }
+            },
+            j_aij_grumpy_gus = {
+                name = "Grumpy Gus",
+                text = {
+                    '{C:mult}+#1#{} Mult per unused',
+                    '{C:red}discard{} this run',
+                    '{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)'
+                }
+            },
             j_aij_farceur = {
                 name = "Farceur",
                 text = {
@@ -8245,7 +8277,11 @@ return {
             j_aij_master_of_pegs = {
                 name = "Master of Pegs",
                 text = {
-                    ''
+                    'Gains {X:mult,C:white}X#1#{} Mult per {C:attention}enhanced{}',
+                    'card in {C:attention}full deck{}, only triggers if {C:attention}no',
+                    '{C:attention}enhanced{} cards are in {C:attention}remaining deck{}',
+                    '{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult)',
+                    '{C:inactive}#3#'
                 }
             },            
             j_aij_emergent_pattern = {
@@ -8664,7 +8700,8 @@ return {
             j_aij_pour_one_out = {
                 name = "Pour One Out",
                 text = {
-                    ''
+                    'Create a random {C:attention}consumable{} every',
+                    '{C:attention}#1#{} {C:inactive}[#2#]{} discarded cards'
                 }
             },            
             j_aij_suspend = {
