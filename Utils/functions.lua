@@ -1977,7 +1977,16 @@ function reset_handsome_joker_card()
         G.GAME.current_round.jest_handsome_joker_card.rank = jest_handsome_card.base.value
         G.GAME.current_round.jest_handsome_joker_card.id = jest_handsome_card.base.id
     end
-    G.GAME.current_round.jest_handsome_joker_card.enhancement = SMODS.poll_enhancement({guaranteed = true, no_replace = true, key = 'handsome'..G.GAME.round_resets.ante})
+    G.GAME.current_round.jest_handsome_joker_card.enhancement = SMODS.poll_enhancement({guaranteed = true, no_replace = true, key = 'handsome'..G.GAME.round_resets.ante, filter = function(pool)
+        local new_pool = {}
+        for _,v in ipairs(pool) do
+            local center = G.P_CENTERS[v.key]
+            if center and not (center.replace_base_card or center.overrides_base_rank) then
+                new_pool[#new_pool+1] = v
+            end
+        end
+        return new_pool
+    end})
 end
 function reset_the_auroch_blind()
     local common_suit, common_rank = nil, nil
