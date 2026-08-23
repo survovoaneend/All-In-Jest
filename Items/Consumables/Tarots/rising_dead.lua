@@ -7,17 +7,17 @@ local rising_dead_tarot = {
 	unlocked = true,
 	discovered = false,
 	order = 18,
-	config = { max_highlight = 2 },
+	config = { max_highlighted = 2 },
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
-				card.ability.max_highlight,
+				card.ability.max_highlighted,
 			}
 		}
 	end,
 	can_use = function(self, card)
-        if G.hand and (#G.hand.highlighted == card.ability.max_highlight) then
+        if G.hand and (#G.hand.highlighted == card.ability.max_highlighted) then
 			local conv_card = G.hand.highlighted[1]
 			for i=1, #G.hand.highlighted do if G.hand.highlighted[i].T.x > conv_card.T.x then conv_card = G.hand.highlighted[i] end end
 			if conv_card.config.center ~= G.P_CENTERS.c_base or conv_card.seal then

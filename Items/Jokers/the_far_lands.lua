@@ -2,32 +2,48 @@ local the_far_lands = {
     object_type = "Joker",
     order = 654,
     key = "the_far_lands",
-    ignore = true,
     config = {
         extra = {
             
         }
     },
-    attributes = {},
-    rarity = 1,
+    attributes = {"enhancements", "modify_card", "passive"},
+    rarity = 2,
     pos = { x = 11, y = 29 },
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 7,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                
-            }
-        }
-    end,
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
+		return {
+			vars = {
+				localize { type = 'name_text', set = 'Enhanced', key = "m_stone" }
+			}
+		}
+	end,
 
     calculate = function(self, card, context)
         
-    end
+    end,
+
+    in_pool = function(self, args)
+        local stone = 0
+        if G.GAME and G.playing_cards then
+            for _, card in ipairs(G.playing_cards) do
+                if SMODS.has_enhancement(card, 'm_stone') then
+                    stone = stone + 1
+                end
+            end
+        end
+        if stone > 0 then
+            return true
+        else
+            return false
+        end
+    end,
 }
 return { name = {"Jokers"}, items = {the_far_lands} }

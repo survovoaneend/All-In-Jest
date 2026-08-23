@@ -21,7 +21,9 @@ local beheaded_tarot = {
 		}
 	end,
 	can_use = function(self, card)
-        return G.STATE == G.STATES.SELECTING_HAND and #G.hand.highlighted == card.ability.max_highlighted
+        if G.hand and (#G.hand.highlighted <= card.ability.max_highlighted and #G.hand.highlighted > 0) then
+            return true
+        end
     end,
 
     use = function(self, card, area, copier)

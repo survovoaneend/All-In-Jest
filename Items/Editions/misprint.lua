@@ -16,13 +16,23 @@ SMODS.Sound {
   key = 'misprint',
   path = 'misprinted.mp3'
 }
+
+local aij_precision_fix = function(card, x) --hopefully fixes precision
+    local n = 4
+    local snapped = (x >= 0 and math.floor(x * n + 0.5) or math.ceil(x * n - 0.5)) / n
+
+    if snapped < (card.edition.min_mult * 0.01) then return (card.edition.min_mult * 0.01) end
+    if snapped > (card.edition.max_mult * 0.01) then return (card.edition.max_mult * 0.01) end
+    return snapped
+end
+
 local misprint = {
     object_type = "Edition",
     key = 'misprint', 
     sound = {
         sound = 'aij_misprint',
         per = 1,
-        vol = 1
+        vol = 0.7
     },
     order = 3,
     config = { min_mult = 50, max_mult = 300, mult = 1, prevmult = "1" },
@@ -102,14 +112,6 @@ local misprint = {
         card.ability.jest_misprint_active = nil
     end,
     calculate = function(self, card, context)
-        function aij_precision_fix(card, x) --hopefully fixes precision
-            local n = 4
-            local snapped = (x >= 0 and math.floor(x * n + 0.5) or math.ceil(x * n - 0.5)) / n
-
-            if snapped < (card.edition.min_mult * 0.01) then return (card.edition.min_mult * 0.01) end
-            if snapped > (card.edition.max_mult * 0.01) then return (card.edition.max_mult * 0.01) end
-            return snapped
-        end
 		if context.before then --context.after causes problems
             local value = pseudorandom('jest_misprint_mult', card.edition.min_mult, card.edition.max_mult) * 0.01
             card.edition.mult = aij_precision_fix(card, value)

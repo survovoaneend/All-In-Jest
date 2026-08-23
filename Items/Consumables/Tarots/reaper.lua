@@ -7,17 +7,17 @@ local reaper = {
 	unlocked = true,
 	discovered = false,
 	order = 12,
-	config = { max_highlight = 3 },
+	config = { max_highlighted = 3 },
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
-				card.ability.max_highlight,
+				card.ability.max_highlighted,
 			}
 		}
 	end,
 	can_use = function(self, card)
-        if G.hand and (#G.hand.highlighted == card.ability.max_highlight) then
+        if G.hand and (#G.hand.highlighted == card.ability.max_highlighted) then
             return true
         end
     end,

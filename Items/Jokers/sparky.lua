@@ -7,7 +7,7 @@ local sparky = {
             
         }
     },
-    attributes = {},
+    attributes = { 'enhancements' },
     rarity = 2,
     pos = { x = 7, y = 23 },
     atlas = 'joker_atlas',

@@ -6,8 +6,7 @@ local silly_sausage = {
     config = {
         extra = {
             current_discount = 4,
-            discount_loss = 1,
-            prev_discount = "0"
+            discount_loss = 1
         }
     },
     attributes = { 'economy', 'reroll', 'shop' },
@@ -34,40 +33,32 @@ local silly_sausage = {
 
     add_to_deck = function(self, card, from_debuff)
         G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.current_discount
-        G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - card.ability.extra.current_discount)
-        card.ability.extra.prev_discount = tostring(card.ability.extra.current_discount)
+        calculate_reroll_cost(true)
     end,
+
     remove_from_deck = function(self, card, from_debuff)
         G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + card.ability.extra.current_discount
-        G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost + card.ability.extra.current_discount)
+        calculate_reroll_cost(true)
     end,
   
     calculate = function(self, card, context)
         if context.end_of_round and not context.blueprint and context.main_eval then
-            local discount_this_round = card.ability.extra.current_discount
-            if card.ability.extra.current_discount > 0 then
-                if tonumber(card.ability.extra.prev_discount) ~= card.ability.extra.current_discount then
-                    local removeamt = card.ability.extra.current_discount - tonumber(card.ability.extra.prev_discount) 
-                    G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - removeamt
-                end
-                G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + discount_this_round
-
-                if card.ability.extra.current_discount - card.ability.extra.discount_loss <= 0 then
-                    SMODS.destroy_cards(card, nil, nil, true)
-                    return {
-                        message = localize('k_eaten_ex'),
-                        colour = G.C.RED
-                    }
-                else
-                    card.ability.extra.current_discount = card.ability.extra.current_discount - card.ability.extra.discount_loss
-                    card_eval_status_text(card, 'extra', nil, nil, nil, { message = "-$" .. card.ability.extra.discount_loss .. " Discount", colour = G.C.RED })
-                    G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - card.ability.extra.current_discount
-                    card.ability.extra.prev_discount = tostring(card.ability.extra.current_discount)
-                end
+            if card.ability.extra.current_discount - card.ability.extra.discount_loss <= 0 then
+                SMODS.destroy_cards(card, nil, nil, true)
+                return {
+                    message = localize('k_eaten_ex'),
+                    colour = G.C.RED
+                }
+            else
+                card.ability.extra.current_discount = card.ability.extra.current_discount - card.ability.extra.discount_loss
+                G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + card.ability.extra.discount_loss
                 calculate_reroll_cost(true)
+                return {
+                    message = "-$" .. card.ability.extra.discount_loss .. " Discount",
+                    colour = G.C.RED
+                }
             end
         end
     end
-  
 }
-return { name = {"Jokers"}, items = {silly_sausage} }
+return { name = {"Jokers"}, items = { silly_sausage } }

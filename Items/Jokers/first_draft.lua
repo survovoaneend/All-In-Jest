@@ -6,7 +6,7 @@ local first_draft = {
     config = {
 
     },
-    attributes = {},
+    attributes = { 'copying' },
     rarity = 3,
     pos = { x = 9, y = 35},
     atlas = 'joker_atlas',

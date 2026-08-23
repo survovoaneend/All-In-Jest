@@ -45,15 +45,29 @@ function aij_update_hand_text(area)
         text = 'Straight Flush'
     end
 
-    update_hand_text({
-        sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, 
-        volume = 0.4, 
-        immediate = true, 
-        nopulse = nil,
-        delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, 
-        {handname=disp_text, level=G.GAME.hands[calculated_text or text].level, 
-        mult = G.GAME.hands[calculated_text or text].mult, 
-        chips = G.GAME.hands[calculated_text or text].chips})
+    local backwards = nil
+    for k, v in pairs(area) do
+        if v.facing == 'back' then
+            backwards = true
+            break
+        end
+    end
+    if backwards then
+        update_hand_text({immediate = true, nopulse = nil, delay = 0}, {handname='????', level='?', mult = '?', chips = '?'})
+        for name, parameter in pairs(SMODS.Scoring_Parameters) do
+            update_hand_text({immediate = true, nopulse = nil, delay = 0}, {[name] = '?'})
+        end
+    else
+        update_hand_text({
+            sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, 
+            volume = 0.4, 
+            immediate = true, 
+            nopulse = nil,
+            delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, 
+            {handname=disp_text, level=G.GAME.hands[calculated_text or text].level, 
+            mult = G.GAME.hands[calculated_text or text].mult, 
+            chips = G.GAME.hands[calculated_text or text].chips})
+    end
     if area == G.hand.highlighted then
         if G.GAME.Astral_pins and text ~= G.aij_cur_astral_hand then
             All_in_Jest.astral_visuals(text, 'only_remove', All_in_Jest.old_colours or nil, true)      
@@ -385,6 +399,7 @@ function aij_remove_rank(card)
         func = function()
             card.ability.numbertaker_rankless = true
             card:set_sprites(nil, card.config.card)
+            card:juice_up()
             return true
         end
     }))
@@ -1613,7 +1628,7 @@ function All_in_Jest.has_patches(card, suit)
   return false
 end
 
-function All_in_Jest.add_patch(card, suit, instant, append)
+function All_in_Jest.add_patch(card, suit, instant, append, silent)
   if not suit then
     local keys = {}
 	  for k, v in pairs(SMODS.Suits) do
@@ -1631,8 +1646,10 @@ function All_in_Jest.add_patch(card, suit, instant, append)
         func = function() 
           card.ability.patches = card.ability.patches or {}
           card.ability.patches[suit] = true
-          play_sound('tarot1')
-          card:juice_up(0.3, 0.5)
+          if not silent then
+            play_sound('tarot1')
+            card:juice_up(0.3, 0.5)
+          end
           return true
         end
       }))
@@ -2045,6 +2062,7 @@ function All_in_Jest.reset_game_globals(run_start)
     reset_jest_you_broke_it_card()
     reset_jest_lavatch_card()
     reset_jest_hangman_card()
+	G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
 
     reset_jest_visage_cards()

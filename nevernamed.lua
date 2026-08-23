@@ -355,6 +355,7 @@ assert(SMODS.load_file('Utils/hooks.lua'))()
 assert(SMODS.load_file('Utils/overrides.lua'))()
 assert(SMODS.load_file('Utils/ui.lua'))()
 assert(SMODS.load_file('Utils/copiers.lua'))()
+if false then assert(SMODS.load_file('Utils/dev_tab.lua'))() end
 if next(SMODS.find_mod("unBlindShopGUI")) then
     assert(SMODS.load_file('Utils/UnBlind_crossmod.lua'))()
 end

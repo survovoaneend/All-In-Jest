@@ -8,7 +8,7 @@ local cerium = {
             retriggers = 2
         }
     },
-    attributes = {},
+    attributes = { 'retrigger', 'hand_type' },
     rarity = 2,
     pos = { x = 20, y = 32},
     atlas = 'joker_atlas',

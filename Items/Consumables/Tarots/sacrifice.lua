@@ -7,17 +7,17 @@ local sacrifice = {
 	unlocked = true,
 	discovered = false,
 	order = 11,
-	config = { max_highlight = 1 },
+	config = { max_highlighted = 1 },
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
-				card.ability.max_highlight,
+				card.ability.max_highlighted,
 			}
 		}
 	end,
 	can_use = function(self, card)
-        if G.hand and (#G.hand.highlighted <= card.ability.max_highlight and #G.hand.highlighted > 0) then
+        if G.hand and (#G.hand.highlighted <= card.ability.max_highlighted and #G.hand.highlighted > 0) then
             return true
         end
     end,

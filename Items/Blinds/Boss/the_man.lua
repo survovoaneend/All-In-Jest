@@ -3,7 +3,7 @@ local the_man = {
     key = 'the_man',
     
     boss = {
-        min = 3,
+        min = 2,
     },
     mult = 2,
     boss_colour = HEX("95a0a9"),
@@ -12,33 +12,14 @@ local the_man = {
     order = 65,
     dollars = 5,
 
+    stay_flipped = function(self, area, card)
+        if area == G.hand and card.ability.played_this_ante then
+            return true
+        end
+    end,
 
     calculate = function(self, blind, context)
-        local temp = G.GAME.blind and G.GAME.blind.disabled
-        if temp then
-          return
-        end
-        if context.after and context.full_hand and not temp then
-          G.E_MANAGER:add_event(Event({
-            func = function()
-              blind:wiggle()
-              return true
-            end
-          }))
-          for i = 1, #context.full_hand do
-            G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.15,
-            func = function()
-                if context.full_hand[i] then
-                    context.full_hand[i].ability.aij_perma_flipped = true
-                    context.full_hand[i]:flip()
-                end
-                return true
-            end
-            }))
-          end
-        end
+
     end
 }
 return { name = {"Blinds"}, items = {the_man} }

@@ -9,6 +9,7 @@ local doctors_orders = {
             nine_tally = 0
         }
     },
+    attributes = { "xmult", "nine"},
     rarity = 2,
     pos = { x = 7, y = 11 },
     atlas = 'joker_atlas',

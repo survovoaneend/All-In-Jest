@@ -1,28 +1,54 @@
 local earl = {
     object_type = "Joker",
     order = 730,
-    ignore = true,
+    
 
     key = "earl",
     config = {
-
+        extra = {
+            dollars = 2
+        }
     },
-    attributes = {},
-    rarity = 1,
-    pos = { x = 23, y = 38},
+    attributes = {'rank', 'king', 'economy'},
+    rarity = 3,
+    pos = { x = 12, y = 33},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 10,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        return { }
+        return { 
+            vars = {
+                card.ability.extra.dollars
+            }
+        }
     end,
 
     calculate = function(self, card, context)
-
+        if context.individual and context.cardarea == G.hand and not context.end_of_round and context.other_card:get_id() == 13 then
+            if context.other_card.debuff then
+                return {
+                    message = localize('k_debuffed'),
+                    colour = G.C.RED
+                }
+            else
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
+                return {
+                    dollars = card.ability.extra.dollars,
+                    func = function()
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                G.GAME.dollar_buffer = 0
+                                return true
+                            end
+                        }))
+                    end
+                }
+            end
+        end
     end
 }
 return { name = {"Jokers"}, items = {earl} }

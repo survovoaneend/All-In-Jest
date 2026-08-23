@@ -7,13 +7,13 @@ local possession = {
 	unlocked = true,
 	discovered = false,
     order = 1,
-	config = { max_highlight = 1 },
+	config = { max_highlighted = 1 },
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.max_highlight } }
+        return { vars = { card.ability.max_highlighted } }
 	end,
     can_use = function(self, card)
-        if G.hand and (#G.hand.highlighted <= card.ability.max_highlight and #G.hand.highlighted > 0) then
+        if G.hand and (#G.hand.highlighted <= card.ability.max_highlighted and #G.hand.highlighted > 0) then
             for i = 1, #G.hand.highlighted do
                 local hand_card = G.hand.highlighted[i]
                 if hand_card.edition or hand_card.config.center.key ~= 'c_base' then

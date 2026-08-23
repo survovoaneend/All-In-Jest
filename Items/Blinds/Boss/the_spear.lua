@@ -18,18 +18,17 @@ local the_spear = {
             return
         end
         if context.all_in_jest and context.all_in_jest.before_after and not temp then
-            if (context.total_chips + G.GAME.chips >= (G.GAME.blind.chips)) then
-                for i = 1, #context.full_hand do
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'before',
-                        func = function()
-                            context.full_hand[i].ability.all_in_jest = context.full_hand[i].ability.all_in_jest or {}
-                            context.full_hand[i].ability.all_in_jest.perma_debuff = true
-                            return true
-                        end
-                    })) 
+            G.E_MANAGER:add_event(Event({
+                trigger = 'before',
+                func = function()
+                    context.scoring_hand[1]:juice_up()
+                    context.scoring_hand[1].ability.all_in_jest = context.scoring_hand[1].ability.all_in_jest or {}
+                    context.scoring_hand[1].ability.all_in_jest.perma_debuff = true
+                    blind:wiggle()
+                    return true
                 end
-            end
+            }))
+            blind.triggered = true
         end
     end
 

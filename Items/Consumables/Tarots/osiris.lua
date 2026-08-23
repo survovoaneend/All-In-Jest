@@ -4,11 +4,14 @@ local osiris = {
   set = 'Tarot',
   pos = { x = 6, y = 0 },
   cost = 3,
-
   unlocked = true,
   discovered = false,
   order = 6,
-  config = { },
+  config = {
+    extra = {
+      cap = 150
+    }
+  },
   atlas = 'consumable_atlas',
 
   loc_vars = function(self, info_queue, card)
@@ -28,9 +31,9 @@ local osiris = {
       end
     end
     if victim_card and not SMODS.is_eternal(victim_card, card) then
-      money_earned = (victim_card.sell_cost * 3)
+      money_earned = math.min((victim_card.sell_cost * 3), card.ability.extra.cap)
     end
-    return { vars = { money_earned }, key = G.CONTROLLER.HID.controller and "c_aij_osiris_controller" or "c_aij_osiris" }
+    return { vars = { money_earned, card.ability.extra.cap }, key = G.CONTROLLER.HID.controller and "c_aij_osiris_controller" or "c_aij_osiris" }
   end,
 
   can_use = function(self, card, area, copier)
@@ -65,7 +68,7 @@ local osiris = {
     end
     
     if victim_card then
-      local money_earned = (victim_card.sell_cost * 3)
+      local money_earned = math.min((victim_card.sell_cost * 3), card.ability.extra.cap)
 
       G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
         play_sound('tarot1')
