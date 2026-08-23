@@ -7322,14 +7322,14 @@ return {
                 name = "Chromatic Aberrant",
                 text = {
                     {
-                        '{C:green}+#5#{} Odds this hand if played',
-                        'hand contains a {C:attention}Straight{} or',
-                        'a {C:attention}Flush'
+                        '{C:green}+#5#{} to listed {C:green}probabilities{}',
+                        '{C:attention}this hand{} if hand contains a',
+                        '{C:attention}Straight{} or a {C:attention}Flush'
                     },
                     {
-                        '{C:green}+#3#{} Odds {C:attention}permanently{} if',
-                        'played hand contains a',
-                        '{C:attention}Straight Flush',
+                        '{C:green}+#3#{} to listed {C:green}probabilities ',
+                        '{C:attention}permanently{} if played hand',
+                        'contains a {C:attention}Straight Flush',
                         '{C:inactive}(Currently {C:green}+#1#{} {C:inactive}Odds)',
                         '{C:inactive}(Max of {C:green}+#2#{} {C:inactive}Odds)'
                     }
