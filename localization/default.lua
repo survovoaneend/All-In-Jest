@@ -7322,13 +7322,14 @@ return {
                 name = "Chromatic Aberrant",
                 text = {
                     {
-                        '{C:green}+#5#{} Odds this hand if',
+                        '{C:green}+#5#{} Odds this hand if played',
                         'hand contains a {C:attention}Straight{} or',
                         'a {C:attention}Flush'
                     },
                     {
-                        '{C:green}+#3{} Odds {C:attention}permanently{} if',
-                        'hand contains a {C:attention}Straight Flush',
+                        '{C:green}+#3#{} Odds {C:attention}permanently{} if',
+                        'played hand contains a',
+                        '{C:attention}Straight Flush',
                         '{C:inactive}(Currently {C:green}+#1#{} {C:inactive}Odds)',
                         '{C:inactive}(Max of {C:green}+#2#{} {C:inactive}Odds)'
                     }
@@ -7356,6 +7357,13 @@ return {
                     'Pay {C:money}$#1#{} to grant',
                     'this Joker {X:mult,C:white}X#3#{} Mult',
                     '{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult){}'
+                }
+            },
+            j_aij_odd_rod = {
+                name = "Odd Rod",
+                text = {
+                    '{C:attention}Retrigger{} all played',
+                    'cards with {C:attention}odd{} rank'
                 }
             },
             j_aij_dirty_deed = {
@@ -7420,6 +7428,12 @@ return {
                         '{C:attention}Face cards{} cannot',
                         'be played'
                     }
+                }
+            },
+            j_aij_bellhop = {
+                name = "Bellhop",
+                text = {
+                    '{C:attention}+#1#{} Shop Slot'
                 }
             },
             j_aij_first_draft = {

@@ -5,9 +5,9 @@ local chromatic_aberrant = {
     key = "chromatic_aberrant",
     config = {
         extra = {
-            perma_odds = 0,
-            perma_odds_max = 5,
-            perma_odds_mod = 1,
+            perm_odds = 0,
+            perm_odds_max = 5,
+            perm_odds_mod = 1,
             temp_odds = 0,
             temp_odds_mod = 1,
         }
