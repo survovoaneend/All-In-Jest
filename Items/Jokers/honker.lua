@@ -10,10 +10,10 @@ local honker = {
         }
     },
     attributes = { 'mult', 'scaling', 'enhancements' },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 3, y = 5 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 5,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
