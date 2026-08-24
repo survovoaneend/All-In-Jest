@@ -19,6 +19,7 @@ local bebe = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
     soul_pos = { x = 1, y = 9},
   
     loc_vars = function(self, info_queue, card)

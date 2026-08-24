@@ -18,6 +18,7 @@ local tangled_joker = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         local jokers_held = G.jokers and #G.jokers.cards or 0

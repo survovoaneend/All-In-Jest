@@ -16,6 +16,7 @@ local jeremy_bearimy = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
 
     pixel_size = { w = 55, h = 93 },
 

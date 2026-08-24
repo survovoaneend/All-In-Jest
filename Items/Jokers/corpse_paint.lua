@@ -17,6 +17,7 @@ local corpse_paint = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = false,
   
     loc_vars = function(self, info_queue, card)
         if All_in_Jest.config and All_in_Jest.config.no_copy_neg then

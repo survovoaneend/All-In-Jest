@@ -17,6 +17,7 @@ local mushroom_cloud = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
+    perishable_compat = true,
     all_in_jest = {
         can_use_ability = function(self, card)
             if G.jokers and #G.jokers.cards > 0 and not card.ability.using_ability then

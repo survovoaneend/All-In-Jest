@@ -17,6 +17,7 @@ local dead_president = {
   discovered = false,
   blueprint_compat = true,
   eternal_compat = false,
+  perishable_compat = true,
 
   pixel_size = { w = 46, h = 95 },
 

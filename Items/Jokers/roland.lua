@@ -16,6 +16,7 @@ local roland = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
+    perishable_compat = true,
     soul_pos = { x = 7, y = 5},
   
     loc_vars = function(self, info_queue, card)

@@ -17,6 +17,7 @@ local blind_drawn = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
 
     add_to_deck = function(self, card, from_debuff)
         if not from_debuff then

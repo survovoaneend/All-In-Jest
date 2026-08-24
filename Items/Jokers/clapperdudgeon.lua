@@ -19,7 +19,7 @@ local clapperdudgeon = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
-
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.xmult, card.ability.extra.max_dollars } }

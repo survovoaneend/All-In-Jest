@@ -17,6 +17,7 @@ local monarcho = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
+    perishable_compat = true,
     soul_pos = { x = 2, y = 1},
   
     loc_vars = function(self, info_queue, card)

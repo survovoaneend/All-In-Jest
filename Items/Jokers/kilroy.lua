@@ -23,6 +23,7 @@ local kilroy = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = false,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
         return { vars = {round_hundredth(G.GAME.all_in_jest.jest_kilroy_curvalue * card.ability.silver_multiplier_buff / 100)}}

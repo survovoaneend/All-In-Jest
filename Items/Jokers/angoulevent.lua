@@ -16,6 +16,7 @@ local angoulevent = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
     soul_pos = { x = 8, y = 7},
   
     loc_vars = function(self, info_queue, card)

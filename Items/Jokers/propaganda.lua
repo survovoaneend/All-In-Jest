@@ -17,6 +17,7 @@ local propaganda = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         local suit_counts = { Spades = 0, Hearts = 0, Clubs = 0, Diamonds = 0 }

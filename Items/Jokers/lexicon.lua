@@ -49,6 +49,7 @@ local lexicon = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
         local mult = calculate_lexicon_mult(card)

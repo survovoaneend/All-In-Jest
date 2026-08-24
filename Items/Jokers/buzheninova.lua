@@ -16,6 +16,7 @@ local buzheninova = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
+    perishable_compat = true,
     soul_pos = { x = 4, y = 9},
   
     loc_vars = function(self, info_queue, card)

@@ -18,6 +18,7 @@ local jackpot = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = false,
     enhancement_gate = 'm_lucky',
 
     loc_vars = function(self, info_queue, card)

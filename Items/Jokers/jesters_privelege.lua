@@ -15,6 +15,7 @@ local jesters_privelege = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
         if G.GAME.selected_back.effect.center.key == 'b_aij_fabled' then 

@@ -18,7 +18,7 @@ local halter_sack = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
-
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         local current_xmult = math.max(1, card.ability.extra.base_xmult - ((G.GAME.current_round.discards_used or 0) * card.ability.extra.loss))

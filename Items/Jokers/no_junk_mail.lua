@@ -16,6 +16,7 @@ local no_junk_mail = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
 
     pixel_size = { w = 55, h = 95 },
 
