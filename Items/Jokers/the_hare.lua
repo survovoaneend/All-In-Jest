@@ -1,18 +1,18 @@
 local the_hare = {
     object_type = "Joker",
     order = 966,
-    ignore = true,
+    
     key = "the_hare",
     config = {
         extra = {
-            score = 200
+            score = 300
         }
     },
     attributes = { 'score' },
     rarity = 1,
     pos = { x = 15, y = 44},
     atlas = 'joker_atlas',
-    cost = 4,
+    cost = 2,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

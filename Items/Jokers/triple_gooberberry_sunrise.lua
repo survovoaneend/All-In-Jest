@@ -1,7 +1,7 @@
 local triple_gooberberry_sunrise = {
     object_type = "Joker",
     order = 863,
-    ignore = true,
+   
     key = "triple_gooberberry_sunrise",
     config = {
         extra = {

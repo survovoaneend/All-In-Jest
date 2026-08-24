@@ -45,15 +45,29 @@ function aij_update_hand_text(area)
         text = 'Straight Flush'
     end
 
-    update_hand_text({
-        sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, 
-        volume = 0.4, 
-        immediate = true, 
-        nopulse = nil,
-        delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, 
-        {handname=disp_text, level=G.GAME.hands[calculated_text or text].level, 
-        mult = G.GAME.hands[calculated_text or text].mult, 
-        chips = G.GAME.hands[calculated_text or text].chips})
+    local backwards = nil
+    for k, v in pairs(area) do
+        if v.facing == 'back' then
+            backwards = true
+            break
+        end
+    end
+    if backwards then
+        update_hand_text({immediate = true, nopulse = nil, delay = 0}, {handname='????', level='?', mult = '?', chips = '?'})
+        for name, parameter in pairs(SMODS.Scoring_Parameters) do
+            update_hand_text({immediate = true, nopulse = nil, delay = 0}, {[name] = '?'})
+        end
+    else
+        update_hand_text({
+            sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, 
+            volume = 0.4, 
+            immediate = true, 
+            nopulse = nil,
+            delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, 
+            {handname=disp_text, level=G.GAME.hands[calculated_text or text].level, 
+            mult = G.GAME.hands[calculated_text or text].mult, 
+            chips = G.GAME.hands[calculated_text or text].chips})
+    end
     if area == G.hand.highlighted then
         if G.GAME.Astral_pins and text ~= G.aij_cur_astral_hand then
             All_in_Jest.astral_visuals(text, 'only_remove', All_in_Jest.old_colours or nil, true)      
@@ -385,6 +399,7 @@ function aij_remove_rank(card)
         func = function()
             card.ability.numbertaker_rankless = true
             card:set_sprites(nil, card.config.card)
+            card:juice_up()
             return true
         end
     }))
@@ -1613,7 +1628,7 @@ function All_in_Jest.has_patches(card, suit)
   return false
 end
 
-function All_in_Jest.add_patch(card, suit, instant, append)
+function All_in_Jest.add_patch(card, suit, instant, append, silent)
   if not suit then
     local keys = {}
 	  for k, v in pairs(SMODS.Suits) do
@@ -1631,8 +1646,10 @@ function All_in_Jest.add_patch(card, suit, instant, append)
         func = function() 
           card.ability.patches = card.ability.patches or {}
           card.ability.patches[suit] = true
-          play_sound('tarot1')
-          card:juice_up(0.3, 0.5)
+          if not silent then
+            play_sound('tarot1')
+            card:juice_up(0.3, 0.5)
+          end
           return true
         end
       }))
@@ -1960,7 +1977,16 @@ function reset_handsome_joker_card()
         G.GAME.current_round.jest_handsome_joker_card.rank = jest_handsome_card.base.value
         G.GAME.current_round.jest_handsome_joker_card.id = jest_handsome_card.base.id
     end
-    G.GAME.current_round.jest_handsome_joker_card.enhancement = SMODS.poll_enhancement({guaranteed = true, no_replace = true, key = 'handsome'..G.GAME.round_resets.ante})
+    G.GAME.current_round.jest_handsome_joker_card.enhancement = SMODS.poll_enhancement({guaranteed = true, no_replace = true, key = 'handsome'..G.GAME.round_resets.ante, filter = function(pool)
+        local new_pool = {}
+        for _,v in ipairs(pool) do
+            local center = G.P_CENTERS[v.key]
+            if center and not (center.replace_base_card or center.overrides_base_rank) then
+                new_pool[#new_pool+1] = v
+            end
+        end
+        return new_pool
+    end})
 end
 function reset_the_auroch_blind()
     local common_suit, common_rank = nil, nil
@@ -2024,12 +2050,28 @@ function reset_the_heart_blind()
     local chosen_hand = pseudorandom_element(hands, pseudoseed('jest_the_heart_blind'..G.GAME.round_resets.ante))
     G.GAME.current_round.aij_the_heart = {hand = chosen_hand or "Two Pair"}
 end
-
+function reset_jest_hangman_card()
+    G.GAME.current_round.aij_hangman_card = { rank = 'Ace', suit = 'Spades' }
+    local valid_hangman_cards = {}
+    for _, playing_card in ipairs(G.playing_cards) do
+        if not SMODS.has_no_suit(playing_card) and not SMODS.has_no_rank(playing_card) then
+            valid_hangman_cards[#valid_hangman_cards + 1] = playing_card
+        end
+    end
+    local hangman_card = pseudorandom_element(valid_hangman_cards, 'vremade_idol' .. G.GAME.round_resets.ante)
+    if hangman_card then
+        G.GAME.current_round.aij_hangman_card.rank = hangman_card.base.value
+        G.GAME.current_round.aij_hangman_card.suit = hangman_card.base.suit
+        G.GAME.current_round.aij_hangman_card.id = hangman_card.base.id
+    end
+end
 function All_in_Jest.reset_game_globals(run_start)
     -- Globals for a single blind (like Idol)
     reset_jest_magick_joker_card()
     reset_jest_you_broke_it_card()
     reset_jest_lavatch_card()
+    reset_jest_hangman_card()
+	G.GAME.shop_galloping_dominoed = false
     G.GAME.jest_shop_perma_free = false
 
     reset_jest_visage_cards()

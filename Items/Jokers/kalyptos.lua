@@ -1,7 +1,7 @@
 local kalyptos = {
     object_type = "Joker",
     order = 766,
-    ignore = true,
+
     key = "kalyptos",
     config = {
         future_sense = 5

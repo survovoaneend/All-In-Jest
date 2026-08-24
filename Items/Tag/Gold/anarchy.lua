@@ -58,7 +58,7 @@ local anarchy_tag = {
       elseif effect == "dupe_joker" then
         trigger = #G.jokers.cards > 0
       elseif effect == "ran_gold_tag" then
-        local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest Golden Tag', nil, nil, '_gold')
+        local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest_Golden_Tag', nil, nil, '_gold')
         local _gold_pool = {}
         for i = 1, #_temp_gold_pool do
           _gold_pool[i] = _temp_gold_pool[i]
@@ -281,7 +281,7 @@ local anarchy_tag = {
             G.E_MANAGER:add_event(Event({
               func = (function()
                 for i = 1, num_ran do
-                  local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest Golden Tag', nil, nil, '_gold')
+                  local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest_Golden_Tag', nil, nil, '_gold')
                   _gold_pool = {}
                   for i = 1, #_temp_gold_pool do
                     _gold_pool[i] = _temp_gold_pool[i]
@@ -333,7 +333,7 @@ local anarchy_tag = {
             return #G.jokers.cards > 0
           end
           if effect == "ran_gold_tag" then
-            local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest Golden Tag', nil, nil, '_gold')
+            local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest_Golden_Tag', nil, nil, '_gold')
             _gold_pool = {}
             for i = 1, #_temp_gold_pool do
               _gold_pool[i] = _temp_gold_pool[i]

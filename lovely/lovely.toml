@@ -13,8 +13,13 @@ pattern = "if self.ability.perishable and self.ability.perish_tally <= 0 then"
 position = "before"
 match_indent = true
 payload = '''
+if self.ability.aij_pc_perishable and self.ability.perish_tally <= 0 then 
+    if not self.debuff then
+        self.debuff = true
+        return
+    end
+end
 local aij_debuff_list = {
-    ['aij_pc_perishable'] = 'perish_tally',
     ['aij_spade'] = 'should_debuff',
     ['aij_diamond'] = 'should_debuff',
     ['aij_heart'] = 'should_debuff',
@@ -1037,6 +1042,54 @@ do
     if marked_cards == #G.hand.cards and marked_cards >= G.hand.config.card_limit then
         end_round()
     end
+end
+'''
+match_indent = true
+
+# Simulated Cards (1/2)
+# Make discard button always active if only simulated cards are highlighted
+# G.FUNCS.can_discard
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "if G.GAME.current_round.discards_left <= 0 or #G.hand.highlighted <= 0 or #G.hand.highlighted > math.max(G.GAME.starting_params.discard_limit, 0) then "
+position = "before"
+payload = '''
+if #G.hand.highlighted > 0 then
+    local aij_only_simulated = true
+    for k, v in pairs(G.hand.highlighted) do
+        if not (SMODS.get_enhancements(v).m_aij_simulated or All_in_Jest.get_inherent_effects(v, 'enhancement', nil, true).m_aij_simulated) or v.debuff then
+            aij_only_simulated = false
+            break
+        end
+    end
+    if aij_only_simulated then
+        e.config.colour = G.C.RED
+        e.config.button = 'discard_cards_from_highlighted'
+        return
+    end
+end
+'''
+match_indent = true
+
+# Simulated Cards (2/2)
+# Don't consume discard if hand is all simulated cards
+# G.FUNCS.evaluate_play()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "ease_discard(-1)"
+position = "at"
+payload = '''
+local aij_only_simulated = true
+for k, v in pairs(G.hand.highlighted) do
+    if not (SMODS.get_enhancements(v).m_aij_simulated or All_in_Jest.get_inherent_effects(v, 'enhancement', nil, true).m_aij_simulated) or v.debuff then
+        aij_only_simulated = false
+        break
+    end
+end
+if not aij_only_simulated then
+    ease_discard(-1)
 end
 '''
 match_indent = true
@@ -5746,3 +5799,38 @@ pattern = "create_UIBox_your_collection_stickers = function()"
 position = "before"
 payload = "-- Function overridden by All in Jest in Utils/overrides.lua"
 match_indent = true
+
+
+
+## A Far Land 1/2
+## Count cards as matching in poker hands if both are stone cards and A Far Land is owned
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "table.insert(curr, hand[j])"
+position = "after"
+payload = '''
+elseif next(SMODS.find_card("j_aij_the_far_lands")) and SMODS.has_enhancement(hand[i], 'm_stone') and SMODS.has_enhancement(hand[j], 'm_stone') and i ~= j then
+    table.insert(curr, hand[j])
+'''
+match_indent = true
+times = 1
+
+## A Far Land 2/2
+## Count matching stone cards as a different rank than their cards
+## Prevents counting 2 stone cards as two pair, 3 as full house, etc.
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "vals[curr[1]:get_id()] = curr"
+position = "at"
+payload = '''
+if next(SMODS.find_card("j_aij_the_far_lands")) and SMODS.has_enhancement(hand[i], 'm_stone') then
+    vals[SMODS.Rank.max_id.value + 1] = curr
+else
+    vals[curr[1]:get_id()] = curr
+end
+'''
+match_indent = true
+times = 1
+

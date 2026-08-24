@@ -6,7 +6,7 @@ local neutronium = {
     config = {
 
     },
-    attributes = {},
+    attributes = { 'retrigger', 'hand_type' },
     rarity = 3,
     pos = { x = 21, y = 32},
     atlas = 'joker_atlas',

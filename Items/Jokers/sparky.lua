@@ -1,14 +1,13 @@
 local sparky = {
     object_type = "Joker",
     order = 484,
-    ignore = true,
     key = "sparky",
     config = {
         extra = {
             
         }
     },
-    attributes = {},
+    attributes = { 'enhancements' },
     rarity = 2,
     pos = { x = 7, y = 23 },
     atlas = 'joker_atlas',

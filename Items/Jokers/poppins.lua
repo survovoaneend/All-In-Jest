@@ -1,14 +1,14 @@
 local poppins = {
     object_type = "Joker",
     order = 884,
-    ignore = true,
+    
     key = "poppins",
     config = {
         extra = {
             dollars = 1
         }
     },
-    attributes = {},
+    attributes = { "economy", "hand_type" },
     rarity = 1,
     pos = { x = 5, y = 41},
     atlas = 'joker_atlas',

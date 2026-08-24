@@ -8,7 +8,7 @@ local profile = {
             mult = 5
         }
     },
-    attributes = {},
+    attributes = { "mult", "face"},
     rarity = 1,
     pos = { x = 2, y = 38},
     atlas = 'joker_atlas',

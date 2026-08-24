@@ -21,16 +21,16 @@ local simulated = {
 		if
 			context.aij_discard_played_hand
 			and context.other_card == card
-			and not card.ability.played_this_round
+			and not card.ability.extra.played_this_round
 		then
-            card.ability.played_this_round = true
+            card.ability.extra.played_this_round = true
 			return {
 				aij_return_to_hand = true,
 			}
 		end
 
-		if context.setting_blind then
-            card.ability.played_this_round = false
+		if context.playing_card_end_of_round then
+            card.ability.extra.played_this_round = false
 		end
 
 	end,

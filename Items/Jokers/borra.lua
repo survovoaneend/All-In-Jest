@@ -61,6 +61,12 @@ local borra = {
                       no_message = true,
                     })
                 end
+                return {
+                    message = localize("k_upgrade_ex"),
+                    blocking = false,
+                    volume = 0.3,
+                    message_card = card
+                }
             else
                 SMODS.scale_card(card, {
                   ref_table = card.ability.extra,
@@ -68,6 +74,12 @@ local borra = {
                   scalar_value = "mult_mod",
                   no_message = true,
                 })
+                return {
+                    message = localize("k_upgrade_ex"),
+                    blocking = false,
+                    volume = 0.3,
+                    message_card = card
+                }
             end
         end
         if context.joker_main then

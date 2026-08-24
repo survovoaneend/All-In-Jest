@@ -1,7 +1,7 @@
 local queen_bee = {
     object_type = "Joker",
     order = 912,
-    ignore = true,
+    
     key = "queen_bee",
     config = {
         extra = {

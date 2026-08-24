@@ -1,7 +1,7 @@
 local emergent_pattern = {
     object_type = "Joker",
     order = 951,
-    ignore = true,
+    
     key = "emergent_pattern",
     config = {
         extra = {

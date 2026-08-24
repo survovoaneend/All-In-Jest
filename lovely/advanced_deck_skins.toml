@@ -49,7 +49,11 @@ if SMODS.has_enhancement(self, "m_aij_scorched") then
 end
 if SMODS.has_enhancement(self, "m_aij_wood") and self.base and self.base.suit then
     local atlas_id = _atlas.name or _atlas.key or "cards_1"
-    _atlas = wood_atlas(SMODS.get_atlas(atlas_id), G.SETTINGS.colour_palettes[self.base.suit] ~= "lc")
+    _atlas = wood_atlas(SMODS.get_atlas(atlas_id), self.base and G.SETTINGS.colour_palettes[self.base.suit] ~= "lc")
+end
+if self.edition and self.edition.key == "e_aij_misprint" then
+    local atlas_id = _atlas.name or _atlas.key or "cards_1"
+    _atlas = misprint_atlas(SMODS.get_atlas(atlas_id))
 end
 -- End of All in Jest Overrides
 '''

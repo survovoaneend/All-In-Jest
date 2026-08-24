@@ -10,7 +10,7 @@ local drying_paint = {
             hand_cost = 1
         }
     },
-    attributes = {},
+    attributes = { "xmult", "scaling", "hands" },
     rarity = 3,
     pos = { x = 2, y = 30},
     atlas = 'joker_atlas',

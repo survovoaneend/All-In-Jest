@@ -1,7 +1,7 @@
 local flushed_face = {
     object_type = "Joker",
     order = 990,
-    ignore = true,
+    
     key = "flushed_face",
     config = {
         extra = {
@@ -9,7 +9,7 @@ local flushed_face = {
             mult_mod = 1
         }
     },
-    attributes = {},
+    attributes = { "mult", "face", "flush" },
     rarity = 1,
     pos = { x = 14, y = 45},
     atlas = 'joker_atlas',

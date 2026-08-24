@@ -39,6 +39,7 @@ local party_time = {
                     message = localize('k_upgrade_ex'),
                     colour = G.C.CHIPS
                 })
+                card:juice_up(0.4, 0.4)
             end
             -- For The Treachery of Jokers
             for k, v in pairs(G.consumeables.cards) do
@@ -49,6 +50,7 @@ local party_time = {
                         message = localize('k_upgrade_ex'),
                         colour = G.C.CHIPS
                     })
+                    card:juice_up(0.4, 0.4)
                 end
             end
         end

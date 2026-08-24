@@ -9,7 +9,7 @@ local club_card = {
             min_clubs = 20
         }
     },
-    attributes = {},
+    attributes = { "xmult", "full_deck", "clubs"},
     rarity = 2,
     pos = { x = 12, y = 36},
     atlas = 'joker_atlas',

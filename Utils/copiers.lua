@@ -134,6 +134,8 @@ All_in_Jest.set_copied_ability = function(copier_card, center_to_copy, ability_t
             k == 'bonus' or
             k == 'name' or
             k == 'key' or
+            k == 'card_limit' or
+            k == 'extra_slots_used' or
             SMODS.Stickers[k] ~= nil
         ) then
             if type(v) == 'table' then
@@ -208,7 +210,14 @@ All_in_Jest.use_copied_joker_function = function(card, modded_func_name, vanilla
         else
             -- Vanilla Jokers
             card.ability.name = obj.name
-            ret = table.pack(Card[vanilla_func_name](card, table.unpack(vanilla_func_args)))
+            if vanilla_func_name == "calculate_dollar_bonus" then
+                local original_center = card.config.center
+                card.config.center = obj
+                ret = table.pack(Card[vanilla_func_name](card, table.unpack(vanilla_func_args)))
+                card.config.center = original_center
+            else
+                ret = table.pack(Card[vanilla_func_name](card, table.unpack(vanilla_func_args)))
+            end
             card.ability.name = card.config.center.name
         end
 
