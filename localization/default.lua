@@ -8730,7 +8730,7 @@ return {
                 text = {
                     ''
                 }
-            },            
+            },
             j_aij_big_fish = {
                 name = "Big Fish",
                 text = {
@@ -11120,6 +11120,13 @@ return {
                 name = "Pinned",
                 text = {
                     'This {C:attention}Joker{} is pinned to',
+                    'the {C:attention}leftmost{} position'
+                }
+            },
+            aij_pc_pinned = {
+                name = "Pinned",
+                text = {
+                    'This {C:attention}Card{} is pinned to',
                     'the {C:attention}leftmost{} position'
                 }
             },
