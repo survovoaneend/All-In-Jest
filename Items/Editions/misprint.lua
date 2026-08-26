@@ -63,7 +63,10 @@ local misprint = {
                 jest_ability_calculate(
                     card,
                     "*", card.edition.mult,
-                    { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
+                    { 
+                        h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+                        bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+                    },
                     nil, true, false, "ability"
                 )
                 if card.added_to_deck then
@@ -78,7 +81,10 @@ local misprint = {
                 jest_ability_calculate(
                     card,
                     "*", card.edition.mult,
-                    { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
+                    { 
+                        h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+                        bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+                    },
                     nil, true, false, "ability.extra"
                 )
                 if card.added_to_deck then
@@ -109,7 +115,10 @@ local misprint = {
             jest_ability_calculate(
                 card,
                 "/", card.edition.mult,
-                { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
+                { 
+                    h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+                    bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+                },
                 nil, true, false, "ability"
             )
             if card.added_to_deck then
@@ -124,7 +133,10 @@ local misprint = {
             jest_ability_calculate(
                 card,
                 "/", card.edition.mult,
-                { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
+                { 
+                    h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+                    bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+                },
                 nil, true, false, "ability.extra"
             )
             if card.added_to_deck then
@@ -172,13 +184,19 @@ function Card:update(dt)
         jest_ability_calculate(
           self,
           "/", tonumber(self.edition.prevmult),
-          { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
+          { 
+            h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+            bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+          },
           nil, true, false, "ability"
         )
         jest_ability_calculate(
           self,
           "*", self.edition.mult,
-          { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
+          { 
+            h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+            bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+          },
           nil, true, false, "ability"
         )
         if self.added_to_deck then
@@ -193,13 +211,19 @@ function Card:update(dt)
         jest_ability_calculate(
           self,
           "/", tonumber(self.edition.prevmult),
-          { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
+          { 
+            h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+            bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+          },
           nil, true, false, "ability.extra"
         )
         jest_ability_calculate(
           self,
           "*", self.edition.mult,
-          { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
+          { 
+            h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+            bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+          },
           nil, true, false, "ability.extra"
         )
         if self.added_to_deck then
