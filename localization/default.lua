@@ -8737,6 +8737,14 @@ return {
                     ''
                 }
             },
+            j_aij_spiral_gestalt = {
+                name = "Spiral Gestalt",
+                text = {
+                    'On Death, or when this joker is {C:money}sold{},',
+                    '{C:red}reset{} to the beginning of the ante',
+                    "{S:1.1,C:red,E:2}self destructs{}",
+                }
+            },
 
 
             j_aij_prototype = {
