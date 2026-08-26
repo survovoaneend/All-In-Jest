@@ -1287,6 +1287,15 @@ function Card:set_sprites(_center, _front)
         end
     end
 
+    -- For Misprint cards
+    -- if _center then
+    --     if self.edition and self.edition.key == "e_aij_misprint" and self.children.center then
+    --         local atlas_key = _center.atlas or "centers"
+    --         local atlas = SMODS.get_atlas(atlas_key)
+    --         _center.atlas = misprint_atlas(atlas, self.children.center.scale.x, 0).name
+    --     end
+    -- end
+
 	set_spritesref(self, _center, _front)
 
     if _center then
