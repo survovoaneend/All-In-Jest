@@ -16,6 +16,7 @@ local fantasio = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
     soul_pos = { x = 3, y = 11},
   
     loc_vars = function(self, info_queue, card)

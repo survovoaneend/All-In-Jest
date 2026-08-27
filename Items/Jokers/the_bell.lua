@@ -17,6 +17,7 @@ local the_bell = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
 
     all_in_jest = {
         ability_cost = function(self, card)

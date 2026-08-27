@@ -19,8 +19,10 @@ local elf = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = false,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = G.P_TAGS['tag_investment']
         return {
             vars = {
                 card.ability.extra.current_skips,

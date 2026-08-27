@@ -20,6 +20,7 @@ local double_sundae = {
     discovered = true,
     blueprint_compat = true,
     eternal_compat = false,
+    perishable_compat = true,
     no_collection = true,
 
     loc_vars = function(self, info_queue, card)

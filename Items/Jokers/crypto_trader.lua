@@ -19,6 +19,7 @@ local crypto_trader = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)

@@ -18,6 +18,7 @@ local atemporal_taco = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'atemporal_taco')

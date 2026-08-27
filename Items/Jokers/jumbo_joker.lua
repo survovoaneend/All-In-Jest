@@ -16,6 +16,7 @@ local jumbo_joker = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
 
     pixel_size = { w = 81, h = 111 },
   

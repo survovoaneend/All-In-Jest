@@ -17,6 +17,7 @@ local martellino = {
     discovered = false,
     blueprint_compat = false, -- Logically should be compatible since diet coke is, but do we want to?
     eternal_compat = false,
+    perishable_compat = true,
     soul_pos = { x = 9, y = 9 },
 
     loc_vars = function(self, info_queue, card)

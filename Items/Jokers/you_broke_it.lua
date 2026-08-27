@@ -17,6 +17,7 @@ local you_broke_it = {
   discovered = false,
   blueprint_compat = false,
   eternal_compat = true,
+  perishable_compat = true,
 
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS[G.GAME.current_round.jest_you_broke_it_card.enhancement]

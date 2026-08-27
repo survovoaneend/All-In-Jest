@@ -28,16 +28,26 @@ local the_bullion = {
     end,
 
     press_play = function(self)
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+        local triggered = false
         for i = 1, #G.play.cards do
             if next(SMODS.get_enhancements(G.play.cards[i])) then
-                G.E_MANAGER:add_event(Event({func = function() G.play.cards[i]:juice_up(); return true end })) 
-                ease_dollars(-5)
-                delay(0.23)
+                triggered = true
+                break
             end
         end
-        return true end })) 
-        G.GAME.blind.triggered = true
+        if triggered then
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+                for i = 1, #G.play.cards do
+                    if next(SMODS.get_enhancements(G.play.cards[i])) then
+                        G.E_MANAGER:add_event(Event({func = function() G.play.cards[i]:juice_up(); return true end })) 
+                        ease_dollars(-5)
+                        delay(0.23)
+                    end
+                end
+                return true 
+            end })) 
+            G.GAME.blind.triggered = true
+        end
         return true
     end,
 

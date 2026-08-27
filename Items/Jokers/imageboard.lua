@@ -18,6 +18,7 @@ local imageboard = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.mod_mult, card.ability.extra.mod_mult * 2, card.ability.extra.mod_mult * 3}}

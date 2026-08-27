@@ -18,6 +18,7 @@ local christmas_eve = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Tag', key = 'tag_coupon'}

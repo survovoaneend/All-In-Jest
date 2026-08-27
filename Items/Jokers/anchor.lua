@@ -15,6 +15,7 @@ local anchor = {
     discovered = false,
     blueprint_compat = false, -- SMODs forces this to be blueprint incompatible
     eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
 

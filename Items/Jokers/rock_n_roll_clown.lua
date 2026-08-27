@@ -17,6 +17,7 @@ local rock_n_roll_clown = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
         local total_level = 0

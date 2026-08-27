@@ -18,6 +18,7 @@ local infuriating_note = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
     in_pool = function(self, args)
         return true, { allow_duplicates = true }
     end,

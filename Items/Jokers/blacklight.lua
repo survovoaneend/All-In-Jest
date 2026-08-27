@@ -17,6 +17,7 @@ local blacklight = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
+    perishable_compat = true,
     all_in_jest = {
         animate_func = function(dt, anim, obj, loc, key)
 			if G.GAME and G.GAME.round_resets and G.GAME.round_resets.ante then

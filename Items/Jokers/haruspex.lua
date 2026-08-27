@@ -42,6 +42,7 @@ local haruspex = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         local to_draw = G.deck and #G.deck.cards > 0 and math.min(card.ability.extra.cards_to_draw, #G.deck.cards) or card.ability.extra.cards_to_draw

@@ -16,6 +16,7 @@ local stage_production = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
 
     all_in_jest = {
         can_use_ability = function(self, card)

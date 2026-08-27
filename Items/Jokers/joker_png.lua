@@ -43,6 +43,8 @@ local joker_png = {
     unlocked = true,
     discovered = false,
     blueprint_compat = true, -- uses ability.aij_blueprint_compat
+    eternal_compat = true,
+    perishable_compat = true,
 
     pixel_size = { w = 31, h = 40 },
 

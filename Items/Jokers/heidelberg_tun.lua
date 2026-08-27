@@ -18,6 +18,7 @@ local heidelberg_tun = {
   discovered = false,
   blueprint_compat = false,
   eternal_compat = true,
+  perishable_compat = true,
 
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = {key = 'e_negative_consumable', set = 'Edition', config = {extra = 1}}

@@ -19,6 +19,7 @@ local desiderium = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = false,
 
     pixel_size = { w = 71, h = 76 },
 

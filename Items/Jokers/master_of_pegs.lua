@@ -18,19 +18,20 @@ local master_of_pegs = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         local enhancement_tally_full = 0
         local active_text = "("..localize('k_inactive')..")"
         local enhancement_tally_remaining = 0
-        if G.GAME and G.playing_cards then
+        if G.deck and G.playing_cards then
             for _, card in ipairs(G.deck.cards) do
                 if card.config.center ~= G.P_CENTERS.c_base then
                     enhancement_tally_remaining = enhancement_tally_remaining + 1
                 end
             end
         end
-        if G.GAME and G.playing_cards then
+        if G.deck and G.playing_cards then
             for _, card in ipairs(G.playing_cards) do
                 if card.config.center ~= G.P_CENTERS.c_base then
                     enhancement_tally_full = enhancement_tally_full + 1
@@ -56,19 +57,15 @@ local master_of_pegs = {
         if context.joker_main then
             local enhancement_tally_full = 0
             local final_xmult = 1
-            if G.GAME and G.playing_cards then
-                for _, card in ipairs(G.playing_cards) do
-                    if card.config.center ~= G.P_CENTERS.c_base then
-                        enhancement_tally_full = enhancement_tally_full + 1
-                    end
+            for _, card in ipairs(G.playing_cards) do
+                if card.config.center ~= G.P_CENTERS.c_base then
+                    enhancement_tally_full = enhancement_tally_full + 1
                 end
             end
             local enhancement_tally_remaining = 0
-            if G.GAME and G.playing_cards then
-                for _, card in ipairs(G.deck.cards) do
-                    if card.config.center ~= G.P_CENTERS.c_base then
-                        enhancement_tally_remaining = enhancement_tally_remaining + 1
-                    end
+            for _, card in ipairs(G.deck.cards) do
+                if card.config.center ~= G.P_CENTERS.c_base then
+                    enhancement_tally_remaining = enhancement_tally_remaining + 1
                 end
             end
             final_xmult = card.ability.extra.xmult + (card.ability.extra.xmult_gain * enhancement_tally_full)

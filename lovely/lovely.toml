@@ -2421,7 +2421,7 @@ end
 if SMODS.optional_features.object_weights then 
     if ((pseudorandom('gold_tag_rate') < (1 * G.GAME.all_in_jest.gold_tag_rate) / 30)) or (append == 'all_in_jest_guarrented_gold_tag' or append == 'aij_no_blind_dupes_guarrented_gold_tag') then
         local tag_key = SMODS.poll_object({type = 'Jest_Golden_Tag', append = append and append..'_gold' or '_gold'}) 
-        if tag_key ~= 'tag_handy' then return tag_key end
+        if tag_key ~= 'tag_handy' and tag_key ~= 'j_joker' then return tag_key end
     end
 end
 '''
@@ -5834,3 +5834,44 @@ end
 match_indent = true
 times = 1
 
+
+## Spiral Gestalt
+[[patches]]
+[patches.pattern]
+target = "engine/save_manager.lua"
+pattern = "elseif request.type == 'save_run' then "
+position = "before"
+payload = '''
+elseif request.type == 'save_run_aij_spiral_gestalt' then 
+    local prefix_profile = (request.profile_num or 1)..''
+    if not love.filesystem.getInfo(prefix_profile) then love.filesystem.createDirectory( prefix_profile ) end
+    prefix_profile = prefix_profile..'/'
+
+    compress_and_save(prefix_profile..'save_aij_spiral_gestalt.jkr', request.save_table)
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "love.filesystem.remove(G.SETTINGS.profile..'/save.jkr')"
+position = "before"
+payload = '''
+love.filesystem.remove(G.SETTINGS.profile..'/save_aij_spiral_gestalt.jkr')
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.screenwipecard = Card(1, 1, G.CARD_W, G.CARD_H, pseudorandom_element(G.P_CARDS), G.P_CENTERS.c_base)"
+position = "after"
+payload = '''
+if G.SAVED_GAME ~= nil and G.SAVED_GAME.aij_spiral_gestal_save then 
+    G.screenwipecard:remove()
+    G.screenwipecard = Card(1, 1, G.CARD_W, G.CARD_H, nil, G.P_CENTERS["j_aij_spiral_gestalt"])
+end
+'''
+match_indent = true
+times = 1

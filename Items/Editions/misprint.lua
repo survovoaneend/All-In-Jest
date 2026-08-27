@@ -42,6 +42,18 @@ local misprint = {
         return { vars = { ((card.edition or {}).max_mult or self.config.max_mult) * 0.01, ((card.edition or {}).min_mult or self.config.min_mult) * 0.01 } }
     end,
     on_apply = function(card)
+
+        -- if card.edition and card.edition.key == "e_aij_misprint" then
+        --     if card.children.front then
+        --         local atlas = card.children.front.atlas or SMODS.get_atlas("cards_1")
+        --         card.children.front.atlas = misprint_atlas(atlas)
+        --     end
+        --     if card.children.center then
+        --         local atlas = card.children.center.atlas or SMODS.get_atlas("centers")
+        --         card.children.center.atlas = misprint_atlas(atlas, card.children.center.scale.x, 0)
+        --     end
+        -- end
+
         if not card.ability.jest_misprint_active then
             if card.ability.set == 'Enhanced' or card.ability.set == 'Default' then
                 if card.added_to_deck then
@@ -51,7 +63,10 @@ local misprint = {
                 jest_ability_calculate(
                     card,
                     "*", card.edition.mult,
-                    { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
+                    { 
+                        h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+                        bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+                    },
                     nil, true, false, "ability"
                 )
                 if card.added_to_deck then
@@ -66,7 +81,10 @@ local misprint = {
                 jest_ability_calculate(
                     card,
                     "*", card.edition.mult,
-                    { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
+                    { 
+                        h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+                        bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+                    },
                     nil, true, false, "ability.extra"
                 )
                 if card.added_to_deck then
@@ -78,6 +96,17 @@ local misprint = {
         card.ability.jest_misprint_active = true
     end,
     on_remove = function(card)
+
+        -- if card.children.front then
+        --     local _atlas, _pos = get_front_spriteinfo(_front)
+        --     card.children.front.atlas = _atlas
+        --     card.children.front:set_sprite_pos(_pos)
+        -- end
+        -- if card.children.center then
+        --     local atlas_name = card.config.center.atlas
+        --     card.children.center.atlas = SMODS.get_atlas("atlas_name")
+        -- end
+
         if card.ability.set == 'Enhanced' or card.ability.set == 'Default' then
             if card.added_to_deck then
                 card:remove_from_deck(true)
@@ -86,7 +115,10 @@ local misprint = {
             jest_ability_calculate(
                 card,
                 "/", card.edition.mult,
-                { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
+                { 
+                    h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+                    bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+                },
                 nil, true, false, "ability"
             )
             if card.added_to_deck then
@@ -101,7 +133,10 @@ local misprint = {
             jest_ability_calculate(
                 card,
                 "/", card.edition.mult,
-                { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
+                { 
+                    h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+                    bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+                },
                 nil, true, false, "ability.extra"
             )
             if card.added_to_deck then
@@ -149,13 +184,19 @@ function Card:update(dt)
         jest_ability_calculate(
           self,
           "/", tonumber(self.edition.prevmult),
-          { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
+          { 
+            h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+            bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+          },
           nil, true, false, "ability"
         )
         jest_ability_calculate(
           self,
           "*", self.edition.mult,
-          { h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true },
+          { 
+            h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+            bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+          },
           nil, true, false, "ability"
         )
         if self.added_to_deck then
@@ -170,13 +211,19 @@ function Card:update(dt)
         jest_ability_calculate(
           self,
           "/", tonumber(self.edition.prevmult),
-          { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
+          { 
+            h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+            bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+          },
           nil, true, false, "ability.extra"
         )
         jest_ability_calculate(
           self,
           "*", self.edition.mult,
-          { x_chips = 1, x_mult = 1, extra_value = true, rarity = true },
+          { 
+            h_x_chips = 1, Xmult = 1, x_chips = 1, x_mult = 1, extra_value = true,
+            bonus_x_score = 1, bonus_h_x_score = 1, bonus_x_blind_size = 1, bonus_h_x_blind_size = 1 -- latest SMODS stuff
+          },
           nil, true, false, "ability.extra"
         )
         if self.added_to_deck then
@@ -204,4 +251,73 @@ function Card:set_ability(center, initial, delay_sprites)
     return ret
 end
 
-return {name = "Editions", items = {misprint, misprint_shader}}
+function process_texture_misprint(image, card_width, front)
+    local width, height = image:getDimensions()
+    local canvas = love.graphics.newCanvas(width, height, {type = '2d', readable = true, dpiscale = image:getDPIScale()})
+
+    love.graphics.push("all")
+
+    love.graphics.setCanvas( canvas )
+    love.graphics.clear({1, 1, 1, 0})
+    
+    love.graphics.setColor(1, 1, 1, 1)
+
+    G.SHADERS['aij_misprint_spritesheet']:send("image_dims", {image:getDimensions()})
+    G.SHADERS['aij_misprint_spritesheet']:send("card_x", card_width or 71)
+    G.SHADERS['aij_misprint_spritesheet']:send("front", front or 1)
+    love.graphics.setShader( G.SHADERS['aij_misprint_spritesheet'] )
+    
+    -- Draw image with misprint shader on new canvas
+    love.graphics.draw( image )
+
+    love.graphics.pop()
+
+    image_data = canvas:newImageData()
+
+    return love.graphics.newImage(image_data, {mipmaps = true, dpiscale = image:getDPIScale()}), image_data
+end
+
+function pre_misprinted(a, card_width, front)
+    local atlas = a.name or a.key
+    local name = atlas.."_misprinted" .. card_width .. front
+    if SMODS.get_atlas(name) then
+        return {
+            old_name = atlas,
+            new_name = name,
+            atlas = SMODS.get_atlas(name),
+        }
+    else
+        return {
+            old_name = atlas,
+            new_name = name,
+            atlas = nil
+        }
+    end
+end
+
+function misprint_atlas(a, card_width, front)
+
+    local card_width = card_width or 71
+    local front = front or 1
+
+    local misprinted = pre_misprinted(a, card_width, front)
+
+    if not misprinted.atlas then
+        local atlas_type = a.atlas_table or "ASSET_ATLAS"
+        G[atlas_type][misprinted.new_name] = {}
+        SMODS.get_atlas(misprinted.new_name).misprint = true
+        SMODS.get_atlas(misprinted.new_name).name = SMODS.get_atlas(misprinted.old_name).name .. "_misprinted" .. card_width .. front
+        SMODS.get_atlas(misprinted.new_name).type = SMODS.get_atlas(misprinted.old_name).type
+        SMODS.get_atlas(misprinted.new_name).px = SMODS.get_atlas(misprinted.old_name).px
+        SMODS.get_atlas(misprinted.new_name).py = SMODS.get_atlas(misprinted.old_name).py
+        SMODS.get_atlas(misprinted.new_name).frames = SMODS.get_atlas(misprinted.old_name).frames
+
+        image, image_data = process_texture_misprint(SMODS.get_atlas(misprinted.old_name).image, card_width, front)
+        SMODS.get_atlas(misprinted.new_name).image = image
+        SMODS.get_atlas(misprinted.new_name).image_data = image_data
+    end
+
+    return SMODS.get_atlas(misprinted.new_name)
+end
+
+return {name = "Editions", items = {misprint}}

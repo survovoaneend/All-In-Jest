@@ -18,6 +18,7 @@ local sticker = {
   discovered = false,
   blueprint_compat = true,
   eternal_compat = true,
+  perishable_compat = true,
 
   pixel_size = { w = 65, h = 82 },
 

@@ -9,7 +9,7 @@ local copper = {
         }
     },
     attributes = { 'retrigger', 'hand_type' },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 12, y = 27 },
     atlas = 'joker_atlas',
     cost = 6,
@@ -17,6 +17,7 @@ local copper = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         return {

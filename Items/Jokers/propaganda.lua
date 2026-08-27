@@ -17,10 +17,11 @@ local propaganda = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         local suit_counts = { Spades = 0, Hearts = 0, Clubs = 0, Diamonds = 0 }
-        local target_suit = ""
+        local target_suit = 'None'
         if G.playing_cards then
             for _, v in ipairs(G.playing_cards) do
                 if v.base.suit then suit_counts[v.base.suit] = suit_counts[v.base.suit] + 1 end
@@ -37,7 +38,7 @@ local propaganda = {
         end
         return {
             vars = {
-                target_suit or 'None',
+                target_suit,
                 card.ability.extra.mult
             }
         }

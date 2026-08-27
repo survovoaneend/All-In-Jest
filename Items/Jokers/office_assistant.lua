@@ -14,6 +14,7 @@ local office_assistant = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
 
     all_in_jest = {
         ability_cost = function(self, card)

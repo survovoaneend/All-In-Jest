@@ -15,6 +15,7 @@ local hand_drawn = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
         local _planet, _hand, _tally = nil, nil, 0
