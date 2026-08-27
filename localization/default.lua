@@ -3870,8 +3870,8 @@ return {
                 name = "Orphic Joker",
                 text = {
                     "Create {C:attention}#1#{} random",
-                    "{C:uncommon}Uncommon{} {C:attention}Joker{} when",
-                    "{C:attention}Blind{} is skipped",
+                    "{C:rare}Rare{} {C:attention}Joker{} when",
+                    "Blind is {C:attention}skipped",
                     "{C:inactive}(Must have room){}"
                 },
             },
@@ -3964,9 +3964,15 @@ return {
             j_aij_sot = {
                 name = "Sot",
                 text = {
-                    "Gives {X:mult,C:white}X#1#{} Mult for",
-                    "each {C:attention}Tag{} held",
-                    "{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult)"
+                    {
+                        "Gives {X:mult,C:white}X#1#{} Mult for",
+                        "each {C:attention}Tag{} held",
+                        "{C:inactive}(Currently {X:mult,C:white}X#2#{} {C:inactive}Mult)"
+                    },
+                    {
+                        "Tags will {C:attention}not{} trigger",
+                        "while this Joker is held",
+                    }
                 }
             },
             j_aij_fat_ed = { name = "Fat 'Ed", text = { "" } },
@@ -4110,7 +4116,7 @@ return {
             j_aij_entropy = {
                 name = "Entropy",
                 text = {
-                    "Create a {C:attention}Chaos Tag",
+                    "Create {C:attention}#1# {C:red}Chaos {C:attention}Tags",
                     "when Blind is {C:attention}skipped"
                 }
             },
@@ -4361,9 +4367,8 @@ return {
             j_aij_mahoney = {
                 name = "Mahoney",
                 text = {
-                    "{C:green}#1# in #2#{} chance to",
-                    "create a {C:attention}Voucher Tag{}",
-                    "when Blind is {C:attention}skipped",
+                    "Redeem a random {C:attention}Voucher{}",
+                    "when Blind is {C:attention}skipped{}",
                 }
             },
             j_aij_le_fils_de_banane = {
@@ -4448,10 +4453,10 @@ return {
             j_aij_paracosm = {
                 name = "Paracosm",
                 text = {
-                    "Increase the level of",
-                    "most played {C:attention}poker hand",
-                    "when {C:attention}Blind{} is skipped",
-                    "{C:inactive}(Currently #1#)"
+                    "Upgrade {C:attention}most played",
+                    "poker hand by {C:attention}#1#{} levels",
+                    "when Blind is {C:attention}skipped",
+                    "{C:inactive}(Currently #2#)"
                 }
             },
             j_aij_mocap = {

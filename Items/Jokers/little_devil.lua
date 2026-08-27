@@ -4,8 +4,8 @@ local little_devil = {
 
   key = "little_devil",
   attributes = { 'skip', 'generation', 'tag', 'booster' },
-  rarity = 2,
-  cost = 6,
+  rarity = 1,
+  cost = 5,
   unlocked = true,
   discovered = false,
   pos = { x = 9, y = 0 },

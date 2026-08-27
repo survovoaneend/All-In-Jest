@@ -14,6 +14,7 @@ local common_caste = {
   end,
 
   redeem = function(self, card)
+    if not G.shop_booster then return end
       G.E_MANAGER:add_event(Event ({
           trigger = 'before',
           func = function()
