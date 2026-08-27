@@ -9073,7 +9073,7 @@ return {
                 unlock = { "?????" }
             },
             j_aij_yu_sze = {
-                name = "Yu Sze",
+                name = "Yu Zhan",
                 text = {
                     "Jokers without {C:dark_edition}Editions{}",
                     "give {X:mult,C:white}X#1#{} Mult"
