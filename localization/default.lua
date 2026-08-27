@@ -2369,8 +2369,10 @@ return {
                 },
                 text = {
                     "{B:1,C:white,s:0.8}Activated Ability",
-                    "Pay {C:money}$#1#{} to add a {C:attention}random",
-                    "{C:attention}playing card{} to your hand"
+                    "Pay {C:money}$#1#{} to add #2# {C:attention}#3#",
+                    "of {V:2}#4#{} to your hand",
+                    "{C:inactive}(Card changes after use",
+                    "{C:inactive}and after each hand)"
                 }
             },
             j_aij_holy_bible = { name = "Holy Bible", text = { "" } },

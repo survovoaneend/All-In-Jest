@@ -5,7 +5,10 @@ local pencil_drawing = {
     key = "pencil_drawing",
     config = {
         extra = {
-            cost = 2
+            cost = 2,
+            amount = 1,
+            rank = 'Ace',
+            suit = 'Spades'
         }
     },
     attributes = { 'activated', 'generation', 'playing_card' },
@@ -38,13 +41,23 @@ local pencil_drawing = {
             end
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local _card = create_playing_card({
-                        front = pseudorandom_element(G.P_CARDS, pseudoseed('pencil_drawing_fr')),
-                        center = G.P_CENTERS.c_base}, G.hand, nil, nil, {G.C.SECONDARY_SET.Enhanced})
-                    G.GAME.blind:debuff_card(_card)
-                    G.hand:sort()
-                    playing_card_joker_effects({_card})
-                    _card:juice_up(0.3, 0.5)
+                    local added = {}
+                    for i = 1, card.ability.extra.amount do
+                        local _card = SMODS.add_card{
+                            set = 'Base', area = G.hand,
+                            rank = card.ability.extra.rank,
+                            suit = card.ability.extra.suit,
+                        }
+                        G.GAME.blind:debuff_card(_card)
+                        G.hand:sort()
+                        _card:juice_up(0.3, 0.5)
+                        _card:start_materialize({G.C.SECONDARY_SET.Enhanced})
+                        added[#added+1] = _card
+                    end
+                    playing_card_joker_effects(added)
+                    local front = pseudorandom_element(G.P_CARDS, pseudoseed('pencil_drawing'))
+                    card.ability.extra.rank = front.value
+                    card.ability.extra.suit = front.suit
                     return true
                 end
             }))
@@ -57,19 +70,33 @@ local pencil_drawing = {
         end
     end,
   
-    loc_vars = function(self, info_queue, card) 
+    loc_vars = function(self, info_queue, card)
         return {
             vars = {
                 card.ability.extra.cost,
+                card.ability.extra.amount,
+                localize(card.ability.extra.rank, 'ranks'),
+                localize(card.ability.extra.suit, 'suits_plural'),
                 colours = { 
-                    G.C.SECONDARY_SET.Enhanced
+                    G.C.SECONDARY_SET.Enhanced,
+                    G.C.SUITS[card.ability.extra.suit]
                 }
             }
         }
     end,
+
+    set_ability = function(self, card, initial, delay_sprites)
+        local front = pseudorandom_element(G.P_CARDS, pseudoseed('pencil_drawing'))
+        card.ability.extra.rank = front.value
+        card.ability.extra.suit = front.suit
+    end,
   
     calculate = function(self, card, context)
-      
+        if context.after then
+            local front = pseudorandom_element(G.P_CARDS, pseudoseed('pencil_drawing'))
+            card.ability.extra.rank = front.value
+            card.ability.extra.suit = front.suit
+        end
     end
   
 }
