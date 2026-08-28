@@ -43,7 +43,7 @@ local silly_sausage = {
     end,
   
     calculate = function(self, card, context)
-        if context.end_of_round and not context.blueprint and context.main_eval then
+        if context.ending_shop then
             if card.ability.extra.current_discount - card.ability.extra.discount_loss <= 0 then
                 SMODS.destroy_cards(card, nil, nil, true)
                 return {

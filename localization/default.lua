@@ -2326,7 +2326,7 @@ return {
                 text = {
                     "{C:green}Rerolls{} cost {C:money}$#1#{} less",
                     "{C:attention}Decreases{} by {C:money}$#2#{}",
-                    "at end of round"
+                    "after leaving shop"
                 }
             },
             j_aij_joker_baby = {
