@@ -1,4 +1,4 @@
-local fervent_planet = {
+local fervent_enhancement = {
     object_type = "Enhancement",
     key = 'fervent',
     atlas = 'enhancements_atlas',
@@ -32,4 +32,4 @@ local fervent_planet = {
         end
     end
 }
-return {name = {"Enhancements"}, items = {fervent_planet}}
+return {name = {"Enhancements"}, items = {fervent_enhancement}}
