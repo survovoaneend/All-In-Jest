@@ -9976,16 +9976,16 @@ return {
                         'Align {C:attention}#1#{} to {C:attention}Aldebaran',
                     },
                     {
-                        '{C:attention}Aldebaran: {}{C:aij_plasma}Balance{} {C:attention}#2#%{} of {C:chips}Chips{} and {C:mult}Mult',
-                        'after {C:attention}hand{} is played'
+                        '{C:attention}Aldebaran: {C:aij_plasma}Balance {C:attention}base {C:chips}Chips',
+                        'and {C:mult}Mult{} of {C:attention}poker hand{} by {C:attention}#2#%{}'
                     }
                 }
             },
             c_aij_aldebaran_pin = {
                 name = 'Aldebaran',
                 text = {
-                    '{C:aij_plasma}Balance{} {C:attention}#2#%{} of {C:chips}Chips{} and {C:mult}Mult',
-                    'after {C:attention}hand{} is played',
+                    '{C:aij_plasma}Balance {C:attention}base {C:chips}Chips',
+                    'and {C:mult}Mult{} of {C:attention}poker hand{} by {C:attention}#2#%{}'
                 }
             },
             c_aij_capella = {
@@ -10071,16 +10071,18 @@ return {
                         'Align {C:attention}#1#{} to {C:attention}Alkaid',
                     },
                     {
-                        '{C:attention}Alkaid: {}Gives a random enhancement',
-                        'to {C:attention}#2#{} random played card',
+                        '{C:attention}Alkaid: {}Enhance {C:attention}#2#{} random',
+                        'unenhanced card',
+                        'in poker hand',
                     }
                 }
             },
             c_aij_alkaid_pin = {
                 name = 'Alkaid',
                 text = {
-                    'Gives a random enhancement',
-                    'to {C:attention}#2#{} random played card',
+                    'Enhance {C:attention}#2#{} random',
+                    'unenhanced card',
+                    'in poker hand',
                 }
             },
             c_aij_algorab = {
@@ -10109,16 +10111,16 @@ return {
                         'Align {C:attention}#1#{} to {C:attention}Spica',
                     },
                     {
-                        '{C:attention}Spica: {}If first hand of round,',
-                        'disable the current {C:attention}Boss Blind{}',
+                        '{C:attention}Spica: {}Disable the current {C:attention}Boss Blind{},',
+                        'then remove this {C:spectral}Alignment'
                     }
                 }
             },
             c_aij_spica_pin = {
                 name = 'Spica',
                 text = {
-                    'If first hand of round,',
-                    'disable the current {C:attention}Boss Blind{}',
+                    'Disable the current {C:attention}Boss Blind{},',
+                    'then remove this {C:spectral}Alignment',
                     '{C:inactive}#1#{}'
                 }
             },
@@ -10184,16 +10186,16 @@ return {
                         'Align {C:attention}#1#{} to {C:attention}Vega',
                     },
                     {
-                        '{C:attention}Vega: {}{C:attention}Retrigger{} all cards',
-                        '{C:attention}held in hand',
+                        '{C:attention}Vega: {}Retrigger the {C:attention}first',
+                        'card {C:attention}held in hand',
                     }
                 }
             },
             c_aij_vega_pin = {
                 name = 'Vega',
                 text = {
-                    'Retrigger all cards',
-                    '{C:attention}held in hand{}'
+                    'Retrigger the {C:attention}first',
+                    'card {C:attention}held in hand{}'
                 }
             },
             c_aij_deneb_algedi = {

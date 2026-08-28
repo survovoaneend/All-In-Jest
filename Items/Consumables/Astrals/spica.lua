@@ -41,7 +41,7 @@ local spica_pin = {
 
     loc_vars = function(self, info_queue, card)
         local active_text = "("..localize('k_inactive')..")"
-        if G.GAME.blind and G.GAME.blind.boss and G.GAME.current_round.hands_played == 0 then 
+        if G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then 
             active_text = "("..localize('k_active')..")"
         end
 		return {
@@ -52,7 +52,13 @@ local spica_pin = {
     end,
 
     calculate = function(self, card, context)
-        if context.before and context.main_eval and G.GAME.blind and G.GAME.blind.boss and G.GAME.current_round.hands_played == 0 then
+        if context.before and context.main_eval and G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then
+            for i, astral in ipairs(G.GAME.Astral_pins[card.ability.extra.hand]) do
+                if astral.pin == 'Spica' then
+                    table.remove(G.GAME.Astral_pins[card.ability.extra.hand], i)
+                    break
+                end
+            end
             G.GAME.blind:disable()
             play_sound('timpani')
             delay(0.4)
@@ -64,7 +70,7 @@ local spica_pin = {
 
     add_to_deck = function(self, card, from_debuff)
         local eval = function()
-            return G.GAME.blind and G.GAME.blind.boss and G.GAME.current_round.hands_played == 0 
+            return G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled
         end
         juice_card_until(card, eval, true)
     end

@@ -49,7 +49,7 @@ local vega_pin = {
     end,
 
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.hand then
+        if context.repetition and context.cardarea == G.hand and context.other_card == G.hand.cards[1] then
             return {
                 message = localize('k_again_ex'),
                 repetitions = 1,
