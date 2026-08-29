@@ -11,39 +11,19 @@ local wamba = {
                 'mult',
                 'chips',
                 'xmult',
-                'balance',
                 'retrigger',
                 'scaling',
-                'diamonds',
-                'hearts',
-                'spades',
-                'clubs',
                 'hand_type',
-                'ace',
-                'two',
-                'three',
-                'four',
-                'five',
-                'six',
-                'seven',
-                'eight',
-                'nine',
-                'ten',
-                'jack',
-                'queen',
-                'king',
+                'suit',
+                'rank',
                 'face',
                 'economy',
                 'generation',
                 'destroy_card',
                 'hand_size',
-                'discard',
-                'hands',
                 'chance',
-                'mod_chance',
                 'tarot',
                 'planet',
-                'spectral',
                 'food',
             },
         }
@@ -88,22 +68,31 @@ local wamba = {
                         break
                     end
                 end
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('aij_wanba_attributes')[card.ability.extra.current_mult]})
             end
         end,
     },
-    calculate = function(self, card, context)
-        if context.modify_weights then
-            if context.pool_types['Joker'] then
-                local filtered_pool = SMODS.get_attribute_pool(card.ability.extra.current_mult)
-                for _, key in pairs(filtered_pool) do
-                    for k, v in pairs(context.pool) do
-                        if key == k then
-                            v.weight = v.weight * card.ability.extra.multiplier
-                        end
-                    end
-                end
+    add_to_deck = function(self, card, from_debuff)
+        aij_change_shop_size_advanced(1, 'wamba_'..card.sort_id, 'Joker')
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        aij_change_shop_size_advanced(-1, 'wamba_'..card.sort_id, 'Joker')
+    end
+}
+
+local create_card_ref = SMODS.create_card
+function SMODS.create_card(args)
+    if args.aij_slot_details and args.aij_slot_details.remove_tag then
+        for _, other in ipairs(SMODS.find_card('j_aij_wamba')) do
+            if args.aij_slot_details.remove_tag == ('wamba_'..other.sort_id) then
+                args.key = SMODS.poll_object{
+                    attributes = {other.ability.extra.current_mult},
+                    rarity = false,
+                }
+                break
             end
         end
     end
-}
+    return create_card_ref(args)
+end
 return { name = {"Jokers"}, items = {wamba} }

@@ -3702,18 +3702,16 @@ function aij_reroll_tags(blind, args)
     end
 end
 
-function aij_change_shop_size_advanced(mod, remove_tag, type, rarity, key, func)
+function aij_change_shop_size_advanced(mod, remove_tag, type, rarity, key)
     if not G.GAME.shop then return end
     G.GAME.shop.joker_max = G.GAME.shop.joker_max + mod
     for i = 1, math.abs(mod) do
         if mod > 0 then
             G.GAME.shop.slot_details = G.GAME.shop.slot_details or {}
-            local _type, _rarity, _key = _type or type, _rarity or rarity, _key or key
             table.insert(G.GAME.shop.slot_details, 1,{
-                ['type'] = _type,
-                ['rarity'] = _rarity,
-                ['key'] = _key,
-                ['func'] = func,
+                ['type'] = type,
+                ['rarity'] = rarity,
+                ['key'] = key,
                 ['remove_tag'] = remove_tag
             })
         elseif mod < 0 and remove_tag then

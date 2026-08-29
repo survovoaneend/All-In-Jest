@@ -147,6 +147,8 @@ return {
                 ['jack'] = 'Jack-related',
                 ['queen'] = 'Queen-related',
                 ['king'] = 'King-related',
+                ['suit'] = 'Suit-related',
+                ['rank'] = 'Rank-related',
                 ['face'] = 'Face card related',
                 ['economy'] = 'Economy',
                 ['generation'] = 'Generating',
@@ -9395,13 +9397,16 @@ return {
                 name = "Wamba",
                 text = {
                     {
-                        '{C:attention}#1#{} Jokers are',
-                        '{C:attention}#2#X{} more common'
+                        'Adds an extra slot to the {C:money}shop{},',
+                        'which {C:attention}always{} contains a',
+                        '{C:attention}#1#{} Joker',
+                        '{C:inactive,s:0.8}(Rarity of the Joker is ignored,',
+                        '{C:inactive,s:0.8}excluding Legendaries)'
                     },
                     {
                         '{B:1,C:white,s:0.8}Activated Ability',
                         'Cycle what {C:attention}type{} of',
-                        'Joker is more common'
+                        'Joker is provided'
                     }
                 }
             },            
