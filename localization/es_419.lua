@@ -1757,9 +1757,9 @@ return {
             j_aij_whiteface_grotesque = {
                 name = "El Grotesco Carablanca",
                 text = {
-                    "Gana {C:chips}+#1#{} Fichas por cada",
-                    "carta de {C:attention}figura{} en {C:attention}mano{}",
-                    "al jugar una mano",
+                    "Gana {C:chips}+#1#{} Fichas por cada carta",
+                    "de {C:attention}figura{} en {C:attention}mano{} al",
+                    "jugar una mano",
                     "{C:inactive}(Actualmente {C:chips}+#2#{C:inactive} Fichas)"
                 },
             },
