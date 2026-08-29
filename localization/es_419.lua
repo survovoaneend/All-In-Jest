@@ -1472,13 +1472,23 @@ return {
             },
         },
         Joker = {
-            -- Credit stuff
+            -- Credit stuff --
+
             j_aij_nevernamed_credits_joker = {
                 name = "Nevernamed",
                 text = {
                     '{C:inactive}"Pese a lo que indica',
                     '{C:inactive}su nombre, es mencionado',
                     '{C:inactive}con frecuencia"',
+                },
+            },
+            j_aij_jumbocarrot_credits_joker = {
+                name = "Jumbocarrot",
+                text = {
+                    '{C:inactive}"Gracias por arreglar',
+                    '{C:inactive}Bunco durante el año 2024,',
+                    '{C:inactive}uno de mis mods favoritos',
+                    '{C:inactive}que grande eres Jumbo"',
                 },
             },
             j_aij_taylor_credits_joker = {
@@ -1582,7 +1592,7 @@ return {
                 name = 'Papermoon',
                 text = {
                     '{C:inactive}"Estamos invitados a una',
-                    '{C:inactive}fiesta de por vida, es de mala educación quedarse demás."',
+                    '{C:inactive}fiesta de por vida, es de mala educación quedarse atrás."',
                 },
             },
             j_aij_prototype = {
@@ -1635,9 +1645,43 @@ return {
             j_aij_vitellary_credits_joker = {
                 name = "Vitellary",
                 text = {
-                    '{C:inactive}"Learning everything all the time"',
+                    '{C:inactive}"Estoy de acuerdo con varias',
+                    'de sus opiniones sobre balance"'
                 },
             },
+
+            -- Credit stuff --
+
+            -- Page 1 --
+
+            j_aij_flying_ace = {
+                name = "As Volador",
+                text = {
+                    "Gana {C:money}$#1#{} al final de la ronda",
+                    "por cada {C:attention}As{} de {C:attention}palo{} único",
+                    "anotado esta ronda",
+                    "{C:inactive}(Actualmente{} {C:money}$#2#{}{C:inactive}){}"
+                },
+            },
+            j_aij_lucky_seven = {
+                name = "Siete de la Suerte",
+                text = {
+                    "Convierte todos los {C:attention}7{}",
+                    "sin mejoras jugados en",
+                    "{C:attention}Cartas de la Suerte{}"
+                },
+            },
+            j_aij_you_broke_it = {
+                name = "¡Lo Rompiste!",
+                text = {
+                    "Convierte cada {C:attention}#1#{} sin mejoras",
+                    "anotado en un {C:attention}#2#{}",
+                    "{s:0.8}La Categoría y Mejora",
+                    "{s:0.8}cambian al final de la ronda"
+                },
+            },
+            -- Page 1 --
+
             j_aij_rummikub = {
                 name = "Rummikub",
                 text = {
@@ -1661,38 +1705,11 @@ return {
                     "de la ronda"
                 }
             },
-            j_aij_jumbocarrot_credits_joker = {
-                name = "Jumbocarrot",
-                text = {
-                    '{C:inactive}"Gracias por arreglar',
-                    '{C:inactive}Bunco durante el año 2024,',
-                    '{C:inactive}uno de mis mods favoritos',
-                    '{C:inactive}que grande eres Jumbo"',
-                },
-            },
-            -- Page 1
-            j_aij_flying_ace = {
-                name = "As Volador",
-                text = {
-                    "Gana {C:money}$#1#{} al final de la ronda",
-                    "por cada {C:attention}As{} de {C:attention}palo{} único",
-                    "anotado esta ronda",
-                    "{C:inactive}(Actualmente{} {C:money}$#2#{}{C:inactive}){}"
-                },
-            },
             j_aij_fly_agaric = {
                 name = "Amanita Muscaria",
                 text = {
                     '{C:attention}Reactiva{} todas las {V:1}Habilidades{}',
                     '{V:1}Activables{}'
-                },
-            },
-            j_aij_lucky_seven = {
-                name = "Siete de la Suerte",
-                text = {
-                    "Convierte todos los {C:attention}7{}",
-                    "sin mejoras jugados en",
-                    "{C:attention}Cartas de la Suerte{}"
                 },
             },
             j_aij_lucky_horseshoe = {
@@ -1711,15 +1728,6 @@ return {
                     "de cada ronda al jugar",
                     "la {C:attention}última mano{} de la ronda",
                     "{C:inactive}(Actualmente {C:attention}#1#{C:inactive})"
-                },
-            },
-            j_aij_you_broke_it = {
-                name = "¡Lo Rompiste!",
-                text = {
-                    "Convierte cada {C:attention}#1#{} sin mejoras",
-                    "anotado en un {C:attention}#2#{}",
-                    "{s:0.8}La Categoría y Mejora",
-                    "{s:0.8}cambian al final de la ronda"
                 },
             },
             j_aij_birthday_clown = {
@@ -1838,7 +1846,6 @@ return {
                     "frecuencia en la {C:attention}Tienda{}",
                 },
             },
-            -- Page 2
             j_aij_old_joker = {
                 name = "Comodín Viejo",
                 text = { 
