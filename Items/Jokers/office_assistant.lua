@@ -27,7 +27,7 @@ local office_assistant = {
                 end
             end
             if right_card then
-                if right_card.ability.rental and right_card.ability.perishable and to_big(G.GAME.dollars) >= to_big(right_card.config.center.cost) then
+                if right_card.ability.rental and right_card.ability.perishable and G.GAME.dollars >= right_card.config.center.cost then
                     return right_card.config.center.cost
                 elseif right_card.ability.rental and right_card.ability.perishable and (right_card.ability.perish_tally < G.GAME.perishable_rounds or 5) then
                     return 3
@@ -43,7 +43,7 @@ local office_assistant = {
             local viable_options = {}
             for k, v in pairs(G.jokers.cards) do
                 if v == card and G.jokers.cards[k+1] and G.jokers.cards[k+1].ability then
-                    if ((G.jokers.cards[k+1].ability.perishable and to_big(G.GAME.dollars) >= to_big(3) and G.jokers.cards[k+1].ability.perish_tally < (G.GAME.perishable_rounds or 5)) or (G.jokers.cards[k+1].ability.rental and to_big(G.GAME.dollars) >= to_big(G.jokers.cards[k+1].config.center.cost))) then
+                    if ((G.jokers.cards[k+1].ability.perishable and G.GAME.dollars >= 3 and G.jokers.cards[k+1].ability.perish_tally < (G.GAME.perishable_rounds or 5)) or (G.jokers.cards[k+1].ability.rental and G.GAME.dollars >= G.jokers.cards[k+1].config.center.cost)) then
                         viable_options[#viable_options+1] = k+1
                     end
                 end
@@ -62,7 +62,7 @@ local office_assistant = {
                     right_card = G.jokers.cards[k+1]
                 end
             end
-            if right_card.ability.rental and ((to_big(G.GAME.dollars) >= to_big(right_card.config.center.cost)) or args.free) then
+            if right_card.ability.rental and ((G.GAME.dollars >= right_card.config.center.cost) or args.free) then
                 if not args.free then
                     ease_dollars(-right_card.config.center.cost)
                     card_eval_status_text(card, 'dollars', -right_card.config.center.cost)
@@ -75,7 +75,7 @@ local office_assistant = {
                     end)
                 }))
                 card_eval_status_text(right_card, 'extra', nil, nil, nil, {message = localize('aij_paid_off')..'!'})
-            elseif right_card.ability.perishable and ((to_big(G.GAME.dollars) >= to_big(3)) or args.free) then
+            elseif right_card.ability.perishable and ((G.GAME.dollars >= 3) or args.free) then
                 if not args.free then
                     ease_dollars(-3)
                     card_eval_status_text(card, 'dollars', -3)

@@ -1,7 +1,7 @@
 local aij_ease_dollars_ref = ease_dollars
 function ease_dollars(mod, instant)
     ret = aij_ease_dollars_ref(mod, instant)
-    if to_big(mod) < to_big(0) then
+    if mod < 0 then
         G.GAME.current_round.aij_aureate_coin_blind.spent_money = G.GAME.current_round.aij_aureate_coin_blind.spent_money + mod
         if G.GAME.round_resets.blind_choices.Boss == "bl_aij_aureate_coin" then
             G.E_MANAGER:add_event(Event({
@@ -44,7 +44,7 @@ local aureate_coin = {
     end,
 
     set_blind = function(self)
-        if G.GAME.current_round.aij_aureate_coin_blind and math.abs(G.GAME.current_round.aij_aureate_coin_blind.spent_money) > to_big(0) then
+        if G.GAME.current_round.aij_aureate_coin_blind and math.abs(G.GAME.current_round.aij_aureate_coin_blind.spent_money) > 0 then
             All_in_Jest.ease_blind_requirement(math.abs(G.GAME.current_round.aij_aureate_coin_blind.spent_money) * 0.1, 0)
         end
     end,

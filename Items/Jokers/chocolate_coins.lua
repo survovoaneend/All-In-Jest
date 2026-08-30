@@ -67,7 +67,7 @@ local chocolate_coins = {
         end
         if context.setting_blind then G.GAME.chocolate_coins_in_blind = true end
         if context.modify_final_cashout then G.GAME.chocolate_coins_in_blind = nil end
-        if context.money_altered and to_big(context.amount) >= to_big(1) and G.GAME.chocolate_coins_in_blind and not context.blueprint then
+        if context.money_altered and context.amount >= 1 and G.GAME.chocolate_coins_in_blind and not context.blueprint then
             if ((1+card.ability.extra.xmult) - card.ability.extra.xmult_minus_mod) <= 1 then
                 SMODS.destroy_cards(card, nil, nil, true)
                 return {

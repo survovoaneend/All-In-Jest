@@ -39,7 +39,7 @@ local gopnik = {
         end,
         
         can_use_ability = function(self, card, context)
-            if (to_big(G.GAME.dollars) - to_big(G.GAME.bankrupt_at)) >= to_big(card.ability.extra.cost)then
+            if (G.GAME.dollars - G.GAME.bankrupt_at) >= card.ability.extra.cost then
                 return true
             end
         end,

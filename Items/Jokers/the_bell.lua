@@ -31,7 +31,7 @@ local the_bell = {
                     active = true
                 end
             end
-            if active and (to_big(G.GAME.dollars) - to_big(G.GAME.bankrupt_at)) >= to_big(card.ability.extra.cost) and (G.shop_vouchers and G.shop_vouchers.cards and G.shop_vouchers.cards[1]) then
+            if active and (G.GAME.dollars - G.GAME.bankrupt_at) >= card.ability.extra.cost and (G.shop_vouchers and G.shop_vouchers.cards and G.shop_vouchers.cards[1]) then
                 return true
             end
         end,

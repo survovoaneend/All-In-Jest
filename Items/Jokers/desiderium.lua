@@ -36,7 +36,7 @@ local desiderium = {
         if context.starting_shop and not context.blueprint then
             card.ability.extra.trigger = true
         end
-        if context.money_altered and to_big(context.amount) < to_big(0) and not context.blueprint then
+        if context.money_altered and context.amount < 0 and not context.blueprint then
             card.ability.extra.trigger = false
         end
         if context.ending_shop and not context.blueprint and card.ability.extra.trigger then

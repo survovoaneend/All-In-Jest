@@ -3771,46 +3771,6 @@ if G.STATE == G.STATES.NEW_ROUND then
     return true
 end
 '''
-# Electric Snow + Taslisman (1/2)
-# Prevent round from ending after hand is played (unless final hand is played)
-# As above, but with a pattern for talisman
-# Game:update_hand_played()
-[[patches]]
-[patches.pattern]
-target = "game.lua"
-pattern = "if to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) or G.GAME.current_round.hands_left < 1 then"
-position = "before"
-match_indent = true
-payload = '''
-if next(SMODS.find_card("j_aij_electric_snow")) and not (G.GAME.current_round.hands_left < 1) then
-    G.STATE = G.STATES.DRAW_TO_HAND
-    G.STATE_COMPLETE = false
-    return true
-end
-if G.STATE == G.STATES.NEW_ROUND then
-    return true
-end
-'''
-# Electric Snow (2/2)
-# Prevent round from ending after boss is disabled (unless final hand is played)
-# As above, but with a pattern for talisman
-# Blind:disable()
-[[patches]]
-[patches.pattern]
-target = "blind.lua"
-pattern = "if self.boss and to_big(G.GAME.chips) - G.GAME.blind.chips >= to_big(0) then"
-position = "before"
-match_indent = true
-payload = '''
-if next(SMODS.find_card("j_aij_electric_snow")) and not (G.GAME.current_round.hands_left < 1) then
-    G.STATE = G.STATES.DRAW_TO_HAND
-    G.STATE_COMPLETE = false
-    return true
-end
-if G.STATE == G.STATES.NEW_ROUND then
-    return true
-end
-'''
 
 # Guess the Jest (1/4)
 # Prevents tooltip for Guess the Jest cards from appearing while hovering over cards in the pack (if 'Guess the Jest Names' is not enabled)

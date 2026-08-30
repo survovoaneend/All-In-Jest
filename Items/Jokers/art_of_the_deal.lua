@@ -26,14 +26,14 @@ local art_of_the_deal = {
     end,
   
     calculate = function(self, card, context)
-      if context.money_altered and to_big(context.amount) >= to_big(1) and to_big(G.GAME.dollars) > to_big( card.ability.extra.money_reset) and not context.blueprint then
+      if context.money_altered and context.amount >= 1 and G.GAME.dollars >  card.ability.extra.money_reset and not context.blueprint then
         SMODS.scale_card(card, {
 	        ref_table = card.ability.extra,
             ref_value = "mult",
 	        scalar_value = "mult_mod",
         })
       end
-      if to_big(G.GAME.dollars) <= to_big( card.ability.extra.money_reset) and card.ability.extra.mult ~= 0 and not context.blueprint then
+      if G.GAME.dollars <=  card.ability.extra.money_reset and card.ability.extra.mult ~= 0 and not context.blueprint then
         card.ability.extra.mult = 0
         return {
             message = localize('k_reset'),

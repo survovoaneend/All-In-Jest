@@ -770,10 +770,6 @@ function calculate_balance_percent_values(input_hand_chips, input_mult, percent)
   return new_hand_chips, new_mult
 end
 
-to_big = to_big or function(num)
-    return num
-end
-
 AllInJest.touchstone_deck_preview = function()
     local max_future_sense = 0
     if G.jokers and G.jokers.cards then
@@ -2175,7 +2171,7 @@ end
 
 function All_in_Jest.get_current_blind_mult()
     if G.GAME.blind.in_blind then
-        local original_chips = G.GAME.blind.aij_original_chips > to_big(0) and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
+        local original_chips = G.GAME.blind.aij_original_chips > 0 and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
         return (G.GAME.blind.chips - G.GAME.blind.aij_added_chips) / (original_chips / G.GAME.blind.aij_original_mult)
     else
         return G.GAME.blind.mult
@@ -2189,7 +2185,7 @@ end
 function All_in_Jest.ease_blind_requirement(mod_mult, mod_add, skip_animation)
     if not G.GAME.blind.in_blind then return end
 
-    local original_chips = G.GAME.blind.aij_original_chips > to_big(0) and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
+    local original_chips = G.GAME.blind.aij_original_chips > 0 and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
     if mod_mult == nil then
         mod_mult = 0
     end
@@ -2220,7 +2216,7 @@ function All_in_Jest.ease_blind_requirement(mod_mult, mod_add, skip_animation)
     if not skip_animation then
         G.BLIND_SIZE_DISPLAY_QUEUE = G.BLIND_SIZE_DISPLAY_QUEUE or {}
 
-        if chips_text_integer < to_big(desired_chip_amount) then
+        if chips_text_integer < desired_chip_amount then
             while chips_text_integer < desired_chip_amount do
                 table.insert(G.BLIND_SIZE_DISPLAY_QUEUE, chips_text_integer)
                 chips_text_integer = chips_text_integer + G.SETTINGS.GAMESPEED * chip_mod

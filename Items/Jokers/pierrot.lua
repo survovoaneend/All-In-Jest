@@ -27,7 +27,7 @@ local pierrot = {
             local id = context.other_card:get_id()
             local rank = SMODS.Ranks[context.other_card.base.value]
             local is_numbered_card = rank and string.find(rank.key, "%d*%d?%d+") ~= nil
-            if context.other_card and is_numbered_card and to_big(val) > to_big(0) and (to_big(id) > to_big(0)) then
+            if context.other_card and is_numbered_card and val > 0 and (id > 0) then
                 if context.other_card.debuff then
                     return {
                         message = localize('k_debuffed'),

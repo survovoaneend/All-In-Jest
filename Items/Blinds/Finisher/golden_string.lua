@@ -22,7 +22,7 @@ local golden_string = {
             return false
         end
         if card.area ~= G.jokers then
-            if to_big(G.GAME.dollars) <= to_big(0) then
+            if G.GAME.dollars <= 0 then
                 self.triggered = true
                 G.GAME.golden_string_recalc_debuff = true
                 return true
@@ -37,7 +37,7 @@ local golden_string = {
         if temp then
             return
         end
-        if not temp and to_big(G.GAME.dollars) <= to_big(0) then
+        if not temp and G.GAME.dollars <= 0 then
             if G.GAME.golden_string_recalc_debuff and G.GAME.blind then
                 G.GAME.golden_string_recalc_debuff = nil
                 for _, v in ipairs(G.playing_cards) do
@@ -49,7 +49,7 @@ local golden_string = {
                     end
                 end
             end
-        elseif not temp and to_big(G.GAME.dollars) > to_big(0) then
+        elseif not temp and G.GAME.dollars > 0 then
             G.GAME.golden_string_recalc_debuff = true
         end
     end,

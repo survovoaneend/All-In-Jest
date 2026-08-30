@@ -24,13 +24,13 @@ local fuzzy_joker = {
   
     calculate = function(self, card, context)
         if context.joker_main then
-            if to_big(mult) <= to_big(0) then return 1 end
+            if mult <= 0 then return 1 end
             local power = math.ceil(math.log(mult, card.ability.extra.power))
             local new_mult = card.ability.extra.power ^ power
-            if (new_mult - mult) == to_big(0) then -- Makes Fuzzy Joker always round up
+            if (new_mult - mult) == 0 then -- Makes Fuzzy Joker always round up
                 new_mult = new_mult * card.ability.extra.power
             end
-            if (new_mult - mult) > to_big(0) then
+            if (new_mult - mult) > 0 then
                 return {
                     aij_set_mult = new_mult,
                     remove_default_message = true,

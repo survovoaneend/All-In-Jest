@@ -892,7 +892,7 @@ end
 
 G.FUNCS.aij_reroll_tag_button = function(e)
     calculate_reroll_cost(true)
-    if ((to_big(G.GAME.dollars)-to_big(G.GAME.bankrupt_at)) - G.GAME.current_round.reroll_cost >= to_big(0)) and G.GAME.blind_on_deck and G.GAME.round_resets.blind_states[G.GAME.blind_on_deck] ~= 'Hide' and (G.GAME.blind_on_deck ~= 'Boss' or G.GAME.blind_on_deck ~= 'Big_Boss') then 
+    if ((G.GAME.dollars-G.GAME.bankrupt_at) - G.GAME.current_round.reroll_cost >= 0) and G.GAME.blind_on_deck and G.GAME.round_resets.blind_states[G.GAME.blind_on_deck] ~= 'Hide' and (G.GAME.blind_on_deck ~= 'Boss' or G.GAME.blind_on_deck ~= 'Big_Boss') then 
         e.config.colour = G.C.RED
         e.config.button = 'aij_reroll_tag'
         e.children[1].children[1].config.shadow = true
