@@ -22,5 +22,8 @@
   "dependencies": [
     "Steamodded (>=26.829.*)",
     "Lovely (>=0.9.0)"
+  ],
+  "conflicts": [
+    "Talisman (<=2.7)"
   ]
 }
