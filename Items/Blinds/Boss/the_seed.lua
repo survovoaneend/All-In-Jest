@@ -25,8 +25,8 @@ local the_seed = {
 
 local aij_smods_get_new_blind_ref = SMODS.get_new_blind
 function SMODS.get_new_blind(blind_type)
-    if blind_type == "Big_Boss" then
-       blind_type = "Boss"
+    if blind_type == "big_boss" then
+       blind_type = "boss"
     end
     return aij_smods_get_new_blind_ref(blind_type)
 end
