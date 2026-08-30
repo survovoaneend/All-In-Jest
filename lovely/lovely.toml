@@ -1754,7 +1754,7 @@ match_indent = true
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
-delay(0.3)
+SMODS.last_hand_score = SMODS.calculate_round_score()
 SMODS.last_hand_oneshot = SMODS.last_hand_score >= G.GAME.blind.chips
 '''
 position = "before"
@@ -4012,7 +4012,7 @@ end
 '''
 [[patches]]
 [patches.pattern]
-target = "functions/common_events.lua"
+target = '=[SMODS _ "src/game_objects/blind.lua"]'
 pattern = "G.GAME.round_resets.blind_order = {'Small', 'Big', 'Boss'} -- prepared for custom antes"
 position = "after"
 match_indent = true
