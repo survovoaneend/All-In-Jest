@@ -8,6 +8,7 @@ local rogue_planet = {
   discovered = false,
   order = 33,
   config = {},
+	attributes = {'hand_type', 'hand_level', 'space'},
   atlas = 'consumable_atlas',
   loc_vars = function(self, info_queue, card)
     return {

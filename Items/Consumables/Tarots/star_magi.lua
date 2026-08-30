@@ -8,6 +8,7 @@ local star_magi_tarot = {
 	discovered = false,
 	order = 16,
 	config = { },
+	attributes = {'generation', 'astral'},
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = {key = 'aij_astral_passigrade', set = 'Other'}

@@ -10,6 +10,7 @@ local aldebaran = {
 	discovered = false,
     order = 2,
 	config = { hand = nil, grade = '', pin = 'Aldebaran', extra = {percent = 20}},
+    attributes = {'hand_type', 'space', 'balance'},
     loc_vars = function(self, info_queue, card)
 		return {
 			vars = {

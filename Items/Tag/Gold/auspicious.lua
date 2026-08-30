@@ -9,6 +9,7 @@ local auspicious_tag = {
       upgrade = 'aij_fortunate',
     },
   },
+  attributes = {'generation', 'tarot', 'editions', 'negative', 'choice'},
 
   discovered = false,
   order = 32,

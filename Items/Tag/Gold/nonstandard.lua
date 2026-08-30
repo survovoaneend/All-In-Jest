@@ -407,6 +407,7 @@ local nonstandard_tag = {
       upgrade = "standard",
     },
   },
+  attributes = {'generation', 'playing_card', 'choice'},
 
   discovered = false,
   order = 10,

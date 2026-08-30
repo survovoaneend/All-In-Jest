@@ -14,6 +14,7 @@ local rahu = {
 	discovered = false,
     order = 19,
 	config = { hand = nil, grade = '', pin = 'Rahu', extra = {}},
+    -- no attributes yet, soulable objects not yet supported by SMODS
     loc_vars = function(self, info_queue, card)
         card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(card.ability.consumeable.grade, card.ability.consumeable.hand)
         if card.ability.consumeable.hand then

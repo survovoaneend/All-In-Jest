@@ -9,6 +9,7 @@ local canvas = {
             
         }
     },
+    attributes = {'modify_card', 'rank', 'suit'},
     all_in_jest = {
         multi_enhancement_z_order = -1
     },

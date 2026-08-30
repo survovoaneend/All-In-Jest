@@ -11,6 +11,7 @@ local gegenschein = {
   discovered = false,
   order = 40,
   config = {},
+  -- no attributes yet, soulable objects not yet supported by SMODS
   atlas = 'consumable_atlas',
   loc_vars = function(self, info_queue, card)
   end,

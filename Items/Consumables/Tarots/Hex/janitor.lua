@@ -14,6 +14,7 @@ local janitor = {
     soul_set = 'Tarot',
     order = 502,
     config = { },
+    attributes = {'destroy_card'},
     atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
        

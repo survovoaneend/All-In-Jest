@@ -31,6 +31,7 @@ local tetragrammaton = {
 	discovered = false,
 	order = 1,
 	config = { extra_cards = 4 },
+	attributes = {'generation', 'playing_card', 'choice'},
 	atlas = "consumable_atlas",
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra_cards } }

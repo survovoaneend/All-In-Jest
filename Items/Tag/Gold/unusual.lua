@@ -13,6 +13,7 @@ local unusual_tag = {
             sticker = 'aij_unusual_doubled'
         }
     },
+    attributes = {'generation', 'joker', 'rarity', 'multiplier'},
 
     discovered = false,
     order = 1,

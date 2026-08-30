@@ -7,6 +7,7 @@ local sidereal_booster_base = {
     cost = 4, 
     weight = 0.6,
     config = { extra = 3, choose = 1 }, 
+    attributes = {'astral'},
     discovered = false, 
     unlocked = true, 
     loc_vars = function(self, info_queue, card)

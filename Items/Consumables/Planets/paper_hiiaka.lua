@@ -13,6 +13,7 @@ local paper_hiiaka_planet = {
 	jest_rec_paperback = true,
 	jest_spec_moon = true,
 	config = { hand_type = "paperback_Straight Spectrum", softlock = true, moon = true , chips = true},
+	attributes = {'hand_type', 'hand_level', 'space'},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
 		return {

@@ -9,6 +9,7 @@ local timelost_tag = {
       upgrade = 'aij_soulbound',
     },
   },
+  attributes = {'booster', 'joker', 'rarity', 'legendary', 'stickers'},
 
   discovered = false,
   order = 25,

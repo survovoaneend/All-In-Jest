@@ -6,6 +6,7 @@ local the_yew = {
         min = 3,
     },
     mult = 2,
+    attributes = {'debuff', 'rank', 'ace', 'three', 'five', 'seven', 'nine'},
     boss_colour = HEX("f28a3c"),
     atlas = 'blinds',
     pos = { X = 0, y = 12},

@@ -9,6 +9,7 @@ local tallow = {
 	discovered = false,
     order = 12,
     config = { extra = { mod_conv = 'aij_melted',}, max_highlighted = 2 },
+    attributes = {'modify_card', 'seals'},
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.mod_conv]
 		return {

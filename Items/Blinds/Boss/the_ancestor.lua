@@ -5,6 +5,7 @@ local the_ancestor = {
         min = 3
     },
     mult = 2,
+    attributes = {'hand_type', 'discard'},
     boss_colour = HEX("f03464"),
     atlas = 'blinds',
     pos = { X = 0, y = 45},

@@ -7,6 +7,7 @@ local overstuffed = {
     discovered = false,
     order = 5,
     config = {},
+    attributes = {'booster'},
 
     loc_vars = function(self, info_queue)
     end,

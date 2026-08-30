@@ -27,6 +27,7 @@ local aureate_coin = {
         return true
     end,
     mult = 1,
+    attributes = {'large_blind'},
     aij_variable_req = true,
     boss_colour = HEX("eba03a"),
     atlas = 'blinds_final',

@@ -5,6 +5,7 @@ local the_apple = {
       min = 3,
     },
     mult = 2,
+    attributes = {'destroy_card', 'joker'},
     boss_colour = HEX("ac3232"),
     atlas = 'blinds',
     pos = {X = 0, y = 20},

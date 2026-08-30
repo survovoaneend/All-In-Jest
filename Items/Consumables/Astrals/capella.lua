@@ -10,6 +10,7 @@ local capella = {
 	discovered = false,
     order = 3,
 	config = { hand = nil, grade = '', pin = 'Capella', extra = {odds = 2}},
+    attributes = {'hand_type', 'space', 'chance', 'generation', 'planet', 'consumable'},
     loc_vars = function(self, info_queue, card)
         -- Rest of loc_vars is defined in the ConsumableType in hooks.lua
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)

@@ -12,6 +12,7 @@ local phobos_planet = {
 	order = 3,
 	jest_spec_moon = true,
 	config = {hand_type = "Four of a Kind", moon = true, mult = true},
+	attributes = {'hand_type', 'hand_level', 'space'},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
 		return {

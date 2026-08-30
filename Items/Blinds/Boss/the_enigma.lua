@@ -16,6 +16,7 @@ local the_enigma = {
         end
     end,
     mult = 1.5,
+    attributes = {'enhancements', 'draw_cards'},
     boss_colour = HEX("6b4d74"),
     atlas = 'blinds',
     pos = { X = 0, y = 26},

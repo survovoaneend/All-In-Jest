@@ -6,6 +6,7 @@ local the_seed = {
         min = 1,
     },
     mult = 2,
+    attributes = {},
     boss_colour = HEX("d4ccbc"),
     atlas = 'blinds',
     pos = { X = 0, y = 85},

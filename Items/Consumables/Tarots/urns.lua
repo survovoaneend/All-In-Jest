@@ -8,6 +8,7 @@ local urns = {
 	discovered = false,
 	order = 13,
 	config = { max_highlighted = 1, ran_cards = 3 },
+	attributes = {'modify_card', 'destroy_card', 'enhancements'},
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		return {

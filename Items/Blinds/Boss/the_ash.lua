@@ -5,6 +5,7 @@ local the_ash = {
         min = 5,
     },
     mult = 1,
+    attributes = {'large_blind', 'full_deck'},
     boss_colour = HEX("97896f"),
     atlas = 'blinds',
     pos = { X = 0, y = 22},

@@ -10,6 +10,7 @@ local algol = {
 	discovered = false,
     order = 0,
 	config = { hand = nil, grade = '', pin = 'Algol', extra = {dollars = 2}},
+    attributes = {'hand_type', 'space', 'economy'},
     loc_vars = function(self, info_queue, card)
         -- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {

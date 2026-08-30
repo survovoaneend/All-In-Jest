@@ -20,6 +20,7 @@ local silver = {
     order = 3, -- Works because of alphabetical sorting of those with same order
     min_ante = 2,
     config = {type = 'store_joker_modify', edition = 'aij_silver'},
+    attributes = {'joker', 'editions'},
     loc_vars = function(self, info_queue)
         info_queue[#info_queue+1] = G.P_CENTERS.e_aij_silver
         return {}

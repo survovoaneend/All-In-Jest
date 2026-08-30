@@ -5,6 +5,7 @@ local the_willow = {
         min = 2,
     },
     mult = 2,
+    attributes = {'draw_cards', 'suit', 'spades'},
     boss_colour = HEX("6f9282"),
     atlas = 'blinds',
     pos = { X = 0, y = 3},

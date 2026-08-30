@@ -11,6 +11,7 @@ local the_business = {
         return All_in_Jest.pit_blinds_in_play()
     end,
     mult = 2,
+    attributes = {'destroy_card', 'joker', 'generation', 'rarity', 'stickers'},
     boss_colour = HEX("3e4b4d"),
     atlas = 'blinds_pit',
     pos = {y = 21},

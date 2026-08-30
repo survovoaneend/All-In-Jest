@@ -12,6 +12,7 @@ local nibiru_planet = {
 	order = 21,
 	jest_spec_moon = true,
 	config = { hand_type = "Five of a Kind", softlock = true, moon = true, chips = true },
+	attributes = {'hand_type', 'hand_level', 'space'},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
 		return {

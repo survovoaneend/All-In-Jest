@@ -6,6 +6,7 @@ local the_god = {
     min = 1,
   },
   mult = 2,
+  attributes = {},
   boss_colour = HEX("9badaf"),
   atlas = 'blinds',
   pos = { X = 0, y = 32},

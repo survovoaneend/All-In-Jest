@@ -12,6 +12,7 @@ local the_need = {
         min = 3,
     },
     mult = 2,
+    attributes = {},
     boss_colour = HEX("98c350"),
     atlas = 'blinds',
     pos = { X = 0, y = 11},

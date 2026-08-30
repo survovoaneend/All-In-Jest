@@ -245,6 +245,10 @@ SMODS.Gradient {
     cycle = 5,
     interpolation = 'trig'
 }
+-- related to Astral cards or alignments
+SMODS.Attribute {
+    key = 'astral'
+}
 -- adds Chaotic to cards, or has to do with Chaotic
 SMODS.Attribute {
     key = 'chaotic'

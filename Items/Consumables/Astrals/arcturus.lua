@@ -10,6 +10,7 @@ local arcturus = {
 	discovered = false,
     order = 10,
 	config = { hand = nil, grade = '', pin = 'Arcturus', extra = {discards = 1}},
+    attributes = {'hand_type', 'space', 'discard'},
     loc_vars = function(self, info_queue, card)
         -- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {

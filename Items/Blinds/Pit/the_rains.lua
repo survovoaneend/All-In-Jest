@@ -12,6 +12,7 @@ local the_rains = {
       return All_in_Jest.pit_blinds_in_play()
     end,
     mult = 2,
+    attributes = {'modify_card', 'enhancements', 'editions', 'seals'},
     boss_colour = HEX("869ca7"),
     atlas = 'blinds_pit',
     pos = { y = 1 },

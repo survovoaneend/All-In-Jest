@@ -9,6 +9,7 @@ local providence = {
 	discovered = false,
     order = 14,
     config = { extra = { }},
+	attributes = {'generation', 'tag'},
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue+1] = {set = 'Tag', key = 'tag_aij_astrology'}
 		return {}

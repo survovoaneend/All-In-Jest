@@ -6,6 +6,7 @@ local the_kind = {
         min = 3,
     },
     mult = 2,
+    attributes = {'large_blind', 'skip'},
     boss_colour = HEX("de7559"),
     atlas = 'blinds',
     pos = { X = 0, y = 52},

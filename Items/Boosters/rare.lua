@@ -8,6 +8,7 @@ local rare_normal_1 = {
     cost = 4,
     weight = 1.2, 
     config = { extra = 3, choose = 1 }, 
+    attributes = {'joker', 'rarity'},
     discovered = false, 
     unlocked = true, 
     loc_vars = function(self, info_queue, card)

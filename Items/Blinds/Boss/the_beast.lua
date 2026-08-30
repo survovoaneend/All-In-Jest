@@ -5,6 +5,7 @@ local the_beast = {
         min = 3,
     },
     mult = 2,
+    attributes = {'destroy_card', 'joker'},
     boss_colour = HEX("4a834c"),
     atlas = 'blinds',
     pos = { X = 0, y = 36},

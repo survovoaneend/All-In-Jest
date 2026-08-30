@@ -9,6 +9,7 @@ local ignoramus_tag = {
       upgrade = 'buffoon',
     },
   },
+  attributes = {'generation', 'joker', 'choice'},
 
   discovered = false,
   order = 13,

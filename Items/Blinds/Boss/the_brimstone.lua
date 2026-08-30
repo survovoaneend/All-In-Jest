@@ -5,6 +5,7 @@ local the_brimstone = {
         min = 3,
     },
     mult = 2,
+    attributes = {'discard', 'lose_economy'},
     boss_colour = HEX("f24949"),
     atlas = 'blinds',
     pos = { X = 0, y = 8},

@@ -4,6 +4,7 @@ local common_caste = {
   config = {
     
   },
+  attributes = {'booster', 'shop'},
   atlas = 'vouchers_atlas',
   pos = { x = 4, y = 1 },
   discovered = false,

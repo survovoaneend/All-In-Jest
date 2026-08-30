@@ -4,6 +4,7 @@ local wax_stamp = {
   config = {
     
   },
+  attributes = {'seals'},
   atlas = 'vouchers_atlas',
   pos = { x = 0, y = 1 },
   discovered = false,

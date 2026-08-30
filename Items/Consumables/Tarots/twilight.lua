@@ -13,6 +13,7 @@ local twilight_tarot = {
 			max = 50
 		}
 	},
+    attributes = {'economy', 'hand_type'},
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		local level = 1

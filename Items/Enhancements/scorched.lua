@@ -10,6 +10,7 @@ local scorched = {
             levels = 1
         }
     },
+    attributes = {'discard', 'chance', 'hand_level'},
     set_collection_sprite = true,
     all_in_jest = {
         multi_enhancement_z_order = 2

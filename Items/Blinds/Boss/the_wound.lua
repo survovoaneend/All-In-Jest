@@ -5,6 +5,7 @@ local the_wound = {
         min = 2,
     },
     mult = 2,
+    attributes = {'discard'},
     boss_colour = HEX("e1614c"),
     atlas = 'blinds',
     pos = { X = 0, y = 7},

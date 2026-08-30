@@ -11,6 +11,7 @@ local the_moon = {
         return All_in_Jest.pit_blinds_in_play()
     end,
     mult = 2,
+    attributes = {'debuff'},
     boss_colour = HEX("95a8a9"),
     atlas = 'blinds_pit',
     pos = { y = 3 },

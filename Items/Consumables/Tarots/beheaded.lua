@@ -11,6 +11,7 @@ local beheaded_tarot = {
 	config = {
 		max_highlighted = 1
 	},
+    attributes = {'modify_card', 'stickers'},
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue+1] = {set = 'Other', key = 'aij_bomb'}

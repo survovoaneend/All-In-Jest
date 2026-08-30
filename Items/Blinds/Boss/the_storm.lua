@@ -5,6 +5,7 @@ local the_storm = {
         min = 3,
     },
     mult = 2,
+    attributes = {'destroy_card'},
     boss_colour = HEX("b48b52"),
     atlas = 'blinds',
     pos = { X = 0, y = 37},

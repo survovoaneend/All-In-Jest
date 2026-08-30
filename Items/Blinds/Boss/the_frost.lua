@@ -5,6 +5,7 @@ local the_frost = {
         min = 3,
     },
     mult = 2,
+    attributes = {'destroy_card'},
     boss_colour = HEX("d1d0dd"),
     atlas = 'blinds',
     pos = { X = 0, y = 42},
