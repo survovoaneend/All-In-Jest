@@ -17,7 +17,7 @@
   "icon_path": "modicon.png",
   "icon_width": 32,
   "dependencies": [
-    "Steamodded (>=1.0.0~BETA-1606b)",
-    "Lovely (>=0.7.1)"
+    "Steamodded (>=26.829.*)",
+    "Lovely (>=0.9.0)"
   ]
 }

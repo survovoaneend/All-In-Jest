@@ -1029,7 +1029,7 @@ match_indent = true
 [[patches]] 
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
-pattern = "local flags = SMODS.calculate_context({drawing_cards = true, amount = hand_space})"
+pattern = "local flags = SMODS.calculate_context({drawing_cards = true, amount = *"
 position = "before"
 payload = '''
 do
@@ -1755,7 +1755,7 @@ match_indent = true
 target = "functions/state_events.lua"
 pattern = '''
 delay(0.3)
-SMODS.last_hand_oneshot = SMODS.calculate_round_score() >= G.GAME.blind.chips
+SMODS.last_hand_oneshot = SMODS.last_hand_score >= G.GAME.blind.chips
 '''
 position = "before"
 payload = '''
@@ -3945,11 +3945,11 @@ match_indent = true
 [[patches]] 
 [patches.pattern]
 target = "functions/UI_definitions.lua"
-pattern = "if not run_info then G.GAME.round_resets.blind_states[G.GAME.blind_on_deck] = 'Select' end"
+pattern = "function create_UIBox_blind_choice(type, run_info)"
 position = "after"
 payload = '''
-local is_big_boss = false
-local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and (type == 'Boss' or type == 'Big_Boss')
+  local is_big_boss = false
+  local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and (type == 'Boss' or type == 'Big_Boss')
 '''
 match_indent = true
 
@@ -4001,21 +4001,31 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = "G.GAME.round_resets.blind_choices.Boss = get_new_boss()"
+pattern = "SMODS.reset_blind_choices(G.GAME.round_resets.blind_choices)"
+position = "before"
+match_indent = true
+payload = '''
+if G.GAME.aij_has_big_boss then
+    G.GAME.round_resets.blind_states.Big_Boss = 'Upcoming'
+    G.GAME.round_resets.blind_states['Big'] = 'Hide'
+end
+'''
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "G.GAME.round_resets.blind_order = {'Small', 'Big', 'Boss'} -- prepared for custom antes"
 position = "after"
 match_indent = true
 payload = '''
-G.GAME.round_resets.blind_choices.Big_Boss = get_new_boss()
-G.GAME.round_resets.blind_states.Big_Boss = 'Upcoming'
 if G.GAME.aij_has_big_boss then
-    G.GAME.round_resets.blind_states['Big'] = 'Hide'
+    G.GAME.round_resets.blind_order = {'Small', 'Big_Boss', 'Boss'}
 end
 '''
 
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
-pattern = 'elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big then'
+pattern = "elseif G.GAME.round_resets.blind_states.Big == 'Current' then"
 position = 'before'
 match_indent = true
 payload = '''
@@ -4842,7 +4852,7 @@ if not saveTable then
 end
 '''
 
-# Advanced Copiers (1/5)
+# Advanced Copiers (1/4)
 # Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
 # This is for vanilla jokers. Needs separate patches for vanilla and modded jokers.
 # generate_card_ui()
@@ -4874,7 +4884,7 @@ if specific_vars ~= nil and specific_vars.aij_multi_copier_card then
     desc_nodes[#desc_nodes + 1] = copier_compat
 end
 '''
-# Advanced Copiers (2/5)
+# Advanced Copiers (2/4)
 # Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
 # This is for modded jokers. Needs separate patches for vanilla and modded jokers.
 # SMODS.Center:generate_ui()
@@ -4937,31 +4947,20 @@ if target.vars.aij_copier_card then
 end
 -- End of All in Jest patch
 '''
-# Advanced Copiers (3/5)
-# Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (1/2)
-# generate_card_ui()
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = '''_c:generate_ui(info_queue, card, desc_nodes, specific_vars, full_UI_table)'''
-position = "before"
-match_indent = true
-payload = '''
-local card = _c.specific_vars and (_c.specific_vars.aij_elder or _c.specific_vars.aij_multi_copier_card or _c.specific_vars.aij_copier_card) or card
-'''
-# Advanced Copiers (4/5)
+# Advanced Copiers (3/4)
 # Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (2/2)
 # generate_card_ui()
 [[patches]]
-[patches.pattern]
+[patches.regex]
 target = 'functions/common_events.lua'
-pattern = '''localize{type = 'name', key = key, set = set, nodes = desc_nodes.name_styled, fixed_scale = 0.63, no_pop_in = true, no_shadow = true, y_offset = 0, no_spacing = true, no_bump = true, vars = (_c.create_fake_card and _c.loc_vars and (_c:loc_vars({}, _c:create_fake_card()) or {}).vars) or {colours = {}}} '''
+pattern = '''(?<indent>[\t ]*)(?<pre>.*)\(_c\.create_fake_card and _c\.loc_vars and \(_c:loc_vars\(\{\}, \_c:create_fake_card\(\)\) or \{\}\).vars\)(?<post>.*)'''
 position = "at"
-match_indent = true
+line_prepend = "$indent"
 payload = '''
-localize{type = 'name', key = key, set = set, nodes = desc_nodes.name_styled, fixed_scale = 0.63, no_pop_in = true, no_shadow = true, y_offset = 0, no_spacing = true, no_bump = true, vars = (_c.create_fake_card and _c.loc_vars and (_c:loc_vars({}, card or _c:create_fake_card()) or {}).vars) or {colours = {}}}  -- All in Jest overrides
+local card = _c.specific_vars and (_c.specific_vars.aij_elder or _c.specific_vars.aij_multi_copier_card or _c.specific_vars.aij_copier_card) or card -- All in Jest overrides
+$pre(_c.create_fake_card and _c.loc_vars and (_c:loc_vars({}, card or _c:create_fake_card()) or {}).vars)$post -- All in Jest overrides
 '''
-# Advanced Copiers (5/5)
+# Advanced Copiers (4/4)
 # Fixes a nice SMODs issue where Oops! All sixes is refered to by its key rather than ability name (like other vanilla jokers)
 # Card:calculate_joker
 [[patches]] 
@@ -5619,14 +5618,6 @@ self.ASSET_ATLAS[self.asset_images[i].name].image_data = love.image.newImageData
 '''
 match_indent = true
 
-# Fused stone cards are ordered in hand correctly
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-pattern = '''if self.ability.effect == 'Stone Card' or (self.config.center.no_suit and self.config.center.no_rank) then'''
-position = 'at'
-payload = '''if SMODS.has_enhancement(self, "m_stone") or (self.config.center.no_suit and self.config.center.no_rank) then'''
-match_indent = true
 
 ######################################
     # END OF PATCHES FOR FUSIONS #

@@ -22,4 +22,14 @@ local the_seed = {
         G.GAME.round_resets.blind_choices.Big_Boss = get_new_boss()
     end
 }
+
+local aij_smods_get_new_blind_ref = SMODS.get_new_blind
+function SMODS.get_new_blind(blind_type)
+    if blind_type == "Big_Boss" then
+       blind_type = "Boss"
+    end
+    return aij_smods_get_new_blind_ref(blind_type)
+end
+
+
 return { name = {"Blinds"}, items = {the_seed} }
