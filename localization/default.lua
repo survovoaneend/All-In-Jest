@@ -6492,7 +6492,8 @@ return {
                 name = "Psycho",
                 text = {
                     "{B:1,C:white,s:0.8}Activated Ability",
-                    '{C:red}Destroy{} Joker to the {C:attention}left',
+                    'Use while in a {C:attention}Blind{} to',
+                    '{C:red}destroy{} Joker to the {C:attention}left',
                     'and gain {X:mult,C:white}X#1#{} Mult per {C:money}$1',
                     'of its {C:money}sell value{}',
                     '{C:inactive}(Currently {X:mult,C:white}X#2#{}{C:inactive} Mult){}'
