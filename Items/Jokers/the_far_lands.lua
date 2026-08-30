@@ -47,4 +47,16 @@ local the_far_lands = {
         end
     end,
 }
+
+local aij_get_id_ref = Card.get_id
+function Card:get_id()
+    if next(SMODS.find_card("j_aij_the_far_lands")) and SMODS.has_enhancement(self, "m_stone") and not self.vampired then
+        return -1000000 - 845648 -- 845648 is just a random number, nothing special
+    else
+        return aij_get_id_ref(self)
+    end
+end
+
+
+
 return { name = {"Jokers"}, items = {the_far_lands} }
