@@ -6,6 +6,7 @@ local the_real = {
         min = 5,
     },
     mult = 2,
+    attributes = {'rank', 'suit'},
     boss_colour = HEX("3e4b4d"),
     atlas = 'blinds',
     pos = { X = 0, y = 53},

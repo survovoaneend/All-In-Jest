@@ -6,6 +6,7 @@ local the_lake = {
         min = 1,
     },
     mult = 2,
+    attributes = {'draw_cards'},
     boss_colour = HEX("449d95"),
     atlas = 'blinds',
     pos = { X = 0, y = 15},

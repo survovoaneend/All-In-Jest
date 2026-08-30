@@ -14,6 +14,7 @@ local oracle = {
     soul_set = 'Tarot',
     order = 505,
     config = { },
+    attributes = {'modify_card', 'enhancements'},
     atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
        

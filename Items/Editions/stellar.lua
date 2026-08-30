@@ -20,6 +20,7 @@ local stellar = {
     },
     order = 2,
     config = { chips = 5, mult = 1 },
+    attributes = {'chips', 'mult', 'hand_type'},
     aij_seal_config = { hands = 2 }, --Prevents other vaules from being halfed by seal editions
     loc_vars = function(self, info_queue, card)
         return {vars = {(card.edition or {}).chips or self.config.chips, (card.edition or {}).mult or self.config.mult, (card.aij_seal_edition or {}).hands or self.aij_seal_config.hands}}

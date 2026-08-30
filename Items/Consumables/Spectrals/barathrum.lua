@@ -9,6 +9,7 @@ local barathrum = {
 	discovered = false,
     order = 13,
     config = { extra = { select = 2 }},
+    attributes = {'tarot', 'choice'},
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {

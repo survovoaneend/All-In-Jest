@@ -5,6 +5,7 @@ local the_branch = {
       min = 2,
     },
     mult = 2,
+    attributes = {'draw_cards', 'face'},
     boss_colour = HEX("88715a"),
     atlas = 'blinds',
     pos = {X = 0, y = 4},

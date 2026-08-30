@@ -6,6 +6,7 @@ local the_solid = {
         min = 3,
     },
     mult = 2,
+    attributes = {'modify_card', 'stickers'},
     boss_colour = HEX("6f7070"),
     atlas = 'blinds',
     pos = { X = 0, y = 68},

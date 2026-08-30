@@ -11,6 +11,7 @@ local fervent_enhancement = {
             chips_extra = 10,
         }
     },
+    attributes = {'chips', 'scaling'},
     all_in_jest = {
         multi_enhancement_z_order = 1
     },

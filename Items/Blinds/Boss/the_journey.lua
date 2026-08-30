@@ -5,6 +5,7 @@ local the_journey = {
         min = 3
     },
     mult = 2,
+    attributes = {'suit'},
     boss_colour = HEX("fdd879"),
     atlas = 'blinds',
     pos = { X = 0, y = 40},

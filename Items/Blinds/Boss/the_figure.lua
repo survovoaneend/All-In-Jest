@@ -6,6 +6,7 @@ local the_figure = {
         min = 2,
     },
     mult = 2,
+    attributes = {'face'},
     boss_colour = HEX("615b91"),
     atlas = 'blinds',
     pos = { X = 0, y = 14},

@@ -9,6 +9,7 @@ local simulated = {
             played_this_round = false
 		},
 	},
+	attributes = {'draw_cards', 'discard'},
 	all_in_jest = {
 		multi_enhancement_z_order = -2,
 	},

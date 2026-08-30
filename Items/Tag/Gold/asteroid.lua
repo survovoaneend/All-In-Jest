@@ -9,6 +9,7 @@ local asteroid_tag = {
       upgrade = 'meteor',
     },
   },
+  attributes = {'booster'},
 
   discovered = false,
   order = 12,

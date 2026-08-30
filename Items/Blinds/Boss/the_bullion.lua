@@ -16,6 +16,7 @@ local the_bullion = {
         end
     end,
     mult = 2,
+    attributes = {'enhancements', 'lose_economy'},
     boss_colour = HEX("f3aa46"),
     atlas = 'blinds',
     pos = { X = 0, y = 27},

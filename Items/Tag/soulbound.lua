@@ -8,6 +8,7 @@ local soulbound_tag = {
     discovered = false,
     order = 0,
     min_ante = 4,
+    attributes = {'generation', 'joker', 'rarity', 'legendary', 'stickers'},
 
     loc_vars = function(self, info_queue)
     end,

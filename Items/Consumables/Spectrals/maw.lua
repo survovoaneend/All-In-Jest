@@ -9,6 +9,7 @@ local maw = {
 	discovered = false,
     order = 8,
 	config = {},
+    attributes = {'destroy_card'},
     can_use = function(self, card)
         if G.hand and G.hand.cards and #G.hand.cards > 0 then
             local viable_options = {}

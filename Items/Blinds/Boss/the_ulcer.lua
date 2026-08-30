@@ -6,6 +6,7 @@ local the_ulcer = {
         min = 1,
     },
     mult = 2,
+    attributes = {'hands', 'discard'},
     boss_colour = HEX("e39571"),
     atlas = 'blinds',
     pos = { X = 0, y = 10},

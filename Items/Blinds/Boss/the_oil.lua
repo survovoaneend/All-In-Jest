@@ -6,6 +6,7 @@ local the_oil = {
         min = 5,
     },
     mult = 2,
+    attributes = {'discard', 'enhancements', 'chance'},
     boss_colour = HEX("b3986a"),
     atlas = 'blinds',
     pos = { X = 0, y = 86},

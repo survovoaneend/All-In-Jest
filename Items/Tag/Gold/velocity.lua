@@ -13,6 +13,7 @@ local velocity_tag = {
             money_mod = 2
         }
     },
+    attributes = {'economy'},
 
     discovered = false,
     order = 22,

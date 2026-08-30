@@ -5,6 +5,7 @@ local the_beith = {
       min = 2,
     },
     mult = 2,
+    attributes = {'draw_cards', 'suit', 'diamonds'},
     boss_colour = HEX("ddebe5"),
     atlas = 'blinds',
     pos = {X = 0, y = 0 },

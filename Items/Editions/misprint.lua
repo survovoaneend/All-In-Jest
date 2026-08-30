@@ -36,6 +36,7 @@ local misprint = {
     },
     order = 3,
     config = { min_mult = 50, max_mult = 300, mult = 1, prevmult = "1" },
+    attributes = {'multiplier'},
     disable_base_shader = true,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Other', key = 'misprinted_credits_info'}

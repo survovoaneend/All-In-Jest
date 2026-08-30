@@ -27,6 +27,8 @@ local anarchy_tag = {
       "ran_gold_tag",
     }
   },
+  attributes = {'economy', 'boss_blind', 'booster', 'generation', 'joker', 'editions', 'negative', 'consumable',
+    'voucher', 'ante', 'hands', 'discard', 'modify_card', 'enhancements', 'tag', 'gold_tag'},
 
   discovered = false,
   order = 26,

@@ -13,6 +13,7 @@ local master_arcanes = {
 			odds = 2
 		}
 	},
+	attributes = {'generation', 'spectral', 'consumable', 'chance'},
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		return {

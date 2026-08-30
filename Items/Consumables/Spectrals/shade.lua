@@ -8,6 +8,7 @@ local shade_spectral = {
     discovered = false,
     order = 1,
     config = { extra = 1 },
+    attributes = {'modify_card', 'editions', 'negative'},
     atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
         if All_in_Jest.config and All_in_Jest.config.no_copy_neg then

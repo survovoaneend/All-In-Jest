@@ -5,6 +5,7 @@ local the_pear = {
         min = 3,
     },
     mult = 2,
+    attributes = {'modify_card', 'rank', 'suit'},
     boss_colour = HEX("84b1d2"),
     atlas = 'blinds',
     pos = { X = 0, y = 34},

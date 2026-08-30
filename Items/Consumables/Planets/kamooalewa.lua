@@ -9,6 +9,7 @@ local kamooalewa_planet = {
 	cost = 3,
 	unlocked = true,
 	config = {hand_type = "Full House", moon = true, chips = true},
+	attributes = {'hand_type', 'hand_level', 'space'},
 	discovered = false,
 	order = 14,
 	jest_spec_moon = true,

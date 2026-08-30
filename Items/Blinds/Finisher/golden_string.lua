@@ -9,6 +9,7 @@ local golden_string = {
         return true
     end,
     mult = 2,
+    attributes = {'lose_economy', 'debuff'},
     boss_colour = HEX("efb855"),
     atlas = 'blinds_final',
     pos = { y = 11},

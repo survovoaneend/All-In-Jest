@@ -9,6 +9,7 @@ local landfill_tag = {
             upgrade = 'garbage',
         },
     },
+    attributes = {'economy', 'discard'},
 
     discovered = false,
     order = 15,

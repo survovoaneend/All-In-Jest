@@ -10,6 +10,7 @@ local vega = {
 	discovered = false,
     order = 13,
 	config = { hand = nil, grade = '', pin = 'Vega', extra = {}},
+    attributes = {'hand_type', 'space', 'retrigger'},
     loc_vars = function(self, info_queue, card)
         -- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {

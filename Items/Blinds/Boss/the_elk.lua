@@ -5,6 +5,7 @@ local the_elk = {
         min = 3,
     },
     mult = 1,
+    attributes = {'hand_type'},
     boss_colour = HEX("b575e8"),
     atlas = 'blinds',
     pos = { X = 0, y = 38},

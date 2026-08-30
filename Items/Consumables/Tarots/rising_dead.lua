@@ -8,6 +8,7 @@ local rising_dead_tarot = {
 	discovered = false,
 	order = 18,
 	config = { max_highlighted = 2 },
+	attributes = {'modify_card', 'enhancements', 'seals', 'position'},
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		return {

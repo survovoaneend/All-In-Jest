@@ -20,6 +20,7 @@ local the_silence = {
         min = 4,
     },
     mult = 2,
+    attributes = {},
     boss_colour = HEX("5a537e"),
     atlas = 'blinds',
     pos = { X = 0, y = 73},

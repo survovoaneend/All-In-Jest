@@ -11,6 +11,7 @@ local the_multitude = {
         return All_in_Jest.pit_blinds_in_play()
     end,
     mult = 2,
+    attributes = {'destroy_card', 'debuff', 'full_deck'},
     boss_colour = HEX("8d759f"),
     atlas = 'blinds_pit',
     pos = {y = 22},

@@ -9,6 +9,7 @@ local cinema_tag = {
       upgrade = 'aij_silver',
     }
   },
+  attributes = {'joker', 'editions', 'position'},
 
   discovered = false,
   order = 28,

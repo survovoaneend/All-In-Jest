@@ -9,6 +9,7 @@ local angling_hook = {
         return true
     end,
     mult = 2,
+    attributes = {'discard', 'full_deck'},
     boss_colour = HEX("9b4e64"),
     atlas = 'blinds_final',
     pos = { y = 24},

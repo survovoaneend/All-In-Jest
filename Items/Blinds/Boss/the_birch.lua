@@ -6,6 +6,7 @@ local the_birch = {
         min = 3,
     },
     mult = 2,
+    attributes = {'debuff', 'rank', 'two', 'four', 'six', 'eight', 'ten'},
     boss_colour = HEX("5b9baa"),
     atlas = 'blinds',
     pos = { X = 0, y = 13},

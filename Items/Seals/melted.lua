@@ -4,6 +4,7 @@ local melted = {
     config = {
         
     },
+    attributes = {'modify_card', 'seals'},
     atlas = 'enhancements_atlas',
     pos = { x = 8, y = 2 },
     badge_colour = HEX("a28b8b"),

@@ -5,6 +5,7 @@ local the_elm = {
       min = 2,
     },
     mult = 2,
+    attributes = {'draw_cards', 'suit', 'clubs'},
     boss_colour = HEX("5a835e"),
     atlas = 'blinds',
     pos = {X = 0, y = 1},

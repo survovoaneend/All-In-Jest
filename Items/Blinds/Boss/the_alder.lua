@@ -5,6 +5,7 @@ local the_alder = {
       min = 2,
     },
     mult = 2,
+    attributes = {'draw_cards', 'suit', 'hearts'},
     boss_colour = HEX("af6457"),
     atlas = 'blinds',
     pos = {X = 0, y = 2},

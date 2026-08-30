@@ -4,6 +4,7 @@ local sticker_sheet = {
   config = {
     sticker_effects = nil
   },
+  attributes = {'stickers'},
   atlas = 'vouchers_atlas',
   pos = { x = 4, y = 0 },
   discovered = false,

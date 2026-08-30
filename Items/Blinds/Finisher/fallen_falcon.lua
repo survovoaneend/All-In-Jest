@@ -9,6 +9,7 @@ local fallen_falcon = {
         return true
     end,
     mult = 2,
+    attributes = {'large_blind'},
     boss_colour = HEX("ac7e5b"),
     atlas = 'blinds_final',
     pos = { y = 7},

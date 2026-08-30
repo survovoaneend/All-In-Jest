@@ -8,6 +8,7 @@ local sacrifice = {
 	discovered = false,
 	order = 11,
 	config = { max_highlighted = 1 },
+    attributes = {'generation', 'destroy_card', 'playing_card', 'enhancements'},
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		return {

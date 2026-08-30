@@ -5,6 +5,7 @@ local the_hazel = {
       min = 2,
     },
     mult = 2,
+    attributes = {'stickers', 'joker'},
     boss_colour = HEX("a5722c"),
     atlas = 'blinds',
     pos = {X = 0, y = 19},

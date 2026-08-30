@@ -4,6 +4,7 @@ local upper_class = {
   config = {
     
   },
+  attributes = {'booster', 'shop'},
   requires = {
     'v_aij_common_caste'
   },

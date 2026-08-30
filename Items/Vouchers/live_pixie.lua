@@ -6,6 +6,7 @@ local live_pixie = {
       rate = 4
     }
   },
+  attributes = {'editions'},
   requires = {
     'v_aij_fairy_dust'
   },

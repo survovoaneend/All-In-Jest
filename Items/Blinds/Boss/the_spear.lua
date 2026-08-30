@@ -5,6 +5,7 @@ local the_spear = {
         min = 3,
     },
     mult = 2,
+    attributes = {'modify_card', 'debuff'},
     boss_colour = HEX("56a786"),
     atlas = 'blinds',
     pos = { X = 0, y = 41},

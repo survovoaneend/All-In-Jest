@@ -6,6 +6,7 @@ local charged = {
 	order = 2,
 	pos = { x = 2, y = 0 },
 	config = {},
+	attributes = {'multiplier'},
 	all_in_jest = {
 		multi_enhancement_z_order = 1,
 	},

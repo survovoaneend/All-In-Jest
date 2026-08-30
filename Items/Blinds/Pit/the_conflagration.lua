@@ -11,6 +11,7 @@ local the_conflagration = {
         return All_in_Jest.pit_blinds_in_play()
     end,
     mult = 2,
+    attributes = {'destroy_card'},
     boss_colour = HEX("bc8866"),
     atlas = 'blinds_pit',
     pos = { y = 8 },

@@ -17,6 +17,7 @@ local silver = {
   },
   order = 1,
   config = { extra = 0.5, prevextra = "0.5" },
+  attributes = {'multiplier'},
   loc_vars = function(self, info_queue, card)
      local current_extra = (card and card.edition and card.edition.extra) or self.config.extra
      return { vars = { 1 + current_extra } } 

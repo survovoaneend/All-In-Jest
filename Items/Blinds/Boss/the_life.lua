@@ -6,6 +6,7 @@ local the_life = {
         min = 2,
     },
     mult = 2,
+    attributes = {'modify_card', 'stickers'},
     boss_colour = HEX("507e66"),
     atlas = 'blinds',
     pos = { X = 0, y = 54},

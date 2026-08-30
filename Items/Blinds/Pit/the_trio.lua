@@ -11,6 +11,7 @@ local the_trio = {
         return All_in_Jest.pit_blinds_in_play()
     end,
     mult = 2,
+    attributes = {'debuff'},
     boss_colour = HEX("d3b994"),
     atlas = 'blinds_pit',
     pos = {y = 23},

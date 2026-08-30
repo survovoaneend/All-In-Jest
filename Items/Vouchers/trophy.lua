@@ -6,6 +6,7 @@ local trophy = {
       odds = 3,
     }
   },
+  attributes = {'gold_tag', 'chance'},
   requires = {
     'v_aij_gold_medal'
   },

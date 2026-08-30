@@ -9,6 +9,7 @@ local omnichrome_tag = {
       upgrade = 'polychrome',
     }
   },
+  attributes = {'joker', 'editions', 'position'},
 
   discovered = false,
   order = 6,

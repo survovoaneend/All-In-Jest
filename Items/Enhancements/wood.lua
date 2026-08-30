@@ -10,6 +10,7 @@ local wood = {
             h_chips_mod = 5,
         }
     },
+    attributes = {'chips'},
     all_in_jest = {
         multi_enhancement_z_order = -1
     },

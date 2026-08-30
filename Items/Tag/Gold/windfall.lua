@@ -9,6 +9,7 @@ local windfall_tag = {
             upgrade = 'economy',
         }
     },
+    attributes = {'economy'},
 
     discovered = false,
     order = 24,

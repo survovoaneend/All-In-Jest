@@ -5,6 +5,7 @@ local the_horror = {
       min = 3,
     },
     mult = 2,
+    attributes = {'stickers', 'joker'},
     boss_colour = HEX("58696c"),
     atlas = 'blinds',
     pos = {X = 0, y = 16},

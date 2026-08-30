@@ -9,6 +9,7 @@ local dark_matter_tag = {
       upgrade = 'negative',
     }
   },
+  attributes = {'joker', 'editions', 'negative'},
 
   discovered = false,
   order = 3,

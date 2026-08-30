@@ -20,6 +20,7 @@ local aureate = {
     money = 0.1,
     max = 10
   },
+  attributes = {'economy'},
   
   pools = {
     seal_edition_pool = true
