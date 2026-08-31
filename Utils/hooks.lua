@@ -1693,6 +1693,14 @@ function SMODS.poll_object(args)
             args.attributes = {'mult'}
         end
     end
+
+    -- legendary in shop logic
+    if args.type == 'Joker' and args.rarities == nil and G.GAME.jest_legendary_pool ~= nil and G.GAME.jest_legendary_pool.in_shop then
+        if pseudorandom('rarity'..G.GAME.round_resets.ante..(args.append or '')) > G.GAME.jest_legendary_pool.rate then
+            args.rarities = {'Legendary'}
+        end
+    end
+
     return poll_obj_ref(args)
 end
 
