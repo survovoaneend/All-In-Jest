@@ -29,41 +29,51 @@ return {
             aij_doesnt_requires_restart = "Doesn't Require Restart",
             aij_upgraded_tags = "Gold Tags",
             aij_pc_stickers = "Playing Card Stickers",
+            aij_button_content = "Content",
+            aij_button_moons = "Moons",
+            aij_button_visuals = "Visuals / Accessibility",
+            aij_button_consistency = "Consistency",
             aij_enable_moons = "Enable Moons",
             aij_enable_moons_tooltip = {
                 'Enables {C:chips}Chips{} and {C:mult}Mult{}-type',
                 '{C:planet}Planets{} to show up',
+                '{s:0.8,C:red}(Requires restart)',
             },
             aij_moons_blocking = "Moon Blocking",
             aij_moons_blocking_tooltip = {
                 'If {C:planet}Moons{} are enabled, prevents',
                 'multiple {C:planet}Planets{} of the same',
                 'hand type from appearing at once',
+                "{s:0.8,C:inactive}(Doesn't require restart)",
             },
             aij_alter_trypophobia = "Alter Trypophobia",
             aij_alter_trypophobia_tooltip = {
                 '{C:attention}Changes{} the sprite of',
                 '{C:attention}Trypophobia{} to be',
-                '{C:attention}less disturbing'
+                '{C:attention}less disturbing',
+                '{s:0.8,C:red}(Requires restart)',
             },
             aij_no_copy_neg = "Copy Negative Playing Cards",
             aij_no_copy_neg_tooltip = {
                 'Allows the {C:dark_edition}Negative{} edition',
                 'on {C:attention}playing cards{} to be copied.',
                 'While {C:attention}off{} (default), copied',
-                '{C:dark_edition}Negative{} cards {C:red}lose{} their edition'
+                '{C:dark_edition}Negative{} cards {C:red}lose{} their edition',
+                "{s:0.8,C:inactive}(Doesn't require restart)",
             },
             aij_blue_stake_rework = 'Blue Stake Rework',
             aij_blue_stake_rework_tooltip = {
                 '{C:attention}Changes{} Blue Stake to use',
                 'the new {C:attention}Pit Blinds{} instead',
-                'of {C:red}-1{} Discard'
+                'of {C:red}-1{} Discard',
+                '{s:0.8,C:red}(Requires restart)',
             },
             aij_lite = 'All in Jest Lite',
             aij_lite_tooltip = {
                 'Enables only a hand-picked selection',
                 'of the most {C:attention}vanilla-adjacent{} content',
-                '{s:0.8,C:inactive}(Currently 76 things)'
+                '{s:0.8,C:inactive}(Currently 76 things)',
+                '{s:0.8,C:red}(Requires restart)',
 
             },
             aij_red_destroy_text = "Modify Joker Descriptions",
@@ -72,30 +82,42 @@ return {
                 '{C:attention}Modded{} card descriptions',
                 'to make "destroy" {C:red}red{}.',
                 '{s:0.8,C:inactive}(This may negatively impact',
-                '{s:0.8,C:inactive}tooltips from other mods)'
+                '{s:0.8,C:inactive}tooltips from other mods)',
+                '{s:0.8,C:red}(Requires restart)',
             },
             aij_random_deck_skins = 'Randomized Deck Skins',
             aij_random_deck_skins_tooltip = {
                 '{C:attention}Playing cards{} added to the',
-                'deck have random {C:attention}deck skins'
+                'deck have random {C:attention}deck skins',
+                "{s:0.8,C:inactive}(Doesn't require restart)",
             },
             aij_guess_names = 'Guess the Jest Names',
             aij_guess_names_tooltip = {
                 'Accessibility option for {C:purple}Guess',
                 '{C:purple}the Jest Packs{}, showing the',
                 'names of the Jokers',
-                '{s:0.8,C:inactive}(but not their descriptions)'
+                '{s:0.8,C:inactive}(but not their descriptions)',
+                "{s:0.8,C:inactive}(Doesn't require restart)",
             },
             aij_mult_appearance = 'More common Mult',
             aij_mult_appearance_tooltip = {
                 'Makes {C:mult}Mult{} Jokers appear',
                 'more consistently at',
                 'the {C:attention}start{} of a run',
+                "{s:0.8,C:inactive}(Doesn't require restart)",
             },
             aij_mult_appearance_opt = {
                 'Off',
                 'Standard',
                 'Strong',
+            },
+            aij_suit_boss_blocking = 'Suit-Boss Blocking',
+            aij_suit_boss_blocking_tooltip = {
+                'Makes {C:attention}Boss Blinds{} that affect',
+                'a {C:attention}suit{} prevent other bosses',
+                'with that {C:attention}same suit{} from',
+                'appearing in later {C:attention}Antes',
+                "{s:0.8,C:inactive}(Doesn't require restart)",
             },
             aij_borra_triggers = {
                 'card is scored',
