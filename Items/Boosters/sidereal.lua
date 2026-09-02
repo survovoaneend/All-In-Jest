@@ -5,7 +5,7 @@ local sidereal_booster_base = {
     atlas = 'booster_atlas', 
     pos = { x = 0, y = 3 }, 
     cost = 4, 
-    weight = 0.6,
+    weight = 0.6, -- This is the total weight of all standard sidereal packs
     config = { extra = 3, choose = 1 }, 
     attributes = {'astral'},
     discovered = false, 
@@ -60,7 +60,7 @@ local sidereal_jumbo = {
     atlas = 'booster_atlas', 
     pos = { x = 0, y = 4 }, 
     cost = 6, 
-    weight = 0.3, 
+    weight = 0.3, -- This is the total weight of all jumbo sidereal packs
     config = { extra = 5, choose = 1 }, 
     discovered = false, 
     unlocked = true,
@@ -72,7 +72,7 @@ local sidereal_mega = {
     atlas = 'booster_atlas', 
     pos = { x = 2, y = 4 }, 
     cost = 8, 
-    weight = 0.07, 
+    weight = 0.07, -- This is the total weight of all mega sidereal packs
     config = { extra = 5, choose = 2 }, 
     discovered = false, 
     unlocked = true,
