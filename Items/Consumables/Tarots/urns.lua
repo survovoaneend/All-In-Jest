@@ -19,35 +19,37 @@ local urns = {
 		}
 	end,
 	can_use = function(self, card)
-        if G.hand and #G.hand.cards >= card.ability.ran_cards and (#G.hand.highlighted <= card.ability.max_highlighted and #G.hand.highlighted > 0) then
-			for k, v in pairs(G.hand.highlighted) do
+    if G.hand and #G.hand.cards >= card.ability.ran_cards and (#G.hand.highlighted <= card.ability.max_highlighted and #G.hand.highlighted > 0) then
+			for _, v in pairs(G.hand.highlighted) do
 				if v.config.center ~= G.P_CENTERS.c_base then
 					return true
 				end
 			end
-        end
-    end,
+    end
+  end,
 	use = function(self, card)
-        local center_key = G.hand.highlighted[1].config.center.key
+    local center_key = G.hand.highlighted[1].config.center.key
 		for k, v in pairs(G.hand.highlighted) do
 			if v.config.center ~= G.P_CENTERS.c_base then
 				center_key = v.config.center.key
 				break
 			end
 		end
-		local other_center = G.hand.highlighted[1].config.aij_other_center
+		local other_center_key = G.hand.highlighted[1].config.aij_other_center['center'].key
 		for k, v in pairs(G.hand.highlighted) do
 			if v.config.aij_other_center then
-				other_center = v.config.aij_other_center
+				other_center_key = v.config.aij_other_center['center'].key
 				break
 			end
 		end
-        SMODS.destroy_cards(G.hand.highlighted, nil, true)
+
+    SMODS.destroy_cards(G.hand.highlighted, nil, true)
+
 		local valid_cards = {}
 		for k, v in pairs(G.hand.cards) do
-            if not v.highlighted and not SMODS.has_enhancement(v, center_key)  then
-                valid_cards[#valid_cards+1] = v
-            end
+        if not v.highlighted and not SMODS.has_enhancement(v, center_key)  then
+            valid_cards[#valid_cards+1] = v
+        end
 		end
 		local selected_cards = {}
 		for i = 1, card.ability.ran_cards do
@@ -59,31 +61,51 @@ local urns = {
 			end
 			selected_cards[#selected_cards+1] = cur_card
 		end
+
 		G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-            play_sound('tarot1')
-            card:juice_up(0.3, 0.5)
-            return true end }))
-        for i=1, #selected_cards do
-            local percent = 1.15 - (i-0.999)/(#selected_cards-0.998)*0.3
-            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() selected_cards[i]:flip();play_sound('card1', percent);selected_cards[i]:juice_up(0.3, 0.3);return true end }))
+      play_sound('tarot1')
+      card:juice_up(0.3, 0.5)
+      return true
+    end }))
+
+    for i=1, #selected_cards do
+      local percent = 1.15 - (i-0.999)/(#selected_cards-0.998)*0.3
+      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function()
+        selected_cards[i]:flip()
+        play_sound('card1', percent)
+        selected_cards[i]:juice_up(0.3, 0.3)
+        return true
+      end }))
+    end
+    
+    G.E_MANAGER:add_event(Event({
+      func = function()
+        for i = 1, #selected_cards do
+          selected_cards[i]:set_ability(G.P_CENTERS[center_key])
+          if other_center_key then
+            All_in_Jest.set_other_enhancement(selected_cards[i], other_center_key)
+          end
         end
-        G.E_MANAGER:add_event(Event({
-            func = function()
-				for i = 1, #selected_cards do
-					selected_cards[i]:set_ability(G.P_CENTERS[center_key])
-					if other_center then
-						All_in_Jest.set_other_enhancement(selected_cards[i], other_center['center'].key)
-					end
-				end
-                return true
-            end
-        }))
+        return true
+      end
+    }))
+
 		for i=1, #selected_cards do
-            local percent = 0.85 + (i-0.999)/(#selected_cards-0.998)*0.3
-            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() selected_cards[i]:flip();play_sound('tarot2', percent, 0.6);selected_cards[i]:juice_up(0.3, 0.3);return true end }))
-        end
-        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
-        delay(0.5)
-    end,
+      local percent = 0.85 + (i-0.999)/(#selected_cards-0.998)*0.3
+      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() 
+        selected_cards[i]:flip()
+        play_sound('tarot2', percent, 0.6)
+        selected_cards[i]:juice_up(0.3, 0.3)
+        return true
+      end }))
+    end
+
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() 
+      G.hand:unhighlight_all()
+      return true
+    end }))
+
+    delay(0.5)
+  end,
 }
 return {name = {"Tarots"}, items = {urns}}
