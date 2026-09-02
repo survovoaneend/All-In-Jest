@@ -2478,7 +2478,7 @@ end
     # NEW BLIND STUFF #
 ###########################
 
-# AiJ Blind Functionality (1/4)
+# AiJ Blind Functionality (1/6)
 # Trigger any "update" methods of blinds
 # Currently only used by The Oak (debuffs rightmost joker)
 # Game:update()
@@ -2495,7 +2495,7 @@ if G.GAME.blind and G.GAME.blind.config.blind.update and type(G.GAME.blind.confi
 end
 '''
 
-# AiJ Blind Functionality (2/4)
+# AiJ Blind Functionality (2/6)
 # Transfer a blind's config over to its ability
 # Will trigger upon selecting a boss blind
 # Game:update()
@@ -2524,7 +2524,7 @@ if G.GAME.blind and G.GAME.blind.config.blind.config and type(G.GAME.blind.confi
 end
 '''
 
-# AiJ Blind Functionality (3/4)
+# AiJ Blind Functionality (3/6)
 # Save ability table of bosses
 # Blind:save()
 [[patches]]
@@ -2540,7 +2540,7 @@ payload = '''
     ability = self.ability,
 '''
 
-# AiJ Blind Functionality (4/4)
+# AiJ Blind Functionality (4/6)
 # Load ability table of bosses
 # Blind:load()
 [[patches]]
@@ -2555,7 +2555,7 @@ payload = '''
     self.ability = blindTable.ability
 '''
 
-# AiJ Blind Functionality (5/5)
+# AiJ Blind Functionality (5/6)
 # Allows blinds to display a dynamic blind amount on blind select screen without changing the chip value directly
 # Hooked into via new aij_blind_amount_display() method in blind objects
 # create_UIBox_blind_choice()
@@ -2582,6 +2582,20 @@ end
 if G.GAME.the_connection_extra_chips then
     blind_amt = blind_amt + G.GAME.the_connection_extra_chips
 end
+'''
+
+# AiJ Blind Functionality (6/6)
+# Add context before blind is set
+# Used by Fall of Count Chaligny and Dong Tong
+# Blind:set_blind()
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = "self.in_blind = true"
+position = "after"
+match_indent = true
+payload = '''
+SMODS.calculate_context({aij_before_setting_blind = true, blind = G.GAME.round_resets.blind})
 '''
 
 # Pit Blinds (1/1)
@@ -2655,6 +2669,21 @@ payload = '''elseif blindname == 'bl_aij_the_journey' and G.GAME.current_round.a
             fill = true
         })
     end
+'''
+
+# The Connection
+# Add excess chips to blind requirements
+# Blind:set_blind()
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = "self.in_blind = true"
+position = "after"
+match_indent = true
+payload = '''
+if G.GAME.the_connection_extra_chips then
+    All_in_Jest.ease_blind_requirement(nil, G.GAME.the_connection_extra_chips, true)
+end
 '''
 
 #--------------------------------#
@@ -5269,17 +5298,6 @@ position = "at"
 match_indent = true
 payload = '''G.GAME.current_round.reroll_cost = (G.GAME.round_resets.temp_reroll_cost or math.max(0, G.GAME.round_resets.reroll_cost)) + G.GAME.current_round.reroll_cost_increase'''
 
-
-# Add context before blind is set
-# Used by Fall of Count Chaligny
-# Blind:set_blind()
-[[patches]]
-[patches.pattern]
-target = "blind.lua"
-pattern = "self.in_blind = true"
-position = "after"
-match_indent = true
-payload = 'SMODS.calculate_context({aij_before_setting_blind = true, blind = G.GAME.round_resets.blind})'
 
 #################################
     # PATCHES FOR FUSIONS #
