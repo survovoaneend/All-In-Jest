@@ -823,9 +823,9 @@ return {
             bl_aij_the_spear = {
                 name = "La Falange",
                 text = {
-                    'Las cartas de la mano',
-                    'ganadora son debilitadas',
-                    'para siempre'
+                    'La primera carta anotada',
+                    'de cada mano es',
+                    'debilitada permanentemente'
                 },
             },
             bl_aij_the_steed = {
@@ -1749,9 +1749,9 @@ return {
                 name = "Garabato",
                 text = {
                     "Al inicio de cada {C:attention}ronda{}, hay una",
-                    "prob. de {C:green}#1# en #2#{} de copiar los",
-                    "Comodines {C:attention}adyacentes{} por el resto",
-                    "de la {C:attention}ronda",
+                    "prob. de {C:green}#1# en #2#{} de copiar",
+                    "los Comodines {C:attention}adyacentes{} por el",
+                    "resto de la {C:attention}ronda",
                     "{C:inactive}#3#",
                 },
             },
@@ -1806,8 +1806,8 @@ return {
                 name = "Pell Mel",
                 text = { 
                     "{X:mult,C:white}X1{} Multi.",
-                    "Gana {X:mult,C:white}X#1#{} Multi por {C:attention}palo único{}",
-                    "en la {C:attention}mano jugada",
+                    "Aumenta en {X:mult,C:white}X#1#{} Multi por {C:attention}palo{}",
+                    "{C:attention}único{} en la {C:attention}mano jugada",
                 } 
             },
             j_aij_krampus = {
@@ -1819,7 +1819,7 @@ return {
                     },
                     {
                         "Las {C:attention}Cartas de Piedra{}",
-                        "otorgan{C:money}$#1#{} al anotar"
+                        "otorgan {C:money}$#1#{} al anotar"
                     }
                 },
             },
@@ -1897,9 +1897,9 @@ return {
             j_aij_punk_joker = {
                 name = "Comodín Punk",
                 text = {
-                    "Anotar una {C:attention}Carta Versátil{}",
+                    "Jugar una {C:attention}Carta Versátil{}",
                     "convierte una carta anotada",
-                    "sin mejoras en una",
+                    "sin mejora en una",
                     "{C:attention}Carta Versátil{}",
                 },
             },
@@ -1944,8 +1944,8 @@ return {
             j_aij_joker_baby = {
                 name = "Comodín Bebé",
                 text = {
-                    "Las cartas anotadas {C:attention}2s{}, {C:attention}3s{}, {C:attention}4s{}, y {C:attention}5s{}",
-                    "obtienen {C:mult}+#1#{} Multi",
+                    "Los {C:attention}2s{}, {C:attention}3s{}, {C:attention}4s{}, y {C:attention}5s{}",
+                    "anotados obtienen {C:mult}+#1#{} Multi",
                 }
             },
             -- Page 3 --
@@ -1987,8 +1987,8 @@ return {
             j_aij_great_white_north = {
                 name = "El Gran Norte Blanco",
                 text = {
-                    "Las cartas jugadas otorgan {C:mult}+#1#{} Multi",
-                    "cuando son {C:attention}anotadas{}"
+                    "Las cartas jugadas otorgan",
+                    "{C:mult}+#1#{} Multi cuando son {C:attention}anotadas{}"
                 }
             },
             j_aij_right_angle = {
@@ -1999,11 +1999,11 @@ return {
                 }
             },
             j_aij_adoring_joker = {
-                name = "Comodín Adorador",
+                name = "Comodín Adulador",
                 text = {
                     "{C:attention}Después{} de que los",
                     "{C:attention}Comodines{} se hayan activado,",
-                    "establece el {C:mult}Multi{} al {C:attention}mayor",
+                    "establece su {C:mult}Multi{} al {C:attention}mayor",
                     "{C:mult}Multi{} alcanzado en esta {C:attention}Apuesta",
                     "{C:inactive}(Actualmente {C:mult}#1# {C:inactive}Multi)",
                 }
@@ -2028,7 +2028,7 @@ return {
                 text = {
                     {
                         "Si la {C:attention}mano jugada{} contiene",
-                        "exactamente {C:attention}#1# Rey{} y {C:attention}#1# Reina{},",
+                        "exactamente {C:attention}1 Rey{} y {C:attention}1 Reina{},",
                         "reactiva todas las cartas anotadas",
                     },
                     {
@@ -2073,7 +2073,7 @@ return {
                 }
             },
             j_aij_haruspex = {
-                name = "Harúspice",
+                name = "Arúspice",
                 text = { 
                     "{B:1,C:white,s:0.8}Habilidad Activable",
                     "Gasta {C:attention}#1#{} {C:red}Descarte{} para elegir {C:attention}#2#{}",
@@ -2088,16 +2088,17 @@ return {
                 name = "Cabeza Saltarina",
                 text = {
                     "Los {C:attention}Comodines{} de tu",
-                    "{C:attention}rareza más común{} {C:inactive}(excluyendo",
-                    "{C:inactive}Cabeza Saltarina){} aparecen más seguido",
-                    "{C:inactive}(Actualmente: {C:attention}#1#{C:inactive})"
+                    "{C:attention}rareza más común{}",
+                    "aparecen más seguido",
+                    "{C:inactive}(Actualmente: {C:attention}#1#{C:inactive})",
+                    "{C:inactive,s:0.8}(excluyendo Cabeza Saltarina){}",
                 }
             },
             j_aij_topsy_the_clown = {
                 name = "Topsy el Payaso",
                 text = {
                     '{C:chips}Redondea{} las Fichas y el',
-                    '{C:mult}Multi{} al {C:attention}palíndromo{} más cercano',
+                    '{C:mult}Multi{} a la {C:attention}Capicúa{} más cercana',
                 },
             },
             j_aij_cloudwatching = {
@@ -2110,8 +2111,8 @@ return {
             j_aij_line_in_the_sand = {
                 name = "Línea en la Arena",
                 text = {
-                    "Las cartas {C:red}descartadas{} no",
-                    "vuelven a la {C:attention}baraja{}",
+                    "Las cartas {C:red}descartadas{}",
+                    "no vuelven a la {C:attention}baraja{}",
                     "hasta terminar la {C:attention}Apuesta{}"
                 }
             },
@@ -2119,16 +2120,16 @@ return {
                 name = "Comodín Inmobiliario",
                 text = {
                     "Jugar un {C:attention}Full House{} aumenta",
-                    "el {C:money}valor de venta{}",
-                    "de este comodín en {C:money}$#1#{}"
+                    "el {C:money}valor de venta{} de",
+                    "este comodín en {C:money}$#1#{}"
                 },
             },
             j_aij_bad_apple = {
                 name = "Bad Apple",
                 text = {
                     "Gana {X:mult,C:white}X#2#{} Multi si la {C:blue}mano{}",
-                    "contiene {C:attention}#4#{} de palo {C:spades}Oscuro{}",
-                    "y {C:attention}#3#{} de palo {C:hearts}Claro{}",
+                    "contiene {C:attention}#4#{} cartas de palo",
+                    "{C:spades}Oscuro{} y {C:attention}#3#{} de palo {C:hearts}Claro{}",
                     "{C:inactive,s:0.8}(La proporción cambia cada ronda)",
                     "{C:inactive}(Actualmente {X:mult,C:white}X#1#{} {C:inactive}Multi){}",
                 }
@@ -2144,8 +2145,8 @@ return {
                 name = "Artista de Sangre",
                 text = {
                     "Cuando {C:money}vendes{} una carta",
-                    "o es {C:attention}destruida{},",
-                    "reduce la puntuación requerida",
+                    "o es {C:attention}destruida{}, reduce",
+                    "la puntuación requerida",
                     "de la {C:attention}Ciega{} en un {C:attention}#1#%{}",
                 }
             },
@@ -2159,8 +2160,8 @@ return {
             j_aij_magick_joker = {
                 name = "Comodín Magick",
                 text = {
-                    "Al anotar {V:1}#1#{}, anota sus",
-                    "{C:chips}+Fichas{} como {C:mult}+Multi{}",
+                    "Al anotar {V:1}#1#{}, anota",
+                    "sus {C:chips}+Fichas{} como {C:mult}+Multi{}",
                     "{C:inactive,s:0.8}(Cambia cada ronda){}",
                 }
             },
@@ -2169,7 +2170,7 @@ return {
                 text = {
                     'Al seleccionar la {C:attention}Ciega Pequeña{},',
                     '{C:red}destruye{} todos los comodines',
-                    'y gana {X:mult,C:white}X#2#{} Mult1 por cada',
+                    'y gana {X:mult,C:white}X#2#{} Multi por cada',
                     "comodín destruido",
                     '{C:inactive}(Actualmente {X:mult,C:white}X#1#{C:inactive} Multi)'
                 },
@@ -2178,18 +2179,17 @@ return {
                 name = "Zanni",
                 text = {
                     "Las cartas {C:attention}enumeradas{} tienen",
-                    "una prob. de {C:green}#1# en #2#{}",
-                    "de crear una carta del {C:tarot}Tarot{}",
+                    "una prob. de {C:green}#1# en #2#{} de",
+                    "crear una carta del {C:tarot}Tarot{}",
                     "al {C:attention}anotar{}",
                 }
             },
             j_aij_read_em_and_weep = {
-                name = "Léelas y Llora",
+                name = "Mira y Llora",
                 text = {
                     "Si la mano contiene una {C:attention}Escalera{},",
-                    "convierte las {C:attention}cartas{}",
-                    "a un mismo {C:attention}palo{}",
-                    "antes de anotar",
+                    "convierte las {C:attention}cartas{} a un mismo",
+                    "{C:attention}palo{} antes de anotar",
                 }
             },
             j_aij_goblin_joker = {
@@ -2210,7 +2210,7 @@ return {
 
             -- Page 6 --
             j_aij_jesters_privelege = {
-                name = "Privilegio de Bufón",
+                name = "Privilegio del Bufón",
                 text = {
                     "Los Comodines {C:legendary}Legendarios{}",
                     "pueden aparecer {C:money}Tienda{}",
@@ -2228,16 +2228,16 @@ return {
                 name = "Pantalla Plateada",
                 text = {
                     "Al {C:red}destruir{} una carta de {C:attention}figura{}",
-                    "otorga {C:aij_silver}Plateado{} a una",
-                    "carta en {C:attention}hand{}",
+                    "otorga edición {C:aij_silver}Plateada{}",
+                    "a una carta en {C:attention}mano{}",
                 }
             },
             j_aij_pedrolino = {
                 name = "Pedrolino",
                 text = {
                     "{C:money}Vende{} esta carta para",
-                    "reducir la {C:attention}puntuación requerida{}",
-                    "un {C:attention}#1#%{}",
+                    "reducir la {C:attention}puntuación{}",
+                    "{C:attention}requerida{} un {C:attention}#1#%{}",
                 }
             },
             j_aij_pierrette = {
@@ -2253,7 +2253,7 @@ return {
                     "{C:attention}Reactiva{} las cartas",
                     "anotadas si la {C:attention}mano jugada{}",
                     "es un(a) {C:attention}#1#{}",
-                    "{C:inactive,s:0.8}(Cambia cada ronda{}",
+                    "{C:inactive,s:0.8}(Cambia cada ronda){}",
                 } 
             },
             j_aij_clay_joker = {
@@ -2261,7 +2261,7 @@ return {
                 text = {
                     "Copia las habilidades de los",
                     "últimos {C:attention}#1#{} {C:attention}comodines{} {C:red}destruidos{}",
-                    "{C:inactive}(Excluyendo Comodín de Arcilla){}"
+                    "{C:inactive,s:0.8}(Excluyendo Comodín de Arcilla){}"
                 }
             },
             j_aij_sunny_joker = {
@@ -2284,8 +2284,8 @@ return {
                 name = "Comodín Mudo",
                 text = {
                     "Jugar un(a) {C:attention}#1#{}",
-                    "{C:red}destruye{} todas las cartas",
-                    "anotadas",
+                    "{C:red}destruye{} todas las",
+                    "cartas anotadas",
                     "{C:inactive}(Cambia cada ronda)",
                 }
             },
@@ -2413,8 +2413,8 @@ return {
                 name = "Meme de Segunda",
                 text = {
                     "Si la mano es tu {C:attention}segunda{}",
-                    "{C:attention}más{} jugada,",
-                    "{C:attention}reactiva{} todas las cartas {C:attention}anotadas{}",
+                    "{C:attention}más{} jugada, {C:attention}reactiva{}",
+                    "todas las cartas {C:attention}anotadas{}",
                     "{C:inactive}({C:attention}#1#{C:inactive})"
                 }
             },
@@ -2700,8 +2700,8 @@ return {
             j_aij_arlecchino = {
                 name = "Arlequín",
                 text = {
-                    "Puedes tomar cualquier carta de",
-                    "los {C:attention}Paquetes de Bufón{} y",
+                    "Puedes tomar cualquier carta",
+                    "de los {C:attention}Paquetes de Bufón{} y",
                     "{C:attention}Paquetes Estándar{}",
                 }
             },
@@ -2727,9 +2727,9 @@ return {
             j_aij_sudoku = {
                 name = "Sudoku",
                 text = {
-                    "Fana {X:mult,C:white}X#1#{} Multi por cada",
-                    "mano consecutiva que contenga",
-                    "una {C:attention}Escalera{}",
+                    "Fana {X:mult,C:white}X#1#{} Multi por",
+                    "cada mano consecutiva que",
+                    "contenga una {C:attention}Escalera{}",
                     "{C:inactive}(Actualmente {X:mult,C:white}X#2#{C:inactive} Multi)",
                 }
             },
@@ -2746,8 +2746,8 @@ return {
             j_aij_executioner = {
                 name = "Comodín Verdugo",
                 text = {
-                    'Este Comodín gana {C:chips}+#1#{} Fichas',
-                    'cuando se {C:attention}destruye{} una carta de {C:attention}figura{}',
+                    'Obtiene {C:chips}+#1#{} Fichas cuando',
+                    'se {C:red}destruye{} una carta de {C:attention}figura{}',
                     '{C:inactive}(Actualmente {C:chips}+#2#{C:inactive} Fichas)',
                 },
             },
@@ -2762,13 +2762,13 @@ return {
                 name = "Horizonte de Sucesos",
                 text = {
                     {
-                        'Obtiene {X:mult,C:white}X#1#{} Multi',
-                        'cuando una mano sube de nivel',
+                        'Obtiene {X:mult,C:white}X#1#{} Multi cuando',
+                        'una mano sube de {C:planet}nivel{}',
                         '{C:inactive}(Actualmente {X:mult,C:white}X#2#{} {C:inactive}Multi){}',
                     },
                     {
                         '{C:attention}Se reinicia{} cuando la misma',
-                        '{C:attention}mano{} sube de nivel',
+                        '{C:attention}mano{} sube de {C:planet}nivel{}',
                         'dos veces seguidas',
                         '{C:inactive}(Última mano subida: {C:attention}#3#{C:inactive}){}',
                     },
@@ -4893,8 +4893,9 @@ return {
             j_aij_headache = {
                 name = 'Dolor de Cabeza',
                 text = {
-                    '{C:mult}+#2#{} Multi',
-                    '{C:attention}+$#1#{} costo de {C:green}renovación{}',
+                    '{C:mult}+#2#{} Multi.',
+                    '{C:green}Renovar{} la Tienda',
+                    "cuesta {C:money}+$#1#{} adicional",
                 },
             },
             j_aij_scopaesthesia = {
@@ -8537,8 +8538,8 @@ Planet = {
             palindrome = {
                 name = "Capicúa",
                 text = {
-                    "Número que se lee igual de izquierda a derecha",
-                    "que de derecha a izquierda.",
+                    "Número que se lee igual de izquierda a",
+                    "derecha que de derecha a izquierda.",
                     "{C:inactive}ej. 33, 151, 3003{}"
                 }
             },

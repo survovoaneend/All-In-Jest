@@ -823,9 +823,9 @@ return {
             bl_aij_the_spear = {
                 name = "La Falange",
                 text = {
-                    'Las cartas de la mano',
-                    'ganadora son debilitadas',
-                    'para siempre'
+                    'La primera carta anotada',
+                    'de cada mano es',
+                    'debilitada permanentemente'
                 },
             },
             bl_aij_the_steed = {
