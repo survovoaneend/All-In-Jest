@@ -18,15 +18,10 @@ local the_groan = {
             return
         end
         if context.after then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    if (G.GAME.chips < (G.GAME.blind.chips)) then
-                        All_in_Jest.ease_blind_requirement(1, 0)
-                        blind.triggered = true
-                    end
-                    return true
-                end
-            }))
+            if G.GAME.chips + SMODS.calculate_round_score() < G.GAME.blind.chips then
+                All_in_Jest.ease_blind_requirement(1, 0)
+                blind.triggered = true
+            end
         end
     end,
 
