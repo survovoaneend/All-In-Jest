@@ -1,36 +1,10 @@
 SMODS.Booster:take_ownership_by_kind('Celestial', {
-    group_key = "k_celestial_pack",
-    update_pack = SMODS.Booster.update_pack,
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.PLANET_PACK) end,
-    create_UIBox = SMODS.Booster.create_UIBox,
-    particles = function(self)
-        G.booster_pack_stars = Particles(1, 1, 0,0, {
-            timer = 0.07,
-            scale = 0.1,
-            initialize = true,
-            lifespan = 15,
-            speed = 0.1,
-            padding = -4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, HEX('a7d6e0'), HEX('fddca0')},
-            fill = true
-        })
-        G.booster_pack_meteors = Particles(1, 1, 0,0, {
-            timer = 2,
-            scale = 0.05,
-            lifespan = 1.5,
-            speed = 4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE},
-            fill = true
-        })
-    end,
     create_card = function(self, card, i)
         local _card
         if G.GAME.used_vouchers.v_telescope and i == 1 then
-            local _hand, _tally = nil, 0
+            local _planet, _hand, _tally = nil, nil, 0
             for k, v in ipairs(G.handlist) do
-                if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
+                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played > _tally then
                     _hand = v
                     _tally = G.GAME.hands[v].played
                 end
@@ -48,15 +22,14 @@ SMODS.Booster:take_ownership_by_kind('Celestial', {
         end
         return _card
     end,
-    loc_vars = pack_loc_vars,
-},true)
+}, true)
 
 if All_in_Jest.config.blue_stake_rework then
     SMODS.Stake:take_ownership('stake_blue', { 
         modifiers = function()
             return
         end,
-    },true)
+    }, true)
 end
 
 SMODS.Sticker:take_ownership('pinned', { 
