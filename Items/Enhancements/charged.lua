@@ -107,8 +107,6 @@ function Card:update(dt)
 			["config.aij_other_center.ability"] = self.config.aij_other_center and self.config.aij_other_center.center,
 		}) do
 
-			sendDebugMessage(enhancement_key.key, "AIJ")
-
 			local inherent_keys = {}
 			if enhancement_key then
 				extract_keys(enhancement_key.config, inherent_keys)
