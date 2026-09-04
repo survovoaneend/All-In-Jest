@@ -1,10 +1,6 @@
 -- Used in Vanilla functions where 'type' is overridden
 All_in_Jest.aij_alias_type = type
 
-All_in_Jest.calculate = function(self, context)
-    
-end
-
 --repurposd from paperback
 function jest_poll_tag(seed, options)
   -- This part is basically a copy of how the base game does it
@@ -688,12 +684,6 @@ function All_in_Jest.reroll_joker(card, key, append, temp_key, extra)
     delay(0.5)
 end
 
-function All_in_Jest.set_debuff(card)
-	if card.ability and card.ability.all_in_jest and card.ability.all_in_jest.perma_debuff then
-		return true
-	end
-end
-
 -- Should this have an option to check suits in the pool rather then suits that are in the deck?
 function All_in_Jest.get_suits(type, base)
     local suits = {}
@@ -723,10 +713,6 @@ function All_in_Jest.get_suits(type, base)
     return return_table
 end
 
-
-All_in_Jest.custom_card_areas = function(game)
-    load_coconut_card_area(game)
-end
 
 --Replaces shop voucher
 function All_in_Jest.reroll_shop_voucher(key)
