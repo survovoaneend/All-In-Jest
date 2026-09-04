@@ -343,6 +343,11 @@ function SMODS.get_enhancements(card, extra_only)
     then 
         enhancements[card.config.aij_other_center['center'].key] = true
     end
+    -- Prevent Astral Pins from having themselves as enhancement
+    -- in SMODS.get_enhancements()
+    if card.config.center.is_pin then
+        enhancements[card.config.center.key] = nil
+    end
     return enhancements
 end
 
