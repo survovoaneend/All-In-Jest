@@ -162,18 +162,6 @@ function Tag:jest_apply(message, _colour, func, statement) -- Play on words just
     end
 end
 
-function aij_remove_rank(card)
-    G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = function()
-            card.ability.numbertaker_rankless = true
-            card:set_sprites(nil, card.config.card)
-            card:juice_up()
-            return true
-        end
-    }))
-end
-
 -- better temp values
 -- For Crypto Trader and Stock Broker
 function apply_multiplier(t, key, factor, tag)
