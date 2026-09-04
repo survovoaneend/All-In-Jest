@@ -5556,9 +5556,8 @@ return {
             j_aij_ninja = {
                 name = "Ninja",
                 text = {
-                    '{C:attention}Rescore{} the {C:attention}first{} played card ',
-                    'used in scoring when the {C:attention}last',
-                    'played card is {C:attention}scored{}'
+                    '{C:attention}Rescore{} the {C:attention}first{} scoring card',
+                    'whenever the {C:attention}last{} scoring card scores'
                 }
             },
             j_aij_wax_joker = {
