@@ -39,143 +39,7 @@ SMODS.Sticker:take_ownership('pinned', {
         SMODS.Sticker.inject(self)
         G.shared_sticker_pinned = self.sticker_sprite
     end,
-},true)
-
--- [[ Overriding Deck Skins ]] --
---G.FUNCS.change_collab = function(args)
---  if args.cycle_config.rank_table.cycle_config.current_option == 1 then
---    G.SETTINGS.CUSTOM_DECK.Collabs[args.cycle_config.curr_suit] = G.COLLABS.options[args.cycle_config.curr_suit][args.to_key] or 'default'
---  end
---  args.cycle_config.rank_table.cycle_config.other_option = args.to_key
---  G.FUNCS.change_collab_rank(args.cycle_config.rank_table)
---  for k, v in pairs(G.I.CARD) do
---    if v.config and v.config.card and v.children.front and v.ability.effect ~= 'Stone Card' then 
---      v:set_sprites(nil, v.config.card)
---    end
---  end
---  G:save_settings()
---end
---
---local custom_deck_tab_ref = G.UIDEF.custom_deck_tab
---function G.UIDEF.custom_deck_tab(_suit)
---  local t = {}
---
---  local rankCount = 0
---  local lookup = {}
---  for i, s in ipairs(SMODS.Suit:obj_list(true)) do
---      local options = G.COLLABS.options[s.key]
---      for i = 1, #options do
---          local skin = SMODS.DeckSkins[options[i]]
---          if skin.palettes and not (skin.display_ranks or skin.ranks) then
---              for _, p in ipairs(skin.palettes) do
---                  local p_ranks = p.display_ranks or p.ranks
---                  for j = 1, #p_ranks do
---                      if not lookup[p_ranks[j]] then
---                          lookup[p_ranks[j]] = true
---                          rankCount = rankCount + 1
---                      end
---                  end
---              end
---          elseif not skin.palettes and (skin.display_ranks or skin.ranks) then
---              local ranks = skin.display_ranks or skin.ranks
---              for j = 1, #ranks do
---                  if not lookup[skin.ranks[j]] then
---                      lookup[skin.ranks[j]] = true
---                      rankCount = rankCount + 1
---                  end
---              end
---          end
---
---      end
---  end
---
---  G.cdds_cards = CardArea(
---      0,0,
---      math.min(math.max(rankCount*G.CARD_W*0.6, 4*G.CARD_W), 10*G.CARD_W),
---      1.4*G.CARD_H,
---      {card_limit = rankCount, type = 'title', highlight_limit = 0})
---
---  G.cdds_cards.rankCount = rankCount
---
---
---
---  table.insert(t, 
---    {n=G.UIT.R, config={align = "cm", colour = G.C.BLACK, r = 0.1, padding = 0.07, no_fill = true}, nodes={
---      {n=G.UIT.O, config={object = G.cdds_cards}}
---    }}
---  )
---
---  local loc_options = localize(_suit, 'collabs')
---  local conv_loc_options = {}
---  for k, v in pairs(loc_options) do
---    conv_loc_options[tonumber(k)] = v
---  end
---
---  loc_options = conv_loc_options
---
---  local current_option = 1
---  for k, v in pairs(G.COLLABS.options[_suit]) do
---    if current_rank_option ~= 1 then
---        if G.SETTINGS.all_in_jest.Collabs[_suit][k] == v then current_option = k end
---    else
---        if G.SETTINGS.CUSTOM_DECK.Collabs[_suit] == v then current_option = k end
---    end
---  end
---
---  local loc_rank_options = {}
---  local index = 2
---  loc_rank_options[1] = localize('k_default')
---  for k, v in pairs(lookup) do
---      local cur_rank_option = localize(k, 'ranks')
---      loc_rank_options[index] = cur_rank_option
---      index = index + 1
---  end
---
---  local current_rank_option = 1
---  local index = 1
---  for k, v in pairs(lookup) do
---    index = index + 1
---    for ke, va in pairs(G.COLLABS.options[_suit]) do
---        if G.SETTINGS.all_in_jest.Collabs[_suit][k] == v then current_rank_option = index end
---    end
---  end
---
---  local rank_table = {options = loc_rank_options, w = 5.5, cycle_shoulders = true, curr_suit = _suit, opt_callback = 'change_collab_rank', current_option = current_rank_option, other_option = current_option, colour = G.C.RED, focus_args = {snap_to = true, nav = 'wide'}}
---  table.insert(t, 
---    {n=G.UIT.R, config={align = "cm"}, nodes={
---      create_option_cycle(rank_table),
---    }}
---  )
---
---  table.insert(t, 
---    {n=G.UIT.R, config={align = "cm"}, nodes={
---      create_option_cycle({options = loc_options, w = 5.5, rank_table = {cycle_config = rank_table}, cycle_shoulders = true, curr_suit = _suit, opt_callback = 'change_collab', current_option = current_option, colour = G.C.RED, focus_args = {snap_to = true, nav = 'wide'}}),
---    }}
---  )
---  local deckskin_key = G.COLLABS.options[_suit][current_option]
---  
---  local palette_loc_options = SMODS.DeckSkin.get_palette_loc_options(deckskin_key, _suit)
---  
---  local selected_palette = 1
---  for i, v in ipairs(G.COLLABS.colour_palettes[deckskin_key]) do
---      if G.SETTINGS.colour_palettes[_suit] == v then
---          selected_palette = i
---      end
---  end
---  
---  table.insert(t,
---      {n=G.UIT.R, config={align = "cm", id = 'palette_selector'}, nodes={
---        create_option_cycle({options = palette_loc_options, w = 5.5, cycle_shoulders = false, curr_suit = _suit, curr_skin = deckskin_key, opt_callback = 'change_colour_palette', current_option = selected_palette, colour = G.C.ORANGE, focus_args = {snap_to = true, nav = 'wide'}}),
---      }}
---    )
---
---  local faces = {'K','Q','J'}
---  G.FUNCS.update_collab_cards(current_option, _suit, true)
---
---
---  return {n=G.UIT.ROOT, config={align = "cm", padding = 0, colour = G.C.CLEAR, r = 0.1, minw = 7, minh = 4.2}, nodes=t}
---end
--- [[ Overriding Deck Skins ]] --
+}, true)
 
 --SMODS.Voucher:take_ownership('v_petroglyph', {
 --    calculate = function(self, card, context)
@@ -203,6 +67,14 @@ SMODS.Sticker:take_ownership('pinned', {
 --    end,
 --}, true)
 
+local aij_smods_has_playing_card_property_ref = SMODS.has_playing_card_property
+function SMODS.has_playing_card_property(card, key)
+    for k, _ in pairs(All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true)) do
+        if G.P_CENTERS[k][key] then return true end
+    end
+    return aij_smods_has_playing_card_property_ref(card, key)
+end
+
 local never_scores_ref = SMODS.never_scores
 function SMODS.never_scores(card)
     if card.config.aij_other_center and card.config.aij_other_center['center'] then
@@ -213,19 +85,11 @@ end
 
 local has_any_suit_ref = SMODS.has_any_suit
 function SMODS.has_any_suit(card)
-    if card.config.aij_other_center and card.config.aij_other_center['center'] then
-        if card.config.aij_other_center['center'].key == 'm_wild' or card.config.aij_other_center['center'].any_suit then return true end
-    end
-    if All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_wild then return true end
     return has_any_suit_ref(card) or All_in_Jest.counts_as_all_suits(card)
 end
 
 local always_scores_ref = SMODS.always_scores
 function SMODS.always_scores(card)
-    if card.config.aij_other_center and card.config.aij_other_center['center'] then
-        if card.config.aij_other_center['center'].key == 'm_stone' or card.config.aij_other_center['center'].always_scores then return true end
-    end
-    if All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_stone then return true end
     if card.ability and (card.ability.aij_always_scores or card.ability.aij_temp_always_scores) then 
         card.ability.aij_temp_always_scores = nil
         return true 
@@ -252,56 +116,7 @@ local has_no_suit_ref = SMODS.has_no_suit
 function SMODS.has_no_suit(card)
     if SMODS.has_any_suit(card) then return false end
     if card.base.suit == nil then return true end
-    if SMODS.has_enhancement(card, 'm_aij_canvas') then
-        if (card.area == G.hand or card.area == G.play) and not card.debuff then
-            for k, v in pairs(G.play.cards) do
-                if v == card and v ~= G.play.cards[#G.play.cards] and not G.play.cards[k+1].debuff then
-                    card.front_hidden = G.play.cards[k+1]:should_hide_front()
-                    return SMODS.has_no_suit(G.play.cards[k+1])
-                end
-            end
-            local highlighted = false
-            local highlighted_cards = {}
-            for k, v in pairs(G.hand.cards) do
-                for key, val in pairs(G.hand.highlighted) do
-                    if v == val then
-                        highlighted_cards[#highlighted_cards+1] = v
-                    end
-                end
-            end
-            for k, v in pairs(highlighted_cards) do
-                if v == card then
-                    highlighted = true
-                    if v ~= highlighted_cards[#highlighted_cards] and not highlighted_cards[k+1].debuff then
-                        card.front_hidden = highlighted_cards[k+1]:should_hide_front()
-                        return SMODS.has_no_suit(highlighted_cards[k+1])
-                    end
-                end
-            end
-            if not highlighted then
-                for k, v in pairs(G.hand.cards) do
-                    if v == card and v ~= G.hand.cards[#G.hand.cards] and not G.hand.cards[k+1].debuff then
-                        card.front_hidden = G.hand.cards[k+1]:should_hide_front()
-                        return SMODS.has_no_suit(G.hand.cards[k+1])
-                    end
-                end
-            end
-            card.front_hidden = card:should_hide_front()
-            return true
-        else
-            card.front_hidden = card:should_hide_front()
-            return true
-        end
-    end
-    local any_suit, no_suit = nil, has_no_suit_ref(card)
-    if card.config.aij_other_center and card.config.aij_other_center['center'] then
-        if card.config.aij_other_center['center'].key == 'm_wild' or card.config.aij_other_center['center'].any_suit then any_suit = true end
-        if card.config.aij_other_center['center'].key == 'm_stone' or card.config.aij_other_center['center'].no_suit then no_suit = true end
-        return no_suit and not any_suit
-    end
-    if All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_wild then any_suit = true end
-    if All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_stone then no_suit = true end
-    return (no_suit or has_no_suit_ref(card)) and not any_suit
+    return has_no_suit_ref(card)
 end
 
 -- See lovely_hooks.toml
@@ -314,74 +129,12 @@ function All_in_Jest.get_enhancements_hook(card, extra_only, enhancements)
     then
         enhancements[card.config.aij_other_center['center'].key] = true
     end
-    -- Prevent Astral Pins from having themselves as enhancement
-    -- in SMODS.get_enhancements()
-    if card.config.center.is_pin then
-        enhancements[card.config.center.key] = nil
-    end
     -- no return, we just modify `enhancements` table in place
 end
 
 local has_no_rank_ref = SMODS.has_no_rank
 function SMODS.has_no_rank(card)
     if card.base.id == nil then return true end
-    if SMODS.has_enhancement(card, 'm_aij_canvas') then
-        if (card.area == G.hand or card.area == G.play) and card.area ~= nil and not card.debuff then
-            for k, v in pairs(G.play.cards) do
-                if v == card and v ~= G.play.cards[#G.play.cards] and not G.play.cards[k+1].debuff then
-                    card.front_hidden = G.play.cards[k+1]:should_hide_front()
-                    return SMODS.has_no_rank(G.play.cards[k+1])
-                end
-            end
-            local highlighted = false
-            local highlighted_cards = {}
-            for k, v in pairs(G.hand.cards) do
-                for key, val in pairs(G.hand.highlighted) do
-                    if v == val then
-                        highlighted_cards[#highlighted_cards+1] = v
-                    end
-                end
-            end
-            for k, v in pairs(highlighted_cards) do
-                if v == card then
-                    highlighted = true
-                    if v ~= highlighted_cards[#highlighted_cards] and not highlighted_cards[k+1].debuff then
-                        card.front_hidden = highlighted_cards[k+1]:should_hide_front()
-                        return SMODS.has_no_rank(highlighted_cards[k+1])
-                    end
-                end
-            end
-            if not highlighted then
-                for k, v in pairs(G.hand.cards) do
-                    if v == card and v ~= G.hand.cards[#G.hand.cards] and not G.hand.cards[k+1].debuff then
-                        card.front_hidden = G.hand.cards[k+1]:should_hide_front()
-                        return SMODS.has_no_rank(G.hand.cards[k+1])
-                    end
-                end
-            end
-            card.front_hidden = card:should_hide_front()
-            return true
-        else
-            card.front_hidden = card:should_hide_front()
-            return true
-        end
-    end
-    if card.config.aij_other_center and card.config.aij_other_center['center'] then
-        if card.config.aij_other_center['center'].key == 'm_stone' or card.config.aij_other_center['center'].no_rank then
-            card.front_hidden = card:should_hide_front()
-            return true 
-        end
-    end
-    if card.config.aij_other_center and card.config.aij_other_center['center'] then
-        if card.config.aij_other_center['center'].key == 'm_stone' or card.config.aij_other_center['center'].no_rank then
-            card.front_hidden = card:should_hide_front()
-            return true 
-        end
-    end
-    if All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_stone then
-        card.front_hidden = card:should_hide_front()
-        return true 
-    end
     if card.ability.numbertaker_rankless then return true end
     return has_no_rank_ref(card)
 end
@@ -567,55 +320,6 @@ function get_front_spriteinfo(_front)
     return get_front_spriteinfo_ref(_front)
 end
 
-local should_draw_base_shader_ref = Card.should_draw_base_shader
-function Card:should_draw_base_shader()
-	return should_draw_base_shader_ref(self)
-end
-
-local should_hide_front_ref = Card.should_hide_front
-function Card:should_hide_front()
-  if SMODS.has_enhancement(self, 'm_aij_canvas') then
-    if ((G.hand and self.area == G.hand) or (G.play and self.area == G.play)) and not self.debuff then
-        for k, v in pairs(G.play.cards) do
-            if v == self and v ~= G.play.cards[#G.play.cards] and not G.play.cards[k+1].debuff then
-                return G.play.cards[k+1]:should_hide_front()
-            end
-        end
-        local highlighted = false
-        local highlighted_cards = {}
-        for k, v in pairs(G.hand.cards) do
-            for key, val in pairs(G.hand.highlighted) do
-                if v == val then
-                    highlighted_cards[#highlighted_cards+1] = v
-                end
-            end
-        end
-        for k, v in pairs(highlighted_cards) do
-            if v == self then
-                highlighted = true
-                if v == self and v ~= highlighted_cards[#highlighted_cards] and not highlighted_cards[k+1].debuff then
-                    return highlighted_cards[k+1]:should_hide_front()
-                end
-            end
-        end
-        if not highlighted then
-            for k, v in pairs(G.hand.cards) do
-                if v == self and v ~= G.hand.cards[#G.hand.cards] and not G.hand.cards[k+1].debuff then
-                    return G.hand.cards[k+1]:should_hide_front()
-                end
-            end
-        end
-        return true
-    else
-        return true
-    end
-  end
-  if self.config.aij_other_center and ((self.config.aij_other_center['ability'] and self.config.aij_other_center['ability'].effect == 'Stone Card') or (self.config.aij_other_center['center'] and self.config.aij_other_center['center'].replace_base_card)) then
-    return true
-  end
-  return should_hide_front_ref(self)
-end
-
 local has_showman_ref = SMODS.showman
 function SMODS.showman(card_key)
     --if next(SMODS.find_card('j_aij_aluzinnu')) and (card_key == "v_petroglyph" or card_key == "v_hieroglyph") then
@@ -672,21 +376,6 @@ if not SMODS.ObjectTypes.seal_edition_pool then
       end
     end
   }
-end
-
---Sharpest Tool
-local temp_create_card = create_card
-function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
-    local card = nil
-    if ((area == G.shop_jokers) or (area == G.pack_cards and key_append == 'buf')) and _type == 'Joker' then
-        if G.GAME.modifiers.aij_sharpest_tool_1 then
-            card = temp_create_card(_type, area, false, 0, skip_materialize, soulable, nil, key_append)
-        end
-    end
-    if not card then
-        card = temp_create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
-    end
-    return card
 end
 
 --Aureate Coin, The Clay
@@ -768,264 +457,6 @@ function set_profile_progress()
             end
         end
     end
-end
-
-SMODS.jest_Badge = {
-    key = "jest_chaotic_card",
-    badge_colour = HEX '8F00FF',
-}
-
-SMODS.PokerHand {
-    key = "Royal Flush",
-    mult = 8,
-    chips = 100,
-    l_mult = 6,
-    l_chips = 60,
-    example = {
-        { 'H_A', true },
-        { 'H_K', true },
-        { 'H_Q', true },
-        { 'H_J', true },
-        { 'H_T', true },
-    },
-    above_hand = 'Straight Flush',
-    evaluate = function(parts, hand)
-        if not next(parts._flush) or not next(parts._straight) then return {} end
-        local min = 10
-        for j = 1, #hand do
-            if hand[j]:get_id() < min then min =hand[j]:get_id() end
-        end
-        if min >= 10 then 
-            return { SMODS.merge_lists(parts._flush, parts._straight) }
-        else
-            return {}
-        end
-    end,
-    no_collection = true,
-    visible = function(self)
-        return false
-    end,
-}
-
-SMODS.ConsumableType({
-    key = 'aij_astral',
-    primary_colour = HEX("d1e2f6"),
-    secondary_colour = HEX("87a5c9"),
-    collection_rows = {5, 4},
-    shop_rate = 0,
-    default = 'c_aij_algol',
-    no_buy_and_use = false,
-    inject_card = function(self, center)
-        local set_ability_ref = center.set_ability
-        center.set_ability = function(self, card, initial, delay_sprites)
-            card.ability = copy_table(card.ability)
-            local center_cfg = card.config.center
-            local grade = All_in_Jest.astral_set_grade(center_cfg.all_in_jest and center_cfg.all_in_jest.grades)
-            card.ability.consumeable.grade = grade
-            card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(grade)
-
-            if set_ability_ref then
-                return set_ability_ref(self, card, initial, delay_sprites)
-            end
-        end
-
-        if not center.loc_vars_astral_applied then
-            center.loc_vars_astral_applied = true
-            local loc_vars_ref = center.loc_vars
-            center.loc_vars = function(self, info_queue, card)
-                local pin_count = 0
-                if G.GAME.Astral_pins and #G.GAME.Astral_pins and card.ability.consumeable and card.ability.consumeable.hand then 
-                    pin_count = #G.GAME.Astral_pins[card.ability.consumeable.hand] or 0 
-                end
-                local pins_left = math.max((G.GAME.all_in_jest.astral_pin_per_hand or 3) - pin_count, 0)
-
-
-                local ret = {}
-                if loc_vars_ref then
-                    ret = loc_vars_ref(self, info_queue, card)
-                end
-
-                if card.area and not card.area.config.collection then
-                    if card.ability.consumeable.hand and card.ability.consumeable.grade then
-                        if card.ability.consumeable.grade == 'Retrograde' then
-                            card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade('Retrograde')
-                        end
-                        info_queue[#info_queue+1] = {key = 'aij_astral_'..string.lower(card.ability.consumeable.grade), set = 'Other'}
-                    end
-                    
-                    ret.main_end = ret.main_end or {}
-                    ret.main_end[#ret.main_end + 1] = {n = G.UIT.R, config = {align = "cm"}, nodes = {
-                        {n = G.UIT.R, config = {align = "cm", padding = 0.02}, nodes = {
-                            {n = G.UIT.T, config = {text = localize{type = "variable", key = "a_aij_slots_left", vars = {pins_left}}, colour = G.C.UI.TEXT_INACTIVE, scale = 0.32}},
-                        }}
-                    }}
-                end
-
-                return ret
-            end
-        end
-        
-        if not center.can_use then
-            center.can_use = function(self, card)
-                return true 
-            end
-        end
-        if not center.use then
-            center.use = function(self, card, area, copier)
-                All_in_Jest.use_astral_card(card)
-                if G.aij_cur_astral_hand and G.aij_cur_astral_hand == card.ability.consumeable.hand and G.GAME.Astral_pins then
-                    if G.aij_astral_pin_area and #G.aij_astral_pin_area.cards > 0 then
-                        All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'only_remove', All_in_Jest.old_colours or nil, true)      
-                        for _, v in pairs(G.aij_astral_pin_area.cards) do
-                            v:remove()
-                        end
-                    end
-                    All_in_Jest.astral_visuals(card.ability.consumeable.hand, 'no_remove')
-                end
-            end
-        end
-        SMODS.ObjectType.inject_card(self, center)
-    end,
-})
-
-SMODS.UndiscoveredSprite({
-    key = 'aij_astral',
-    atlas = 'consumable_atlas',
-    pos = { x = 15, y = 4 },
-    overlay_pos = { x = 16, y = 4 },
-})
-
-SMODS.ConsumableType({
-    key = 'aij_hex_tarot',
-    primary_colour = HEX("4f6367"),
-    secondary_colour = G.C.SECONDARY_SET.Tarot,
-    no_collection = true,
-    collection_rows = {5},
-    shop_rate = 0,
-    default = 'c_aij_error',
-    no_buy_and_use = false,
-})
-
-G.Astral = {} -- stores Astral pins
-All_in_Jest.Astral = SMODS.Tag:extend {
-    set = 'aij_astral',
-    is_pin = true,
-    atlas = 'consumable_atlas',
-    class_prefix = 'c',
-    in_pool = function() return false end,
-    inject = function(self)
-        G.Astral[self.pin] = self
-    end,
-    generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-        if not card then
-            card = self:create_fake_card()
-        end
-        local set_check = self.alt_set or self.set
-        local target = {
-            type = 'descriptions',
-            key = self.key,
-            set = set_check,
-            nodes = desc_nodes,
-            AUT = full_UI_table,
-            vars =
-                specific_vars or {}
-        }
-        local res = {}
-        if self.loc_vars and type(self.loc_vars) == 'function' then
-            res = self:loc_vars(info_queue, card) or {}
-            target.vars = res.vars or target.vars
-            target.key = res.key or target.key
-            target.set = res.set or target.set
-            target.scale = res.scale
-            target.text_colour = res.text_colour
-        end
-
-        if desc_nodes == full_UI_table.main and not full_UI_table.name then
-            full_UI_table.name = set_check == 'Enhanced' and 'temp_value' or localize { type = 'name', set = target.set, key = res.name_key or target.key, nodes = full_UI_table.name, vars = res.name_vars or target.vars or {} }
-        elseif desc_nodes ~= full_UI_table.main and not desc_nodes.name and set_check ~= 'Enhanced' then
-            desc_nodes.name = localize{type = 'name_text', key = res.name_key or target.key, set = target.set }
-        end
-        if specific_vars and specific_vars.debuffed and not res.replace_debuff then
-            target = { type = 'other', key = 'debuffed_' ..
-            (specific_vars.playing_card and 'playing_card' or 'default'), nodes = desc_nodes, AUT = full_UI_table, }
-        end
-        if res.main_start then
-            desc_nodes[#desc_nodes + 1] = res.main_start
-        end
-
-        localize(target)
-            
-        if res.main_end then
-            desc_nodes[#desc_nodes + 1] = res.main_end
-        end
-        desc_nodes.background_colour = res.background_colour
-    end
-}
-
-local aij_ease_bg_blind_ref = ease_background_colour_blind
-function ease_background_colour_blind(state, blind_override)
-    All_in_Jest.old_colours = nil
-    aij_ease_bg_blind_ref(state, blind_override)
-end
-
-local aij_ease_bg_ref = ease_background_colour
-function ease_background_colour(args)
-    if All_in_Jest.old_colours == nil then
-        All_in_Jest.old_colours = {
-            special_colour = copy_table(args['special_colour']),
-            tertiary_colour = copy_table(args['tertiary_colour']),
-            new_colour = copy_table(args['new_colour']),
-            contrast = args.contrast or 1,
-        }
-    end
-    aij_ease_bg_ref(args)
-end
-
-local init_game_object_ref = Game.init_game_object
-function Game.init_game_object(self)
-  local ret = init_game_object_ref(self)
-  local secrets = {}
-  for k, v in pairs(SMODS.PokerHands) do
-    if (type(v.visible) == 'function' and not v:visible()) or v.visible == false then 
-        if k ~= 'aij_Royal Flush' then
-            table.insert(secrets, k) 
-        end
-    end
-  end
-  ret.all_in_jest = ret.all_in_jest or {}
-  ret.all_in_jest.secret_hands = secrets
-  return ret
-end
-
--- Upgrade royal flush when a straight flush is played
-local aij_SMODS_upgrade_poker_hands_ref = SMODS.upgrade_poker_hands
-function SMODS.upgrade_poker_hands(args)
-    local ret = aij_SMODS_upgrade_poker_hands_ref(args)
-    local straight_flush_upgraded = false
-    local royal_flush_upgraded = false
-    for _, hand in ipairs(args.hands) do
-        if hand == "Straight Flush" then
-            straight_flush_upgraded = true
-        end
-        if hand == "aij_Royal Flush" then
-            royal_flush_upgraded = true
-        end
-    end
-    if straight_flush_upgraded and not royal_flush_upgraded then
-        local new_args = {
-            hands = "aij_Royal Flush",
-            parameters = args.parameters,
-            func = function(base, hand, parameter, level_up)
-                return args.func(base, "Straight Flush", parameter, level_up)
-            end,
-            level_up = args.level_up,
-            instant = true,
-            from = nil,
-            aij_level_with = true, -- Removes context call
-        }
-        aij_SMODS_upgrade_poker_hands_ref(new_args)
-    end
-    return ret
 end
 
 -- Modified from Aura
@@ -1180,15 +611,6 @@ end
 local gameupdateref = Game.update
 function Game:update(dt)
     local ref = gameupdateref(self, dt)
-    if G.GAME.Astral_pins and G.hand and #G.hand.highlighted <= 0 and G.aij_cur_astral_hand ~= nil and G.play and #G.play.cards <= 0 and G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND then
-        All_in_Jest.astral_visuals(text, 'only_remove', All_in_Jest.old_colours or nil, true)      
-        G.aij_cur_astral_hand = nil
-        if G.aij_astral_pin_area then
-            for _, v in pairs(G.aij_astral_pin_area.cards) do
-                v:remove()
-            end
-        end
-    end
     for k, v in pairs(G.GAME.all_in_jest.AIJAnimated) do
         All_in_Jest.update_frame(dt, k, G.P_CENTERS[k])
         if not G.P_CENTERS[k] then
@@ -1320,15 +742,11 @@ function Card:update(dt)
     return ref
 end
 
--- Save/Load for tags in shop as cards and for fusion enhancements
+-- Save/Load for fusion enhancements, inherent effects and seal editions
 -- A lovely patch for Card:load() is also needed
 local card_save_ref = Card.save
 function Card:save()
     local saveTable = card_save_ref(self)
-    saveTable.aij = saveTable.aij or {}
-    if self.config.tag and self.config.tag.is and self.config.tag:is(Tag) then
-        saveTable.aij.tag = self.config.tag:save()
-    end
 
     if self.config.aij_other_center then
         saveTable.save_fields.aij_other_center = self.config.aij_other_center['center'].key
@@ -1377,100 +795,6 @@ function Blind:load(blindTable)
     return ret
 end
 
--- Add area in the shop for puchaseable tags (1/2)
--- This changes the UI so that the price appears to the right of the tag
-local aij_create_shop_card_ui_ref = create_shop_card_ui
-function create_shop_card_ui(card, type, area)
-  if card.ability.is_aij_shop_tag then
-    G.E_MANAGER:add_event(Event({
-      trigger = 'after',
-      delay = 0.43,
-      blocking = false,
-      blockable = false,
-      func = (function()
-        if card.opening then return true end
-        -- Different
-        local t1 = {
-              n=G.UIT.ROOT, config = {minw = 0.6, align = 'cr', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 0.6}, nodes={
-                  {n=G.UIT.R, config={align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03}, nodes={
-                    {n=G.UIT.C, config={ maxw = 0.2, padding = 0.2 }}, -- Adds a bit of padding to the left of the cost
-                    {n=G.UIT.O, config={object = DynaText({string = {{prefix = localize('$'), ref_table = card, ref_value = 'cost'}}, colours = {G.C.MONEY}, shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5})}},
-                  }}
-              }}
-        local t2 = {
-          n=G.UIT.ROOT, config = {ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.94, func = 'can_buy', one_press = true, button = 'buy_from_shop', hover = true}, nodes={
-              {n=G.UIT.T, config={text = localize('b_buy'),colour = G.C.WHITE, scale = 0.5}}
-          }}
-          
-          -- Different
-        card.children.price = UIBox{
-          definition = t1,
-          config = {
-            align="cr",
-            offset = {x=-0.3,y=0},
-            major = card,
-            bond = 'Weak',
-            parent = card
-          }
-        }
-
-        card.children.buy_button = UIBox{
-          definition = t2,
-          config = {
-            align="bm",
-            offset = {x=0,y=-0.3},
-            major = card,
-            bond = 'Weak',
-            parent = card
-          }
-        }
-
-        card.children.price.alignment.offset.y = 0
-
-        return true
-      end)
-    }))
-  else
-    aij_create_shop_card_ui_ref(card, type, area)
-  end
-end
-
--- Add area in the shop for puchaseable tags (2/2)
--- This changes the cardarea to have it stack cards vertically instead of horizontally
-local aij_cardarea_align_cards_ref = CardArea.align_cards
-function CardArea:align_cards()
-    if self == G.shop_aij_tags then
-        for k, card in ipairs(self.cards) do
-            if not card.states.drag.is then 
-                card.T.r = 0
-                local max_cards = math.max(#self.cards, self.config.temp_limit)
-                if #self.cards == 1 then
-                    card.T.y = self.T.y
-                elseif #self.cards == 2 then
-                    card.T.y = self.T.y - (self.T.h-self.card_w)/2 + ((2 * k - 1) / 4) * (self.T.h-self.card_w)
-                else
-                    card.T.y = self.T.y - (self.T.h-self.card_w)/2 + ((k - 1) / math.max(max_cards - 1, 1)) * (self.T.h-self.card_w)
-                end
-                local highlight_height = G.HIGHLIGHT_H / 2
-                if not card.highlighted then highlight_height = 0 end
-                card.T.y = card.T.y + self.T.h/2 - card.T.h/2 - highlight_height
-                card.T.y = card.T.y + card.shadow_parrallax.y/30
-
-                card.T.x = self.T.x
-            end
-        end
-        table.sort(self.cards, function (a, b) return a.T.y + a.T.y/2 < b.T.y + b.T.y/2 end)
-        for k, card in ipairs(self.cards) do
-            card.rank = k
-        end
-        if self.children.view_deck then
-            self.children.view_deck:set_role{major = self.cards[1] or self}
-        end
-    else
-        return aij_cardarea_align_cards_ref(self)
-    end
-end
-
 -- Hook for The Arm's downgrades
 -- If one of chips/mult are at base levels, then downgrade the other appropriately
 local aij_level_up_hand_ref = level_up_hand
@@ -1496,22 +820,6 @@ function level_up_hand(card, hand, instant, amount)
     return aij_level_up_hand_ref(card, hand, instant, amount)
 end
 
--- Hook to make astral pins move out of the way outside of a round
-local aij_cardarea_move_ref = CardArea.move
-function CardArea:move(dt)
-    local ret = aij_cardarea_move_ref(self, dt)
-
-    if self == G.aij_astral_pin_area then 
-        local desired_y = G.ROOM.T.h/4
-        if not (G.STATE == G.STATES.SELECTING_HAND or G.STATE == G.STATES.HAND_PLAYED or G.STATE == G.STATES.DRAW_TO_HAND) then
-            desired_y = desired_y * -1
-        end
-        G.aij_astral_pin_area.T.y = desired_y
-    end
-
-    return ret
-end
-
 -- Hook for simulated card effect
 table.insert(SMODS.calculation_keys, "aij_return_to_hand")
 table.insert(SMODS.other_calculation_keys, "aij_return_to_hand")
@@ -1526,134 +834,8 @@ SMODS.calculate_individual_effect = function(effect, scored_card, key, amount, f
     return aij_original_smods_calculate_individal_effect_ref(effect, scored_card, key, amount, from_edition)
 end
 
-local aij_create_UIBox_hand_tip_ref = create_UIBox_hand_tip
-function create_UIBox_hand_tip(handname)
-    ret = aij_create_UIBox_hand_tip_ref(handname)
-
-    -- Show level of royal flush when hovered over
-    if handname == 'Straight Flush' and G.GAME.hands["aij_Royal Flush"] and G.GAME.hands["aij_Royal Flush"].level > G.GAME.hands["Straight Flush"].level then
-        ret = {n=G.UIT.R, config={align = "cm", r = 0.1}, nodes={
-            ret,
-            {n=G.UIT.R, config={align = "cm", padding = 0.05, r = 0.1, colour = darken(G.C.JOKER_GREY, 0.1), emboss = 0.05, hover = true, force_focus = true, on_demand_tooltip = {text = localize("aij_Royal Flush", 'poker_hand_descriptions'), filler = {func = create_UIBox_hand_tip, args = "aij_Royal Flush"}}}, nodes={
-                {n=G.UIT.C, config={align = "cl", padding = 0, minw = 5}, nodes={
-                    {n=G.UIT.C, config={align = "cm", padding = 0.01, r = 0.1, colour = G.C.HAND_LEVELS[math.min(7, math.max(G.GAME.hands["aij_Royal Flush"].level-G.GAME.hands["Straight Flush"].level))], minw = 1.5, outline = 0.8, outline_colour = G.C.WHITE}, nodes={
-                    {n=G.UIT.T, config={text = '+'..localize('k_level_prefix')..(G.GAME.hands["aij_Royal Flush"].level-G.GAME.hands["Straight Flush"].level), scale = 0.5, colour = G.C.UI.TEXT_DARK}}
-                    }},
-                    {n=G.UIT.C, config={align = "cm", minw = 4.5, maxw = 4.5}, nodes={
-                    {n=G.UIT.T, config={text = ' '..localize("aij_Royal Flush",'poker_hands'), scale = 0.45, colour = G.C.UI.TEXT_LIGHT, shadow = true}}
-                    }}
-                }},
-                {n=G.UIT.C, config={align = "cm", padding = 0.05, colour = G.C.BLACK,r = 0.1}, nodes={
-                    {n=G.UIT.C, config={align = "cr", padding = 0.01, r = 0.1, colour = G.C.CHIPS, minw = 1.1}, nodes={
-                    {n=G.UIT.T, config={text = '+'..number_format(G.GAME.hands["aij_Royal Flush"].chips-G.GAME.hands["Straight Flush"].chips, 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}},
-                    {n=G.UIT.B, config={w = 0.08, h = 0.01}}
-                    }},
-                    {n=G.UIT.T, config={text = "X", scale = 0.45, colour = G.C.MULT}},
-                    {n=G.UIT.C, config={align = "cl", padding = 0.01, r = 0.1, colour = G.C.MULT, minw = 1.1}, nodes={
-                    {n=G.UIT.B, config={w = 0.08,h = 0.01}},
-                    {n=G.UIT.T, config={text = '+'..number_format(G.GAME.hands["aij_Royal Flush"].mult-G.GAME.hands["Straight Flush"].mult, 1000000), scale = 0.45, colour = G.C.UI.TEXT_LIGHT}}
-                    }}
-                }},
-                {n=G.UIT.C, config={align = "cm"}, nodes={
-                    {n=G.UIT.T, config={text = '  #', scale = 0.45, colour = G.C.UI.TEXT_LIGHT, shadow = true}}
-                    }},
-                {n=G.UIT.C, config={align = "cm", padding = 0.05, colour = G.C.L_BLACK,r = 0.1, minw = 0.9}, nodes={
-                    {n=G.UIT.T, config={text = G.GAME.hands["aij_Royal Flush"].played, scale = 0.45, colour = G.C.FILTER, shadow = true}},
-                }}
-            }},
-        }}
-    end
-
-    -- Show applied astral pins
-    local astrals = 0
-    if G.GAME and G.GAME.Astral_pins and G.GAME.Astral_pins[handname] then
-        for _, _ in pairs(G.GAME.Astral_pins[handname]) do
-            astrals = astrals + 1
-        end
-    end
-    if astrals > 0 then
-        local astral_pins_cardarea = CardArea(
-            2, 2,
-            3.5*G.CARD_W,
-            0.5*G.CARD_H, 
-            {card_limit = 3, type = 'title', highlight_limit = 0})
-
-        if G.GAME.Astral_pins[handname] then
-            local v = G.GAME.Astral_pins[handname]
-            for _, i in pairs(v) do
-                local center = G.Astral[i.pin]
-                local card = Card(astral_pins_cardarea.T.x + astral_pins_cardarea.T.w/2,
-                astral_pins_cardarea.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, center, {bypass_discovery_center = true, bypass_discovery_ui = true})
-                card.config.center_key = i.pin
-                for k_, vi in pairs(card.config.center.config) do
-                    card.ability[k_] = vi 
-                end
-                for k_, vi in pairs(G.GAME.Astral_pins[handname][_].ability) do
-                    card.ability[k_] = vi 
-                end
-                card.ability.extra.hand = handname
-                card.config.center.set_card_type_badge = function(self, card, badges)
-                    badges = {}
-                end
-                astral_pins_cardarea:emplace(card)
-                card:start_materialize()
-            end
-        end
-
-        ret = {n=G.UIT.R, config={align = "cm", r = 0.1}, nodes={
-                {n=G.UIT.R, config={align = "cm", colour = G.C.WHITE, r = 0.1}, nodes={
-                    {n=G.UIT.C, config={align = "cm"}, nodes={
-                        {n=G.UIT.O, config={object = astral_pins_cardarea}}
-                    }}
-                }},
-                ret
-            }}
-    end
-
-    return ret
-end
-
-local aij_SMODS_collection_pool_ref = SMODS.collection_pool
-SMODS.collection_pool = function(_base_pool)
-
-    local pool = aij_SMODS_collection_pool_ref(_base_pool)
-
-    if _base_pool == G.P_CENTER_POOLS.Tarot then
-        for _, v in ipairs(G.P_CENTER_POOLS.aij_hex_tarot) do
-            if v.discovered then
-                table.insert(pool, v)
-            end
-        end
-    end
-
-    return pool
-end
-
-local set_joker_win_ref = set_joker_win
-function set_joker_win()
-  for k, v in pairs(G.consumeables.cards) do
-    if v.config.center_key and v.ability.set == 'Joker' then
-      G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] = G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] or {count = 1, order = v.config.center.order, wins = {}, losses = {}, wins_by_key = {}, losses_by_key = {}}
-      if G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] then
-        G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins = G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins or {}
-        G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins[G.GAME.stake] = (G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins[G.GAME.stake] or 0) + 1
-        G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] = (G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] or 0) + 1
-      end
-    end
-  end
-  set_joker_win_ref()
-end
-
 local poll_obj_ref = SMODS.poll_object
 function SMODS.poll_object(args)
-    -- spawn mostly mult jokers until you pick one up
-    local rate = ({0, 0.3, 0.6})[All_in_Jest.config.mult_appearance]
-    if rate > 0 and args.type == 'Joker' and (args.append == 'sho' or args.append == 'buf') and not G.GAME.aij_found_mult and not args.attributes and not (#SMODS.find_card("j_aij_little_boy_blue") > 0) then
-        if pseudorandom('aij_mult_poll') <= rate then
-            args.attributes = {'mult'}
-        end
-    end
-
     -- legendary in shop logic
     if args.type == 'Joker' and args.rarities == nil and G.GAME.jest_legendary_pool ~= nil and G.GAME.jest_legendary_pool.in_shop then
         if pseudorandom('rarity'..G.GAME.round_resets.ante..(args.append or '')) > G.GAME.jest_legendary_pool.rate then
@@ -1664,66 +846,12 @@ function SMODS.poll_object(args)
     return poll_obj_ref(args)
 end
 
-local card_add_ref = Card.add_to_deck
-function Card:add_to_deck(...)
-    if self:has_attribute('mult') then
-        G.GAME.aij_found_mult = true
+local original_emplace = CardArea.emplace
+function CardArea:emplace(card, ...)
+    local result = original_emplace(self, card, ...)
+    if self == G.jokers and card.ability.set == "Joker" and G.STATE == 5 then
+        G.GAME.jest_bought_jokers = (G.GAME.jest_bought_jokers or 0) + 1
     end
-    return card_add_ref(self, ...)
-end
 
-local get_new_boss_ref = get_new_boss
-function get_new_boss()
-    local boss_key = get_new_boss_ref()
-    if not All_in_Jest.config.suit_boss_blocking then return boss_key end
-    -- would block 2 suits, probably too impactful
-    if boss_key == 'bl_aij_the_day' or boss_key == 'bl_aij_the_dagger' or boss_key == 'bl_aij_the_sun' then
-        return boss_key
-    end
-    local added = {}
-    for _, suit in ipairs({'spades', 'hearts', 'clubs', 'diamonds'}) do
-        local has_suit = SMODS.has_attribute(G.P_BLINDS[boss_key], suit)
-        if has_suit then
-            for other, other_obj in pairs(G.P_BLINDS) do
-                if not added[other] and other ~= boss_key then
-                    local other_has_suit = SMODS.has_attribute(other_obj, suit)
-                    if other == 'bl_aij_the_day' or other == 'bl_aij_the_dagger' then
-                        other_has_suit = not other_has_suit
-                    end
-                    if other_has_suit then
-                        added[other] = true
-                        G.GAME.bosses_used[other] = G.GAME.bosses_used[other] + 1
-                    end
-                end
-            end
-        end
-    end
-    return boss_key
-end
-
-local add_bosses_used_ref = SMODS.add_boss_to_used_table
-function SMODS.add_boss_to_used_table(boss_key, type)
-    add_bosses_used_ref(boss_key, type)
-    if not All_in_Jest.config.suit_boss_blocking then return end
-    if boss_key == 'bl_aij_the_day' or boss_key == 'bl_aij_the_dagger' or boss_key == 'bl_aij_the_sun' then
-        return
-    end
-    local added = {}
-    for _, suit in ipairs({'spades', 'hearts', 'clubs', 'diamonds'}) do
-        local has_suit = SMODS.has_attribute(G.P_BLINDS[boss_key], suit)
-        if has_suit then
-            for other, other_obj in pairs(G.P_BLINDS) do
-                if not added[other] and other ~= boss_key then
-                    local other_has_suit = SMODS.has_attribute(other_obj, suit)
-                    if other == 'bl_aij_the_day' or other == 'bl_aij_the_dagger' then
-                        other_has_suit = not other_has_suit
-                    end
-                    if other_has_suit then
-                        added[other] = true
-                        add_bosses_used_ref(other, type)
-                    end
-                end
-            end
-        end
-    end
+    return result
 end

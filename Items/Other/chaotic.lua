@@ -2,7 +2,12 @@
 SMODS.Shader {
     key = 'chaotic',
     path = 'chaotic.fs',
- }
+}
+
+SMODS.jest_Badge = {
+    key = "jest_chaotic_card",
+    badge_colour = HEX '8F00FF',
+}
 
 -- Treat internally as a sticker, like Pinned cards
 local chaotic_card = {

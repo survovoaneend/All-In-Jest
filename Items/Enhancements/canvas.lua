@@ -104,6 +104,7 @@ local canvas = {
                     local rank = SMODS.Ranks[card.base.value] or {}
                     card.base.nominal = rank.nominal or 0
                 end
+                
                 if #G.play.cards >= 1 and (not G.aij_astral_pin_area or (G.aij_astral_pin_area and #G.aij_astral_pin_area.cards <= 0)) then
                     local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
                     if G.GAME.Astral_pins then
@@ -119,4 +120,47 @@ local canvas = {
         end
     end,
 }
+
+local aij_smods_has_playing_card_property_ref = SMODS.has_playing_card_property
+function SMODS.has_playing_card_property(card, key)
+    if SMODS.has_enhancement(card, 'm_aij_canvas') and (key == "no_suit" or key == "no_rank" or key == "replace_base_card") then
+        if card.area == G.hand and not card.debuff then
+            for k, v in pairs(G.play.cards) do
+                if v == card and v ~= G.play.cards[#G.play.cards] and not G.play.cards[k+1].debuff then
+                    return SMODS.has_playing_card_property(G.play.cards[k+1], key)
+                end
+            end
+        elseif card.area == G.play and not card.debuff then
+            local highlighted = false
+            local highlighted_cards = {}
+            for k, v in pairs(G.hand.cards) do
+                for key, val in pairs(G.hand.highlighted) do
+                    if v == val then
+                        highlighted_cards[#highlighted_cards+1] = v
+                    end
+                end
+            end
+            for k, v in pairs(highlighted_cards) do
+                if v == card then
+                    highlighted = true
+                    if v ~= highlighted_cards[#highlighted_cards] and not highlighted_cards[k+1].debuff then
+                        return SMODS.has_playing_card_property(highlighted_cards[k+1], key)
+                    end
+                end
+            end
+            if not highlighted then
+                for k, v in pairs(G.hand.cards) do
+                    if v == card and v ~= G.hand.cards[#G.hand.cards] and not G.hand.cards[k+1].debuff then
+                        return SMODS.has_playing_card_property(G.hand.cards[k+1], key)
+                    end
+                end
+            end
+        else
+            return true
+        end
+
+    end
+    return aij_smods_has_playing_card_property_ref(card, key)
+end
+
 return {name = {"Enhancements"}, items = {canvas}}

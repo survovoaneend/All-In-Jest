@@ -37,7 +37,6 @@ local the_treachery_of_jokers = {
 
 local aij_check_for_buy_space_ref = G.FUNCS.check_for_buy_space
 G.FUNCS.check_for_buy_space = function(card)
-
     local is_treachery = false
     if card.config.center.key == "j_aij_the_treachery_of_jokers" then
         is_treachery = true
@@ -104,6 +103,33 @@ All_in_Jest.set_copied_joker = function(copier_card, copied_center)
     return ret
 end
 
+-- Gives Treachery of Jokers stake stickers on winning and joker usage stats
+local set_joker_usage_ref = set_joker_usage
+function set_joker_usage()
+  for _, v in pairs(G.consumeables.cards) do
+    if v.config.center_key and v.ability.set == 'Joker' then
+      if G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] then
+        G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].count = G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].count + 1
+      else
+        G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] = convert_usage_entry{count = 1, order = v.config.center.order, wins = {}, losses = {}, wins_by_key = {}, losses_by_key = {}}
+      end
+    end
+  end
+  set_joker_usage_ref()
+end
+local set_joker_win_ref = set_joker_win
+function set_joker_win()
+  for _, v in pairs(G.consumeables.cards) do
+    if v.config.center_key and v.ability.set == 'Joker' then
+      G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] = G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] or convert_usage_entry{count = 1, order = v.config.center.order, wins = {}, losses = {}, wins_by_key = {}, losses_by_key = {}}
+      if G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] then
+        G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins = G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins or {}
+        G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] = (G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] or 0) + 1
+      end
+    end
+  end
+  set_joker_win_ref()
+end
 
 
 local contains = function (tbl, item)

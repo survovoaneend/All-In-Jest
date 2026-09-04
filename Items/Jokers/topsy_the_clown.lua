@@ -1,3 +1,14 @@
+local function next_palindrome(n)
+    n = math.ceil(n)
+    while true do
+        local s = tostring(n)
+        if s == s:reverse() and #s > 1 then
+            return n
+        end
+        n = math.floor(n + 1)
+    end
+end
+
 local topsy_the_clown = {
     object_type = "Joker",
     order = 82,
