@@ -1,0 +1,942 @@
+SMODS.current_mod.config_tab = function()
+  return {n = G.UIT.ROOT, config = {r = 0.1, minw = 4, align = "tm", padding = 0.2, colour = G.C.BLACK}, nodes = {
+    {n = G.UIT.C, config = {r = 0.1, minw = 4, align = "tc", padding = 0.2, colour = G.C.BLACK}, nodes = {
+      {n = G.UIT.R, config = {align = "cm", r = 0.1, padding = 0.2}, nodes = {
+        UIBox_button({label = {localize('aij_button_content')}, button = 'aij_config_content', minw = 5}),
+        UIBox_button({label = {localize('aij_button_moons')}, button = 'aij_config_moons', minw = 5}),
+        UIBox_button({label = {localize('aij_button_visuals')}, button = 'aij_config_visuals', minw = 5}),
+        UIBox_button({label = {localize('aij_button_consistency')}, button = 'aij_config_consistency', minw = 5}),
+      }},
+    }},
+  }}
+end
+
+G.FUNCS.aij_config_content = function(e)
+  G.FUNCS.overlay_menu{
+    definition = create_UIBox_generic_options({
+      back_func = "aij_back_config",
+      contents = {
+        {n = G.UIT.R, config = {padding = 0, align = "tm"}, nodes = {
+          {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('465255')}, nodes = {
+            {n = G.UIT.R, config = {align = 'cm', minh = 1}, nodes = {
+              {n = G.UIT.T, config = {text = localize('aij_button_content'), colour = G.C.WHITE, scale = 0.8}}
+            }},
+            {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('4a6972'), minw = 8.5}, nodes = {
+              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_lite_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_lite'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'aij_lite'
+                  },
+                },
+              }}},
+              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_blue_stake_rework_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_blue_stake_rework'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'blue_stake_rework'
+                  },
+                },
+              }}},
+              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_no_copy_neg_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_no_copy_neg'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'no_copy_neg'
+                  },
+                },
+              }}},
+            }},
+          }},
+        }}
+      }
+    })
+  }
+end
+G.FUNCS.aij_config_moons = function(e)
+  G.FUNCS.overlay_menu{
+    definition = create_UIBox_generic_options({
+      back_func = "aij_back_config",
+      contents = {
+        {n = G.UIT.R, config = {padding = 0, align = "tm"}, nodes = {
+          {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('465255')}, nodes = {
+            {n = G.UIT.R, config = {align = 'cm', minh = 1}, nodes = {
+              {n = G.UIT.T, config = {text = localize('aij_button_moons'), colour = G.C.WHITE, scale = 0.8}}
+            }},
+            {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('4a6972'), minw = 8.5}, nodes = {
+              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_enable_moons_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_enable_moons'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'moons_enabled'
+                  },
+                },
+              }}},
+              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_moons_blocking_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_moons_blocking'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'moons_blocking'
+                  },
+                },
+              }}},
+            }},
+          }},
+        }}
+      }
+    })
+  }
+end
+G.FUNCS.aij_config_visuals = function(e)
+  G.FUNCS.overlay_menu{
+    definition = create_UIBox_generic_options({
+      back_func = "aij_back_config",
+      contents = {
+        {n = G.UIT.R, config = {padding = 0, align = "tm"}, nodes = {
+          {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('465255')}, nodes = {
+            {n = G.UIT.R, config = {align = 'cm', minh = 1}, nodes = {
+              {n = G.UIT.T, config = {text = localize('aij_button_visuals'), colour = G.C.WHITE, scale = 0.8}}
+            }},
+            {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('4a6972'), minw = 8.5}, nodes = {
+              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_red_destroy_text_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_red_destroy_text'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'red_destroy_text'
+                  },
+                },
+              }}},
+              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_random_deck_skins_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_random_deck_skins'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'random_deck_skins'
+                  },
+                },
+              }}},
+              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_alter_trypophobia_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_alter_trypophobia'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'alter_trypophobia'
+                  },
+                },
+              }}},
+              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_guess_names_tooltip')}},
+                nodes = {
+                  create_toggle {
+                    label = localize('aij_guess_names'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'guess_names'
+                  },
+                },
+              }}},
+            }},
+          }},
+        }}
+      }
+    })
+  }
+end
+G.FUNCS.aij_config_consistency = function(e)
+  G.FUNCS.overlay_menu{
+    definition = create_UIBox_generic_options({
+      back_func = "aij_back_config",
+      contents = {
+        {n = G.UIT.R, config = {padding = 0, align = "tm"}, nodes = {
+          {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('465255')}, nodes = {
+            {n = G.UIT.R, config = {align = 'cm', minh = 1}, nodes = {
+              {n = G.UIT.T, config = {text = localize('aij_button_consistency'), colour = G.C.WHITE, scale = 0.8}}
+            }},
+            {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('4a6972'), minw = 8.5}, nodes = {
+              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
+                config = {tooltip = {text = localize('aij_mult_appearance_tooltip')}},
+                nodes = {
+                  create_option_cycle {
+                    scale = 0.8,
+                    label = localize('aij_mult_appearance'),
+                    options = localize('aij_mult_appearance_opt'),
+                    ref_table = All_in_Jest.config,
+                    ref_value = 'mult_appearance',
+                    current_option = All_in_Jest.config.mult_appearance,
+                    opt_callback = 'aij_generic_cycle',
+                  },
+                },
+              }}},
+              -- has no effect currently
+              -- {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
+              --   config = {tooltip = {text = localize('aij_suit_boss_blocking_tooltip')}},
+              --   nodes = {
+              --     create_toggle {
+              --       label = localize('aij_suit_boss_blocking'),
+              --       ref_table = All_in_Jest.config,
+              --       ref_value = 'suit_boss_blocking'
+              --     },
+              --   },
+              -- }}},
+            }},
+          }},
+        }}
+      }
+    })
+  }
+end
+
+G.FUNCS.aij_back_config = function(e)
+  SMODS.LAST_SELECTED_MOD_TAB = 'config'
+  G.FUNCS.overlay_menu{
+    definition = create_UIBox_mods({})
+  }
+end
+
+G.FUNCS.aij_generic_cycle = function(e)
+  e.cycle_config.ref_table[e.cycle_config.ref_value] = e.to_key
+end
+
+local joker_listing = {
+	{"j_aij_nevernamed_credits_joker", 
+  "j_aij_survivalaren_credits_joker", 
+  "j_aij_rattling_snow_credits_joker", 
+  "j_aij_jumbocarrot_credits_joker",
+  "j_aij_heavenbrand_credits_joker", 
+  "j_aij_jamie_credits_joker", 
+  "j_aij_vitellary_credits_joker"},
+}
+-- Modify main page
+All_in_Jest.custom_ui = function(mod_nodes)
+	local set = joker_listing[1]
+	G.aij_main_jokers_list = CardArea(
+		G.ROOM.T.x + 0.2 * G.ROOM.T.w / 2, G.ROOM.T.h,
+		5.25 * G.CARD_W,
+		0.95 * G.CARD_H,
+		{ card_limit = #set, type = 'title', highlight_limit = 0, collection = true }
+	)
+	local silent = false
+	for i, center in pairs(set) do
+		G.GAME.viewed_back = Back(G.P_CENTERS.b_aij_fabled)
+		local card = Card(G.aij_main_jokers_list.T.x + (G.aij_main_jokers_list.T.w / 2), G.aij_main_jokers_list.T.y,
+			G.CARD_W, G.CARD_H, G.P_CARDS.empty, G.P_CENTERS[center] or All_in_Jest.DescriptionDummies[center],
+			{
+				bypass_discovery_center = true,
+				bypass_discovery_ui = true,
+				bypass_lock = true,
+				playing_card = i,
+				viewing_back = false,
+				bypass_back =
+					G.P_CENTERS["b_aij_fabled"].pos
+			})
+		G.aij_main_jokers_list:emplace(card)
+		card:hard_set_T(G.aij_main_jokers_list.T.x + (G.aij_main_jokers_list.T.w / 2))
+		card.sprite_facing = 'front'
+		card.facing = 'front'
+		card:start_materialize({ G.C.RED }, silent)
+		silent = true
+	end
+	mod_nodes[#mod_nodes + 1] = {
+		n = G.UIT.R,
+		config = { minh = 0.2, padding = 0.2 }
+	}
+	mod_nodes[#mod_nodes + 1] = {
+		n = G.UIT.R,
+    config = { align = "cm" },
+		nodes = {
+			{
+				n = G.UIT.C,
+				config = { align = "cm", padding = 0.5, colour = darken(G.C.BLACK, 0.2), emboss = 0.05, r = 0.1 },
+				nodes = {
+					{
+						n = G.UIT.R,
+						config = { align = "cm", no_fill = true },
+						nodes = {
+							{ n = G.UIT.O, config = { object = G.aij_main_jokers_list } },
+						}
+					},
+				}
+			},
+		}
+	}
+	return mod_nodes
+end
+--G.FUNCS.change_collab_rank = function(args)
+--  if args.cycle_config.current_option ~= 1 then
+--      local rank = args.cycle_config.options[args.cycle_config.current_option]
+--      if G.SETTINGS.all_in_jest.Collabs[args.cycle_config.curr_suit][rank] == G.COLLABS.options[args.cycle_config.curr_suit][args.cycle_config.other_option] then
+--        args.cycle_config.other_option = 1
+--      end
+--      G.SETTINGS.all_in_jest.Collabs[args.cycle_config.curr_suit][rank] = G.COLLABS.options[args.cycle_config.curr_suit][args.cycle_config.other_option] or 'default'
+--      for k, v in pairs(G.I.CARD) do
+--        if v.config and v.config.card and v.children.front and v.ability.effect ~= 'Stone Card' then 
+--          v:set_sprites(nil, v.config.card)
+--        end
+--      end
+--  end
+--  G:save_settings()
+--end
+
+function aij_get_UIE_by_fob(self, id, node)
+    if not node then node = self end
+    if node.config and (node.config.func == id or node.config.button == id) then return node end
+    for k, v in pairs(node.children) do
+        local res = aij_get_UIE_by_fob(self, id, v)
+        if res then
+            return res
+        elseif v.config.object and v.config.object.aij_get_UIE_by_fob then
+            res = v.config.object:aij_get_UIE_by_fob(id, nil)
+            if res then
+                return res
+            end
+        end
+    end
+    return nil
+end
+
+G.FUNCS.jest_free_reroll_boss = function(e) 
+    stop_use()
+    if G.GAME.jest_free_stultor_rerolls == 0 then
+        G.GAME.round_resets.boss_rerolled = true
+        if not G.from_boss_tag then ease_dollars(-10) end
+    end
+    G.from_boss_tag = nil
+    G.CONTROLLER.locks.boss_reroll = true
+    G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+          play_sound('other1')
+          G.blind_select_opts.boss:set_role({xy_bond = 'Weak'})
+          G.blind_select_opts.boss.alignment.offset.y = 20
+          return true
+        end
+      }))
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.3,
+      func = (function()
+        local par = G.blind_select_opts.boss.parent
+        G.GAME.round_resets.blind_choices.Boss = get_new_boss()
+        G.GAME.jest_free_stultor_rerolls = G.GAME.jest_free_stultor_rerolls - 1
+        local tem_trigger = false
+        local has_stultor = next(SMODS.find_card("j_aij_stultor"))
+        if has_stultor and not tem_trigger then
+            for i = 1, has_stultor do
+                SMODS.find_card("j_aij_stultor")[i].ability.extra.trigger = false
+                tem_trigger = true
+            end
+        end
+
+        G.blind_select_opts.boss:remove()
+        G.blind_select_opts.boss = UIBox{
+          T = {par.T.x, 0, 0, 0, },
+          definition =
+            {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
+              UIBox_dyn_container({create_UIBox_blind_choice('Boss')},false,get_blind_main_colour('Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Boss'), 0.8))
+            }},
+          config = {align="bmi",
+                    offset = {x=0,y=G.ROOM.T.y + 9},
+                    major = par,
+                    xy_bond = 'Weak'
+                  }
+        }
+        par.config.object = G.blind_select_opts.boss
+        par.config.object:recalculate()
+        G.blind_select_opts.boss.parent = par
+        G.blind_select_opts.boss.alignment.offset.y = 0
+        
+        G.E_MANAGER:add_event(Event({blocking = false, trigger = 'after', delay = 0.5,func = function()
+            G.CONTROLLER.locks.boss_reroll = nil
+            return true
+          end
+        }))
+
+        save_run()
+        for i = 1, #G.GAME.tags do
+          if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
+        end
+          return true
+      end)
+    }))
+  end
+G.FUNCS.jest_free_reroll_boss_button = function(e)
+    if G.GAME.jest_free_stultor_rerolls > 0 then 
+        e.config.text = localize('$')..'0'
+        e.config.colour = G.C.RED
+        e.config.button = 'jest_free_reroll_boss'
+        e.children[1].children[1].config.shadow = true
+        if e.children[2] then e.children[2].children[1].config.shadow = true end 
+    else
+        e.config.text = localize('$')..'10'
+        G.FUNCS.reroll_boss_button(e)
+    end
+    if G.blind_prompt_box ~= nil and G.blind_prompt_box.definition.nodes[3] ~= nil then
+        if e.config.text ~= G.blind_prompt_box.definition.nodes[3].nodes[1].nodes[2].nodes[1].config.text then
+            G.blind_prompt_box.definition.nodes[3].nodes[1].nodes[2].nodes[1].config.text = e.config.text
+            G.blind_prompt_box.definition.nodes[3].nodes[1].nodes[2].config.button_UIE.UIBox:recalculate()
+        end
+    end
+end
+G.FUNCS.jest_tag_choice_next_page = function(e)
+    local blind_choice = e.config.ref_table[2]
+    if blind_choice == G.GAME.blind_on_deck then G.GAME.all_in_jest.blind_tags.selected_index = nil end
+    G.GAME.all_in_jest.blind_tags[blind_choice].page = G.GAME.all_in_jest.blind_tags[blind_choice].page + e.config.ref_table[1]
+    local par = G.blind_select_opts[blind_choice:lower()].parent
+    G.blind_select_opts[blind_choice:lower()]:remove()
+    G.blind_select_opts[blind_choice:lower()] = UIBox{
+      T = {par.T.x, 0, 0, 0, },
+      definition =
+        {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
+          UIBox_dyn_container({create_UIBox_blind_choice(blind_choice)},false,get_blind_main_colour(blind_choice))
+        }},
+      config = {align="bmi",
+                offset = {x=0,y=G.ROOM.T.y + 9},
+                major = par,
+                xy_bond = 'Weak'
+              }
+    }
+    par.config.object = G.blind_select_opts[blind_choice:lower()]
+    par.config.object:recalculate()
+    G.blind_select_opts[blind_choice:lower()].parent = par
+end
+SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
+    args = args or {}
+    args.w_mod = args.w_mod or 1
+    args.h_mod = args.h_mod or 1
+    args.card_scale = args.card_scale or 1
+    args.offset = args.offset or {x=0,y=0}
+    local deck_tables = {}
+    local pool = SMODS.collection_pool(_pool)
+    if args.sort then args.sort(pool) end
+
+    G.your_collection = {}
+    local cards_per_page = 0
+    local row_totals = {}
+    for j = 1, #rows do
+        if cards_per_page >= #pool and args.collapse_single_page then
+            rows[j] = nil
+        else
+            row_totals[j] = cards_per_page
+            cards_per_page = cards_per_page + rows[j]
+            G.your_collection[j] = CardArea(
+                G.ROOM.T.x + 0.2*G.ROOM.T.w/2 + args.offset.x,G.ROOM.T.h + args.offset.y,
+                (args.w_mod*rows[j]+0.25)*G.CARD_W,
+                args.h_mod*G.CARD_H, 
+                {card_limit = rows[j], type = args.area_type or 'title', highlight_limit = 0, collection = true}
+            )
+            table.insert(deck_tables, 
+            {n=G.UIT.R, config={align = "cm", padding = 0.07, no_fill = true}, nodes={
+                {n=G.UIT.O, config={object = G.your_collection[j]}}
+            }})
+        end
+    end
+
+    local options = {}
+    for i = 1, math.ceil(#pool/cards_per_page) do
+        table.insert(options, localize('k_page')..' '..tostring(i)..'/'..tostring(math.ceil(#pool/cards_per_page)))
+    end
+
+    G.FUNCS.SMODS_card_collection_page = function(e)
+        if not e or not e.cycle_config then return end
+        for j = 1, #G.your_collection do
+            for i = #G.your_collection[j].cards, 1, -1 do
+            local c = G.your_collection[j]:remove_card(G.your_collection[j].cards[i])
+            c:remove()
+            c = nil
+            end
+        end
+        for j = 1, #rows do
+            for i = 1, rows[j] do
+            local index = i+row_totals[j] + (cards_per_page*(e.cycle_config.current_option - 1))
+            local center = nil
+            local card = nil
+            if args.create_card then 
+                center, card = args.create_card(pool, index, i, j) 
+                if not center then break end
+            else
+                center = pool[index]
+                if not center then break end
+                card = args.from_area and copy_card(center, nil, args.card_scale) or Card(G.your_collection[j].T.x + G.your_collection[j].T.w/2, G.your_collection[j].T.y, G.CARD_W*args.card_scale, G.CARD_H*args.card_scale, G.P_CARDS.empty, (args.center and G.P_CENTERS[args.center]) or center, args.bypass_extra)
+            end
+
+            -- Re-adds negative to preview if it was stripped by the mod
+            if center.edition and center.edition.negative and not All_in_Jest.config.no_copy_neg then
+                card:set_edition({negative = true}, nil, true)
+            end
+
+            if args.modify_card then args.modify_card(card, center, i, j, pool, index) end
+            if not args.no_materialize then card:start_materialize(nil, i>1 or j>1) end
+            if args.juice_card then card:juice_up(unpack(args.juice_card)) end
+            G.your_collection[j]:emplace(card)
+            end
+        end
+        INIT_COLLECTION_CARD_ALERTS()
+    end
+
+    local temp = copy_table(G.GAME.used_jokers) -- Doing this since otherwise collection cards will be counted as owned
+    G.FUNCS.SMODS_card_collection_page{ cycle_config = { current_option = 1 }}
+    G.GAME.used_jokers = temp
+
+    local t =  create_UIBox_generic_options({ back_func = (args and args.back_func) or G.ACTIVE_MOD_UI and "openModUI_"..G.ACTIVE_MOD_UI.id or 'your_collection', snap_back = args.snap_back, infotip = args.infotip, no_back = true, contents = {
+          {n=G.UIT.R, config={align = "cm", r = 0.1, colour = G.C.BLACK, emboss = 0.05}, nodes=deck_tables}, 
+          (not args.hide_single_page or cards_per_page < #pool) and {n=G.UIT.R, config={align = "cm"}, nodes={
+            create_option_cycle({options = options, w = 4.5, cycle_shoulders = true, opt_callback = 'SMODS_card_collection_page', current_option = 1, colour = G.C.RED, no_pips = true, focus_args = {snap_to = true, nav = 'wide'}})
+          }} or nil,
+      }})
+    return t
+end
+G.FUNCS.jest_select = function(e)
+    local c1 = e.config.ref_table
+    if c1 and c1:is(Card) then
+      local card_was_banned = false
+      if G.GAME.banned_keys[c1.config.center_key] then
+          card_was_banned = true
+          -- If card was banned by an All in Jest joker, unban it temporarially
+          if type(G.GAME.banned_keys[c1.config.center_key]) == "string" and G.GAME.banned_keys[c1.config.center_key]:sub(1, 5) == "j_aij" then
+              card_was_banned = G.GAME.banned_keys[c1.config.center_key]
+              G.GAME.banned_keys[c1.config.center_key] = nil
+          end
+      end
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        func = function()
+          local c_to_remove = nil
+          if G.GAME.banned_keys[c1.config.center_key] then
+             return true
+          end
+          if e.config.data[2].remove_orginal and e.config.data[2].index then
+            c_to_remove = e.config.data[2].remove_orginal[e.config.data[2].index]
+          end 
+          G.SETTINGS.paused = false
+          if e.config.data[2].copies and e.config.data[2].copies > 1 then
+              for i = 1, e.config.data[2].copies do
+                  local card = SMODS.add_card {
+                    key = c1.config.center_key,
+                    area = e.config.data[1]
+                  }
+                  card = copy_card(c1, card)
+                  card:add_to_deck()
+                  if c1.edition and c1.edition.negative then
+                    card:set_edition({negative = true}, true)
+                  end
+                  if (not card.edition or (card.edition and not card.edition.negative)) and e.config.data[1] == G.consumeables then
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+                  end
+                  if e.config.data[2].playing_card == true then
+                      G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                      card.playing_card = G.playing_card
+                      table.insert(G.playing_cards, card)
+                  end
+                  if e.config.data[2].insert_index and e.config.data[2].insert_index > 0 then
+                      local item = table.remove(e.config.data[1], 1)
+                      table.insert(e.config.data[1], e.config.data[2].insert_index, item)
+                  end
+              end
+          else
+              local card = SMODS.add_card {
+                key = c1.config.center_key,
+                area = e.config.data[1]
+              }
+              card = copy_card(c1, card)
+              card:add_to_deck()
+              if c1.edition and c1.edition.negative then
+                card:set_edition({negative = true}, true)
+              end
+              if (not card.edition or (card.edition and not card.edition.negative)) and e.config.data[1] == G.consumeables then
+                G.GAME.consumeable_buffer = 0
+              end
+              if e.config.data[2].playing_card == true then
+                  G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                  card.playing_card = G.playing_card
+                  table.insert(G.playing_cards, card)
+              end
+              if e.config.data[2].insert_index and e.config.data[2].insert_index > 0 then
+                  local item = table.remove(e.config.data[1].cards, 1)
+                  table.insert(e.config.data[1].cards, e.config.data[2].insert_index, item)
+              end
+          end
+          if c_to_remove then
+            c_to_remove:remove()
+            c_to_remove = nil
+          end 
+          if G.OVERLAY_MENU ~= nil then
+              G.OVERLAY_MENU:remove()
+              G.OVERLAY_MENU = nil
+          end
+          
+          G.E_MANAGER:add_event(Event({
+            func = function()
+              if card_was_banned then
+                  G.GAME.banned_keys[c1.config.center_key] = card_was_banned
+              end
+              return true
+            end
+          }))
+          return true
+        end
+      }))
+    end
+end
+G.FUNCS.jest_continue_select = function(e)
+    local c1 = e.config.ref_table
+    if c1 and c1:is(Card) then
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        func = function()
+          if e.config.data[2].following == 0 then
+            G.FUNCS.jest_select(e)
+            return true
+          end
+          e.config.data[2].following = e.config.data[2].following - 1
+          e.config.data[2].times = e.config.data[2].times + 1
+          if G.OVERLAY_MENU ~= nil then
+              G.OVERLAY_MENU:remove()
+              G.OVERLAY_MENU = nil
+          end
+          e.config.data[2].cards = e.config.data[2].cards or {}
+          table.insert(e.config.data[2].cards, c1)
+          G.FUNCS.overlay_menu{
+                config = {no_esc = true}, 
+                definition = SMODS.jest_no_back_card_collection_UIBox(
+                    e.config.data[2].pools[e.config.data[2].times], 
+                    {e.config.data[2].size.x[e.config.data[2].times],e.config.data[2].size.y[e.config.data[2].times]}, 
+                    {
+                        no_materialize = true, 
+                        hide_single_page = true,
+                        collapse_single_page = true,
+                        center = e.config.data[2].center,
+                        modify_card = function(card, center) 
+                            local conditionals = true
+                            if e.config.data[2].conditionals then
+                                conditionals = e.config.data[2].conditionals[e.config.data[2].times] or true
+                            end
+                            if e.config.data[2].extra_function then
+                                e.config.data[2].extra_function(card, center, c1, e.config.data[2])
+                            end
+                            if conditionals then
+                                jest_create_select_playing_card_ui(card, e.config.data[1], e.config.data[2])
+                            end
+                        end, 
+                        h_mod = 1.05,
+                    }
+                ),
+          }
+          
+          return true
+        end
+      }))
+    end
+end
+G.FUNCS.jest_gold_tags = function(e)
+    if G.GAME.jest_upgrade_tab then
+        G.GAME.jest_upgrade_tab = false
+    else
+        G.GAME.jest_upgrade_tab = true
+    end
+end
+G.FUNCS.jest_next_tag = function(e)
+    local _tag = e.UIBox:get_UIE_by_ID('tag_container')
+    if _tag then
+      local _tag_sprite = _tag.children[2]
+      local _tag_ui = _tag_sprite.children[1].children[1]
+      if G.GAME.all_in_jest.skip_tags._tag_2 and G.GAME.all_in_jest.skip_tags._tag_3 then
+        if _tag.config.ref_table.key ~= G.GAME.all_in_jest.skip_tags._tag_2._tag.key and _tag.config.ref_table.key ~= G.GAME.all_in_jest.skip_tags._tag_3._tag.key then
+            G.GAME.all_in_jest.skip_tags._tag_1 = G.GAME.all_in_jest.skip_tags._tag_1 or {}
+            if #G.GAME.all_in_jest.skip_tags._tag_1 == 0 then
+                G.GAME.all_in_jest.skip_tags._tag_1._tag = G.GAME.all_in_jest.skip_tags._tag_1._tag or {}
+                for k, v in pairs(_tag.config.ref_table) do 
+                    G.GAME.all_in_jest.skip_tags._tag_1._tag[k] = v
+                end
+            end
+            local temp_tag = Tag(G.GAME.all_in_jest.skip_tags._tag_2._tag.key)
+            _tag.config.ref_table = temp_tag
+            _tag_ui, _tag_sprite.config.ref_table = temp_tag:generate_UI()
+            G.GAME.all_in_jest.skip_tags._tag_ui, G.GAME.all_in_jest.skip_tags._tag_sprite = temp_tag:generate_UI()
+        elseif _tag.config.ref_table.key == G.GAME.all_in_jest.skip_tags._tag_2._tag.key then
+            local temp_tag = Tag(G.GAME.all_in_jest.skip_tags._tag_3._tag.key)
+            _tag.config.ref_table = temp_tag
+            _tag_ui, _tag_sprite.config.ref_table = temp_tag:generate_UI()
+            G.GAME.all_in_jest.skip_tags._tag_ui, G.GAME.all_in_jest.skip_tags._tag_sprite = temp_tag:generate_UI()
+        elseif _tag.config.ref_table.key == G.GAME.all_in_jest.skip_tags._tag_3._tag.key and G.GAME.all_in_jest.skip_tags._tag_1 then
+            local temp_tag = Tag(G.GAME.all_in_jest.skip_tags._tag_1._tag.key)
+            _tag.config.ref_table = temp_tag
+            _tag_ui, _tag_sprite.config.ref_table = temp_tag:generate_UI()
+            G.GAME.all_in_jest.skip_tags._tag_ui, G.GAME.all_in_jest.skip_tags._tag_sprite = temp_tag:generate_UI()
+        end
+      end
+    end
+end
+G.FUNCS.jest_astral_replace = function(e)
+    local card = e.config.ref_table
+    local area = e.config.data[1]
+    local data = e.config.data[2]
+    All_in_Jest.create_astral_pin(data.consumable_card, data.astral_index)
+    if G.aij_cur_astral_hand and G.aij_cur_astral_hand == data.consumable_card.ability.consumeable.hand then
+        All_in_Jest.astral_visuals(data.consumable_card.ability.consumeable.hand, 'no_remove')
+    end
+    G.SETTINGS.paused = false
+    if G.OVERLAY_MENU ~= nil then
+        G.OVERLAY_MENU:remove()
+        G.OVERLAY_MENU = nil
+    end
+end
+function jest_create_select_card_ui(card, area, extra_data, select_func)
+    select_func = select_func or "jest_select"
+    extra_data = extra_data or {}
+    extra_data.copies = extra_data.copies or 1 
+    local t2 =  {n=G.UIT.ROOT, config = {ref_table = card, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm', colour = extra_data.alt_colour or G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true, button = select_func, data = {area, extra_data}, hover = true}, nodes={
+        {n=G.UIT.T, config={text = extra_data.alt_text or localize('k_aij_select'),colour = G.C.WHITE, scale = 0.5}}
+    }}
+
+    card.children.select_button = UIBox{
+        definition = t2,
+        config = {
+            align="bm",
+            offset = {x=-0,y=-0.15},
+            major = card,
+            bond = extra_data.bond or 'Weak',
+            parent = card
+        }
+    }
+end
+function jest_create_select_playing_card_ui(card, area, extra_data)
+    extra_data.times = extra_data.times or 0
+    extra_data.copies = extra_data.copies or 1 
+    local t2 =  {n=G.UIT.ROOT, config = {ref_table = card, minw = 0.6, maxw = 1, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.3, one_press = true, button = 'jest_continue_select', data = {area, extra_data}, hover = true}, nodes={
+        {n=G.UIT.T, config={text = "Select",colour = G.C.WHITE, scale = 0.5}}
+    }}
+
+    card.children.select_button = UIBox{
+        definition = t2,
+        config = {
+            align="bm",
+            offset = {x=-0,y=-0.15},
+            major = card,
+            bond = 'Weak',
+            parent = card
+        }
+    }
+end
+G.FUNCS.All_in_Jest_can_use_active_ability_button = function(e)
+    local obj = e.config.ref_table.config.center
+    local can_use = false
+    if obj.all_in_jest and obj.all_in_jest.can_use_ability and type(obj.all_in_jest.can_use_ability) == 'function' and
+            G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT then
+        can_use = obj.all_in_jest:can_use_ability(e.config.ref_table)
+    end
+    if e.config.ref_table.debuff then
+        can_use = false
+    end
+    if (G.play and #G.play.cards > 0) or (G.CONTROLLER.locked) or (G.GAME.STOP_USE and G.GAME.STOP_USE > 0) then 
+        can_use = false
+    end
+    if can_use then 
+        e.config.colour = G.C.SECONDARY_SET.Enhanced
+        e.config.button = 'All_in_Jest_use_active_ability_button'
+    else
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    end
+end
+
+G.FUNCS.All_in_Jest_use_active_ability_button = function(e, mute, nosave)
+    stop_use()
+    
+    local card = e.config.ref_table
+    local area = card.area
+
+    e.config.ref_table.config.center.all_in_jest:use_ability(card)
+    SMODS.calculate_context({all_in_jest = {using_ability = true, card = card, area = card.from_area}})
+end
+
+G.FUNCS.aij_coconut_delete = function(e, mute, nosave)
+    stop_use()
+    
+    local card = e.config.ref_table
+    local area = card.area
+
+    card:All_in_Jest_start_dissolve()
+    G.E_MANAGER:add_event(Event({
+        func = (function()
+            error("Coconut.joker not found")
+            return true
+        end)
+    }))
+end
+
+
+G.FUNCS.All_in_Jest_select_tag = function(e)
+    local number = e.config.ref_table[1]
+    local tag = e.config.ref_table[2]
+    local other_tags = e.parent.parent.config.ref_table
+    if G.GAME.all_in_jest.blind_tags.selected_index == number then
+        -- Deselects tag if already selected
+        -- (Functionally useless, but prevents player from worrying they did something "unreversible")
+        for i = 1, #other_tags do
+            other_tags[i].T.scale = 1
+        end
+        G.GAME.all_in_jest.blind_tags.selected_index = nil
+    else
+        for i = 1, #other_tags do
+            if i ~= number-(G.GAME.all_in_jest.blind_tags[G.GAME.blind_on_deck].page*3) then
+                other_tags[i].T.scale = 0.7
+            else
+                other_tags[i].T.scale = 1
+            end
+        end
+        tag:juice_up()
+
+        G.GAME.all_in_jest.blind_tags.selected_index = number
+        -- Sets vanilla tag variable to be the selected tag
+        if G.GAME.round_resets.blind_tags[G.GAME.blind_on_deck] then
+            G.GAME.round_resets.blind_tags[G.GAME.blind_on_deck] = G.GAME.all_in_jest.blind_tags[G.GAME.blind_on_deck][number]
+        end
+    end
+end
+
+G.FUNCS.aij_draw_from_discard_to_deck = function(e)
+    G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+            local deck_count = #G.deck.cards
+            for i=1, deck_count do --draw cards from deck
+                draw_card(G.deck, G.discard, i*100/deck_count,'up', nil ,nil, 0.005, i%2==0, nil, math.max((21-i)/20,0.7))
+            end
+            return true
+        end
+    }))
+end
+
+G.FUNCS.aij_booster_discard_cards_from_highlighted = function(e, hook)
+    for k, v in ipairs(G.playing_cards) do
+        v.ability.forced_selection = nil
+    end
+
+    local highlighted_count = math.min(#G.hand.highlighted, G.discard.config.card_limit - #G.play.cards)
+    if highlighted_count > 0 then 
+        table.sort(G.hand.highlighted, function(a,b) return a.T.x < b.T.x end)
+        inc_career_stat('c_cards_discarded', highlighted_count)
+        SMODS.calculate_context({pre_discard = true, full_hand = G.hand.highlighted, hook = hook})
+        
+        -- TARGET: pre_discard
+        local cards = {}
+        local destroyed_cards = {}
+        for i=1, highlighted_count do
+            G.hand.highlighted[i]:calculate_seal({discard = true})
+            local removed = false
+            local effects = {}
+            SMODS.calculate_context({discard = true, other_card =  G.hand.highlighted[i], full_hand = G.hand.highlighted, ignore_other_debuff = true}, effects)
+            SMODS.trigger_effects(effects)
+            for _, eval in pairs(effects) do
+                if type(eval) == 'table' then
+                    for key, eval2 in pairs(eval) do
+                        if key == 'remove' or (type(eval2) == 'table' and eval2.remove) then removed = true end
+                    end
+                end
+            end
+            table.insert(cards, G.hand.highlighted[i])
+            if removed then
+                destroyed_cards[#destroyed_cards + 1] = G.hand.highlighted[i]
+                if SMODS.shatters(G.hand.highlighted[i]) then
+                    G.hand.highlighted[i]:shatter()
+                else
+                    G.hand.highlighted[i]:start_dissolve()
+                end
+            else 
+                G.hand.highlighted[i].ability.discarded = true
+                G.hand.highlighted[i].ability.aij_discarded_this_ante = true
+                local has_line_in_the_sand = next(SMODS.find_card("j_aij_line_in_the_sand"))
+                if has_line_in_the_sand then
+                    draw_card(G.hand, G.jest_super_discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])
+                else
+                    draw_card(G.hand, G.discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])
+                end
+            end
+        end
+
+        -- context.remove_playing_cards from discard
+        if destroyed_cards[1] then
+            SMODS.calculate_context({remove_playing_cards = true, removed = destroyed_cards})
+        end
+        
+        -- TARGET: effects after cards destroyed in discard
+
+        G.GAME.round_scores.cards_discarded.amt = G.GAME.round_scores.cards_discarded.amt + #cards
+        check_for_unlock({type = 'discard_custom', cards = cards})
+        if not hook then
+            if G.GAME.modifiers.discard_cost then
+                ease_dollars(-G.GAME.modifiers.discard_cost)
+            end
+            ease_discard(-1)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                func = function()
+                    G.FUNCS.draw_from_deck_to_hand()
+                    return true
+                end
+            }))
+        end
+    end
+end
+
+G.FUNCS.aij_booster_can_discard = function(e)
+    if G.GAME.current_round.discards_left <= 0 or #G.hand.highlighted <= 0 or #G.hand.highlighted > math.max(G.GAME.starting_params.discard_limit, 0) then 
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    else
+        local aij_can_discard = false
+        for k, v in pairs(G.hand.highlighted) do
+            if v.ability.aij_marked then
+                aij_can_discard = true
+            end
+        end
+        if aij_can_discard then
+            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+            e.config.button = nil
+        else
+            e.config.colour = G.C.RED
+            e.config.button = 'aij_booster_discard_cards_from_highlighted'
+        end
+    end
+end
+
+G.FUNCS.aij_reroll_tag_button = function(e)
+    calculate_reroll_cost(true)
+    if ((G.GAME.dollars-G.GAME.bankrupt_at) - G.GAME.current_round.reroll_cost >= 0) and G.GAME.blind_on_deck and G.GAME.round_resets.blind_states[G.GAME.blind_on_deck] ~= 'Hide' and (G.GAME.blind_on_deck ~= 'Boss' or G.GAME.blind_on_deck ~= 'Big_Boss') then 
+        e.config.colour = G.C.RED
+        e.config.button = 'aij_reroll_tag'
+        e.children[1].children[1].config.shadow = true
+        if e.children[2] then e.children[2].children[1].config.shadow = true end 
+    else
+      e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+      e.config.button = nil
+      e.children[1].children[1].config.shadow = false
+      if e.children[2] then e.children[2].children[1].config.shadow = false end 
+    end
+    e.config.text = localize('$')..G.GAME.current_round.reroll_cost
+    if G.blind_prompt_box ~= nil and G.blind_prompt_box.definition.nodes[4] ~= nil then
+        if e.config.text ~= G.blind_prompt_box.definition.nodes[4].nodes[1].nodes[2].nodes[1].config.text then
+            G.blind_prompt_box.definition.nodes[4].nodes[1].nodes[2].nodes[1].config.text = e.config.text
+            G.blind_prompt_box.definition.nodes[4].nodes[1].nodes[2].config.button_UIE.UIBox:recalculate()
+        end
+    end
+end
+
+G.FUNCS.aij_reroll_tag = function(e)
+    ease_dollars(-G.GAME.current_round.reroll_cost)
+    calculate_reroll_cost()
+    aij_reroll_tags(G.GAME.blind_on_deck)
+end
