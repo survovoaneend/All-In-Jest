@@ -2268,8 +2268,9 @@ return {
             j_aij_fruity_joker = {
                 name = "Fruity Joker",
                 text = {
-                    "{C:attention}Polychrome{} cards and",
-                    "Jokers give {C:mult}+#1#{} Mult",
+                    "{C:mult}+#1#{} Mult when a",
+                    "{C:attention}Polychrome{} edition",
+                    "triggers"
                 }
             },
             j_aij_jokia = { name = "Jokia", text = { "" } },
@@ -2333,7 +2334,7 @@ return {
             j_aij_penny = {
                 name = "Penny",
                 text = {
-                    "Cards with {C:money}Gold Seal{} have a",
+                    "Played cards with {C:money}Gold Seal{} have a",
                     "{C:green}#1# in #2#{} chance to {C:attention}retrigger"
                 },
             },
@@ -5555,9 +5556,9 @@ return {
             j_aij_ninja = {
                 name = "Ninja",
                 text = {
-                    'Trigger the {C:attention}first{} scored',
-                    'card when when the {C:attention}last',
-                    '{C:attention}scored{} card is triggered'
+                    '{C:attention}Rescore{} the {C:attention}first{} played card ',
+                    'used in scoring when the {C:attention}last',
+                    'played card is {C:attention}scored{}'
                 }
             },
             j_aij_wax_joker = {
