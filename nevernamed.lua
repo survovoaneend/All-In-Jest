@@ -1,7 +1,6 @@
 All_in_Jest = SMODS.current_mod
 local mod_path = ''..SMODS.current_mod.path
 G.AIJ = {}
-local injectitems_ref = SMODS.injectItems
 
 local DEV_TAB_DEBUG = false
 
@@ -12,6 +11,8 @@ SMODS.current_mod.optional_features = {
       deck = true
   }
 }
+
+local injectitems_ref = SMODS.injectItems
 SMODS.injectItems = function()
     injectitems_ref()
     G.AIJ.shared_mystery_sprites = G.AIJ.shared_mystery_sprites or {
@@ -63,6 +64,9 @@ for _, rel in ipairs(util_fils) do
         assert(SMODS.load_file(rel))()
     end
 end
+
+
+-- Add deck skins
 for _, data in ipairs(AllInJest.deck_skins) do
   for _, suit in ipairs(data.suits) do
     local key = data.id .. "_" .. suit:lower()
@@ -187,6 +191,7 @@ for _, rel in ipairs(files) do
     end
 end
 
+-- Sort loaded objects by defined order
 table.sort(objects, function(a, b)
     local function get_lowest_order(obj)
         if not obj.items then return math.huge end
@@ -201,6 +206,7 @@ table.sort(objects, function(a, b)
     return get_lowest_order(a) < get_lowest_order(b)
 end)
 
+-- Load all the items
 for _, curr_obj in ipairs(objects) do
     load_items(curr_obj)
 end
@@ -210,6 +216,7 @@ function All_in_Jest.set_ability_reset_keys()
     return {'jest_charged_applied'}
 end
 
+-- Create atlases for joker parts
 local function collect_png_files(base_fs, rel, out)
     for _, name in ipairs(NFS.getDirectoryItems(base_fs)) do
         local abs = base_fs.."/"..name
@@ -250,4 +257,5 @@ for _, filename in ipairs(png_files) do
     end
 end
 
+-- Loads static shaders
 All_in_Jest.load_shaders()
