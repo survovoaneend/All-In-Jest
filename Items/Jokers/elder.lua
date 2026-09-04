@@ -1,3 +1,29 @@
+
+local contains = function (tbl, item)
+    for _, v in pairs(tbl) do
+        if v == item then
+            return true
+        end
+    end
+    return false
+end
+local function get_longest_held_joker(exclusions)
+    local longest_joker = nil
+    local min_index = math.huge
+    exclusions = exclusions or {}
+    if G.jokers and G.jokers.cards then
+        for _, v in ipairs(G.jokers.cards) do
+            if v.ability.jest_held_order and not contains(exclusions, v.config.center.key) then
+                if tonumber(v.ability.jest_held_order) < min_index then
+                    min_index = tonumber(v.ability.jest_held_order)
+                    longest_joker = v
+                end
+            end
+        end
+    end
+    return longest_joker
+end
+
 local elder = {
     object_type = "Joker",
     order = 522,
@@ -21,7 +47,7 @@ local elder = {
     perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        local target_joker = All_in_Jest.get_longest_held_joker({"j_aij_elder"})
+        local target_joker = get_longest_held_joker({"j_aij_elder"})
 
         if target_joker then
             local copied_center = target_joker.config.center
@@ -71,7 +97,7 @@ local elder = {
     end,
 
     update = function(self, card, dt)
-        local target_joker = All_in_Jest.get_longest_held_joker({"j_aij_elder"})
+        local target_joker = get_longest_held_joker({"j_aij_elder"})
         if target_joker and target_joker ~= card and (target_joker.ability.aij_blueprint_compat or target_joker.config.center.blueprint_compat) then
             card.ability.blueprint_compat = 'compatible'
         else
@@ -80,7 +106,7 @@ local elder = {
     end,
 
     calculate = function(self, card, context)
-        local target_joker = All_in_Jest.get_longest_held_joker({"j_aij_elder"})
+        local target_joker = get_longest_held_joker({"j_aij_elder"})
         if target_joker then
             return SMODS.blueprint_effect(card, target_joker, context)
         end
