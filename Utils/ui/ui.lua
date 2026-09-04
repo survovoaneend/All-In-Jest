@@ -460,23 +460,6 @@ function jest_create_select_playing_card_ui(card, area, extra_data)
     }
 end
 
-
-G.FUNCS.aij_coconut_delete = function(e, mute, nosave)
-    stop_use()
-    
-    local card = e.config.ref_table
-    local area = card.area
-
-    card:All_in_Jest_start_dissolve()
-    G.E_MANAGER:add_event(Event({
-        func = (function()
-            error("Coconut.joker not found")
-            return true
-        end)
-    }))
-end
-
-
 G.FUNCS.All_in_Jest_select_tag = function(e)
     local number = e.config.ref_table[1]
     local tag = e.config.ref_table[2]
