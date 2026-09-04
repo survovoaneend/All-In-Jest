@@ -1,3 +1,10 @@
+
+local silhouette_shader = {
+  object_type = "Shader",
+    key = 'silhouette',
+    path = 'silhouette.fs',
+ }
+
 local guess_the_jest = {
     object_type = "Booster",
     order = 5,
@@ -83,4 +90,4 @@ SMODS.DrawStep {
     end,
     conditions = { vortex = false, facing = 'front' },
 }
-return { name = {"Boosters"}, items = {guess_the_jest} }
+return { name = {"Boosters"}, items = {guess_the_jest, silhouette_shader} }
