@@ -35,22 +35,34 @@ SMODS.injectItems = function()
 end
 
 AllInJest = {}
-assert(SMODS.load_file('Utils/context.lua'))()
-assert(SMODS.load_file('Utils/draw.lua'))()
-assert(SMODS.load_file('Utils/functions.lua'))()
-assert(SMODS.load_file('Utils/functions_value_mod.lua'))()
-assert(SMODS.load_file('Utils/hooks.lua'))()
-assert(SMODS.load_file('Utils/overrides.lua'))()
-assert(SMODS.load_file('Utils/ui.lua'))()
-assert(SMODS.load_file('Utils/copiers.lua'))()
-if DEV_TAB_DEBUG then assert(SMODS.load_file('Utils/dev_tab.lua'))() end
-if next(SMODS.find_mod("unBlindShopGUI")) then
-    assert(SMODS.load_file('Utils/UnBlind_crossmod.lua'))()
+
+local function collect_item_files(base_fs, rel, out)
+    for _, name in ipairs(NFS.getDirectoryItems(base_fs)) do
+        local abs = base_fs.."/"..name
+        local info = NFS.getInfo(abs)
+        if info and info.type == "directory" then
+            collect_item_files(abs, rel.."/"..name, out)
+        elseif info and info.type == "file" and name:match("%.lua$") then
+            table.insert(out, rel.."/"..name)
+        end
+    end
 end
 
-local folders = NFS.getDirectoryItems(mod_path.."Items")
-local objects = {}
+-- Load util files
+local util_fils = {}
+collect_item_files(mod_path.."Utils", "Utils", util_fils)
 
+for _, rel in ipairs(util_fils) do
+    local load = true
+    if rel == "Utils/dev_tab.lua" then
+        load = DEV_TAB_DEBUG
+    elseif rel == 'Utils/UnBlind_crossmod.lua' then
+        load = not not next(SMODS.find_mod("unBlindShopGUI"))
+    end
+    if load then
+        assert(SMODS.load_file(rel))()
+    end
+end
 for _, data in ipairs(AllInJest.deck_skins) do
   for _, suit in ipairs(data.suits) do
     local key = data.id .. "_" .. suit:lower()
@@ -99,20 +111,6 @@ for _, data in ipairs(AllInJest.deck_skins) do
     }
   end
 end
-local function collect_item_files(base_fs, rel, out)
-    for _, name in ipairs(NFS.getDirectoryItems(base_fs)) do
-        local abs = base_fs.."/"..name
-        local info = NFS.getInfo(abs)
-        if info and info.type == "directory" then
-            collect_item_files(abs, rel.."/"..name, out)
-        elseif info and info.type == "file" and name:match("%.lua$") then
-            table.insert(out, rel.."/"..name)
-        end
-    end
-end
-
-local files = {}
-collect_item_files(mod_path.."Items", "Items", files)
 
 local function load_items(curr_obj)
     if curr_obj.init then curr_obj:init() end
@@ -173,6 +171,10 @@ local function load_items(curr_obj)
     end
 end
 
+-- Collect item files
+local files = {}
+collect_item_files(mod_path.."Items", "Items", files)
+local objects = {}
 for _, rel in ipairs(files) do
     local f, err = SMODS.load_file(rel)
     if not f then
