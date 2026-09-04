@@ -398,3 +398,25 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
         end
     end
 end
+
+-- Save/Load for fusion enhancements, inherent effects and seal editions
+-- A lovely patch for Card:load() is also needed
+local card_save_ref = Card.save
+function Card:save()
+    local saveTable = card_save_ref(self)
+
+    if self.config.aij_other_center then
+        saveTable.save_fields.aij_other_center = self.config.aij_other_center['center'].key
+        saveTable.aij_other_center_ability = self.config.aij_other_center['ability']
+    end
+
+    if self.aij_inherent_effects then
+        saveTable.aij_inherent_effects = self.aij_inherent_effects
+    end
+
+    if self.aij_seal_edition then
+        saveTable.aij_seal_edition = self.aij_seal_edition
+    end
+
+    return saveTable
+end
