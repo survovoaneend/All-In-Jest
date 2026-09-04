@@ -25,7 +25,7 @@ local pigpen = {
   calculate = function(self, card, context)
     if context.joker_main then
       return {
-        chips = to_number(G.GAME.hands[context.scoring_name].played) * to_number(G.GAME.hands[context.scoring_name].level)
+        chips = G.GAME.hands[context.scoring_name].played * G.GAME.hands[context.scoring_name].level
       }
     end
   end

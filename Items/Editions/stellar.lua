@@ -27,7 +27,7 @@ local stellar = {
     end,
     calculate = function(self, card, context)
 		if context.post_joker or (context.main_scoring and context.cardarea == G.play) then
-            local level = context.calculate_seal_edition and math.floor(to_number(G.GAME.hands[context.scoring_name].level)/2) or to_number(G.GAME.hands[context.scoring_name].level)
+            local level = context.calculate_seal_edition and math.floor(G.GAME.hands[context.scoring_name].level/2) or G.GAME.hands[context.scoring_name].level
             local chip = level * card.edition.chips
             local mul = level * card.edition.mult
 			return {

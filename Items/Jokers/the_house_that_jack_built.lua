@@ -22,7 +22,7 @@ local the_house_that_jack_built = {
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            local level = to_number(G.GAME.hands['Full House'].level) 
+            local level = G.GAME.hands['Full House'].level
             if context.other_card:get_id() == 11 then
                 return {
                     mult = level,

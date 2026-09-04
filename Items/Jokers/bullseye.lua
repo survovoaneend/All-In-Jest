@@ -29,7 +29,7 @@ local bullseye = {
 
     calculate = function(self, card, context)
         if context.joker_main then
-            if to_number(hand_chips) % 10 == 0 then
+            if hand_chips % 10 == 0 then
                 return {
                     xmult = card.ability.extra.xmult
                 }
