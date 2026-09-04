@@ -12,4 +12,11 @@ target = '''=[SMODS _ "src/utils.lua"]'''
 pattern = '''SMODS.enh_cache:write(card, enhancements)'''
 position = 'before'
 match_indent = true
-payload = '''All_in_Jest.get_enhancements_hook(card, extra_only, enhancements)'''
+payload = '''
+-- Prevent Astral Pins from having themselves as enhancement
+-- in SMODS.get_enhancements()
+if card.config.center.is_pin then
+    enhancements[card.config.center.key] = nil
+end
+All_in_Jest.get_enhancements_hook(card, extra_only, enhancements)
+'''
