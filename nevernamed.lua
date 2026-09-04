@@ -55,7 +55,7 @@ collect_item_files(mod_path.."Utils", "Utils", util_fils)
 
 for _, rel in ipairs(util_fils) do
     local load = true
-    if rel == "Utils/dev_tab.lua" then
+    if rel == "Utils/ui/dev_tab.lua" then
         load = DEV_TAB_DEBUG
     elseif rel == 'Utils/UnBlind_crossmod.lua' then
         load = not not next(SMODS.find_mod("unBlindShopGUI"))
