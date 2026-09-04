@@ -1,203 +1,4 @@
-SMODS.current_mod.config_tab = function()
-  return {n = G.UIT.ROOT, config = {r = 0.1, minw = 4, align = "tm", padding = 0.2, colour = G.C.BLACK}, nodes = {
-    {n = G.UIT.C, config = {r = 0.1, minw = 4, align = "tc", padding = 0.2, colour = G.C.BLACK}, nodes = {
-      {n = G.UIT.R, config = {align = "cm", r = 0.1, padding = 0.2}, nodes = {
-        UIBox_button({label = {localize('aij_button_content')}, button = 'aij_config_content', minw = 5}),
-        UIBox_button({label = {localize('aij_button_moons')}, button = 'aij_config_moons', minw = 5}),
-        UIBox_button({label = {localize('aij_button_visuals')}, button = 'aij_config_visuals', minw = 5}),
-        UIBox_button({label = {localize('aij_button_consistency')}, button = 'aij_config_consistency', minw = 5}),
-      }},
-    }},
-  }}
-end
 
-G.FUNCS.aij_config_content = function(e)
-  G.FUNCS.overlay_menu{
-    definition = create_UIBox_generic_options({
-      back_func = "aij_back_config",
-      contents = {
-        {n = G.UIT.R, config = {padding = 0, align = "tm"}, nodes = {
-          {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('465255')}, nodes = {
-            {n = G.UIT.R, config = {align = 'cm', minh = 1}, nodes = {
-              {n = G.UIT.T, config = {text = localize('aij_button_content'), colour = G.C.WHITE, scale = 0.8}}
-            }},
-            {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('4a6972'), minw = 8.5}, nodes = {
-              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
-                config = {tooltip = {text = localize('aij_lite_tooltip')}},
-                nodes = {
-                  create_toggle {
-                    label = localize('aij_lite'),
-                    ref_table = All_in_Jest.config,
-                    ref_value = 'aij_lite'
-                  },
-                },
-              }}},
-              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
-                config = {tooltip = {text = localize('aij_blue_stake_rework_tooltip')}},
-                nodes = {
-                  create_toggle {
-                    label = localize('aij_blue_stake_rework'),
-                    ref_table = All_in_Jest.config,
-                    ref_value = 'blue_stake_rework'
-                  },
-                },
-              }}},
-              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
-                config = {tooltip = {text = localize('aij_no_copy_neg_tooltip')}},
-                nodes = {
-                  create_toggle {
-                    label = localize('aij_no_copy_neg'),
-                    ref_table = All_in_Jest.config,
-                    ref_value = 'no_copy_neg'
-                  },
-                },
-              }}},
-            }},
-          }},
-        }}
-      }
-    })
-  }
-end
-G.FUNCS.aij_config_moons = function(e)
-  G.FUNCS.overlay_menu{
-    definition = create_UIBox_generic_options({
-      back_func = "aij_back_config",
-      contents = {
-        {n = G.UIT.R, config = {padding = 0, align = "tm"}, nodes = {
-          {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('465255')}, nodes = {
-            {n = G.UIT.R, config = {align = 'cm', minh = 1}, nodes = {
-              {n = G.UIT.T, config = {text = localize('aij_button_moons'), colour = G.C.WHITE, scale = 0.8}}
-            }},
-            {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('4a6972'), minw = 8.5}, nodes = {
-              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
-                config = {tooltip = {text = localize('aij_enable_moons_tooltip')}},
-                nodes = {
-                  create_toggle {
-                    label = localize('aij_enable_moons'),
-                    ref_table = All_in_Jest.config,
-                    ref_value = 'moons_enabled'
-                  },
-                },
-              }}},
-              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
-                config = {tooltip = {text = localize('aij_moons_blocking_tooltip')}},
-                nodes = {
-                  create_toggle {
-                    label = localize('aij_moons_blocking'),
-                    ref_table = All_in_Jest.config,
-                    ref_value = 'moons_blocking'
-                  },
-                },
-              }}},
-            }},
-          }},
-        }}
-      }
-    })
-  }
-end
-G.FUNCS.aij_config_visuals = function(e)
-  G.FUNCS.overlay_menu{
-    definition = create_UIBox_generic_options({
-      back_func = "aij_back_config",
-      contents = {
-        {n = G.UIT.R, config = {padding = 0, align = "tm"}, nodes = {
-          {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('465255')}, nodes = {
-            {n = G.UIT.R, config = {align = 'cm', minh = 1}, nodes = {
-              {n = G.UIT.T, config = {text = localize('aij_button_visuals'), colour = G.C.WHITE, scale = 0.8}}
-            }},
-            {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('4a6972'), minw = 8.5}, nodes = {
-              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
-                config = {tooltip = {text = localize('aij_red_destroy_text_tooltip')}},
-                nodes = {
-                  create_toggle {
-                    label = localize('aij_red_destroy_text'),
-                    ref_table = All_in_Jest.config,
-                    ref_value = 'red_destroy_text'
-                  },
-                },
-              }}},
-              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
-                config = {tooltip = {text = localize('aij_random_deck_skins_tooltip')}},
-                nodes = {
-                  create_toggle {
-                    label = localize('aij_random_deck_skins'),
-                    ref_table = All_in_Jest.config,
-                    ref_value = 'random_deck_skins'
-                  },
-                },
-              }}},
-              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
-                config = {tooltip = {text = localize('aij_alter_trypophobia_tooltip')}},
-                nodes = {
-                  create_toggle {
-                    label = localize('aij_alter_trypophobia'),
-                    ref_table = All_in_Jest.config,
-                    ref_value = 'alter_trypophobia'
-                  },
-                },
-              }}},
-              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
-                config = {tooltip = {text = localize('aij_guess_names_tooltip')}},
-                nodes = {
-                  create_toggle {
-                    label = localize('aij_guess_names'),
-                    ref_table = All_in_Jest.config,
-                    ref_value = 'guess_names'
-                  },
-                },
-              }}},
-            }},
-          }},
-        }}
-      }
-    })
-  }
-end
-G.FUNCS.aij_config_consistency = function(e)
-  G.FUNCS.overlay_menu{
-    definition = create_UIBox_generic_options({
-      back_func = "aij_back_config",
-      contents = {
-        {n = G.UIT.R, config = {padding = 0, align = "tm"}, nodes = {
-          {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('465255')}, nodes = {
-            {n = G.UIT.R, config = {align = 'cm', minh = 1}, nodes = {
-              {n = G.UIT.T, config = {text = localize('aij_button_consistency'), colour = G.C.WHITE, scale = 0.8}}
-            }},
-            {n = G.UIT.R, config = {align = 'cm', padding = 0.05, emboss = 0.05, r = 0.1, colour = HEX('4a6972'), minw = 8.5}, nodes = {
-              {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
-                config = {tooltip = {text = localize('aij_mult_appearance_tooltip')}},
-                nodes = {
-                  create_option_cycle {
-                    scale = 0.8,
-                    label = localize('aij_mult_appearance'),
-                    options = localize('aij_mult_appearance_opt'),
-                    ref_table = All_in_Jest.config,
-                    ref_value = 'mult_appearance',
-                    current_option = All_in_Jest.config.mult_appearance,
-                    opt_callback = 'aij_generic_cycle',
-                  },
-                },
-              }}},
-              -- has no effect currently
-              -- {n = G.UIT.R, config = {align = 'cm'}, nodes = {{n = G.UIT.C,
-              --   config = {tooltip = {text = localize('aij_suit_boss_blocking_tooltip')}},
-              --   nodes = {
-              --     create_toggle {
-              --       label = localize('aij_suit_boss_blocking'),
-              --       ref_table = All_in_Jest.config,
-              --       ref_value = 'suit_boss_blocking'
-              --     },
-              --   },
-              -- }}},
-            }},
-          }},
-        }}
-      }
-    })
-  }
-end
 
 G.FUNCS.aij_back_config = function(e)
   SMODS.LAST_SELECTED_MOD_TAB = 'config'
@@ -210,85 +11,6 @@ G.FUNCS.aij_generic_cycle = function(e)
   e.cycle_config.ref_table[e.cycle_config.ref_value] = e.to_key
 end
 
-local joker_listing = {
-	{"j_aij_nevernamed_credits_joker", 
-  "j_aij_survivalaren_credits_joker", 
-  "j_aij_rattling_snow_credits_joker", 
-  "j_aij_jumbocarrot_credits_joker",
-  "j_aij_heavenbrand_credits_joker", 
-  "j_aij_jamie_credits_joker", 
-  "j_aij_vitellary_credits_joker"},
-}
--- Modify main page
-All_in_Jest.custom_ui = function(mod_nodes)
-	local set = joker_listing[1]
-	G.aij_main_jokers_list = CardArea(
-		G.ROOM.T.x + 0.2 * G.ROOM.T.w / 2, G.ROOM.T.h,
-		5.25 * G.CARD_W,
-		0.95 * G.CARD_H,
-		{ card_limit = #set, type = 'title', highlight_limit = 0, collection = true }
-	)
-	local silent = false
-	for i, center in pairs(set) do
-		G.GAME.viewed_back = Back(G.P_CENTERS.b_aij_fabled)
-		local card = Card(G.aij_main_jokers_list.T.x + (G.aij_main_jokers_list.T.w / 2), G.aij_main_jokers_list.T.y,
-			G.CARD_W, G.CARD_H, G.P_CARDS.empty, G.P_CENTERS[center] or All_in_Jest.DescriptionDummies[center],
-			{
-				bypass_discovery_center = true,
-				bypass_discovery_ui = true,
-				bypass_lock = true,
-				playing_card = i,
-				viewing_back = false,
-				bypass_back =
-					G.P_CENTERS["b_aij_fabled"].pos
-			})
-		G.aij_main_jokers_list:emplace(card)
-		card:hard_set_T(G.aij_main_jokers_list.T.x + (G.aij_main_jokers_list.T.w / 2))
-		card.sprite_facing = 'front'
-		card.facing = 'front'
-		card:start_materialize({ G.C.RED }, silent)
-		silent = true
-	end
-	mod_nodes[#mod_nodes + 1] = {
-		n = G.UIT.R,
-		config = { minh = 0.2, padding = 0.2 }
-	}
-	mod_nodes[#mod_nodes + 1] = {
-		n = G.UIT.R,
-    config = { align = "cm" },
-		nodes = {
-			{
-				n = G.UIT.C,
-				config = { align = "cm", padding = 0.5, colour = darken(G.C.BLACK, 0.2), emboss = 0.05, r = 0.1 },
-				nodes = {
-					{
-						n = G.UIT.R,
-						config = { align = "cm", no_fill = true },
-						nodes = {
-							{ n = G.UIT.O, config = { object = G.aij_main_jokers_list } },
-						}
-					},
-				}
-			},
-		}
-	}
-	return mod_nodes
-end
---G.FUNCS.change_collab_rank = function(args)
---  if args.cycle_config.current_option ~= 1 then
---      local rank = args.cycle_config.options[args.cycle_config.current_option]
---      if G.SETTINGS.all_in_jest.Collabs[args.cycle_config.curr_suit][rank] == G.COLLABS.options[args.cycle_config.curr_suit][args.cycle_config.other_option] then
---        args.cycle_config.other_option = 1
---      end
---      G.SETTINGS.all_in_jest.Collabs[args.cycle_config.curr_suit][rank] = G.COLLABS.options[args.cycle_config.curr_suit][args.cycle_config.other_option] or 'default'
---      for k, v in pairs(G.I.CARD) do
---        if v.config and v.config.card and v.children.front and v.ability.effect ~= 'Stone Card' then 
---          v:set_sprites(nil, v.config.card)
---        end
---      end
---  end
---  G:save_settings()
---end
 
 function aij_get_UIE_by_fob(self, id, node)
     if not node then node = self end
@@ -390,6 +112,7 @@ G.FUNCS.jest_free_reroll_boss_button = function(e)
         end
     end
 end
+
 G.FUNCS.jest_tag_choice_next_page = function(e)
     local blind_choice = e.config.ref_table[2]
     if blind_choice == G.GAME.blind_on_deck then G.GAME.all_in_jest.blind_tags.selected_index = nil end
@@ -412,6 +135,7 @@ G.FUNCS.jest_tag_choice_next_page = function(e)
     par.config.object:recalculate()
     G.blind_select_opts[blind_choice:lower()].parent = par
 end
+
 SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
     args = args or {}
     args.w_mod = args.w_mod or 1
@@ -640,6 +364,7 @@ G.FUNCS.jest_continue_select = function(e)
       }))
     end
 end
+
 G.FUNCS.jest_gold_tags = function(e)
     if G.GAME.jest_upgrade_tab then
         G.GAME.jest_upgrade_tab = false
@@ -647,6 +372,7 @@ G.FUNCS.jest_gold_tags = function(e)
         G.GAME.jest_upgrade_tab = true
     end
 end
+
 G.FUNCS.jest_next_tag = function(e)
     local _tag = e.UIBox:get_UIE_by_ID('tag_container')
     if _tag then
@@ -679,6 +405,7 @@ G.FUNCS.jest_next_tag = function(e)
       end
     end
 end
+
 G.FUNCS.jest_astral_replace = function(e)
     local card = e.config.ref_table
     local area = e.config.data[1]
@@ -693,6 +420,7 @@ G.FUNCS.jest_astral_replace = function(e)
         G.OVERLAY_MENU = nil
     end
 end
+
 function jest_create_select_card_ui(card, area, extra_data, select_func)
     select_func = select_func or "jest_select"
     extra_data = extra_data or {}
@@ -712,6 +440,7 @@ function jest_create_select_card_ui(card, area, extra_data, select_func)
         }
     }
 end
+
 function jest_create_select_playing_card_ui(card, area, extra_data)
     extra_data.times = extra_data.times or 0
     extra_data.copies = extra_data.copies or 1 
@@ -730,37 +459,7 @@ function jest_create_select_playing_card_ui(card, area, extra_data)
         }
     }
 end
-G.FUNCS.All_in_Jest_can_use_active_ability_button = function(e)
-    local obj = e.config.ref_table.config.center
-    local can_use = false
-    if obj.all_in_jest and obj.all_in_jest.can_use_ability and type(obj.all_in_jest.can_use_ability) == 'function' and
-            G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT then
-        can_use = obj.all_in_jest:can_use_ability(e.config.ref_table)
-    end
-    if e.config.ref_table.debuff then
-        can_use = false
-    end
-    if (G.play and #G.play.cards > 0) or (G.CONTROLLER.locked) or (G.GAME.STOP_USE and G.GAME.STOP_USE > 0) then 
-        can_use = false
-    end
-    if can_use then 
-        e.config.colour = G.C.SECONDARY_SET.Enhanced
-        e.config.button = 'All_in_Jest_use_active_ability_button'
-    else
-        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-        e.config.button = nil
-    end
-end
 
-G.FUNCS.All_in_Jest_use_active_ability_button = function(e, mute, nosave)
-    stop_use()
-    
-    local card = e.config.ref_table
-    local area = card.area
-
-    e.config.ref_table.config.center.all_in_jest:use_ability(card)
-    SMODS.calculate_context({all_in_jest = {using_ability = true, card = card, area = card.from_area}})
-end
 
 G.FUNCS.aij_coconut_delete = function(e, mute, nosave)
     stop_use()
@@ -940,3 +639,4 @@ G.FUNCS.aij_reroll_tag = function(e)
     calculate_reroll_cost()
     aij_reroll_tags(G.GAME.blind_on_deck)
 end
+
