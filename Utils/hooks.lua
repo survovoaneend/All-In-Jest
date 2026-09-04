@@ -304,16 +304,14 @@ function SMODS.has_no_suit(card)
     return (no_suit or has_no_suit_ref(card)) and not any_suit
 end
 
-
-local get_enhancements_ref = SMODS.get_enhancements
-function SMODS.get_enhancements(card, extra_only)
-    local enhancements = get_enhancements_ref(card, extra_only)
-    if 
-        not extra_only and 
-        card.config.aij_other_center and 
+-- See lovely_hooks.toml
+function All_in_Jest.get_enhancements_hook(card, extra_only, enhancements)
+    if
+        not extra_only and
+        card.config.aij_other_center and
         card.config.aij_other_center['center'] and
         card.config.aij_other_center['center'].key
-    then 
+    then
         enhancements[card.config.aij_other_center['center'].key] = true
     end
     -- Prevent Astral Pins from having themselves as enhancement
@@ -321,7 +319,7 @@ function SMODS.get_enhancements(card, extra_only)
     if card.config.center.is_pin then
         enhancements[card.config.center.key] = nil
     end
-    return enhancements
+    -- no return, we just modify `enhancements` table in place
 end
 
 local has_no_rank_ref = SMODS.has_no_rank

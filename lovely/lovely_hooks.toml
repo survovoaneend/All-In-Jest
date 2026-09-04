@@ -1,0 +1,15 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+# Hook SMODS.get_enhancements
+# This could be a function hook, except it would be inefficient,
+# SMODS uses a cache
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS _ "src/utils.lua"]'''
+pattern = '''SMODS.enh_cache:write(card, enhancements)'''
+position = 'before'
+match_indent = true
+payload = '''All_in_Jest.get_enhancements_hook(card, extra_only, enhancements)'''

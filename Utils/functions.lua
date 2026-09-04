@@ -1994,13 +1994,13 @@ function reset_the_auroch_blind()
         rank_table[v.base.value] = rank_table[v.base.value] or 0 
         rank_table[v.base.value] = rank_table[v.base.value] + 1
     end
-    for k, v in pairs(suit_table) do
+    for k, v in pairs(suit_table) do -- TODO nondeterministic, breaks seeding
         if v >= temp_suit_val then
             temp_suit_val = v
             common_suit = k
         end
     end
-    for k, v in pairs(rank_table) do
+    for k, v in pairs(rank_table) do -- TODO same as above
         if v >= temp_rank_val then
             temp_rank_val = v
             common_rank = k

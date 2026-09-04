@@ -3514,27 +3514,6 @@ do
 end
 '''
 
-# # Currently unused patch, used to be used for splash-like jokers but they now use the relevant calculate context instead
-# [[patches]]
-# [patches.pattern]
-# target = '=[SMODS _ "src/utils.lua"]'
-# pattern = "if (G.P_CENTERS[(card.edition or {}).key] or {}).always_scores then return true end"
-# position = "before"
-# payload = '''
-# local has_beanstalk = next(SMODS.find_card("j_aij_beanstalk"))
-# if has_beanstalk then
-#     if card:get_id() == 11 then
-#         return true
-#     end
-# end
-# if next(SMODS.find_card("j_aij_punch_and_judy")) then
-#     if card:get_id() == 12 or card:get_id() == 13 then
-#         return true
-#     end
-# end
-# '''
-# match_indent = true 
-
 # Pace Legendary (1/2)
 # Make all rarities the same weight
 # SMODS.poll_rarity()
