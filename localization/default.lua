@@ -5625,7 +5625,7 @@ return {
                 name = "Police Sketch",
                 text = {
                     'If played hand is {C:attention}Four of{}',
-                    '{C:attention}a Kind{}, turn any {C:attention}unscored{}',
+                    '{C:attention}a Kind{}, turn {C:attention}unscored{}',
                     'cards into {C:attention}Canvas Cards'
 
                 }
