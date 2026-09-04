@@ -1,4 +1,4 @@
-SMODS.current_mod.config_tab = function()
+All_in_Jest.config_tab = function()
   return {n = G.UIT.ROOT, config = {r = 0.1, minw = 4, align = "tm", padding = 0.2, colour = G.C.BLACK}, nodes = {
     {n = G.UIT.C, config = {r = 0.1, minw = 4, align = "tc", padding = 0.2, colour = G.C.BLACK}, nodes = {
       {n = G.UIT.R, config = {align = "cm", r = 0.1, padding = 0.2}, nodes = {

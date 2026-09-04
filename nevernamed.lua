@@ -4,7 +4,7 @@ G.AIJ = {}
 
 local DEV_TAB_DEBUG = false
 
-SMODS.current_mod.optional_features = {
+All_in_Jest.optional_features = {
   retrigger_joker = true,
   object_weights = true,
   cardareas = {

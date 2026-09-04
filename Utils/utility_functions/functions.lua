@@ -1,7 +1,7 @@
 -- Used in Vanilla functions where 'type' is overridden
 All_in_Jest.aij_alias_type = type
 
-SMODS.current_mod.calculate = function(self, context)
+All_in_Jest.calculate = function(self, context)
     
 end
 
@@ -724,7 +724,7 @@ function All_in_Jest.get_suits(type, base)
 end
 
 
-SMODS.current_mod.custom_card_areas = function(game)
+All_in_Jest.custom_card_areas = function(game)
 	game.aij_coconut_holder = CardArea(
 		game.jokers.T.x + 12.5, game.jokers.T.y - 4,
         game.jokers.T.w / 5, game.jokers.T.h,
