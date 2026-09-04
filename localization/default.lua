@@ -247,7 +247,7 @@ return {
             a_aij_times_interest = 'X#1# Interest',
 
             a_aij_plus_rerolls = "+#1# Rerolls",
-            a_aij_times_money = "X$#1#",
+            a_aij_times_money = "X#1# $",
             a_aij_discards = "+#1# Discards",
 
             a_aij_slots_left = "(#1# slots left)",
@@ -4080,7 +4080,7 @@ return {
             j_aij_richie_rich = {
                 name = "Richie Rich",
                 text = {
-                    "{X:money,C:white}X$#1#{} at end",
+                    "{X:money,C:white}X#1#{} {C:money}${} at end",
                     "of round"
                 }
             },
@@ -5809,9 +5809,9 @@ return {
             j_aij_veggie_joker = {
                 name = "Veggie Joker",
                 text = {
-                    'When any {C:attention}numbered card{}',
-                    'is {C:red}destroyed{}, gain {C:attention}triple{} its',
-                    'rank as {C:chips}Chips',
+                    'When any {C:attention}numbered card{} is',
+                    '{C:red}destroyed{}, this Joker gains',
+                    '{C:attention}triple{} its rank as {C:chips}Chips',
                     '{C:inactive}(Currently {C:chips}+#1#{} {C:inactive}Chips){}'
                 }
             },
