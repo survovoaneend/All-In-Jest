@@ -14,7 +14,7 @@ local the_journey = {
 
     loc_vars = function(self)
         return {
-            vars = {G.GAME.current_round.aij_the_journey_blind and G.GAME.current_round.aij_the_journey_blind.selected_suit}
+            vars = {G.GAME.current_round.aij_the_journey_blind and localize(G.GAME.current_round.aij_the_journey_blind.selected_suit, "suits_singular")}
         }
     end,
 

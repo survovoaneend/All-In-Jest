@@ -778,9 +778,9 @@ return {
             bl_aij_the_hazel = {
                 name = "The Hazel",
                 text = {
-                    "Apply Rental to a",
-                    "random Joker when",
-                    "Blind is defeated", -- Can be simplified to just "Apply Rental"
+                    "When defeated,",
+                    "apply Rental to",
+                    "a random Joker",
                 },
             },
             bl_aij_the_apple = {
@@ -788,7 +788,7 @@ return {
                 text = {
                     'Destroy leftmost Joker',
                     "if Blind is won",
-                    "in one hand",
+                    "in 1 hand",
                 },
             },
             bl_aij_the_neck = {
@@ -887,14 +887,14 @@ return {
                 name = "The Journey",
                 text = {
                     '+1 Win Ante if a',
-                    '#1# suit card is',
+                    '#1# is',
                     'scored this round',
                 },
             },
             bl_aij_the_gift = {
                 name = "The Gift",
                 text = {
-                    "Sets money to $0",
+                    "Set money to $0",
                     "Earn $1 per card",
                     "played or discarded"
                 },
@@ -902,9 +902,9 @@ return {
             bl_aij_the_ancestor = {
                 name = "The Ancestor",
                 text = {
-                    'Poker hands that you',
-                    'have discarded this',
-                    'round cannot be played'
+                    'Poker hands',
+                    'discarded this round',
+                    'cannot be played'
                 },
             },
             bl_aij_the_god = {
@@ -917,9 +917,8 @@ return {
             bl_aij_the_beast = {
                 name = "The Beast",
                 text = {
-                    'Destroy all Food Jokers',
-                    'when this blind is',
-                    'defeated'
+                    'When defeated,',
+                    'destroy all Food Jokers',
                 },
             },
             bl_aij_the_ulcer = {
@@ -962,9 +961,9 @@ return {
             bl_aij_the_frost = {
                 name = "The Frost",
                 text = {
-                    'Destroy one random card',
-                    'in hand after hand is',
-                    'played'
+                    'After Play,',
+                    'destroy 1 random',
+                    'card in hand'
                 },
             },
             bl_aij_the_yew = {
@@ -978,16 +977,16 @@ return {
                 name = "The Hoard",
                 text = {
                     'Excess score this Ante',
-                    'is added to this blind',
+                    'adds to this blind',
                     'when selected'
                 },
             },
             bl_aij_the_pear = {
                 name = "The Pear",
                 text = {
-                    'Randomize the suit and',
-                    'rank of cards held in',
-                    'hand after scoring'
+                    'After Play, randomize',
+                    'suit and rank of',
+                    'cards held in hand'
                 },
             },
             bl_aij_the_elk = {
@@ -1024,9 +1023,9 @@ return {
             bl_aij_the_steed = {
                 name = "The Steed",
                 text = {
-                    'Debuff cards held',
-                    'in hand when',
-                    'hand is played'
+                    'On Play,',
+                    'debuff cards',
+                    'held in hand',
                 },
             },
             bl_aij_the_figure = {
@@ -1063,7 +1062,7 @@ return {
             bl_aij_the_brimstone = {
                 name = "The Brimstone",
                 text = {
-                    'Lose half of',
+                    'Lose half',
                     'your money',
                     'each discard'
                 },
@@ -1078,16 +1077,16 @@ return {
             bl_aij_the_kind = {
                 name = "The Kind",
                 text = {
-                    'Better skip tags this',
-                    'ante, +2X Base per',
-                    'blind skipped this ante'
+                    'This Ante,',
+                    'better skip tags',
+                    'but +2X Base on skip',
                 },
             },
             bl_aij_the_real = {
                 name = "The Real",
                 text = {
                     'Cards are only considered',
-                    'their original rank and suit'
+                    'their base rank and suit'
                 },
             },
             bl_aij_the_life = {
@@ -1115,8 +1114,9 @@ return {
             bl_aij_the_loan = {
                 name = "The Loan",
                 text = {
-                    'All played cards in the',
-                    'winning hand become Rental',
+                    'All played cards',
+                    'in winning hand',
+                    'become Rental',
                 },
             },
             bl_aij_the_worm = {
@@ -1139,13 +1139,13 @@ return {
                 text = {
                     'Debuff the first and',
                     'last scoring cards',
-                    'each hand played'
+                    'each hand'
                 },
             },
             bl_aij_the_seed = {
                 name = "The Seed",
                 text = {
-                    'The next antes Big',
+                    "The next Ante's Big",
                     'Blind is a Boss Blind'
                 },
             },
@@ -1184,8 +1184,8 @@ return {
             bl_aij_the_rains = {
                 name = "The Rains",
                 text = {
-                    'If played hand wins',
-                    'the blind, scored cards',
+                    'Scored cards',
+                    'in winning hand',
                     'lose all enhancements,',
                     'editions, and seals'
                 },
@@ -1200,8 +1200,8 @@ return {
             bl_aij_the_moon = {
                 name = "The Moon",
                 text = {
-                    'All cards on odd numbered',
-                    'hands are debuffed'
+                    'On odd numbered hands,',
+                    'all cards are debuffed'
                 },
             },
             bl_aij_the_shell = {
@@ -1215,9 +1215,9 @@ return {
             bl_aij_the_earth = {
                 name = "The Earth",
                 text = {
-                    'Turns all cards held in',
-                    'hand into Stone Cards',
-                    'after scoring'
+                    'After Play, all',
+                    'cards held in hand',
+                    'become Stone Cards',
                 },
             },
             bl_aij_the_dragon = {
@@ -1237,15 +1237,15 @@ return {
             bl_aij_the_conflagration = {
                 name = "The Conflagration",
                 text = {
-                    'If played hand defeats the',
-                    'Blind, destroy all cards',
+                    'When defeated,',
+                    'destroy all cards',
                     'played and held in hand'
                 },
             },
             bl_aij_the_umbilical = {
                 name = "The Umbilical",
                 text = {
-                    'Mark one random card each',
+                    'Mark 1 random card each',
                     'hand, marked cards cannot',
                     'be played or discarded'
                 },
@@ -1284,7 +1284,7 @@ return {
                 name = "The Assistant",
                 text = {
                     'Becomes a boss blind',
-                    'that counters your build',
+                    'that counters you',
                 },
             },
             bl_aij_the_pair = {
@@ -1298,15 +1298,15 @@ return {
                 name = "The Clown",
                 text = {
                     'On first draw of round, play',
-                    '5 random cards from your',
-                    'hand and add it to the',
+                    '5 random cards from hand',
+                    'and add it to the',
                     'score requirement'
                 },
             },
             bl_aij_the_business = {
                 name = "The Business",
                 text = {
-                    'When Blind is defeated,',
+                    'When defeated,',
                     'destroy leftmost or',
                     'rightmost Joker and',
                     'create an Eternal',
@@ -1317,8 +1317,8 @@ return {
                 name = "The Multitude",
                 text = {
                     '#1# in #2# cards are debuffed',
-                    'Debuffed cards remaining in',
-                    'your deck at end of round',
+                    'Debuffed cards that remain',
+                    'in deck at end of round',
                     'are destroyed'
                 },
             },
@@ -1326,17 +1326,17 @@ return {
                 name = "The Trio",
                 text = {
                     'If hand contains 3 cards of the',
-                    'same rank after a hand is played',
-                    'or discarded, debuff 3 random',
+                    'same rank after Play or Discard',
+                    'debuff 3 random',
                     'cards in hand'
                 },
             },
             bl_aij_the_connection = {
                 name = "The Connection",
                 text = {
-                    'Excess score on this Blind',
-                    'is added to all subsequent',
-                    'Blinds'
+                    'Excess score this Blind',
+                    'is added to all',
+                    'future Blinds'
                 },
             },
             -- Finisher Blinds
@@ -1369,8 +1369,8 @@ return {
                 name = "Silver Stag",
                 text = {
                     'All cards debuffed',
-                    'except ones discarded',
-                    'this ante'
+                    'except cards',
+                    'discarded this ante'
                 },
             },
             bl_aij_rubber_duck = {
@@ -1384,7 +1384,7 @@ return {
                 name = "Fallen Falcon",
                 text = {
                     'On first draw of round, play',
-                    'the highest level poker hand',
+                    'highest level poker hand',
                     'available and add it to the',
                     'score requirement'
                 },
@@ -1409,10 +1409,10 @@ return {
             bl_aij_mysterious_myriad = {
                 name = "Mysterious Myriad",
                 text = {
-                    'Reduce final score each',
-                    'hand by 20% for each',
-                    'card under 5 in',
-                    'scored hand'
+                    'Hands scoring',
+                    'fewer than 5 cards',
+                    'lose 20% score',
+                    'per card under 5',
                 },
             },
             bl_aij_wooden_wheel = {
