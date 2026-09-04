@@ -4684,7 +4684,6 @@ self.all_in_jest.astral_grades = {}
 G.all_in_jest.astral_grades["Retrograde"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_consumable_atlas", {x=15,y=3})
 G.all_in_jest.astral_grades["Prograde"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_consumable_atlas", {x=16,y=3})
 G.all_in_jest.astral_grades["Passigrade"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_consumable_atlas", {x=17,y=3})
-self.all_in_jest.numbertaker_rankless = {}
 self.all_in_jest.extra_card_sprites = {}
 G.all_in_jest.extra_card_sprites['Mark_of_the_Spear'] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=9,y=2})
 G.all_in_jest.patches_sprites["Other"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=0,y=2})
@@ -4711,6 +4710,8 @@ self.aij_astral_pin_area = self.aij_astral_pin_area or CardArea(
 	0.95 * self.CARD_H,
 	{ card_limit = 3, type = 'title', highlight_limit = 0, collection = true }
 )
+
+self.all_in_jest.numbertaker_rankless = {}
 G.all_in_jest.numbertaker_rankless["Other"] = {atlas = 'aij_enhancements_atlas', pos = {x=6, y=4}}
 G.all_in_jest.numbertaker_rankless["Hearts"] = {atlas = 'aij_enhancements_atlas', pos = {x=0, y=4}}
 G.all_in_jest.numbertaker_rankless["Clubs"] = {atlas = 'aij_enhancements_atlas', pos = {x=1, y=4}}
