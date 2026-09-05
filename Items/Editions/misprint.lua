@@ -321,4 +321,4 @@ function misprint_atlas(a, card_width, front)
     return SMODS.get_atlas(misprinted.new_name)
 end
 
-return {name = "Editions", items = {misprint}}
+return {name = "Editions", items = {misprint, misprint_shader}}
