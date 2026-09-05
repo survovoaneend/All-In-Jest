@@ -8,7 +8,8 @@ All_in_Jest.optional_features = {
   retrigger_joker = true,
   object_weights = true,
   cardareas = {
-      deck = true
+      deck = true,
+      discard = true
   }
 }
 

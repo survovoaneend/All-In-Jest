@@ -6,7 +6,7 @@ local simulated = {
 	pos = { x = 0, y = 0 },
 	config = {
 		extra = {
-            played_this_round = false
+        played_this_round = false
 		},
 	},
 	attributes = {'draw_cards', 'discard'},
@@ -24,14 +24,14 @@ local simulated = {
 			and context.other_card == card
 			and not card.ability.extra.played_this_round
 		then
-            card.ability.extra.played_this_round = true
+      card.ability.extra.played_this_round = true
 			return {
 				aij_return_to_hand = true,
 			}
 		end
 
 		if context.playing_card_end_of_round then
-            card.ability.extra.played_this_round = false
+        card.ability.extra.played_this_round = false
 		end
 
 	end,
