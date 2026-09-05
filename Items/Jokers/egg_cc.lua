@@ -35,10 +35,7 @@ local egg_cc = {
     end,
   
     calculate = function(self, card, context)
-      if context.end_of_round and not context.blueprint then
-        if card.ability.extra.round_ended_processed then
-          return nil
-        end
+      if context.end_of_round and not context.blueprint and context.main_eval  then
         G.E_MANAGER:add_event(Event({
           func = function()
               SMODS.scale_card(card, {
@@ -58,7 +55,6 @@ local egg_cc = {
               return true
           end
         }))
-        card.ability.extra.round_ended_processed = true
         return {
           message = localize('k_upgrade_ex'),
         }
@@ -68,9 +64,6 @@ local egg_cc = {
         return {
           chips = card.ability.extra.chips,
         }
-      end
-      if context.setting_blind then
-        card.ability.extra.round_ended_processed = false
       end
     end
   
