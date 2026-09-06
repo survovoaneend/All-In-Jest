@@ -36,7 +36,6 @@ function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_jui
       jest_destroyed_card = self
      })
     end
-    if self.ability.aij_pc_eternal then return end
   end
   return start_dissolve_ref(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
 end
@@ -64,7 +63,6 @@ function Card:shatter()
       jest_destroyed_card = self
      })
     end
-    if self.ability.aij_pc_eternal then return end
   end
   return shatter_ref(self)
 end

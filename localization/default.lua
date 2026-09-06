@@ -1107,7 +1107,7 @@ return {
             bl_aij_the_solid = {
                 name = "The Solid",
                 text = {
-                    'All scoring cards',
+                    'All played cards',
                     'become Eternal',
                 },
             },
@@ -11120,7 +11120,9 @@ return {
             aij_pc_eternal = {
                 name = "Eternal",
                 text = {
-                    'Cannot be {C:red}destroyed',
+                    'Returns a {C:attention}copy',
+                    'to deck if',
+                    '{C:red}destroyed',
                 }
             },
             aij_pc_perishable = {
