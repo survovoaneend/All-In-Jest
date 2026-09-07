@@ -20,6 +20,8 @@ local clay_joker = {
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         if card.config.center.key == "j_aij_clay_joker" then

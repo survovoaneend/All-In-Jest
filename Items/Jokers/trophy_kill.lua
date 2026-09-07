@@ -29,6 +29,7 @@ local trophy_kill = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = false,
 
     -- display_size = { w = 111, h = 95 },
     -- pixel_size = { w = 91, h = 95 },

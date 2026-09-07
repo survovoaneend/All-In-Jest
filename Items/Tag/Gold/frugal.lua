@@ -9,6 +9,7 @@ local frugal_tag = {
             upgrade = 'coupon',
         },
     },
+    attributes = {'economy', 'shop'},
 
     discovered = false,
     order = 17,

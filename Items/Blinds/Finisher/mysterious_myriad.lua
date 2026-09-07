@@ -9,6 +9,7 @@ local mysterious_myriad = {
         return true
     end,
     mult = 2,
+    attributes = {'xscore'},
     boss_colour = HEX("9e74a4"),
     atlas = 'blinds_final',
     pos = { y = 15},

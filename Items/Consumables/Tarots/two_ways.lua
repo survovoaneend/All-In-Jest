@@ -9,6 +9,7 @@ local two_ways = {
     discovered = false,
     order = 5,
     config = { max_highlighted = 1 },
+    attributes = {'modify_card', 'playing_card', 'rank'},
     atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.max_highlighted } }

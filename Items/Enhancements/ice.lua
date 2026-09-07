@@ -8,6 +8,7 @@ local ice = {
     config = {
         
     },
+    attributes = {'select_limit'},
     all_in_jest = {
         multi_enhancement_z_order = -1
     },

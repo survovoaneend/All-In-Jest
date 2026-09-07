@@ -11,7 +11,7 @@ local bomb = {
         
     end,
     calculate = function(self, card, context)
-       if context.after and context.full_hand and not card.getting_sliced then
+        if context.destroy_card and (context.cardarea == G.play or context.cardarea == 'unscored') then
             local my_idx = nil
 
             for i = 1, #context.full_hand do
@@ -22,19 +22,11 @@ local bomb = {
             end
 
             if my_idx then
-                local total_cards = {}
-                
-                if context.full_hand[my_idx - 1] then
-                    table.insert(total_cards, context.full_hand[my_idx - 1])
+                if context.full_hand[my_idx - 1] == context.destroy_card
+                or context.full_hand[my_idx] == context.destroy_card
+                or context.full_hand[my_idx + 1] == context.destroy_card then
+                    return { remove = true }
                 end
-
-                table.insert(total_cards, card)
-
-                if context.full_hand[my_idx + 1] then
-                    table.insert(total_cards, context.full_hand[my_idx + 1])
-                end
-                
-                SMODS.destroy_cards(total_cards)
             end
         end
     end

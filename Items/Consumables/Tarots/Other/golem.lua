@@ -11,6 +11,7 @@ local golem = {
 	discovered = false,
 	order = 24,
 	config = { max_highlighted = 2 },
+	attributes = {'modify_card', 'enhancements'},
 	atlas = "consumable_atlas",
 	loc_vars = function(self, info_queue, card)
 		return {

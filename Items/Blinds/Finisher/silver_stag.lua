@@ -9,6 +9,7 @@ local silver_stag = {
         return true
     end,
     mult = 2,
+    attributes = {'debuff', 'discard'},
     boss_colour = HEX("9cacbe"),
     atlas = 'blinds_final',
     pos = { y = 4},

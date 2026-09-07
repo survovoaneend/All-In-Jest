@@ -10,6 +10,7 @@ local alkaid = {
 	discovered = false,
     order = 7,
 	config = { hand = nil, grade = '', pin = 'Alkaid', extra = {cards = 1}},
+    attributes = {'hand_type', 'space', 'modify_card', 'enhancements'},
     loc_vars = function(self, info_queue, card)
         -- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {
@@ -54,20 +55,12 @@ local alkaid_pin = {
         if context.before and not context.repetition then
             for i = 1, card.ability.extra.cards do
                 local valid_cards = {}
-                local enhancements = {}
-                for i = 1, #context.full_hand do
-                    local has_enhancement = false
-                    for k, v in pairs(SMODS.get_enhancements(context.full_hand[i])) do
-                        if enhancements[k] then
-                            enhancements[k] = v
-                            has_enhancement = true
-                        end
-                    end
-                    if not has_enhancement then
-                        valid_cards[#valid_cards+1] = context.full_hand[i]
+                for i = 1, #context.scoring_hand do
+                    if next(SMODS.get_enhancements(context.scoring_hand[i])) == nil then
+                        valid_cards[#valid_cards+1] = context.scoring_hand[i]
                     end
                 end
-                if #context.full_hand == 0 then valid_cards = context.full_hand end
+                if #valid_cards == 0 then return end
                 local cur_card = pseudorandom_element(valid_cards, pseudoseed('alkaid'))
                 local all_enhancements = get_current_pool("Enhanced")
                 local valid_enhancements = {}

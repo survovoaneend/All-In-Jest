@@ -6,6 +6,7 @@ local the_gift = {
         min = 6
     },
     mult = 2,
+    attributes = {'lose_economy', 'economy'},
     boss_colour = HEX("c75d5d"),
     atlas = 'blinds',
     pos = { X = 0, y = 44},

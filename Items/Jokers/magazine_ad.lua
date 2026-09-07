@@ -14,6 +14,7 @@ local magazine_ad = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = false,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Other', key = 'red_seal'}

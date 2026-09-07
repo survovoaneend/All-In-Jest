@@ -5,6 +5,7 @@ local the_auroch = {
         min = 3,
     },
     mult = 2,
+    attributes = {'face_down', 'rank', 'suit'},
     boss_colour = HEX("7a7f89"),
     atlas = 'blinds',
     pos = { X = 0, y = 35},

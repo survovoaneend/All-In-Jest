@@ -6,6 +6,7 @@ local the_man = {
         min = 2,
     },
     mult = 2,
+    attributes = {'face_down'},
     boss_colour = HEX("95a0a9"),
     atlas = 'blinds',
     pos = { X = 0, y = 64},

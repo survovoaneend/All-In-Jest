@@ -17,6 +17,7 @@ local chitty = {
   discovered = false,
   blueprint_compat = false,
   eternal_compat = true,
+  perishable_compat = true,
 
   pixel_size = { w = 61, h = 95 },
 

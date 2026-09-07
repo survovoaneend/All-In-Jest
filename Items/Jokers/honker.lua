@@ -10,14 +10,15 @@ local honker = {
         }
     },
     attributes = { 'mult', 'scaling', 'enhancements' },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 3, y = 5 },
     atlas = 'joker_atlas',
-    cost = 6,
+    cost = 5,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = false,
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_mult

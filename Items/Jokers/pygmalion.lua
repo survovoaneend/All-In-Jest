@@ -15,6 +15,7 @@ local pygmalion = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
 
     in_pool = function(self, args)
         if G.deck then

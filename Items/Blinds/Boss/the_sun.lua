@@ -6,6 +6,7 @@ local the_sun = {
         min = 2,
     },
     mult = 2,
+    attributes = {'face_down', 'suit', 'spades', 'clubs'},
     boss_colour = HEX("c7b24a"),
     atlas = 'blinds',
     pos = { X = 0, y = 43},

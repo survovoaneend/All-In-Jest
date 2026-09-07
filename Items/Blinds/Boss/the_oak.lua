@@ -5,6 +5,7 @@ local the_oak = {
       min = 3,
     },
     mult = 2,
+    attributes = {'debuff', 'joker'},
     boss_colour = HEX("b9a072"),
     atlas = 'blinds',
     pos = {X = 0, y = 17},

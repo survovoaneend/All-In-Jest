@@ -5,6 +5,7 @@ local the_journey = {
         min = 3
     },
     mult = 2,
+    attributes = {'suit'},
     boss_colour = HEX("fdd879"),
     atlas = 'blinds',
     pos = { X = 0, y = 40},
@@ -13,7 +14,7 @@ local the_journey = {
 
     loc_vars = function(self)
         return {
-            vars = {G.GAME.current_round.aij_the_journey_blind and G.GAME.current_round.aij_the_journey_blind.selected_suit}
+            vars = {G.GAME.current_round.aij_the_journey_blind and localize(G.GAME.current_round.aij_the_journey_blind.selected_suit, "suits_singular")}
         }
     end,
 

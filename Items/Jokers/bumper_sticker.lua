@@ -17,6 +17,7 @@ local bumper_sticker = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
 
     pixel_size = { w = 44, h = 95 },
 

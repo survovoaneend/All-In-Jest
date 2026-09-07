@@ -17,6 +17,7 @@ local great_kraken = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
         local xmult = (G.GAME.current_round.hands_left - 1) * card.ability.extra.xmult_mod

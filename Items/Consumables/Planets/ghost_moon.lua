@@ -12,6 +12,7 @@ local ghost_moon = {
   discovered = false,
   order = 35,
   config = {},
+  attributes = {'hand_type', 'hand_level', 'space'},
   atlas = 'consumable_atlas',
   loc_vars = function(self, info_queue, card)
     return {

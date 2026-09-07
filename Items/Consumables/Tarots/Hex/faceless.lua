@@ -14,6 +14,7 @@ local faceless = {
     soul_set = 'Tarot',
     order = 504,
     config = { },
+    attributes = {'destroy_card', 'generation', 'joker', 'editions', 'negative', 'rarity'},
     atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
        

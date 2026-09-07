@@ -6,6 +6,7 @@ local the_loan = {
         min = 4,
     },
     mult = 2,
+    attributes = {'modify_card', 'stickers'},
     boss_colour = HEX("e8a94f"),
     atlas = 'blinds',
     pos = { X = 0, y = 70},

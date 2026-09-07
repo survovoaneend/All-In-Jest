@@ -17,6 +17,7 @@ local evil_joker = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
     all_in_jest = {
         only_shop_pool = true,
         only_booster_pool = true

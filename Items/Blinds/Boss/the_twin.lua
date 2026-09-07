@@ -16,6 +16,7 @@ local the_twin = {
         end
     end,
     mult = 2,
+    attributes = {'enhancements', 'face_down'},
     boss_colour = HEX("009cfd"),
     atlas = 'blinds',
     pos = { X = 0, y = 30},

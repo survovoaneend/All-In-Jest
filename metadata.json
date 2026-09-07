@@ -7,17 +7,23 @@
     "Survivalaren",
     "RattlingSnow353",
     "Jumbocarrot",
-    "ejwu2"
+    "ejwu2",
+    "HEAVENBRAND",
+    "Jamie!",
+    "Vitellary"
   ],
   "priority": 9999,
   "description": "A massive vanilla-style mod made of content with art made by Nevernamed",
   "main_file": "nevernamed.lua",
   "badge_colour": "8b61ad",
-  "version": "0.7.1b",
+  "version": "0.7.2a",
   "icon_path": "modicon.png",
   "icon_width": 32,
   "dependencies": [
-    "Steamodded (>=1.0.0~BETA-1606b)",
-    "Lovely (>=0.7.1)"
+    "Steamodded (>=26.829.*)",
+    "Lovely (>=0.9.0)"
+  ],
+  "conflicts": [
+    "Talisman (<=2.7)"
   ]
 }

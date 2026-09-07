@@ -9,6 +9,7 @@ local bierstiefel_tag = {
             upgrade = 'top_up',
         },
     },
+    attributes = {'generation', 'joker', 'rarity'},
 
     discovered = false,
     order = 21,

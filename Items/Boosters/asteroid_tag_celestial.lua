@@ -8,6 +8,7 @@ local asteroid_tag_celestial = {
     cost = 0, 
     weight =  0, 
     config = { extra = 3, choose = 1 }, 
+    attributes = {'planet'},
     loc_vars = function(self, info_queue, card)
         return { vars = {card.ability.choose, card.ability.extra}, key = "p_celestial_normal" }
     end,

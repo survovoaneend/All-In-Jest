@@ -770,10 +770,6 @@ function calculate_balance_percent_values(input_hand_chips, input_mult, percent)
   return new_hand_chips, new_mult
 end
 
-to_big = to_big or function(num)
-    return num
-end
-
 AllInJest.touchstone_deck_preview = function()
     local max_future_sense = 0
     if G.jokers and G.jokers.cards then
@@ -782,11 +778,11 @@ AllInJest.touchstone_deck_preview = function()
                 for _, v in pairs(area.cards) do
                     if v and type(v) == 'table' and not v.debuff then
                         if v.ability.future_sense and not v.debuff then
-                            max_future_sense = math.max(max_future_sense, to_number(v.ability.future_sense))
+                            max_future_sense = math.max(max_future_sense, v.ability.future_sense)
                         end
                         if v.ability[v.config.center.key] and v.ability[v.config.center.key].copied_joker_abilities then
                             for index = #v.ability[v.config.center.key].copied_joker_abilities, math.max(1, #v.ability[v.config.center.key].copied_joker_abilities - v.ability[v.config.center.key].copy_limit + 1), -1 do
-                                max_future_sense = math.max(max_future_sense, to_number(v.ability[v.config.center.key].copied_joker_abilities[index].future_sense))
+                                max_future_sense = math.max(max_future_sense, v.ability[v.config.center.key].copied_joker_abilities[index].future_sense)
                             end
                         end
                     end
@@ -1977,7 +1973,16 @@ function reset_handsome_joker_card()
         G.GAME.current_round.jest_handsome_joker_card.rank = jest_handsome_card.base.value
         G.GAME.current_round.jest_handsome_joker_card.id = jest_handsome_card.base.id
     end
-    G.GAME.current_round.jest_handsome_joker_card.enhancement = SMODS.poll_enhancement({guaranteed = true, no_replace = true, key = 'handsome'..G.GAME.round_resets.ante})
+    G.GAME.current_round.jest_handsome_joker_card.enhancement = SMODS.poll_enhancement({guaranteed = true, no_replace = true, key = 'handsome'..G.GAME.round_resets.ante, filter = function(pool)
+        local new_pool = {}
+        for _,v in ipairs(pool) do
+            local center = G.P_CENTERS[v.key]
+            if center and not (center.replace_base_card or center.overrides_base_rank) then
+                new_pool[#new_pool+1] = v
+            end
+        end
+        return new_pool
+    end})
 end
 function reset_the_auroch_blind()
     local common_suit, common_rank = nil, nil
@@ -1989,13 +1994,13 @@ function reset_the_auroch_blind()
         rank_table[v.base.value] = rank_table[v.base.value] or 0 
         rank_table[v.base.value] = rank_table[v.base.value] + 1
     end
-    for k, v in pairs(suit_table) do
+    for k, v in pairs(suit_table) do -- TODO nondeterministic, breaks seeding
         if v >= temp_suit_val then
             temp_suit_val = v
             common_suit = k
         end
     end
-    for k, v in pairs(rank_table) do
+    for k, v in pairs(rank_table) do -- TODO same as above
         if v >= temp_rank_val then
             temp_rank_val = v
             common_rank = k
@@ -2166,7 +2171,7 @@ end
 
 function All_in_Jest.get_current_blind_mult()
     if G.GAME.blind.in_blind then
-        local original_chips = G.GAME.blind.aij_original_chips > to_big(0) and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
+        local original_chips = G.GAME.blind.aij_original_chips > 0 and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
         return (G.GAME.blind.chips - G.GAME.blind.aij_added_chips) / (original_chips / G.GAME.blind.aij_original_mult)
     else
         return G.GAME.blind.mult
@@ -2180,7 +2185,7 @@ end
 function All_in_Jest.ease_blind_requirement(mod_mult, mod_add, skip_animation)
     if not G.GAME.blind.in_blind then return end
 
-    local original_chips = G.GAME.blind.aij_original_chips > to_big(0) and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
+    local original_chips = G.GAME.blind.aij_original_chips > 0 and G.GAME.blind.aij_original_chips or G.GAME.blind.chips
     if mod_mult == nil then
         mod_mult = 0
     end
@@ -2211,7 +2216,7 @@ function All_in_Jest.ease_blind_requirement(mod_mult, mod_add, skip_animation)
     if not skip_animation then
         G.BLIND_SIZE_DISPLAY_QUEUE = G.BLIND_SIZE_DISPLAY_QUEUE or {}
 
-        if chips_text_integer < to_big(desired_chip_amount) then
+        if chips_text_integer < desired_chip_amount then
             while chips_text_integer < desired_chip_amount do
                 table.insert(G.BLIND_SIZE_DISPLAY_QUEUE, chips_text_integer)
                 chips_text_integer = chips_text_integer + G.SETTINGS.GAMESPEED * chip_mod
@@ -3464,6 +3469,7 @@ All_in_Jest.load_shaders = function()
     G.SHADERS['aij_wood_hc_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/wood_hc_spritesheet.fs"))
     G.SHADERS['aij_burnt_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/burnt_spritesheet.fs"))
     G.SHADERS['aij_fusion_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/fusion_spritesheet.fs"))
+    G.SHADERS['aij_misprint_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/misprint_spritesheet.fs"))
 end
 
 function dynatext_aij_draw(self)
@@ -3692,18 +3698,16 @@ function aij_reroll_tags(blind, args)
     end
 end
 
-function aij_change_shop_size_advanced(mod, remove_tag, type, rarity, key, func)
+function aij_change_shop_size_advanced(mod, remove_tag, type, rarity, key)
     if not G.GAME.shop then return end
     G.GAME.shop.joker_max = G.GAME.shop.joker_max + mod
     for i = 1, math.abs(mod) do
         if mod > 0 then
             G.GAME.shop.slot_details = G.GAME.shop.slot_details or {}
-            local _type, _rarity, _key = _type or type, _rarity or rarity, _key or key
             table.insert(G.GAME.shop.slot_details, 1,{
-                ['type'] = _type,
-                ['rarity'] = _rarity,
-                ['key'] = _key,
-                ['func'] = func,
+                ['type'] = type,
+                ['rarity'] = rarity,
+                ['key'] = key,
                 ['remove_tag'] = remove_tag
             })
         elseif mod < 0 and remove_tag then

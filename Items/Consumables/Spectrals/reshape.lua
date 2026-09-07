@@ -9,6 +9,7 @@ local reshape = {
 	discovered = false,
     order = 9,
 	config ={},
+    attributes = {'joker', 'position'},
     can_use = function(self, card)
         if G.jokers and G.jokers.cards and #G.jokers.cards/2 > 1 then 
             return true 

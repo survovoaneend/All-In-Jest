@@ -4,6 +4,7 @@ local seal_of_the_realm = {
   config = {
     
   },
+  attributes = {'seals', 'editions'},
   requires = {
     'v_aij_wax_stamp'
   },

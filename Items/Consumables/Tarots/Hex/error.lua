@@ -14,6 +14,7 @@ local error = {
     soul_set = 'Tarot',
     order = 501,
     config = { max_highlight = 5 },
+    attributes = {'modify_card', 'chaotic'},
     atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
        info_queue[#info_queue + 1] = {set = 'Other', key = 'aij_jest_chaotic_card', vars={1.5}}

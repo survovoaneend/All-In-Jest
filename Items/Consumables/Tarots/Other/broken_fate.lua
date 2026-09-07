@@ -25,6 +25,7 @@ local broken_fate = {
   discovered = false,
   order = 23,
   config = {},
+  attributes = {'multiplier'},
   atlas = 'consumable_atlas',
   loc_vars = function(self, info_queue, card)
 

@@ -4,6 +4,7 @@ local thaumaturgy = {
   config = {
     
   },
+  attributes = {'booster', 'shop'},
   requires = {
     'v_aij_embraced_arcane'
   },

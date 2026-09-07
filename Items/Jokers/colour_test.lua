@@ -15,6 +15,7 @@ local colour_test = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         if not card.edition or (card.edition and not card.edition.key == 'e_polychrome') then

@@ -11,6 +11,7 @@ local hermetic_tag = {
       upgrade = 'ethereal',
     }
   },
+  attributes = {'generation', 'spectral', 'choice'},
 
   loc_vars = function(self, info_queue)
   end,

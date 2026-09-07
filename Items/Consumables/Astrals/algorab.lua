@@ -10,6 +10,7 @@ local algorab = {
 	discovered = false,
     order = 8,
 	config = { hand = nil, grade = '', pin = 'Algorab', extra = {odds = 4}},
+    attributes = {'hand_type', 'space', 'chance', 'generation', 'tarot', 'consumable'},
     loc_vars = function(self, info_queue, card)
         -- Rest of loc_vars is defined in the ConsumableType in hooks.lua
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)

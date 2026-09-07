@@ -9,6 +9,7 @@ local timelost_guess_the_jest = {
     cost = 0,
     weight =  0,
     config = { extra = 5, choose = 1 },
+    attributes = {'joker', 'rarity', 'legendary', 'stickers'},
     loc_vars = function(self, info_queue, card)
         return { vars = {card.ability.choose, card.ability.extra}, key = "p_aij_guess_the_jest" }
     end,

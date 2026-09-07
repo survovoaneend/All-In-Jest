@@ -20,6 +20,7 @@ local glimmer = {
     },
     order = 0,
     config = { percent = 10 },
+    attributes = {'balance'},
     loc_vars = function(self, info_queue, card)
         return {vars = {(card.edition or {}).percent or self.config.percent}}
     end,

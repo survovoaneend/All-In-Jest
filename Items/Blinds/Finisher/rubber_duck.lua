@@ -9,6 +9,7 @@ local rubber_duck = {
         return true
     end,
     mult = 2,
+    attributes = {'hand_level'},
     boss_colour = HEX("e6c56f"),
     atlas = 'blinds_final',
     pos = { y = 6},

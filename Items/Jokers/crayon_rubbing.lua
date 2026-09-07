@@ -60,6 +60,7 @@ local crayon_rubbing = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         local chips = calculate_crayon_rubbing_chips(card)

@@ -12,6 +12,7 @@ local crystal_tag = {
       enhance = 5
     }
   },
+  attributes = {'modify_card', 'joker', 'editions'},
 
   discovered = false,
   order = 4,

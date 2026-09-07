@@ -6,6 +6,7 @@ local fairy_dust = {
       rate = 2
     }
   },
+  attributes = {'editions'},
   atlas = 'vouchers_atlas',
   pos = { x = 0, y = 0 },
   discovered = false,

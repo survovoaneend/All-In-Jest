@@ -11,6 +11,7 @@ local the_arrow = {
     return All_in_Jest.pit_blinds_in_play()
   end,
   mult = 2,
+  attributes = {},
   boss_colour = HEX("967465"),
   atlas = 'blinds_pit',
   pos = { y = 12 },

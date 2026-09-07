@@ -1029,7 +1029,7 @@ match_indent = true
 [[patches]] 
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
-pattern = "local flags = SMODS.calculate_context({drawing_cards = true, amount = hand_space})"
+pattern = "local flags = SMODS.calculate_context({drawing_cards = true, amount = *"
 position = "before"
 payload = '''
 do
@@ -1042,6 +1042,54 @@ do
     if marked_cards == #G.hand.cards and marked_cards >= G.hand.config.card_limit then
         end_round()
     end
+end
+'''
+match_indent = true
+
+# Simulated Cards (1/2)
+# Make discard button always active if only simulated cards are highlighted
+# G.FUNCS.can_discard
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "if G.GAME.current_round.discards_left <= 0 or #G.hand.highlighted <= 0 or #G.hand.highlighted > math.max(G.GAME.starting_params.discard_limit, 0) then "
+position = "before"
+payload = '''
+if #G.hand.highlighted > 0 then
+    local aij_only_simulated = true
+    for k, v in pairs(G.hand.highlighted) do
+        if not (SMODS.get_enhancements(v).m_aij_simulated or All_in_Jest.get_inherent_effects(v, 'enhancement', nil, true).m_aij_simulated) or v.debuff then
+            aij_only_simulated = false
+            break
+        end
+    end
+    if aij_only_simulated then
+        e.config.colour = G.C.RED
+        e.config.button = 'discard_cards_from_highlighted'
+        return
+    end
+end
+'''
+match_indent = true
+
+# Simulated Cards (2/2)
+# Don't consume discard if hand is all simulated cards
+# G.FUNCS.evaluate_play()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "ease_discard(-1)"
+position = "at"
+payload = '''
+local aij_only_simulated = true
+for k, v in pairs(G.hand.highlighted) do
+    if not (SMODS.get_enhancements(v).m_aij_simulated or All_in_Jest.get_inherent_effects(v, 'enhancement', nil, true).m_aij_simulated) or v.debuff then
+        aij_only_simulated = false
+        break
+    end
+end
+if not aij_only_simulated then
+    ease_discard(-1)
 end
 '''
 match_indent = true
@@ -1147,32 +1195,7 @@ match_indent = true
 #################################
 # (And also one related to Gold Trophy)
 
-# Fabled Deck (1/3)
-# Randomise if created joker should be a legendary joker or not
-# get_current_pool()
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = '''
-if _type == 'Joker' then 
-'''
-position = "before"
-match_indent = true
-payload = '''
-if G.GAME.jest_legendary_pool ~= nil and _type == 'Joker' then
-    if G.GAME.jest_legendary_pool.in_shop then
-        local rary = _rarity or pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) 
-        if type(rary) == "number" and (_rarity == nil or _rarity == 4 or _rarity == "Legendary") then
-            rary = (rary > G.GAME.jest_legendary_pool.rate and 4) or 1 
-            if rary ~= 1 then
-                _legendary = true
-            end
-        end
-    end
-end
-'''
-
-# Fabled Deck (2/3)
+# Fabled Deck (1/2)
 # Make legendary jokers in the shop show their description
 # Card:generate_UIBox_ability_table()
 [[patches]]
@@ -1187,7 +1210,7 @@ payload = '''
 if self.config.center.unlocked == false and not self.bypass_lock and not self.bypass_discovery_ui $post
 '''
 
-# Fabled Deck (3/3)
+# Fabled Deck (2/2)
 # Unlocks card if legendary joker is obtained in any way
 # (In Vanilla, only unlocks via Soul)
 # Card:add_to_deck()
@@ -1270,10 +1293,9 @@ payload = '''
 if G.GAME.shop and G.GAME.shop.slot_details and #G.GAME.shop.slot_details > 0 and G.shop_jokers and area == G.shop_jokers and G.GAME.shop.slot_details[G.GAME.shop.joker_max - #G.shop_jokers.cards] then
     local slot = G.GAME.shop.slot_details[G.GAME.shop.joker_max - #G.shop_jokers.cards]
     local type = slot.type or SMODS.poll_object_type({seed = 'cdt'..G.GAME.round_resets.ante})
-    if slot.func and type(slot.func) == 'function' then slot.func(type, area, slot.key, slot.rarity, slot.remove_tag) end
-    local args = {set = type, key = slot.key, rarity = slot.rarity, area = area, key_append = (G.GAME.shop.joker_max - #G.shop_jokers.cards)..'aij_sho', front = false}
+    local args = {set = type, key = slot.key, rarity = slot.rarity, area = area, key_append = (G.GAME.shop.joker_max - #G.shop_jokers.cards)..'aij_sho', front = false, aij_slot_details = slot}
     local card = SMODS.create_card(args)
-    SMODS.calculate_context({modify_shop_card = true, card = card})
+    SMODS.calculate_context({modify_shop_card = true, card = card, aij_slot_details = slot})
     create_shop_card_ui(card, slot.type, area)
     G.E_MANAGER:add_event(Event({
         func = (function()
@@ -1707,8 +1729,8 @@ match_indent = true
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
-delay(0.3)
-SMODS.last_hand_oneshot = SMODS.calculate_round_score() >= G.GAME.blind.chips
+SMODS.last_hand_score = SMODS.calculate_round_score()
+SMODS.last_hand_oneshot = SMODS.last_hand_score >= G.GAME.blind.chips
 '''
 position = "before"
 payload = '''
@@ -2372,10 +2394,26 @@ if G.GAME.modifiers["aij_pandemonium_1"] then
 end
 if SMODS.optional_features.object_weights then 
     if ((pseudorandom('gold_tag_rate') < (1 * G.GAME.all_in_jest.gold_tag_rate) / 30)) or (append == 'all_in_jest_guarrented_gold_tag' or append == 'aij_no_blind_dupes_guarrented_gold_tag') then
-        local tag_key = SMODS.poll_object({type = 'Jest_Golden_Tag', append = append and append..'_gold' or '_gold'}) 
-        if tag_key ~= 'tag_handy' then return tag_key end
+        local tag_key = SMODS.poll_object({type = 'Jest_Golden_Tag', append = append and append..'_gold' or '_gold'})
+        if tag_key ~= 'tag_handy' and tag_key ~= 'j_joker' then return tag_key end
     end
 end
+'''
+
+# Gold tags (6/9)
+# Change type to 'Tag' after polling for gold tags
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils/weights.lua"]'
+pattern = "if args.attributes and not args.rarity and args.rarity ~= false then"
+position = "before"
+match_indent = true
+payload = '''
+if args.type == 'Jest_Golden_Tag' then
+    args.type = 'Tag'
+    args.types = {'Tag'}
+end
+
 '''
 
 # Gold Tags (8/9)
@@ -2456,7 +2494,7 @@ end
     # NEW BLIND STUFF #
 ###########################
 
-# AiJ Blind Functionality (1/4)
+# AiJ Blind Functionality (1/6)
 # Trigger any "update" methods of blinds
 # Currently only used by The Oak (debuffs rightmost joker)
 # Game:update()
@@ -2473,7 +2511,7 @@ if G.GAME.blind and G.GAME.blind.config.blind.update and type(G.GAME.blind.confi
 end
 '''
 
-# AiJ Blind Functionality (2/4)
+# AiJ Blind Functionality (2/6)
 # Transfer a blind's config over to its ability
 # Will trigger upon selecting a boss blind
 # Game:update()
@@ -2502,7 +2540,7 @@ if G.GAME.blind and G.GAME.blind.config.blind.config and type(G.GAME.blind.confi
 end
 '''
 
-# AiJ Blind Functionality (3/4)
+# AiJ Blind Functionality (3/6)
 # Save ability table of bosses
 # Blind:save()
 [[patches]]
@@ -2518,7 +2556,7 @@ payload = '''
     ability = self.ability,
 '''
 
-# AiJ Blind Functionality (4/4)
+# AiJ Blind Functionality (4/6)
 # Load ability table of bosses
 # Blind:load()
 [[patches]]
@@ -2533,7 +2571,7 @@ payload = '''
     self.ability = blindTable.ability
 '''
 
-# AiJ Blind Functionality (5/5)
+# AiJ Blind Functionality (5/6)
 # Allows blinds to display a dynamic blind amount on blind select screen without changing the chip value directly
 # Hooked into via new aij_blind_amount_display() method in blind objects
 # create_UIBox_blind_choice()
@@ -2560,6 +2598,20 @@ end
 if G.GAME.the_connection_extra_chips then
     blind_amt = blind_amt + G.GAME.the_connection_extra_chips
 end
+'''
+
+# AiJ Blind Functionality (6/6)
+# Add context before blind is set
+# Used by Fall of Count Chaligny and Dong Tong
+# Blind:set_blind()
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = "self.in_blind = true"
+position = "after"
+match_indent = true
+payload = '''
+SMODS.calculate_context({aij_before_setting_blind = true, blind = G.GAME.round_resets.blind})
 '''
 
 # Pit Blinds (1/1)
@@ -2633,6 +2685,21 @@ payload = '''elseif blindname == 'bl_aij_the_journey' and G.GAME.current_round.a
             fill = true
         })
     end
+'''
+
+# The Connection
+# Add excess chips to blind requirements
+# Blind:set_blind()
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = "self.in_blind = true"
+position = "after"
+match_indent = true
+payload = '''
+if G.GAME.the_connection_extra_chips then
+    All_in_Jest.ease_blind_requirement(nil, G.GAME.the_connection_extra_chips, true)
+end
 '''
 
 #--------------------------------#
@@ -3304,33 +3371,6 @@ for i = #G.GAME.tags, 1, -1 do
 end
 '''
 
-# TODO: fix this
-# This patch is weird, applies to too many places and creates dead code
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = '''
-if _type == 'Joker' then 
-'''
-position = "before"
-match_indent = true
-payload = '''
-if G.GAME.jest_legendary_pool ~= nil and _type == 'Joker' then
-    if G.GAME.jest_legendary_pool.in_shop then
-        local legend_mod = 1 - G.GAME.jest_legendary_pool.rate
-        legend_mod = (legend_mod * G.GAME.legendary_mod) - legend_mod
-        legend_mod = G.GAME.jest_legendary_pool.rate - legend_mod
-        local rary = _rarity or pseudorandom('rarity'..G.GAME.round_resets.ante..(_append or '')) 
-        if type(rary) == "number" and (_rarity == nil or _rarity == 4 or _rarity == "Legendary") then
-            rary = (rary > legend_mod and 4) or 1 
-            if rary ~= 1 then
-                _legendary = true
-            end
-        end
-    end
-end
-'''
-
 # Make legendary jokers in the shop show their description
 [[patches]]
 [patches.pattern]
@@ -3489,27 +3529,6 @@ do
     end
 end
 '''
-
-# # Currently unused patch, used to be used for splash-like jokers but they now use the relevant calculate context instead
-# [[patches]]
-# [patches.pattern]
-# target = '=[SMODS _ "src/utils.lua"]'
-# pattern = "if (G.P_CENTERS[(card.edition or {}).key] or {}).always_scores then return true end"
-# position = "before"
-# payload = '''
-# local has_beanstalk = next(SMODS.find_card("j_aij_beanstalk"))
-# if has_beanstalk then
-#     if card:get_id() == 11 then
-#         return true
-#     end
-# end
-# if next(SMODS.find_card("j_aij_punch_and_judy")) then
-#     if card:get_id() == 12 or card:get_id() == 13 then
-#         return true
-#     end
-# end
-# '''
-# match_indent = true 
 
 # Pace Legendary (1/2)
 # Make all rarities the same weight
@@ -3724,46 +3743,6 @@ if G.STATE == G.STATES.NEW_ROUND then
     return true
 end
 '''
-# Electric Snow + Taslisman (1/2)
-# Prevent round from ending after hand is played (unless final hand is played)
-# As above, but with a pattern for talisman
-# Game:update_hand_played()
-[[patches]]
-[patches.pattern]
-target = "game.lua"
-pattern = "if to_big(G.GAME.chips) >= to_big(G.GAME.blind.chips) or G.GAME.current_round.hands_left < 1 then"
-position = "before"
-match_indent = true
-payload = '''
-if next(SMODS.find_card("j_aij_electric_snow")) and not (G.GAME.current_round.hands_left < 1) then
-    G.STATE = G.STATES.DRAW_TO_HAND
-    G.STATE_COMPLETE = false
-    return true
-end
-if G.STATE == G.STATES.NEW_ROUND then
-    return true
-end
-'''
-# Electric Snow (2/2)
-# Prevent round from ending after boss is disabled (unless final hand is played)
-# As above, but with a pattern for talisman
-# Blind:disable()
-[[patches]]
-[patches.pattern]
-target = "blind.lua"
-pattern = "if self.boss and to_big(G.GAME.chips) - G.GAME.blind.chips >= to_big(0) then"
-position = "before"
-match_indent = true
-payload = '''
-if next(SMODS.find_card("j_aij_electric_snow")) and not (G.GAME.current_round.hands_left < 1) then
-    G.STATE = G.STATES.DRAW_TO_HAND
-    G.STATE_COMPLETE = false
-    return true
-end
-if G.STATE == G.STATES.NEW_ROUND then
-    return true
-end
-'''
 
 # Guess the Jest (1/4)
 # Prevents tooltip for Guess the Jest cards from appearing while hovering over cards in the pack (if 'Guess the Jest Names' is not enabled)
@@ -3898,11 +3877,11 @@ match_indent = true
 [[patches]] 
 [patches.pattern]
 target = "functions/UI_definitions.lua"
-pattern = "if not run_info then G.GAME.round_resets.blind_states[G.GAME.blind_on_deck] = 'Select' end"
+pattern = "function create_UIBox_blind_choice(type, run_info)"
 position = "after"
 payload = '''
-local is_big_boss = false
-local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and (type == 'Boss' or type == 'Big_Boss')
+  local is_big_boss = false
+  local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and (type == 'Boss' or type == 'Big_Boss')
 '''
 match_indent = true
 
@@ -3954,21 +3933,31 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = "G.GAME.round_resets.blind_choices.Boss = get_new_boss()"
+pattern = "SMODS.reset_blind_choices(G.GAME.round_resets.blind_choices)"
+position = "before"
+match_indent = true
+payload = '''
+if G.GAME.aij_has_big_boss then
+    G.GAME.round_resets.blind_states.Big_Boss = 'Upcoming'
+    G.GAME.round_resets.blind_states['Big'] = 'Hide'
+end
+'''
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_objects/blind.lua"]'
+pattern = "G.GAME.round_resets.blind_order = {'Small', 'Big', 'Boss'} -- prepared for custom antes"
 position = "after"
 match_indent = true
 payload = '''
-G.GAME.round_resets.blind_choices.Big_Boss = get_new_boss()
-G.GAME.round_resets.blind_states.Big_Boss = 'Upcoming'
 if G.GAME.aij_has_big_boss then
-    G.GAME.round_resets.blind_states['Big'] = 'Hide'
+    G.GAME.round_resets.blind_order = {'Small', 'Big_Boss', 'Boss'}
 end
 '''
 
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
-pattern = 'elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big then'
+pattern = "elseif G.GAME.round_resets.blind_states.Big == 'Current' then"
 position = 'before'
 match_indent = true
 payload = '''
@@ -4795,7 +4784,7 @@ if not saveTable then
 end
 '''
 
-# Advanced Copiers (1/5)
+# Advanced Copiers (1/4)
 # Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
 # This is for vanilla jokers. Needs separate patches for vanilla and modded jokers.
 # generate_card_ui()
@@ -4827,7 +4816,7 @@ if specific_vars ~= nil and specific_vars.aij_multi_copier_card then
     desc_nodes[#desc_nodes + 1] = copier_compat
 end
 '''
-# Advanced Copiers (2/5)
+# Advanced Copiers (2/4)
 # Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
 # This is for modded jokers. Needs separate patches for vanilla and modded jokers.
 # SMODS.Center:generate_ui()
@@ -4890,31 +4879,20 @@ if target.vars.aij_copier_card then
 end
 -- End of All in Jest patch
 '''
-# Advanced Copiers (3/5)
-# Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (1/2)
-# generate_card_ui()
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = '''_c:generate_ui(info_queue, card, desc_nodes, specific_vars, full_UI_table)'''
-position = "before"
-match_indent = true
-payload = '''
-local card = _c.specific_vars and (_c.specific_vars.aij_elder or _c.specific_vars.aij_multi_copier_card or _c.specific_vars.aij_copier_card) or card
-'''
-# Advanced Copiers (4/5)
+# Advanced Copiers (3/4)
 # Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (2/2)
 # generate_card_ui()
 [[patches]]
-[patches.pattern]
+[patches.regex]
 target = 'functions/common_events.lua'
-pattern = '''localize{type = 'name', key = key, set = set, nodes = desc_nodes.name_styled, fixed_scale = 0.63, no_pop_in = true, no_shadow = true, y_offset = 0, no_spacing = true, no_bump = true, vars = (_c.create_fake_card and _c.loc_vars and (_c:loc_vars({}, _c:create_fake_card()) or {}).vars) or {colours = {}}} '''
+pattern = '''(?<indent>[\t ]*)(?<pre>.*)\(_c\.create_fake_card and _c\.loc_vars and \(_c:loc_vars\(\{\}, \_c:create_fake_card\(\)\) or \{\}\).vars\)(?<post>.*)'''
 position = "at"
-match_indent = true
+line_prepend = "$indent"
 payload = '''
-localize{type = 'name', key = key, set = set, nodes = desc_nodes.name_styled, fixed_scale = 0.63, no_pop_in = true, no_shadow = true, y_offset = 0, no_spacing = true, no_bump = true, vars = (_c.create_fake_card and _c.loc_vars and (_c:loc_vars({}, card or _c:create_fake_card()) or {}).vars) or {colours = {}}}  -- All in Jest overrides
+local card = _c.specific_vars and (_c.specific_vars.aij_elder or _c.specific_vars.aij_multi_copier_card or _c.specific_vars.aij_copier_card) or card -- All in Jest overrides
+$pre(_c.create_fake_card and _c.loc_vars and (_c:loc_vars({}, card or _c:create_fake_card()) or {}).vars)$post -- All in Jest overrides
 '''
-# Advanced Copiers (5/5)
+# Advanced Copiers (4/4)
 # Fixes a nice SMODs issue where Oops! All sixes is refered to by its key rather than ability name (like other vanilla jokers)
 # Card:calculate_joker
 [[patches]] 
@@ -5316,17 +5294,6 @@ match_indent = true
 payload = '''G.GAME.current_round.reroll_cost = (G.GAME.round_resets.temp_reroll_cost or math.max(0, G.GAME.round_resets.reroll_cost)) + G.GAME.current_round.reroll_cost_increase'''
 
 
-# Add context before blind is set
-# Used by Fall of Count Chaligny
-# Blind:set_blind()
-[[patches]]
-[patches.pattern]
-target = "blind.lua"
-pattern = "self.in_blind = true"
-position = "after"
-match_indent = true
-payload = 'SMODS.calculate_context({aij_before_setting_blind = true, blind = G.GAME.round_resets.blind})'
-
 #################################
     # PATCHES FOR FUSIONS #
 #################################
@@ -5572,14 +5539,6 @@ self.ASSET_ATLAS[self.asset_images[i].name].image_data = love.image.newImageData
 '''
 match_indent = true
 
-# Fused stone cards are ordered in hand correctly
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-pattern = '''if self.ability.effect == 'Stone Card' or (self.config.center.no_suit and self.config.center.no_rank) then'''
-position = 'at'
-payload = '''if SMODS.has_enhancement(self, "m_stone") or (self.config.center.no_suit and self.config.center.no_rank) then'''
-match_indent = true
 
 ######################################
     # END OF PATCHES FOR FUSIONS #
@@ -5786,3 +5745,44 @@ end
 match_indent = true
 times = 1
 
+
+## Spiral Gestalt
+[[patches]]
+[patches.pattern]
+target = "engine/save_manager.lua"
+pattern = "elseif request.type == 'save_run' then "
+position = "before"
+payload = '''
+elseif request.type == 'save_run_aij_spiral_gestalt' then 
+    local prefix_profile = (request.profile_num or 1)..''
+    if not love.filesystem.getInfo(prefix_profile) then love.filesystem.createDirectory( prefix_profile ) end
+    prefix_profile = prefix_profile..'/'
+
+    compress_and_save(prefix_profile..'save_aij_spiral_gestalt.jkr', request.save_table)
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "love.filesystem.remove(G.SETTINGS.profile..'/save.jkr')"
+position = "before"
+payload = '''
+love.filesystem.remove(G.SETTINGS.profile..'/save_aij_spiral_gestalt.jkr')
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.screenwipecard = Card(1, 1, G.CARD_W, G.CARD_H, pseudorandom_element(G.P_CARDS), G.P_CENTERS.c_base)"
+position = "after"
+payload = '''
+if G.SAVED_GAME ~= nil and G.SAVED_GAME.aij_spiral_gestal_save then 
+    G.screenwipecard:remove()
+    G.screenwipecard = Card(1, 1, G.CARD_W, G.CARD_H, nil, G.P_CENTERS["j_aij_spiral_gestalt"])
+end
+'''
+match_indent = true
+times = 1

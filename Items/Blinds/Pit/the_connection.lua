@@ -11,6 +11,7 @@ local the_connection = {
         return All_in_Jest.pit_blinds_in_play()
     end,
     mult = 0.5,
+    attributes = {'large_blind'},
     boss_colour = HEX("b8c8cd"),
     atlas = 'blinds_pit',
     pos = {y = 24},

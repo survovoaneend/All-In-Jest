@@ -16,6 +16,7 @@ local archy = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
     soul_pos = { x = 0, y = 5},
   
     loc_vars = function(self, info_queue, card)

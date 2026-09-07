@@ -9,6 +9,7 @@ local occult_tag = {
       upgrade = 'charm',
     },
   },
+  attributes = {'generation', 'tarot', 'spectral', 'editions', 'negative'},
 
   discovered = false,
   order = 11,

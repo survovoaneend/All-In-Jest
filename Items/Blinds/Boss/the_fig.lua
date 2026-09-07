@@ -6,6 +6,7 @@ local the_fig = {
         min = 2,
     },
     mult = 2,
+    attributes = {'debuff'},
     boss_colour = HEX("95718b"),
     atlas = 'blinds',
     pos = { X = 0, y = 82},

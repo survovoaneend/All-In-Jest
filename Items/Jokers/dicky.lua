@@ -16,6 +16,7 @@ local dicky = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
     soul_pos = { x = 7, y = 13 },
 
     loc_vars = function(self, info_queue, card)

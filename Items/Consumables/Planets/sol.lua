@@ -11,6 +11,7 @@ local sol = {
   discovered = false,
   order = 32,
   config = { hand_type = "aij_Royal Flush" },
+	attributes = {'hand_type', 'hand_level', 'space'},
   atlas = 'consumable_atlas',
   loc_vars = function(self, info_queue, card)
     return {

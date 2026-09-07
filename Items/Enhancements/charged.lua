@@ -6,6 +6,7 @@ local charged = {
 	order = 2,
 	pos = { x = 2, y = 0 },
 	config = {},
+	attributes = {'multiplier'},
 	all_in_jest = {
 		multi_enhancement_z_order = 1,
 	},
@@ -105,8 +106,6 @@ function Card:update(dt)
 			["ability"] = self.config.center,
 			["config.aij_other_center.ability"] = self.config.aij_other_center and self.config.aij_other_center.center,
 		}) do
-
-			sendDebugMessage(enhancement_key.key, "AIJ")
 
 			local inherent_keys = {}
 			if enhancement_key then

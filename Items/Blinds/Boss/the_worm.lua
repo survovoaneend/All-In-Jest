@@ -6,6 +6,7 @@ local the_worm = {
         min = 3,
     },
     mult = 2,
+    attributes = {'destroy_card', 'stickers', 'joker'},
     boss_colour = HEX("ba99be"),
     atlas = 'blinds',
     pos = { X = 0, y = 72},

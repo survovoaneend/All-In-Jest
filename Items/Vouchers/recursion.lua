@@ -6,6 +6,7 @@ local recursion = {
       slots = 1,
     }
   },
+  attributes = {'voucher', 'shop'},
   atlas = 'vouchers_atlas',
   pos = { x = 6, y = 0 },
   discovered = false,

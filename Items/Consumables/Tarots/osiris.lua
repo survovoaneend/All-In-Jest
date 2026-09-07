@@ -12,6 +12,7 @@ local osiris = {
       cap = 150
     }
   },
+  attributes = {'destroy_card', 'economy', 'sell_value'},
   atlas = 'consumable_atlas',
 
   loc_vars = function(self, info_queue, card)

@@ -9,6 +9,7 @@ local polydactyly_tag = {
             upgrade = 'handy',
         },
     },
+    attributes = {'hands'},
 
     discovered = false,
     order = 14,

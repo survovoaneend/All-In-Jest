@@ -16,6 +16,7 @@ local default_credits_joker = {
     discovered = true,
     blueprint_compat = false,
     eternal_compat = false,
+    perishable_compat = true,
     no_collection = true,
   
     loc_vars = function(self, info_queue, card)

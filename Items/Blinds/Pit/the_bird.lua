@@ -12,6 +12,7 @@ local the_bird = {
         return All_in_Jest.pit_blinds_in_play()
     end,
     mult = 2,
+    attributes = {'joker'},
     boss_colour = HEX("c7b28c"),
     atlas = 'blinds_pit',
     pos = { y = 11 },

@@ -9,6 +9,7 @@ local canvas = {
             
         }
     },
+    attributes = {'modify_card', 'rank', 'suit'},
     all_in_jest = {
         multi_enhancement_z_order = -1
     },
@@ -84,33 +85,19 @@ local canvas = {
                 if new_suit or new_rank or changed_random_aij_deck_skin then
                     assert(SMODS.change_base(card, new_suit, new_rank))
                 end
-                if G.hand and G.hand.highlighted and G.GAME and G.GAME.facing_blind then
-                    for k, v in pairs(G.hand.highlighted) do
-                        if v == card then
-                            aij_update_hand_text(G.hand.highlighted)
-                        end
-                    end
-                end
+                local prev_hidden = card.front_hidden
                 card.front_hidden = card:should_hide_front()
                 if card:get_id() <= -50 and card.base.nominal ~= 0 then
                     card.base.nominal = 0
-                    for k, v in pairs(G.hand.highlighted) do
-                        if v == card and G.GAME and G.GAME.facing_blind then
-                            aij_update_hand_text(G.hand.highlighted)
-                        end
-                    end
                 else
                     local rank = SMODS.Ranks[card.base.value] or {}
                     card.base.nominal = rank.nominal or 0
                 end
-                if #G.play.cards >= 1 and (not G.aij_astral_pin_area or (G.aij_astral_pin_area and #G.aij_astral_pin_area.cards <= 0)) then
-                    local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
-                    if G.GAME.Astral_pins then
-                        if text ~= G.aij_cur_astral_hand then
-                            All_in_Jest.astral_visuals(text, 'no_remove')
-                        end
-                        if text then
-                            G.aij_cur_astral_hand = text
+                if G.hand and G.hand.highlighted and G.GAME and G.GAME.facing_blind and (new_suit or new_suit or (prev_hidden ~= card.front_hidden)) then
+                    for k, v in ipairs(G.hand.highlighted) do
+                        if v == card then
+                            aij_update_hand_text(G.hand.highlighted)
+                            break
                         end
                     end
                 end

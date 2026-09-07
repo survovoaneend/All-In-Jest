@@ -13,6 +13,7 @@ local circumplanetary_tag = {
             _tag_hand = "[most played hand]"
         }
     },
+    attributes = {'hand_level'},
 
     discovered = false,
     order = 23,

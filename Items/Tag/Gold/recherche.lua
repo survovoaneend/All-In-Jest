@@ -13,6 +13,7 @@ local recherche_tag = {
             sticker = 'aij_recherche_doubled'
         }
     },
+    attributes = {'generation', 'joker', 'rarity', 'multiplier'},
 
     discovered = false,
     order = 2,

@@ -12,6 +12,7 @@ local capital_tag = {
             dollars = 100
         }
     },
+    attributes = {'economy', 'boss_blind'},
 
     discovered = false,
     order = 7,

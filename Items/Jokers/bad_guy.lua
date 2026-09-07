@@ -15,6 +15,7 @@ local bad_guy = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
         if not card.edition or (card.edition and not card.edition.key == 'e_foil') then

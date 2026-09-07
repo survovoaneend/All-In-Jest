@@ -5,6 +5,7 @@ local the_brimstone = {
         min = 3,
     },
     mult = 2,
+    attributes = {'discard', 'lose_economy'},
     boss_colour = HEX("f24949"),
     atlas = 'blinds',
     pos = { X = 0, y = 8},
@@ -13,7 +14,7 @@ local the_brimstone = {
 
 
     calculate = function(self, blind, context)
-        if context.pre_discard and not G.GAME.blind.disabled and to_number(G.GAME.dollars) > 0 then
+        if context.pre_discard and not G.GAME.blind.disabled and G.GAME.dollars > 0 then
             blind.triggered = true
             blind:wiggle()
             ease_dollars(-math.ceil(G.GAME.dollars/2), true)

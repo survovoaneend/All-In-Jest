@@ -5,6 +5,7 @@ local the_evergreen = {
         min = 5,
     },
     mult = 1,
+    attributes = {'large_blind', 'full_deck'},
     boss_colour = HEX("62844b"),
     atlas = 'blinds',
     pos = { X = 0, y = 25},

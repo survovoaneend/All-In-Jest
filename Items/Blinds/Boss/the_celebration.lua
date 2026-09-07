@@ -5,6 +5,7 @@ local the_celebration = {
         min = 3,
     },
     mult = 1,
+    attributes = {'large_blind', 'hands', 'discard'},
     boss_colour = HEX("ff6368"),
     atlas = 'blinds',
     pos = { X = 0, y = 33},

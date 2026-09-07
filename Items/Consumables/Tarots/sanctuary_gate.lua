@@ -8,6 +8,7 @@ local sanctuary_gate = {
 	discovered = false,
 	order = 1,
 	config = { mod_conv = 'm_aij_wood', max_highlighted = 2 },
+	attributes = {'modify_card', 'enhancements'},
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_aij_wood

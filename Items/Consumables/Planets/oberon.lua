@@ -12,6 +12,7 @@ local oberon_planet = {
 	order = 18,
 	jest_spec_moon = true,
 	config = {hand_type = "Two Pair", moon = true, chips = true},
+	attributes = {'hand_type', 'hand_level', 'space'},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
 		return {

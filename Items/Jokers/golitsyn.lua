@@ -16,6 +16,7 @@ local golitsyn = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
     enhancement_gate = 'm_aij_ice',
     soul_pos = { x = 3, y = 9},
   

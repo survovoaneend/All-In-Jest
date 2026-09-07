@@ -18,6 +18,7 @@ local lost_carcosa = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.min, card.ability.extra.max}}

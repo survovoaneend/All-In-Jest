@@ -18,6 +18,7 @@ local negative_space = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
     in_pool = function(self, args)
         if G.jokers and G.jokers.cards then
             for _, card in ipairs(G.jokers.cards) do

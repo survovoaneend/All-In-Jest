@@ -8,6 +8,7 @@ local possession = {
 	discovered = false,
     order = 1,
 	config = { max_highlighted = 1 },
+    attributes = {'modify_card', 'enhancements', 'editions'},
 	atlas = 'consumable_atlas',
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.max_highlighted } }

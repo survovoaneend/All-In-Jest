@@ -7,6 +7,7 @@ local recursion = {
       discount = 2,
     }
   },
+  attributes = {'voucher', 'shop', 'economy'},
   requires = {
     'v_aij_recursion'
   },

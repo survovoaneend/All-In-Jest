@@ -19,6 +19,7 @@ local low_priest = {
   discovered = false,
   blueprint_compat = true,
   eternal_compat = true,
+  perishable_compat = true,
 
   loc_vars = function(self, info_queue, card)
     return {
@@ -31,7 +32,7 @@ local low_priest = {
 
   calculate = function(self, card, context)
     if context.joker_main then
-      card.ability.extra.xmult = card.ability.extra.initial_xmult - card.ability.extra.xmult_mod * to_number(G.GAME.hands[context.scoring_name].level)
+      card.ability.extra.xmult = card.ability.extra.initial_xmult - card.ability.extra.xmult_mod * G.GAME.hands[context.scoring_name].level
       return {
         xmult = math.max(1, card.ability.extra.xmult)
       }

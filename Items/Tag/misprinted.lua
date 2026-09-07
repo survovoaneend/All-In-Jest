@@ -56,6 +56,7 @@ local misprinted = {
     order = 7,
     min_ante = 2,
     config = {type = 'store_joker_modify', edition = 'aij_misprint'},
+    attributes = {'joker', 'editions'},
     loc_vars = function(self, info_queue)
         info_queue[#info_queue+1] = G.P_CENTERS.e_aij_misprint
         return {}

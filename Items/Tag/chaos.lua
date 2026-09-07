@@ -18,6 +18,7 @@ local chaos = {
       "apply_edition"
     }
   },
+  attributes = {'economy', 'boss_blind', 'booster', 'hand_level', 'generation', 'joker', 'consumable', 'editions'},
 
   loc_vars = function(self, info_queue)
   end,

@@ -5,6 +5,7 @@ local the_aspen = {
         min = 3,
     },
     mult = 1,
+    attributes = {'large_blind'},
     boss_colour = HEX("efd265"),
     atlas = 'blinds',
     pos = { X = 0, y = 24},

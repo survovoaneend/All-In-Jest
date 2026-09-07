@@ -17,6 +17,7 @@ local foliate_head = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         return {

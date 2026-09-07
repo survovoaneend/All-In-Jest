@@ -10,6 +10,7 @@ local deneb_algedi = {
 	discovered = false,
     order = 14,
 	config = { hand = nil, grade = '', pin = 'Deneb Algedi', extra = {hands = 1}},
+    attributes = {'hand_type', 'space', 'hands'},
     loc_vars = function(self, info_queue, card)
         -- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {

@@ -17,6 +17,7 @@ local bullseye = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         return {
@@ -28,7 +29,7 @@ local bullseye = {
 
     calculate = function(self, card, context)
         if context.joker_main then
-            if to_number(hand_chips) % 10 == 0 then
+            if hand_chips % 10 == 0 then
                 return {
                     xmult = card.ability.extra.xmult
                 }
