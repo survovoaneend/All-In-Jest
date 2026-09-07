@@ -2394,10 +2394,27 @@ if G.GAME.modifiers["aij_pandemonium_1"] then
 end
 if SMODS.optional_features.object_weights then 
     if ((pseudorandom('gold_tag_rate') < (1 * G.GAME.all_in_jest.gold_tag_rate) / 30)) or (append == 'all_in_jest_guarrented_gold_tag' or append == 'aij_no_blind_dupes_guarrented_gold_tag') then
-        local tag_key = SMODS.poll_object({type = 'Jest_Golden_Tag', append = append and append..'_gold' or '_gold'}) 
+        local tag_key = SMODS.poll_object({type = 'Jest_Golden_Tag', append = append and append..'_gold' or '_gold'})
+        print(tag_key)
         if tag_key ~= 'tag_handy' and tag_key ~= 'j_joker' then return tag_key end
     end
 end
+'''
+
+# Gold tags (6/9)
+# Change type to 'Tag' after polling for gold tags
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils/weights.lua"]'
+pattern = "if args.attributes and not args.rarity and args.rarity ~= false then"
+position = "before"
+match_indent = true
+payload = '''
+if args.type == 'Jest_Golden_Tag' then
+    args.type = 'Tag'
+    args.types = {'Tag'}
+end
+
 '''
 
 # Gold Tags (8/9)
