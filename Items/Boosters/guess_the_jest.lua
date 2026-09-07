@@ -7,6 +7,7 @@ local guess_the_jest = {
     cost = 20, 
     weight =  0.05, 
     config = { extra = 3, choose = 1 }, 
+    attributes = {'joker', 'rarity', 'legendary'},
     discovered = false, 
     unlocked = true, 
     loc_vars = function(self, info_queue, card)

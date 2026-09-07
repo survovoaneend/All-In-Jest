@@ -16,6 +16,7 @@ local melpomene = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
     soul_pos = { x = 3, y = 13 },
 
     loc_vars = function(self, info_queue, card)
@@ -26,8 +27,8 @@ local melpomene = {
         if context.individual and context.cardarea == G.play and context.other_card:is_face() then
             local hand_stats = G.GAME.hands[context.scoring_name]
             return {
-                chips = to_number(hand_stats.chips),
-                mult = to_number(hand_stats.mult)
+                chips = hand_stats.chips,
+                mult = hand_stats.mult
             }
         end
     end,

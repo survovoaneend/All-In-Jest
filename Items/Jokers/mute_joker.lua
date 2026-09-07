@@ -18,6 +18,7 @@ local mute_joker = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
         if G.jokers and card.ability.extra.poker_hand == "(hand)" then

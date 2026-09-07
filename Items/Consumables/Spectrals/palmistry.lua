@@ -10,6 +10,7 @@ local palmistry = {
 	discovered = false,
     order = 0,
 	config = {},
+    attributes = {'modify_card', 'enhancements'},
     can_use = function(self, card)
         return true
     end,

@@ -2,7 +2,7 @@ local flip_flop = {
     object_type = "Challenge",
     key = 'flip_flop',
     unlocked = function(self) 
-        if to_big(G.GAME.dollars) < to_big(0) then
+        if G.GAME.dollars < 0 then
             return true 
         end
     end,

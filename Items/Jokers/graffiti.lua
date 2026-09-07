@@ -19,6 +19,7 @@ local graffiti = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
 
     all_in_jest = {
         ability_cost = function(self, card)
@@ -26,7 +27,7 @@ local graffiti = {
         end,
 
         can_use_ability = function(self, card, context)
-            if (to_big(G.GAME.dollars) - to_big(G.GAME.bankrupt_at)) >= to_big(card.ability.extra.cost) then
+            if (G.GAME.dollars - G.GAME.bankrupt_at) >= card.ability.extra.cost then
                 return true
             end
         end,

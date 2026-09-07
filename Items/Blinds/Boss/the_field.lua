@@ -5,6 +5,7 @@ local the_field = {
         min = 1,
     },
     mult = 2,
+    attributes = {'discard', 'debuff'},
     boss_colour = HEX("95ac6e"),
     atlas = 'blinds',
     pos = { X = 0, y = 6},

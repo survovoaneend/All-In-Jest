@@ -11,6 +11,7 @@ local the_mountain = {
         return All_in_Jest.pit_blinds_in_play()
     end,
     mult = 6,
+    attributes = {'large_blind', 'hand_size'},
     boss_colour = HEX("a7a5a3"),
     atlas = 'blinds_pit',
     pos = { y = 7 },

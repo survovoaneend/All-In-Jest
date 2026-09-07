@@ -9,6 +9,7 @@ local glamour_tag = {
             upgrade = 'aij_glimmer',
         }
     },
+    attributes = {'joker', 'editions'},
 
     discovered = false,
     order = 27,

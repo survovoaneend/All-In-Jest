@@ -5,6 +5,7 @@ local astrology_tag = {
     atlas = 'tag_atlas',
     discovered = false,
     order = 8,
+    attributes = {'planet', 'retrigger'},
 
     loc_vars = function(self, info_queue)
     end,

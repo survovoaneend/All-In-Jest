@@ -12,6 +12,7 @@ local gold_dust_tag = {
             enhance = 10
         }
     },
+    attributes = {'modify_card', 'editions'},
 
     discovered = false,
     order = 30,

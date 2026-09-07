@@ -1,36 +1,10 @@
 SMODS.Booster:take_ownership_by_kind('Celestial', {
-    group_key = "k_celestial_pack",
-    update_pack = SMODS.Booster.update_pack,
-    ease_background_colour = function(self) ease_background_colour_blind(G.STATES.PLANET_PACK) end,
-    create_UIBox = SMODS.Booster.create_UIBox,
-    particles = function(self)
-        G.booster_pack_stars = Particles(1, 1, 0,0, {
-            timer = 0.07,
-            scale = 0.1,
-            initialize = true,
-            lifespan = 15,
-            speed = 0.1,
-            padding = -4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE, HEX('a7d6e0'), HEX('fddca0')},
-            fill = true
-        })
-        G.booster_pack_meteors = Particles(1, 1, 0,0, {
-            timer = 2,
-            scale = 0.05,
-            lifespan = 1.5,
-            speed = 4,
-            attach = G.ROOM_ATTACH,
-            colours = {G.C.WHITE},
-            fill = true
-        })
-    end,
     create_card = function(self, card, i)
         local _card
         if G.GAME.used_vouchers.v_telescope and i == 1 then
-            local _hand, _tally = nil, 0
+            local _planet, _hand, _tally = nil, nil, 0
             for k, v in ipairs(G.handlist) do
-                if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
+                if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played > _tally then
                     _hand = v
                     _tally = G.GAME.hands[v].played
                 end
@@ -48,15 +22,14 @@ SMODS.Booster:take_ownership_by_kind('Celestial', {
         end
         return _card
     end,
-    loc_vars = pack_loc_vars,
-},true)
+}, true)
 
 if All_in_Jest.config.blue_stake_rework then
     SMODS.Stake:take_ownership('stake_blue', { 
         modifiers = function()
             return
         end,
-    },true)
+    }, true)
 end
 
 SMODS.Sticker:take_ownership('pinned', { 
@@ -331,19 +304,22 @@ function SMODS.has_no_suit(card)
     return (no_suit or has_no_suit_ref(card)) and not any_suit
 end
 
-
-local get_enhancements_ref = SMODS.get_enhancements
-function SMODS.get_enhancements(card, extra_only)
-    local enhancements = get_enhancements_ref(card, extra_only)
-    if 
-        not extra_only and 
-        card.config.aij_other_center and 
+-- See lovely_hooks.toml
+function All_in_Jest.get_enhancements_hook(card, extra_only, enhancements)
+    if
+        not extra_only and
+        card.config.aij_other_center and
         card.config.aij_other_center['center'] and
         card.config.aij_other_center['center'].key
-    then 
+    then
         enhancements[card.config.aij_other_center['center'].key] = true
     end
-    return enhancements
+    -- Prevent Astral Pins from having themselves as enhancement
+    -- in SMODS.get_enhancements()
+    if card.config.center.is_pin then
+        enhancements[card.config.center.key] = nil
+    end
+    -- no return, we just modify `enhancements` table in place
 end
 
 local has_no_rank_ref = SMODS.has_no_rank
@@ -427,22 +403,6 @@ function Card:set_sell_value()
     end
 end
 
--- For Bizco, taken from paperback
-local calculate_main_scoring_ref = SMODS.calculate_main_scoring
-function SMODS.calculate_main_scoring(context, scoring_hand)
-  calculate_main_scoring_ref(context, scoring_hand)
-  if context.cardarea == G.play or context.cardarea == 'unscored' then
-    SMODS.calculate_context {
-      all_in_jest = {
-        after_scoring_cards = true 
-      },
-      full_hand = G.play.cards,
-      scoring_hand = context.scoring_hand,
-      scoring_name = context.scoring_name,
-      poker_hands = context.poker_hands
-    }
-  end
-end
 local get_front_spriteinfo_ref = get_front_spriteinfo
 function get_front_spriteinfo(_front)
     if _front.card and _front.card.ability and _front.card.ability.numbertaker_rankless and _front.suit then
@@ -1287,6 +1247,15 @@ function Card:set_sprites(_center, _front)
         end
     end
 
+    -- For Misprint cards
+    -- if _center then
+    --     if self.edition and self.edition.key == "e_aij_misprint" and self.children.center then
+    --         local atlas_key = _center.atlas or "centers"
+    --         local atlas = SMODS.get_atlas(atlas_key)
+    --         _center.atlas = misprint_atlas(atlas, self.children.center.scale.x, 0).name
+    --     end
+    -- end
+
 	set_spritesref(self, _center, _front)
 
     if _center then
@@ -1684,6 +1653,14 @@ function SMODS.poll_object(args)
             args.attributes = {'mult'}
         end
     end
+
+    -- legendary in shop logic
+    if args.type == 'Joker' and args.rarities == nil and G.GAME.jest_legendary_pool ~= nil and G.GAME.jest_legendary_pool.in_shop then
+        if pseudorandom('rarity'..G.GAME.round_resets.ante..(args.append or '')) > G.GAME.jest_legendary_pool.rate then
+            args.rarities = {'Legendary'}
+        end
+    end
+
     return poll_obj_ref(args)
 end
 
@@ -1693,4 +1670,60 @@ function Card:add_to_deck(...)
         G.GAME.aij_found_mult = true
     end
     return card_add_ref(self, ...)
+end
+
+local get_new_boss_ref = get_new_boss
+function get_new_boss()
+    local boss_key = get_new_boss_ref()
+    if not All_in_Jest.config.suit_boss_blocking then return boss_key end
+    -- would block 2 suits, probably too impactful
+    if boss_key == 'bl_aij_the_day' or boss_key == 'bl_aij_the_dagger' or boss_key == 'bl_aij_the_sun' then
+        return boss_key
+    end
+    local added = {}
+    for _, suit in ipairs({'spades', 'hearts', 'clubs', 'diamonds'}) do
+        local has_suit = SMODS.has_attribute(G.P_BLINDS[boss_key], suit)
+        if has_suit then
+            for other, other_obj in pairs(G.P_BLINDS) do
+                if not added[other] and other ~= boss_key then
+                    local other_has_suit = SMODS.has_attribute(other_obj, suit)
+                    if other == 'bl_aij_the_day' or other == 'bl_aij_the_dagger' then
+                        other_has_suit = not other_has_suit
+                    end
+                    if other_has_suit then
+                        added[other] = true
+                        G.GAME.bosses_used[other] = G.GAME.bosses_used[other] + 1
+                    end
+                end
+            end
+        end
+    end
+    return boss_key
+end
+
+local add_bosses_used_ref = SMODS.add_boss_to_used_table
+function SMODS.add_boss_to_used_table(boss_key, type)
+    add_bosses_used_ref(boss_key, type)
+    if not All_in_Jest.config.suit_boss_blocking then return end
+    if boss_key == 'bl_aij_the_day' or boss_key == 'bl_aij_the_dagger' or boss_key == 'bl_aij_the_sun' then
+        return
+    end
+    local added = {}
+    for _, suit in ipairs({'spades', 'hearts', 'clubs', 'diamonds'}) do
+        local has_suit = SMODS.has_attribute(G.P_BLINDS[boss_key], suit)
+        if has_suit then
+            for other, other_obj in pairs(G.P_BLINDS) do
+                if not added[other] and other ~= boss_key then
+                    local other_has_suit = SMODS.has_attribute(other_obj, suit)
+                    if other == 'bl_aij_the_day' or other == 'bl_aij_the_dagger' then
+                        other_has_suit = not other_has_suit
+                    end
+                    if other_has_suit then
+                        added[other] = true
+                        add_bosses_used_ref(other, type)
+                    end
+                end
+            end
+        end
+    end
 end

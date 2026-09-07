@@ -6,6 +6,7 @@ local eye = {
             
         },
     },
+    attributes = {'trigger_cards'},
     atlas = 'enhancements_atlas',
     pos = { x = 7, y = 4 },
     badge_colour = HEX("5c6284"),

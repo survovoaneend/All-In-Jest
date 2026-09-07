@@ -14,6 +14,7 @@ local cubic_joker = {
     discovered = true,
     blueprint_compat = false,
     eternal_compat = false,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
 

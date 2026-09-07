@@ -6,6 +6,7 @@ local gold_medal = {
       rate = 4
     }
   },
+  attributes = {'gold_tag'},
   atlas = 'vouchers_atlas',
   pos = { x = 2, y = 0 },
   discovered = false,

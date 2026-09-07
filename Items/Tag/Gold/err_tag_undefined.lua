@@ -9,6 +9,7 @@ local err_tag_undefined = {
       upgrade = 'aij_misprinted',
     },
   },
+  attributes = {'joker', 'editions', 'shop'},
 
   discovered = false,
   order = 33,

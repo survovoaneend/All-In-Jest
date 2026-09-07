@@ -9,6 +9,7 @@ local ventripotent_tag = {
             upgrade = 'aij_overstuffed',
         }
     },
+    attributes = {'booster'},
 
     discovered = false,
     order = 31,

@@ -18,6 +18,7 @@ local candy_floss = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = false,
+    perishable_compat = true,
     pools = {
         Food = true
     },

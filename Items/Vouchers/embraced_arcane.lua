@@ -6,6 +6,7 @@ local embraced_arcane = {
       picks = 1
     }
   },
+  attributes = {'booster', 'tarot'},
   atlas = 'vouchers_atlas',
   pos = { x = 2, y = 1 },
   discovered = false,

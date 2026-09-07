@@ -17,6 +17,7 @@ local monarchic_joker = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
     jest_rec_paperback = true,
   
     loc_vars = function(self, info_queue, card)

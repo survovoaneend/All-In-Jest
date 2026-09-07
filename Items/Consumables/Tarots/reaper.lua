@@ -8,6 +8,7 @@ local reaper = {
 	discovered = false,
 	order = 12,
 	config = { max_highlighted = 3 },
+    attributes = {'modify_card'},
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		return {

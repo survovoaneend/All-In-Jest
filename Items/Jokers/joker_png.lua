@@ -43,6 +43,8 @@ local joker_png = {
     unlocked = true,
     discovered = false,
     blueprint_compat = true, -- uses ability.aij_blueprint_compat
+    eternal_compat = true,
+    perishable_compat = true,
 
     pixel_size = { w = 31, h = 40 },
 
@@ -52,7 +54,7 @@ local joker_png = {
         end,
 
         can_use_ability = function(self, card, context)
-            if (to_big(G.GAME.dollars) - to_big(G.GAME.bankrupt_at)) >= to_big(card.ability.j_aij_joker_png.cost) then
+            if (G.GAME.dollars - G.GAME.bankrupt_at) >= card.ability.j_aij_joker_png.cost then
                 return true
             end
         end,

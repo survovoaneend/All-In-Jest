@@ -6,6 +6,7 @@ local the_day = {
         min = 1,
     },
     mult = 2,
+    attributes = {'suit', 'hearts', 'diamonds'},
     boss_colour = HEX("fda9c0"),
     atlas = 'blinds',
     pos = { X = 0, y = 46},

@@ -9,6 +9,7 @@ local ticket_tag = {
       upgrade = 'voucher',
     },
   },
+  attributes = {'voucher'},
 
   discovered = false,
   order = 8,

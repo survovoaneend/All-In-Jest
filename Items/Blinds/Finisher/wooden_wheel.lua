@@ -9,6 +9,7 @@ local wooden_wheel = {
         return true
     end,
     mult = 2,
+    attributes = {'joker'},
     boss_colour = HEX("9f7b60"),
     atlas = 'blinds_final',
     pos = { y = 22},

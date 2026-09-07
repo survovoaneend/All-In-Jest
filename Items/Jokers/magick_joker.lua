@@ -16,6 +16,7 @@ local magick_joker = {
   discovered = false,
   blueprint_compat = false,
   eternal_compat = true,
+  perishable_compat = true,
 
   loc_vars = function(self, info_queue, card)
     local suit = G.GAME.current_round.jest_magick_joker_card and G.GAME.current_round.jest_magick_joker_card.suit or "Spades"

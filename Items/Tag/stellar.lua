@@ -5,6 +5,7 @@ local stellar = {
     atlas = 'tag_atlas',
     order = 3,
     config = {type = 'store_joker_modify', edition = 'aij_stellar'},
+    attributes = {'joker', 'editions'},
     loc_vars = function(self, info_queue)
         info_queue[#info_queue+1] = G.P_CENTERS.e_aij_stellar
         return {}

@@ -28,7 +28,7 @@ local chippy = {
     end,
   
     calculate = function(self, card, context)
-      if context.money_altered and to_big(context.amount) < to_big(0) and not context.blueprint then
+      if context.money_altered and context.amount < 0 and not context.blueprint then
         SMODS.scale_card(card, {
 	        ref_table = card.ability.extra,
             ref_value = "chips",
@@ -39,9 +39,9 @@ local chippy = {
             end,
         })
       end
-      if context.joker_main and to_number(card.ability.extra.chips) > 0 then
+      if context.joker_main and card.ability.extra.chips > 0 then
         return {
-          chips = to_number(card.ability.extra.chips),
+          chips = card.ability.extra.chips,
         }
       end
     end

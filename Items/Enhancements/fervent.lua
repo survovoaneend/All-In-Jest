@@ -1,4 +1,4 @@
-local fervent_planet = {
+local fervent_enhancement = {
     object_type = "Enhancement",
     key = 'fervent',
     atlas = 'enhancements_atlas',
@@ -11,6 +11,7 @@ local fervent_planet = {
             chips_extra = 10,
         }
     },
+    attributes = {'chips', 'scaling'},
     all_in_jest = {
         multi_enhancement_z_order = 1
     },
@@ -32,4 +33,4 @@ local fervent_planet = {
         end
     end
 }
-return {name = {"Enhancements"}, items = {fervent_planet}}
+return {name = {"Enhancements"}, items = {fervent_enhancement}}

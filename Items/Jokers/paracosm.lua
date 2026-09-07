@@ -3,7 +3,7 @@ local paracosm = {
     order = 295,
     key = "paracosm",
     config = {
-      extra = {hand = "[Most played hand]"}
+      extra = {hand = "[Most played hand]", levels = 2}
     },
     attributes = { 'hand_level', 'hand_type', 'skip' },
     rarity = 2,
@@ -14,6 +14,7 @@ local paracosm = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
         local most_played_hand = nil
@@ -25,7 +26,7 @@ local paracosm = {
             end
         end
         card.ability.extra.hand = most_played_hand or "None"
-        return { vars = {card.ability.extra.hand}}
+        return { vars = {card.ability.extra.levels, card.ability.extra.hand}}
     end,
   
     calculate = function(self, card, context)
@@ -40,7 +41,7 @@ local paracosm = {
             end
             if most_played_hand ~= nil then
                 card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
-                level_up_hand(context.blueprint_card or card, most_played_hand)
+                level_up_hand(context.blueprint_card or card, most_played_hand, nil, card.ability.extra.levels)
             end
             return nil, true
         end

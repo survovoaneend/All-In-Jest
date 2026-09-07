@@ -11,6 +11,7 @@ local the_earth = {
         return All_in_Jest.pit_blinds_in_play()
     end,
     mult = 2,
+    attributes = {'modify_card', 'enhancements'},
     boss_colour = HEX("7b6a62"),
     atlas = 'blinds_pit',
     pos = { y = 5 },

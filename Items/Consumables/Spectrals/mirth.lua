@@ -9,6 +9,7 @@ local mirth = {
   discovered = false,
   order = 10,
   config = { extra = { mod_conv = 'aij_smiley', }, max_highlighted = 1 },
+  attributes = {'modify_card', 'seals'},
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra.mod_conv]
     return {

@@ -9,6 +9,7 @@ local grand_astrologer = {
           upgrade = 'aij_astrology',
       },
   },
+  attributes = {'planet', 'hand_level'},
 
   discovered = false,
   order = 34,

@@ -6,6 +6,7 @@ local the_giant = {
         min = 4,
     },
     mult = 6,
+    attributes = {'large_blind', 'hands'},
     boss_colour = HEX("7a73bb"),
     atlas = 'blinds',
     pos = { X = 0, y = 31},

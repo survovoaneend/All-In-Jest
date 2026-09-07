@@ -12,6 +12,7 @@ local the_dragon = {
         return All_in_Jest.pit_blinds_in_play()
     end,
     mult = 1,
+    attributes = {'draw_cards'},
     boss_colour = HEX("95a996"),
     atlas = 'blinds_pit',
     pos = { y = 6 },

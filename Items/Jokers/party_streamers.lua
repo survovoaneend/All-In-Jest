@@ -15,6 +15,7 @@ local party_streamers = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
         local possible_seals = {'red_seal', 'blue_seal', 'gold_seal'}

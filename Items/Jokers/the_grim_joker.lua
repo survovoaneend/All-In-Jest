@@ -29,6 +29,7 @@ local the_grim_joker = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
 
     pixel_size = { w = 63, h = 95 },
   

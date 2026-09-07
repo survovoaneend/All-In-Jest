@@ -8,6 +8,7 @@ local nd15_planet = {
 	pos = { x = 1, y = 2 },
 	cost = 3,
 	config = {hand_type = "Three of a Kind", moon = true, chips = true},
+	attributes = {'hand_type', 'hand_level', 'space'},
 	unlocked = true,
 	discovered = false,
 	order = 13,

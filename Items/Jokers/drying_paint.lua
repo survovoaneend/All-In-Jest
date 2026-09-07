@@ -19,6 +19,7 @@ local drying_paint = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = false,
 
     all_in_jest = {
         can_use_ability = function(self, card, context)

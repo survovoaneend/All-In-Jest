@@ -9,7 +9,8 @@ local aldebaran = {
 	unlocked = true,
 	discovered = false,
     order = 2,
-	config = { hand = nil, grade = '', pin = 'Aldebaran', extra = {percent = 10}},
+	config = { hand = nil, grade = '', pin = 'Aldebaran', extra = {percent = 20}},
+    attributes = {'hand_type', 'space', 'balance'},
     loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
@@ -50,7 +51,7 @@ local aldebaran_pin = {
     end,
 
     calculate = function(self, card, context)
-        if context.joker_main then
+        if context.modify_hand then
             return {
                 aij_balance_percent = card.ability.extra.percent * 0.01
             }

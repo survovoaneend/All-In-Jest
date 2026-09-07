@@ -27,6 +27,7 @@ local the_clay = {
         min = 3,
     },
     mult = 2,
+    attributes = {'large_blind'},
     boss_colour = HEX("95a4a9"),
     atlas = 'blinds',
     pos = { X = 0, y = 23},

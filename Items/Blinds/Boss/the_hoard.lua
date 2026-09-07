@@ -5,6 +5,7 @@ local the_hoard = {
         min = 3,
     },
     mult = 2,
+    attributes = {'large_blind'},
     boss_colour = HEX("7a73bb"),
     atlas = 'blinds',
     pos = { X = 0, y = 47},

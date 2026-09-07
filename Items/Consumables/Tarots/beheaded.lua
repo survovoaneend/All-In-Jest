@@ -11,6 +11,7 @@ local beheaded_tarot = {
 	config = {
 		max_highlighted = 1
 	},
+    attributes = {'modify_card', 'stickers'},
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue+1] = {set = 'Other', key = 'aij_bomb'}
@@ -27,7 +28,6 @@ local beheaded_tarot = {
     end,
 
     use = function(self, card, area, copier)
-        local target_card = G.hand.highlighted[1]
 
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -38,20 +38,23 @@ local beheaded_tarot = {
                 return true
             end
         }))
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.15,
-            func = function()
-                if target_card.set_sticker then
-                    target_card:set_sticker('aij_bomb', true)
-                else
-                    target_card.ability['aij_bomb'] = true
+        for i=1, #G.hand.highlighted do
+            local target_card = G.hand.highlighted[i]
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.15,
+                func = function()
+                    if target_card.set_sticker then
+                        target_card:set_sticker('aij_bomb', true)
+                    else
+                        target_card.ability['aij_bomb'] = true
+                    end
+                    target_card:juice_up(0.3, 0.3)
+                    play_sound('gold_seal', 1.2, 0.4)
+                    return true
                 end
-                target_card:juice_up(0.3, 0.3)
-                play_sound('gold_seal', 1.2, 0.4)
-                return true
-            end
-        }))
+            }))
+        end
 
         delay(0.5)
     end

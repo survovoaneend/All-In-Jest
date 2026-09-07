@@ -2,19 +2,15 @@ All_in_Jest = SMODS.current_mod
 local mod_path = ''..SMODS.current_mod.path
 G.AIJ = {}
 local injectitems_ref = SMODS.injectItems
---talisman compat
-to_big = to_big or function(n)
-  return n
-end
 
-to_number = to_number or function(n)
-  return n
-end
+local DEV_TAB_DEBUG = false
+
 SMODS.current_mod.optional_features = {
   retrigger_joker = true,
   object_weights = true,
   cardareas = {
-      deck = true
+      deck = true,
+      discard = true
   }
 }
 SMODS.injectItems = function()
@@ -245,6 +241,10 @@ SMODS.Gradient {
     cycle = 5,
     interpolation = 'trig'
 }
+-- related to Astral cards or alignments
+SMODS.Attribute {
+    key = 'astral'
+}
 -- adds Chaotic to cards, or has to do with Chaotic
 SMODS.Attribute {
     key = 'chaotic'
@@ -355,7 +355,7 @@ assert(SMODS.load_file('Utils/hooks.lua'))()
 assert(SMODS.load_file('Utils/overrides.lua'))()
 assert(SMODS.load_file('Utils/ui.lua'))()
 assert(SMODS.load_file('Utils/copiers.lua'))()
-if false then assert(SMODS.load_file('Utils/dev_tab.lua'))() end
+if DEV_TAB_DEBUG then assert(SMODS.load_file('Utils/dev_tab.lua'))() end
 if next(SMODS.find_mod("unBlindShopGUI")) then
     assert(SMODS.load_file('Utils/UnBlind_crossmod.lua'))()
 end
@@ -439,9 +439,6 @@ local function load_items(curr_obj)
         item.ignore             = item.ignore             or false
         item.jest_spec_moon     = item.jest_spec_moon     or false
         item.jest_rec_paperback = item.jest_rec_paperback or false
-        if item.attributes and (item.attributes.scaling or item.attributes.food) then
-            item.perishable_compat = item.perishable_compat or false
-        end
         if item.jest_spec_moon and All_in_Jest.config.moons_enabled and not item.ignore then
             if item.jest_rec_paperback then
                 if ((next(SMODS.find_mod("paperback")) or next(SMODS.find_mod("Bunco")))

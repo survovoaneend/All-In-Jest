@@ -6,6 +6,7 @@ local smiley = {
             joker_amt = 1
         },
     },
+    attributes = {'on_destroy', 'editions', 'joker'},
     atlas = 'enhancements_atlas',
     pos = { x = 7, y = 2 },
     badge_colour = HEX("83b8c0"),

@@ -17,6 +17,7 @@ local lawfirm = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
 
     all_in_jest = {
         ability_cost = function(self, card)
@@ -30,7 +31,7 @@ local lawfirm = {
         end,
 
         use_ability = function(self, card)
-            if to_big(G.GAME.dollars) >= to_big(card.ability.extra.cost) then
+            if G.GAME.dollars >= card.ability.extra.cost then
                 ease_dollars(-card.ability.extra.cost)
                 card_eval_status_text(card, 'dollars', -card.ability.extra.cost)
                 if SMODS.pseudorandom_probability(card, 'lawfirm', 1, card.ability.extra.odds) then

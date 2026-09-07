@@ -9,6 +9,7 @@ local gioco_tag = {
             upgrade = 'juggle',
         },
     },
+    attributes = {'hand_size'},
 
     discovered = false,
     order = 19,

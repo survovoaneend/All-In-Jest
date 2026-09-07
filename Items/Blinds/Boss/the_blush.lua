@@ -5,6 +5,7 @@ local the_blush = {
         min = 1,
     },
     mult = 2,
+    attributes = {'discard'},
     boss_colour = HEX("e39170"),
     atlas = 'blinds',
     pos = { X = 0, y = 9},

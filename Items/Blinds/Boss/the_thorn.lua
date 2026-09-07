@@ -16,6 +16,7 @@ local the_thorn = {
         end
     end,
     mult = 1,
+    attributes = {'enhancements', 'debuff'},
     boss_colour = HEX("56a786"),
     atlas = 'blinds',
     pos = { X = 0, y = 29},

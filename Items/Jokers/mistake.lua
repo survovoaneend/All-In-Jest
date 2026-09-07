@@ -15,6 +15,7 @@ local mistake = {
   discovered = false,
   blueprint_compat = false,
   eternal_compat = true,
+  perishable_compat = true,
 
   in_pool = function(self, args)
     return G.GAME.modifiers.enable_eternals_in_shop or false

@@ -15,6 +15,7 @@ local heavy_sixer = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         if not card.edition or (card.edition and not card.edition.key == 'e_holo') then

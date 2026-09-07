@@ -34,6 +34,7 @@ local handsome_joker = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         local handsome_card = G.GAME.current_round.jest_handsome_joker_card

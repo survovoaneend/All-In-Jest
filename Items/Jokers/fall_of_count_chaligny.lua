@@ -13,6 +13,7 @@ local fall_of_count_chaligny = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
         if MP and MP.UTILS.is_standard_ruleset() and MP.LOBBY.code then

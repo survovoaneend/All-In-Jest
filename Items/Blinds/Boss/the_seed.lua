@@ -6,6 +6,7 @@ local the_seed = {
         min = 1,
     },
     mult = 2,
+    attributes = {},
     boss_colour = HEX("d4ccbc"),
     atlas = 'blinds',
     pos = { X = 0, y = 85},
@@ -22,4 +23,14 @@ local the_seed = {
         G.GAME.round_resets.blind_choices.Big_Boss = get_new_boss()
     end
 }
+
+local aij_smods_get_new_blind_ref = SMODS.get_new_blind
+function SMODS.get_new_blind(blind_type)
+    if blind_type == "big_boss" then
+       blind_type = "boss"
+    end
+    return aij_smods_get_new_blind_ref(blind_type)
+end
+
+
 return { name = {"Blinds"}, items = {the_seed} }

@@ -17,18 +17,19 @@ local hat_trick = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
       return {
           vars = {
-              card.ability.extra.mod * to_number(G.GAME.hands['Three of a Kind'].level),
+              card.ability.extra.mod * G.GAME.hands['Three of a Kind'].level,
           }
       }
     end,
   
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            local multt = to_number(G.GAME.hands['Three of a Kind'].level) * card.ability.extra.mod
+            local multt = G.GAME.hands['Three of a Kind'].level * card.ability.extra.mod
             if context.scoring_name == 'Three of a Kind' then
                 return {
                     mult = multt,

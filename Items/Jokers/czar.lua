@@ -40,6 +40,8 @@ local czar = {
     unlocked = true,
     discovered = false,
     blueprint_compat = true, -- uses ability.aij_blueprint_compat
+    eternal_compat = true,
+    perishable_compat = true,
 
     set_ability = function(self, card, initial, delay_sprites)
         if G.playing_card then

@@ -14,6 +14,7 @@ local the_shell = {
         return All_in_Jest.pit_blinds_in_play()
     end,
     mult = 2,
+    attributes = {'debuff', 'face_down', 'chance'},
     boss_colour = HEX("cca7b2"),
     atlas = 'blinds_pit',
     pos = { y = 4 },

@@ -252,6 +252,7 @@ local dominus_tag = {
       upgrade = 'boss',
     },
   },
+  attributes = {'boss_blind', 'choice'},
 
   discovered = false,
   order = 9,

@@ -11,6 +11,7 @@ local the_umbilical = {
         return All_in_Jest.pit_blinds_in_play()
     end,
     mult = 2,
+    attributes = {},
     boss_colour = HEX("ae7a8a"),
     atlas = 'blinds_pit',
     pos = { y = 9 },

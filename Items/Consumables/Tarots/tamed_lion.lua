@@ -8,6 +8,7 @@ local tamed_lion = {
 	discovered = false,
 	order = 10,
 	config = { mod_conv = 'm_aij_canvas', max_highlighted = 1 },
+	attributes = {'modify_card', 'enhancements'},
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = G.P_CENTERS.m_aij_canvas

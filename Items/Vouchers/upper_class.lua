@@ -4,6 +4,7 @@ local upper_class = {
   config = {
     
   },
+  attributes = {'booster', 'shop'},
   requires = {
     'v_aij_common_caste'
   },
@@ -17,6 +18,7 @@ local upper_class = {
   end,
 
   redeem = function(self, card)
+    if not G.shop_booster then return end
       G.E_MANAGER:add_event(Event ({
           trigger = 'before',
           func = function()

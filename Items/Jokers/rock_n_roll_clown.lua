@@ -17,6 +17,7 @@ local rock_n_roll_clown = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
         local total_level = 0
@@ -44,7 +45,7 @@ local rock_n_roll_clown = {
                 end
             end
             
-            if total_level > to_big(0) then
+            if total_level > 0 then
                 return {
                     chips = total_level * card.ability.extra.chips_per_level
                 }

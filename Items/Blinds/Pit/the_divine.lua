@@ -21,6 +21,7 @@ local the_divine = {
         end
     end,
     mult = 2,
+    attributes = {'enhancements'},
     boss_colour = HEX("d9d9d9"),
     atlas = 'blinds_pit',
     pos = { y = 10 },

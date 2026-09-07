@@ -16,6 +16,7 @@ local omlette = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
     pools = {
         Food = true
     },

@@ -17,6 +17,7 @@ local angel_number = {
     discovered = false,
     blueprint_compat = false, -- Potential problems
     eternal_compat = true,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
         return {

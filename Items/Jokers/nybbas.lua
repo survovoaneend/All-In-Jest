@@ -17,6 +17,7 @@ local nybbas = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
+    perishable_compat = true,
     soul_pos = { x = 0, y = 1},
   
     loc_vars = function(self, info_queue, card)

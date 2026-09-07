@@ -9,6 +9,7 @@ local balance_and_blade = {
 	discovered = false,
 	order = 7,
 	config = { max_highlighted = 3 },
+	attributes = {'modify_card', 'patches'},
 	atlas = 'consumable_atlas',
 	loc_vars = function(self, info_queue, card)
 		return {

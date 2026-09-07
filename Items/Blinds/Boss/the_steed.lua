@@ -6,6 +6,7 @@ local the_steed = {
         min = 3,
     },
     mult = 2,
+    attributes = {'debuff'},
     boss_colour = HEX("cfd1d5"),
     atlas = 'blinds',
     pos = { X = 0, y = 39},

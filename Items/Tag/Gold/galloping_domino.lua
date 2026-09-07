@@ -12,6 +12,7 @@ local galloping_domino_tag = {
             rerolls = 10,
         }
     },
+    attributes = {'economy', 'shop', 'reroll'},
 
     discovered = false,
     order = 20,

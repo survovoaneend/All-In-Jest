@@ -11,6 +11,7 @@ local gravastar_spectral = {
   discovered = false,
   order = 30,
   config = { moon = true },
+  -- no attributes yet, soulable objects not yet supported by SMODS
   atlas = 'consumable_atlas',
   loc_vars = function(self, info_queue, card)
   end,

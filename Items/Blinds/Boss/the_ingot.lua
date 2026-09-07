@@ -5,6 +5,7 @@ local the_ingot = {
       min = 5,
     },
     mult = 2,
+    attributes = {'stickers', 'joker'},
     boss_colour = HEX("dfd8ca"),
     atlas = 'blinds',
     pos = {X = 0, y = 18},

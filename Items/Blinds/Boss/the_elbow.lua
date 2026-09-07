@@ -5,6 +5,7 @@ local the_elbow = {
         min = 3,
     },
     mult = 2,
+    attributes = {'enhancements'},
     boss_colour = HEX("d3c1c1"),
     atlas = 'blinds',
     pos = { X = 0, y = 28},

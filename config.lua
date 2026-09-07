@@ -9,4 +9,5 @@ return {
   ['aij_lite'] = false,
   ['guess_names'] = false,
   ['mult_appearance'] = 1,
+  ['suit_boss_blocking'] = false,
 }

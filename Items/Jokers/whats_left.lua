@@ -20,6 +20,8 @@ local whats_left = {
     unlocked = true,
     discovered = false,
     blueprint_compat = true, -- uses ability.aij_blueprint_compat
+    eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         if card.config.center.key == "j_aij_whats_left" then

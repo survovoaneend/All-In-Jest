@@ -11,6 +11,7 @@ local the_child = {
     return All_in_Jest.pit_blinds_in_play()
   end,
   mult = 2,
+  attributes = {'modify_card', 'rank'},
   boss_colour = HEX("c1b297"),
   atlas = 'blinds_pit',
   pos = { y = 2 },

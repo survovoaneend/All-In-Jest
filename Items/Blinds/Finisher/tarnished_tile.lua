@@ -9,6 +9,7 @@ local tarnished_tile = {
         return true
     end,
     mult = 2,
+    attributes = {'hand_size', 'discard', 'full_deck'},
     boss_colour = HEX("f28a3c"),
     atlas = 'blinds_final',
     pos = { y = 14},

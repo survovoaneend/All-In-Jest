@@ -18,6 +18,7 @@ local urchin = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         card.ability.extra.money = G.GAME.skips * card.ability.extra.money_mod

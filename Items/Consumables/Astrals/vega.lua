@@ -10,6 +10,7 @@ local vega = {
 	discovered = false,
     order = 13,
 	config = { hand = nil, grade = '', pin = 'Vega', extra = {}},
+    attributes = {'hand_type', 'space', 'retrigger'},
     loc_vars = function(self, info_queue, card)
         -- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {
@@ -49,7 +50,7 @@ local vega_pin = {
     end,
 
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.hand then
+        if context.repetition and context.cardarea == G.hand and context.other_card == G.hand.cards[1] then
             return {
                 message = localize('k_again_ex'),
                 repetitions = 1,

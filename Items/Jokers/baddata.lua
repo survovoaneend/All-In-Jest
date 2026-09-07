@@ -102,6 +102,7 @@ local baddata = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+	perishable_compat = true,
 	config = {
 		extra = {
 			num1 = 23,

@@ -18,6 +18,7 @@ local treasure_map = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = false,
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = {set = 'Tag', key = 'tag_aij_stereoscopic'}

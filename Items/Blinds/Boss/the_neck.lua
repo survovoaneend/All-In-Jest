@@ -5,6 +5,7 @@ local the_neck = {
       min = 2,
     },
     mult = 2,
+    attributes = {'discard'},
     boss_colour = HEX("dfab55"),
     atlas = 'blinds',
     pos = {X = 0, y = 5},

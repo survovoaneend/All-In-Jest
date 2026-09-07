@@ -9,6 +9,7 @@ local stereoscopic_tag = {
             upgrade = 'double',
         },
     },
+    attributes = {'generation', 'tag', 'gold_tag'},
 
     discovered = false,
     order = 18,

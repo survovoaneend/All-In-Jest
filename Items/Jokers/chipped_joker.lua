@@ -18,6 +18,7 @@ local chipped_joker = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = false,
+    perishable_compat = false,
 
     loc_vars = function(self, info_queue, card)
         return {

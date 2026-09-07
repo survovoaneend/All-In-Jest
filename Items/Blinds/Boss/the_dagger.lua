@@ -6,6 +6,7 @@ local the_dagger = {
         min = 1,
     },
     mult = 2,
+    attributes = {'suit', 'spades', 'clubs'},
     boss_colour = HEX("692a2a"),
     atlas = 'blinds',
     pos = { X = 0, y = 90},

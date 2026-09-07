@@ -32,7 +32,7 @@ end
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/overrides.lua"]'
-pattern = "local _atlas, _pos = get_front_spriteinfo(_front)"
+pattern = "local _atlas, _pos, _sprite_args = get_front_spriteinfo(_front)"
 position = "at"
 match_indent = true
 payload = '''

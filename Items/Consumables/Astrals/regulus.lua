@@ -10,6 +10,7 @@ local regulus = {
 	discovered = false,
     order = 5,
 	config = { hand = nil, grade = '', pin = 'Regulus', extra = {odds = 6}},
+    attributes = {'hand_type', 'space', 'chance', 'hand_level'},
     loc_vars = function(self, info_queue, card)
         -- Rest of loc_vars is defined in the ConsumableType in hooks.lua
         local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)

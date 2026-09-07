@@ -35,6 +35,7 @@ local psycho = {
 
     all_in_jest = {
         can_use_ability = function(self, card, context)
+            if G.STATE ~= G.STATES.SELECTING_HAND then return false end
             local my_pos = nil
             for i = 1, #G.jokers.cards do
                 if G.jokers.cards[i] == card then

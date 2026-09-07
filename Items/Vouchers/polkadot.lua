@@ -4,6 +4,7 @@ local polkadot = {
   config = {
     sticker_effects = nil
   },
+  attributes = {'stickers'},
   atlas = 'vouchers_atlas',
   pos = { x = 5, y = 0 },
   discovered = false,

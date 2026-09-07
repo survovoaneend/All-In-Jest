@@ -17,6 +17,7 @@ local tipteerer = {
   discovered = false,
   blueprint_compat = false,
   eternal_compat = true,
+  perishable_compat = true,
 
   loc_vars = function(self, info_queue, card)
     local sell_cost = 0
@@ -50,7 +51,7 @@ local tipteerer = {
       end
     end
     money = math.ceil(sell_cost * card.ability.extra.percent/100)
-    if to_big(money) > to_big(0) then
+    if money > 0 then
       return money
     end
   end

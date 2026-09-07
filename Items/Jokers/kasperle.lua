@@ -15,6 +15,7 @@ local kasperle = {
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
+    perishable_compat = true,
   
     loc_vars = function(self, info_queue, card)
         local active_text = "("..localize('k_inactive')..")"

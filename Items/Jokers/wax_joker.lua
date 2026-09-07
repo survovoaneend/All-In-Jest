@@ -16,6 +16,7 @@ local wax_joker = {
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
+    perishable_compat = true,
 
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_SEALS['aij_melted']
