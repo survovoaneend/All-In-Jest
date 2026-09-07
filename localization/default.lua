@@ -2334,7 +2334,7 @@ return {
             j_aij_penny = {
                 name = "Penny",
                 text = {
-                    "Played cards with {C:money}Gold Seal{} have a",
+                    "Cards with {C:money}Gold Seal{} have a",
                     "{C:green}#1# in #2#{} chance to {C:attention}retrigger"
                 },
             },
