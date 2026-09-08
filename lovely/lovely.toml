@@ -5564,7 +5564,7 @@ position = 'after'
 match_indent = true
 payload = '''
 if G.jokers ~= nil and next(SMODS.find_card('j_aij_tumbler')) then
-    SMODS.calculate_context({aij_card_highlight = true})
+    SMODS.calculate_context({aij_card_highlight = self})
 end
 '''
 

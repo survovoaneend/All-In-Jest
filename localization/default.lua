@@ -2787,7 +2787,8 @@ return {
                 name = "Tumbler",
                 text = {
                     "{X:mult,C:white}X#1#{} Mult, loses {X:mult,C:white}X#2#{} Mult",
-                    "when a card is {C:attention}selected"
+                    "when a card is {C:attention}selected{}",
+                    "during a Blind"
                 }
             },
             j_aij_plain_packaging = {

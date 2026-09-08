@@ -30,7 +30,8 @@ local tumbler = {
     end,
 
     calculate = function(self, card, context)
-        if context.aij_card_highlight and (G.STATE == G.STATES.SELECTING_HAND or G.STATE == G.STATES.DRAW_TO_HAND) and G.GAME.STOP_USE <= 0 and not context.blueprint then
+        if context.aij_card_highlight and (G.STATE == G.STATES.SELECTING_HAND or G.STATE == G.STATES.DRAW_TO_HAND) and G.GAME.STOP_USE <= 0
+        and context.aij_card_highlight.area == G.hand and not context.blueprint then
             if card.ability.extra.Xmult - card.ability.extra.Xmult_loss <= 1 then
                 SMODS.destroy_cards(card, nil, nil, true)
                 return {
