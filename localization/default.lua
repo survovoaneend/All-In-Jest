@@ -247,7 +247,7 @@ return {
             a_aij_times_interest = 'X#1# Interest',
 
             a_aij_plus_rerolls = "+#1# Rerolls",
-            a_aij_times_money = "X#1# $",
+            a_aij_times_money = "X#1# to your money",
             a_aij_discards = "+#1# Discards",
 
             a_aij_slots_left = "(#1# slots left)",
@@ -1691,7 +1691,7 @@ return {
             e_aij_aureate = {
                 name = "Aureate",
                 text = {
-                    "{X:money,C:white}X#1#{} {C:money}${}",
+                    "{X:money,C:white}X#1#{} to your {C:money}money{}",
                     "{C:inactive}(Max of {C:money}$#2#{}{C:inactive})"
                 }
             },
@@ -4081,8 +4081,8 @@ return {
             j_aij_richie_rich = {
                 name = "Richie Rich",
                 text = {
-                    "{X:money,C:white}X#1#{} {C:money}${} at end",
-                    "of round"
+                    "{X:money,C:white}X#1#{} to your {C:money}money{}",
+                    "at end of round"
                 }
             },
             j_aij_devil_deal = {
