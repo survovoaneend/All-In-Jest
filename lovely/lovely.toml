@@ -3871,7 +3871,7 @@ v.ability.aij_discarded_this_ante = nil
 '''
 match_indent = true
 
-# Blind Drawn (1/6)
+# Blind Drawn (1/7)
 # Set variable for later
 # create_UIBox_blind_choice()
 [[patches]] 
@@ -4014,7 +4014,18 @@ payload = '''
 G.GAME.round_resets.loc_blind_states.Big_Boss = localize(G.GAME.round_resets.blind_states.Big_Boss or 'Upcoming','blind_states')
 '''
 
-# Blind Drawn (2/6)
+# SMODS src/ui.lua: create_UIBox_blind_choice()
+[[patches]] 
+[patches.pattern]
+target = '=[SMODS _ "src/ui.lua"]'
+pattern = "function create_UIBox_blind_choice(type, run_info)"
+position = "after"
+payload = '''
+    local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and (type == 'Boss' or type == 'Big_Boss')
+'''
+match_indent = true
+
+# Blind Drawn (2/7)
 # Replace blind ability description with ???
 # create_UIBox_blind_choice()
 [[patches]] 
@@ -4041,7 +4052,7 @@ end
 '''
 match_indent = true
 
-# Blind Drawn (3/6)
+# Blind Drawn (3/7)
 # Set name of Boss Blind to ???
 # create_UIBox_blind_choice()
 [[patches]] 
@@ -4063,7 +4074,7 @@ aij_has_blind_drawn and {n=G.UIT.R, config={id = 'blind_name',align = "cm", padd
 '''
 match_indent = true
 
-# Blind Drawn (4/6)
+# Blind Drawn (4/7)
 # Hide blind requirement if blind drawn is owned
 # Uses regex so it doesn't match with another function + so it works with The Clay blind's thing
 # create_UIBox_blind_choice()
@@ -4110,7 +4121,7 @@ if aij_manual_block then
 end
 '''
 
-# Blind Drawn (5/6)
+# Blind Drawn (5/7)
 # Hide blind reward if blind drawn is owned
 # create_UIBox_blind_choice()
 [[patches]] 
@@ -4130,20 +4141,7 @@ aij_has_blind_drawn and _reward and {n=G.UIT.R, config={align = "cm"}, nodes={
 '''
 match_indent = true
 
-# # Unused patch currently, seemingly does nothing?
-# [[patches]] 
-# [patches.pattern]
-# target = "functions/UI_definitions.lua"
-# pattern = '''
-# G.GAME.blind:change_dim(1.5,1.5)
-# '''
-# position = "before"
-# payload = '''
-# local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and type == 'Boss'
-# '''
-# match_indent = true
-
-# Blind Drawn (6/6)
+# Blind Drawn (6/7)
 # Defines the shaders for the hidden blind sprite
 # Using regex so it doesn't match with another function
 # create_UIBox_blind_choice()
@@ -4171,6 +4169,23 @@ payload = '''
       end
   end
 '''
+
+# Blind Drawn (7/7)
+# Remove mod badge added by SMODS
+# Also uses regex so it doesn't match with another function
+# SMODS src/ui.lua: create_UIBox_blind_choice()
+[[patches]] 
+[patches.regex]
+target = '=[SMODS _ "src/ui.lua"]'
+pattern = '''
+(?<indent>[\t ]*)function create_UIBox_blind_choice\(.*
+(?:.|\n)*?
+.*(?<root>blind.mod)'''
+root_capture = "$root"
+position = "at"
+line_prepend = '$indent'
+payload = '''(blind.mod and not aij_has_blind_drawn)'''
+times = 1
 
 # # Currently unused patches for planned Aluzinnu joker
 #[[patches]]
