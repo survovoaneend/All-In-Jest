@@ -17,9 +17,16 @@ local the_pear = {
         if temp then
             return
         end
-        if context.final_scoring_step and G.hand and #G.hand.cards > 0 and not temp then
+        if context.after and G.hand and #G.hand.cards > 0 and not temp then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    for i = 1, #G.hand.cards do
+                        G.hand.cards[i]:flip()
+                    end
+                    return true
+                end
+            }))
             for i = 1, #G.hand.cards do
-                G.hand.cards[i]:flip()
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     delay = 0.1,
@@ -27,7 +34,7 @@ local the_pear = {
                         G.hand.cards[i]:set_base(pseudorandom_element(G.P_CARDS, pseudoseed('the_pear')))
                         G.hand.cards[i]:flip()
                         G.hand.cards[i]:juice_up(0.3, 0.3)
-                    return true
+                        return true
                     end
                 }))
             end

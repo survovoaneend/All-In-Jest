@@ -247,7 +247,7 @@ return {
             a_aij_times_interest = 'X#1# Interest',
 
             a_aij_plus_rerolls = "+#1# Rerolls",
-            a_aij_times_money = "X#1# $",
+            a_aij_times_money = "X#1# to your money",
             a_aij_discards = "+#1# Discards",
 
             a_aij_slots_left = "(#1# slots left)",
@@ -1107,7 +1107,7 @@ return {
             bl_aij_the_solid = {
                 name = "The Solid",
                 text = {
-                    'All scoring cards',
+                    'All played cards',
                     'become Eternal',
                 },
             },
@@ -1691,7 +1691,7 @@ return {
             e_aij_aureate = {
                 name = "Aureate",
                 text = {
-                    "{X:money,C:white}X#1#{} {C:money}${}",
+                    "{X:money,C:white}X#1#{} to your {C:money}money{}",
                     "{C:inactive}(Max of {C:money}$#2#{}{C:inactive})"
                 }
             },
@@ -2334,7 +2334,7 @@ return {
             j_aij_penny = {
                 name = "Penny",
                 text = {
-                    "Played cards with {C:money}Gold Seal{} have a",
+                    "Cards with {C:money}Gold Seal{} have a",
                     "{C:green}#1# in #2#{} chance to {C:attention}retrigger"
                 },
             },
@@ -2787,7 +2787,8 @@ return {
                 name = "Tumbler",
                 text = {
                     "{X:mult,C:white}X#1#{} Mult, loses {X:mult,C:white}X#2#{} Mult",
-                    "when a card is {C:attention}selected"
+                    "when a card is {C:attention}selected{}",
+                    "during a Blind"
                 }
             },
             j_aij_plain_packaging = {
@@ -4080,8 +4081,8 @@ return {
             j_aij_richie_rich = {
                 name = "Richie Rich",
                 text = {
-                    "{X:money,C:white}X#1#{} {C:money}${} at end",
-                    "of round"
+                    "{X:money,C:white}X#1#{} to your {C:money}money{}",
+                    "at end of round"
                 }
             },
             j_aij_devil_deal = {
@@ -11120,7 +11121,9 @@ return {
             aij_pc_eternal = {
                 name = "Eternal",
                 text = {
-                    'Cannot be {C:red}destroyed',
+                    'Returns a {C:attention}copy',
+                    'to deck if',
+                    '{C:red}destroyed',
                 }
             },
             aij_pc_perishable = {

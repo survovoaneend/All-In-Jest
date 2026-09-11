@@ -23,8 +23,23 @@ local pc_eternal = {
         G.shared_sticker_eternal = self.sticker_sprite
     end,
     calculate = function(self, card, context)
-        if context.check_eternal and context.other_card == card then
-            return {no_destroy = true}
+        if context.remove_playing_cards then
+            for i, v in ipairs(context.removed) do
+                if v == card then
+                    local target_area = G.discard
+                    if card.area == G.hand then
+                        target_area = G.hand
+                    elseif card.area == G.deck then
+                        target_area = G.deck
+                    end
+                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+                        local new = SMODS.copy_card(card, {area = target_area})
+                        playing_card_joker_effects({new})
+                        return true
+                    end}))
+                    break
+                end
+            end
         end
     end
 }
