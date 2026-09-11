@@ -4,8 +4,8 @@ dump_lua = true
 priority = 214748364
 
 # Perishable for Playing Cards 
-# Card:set_debuff()
 # debuffs cards with sticker 
+# Card:set_debuff()
 [[patches]]
 [patches.pattern]
 target = "card.lua"
@@ -36,6 +36,8 @@ for k, v in pairs(aij_debuff_list) do
 end
 '''
 
+# Pinned playing cards (1/2)
+# CardArea:align_cards()
 [[patches]]
 [patches.regex]
 target = "cardarea.lua"
@@ -48,6 +50,8 @@ payload = '''
 $indent(a.ability and a.ability.aij_pinned or a.pinned)$post
 '''
 
+# Pinned playing cards (2/2)
+# CardArea:align_cards()
 [[patches]]
 [patches.regex]
 target = "cardarea.lua"
@@ -60,6 +64,10 @@ payload = '''
 $indent(b.ability and b.ability.aij_pinned or b.pinned)$post
 '''
 
+# Allows for effects to "block" scoring effects to perform their own
+# Hooks into SMODS.Scoring_Parameter.calc_effect rather than modifying directly because Scoring_Parameter often overrides this function when defined
+# Used for train conductor
+# SMODS.Scoring_Parameter.inject() (hook for SMODS.Scoring_Parameter.calc_effect())
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/game_object.lua"]'
@@ -87,28 +95,33 @@ end
 '''
 match_indent = true
 
-[[patches]]
-[patches.pattern]
-target = '=[SMODS _ "src/utils.lua"]'
-pattern = '''if (key == 'p_dollars' or key == 'dollars' or key == 'h_dollars') and amount then'''
-position = "before"
-payload = '''
-local flags = {}
-SMODS.calculate_context({aij_modify_card_effects = true, effects = effect, effect_type = key, card = scored_card, amount = amount, from_edition = from_edition}, flags)
-local override = false
-for _, eval in pairs(flags) do
-    for key, eval2 in pairs(eval) do
-        if type(eval2) == 'table' then
-            for key2, val in pairs(eval2) do
-                if key2 == 'override' then override = val end
-            end
-        end
-    end
-end
-if override then return true end
-'''
-match_indent = true
+# Allows for effects to "block" money effects to perform their own, similar to above
+# Currently not used for anything as of 0.7
+# SMODS.calculate_individual_effect()
+# [[patches]]
+# [patches.pattern]
+# target = '=[SMODS _ "src/utils.lua"]'
+# pattern = '''if (key == 'p_dollars' or key == 'dollars' or key == 'h_dollars') and amount then'''
+# position = "before"
+# payload = '''
+# local flags = {}
+# SMODS.calculate_context({aij_modify_card_effects = true, effects = effect, effect_type = key, card = scored_card, amount = amount, from_edition = from_edition}, flags)
+# local override = false
+# for _, eval in pairs(flags) do
+#     for key, eval2 in pairs(eval) do
+#         if type(eval2) == 'table' then
+#             for key2, val in pairs(eval2) do
+#                 if key2 == 'override' then override = val end
+#             end
+#         end
+#     end
+# end
+# if override then return true end
+# '''
+# match_indent = true
 
+# Booster pack discard (1/2)
+# SMODS.Booster.create_UIBox()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/game_object.lua"]'
@@ -128,6 +141,8 @@ local aij_discard_button_ui = {n=G.UIT.C, config={id = 'discard_button',align = 
 '''
 match_indent = true
 
+# Booster pack discard (1/2)
+# SMODS.Booster.create_UIBox()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/game_object.lua"]'
@@ -139,8 +154,8 @@ G.GAME and G.GAME.aij_discard_button and self.draw_hand == true and aij_discard_
 match_indent = true
 
 # Perma-flipped for Playing Cards
-# draw_card()
 # allows cards to stay flipped when drawn permanently
+# draw_card()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -155,6 +170,8 @@ if card.ability.aij_perma_flipped then
 end
 '''
 
+# Ensure increasing shop size only creates common jokers on sharpest tool challenge
+# change_shop_size()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -165,6 +182,8 @@ payload = '''
 if G.GAME.modifiers.aij_sharpest_tool_1 then aij_change_shop_size_advanced(mod, 'ch_sharpest_tool', nil, 0); return end
 '''
 
+# Add a context that fires when a card is retriggered
+# SMODS.insert_repetitions()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
@@ -177,6 +196,8 @@ payload = '''
 SMODS.calculate_context({aij_retriggered_card = true, card = effect_card, ret = ret, times = eval.repetitions})
 '''
 
+# Prevent poker_hand_changed context from firing when a royal flush is upgraded due to upgrading straight flush
+# SMODS.upgrade_poker_hands()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
@@ -191,6 +212,8 @@ if args.aij_level_with then
 end
 '''
 
+# Add a context to detect when a held in hand effect is trigegred
+# SMODS.score_card()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
@@ -206,6 +229,7 @@ end
 '''
 
 # Eye Seal, For end of round scoring
+# SMODS.score_card()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
@@ -236,6 +260,7 @@ end
 
 # Bullet King (1/3)
 # Scored cards act as in hand
+# SMODS.score_card()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
@@ -286,6 +311,7 @@ end
 '''
 # Bullet King (2/3) 
 # Scored cards trigger end of round in hand effects
+# G.FUNCS.evaluate_play()
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
@@ -302,6 +328,7 @@ end
 '''
 # Bullet King (3/3)
 # Raised Fist compat
+# Card:calculate_joker()
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
@@ -321,7 +348,9 @@ if next(SMODS.find_card('j_aij_bullet_king')) then
     end
 end
 '''
-# Wax Stamp 
+
+# Wax Stamp Voucher
+# Standard Pack SMODS.Booster.create_card()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/game_object.lua"]'
@@ -335,6 +364,7 @@ local _seal = SMODS.poll_seal({mod = G.GAME.all_in_jest.standard_pack_seal_rate 
 '''
 
 # Seal Edition Calculation
+# SMODS.trigger_effects()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
@@ -348,6 +378,7 @@ end
 match_indent = true
 
 # Inherent effect calculation
+# SMODS.trigger_effects()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
@@ -368,6 +399,9 @@ if card and card.aij_inherent_effects then
 end
 '''
 match_indent = true
+
+# Add calculation for inherent enhancements
+# SMODS.calculate_quantum_enhancements
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
@@ -434,20 +468,20 @@ end
 match_indent = true
 
 # Unused Context that Might be Used Eventually
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''
-for k, v in ipairs(pack_cards) do
-    G.pack_cards:emplace(v)
-end
-'''
-position = "before"
-match_indent = true
-payload = '''
--- Like context.indiviual for pack cards
-SMODS.calculate_context({all_in_jest = {before_create_booster_cards = true, card = self, pack_card = card}})
-'''
+# [[patches]]
+# [patches.pattern]
+# target = "card.lua"
+# pattern = '''
+# for k, v in ipairs(pack_cards) do
+#     G.pack_cards:emplace(v)
+# end
+# '''
+# position = "before"
+# match_indent = true
+# payload = '''
+# -- Like context.indiviual for pack cards
+# SMODS.calculate_context({all_in_jest = {before_create_booster_cards = true, card = self, pack_card = card}})
+# '''
 
 # Overstuffed Tag (1/4)
 # Card:open()
@@ -664,6 +698,9 @@ payload = '''
 front_hidden = self.front_hidden,
 '''
 
+# Set sprite in collection when specified
+# Used for scorched cards
+# G.FUNCS.SMODS_card_collection_page() (local function in SMODS.card_collection_UIBox())
 [[patches]] 
 [patches.pattern]
 target = '=[SMODS _ "src/ui.lua"]'
@@ -676,6 +713,9 @@ end
 '''
 match_indent = true
 
+
+# Add which version of the mod an achievement was completed (1/4)
+# buildAchievementsTab()
 [[patches]] 
 [patches.pattern]
 target = '=[SMODS _ "src/ui.lua"]'
@@ -687,6 +727,8 @@ temp_achievement.config.center = v
 '''
 match_indent = true
 
+# Add which version of the mod an achievement was completed (2/4)
+# buildAchievementsTab()
 [[patches]] 
 [patches.pattern]
 target = '=[SMODS _ "src/ui.lua"]'
@@ -701,6 +743,8 @@ end
 '''
 match_indent = true
 
+# Add which version of the mod an achievement was completed (3/4)
+# SMODS.Achievement.inject()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/game_object.lua"]'
@@ -723,6 +767,8 @@ if self.reset_on_version_change then
 end
 '''
 
+# Add which version of the mod an achievement was completed (4/4)
+# unlock_achievement()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -942,6 +988,8 @@ end
 '''
 match_indent = true
 
+# Adding compatability between context.setting_ability and fusion enhancements
+# Card.set_ability() SMODS hook
 [[patches]] 
 [patches.pattern]
 target = '=[SMODS _ "src/overrides.lua"]'
@@ -1282,6 +1330,9 @@ if (G.GAME.selected_back and G.GAME.selected_back.name == 'b_aij_patchwork') or 
 end
 '''
 
+# Gives more fine grain control of the jokers generated in the shop
+# Used for sharpest tool challenge and Wamba legendary
+# create_card_for_shop()
 [[patches]] 
 [patches.pattern]
 target = "functions/UI_definitions.lua"
@@ -1507,6 +1558,8 @@ end
 '''
 match_indent = true
 
+# Force blind to be skipped in the pandemonium challenge
+# G.FUNCS.blind_choice_handler()
 [[patches]] 
 [patches.pattern]
 target = "functions/button_callbacks.lua"
@@ -1725,6 +1778,9 @@ SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, 
 '''
 match_indent = true
 
+# Add a context for immediately before end of round check
+# Used by mysterious myriad finisher blind and bit flip joker
+# G.FUNCS.evaluate_play()
 [[patches]] 
 [patches.pattern]
 target = "functions/state_events.lua"
@@ -1868,10 +1924,6 @@ SMODS.calculate_context({end_of_round = true, game_over = game_over, beat_boss =
 '''
 position = "before"
 payload = '''
-G.GAME.aij_big_boss_avoid = true
-if G.GAME.blind_on_deck == 'Big_Boss' then
-    G.GAME.aij_temp_big_boss = true
-end
 if G.GAME.blind.boss and not G.GAME.aij_big_boss_reset_ante then
     for k, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_ante) do
         G.GAME.all_in_jest.advanced_hand_usage_ante[k] = nil
@@ -1880,6 +1932,25 @@ end
 '''
 match_indent = true
 
+# The Seed
+# end_round()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+SMODS.calculate_context({end_of_round = true, game_over = game_over, beat_boss = G.GAME.blind.boss*
+'''
+position = "before"
+payload = '''
+G.GAME.aij_big_boss_avoid = true
+if G.GAME.blind_on_deck == 'Big_Boss' then
+    G.GAME.aij_temp_big_boss = true
+end
+'''
+match_indent = true
+
+# The Seed
+# end_round()
 [[patches]] 
 [patches.pattern]
 target = "functions/state_events.lua"
@@ -1926,6 +1997,7 @@ match_indent = true
 
 
 # Context for before the Shop is Rerolled
+# G.FUNCS.reroll_shop()
 [[patches]] 
 [patches.pattern]
 target = "functions/button_callbacks.lua"
@@ -1937,6 +2009,7 @@ SMODS.calculate_context({all_in_jest = {before_reroll_shop = true, cost = reroll
 match_indent = true
 
 # Context for after the Shop is Rerolled
+# G.FUNCS.reroll_shop()
 [[patches]] 
 [patches.pattern]
 target = "functions/button_callbacks.lua"
@@ -2132,7 +2205,9 @@ end
 -- End of All in Jest patch
 '''
 
-# Dark Magician Combines pools
+# Dark Magician
+# Combines tarot, planet, and spectral pools
+# get_current_pool()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -2194,7 +2269,9 @@ if _append ~= 'dark_magician_get_other_pools' and next(SMODS.find_card("j_aij_da
 end
 '''
 
-# Dark Magician the fool compact
+# Dark Magician 
+# Allow The Fool to create spectral cards by setting spectral as last used tarot/planet
+# set_consumeable_usage()
 [[patches]]
 [patches.pattern]
 target = "functions/misc_functions.lua"
@@ -2240,8 +2317,8 @@ pattern = '''local blind_sprite = SMODS.create_sprite(0, 0, 0.7,0.7, 'tags', cop
 position = "after"
 match_indent = true
 payload = '''
-if config.tag.config.aij then
-    blind_sprite = SMODS.create_sprite(0, 0, 0.7,0.7, 'aij_tag_atlas', copy_table(config.pos))
+if config.tag.key and G.P_TAGS[config.tag.key].atlas and G.P_TAGS[config.tag.key].atlas ~= "tags" then
+    blind_sprite = SMODS.create_sprite(0, 0, 0.7,0.7, G.P_TAGS[config.tag.key].atlas, copy_table(config.pos))
 end
 '''
 
@@ -2741,7 +2818,7 @@ if has_note and self.config.center_key == 'j_aij_infuriating_note' then self.ext
 '''
 
 # Make free reroll button appear when granted
-# (As of v0.6 its just for stultor)
+# (As of v0.6 it's just for stultor)
 # create_UIBox_blind_select()
 [[patches]]
 [patches.pattern]
@@ -2754,6 +2831,8 @@ payload = '''
 UIBox_button({label = {localize('b_reroll_boss'), localize('$')..'0'}, button = "jest_free_reroll_boss", func = 'jest_free_reroll_boss_button'}) or
 '''
 
+# (as of v0.7 it's just for Gille)
+# create_UIBox_blind_select()
 [[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
@@ -2838,6 +2917,8 @@ if card and card.ability and card.ability.patches then
 end
 '''
 
+# Remove vanilla items if soft serve is owned
+# get_current_pool()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -2852,6 +2933,17 @@ if G.GAME.aij_exculde_vanilla_in_shop then
         end
     end
 end
+'''
+
+# Remove anything that gives mult in the microtransations challenge
+# get_current_pool()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "add = in_pool and (add or pool_opts.override_base_checks)"
+position = "after"
+match_indent = true
+payload = '''
 if G.GAME.modifiers["aij_no_mult_in_pool"] then
     if v.set == 'Planet' then
         if not All_in_Jest.config.moons_enabled then
@@ -2877,6 +2969,17 @@ if G.GAME.modifiers["aij_no_mult_in_pool"] then
         end
     end
 end
+'''
+
+# Remove non-food in the full_plate challenge
+# get_current_pool()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "add = in_pool and (add or pool_opts.override_base_checks)"
+position = "after"
+match_indent = true
+payload = '''
 if G.GAME.modifiers["aij_all_jokers_is_food"] and _type == 'Joker' then
     if not v.attributes or (v.attributes and not v.attributes.food) then
         add = nil
@@ -2885,6 +2988,7 @@ end
 '''
 
 # Add tootip for seal editions and inherent effects
+# generate_card_ui()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -2972,7 +3076,8 @@ if card and card.aij_inherent_effects then
 end
 '''
 
-# Remove "+x hand size" info box when card has inherent negative
+# Remove "+x hand size" info box when card has inherent negative (1/2)
+# generate_card_ui()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -2987,6 +3092,9 @@ payload = '''
         end
     end
 '''
+
+# Remove "+x hand size" info box when card has inherent negative (2/2)
+# generate_card_ui()
 [[patches]]
 [patches.regex]
 target = "functions/common_events.lua"
@@ -3001,7 +3109,8 @@ end
 
 
 # Add extra desc box for vanilla fused enhancements
-# Modded enhancements (and overidden vanilla ones) are tired into generate_ui
+# Modded enhancements (and overidden vanilla ones) are tied into generate_ui
+# generate_card_ui()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -3037,6 +3146,7 @@ payload = '''
 
 
 # Add extra desc box for modded fused enhancements
+# generate_card_ui()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -3070,6 +3180,8 @@ payload = '''
     end
 '''
 
+# Prevent fused stone cards from showing nominal chips tooltip (1/2)
+# generate_card_ui()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -3080,6 +3192,8 @@ payload = '''
 if (card and card.config and card.config.aij_other_center and card.config.aij_other_center['center'] and card.config.aij_other_center['center'].name  ~= 'Stone Card') or (not card or (card and not card.config or (card and card.config and not card.config.aij_other_center))) then
 '''
 
+# Prevent fused stone cards from showing nominal chips tooltip (2/2)
+# generate_card_ui()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -3164,7 +3278,7 @@ end
 match_indent = true 
 
 # Inject custom badge
-# Game:init_game_object
+# Game:init_game_object()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/game_object.lua"]'
@@ -3177,8 +3291,8 @@ end
 '''
 match_indent = true 
 
-# Remove negative from copied cards
-# copy_card
+# Remove negative from copied cards (1/2)
+# copy_card()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -3194,54 +3308,10 @@ if not All_in_Jest.config.no_copy_neg and not G.VIEWING_DECK and not other.abili
     end
 end
 other.ability.jest_copy_edition = false
---Seal edition copys (mainly for deck view)
-new_card:All_in_Jest_set_seal_edition(other.aij_seal_edition or {}, nil, true)
-for k,v in pairs(other.aij_seal_edition or {}) do
-    if type(v) == 'table' then
-        new_card.aij_seal_edition[k] = copy_table(v)
-    else
-        new_card.aij_seal_edition[k] = v
-    end
-end
-if other.aij_inherent_effects then
-    new_card.aij_inherent_effects = {}
-    for k,v in pairs(other.aij_inherent_effects or {}) do
-        if type(v) == 'table' then
-            new_card.aij_inherent_effects[k] = copy_table(v)
-        else
-            new_card.aij_inherent_effects[k] = v
-        end
-    end
-end
 '''
 
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "new_card:set_ability(other.config.center)"
-position = "before"
-match_indent = true
-payload = '''
-new_card.ability.m_aij_charged_chaging = true
-'''
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = '''
-local new_card = new_card or Card(other.T.x, other.T.y, G.CARD_W*(card_scale or 1), G.CARD_H*(card_scale or 1), G.P_CARDS.empty, G.P_CENTERS.c_base, {playing_card = playing_card, bypass_back = G.GAME.selected_back.pos})
-'''
-position = "before"
-match_indent = true
-payload = '''
-local has_other_copy_card = false
-if new_card then 
-    has_other_copy_card = true
-end
-'''
-
-# Remove negative from copied cards
-# copy_card
+# Remove negative from copied cards (2/2)
+# copy_card()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -3264,10 +3334,102 @@ if new_card.aij_inherent_effects and new_card.aij_inherent_effects.editions then
         end
     end
 end
+'''
+
+# Copy seal editions
+# copy_card()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if not strip_edition then"
+position = "before"
+match_indent = true
+payload = '''
+--Seal edition copys (mainly for deck view)
+new_card:All_in_Jest_set_seal_edition(other.aij_seal_edition or {}, nil, true)
+for k,v in pairs(other.aij_seal_edition or {}) do
+    if type(v) == 'table' then
+        new_card.aij_seal_edition[k] = copy_table(v)
+    else
+        new_card.aij_seal_edition[k] = v
+    end
+end
+'''
+
+# Copy inherent effects
+# copy_card()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if not strip_edition then"
+position = "before"
+match_indent = true
+payload = '''
+if other.aij_inherent_effects then
+    new_card.aij_inherent_effects = {}
+    for k,v in pairs(other.aij_inherent_effects or {}) do
+        if type(v) == 'table' then
+            new_card.aij_inherent_effects[k] = copy_table(v)
+        else
+            new_card.aij_inherent_effects[k] = v
+        end
+    end
+end
+'''
+
+# Prevent charged cards from affecting things when a card is copied (1/2)
+# copy_card()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "new_card:set_ability(other.config.center)"
+position = "before"
+match_indent = true
+payload = '''
+new_card.ability.m_aij_charged_chaging = true
+'''
+
+# Prevent charged cards from affecting things when a card is copied (2/2)
+# copy_card()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if other.edition and strip_edition then"
+position = "before"
+match_indent = true
+payload = '''
+new_card.ability.m_aij_charged_chaging = nil
+'''
+
+# Prevent perma-debuffed cards from copying the perma-debuff status (1/2)
+# copy_card()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+local new_card = new_card or Card(other.T.x, other.T.y, G.CARD_W*(card_scale or 1), G.CARD_H*(card_scale or 1), G.P_CARDS.empty, G.P_CENTERS.c_base, {playing_card = playing_card, bypass_back = G.GAME.selected_back.pos})
+'''
+position = "before"
+match_indent = true
+payload = '''
+local has_other_copy_card = false
+if new_card then 
+    has_other_copy_card = true
+end
+'''
+
+# Prevent perma-debuffed cards from copying the perma-debuff status (1/2)
+# copy_card()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if other.edition and strip_edition then"
+position = "before"
+match_indent = true
+payload = '''
 if (has_other_copy_card and new_card.ability and new_card.ability.all_in_jest and new_card.ability.all_in_jest.perma_debuff) then 
     new_card.ability.all_in_jest.perma_debuff = nil
 end
-new_card.ability.m_aij_charged_chaging = nil
 '''
 
 # copy_card (before setting sprites)
@@ -3289,7 +3451,6 @@ end
 '''
 
 # Round dollars earned at the end of the round to the nearest whole number
-# Implemenet alternative to calc_dollar_bonus (currently just for Jogre)
 # G.FUNCS.evaluate_round()
 [[patches]] 
 [patches.pattern]
@@ -3320,6 +3481,17 @@ do
     end
     i = 0
 end
+'''
+match_indent = true
+
+# Implemenet alternative to calc_dollar_bonus (currently just for Jogre)
+# G.FUNCS.evaluate_round()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "add_round_eval_row({name = 'bottom', dollars = dollars*"
+position = "before"
+payload = '''
 dollars = math.floor(dollars + 0.5)
 '''
 match_indent = true
@@ -3337,6 +3509,9 @@ payload = '''
 SMODS.calculate_context({all_in_jest = {before_using_consumeable = true, consumeable = self, area = area }})
 '''
 
+# Activate tags that trigger when a consumable is used
+# As of v0.7, just for Astrology tag
+# G.FUNCS.use_card()
 [[patches]]
 [patches.pattern]
 target = 'functions/button_callbacks.lua'
@@ -3350,6 +3525,7 @@ end
 '''
 
 # Make legendary jokers in the shop show their description
+# Card:generate_UIBox_ability_table()
 [[patches]]
 [patches.pattern]
 target = "card.lua"
@@ -3811,7 +3987,6 @@ target = "functions/state_events.lua"
 pattern = "draw_card(G.hand, G.discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])"
 position = "at"
 payload = '''
-G.hand.highlighted[i].ability.aij_discarded_this_ante = true
 local has_line_in_the_sand = next(SMODS.find_card("j_aij_line_in_the_sand"))
 if has_line_in_the_sand then
     draw_card(G.hand, G.jest_super_discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])
@@ -3839,6 +4014,23 @@ end
 '''
 match_indent = true
 
+
+# Discarded this ante stat (1/2)
+# Used for a couple boss blinds
+# G.FUNCS.discard_cards_from_highlighted()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "G.hand.highlighted[i].ability.discarded = true"
+position = "after"
+payload = '''
+G.hand.highlighted[i].ability.aij_discarded_this_ante = true
+'''
+match_indent = true
+
+# Discarded this ante stat (2/2)
+# Used for a couple boss blinds
+# end_round()
 [[patches]] 
 [patches.pattern]
 target = "functions/state_events.lua"
@@ -3849,20 +4041,9 @@ v.ability.aij_discarded_this_ante = nil
 '''
 match_indent = true
 
-# Blind Drawn (1/7)
-# Set variable for later
-# create_UIBox_blind_choice()
-[[patches]] 
-[patches.pattern]
-target = "functions/UI_definitions.lua"
-pattern = "function create_UIBox_blind_choice(type, run_info)"
-position = "after"
-payload = '''
-  local is_big_boss = false
-  local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and (type == 'Boss' or type == 'Big_Boss')
-'''
-match_indent = true
-
+# The Seed
+# Show/Hide boss blind that replaces big blind
+# create_UIBox_blind_select()
 [[patches]] 
 [patches.pattern]
 target = "functions/UI_definitions.lua"
@@ -3886,6 +4067,9 @@ end
 '''
 match_indent = true
 
+# The Seed
+# Return type of big blind boss as distinct for big blind and boss blind
+# Blind:get_type()
 [[patches]]
 [patches.pattern]
 target = "blind.lua"
@@ -3898,6 +4082,9 @@ if G.GAME.aij_big_boss_avoid and G.GAME.blind and G.GAME.blind_on_deck and G.GAM
 end
 '''
 
+# The Seed
+# Include UI for big blind boss if required
+# create_UIBox_blind_select()
 [[patches]] 
 [patches.pattern]
 target = "functions/UI_definitions.lua"
@@ -3908,6 +4095,9 @@ G.GAME.aij_has_big_boss and G.GAME.round_resets.blind_states['Big_Boss'] ~= 'Hid
 '''
 match_indent = true
 
+# The Seed
+# Hide regular big blind if it's replaced by replacement boss
+# reset_blinds
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -3920,6 +4110,10 @@ if G.GAME.aij_has_big_boss then
     G.GAME.round_resets.blind_states['Big'] = 'Hide'
 end
 '''
+
+# The Seed
+# Set blind_order to include replacement boss instead of regular big blind
+# SMODS.reset_blind_choices()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/game_objects/blind.lua"]'
@@ -3932,10 +4126,14 @@ if G.GAME.aij_has_big_boss then
 end
 '''
 
+# The Seed
+# Set replacement boss as defeated and stop it from showing up next ante
+# end_round()
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
-pattern = "elseif G.GAME.round_resets.blind_states.Big == 'Current' then"
+pattern = """elseif G.GAME.round_resets.blind_states.Big == 'Current' then
+    G.GAME.round_resets.blind_states.Big = 'Defeated'"""
 position = 'before'
 match_indent = true
 payload = '''
@@ -3944,6 +4142,25 @@ elseif G.GAME.aij_temp_big_boss then
     G.GAME.aij_temp_big_boss = nil
 '''
 
+# The Seed
+# Set stats on new round
+# new_round()
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = """elseif G.GAME.round_resets.blind_states.Big == 'Current' then
+    G.GAME.round_resets.blind_states.Big = 'Current'"""
+position = 'before'
+match_indent = true
+payload = '''
+elseif G.GAME.aij_temp_big_boss then
+    G.GAME.round_resets.blind_states.Big_Boss = 'Current'
+    blhash = 'B'
+'''
+
+# The Seed
+# Show replacement boss blind in current blinds screen
+# G.UIDEF.current_blinds()
 [[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
@@ -3958,6 +4175,9 @@ G.GAME.aij_has_big_boss and G.GAME.round_resets.blind_states['Big_Boss'] ~= 'Hid
 }} or nil,
 '''
 
+# The Seed
+# Skip to the correct blind when small blind or big boss are skipped
+# G.FUNCS.skip_blind()
 [[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
@@ -3968,6 +4188,9 @@ payload = '''
 G.GAME.aij_has_big_boss and (G.GAME.blind_on_deck == 'Small' and 'Big_Boss' or G.GAME.blind_on_deck == 'Big_Boss' and 'Boss' or 'Boss') or
 '''
 
+# The Seed
+# Correctly set background of replacement boss blind
+# get_blind_main_colour()
 [[patches]]
 [patches.pattern]
 target = "functions/misc_functions.lua"
@@ -3982,6 +4205,9 @@ if blind == 'Big_Boss' then
 end
 '''
 
+# The Seed
+# Set tooltip of blind state for replacement boss blind
+# Game:update()
 [[patches]]
 [patches.pattern]
 target = 'game.lua'
@@ -3992,6 +4218,22 @@ payload = '''
 G.GAME.round_resets.loc_blind_states.Big_Boss = localize(G.GAME.round_resets.blind_states.Big_Boss or 'Upcoming','blind_states')
 '''
 
+# Blind Drawn (1/8)
+# Set variable for later
+# create_UIBox_blind_choice()
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "function create_UIBox_blind_choice(type, run_info)"
+position = "after"
+payload = '''
+  local is_big_boss = false
+  local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and (type == 'Boss' or type == 'Big_Boss')
+'''
+match_indent = true
+
+# Blind Drawn (2/8)
+# Prevent the mod badge from appearing when blind drawn is owned
 # SMODS src/ui.lua: create_UIBox_blind_choice()
 [[patches]] 
 [patches.pattern]
@@ -4003,7 +4245,7 @@ payload = '''
 '''
 match_indent = true
 
-# Blind Drawn (2/7)
+# Blind Drawn (3/8)
 # Replace blind ability description with ???
 # create_UIBox_blind_choice()
 [[patches]] 
@@ -4030,7 +4272,7 @@ end
 '''
 match_indent = true
 
-# Blind Drawn (3/7)
+# Blind Drawn (4/8)
 # Set name of Boss Blind to ???
 # create_UIBox_blind_choice()
 [[patches]] 
@@ -4052,7 +4294,7 @@ aij_has_blind_drawn and {n=G.UIT.R, config={id = 'blind_name',align = "cm", padd
 '''
 match_indent = true
 
-# Blind Drawn (4/7)
+# Blind Drawn (5/8)
 # Hide blind requirement if blind drawn is owned
 # Uses regex so it doesn't match with another function + so it works with The Clay blind's thing
 # create_UIBox_blind_choice()
@@ -4067,39 +4309,7 @@ payload = '''$pre
 $indent{n=G.UIT.T, config={text = aij_has_blind_drawn and "???" or $post
 '''
 
-# Block planets / moons of the same hand type from appearing at once
-# get_current_pool()
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = '''pool_opts = pool_opts or {}'''
-position = "after"
-match_indent = true
-payload = '''
-local aij_manual_block = false
-if v.set == 'Planet' and All_in_Jest.config.moons_blocking and not G.GAME.used_jokers[v.key] then
-    for k, other in pairs(G.P_CENTER_POOLS.Planet) do
-        if other.config.hand_type == v.config.hand_type and G.GAME.used_jokers[other.key] then
-            aij_manual_block = true
-            G.GAME.used_jokers[v.key] = true
-            break
-        end
-    end
-end
-'''
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = '''if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = nil end'''
-position = "before"
-match_indent = true
-payload = '''
-if aij_manual_block then
-    G.GAME.used_jokers[v.key] = nil
-end
-'''
-
-# Blind Drawn (5/7)
+# Blind Drawn (6/8)
 # Hide blind reward if blind drawn is owned
 # create_UIBox_blind_choice()
 [[patches]] 
@@ -4119,7 +4329,7 @@ aij_has_blind_drawn and _reward and {n=G.UIT.R, config={align = "cm"}, nodes={
 '''
 match_indent = true
 
-# Blind Drawn (6/7)
+# Blind Drawn (7/8)
 # Defines the shaders for the hidden blind sprite
 # Using regex so it doesn't match with another function
 # create_UIBox_blind_choice()
@@ -4148,7 +4358,7 @@ payload = '''
   end
 '''
 
-# Blind Drawn (7/7)
+# Blind Drawn (8/8)
 # Remove mod badge added by SMODS
 # Also uses regex so it doesn't match with another function
 # SMODS src/ui.lua: create_UIBox_blind_choice()
@@ -4164,6 +4374,42 @@ position = "at"
 line_prepend = '$indent'
 payload = '''(blind.mod and not aij_has_blind_drawn)'''
 times = 1
+
+
+# Block planets / moons of the same hand type from appearing at once (1/2)
+# get_current_pool()
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''pool_opts = pool_opts or {}'''
+position = "after"
+match_indent = true
+payload = '''
+local aij_manual_block = false
+if v.set == 'Planet' and All_in_Jest.config.moons_blocking and not G.GAME.used_jokers[v.key] then
+    for k, other in pairs(G.P_CENTER_POOLS.Planet) do
+        if other.config.hand_type == v.config.hand_type and G.GAME.used_jokers[other.key] then
+            aij_manual_block = true
+            G.GAME.used_jokers[v.key] = true
+            break
+        end
+    end
+end
+'''
+
+# Block planets / moons of the same hand type from appearing at once (2/2)
+# get_current_pool()
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = nil end'''
+position = "before"
+match_indent = true
+payload = '''
+if aij_manual_block then
+    G.GAME.used_jokers[v.key] = nil
+end
+'''
 
 # # Currently unused patches for planned Aluzinnu joker
 #[[patches]]
@@ -4568,6 +4814,7 @@ payload = '''
 '''
 
 # Display astral pin preview when selecting hand
+# CardArea:parse_highlighted()
 [[patches]]
 [patches.pattern]
 target = 'cardarea.lua'
@@ -4587,6 +4834,7 @@ if G.GAME.Astral_pins then
 end
 '''
 # Synchronize Astral pins right before scoring
+# G.FUNC.evaluate_play()
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
@@ -4606,6 +4854,7 @@ end
 '''
 
 # Adds Astral pin area to calculation pipeline
+# SMODS.get_card_areas()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
@@ -4619,6 +4868,7 @@ table.insert(t, 1, G.aij_astral_pin_area)
 '''
 
 # Remove astral pins
+# CardArea:parse_highlighted()
 [[patches]]
 [patches.pattern]
 target = 'cardarea.lua'
@@ -4664,6 +4914,10 @@ if G.all_in_jest then
 end
 '''
 
+# Seems to force descriptions to seperate fused enhancement abilities into two boxes
+# Not sure if this is working correctly as of v0.7.2a
+# TODO: Investigate
+# localize()
 [[patches]]
 [patches.pattern]
 target = "functions/misc_functions.lua"
@@ -5197,6 +5451,7 @@ match_indent = true
 #-------------------------------------------------#
 
 # Joker Perma stuff
+# Card:generate_UIBox_ability_tavle()
 [[patches]]
 [patches.pattern]
 target = "card.lua"
@@ -5225,6 +5480,7 @@ if self.ability.set == 'Joker' then
 end
 '''
 # Perma Joker stuff Locaization
+# generate_card_ui()
 [[patches]]
 [patches.regex]
 target = "functions/common_events.lua"
@@ -5241,6 +5497,7 @@ if _c.generate_ui and type(_c.generate_ui) == 'function' and _c.set ~= 'Enhanced
 end
 '''
 # After Vanilla Jokers
+# generate_card_ui()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -5254,6 +5511,7 @@ end
 SMODS.localize_perma_bonuses(specific_vars, desc_nodes)
 '''
 # Perma Joker Trigger stuff
+# SMODS.trigger_effects()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
@@ -5489,6 +5747,8 @@ end
 -- End of All in Jest patch
 '''
 
+# Makes all jokers perishable for micromanagement challenge
+# create_card()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -5504,7 +5764,8 @@ if G.GAME.modifiers["aij_all_jokers_perishable_1"] then
 end
 '''
 
-# Add image_data to vanilla atlases
+# Add image_data to vanilla atlases (1/3)
+# Game:set_render_setting()
 [[patches]]
 [patches.pattern]
 target = 'game.lua'
@@ -5514,6 +5775,8 @@ payload = '''
 self.ANIMATION_ATLAS[self.animation_atli[i].name].image_data = love.image.newImageData(self.animation_atli[i].path)
 '''
 match_indent = true
+# Add image_data to vanilla atlases (2/3)
+# Game:set_render_setting()
 [[patches]]
 [patches.pattern]
 target = 'game.lua'
@@ -5523,6 +5786,8 @@ payload = '''
 self.ASSET_ATLAS[self.asset_atli[i].name].image_data = love.image.newImageData(self.asset_atli[i].path)
 '''
 match_indent = true
+# Add image_data to vanilla atlases (3/3)
+# Game:set_render_setting()
 [[patches]]
 [patches.pattern]
 target = 'game.lua'
@@ -5538,8 +5803,8 @@ match_indent = true
     # END OF PATCHES FOR FUSIONS #
 ######################################
 
-# Card:update
 # Makes blueprint-like copiers show the correct compatability to joker.png style copiers 
+# Card:update
 [[patches]] 
 [patches.regex]
 target = "card.lua"
@@ -5549,6 +5814,7 @@ position = "at"
 payload = '''local aij_blueprint_compatible = other_joker and (other_joker.ability.aij_blueprint_compat or $cond)
 if other_joker and other_joker ~= self and aij_blueprint_compatible then'''
 
+# Add a context when a card is highlighted
 # function Card:highlight (Tumbler)
 [[patches]]
 [patches.pattern]
@@ -5562,8 +5828,8 @@ if G.jokers ~= nil and next(SMODS.find_card('j_aij_tumbler')) then
 end
 '''
 
-# end_round()
 # Force astral pins to dissolve at end of round
+# end_round()
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
@@ -5576,8 +5842,8 @@ for _, v in ipairs(G.aij_astral_pin_area.cards) do
 end
 '''
 
-# evaluate_play()
 # Force astral pins to dissolve after hand is played
+# evaluate_play()
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
@@ -5598,8 +5864,8 @@ for _, v in ipairs(G.aij_astral_pin_area.cards) do
 end
 '''
 
-# discard_cards_from_highlighted
 # Force astral pins to dissolve when discarding
+# G.FUNCS.discard_cards_from_highlighted()
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
@@ -5619,6 +5885,7 @@ end
 '''
 
 # This is so astral pins info queue can work
+# generate_card_ui()
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
@@ -5632,8 +5899,8 @@ payload = '''localize{type = 'descriptions', key = _c.key, set = _c.set, nodes =
 '''
 match_indent = true
 
+# Prevent seals from retriggering with inherent and fused enhancements (1/2)
 # Card:calculate_seal()
-# Prevent seals from retriggering with inherent and fused enhancements
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
@@ -5645,6 +5912,7 @@ payload = '''
     end
 '''
 match_indent = true
+# Prevent seals from retriggering with inherent and fused enhancements (2/2)
 # Card:get_p_dollars()
 [[patches]]
 [patches.regex]
@@ -5681,8 +5949,6 @@ if self.ability.name == 'j_aij_joker_png' or self.ability.name == 'j_aij_czar' t
 end
 '''
 
-
-
 # Card:remove_from_deck()
 [[patches]]
 [patches.regex]
@@ -5707,8 +5973,9 @@ match_indent = true
 
 
 
-## A Far Land 1/2
-## Count cards as matching in poker hands if both are stone cards and A Far Land is owned
+# A Far Land (1/2)
+# Count cards as matching in poker hands if both are stone cards and A Far Land is owned
+# get_X_same()
 [[patches]]
 [patches.pattern]
 target = "functions/misc_functions.lua"
@@ -5721,9 +5988,9 @@ elseif next(SMODS.find_card("j_aij_the_far_lands")) and SMODS.has_enhancement(ha
 match_indent = true
 times = 1
 
-## A Far Land 2/2
-## Count matching stone cards as a different rank than their cards
-## Prevents counting 2 stone cards as two pair, 3 as full house, etc.
+# A Far Land (2/2)
+# Count matching stone cards as a different rank than their cards
+# Prevents counting 2 stone cards as two pair, 3 as full house, etc.
 [[patches]]
 [patches.pattern]
 target = "functions/misc_functions.lua"
@@ -5739,44 +6006,48 @@ end
 match_indent = true
 times = 1
 
+# # Saves a new save file when called for
+# # Spiral Gestalt (1/3) (currently unused)
+# [[patches]]
+# [patches.pattern]
+# target = "engine/save_manager.lua"
+# pattern = "elseif request.type == 'save_run' then "
+# position = "before"
+# payload = '''
+# elseif request.type == 'save_run_aij_spiral_gestalt' then 
+#     local prefix_profile = (request.profile_num or 1)..''
+#     if not love.filesystem.getInfo(prefix_profile) then love.filesystem.createDirectory( prefix_profile ) end
+#     prefix_profile = prefix_profile..'/'
 
-## Spiral Gestalt
-[[patches]]
-[patches.pattern]
-target = "engine/save_manager.lua"
-pattern = "elseif request.type == 'save_run' then "
-position = "before"
-payload = '''
-elseif request.type == 'save_run_aij_spiral_gestalt' then 
-    local prefix_profile = (request.profile_num or 1)..''
-    if not love.filesystem.getInfo(prefix_profile) then love.filesystem.createDirectory( prefix_profile ) end
-    prefix_profile = prefix_profile..'/'
+#     compress_and_save(prefix_profile..'save_aij_spiral_gestalt.jkr', request.save_table)
+# '''
+# match_indent = true
+# times = 1
 
-    compress_and_save(prefix_profile..'save_aij_spiral_gestalt.jkr', request.save_table)
-'''
-match_indent = true
-times = 1
+# # Remove spiral gestalt file when save is removed
+# # Spiral Gestalt (2/3) (currently unused)
+# [[patches]]
+# [patches.pattern]
+# target = "functions/misc_functions.lua"
+# pattern = "love.filesystem.remove(G.SETTINGS.profile..'/save.jkr')"
+# position = "before"
+# payload = '''
+# love.filesystem.remove(G.SETTINGS.profile..'/save_aij_spiral_gestalt.jkr')
+# '''
+# match_indent = true
 
-[[patches]]
-[patches.pattern]
-target = "functions/misc_functions.lua"
-pattern = "love.filesystem.remove(G.SETTINGS.profile..'/save.jkr')"
-position = "before"
-payload = '''
-love.filesystem.remove(G.SETTINGS.profile..'/save_aij_spiral_gestalt.jkr')
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "functions/button_callbacks.lua"
-pattern = "G.screenwipecard = Card(1, 1, G.CARD_W, G.CARD_H, pseudorandom_element(G.P_CARDS), G.P_CENTERS.c_base)"
-position = "after"
-payload = '''
-if G.SAVED_GAME ~= nil and G.SAVED_GAME.aij_spiral_gestal_save then 
-    G.screenwipecard:remove()
-    G.screenwipecard = Card(1, 1, G.CARD_W, G.CARD_H, nil, G.P_CENTERS["j_aij_spiral_gestalt"])
-end
-'''
-match_indent = true
-times = 1
+# # Make Spiral Gestalt appear as the screenwipe card when reloading the gestalt save
+# # Spiral Gestalt (3/3) (currently unused)
+# [[patches]]
+# [patches.pattern]
+# target = "functions/button_callbacks.lua"
+# pattern = "G.screenwipecard = Card(1, 1, G.CARD_W, G.CARD_H, pseudorandom_element(G.P_CARDS), G.P_CENTERS.c_base)"
+# position = "after"
+# payload = '''
+# if G.SAVED_GAME ~= nil and G.SAVED_GAME.aij_spiral_gestal_save then 
+#     G.screenwipecard:remove()
+#     G.screenwipecard = Card(1, 1, G.CARD_W, G.CARD_H, nil, G.P_CENTERS["j_aij_spiral_gestalt"])
+# end
+# '''
+# match_indent = true
+# times = 1

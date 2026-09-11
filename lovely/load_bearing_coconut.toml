@@ -3,7 +3,8 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-# Coconut
+# Adds special use button for off-screen coconut
+# G.UIDEF.use_and_sell_buttons()
 [[patches]]
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
