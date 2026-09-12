@@ -1,0 +1,622 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+
+# Inherent effect calculation
+# SMODS.trigger_effects()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "for _, key in ipairs({'jokers', 'retriggers'}) do"
+position = "before"
+payload = '''
+if card and card.aij_inherent_effects then
+    local i = 0
+    local j = 0
+    for k, v in pairs(card.aij_inherent_effects) do
+        i = i + 1
+        for _k, _v in pairs(card.aij_inherent_effects[k]) do
+            j = j + 1
+            local v = 'aij_inherent_effects'..j..i
+            SMODS.calculate_effect_table_key(effect_table, v, card, ret)
+        end
+    end
+end
+'''
+match_indent = true
+
+# Add calculation for inherent enhancements
+# SMODS.calculate_quantum_enhancements
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "if not SMODS.optional_features.quantum_enhancements then return end"
+position = "before"
+payload = '''
+if not (context.aij_inherent_enhancement or context.aij_other_enhancement or SMODS.aij_inherent_enhancement_calc_in_progress) then
+    if card.aij_inherent_effects then
+        context.aij_inherent_enhancement = true
+        context.extra_enhancement = true
+        SMODS.aij_inherent_enhancement_calc_in_progress = true
+        local aij_inherent_enhancements = All_in_Jest.get_inherent_effects(card, 'enhancement')
+        local old_ability = copy_table(card.ability)
+        local old_center = card.config.center
+        local old_center_key = card.config.center_key
+        for _, k in ipairs(aij_inherent_enhancements) do
+            card.ability = k['ability']
+            card.config.center = G.P_CENTERS[k.center_key]
+            card.config.center_key = k.center_key
+            card.ability.aij_inherent_enhancement = k['center']
+            local eval = eval_card(card, context)
+            table.insert(effects, eval)
+        end
+        card.ability = old_ability
+        card.config.center = old_center
+        card.config.center_key = old_center_key
+        context.aij_inherent_enhancement = nil
+        context.extra_enhancement = nil
+        SMODS.aij_inherent_enhancement_calc_in_progress = nil
+    end
+end
+if card.config.aij_other_center and not (context.aij_inherent_enhancement or context.aij_other_enhancement) and not SMODS.aij_applying_thing and not SMODS.aij_inherent_enhancement_calc_in_progress then
+    if card.config.aij_other_center['center'] and card.config.aij_other_center['ability'] then
+        context.aij_other_enhancement = true
+        context.extra_enhancement = true
+        SMODS.aij_inherent_enhancement_calc_in_progress = true
+
+        local aij_oc = card.config.aij_other_center
+        
+        local old_ability = copy_table(card.ability)
+        local old_center = card.config.center
+        local old_center_key = card.config.center_key
+
+        card.ability = card.config.aij_other_center['ability']
+        card.config.center = aij_oc['center']
+        card.config.center_key = aij_oc['center'].key
+
+        local temp_bonus = card.ability.bonus
+        card.ability.bonus = 0
+        local eval = eval_card(card, context)
+        table.insert(effects, eval)
+        card.ability.bonus = card.ability.bonus + temp_bonus
+
+        card.ability = old_ability
+        card.config.center = old_center
+        card.config.center_key = old_center_key
+
+        context.aij_other_enhancement = nil
+        context.extra_enhancement = nil
+        SMODS.aij_inherent_enhancement_calc_in_progress = nil
+    end
+end
+'''
+match_indent = true
+
+# Fusion Enhancements
+# Card:load()
+## Correctly load fused and inherent enhancements
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'self.config.center = G.P_CENTERS[self.config.center_key]'
+position = "after"
+match_indent = true
+payload = '''
+if cardTable.save_fields.aij_other_center then
+    self.config.aij_other_center = {}
+    self.config.aij_other_center['center'] = G.P_CENTERS[cardTable.save_fields.aij_other_center]
+    self.config.aij_other_center['ability'] = cardTable.aij_other_center_ability
+end
+
+if cardTable.aij_inherent_effects then
+    self.aij_inherent_effects = cardTable.aij_inherent_effects
+end
+'''
+
+# Set fused enhancements when copying card
+# copy_card() (before setting sprites)
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if new_card.ability and (new_card.ability.set == 'Default' or new_card.ability.set == 'Enhanced') then"
+position = "before"
+match_indent = true
+payload = '''
+if other.config.aij_other_center then
+    All_in_Jest.set_other_enhancement(new_card, other.config.aij_other_center['center'].key)
+end
+'''
+
+# Copy inherent effects
+# copy_card()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if not strip_edition then"
+position = "before"
+match_indent = true
+payload = '''
+if other.aij_inherent_effects then
+    new_card.aij_inherent_effects = {}
+    for k,v in pairs(other.aij_inherent_effects or {}) do
+        if type(v) == 'table' then
+            new_card.aij_inherent_effects[k] = copy_table(v)
+        else
+            new_card.aij_inherent_effects[k] = v
+        end
+    end
+end
+'''
+
+# Fusion Enhancements
+# CG.UIDEF.card_h_popup()
+## Add badge for 2nd enhancement
+[[patches]]
+[patches.regex]
+target = 'functions/UI_definitions.lua'
+pattern = '(?<indent>[\t ]*)badges\[#badges \+ 1\] = create_badge\(.*card_type.*\n'
+position = "after"
+line_prepend = '$indent'
+payload = '''
+if card.config and card.config.aij_other_center and card.config.aij_other_center.center then
+    local other_card_type = localize{type = 'name_text', key = card.config.aij_other_center.center.key, set = 'Enhanced'}
+    badges[#badges + 1] = create_badge(other_card_type, card_type_colour, card_type_text_colour, 1.2)
+end
+'''
+
+# Fusion Enhancements
+# Card:set_ability
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''local obj = self.config.center
+if obj.set_ability and type(obj.set_ability) == 'function' then'''
+position = "before"
+match_indent = true
+payload = '''
+local aij_other_obj = self.config.aij_other_center and self.config.aij_other_center.center
+if aij_other_obj and aij_other_obj.set_ability and type(aij_other_obj.set_ability) == 'function' and not SMODS.aij_applying_thing then
+    local old_center = self.config.center
+    self.config.center = self.config.aij_other_center.center
+    local old_ability = copy_table(self.ability)
+    self.ability = self.config.aij_other_center.ability
+    aij_other_obj:set_ability(self, initial, delay_sprites)
+    self.config.center = old_center
+    self.ability = old_ability
+end
+'''
+
+# Fusion Enhancements
+# Card:add_to_deck
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''local obj = self.config.center
+if obj and obj.add_to_deck and type(obj.add_to_deck) == 'function' then'''
+position = "before"
+match_indent = true
+payload = '''
+local aij_other_obj = self.config.aij_other_center and self.config.aij_other_center.center
+if aij_other_obj and aij_other_obj.add_to_deck and type(aij_other_obj.add_to_deck) == 'function' and not SMODS.aij_applying_thing then
+    local old_center = self.config.center
+    self.config.center = self.config.aij_other_center.center
+    local old_ability = copy_table(self.ability)
+    self.ability = self.config.aij_other_center.ability
+    aij_other_obj:add_to_deck(self, from_debuff)
+    self.config.center = old_center
+    self.ability = old_ability
+end
+'''
+
+# Fusion Enhancements
+# Card:remove_from_deck
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''local obj = self.config.center
+if obj and obj.remove_from_deck and type(obj.remove_from_deck) == 'function' then'''
+position = "before"
+match_indent = true
+payload = '''
+local aij_other_obj = self.config.aij_other_center and self.config.aij_other_center.center
+if aij_other_obj and aij_other_obj.remove_from_deck and type(aij_other_obj.remove_from_deck) == 'function' and not SMODS.aij_applying_thing then
+    local old_center = self.config.center
+    self.config.center = self.config.aij_other_center.center
+    local old_ability = copy_table(self.ability)
+    self.ability = self.config.aij_other_center.ability
+    aij_other_obj:remove_from_deck(self, from_debuff)
+    self.config.center = old_center
+    self.ability = old_ability
+end
+'''
+
+# Fusion Enhancements
+# Card:calculate_dollar_bonus
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''local obj = self.config.center
+if obj.calc_dollar_bonus and type(obj.calc_dollar_bonus) == 'function' then'''
+position = "before"
+match_indent = true
+payload = '''
+local aij_other_obj = self.config.aij_other_center and self.config.aij_other_center.center
+if aij_other_obj and aij_other_obj.calc_dollar_bonus and type(aij_other_obj.calc_dollar_bonus) == 'function' and not SMODS.aij_applying_thing then
+    local old_center = self.config.center
+    self.config.center = self.config.aij_other_center.center
+    local old_ability = copy_table(self.ability)
+    self.ability = self.config.aij_other_center.ability
+    aij_other_obj:calc_dollar_bonus(self)
+    self.config.center = old_center
+    self.ability = old_ability
+end
+'''
+
+# Fusion Enhancements
+# Card:update
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''local obj = self.config.center
+if obj.update and type(obj.update) == 'function' then'''
+position = "before"
+match_indent = true
+payload = '''
+local aij_other_obj = self.config.aij_other_center and self.config.aij_other_center.center
+if aij_other_obj and aij_other_obj.update and type(aij_other_obj.update) == 'function' and not SMODS.aij_applying_thing then
+    -- sendDebugMessage(tprint(self.ability), "AIJ")
+    local old_center = self.config.center
+    self.config.center = self.config.aij_other_center.center
+    local old_ability = copy_table(self.ability)
+    self.ability = self.config.aij_other_center.ability
+    aij_other_obj:update(self, dt)
+    self.config.center = old_center
+    self.ability = old_ability
+    -- sendDebugMessage(tprint(self.ability), "AIJ")
+end
+'''
+
+# Fusion Enhancements
+# Card:load
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''local obj = self.config.center
+if obj.load and type(obj.load) == 'function' then'''
+position = "before"
+match_indent = true
+payload = '''
+local aij_other_obj = self.config.aij_other_center and self.config.aij_other_center.center
+if aij_other_obj and aij_other_obj.load and type(aij_other_obj.load) == 'function' and not SMODS.aij_applying_thing then
+    local old_center = self.config.center
+    self.config.center = self.config.aij_other_center.center
+    local old_ability = copy_table(self.ability)
+    self.ability = self.config.aij_other_center.ability
+    aij_other_obj:load(self, cardTable, other_card)
+    self.config.center = old_center
+    self.ability = old_ability
+end
+'''
+
+
+
+# Prevent seals from retriggering with inherent and fused enhancements (1/2)
+# Card:calculate_seal()
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''function Card:calculate_seal(context)'''
+position = 'after'
+payload = '''
+    if context.aij_inherent_enhancement or context.aij_other_enhancement then
+        return
+    end
+'''
+match_indent = true
+# Prevent seals from retriggering with inherent and fused enhancements (2/2)
+# Card:get_p_dollars()
+[[patches]]
+[patches.regex]
+target = "card.lua"
+pattern = '''elseif self\.seal == 'Gold' (?<post>.*) then$'''
+position = 'at'
+payload = '''elseif self.seal == 'Gold' and not SMODS.aij_inherent_enhancement_calc_in_progress $post then'''
+
+
+
+
+# Add tootip for inherent effects
+# generate_card_ui()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if _c.set == 'Other' then"
+position = "before"
+match_indent = true
+payload = '''
+if _c.is_inherent_edition then
+    desc_nodes.name = ' '..localize('k_aij_inherent')..' '..localize{type = 'name_text', key = _c.edition_key, set = 'Edition'}..' '
+end
+if _c.is_inherent_enhancement then
+    desc_nodes.name = ' '..localize('k_aij_inherent')..' '..localize{type = 'name_text', key = _c.enhancement_key, set = 'Enhanced'}..' '
+end
+if card and card.aij_inherent_effects then
+    for k, v in pairs(card.aij_inherent_effects) do
+        for _k, _v in pairs(card.aij_inherent_effects[k]) do
+            if k == 'enhancements' then
+                local enhancement_key = _v.center_key
+                if G.P_CENTERS[enhancement_key] and G.P_CENTERS[enhancement_key].set == 'Enhanced' then
+                    local t = SMODS.shallow_copy(G.P_CENTERS[enhancement_key])
+                    t.is_inherent_enhancement = true
+                    t.enhancement_key = enhancement_key
+                    t.specific_vars = t.specific_vars or {}
+                    if _v.ability.bonus > 0 then
+                        t.specific_vars.bonus_chips = _v.ability.bonus
+                    end
+                    info_queue[#info_queue + 1] = t
+                end
+            elseif k == 'editions' then
+                local ed_key = _v.key
+                local localization_key = _v.key
+                if G.P_CENTERS[ed_key] and G.P_CENTERS[ed_key].set == 'Edition' then
+                    if G.P_CENTERS[ed_key].config.card_limit then
+                        localization_key = "e_" .. G.P_CENTERS[ed_key]:card_limit_key(card)
+                        if localization_key:sub(localization_key:len()-14) == '_SMODS_INTERNAL' then
+                            localization_key = localization_key:sub(1, localization_key:len()-15)
+                            if localization_key == "e_negative_playing_card" then
+                                localization_key = "e_aij_negative_playing_card"
+                            end
+                        end
+                    end
+
+                    local t = {key = localization_key, set = 'Edition', config = {}}
+                    if localize(SMODS.merge_defaults(t, {type = 'name_text'})) == 'ERROR' then t.key = localization_key end
+                    t.type = nil
+                    t.is_inherent_edition = true
+                    t.edition_key = ed_key
+                    info_queue[#info_queue + 1] = t
+                    local fake_card = {edition = _v}
+
+                    if G.P_CENTERS[ed_key].loc_vars and type(G.P_CENTERS[ed_key].loc_vars) == 'function' then
+                        local res = G.P_CENTERS[ed_key]:loc_vars(info_queue, fake_card) or {}
+                        t.vars = res.vars
+                        t.key = res.key or t.key
+                        t.set = res.set or t.set
+                    end
+                end
+            end
+        end
+    end
+end
+'''
+
+
+# Adding compatability between context.setting_ability and fusion enhancements
+# Card.set_ability() SMODS hook
+[[patches]] 
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = "set_ability(self, center, initial, delay_sprites)"
+position = "after"
+payload = '''
+if self.aij_setting_other_enhancement_back then
+    self.aij_setting_other_enhancement_back = nil
+    self.front_hidden = self:should_hide_front()
+    return
+end
+if self.aij_setting_other_enhancement then
+    if not initial and (G.STATE ~= G.STATES.SMODS_BOOSTER_OPENED and G.STATE ~= G.STATES.SHOP and not G.SETTINGS.paused or G.TAROT_INTERRUPT) then
+		SMODS.calculate_context({setting_ability = true, old = self.aij_setting_other_enhancement, new = self.config.center_key, other_card = self, unchanged = self.aij_setting_other_enhancement == self.config.center.key})
+	end
+    self.aij_setting_other_enhancement = nil
+    self.front_hidden = self:should_hide_front()
+    return
+end
+'''
+match_indent = true
+
+
+
+# Remove "+x hand size" info box when card has inherent negative (1/2)
+# generate_card_ui()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = """if not (card.edition and card.edition.card_limit == card.ability.card_limit) then
+    local amount = card.ability.card_limit - (card.edition and card.edition.card_limit or 0)"""
+position = "after"
+match_indent = true
+payload = '''
+    if card.aij_inherent_effects and card.aij_inherent_effects.editions then
+        for i, effect in ipairs(card.aij_inherent_effects.editions) do
+            amount = amount - (effect.card_limit or 0)
+        end
+    end
+'''
+
+# Remove "+x hand size" info box when card has inherent negative (2/2)
+# generate_card_ui()
+[[patches]]
+[patches.regex]
+target = "functions/common_events.lua"
+pattern = "(?<indent>[\t ]*)(?<content>info_queue\\[#info_queue \\+ 1\\] = \\{set = 'Other', key = .* vars =\\{math\\.abs\\(amount\\).*)"
+position = "at"
+line_prepend = '$indent'
+payload = '''
+if amount ~= 0 then
+  $content
+end
+'''
+
+
+
+# Add extra desc box for vanilla fused enhancements
+# Modded enhancements (and overidden vanilla ones) are tied into generate_ui
+# generate_card_ui()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "SMODS.localize_perma_bonuses(specific_vars, desc_nodes)"
+position = "after"
+match_indent = true
+payload = '''
+    if card and card.config and card.config.aij_other_center then
+        local aij_o_c = card.config.aij_other_center['center']
+        local aij_ocfg = card.config.aij_other_center['ability']
+        local fake_card = {config = {center = aij_o_c}, ability = aij_ocfg}
+        local res = {}
+        if aij_o_c.loc_vars and type(aij_o_c.loc_vars) == 'function' then
+            res = aij_o_c:loc_vars(nil, fake_card) or {}
+        end
+        if aij_o_c.effect == 'Mult Card' then loc_vars = {SMODS.signed(aij_ocfg.mult)}
+        elseif aij_o_c.effect == 'Wild Card' then
+        elseif aij_o_c.effect == 'Glass Card' then loc_vars = {aij_ocfg.Xmult, SMODS.get_probability_vars(card, 1, aij_ocfg.extra, 'glass')}
+        elseif aij_o_c.effect == 'Steel Card' then loc_vars = {aij_ocfg.h_x_mult}
+        elseif aij_o_c.effect == 'Stone Card' then loc_vars = {aij_ocfg.bonus and SMODS.signed(aij_ocfg.bonus) or 0}
+        elseif aij_o_c.effect == 'Gold Card' then loc_vars = {SMODS.signed_dollars(aij_ocfg.h_dollars)}
+        elseif aij_o_c.effect == 'Lucky Card' then loc_vars = {G.GAME.probabilities.normal, aij_ocfg.mult, 5, aij_ocfg.p_dollars, 15}
+        end
+        local AUT = localize{type = 'descriptions', key = aij_o_c.key, set = aij_o_c.set, nodes = desc_nodes, vars = res.vars or loc_vars, all_in_jest = {add_box = true}}
+        full_UI_table.multi_box = AUT.multi_box
+        full_UI_table.box_colours = AUT.box_colours
+        if aij_o_c.name ~= 'Stone Card' and (aij_ocfg.bonus ~= 0 and aij_ocfg.bonus) then
+            localize{type = 'other', key = 'card_extra_chips', nodes = desc_nodes, vars = {SMODS.signed(aij_ocfg.bonus)}}
+        end
+        card.front_hidden = card:should_hide_front()
+    end
+'''
+
+
+# Add extra desc box for modded fused enhancements
+# generate_card_ui()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "_c:generate_ui(info_queue, card, desc_nodes, specific_vars, full_UI_table)"
+position = "after"
+match_indent = true
+payload = '''
+    if card and card.config and card.config.aij_other_center then
+        local aij_o_c = card.config.aij_other_center['center']
+        local aij_ocfg = card.config.aij_other_center['ability']
+        local fake_card = {config = {center = aij_o_c}, ability = aij_ocfg}
+        local res = {}
+        if aij_o_c.loc_vars and type(aij_o_c.loc_vars) == 'function' then
+            res = aij_o_c:loc_vars(nil, fake_card) or {}
+        end
+        if aij_o_c.effect == 'Mult Card' then loc_vars = {SMODS.signed(aij_ocfg.mult)}
+        elseif aij_o_c.effect == 'Wild Card' then
+        elseif aij_o_c.effect == 'Glass Card' then loc_vars = {aij_ocfg.Xmult, SMODS.get_probability_vars(card, 1, aij_ocfg.extra, 'glass')}
+        elseif aij_o_c.effect == 'Steel Card' then loc_vars = {aij_ocfg.h_x_mult}
+        elseif aij_o_c.effect == 'Stone Card' then loc_vars = {aij_ocfg.bonus and SMODS.signed(aij_ocfg.bonus) or 0}
+        elseif aij_o_c.effect == 'Gold Card' then loc_vars = {SMODS.signed_dollars(aij_ocfg.h_dollars)}
+        elseif aij_o_c.effect == 'Lucky Card' then loc_vars = {G.GAME.probabilities.normal, aij_ocfg.mult, 5, aij_ocfg.p_dollars, 15}
+        end
+        local AUT = localize{type = 'descriptions', key = aij_o_c.key, set = aij_o_c.set, nodes = desc_nodes, vars = res.vars or loc_vars, all_in_jest = {add_box = true}}
+        full_UI_table.multi_box = AUT.multi_box
+        full_UI_table.box_colours = AUT.box_colours
+        if aij_o_c.name ~= 'Stone Card' and (aij_ocfg.bonus ~= 0 and aij_ocfg.bonus) then
+            localize{type = 'other', key = 'card_extra_chips', nodes = desc_nodes, vars = {SMODS.signed(aij_ocfg.bonus)}}
+        end
+        card.front_hidden = card:should_hide_front()
+    end
+'''
+
+# Seems to force descriptions to seperate fused enhancement abilities into two boxes
+# Not sure if this is working correctly as of v0.7.2a
+# TODO: Investigate
+# localize()
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "if (args.type == 'descriptions' or args.type == 'other') and type(loc_target.text) == 'table' and type(loc_target.text[1]) == 'table' then"
+position = "before"
+match_indent = true
+payload = '''
+if args.all_in_jest and args.all_in_jest.add_box then
+    args.AUT.multi_box = args.AUT.multi_box or {} 
+    if (args.type == 'descriptions' or args.type == 'other') and type(loc_target.text) == 'table' and type(loc_target.text[1]) == 'table' then
+        for i, box in ipairs(loc_target.text_parsed) do
+            for j, line in ipairs(box) do
+                local final_line = SMODS.localize_box(line, args)
+                args.nodes.main_box_flag = true
+                args.AUT.multi_box[i] = args.AUT.multi_box[i] or {}
+                args.AUT.multi_box[i][#args.AUT.multi_box[i]+1] = final_line
+                args.AUT.box_colours[i] = args.vars.box_colours and args.vars.box_colours[i] or G.C.UI.BACKGROUND_WHITE
+            end
+        end
+        return args.AUT
+    end
+    for _, lines in ipairs(args.type == 'unlocks' and loc_target.unlock_parsed or args.type == 'name' and loc_target.name_parsed or (args.type == 'text' or args.type == 'tutorial' or args.type == 'quips') and loc_target or loc_target.text_parsed) do
+        local final_line = SMODS.localize_box(lines, args)
+        args.nodes.main_box_flag = true
+        args.AUT.multi_box[1] = args.AUT.multi_box[1] or {}
+        args.AUT.multi_box[1][#args.AUT.multi_box[1]+1] = final_line
+        args.AUT.box_colours[1] = args.vars.box_colours and args.vars.box_colours[1] or G.C.UI.BACKGROUND_WHITE
+    end
+    return args.AUT
+end
+'''
+
+
+# Prevent fused stone cards from showing nominal chips tooltip (1/2)
+# generate_card_ui()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if specific_vars and _c.name ~= 'Stone Card' and specific_vars.nominal_chips then"
+position = "before"
+match_indent = true
+payload = '''
+if (card and card.config and card.config.aij_other_center and card.config.aij_other_center['center'] and card.config.aij_other_center['center'].name  ~= 'Stone Card') or (not card or (card and not card.config or (card and card.config and not card.config.aij_other_center))) then
+'''
+
+# Prevent fused stone cards from showing nominal chips tooltip (2/2)
+# generate_card_ui()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if _c.effect == 'Mult Card' then loc_vars = {SMODS.signed(cfg.mult)}"
+position = "before"
+match_indent = true
+payload = '''
+end
+'''
+
+
+# Add image_data to vanilla atlases (1/3)
+# Game:set_render_setting()
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''self.ANIMATION_ATLAS[self.animation_atli[i].name].image = *'''
+position = 'after'
+payload = '''
+self.ANIMATION_ATLAS[self.animation_atli[i].name].image_data = love.image.newImageData(self.animation_atli[i].path)
+'''
+match_indent = true
+# Add image_data to vanilla atlases (2/3)
+# Game:set_render_setting()
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''self.ASSET_ATLAS[self.asset_atli[i].name].image = *'''
+position = 'after'
+payload = '''
+self.ASSET_ATLAS[self.asset_atli[i].name].image_data = love.image.newImageData(self.asset_atli[i].path)
+'''
+match_indent = true
+# Add image_data to vanilla atlases (3/3)
+# Game:set_render_setting()
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''self.ASSET_ATLAS[self.asset_images[i].name].image = *'''
+position = 'after'
+payload = '''
+self.ASSET_ATLAS[self.asset_images[i].name].image_data = love.image.newImageData(self.asset_atli[i].path)
+'''
+match_indent = true
+

@@ -1,0 +1,45 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+# Treat cards as the suits they are patched with
+# Card:is_suit()
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+if SMODS.has_no_suit(self) then
+    return false
+end
+'''
+position = "before"
+match_indent = true
+payload = '''
+if All_in_Jest.has_patches(self, suit) then
+    return All_in_Jest.has_patches(self, suit)
+end
+'''
+
+
+# Adds tooltip for suit patches
+# generate_card_ui()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if _c.set == 'Other' then"
+position = "before"
+match_indent = true
+payload = '''
+if card and card.ability and card.ability.patches then
+    for k, v in pairs(card.ability.patches) do
+        if G.C.SUITS[k] then
+            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {localize(k, "suits_singular"), colours = {G.C.SUITS[k]}}}
+        elseif G.SETTINGS.colour_palettes[k] == 'hc' then
+            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {localize(k, "suits_singular"), colours = {SMODS.Suits[k].hc_colour}}}
+        else
+            info_queue[#info_queue+1] = {key = 'aij_patches_suit', set = 'Other', vars = {localize(k, "suits_singular"), colours = {SMODS.Suits[k].lc_colour}}}
+        end
+    end
+end
+'''

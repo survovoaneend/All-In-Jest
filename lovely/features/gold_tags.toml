@@ -1,0 +1,206 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+
+# Gold Tags (1/8)
+# Exclude either gold tags or non-gold tags from collection depending if on gold tag screen or not
+# create_UIBox_your_collection_tags_content()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = 'for k, v in ipairs(tag_tab) do'
+position = "before"
+match_indent = true
+payload = '''
+for i = #tag_tab, 1, -1 do
+    local v = tag_tab[i]
+    if v.config.aij and v.config.aij.upgrade and not G.GAME.jest_upgrade_tab then
+        table.remove(tag_tab, i)
+    elseif G.GAME.jest_upgrade_tab then
+        if not (v.config.aij and v.config.aij.upgrade) then
+            table.remove(tag_tab, i)
+        end
+    end
+end
+'''
+
+# Gold Tags (2/8)
+# Add a button to access gold tags collection
+# create_UIBox_your_collection_tags_content()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = '''
+create_option_cycle({
+	options = page_options,
+	w = 4.5,
+	cycle_shoulders = true,
+	opt_callback = 'your_collection_tags_page',
+	focus_args = { snap_to = true, nav = 'wide' },
+	current_option = page,
+	colour = G.ACTIVE_MOD_UI and (G.ACTIVE_MOD_UI.ui_config or {}).collection_option_cycle_colour or G.C.RED,
+	no_pips = true
+})'''
+position = "after"
+match_indent = true
+payload = ''',
+(not All_in_Jest.config.aij_lite) and {n=G.UIT.R, config={align = "cm", r = 0.1, w = 0.2, minh = 0.9, hover = true, colour = G.C.GOLD, button = "jest_gold_tags", shadow = true, focus_args = {nav = 'wide', snap_to = true}}, nodes={
+    {n=G.UIT.R, config={align = "cm", padding = 0, no_fill = true, maxw = 4.8}, nodes={
+        {n=G.UIT.T, config={text = localize('aij_upgraded_tags'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT}}
+    }}
+}} or nil,
+'''
+
+# Gold tags (3/8)
+# Set pool to return pool of golden tags when type "Jest Golden Tag" is given
+# get_current_pool()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''local _pool, _starting_pool, _pool_key, _pool_size = G.ARGS.TEMP_POOL, nil, '', 0'''
+position = "after"
+match_indent = true
+payload = '''
+local jest_golden = false
+if _type == 'Jest_Golden_Tag' then
+    jest_golden = true
+    _type = 'Tag'
+end
+''' 
+
+# Gold tags (4/8)
+# Include or exclude gold tags from pool depending on if regular or golden tags were requested
+# get_current_pool()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+if (not v.requires or (G.P_CENTERS[v.requires] and G.P_CENTERS[v.requires].discovered)) and 
+(not v.min_ante or v.min_ante <= G.GAME.round_resets.ante) then
+    add = true
+end
+'''
+position = "after"
+match_indent = true
+payload = '''
+if v.config.aij and v.config.aij.upgrade then
+    if not jest_golden then
+        add = nil
+    end
+else
+    if jest_golden then
+        add = nil
+    end
+end
+'''
+
+# Gold tags (5/8)
+# Generate a pool of gold tags separate from the other tags
+# get_next_tag_key()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if G.FORCE_TAG then return G.FORCE_TAG end"
+position = "after"
+match_indent = true
+payload = '''
+if G.GAME.modifiers["aij_pandemonium_1"] then
+    return 'tag_aij_chaos'
+end
+if SMODS.optional_features.object_weights then 
+    if ((pseudorandom('gold_tag_rate') < (1 * G.GAME.all_in_jest.gold_tag_rate) / 30)) or (append == 'all_in_jest_guarrented_gold_tag' or append == 'aij_no_blind_dupes_guarrented_gold_tag') then
+        local tag_key = SMODS.poll_object({type = 'Jest_Golden_Tag', append = append and append..'_gold' or '_gold'})
+        if tag_key ~= 'tag_handy' and tag_key ~= 'j_joker' then return tag_key end
+    end
+end
+'''
+
+# Gold tags (6/8)
+# Change type to 'Tag' after polling for gold tags
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils/weights.lua"]'
+pattern = "if args.attributes and not args.rarity and args.rarity ~= false then"
+position = "before"
+match_indent = true
+payload = '''
+if args.type == 'Jest_Golden_Tag' then
+    args.type = 'Tag'
+    args.types = {'Tag'}
+end
+
+'''
+
+# Gold Tags (7/8)
+# Set undiscovered gold tag sprite
+# Tag:generate_UI()
+[[patches]]
+[patches.pattern]
+target = "tag.lua"
+pattern = 'local tag_sprite = *'
+position = "after"
+match_indent = true
+payload = '''
+if self.config.aij and self.config.aij.upgrade then
+    tag_sprite = SMODS.create_sprite(0,0,_size*1,_size*1,SMODS.get_atlas((not self.hide_ability) and G.P_TAGS[self.key].atlas or "aij_tag_atlas"), (self.hide_ability) and { x = 5, y = 4 } or self.pos)
+end
+''' 
+
+# Gold Tags (8/8)
+# Double tags cannot copy gold tags
+# Tag:apply_to_run()
+[[patches]]
+[patches.pattern]
+target = "tag.lua"
+pattern = "if self.name == 'Double Tag' and _context.tag.key ~= 'tag_double' then"
+position = "after"
+match_indent = true
+payload = '''
+    if _context.tag.config.aij and _context.tag.config.aij.upgrade then return end
+'''
+
+
+# Set collection page to page 1 if entering/exiting a gold tags page
+# Game:update()
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "for k, v in pairs(self.ANIMATIONS) do"
+position = "before"
+match_indent = true
+payload = '''
+if G.GAME.previous_jest_upgrade_tab ~= G.GAME.jest_upgrade_tab then
+    G.FUNCS.your_collection_tags_page({cycle_config = {current_option = 1}})
+    G.GAME.previous_jest_upgrade_tab = G.GAME.jest_upgrade_tab
+end
+if G.GAME.previous_jest_pc_stickers_tab ~= G.GAME.jest_pc_stickers_tab then
+    G.FUNCS.your_collection_stickers_page({cycle_config = {current_option = 1}})
+    G.GAME.previous_jest_pc_stickers_tab = G.GAME.jest_pc_stickers_tab
+end
+'''
+
+# Frugal Tag (1/1)
+# Make cards and boosters free if set by jest_shop_perma_free
+# Game:update()
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "for k, v in pairs(self.ANIMATIONS) do"
+position = "before"
+match_indent = true
+payload = '''
+if (G.shop and not G.GAME.shop_free and G.GAME.jest_shop_perma_free) then
+    if G.shop_jokers and G.shop_booster then 
+        for k, v in pairs(G.shop_jokers.cards) do
+            v.ability.couponed = true
+            v:set_cost()
+        end
+        for k, v in pairs(G.shop_booster.cards) do
+            v.ability.couponed = true
+            v:set_cost()
+        end
+    end
+end
+'''

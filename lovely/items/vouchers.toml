@@ -1,0 +1,35 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+
+
+# Wax Stamp Voucher
+# Standard Pack SMODS.Booster.create_card()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''
+local _seal = SMODS.poll_seal({mod = 10})
+'''
+position = "at"
+match_indent = true
+payload = '''
+local _seal = SMODS.poll_seal({mod = G.GAME.all_in_jest.standard_pack_seal_rate * 10, type_key = 'stdset'..G.GAME.round_resets.ante})
+'''
+
+# Trophy Voucher (1/1)
+# Sets big blind tag to gold if Trophy activates
+# G.FUNCS.cash_out()
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.GAME.round_resets.blind_tags.Big = get_next_tag_key()"
+position = "after"
+payload = '''
+if G.GAME.used_vouchers.v_aij_trophy and G.GAME.all_in_jest.apply.v_aij_trophy_chance then
+    G.GAME.round_resets.blind_tags.Big = get_next_tag_key('all_in_jest_guarrented_gold_tag')
+end
+'''
+match_indent = true

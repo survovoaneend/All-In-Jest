@@ -1,0 +1,59 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+
+
+# Adds Sprites needed for patches and a new sticker/indicator for perma debuff
+# Game:start_run()
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "self.discard = CardArea("
+position = "before"
+match_indent = true
+payload = '''
+self.all_in_jest = self.all_in_jest or {}
+self.all_in_jest.astral_grades = {}
+G.all_in_jest.astral_grades["Retrograde"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_consumable_atlas", {x=15,y=3})
+G.all_in_jest.astral_grades["Prograde"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_consumable_atlas", {x=16,y=3})
+G.all_in_jest.astral_grades["Passigrade"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_consumable_atlas", {x=17,y=3})
+
+self.all_in_jest.extra_card_sprites = {}
+G.all_in_jest.extra_card_sprites['Mark_of_the_Spear'] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=9,y=2})
+
+self.all_in_jest.patches_sprites = {}
+G.all_in_jest.patches_sprites["Other"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=0,y=2})
+G.all_in_jest.patches_sprites["Hearts"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=2,y=2})
+G.all_in_jest.patches_sprites["hc_Hearts"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=1,y=3})
+G.all_in_jest.patches_sprites["Clubs"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=1,y=2})
+G.all_in_jest.patches_sprites["hc_Clubs"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=0,y=3})
+G.all_in_jest.patches_sprites["Diamonds"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=3,y=2})
+G.all_in_jest.patches_sprites["hc_Diamonds"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=2,y=3})
+G.all_in_jest.patches_sprites["Spades"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=4,y=2})
+G.all_in_jest.patches_sprites["hc_Spades"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=3,y=3})
+G.all_in_jest.patches_sprites["paperback_Stars"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=5,y=2})
+G.all_in_jest.patches_sprites["hc_paperback_Stars"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=4,y=3})
+G.all_in_jest.patches_sprites["paperback_Crowns"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=6,y=2})
+G.all_in_jest.patches_sprites["hc_paperback_Crowns"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=5,y=3})
+G.all_in_jest.patches_sprites["bunc_Halberds"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=6,y=3})
+G.all_in_jest.patches_sprites["hc_bunc_Halberds"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=8,y=3})
+G.all_in_jest.patches_sprites["bunc_Fleurons"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=7,y=3})
+G.all_in_jest.patches_sprites["hc_bunc_Fleurons"] = SMODS.create_sprite(0,0,G.CARD_W,G.CARD_H,"aij_enhancements_atlas", {x=9,y=3})
+
+self.all_in_jest.numbertaker_rankless = {}
+G.all_in_jest.numbertaker_rankless["Other"] = {atlas = 'aij_enhancements_atlas', pos = {x=6, y=4}}
+G.all_in_jest.numbertaker_rankless["Hearts"] = {atlas = 'aij_enhancements_atlas', pos = {x=0, y=4}}
+G.all_in_jest.numbertaker_rankless["Clubs"] = {atlas = 'aij_enhancements_atlas', pos = {x=1, y=4}}
+G.all_in_jest.numbertaker_rankless["Spades"] = {atlas = 'aij_enhancements_atlas', pos = {x=3, y=4}}
+G.all_in_jest.numbertaker_rankless["Diamonds"] = {atlas = 'aij_enhancements_atlas', pos = {x=2, y=4}}
+G.all_in_jest.numbertaker_rankless["hc_Hearts"] = {atlas = 'aij_enhancements_atlas', pos = {x=0, y=5}}
+G.all_in_jest.numbertaker_rankless["hc_Clubs"] = {atlas = 'aij_enhancements_atlas', pos = {x=1, y=5}}
+G.all_in_jest.numbertaker_rankless["hc_Spades"] = {atlas = 'aij_enhancements_atlas', pos = {x=3, y=5}}
+G.all_in_jest.numbertaker_rankless["hc_Diamonds"] = {atlas = 'aij_enhancements_atlas', pos = {x=2, y=5}}
+G.all_in_jest.numbertaker_rankless["paperback_Crowns"] = {atlas = 'aij_enhancements_atlas', pos = {x=4, y=4}}
+G.all_in_jest.numbertaker_rankless["hc_paperback_Crowns"] = {atlas = 'aij_enhancements_atlas', pos = {x=4, y=5}}
+G.all_in_jest.numbertaker_rankless["paperback_Stars"] = {atlas = 'aij_enhancements_atlas', pos = {x=5, y=4}}
+G.all_in_jest.numbertaker_rankless["hc_paperback_Stars"] = {atlas = 'aij_enhancements_atlas', pos = {x=5, y=5}}
+'''

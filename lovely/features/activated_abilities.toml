@@ -1,0 +1,92 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+
+# Activated Ability Button UI (1/4)
+# Clear use button before creating it
+# G.UIDEF.use_and_sell_buttons()
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+local use = nil
+'''
+position = 'after'
+payload = '''
+local aij_activate_ability = nil
+'''
+match_indent = true
+
+# Activated Ability Button UI (2/4)
+# Defines the use button used for activated jokers
+# G.UIDEF.use_and_sell_buttons()
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+if card.area and card.area.config.type == 'joker' then
+'''
+position = 'after'
+payload = '''
+if card.config.center.all_in_jest and card.config.center.all_in_jest.use_ability then 
+    local use_button = {n=G.UIT.T, config={text = localize('b_use'),colour = G.C.UI.TEXT_LIGHT, scale = card.config.center.all_in_jest.ability_cost and card.aij_ability_cost_label and 0.4 or 0.55, shadow = true}}
+    aij_activate_ability = {n=G.UIT.C, config={align = "cr"}, nodes={
+        {n=G.UIT.C, config={ref_table = card, align = "cr",maxw = 1.25, padding = 0.1, r=0.08, minw = 1.25, minh = (card.area and card.area.config.type == 'joker') and 0 or 1, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, button = 'All_in_Jest_use_active_ability_button', func = 'All_in_Jest_can_use_active_ability_button'}, nodes={
+            {n=G.UIT.B, config = {w=0.1,h=0.6}},
+                card.config.center.all_in_jest.ability_cost and card.aij_ability_cost_label and {n=G.UIT.C, config={align = "tm"}, nodes={
+                    {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
+                        use_button,
+                    }},
+                    {n=G.UIT.R, config={align = "cm"}, nodes={
+                        {n=G.UIT.T, config={text = '-'..localize('$'),colour = G.C.WHITE, scale = 0.4, shadow = true}},
+                        {n=G.UIT.T, config={ref_table = card, ref_value = 'aij_ability_cost_label',colour = G.C.WHITE, scale = 0.55, shadow = true}}
+                    }
+                } 
+            }} or use_button
+        }}
+    }}
+end
+'''
+match_indent = true
+
+# Activated Ability Button UI (3/4)
+# Place the use button for activated jokers
+# G.UIDEF.use_and_sell_buttons()
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+{n=G.UIT.R, config={align = 'cl'}, nodes={
+    sell
+}},
+'''
+position = 'after'
+payload = '''
+{n=G.UIT.R, config={align = 'cr'}, nodes={
+    aij_activate_ability
+}},
+'''
+match_indent = true
+
+# Activated Ability Button UI (4/4)
+# Attaches the "Use" button to activated ability patches
+# Used for controller
+# G.UIDEF.card_focus_ui()
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''
+base_attach.children.sell = G.UIDEF.card_focus_button{
+'''
+position = 'before'
+payload = '''
+if card.config.center.all_in_jest and card.config.center.all_in_jest.use_ability then 
+    base_attach.children.aij_activate_ability = G.UIDEF.card_focus_button{
+        card = card, parent = base_attach, type = 'use',
+        func = 'All_in_Jest_can_use_active_ability_button', button = 'All_in_Jest_use_active_ability_button', card_width = card_width
+    }
+end
+'''
+match_indent = true

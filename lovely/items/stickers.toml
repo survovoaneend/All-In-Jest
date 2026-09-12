@@ -1,0 +1,92 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+
+# Perishable for Playing Cards 
+# debuffs cards with sticker 
+# Card:set_debuff()
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.perishable and self.ability.perish_tally <= 0 then"
+position = "before"
+match_indent = true
+payload = '''
+if self.ability.aij_pc_perishable and self.ability.perish_tally <= 0 then 
+    if not self.debuff then
+        self.debuff = true
+        return
+    end
+end
+local aij_debuff_list = {
+    ['aij_spade'] = 'should_debuff',
+    ['aij_diamond'] = 'should_debuff',
+    ['aij_heart'] = 'should_debuff',
+    ['aij_club'] = 'should_debuff',
+    ['aij_face'] = 'should_debuff',
+}
+for k, v in pairs(aij_debuff_list) do
+    if self.ability[k] and self.ability[k].extra[v] <= 0 then 
+        if not self.debuff then
+            self.debuff = true
+        end
+        return
+    end
+end
+'''
+
+# Pinned playing cards (1/2)
+# CardArea:align_cards()
+[[patches]]
+[patches.regex]
+target = "cardarea.lua"
+pattern = '''
+(?<indent>[\t ]*)a\.pinned(?<post>.*)
+'''
+position = "at"
+line_prepend = '$indent'
+payload = '''
+$indent(a.ability and a.ability.aij_pinned or a.pinned)$post
+'''
+
+# Pinned playing cards (2/2)
+# CardArea:align_cards()
+[[patches]]
+[patches.regex]
+target = "cardarea.lua"
+pattern = '''
+(?<indent>[\t ]*)b\.pinned(?<post>.*)
+'''
+position = "at"
+line_prepend = '$indent'
+payload = '''
+$indent(b.ability and b.ability.aij_pinned or b.pinned)$post
+'''
+
+
+# Adds tooltip for special "stickers"
+# (Mark of the Spear)
+# generate_card_ui()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if _c.set == 'Other' then"
+position = "before"
+match_indent = true
+payload = '''
+if (card and card.ability and card.ability.all_in_jest and card.ability.all_in_jest.perma_debuff) then 
+    info_queue[#info_queue+1] = {key = 'aij_jest_mark_of_the_spear', set = 'Other'}
+end
+'''
+
+# Add important comment to create_UIBox_your_collection_stickers function
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/ui.lua"]'
+pattern = "create_UIBox_your_collection_stickers = function()"
+position = "before"
+payload = "-- Function overridden by All in Jest in Utils/overrides.lua"
+match_indent = true
+

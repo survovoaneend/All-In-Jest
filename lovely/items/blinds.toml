@@ -1,0 +1,448 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+
+########################################
+    # GENERAL BLIND FUNCTIONALITY #
+########################################
+
+# AiJ Blind Functionality (1/5)
+# Trigger any "update" methods of blinds
+# Currently only used by The Oak (debuffs rightmost joker)
+# Game:update()
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "for k, v in pairs(self.ANIMATIONS) do"
+position = "before"
+match_indent = true
+payload = '''
+-- updates for blinds & abilities for blinds
+if G.GAME.blind and G.GAME.blind.config.blind.update and type(G.GAME.blind.config.blind.update) == 'function' then
+    G.GAME.blind.config.blind.update(G.GAME.blind, G.GAME.blind, dt)
+end
+'''
+
+# AiJ Blind Functionality (2/5)
+# Transfer a blind's config over to its ability
+# Will trigger upon selecting a boss blind
+# Game:update()
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "for k, v in pairs(self.ANIMATIONS) do"
+position = "before"
+match_indent = true
+payload = '''
+if G.GAME.blind and G.GAME.blind.config.blind.config and type(G.GAME.blind.config.blind.config) == 'table' then
+    if G.GAME.blind.in_blind then
+        if not G.GAME.blind.ability then
+            G.GAME.blind.ability = G.GAME.blind.ability or {}
+            for k, v in pairs(G.GAME.blind.config.blind.config) do
+                if type(v) == 'table' then
+                    G.GAME.blind.ability[k] = copy_table(v)
+                else
+                    G.GAME.blind.ability[k] = v
+                end
+            end
+        end
+    else
+        G.GAME.blind.ability = nil
+    end
+end
+'''
+
+# AiJ Blind Functionality (3/5)
+# Save ability table of bosses
+# Blind:save()
+[[patches]]
+[patches.pattern]
+target = '''blind.lua'''
+pattern = '''
+function Blind:save()
+    local blindTable = {
+'''
+position = "after"
+match_indent = true
+payload = '''
+    ability = self.ability,
+'''
+
+# AiJ Blind Functionality (4/5)
+# Load ability table of bosses
+# Blind:load()
+[[patches]]
+[patches.pattern]
+target = '''blind.lua'''
+pattern = '''
+function Blind:load(blindTable)
+'''
+position = "after"
+match_indent = true
+payload = '''
+    self.ability = blindTable.ability
+'''
+
+# AiJ Blind Functionality (5/5)
+# Allows blinds to display a dynamic blind amount on blind select screen without changing the chip value directly
+# Hooked into via new aij_blind_amount_display() method in blind objects
+# create_UIBox_blind_choice()
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "local blind_amt = *"
+position = 'after'
+match_indent = true
+payload = '''
+if type == 'Big_Boss' then extras = nil end
+if All_in_Jest.aij_alias_type(blind_choice.config.aij_blind_amount_display) == 'function' then
+    local blind_mult = blind_choice.config.mult
+    if next(SMODS.find_card("j_aij_fall_of_count_chaligny")) then
+        blind_mult = 1
+    end
+    ret = blind_choice.config:aij_blind_amount_display(blind_choice.config, get_blind_amount(G.GAME.round_resets.blind_ante), blind_mult)
+    if All_in_Jest.aij_alias_type(ret) == "number" then
+        blind_amt = ret * G.GAME.starting_params.ante_scaling
+    end
+elseif next(SMODS.find_card("j_aij_fall_of_count_chaligny")) then
+    blind_amt = get_blind_amount(G.GAME.round_resets.blind_ante)*1*G.GAME.starting_params.ante_scaling
+end
+if G.GAME.the_connection_extra_chips then
+    blind_amt = blind_amt + G.GAME.the_connection_extra_chips
+end
+'''
+
+
+###########################
+    # SPECIFIC BLINDS #
+###########################
+
+# The Seed
+# end_round()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+SMODS.calculate_context({end_of_round = true, game_over = game_over, beat_boss = G.GAME.blind.boss*
+'''
+position = "before"
+payload = '''
+G.GAME.aij_big_boss_avoid = true
+if G.GAME.blind_on_deck == 'Big_Boss' then
+    G.GAME.aij_temp_big_boss = true
+end
+'''
+match_indent = true
+
+# The Seed
+# end_round()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+G.FUNCS.draw_from_discard_to_deck()
+'''
+position = "before"
+payload = '''
+G.GAME.aij_big_boss_avoid = nil
+'''
+match_indent = true
+
+# # Currently unused patch, used to be used for the brilliance
+# [[patches]] 
+# [patches.pattern]
+# target = "functions/state_events.lua"
+# pattern = '''
+# G.E_MANAGER:add_event(Event({
+#     trigger = 'ease',
+#     blocking = false,
+#     ref_table = G.GAME,
+#     ref_value = 'chips',
+#     ease_to = G.GAME.chips + math.floor( SMODS.calculate_round_score() ),
+#     delay =  0.5,
+#     func = (function(t) return math.floor(t) end)
+# }))
+# '''
+# position = "after"
+# payload = '''
+# if G.GAME.all_in_jest.reset_score.blind_total then
+#     G.E_MANAGER:add_event(Event({
+#       trigger = 'ease',
+#       blocking = false,
+#       ref_table = G.GAME,
+#       ref_value = 'chips',
+#       ease_to = 0,
+#       delay =  0.5,
+#       func = (function(t) return math.floor(t) end)
+#     }))
+#     G.GAME.all_in_jest.reset_score.blind_total = false
+# end
+# '''
+# match_indent = true
+
+# The Clay blind (1/2)
+# Make blind display randomly change with The Clay blind
+# By coincidence this also works when UnBlind is installed, just gotta use the blind_state_text_colour variable to check if its in UnBlind's code or not
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "{n=G.UIT.T, config={text = number_format(blind_amt)*"
+position = 'before'
+match_indent = true
+payload = '''(blind_choice.config.name == "bl_aij_the_clay" and not aij_has_blind_drawn and {n=G.UIT.O, config={object = DynaText({string = getRandomClayBlindReqs(blind_amt), colours = {disabled and G.C.UI.TEXT_INACTIVE or blind_state_text_colour or G.C.RED},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = score_number_scale(blind_state_text_colour and 0.47 or 0.9, blind_amt), shadow = not disabled, min_cycle_time = 0})}}) or'''
+
+# The Clay blind (2/2)
+# create_UIBox_blind_popup
+# Adds custom blind description for The Clay in the collection
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "{n=G.UIT.T, config={text = blind.mult..localize('k_x_base'), scale = 0.4, colour = G.C.RED}},"
+position = "before"
+match_indent = true
+payload = '''blind.key == "bl_aij_the_clay" and {n=G.UIT.T, config={text = "2~5"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or 
+              blind.aij_variable_req and false and {n=G.UIT.T, config={text = blind.mult.."+?"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or '''
+
+# The Journey Blind (1/1)
+# Set The Journey to have a special background when activated
+# ease_background_colour_blind()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "elseif blindname == 'Small Blind' or blindname == 'Big Blind' or blindname == '' then"
+position = "before"
+match_indent = true
+payload = '''elseif blindname == 'bl_aij_the_journey' and G.GAME.current_round.aij_the_journey_blind and G.GAME.current_round.aij_the_journey_blind.triggered then
+    boss_col = darken(G.P_BLINDS["bl_aij_the_journey"].boss_colour, 0.2)
+    G.ARGS.spin.real = -1
+    ease_background_colour{new_colour = lighten(mix_colours(boss_col, G.C.BLACK, 0.3), 0.1), special_colour = boss_col, contrast = 5}
+
+    if G.aij_the_journey_stars == nil then
+        G.aij_the_journey_stars = Particles(1, 1, 0,0, {
+            timer = 0.07,
+            scale = 0.1,
+            initialize = true,
+            lifespan = 15,
+            speed = 0.1,
+            padding = -4,
+            attach = G.ROOM_ATTACH,
+            colours = {G.C.WHITE, boss_col, lighten(boss_col, 0.2)},
+            fill = true
+        })
+    end
+'''
+
+# The Connection (1/1)
+# Add excess chips to blind requirements
+# Blind:set_blind()
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = "self.in_blind = true"
+position = "after"
+match_indent = true
+payload = '''
+if G.GAME.the_connection_extra_chips then
+    All_in_Jest.ease_blind_requirement(nil, G.GAME.the_connection_extra_chips, true)
+end
+'''
+
+# The Seed
+# Show/Hide boss blind that replaces big blind
+# create_UIBox_blind_select()
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "G.blind_select_opts = {}"
+position = "after"
+payload = '''
+if G.GAME.aij_has_big_boss then
+    if G.GAME.blind_on_deck == 'Boss' and G.GAME.round_resets.blind_states.Big_Boss and not (G.GAME.round_resets.blind_states.Big_Boss == 'Defeated' or G.GAME.round_resets.blind_states.Big_Boss == 'Skipped' or G.GAME.round_resets.blind_states.Big_Boss == 'Hide') then 
+        G.GAME.blind_on_deck = 'Big_Boss' 
+        G.GAME.round_resets.blind_states['Big_Boss'] = 'Current'
+        G.GAME.round_resets.blind_states['Boss'] = 'Upcoming'
+        G.GAME.round_resets.loc_blind_states.Big_Boss = localize(G.GAME.round_resets.blind_states.Big_Boss or 'Upcoming','blind_states')
+    end
+    G.GAME.round_resets.blind_states['Big'] = 'Hide'
+    if G.GAME.round_resets.blind_states['Big_Boss'] ~= 'Hide' then
+        G.blind_select_opts.big_boss = UIBox{definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={UIBox_dyn_container({create_UIBox_blind_choice('Big_Boss')},false,get_blind_main_colour('Big_Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Big_Boss'), 0.8))}}, config = {align="bmi", offset = {x=0,y=0}}} or nil
+    end
+else
+    G.GAME.round_resets.blind_states['Big_Boss'] = 'Hide'
+end
+'''
+match_indent = true
+
+
+
+# The Seed
+# Return type of big blind boss as distinct for big blind and boss blind
+# Blind:get_type()
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = '''if self.name == "Small Blind" then'''
+position = "before"
+match_indent = true
+payload = '''
+if G.GAME.aij_big_boss_avoid and G.GAME.blind and G.GAME.blind_on_deck and G.GAME.blind == self and G.GAME.blind_on_deck == 'Big_Boss' then
+    return 'Big_Boss'
+end
+'''
+
+# The Seed
+# Include UI for big blind boss if required
+# create_UIBox_blind_select()
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''G.GAME.round_resets.blind_states['Big'] ~= 'Hide' and {n=G.UIT.O, config={align = "cm", object = G.blind_select_opts.big}} or nil,'''
+position = "after"
+payload = '''
+G.GAME.aij_has_big_boss and G.GAME.round_resets.blind_states['Big_Boss'] ~= 'Hide' and {n=G.UIT.O, config={align = "cm", object = G.blind_select_opts.big_boss}} or nil,
+'''
+match_indent = true
+
+# The Seed
+# Hide regular big blind if it's replaced by replacement boss
+# reset_blinds
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "SMODS.reset_blind_choices(G.GAME.round_resets.blind_choices)"
+position = "before"
+match_indent = true
+payload = '''
+if G.GAME.aij_has_big_boss then
+    G.GAME.round_resets.blind_states.Big_Boss = 'Upcoming'
+    G.GAME.round_resets.blind_states['Big'] = 'Hide'
+end
+'''
+
+# The Seed
+# Set blind_order to include replacement boss instead of regular big blind
+# SMODS.reset_blind_choices()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_objects/blind.lua"]'
+pattern = "G.GAME.round_resets.blind_order = {'Small', 'Big', 'Boss'} -- prepared for custom antes"
+position = "after"
+match_indent = true
+payload = '''
+if G.GAME.aij_has_big_boss then
+    G.GAME.round_resets.blind_order = {'Small', 'Big_Boss', 'Boss'}
+end
+'''
+
+# The Seed
+# Set replacement boss as defeated and stop it from showing up next ante
+# end_round()
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = """elseif G.GAME.round_resets.blind_states.Big == 'Current' then
+    G.GAME.round_resets.blind_states.Big = 'Defeated'"""
+position = 'before'
+match_indent = true
+payload = '''
+elseif G.GAME.aij_temp_big_boss then
+    G.GAME.round_resets.blind_states.Big_Boss = 'Defeated'
+    G.GAME.aij_temp_big_boss = nil
+'''
+
+# The Seed
+# Set stats on new round
+# new_round()
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = """elseif G.GAME.round_resets.blind_states.Big == 'Current' then
+    G.GAME.round_resets.blind_states.Big = 'Current'"""
+position = 'before'
+match_indent = true
+payload = '''
+elseif G.GAME.aij_temp_big_boss then
+    G.GAME.round_resets.blind_states.Big_Boss = 'Current'
+    blhash = 'B'
+'''
+
+# The Seed
+# Show replacement boss blind in current blinds screen
+# G.UIDEF.current_blinds()
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+G.GAME.round_resets.blind_states['Boss'] ~= 'Hide' and {n=G.UIT.C, config={align = "tm", padding = 0.1, outline = 2, r = 0.1, line_emboss = 0.2, outline_colour = G.C.BLACK}, nodes={
+'''
+position = "before"
+match_indent = true
+payload = '''
+G.GAME.aij_has_big_boss and G.GAME.round_resets.blind_states['Big_Boss'] ~= 'Hide' and {n=G.UIT.C, config={align = "tm", padding = 0.1, outline = 2, r = 0.1, line_emboss = 0.2, outline_colour = G.C.BLACK}, nodes={
+    create_UIBox_blind_choice('Big_Boss', true)
+}} or nil,
+'''
+
+# The Seed
+# Skip to the correct blind when small blind or big boss are skipped
+# G.FUNCS.skip_blind()
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.GAME.blind_on_deck == 'Small' and 'Big' or G.GAME.blind_on_deck == 'Big' and 'Boss' or 'Boss'"
+position = "before"
+match_indent = true
+payload = '''
+G.GAME.aij_has_big_boss and (G.GAME.blind_on_deck == 'Small' and 'Big_Boss' or G.GAME.blind_on_deck == 'Big_Boss' and 'Boss' or 'Boss') or
+'''
+
+# The Seed
+# Correctly set background of replacement boss blind
+# get_blind_main_colour()
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "if blind == 'Boss' or blind == 'Small' or blind == 'Big' then"
+position = "before"
+match_indent = true
+payload = '''
+if blind == 'Big_Boss' then
+    G.GAME.round_resets.blind_states = G.GAME.round_resets.blind_states or {}
+    if G.GAME.round_resets.blind_states[blind] == 'Defeated' or G.GAME.round_resets.blind_states[blind] == 'Skipped' then disabled = true end
+    blind = G.GAME.round_resets.blind_choices[blind]
+end
+'''
+
+# The Seed
+# Set tooltip of blind state for replacement boss blind
+# Game:update()
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''G.GAME.round_resets.loc_blind_states.Big = localize(G.GAME.round_resets.blind_states.Big,'blind_states')'''
+position = 'after'
+match_indent = true
+payload = '''
+G.GAME.round_resets.loc_blind_states.Big_Boss = localize(G.GAME.round_resets.blind_states.Big_Boss or 'Upcoming','blind_states')
+'''
+
+
+# Perma-flipped for Playing Cards
+# allows cards to stay flipped when drawn permanently
+# Unused for now, for a future blind
+# draw_card()
+# [[patches]]
+# [patches.pattern]
+# target = "functions/common_events.lua"
+# pattern = "local stay_flipped = G.GAME and G.GAME.blind and G.GAME.blind:stay_flipped(to, card, from)"
+# position = "after"
+# match_indent = true
+# payload = '''
+# if card.ability.aij_perma_flipped then 
+#     if to == G.hand then
+#         stay_flipped = true
+#     end
+# end
+# '''

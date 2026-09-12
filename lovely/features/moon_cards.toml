@@ -1,0 +1,122 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+# Moon Cards (1/2)
+# Prevent blue seals from generating moons
+# Card:get_end_of_round_effect()
+[[patches]]
+[patches.regex]
+target = "card.lua"
+pattern = '''(?<indent>[\t ]*)if v.config.hand_type == G.GAME.last_hand_played (?<post>.*)'''
+position = "at"
+line_prepend = '$indent'
+payload = '''if v.config.hand_type == G.GAME.last_hand_played and not v.config.moon $post'''
+
+
+# Moon Cards (2/2)
+# Offsets abundance of moons by making all other planets appear x3 as often, done mainly for crossmod purposes
+# create_card()
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''center = pseudorandom_element(_pool, pseudoseed(_pool_key))'''
+position = "before"
+match_indent = true
+payload = '''
+do -- All in Jest Patch
+    if _type == 'Planet' then
+        local unboosted_weight_planet_keys = {
+            ['c_mercury'] = true, ['c_aij_vulcanoid'] = true, ['c_aij_phaethon'] = true,
+            ['c_venus'] = true, ['c_aij_zoozve'] = true, ['c_aij_2013_nd15'] = true, 
+            ['c_earth'] = true, ['c_aij_luna'] = true, ['c_aij_kamooalewa'] = true,
+            ['c_mars'] = true, ['c_aij_phobos'] = true, ['c_aij_deimos'] = true,
+            ['c_jupiter'] = true, ['c_aij_europa'] = true, ['c_aij_callisto'] = true, 
+            ['c_saturn'] = true, ['c_aij_titan'] = true, ['c_aij_iapetus'] = true,
+            ['c_uranus'] = true, ['c_aij_umbriel'] = true, ['c_aij_oberon'] = true,
+            ['c_neptune'] = true, ['c_aij_triton'] = true, ['c_aij_proteus'] = true, 
+            ['c_pluto'] = true, ['c_aij_nix'] = true, ['c_aij_charon'] = true,
+            ['c_planet_x'] = true, ['c_aij_planet_nine'] = true, ['c_aij_nibiru'] = true,
+            ['c_ceres'] = true, ['c_aij_pallas'] = true, ['c_aij_2000_eu16'] = true, 
+            ['c_eris'] = true, ['c_aij_dysnomia'] = true, ['c_aij_kuiper'] = true,
+            
+            ['c_paperback_quaoar'] = true, ['c_aij_paper_weywot'] = true, ['c_aij_paper_namaka'] = true,
+            ['c_paperback_haumea'] = true, ['c_aij_paper_ilmare'] = true, ['c_aij_paper_salacia'] = true,
+            ['c_paperback_sedna'] = true, ['c_aij_paper_ixion'] = true, ['c_aij_paper_hiiaka'] = true,
+            ['c_paperback_makemake'] = true, ['c_aij_paper_varda'] = true, ['c_aij_paper_mk2'] = true,
+            
+            ['c_bunc_quaoar'] = true, ['c_aij_bunc_weywot'] = true, ['c_aij_bunc_namaka'] = true,
+            ['c_bunc_haumea'] = true, ['c_aij_bunc_ilmare'] = true, ['c_aij_bunc_salacia'] = true,
+            ['c_bunc_sedna'] = true, ['c_aij_bunc_ixion'] = true, ['c_aij_bunc_hiiaka'] = true,
+            ['c_bunc_makemake'] = true, ['c_aij_bunc_varda'] = true, ['c_aij_bunc_mk2'] = true,
+        }
+        if _pool and #_pool > 0 then
+            local weighted_pool = {}
+            for i = 1, #_pool do
+                local item = _pool[i] 
+                local item_key = nil
+                if type(item) == 'string' then
+                    item_key = item
+                elseif type(item) == 'table' and item.key then 
+                    item_key = item.key
+                end
+
+                if item_key then
+                    local weight = 3
+                    if unboosted_weight_planet_keys[item_key] then
+                        weight = 1 
+                    end
+                    -- Add the original item key from the pool 'weight' times
+                    for w = 1, weight do
+                        table.insert(weighted_pool, item_key) 
+                    end
+                else
+                    -- Fallback if we somehow can't determine the key
+                    table.insert(weighted_pool, item)
+                end
+            end
+                    
+            if #weighted_pool > 0 then 
+                _pool = weighted_pool
+            end
+        end
+    end
+end -- End of All in Jest Patch
+'''
+
+
+# Block planets / moons of the same hand type from appearing at once (1/2)
+# get_current_pool()
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''pool_opts = pool_opts or {}'''
+position = "after"
+match_indent = true
+payload = '''
+local aij_manual_block = false
+if v.set == 'Planet' and All_in_Jest.config.moons_blocking and not G.GAME.used_jokers[v.key] then
+    for k, other in pairs(G.P_CENTER_POOLS.Planet) do
+        if other.config.hand_type == v.config.hand_type and G.GAME.used_jokers[other.key] then
+            aij_manual_block = true
+            G.GAME.used_jokers[v.key] = true
+            break
+        end
+    end
+end
+'''
+
+# Block planets / moons of the same hand type from appearing at once (2/2)
+# get_current_pool()
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''if v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag] then add = nil end'''
+position = "before"
+match_indent = true
+payload = '''
+if aij_manual_block then
+    G.GAME.used_jokers[v.key] = nil
+end
+'''

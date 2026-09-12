@@ -1,0 +1,278 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+
+# Add a context that fires when a card is retriggered
+# SMODS.insert_repetitions()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'before'
+pattern = '''
+if _type == 'joker_retrigger' then
+'''
+payload = '''
+SMODS.calculate_context({aij_retriggered_card = true, card = effect_card, ret = ret, times = eval.repetitions})
+'''
+
+# Add a context to detect when a held in hand effect is trigegred
+# SMODS.score_card()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'after'
+pattern = '''
+local flags = SMODS.trigger_effects(effects, card)
+'''
+payload = '''
+if context.cardarea == G.hand and next(flags) then
+    SMODS.calculate_context({aij_held_effect_triggered = true, card = card, effects = flags})
+end
+'''
+
+# Add context for when cards are drawn to hand
+# Usually for effects that happen at the start of the round and after a hand is played but did not win
+# G.FUNCS.play_cards_from_highlighted()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "G.GAME.hands_played = G.GAME.hands_played + 1"
+position = "before"
+payload = '''
+SMODS.calculate_context({all_in_jest = {drew_cards = true}})
+'''
+match_indent = true
+
+# Adds a context used to modify the hand type that was played
+# G.FUNCS.evaluate_play()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
+'''
+position = "before"
+payload = '''
+local fake_text,fake_disp_text,fake_poker_hands,fake_scoring_hand,fake_non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
+SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = fake_scoring_hand, scoring_name = fake_text, poker_hands = fake_poker_hands, aij_before_before = true})
+'''
+match_indent = true
+
+# Adds a new context that occurs slightly before after, used for effects that occur between the end of hand scoring and the score being tallied
+# G.FUNCS.evaluate_play()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+G.E_MANAGER:add_event(Event({
+    trigger = 'after',delay = 0.4,
+    func = (function()  update_hand_text({delay = 0, immediate = true}, {mult = 0, chips = 0, chip_total = math.floor( SMODS.calculate_round_score() ), level = '', handname = ''});play_sound('button', 0.9, 0.6);return true end)
+}))
+'''
+position = "before"
+payload = '''
+SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, all_in_jest = {before_after = true}, total_chips = math.floor(SMODS.calculate_round_score())})
+'''
+match_indent = true
+
+# Add a context for immediately before end of round check
+# Used by mysterious myriad finisher blind and bit flip joker
+# G.FUNCS.evaluate_play()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+SMODS.last_hand_score = SMODS.calculate_round_score()
+SMODS.last_hand_oneshot = SMODS.last_hand_score >= G.GAME.blind.chips
+'''
+position = "before"
+payload = '''
+SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, all_in_jest = {before_round_end_check = true}, total_chips = math.floor(SMODS.calculate_round_score())})
+'''
+match_indent = true
+
+# Context for before the Shop is Rerolled
+# G.FUNCS.reroll_shop()
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "calculate_reroll_cost(final_free)"
+position = "before"
+payload = '''
+SMODS.calculate_context({all_in_jest = {before_reroll_shop = true, cost = reroll_cost}})
+'''
+match_indent = true
+
+# Context for after the Shop is Rerolled
+# G.FUNCS.reroll_shop()
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "SMODS.calculate_context({reroll_shop = true, cost = reroll_cost})"
+position = "after"
+payload = '''
+G.E_MANAGER:add_event(Event({
+func = function()
+    SMODS.calculate_context({all_in_jest = {after_reroll_shop = true, cost = reroll_cost}})
+    return true
+    end
+}))
+'''
+match_indent = true
+
+
+# Add context for when an edition is triggered
+# (As of v0.6 is just for Chromasist)
+# eval_card()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "local edition = card:calculate_edition(context)"
+position = "after"
+match_indent = true
+payload = '''
+if edition then
+    local flags = SMODS.calculate_context({all_in_jest = {calculating_edition = true, other_card = card, edition = card.edition, area = card.area }})
+    ret.extra = flags
+end
+'''
+
+
+# Add context for before a consumable is used
+# As of v0.6, just for Lost Carcosa (randomises planet values)
+# Card:use_consumeable()
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "local used_tarot = copier or self"
+position = "after" 
+match_indent = true
+payload = '''
+SMODS.calculate_context({all_in_jest = {before_using_consumeable = true, consumeable = self, area = area }})
+'''
+
+
+# Add context before blind is set
+# Used by Fall of Count Chaligny and Dong Tong
+# Blind:set_blind()
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = "self.in_blind = true"
+position = "after"
+match_indent = true
+payload = '''
+SMODS.calculate_context({aij_before_setting_blind = true, blind = G.GAME.round_resets.blind})
+'''
+
+
+# Add a context when a card is highlighted
+# function Card:highlight (Tumbler)
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'self.highlighted = is_higlighted'
+position = 'after'
+match_indent = true
+payload = '''
+if G.jokers ~= nil and next(SMODS.find_card('j_aij_tumbler')) then
+    SMODS.calculate_context({aij_card_highlight = self})
+end
+'''
+
+# Return to hand effects (e.g. Simulated Cards)
+# G.FUNCS.draw_from_play_to_discard
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "draw_card(G.play,G.discard, it*100/play_count,'down', false, v)"
+position = "at"
+payload = '''
+local flags = SMODS.last_hand and SMODS.calculate_context({aij_discard_played_hand = true, other_card = v, scoring_hand = SMODS.last_hand.scoring_hand, scoring_name = SMODS.last_hand.scoring_name, full_hand = SMODS.last_hand.full_hand}) or nil
+
+if flags and flags.aij_return_to_hand then
+    draw_card(G.play,G.hand, it*100/play_count,'up', true, v)
+else
+    draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
+end
+'''
+match_indent = true
+
+
+# Allows for effects to "block" scoring effects to perform their own
+# Hooks into SMODS.Scoring_Parameter.calc_effect rather than modifying directly because Scoring_Parameter often overrides this function when defined
+# Used for train conductor
+# SMODS.Scoring_Parameter.inject() (hook for SMODS.Scoring_Parameter.calc_effect())
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''self.current = self.default_value'''
+position = "after"
+payload = '''
+local calc_effect_ref = self.calc_effect
+self.calc_effect = function(self, effect, scored_card, key, amount, from_edition)
+    if not SMODS.Calculation_Controls[self.key] then return end
+    local flags = {}
+    SMODS.calculate_context({aij_modify_card_effects = true, parameter = self, effects = effect, effect_type = key, card = scored_card, amount = amount, from_edition = from_edition}, flags)
+    local override = false
+    for _, eval in pairs(flags) do
+        for key, eval2 in pairs(eval) do
+            if type(eval2) == 'table' then
+                for key2, val in pairs(eval2) do
+                    if key2 == 'override' then override = val end
+                end
+            end
+        end
+    end
+    if override then return true end
+    return calc_effect_ref(self, effect, scored_card, key, amount, from_edition)
+end
+'''
+match_indent = true
+
+# Allows for effects to "block" money effects to perform their own, similar to above
+# Currently not used for anything as of 0.7
+# SMODS.calculate_individual_effect()
+# [[patches]]
+# [patches.pattern]
+# target = '=[SMODS _ "src/utils.lua"]'
+# pattern = '''if (key == 'p_dollars' or key == 'dollars' or key == 'h_dollars') and amount then'''
+# position = "before"
+# payload = '''
+# local flags = {}
+# SMODS.calculate_context({aij_modify_card_effects = true, effects = effect, effect_type = key, card = scored_card, amount = amount, from_edition = from_edition}, flags)
+# local override = false
+# for _, eval in pairs(flags) do
+#     for key, eval2 in pairs(eval) do
+#         if type(eval2) == 'table' then
+#             for key2, val in pairs(eval2) do
+#                 if key2 == 'override' then override = val end
+#             end
+#         end
+#     end
+# end
+# if override then return true end
+# '''
+# match_indent = true
+# 
+
+
+# Unused Context that Might be Used Eventually
+# [[patches]]
+# [patches.pattern]
+# target = "card.lua"
+# pattern = '''
+# for k, v in ipairs(pack_cards) do
+#     G.pack_cards:emplace(v)
+# end
+# '''
+# position = "before"
+# match_indent = true
+# payload = '''
+# -- Like context.indiviual for pack cards
+# SMODS.calculate_context({all_in_jest = {before_create_booster_cards = true, card = self, pack_card = card}})
+# '''

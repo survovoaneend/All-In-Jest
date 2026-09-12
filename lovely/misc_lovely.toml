@@ -1,0 +1,199 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+
+# Grant lucky cards additional +mult from other effects (rather than only giving +20 mult on a trigger)
+# Card:get_chip_mult()
+[[patches]] 
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+if self.ability.effect == "Lucky Card" then
+        if SMODS.pseudorandom_probability(self, 'lucky_mult', 1, 5) then
+            self.lucky_trigger = true
+            ret = ret + self.ability.mult
+        end
+    else
+'''
+position = "at"
+payload = '''
+local is_chip_mult = self.ability._saved_chip_values ~= nil
+
+if self.ability.effect == "Lucky Card" then
+    local base_mult = 0
+    if is_chip_mult then
+        base_mult = (self.ability._saved_chip_values.nominal or 0) +
+                    (self.ability._saved_chip_values.bonus or 0) +
+                    (self.ability._saved_chip_values.perma_bonus or 0)
+    end
+    
+    local ret = base_mult + ((not self.ability.extra_enhancement and self.ability.perma_mult) or 0)
+
+    if SMODS.pseudorandom_probability(self, 'lucky_mult', 1, 5) then
+        self.lucky_trigger = true
+        ret = ret + self.ability.mult
+    end
+    return ret
+else
+'''
+match_indent = true
+
+
+# Prevent perma-debuffed cards from copying the perma-debuff status (1/2)
+# copy_card()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+local new_card = new_card or Card(other.T.x, other.T.y, G.CARD_W*(card_scale or 1), G.CARD_H*(card_scale or 1), G.P_CARDS.empty, G.P_CENTERS.c_base, {playing_card = playing_card, bypass_back = G.GAME.selected_back.pos})
+'''
+position = "before"
+match_indent = true
+payload = '''
+local has_other_copy_card = false
+if new_card then 
+    has_other_copy_card = true
+end
+'''
+
+# Prevent perma-debuffed cards from copying the perma-debuff status (2/2)
+# copy_card()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if other.edition and strip_edition then"
+position = "before"
+match_indent = true
+payload = '''
+if (has_other_copy_card and new_card.ability and new_card.ability.all_in_jest and new_card.ability.all_in_jest.perma_debuff) then 
+    new_card.ability.all_in_jest.perma_debuff = nil
+end
+'''
+
+# Implemenet alternative to calc_dollar_bonus (currently just for Jogre)
+# G.FUNCS.evaluate_round()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "add_round_eval_row({name = 'bottom', dollars = dollars*"
+position = "before"
+payload = '''
+do
+    local i = 0
+    for _, area in ipairs(SMODS.get_card_areas('jokers')) do
+        for _, _card in ipairs(area.cards) do
+            local obj = _card.config.center
+            if _card:can_calculate() and obj.all_in_jest and obj.all_in_jest.end_calc_dollar_bonus and type(obj.all_in_jest.end_calc_dollar_bonus) == 'function' then
+                local ret, ret_opts = obj.all_in_jest:end_calc_dollar_bonus(_card, dollars)
+                ret_opts = ret_opts or {}
+        
+                -- TARGET: calc_dollar_bonus per card
+                if ret then
+                    if not ret_opts.no_eval_row then
+                        i = i+1
+                        add_round_eval_row({dollars = ret, bonus = true, name='aij_joker'..i, pitch = pitch, card = _card, loc_opts = ret_opts})
+                        pitch = pitch + 0.06
+                    end
+                    dollars = dollars + ret
+                end
+            end
+        end
+    end
+    i = 0
+end
+'''
+match_indent = true
+
+# Round dollars earned at the end of the round to the nearest whole number
+# G.FUNCS.evaluate_round()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "add_round_eval_row({name = 'bottom', dollars = dollars*"
+position = "before"
+payload = '''
+dollars = math.floor(dollars + 0.5)
+'''
+match_indent = true
+
+
+# When saving a run, save all data in G.all_in_jest as direct children of G
+# save_run()
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "local cardAreas = {}"
+position = "before"
+match_indent = true
+payload = '''
+if G.all_in_jest then
+    for k, v in pairs(G) do -- I dont think this is used anymore?
+        if string.sub(k, 1, 13) == 'G_all_in_jest' then
+            local key = string.gsub(k, 'G_all_in_jest', '')
+            G.all_in_jest = G.all_in_jest or {}
+            G.all_in_jest[key] = v
+        end
+    end
+    for k, v in pairs(G.all_in_jest) do
+        G['G_all_in_jest'..k] = v
+    end
+end
+'''
+
+# Load variables in G_all_in_jest into G.all_in_jest
+# Game:start_run()
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "self.discard = CardArea("
+position = "before"
+match_indent = true
+payload = '''
+do
+    G.all_in_jest = G.all_in_jest or {}
+    for k, v in pairs(G) do
+        if string.sub(k, 13) == 'G_all_in_jest' then
+            local key = string.gsub(k, 'G_all_in_jest', '')
+            G.all_in_jest[key] = v
+        end
+    end
+end
+'''
+
+
+# Fix a crash if you call G.FUNCS.use_card multiple times in quick succession
+# G.FUNCS.use_card
+[[patches]]
+[patches.regex]
+target = 'functions/button_callbacks.lua'
+pattern = "G\\.(.*?)\\.alignment\\.offset\\.y = G\\.(.*?)\\.alignment\\.offset\\.py"
+position = 'at'
+payload = 'G.$1.alignment.offset.y = G.$1.alignment.offset.py or G.$1.alignment.offset.y'
+
+# Fix a crash if a voucher card is used via G.FUNCS.use_card outside the shop
+# G.FUNCS.use_card
+[[patches]]
+[patches.regex]
+target = 'functions/button_callbacks.lua'
+pattern = " if card\\.ability\\.set == 'Voucher' (.*)"
+position = 'at'
+payload = " if card.ability.set == 'Voucher' and G.shop $1"
+
+
+
+
+# Set rerolls to zero cost if reroll cost would be below zero
+# Needed now that there are multiple stacking effects that can reduce reroll costs
+# calculate_reroll_cost()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "G.GAME.current_round.reroll_cost = (G.GAME.round_resets.temp_reroll_cost or G.GAME.round_resets.reroll_cost) + G.GAME.current_round.reroll_cost_increase"
+position = "at"
+match_indent = true
+payload = '''G.GAME.current_round.reroll_cost = (G.GAME.round_resets.temp_reroll_cost or math.max(0, G.GAME.round_resets.reroll_cost)) + G.GAME.current_round.reroll_cost_increase'''
+
+
+

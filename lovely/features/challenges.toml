@@ -1,0 +1,103 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+# Ensure increasing shop size only creates common jokers on sharpest tool challenge
+# change_shop_size()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if not G.GAME.shop then return end"
+position = "after"
+match_indent = true
+payload = '''
+if G.GAME.modifiers.aij_sharpest_tool_1 then aij_change_shop_size_advanced(mod, 'ch_sharpest_tool', nil, 0); return end
+'''
+
+# Force blind to be skipped in the pandemonium challenge
+# G.FUNCS.blind_choice_handler()
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = '_top_button.children[1].config.colour = G.C.WHITE'
+position = "after"
+payload = '''
+if (e.config.id == "Small" or e.config.id == "Big") and G.GAME.modifiers["aij_pandemonium_1"] then
+    _top_button.config.colour = G.C.UI.BACKGROUND_INACTIVE
+    _top_button.config.button = nil
+    _top_button.config.hover = false
+    _top_button.children[1].config.colour = G.C.UI.TEXT_INACTIVE
+end
+'''
+match_indent = true
+
+# Remove anything that gives mult in the microtransations challenge
+# get_current_pool()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "add = in_pool and (add or pool_opts.override_base_checks)"
+position = "after"
+match_indent = true
+payload = '''
+if G.GAME.modifiers["aij_no_mult_in_pool"] then
+    if v.set == 'Planet' then
+        if not All_in_Jest.config.moons_enabled then
+            add = nil
+        elseif not v.config.chips then
+            add = nil
+        end
+    end
+    if _type == 'Joker' then
+        if v.attributes then
+            if not All_in_Jest.config.moons_enabled and v.attributes.planet then
+                add = nil
+            end
+            if v.attributes.mult or v.attributes.xmult or v.attributes.chaotic or v.attributes.hand_level then
+                add = nil
+            end
+        end
+        
+    end
+    if _type == "Edition" then
+        if v.key == "e_holo" or v.key == "e_polychrome" or v.key == "e_aij_stellar" then
+            add = nil
+        end
+    end
+end
+'''
+
+# Remove non-food in the full_plate challenge
+# get_current_pool()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "add = in_pool and (add or pool_opts.override_base_checks)"
+position = "after"
+match_indent = true
+payload = '''
+if G.GAME.modifiers["aij_all_jokers_is_food"] and _type == 'Joker' then
+    if not v.attributes or (v.attributes and not v.attributes.food) then
+        add = nil
+    end
+end
+'''
+
+
+# Makes all jokers perishable for micromanagement challenge
+# create_card()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''
+if G.GAME.modifiers.all_eternal then
+'''
+position = "before"
+match_indent = true
+payload = '''
+if G.GAME.modifiers["aij_all_jokers_perishable_1"] then
+    card.ability.perishable = true
+    card.ability.perish_tally = G.GAME.perishable_rounds
+end
+'''

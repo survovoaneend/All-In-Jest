@@ -1,0 +1,327 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+# Canvas Cards (1/3)
+# Card:set_base()
+# Removes canvas attributes when enhancement is removed
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = """local was_added_to_deck = false
+if self.added_to_deck and old_center and not self.debuff then"""
+position = "before"
+match_indent = true
+payload = '''
+if self.ability and SMODS.has_enhancement(self, 'm_aij_canvas') then
+    if self.ability.aij_canvas_temp_suit and self.ability.aij_canvas_temp_rank and (self.ability.set == 'Enhanced' or self.ability.set == 'Default') then
+        SMODS.change_base(self, self.ability.aij_canvas_temp_suit, self.ability.aij_canvas_temp_rank)
+        self.front_hidden = self:should_hide_front()
+        self.ability.aij_canvas_temp_suit = nil
+        self.ability.aij_canvas_temp_rank = nil
+    end
+end
+'''
+
+# Canvas Cards (2/3)
+# Card:generate_UIBox_ability_table()
+# Set whether the front of a card is hidden so we know if we should hide card suit/rank badge
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "bonus_repetitions = *"
+position = "after"
+match_indent = true
+payload = '''
+front_hidden = self.front_hidden,
+'''
+
+# Canvas Cards (3/3)
+# generate_card_ui()
+# Removes name of card if canvas is blank
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "elseif specific_vars.playing_card then"
+position = "before"
+match_indent = true
+payload = '''
+elseif _c.key == 'm_aij_canvas' and specific_vars.front_hidden then full_UI_table.name = true
+elseif (card and card.config and card.config.aij_other_center) and ((card.config.aij_other_center['center'].key == 'm_aij_canvas' and specific_vars.front_hidden) or (card.config.aij_other_center['center'].name == 'Stone Card' or card.config.aij_other_center['center'].replace_base_card)) then full_UI_table.name = true
+elseif (card and card.ability and card.ability.numbertaker_rankless) then
+    full_UI_table.name = {}
+    localize{type = 'other', key = 'aij_suit_only_playing_card', set = 'Other', nodes = full_UI_table.name, vars = {localize(specific_vars.suit, 'suits_plural'), colours = {specific_vars.colour}}}
+    full_UI_table.name = full_UI_table.name[1]
+'''
+
+
+
+
+# Ice Cards (1/4)
+# Force Ice Cards to always be selectable
+# CardArea:can_highlight()
+[[patches]] 
+[patches.pattern]
+target = "cardarea.lua"
+pattern = '''
+if G.CONTROLLER.HID.controller then
+'''
+position = "before"
+payload = '''
+if self.config.type == 'hand' then
+    if (SMODS.get_enhancements(card).m_aij_ice or All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_aij_ice) and not card.debuff then
+        return true
+    end
+end
+'''
+match_indent = true
+
+# Ice Cards (2/4)
+# Force Ice Cards to always be selectable
+# CardArea:can_highlight()
+[[patches]] 
+[patches.pattern]
+target = "cardarea.lua"
+pattern = '''
+if #self.highlighted >= self.config.highlighted_limit then
+    card:highlight(false)
+else
+    self.highlighted[#self.highlighted+1] = card
+    card:highlight(true)
+    if not silent then play_sound('cardSlide1') end
+end
+'''
+position = "after"
+payload = '''
+local ice = {}
+for k, v in pairs(self.highlighted) do
+    if (SMODS.get_enhancements(self.highlighted[k]).m_aij_ice or All_in_Jest.get_inherent_effects(self.highlighted[k], 'enhancement', nil, true).m_aij_ice) and not self.highlighted[k].debuff then
+        ice[#ice+1] = v
+    end
+end
+if not card.highlighted and #ice >= 1 then
+    if (#self.highlighted - #ice) >= self.config.highlighted_limit then
+        card:highlight(false)
+    else
+        self.highlighted[#self.highlighted+1] = card
+        card:highlight(true)
+        if not silent then play_sound('cardSlide1') end
+    end
+end
+if (SMODS.get_enhancements(card).m_aij_ice or All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_aij_ice) and not card.debuff and not card.highlighted then
+    self.highlighted[#self.highlighted+1] = card
+    card:highlight(true)
+    if not silent then play_sound('cardSlide1') end
+end
+'''
+match_indent = true
+
+# Ice Cards (3/4)
+# Exclude ice cards that exceed hand limit from determining in hand type
+# evaluate_poker_hand()
+[[patches]] 
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = "for _, v in ipairs(SMODS.PokerHandPart.obj_buffer) do"
+position = "before"
+payload = '''
+do -- All in Jest, determining which ice cards count in the hand type
+    local ice = {}
+    local non_ice = {}
+    for k, v in pairs(hand) do
+        if (SMODS.get_enhancements(hand[k]).m_aij_ice or All_in_Jest.get_inherent_effects(hand[k], 'enhancement', nil, true).m_aij_ice) and not hand[k].debuff then
+            ice[#ice+1] = v
+        else
+            non_ice[#non_ice+1] = v
+        end
+    end
+    if #ice > 0 then
+        hand = {}
+        local temp_jest_var = 0
+        for k, v in pairs(non_ice) do
+            hand[temp_jest_var+1] = v
+            temp_jest_var = temp_jest_var + 1
+        end
+        for k, v in pairs(ice) do
+            if (math.max(G.GAME.starting_params.play_limit, 1) - temp_jest_var) > 0 then
+                hand[temp_jest_var+1] = v
+                temp_jest_var = temp_jest_var + 1
+            end
+        end
+    end
+end
+'''
+match_indent = true
+
+
+# Ice Cards (4/4) + Marked Cards (1/3) (Marked cards aren't really an ehancement but it's more optimal to combine their logic here
+# Make play button active regardless of if ice cards exceed limit
+# Make play button disabled if any selected card is marked
+# G.FUNCS.can_play()
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "if #G.hand.highlighted <= 0 or G.GAME.blind.block_play or #G.hand.highlighted > math.max(G.GAME.starting_params.play_limit, 1) then"
+position = "before"
+payload = '''
+do
+    local aij_exceeds_hand_limit = 0
+    for k, v in pairs(G.hand.highlighted) do
+        if v.ability.aij_marked or (next(SMODS.find_card("j_aij_dark_presence")) and v:is_face()) then
+            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+            e.config.button = nil
+            return
+        end
+        if (SMODS.get_enhancements(v).m_aij_ice or All_in_Jest.get_inherent_effects(v, 'enhancement', nil, true).m_aij_ice) and not v.debuff then
+            aij_exceeds_hand_limit = aij_exceeds_hand_limit + 1
+        end
+    end
+    if aij_exceeds_hand_limit > 0 and not ((#G.hand.highlighted - aij_exceeds_hand_limit) > math.max(G.GAME.starting_params.play_limit, 1) or G.GAME.blind.block_play or #G.hand.highlighted <= 0) then
+        e.config.colour = G.C.BLUE
+        e.config.button = 'play_cards_from_highlighted'
+        return
+    end
+end
+'''
+match_indent = true
+
+# Marked Cards (2/3)
+# Make discard button disabled if any selected card is marked
+# G.FUNCS.can_discard()
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = '''
+e.config.colour = G.C.RED
+e.config.button = 'discard_cards_from_highlighted'
+'''
+position = "at"
+payload = '''
+local aij_can_discard = false
+for k, v in pairs(G.hand.highlighted) do
+    if v.ability.aij_marked then
+        aij_can_discard = true
+    end
+end
+if aij_can_discard then
+    e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+    e.config.button = nil
+else
+    e.config.colour = G.C.RED
+    e.config.button = 'discard_cards_from_highlighted'
+end
+'''
+match_indent = true
+
+# Marked Cards (3/3)
+# Ends the round if all cards in hand are marked (resulting in a game over)
+# SMODS.draw_cards
+[[patches]] 
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "local flags = SMODS.calculate_context({drawing_cards = true, amount = *"
+position = "before"
+payload = '''
+do
+    local marked_cards = 0
+    for k, v in pairs(G.hand.cards) do
+        if v.ability.aij_marked or (next(SMODS.find_card("j_aij_dark_presence")) and v:is_face()) then
+            marked_cards = marked_cards + 1
+        end
+    end
+    if marked_cards == #G.hand.cards and marked_cards >= G.hand.config.card_limit then
+        end_round()
+    end
+end
+'''
+match_indent = true
+
+# Simulated Cards (1/2)
+# Make discard button always active if only simulated cards are highlighted
+# G.FUNCS.can_discard
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "if G.GAME.current_round.discards_left <= 0 or #G.hand.highlighted <= 0 or #G.hand.highlighted > math.max(G.GAME.starting_params.discard_limit, 0) then "
+position = "before"
+payload = '''
+if #G.hand.highlighted > 0 then
+    local aij_only_simulated = true
+    for k, v in pairs(G.hand.highlighted) do
+        if not (SMODS.get_enhancements(v).m_aij_simulated or All_in_Jest.get_inherent_effects(v, 'enhancement', nil, true).m_aij_simulated) or v.debuff then
+            aij_only_simulated = false
+            break
+        end
+    end
+    if aij_only_simulated then
+        e.config.colour = G.C.RED
+        e.config.button = 'discard_cards_from_highlighted'
+        return
+    end
+end
+'''
+match_indent = true
+
+# Simulated Cards (2/2)
+# Don't consume discard if hand is all simulated cards
+# G.FUNCS.evaluate_play()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "ease_discard(-1)"
+position = "at"
+payload = '''
+local aij_only_simulated = true
+for k, v in pairs(G.hand.highlighted) do
+    if not (SMODS.get_enhancements(v).m_aij_simulated or All_in_Jest.get_inherent_effects(v, 'enhancement', nil, true).m_aij_simulated) or v.debuff then
+        aij_only_simulated = false
+        break
+    end
+end
+if not aij_only_simulated then
+    ease_discard(-1)
+end
+'''
+match_indent = true
+
+
+
+# Prevent charged cards from affecting things when a card is copied (1/2)
+# copy_card()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "new_card:set_ability(other.config.center)"
+position = "before"
+match_indent = true
+payload = '''
+new_card.ability.m_aij_charged_chaging = true
+'''
+
+# Prevent charged cards from affecting things when a card is copied (2/2)
+# copy_card()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if other.edition and strip_edition then"
+position = "before"
+match_indent = true
+payload = '''
+new_card.ability.m_aij_charged_chaging = nil
+'''
+
+# Scorched Cards (1/1)
+# Set sprite in collection when specified
+# G.FUNCS.SMODS_card_collection_page() (this is a local function in SMODS.card_collection_UIBox())
+[[patches]] 
+[patches.pattern]
+target = '=[SMODS _ "src/ui.lua"]'
+pattern = "if not args.no_materialize then card:start_materialize(nil, i>1 or j>1) end"
+position = "before"
+payload = '''
+if center.set_collection_sprite then
+    card:set_sprites(center)
+end
+'''
+match_indent = true

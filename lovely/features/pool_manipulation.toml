@@ -1,0 +1,167 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+
+
+# Gives more fine grain control of the jokers generated in the shop
+# Used for sharpest tool challenge and Wamba legendary
+# create_card_for_shop()
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+-- Use SMODS object weight system when enabled
+'''
+position = "before"
+payload = '''
+if G.GAME.shop and G.GAME.shop.slot_details and #G.GAME.shop.slot_details > 0 and G.shop_jokers and area == G.shop_jokers and G.GAME.shop.slot_details[G.GAME.shop.joker_max - #G.shop_jokers.cards] then
+    local slot = G.GAME.shop.slot_details[G.GAME.shop.joker_max - #G.shop_jokers.cards]
+    local type = slot.type or SMODS.poll_object_type({seed = 'cdt'..G.GAME.round_resets.ante})
+    local args = {set = type, key = slot.key, rarity = slot.rarity, area = area, key_append = (G.GAME.shop.joker_max - #G.shop_jokers.cards)..'aij_sho', front = false, aij_slot_details = slot}
+    local card = SMODS.create_card(args)
+    SMODS.calculate_context({modify_shop_card = true, card = card, aij_slot_details = slot})
+    create_shop_card_ui(card, slot.type, area)
+    G.E_MANAGER:add_event(Event({
+        func = (function()
+            for k, v in ipairs(G.GAME.tags) do
+                if v:apply_to_run({type = 'store_joker_modify', card = card}) then break end
+            end
+            return true
+        end)
+    }))
+    if (slot.type == 'Base' or slot.type == 'Enhanced') and G.GAME.used_vouchers["v_illusion"] and pseudorandom(pseudoseed('illusion')) > 0.8 then 
+        card:set_edition(poll_edition('illusion', nil, true, true))
+    end
+    return card
+end
+'''
+match_indent = true
+
+
+# Prevent jokers that can only appear in shop or booster packs from appearing elsewhere
+# create_card()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''if forced_key and not G.GAME.banned_keys[forced_key] then'''
+position = "before"
+match_indent = true
+payload = '''
+-- All in Jest patch
+if _type == 'Joker' then
+    local _pool, _pool_key = get_current_pool(_type, _rarity, legendary, key_append)
+    for k, v in pairs(_pool) do
+        if G.P_CENTERS[v] and G.P_CENTERS[v].all_in_jest then
+            local appear = false
+            if (G.P_CENTERS[v].all_in_jest.only_shop_pool and area == G.shop_jokers) then
+                appear = true
+            elseif (G.P_CENTERS[v].all_in_jest.only_booster_pool and area == G.pack_cards) then
+                appear = true
+            end
+            if G.P_CENTERS[v].all_in_jest.only_shop_pool or G.P_CENTERS[v].all_in_jest.only_booster_pool then
+                if appear then
+                    G.P_CENTERS[v].in_pool = function(self, args)
+    		            return true
+                    end
+                else
+                    G.P_CENTERS[v].in_pool = function(self, args)
+    		            return false
+                    end
+                end
+            end
+        end
+    end
+end
+-- End of All in Jest patch
+'''
+
+# Prevent jokers that can only appear in shop or booster packs from appearing elsewhere
+# create_card()
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''center = pseudorandom_element(_pool, pseudoseed(_pool_key))'''
+position = "before"
+match_indent = true
+payload = '''
+do -- All in Jest Patch
+    if _type == 'Joker' then
+        local _pool, _pool_key = get_current_pool(_type, _rarity, legendary, key_append)
+        for k, v in pairs(_pool) do
+            if G.P_CENTERS[v] and G.P_CENTERS[v].all_in_jest then
+                local appear = false
+                if (G.P_CENTERS[v].all_in_jest.only_shop_pool and area == G.shop_jokers) then
+                    appear = true
+                elseif (G.P_CENTERS[v].all_in_jest.only_booster_pool and area == G.pack_cards) then
+                    appear = true
+                end
+                if G.P_CENTERS[v].all_in_jest.only_shop_pool or G.P_CENTERS[v].all_in_jest.only_booster_pool then
+                    if appear then
+                        G.P_CENTERS[v].in_pool = function(self, args)
+                            return true
+                        end
+                    else
+                        G.P_CENTERS[v].in_pool = function(self, args)
+                            return false
+                        end
+                    end
+                end
+            end
+        end
+    end
+end -- End of All in Jest Patch
+'''
+
+# Handle aij_weight on objects
+# aij_weight has to be a positive or negative integer;
+# if negative N, this effectively means 1/N weight
+# Currently only used for special moon cards
+# get_current_pool()
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''if _pool_size == 0 then'''
+position = "before"
+match_indent = true
+payload = '''
+do -- All in Jest Patch
+    local aij_weight_map = {} -- maps key -> aij_weight
+    local aij_weight_multi = 1 -- multiplies all weights, compensating for 1/N weights
+    for k, v in ipairs(_starting_pool) do
+        if v.aij_weight and type(v.aij_weight) == 'function' then
+            local w = v:aij_weight()
+            if w then
+                aij_weight_map[v.key] = w
+                if w < 0 then
+                    if aij_weight_multi % math.abs(w) ~= 0 then
+                        -- I'm too lazy to calculate the lcm
+                        aij_weight_multi = aij_weight_multi * math.abs(w)
+                    end
+                end
+            end
+        end
+    end
+    local temp_pool = {}
+    for k, v in ipairs(_pool) do
+        if v ~= "UNAVAILABLE" then
+            local w = aij_weight_map[v] or 1
+            local adjusted_w
+            if w < 0 then
+                assert(aij_weight_multi % math.abs(w) == 0)
+                adjusted_w = aij_weight_multi / math.abs(w)
+            else
+                adjusted_w = aij_weight_multi * w
+            end
+            for i = 1, adjusted_w-1 do -- We subtract 1 as the card should already be in the pool once
+                temp_pool[#temp_pool + 1] = v
+            end
+        end
+    end
+    for _, v in ipairs(temp_pool) do
+        _pool[#_pool + 1] = v
+        _pool_size = _pool_size + 1
+    end
+end -- End of All in Jest Patch
+'''

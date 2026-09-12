@@ -20,3 +20,4 @@ if card.config.center.is_pin then
 end
 All_in_Jest.get_enhancements_hook(card, extra_only, enhancements)
 '''
+

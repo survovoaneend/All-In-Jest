@@ -1,0 +1,137 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+# Overstuffed Tag (1/4)
+# Card:open()
+# Add triggers for overstuffed tags
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "self.opening = true"
+position = "after"
+match_indent = true
+payload = '''
+for i = #G.GAME.tags, 1, -1 do
+    if G.GAME.tags[i]:apply_to_run({type = 'open_booster', booster = self}) then break end
+end
+'''
+
+# Overstuffed Tag (2/4)
+# Card:open()
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+for k, v in ipairs(pack_cards) do
+    G.pack_cards:emplace(v)
+end
+'''
+position = "before"
+match_indent = true
+payload = '''
+SMODS.calculate_context({all_in_jest = {modify_booster_cards = true, card = self, before_added = true, pack_cards = pack_cards}})
+for i = #G.GAME.tags, 1, -1 do
+    if G.GAME.tags[i]:apply_to_run({type = 'modify_booster_cards', card = self, before_added = true, pack_cards = pack_cards}) then break end
+end
+'''
+# Overstuffed Tag (3/4)
+# Card:open()
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''
+for k, v in ipairs(pack_cards) do
+    G.pack_cards:emplace(v)
+end
+'''
+position = "after"
+match_indent = true
+payload = '''
+SMODS.calculate_context({all_in_jest = {modify_booster_cards = true, card = self, pack_cards = pack_cards}})
+'''
+
+# Overstuffed tag (4/4) and similar effects
+# Modify booster pack size
+# Card:open()
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "local _size = *"
+position = "after" 
+match_indent = true
+payload = '''
+if G.GAME.modifiers.arcana_booster_size_mod and booster_obj.kind == 'Arcana' then _size = _size + G.GAME.modifiers.arcana_booster_size_mod end
+if G.GAME.jest_change_booster_options.trigger or G.GAME.jest_change_booster_options.pack_choices == "unlimited" then
+    if G.GAME.jest_change_booster_options.option == "size" or G.GAME.jest_change_booster_options.option == "both" then
+        -- Pemdas order
+        if G.GAME.jest_change_booster_options.op.mult ~= 0 then
+            _size = _size * G.GAME.jest_change_booster_options.op.mult
+            G.GAME.jest_change_booster_options.op.mult = 0
+        end
+        if G.GAME.jest_change_booster_options.op.div ~= 0 then
+            _size = _size / G.GAME.jest_change_booster_options.op.div
+            G.GAME.jest_change_booster_options.op.div = 0
+        end
+        if G.GAME.jest_change_booster_options.op.add ~= 0 then
+            _size = _size + G.GAME.jest_change_booster_options.op.add
+            G.GAME.jest_change_booster_options.op.add = 0
+        end
+        if G.GAME.jest_change_booster_options.op.sub ~= 0 then
+            _size = _size - G.GAME.jest_change_booster_options.op.sub
+            G.GAME.jest_change_booster_options.op.sub = 0
+        end
+        G.GAME.jest_change_booster_options.option = ""
+    end
+    if G.GAME.jest_change_booster_options.pack_choices == "unlimited" then
+        G.GAME.pack_choices = _size
+        G.GAME.jest_change_booster_options.pack_choices = ""
+    end
+    G.GAME.jest_change_booster_options.trigger = false
+end
+'''
+
+# Gallopping Domino (1/1)
+# Do not increase reroll cost if shop_galloping_dominoed is set
+# calculate_reroll_cost()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if not skip_increment then G.GAME.current_round.reroll_cost_increase = G.GAME.current_round.reroll_cost_increase + 1 end"
+position = "before"
+match_indent = true
+payload = '''
+if G.GAME.shop_galloping_dominoed_amt and G.GAME.shop_galloping_dominoed_amt > 0 then skip_increment = true; G.GAME.round_resets.temp_reroll_cost = 0; G.GAME.shop_galloping_dominoed_amt = G.GAME.shop_galloping_dominoed_amt - 1 end
+'''
+
+# Windfall Tag (1/1)
+# Have tags in the round eval screen use the correct atlas
+# (How does SMODs not change this???)
+# add_round_eval_row()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''local blind_sprite = SMODS.create_sprite(0, 0, 0.7,0.7, 'tags', copy_table(config.pos))'''
+position = "after"
+match_indent = true
+payload = '''
+if config.tag.key and G.P_TAGS[config.tag.key].atlas and G.P_TAGS[config.tag.key].atlas ~= "tags" then
+    blind_sprite = SMODS.create_sprite(0, 0, 0.7,0.7, G.P_TAGS[config.tag.key].atlas, copy_table(config.pos))
+end
+'''
+
+# Astrology Tag (1/1)
+# Activate tags that trigger when a consumable is used
+# G.FUNCS.use_card()
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = "SMODS.calculate_context({using_consumeable = true, consumeable = card, area = card.from_area})"
+position = "after" 
+match_indent = true
+payload = '''
+for i = #G.GAME.tags, 1, -1 do
+    if G.GAME.tags[i]:apply_to_run({type = 'using_consumeable', consumeable = card, area = card.from_area}) then break end
+end
+'''

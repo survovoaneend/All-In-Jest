@@ -1,0 +1,34 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+# Eye Seal, For end of round scoring
+# SMODS.score_card()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'after'
+pattern = '''
+card.repetition_trigger = nil
+'''
+payload = '''
+if next(SMODS.find_card("j_aij_bouffon")) and context.cardarea == G.deck then
+    for k, v in pairs(SMODS.find_card("j_aij_bouffon")) do
+        for _i = 1, v.ability.extra.cards do
+            local bouf_card = G.deck.cards[#G.deck.cards-(v.ability.extra.cards-_i)]
+            if bouf_card and bouf_card == card then
+                context.cardarea = G.hand
+                aij_calculate_end_of_round_effects(context, i, card)
+                context.cardarea = G.deck
+            end
+        end
+    end
+end
+if card.seal and card.seal == 'aij_eye' and context.cardarea == G.deck then
+    context.cardarea = G.hand
+    aij_calculate_end_of_round_effects(context, i, card)
+    context.cardarea = G.deck
+end
+'''
