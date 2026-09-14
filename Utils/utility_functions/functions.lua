@@ -1591,7 +1591,6 @@ function aij_calculate_end_of_round_effects(context, i, card)
 end
 
 local get_next_reroll_tag_key = function(args, current_tag)
-
 	local next_tag_key = current_tag
 
 	if not args.gold and not args.refresh then
@@ -1646,7 +1645,8 @@ function aij_reroll_tags(blind, args)
 					if i == 1 then -- Leftmost tag matches vanilla skip tag
 						G.GAME.all_in_jest.blind_tags[k][i] = G.GAME.round_resets.blind_tags[k]
 					else
-						G.GAME.all_in_jest.blind_tags[k][i] = get_next_reroll_tag_key(args, G.GAME.all_in_jest.blind_tags[k][i])
+						G.GAME.all_in_jest.blind_tags[k][i] =
+							get_next_reroll_tag_key(args, G.GAME.all_in_jest.blind_tags[k][i])
 					end
 				end
 			end

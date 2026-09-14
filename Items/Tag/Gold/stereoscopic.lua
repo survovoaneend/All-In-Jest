@@ -22,7 +22,6 @@ local stereoscopic_tag = {
 	apply = function(self, tag, context)
 		if context.type == "tag_add" then
 			if context.tag.key ~= "tag_double" and context.tag.key ~= "tag_aij_stereoscopic" then
-
 				local upgraded_tag_key = nil
 				for k, v in pairs(G.P_TAGS) do
 					if v.config.aij and v.config.aij.upgrade then
