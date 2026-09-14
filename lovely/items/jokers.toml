@@ -413,7 +413,7 @@ position = "at"
 line_prepend = '$indent'
 payload = '''
 -- All in Jest patch
-if context.aij_inherent_enhancement or context.aij_other_enhancement then return ret end
+if context and (context.aij_inherent_enhancement or context.aij_other_enhancement) then return ret end
 local aij_blue_seal_is_negative = false
 if self.seal == 'Blue' or (next(SMODS.find_card("j_aij_warhol")) and self.seal) then
     local ret = SMODS.calculate_context({
