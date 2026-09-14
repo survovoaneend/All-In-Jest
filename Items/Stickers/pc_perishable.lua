@@ -14,18 +14,11 @@ function Card:calculate_perishable()
 			self:set_debuff()
 		else
 			self.ability.perish_tally = self.ability.perish_tally - 1
-			card_eval_status_text(
-				self,
-				"extra",
-				nil,
-				nil,
-				nil,
-				{
-					message = localize({ type = "variable", key = "a_remaining", vars = { self.ability.perish_tally } }),
-					colour = G.C.FILTER,
-					delay = 0.45,
-				}
-			)
+			card_eval_status_text(self, "extra", nil, nil, nil, {
+				message = localize({ type = "variable", key = "a_remaining", vars = { self.ability.perish_tally } }),
+				colour = G.C.FILTER,
+				delay = 0.45,
+			})
 		end
 	end
 	return calculate_perishable_ref(self)

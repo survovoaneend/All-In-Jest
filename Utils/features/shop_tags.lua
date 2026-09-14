@@ -60,7 +60,9 @@ function create_shop_card_ui(card, type, area)
 									n = G.UIT.O,
 									config = {
 										object = DynaText({
-											string = { { prefix = localize("$"), ref_table = card, ref_value = "cost" } },
+											string = {
+												{ prefix = localize("$"), ref_table = card, ref_value = "cost" },
+											},
 											colours = { G.C.MONEY },
 											shadow = true,
 											silent = true,

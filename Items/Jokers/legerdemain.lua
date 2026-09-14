@@ -31,7 +31,11 @@ local legerdemain = {
 		if context.selling_card and context.card.ability.set == "Joker" and G.STATE == G.STATES.SELECTING_HAND then
 			ease_discard(card.ability.extra.discards)
 			return {
-				message = localize({ type = "variable", key = "a_aij_discards", vars = { card.ability.extra.discards } }),
+				message = localize({
+					type = "variable",
+					key = "a_aij_discards",
+					vars = { card.ability.extra.discards },
+				}),
 				colour = G.C.RED,
 			}
 		end

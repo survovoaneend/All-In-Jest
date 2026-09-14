@@ -113,7 +113,10 @@ local error_404 = {
 					}
 				or nil
 
-			return { vars = { localize({ type = "name_text", set = "Joker", key = copied_center.key }) }, main_end = main_end }
+			return {
+				vars = { localize({ type = "name_text", set = "Joker", key = copied_center.key }) },
+				main_end = main_end,
+			}
 		end
 
 		return { vars = { "None" } }

@@ -34,17 +34,10 @@ local magic_hat = {
 				local amount = card.ability.extra.handsize_mod
 				G.hand:change_size(amount)
 				card.ability.extra.to_remove = tostring(tonumber(card.ability.extra.to_remove) + amount)
-				card_eval_status_text(
-					context.blueprint_card or card,
-					"extra",
-					nil,
-					nil,
-					nil,
-					{
-						message = localize({ type = "variable", key = "a_aij_handsize", vars = { amount } }),
-						colour = G.C.FILTER,
-					}
-				)
+				card_eval_status_text(context.blueprint_card or card, "extra", nil, nil, nil, {
+					message = localize({ type = "variable", key = "a_aij_handsize", vars = { amount } }),
+					colour = G.C.FILTER,
+				})
 			end
 		end
 		if context.ending_booster then

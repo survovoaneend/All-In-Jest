@@ -21,7 +21,9 @@ local imageboard = {
 	perishable_compat = true,
 
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.mod_mult, card.ability.extra.mod_mult * 2, card.ability.extra.mod_mult * 3 } }
+		return {
+			vars = { card.ability.extra.mod_mult, card.ability.extra.mod_mult * 2, card.ability.extra.mod_mult * 3 },
+		}
 	end,
 
 	calculate = function(self, card, context)

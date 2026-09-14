@@ -72,15 +72,12 @@ SMODS.calculate_effect = function(effect, scored_card, from_edition, pre_jokers)
 		local bullet_king = scored_card.bullet_king
 		scored_card.bullet_king = nil
 		if #effect > 0 then
-			SMODS.calculate_effect(
-				{
-					message = localize("k_aij_bullet_king_ex"),
-					colour = G.C.SECONDARY_SET.Enhanced,
-					juice_card = bullet_king,
-					message_card = scored_card,
-				},
-				scored_card
-			)
+			SMODS.calculate_effect({
+				message = localize("k_aij_bullet_king_ex"),
+				colour = G.C.SECONDARY_SET.Enhanced,
+				juice_card = bullet_king,
+				message_card = scored_card,
+			}, scored_card)
 		end
 	end
 	return bullet_king_trigger_effects(effect, scored_card, from_edition, pre_jokers)
