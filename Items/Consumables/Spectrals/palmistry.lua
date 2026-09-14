@@ -12,7 +12,7 @@ local palmistry = {
 	config = {},
 	attributes = { "modify_card", "enhancements" },
 	can_use = function(self, card)
-		return true
+		return G.hand and G.hand.cards and #G.hand.cards > 0
 	end,
 	use = function(self, card, area, copier)
 		G.E_MANAGER:add_event(Event({
