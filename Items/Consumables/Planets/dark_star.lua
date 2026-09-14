@@ -7,6 +7,7 @@ local dark_star = {
     badges[#badges + 1] = create_badge(localize('k_star_q'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2)
   end,
   cost = 3,
+  weight = 10/9,
   unlocked = true,
   discovered = false,
   order = 34,
@@ -50,9 +51,6 @@ local dark_star = {
       end
     end
     return false
-  end,
-  aij_weight = function(self)
-    return -3
   end,
 }
 return { name = { "Planets" }, items = { dark_star } }

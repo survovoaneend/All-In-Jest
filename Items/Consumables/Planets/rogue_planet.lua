@@ -4,6 +4,7 @@ local rogue_planet = {
   set = 'Planet',
   pos = { x = 6, y = 6 },
   cost = 3,
+  weight = 10/9,
   unlocked = true,
   discovered = false,
   order = 33,
@@ -86,9 +87,6 @@ local rogue_planet = {
       end
     end
     return false
-  end,
-  aij_weight = function(self)
-    return -3
   end,
 }
 return { name = { "Planets" }, items = { rogue_planet } }

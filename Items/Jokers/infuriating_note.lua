@@ -75,11 +75,13 @@ local infuriating_note = {
             end
         end
     end,
-    aij_weight = function(self)
+    get_weight = function(self, weight)
         local has_note = next(SMODS.find_card("j_aij_infuriating_note"))
         if has_note then
-            return 5
+            return weight * 5
+        else
+            return weight
         end
-    end,
+    end
 }
 return { name = { "Jokers" }, items = { infuriating_note } }
