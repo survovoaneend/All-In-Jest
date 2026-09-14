@@ -34,7 +34,11 @@ local corporate_memphis = {
 		if context.skip_blind and not context.blueprint then
 			card.ability.extra.pending_slots = card.ability.extra.pending_slots + card.ability.extra.bonus_slots
 			return {
-				message = localize({ type = "variable", key = "a_aij_slots", vars = { card.ability.extra.bonus_slots } }),
+				message = localize({
+					type = "variable",
+					key = "a_aij_slots",
+					vars = { card.ability.extra.bonus_slots },
+				}),
 				colour = G.C.BLUE,
 			}
 		end

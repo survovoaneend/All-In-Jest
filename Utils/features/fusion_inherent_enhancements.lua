@@ -210,15 +210,12 @@ function process_texture_stack_enhancement_foreground(image, stacked_enhancement
 	G.SHADERS["aij_fusion_spritesheet"]:send("enhancement_image_dims", { texW, texH })
 	G.SHADERS["aij_fusion_spritesheet"]:send("old_image_dims", { image:getDimensions() })
 	G.SHADERS["aij_fusion_spritesheet"]:send("maskTex", foregrounds_atlas.image)
-	G.SHADERS["aij_fusion_spritesheet"]:send(
-		"maskUV",
-		{
-			foreground_pos.x * foregrounds_atlas.px / texW,
-			foreground_pos.y * foregrounds_atlas.py / texH,
-			w / texW,
-			h / texH,
-		}
-	)
+	G.SHADERS["aij_fusion_spritesheet"]:send("maskUV", {
+		foreground_pos.x * foregrounds_atlas.px / texW,
+		foreground_pos.y * foregrounds_atlas.py / texH,
+		w / texW,
+		h / texH,
+	})
 	love.graphics.setShader(G.SHADERS["aij_fusion_spritesheet"])
 
 	-- Draw image with foreground shader on new canvas

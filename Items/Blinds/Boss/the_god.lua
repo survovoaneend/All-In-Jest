@@ -30,16 +30,13 @@ local the_god = {
 				end
 			end
 			local effects = {}
-			SMODS.calculate_context(
-				{
-					modify_scoring_hand = true,
-					other_card = cards[i],
-					full_hand = cards,
-					scoring_hand = scoring_hand,
-					in_scoring = true,
-				},
-				effects
-			)
+			SMODS.calculate_context({
+				modify_scoring_hand = true,
+				other_card = cards[i],
+				full_hand = cards,
+				scoring_hand = scoring_hand,
+				in_scoring = true,
+			}, effects)
 			local flags = SMODS.trigger_effects(effects, cards[i])
 			if flags.add_to_hand then
 				splashed = true

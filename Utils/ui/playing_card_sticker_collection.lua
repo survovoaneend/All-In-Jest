@@ -97,16 +97,13 @@ All_in_Jest.stickers_collection_content_UIBox = function(page, rows, args)
 				args.h_mod * G.CARD_H,
 				{ card_limit = rows[j], type = args.area_type or "title", highlight_limit = 0, collection = true }
 			)
-			table.insert(
-				deck_tables,
-				{
-					n = G.UIT.R,
-					config = { align = "cm", padding = 0.07, no_fill = true },
-					nodes = {
-						{ n = G.UIT.O, config = { object = G.your_collection[j] } },
-					},
-				}
-			)
+			table.insert(deck_tables, {
+				n = G.UIT.R,
+				config = { align = "cm", padding = 0.07, no_fill = true },
+				nodes = {
+					{ n = G.UIT.O, config = { object = G.your_collection[j] } },
+				},
+			})
 		end
 	end
 

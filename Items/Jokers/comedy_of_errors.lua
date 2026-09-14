@@ -31,10 +31,12 @@ local comedy_of_errors = {
 		if context.discard then
 			if context.other_card:is_suit("Hearts") then
 				G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
-				G.E_MANAGER:add_event(Event({ func = function()
-					G.GAME.dollar_buffer = 0
-					return true
-				end }))
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						G.GAME.dollar_buffer = 0
+						return true
+					end,
+				}))
 				return {
 					dollars = card.ability.extra.dollars,
 				}

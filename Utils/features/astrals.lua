@@ -429,32 +429,26 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
 				trigger = "after",
 				delay = 1,
 				func = function()
-					All_in_Jest.astral_background(
-						nil,
-						{
-							background = {
-								old_colours.special_colour,
-								old_colours.tertiary_colour,
-								old_colours.new_colour,
-								old_colours.contrast,
-							},
-						}
-					)
+					All_in_Jest.astral_background(nil, {
+						background = {
+							old_colours.special_colour,
+							old_colours.tertiary_colour,
+							old_colours.new_colour,
+							old_colours.contrast,
+						},
+					})
 					return true
 				end,
 			}))
 		else
-			All_in_Jest.astral_background(
-				nil,
-				{
-					background = {
-						old_colours.special_colour,
-						old_colours.tertiary_colour,
-						old_colours.new_colour,
-						old_colours.contrast,
-					},
-				}
-			)
+			All_in_Jest.astral_background(nil, {
+				background = {
+					old_colours.special_colour,
+					old_colours.tertiary_colour,
+					old_colours.new_colour,
+					old_colours.contrast,
+				},
+			})
 		end
 		return
 	end
@@ -506,13 +500,10 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
 			end
 		end
 		-- Change background colour
-		All_in_Jest.astral_background(
-			true,
-			{
-				background = colours.background or { HEX("d1e2f6"), HEX("87a5c9"), HEX("d1e2f6") },
-				stars = colours.stars or { G.C.WHITE, HEX("d1e2f6"), HEX("9ec5d7") },
-			}
-		)
+		All_in_Jest.astral_background(true, {
+			background = colours.background or { HEX("d1e2f6"), HEX("87a5c9"), HEX("d1e2f6") },
+			stars = colours.stars or { G.C.WHITE, HEX("d1e2f6"), HEX("9ec5d7") },
+		})
 		delay(0.4)
 	end
 	if extra ~= "no_remove" then
@@ -521,17 +512,14 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
 				trigger = "after",
 				delay = 1,
 				func = function()
-					All_in_Jest.astral_background(
-						nil,
-						{
-							background = {
-								old_colours.special_colour,
-								old_colours.tertiary_colour,
-								old_colours.new_colour,
-								old_colours.contrast,
-							},
-						}
-					)
+					All_in_Jest.astral_background(nil, {
+						background = {
+							old_colours.special_colour,
+							old_colours.tertiary_colour,
+							old_colours.new_colour,
+							old_colours.contrast,
+						},
+					})
 					if G.aij_astral_pin_area then
 						for _, v in pairs(G.aij_astral_pin_area.cards) do
 							v:remove()
@@ -541,17 +529,14 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
 				end,
 			}))
 		else
-			All_in_Jest.astral_background(
-				nil,
-				{
-					background = {
-						old_colours.special_colour,
-						old_colours.tertiary_colour,
-						old_colours.new_colour,
-						old_colours.contrast,
-					},
-				}
-			)
+			All_in_Jest.astral_background(nil, {
+				background = {
+					old_colours.special_colour,
+					old_colours.tertiary_colour,
+					old_colours.new_colour,
+					old_colours.contrast,
+				},
+			})
 			if G.aij_astral_pin_area then
 				for _, v in pairs(G.aij_astral_pin_area.cards) do
 					v:remove()

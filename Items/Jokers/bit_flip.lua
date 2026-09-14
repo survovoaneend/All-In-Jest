@@ -55,20 +55,13 @@ local bit_flip = {
 			end
 			local score_amt = tonumber(str) - context.total_chips
 			if score_amt > 0 then
-				card_eval_status_text(
-					card,
-					"jokers",
-					nil,
-					percent,
-					nil,
-					{
-						message = localize({ type = "variable", key = "a_score", vars = { SMODS.signed(score_amt) } }),
-						update_score = true,
-						volume = 0.5,
-						sound_override = "gong",
-						colour = G.C.PURPLE,
-					}
-				)
+				card_eval_status_text(card, "jokers", nil, percent, nil, {
+					message = localize({ type = "variable", key = "a_score", vars = { SMODS.signed(score_amt) } }),
+					update_score = true,
+					volume = 0.5,
+					sound_override = "gong",
+					colour = G.C.PURPLE,
+				})
 				G.E_MANAGER:add_event(Event({
 					trigger = "after",
 					func = function()

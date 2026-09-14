@@ -35,20 +35,13 @@ local tract = {
 		if context.buying_card and context.card.ability.set == "Voucher" then
 			G.E_MANAGER:add_event(Event({
 				func = function()
-					card_eval_status_text(
-						card,
-						"extra",
-						nil,
-						nil,
-						nil,
-						{
-							message = localize({
-								type = "variable",
-								key = "a_chips",
-								vars = { redeemed_voucher_count() * card.ability.extra.chip_mod },
-							}),
-						}
-					)
+					card_eval_status_text(card, "extra", nil, nil, nil, {
+						message = localize({
+							type = "variable",
+							key = "a_chips",
+							vars = { redeemed_voucher_count() * card.ability.extra.chip_mod },
+						}),
+					})
 					return true
 				end,
 			}))

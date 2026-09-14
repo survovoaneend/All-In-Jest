@@ -195,16 +195,13 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
 				args.h_mod * G.CARD_H,
 				{ card_limit = rows[j], type = args.area_type or "title", highlight_limit = 0, collection = true }
 			)
-			table.insert(
-				deck_tables,
-				{
-					n = G.UIT.R,
-					config = { align = "cm", padding = 0.07, no_fill = true },
-					nodes = {
-						{ n = G.UIT.O, config = { object = G.your_collection[j] } },
-					},
-				}
-			)
+			table.insert(deck_tables, {
+				n = G.UIT.R,
+				config = { align = "cm", padding = 0.07, no_fill = true },
+				nodes = {
+					{ n = G.UIT.O, config = { object = G.your_collection[j] } },
+				},
+			})
 		end
 	end
 
@@ -676,15 +673,12 @@ G.FUNCS.aij_booster_discard_cards_from_highlighted = function(e, hook)
 			G.hand.highlighted[i]:calculate_seal({ discard = true })
 			local removed = false
 			local effects = {}
-			SMODS.calculate_context(
-				{
-					discard = true,
-					other_card = G.hand.highlighted[i],
-					full_hand = G.hand.highlighted,
-					ignore_other_debuff = true,
-				},
-				effects
-			)
+			SMODS.calculate_context({
+				discard = true,
+				other_card = G.hand.highlighted[i],
+				full_hand = G.hand.highlighted,
+				ignore_other_debuff = true,
+			}, effects)
 			SMODS.trigger_effects(effects)
 			for _, eval in pairs(effects) do
 				if type(eval) == "table" then

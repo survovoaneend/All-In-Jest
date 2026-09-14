@@ -119,7 +119,9 @@ G.FUNCS.aij_config_content = function(e)
 											nodes = {
 												{
 													n = G.UIT.C,
-													config = { tooltip = { text = localize("aij_no_copy_neg_tooltip") } },
+													config = {
+														tooltip = { text = localize("aij_no_copy_neg_tooltip") },
+													},
 													nodes = {
 														create_toggle({
 															label = localize("aij_no_copy_neg"),
@@ -184,7 +186,9 @@ G.FUNCS.aij_config_moons = function(e)
 											nodes = {
 												{
 													n = G.UIT.C,
-													config = { tooltip = { text = localize("aij_enable_moons_tooltip") } },
+													config = {
+														tooltip = { text = localize("aij_enable_moons_tooltip") },
+													},
 													nodes = {
 														create_toggle({
 															label = localize("aij_enable_moons"),
@@ -325,7 +329,9 @@ G.FUNCS.aij_config_visuals = function(e)
 											nodes = {
 												{
 													n = G.UIT.C,
-													config = { tooltip = { text = localize("aij_guess_names_tooltip") } },
+													config = {
+														tooltip = { text = localize("aij_guess_names_tooltip") },
+													},
 													nodes = {
 														create_toggle({
 															label = localize("aij_guess_names"),

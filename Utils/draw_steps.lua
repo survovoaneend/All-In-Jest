@@ -169,7 +169,8 @@ SMODS.DrawStep({
 						scale_mod,
 						rotate_mod,
 						nil,
-						self.config.center.all_in_jest.soul_layers[k].moving and 0.1 + 0.03 * math.cos(1.8 * G.TIMERS.REAL)
+						self.config.center.all_in_jest.soul_layers[k].moving
+								and 0.1 + 0.03 * math.cos(1.8 * G.TIMERS.REAL)
 							or 0.1,
 						nil,
 						0.6

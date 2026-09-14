@@ -36,21 +36,18 @@ local the_jolly = {
 					text = "Straight Flush"
 				end
 
-				update_hand_text(
-					{
-						sound = G.GAME.current_round.current_hand.handname ~= disp_text and "button" or nil,
-						volume = 0.4,
-						immediate = true,
-						nopulse = nil,
-						delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0,
-					},
-					{
-						handname = disp_text,
-						level = G.GAME.hands[calculated_text or text].level,
-						mult = G.GAME.hands[calculated_text or text].mult,
-						chips = G.GAME.hands[calculated_text or text].chips,
-					}
-				)
+				update_hand_text({
+					sound = G.GAME.current_round.current_hand.handname ~= disp_text and "button" or nil,
+					volume = 0.4,
+					immediate = true,
+					nopulse = nil,
+					delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0,
+				}, {
+					handname = disp_text,
+					level = G.GAME.hands[calculated_text or text].level,
+					mult = G.GAME.hands[calculated_text or text].mult,
+					chips = G.GAME.hands[calculated_text or text].chips,
+				})
 				card.the_jolly_levels_to_remove = levels
 			end
 		end
