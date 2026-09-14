@@ -29,7 +29,7 @@ pattern = '''
 local flags = SMODS.trigger_effects(effects, card)
 '''
 payload = '''
-if context.cardarea == G.hand and next(flags) then
+if context.cardarea == G.hand and flags.calculated then
     SMODS.calculate_context({aij_held_effect_triggered = true, card = card, effects = flags})
 end
 '''
