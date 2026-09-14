@@ -112,7 +112,7 @@ match_indent = true
 # action_enemy_info()
 [[patches]]
 [patches.pattern]
-target = '=[SMODS Multiplayer "networking/action_handlers.lua"]'
+target = '=[SMODS Multiplayer "ui/game/blind_hud.lua"]'
 pattern = '''
 G.HUD_blind:get_UIE_by_ID("HUD_blind_count"):juice_up()
 G.HUD_blind:get_UIE_by_ID("dollars_to_be_earned"):juice_up()
