@@ -44,7 +44,7 @@ local the_kind = {
 	end,
 
 	defeat = function(self)
-		G.has_been_bl_aij_the_kind = nil
+		G.GAME.all_in_jest.has_been_bl_aij_the_kind = nil
 		local temp = G.GAME.blind and G.GAME.blind.disabled
 		if temp then
 			return

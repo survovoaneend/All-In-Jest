@@ -189,9 +189,83 @@ function All_in_Jest.set_debuff(card)
 	end
 end
 
--- function All_in_Jest.calculate(self, context)
-
--- end
+function All_in_Jest.calculate(self, context)
+	if context.ante_end and G.GAME.aij_big_boss_reset_ante then
+		G.GAME.aij_has_big_boss = nil
+		G.GAME.aij_big_boss_reset_ante = nil
+		for k, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_ante) do
+			G.GAME.all_in_jest.advanced_hand_usage_ante[k] = nil
+		end
+	end
+	if context.ending_booster and G.GAME.all_in_jest.dizzard_shop and G.shop.alignment.offset.y ~= -5.3 then
+		G.E_MANAGER:add_event(Event({
+			trigger = 'after',
+			func = function()
+				if G.shop.alignment.offset.y ~= -5.3 then
+					G.shop.alignment.offset.y = -5.3
+				end
+				return true
+			end
+		}))
+	end
+	if context.ending_booster then
+		if G.discard and #G.discard.cards > 0 and G.GAME.aij_discared_start_booster then
+			G.FUNCS.draw_from_discard_to_deck()
+		end
+		G.GAME.aij_discared_start_booster = nil
+	end
+	if context.open_booster and G.GAME.aij_discard_button and G.GAME.aij_booster_discards and G.GAME.aij_booster_discards > 0 and not G.GAME.aij_discared_start_booster then
+		G.GAME.current_round.discards_left = G.GAME.aij_booster_discards
+		G.GAME.aij_discared_start_booster = true
+	end
+	if context.end_of_round then
+		G.GAME.all_in_jest.dizzard_shop = false
+	end
+	if context.ending_shop and (G.GAME.aij_tag_rerolls and G.GAME.aij_tag_rerolls > 0) then
+		G.GAME.current_round.reroll_cost_increase = 0
+	end
+	if context.setting_blind then
+		if G.GAME.aij_show_hand then
+			G.hand.states.visible = true
+			G.GAME.aij_show_hand = nil
+		end
+		for k, v in pairs(G.jokers.cards) do
+			if v.ability and v.ability.all_in_jest and v.ability.all_in_jest.has_been_rerolled then
+				card_eval_status_text(v, "extra", nil, nil, nil, {message = localize("k_reset"), colour = G.C.FILTER})
+				All_in_Jest.reroll_joker(v, v.ability.all_in_jest.has_been_rerolled, 'stage_production')
+				v.ability.all_in_jest.has_been_rerolled = nil
+			end
+		end
+	end
+	if context.aij_set_or_reroll_blind and context.blind.key ~= 'bl_aij_the_kind' and not context.run_info and G.GAME.all_in_jest.has_been_bl_aij_the_kind then
+		local kind_present = false
+		for k, v in pairs(G.GAME.round_resets.blind_choices) do
+			if v == 'bl_aij_the_kind' then
+				kind_present = true
+			end
+		end
+		if not kind_present then
+			G.GAME.all_in_jest.has_been_bl_aij_the_kind = nil
+			G.E_MANAGER:add_event(Event({
+				trigger = 'immediate',
+				func = function()
+					aij_reroll_tags(nil, {force_no_gold, do_not_change_tags = true})
+					return true
+				end
+			}))
+		end
+	end
+	if context.aij_set_or_reroll_blind and context.blind.key == 'bl_aij_the_kind' and not context.run_info then
+		G.GAME.all_in_jest.has_been_bl_aij_the_kind = true
+		G.E_MANAGER:add_event(Event({
+			trigger = 'immediate',
+			func = function()
+				aij_reroll_tags(nil, {force_gold = true, do_not_change_tags = true})
+				return true
+			end
+		}))
+	end
+end
 
 function All_in_Jest.custom_card_areas(game)
 	load_coconut_card_area(game)
