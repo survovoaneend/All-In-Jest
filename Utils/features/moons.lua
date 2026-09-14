@@ -93,6 +93,7 @@ local unboosted_weight_planet_keys = {
 	["c_aij_dysnomia"] = true,
 	["c_aij_kuiper"] = true,
 
+	-- Paperback spectrum moons
 	["c_paperback_quaoar"] = true,
 	["c_aij_paper_weywot"] = true,
 	["c_aij_paper_namaka"] = true,
@@ -106,6 +107,7 @@ local unboosted_weight_planet_keys = {
 	["c_aij_paper_varda"] = true,
 	["c_aij_paper_mk2"] = true,
 
+	-- Bunco spectrum moons
 	["c_bunc_quaoar"] = true,
 	["c_aij_bunc_weywot"] = true,
 	["c_aij_bunc_namaka"] = true,
