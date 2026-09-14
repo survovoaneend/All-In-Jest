@@ -17,6 +17,7 @@ payload = '''if v.config.hand_type == G.GAME.last_hand_played and not v.config.m
 
 
 # Block planets / moons of the same hand type from appearing at once (1/2)
+# Also used by Astrologer, since Astrologer changes planet card after used jokers are removed from the pool. So an unused planet could be picked and converted into a used planet
 # get_current_pool()
 [[patches]]
 [patches.pattern]
@@ -26,7 +27,7 @@ position = "after"
 match_indent = true
 payload = '''
 local aij_manual_block = false
-if v.set == 'Planet' and All_in_Jest.config.moons_blocking and not G.GAME.used_jokers[v.key] then
+if v.set == 'Planet' and (All_in_Jest.config.moons_blocking or next(SMODS.find_card('j_aij_astrologer'))) and not G.GAME.used_jokers[v.key] then
     for k, other in pairs(G.P_CENTER_POOLS.Planet) do
         if other.config.hand_type == v.config.hand_type and G.GAME.used_jokers[other.key] then
             aij_manual_block = true
