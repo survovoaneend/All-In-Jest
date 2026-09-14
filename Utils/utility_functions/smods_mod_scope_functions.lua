@@ -221,7 +221,8 @@ function All_in_Jest.calculate(self, context)
 	if context.end_of_round then
 		G.GAME.all_in_jest.dizzard_shop = false
 	end
-	if context.ending_shop and (G.GAME.aij_tag_rerolls and G.GAME.aij_tag_rerolls > 0) then
+	if context.ending_shop then
+		-- Set to zero for Gille (and any other similar blind rerolling effects)
 		G.GAME.current_round.reroll_cost_increase = 0
 	end
 	if context.setting_blind then
