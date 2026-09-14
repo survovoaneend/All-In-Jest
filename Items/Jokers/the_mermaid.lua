@@ -25,6 +25,9 @@ local the_mermaid = {
 	remove_from_deck = function(self, card, from_debuff)
 		G.GAME.aij_booster_discards = G.GAME.aij_booster_discards or 0
 		G.GAME.aij_booster_discards = G.GAME.aij_booster_discards - 1
+		if G.GAME.aij_booster_discards <= 0 then
+			G.GAME.aij_discard_button = false
+		end
 	end,
 }
 return { name = { "Jokers" }, items = { the_mermaid } }

@@ -4507,8 +4507,8 @@ return {
 			j_aij_the_mermaid = {
 				name = "The Mermaid",
 				text = {
-					"You may {C:red}discard{} at least",
-					"{C:attention}once{} during {C:attention}Booster Packs ",
+					"You may {C:red}discard{} {C:attention}once{}",
+					"during {C:attention}Booster Packs ",
 				},
 			},
 			j_aij_colour_test = {
