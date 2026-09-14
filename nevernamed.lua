@@ -134,10 +134,10 @@ local function load_items(curr_obj)
 		item.jest_rec_paperback = item.jest_rec_paperback or false
 		if item.jest_spec_moon and All_in_Jest.config.moons_enabled and not item.ignore then
 			if item.jest_rec_paperback then
-				if
-					(next(SMODS.find_mod("paperback")) or next(SMODS.find_mod("Bunco")))
-					and ((PB_UTIL and PB_UTIL.config and PB_UTIL.config.suits_enabled) or next(SMODS.find_mod("Bunco")))
-				then
+				local bunco_loaded = next(SMODS.find_mod("Bunco"))
+				local paperback_spectrum_enabled = next(SMODS.find_mod("paperback"))
+					and (PB_UTIL and PB_UTIL.config and PB_UTIL.config.suits_enabled)
+				if bunco_loaded or paperback_spectrum_enabled then
 					SMODS[item.object_type](item)
 					goto continue
 				else
