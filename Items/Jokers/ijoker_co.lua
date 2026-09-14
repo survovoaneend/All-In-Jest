@@ -31,6 +31,7 @@ local tag_prices = {
 	tag_aij_aureate = { type = "fixed", value = 8 },
 	tag_aij_overstuffed = { type = "fixed", value = 6 },
 	tag_aij_fortunate = { type = "fixed", value = 8 },
+	tag_aij_misprinted = { type = "fixed", value = 8 },
 
 	--Gold Tags
 
@@ -66,6 +67,7 @@ local tag_prices = {
 	tag_aij_gold_dust = { type = "fraction", value = 0.35, floor = 50 },
 	tag_aij_ventripotent = { type = "fraction", value = 0.15, floor = 20 },
 	tag_aij_auspicious = { type = "fraction", value = 0.2, floor = 40 },
+	tag_aij_err_tag_undefined = { type = "fraction", value = 0.75, floor = 40 },
 }
 
 local ijoker_co = {
