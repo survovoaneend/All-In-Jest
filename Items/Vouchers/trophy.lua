@@ -25,8 +25,8 @@ local trophy = {
   end,
 
   calculate = function(self, card, context)
-    if context.end_of_round and not context.individual and not context.repetition then
-        G.GAME.all_in_jest.apply.v_aij_trophy_chance = SMODS.pseudorandom_probability(card, 'v_aij_trophy', 1, 3)
+    if context.end_of_round and context.main_eval then
+      G.GAME.all_in_jest.apply.v_aij_trophy_chance = SMODS.pseudorandom_probability(card, 'v_aij_trophy', 1, 3)
     end
   end,
 
