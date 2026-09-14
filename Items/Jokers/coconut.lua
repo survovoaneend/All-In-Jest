@@ -1,41 +1,39 @@
 local coconut = {
-    object_type = "Joker",
-    order = 546,
-    key = "coconut",
-    config = {
-        extra = {
-            
-        }
-    },
-    attributes = { 'generation', 'tag', 'on_sell' },
-    rarity = 1,
-    lite = true,
-    pos = { x = 12, y = 25 },
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = false,
-    perishable_compat = true,
+	object_type = "Joker",
+	order = 546,
+	key = "coconut",
+	config = {
+		extra = {},
+	},
+	attributes = { "generation", "tag", "on_sell" },
+	rarity = 1,
+	lite = true,
+	pos = { x = 12, y = 25 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = false,
+	perishable_compat = true,
 
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = G.P_TAGS['tag_juggle']
-    end,
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_TAGS["tag_juggle"]
+	end,
 
-    calculate = function(self, card, context)
-        if context.selling_self then
-            G.E_MANAGER:add_event(Event({
-                func = (function()
-                    add_tag(Tag('tag_juggle'))
-                    play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
-                    play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
-                    return true
-                end)
-            }))
-            return nil, true -- This is for Joker retrigger purposes
-        end
-    end
+	calculate = function(self, card, context)
+		if context.selling_self then
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					add_tag(Tag("tag_juggle"))
+					play_sound("generic1", 0.9 + math.random() * 0.1, 0.8)
+					play_sound("holo1", 1.2 + math.random() * 0.1, 0.4)
+					return true
+				end,
+			}))
+			return nil, true -- This is for Joker retrigger purposes
+		end
+	end,
 }
 
 return { name = { "Jokers" }, items = { coconut } }

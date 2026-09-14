@@ -1,21 +1,19 @@
 local star_magi_tarot = {
-    object_type = "Consumable",
-	key = 'star_magi',
-	set = 'Tarot',
+	object_type = "Consumable",
+	key = "star_magi",
+	set = "Tarot",
 	pos = { x = 12, y = 8 },
 	cost = 3,
 	unlocked = true,
 	discovered = false,
 	order = 16,
-	config = { },
-	attributes = {'generation', 'astral'},
-	atlas = 'consumable_atlas',
+	config = {},
+	attributes = { "generation", "astral" },
+	atlas = "consumable_atlas",
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = {key = 'aij_astral_passigrade', set = 'Other'}
+		info_queue[#info_queue + 1] = { key = "aij_astral_passigrade", set = "Other" }
 		return {
-			vars = {
-				
-			}
+			vars = {},
 		}
 	end,
 	can_use = function(self, card, area, copier)
@@ -25,15 +23,15 @@ local star_magi_tarot = {
 	end,
 	use = function(self, card)
 		G.E_MANAGER:add_event(Event({
-			trigger = 'after',
+			trigger = "after",
 			delay = 0.4,
 			func = function()
-				local new_card = create_card('aij_astral', G.consumeables, nil, nil, nil, nil, nil, 'jest_star_magi')
+				local new_card = create_card("aij_astral", G.consumeables, nil, nil, nil, nil, nil, "jest_star_magi")
 				G.consumeables:emplace(new_card)
-				new_card.ability.consumeable.grade = 'Passigrade'
+				new_card.ability.consumeable.grade = "Passigrade"
 				return true
-			end
+			end,
 		}))
 	end,
 }
-return {name = {"Tarots"}, items = {star_magi_tarot}}
+return { name = { "Tarots" }, items = { star_magi_tarot } }

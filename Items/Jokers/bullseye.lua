@@ -1,41 +1,41 @@
 local bullseye = {
-    object_type = "Joker",
-    order = 496,
-    key = "bullseye",
-    
-    config = {
-        extra = {
-            xmult = 3
-        }
-    },
-    attributes = { 'xmult' },
-    rarity = 2,
-    pos = { x = 18, y = 23 },
-    atlas = 'joker_atlas',
-    cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	object_type = "Joker",
+	order = 496,
+	key = "bullseye",
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.xmult
-            }
-        }
-    end,
+	config = {
+		extra = {
+			xmult = 3,
+		},
+	},
+	attributes = { "xmult" },
+	rarity = 2,
+	pos = { x = 18, y = 23 },
+	atlas = "joker_atlas",
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    calculate = function(self, card, context)
-        if context.joker_main then
-            if hand_chips % 10 == 0 then
-                return {
-                    xmult = card.ability.extra.xmult
-                }
-            end
-        end
-    end
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.xmult,
+			},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.joker_main then
+			if hand_chips % 10 == 0 then
+				return {
+					xmult = card.ability.extra.xmult,
+				}
+			end
+		end
+	end,
 }
 
 return { name = { "Jokers" }, items = { bullseye } }

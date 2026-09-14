@@ -1,43 +1,42 @@
 local hat_trick = {
-    object_type = "Joker",
-    order = 15,
+	object_type = "Joker",
+	order = 15,
 
-    key = "hat_trick",
-    config = {
-      extra = {
-        mod = 1
-      }
-    },
-    attributes = { 'mult', 'hand_type' },
-    rarity = 1,
-    pos = { x = 11, y = 0 },
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-      return {
-          vars = {
-              card.ability.extra.mod * G.GAME.hands['Three of a Kind'].level,
-          }
-      }
-    end,
-  
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            local multt = G.GAME.hands['Three of a Kind'].level * card.ability.extra.mod
-            if context.scoring_name == 'Three of a Kind' then
-                return {
-                    mult = multt,
-                    card = card
-                }
-            end
-        end
-    end
-  
+	key = "hat_trick",
+	config = {
+		extra = {
+			mod = 1,
+		},
+	},
+	attributes = { "mult", "hand_type" },
+	rarity = 1,
+	pos = { x = 11, y = 0 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.mod * G.GAME.hands["Three of a Kind"].level,
+			},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.individual and context.cardarea == G.play then
+			local multt = G.GAME.hands["Three of a Kind"].level * card.ability.extra.mod
+			if context.scoring_name == "Three of a Kind" then
+				return {
+					mult = multt,
+					card = card,
+				}
+			end
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {hat_trick} }
+return { name = { "Jokers" }, items = { hat_trick } }

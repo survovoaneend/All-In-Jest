@@ -1,80 +1,83 @@
 local the_treachery_of_jokers = {
-    object_type = "Joker",
-    order = 409,
-    key = "the_treachery_of_jokers",
-    config = {
-        extra = {
-            xmult = 1.5
-        }
-    },
-    attributes = { 'xmult' },
-    rarity = 2,
-    pos = { x = 7, y = 16 },
-    atlas = 'joker_atlas',
-    cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = true,
-    perishable_compat = true,
+	object_type = "Joker",
+	order = 409,
+	key = "the_treachery_of_jokers",
+	config = {
+		extra = {
+			xmult = 1.5,
+		},
+	},
+	attributes = { "xmult" },
+	rarity = 2,
+	pos = { x = 7, y = 16 },
+	atlas = "joker_atlas",
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.xmult
-            }
-        }
-    end,
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.xmult,
+			},
+		}
+	end,
 
-    calculate = function(self, card, context)
-         if context.joker_main then
-              return {
-                  xmult = card.ability.extra.xmult
-              }
-         end
-    end
+	calculate = function(self, card, context)
+		if context.joker_main then
+			return {
+				xmult = card.ability.extra.xmult,
+			}
+		end
+	end,
 }
 
 local aij_check_for_buy_space_ref = G.FUNCS.check_for_buy_space
 G.FUNCS.check_for_buy_space = function(card)
-    local is_treachery = false
-    if card.config.center.key == "j_aij_the_treachery_of_jokers" then
-        is_treachery = true
-    elseif card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_key == 'j_aij_the_treachery_of_jokers' then
-        is_treachery = true
-    elseif card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_abilities then
-        local copier_ability = card.ability[card.config.center.key]
-        for index = #copier_ability.copied_joker_abilities, math.max(1, #copier_ability.copied_joker_abilities - copier_ability.copy_limit + 1), -1 do
-            local copied_ability = copier_ability.copied_joker_abilities[index]
-            if copied_ability.key == "j_aij_the_treachery_of_jokers" then
-                is_treachery = true
-                break
-            end
-        end
-    end
+	local is_treachery = false
+	if card.config.center.key == "j_aij_the_treachery_of_jokers" then
+		is_treachery = true
+	elseif
+		card.ability[card.config.center.key]
+		and card.ability[card.config.center.key].copied_joker_key == "j_aij_the_treachery_of_jokers"
+	then
+		is_treachery = true
+	elseif card.ability[card.config.center.key] and card.ability[card.config.center.key].copied_joker_abilities then
+		local copier_ability = card.ability[card.config.center.key]
+		for index = #copier_ability.copied_joker_abilities, math.max(1, #copier_ability.copied_joker_abilities - copier_ability.copy_limit + 1), -1 do
+			local copied_ability = copier_ability.copied_joker_abilities[index]
+			if copied_ability.key == "j_aij_the_treachery_of_jokers" then
+				is_treachery = true
+				break
+			end
+		end
+	end
 
-    if is_treachery then
-        card.ability.set = ""
-        card.ability.consumeable = true
-    end
-    local ret = aij_check_for_buy_space_ref(card)
-    if is_treachery then
-        card.ability.set = "Joker"
-        card.ability.consumeable = nil
-    end
-    return ret
+	if is_treachery then
+		card.ability.set = ""
+		card.ability.consumeable = true
+	end
+	local ret = aij_check_for_buy_space_ref(card)
+	if is_treachery then
+		card.ability.set = "Joker"
+		card.ability.consumeable = nil
+	end
+	return ret
 end
 
 local ref_can_select_card = G.FUNCS.can_select_card
 G.FUNCS.can_select_card = function(e)
-    local card = e.config.ref_table
-    local card_limit = card.ability.card_limit - card.ability.extra_slots_used
-    if card.config.center.key == "j_aij_the_treachery_of_jokers" then
-        e.config.colour = G.C.GREEN
-        e.config.button = 'use_card'
-    else
-        ref_can_select_card(e)
-    end
+	local card = e.config.ref_table
+	local card_limit = card.ability.card_limit - card.ability.extra_slots_used
+	if card.config.center.key == "j_aij_the_treachery_of_jokers" then
+		e.config.colour = G.C.GREEN
+		e.config.button = "use_card"
+	else
+		ref_can_select_card(e)
+	end
 end
 
 -- Make advanced copier jokers that gain/lose treachery of jokers be moved to the correct card area
@@ -84,108 +87,133 @@ end
 -- For joker.png/czar
 local aij_set_copied_joker_ref = All_in_Jest.set_copied_joker
 All_in_Jest.set_copied_joker = function(copier_card, copied_center)
-    local previously_copied_joker = copier_card.ability[copier_card.config.center.key].copied_joker_key
+	local previously_copied_joker = copier_card.ability[copier_card.config.center.key].copied_joker_key
 
-    local ret = aij_set_copied_joker_ref(copier_card, copied_center)
+	local ret = aij_set_copied_joker_ref(copier_card, copied_center)
 
-    local currently_copied_joker = copier_card.ability[copier_card.config.center.key].copied_joker_key
+	local currently_copied_joker = copier_card.ability[copier_card.config.center.key].copied_joker_key
 
-    if previously_copied_joker ~= currently_copied_joker then
-        if previously_copied_joker == "j_aij_the_treachery_of_jokers" and copier_card.area == G.consumeables then
-            local removed_card = copier_card.area:remove_card(copier_card)
-            G.jokers:emplace(removed_card)
-        elseif currently_copied_joker == "j_aij_the_treachery_of_jokers" and copier_card.area == G.jokers then
-            local removed_card = copier_card.area:remove_card(copier_card)
-            G.consumeables:emplace(removed_card)
-        end
-    end
+	if previously_copied_joker ~= currently_copied_joker then
+		if previously_copied_joker == "j_aij_the_treachery_of_jokers" and copier_card.area == G.consumeables then
+			local removed_card = copier_card.area:remove_card(copier_card)
+			G.jokers:emplace(removed_card)
+		elseif currently_copied_joker == "j_aij_the_treachery_of_jokers" and copier_card.area == G.jokers then
+			local removed_card = copier_card.area:remove_card(copier_card)
+			G.consumeables:emplace(removed_card)
+		end
+	end
 
-    return ret
+	return ret
 end
 
 -- Gives Treachery of Jokers stake stickers on winning and joker usage stats
 local set_joker_usage_ref = set_joker_usage
 function set_joker_usage()
-  for _, v in pairs(G.consumeables.cards) do
-    if v.config.center_key and v.ability.set == 'Joker' then
-      if G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] then
-        G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].count = G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].count + 1
-      else
-        G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] = convert_usage_entry{count = 1, order = v.config.center.order, wins = {}, losses = {}, wins_by_key = {}, losses_by_key = {}}
-      end
-    end
-  end
-  set_joker_usage_ref()
+	for _, v in pairs(G.consumeables.cards) do
+		if v.config.center_key and v.ability.set == "Joker" then
+			if G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] then
+				G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].count = G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].count
+					+ 1
+			else
+				G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] = convert_usage_entry({
+					count = 1,
+					order = v.config.center.order,
+					wins = {},
+					losses = {},
+					wins_by_key = {},
+					losses_by_key = {},
+				})
+			end
+		end
+	end
+	set_joker_usage_ref()
 end
 local set_joker_win_ref = set_joker_win
 function set_joker_win()
-  for _, v in pairs(G.consumeables.cards) do
-    if v.config.center_key and v.ability.set == 'Joker' then
-      G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] = G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] or convert_usage_entry{count = 1, order = v.config.center.order, wins = {}, losses = {}, wins_by_key = {}, losses_by_key = {}}
-      if G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] then
-        G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins = G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins or {}
-        G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] = (G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] or 0) + 1
-      end
-    end
-  end
-  set_joker_win_ref()
+	for _, v in pairs(G.consumeables.cards) do
+		if v.config.center_key and v.ability.set == "Joker" then
+			G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] = G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key]
+				or convert_usage_entry({
+					count = 1,
+					order = v.config.center.order,
+					wins = {},
+					losses = {},
+					wins_by_key = {},
+					losses_by_key = {},
+				})
+			if G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key] then
+				G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins = G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins
+					or {}
+				G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins_by_key[SMODS.stake_from_index(
+					G.GAME.stake
+				)] = (
+					G.PROFILES[G.SETTINGS.profile].joker_usage[v.config.center_key].wins_by_key[SMODS.stake_from_index(
+						G.GAME.stake
+					)] or 0
+				) + 1
+			end
+		end
+	end
+	set_joker_win_ref()
 end
 
-
-local contains = function (tbl, item)
-    for k, v in pairs(tbl) do
-        if v == item then
-            return true
-        end
-    end
-    return false
+local contains = function(tbl, item)
+	for k, v in pairs(tbl) do
+		if v == item then
+			return true
+		end
+	end
+	return false
 end
 
 -- For what's left/clay joker
 local aij_add_copied_joker_ref = All_in_Jest.add_copied_joker
 All_in_Jest.add_copied_joker = function(copier_card, copied_center, copied_base_stats, skip_funcs)
-    local previously_copied_jokers = {}
-    if copier_card.ability[copier_card.config.center.key].copied_joker_abilities ~= nil then
-        local copier_ability = copier_card.ability[copier_card.config.center.key]
+	local previously_copied_jokers = {}
+	if copier_card.ability[copier_card.config.center.key].copied_joker_abilities ~= nil then
+		local copier_ability = copier_card.ability[copier_card.config.center.key]
 
-        for index = #copier_ability.copied_joker_abilities, math.max(1, #copier_ability.copied_joker_abilities - copier_ability.copy_limit + 1), -1 do
-            local copied_ability = copier_ability.copied_joker_abilities[index]
-            table.insert(previously_copied_jokers, copied_ability.key)
-        end
-    end
+		for index = #copier_ability.copied_joker_abilities, math.max(1, #copier_ability.copied_joker_abilities - copier_ability.copy_limit + 1), -1 do
+			local copied_ability = copier_ability.copied_joker_abilities[index]
+			table.insert(previously_copied_jokers, copied_ability.key)
+		end
+	end
 
-    local ret = aij_add_copied_joker_ref(copier_card, copied_center, copied_base_stats, skip_funcs)
+	local ret = aij_add_copied_joker_ref(copier_card, copied_center, copied_base_stats, skip_funcs)
 
-    if copier_card.ability[copier_card.config.center.key].copied_joker_abilities ~= nil then
-        copier_ability = copier_card.ability[copier_card.config.center.key]
+	if copier_card.ability[copier_card.config.center.key].copied_joker_abilities ~= nil then
+		copier_ability = copier_card.ability[copier_card.config.center.key]
 
-        local currently_copied_jokers = {}
-        for index = #copier_ability.copied_joker_abilities, math.max(1, #copier_ability.copied_joker_abilities - copier_ability.copy_limit + 1), -1 do
-            local copied_ability = copier_ability.copied_joker_abilities[index]
-            table.insert(currently_copied_jokers, copied_ability.key)
-        end
+		local currently_copied_jokers = {}
+		for index = #copier_ability.copied_joker_abilities, math.max(1, #copier_ability.copied_joker_abilities - copier_ability.copy_limit + 1), -1 do
+			local copied_ability = copier_ability.copied_joker_abilities[index]
+			table.insert(currently_copied_jokers, copied_ability.key)
+		end
 
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                if contains(previously_copied_jokers, "j_aij_the_treachery_of_jokers") ~= contains(currently_copied_jokers, "j_aij_the_treachery_of_jokers") then
-                    if contains(previously_copied_jokers, "j_aij_the_treachery_of_jokers") then
-                        if copier_card.area and copier_card.area == G.consumeables then
-                            local removed_card = copier_card.area:remove_card(copier_card)
-                            G.jokers:emplace(removed_card)
-                        end
-                    elseif contains(currently_copied_jokers, "j_aij_the_treachery_of_jokers") then
-                        if copier_card.area and copier_card.area == G.jokers then
-                            local removed_card = copier_card.area:remove_card(copier_card)
-                            G.consumeables:emplace(removed_card)
-                        end
-                    end
-                end
-                return true
-            end
-        }))
-      end
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				if
+					contains(previously_copied_jokers, "j_aij_the_treachery_of_jokers")
+					~= contains(currently_copied_jokers, "j_aij_the_treachery_of_jokers")
+				then
+					if contains(previously_copied_jokers, "j_aij_the_treachery_of_jokers") then
+						if copier_card.area and copier_card.area == G.consumeables then
+							local removed_card = copier_card.area:remove_card(copier_card)
+							G.jokers:emplace(removed_card)
+						end
+					elseif contains(currently_copied_jokers, "j_aij_the_treachery_of_jokers") then
+						if copier_card.area and copier_card.area == G.jokers then
+							local removed_card = copier_card.area:remove_card(copier_card)
+							G.consumeables:emplace(removed_card)
+						end
+					end
+				end
+				return true
+			end,
+		}))
+	end
 
-    return ret
+	return ret
 end
 
 return { name = { "Jokers" }, items = { the_treachery_of_jokers } }

@@ -1,147 +1,200 @@
-
 -- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 -- Functions used for modifying the values of cards
 -- E.g. Dongtong, Silver, Charged Cards
 -- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 local function round_int(x)
-  return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
+	return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
 end
 
 local function round_hundredth(x)
-  if x >= 0 then
-    return math.floor(x * 100 + 0.5) / 100
-  else
-    return math.ceil(x * 100 - 0.5) / 100
-  end
+	if x >= 0 then
+		return math.floor(x * 100 + 0.5) / 100
+	else
+		return math.ceil(x * 100 - 0.5) / 100
+	end
 end
 
 local operators = {
-  ["+"] = function(a, b) return a + b end,
-  ["-"] = function(a, b) return a - b end,
-  ["*"] = function(a, b) return a * b end,
-  ["/"] = function(a, b) return a / b end,
-  ["%"] = function(a, b) return a % b end,
-  ["="] = function(a, b) return b end,
-  ["nil"] = function(a, b) return a end,
+	["+"] = function(a, b)
+		return a + b
+	end,
+	["-"] = function(a, b)
+		return a - b
+	end,
+	["*"] = function(a, b)
+		return a * b
+	end,
+	["/"] = function(a, b)
+		return a / b
+	end,
+	["%"] = function(a, b)
+		return a % b
+	end,
+	["="] = function(a, b)
+		return b
+	end,
+	["nil"] = function(a, b)
+		return a
+	end,
 }
 
 local function process_value(val, base_val, equation, extra_value, do_round, is_int)
-  if type(val) == "number" then
-    if base_val == nil then
-      base_val = val
-    end
-    local delta = val - base_val
-    local result = operators[equation](base_val, extra_value) + delta
-    if do_round then
-      -- is_int = remembered integer-ness of the original value, so it can maintain it when multiplying
-      if is_int == nil then
-        is_int = (base_val % 1 == 0)
-      end
-      if is_int then
-        return round_int(result)
-      else
-        return round_hundredth(result)
-      end
-    else
-      return result
-    end
-  else
-    return val
-  end
+	if type(val) == "number" then
+		if base_val == nil then
+			base_val = val
+		end
+		local delta = val - base_val
+		local result = operators[equation](base_val, extra_value) + delta
+		if do_round then
+			-- is_int = remembered integer-ness of the original value, so it can maintain it when multiplying
+			if is_int == nil then
+				is_int = (base_val % 1 == 0)
+			end
+			if is_int then
+				return round_int(result)
+			else
+				return round_hundredth(result)
+			end
+		else
+			return result
+		end
+	else
+		return val
+	end
 end
 
 local function should_process(key, value, exclusions, inclusions, only)
-  if type(key) ~= "string" then return true end
-  if inclusions and next(inclusions) then
-    local valid = false
-    for _, prefix in ipairs(inclusions) do
-      if (not only and key:sub(1, #prefix) == prefix) or (only and key == prefix) then
-        valid = true; break
-      end
-    end
-    if not valid then return false end
-  end
-  if exclusions and exclusions[key] ~= nil then
-    if exclusions[key] == true or value == exclusions[key] then
-      return false
-    end
-  end
-  return true
+	if type(key) ~= "string" then
+		return true
+	end
+	if inclusions and next(inclusions) then
+		local valid = false
+		for _, prefix in ipairs(inclusions) do
+			if (not only and key:sub(1, #prefix) == prefix) or (only and key == prefix) then
+				valid = true
+				break
+			end
+		end
+		if not valid then
+			return false
+		end
+	end
+	if exclusions and exclusions[key] ~= nil then
+		if exclusions[key] == true or value == exclusions[key] then
+			return false
+		end
+	end
+	return true
 end
 
-local function process_table(t, base_table, equation, extra_value, do_round, exclusions, inclusions, only, memory, prefix)
-  for key, value in pairs(t) do
-    if value ~= nil and should_process(key, value, exclusions, inclusions, only) then
-      local path = prefix and (prefix .. "." .. tostring(key)) or tostring(key)
-      if type(value) == "number" then
-        local is_int
-        if memory then
-          if memory[path] == nil then
-            memory[path] = (value % 1 == 0)
-          end
-          is_int = memory[path]
-        end
-        t[key] = process_value(value, base_table[key] or 0, equation, extra_value, do_round, is_int)
-      elseif type(value) == "table" and type(base_table[key]) == "table" then
-        process_table(value, base_table[key], equation, extra_value, do_round, exclusions, inclusions, only, memory, path)
-      end
-    end
-  end
+local function process_table(
+	t,
+	base_table,
+	equation,
+	extra_value,
+	do_round,
+	exclusions,
+	inclusions,
+	only,
+	memory,
+	prefix
+)
+	for key, value in pairs(t) do
+		if value ~= nil and should_process(key, value, exclusions, inclusions, only) then
+			local path = prefix and (prefix .. "." .. tostring(key)) or tostring(key)
+			if type(value) == "number" then
+				local is_int
+				if memory then
+					if memory[path] == nil then
+						memory[path] = (value % 1 == 0)
+					end
+					is_int = memory[path]
+				end
+				t[key] = process_value(value, base_table[key] or 0, equation, extra_value, do_round, is_int)
+			elseif type(value) == "table" and type(base_table[key]) == "table" then
+				process_table(
+					value,
+					base_table[key],
+					equation,
+					extra_value,
+					do_round,
+					exclusions,
+					inclusions,
+					only,
+					memory,
+					path
+				)
+			end
+		end
+	end
 end
 
 local function nested_tables(card, index)
-  local current = card
-  for key in string.gmatch(index, "[^%.]+") do
-    if type(current) ~= "table" then
-      return current
-    else
-      current = current[key]
-    end
-  end
-  return current
+	local current = card
+	for key in string.gmatch(index, "[^%.]+") do
+		if type(current) ~= "table" then
+			return current
+		else
+			current = current[key]
+		end
+	end
+	return current
 end
 
 local function save_value(card, index, value)
-  local current = card
-  keys = {}
-  for key in string.gmatch(index, "[^%.]+") do
-    table.insert(keys, key)
-  end
-  for i, key in ipairs(keys) do
-    if i == #keys then
-      current[key] = value
-    else
-      current = current[key]
-    end
-  end
-  return current
+	local current = card
+	keys = {}
+	for key in string.gmatch(index, "[^%.]+") do
+		table.insert(keys, key)
+	end
+	for i, key in ipairs(keys) do
+		if i == #keys then
+			current[key] = value
+		else
+			current = current[key]
+		end
+	end
+	return current
 end
 
-local jest_ability_get_items = function(card, equation, extra_value, exclusions, inclusions, do_round, only, extra_search)
-  if do_round == nil then do_round = true end
-  if only == nil then only = false end
+local jest_ability_get_items = function(
+	card,
+	equation,
+	extra_value,
+	exclusions,
+	inclusions,
+	do_round,
+	only,
+	extra_search
+)
+	if do_round == nil then
+		do_round = true
+	end
+	if only == nil then
+		only = false
+	end
 
-  local keys = {}
-  local values = {}
+	local keys = {}
+	local values = {}
 
-  local search_table = extra_search and nested_tables(card, extra_search) or card.ability
+	local search_table = extra_search and nested_tables(card, extra_search) or card.ability
 
-  if search_table then
-    if type(search_table) == "number" then
-      table.insert(keys, extra_search or "ability")
-      table.insert(values, process_value(search_table, nil, equation, extra_value, do_round))
-    elseif type(search_table) == "table" then
-      for key, value in pairs(search_table) do
-        if value ~= nil and should_process(key, value, exclusions, inclusions, only) then
-          table.insert(keys, key)
-          table.insert(values, process_value(value, nil, equation, extra_value, do_round))
-        end
-      end
-    end
-  end
+	if search_table then
+		if type(search_table) == "number" then
+			table.insert(keys, extra_search or "ability")
+			table.insert(values, process_value(search_table, nil, equation, extra_value, do_round))
+		elseif type(search_table) == "table" then
+			for key, value in pairs(search_table) do
+				if value ~= nil and should_process(key, value, exclusions, inclusions, only) then
+					table.insert(keys, key)
+					table.insert(values, process_value(value, nil, equation, extra_value, do_round))
+				end
+			end
+		end
+	end
 
-  return keys, values
+	return keys, values
 end
 
 -- Function to modify values of a card
@@ -155,64 +208,99 @@ end
 -- only (bool) = If true and inclusions is set, this will only modify keys that have an exact match in the inclusions table
 -- extra_search (string) = Defines the table to modify in card. By default "ability". If table does not exist, will select the deepest table that does exist.
 jest_ability_calculate = function(card, equation, extra_value, exclusions, inclusions, do_round, only, extra_search)
-  if do_round == nil then do_round = true end
-  if only == nil then only = false end
+	if do_round == nil then
+		do_round = true
+	end
+	if only == nil then
+		only = false
+	end
 
-  -- Some default exclusions, easier than just setting it for every use of the function
-  -- Use this for utility variables that track/store stuff, not for variables that are just usually not modified
-  -- E.g. "extra_value" is often set to prevent sell value from being modified, but we might want an effect
-  -- in the future that modifies that on purpose
-  exclusions = exclusions or {}
-  exclusions.has_been_rerolled_data = true -- Used for Stage Production
-  exclusions.jest_applied = true           -- Used by Dongtong
-  exclusions.jest_value_int_memory = true  -- Used for making sure original decimal values dont get lost
+	-- Some default exclusions, easier than just setting it for every use of the function
+	-- Use this for utility variables that track/store stuff, not for variables that are just usually not modified
+	-- E.g. "extra_value" is often set to prevent sell value from being modified, but we might want an effect
+	-- in the future that modifies that on purpose
+	exclusions = exclusions or {}
+	exclusions.has_been_rerolled_data = true -- Used for Stage Production
+	exclusions.jest_applied = true -- Used by Dongtong
+	exclusions.jest_value_int_memory = true -- Used for making sure original decimal values dont get lost
 
-  local memory
-  if card.ability then
-    card.ability.jest_value_int_memory = card.ability.jest_value_int_memory or {}
-    memory = card.ability.jest_value_int_memory
-  end
+	local memory
+	if card.ability then
+		card.ability.jest_value_int_memory = card.ability.jest_value_int_memory or {}
+		memory = card.ability.jest_value_int_memory
+	end
 
-  -- Store original values before modification
-  local mem_prefix = extra_search or "ability"
+	-- Store original values before modification
+	local mem_prefix = extra_search or "ability"
 
-  local keys, original_values = jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only,
-    extra_search)
+	local keys, original_values =
+		jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
 
-  local search_table = extra_search and nested_tables(card, extra_search) or card.ability
+	local search_table = extra_search and nested_tables(card, extra_search) or card.ability
 
-  if search_table then
-    local _, base_values = jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
-    if type(search_table) == "number" then
-      local is_int
-      if memory then
-        if memory[mem_prefix] == nil then
-          memory[mem_prefix] = (search_table % 1 == 0)
-        end
-        is_int = memory[mem_prefix]
-      end
-      search_table = process_value(search_table, base_values[1] or 0, equation, extra_value, do_round, is_int)
-      save_value(card, extra_search, search_table)
-    elseif type(search_table) == "table" then
-      local base_map = {}
-      for i, k in ipairs(keys) do
-        base_map[k] = original_values[i]
-      end
-      process_table(search_table, base_map, equation, extra_value, do_round, exclusions, inclusions, only, memory,
-        mem_prefix)
-    end
+	if search_table then
+		local _, base_values =
+			jest_ability_get_items(card, "nil", 0, exclusions, inclusions, do_round, only, extra_search)
+		if type(search_table) == "number" then
+			local is_int
+			if memory then
+				if memory[mem_prefix] == nil then
+					memory[mem_prefix] = (search_table % 1 == 0)
+				end
+				is_int = memory[mem_prefix]
+			end
+			search_table = process_value(search_table, base_values[1] or 0, equation, extra_value, do_round, is_int)
+			save_value(card, extra_search, search_table)
+		elseif type(search_table) == "table" then
+			local base_map = {}
+			for i, k in ipairs(keys) do
+				base_map[k] = original_values[i]
+			end
+			process_table(
+				search_table,
+				base_map,
+				equation,
+				extra_value,
+				do_round,
+				exclusions,
+				inclusions,
+				only,
+				memory,
+				mem_prefix
+			)
+		end
 
-    if extra_search == "ability" and inclusions == nil and card.config then
-      if card.config.aij_other_center and card.config.aij_other_center.ability then
-        jest_ability_calculate(card, equation, extra_value, exclusions, inclusions, do_round, only,
-          "config.aij_other_center.ability")
-      end
-    end
-    if extra_search == "ability.extra" and inclusions == nil and card.config then
-      if card.config.aij_other_center and card.config.aij_other_center.ability and card.config.aij_other_center.ability.extra then
-        jest_ability_calculate(card, equation, extra_value, exclusions, inclusions, do_round, only,
-          "config.aij_other_center.ability.extra")
-      end
-    end
-  end
+		if extra_search == "ability" and inclusions == nil and card.config then
+			if card.config.aij_other_center and card.config.aij_other_center.ability then
+				jest_ability_calculate(
+					card,
+					equation,
+					extra_value,
+					exclusions,
+					inclusions,
+					do_round,
+					only,
+					"config.aij_other_center.ability"
+				)
+			end
+		end
+		if extra_search == "ability.extra" and inclusions == nil and card.config then
+			if
+				card.config.aij_other_center
+				and card.config.aij_other_center.ability
+				and card.config.aij_other_center.ability.extra
+			then
+				jest_ability_calculate(
+					card,
+					equation,
+					extra_value,
+					exclusions,
+					inclusions,
+					do_round,
+					only,
+					"config.aij_other_center.ability.extra"
+				)
+			end
+		end
+	end
 end

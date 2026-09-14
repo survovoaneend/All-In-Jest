@@ -1,29 +1,22 @@
 local jack_of_all_trades = {
-    object_type = "Joker",
-    order = 143,
+	object_type = "Joker",
+	order = 143,
 
-    key = "jack_of_all_trades",
-    config = {
-      
-    },
-    attributes = { 'passive', 'rank', 'jack', 'suit' },
-    rarity = 2,
-    pos = { x = 9, y = 5 },
-    atlas = 'joker_atlas',
-    cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = true,
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-  
-    end,
-  
-    calculate = function(self, card, context)
-      
-    end
-  
+	key = "jack_of_all_trades",
+	config = {},
+	attributes = { "passive", "rank", "jack", "suit" },
+	rarity = 2,
+	pos = { x = 9, y = 5 },
+	atlas = "joker_atlas",
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = true,
+
+	loc_vars = function(self, info_queue, card) end,
+
+	calculate = function(self, card, context) end,
 }
-return { name = {"Jokers"}, items = {jack_of_all_trades} }
+return { name = { "Jokers" }, items = { jack_of_all_trades } }

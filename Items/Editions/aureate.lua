@@ -1,87 +1,94 @@
 local aureate_shader = {
-  object_type = "Shader",
-  key = 'aureate',
-  path = 'aureate.fs',
+	object_type = "Shader",
+	key = "aureate",
+	path = "aureate.fs",
 }
-SMODS.Sound {
-  key = 'aureate',
-  path = 'aureate.ogg'
-}
+SMODS.Sound({
+	key = "aureate",
+	path = "aureate.ogg",
+})
 local aureate = {
-  object_type = "Edition",
-  key = 'aureate',
-  sound = {
-    sound = 'aij_aureate',
-    per = 1,
-    vol = 1
-  },
-  order = 3,
-  config = {
-    money = 0.1,
-    max = 10
-  },
-  attributes = {'economy'},
-  
-  pools = {
-    seal_edition_pool = true
-  },
-  loc_vars = function(self, info_queue, card)
-    local money
-    if card and card.ability and (card.ability.set == 'Enhanced' or card.ability.set == 'Default') then
-      money = (((card.edition or {}).money or self.config.money) / (3 / 2)) + 1
-    else
-      money = ((card.edition or {}).money or self.config.money) + 1
-    end
-    return {
-      vars = {
-        money,
-        (card.edition or {}).max or self.config.max
-      }
-    }
-  end,
-  calculate = function(self, card, context)
-    if (card.ability.set == 'Enhanced' or card.ability.set == 'Default') and (context.main_scoring and context.cardarea == G.play) then
-      local mod = (((card.edition or {}).money or self.config.money) / (3 / 2)) + 1
-      local max = (card.edition or {}).max or self.config.max
-      local total_money = G.GAME.dollars + (G.GAME.dollar_buffer or 0)
-      local money = (total_money * mod) - total_money
-      money = math.floor(math.min(money, max))
-      if money > 0 then
-        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + money
-        G.E_MANAGER:add_event(Event({func = (function()
-          G.GAME.dollar_buffer = 0
-          return true
-        end)}))
-        return {
-          h_dollars = money,
-          card = card,
-        }
-      end
-    elseif context.end_of_round and card.ability.set == 'Joker' and context.main_eval then
-      local mod = ((card.edition or {}).money or self.config.money) + 1
-      local max = (card.edition or {}).max or self.config.max
-      local total_money = G.GAME.dollars + (G.GAME.dollar_buffer or 0)
-      local money = (total_money * mod) - total_money
-      money = math.floor(math.min(money, max))
-      if money > 0 then
-        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + money
-        G.E_MANAGER:add_event(Event({func = (function()
-          G.GAME.dollar_buffer = 0
-          return true
-        end)}))
-        return {
-          dollars = money,
-          card = card,
-        }
-      end
-    end
-  end,
-  in_shop = true,
-  weight = 3,
-  extra_cost = 4,
-  get_weight = function(self)
-        return G.GAME.jest_fairy_edition_rate * self.weight
-  end,
-  shader = 'aureate'
+	object_type = "Edition",
+	key = "aureate",
+	sound = {
+		sound = "aij_aureate",
+		per = 1,
+		vol = 1,
+	},
+	order = 3,
+	config = {
+		money = 0.1,
+		max = 10,
+	},
+	attributes = { "economy" },
+
+	pools = {
+		seal_edition_pool = true,
+	},
+	loc_vars = function(self, info_queue, card)
+		local money
+		if card and card.ability and (card.ability.set == "Enhanced" or card.ability.set == "Default") then
+			money = (((card.edition or {}).money or self.config.money) / (3 / 2)) + 1
+		else
+			money = ((card.edition or {}).money or self.config.money) + 1
+		end
+		return {
+			vars = {
+				money,
+				(card.edition or {}).max or self.config.max,
+			},
+		}
+	end,
+	calculate = function(self, card, context)
+		if
+			(card.ability.set == "Enhanced" or card.ability.set == "Default")
+			and (context.main_scoring and context.cardarea == G.play)
+		then
+			local mod = (((card.edition or {}).money or self.config.money) / (3 / 2)) + 1
+			local max = (card.edition or {}).max or self.config.max
+			local total_money = G.GAME.dollars + (G.GAME.dollar_buffer or 0)
+			local money = (total_money * mod) - total_money
+			money = math.floor(math.min(money, max))
+			if money > 0 then
+				G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + money
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						G.GAME.dollar_buffer = 0
+						return true
+					end,
+				}))
+				return {
+					h_dollars = money,
+					card = card,
+				}
+			end
+		elseif context.end_of_round and card.ability.set == "Joker" and context.main_eval then
+			local mod = ((card.edition or {}).money or self.config.money) + 1
+			local max = (card.edition or {}).max or self.config.max
+			local total_money = G.GAME.dollars + (G.GAME.dollar_buffer or 0)
+			local money = (total_money * mod) - total_money
+			money = math.floor(math.min(money, max))
+			if money > 0 then
+				G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + money
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						G.GAME.dollar_buffer = 0
+						return true
+					end,
+				}))
+				return {
+					dollars = money,
+					card = card,
+				}
+			end
+		end
+	end,
+	in_shop = true,
+	weight = 3,
+	extra_cost = 4,
+	get_weight = function(self)
+		return G.GAME.jest_fairy_edition_rate * self.weight
+	end,
+	shader = "aureate",
 }
 return { name = "Editions", items = { aureate, aureate_shader } }

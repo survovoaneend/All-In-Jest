@@ -1,78 +1,87 @@
 local nichola = {
-    object_type = "Joker",
-    order = 1017,
-    lite = true,
-    key = "nichola",
-    config = {
-      
-    },
-    attributes = { 'generation', 'playing_card', 'rank', 'queen', 'enhancements', 'seals', 'editions' },
-    rarity = 4,
-	unlock_condition = {hidden = true},
-    pos = { x = 6, y = 2},
-    atlas = 'legendary_atlas',
-    cost = 20,
-    unlocked = false,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
-    soul_pos = { x = 6, y = 3},
-  
-    loc_vars = function(self, info_queue, card)
-  
-    end,
-  
-    calculate = function(self, card, context)
-      if context.first_hand_drawn then
-          G.E_MANAGER:add_event(Event({
-              func = function()
-                  local created_cards = {}
-                  for i = 1, 1 do
-                      local suits = {'S', 'H', 'D', 'C'}
-                      local random_suit_prefix = suits[pseudorandom('nichola_suit'..i, 1, #suits)]
-                      local queen_card_key = random_suit_prefix .. '_Q'
-                      local queen_card_proto = G.P_CARDS[queen_card_key]
+	object_type = "Joker",
+	order = 1017,
+	lite = true,
+	key = "nichola",
+	config = {},
+	attributes = { "generation", "playing_card", "rank", "queen", "enhancements", "seals", "editions" },
+	rarity = 4,
+	unlock_condition = { hidden = true },
+	pos = { x = 6, y = 2 },
+	atlas = "legendary_atlas",
+	cost = 20,
+	unlocked = false,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+	soul_pos = { x = 6, y = 3 },
 
-                      local all_enhancements = get_current_pool("Enhanced")
-                      local valid_enhancements = {}
+	loc_vars = function(self, info_queue, card) end,
 
-                      -- Loop through the original list of all enhancements
-                      for _, enhancement in ipairs(all_enhancements) do
-                        if enhancement ~= "UNAVAILABLE" and not (enhancement == 'm_stone' or enhancement == 'm_aij_canvas' or G.P_CENTERS[enhancement].no_rank) then
-                          valid_enhancements[#valid_enhancements + 1] = enhancement
-                        end
-                      end
-                      local random_enhancement_key = SMODS.poll_enhancement({ guaranteed = true, key_append = 'nicola_enhance'..i, options = valid_enhancements })
-                      local random_seal_key = SMODS.poll_seal({ guaranteed = true, key_append = 'nichola_seal'..i })
+	calculate = function(self, card, context)
+		if context.first_hand_drawn then
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					local created_cards = {}
+					for i = 1, 1 do
+						local suits = { "S", "H", "D", "C" }
+						local random_suit_prefix = suits[pseudorandom("nichola_suit" .. i, 1, #suits)]
+						local queen_card_key = random_suit_prefix .. "_Q"
+						local queen_card_proto = G.P_CARDS[queen_card_key]
 
-                      local random_edition_table = poll_edition('nichola_edition'..i, nil, nil, true)
+						local all_enhancements = get_current_pool("Enhanced")
+						local valid_enhancements = {}
 
-                      local new_queen = create_playing_card({
-                          front = queen_card_proto,
-                          center = G.P_CENTERS[random_enhancement_key or 'c_base'] 
-                      }, G.hand, nil, true) 
+						-- Loop through the original list of all enhancements
+						for _, enhancement in ipairs(all_enhancements) do
+							if
+								enhancement ~= "UNAVAILABLE"
+								and not (
+									enhancement == "m_stone"
+									or enhancement == "m_aij_canvas"
+									or G.P_CENTERS[enhancement].no_rank
+								)
+							then
+								valid_enhancements[#valid_enhancements + 1] = enhancement
+							end
+						end
+						local random_enhancement_key = SMODS.poll_enhancement({
+							guaranteed = true,
+							key_append = "nicola_enhance" .. i,
+							options = valid_enhancements,
+						})
+						local random_seal_key = SMODS.poll_seal({ guaranteed = true, key_append = "nichola_seal" .. i })
 
-        
-                      if random_seal_key then new_queen:set_seal(random_seal_key, true, true) end
-                      if random_edition_table then new_queen:set_edition(random_edition_table, true, true) end
+						local random_edition_table = poll_edition("nichola_edition" .. i, nil, nil, true)
 
-                      G.GAME.blind:debuff_card(new_queen)
-                      table.insert(created_cards, new_queen)
-                      play_sound('card1', 0.9 + i*0.05, 0.5) 
-                      new_queen:juice_up(0.2, 0.1)
-                  end
+						local new_queen = create_playing_card({
+							front = queen_card_proto,
+							center = G.P_CENTERS[random_enhancement_key or "c_base"],
+						}, G.hand, nil, true)
 
-                  G.hand:sort()
-                  playing_card_joker_effects(created_cards)
-                  card:juice_up(0.5, 0.2)
+						if random_seal_key then
+							new_queen:set_seal(random_seal_key, true, true)
+						end
+						if random_edition_table then
+							new_queen:set_edition(random_edition_table, true, true)
+						end
 
-                  return true
-              end
-          }))
-          return nil, true
-      end
-  end
-  
+						G.GAME.blind:debuff_card(new_queen)
+						table.insert(created_cards, new_queen)
+						play_sound("card1", 0.9 + i * 0.05, 0.5)
+						new_queen:juice_up(0.2, 0.1)
+					end
+
+					G.hand:sort()
+					playing_card_joker_effects(created_cards)
+					card:juice_up(0.5, 0.2)
+
+					return true
+				end,
+			}))
+			return nil, true
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {nichola} }
+return { name = { "Jokers" }, items = { nichola } }

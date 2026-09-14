@@ -1,47 +1,51 @@
 local famulus = {
-    object_type = "Joker",
-    order = 622,
-    key = "famulus",
-  
-    config = {
-        extra = {
-            dollars = 2
-        }
-    },
-    attributes = { 'economy', 'tarot', 'consumable' },
-    rarity = 1,
-    pos = { x = 8, y = 28 },
-    atlas = 'joker_atlas',
-    cost = 5,
-    lite = true,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	object_type = "Joker",
+	order = 622,
+	key = "famulus",
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.dollars
-            }
-        }
-    end,
+	config = {
+		extra = {
+			dollars = 2,
+		},
+	},
+	attributes = { "economy", "tarot", "consumable" },
+	rarity = 1,
+	pos = { x = 8, y = 28 },
+	atlas = "joker_atlas",
+	cost = 5,
+	lite = true,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    calculate = function(self, card, context)
-         if context.using_consumeable then
-            if context.consumeable.ability.set == "Tarot" then
-                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
-                return {
-                    dollars = card.ability.extra.dollars,
-                    func = function()
-                        G.E_MANAGER:add_event(Event({ func = function() G.GAME.dollar_buffer = 0; return true end }))
-                    end
-                }
-            end
-        end
-    end
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.dollars,
+			},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.using_consumeable then
+			if context.consumeable.ability.set == "Tarot" then
+				G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
+				return {
+					dollars = card.ability.extra.dollars,
+					func = function()
+						G.E_MANAGER:add_event(Event({
+							func = function()
+								G.GAME.dollar_buffer = 0
+								return true
+							end,
+						}))
+					end,
+				}
+			end
+		end
+	end,
 }
-
 
 return { name = { "Jokers" }, items = { famulus } }

@@ -1,42 +1,47 @@
 local sol = {
-  object_type = "Consumable",
-  key = 'sol',
-  set = 'Planet',
-  pos = { x = 7, y = 0 },
-  set_card_type_badge = function(self, card, badges)
-    badges[#badges + 1] = create_badge(localize('k_star'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2)
-  end,
-  cost = 3,
-  unlocked = true,
-  discovered = false,
-  order = 32,
-  config = { hand_type = "aij_Royal Flush" },
-	attributes = {'hand_type', 'hand_level', 'space'},
-  atlas = 'consumable_atlas',
-  loc_vars = function(self, info_queue, card)
-    return {
-      vars = {
-        G.GAME.hands[card.ability.consumeable.hand_type].level,
-        localize(card.ability.consumeable.hand_type, 'poker_hands'),
-        G.GAME.hands[card.ability.consumeable.hand_type].l_chips,
-        G.GAME.hands[card.ability.consumeable.hand_type].l_mult,
-        colours = { (G.GAME.hands[card.ability.consumeable.hand_type].level == 1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[card.ability.consumeable.hand_type].level)]) }
-      },
-    }
-  end,
-  can_use = function(self, card)
-    return true
-  end,
-  use = function(self, card, area, copier)
-    level_up_hand(card, "aij_Royal Flush")
-  end,
-  in_pool = function(self, args)
-    if G.GAME then
-      if G.GAME.hands['aij_Royal Flush'].played >= 1 then
-        return true
-      end
-    end
-    return false
-  end,
+	object_type = "Consumable",
+	key = "sol",
+	set = "Planet",
+	pos = { x = 7, y = 0 },
+	set_card_type_badge = function(self, card, badges)
+		badges[#badges + 1] = create_badge(localize("k_star"), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2)
+	end,
+	cost = 3,
+	unlocked = true,
+	discovered = false,
+	order = 32,
+	config = { hand_type = "aij_Royal Flush" },
+	attributes = { "hand_type", "hand_level", "space" },
+	atlas = "consumable_atlas",
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				G.GAME.hands[card.ability.consumeable.hand_type].level,
+				localize(card.ability.consumeable.hand_type, "poker_hands"),
+				G.GAME.hands[card.ability.consumeable.hand_type].l_chips,
+				G.GAME.hands[card.ability.consumeable.hand_type].l_mult,
+				colours = {
+					(
+						G.GAME.hands[card.ability.consumeable.hand_type].level == 1 and G.C.UI.TEXT_DARK
+						or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[card.ability.consumeable.hand_type].level)]
+					),
+				},
+			},
+		}
+	end,
+	can_use = function(self, card)
+		return true
+	end,
+	use = function(self, card, area, copier)
+		level_up_hand(card, "aij_Royal Flush")
+	end,
+	in_pool = function(self, args)
+		if G.GAME then
+			if G.GAME.hands["aij_Royal Flush"].played >= 1 then
+				return true
+			end
+		end
+		return false
+	end,
 }
 return { name = { "Planets" }, items = { sol } }

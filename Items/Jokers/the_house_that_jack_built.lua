@@ -1,37 +1,33 @@
 local the_house_that_jack_built = {
-    object_type = "Joker",
-    order = 364,
+	object_type = "Joker",
+	order = 364,
 
-    key = "the_house_that_jack_built",
-    config = {
-    },
-    attributes = { 'mult', 'chips', 'rank', 'jack', 'hand_level' },
-    rarity = 1,
-    pos = { x = 1, y = 14 },
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	key = "the_house_that_jack_built",
+	config = {},
+	attributes = { "mult", "chips", "rank", "jack", "hand_level" },
+	rarity = 1,
+	pos = { x = 1, y = 14 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    loc_vars = function(self, info_queue, card)
+	loc_vars = function(self, info_queue, card) end,
 
-    end,
-
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            local level = G.GAME.hands['Full House'].level
-            if context.other_card:get_id() == 11 then
-                return {
-                    mult = level,
-                    chips = level,
-                    card = card
-                }
-            end
-        end
-    end
-
+	calculate = function(self, card, context)
+		if context.individual and context.cardarea == G.play then
+			local level = G.GAME.hands["Full House"].level
+			if context.other_card:get_id() == 11 then
+				return {
+					mult = level,
+					chips = level,
+					card = card,
+				}
+			end
+		end
+	end,
 }
 return { name = { "Jokers" }, items = { the_house_that_jack_built } }

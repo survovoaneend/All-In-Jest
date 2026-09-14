@@ -1,29 +1,25 @@
 local storekeep = {
-    object_type = "Joker",
-    order = 774,
-    ignore = true,
+	object_type = "Joker",
+	order = 774,
+	ignore = true,
 
-    key = "storekeep",
-    config = {
+	key = "storekeep",
+	config = {},
+	attributes = {},
+	rarity = 1,
+	pos = { x = 14, y = 40 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    },
-    attributes = {},
-    rarity = 1,
-    pos = { x = 14, y = 40},
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	loc_vars = function(self, info_queue, card)
+		return {}
+	end,
 
-    loc_vars = function(self, info_queue, card)
-        return { }
-    end,
-
-    calculate = function(self, card, context)
-
-    end
+	calculate = function(self, card, context) end,
 }
-return { name = {"Jokers"}, items = {storekeep} }
+return { name = { "Jokers" }, items = { storekeep } }

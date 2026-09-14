@@ -4,7 +4,7 @@ local vesti_la_guibba = {
 
 	key = "vesti_la_guibba",
 	config = {},
-	attributes = { 'generation', 'joker', 'rarity', 'hand_type' },
+	attributes = { "generation", "joker", "rarity", "hand_type" },
 	rarity = 2,
 	pos = { x = 14, y = 4 },
 	atlas = "joker_atlas",
@@ -13,7 +13,7 @@ local vesti_la_guibba = {
 	discovered = false,
 	blueprint_compat = true,
 	eternal_compat = true,
-    perishable_compat = true,
+	perishable_compat = true,
 
 	loc_vars = function(self, info_queue, card) end,
 

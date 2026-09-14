@@ -1,47 +1,47 @@
 local glimmer = {
-    object_type = "Tag",
-    key = 'glimmer', 
-    pos = { x = 2, y = 0},
-    atlas = 'tag_atlas',
-    order = 2,
-    min_ante = nil,
-    config = {type = 'store_joker_modify', edition = 'aij_glimmer'},
-    attributes = {'joker', 'editions'},
-    loc_vars = function(self, info_queue)
-        info_queue[#info_queue+1] = G.P_CENTERS.e_aij_glimmer
-        return {}
-    end,
+	object_type = "Tag",
+	key = "glimmer",
+	pos = { x = 2, y = 0 },
+	atlas = "tag_atlas",
+	order = 2,
+	min_ante = nil,
+	config = { type = "store_joker_modify", edition = "aij_glimmer" },
+	attributes = { "joker", "editions" },
+	loc_vars = function(self, info_queue)
+		info_queue[#info_queue + 1] = G.P_CENTERS.e_aij_glimmer
+		return {}
+	end,
 
-    apply = function(self, tag, context)
-        if context.type == 'store_joker_modify' then
-            local applied = nil
-            if not context.card.edition and not context.card.temp_edition and context.card.ability.set == 'Joker' then
-                local lock = tag.ID
-                G.CONTROLLER.locks[lock] = true
+	apply = function(self, tag, context)
+		if context.type == "store_joker_modify" then
+			local applied = nil
+			if not context.card.edition and not context.card.temp_edition and context.card.ability.set == "Joker" then
+				local lock = tag.ID
+				G.CONTROLLER.locks[lock] = true
 
-                context.card.temp_edition = true
-                tag:yep('+', G.C.DARK_EDITION,function()
-                    context.card:set_edition({aij_glimmer = true}, true)
-                    context.card.ability.couponed = true
-                    context.card:set_cost()
-                    context.card.temp_edition = nil
-                    G.CONTROLLER.locks[lock] = nil
-                    return true
-                end)
-                applied = true
+				context.card.temp_edition = true
+				tag:yep("+", G.C.DARK_EDITION, function()
+					context.card:set_edition({ aij_glimmer = true }, true)
+					context.card.ability.couponed = true
+					context.card:set_cost()
+					context.card.temp_edition = nil
+					G.CONTROLLER.locks[lock] = nil
+					return true
+				end)
+				applied = true
 
-                tag.triggered = true
-            end
-            return applied
-        end
-    end,
-    in_pool = function(self, args)
-        if G.GAME then
-            if G.GAME.selected_back.effect.center.key ~= 'b_plasma' then
-                return true
-            end
-        end
-        return false
-    end,
+				tag.triggered = true
+			end
+			return applied
+		end
+	end,
+	in_pool = function(self, args)
+		if G.GAME then
+			if G.GAME.selected_back.effect.center.key ~= "b_plasma" then
+				return true
+			end
+		end
+		return false
+	end,
 }
-return {name = "Tags", items = {glimmer}}
+return { name = "Tags", items = { glimmer } }

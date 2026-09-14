@@ -1,50 +1,49 @@
 local chippy = {
-    object_type = "Joker",
-    order = 227,
+	object_type = "Joker",
+	order = 227,
 
-    key = "chippy",
-    config = {
-      extra = {
-          chips = 0
-      }
-    },
-    attributes = { 'chips', 'scaling' },
-    rarity = 2,
-    pos = { x = 10, y = 8},
-    atlas = 'joker_atlas',
-    cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = false,
-  
-    loc_vars = function(self, info_queue, card)
-        return {
-        vars = {
-          card.ability.extra.chips,
-        }
-      }
-    end,
-  
-    calculate = function(self, card, context)
-      if context.money_altered and context.amount < 0 and not context.blueprint then
-        SMODS.scale_card(card, {
-	        ref_table = card.ability.extra,
-            ref_value = "chips",
-            scalar_table = {value = context.amount},
-	        scalar_value = "value",
-            operation = function(ref_table, ref_value, initial, change)
-	            ref_table[ref_value] = initial + -change
-            end,
-        })
-      end
-      if context.joker_main and card.ability.extra.chips > 0 then
-        return {
-          chips = card.ability.extra.chips,
-        }
-      end
-    end
-  
+	key = "chippy",
+	config = {
+		extra = {
+			chips = 0,
+		},
+	},
+	attributes = { "chips", "scaling" },
+	rarity = 2,
+	pos = { x = 10, y = 8 },
+	atlas = "joker_atlas",
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = false,
+
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.chips,
+			},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.money_altered and context.amount < 0 and not context.blueprint then
+			SMODS.scale_card(card, {
+				ref_table = card.ability.extra,
+				ref_value = "chips",
+				scalar_table = { value = context.amount },
+				scalar_value = "value",
+				operation = function(ref_table, ref_value, initial, change)
+					ref_table[ref_value] = initial + -change
+				end,
+			})
+		end
+		if context.joker_main and card.ability.extra.chips > 0 then
+			return {
+				chips = card.ability.extra.chips,
+			}
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {chippy} }
+return { name = { "Jokers" }, items = { chippy } }

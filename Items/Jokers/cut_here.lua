@@ -1,41 +1,37 @@
 local cut_here = {
-    object_type = "Joker",
-    order = 370,
-    key = "cut_here",
-    config = {
+	object_type = "Joker",
+	order = 370,
+	key = "cut_here",
+	config = {},
+	attributes = { "on_destroy", "generation", "joker", "rarity" },
+	rarity = 2,
+	pos = { x = 4, y = 14 },
+	atlas = "joker_atlas",
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = false,
+	perishable_compat = true,
 
-    },
-    attributes = { 'on_destroy', 'generation', 'joker', 'rarity' },
-    rarity = 2,
-    pos = { x = 4, y = 14},
-    atlas = 'joker_atlas',
-    cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = false,
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
+	loc_vars = function(self, info_queue, card) end,
 
-    end,
-  
-    calculate = function(self, card, context)
-        if context.joker_type_destroyed then
-            local this_card = context.blueprint_card or card
-            if context.card == this_card then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        local temp_card = create_card('Joker', G.jokers, nil, 1, nil, nil, nil, 'cut_here')
-                        temp_card:start_materialize()
-                        G.jokers:emplace(temp_card)
-                        return true
-                    end
-                }))
-                return nil, true
-            end
-        end
-    end
+	calculate = function(self, card, context)
+		if context.joker_type_destroyed then
+			local this_card = context.blueprint_card or card
+			if context.card == this_card then
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						local temp_card = create_card("Joker", G.jokers, nil, 1, nil, nil, nil, "cut_here")
+						temp_card:start_materialize()
+						G.jokers:emplace(temp_card)
+						return true
+					end,
+				}))
+				return nil, true
+			end
+		end
+	end,
 }
 
-return { name = {"Jokers"}, items = {cut_here} }
+return { name = { "Jokers" }, items = { cut_here } }

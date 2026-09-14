@@ -6,14 +6,14 @@ local charged = {
 	order = 2,
 	pos = { x = 2, y = 0 },
 	config = {},
-	attributes = {'multiplier'},
+	attributes = { "multiplier" },
 	all_in_jest = {
 		multi_enhancement_z_order = 1,
 	},
 	loc_vars = function(self, info_queue, card)
 		local charged_text
 		local founding_father_count = #SMODS.find_card("j_aij_founding_father")
-		charged_text = 50 * (2 ^ (founding_father_count))
+		charged_text = 50 * (2 ^ founding_father_count)
 		return { vars = { charged_text } }
 	end,
 	calculate = function(self, card, context)
@@ -32,19 +32,37 @@ function Card:update(dt)
 	local current_count = 0
 	if self.area == G.play and G.play then
 		for _, c in ipairs(G.play.cards) do
-			if c.config and SMODS.has_enhancement(c, "m_aij_charged") and not c.ability.m_aij_charged_chaging and not c.debuff then
+			if
+				c.config
+				and SMODS.has_enhancement(c, "m_aij_charged")
+				and not c.ability.m_aij_charged_chaging
+				and not c.debuff
+			then
 				current_count = current_count + 1
 			end
-			if All_in_Jest.get_inherent_effects(c, 'enhancement', nil, true).m_aij_charged and not c.ability.m_aij_charged_chaging and not c.debuff then
+			if
+				All_in_Jest.get_inherent_effects(c, "enhancement", nil, true).m_aij_charged
+				and not c.ability.m_aij_charged_chaging
+				and not c.debuff
+			then
 				current_count = current_count + 1
 			end
 		end
 		if has_sparky and G.hand then
 			for _, c in ipairs(G.hand.cards) do
-				if c.config and SMODS.has_enhancement(c, "m_aij_charged") and not c.ability.m_aij_charged_chaging and not c.debuff then
+				if
+					c.config
+					and SMODS.has_enhancement(c, "m_aij_charged")
+					and not c.ability.m_aij_charged_chaging
+					and not c.debuff
+				then
 					current_count = current_count + 1
 				end
-				if All_in_Jest.get_inherent_effects(c, 'enhancement', nil, true).m_aij_charged and not c.ability.m_aij_charged_chaging and not c.debuff then
+				if
+					All_in_Jest.get_inherent_effects(c, "enhancement", nil, true).m_aij_charged
+					and not c.ability.m_aij_charged_chaging
+					and not c.debuff
+				then
 					current_count = current_count + 1
 				end
 			end
@@ -58,12 +76,21 @@ function Card:update(dt)
 		local self_is_highlighted = is_highlighted[self]
 
 		for _, c in ipairs(G.hand.cards) do
-			if c.config and SMODS.has_enhancement(c, "m_aij_charged") and not c.ability.m_aij_charged_chaging and not c.debuff then
+			if
+				c.config
+				and SMODS.has_enhancement(c, "m_aij_charged")
+				and not c.ability.m_aij_charged_chaging
+				and not c.debuff
+			then
 				if is_highlighted[c] == self_is_highlighted then
 					current_count = current_count + 1
 				end
 			end
-			if All_in_Jest.get_inherent_effects(c, 'enhancement', nil, true).m_aij_charged and not c.ability.m_aij_charged_chaging and not c.debuff then
+			if
+				All_in_Jest.get_inherent_effects(c, "enhancement", nil, true).m_aij_charged
+				and not c.ability.m_aij_charged_chaging
+				and not c.debuff
+			then
 				if is_highlighted[c] == self_is_highlighted then
 					current_count = current_count + 1
 				end
@@ -71,10 +98,19 @@ function Card:update(dt)
 		end
 		if has_sparky and G.play then
 			for _, c in ipairs(G.play.cards) do
-				if c.config and SMODS.has_enhancement(c, "m_aij_charged") and not c.ability.m_aij_charged_chaging and not c.debuff then
+				if
+					c.config
+					and SMODS.has_enhancement(c, "m_aij_charged")
+					and not c.ability.m_aij_charged_chaging
+					and not c.debuff
+				then
 					current_count = current_count + 1
 				end
-				if All_in_Jest.get_inherent_effects(c, 'enhancement', nil, true).m_aij_charged and not c.ability.m_aij_charged_chaging and not c.debuff then
+				if
+					All_in_Jest.get_inherent_effects(c, "enhancement", nil, true).m_aij_charged
+					and not c.ability.m_aij_charged_chaging
+					and not c.debuff
+				then
 					current_count = current_count + 1
 				end
 			end
@@ -106,7 +142,6 @@ function Card:update(dt)
 			["ability"] = self.config.center,
 			["config.aij_other_center.ability"] = self.config.aij_other_center and self.config.aij_other_center.center,
 		}) do
-
 			local inherent_keys = {}
 			if enhancement_key then
 				extract_keys(enhancement_key.config, inherent_keys)

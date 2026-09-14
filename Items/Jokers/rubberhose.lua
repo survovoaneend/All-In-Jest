@@ -1,48 +1,52 @@
 local rubberhose = {
-    object_type = "Joker",
-    order = 438,
-    key = "rubberhose",
-    
-    config = {
-        extra = {
-            mult = 10
-        }
-    },
-    attributes = { 'mult', 'suit' },
-    rarity = 1,
-    pos = { x = 19, y = 20 },
-    atlas = 'joker_atlas',
-    cost = 5,
-    lite = true,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	object_type = "Joker",
+	order = 438,
+	key = "rubberhose",
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.mult
-            }
-        }
-    end,
+	config = {
+		extra = {
+			mult = 10,
+		},
+	},
+	attributes = { "mult", "suit" },
+	rarity = 1,
+	pos = { x = 19, y = 20 },
+	atlas = "joker_atlas",
+	cost = 5,
+	lite = true,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    calculate = function(self, card, context)
-        if context.joker_main then
-            local dark, light = 0, 0
-            for _, v in ipairs(context.full_hand) do
-                if v:is_suit('Spades') or v:is_suit('Clubs') then dark = dark + 1 end
-                if v:is_suit('Hearts') or v:is_suit('Diamonds') then light = light + 1 end
-            end
-            
-            if (dark > 0 and light == 0) or (light > 0 and dark == 0) then
-                return {
-                    mult = card.ability.extra.mult
-                }
-            end
-        end
-    end
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.mult,
+			},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.joker_main then
+			local dark, light = 0, 0
+			for _, v in ipairs(context.full_hand) do
+				if v:is_suit("Spades") or v:is_suit("Clubs") then
+					dark = dark + 1
+				end
+				if v:is_suit("Hearts") or v:is_suit("Diamonds") then
+					light = light + 1
+				end
+			end
+
+			if (dark > 0 and light == 0) or (light > 0 and dark == 0) then
+				return {
+					mult = card.ability.extra.mult,
+				}
+			end
+		end
+	end,
 }
 
 return { name = { "Jokers" }, items = { rubberhose } }

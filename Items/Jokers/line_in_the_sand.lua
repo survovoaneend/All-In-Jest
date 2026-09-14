@@ -1,34 +1,41 @@
 local line_in_the_sand = {
-    object_type = "Joker",
-    order = 84,
-    lite = true,
-    key = "line_in_the_sand",
-    config = {
-      
-    },
-    attributes = { 'draw_cards', 'discard' },
-    rarity = 2,
-    pos = { x = 1, y = 3 },
-    atlas = 'joker_atlas',
-    cost = 8,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = true,
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-  
-    end,
+	object_type = "Joker",
+	order = 84,
+	lite = true,
+	key = "line_in_the_sand",
+	config = {},
+	attributes = { "draw_cards", "discard" },
+	rarity = 2,
+	pos = { x = 1, y = 3 },
+	atlas = "joker_atlas",
+	cost = 8,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    remove_from_deck = function(self, card, from_debuff)
-        local has_line_in_the_sand = next(SMODS.find_card("j_aij_line_in_the_sand"))
-        if not has_line_in_the_sand then
-            local discard_count = #G.jest_super_discard.cards
-            for i=1, discard_count do 
-                draw_card(G.jest_super_discard, G.discard, i*100/discard_count,'up', nil ,nil, 0.005, i%2==0, nil, math.max((21-i)/20,0.7))
-            end
-        end
-    end,
+	loc_vars = function(self, info_queue, card) end,
+
+	remove_from_deck = function(self, card, from_debuff)
+		local has_line_in_the_sand = next(SMODS.find_card("j_aij_line_in_the_sand"))
+		if not has_line_in_the_sand then
+			local discard_count = #G.jest_super_discard.cards
+			for i = 1, discard_count do
+				draw_card(
+					G.jest_super_discard,
+					G.discard,
+					i * 100 / discard_count,
+					"up",
+					nil,
+					nil,
+					0.005,
+					i % 2 == 0,
+					nil,
+					math.max((21 - i) / 20, 0.7)
+				)
+			end
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {line_in_the_sand} }
+return { name = { "Jokers" }, items = { line_in_the_sand } }

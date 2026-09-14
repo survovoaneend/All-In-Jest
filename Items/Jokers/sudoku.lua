@@ -1,65 +1,65 @@
 local sudoku = {
-  object_type = "Joker",
-  order = 168,
+	object_type = "Joker",
+	order = 168,
 
-  key = "sudoku",
-  config = {
-    extra = {
-      xmult = 1,
-      bonus = 0.3
-    }
-  },
-  attributes = { 'xmult', 'scaling', 'reset', 'hand_type' },
-  rarity = 2,
-  pos = { x = 9, y = 6},
-  atlas = 'joker_atlas',
-  cost = 6,
-  unlocked = true,
-  discovered = false,
-  blueprint_compat = true,
-  eternal_compat = true,
-  perishable_compat = false,
+	key = "sudoku",
+	config = {
+		extra = {
+			xmult = 1,
+			bonus = 0.3,
+		},
+	},
+	attributes = { "xmult", "scaling", "reset", "hand_type" },
+	rarity = 2,
+	pos = { x = 9, y = 6 },
+	atlas = "joker_atlas",
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = false,
 
-  pixel_size = { w = 70, h = 74 },
+	pixel_size = { w = 70, h = 74 },
 
-  loc_vars = function(self, info_queue, card)
-    return {
-      vars = {
-        card.ability.extra.bonus,
-        card.ability.extra.xmult
-      }
-    }
-  end,
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.bonus,
+				card.ability.extra.xmult,
+			},
+		}
+	end,
 
-  calculate = function(self, card, context)
-    if context.before and context.scoring_name then
-          if not context.blueprint then
-              if context.poker_hands and next(context.poker_hands['Straight']) then
-                  SMODS.scale_card(card, {
-                        ref_table = card.ability.extra,
-                        ref_value = "xmult",
-                        scalar_value = "bonus",
-                    })
-                    return nil, true
-              else
-                  if card.ability.extra.xmult > 1 then
-                      card.ability.extra.xmult = 1
-                      card_eval_status_text(card, 'extra', nil, nil, nil, {
-                          message = localize('k_reset'),
-                      })
-                      return nil, true
-                  end
-              end
-          end
-      end
+	calculate = function(self, card, context)
+		if context.before and context.scoring_name then
+			if not context.blueprint then
+				if context.poker_hands and next(context.poker_hands["Straight"]) then
+					SMODS.scale_card(card, {
+						ref_table = card.ability.extra,
+						ref_value = "xmult",
+						scalar_value = "bonus",
+					})
+					return nil, true
+				else
+					if card.ability.extra.xmult > 1 then
+						card.ability.extra.xmult = 1
+						card_eval_status_text(card, "extra", nil, nil, nil, {
+							message = localize("k_reset"),
+						})
+						return nil, true
+					end
+				end
+			end
+		end
 
-      if context.joker_main then
-          if card.ability.extra.xmult > 1 then
-              return {
-                  xmult = card.ability.extra.xmult,
-              }
-          end
-      end
-  end
+		if context.joker_main then
+			if card.ability.extra.xmult > 1 then
+				return {
+					xmult = card.ability.extra.xmult,
+				}
+			end
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {sudoku} }
+return { name = { "Jokers" }, items = { sudoku } }

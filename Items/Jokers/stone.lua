@@ -1,37 +1,31 @@
 local stone = {
-    object_type = "Joker",
-    order = 10014,
-    ignore = true,
+	object_type = "Joker",
+	order = 10014,
+	ignore = true,
 
-    key = "stone",
-    config = {
-        extra = {
-        
-        }
-    },
-    attributes = {},
-    rarity = 4,
-    -- unlock_condition = { hidden = true },
-    pos = { x = 6, y = 16},
-    atlas = legendary_atlas,
-    cost = 20,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
-    -- soul_pos = { x = 6, y = 17},
+	key = "stone",
+	config = {
+		extra = {},
+	},
+	attributes = {},
+	rarity = 4,
+	-- unlock_condition = { hidden = true },
+	pos = { x = 6, y = 16 },
+	atlas = legendary_atlas,
+	cost = 20,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+	-- soul_pos = { x = 6, y = 17},
 
-    loc_vars = function(self, info_queue, card)
-        return { 
-            vars = {
-            
-            }
-        }
-    end,
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {},
+		}
+	end,
 
-    calculate = function(self, card, context)
-
-    end
+	calculate = function(self, card, context) end,
 }
-return { name = {"Jokers"}, items = {stone} }
+return { name = { "Jokers" }, items = { stone } }

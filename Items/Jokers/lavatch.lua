@@ -1,58 +1,57 @@
 local lavatch = {
-    object_type = "Joker",
-    order = 1048,
+	object_type = "Joker",
+	order = 1048,
 
-    key = "lavatch",
-    config = {
-      extra = {
-        xmult = 1,
-        xmult_mod = 0.05
-      }
-    },
-    attributes = { 'xmult', 'scaling', 'suit' },
-    rarity = 4,
-	unlock_condition = {hidden = true},
-    pos = { x = 7, y = 8},
-    atlas = 'legendary_atlas',
-    cost = 20,
-    unlocked = false,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = false,
-    soul_pos = { x = 7, y = 9},
-  
-    loc_vars = function(self, info_queue, card)
-      local suit = (G.GAME.current_round.jest_lavatch_card or {}).suit or 'Spades'
-      return {
-        vars = {
-          card.ability.extra.xmult,
-          card.ability.extra.xmult_mod,
-          localize(suit, 'suits_singular'), 
-          colours = { G.C.SUITS[suit] }
-        }
-      }
-    end,
-  
-  calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.play then
-      if context.other_card:is_suit(G.GAME.current_round.jest_lavatch_card.suit) then
-        local message_ = nil
-        if not context.blueprint then
-          SMODS.scale_card(card, {
-	        ref_table = card.ability.extra,
-            ref_value = "xmult",
-	        scalar_value = "xmult_mod",
-          })
-        end
-        return {
-          x_mult = card.ability.extra.xmult,
-          card = card,
-          colour = G.C.RED
-        }
-      end
-    end
-  end
-  
+	key = "lavatch",
+	config = {
+		extra = {
+			xmult = 1,
+			xmult_mod = 0.05,
+		},
+	},
+	attributes = { "xmult", "scaling", "suit" },
+	rarity = 4,
+	unlock_condition = { hidden = true },
+	pos = { x = 7, y = 8 },
+	atlas = "legendary_atlas",
+	cost = 20,
+	unlocked = false,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = false,
+	soul_pos = { x = 7, y = 9 },
+
+	loc_vars = function(self, info_queue, card)
+		local suit = (G.GAME.current_round.jest_lavatch_card or {}).suit or "Spades"
+		return {
+			vars = {
+				card.ability.extra.xmult,
+				card.ability.extra.xmult_mod,
+				localize(suit, "suits_singular"),
+				colours = { G.C.SUITS[suit] },
+			},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.individual and context.cardarea == G.play then
+			if context.other_card:is_suit(G.GAME.current_round.jest_lavatch_card.suit) then
+				local message_ = nil
+				if not context.blueprint then
+					SMODS.scale_card(card, {
+						ref_table = card.ability.extra,
+						ref_value = "xmult",
+						scalar_value = "xmult_mod",
+					})
+				end
+				return {
+					x_mult = card.ability.extra.xmult,
+					card = card,
+					colour = G.C.RED,
+				}
+			end
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {lavatch} }
+return { name = { "Jokers" }, items = { lavatch } }

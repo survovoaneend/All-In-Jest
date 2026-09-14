@@ -1,355 +1,405 @@
 local anarchy_tag = {
-  object_type = "Tag",
-  key = 'anarchy',
+	object_type = "Tag",
+	key = "anarchy",
 
-  pos = { x = 11, y = 3 },
-  atlas = 'tag_atlas',
-  config = {
-    aij = {
-      upgrade = 'aij_chaos',
-    },
-    effects = {
-      "money",
-      "boss_reroll",
-      "open_booster",
-      "create_jokers",
-      "create_neg_joker",
-      "create_consumables",
-      "apply_edition",
-      "dupe_joker",
-      "voucher",
-      "minus_ante",
-      "plus_hand",
-      "plus_discard",
-      "plus_ran_enhance",
-      "give_ran_enhance",
-      "ran_tag",
-      "ran_gold_tag",
-    }
-  },
-  attributes = {'economy', 'boss_blind', 'booster', 'generation', 'joker', 'editions', 'negative', 'consumable',
-    'voucher', 'ante', 'hands', 'discard', 'modify_card', 'enhancements', 'tag', 'gold_tag'},
+	pos = { x = 11, y = 3 },
+	atlas = "tag_atlas",
+	config = {
+		aij = {
+			upgrade = "aij_chaos",
+		},
+		effects = {
+			"money",
+			"boss_reroll",
+			"open_booster",
+			"create_jokers",
+			"create_neg_joker",
+			"create_consumables",
+			"apply_edition",
+			"dupe_joker",
+			"voucher",
+			"minus_ante",
+			"plus_hand",
+			"plus_discard",
+			"plus_ran_enhance",
+			"give_ran_enhance",
+			"ran_tag",
+			"ran_gold_tag",
+		},
+	},
+	attributes = {
+		"economy",
+		"boss_blind",
+		"booster",
+		"generation",
+		"joker",
+		"editions",
+		"negative",
+		"consumable",
+		"voucher",
+		"ante",
+		"hands",
+		"discard",
+		"modify_card",
+		"enhancements",
+		"tag",
+		"gold_tag",
+	},
 
-  discovered = false,
-  order = 26,
-  min_ante = 3,
+	discovered = false,
+	order = 26,
+	min_ante = 3,
 
-  loc_vars = function(self, info_queue, tag)
-    return { vars = {} }
-  end,
+	loc_vars = function(self, info_queue, tag)
+		return { vars = {} }
+	end,
 
-  apply = function(self, tag, context)
-    local effect = nil
-    local trigger = false
-    while not trigger do
-      effect = pseudorandom_element(self.config.effects, pseudoseed('jest_anarchy_tag'))
+	apply = function(self, tag, context)
+		local effect = nil
+		local trigger = false
+		while not trigger do
+			effect = pseudorandom_element(self.config.effects, pseudoseed("jest_anarchy_tag"))
 
-      if effect == "boss_reroll" and MP and MP.LOBBY.code then
-        trigger = false
-      elseif effect == "create_jokers" then
-        trigger = #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
-      elseif effect == "apply_edition" then
-        if #G.jokers.cards > 0 then
-          for i = 1, #G.jokers.cards do
-            if G.jokers.cards[i].edition == nil then
-              trigger = true
-            end
-          end
-        end
-        trigger = false
-      elseif effect == "dupe_joker" then
-        trigger = #G.jokers.cards > 0
-      elseif effect == "ran_gold_tag" then
-        local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest_Golden_Tag', nil, nil, '_gold')
-        local _gold_pool = {}
-        for i = 1, #_temp_gold_pool do
-          _gold_pool[i] = _temp_gold_pool[i]
-        end
-        if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
-          trigger = true
-        end
-        trigger = false
-      else
-        trigger = true
-      end
-    end
-    if context.type == 'new_blind_choice' then
-      tag:jest_apply("+", G.C.ATTENTION, function()
-          if effect == "money" then
-            local money = pseudorandom('jest_chaos_tag', 1, 150)
-            ease_dollars(money)
-          elseif effect == "boss_reroll" and not (MP and MP.LOBBY.code) then
-            local bosses = {}
-            local showdown_bosses = {}
-            for k, v in pairs(G.P_BLINDS) do
-              if v and v.boss and v.boss.showdown and SMODS.add_to_pool(v) and not G.GAME.banned_keys[k] then
-                table.insert(showdown_bosses, v)
-              end
-            end
-            for k, v in pairs(G.P_BLINDS) do
-              if v and v.boss and SMODS.add_to_pool(v) and not G.GAME.banned_keys[k] then
-                table.insert(bosses, v)
-                if not v.boss.showdown then
-                  local ran = pseudorandom('jest_chaos_tag', 1, #showdown_bosses)
-                  table.insert(bosses, showdown_bosses[ran])
-                end
-              end
-            end
-            local _blind = pseudorandom_element(bosses, pseudoseed('jest_anarchy_tag'))
-            local par = G.blind_select_opts.boss.parent
-            G.GAME.round_resets.blind_choices.Boss = _blind.key
+			if effect == "boss_reroll" and MP and MP.LOBBY.code then
+				trigger = false
+			elseif effect == "create_jokers" then
+				trigger = #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
+			elseif effect == "apply_edition" then
+				if #G.jokers.cards > 0 then
+					for i = 1, #G.jokers.cards do
+						if G.jokers.cards[i].edition == nil then
+							trigger = true
+						end
+					end
+				end
+				trigger = false
+			elseif effect == "dupe_joker" then
+				trigger = #G.jokers.cards > 0
+			elseif effect == "ran_gold_tag" then
+				local _temp_gold_pool, _gold_pool_key = get_current_pool("Jest_Golden_Tag", nil, nil, "_gold")
+				local _gold_pool = {}
+				for i = 1, #_temp_gold_pool do
+					_gold_pool[i] = _temp_gold_pool[i]
+				end
+				if #_gold_pool > 0 and _gold_pool[1] ~= "tag_handy" then
+					trigger = true
+				end
+				trigger = false
+			else
+				trigger = true
+			end
+		end
+		if context.type == "new_blind_choice" then
+			tag:jest_apply("+", G.C.ATTENTION, function()
+				if effect == "money" then
+					local money = pseudorandom("jest_chaos_tag", 1, 150)
+					ease_dollars(money)
+				elseif effect == "boss_reroll" and not (MP and MP.LOBBY.code) then
+					local bosses = {}
+					local showdown_bosses = {}
+					for k, v in pairs(G.P_BLINDS) do
+						if v and v.boss and v.boss.showdown and SMODS.add_to_pool(v) and not G.GAME.banned_keys[k] then
+							table.insert(showdown_bosses, v)
+						end
+					end
+					for k, v in pairs(G.P_BLINDS) do
+						if v and v.boss and SMODS.add_to_pool(v) and not G.GAME.banned_keys[k] then
+							table.insert(bosses, v)
+							if not v.boss.showdown then
+								local ran = pseudorandom("jest_chaos_tag", 1, #showdown_bosses)
+								table.insert(bosses, showdown_bosses[ran])
+							end
+						end
+					end
+					local _blind = pseudorandom_element(bosses, pseudoseed("jest_anarchy_tag"))
+					local par = G.blind_select_opts.boss.parent
+					G.GAME.round_resets.blind_choices.Boss = _blind.key
 
-            G.blind_select_opts.boss:remove()
-            G.blind_select_opts.boss = UIBox {
-              T = { par.T.x, 0, 0, 0 },
-              definition = {
-                n = G.UIT.ROOT,
-                config = {
-                  align = "cm",
-                  colour = G.C.CLEAR
-                },
-                nodes = { UIBox_dyn_container({ create_UIBox_blind_choice('Boss') }, false,
-                  get_blind_main_colour('Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Boss'), 0.8)) }
-              },
-              config = {
-                align = "bmi",
-                offset = {
-                  x = 0,
-                  y = G.ROOM.T.y + 9
-                },
-                major = par,
-                xy_bond = 'Weak'
-              }
-            }
-            par.config.object = G.blind_select_opts.boss
-            par.config.object:recalculate()
-            G.blind_select_opts.boss.parent = par
-            G.blind_select_opts.boss.alignment.offset.y = 0
-          elseif effect == "open_booster" then
-            local key = get_pack('jest_chaos_tag').key
-            local card = Card(G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
-              G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2, G.CARD_W * 1.27, G.CARD_H * 1.27, G.P_CARDS.empty,
-              G.P_CENTERS[key], { bypass_discovery_center = true, bypass_discovery_ui = true })
-            card.ability.choose = pseudorandom('jest_chaos_tag', 1, 4)
-            card.ability.extra = pseudorandom('jest_chaos_tag', 1, 7)
-            if card.ability.choose > card.ability.extra then
-              card.ability.choose = card.ability.extra
-            end
-            card.cost = 0
-            card.from_tag = true
-            G.FUNCS.use_card({ config = { ref_table = card } })
-            card:start_materialize()
-          elseif effect == "create_jokers" then
-            local jokers_to_create = math.min(pseudorandom('jest_chaos_tag', 1, 4), G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
-            G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
-            G.E_MANAGER:add_event(Event({
-              func = function()
-                for i = 1, jokers_to_create do
-                  local card = create_card('Joker', G.jokers, nil, nil, nil, nil, nil, 'jest_anarchy_tag')
-                  card:add_to_deck()
-                  G.jokers:emplace(card)
-                  card:start_materialize(nil, i ~= 1)
-                  G.GAME.joker_buffer = 0
-                end
-                return true
-              end
-            }))
-          elseif effect == "create_neg_joker" then
-            local jokers_to_create = 1
-            G.E_MANAGER:add_event(Event({
-              func = function()
-                local edition = { negative = true }
-                for i = 1, jokers_to_create do
-                  local card = create_card('Joker', G.jokers, nil, nil, nil, nil, nil, 'jest_anarchy_tag')
-                  card:add_to_deck()
-                  G.jokers:emplace(card)
-                  card:set_edition(edition, nil, i ~= 1)
-                  card:start_materialize(nil, i ~= 1)
-                end
-                return true
-              end
-            }))
-          elseif effect == "create_consumables" then
-            local consumeables_to_create = pseudorandom('jest_chaos_tag', 3, 4)
-            local c_edition = { negative = true }
-            for i = 1, consumeables_to_create do
-              local card_to_create = create_consumable("Consumeables", nil, nil, { edition = c_edition }, nil, nil, nil, i ~= 1)
-            end
-          elseif effect == "dupe_joker" then
-            local joker = pseudorandom_element(G.jokers.cards, pseudoseed('jest_anarchy_tag'))
-            local edition = { negative = true }
-            G.E_MANAGER:add_event(Event({
-              trigger = 'before',
-              delay = 0.4,
-              func = function()
-                local card = copy_card(joker)
-                card:start_materialize()
-                card:set_edition(edition)
-                card:add_to_deck()
-                G.jokers:emplace(card)
-                return true
-              end
-            }))
-          elseif effect == "apply_edition" then
-            local jokers = {}
-            for i = 1, #G.jokers.cards do
-              if G.jokers.cards[i].edition == nil then
-                table.insert(jokers, G.jokers.cards[i])
-              end
-            end
-            for i = 1, #jokers do
-              local edition = poll_edition('jest_anarchy_tag' .. G.GAME.round_resets.ante, 2, false, true)
-              jokers[i]:set_edition(edition)
-            end
-          elseif effect == "voucher" then
-            local _pool, _ = get_current_pool('Voucher', nil, nil, nil)
-            local _pool_key = 'Voucher_fromtag'
-            local _voucher_key = pseudorandom_element(_pool, pseudoseed(_pool_key))
-            local iv = 1
-            while _voucher_key == 'UNAVAILABLE' do
-              iv = iv + 1
-              _voucher_key = pseudorandom_element(_pool, pseudoseed(_pool_key .. '_resample' .. iv))
-            end
-            voucher_card = create_card('Voucher', G.play, nil, nil, nil, nil, _voucher_key, 'ticket')
-            voucher_card.cost = 0
-            G.play:emplace(voucher_card)
-            G.FUNCS.use_card({ config = { ref_table = voucher_card } })
-          elseif effect == "minus_ante" then
-            ease_ante(-1)
-            G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
-            G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante - 1
-          elseif effect == "plus_hand" then
-            G.GAME.round_resets.hands = G.GAME.round_resets.hands + 1
-            ease_hands_played(1)
-          elseif effect == "plus_discard" then
-            G.GAME.round_resets.discards = G.GAME.round_resets.discards + 1
-            ease_discard(1)
-          elseif effect == "plus_ran_enhance" then
-            local ran_amt = pseudorandom('jest_anarchy_tag', 2, 4)
-            local temp_card = create_card("Base", G.play, nil, nil, true, nil, nil, 'nonsta')
-            for i = 1, ran_amt do
-              local new_code = pseudorandom_element(SMODS.Suits, pseudoseed('jest_anarchy_tag' ..
-              G.GAME.round_resets.ante)).card_key
-              local new_val = pseudorandom_element(SMODS.Ranks, pseudoseed('jest_anarchy_tag' .. G.GAME.round_resets
-              .ante)).card_key
-              local new_card = G.P_CARDS[new_code .. '_' .. new_val]
-              G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-              local cur_card = copy_card(temp_card)
+					G.blind_select_opts.boss:remove()
+					G.blind_select_opts.boss = UIBox({
+						T = { par.T.x, 0, 0, 0 },
+						definition = {
+							n = G.UIT.ROOT,
+							config = {
+								align = "cm",
+								colour = G.C.CLEAR,
+							},
+							nodes = {
+								UIBox_dyn_container(
+									{ create_UIBox_blind_choice("Boss") },
+									false,
+									get_blind_main_colour("Boss"),
+									mix_colours(G.C.BLACK, get_blind_main_colour("Boss"), 0.8)
+								),
+							},
+						},
+						config = {
+							align = "bmi",
+							offset = {
+								x = 0,
+								y = G.ROOM.T.y + 9,
+							},
+							major = par,
+							xy_bond = "Weak",
+						},
+					})
+					par.config.object = G.blind_select_opts.boss
+					par.config.object:recalculate()
+					G.blind_select_opts.boss.parent = par
+					G.blind_select_opts.boss.alignment.offset.y = 0
+				elseif effect == "open_booster" then
+					local key = get_pack("jest_chaos_tag").key
+					local card = Card(
+						G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
+						G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2,
+						G.CARD_W * 1.27,
+						G.CARD_H * 1.27,
+						G.P_CARDS.empty,
+						G.P_CENTERS[key],
+						{ bypass_discovery_center = true, bypass_discovery_ui = true }
+					)
+					card.ability.choose = pseudorandom("jest_chaos_tag", 1, 4)
+					card.ability.extra = pseudorandom("jest_chaos_tag", 1, 7)
+					if card.ability.choose > card.ability.extra then
+						card.ability.choose = card.ability.extra
+					end
+					card.cost = 0
+					card.from_tag = true
+					G.FUNCS.use_card({ config = { ref_table = card } })
+					card:start_materialize()
+				elseif effect == "create_jokers" then
+					local jokers_to_create = math.min(
+						pseudorandom("jest_chaos_tag", 1, 4),
+						G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer)
+					)
+					G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							for i = 1, jokers_to_create do
+								local card = create_card("Joker", G.jokers, nil, nil, nil, nil, nil, "jest_anarchy_tag")
+								card:add_to_deck()
+								G.jokers:emplace(card)
+								card:start_materialize(nil, i ~= 1)
+								G.GAME.joker_buffer = 0
+							end
+							return true
+						end,
+					}))
+				elseif effect == "create_neg_joker" then
+					local jokers_to_create = 1
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							local edition = { negative = true }
+							for i = 1, jokers_to_create do
+								local card = create_card("Joker", G.jokers, nil, nil, nil, nil, nil, "jest_anarchy_tag")
+								card:add_to_deck()
+								G.jokers:emplace(card)
+								card:set_edition(edition, nil, i ~= 1)
+								card:start_materialize(nil, i ~= 1)
+							end
+							return true
+						end,
+					}))
+				elseif effect == "create_consumables" then
+					local consumeables_to_create = pseudorandom("jest_chaos_tag", 3, 4)
+					local c_edition = { negative = true }
+					for i = 1, consumeables_to_create do
+						local card_to_create =
+							create_consumable("Consumeables", nil, nil, { edition = c_edition }, nil, nil, nil, i ~= 1)
+					end
+				elseif effect == "dupe_joker" then
+					local joker = pseudorandom_element(G.jokers.cards, pseudoseed("jest_anarchy_tag"))
+					local edition = { negative = true }
+					G.E_MANAGER:add_event(Event({
+						trigger = "before",
+						delay = 0.4,
+						func = function()
+							local card = copy_card(joker)
+							card:start_materialize()
+							card:set_edition(edition)
+							card:add_to_deck()
+							G.jokers:emplace(card)
+							return true
+						end,
+					}))
+				elseif effect == "apply_edition" then
+					local jokers = {}
+					for i = 1, #G.jokers.cards do
+						if G.jokers.cards[i].edition == nil then
+							table.insert(jokers, G.jokers.cards[i])
+						end
+					end
+					for i = 1, #jokers do
+						local edition = poll_edition("jest_anarchy_tag" .. G.GAME.round_resets.ante, 2, false, true)
+						jokers[i]:set_edition(edition)
+					end
+				elseif effect == "voucher" then
+					local _pool, _ = get_current_pool("Voucher", nil, nil, nil)
+					local _pool_key = "Voucher_fromtag"
+					local _voucher_key = pseudorandom_element(_pool, pseudoseed(_pool_key))
+					local iv = 1
+					while _voucher_key == "UNAVAILABLE" do
+						iv = iv + 1
+						_voucher_key = pseudorandom_element(_pool, pseudoseed(_pool_key .. "_resample" .. iv))
+					end
+					voucher_card = create_card("Voucher", G.play, nil, nil, nil, nil, _voucher_key, "ticket")
+					voucher_card.cost = 0
+					G.play:emplace(voucher_card)
+					G.FUNCS.use_card({ config = { ref_table = voucher_card } })
+				elseif effect == "minus_ante" then
+					ease_ante(-1)
+					G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
+					G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante - 1
+				elseif effect == "plus_hand" then
+					G.GAME.round_resets.hands = G.GAME.round_resets.hands + 1
+					ease_hands_played(1)
+				elseif effect == "plus_discard" then
+					G.GAME.round_resets.discards = G.GAME.round_resets.discards + 1
+					ease_discard(1)
+				elseif effect == "plus_ran_enhance" then
+					local ran_amt = pseudorandom("jest_anarchy_tag", 2, 4)
+					local temp_card = create_card("Base", G.play, nil, nil, true, nil, nil, "nonsta")
+					for i = 1, ran_amt do
+						local new_code = pseudorandom_element(
+							SMODS.Suits,
+							pseudoseed("jest_anarchy_tag" .. G.GAME.round_resets.ante)
+						).card_key
+						local new_val = pseudorandom_element(
+							SMODS.Ranks,
+							pseudoseed("jest_anarchy_tag" .. G.GAME.round_resets.ante)
+						).card_key
+						local new_card = G.P_CARDS[new_code .. "_" .. new_val]
+						G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+						local cur_card = copy_card(temp_card)
 
-              cur_card:set_base(new_card)
-              local enhance = SMODS.poll_enhancement({guaranteed = true, key = 'jest_anarchy_tag' .. G.GAME.round_resets.ante})
-              cur_card:set_ability(G.P_CENTERS[enhance])
-              cur_card:add_to_deck()
-              G.deck:emplace(cur_card)
-              table.insert(G.playing_cards, cur_card)
-              G.deck.config.card_limit = G.deck.config.card_limit + 1
-              cur_card:start_materialize()
-            end
-            temp_card:start_dissolve()
-          elseif effect == "give_ran_enhance" then
-            local cur_ran = pseudorandom('jest_anarchy_tag', 3, 8)
-            for i = 1, cur_ran do
-              local deck_cards = {}
-              local enhance = SMODS.poll_enhancement({guaranteed = true, key = 'jest_anarchy_tag' .. G.GAME.round_resets.ante})
-              for i = 1, #G.deck.cards do
-                table.insert(deck_cards, G.deck.cards[i])
-              end
-              local playing_card = pseudorandom_element(deck_cards, pseudoseed('jest_anarchy_tag'))
-              playing_card:set_ability(G.P_CENTERS[enhance])
-            end
-          elseif effect == "ran_tag" then
-            local num_ran = pseudorandom('jest_anarchy_tag', 1, 5)
-            G.E_MANAGER:add_event(Event({
-              func = (function()
-                for i = 1, num_ran do
-                  local _temp_pool, _pool_key = get_current_pool('Tag', nil, nil, nil)
-                  _pool = {}
-                  for i = 1, #_temp_pool do
-                    _pool[i] = _temp_pool[i]
-                  end
-                  local t = 1
-                  _tag = pseudorandom_element(_pool, pseudoseed(_pool_key .. '_jest_anarchy_tag'))
-                  while _tag == 'UNAVAILABLE' do
-                    _tag = pseudorandom_element(_pool, pseudoseed(_pool_key .. '_jest_anarchy_tag_resample' .. t))
-                    t = t + 1
-                  end
-                  add_tag(Tag(_tag))
-                end
-                return true
-              end)
-            }))
-          elseif effect == "ran_gold_tag" then
-            local num_ran = pseudorandom('jest_anarchy_tag', 1, 2)
-            G.E_MANAGER:add_event(Event({
-              func = (function()
-                for i = 1, num_ran do
-                  local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest_Golden_Tag', nil, nil, '_gold')
-                  _gold_pool = {}
-                  for i = 1, #_temp_gold_pool do
-                    _gold_pool[i] = _temp_gold_pool[i]
-                  end
-                  local gt = 1
-                  _tag = pseudorandom_element(_gold_pool, pseudoseed(_gold_pool_key .. '_jest_anarchy_tag_gold'))
-                  while _tag == 'UNAVAILABLE' do
-                    _tag = pseudorandom_element(_gold_pool,
-                      pseudoseed(_gold_pool_key .. '_jest_anarchy_tag_gold_resample' .. gt))
-                    gt = gt + 1
-                  end
-                  add_tag(Tag(_tag))
-                end
-                return true
-              end)
-            }))
-          end
+						cur_card:set_base(new_card)
+						local enhance = SMODS.poll_enhancement({
+							guaranteed = true,
+							key = "jest_anarchy_tag" .. G.GAME.round_resets.ante,
+						})
+						cur_card:set_ability(G.P_CENTERS[enhance])
+						cur_card:add_to_deck()
+						G.deck:emplace(cur_card)
+						table.insert(G.playing_cards, cur_card)
+						G.deck.config.card_limit = G.deck.config.card_limit + 1
+						cur_card:start_materialize()
+					end
+					temp_card:start_dissolve()
+				elseif effect == "give_ran_enhance" then
+					local cur_ran = pseudorandom("jest_anarchy_tag", 3, 8)
+					for i = 1, cur_ran do
+						local deck_cards = {}
+						local enhance = SMODS.poll_enhancement({
+							guaranteed = true,
+							key = "jest_anarchy_tag" .. G.GAME.round_resets.ante,
+						})
+						for i = 1, #G.deck.cards do
+							table.insert(deck_cards, G.deck.cards[i])
+						end
+						local playing_card = pseudorandom_element(deck_cards, pseudoseed("jest_anarchy_tag"))
+						playing_card:set_ability(G.P_CENTERS[enhance])
+					end
+				elseif effect == "ran_tag" then
+					local num_ran = pseudorandom("jest_anarchy_tag", 1, 5)
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							for i = 1, num_ran do
+								local _temp_pool, _pool_key = get_current_pool("Tag", nil, nil, nil)
+								_pool = {}
+								for i = 1, #_temp_pool do
+									_pool[i] = _temp_pool[i]
+								end
+								local t = 1
+								_tag = pseudorandom_element(_pool, pseudoseed(_pool_key .. "_jest_anarchy_tag"))
+								while _tag == "UNAVAILABLE" do
+									_tag = pseudorandom_element(
+										_pool,
+										pseudoseed(_pool_key .. "_jest_anarchy_tag_resample" .. t)
+									)
+									t = t + 1
+								end
+								add_tag(Tag(_tag))
+							end
+							return true
+						end,
+					}))
+				elseif effect == "ran_gold_tag" then
+					local num_ran = pseudorandom("jest_anarchy_tag", 1, 2)
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							for i = 1, num_ran do
+								local _temp_gold_pool, _gold_pool_key =
+									get_current_pool("Jest_Golden_Tag", nil, nil, "_gold")
+								_gold_pool = {}
+								for i = 1, #_temp_gold_pool do
+									_gold_pool[i] = _temp_gold_pool[i]
+								end
+								local gt = 1
+								_tag = pseudorandom_element(
+									_gold_pool,
+									pseudoseed(_gold_pool_key .. "_jest_anarchy_tag_gold")
+								)
+								while _tag == "UNAVAILABLE" do
+									_tag = pseudorandom_element(
+										_gold_pool,
+										pseudoseed(_gold_pool_key .. "_jest_anarchy_tag_gold_resample" .. gt)
+									)
+									gt = gt + 1
+								end
+								add_tag(Tag(_tag))
+							end
+							return true
+						end,
+					}))
+				end
 
-          if effect ~= "open_booster" then
-            G.E_MANAGER:add_event(Event({
-              func = function()
-                for i = 1, #G.GAME.tags do
-                  if G.GAME.tags[i]:apply_to_run({ type = 'new_blind_choice' }) then
-                    break
-                  end
-                end
-                return true
-              end
-            }))
-          end
+				if effect ~= "open_booster" then
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							for i = 1, #G.GAME.tags do
+								if G.GAME.tags[i]:apply_to_run({ type = "new_blind_choice" }) then
+									break
+								end
+							end
+							return true
+						end,
+					}))
+				end
 
-          return true
-        end,
-        function()
-          if effect == "create_jokers" then
-            return #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
-          end
-          if effect == "apply_edition" then
-            if #G.jokers.cards > 0 then
-              for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i].edition == nil then
-                  return true
-                end
-              end
-            end
-            return false
-          end
-          if effect == "dupe_joker" then
-            return #G.jokers.cards > 0
-          end
-          if effect == "ran_gold_tag" then
-            local _temp_gold_pool, _gold_pool_key = get_current_pool('Jest_Golden_Tag', nil, nil, '_gold')
-            _gold_pool = {}
-            for i = 1, #_temp_gold_pool do
-              _gold_pool[i] = _temp_gold_pool[i]
-            end
-            if #_gold_pool > 0 and _gold_pool[1] ~= 'tag_handy' then
-              return true
-            end
-            return false
-          end
-          return true
-        end)
-      tag.triggered = true
-      return true
-    end
-  end,
+				return true
+			end, function()
+				if effect == "create_jokers" then
+					return #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
+				end
+				if effect == "apply_edition" then
+					if #G.jokers.cards > 0 then
+						for i = 1, #G.jokers.cards do
+							if G.jokers.cards[i].edition == nil then
+								return true
+							end
+						end
+					end
+					return false
+				end
+				if effect == "dupe_joker" then
+					return #G.jokers.cards > 0
+				end
+				if effect == "ran_gold_tag" then
+					local _temp_gold_pool, _gold_pool_key = get_current_pool("Jest_Golden_Tag", nil, nil, "_gold")
+					_gold_pool = {}
+					for i = 1, #_temp_gold_pool do
+						_gold_pool[i] = _temp_gold_pool[i]
+					end
+					if #_gold_pool > 0 and _gold_pool[1] ~= "tag_handy" then
+						return true
+					end
+					return false
+				end
+				return true
+			end)
+			tag.triggered = true
+			return true
+		end
+	end,
 }
 return { name = "Tags", items = { anarchy_tag } }

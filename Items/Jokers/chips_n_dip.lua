@@ -1,61 +1,60 @@
 local chips_n_dip = {
-    object_type = "Joker",
-    order = 304,
-    
-    key = "chips_n_dip",
-    config = {
-        extra = {
-            xchips = 3,
-            xchips_mod = 0.25
-        }
-    },
-    attributes = { 'xchips', 'scaling', 'food' },
-    rarity = 2,
-    pos = { x = 19, y = 11},
-    atlas = 'joker_atlas',
-    cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = false,
-    perishable_compat = true,
-    pools = {
-        Food = true
-    },
-  
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.xchips,
-                card.ability.extra.xchips_mod
-            }
-        }
-    end,
-  
-    calculate = function(self, card, context)
-        if context.end_of_round and not context.blueprint and context.main_eval then
-            if (card.ability.extra.xchips - card.ability.extra.xchips_mod) <= 1 then
-                SMODS.destroy_cards(card, nil, nil, true)
-                return {
-                    message = localize('k_eaten_ex'),
-                    colour = G.C.BLUE
-                }
-            else
-                SMODS.scale_card(card, {
-                    ref_table = card.ability.extra,
-                    ref_value = "xchips",
-                    scalar_value = "xchips_mod",
-                    operation = '-',
-                    message_key = 'a_xchips_minus'
-                })
-            end
-        end
-        if context.joker_main then
-            return {
-                xchips = card.ability.extra.xchips
-            }
-        end
-    end
-  
+	object_type = "Joker",
+	order = 304,
+
+	key = "chips_n_dip",
+	config = {
+		extra = {
+			xchips = 3,
+			xchips_mod = 0.25,
+		},
+	},
+	attributes = { "xchips", "scaling", "food" },
+	rarity = 2,
+	pos = { x = 19, y = 11 },
+	atlas = "joker_atlas",
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = false,
+	perishable_compat = true,
+	pools = {
+		Food = true,
+	},
+
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.xchips,
+				card.ability.extra.xchips_mod,
+			},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.end_of_round and not context.blueprint and context.main_eval then
+			if (card.ability.extra.xchips - card.ability.extra.xchips_mod) <= 1 then
+				SMODS.destroy_cards(card, nil, nil, true)
+				return {
+					message = localize("k_eaten_ex"),
+					colour = G.C.BLUE,
+				}
+			else
+				SMODS.scale_card(card, {
+					ref_table = card.ability.extra,
+					ref_value = "xchips",
+					scalar_value = "xchips_mod",
+					operation = "-",
+					message_key = "a_xchips_minus",
+				})
+			end
+		end
+		if context.joker_main then
+			return {
+				xchips = card.ability.extra.xchips,
+			}
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {chips_n_dip} }
+return { name = { "Jokers" }, items = { chips_n_dip } }

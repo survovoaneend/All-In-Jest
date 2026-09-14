@@ -1,49 +1,48 @@
 local homemade_comic = {
-    object_type = "Joker",
-    order = 305,
-    
-    key = "homemade_comic",
-    config = {
-       xmult = 1.5
-    },
-    attributes = { 'xmult', 'enhancements' },
-    rarity = 2,
-    pos = { x = 20, y = 11},
-    atlas = 'joker_atlas',
-    cost = 7,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	object_type = "Joker",
+	order = 305,
 
-    in_pool = function(self, args)
-        if G.deck then
-            if #G.deck.cards > 0 then
-                for i = 1, #G.deck.cards do
-                    if SMODS.has_enhancement(G.deck.cards[i], 'm_aij_charged') then
-                        return true
-                    end
-                end
-            end
-        end
-        return false
-    end,
-  
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.m_aij_charged
-        return { vars = { card.ability.xmult }}
-    end,
-  
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            if SMODS.has_enhancement(context.other_card, 'm_aij_charged') then
-                return {
-                  xmult = card.ability.xmult,
-                }
-            end
-        end
-    end
-  
+	key = "homemade_comic",
+	config = {
+		xmult = 1.5,
+	},
+	attributes = { "xmult", "enhancements" },
+	rarity = 2,
+	pos = { x = 20, y = 11 },
+	atlas = "joker_atlas",
+	cost = 7,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+
+	in_pool = function(self, args)
+		if G.deck then
+			if #G.deck.cards > 0 then
+				for i = 1, #G.deck.cards do
+					if SMODS.has_enhancement(G.deck.cards[i], "m_aij_charged") then
+						return true
+					end
+				end
+			end
+		end
+		return false
+	end,
+
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_CENTERS.m_aij_charged
+		return { vars = { card.ability.xmult } }
+	end,
+
+	calculate = function(self, card, context)
+		if context.individual and context.cardarea == G.play then
+			if SMODS.has_enhancement(context.other_card, "m_aij_charged") then
+				return {
+					xmult = card.ability.xmult,
+				}
+			end
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {homemade_comic} }
+return { name = { "Jokers" }, items = { homemade_comic } }

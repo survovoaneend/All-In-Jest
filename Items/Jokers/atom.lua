@@ -1,35 +1,37 @@
 local atom = {
-  object_type = "Joker",
-  order = 45,
+	object_type = "Joker",
+	order = 45,
 
-  key = "atom",
-  config = {
+	key = "atom",
+	config = {},
+	attributes = { "hand_level", "hand_type", "rank", "ace" },
+	rarity = 2,
+	pos = { x = 14, y = 1 },
+	atlas = "joker_atlas",
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+	loc_vars = function(self, info_queue, card) end,
 
-  },
-  attributes = { 'hand_level', 'hand_type', 'rank', 'ace' },
-  rarity = 2,
-  pos = { x = 14, y = 1 },
-  atlas = 'joker_atlas',
-  cost = 6,
-  unlocked = true,
-  discovered = false,
-  blueprint_compat = true,
-  eternal_compat = true,
-  perishable_compat = true,
-  loc_vars = function(self, info_queue, card)
-
-  end,
-
-  calculate = function(self, card, context)
-    if context.before then
-      if #context.full_hand == 1 and context.full_hand[1]:get_id() == 14 then
-        local text = "High Card"
-        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex')})
-        level_up_hand(context.blueprint_card or card, text)
-        return nil, true
-      end
-    end
-  end
-
+	calculate = function(self, card, context)
+		if context.before then
+			if #context.full_hand == 1 and context.full_hand[1]:get_id() == 14 then
+				local text = "High Card"
+				card_eval_status_text(
+					context.blueprint_card or card,
+					"extra",
+					nil,
+					nil,
+					nil,
+					{ message = localize("k_upgrade_ex") }
+				)
+				level_up_hand(context.blueprint_card or card, text)
+				return nil, true
+			end
+		end
+	end,
 }
 return { name = { "Jokers" }, items = { atom } }

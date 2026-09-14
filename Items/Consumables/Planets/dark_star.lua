@@ -1,56 +1,56 @@
 local dark_star = {
-  object_type = "Consumable",
-  key = 'dark_star',
-  set = 'Planet',
-  pos = { x = 7, y = 1 },
-  set_card_type_badge = function(self, card, badges)
-    badges[#badges + 1] = create_badge(localize('k_star_q'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2)
-  end,
-  cost = 3,
-  weight = 10/9,
-  unlocked = true,
-  discovered = false,
-  order = 34,
-  config = {},
-  attributes = {'hand_type', 'hand_level', 'space'},
-  atlas = 'consumable_atlas',
-  loc_vars = function(self, info_queue, card)
-    return {
-      vars = { },
-    }
-  end,
-  can_use = function(self, card)
-    for _, k in ipairs(G.handlist) do
-      local hand = G.GAME.hands[k]
-      if SMODS.is_poker_hand_visible(k) and hand.played > 0 then
-        return true
-      end
-    end
-    return false
-  end,
-  use = function(self, card, area, copier)
-    local hands_to_upgrade = {}
-    for _, k in ipairs(G.handlist) do
-      if G.GAME.hands[k].played == 0 then
-        if not G.GAME.hands[k].visible then
-            level_up_hand(card, k, true)
-        else
-            table.insert(hands_to_upgrade, k)
-        end
-      end
-    end
-    for _, k in ipairs(hands_to_upgrade) do
-        level_up_hand(card, k)
-    end
-  end,
-  in_pool = function(self, args)
-    for _, k in ipairs(G.handlist) do
-      local hand = G.GAME.hands[k]
-      if SMODS.is_poker_hand_visible(k) and hand.played > 0 and G.GAME.round_resets.ante >= 4 then
-        return true
-      end
-    end
-    return false
-  end,
+	object_type = "Consumable",
+	key = "dark_star",
+	set = "Planet",
+	pos = { x = 7, y = 1 },
+	set_card_type_badge = function(self, card, badges)
+		badges[#badges + 1] = create_badge(localize("k_star_q"), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2)
+	end,
+	cost = 3,
+	weight = 10 / 9,
+	unlocked = true,
+	discovered = false,
+	order = 34,
+	config = {},
+	attributes = { "hand_type", "hand_level", "space" },
+	atlas = "consumable_atlas",
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {},
+		}
+	end,
+	can_use = function(self, card)
+		for _, k in ipairs(G.handlist) do
+			local hand = G.GAME.hands[k]
+			if SMODS.is_poker_hand_visible(k) and hand.played > 0 then
+				return true
+			end
+		end
+		return false
+	end,
+	use = function(self, card, area, copier)
+		local hands_to_upgrade = {}
+		for _, k in ipairs(G.handlist) do
+			if G.GAME.hands[k].played == 0 then
+				if not G.GAME.hands[k].visible then
+					level_up_hand(card, k, true)
+				else
+					table.insert(hands_to_upgrade, k)
+				end
+			end
+		end
+		for _, k in ipairs(hands_to_upgrade) do
+			level_up_hand(card, k)
+		end
+	end,
+	in_pool = function(self, args)
+		for _, k in ipairs(G.handlist) do
+			local hand = G.GAME.hands[k]
+			if SMODS.is_poker_hand_visible(k) and hand.played > 0 and G.GAME.round_resets.ante >= 4 then
+				return true
+			end
+		end
+		return false
+	end,
 }
 return { name = { "Planets" }, items = { dark_star } }

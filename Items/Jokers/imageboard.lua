@@ -1,44 +1,44 @@
 local imageboard = {
-    object_type = "Joker",
-    order = 25,
-    lite = true,
-    key = "imageboard",
-    config = {
-      extra = {
-          has_been_played = nil,
-          mod_mult = 1
-      }
-    },
-    attributes = { 'mult', 'rank' },
-    rarity = 1,
-    pos = { x = 20, y = 0 },
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.mod_mult, card.ability.extra.mod_mult * 2, card.ability.extra.mod_mult * 3}}
-    end,
-  
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            local cur_mult = 1
-            card.ability.extra.has_been_played = card.ability.extra.has_been_played or {}
-            local compare_id = context.other_card:get_id()
-            card.ability.extra.has_been_played[compare_id] = card.ability.extra.has_been_played[compare_id] or 0
-            card.ability.extra.has_been_played[compare_id] = card.ability.extra.has_been_played[compare_id] + card.ability.extra.mod_mult
-            return {
-                mult = card.ability.extra.has_been_played[compare_id]
-            }
-        end
-        if context.after then
-            card.ability.extra.has_been_played = nil
-        end
-    end
-  
+	object_type = "Joker",
+	order = 25,
+	lite = true,
+	key = "imageboard",
+	config = {
+		extra = {
+			has_been_played = nil,
+			mod_mult = 1,
+		},
+	},
+	attributes = { "mult", "rank" },
+	rarity = 1,
+	pos = { x = 20, y = 0 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.mod_mult, card.ability.extra.mod_mult * 2, card.ability.extra.mod_mult * 3 } }
+	end,
+
+	calculate = function(self, card, context)
+		if context.individual and context.cardarea == G.play then
+			local cur_mult = 1
+			card.ability.extra.has_been_played = card.ability.extra.has_been_played or {}
+			local compare_id = context.other_card:get_id()
+			card.ability.extra.has_been_played[compare_id] = card.ability.extra.has_been_played[compare_id] or 0
+			card.ability.extra.has_been_played[compare_id] = card.ability.extra.has_been_played[compare_id]
+				+ card.ability.extra.mod_mult
+			return {
+				mult = card.ability.extra.has_been_played[compare_id],
+			}
+		end
+		if context.after then
+			card.ability.extra.has_been_played = nil
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {imageboard} }
+return { name = { "Jokers" }, items = { imageboard } }

@@ -1,29 +1,25 @@
 local sea_of_night = {
-    object_type = "Joker",
-    order = 708,
-    ignore = true,
+	object_type = "Joker",
+	order = 708,
+	ignore = true,
 
-    key = "sea_of_night",
-    config = {
+	key = "sea_of_night",
+	config = {},
+	attributes = {},
+	rarity = 1,
+	pos = { x = 1, y = 38 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    },
-    attributes = {},
-    rarity = 1,
-    pos = { x = 1, y = 38},
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	loc_vars = function(self, info_queue, card)
+		return {}
+	end,
 
-    loc_vars = function(self, info_queue, card)
-        return { }
-    end,
-
-    calculate = function(self, card, context)
-
-    end
+	calculate = function(self, card, context) end,
 }
-return { name = {"Jokers"}, items = {sea_of_night} }
+return { name = { "Jokers" }, items = { sea_of_night } }

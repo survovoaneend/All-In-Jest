@@ -1,10 +1,11 @@
 local silver = {
-    object_type = "Gradient",
-    key = 'silver',
-    colours = {
-        HEX('afbbca'), HEX('9cacbe')
-    },
-    cycle = 5,
-    interpolation = 'trig'
+	object_type = "Gradient",
+	key = "silver",
+	colours = {
+		HEX("afbbca"),
+		HEX("9cacbe"),
+	},
+	cycle = 5,
+	interpolation = "trig",
 }
-return { name = {"Gradients"}, items = {silver} }
+return { name = { "Gradients" }, items = { silver } }

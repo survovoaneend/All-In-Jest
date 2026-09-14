@@ -10,7 +10,7 @@ local alcyone = {
 	discovered = false,
 	order = 1,
 	config = { hand = nil, grade = "", pin = "Alcyone", extra = { draw_amt = 1, trigger = false } },
-	attributes = {'hand_type', 'space', 'draw_cards'},
+	attributes = { "hand_type", "space", "draw_cards" },
 	loc_vars = function(self, info_queue, card)
 		-- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {
@@ -61,15 +61,15 @@ local alcyone_pin = {
 			return {
 				cards_to_draw = context.amount + card.ability.extra.draw_amt,
 				message = "+" .. card.ability.extra.draw_amt,
-                func = function()
-                    G.E_MANAGER:add_event(Event({
-                        trigger = "after",
-                        func = function()
-                            card:start_dissolve()
-                            return true
-                        end,
-                    }))
-                end
+				func = function()
+					G.E_MANAGER:add_event(Event({
+						trigger = "after",
+						func = function()
+							card:start_dissolve()
+							return true
+						end,
+					}))
+				end,
 			}
 		end
 	end,

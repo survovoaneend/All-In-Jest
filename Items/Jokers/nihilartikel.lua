@@ -1,67 +1,67 @@
 local nihilartikel = {
-    object_type = "Joker",
-    order = 603,
-    key = "nihilartikel",
-  
-    config = {
-        extra = {
-          slots = 2,
-          cost = 3
-        }
-    },
-    attributes = { 'joker_slot', 'lose_economy' },
-    rarity = 3,
-    pos = { x = 15, y = 27 },
-    atlas = 'joker_atlas',
-    cost = 12,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = true,
-    perishable_compat = true,
+	object_type = "Joker",
+	order = 603,
+	key = "nihilartikel",
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.slots,
-                card.ability.extra.cost
-            }
-        }
-    end,
+	config = {
+		extra = {
+			slots = 2,
+			cost = 3,
+		},
+	},
+	attributes = { "joker_slot", "lose_economy" },
+	rarity = 3,
+	pos = { x = 15, y = 27 },
+	atlas = "joker_atlas",
+	cost = 12,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-    end,
-    calculate = function(self, card, context)
-        if context.end_of_round and context.game_over == false and not context.blueprint then
-            ease_dollars(-card.ability.extra.cost)
-            return {
-                message = localize('$') .. "-" .. card.ability.extra.cost,
-                colour = G.C.RED
-            }
-        end
-    end
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.slots,
+				card.ability.extra.cost,
+			},
+		}
+	end,
+
+	add_to_deck = function(self, card, from_debuff)
+		G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+	end,
+	remove_from_deck = function(self, card, from_debuff)
+		G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+	end,
+	calculate = function(self, card, context)
+		if context.end_of_round and context.game_over == false and not context.blueprint then
+			ease_dollars(-card.ability.extra.cost)
+			return {
+				message = localize("$") .. "-" .. card.ability.extra.cost,
+				colour = G.C.RED,
+			}
+		end
+	end,
 }
 local aij_check_for_buy_space_ref = G.FUNCS.check_for_buy_space
 G.FUNCS.check_for_buy_space = function(card)
-    if card.config.center.key == "j_aij_nihilartikel" then
-        return true
-    end
-    local ret = aij_check_for_buy_space_ref(card)
-    return ret
+	if card.config.center.key == "j_aij_nihilartikel" then
+		return true
+	end
+	local ret = aij_check_for_buy_space_ref(card)
+	return ret
 end
 local ref_can_select_card = G.FUNCS.can_select_card
 G.FUNCS.can_select_card = function(e)
-    local card = e.config.ref_table
-    local card_limit = card.ability.card_limit - card.ability.extra_slots_used
-    if card.config.center.key == "j_aij_".."nihilartikel" then
-        e.config.colour = G.C.GREEN
-        e.config.button = 'use_card'
-    else
-        ref_can_select_card(e)
-    end
+	local card = e.config.ref_table
+	local card_limit = card.ability.card_limit - card.ability.extra_slots_used
+	if card.config.center.key == "j_aij_" .. "nihilartikel" then
+		e.config.colour = G.C.GREEN
+		e.config.button = "use_card"
+	else
+		ref_can_select_card(e)
+	end
 end
 return { name = { "Jokers" }, items = { nihilartikel } }

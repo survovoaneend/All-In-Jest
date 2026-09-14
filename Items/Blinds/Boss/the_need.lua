@@ -1,36 +1,32 @@
 local the_need = {
-    object_type = "Blind",
-    key = 'the_need',
-    in_pool = function(self)
-        if G.GAME.dollars and G.GAME.dollars >= 20 then
-            return true
-        else
-            return false
-        end
-    end,
-    boss = {
-        min = 3,
-    },
-    mult = 2,
-    attributes = {},
-    boss_colour = HEX("98c350"),
-    atlas = 'blinds',
-    pos = { X = 0, y = 11},
-    order = 34,
-    dollars = 5,
+	object_type = "Blind",
+	key = "the_need",
+	in_pool = function(self)
+		if G.GAME.dollars and G.GAME.dollars >= 20 then
+			return true
+		else
+			return false
+		end
+	end,
+	boss = {
+		min = 3,
+	},
+	mult = 2,
+	attributes = {},
+	boss_colour = HEX("98c350"),
+	atlas = "blinds",
+	pos = { X = 0, y = 11 },
+	order = 34,
+	dollars = 5,
 
-
-    calculate = function(self, blind, context)
-        
-    end,
-    debuff_hand = function(self, cards, hand, handname, check)
-        if G.GAME.dollars >= 20 then
-            return false
-        else
-            G.GAME.blind.triggered = true
-            return true
-        end
-    end
-
+	calculate = function(self, blind, context) end,
+	debuff_hand = function(self, cards, hand, handname, check)
+		if G.GAME.dollars >= 20 then
+			return false
+		else
+			G.GAME.blind.triggered = true
+			return true
+		end
+	end,
 }
-return { name = {"Blinds"}, items = {the_need} }
+return { name = { "Blinds" }, items = { the_need } }

@@ -1,39 +1,38 @@
 local arecibo_message = {
-    object_type = "Joker",
-    order = 205,
+	object_type = "Joker",
+	order = 205,
 
-    key = "arecibo_message",
-    config = {
+	key = "arecibo_message",
+	config = {},
+	attributes = { "retrigger", "hand_type", "planet" },
+	rarity = 3,
+	pos = { x = 13, y = 7 },
+	atlas = "joker_atlas",
+	cost = 8,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    },
-    attributes = { 'retrigger', 'hand_type', 'planet' },
-    rarity = 3,
-    pos = { x = 13, y = 7 },
-    atlas = 'joker_atlas',
-    cost = 8,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	loc_vars = function(self, info_queue, card) end,
 
-    loc_vars = function(self, info_queue, card)
-
-    end,
-
-    calculate = function(self, card, context)
-        if G.consumeables and #G.consumeables.cards > 0 then
-            for k, v in pairs(G.consumeables.cards) do
-                if v.ability.set == 'Planet' and v.config.center.config.hand_type and context.scoring_name == v.config.center.config.hand_type then
-                    if context.repetition then
-                        return {
-                            repetitions = 1
-                        }
-                    end
-                end
-            end
-        end
-    end
-
+	calculate = function(self, card, context)
+		if G.consumeables and #G.consumeables.cards > 0 then
+			for k, v in pairs(G.consumeables.cards) do
+				if
+					v.ability.set == "Planet"
+					and v.config.center.config.hand_type
+					and context.scoring_name == v.config.center.config.hand_type
+				then
+					if context.repetition then
+						return {
+							repetitions = 1,
+						}
+					end
+				end
+			end
+		end
+	end,
 }
 return { name = { "Jokers" }, items = { arecibo_message } }

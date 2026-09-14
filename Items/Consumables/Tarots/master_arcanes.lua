@@ -1,7 +1,7 @@
 local master_arcanes = {
 	object_type = "Consumable",
-	key = 'master_arcanes',
-	set = 'Tarot',
+	key = "master_arcanes",
+	set = "Tarot",
 
 	pos = { x = 4, y = 6 },
 	cost = 3,
@@ -10,17 +10,17 @@ local master_arcanes = {
 	order = 4,
 	config = {
 		extra = {
-			odds = 2
-		}
+			odds = 2,
+		},
 	},
-	attributes = {'generation', 'spectral', 'consumable', 'chance'},
-	atlas = 'consumable_atlas',
+	attributes = { "generation", "spectral", "consumable", "chance" },
+	atlas = "consumable_atlas",
 	loc_vars = function(self, info_queue, card)
 		return {
-            vars = {
-                SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
-            }
-        }
+			vars = {
+				SMODS.get_probability_vars(card, 1, card.ability.extra.odds),
+			},
+		}
 	end,
 	can_use = function(self, card, area, copier)
 		if #G.consumeables.cards < G.consumeables.config.card_limit or card.area == G.consumeables then
@@ -28,18 +28,18 @@ local master_arcanes = {
 		end
 	end,
 	use = function(self, card)
-		if SMODS.pseudorandom_probability(card, 'master_arcanes', 1, card.ability.extra.odds) then
+		if SMODS.pseudorandom_probability(card, "master_arcanes", 1, card.ability.extra.odds) then
 			G.E_MANAGER:add_event(Event({
-				trigger = 'after',
+				trigger = "after",
 				delay = 0.4,
 				func = function()
 					create_consumable("Spectral", nil, nil, nil)
 					return true
-				end
+				end,
 			}))
 		else
 			G.E_MANAGER:add_event(Event({
-				trigger = 'after',
+				trigger = "after",
 				delay = 0.4,
 				func = function()
 					local booster = G.STATE == G.STATES.TAROT_PACK
@@ -47,34 +47,34 @@ local master_arcanes = {
 						or G.STATE == G.STATES.SMODS_BOOSTER_OPENED
 
 					attention_text({
-						text = localize('k_nope_ex'),
+						text = localize("k_nope_ex"),
 						scale = 1.3,
 						hold = 1.4,
 						major = card,
 						backdrop_colour = color or G.C.SECONDARY_SET.Tarot,
-						align = booster and 'tm' or 'cm',
+						align = booster and "tm" or "cm",
 						offset = {
 							x = 0,
-							y = booster and -0.2 or 0
+							y = booster and -0.2 or 0,
 						},
-						silent = true
+						silent = true,
 					})
 
 					G.E_MANAGER:add_event(Event({
-						trigger = 'after',
+						trigger = "after",
 						delay = 0.06 * G.SETTINGS.GAMESPEED,
 						blockable = false,
 						blocking = false,
 						func = function()
-							play_sound('tarot2', 0.76, 0.4)
+							play_sound("tarot2", 0.76, 0.4)
 							return true
-						end
+						end,
 					}))
 
-					play_sound('tarot2', 1, 0.4)
+					play_sound("tarot2", 1, 0.4)
 					card:juice_up(0.3, 0.5)
 					return true
-				end
+				end,
 			}))
 		end
 	end,
