@@ -199,13 +199,13 @@ function All_in_Jest.calculate(self, context)
 	end
 	if context.ending_booster and G.GAME.all_in_jest.dizzard_shop and G.shop.alignment.offset.y ~= -5.3 then
 		G.E_MANAGER:add_event(Event({
-			trigger = 'after',
+			trigger = "after",
 			func = function()
 				if G.shop.alignment.offset.y ~= -5.3 then
 					G.shop.alignment.offset.y = -5.3
 				end
 				return true
-			end
+			end,
 		}))
 	end
 	if context.ending_booster then
@@ -214,7 +214,13 @@ function All_in_Jest.calculate(self, context)
 		end
 		G.GAME.aij_discared_start_booster = nil
 	end
-	if context.open_booster and G.GAME.aij_discard_button and G.GAME.aij_booster_discards and G.GAME.aij_booster_discards > 0 and not G.GAME.aij_discared_start_booster then
+	if
+		context.open_booster
+		and G.GAME.aij_discard_button
+		and G.GAME.aij_booster_discards
+		and G.GAME.aij_booster_discards > 0
+		and not G.GAME.aij_discared_start_booster
+	then
 		G.GAME.current_round.discards_left = G.GAME.aij_booster_discards
 		G.GAME.aij_discared_start_booster = true
 	end
@@ -232,38 +238,43 @@ function All_in_Jest.calculate(self, context)
 		end
 		for k, v in pairs(G.jokers.cards) do
 			if v.ability and v.ability.all_in_jest and v.ability.all_in_jest.has_been_rerolled then
-				card_eval_status_text(v, "extra", nil, nil, nil, {message = localize("k_reset"), colour = G.C.FILTER})
-				All_in_Jest.reroll_joker(v, v.ability.all_in_jest.has_been_rerolled, 'stage_production')
+				card_eval_status_text(v, "extra", nil, nil, nil, { message = localize("k_reset"), colour = G.C.FILTER })
+				All_in_Jest.reroll_joker(v, v.ability.all_in_jest.has_been_rerolled, "stage_production")
 				v.ability.all_in_jest.has_been_rerolled = nil
 			end
 		end
 	end
-	if context.aij_set_or_reroll_blind and context.blind.key ~= 'bl_aij_the_kind' and not context.run_info and G.GAME.all_in_jest.has_been_bl_aij_the_kind then
+	if
+		context.aij_set_or_reroll_blind
+		and context.blind.key ~= "bl_aij_the_kind"
+		and not context.run_info
+		and G.GAME.all_in_jest.has_been_bl_aij_the_kind
+	then
 		local kind_present = false
 		for k, v in pairs(G.GAME.round_resets.blind_choices) do
-			if v == 'bl_aij_the_kind' then
+			if v == "bl_aij_the_kind" then
 				kind_present = true
 			end
 		end
 		if not kind_present then
 			G.GAME.all_in_jest.has_been_bl_aij_the_kind = nil
 			G.E_MANAGER:add_event(Event({
-				trigger = 'immediate',
+				trigger = "immediate",
 				func = function()
-					aij_reroll_tags(nil, {force_no_gold, do_not_change_tags = true})
+					aij_reroll_tags(nil, { force_no_gold, do_not_change_tags = true })
 					return true
-				end
+				end,
 			}))
 		end
 	end
-	if context.aij_set_or_reroll_blind and context.blind.key == 'bl_aij_the_kind' and not context.run_info then
+	if context.aij_set_or_reroll_blind and context.blind.key == "bl_aij_the_kind" and not context.run_info then
 		G.GAME.all_in_jest.has_been_bl_aij_the_kind = true
 		G.E_MANAGER:add_event(Event({
-			trigger = 'immediate',
+			trigger = "immediate",
 			func = function()
-				aij_reroll_tags(nil, {force_gold = true, do_not_change_tags = true})
+				aij_reroll_tags(nil, { force_gold = true, do_not_change_tags = true })
 				return true
-			end
+			end,
 		}))
 	end
 end
