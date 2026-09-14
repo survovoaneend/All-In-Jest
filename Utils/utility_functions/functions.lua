@@ -1593,36 +1593,40 @@ end
 local get_next_reroll_tag_key = function(args, current_tag)
 	local next_tag_key = current_tag
 
-	if not args.gold and not args.refresh then
-		next_tag_key = get_next_tag_key()
-	end
-	if args.gold == false and args.refresh then
-		local tag_key = current_tag
-		if G.P_TAGS[tag_key] and G.P_TAGS[tag_key].config.aij and G.P_TAGS[tag_key].config.aij.upgrade then
-			next_tag_key = G.P_TAGS[tag_key].config.aij.upgrade
+	if args.do_not_change_tags then
+		if args.force_no_gold then
+			-- Turn gold tags into their standard counterparts
+			local tag_key = current_tag
+			if G.P_TAGS[tag_key] and G.P_TAGS[tag_key].config.aij and G.P_TAGS[tag_key].config.aij.upgrade then
+				next_tag_key = G.P_TAGS[tag_key].config.aij.upgrade
+			end
 		end
-	end
-	if args.gold and not args.refresh then
-		next_tag_key = get_next_tag_key("aij_no_blind_dupes_guarrented_gold_tag")
-	end
-	if args.gold and args.refresh then
-		local tag_key = current_tag
-		if G.P_TAGS[tag_key] and not (G.P_TAGS[tag_key].config.aij and G.P_TAGS[tag_key].config.aij.upgrade) then
-			local upgraded_tag_key = nil
-			for k, v in pairs(G.P_TAGS) do
-				if v.config.aij and v.config.aij.upgrade then
-					if "tag_" .. v.config.aij.upgrade == current_tag then
-						upgraded_tag_key = v.key
-						break
+		if args.force_gold then
+			-- Turn tags into their gold counterparts if able, otherwise reroll into gold tags regardless of args.do_not_change_tags
+			local tag_key = current_tag
+			if G.P_TAGS[tag_key] and not (G.P_TAGS[tag_key].config.aij and G.P_TAGS[tag_key].config.aij.upgrade) then
+				local upgraded_tag_key = nil
+				for k, v in pairs(G.P_TAGS) do
+					if v.config.aij and v.config.aij.upgrade then
+						if "tag_" .. v.config.aij.upgrade == current_tag then
+							upgraded_tag_key = v.key
+							break
+						end
 					end
 				end
-			end
 
-			if upgraded_tag_key then
-				next_tag_key = upgraded_tag_key
-			else
-				next_tag_key = get_next_tag_key("aij_no_blind_dupes_guarrented_gold_tag")
+				if upgraded_tag_key then
+					next_tag_key = upgraded_tag_key
+				else
+					next_tag_key = get_next_tag_key("aij_no_blind_dupes_guarrented_gold_tag")
+				end
 			end
+		end
+	else
+		if args.force_gold then
+			next_tag_key = get_next_tag_key("aij_no_blind_dupes_guarrented_gold_tag")
+		else
+			next_tag_key = get_next_tag_key()
 		end
 	end
 
@@ -1632,7 +1636,7 @@ end
 function aij_reroll_tags(blind, args)
 	args = args or {}
 	blind = blind or "All"
-	for k, v in pairs(G.GAME.round_resets.blind_tags) do
+	for k, _ in pairs(G.GAME.round_resets.blind_tags) do
 		if
 			(blind == "All" or blind == k)
 			and G.GAME.round_resets.blind_states[k] ~= "Hide"
@@ -1652,7 +1656,7 @@ function aij_reroll_tags(blind, args)
 			end
 		end
 	end
-	for k, v in pairs(G.GAME.round_resets.blind_choices) do
+	for k, _ in pairs(G.GAME.round_resets.blind_choices) do
 		if
 			(blind == "All" or blind == k)
 			and k ~= "Boss"

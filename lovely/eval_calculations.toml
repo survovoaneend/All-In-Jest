@@ -159,7 +159,7 @@ if context.aij_set_or_reroll_blind and context.blind.key ~= 'bl_aij_the_kind' an
         G.E_MANAGER:add_event(Event({
             trigger = 'immediate',
             func = function()
-                aij_reroll_tags(nil, {gold = false, refresh = true})
+                aij_reroll_tags(nil, {force_no_gold, do_not_change_tags = true})
                 return true
             end
         }))
@@ -170,7 +170,7 @@ if context.aij_set_or_reroll_blind and context.blind.key == 'bl_aij_the_kind' an
     G.E_MANAGER:add_event(Event({
         trigger = 'immediate',
         func = function()
-            aij_reroll_tags(nil, {gold = true, refresh = true})
+            aij_reroll_tags(nil, {force_gold = true, do_not_change_tags = true})
             return true
         end
     }))
