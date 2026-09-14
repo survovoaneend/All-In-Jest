@@ -6,6 +6,7 @@ local chaos = {
   lite = true,
   discovered = false,
   order = 1,
+  min_ante = nil,
   config = {
     effects = {
       "money",

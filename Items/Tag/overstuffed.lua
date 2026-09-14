@@ -6,6 +6,7 @@ local overstuffed = {
     lite = true,
     discovered = false,
     order = 5,
+    min_ante = nil,
     config = {},
     attributes = {'booster'},
 

@@ -4,6 +4,7 @@ local glimmer = {
     pos = { x = 2, y = 0},
     atlas = 'tag_atlas',
     order = 2,
+    min_ante = nil,
     config = {type = 'store_joker_modify', edition = 'aij_glimmer'},
     attributes = {'joker', 'editions'},
     loc_vars = function(self, info_queue)

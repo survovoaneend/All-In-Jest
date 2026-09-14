@@ -5,6 +5,7 @@ local fortunate_tag = {
     atlas = 'tag_atlas',
     discovered = false,
     order = 6,
+    min_ante = nil,
     attributes = {'generation', 'tarot', 'choice'},
 
     loc_vars = function(self, info_queue)

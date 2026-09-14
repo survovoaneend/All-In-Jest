@@ -4,6 +4,7 @@ local stellar = {
     pos = { x = 0, y = 1},
     atlas = 'tag_atlas',
     order = 3,
+    min_ante = nil,
     config = {type = 'store_joker_modify', edition = 'aij_stellar'},
     attributes = {'joker', 'editions'},
     loc_vars = function(self, info_queue)
