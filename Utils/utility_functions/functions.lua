@@ -1590,105 +1590,80 @@ function aij_calculate_end_of_round_effects(context, i, card)
 	card.repetition_trigger = nil
 end
 
+local get_next_reroll_tag_key = function(args, current_tag)
+
+	local next_tag_key = current_tag
+
+	if not args.gold and not args.refresh then
+		next_tag_key = get_next_tag_key()
+	end
+	if args.gold == false and args.refresh then
+		local tag_key = current_tag
+		if G.P_TAGS[tag_key] and G.P_TAGS[tag_key].config.aij and G.P_TAGS[tag_key].config.aij.upgrade then
+			next_tag_key = G.P_TAGS[tag_key].config.aij.upgrade
+		end
+	end
+	if args.gold and not args.refresh then
+		next_tag_key = get_next_tag_key("aij_no_blind_dupes_guarrented_gold_tag")
+	end
+	if args.gold and args.refresh then
+		local tag_key = current_tag
+		if G.P_TAGS[tag_key] and not (G.P_TAGS[tag_key].config.aij and G.P_TAGS[tag_key].config.aij.upgrade) then
+			local upgraded_tag_key = nil
+			for k, v in pairs(G.P_TAGS) do
+				if v.config.aij and v.config.aij.upgrade then
+					if "tag_" .. v.config.aij.upgrade == current_tag then
+						upgraded_tag_key = v.key
+						break
+					end
+				end
+			end
+
+			if upgraded_tag_key then
+				next_tag_key = upgraded_tag_key
+			else
+				next_tag_key = get_next_tag_key("aij_no_blind_dupes_guarrented_gold_tag")
+			end
+		end
+	end
+
+	return next_tag_key
+end
+
 function aij_reroll_tags(blind, args)
 	args = args or {}
 	blind = blind or "All"
-	if blind == "All" then
-		for k, v in pairs(G.GAME.round_resets.blind_tags) do
-			if
-				G.GAME.round_resets.blind_states[k] ~= "Hide"
-				and G.GAME.round_resets.blind_states[k] ~= "Defeated"
-				and G.GAME.round_resets.blind_states[k] ~= "Skipped"
-			then
-				if not args.gold and not args.refresh then
-					G.GAME.round_resets.blind_tags[k] = get_next_tag_key()
-				end
-				if args.gold and not args.refresh then
-					G.GAME.round_resets.blind_tags[k] = get_next_tag_key("aij_no_blind_dupes_guarrented_gold_tag")
-				end
-				if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
-					for i = 1, G.GAME.all_in_jest.blind_tags.amt do
-						if i == 1 then -- Leftmost tag matches vanilla skip tag
-							G.GAME.all_in_jest.blind_tags[k][i] = G.GAME.round_resets.blind_tags[k]
-						else
-							if not args.gold and not args.refresh then
-								G.GAME.all_in_jest.blind_tags[k][i] = get_next_tag_key("aij_no_blind_dupes_" .. k)
-							end
-							if args.gold and not args.refresh then
-								G.GAME.all_in_jest.blind_tags[k][i] =
-									get_next_tag_key("aij_no_blind_dupes_guarrented_gold_tag")
-							end
-						end
-					end
-				end
-			end
-		end
-		for k, v in pairs(G.GAME.round_resets.blind_choices) do
-			if
-				k ~= "Boss"
-				and k ~= "Big_Boss"
-				and (
-					G.GAME.round_resets.blind_states[k] ~= "Hide"
-					and G.GAME.round_resets.blind_states[k] ~= "Defeated"
-					and G.GAME.round_resets.blind_states[k] ~= "Skipped"
-				)
-			then
-				local blind_choice = k
-				local par = G.blind_select_opts[blind_choice:lower()].parent
-				G.blind_select_opts[blind_choice:lower()]:remove()
-				G.blind_select_opts[blind_choice:lower()] = UIBox({
-					T = { par.T.x, 0, 0, 0 },
-					definition = {
-						n = G.UIT.ROOT,
-						config = { align = "cm", colour = G.C.CLEAR },
-						nodes = {
-							UIBox_dyn_container(
-								{ create_UIBox_blind_choice(blind_choice) },
-								false,
-								get_blind_main_colour(blind_choice)
-							),
-						},
-					},
-					config = {
-						align = "bmi",
-						offset = { x = 0, y = G.ROOM.T.y + 9 },
-						major = par,
-						xy_bond = "Weak",
-					},
-				})
-				par.config.object = G.blind_select_opts[blind_choice:lower()]
-				par.config.object:recalculate()
-				G.blind_select_opts[blind_choice:lower()].parent = par
-			end
-		end
-	else
+	for k, v in pairs(G.GAME.round_resets.blind_tags) do
 		if
-			G.GAME.round_resets.blind_states[k] ~= "Hide"
-			and G.GAME.round_resets.blind_states[blind] ~= "Defeated"
-			and G.GAME.round_resets.blind_states[blind] ~= "Skipped"
+			(blind == "All" or blind == k)
+			and G.GAME.round_resets.blind_states[k] ~= "Hide"
+			and G.GAME.round_resets.blind_states[k] ~= "Defeated"
+			and G.GAME.round_resets.blind_states[k] ~= "Skipped"
 		then
-			if not args.gold and not args.refresh then
-				G.GAME.round_resets.blind_tags[blind] = get_next_tag_key()
-			end
-			if args.gold and not args.refresh then
-				G.GAME.round_resets.blind_tags[blind] = get_next_tag_key("aij_no_blind_dupes_guarrented_gold_tag")
-			end
+			G.GAME.round_resets.blind_tags[k] = get_next_reroll_tag_key(args, G.GAME.round_resets.blind_tags[k])
 			if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
 				for i = 1, G.GAME.all_in_jest.blind_tags.amt do
 					if i == 1 then -- Leftmost tag matches vanilla skip tag
-						G.GAME.all_in_jest.blind_tags[blind][i] = G.GAME.round_resets.blind_tags[blind]
+						G.GAME.all_in_jest.blind_tags[k][i] = G.GAME.round_resets.blind_tags[k]
 					else
-						if not args.gold and not args.refresh then
-							G.GAME.all_in_jest.blind_tags[blind][i] = get_next_tag_key("aij_no_blind_dupes_" .. blind)
-						end
-						if args.gold and not args.refresh then
-							G.GAME.all_in_jest.blind_tags[blind][i] =
-								get_next_tag_key("aij_no_blind_dupes_guarrented_gold_tag")
-						end
+						G.GAME.all_in_jest.blind_tags[k][i] = get_next_reroll_tag_key(args, G.GAME.all_in_jest.blind_tags[k][i])
 					end
 				end
 			end
-			local blind_choice = blind
+		end
+	end
+	for k, v in pairs(G.GAME.round_resets.blind_choices) do
+		if
+			(blind == "All" or blind == k)
+			and k ~= "Boss"
+			and k ~= "Big_Boss"
+			and (
+				G.GAME.round_resets.blind_states[k] ~= "Hide"
+				and G.GAME.round_resets.blind_states[k] ~= "Defeated"
+				and G.GAME.round_resets.blind_states[k] ~= "Skipped"
+			)
+		then
+			local blind_choice = k
 			local par = G.blind_select_opts[blind_choice:lower()].parent
 			G.blind_select_opts[blind_choice:lower()]:remove()
 			G.blind_select_opts[blind_choice:lower()] = UIBox({
