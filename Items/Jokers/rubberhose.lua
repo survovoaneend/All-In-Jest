@@ -31,7 +31,7 @@ local rubberhose = {
     calculate = function(self, card, context)
         if context.joker_main then
             local dark, light = 0, 0
-            for _, v in ipairs(context.scoring_hand) do
+            for _, v in ipairs(context.full_hand) do
                 if v:is_suit('Spades') or v:is_suit('Clubs') then dark = dark + 1 end
                 if v:is_suit('Hearts') or v:is_suit('Diamonds') then light = light + 1 end
             end
