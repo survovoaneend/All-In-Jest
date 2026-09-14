@@ -32,8 +32,8 @@ local the_auroch = {
 			and area == G.hand
 		then
 			if
-				card.base.suit == G.GAME.current_round.aij_the_auroch.suit
-				or card.base.value == G.GAME.current_round.aij_the_auroch.rank
+				card:is_suit(G.GAME.current_round.aij_the_auroch.suit)
+				or card:get_id() == G.GAME.current_round.aij_the_auroch.rank
 			then
 				return true
 			end
