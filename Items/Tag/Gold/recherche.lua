@@ -16,7 +16,7 @@ local recherche_tag = {
 	attributes = { "generation", "joker", "rarity", "multiplier" },
 
 	discovered = false,
-	order = 2,
+	order = 1,
 	min_ante = 3,
 
 	loc_vars = function(self, info_queue) end,

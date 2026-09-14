@@ -13,7 +13,7 @@ local landfill_tag = {
 
 	discovered = false,
 	order = 15,
-	min_ante = 3,
+	min_ante = 2,
 
 	loc_vars = function(self, info_queue, tag)
 		return { vars = { G.GAME.round_scores.cards_discarded.amt } }

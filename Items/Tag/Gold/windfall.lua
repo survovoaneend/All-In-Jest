@@ -13,7 +13,7 @@ local windfall_tag = {
 
 	discovered = false,
 	order = 24,
-	min_ante = 3,
+	min_ante = nil,
 
 	loc_vars = function(self, info_queue) end,
 

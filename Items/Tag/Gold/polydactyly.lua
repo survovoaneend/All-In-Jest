@@ -13,7 +13,7 @@ local polydactyly_tag = {
 
 	discovered = false,
 	order = 14,
-	min_ante = 3,
+	min_ante = 2,
 
 	loc_vars = function(self, info_queue, tag)
 		return { vars = { math.min(G.GAME.all_in_jest.unused_hands.run, 40) } }

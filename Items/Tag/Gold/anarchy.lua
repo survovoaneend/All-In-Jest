@@ -48,7 +48,7 @@ local anarchy_tag = {
 
 	discovered = false,
 	order = 26,
-	min_ante = 3,
+	min_ante = nil,
 
 	loc_vars = function(self, info_queue, tag)
 		return { vars = {} }

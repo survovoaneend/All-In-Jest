@@ -13,7 +13,7 @@ local omnichrome_tag = {
 
 	discovered = false,
 	order = 6,
-	min_ante = 3,
+	min_ante = 2,
 
 	loc_vars = function(self, info_queue) end,
 

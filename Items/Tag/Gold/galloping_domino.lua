@@ -16,7 +16,7 @@ local galloping_domino_tag = {
 
 	discovered = false,
 	order = 20,
-	min_ante = 3,
+	min_ante = nil,
 
 	loc_vars = function(self, info_queue, tag)
 		return { vars = { tag.config.extra and tag.config.extra.rerolls or self.config.extra.rerolls } }

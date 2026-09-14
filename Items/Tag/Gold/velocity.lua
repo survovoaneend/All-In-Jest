@@ -17,7 +17,7 @@ local velocity_tag = {
 
 	discovered = false,
 	order = 22,
-	min_ante = 3,
+	min_ante = nil,
 
 	loc_vars = function(self, info_queue, tag)
 		local cur_money = tag.config.extra.money - (tag.config.extra.money_mod * G.GAME.round)

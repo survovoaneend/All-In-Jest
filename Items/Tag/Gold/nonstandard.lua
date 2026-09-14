@@ -413,7 +413,7 @@ local nonstandard_tag = {
 
 	discovered = false,
 	order = 10,
-	min_ante = 3,
+	min_ante = 2,
 
 	loc_vars = function(self, info_queue, tag)
 		return { vars = {} }

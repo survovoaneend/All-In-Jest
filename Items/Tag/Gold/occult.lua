@@ -13,7 +13,7 @@ local occult_tag = {
 
 	discovered = false,
 	order = 11,
-	min_ante = 3,
+	min_ante = nil,
 
 	loc_vars = function(self, info_queue, tag)
 		return { vars = {} }

@@ -13,7 +13,7 @@ local auspicious_tag = {
 
 	discovered = false,
 	order = 32,
-	min_ante = 3,
+	min_ante = nil,
 
 	loc_vars = function(self, info_queue, tag)
 		return { vars = {} }

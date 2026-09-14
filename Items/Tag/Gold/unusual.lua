@@ -17,7 +17,7 @@ local unusual_tag = {
 
 	discovered = false,
 	order = 1,
-	min_ante = 3,
+	min_ante = nil,
 
 	loc_vars = function(self, info_queue) end,
 

@@ -16,7 +16,7 @@ local crystal_tag = {
 
 	discovered = false,
 	order = 4,
-	min_ante = 3,
+	min_ante = 2,
 
 	loc_vars = function(self, info_queue)
 		return { vars = { self.config.extra.enhance } }

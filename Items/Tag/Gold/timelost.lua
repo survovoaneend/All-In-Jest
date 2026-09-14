@@ -13,7 +13,7 @@ local timelost_tag = {
 
 	discovered = false,
 	order = 25,
-	min_ante = 3,
+	min_ante = 4,
 
 	loc_vars = function(self, info_queue, tag)
 		return { vars = {} }
