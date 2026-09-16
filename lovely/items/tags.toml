@@ -92,19 +92,6 @@ if G.GAME.jest_change_booster_options.trigger or G.GAME.jest_change_booster_opti
 end
 '''
 
-# Gallopping Domino (1/1)
-# Do not increase reroll cost if shop_galloping_dominoed is set
-# calculate_reroll_cost()
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "if not skip_increment then G.GAME.current_round.reroll_cost_increase = G.GAME.current_round.reroll_cost_increase + 1 end"
-position = "before"
-match_indent = true
-payload = '''
-if G.GAME.shop_galloping_dominoed_amt and G.GAME.shop_galloping_dominoed_amt > 0 then skip_increment = true; G.GAME.round_resets.temp_reroll_cost = 0; G.GAME.shop_galloping_dominoed_amt = G.GAME.shop_galloping_dominoed_amt - 1 end
-'''
-
 # Windfall Tag (1/1)
 # Have tags in the round eval screen use the correct atlas
 # (How does SMODs not change this???)

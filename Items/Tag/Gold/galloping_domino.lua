@@ -25,13 +25,14 @@ local galloping_domino_tag = {
 	apply = function(self, tag, context)
 		if context.type == "shop_start" then
 			if not G.GAME.shop_galloping_dominoed then
-				G.GAME.shop_galloping_dominoed_amt = tag.config.extra and tag.config.extra.rerolls
-					or self.config.extra.rerolls
 				tag:yep("+", G.C.GREEN, function()
-					G.GAME.round_resets.temp_reroll_cost = 0
-					calculate_reroll_cost(true)
 					return true
 				end)
+
+				G.GAME.current_round.free_rerolls =
+					math.max(G.GAME.current_round.free_rerolls + tag.config.extra.rerolls, 0)
+				calculate_reroll_cost(true)
+
 				tag.triggered = true
 				return true
 			end
