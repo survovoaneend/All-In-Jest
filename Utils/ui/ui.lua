@@ -168,7 +168,6 @@ G.FUNCS.jest_tag_choice_next_page = function(e)
 end
 
 SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
-
 	args = args or {}
 	args.w_mod = args.w_mod or 1
 	args.h_mod = args.h_mod or 1
