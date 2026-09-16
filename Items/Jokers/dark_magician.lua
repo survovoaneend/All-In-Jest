@@ -31,16 +31,19 @@ local dark_magician = {
 	end,
 	add_to_deck = function(self, card, from_debuff)
 		if #SMODS.find_card("j_aij_dark_magician") == 0 then
-     		G.GAME.consumeable_usage_total = G.GAME.consumeable_usage_total or {tarot = 0, planet = 0, spectral = 0, tarot_planet = 0, all = 0}
-			
+			G.GAME.consumeable_usage_total = G.GAME.consumeable_usage_total
+				or { tarot = 0, planet = 0, spectral = 0, tarot_planet = 0, all = 0 }
+
 			G.GAME.consumeable_usage_total.dark_magician_old = {
 				tarot = G.GAME.consumeable_usage_total.tarot,
 				planet = G.GAME.consumeable_usage_total.planet,
 				tarot_planet = G.GAME.consumeable_usage_total.tarot_planet,
-				spectral = G.GAME.consumeable_usage_total.spectral
+				spectral = G.GAME.consumeable_usage_total.spectral,
 			}
 
-			local total = G.GAME.consumeable_usage_total.tarot + G.GAME.consumeable_usage_total.planet + G.GAME.consumeable_usage_total.spectral
+			local total = G.GAME.consumeable_usage_total.tarot
+				+ G.GAME.consumeable_usage_total.planet
+				+ G.GAME.consumeable_usage_total.spectral
 			G.GAME.consumeable_usage_total.tarot = total
 			G.GAME.consumeable_usage_total.planet = total
 			G.GAME.consumeable_usage_total.tarot_planet = total
@@ -68,7 +71,10 @@ local ref_smods_poll_object = SMODS.poll_object
 function SMODS.poll_object(args)
 	local card_type = args.type or args.set
 
-	if next(SMODS.find_card("j_aij_dark_magician")) and (card_type == "Tarot" or card_type == "Spectral" or card_type == "Planet") then
+	if
+		next(SMODS.find_card("j_aij_dark_magician"))
+		and (card_type == "Tarot" or card_type == "Spectral" or card_type == "Planet")
+	then
 		local poll = pseudorandom("j_aij_dark_magician_poll")
 		if poll < 0.4 then
 			args.type = "Tarot"
