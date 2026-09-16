@@ -168,6 +168,7 @@ G.FUNCS.jest_tag_choice_next_page = function(e)
 end
 
 SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
+
 	args = args or {}
 	args.w_mod = args.w_mod or 1
 	args.h_mod = args.h_mod or 1
@@ -175,6 +176,38 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
 	args.offset = args.offset or { x = 0, y = 0 }
 	local deck_tables = {}
 	local pool = SMODS.collection_pool(_pool)
+	if next(SMODS.find_card("j_aij_dark_magician")) then
+		if _pool == G.P_CENTER_POOLS.Tarot then
+			local planet_pool = SMODS.collection_pool(G.P_CENTER_POOLS.Planet)
+			local spectral_pool = SMODS.collection_pool(G.P_CENTER_POOLS.Spectral)
+			for _, v in ipairs(planet_pool) do
+				table.insert(pool, v)
+			end
+			for _, v in ipairs(spectral_pool) do
+				table.insert(pool, v)
+			end
+		end
+		if _pool == G.P_CENTER_POOLS.Planet then
+			local tarot_pool = SMODS.collection_pool(G.P_CENTER_POOLS.Tarot)
+			local spectral_pool = SMODS.collection_pool(G.P_CENTER_POOLS.Spectral)
+			for _, v in ipairs(tarot_pool) do
+				table.insert(pool, v)
+			end
+			for _, v in ipairs(spectral_pool) do
+				table.insert(pool, v)
+			end
+		end
+		if _pool == G.P_CENTER_POOLS.Spectral then
+			local tarot_pool = SMODS.collection_pool(G.P_CENTER_POOLS.Tarot)
+			local planet_pool = SMODS.collection_pool(G.P_CENTER_POOLS.Planet)
+			for _, v in ipairs(tarot_pool) do
+				table.insert(pool, v)
+			end
+			for _, v in ipairs(planet_pool) do
+				table.insert(pool, v)
+			end
+		end
+	end
 	if args.sort then
 		args.sort(pool)
 	end
