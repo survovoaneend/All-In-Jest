@@ -195,66 +195,33 @@ match_indent = true
 
 
 # Dark Magician (1/2)
-# Combines tarot, planet, and spectral pools
-# get_current_pool()
+# Tick up consumable uses for tarots, planets and spectrals when any one is used
+# set_consumeable_usage()
 [[patches]]
 [patches.pattern]
-target = "functions/common_events.lua"
-pattern = '''local _pool, _starting_pool, _pool_key, _pool_size = G.ARGS.TEMP_POOL, nil, '', 0'''
+target = "functions/misc_functions.lua"
+pattern = "G.GAME.consumeable_usage_total.all = G.GAME.consumeable_usage_total.all + 1"
 position = "after"
 match_indent = true
 payload = '''
-if _append == 'dark_magician_get_other_pools' and next(SMODS.find_card("j_aij_dark_magician")) then
-    _pool = {}
-end
-if _append ~= 'dark_magician_get_other_pools' and next(SMODS.find_card("j_aij_dark_magician")) then
-    if _type == 'Tarot'  then
-        local add_pool, discard_key = get_current_pool('Spectral', _rarity, _legendary, 'dark_magician_get_other_pools')
-        local add_pool2, discard_key2 = get_current_pool('Planet', _rarity, _legendary, 'dark_magician_get_other_pools')
-        if add_pool ~= _pool then
-            for i = 1, #add_pool do
-                _pool[#_pool + 1] = add_pool[i]
-            end
-        end
-        if add_pool2 ~= _pool then
-            for i = 1, #add_pool2 do
-                _pool[#_pool + 1] = add_pool2[i]
-            end
-        end
-    elseif _type == 'Planet' then
-        local add_pool, discard_key = get_current_pool('Spectral', _rarity, _legendary, 'dark_magician_get_other_pools')
-        local add_pool2, discard_key2 = get_current_pool('Tarot', _rarity, _legendary, 'dark_magician_get_other_pools')
-        if add_pool ~= _pool then
-            for i = 1, #add_pool do
-                _pool[#_pool + 1] = add_pool[i]
-            end
-        end
-        if add_pool2 ~= _pool then
-            for i = 1, #add_pool2 do
-                _pool[#_pool + 1] = add_pool2[i]
-            end
-        end
-    elseif _type == 'Tarot_Planet' then
-        local add_pool, discard_key = get_current_pool('Spectral', _rarity, _legendary, 'dark_magician_get_other_pools')
-        if add_pool ~= _pool then
-            for i = 1, #add_pool do
-                _pool[#_pool + 1] = add_pool[i]
-            end
-        end
-    elseif _type == 'Spectral' then
-        local add_pool, discard_key = get_current_pool('Tarot', _rarity, _legendary, 'dark_magician_get_other_pools')
-        local add_pool2, discard_key2 = get_current_pool('Planet', _rarity, _legendary, 'dark_magician_get_other_pools')
-        if add_pool ~= _pool then
-            for i = 1, #add_pool do
-                _pool[#_pool + 1] = add_pool[i]
-            end
-        end
-        if add_pool2 ~= _pool then
-            for i = 1, #add_pool2 do
-                _pool[#_pool + 1] = add_pool2[i]
-            end
-        end
+if next(SMODS.find_card("j_aij_dark_magician")) and G.GAME.consumeable_usage_total.dark_magician_old then 
+    if card.config.center.set == 'Tarot' then
+        G.GAME.consumeable_usage_total.dark_magician_old.tarot = G.GAME.consumeable_usage_total.dark_magician_old.tarot + 1
+        G.GAME.consumeable_usage_total.dark_magician_old.tarot_planet = G.GAME.consumeable_usage_total.dark_magician_old.tarot_planet + 1
     end
+    if card.config.center.set == 'Planet' then
+        G.GAME.consumeable_usage_total.dark_magician_old.planet = G.GAME.consumeable_usage_total.dark_magician_old.planet + 1
+        G.GAME.consumeable_usage_total.dark_magician_old.tarot_planet = G.GAME.consumeable_usage_total.dark_magician_old.tarot_planet + 1
+    end
+    if card.config.center.set == 'Spectral' then
+        G.GAME.consumeable_usage_total.dark_magician_old.spectral = G.GAME.consumeable_usage_total.dark_magician_old.spectral + 1
+    end
+
+    local total = G.GAME.consumeable_usage_total.dark_magician_old.tarot + G.GAME.consumeable_usage_total.dark_magician_old.planet + G.GAME.consumeable_usage_total.dark_magician_old.spectral
+    G.GAME.consumeable_usage_total.tarot = total
+    G.GAME.consumeable_usage_total.planet = total
+    G.GAME.consumeable_usage_total.tarot_planet = total
+    G.GAME.consumeable_usage_total.spectral = total
 end
 '''
 
