@@ -21,6 +21,10 @@ local morio = {
 	calculate = function(self, card, context)
 		if context.end_of_round and context.beat_boss and not context.blueprint then
 			card.ability.trigger = true
+			local eval = function()
+				return G.STATE ~= G.STATES.SHOP
+			end
+			juice_card_until(card, eval, true)
 		end
 		if context.cashing_out and card.ability.trigger then
 			if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
@@ -38,23 +42,7 @@ local morio = {
 										{ 5, 6 },
 										{
 											no_materialize = true,
-											modify_card = function(card, center)
-												if
-													G.GAME.banned_keys[card.config.center.key]
-													and not (
-														type(G.GAME.banned_keys[card.config.center.key]) == "string"
-														and G.GAME.banned_keys[card.config.center.key]:sub(1, 5)
-															== "j_aij"
-													)
-												then
-													card.debuff = true
-												elseif
-													card.config.center.discovered
-													and card.config.center.set ~= "aij_hex_tarot"
-												then
-													jest_create_select_card_ui(card, G.consumeables)
-												end
-											end,
+											add_to_area = G.consumeables,
 											h_mod = 1.05,
 										}
 									),

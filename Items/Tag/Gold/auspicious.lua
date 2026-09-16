@@ -29,22 +29,11 @@ local auspicious_tag = {
 							config = { no_esc = true },
 							definition = SMODS.jest_no_back_card_collection_UIBox(G.P_CENTER_POOLS.Tarot, { 5, 6 }, {
 								no_materialize = true,
+								add_to_area = G.consumeables,
+								add_to_area_args = { copies = 3 },
 								modify_card = function(card, center)
-									if card.config.center.discovered then
-										if
-											G.GAME.banned_keys[card.config.center.key]
-											and not (
-												type(G.GAME.banned_keys[card.config.center.key]) == "string"
-												and G.GAME.banned_keys[card.config.center.key]:sub(1, 5) == "j_aij"
-											)
-										then
-											card.debuff = true
-										else
-											local edition = { negative = true }
-											card:set_edition(edition, true, true)
-											jest_create_select_card_ui(card, G.consumeables, { copies = 3 })
-										end
-									end
+									local edition = { negative = true }
+									card:set_edition(edition, true, true)
 								end,
 								h_mod = 1.05,
 							}),

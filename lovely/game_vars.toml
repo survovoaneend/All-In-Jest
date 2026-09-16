@@ -107,6 +107,7 @@ all_in_jest = {
 	standard_pack_seal_rate = 1,
 	weird_vouchers = false,
 	weird_enhancements = false,
+	banned_keys_barathrum = {},
 },
 -- move these into all_in_jest at some point
 jest_legendary_pool = {in_shop = false, rate = 1.00},

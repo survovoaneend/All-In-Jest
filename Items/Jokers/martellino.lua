@@ -62,20 +62,9 @@ local martellino = {
 									{ 5, 5, 5 },
 									{
 										no_materialize = true,
+										add_to_area = G.jokers,
 										modify_card = function(card, center)
 											card.sticker = get_joker_win_sticker(center)
-											if
-												G.GAME.banned_keys[card.config.center.key]
-												and not (
-													type(G.GAME.banned_keys[card.config.center.key]) == "string"
-													and G.GAME.banned_keys[card.config.center.key]:sub(1, 5)
-														== "j_aij"
-												)
-											then
-												card.debuff = true
-											elseif card.config.center.discovered then
-												jest_create_select_card_ui(card, G.jokers)
-											end
 										end,
 										h_mod = 1.05,
 									}

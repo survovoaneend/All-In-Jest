@@ -173,6 +173,7 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
 	args.h_mod = args.h_mod or 1
 	args.card_scale = args.card_scale or 1
 	args.offset = args.offset or { x = 0, y = 0 }
+	args.add_to_area_args = args.add_to_area_args or {}
 	local deck_tables = {}
 	local pool = SMODS.collection_pool(_pool)
 	if next(SMODS.find_card("j_aij_dark_magician")) then
@@ -291,6 +292,35 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
 				if args.modify_card then
 					args.modify_card(card, center, i, j, pool, index)
 				end
+				if args.add_to_area and card.config.center.discovered then
+					if G.GAME.banned_keys[card.config.center.key] then
+						card.debuff = true
+					else
+						local too_add = true
+						if card.config.center.hidden then
+							too_add = false
+						end
+						if type(args.add_to_area_filter) == "function" then
+							too_add = args.add_to_area_filter(card, center, i, j, pool, index)
+						end
+
+						if too_add then
+							local function_args = copy_table(args.add_to_area_args)
+							if args.add_to_area_args.draw_from_pool then
+								function_args.draw_from = pool
+								function_args.index = index
+							end
+							jest_create_select_card_ui(
+								card,
+								type(args.add_to_area) == "table" and args.add_to_area or nil,
+								function_args,
+								args.add_to_area_select_func
+							)
+						else
+							card.greyed = true
+						end
+					end
+				end
 				if not args.no_materialize then
 					card:start_materialize(nil, i > 1 or j > 1)
 				end
@@ -339,18 +369,6 @@ end
 G.FUNCS.jest_select = function(e)
 	local c1 = e.config.ref_table
 	if c1 and c1:is(Card) then
-		local card_was_banned = false
-		if G.GAME.banned_keys[c1.config.center_key] then
-			card_was_banned = true
-			-- If card was banned by an All in Jest joker, unban it temporarially
-			if
-				type(G.GAME.banned_keys[c1.config.center_key]) == "string"
-				and G.GAME.banned_keys[c1.config.center_key]:sub(1, 5) == "j_aij"
-			then
-				card_was_banned = G.GAME.banned_keys[c1.config.center_key]
-				G.GAME.banned_keys[c1.config.center_key] = nil
-			end
-		end
 		G.E_MANAGER:add_event(Event({
 			trigger = "after",
 			func = function()
@@ -424,14 +442,6 @@ G.FUNCS.jest_select = function(e)
 					G.OVERLAY_MENU = nil
 				end
 
-				G.E_MANAGER:add_event(Event({
-					func = function()
-						if card_was_banned then
-							G.GAME.banned_keys[c1.config.center_key] = card_was_banned
-						end
-						return true
-					end,
-				}))
 				return true
 			end,
 		}))

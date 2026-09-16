@@ -42,13 +42,12 @@ local j_file = {
 								from_area = true,
 								hide_single_page = true,
 								collapse_single_page = true,
-								modify_card = function(card, center, i, j, pool, index)
-									jest_create_select_card_ui(card, G.hand, {
-										playing_card = true,
-										draw_from = pool,
-										index = index,
-									}, "jest_select_haruspex")
-								end,
+								add_to_area = G.hand,
+								add_to_area_args = {
+									playing_card = true,
+									draw_from_pool = true,
+								},
+								add_to_area_select_func = "jest_select_haruspex",
 								sort = function(table_to_sort)
 									pseudoshuffle(table_to_sort, pseudoseed("j_file"))
 									table.sort(table_to_sort, function(a, b)
