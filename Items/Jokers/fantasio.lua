@@ -25,10 +25,13 @@ local fantasio = {
 local smods_add_to_pool_ref = SMODS.add_to_pool
 function SMODS.add_to_pool(prototype_obj, ...)
 	if
-		#SMODS.find_card("j_aij_fantasio") > 0 and (prototype_obj.key == "bl_club"
-		or prototype_obj.key == "bl_window"
-		or prototype_obj.key == "bl_goad"
-		or prototype_obj.key == "bl_head")
+		#SMODS.find_card("j_aij_fantasio") > 0
+		and (
+			prototype_obj.key == "bl_club"
+			or prototype_obj.key == "bl_window"
+			or prototype_obj.key == "bl_goad"
+			or prototype_obj.key == "bl_head"
+		)
 	then
 		return false
 	else
