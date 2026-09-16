@@ -9,17 +9,15 @@ SMODS.ConsumableType({
 	no_buy_and_use = false,
 })
 
-local aij_SMODS_collection_pool_ref = SMODS.collection_pool
-SMODS.collection_pool = function(_base_pool)
-	local pool = aij_SMODS_collection_pool_ref(_base_pool)
-
+local aij_SMODS_card_collection_UIBox = SMODS.card_collection_UIBox
+SMODS.card_collection_UIBox = function(_pool, rows, args)
 	if _base_pool == G.P_CENTER_POOLS.Tarot then
 		for _, v in ipairs(G.P_CENTER_POOLS.aij_hex_tarot) do
 			if v.discovered then
-				table.insert(pool, v)
+				table.insert(_pool, v)
 			end
 		end
 	end
 
-	return pool
+	return aij_SMODS_card_collection_UIBox(_pool, rows, args)
 end
