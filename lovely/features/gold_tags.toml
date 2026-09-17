@@ -68,7 +68,7 @@ if self.config.aij and self.config.aij.upgrade then
 end
 ''' 
 
-# Gold Tags Collection (1/4)
+# Gold Tags Collection (4/4)
 # Set collection page to page 1 if entering/exiting a gold tags page
 # Game:update()
 [[patches]]
