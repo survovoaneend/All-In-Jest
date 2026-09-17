@@ -90,36 +90,6 @@ function process_texture_wood(image, high_contrast)
 	return love.graphics.newImage(image_data, { mipmaps = true, dpiscale = image:getDPIScale() }), image_data
 end
 
--- function process_texture_wood(image, high_contrast)
---     local width, height = image:getDimensions()
---     local canvas = love.graphics.newCanvas(width, height, {type = '2d', readable = true, dpiscale = image:getDPIScale()})
-
---     love.graphics.push("all")
-
---     love.graphics.setCanvas( canvas )
---     local wood_bg_colour = {57.3 / 255, 49.4 / 255, 36.1 / 255, 0}
---     -- local wood_bg_colour = { 255 / 255, 255 / 255, 255 / 255, 0}
---     -- local wood_bg_colour = { 21.6 / 255, 27.5 / 255, 28.6 / 255, 0}
---     love.graphics.clear( wood_bg_colour )
-
---     love.graphics.setColor(1, 1, 1, 1)
-
---     if high_contrast then
---         love.graphics.setShader( G.SHADERS['aij_wood_hc_spritesheet'] )
---     else
---         love.graphics.setShader( G.SHADERS['aij_wood_spritesheet'] )
---     end
-
---     -- Draw image with wood shader on new canvas
---     love.graphics.draw( image )
-
---     love.graphics.pop()
-
---     image_data = canvas:newImageData()
-
---     return love.graphics.newImage(image_data, {mipmaps = true, dpiscale = image:getDPIScale()}), image_data
--- end
-
 function pre_wooded(a, high_contrast)
 	local atlas = a.name or a.key
 	local name = atlas .. "_wooded"
