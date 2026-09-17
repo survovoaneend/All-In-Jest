@@ -44,7 +44,7 @@ local urns = {
 			local center_key = leftmost.config.center.key
 			local other_center_key = nil
 			if leftmost.config.aij_other_center then
-				other_center_key = v.config.aij_other_center["center"].key
+				other_center_key = leftmost.config.aij_other_center["center"].key
 			end
 
 			SMODS.destroy_cards(leftmost)
