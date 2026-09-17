@@ -67,7 +67,7 @@ local barathrum = {
 					available = available + 1
 				end
 			end
-			if #pool > card.ability.extra.select and available < card.ability.extra.select then
+			if #pool > self.config.extra.select and available < self.config.extra.select then
 				return false
 			end
 		end
