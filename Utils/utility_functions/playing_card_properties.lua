@@ -74,7 +74,8 @@ function SMODS.has_no_rank(card)
 end
 
 -- See lovely_hooks.toml
-function All_in_Jest.get_enhancements_hook(card, extra_only, enhancements)
+-- Handles fusions if quantum is turned on
+function All_in_Jest.get_enhancements_quantum_hook(card, extra_only, enhancements)
 	if
 		not extra_only
 		and card.config.aij_other_center
