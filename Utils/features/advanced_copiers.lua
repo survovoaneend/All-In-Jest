@@ -307,6 +307,8 @@ All_in_Jest.use_copied_joker_function = function(
 
 		return ret
 	end
+
+	return {}
 end
 
 -- Sets a copier joker to copy a specified joker
@@ -537,9 +539,11 @@ All_in_Jest.single_copier = SMODS.Joker:extend({
 
 	calculate = function(self, card, context)
 		-- Make blueprint compatibility work
+		local copied_key = card.ability[card.config.center.key]
+			and card.ability[card.config.center.key].copied_joker_key
 		if
 			context.blueprint
-			and not G.P_CENTERS[card.ability[card.config.center.key].copied_joker_key].blueprint_compat
+			and not (copied_key and G.P_CENTERS[copied_key] and G.P_CENTERS[copied_key].blueprint_compat)
 		then
 			return {}
 		end
