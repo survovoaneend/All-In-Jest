@@ -90,3 +90,14 @@ position = "before"
 payload = "-- Function overridden by All in Jest in Utils/overrides.lua"
 match_indent = true
 
+# Allow bomb stickers to calculate when being destroyed
+# eval_card()
+[[patches]]
+[patches.regex]
+target = 'functions/common_events.lua'
+pattern = "(?<indent>[\t ]*)(?<pre>if not card:can_calculate\\(context\\.ignore_debuff, context\\.remove_playing_cards or context\\.joker_type_destroyed)(?<post>.*)"
+position = "at"
+line_prepend = "$indent"
+payload = "$pre or context.destroy_card$post"
+
+
