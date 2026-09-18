@@ -52,26 +52,26 @@ local misprint = {
 	end,
 	on_load = function(card)
 		if card.edition and card.edition.key == "e_aij_misprint" then
-		    if card.children.front then
-		        local atlas = card.children.front.atlas or SMODS.get_atlas("cards_1")
-		        card.children.front.atlas = misprint_atlas(atlas)
-		    end
-		    if card.children.center then
-		        local atlas = card.children.center.atlas or SMODS.get_atlas("centers")
-		        card.children.center.atlas = misprint_atlas(atlas, card.children.center.scale.x, 0)
-		    end
+			if card.children.front then
+				local atlas = card.children.front.atlas or SMODS.get_atlas("cards_1")
+				card.children.front.atlas = misprint_atlas(atlas)
+			end
+			if card.children.center then
+				local atlas = card.children.center.atlas or SMODS.get_atlas("centers")
+				card.children.center.atlas = misprint_atlas(atlas, card.children.center.scale.x, 0)
+			end
 		end
 	end,
 	on_apply = function(card)
 		if card.edition and card.edition.key == "e_aij_misprint" then
-		    if card.children.front then
-		        local atlas = card.children.front.atlas or SMODS.get_atlas("cards_1")
-		        card.children.front.atlas = misprint_atlas(atlas)
-		    end
-		    if card.children.center then
-		        local atlas = card.children.center.atlas or SMODS.get_atlas("centers")
-		        card.children.center.atlas = misprint_atlas(atlas, card.children.center.scale.x, 0)
-		    end
+			if card.children.front then
+				local atlas = card.children.front.atlas or SMODS.get_atlas("cards_1")
+				card.children.front.atlas = misprint_atlas(atlas)
+			end
+			if card.children.center then
+				local atlas = card.children.center.atlas or SMODS.get_atlas("centers")
+				card.children.center.atlas = misprint_atlas(atlas, card.children.center.scale.x, 0)
+			end
 		end
 
 		if not card.ability.jest_misprint_active then
@@ -124,13 +124,13 @@ local misprint = {
 	end,
 	on_remove = function(card)
 		if card.children.front then
-		    local _atlas, _pos = get_front_spriteinfo(_front)
-		    card.children.front.atlas = _atlas
-		    card.children.front:set_sprite_pos(_pos)
+			local _atlas, _pos = get_front_spriteinfo(_front)
+			card.children.front.atlas = _atlas
+			card.children.front:set_sprite_pos(_pos)
 		end
 		if card.children.center then
-		    local atlas_name = card.config.center.atlas
-		    card.children.center.atlas = SMODS.get_atlas("atlas_name")
+			local atlas_name = card.config.center.atlas
+			card.children.center.atlas = SMODS.get_atlas("atlas_name")
 		end
 
 		if card.ability.set == "Enhanced" or card.ability.set == "Default" then
