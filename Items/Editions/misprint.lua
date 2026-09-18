@@ -1,17 +1,17 @@
-local misprint_shader = {
-	object_type = "Shader",
-	key = "misprint",
-	path = "misprint.fs",
-	send_vars = function(sprite, card)
-		local temp = nil
-		if card.children and card.children.center and card.children.center.scale then
-			temp = card.children.center.scale.x
-		end
-		return {
-			card_x = temp,
-		}
-	end,
-}
+-- local misprint_shader = {
+-- 	object_type = "Shader",
+-- 	key = "misprint",
+-- 	path = "misprint.fs",
+-- 	send_vars = function(sprite, card)
+-- 		local temp = nil
+-- 		if card.children and card.children.center and card.children.center.scale then
+-- 			temp = card.children.center.scale.x
+-- 		end
+-- 		return {
+-- 			card_x = temp,
+-- 		}
+-- 	end,
+-- }
 SMODS.Sound({
 	key = "misprint",
 	path = "misprinted.mp3",
@@ -41,7 +41,6 @@ local misprint = {
 	order = 3,
 	config = { min_mult = 50, max_mult = 300, mult = 1, prevmult = "1" },
 	attributes = { "multiplier" },
-	disable_base_shader = true,
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { set = "Other", key = "misprinted_credits_info" }
 		return {
@@ -51,17 +50,29 @@ local misprint = {
 			},
 		}
 	end,
+	on_load = function(card)
+		if card.edition and card.edition.key == "e_aij_misprint" then
+		    if card.children.front then
+		        local atlas = card.children.front.atlas or SMODS.get_atlas("cards_1")
+		        card.children.front.atlas = misprint_atlas(atlas)
+		    end
+		    if card.children.center then
+		        local atlas = card.children.center.atlas or SMODS.get_atlas("centers")
+		        card.children.center.atlas = misprint_atlas(atlas, card.children.center.scale.x, 0)
+		    end
+		end
+	end,
 	on_apply = function(card)
-		-- if card.edition and card.edition.key == "e_aij_misprint" then
-		--     if card.children.front then
-		--         local atlas = card.children.front.atlas or SMODS.get_atlas("cards_1")
-		--         card.children.front.atlas = misprint_atlas(atlas)
-		--     end
-		--     if card.children.center then
-		--         local atlas = card.children.center.atlas or SMODS.get_atlas("centers")
-		--         card.children.center.atlas = misprint_atlas(atlas, card.children.center.scale.x, 0)
-		--     end
-		-- end
+		if card.edition and card.edition.key == "e_aij_misprint" then
+		    if card.children.front then
+		        local atlas = card.children.front.atlas or SMODS.get_atlas("cards_1")
+		        card.children.front.atlas = misprint_atlas(atlas)
+		    end
+		    if card.children.center then
+		        local atlas = card.children.center.atlas or SMODS.get_atlas("centers")
+		        card.children.center.atlas = misprint_atlas(atlas, card.children.center.scale.x, 0)
+		    end
+		end
 
 		if not card.ability.jest_misprint_active then
 			if card.ability.set == "Enhanced" or card.ability.set == "Default" then
@@ -112,15 +123,15 @@ local misprint = {
 		card.ability.jest_misprint_active = true
 	end,
 	on_remove = function(card)
-		-- if card.children.front then
-		--     local _atlas, _pos = get_front_spriteinfo(_front)
-		--     card.children.front.atlas = _atlas
-		--     card.children.front:set_sprite_pos(_pos)
-		-- end
-		-- if card.children.center then
-		--     local atlas_name = card.config.center.atlas
-		--     card.children.center.atlas = SMODS.get_atlas("atlas_name")
-		-- end
+		if card.children.front then
+		    local _atlas, _pos = get_front_spriteinfo(_front)
+		    card.children.front.atlas = _atlas
+		    card.children.front:set_sprite_pos(_pos)
+		end
+		if card.children.center then
+		    local atlas_name = card.config.center.atlas
+		    card.children.center.atlas = SMODS.get_atlas("atlas_name")
+		end
 
 		if card.ability.set == "Enhanced" or card.ability.set == "Default" then
 			if card.added_to_deck then
@@ -188,7 +199,7 @@ local misprint = {
 		return self.weight
 	end,
 
-	shader = "misprint",
+	shader = false,
 }
 
 -- Reapply misprint whenever the current multiplier changes

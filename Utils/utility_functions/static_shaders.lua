@@ -33,5 +33,6 @@ All_in_Jest.load_shaders = function()
 		love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/burnt_spritesheet.fs"))
 	G.SHADERS["aij_fusion_spritesheet"] =
 		love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/fusion_spritesheet.fs"))
-	-- G.SHADERS['aij_misprint_spritesheet'] = love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/misprint_spritesheet.fs"))
+	G.SHADERS["aij_misprint_spritesheet"] =
+		love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/misprint_spritesheet.fs"))
 end
