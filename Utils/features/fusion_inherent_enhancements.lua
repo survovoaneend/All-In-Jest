@@ -441,6 +441,7 @@ function All_in_Jest.get_multi_enhancement_atlas(center, other_center)
 				SMODS.get_atlas(new_atlas_name).px = base_atlas.px
 				SMODS.get_atlas(new_atlas_name).py = base_atlas.py
 				SMODS.get_atlas(new_atlas_name).frames = base_atlas.frames
+				SMODS.get_atlas(new_atlas_name).columns = base_atlas.columns
 				local image, image_data =
 					process_texture_stack_enhancement_foreground(base_atlas.image, foreground_enhancement.key)
 				SMODS.get_atlas(new_atlas_name).image = image
