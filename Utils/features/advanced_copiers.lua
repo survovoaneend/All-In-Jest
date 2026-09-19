@@ -545,7 +545,7 @@ All_in_Jest.single_copier = SMODS.Joker:extend({
 			context.blueprint
 			and not (copied_key and G.P_CENTERS[copied_key] and G.P_CENTERS[copied_key].blueprint_compat)
 		then
-			return {}
+			return nil
 		end
 		return table.unpack(
 			All_in_Jest.use_copied_joker_function(card, "calculate", "calculate_joker", { card, context }, { context })
