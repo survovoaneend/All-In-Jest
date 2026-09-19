@@ -34,6 +34,10 @@ local enraging_photo = {
 		if context.jest_destroying_or_selling_joker or context.remove_playing_cards or context.selling_card then
 			if not card.ability.extra.active then
 				card.ability.extra.active = true
+				local eval = function()
+					return card.ability.extra.active
+				end
+				juice_card_until(card, eval, true)
 				return {
 					message = localize("k_active_ex"),
 				}
