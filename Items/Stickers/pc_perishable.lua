@@ -57,10 +57,6 @@ local pc_perishable = {
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.perishable_rounds or 5, card.ability.perish_tally or G.GAME.perishable_rounds } }
 	end,
-	inject = function(self)
-		SMODS.Sticker.inject(self)
-		G.shared_sticker_perishable = self.sticker_sprite
-	end,
 	calculate = function(self, card, context)
 		if context.after and context.cardarea == G.play and not context.repetition and not context.individual then
 			card:calculate_perishable()

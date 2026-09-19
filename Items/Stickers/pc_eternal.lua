@@ -21,10 +21,6 @@ local pc_eternal = {
 	pos = { x = 0, y = 0 },
 	badge_colour = HEX("c75985"),
 	order = 1,
-	inject = function(self)
-		SMODS.Sticker.inject(self)
-		G.shared_sticker_eternal = self.sticker_sprite
-	end,
 	calculate = function(self, card, context)
 		if context.remove_playing_cards then
 			for i, v in ipairs(context.removed) do

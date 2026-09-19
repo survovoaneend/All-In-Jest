@@ -100,4 +100,11 @@ position = "at"
 line_prepend = "$indent"
 payload = "$pre or context.destroy_card$post"
 
-
+# Add a delay sprite feature for stickers
+[[patches]]
+[patches.regex]
+target = '=[SMODS _ "src/card_draw.lua"]'
+pattern = "(?<indent>[\t ]*)(?<pre>if self.ability\\[v\\.key\\])(?<post>.*)"
+position = "at"
+payload = "$pre and not (self.aij_delay_sticker and self.aij_delay_sticker[v.key])$post"
+line_prepend = "$indent"

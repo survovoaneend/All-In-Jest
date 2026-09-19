@@ -40,9 +40,5 @@ local pc_rental = {
 		end
 		return { key = key, vars = { 1, num, odds } }
 	end,
-	inject = function(self)
-		SMODS.Sticker.inject(self)
-		G.shared_sticker_rental = self.sticker_sprite
-	end,
 }
 return { name = { "Stickers" }, items = { pc_rental } }
