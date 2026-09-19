@@ -24,13 +24,13 @@ local the_arrow = {
 			return
 		end
 		if context.all_in_jest and context.all_in_jest.before_after and not temp then
-			local bool = false
+			local exceeds_all_hands = true
 			for i = 1, #G.GAME.all_in_jest.advanced_hand_usage_blind do
 				if context.total_chips <= G.GAME.all_in_jest.advanced_hand_usage_blind[i].total_chips then
-					bool = true
+					exceeds_all_hands = false
 				end
 			end
-			if bool then
+			if not exceeds_all_hands then
 				mult = mod_mult(0)
 				hand_chips = mod_chips(0)
 				SMODS.displayed_hand = nil
