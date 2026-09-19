@@ -35,24 +35,26 @@ local the_loan = {
 		if context.all_in_jest and context.all_in_jest.before_after then
 			local chipsthing = G.GAME.chips + context.total_chips >= G.GAME.blind.chips
 			if chipsthing then
+				blind.triggered = true
+				for i = 1, #context.full_hand do
+					local card = context.full_hand[i]
+					if card and not card.getting_sliced then
+						G.E_MANAGER:add_event(Event({
+							func = function()
+								card:set_rental(true)
+								card:juice_up()
+								return true
+							end,
+						}))
+					end
+				end
 				G.E_MANAGER:add_event(Event({
 					func = function()
 						blind:wiggle()
 						return true
 					end,
 				}))
-				for i = 1, #context.full_hand do
-					G.E_MANAGER:add_event(Event({
-						trigger = "after",
-						delay = 0.15,
-						func = function()
-							context.full_hand[i]:set_rental(true)
-							context.full_hand[i]:juice_up(0.3, 0.3)
-							return true
-						end,
-					}))
-				end
-				blind.triggered = false
+				delay(0.75*1.25)
 			end
 		end
 	end,

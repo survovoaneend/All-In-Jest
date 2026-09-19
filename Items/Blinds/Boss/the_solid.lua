@@ -19,26 +19,26 @@ local the_solid = {
 			return
 		end
 		if context.before and context.full_hand and not temp then
+			blind.triggered = true
+			for i = 1, #context.full_hand do
+				context.full_hand[i].aij_delay_sticker = context.full_hand[i].aij_delay_sticker or {}
+				context.full_hand[i].aij_delay_sticker["aij_pc_eternal"] = true
+				context.full_hand[i]:set_eternal(true)
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						context.full_hand[i].aij_delay_sticker["aij_pc_eternal"] = false
+						context.full_hand[i]:juice_up()
+						return true
+					end,
+				}))
+			end
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					blind:wiggle()
 					return true
 				end,
 			}))
-			for i = 1, #context.full_hand do
-				context.full_hand[i].aij_delay_sticker = context.full_hand[i].aij_delay_sticker or {}
-				context.full_hand[i].aij_delay_sticker["aij_pc_eternal"] = true
-				context.full_hand[i]:set_eternal(true)
-				G.E_MANAGER:add_event(Event({
-					trigger = "after",
-					delay = 0.15,
-					func = function()
-						context.full_hand[i].aij_delay_sticker["aij_pc_eternal"] = false
-						context.full_hand[i]:juice_up(0.3, 0.3)
-						return true
-					end,
-				}))
-			end
+			delay(0.75*1.25)
 		end
 	end,
 }

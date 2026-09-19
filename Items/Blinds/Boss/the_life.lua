@@ -18,24 +18,29 @@ local the_life = {
 		if temp then
 			return
 		end
-		if context.after and context.scoring_hand and not temp then
+		if context.before and context.scoring_hand and not temp then
+			blind.triggered = true
+			for i = 1, #context.scoring_hand do
+				-- Don't delay specifically so perishable doesn't tick down after playing hand
+				-- context.scoring_hand[i].aij_delay_sticker = context.full_hand[i].aij_delay_sticker or {}
+				-- context.scoring_hand[i].aij_delay_sticker["aij_pc_perishable"] = true
+				-- context.scoring_hand[i]:set_perishable(true)
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						-- context.scoring_hand[i].aij_delay_sticker["aij_pc_perishable"] = false
+						context.scoring_hand[i]:set_perishable(true)
+						context.scoring_hand[i]:juice_up()
+						return true
+					end,
+				}))
+			end
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					blind:wiggle()
 					return true
 				end,
 			}))
-			for i = 1, #context.scoring_hand do
-				G.E_MANAGER:add_event(Event({
-					trigger = "after",
-					delay = 0.15,
-					func = function()
-						context.scoring_hand[i]:set_perishable(true)
-						context.scoring_hand[i]:juice_up(0.3, 0.3)
-						return true
-					end,
-				}))
-			end
+			delay(0.75*1.25)
 		end
 	end,
 }
