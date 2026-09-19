@@ -54,7 +54,7 @@ local the_loan = {
 						return true
 					end,
 				}))
-				delay(0.75*1.25)
+				delay(0.75 * 1.25)
 			end
 		end
 	end,
