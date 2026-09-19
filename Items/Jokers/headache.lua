@@ -27,7 +27,7 @@ local headache = {
 			},
 		}
 	end,
-	--repurposed from jongluer
+	--repurposed from jongleur
 	add_to_deck = function(self, card, from_debuff)
 		G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + card.ability.extra.reroll_sale
 		G.GAME.current_round.reroll_cost =
