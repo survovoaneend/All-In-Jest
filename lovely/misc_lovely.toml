@@ -196,4 +196,49 @@ match_indent = true
 payload = '''G.GAME.current_round.reroll_cost = (G.GAME.round_resets.temp_reroll_cost or math.max(0, G.GAME.round_resets.reroll_cost)) + G.GAME.current_round.reroll_cost_increase'''
 
 
+# Stop jokers in shop getting deleted when shop slots are removed
+# change_shop_size()
+[[patches]]
+[patches.regex]
+target = "functions/common_events.lua"
+pattern = '''
+(?<indent>[\t ]*)(?<pre>if G\.shop_jokers and G\.shop_jokers.cards then\n[\t ]*if mod < 0)(?<post>.*then)
+'''
+position = "at"
+line_prepend = "$indent"
+payload = '$pre and false$post -- AIJ Override \n'
 
+
+# Set rerolls to zero cost if reroll cost would be below zero
+# Needed now that there are multiple stacking effects that can reduce reroll costs
+# calculate_reroll_cost()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''G.shop_jokers.T.w = math.min(G.GAME.shop.joker_max*1.02*G.CARD_W,4.08*G.CARD_W)
+G.shop:recalculate()'''
+position = "at"
+match_indent = true
+payload = '''
+-- AIJ Override
+if mod > 0 then
+    G.shop_jokers.T.w = math.min(G.GAME.shop.joker_max*1.02*G.CARD_W,4.08*G.CARD_W)
+    G.shop:recalculate()
+end
+-- AIJ Override
+'''
+
+# Recalculate G.shop area on reroll
+# G.FUNCS.reroll_shop()
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "for i = 1, G.GAME.shop.joker_max - #G.shop_jokers.cards do"
+position = "before"
+payload = '''
+do -- AIJ patch
+    G.shop_jokers.T.w = math.min(G.GAME.shop.joker_max*1.02*G.CARD_W,4.08*G.CARD_W)
+    G.shop:recalculate()
+end
+'''
+match_indent = true

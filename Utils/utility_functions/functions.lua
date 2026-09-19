@@ -1721,14 +1721,6 @@ function aij_change_shop_size_advanced(mod, remove_tag, type, rarity, key)
 		end
 	end
 	if G.shop_jokers and G.shop_jokers.cards then
-		if mod < 0 then
-			--Remove jokers in shop
-			for i = #G.shop_jokers.cards, G.GAME.shop.joker_max + 1, -1 do
-				if G.shop_jokers.cards[i] then
-					G.shop_jokers.cards[i]:remove()
-				end
-			end
-		end
 		G.shop_jokers.config.card_limit = G.GAME.shop.joker_max
 		G.shop_jokers.T.w = math.min(G.GAME.shop.joker_max * 1.02 * G.CARD_W, 4.08 * G.CARD_W)
 		G.shop:recalculate()
