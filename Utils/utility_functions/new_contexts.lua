@@ -83,6 +83,8 @@ function SMODS.calculate_main_scoring(context, scoring_hand)
 	end
 end
 
+SMODS.CONTEXT_RETRIGGER_BLACKLIST["aij_retriggered_card"] = true
+
 -- Workshoping
 -- context.chance_trigger.trigger (returns true when 1 in whatever chance is true and false when it fails)
 -- context.chance_trigger.chances (The denomator of the triggered chance)
