@@ -1,4 +1,3 @@
-
 -- Blacklist new contexts from being retriggered
 SMODS.CONTEXT_RETRIGGER_BLACKLIST["aij_retriggered_card"] = true
 
