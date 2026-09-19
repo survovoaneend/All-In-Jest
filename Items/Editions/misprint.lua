@@ -75,7 +75,7 @@ local misprint = {
 		end
 
 		if not card.ability.jest_misprint_active then
-			if card.ability.set == "Enhanced" or card.ability.set == "Default" then
+			if SMODS.is_playing_card(card) then
 				if card.added_to_deck then
 					card:remove_from_deck(true)
 					card.added_to_deck = true
@@ -133,7 +133,7 @@ local misprint = {
 			card.children.center.atlas = SMODS.get_atlas("atlas_name")
 		end
 
-		if card.ability.set == "Enhanced" or card.ability.set == "Default" then
+		if SMODS.is_playing_card(card) then
 			if card.added_to_deck then
 				card:remove_from_deck(true)
 				card.added_to_deck = true
@@ -207,13 +207,9 @@ local aij_card_update_ref = Card.update
 function Card:update(dt)
 	local ref = aij_card_update_ref(self, dt)
 
-	if
-		self.edition
-		and self.edition.aij_misprint
-		and (self.ability.set == "Enhanced" or self.ability.set == "Default" or self.ability.set == "Joker")
-	then
+	if self.edition and self.edition.aij_misprint and (SMODS.is_playing_card(self) or self.ability.set == "Joker") then
 		if tonumber(self.edition.prevmult) ~= self.edition.mult then
-			if self.ability.set == "Enhanced" or self.ability.set == "Default" then
+			if SMODS.is_playing_card(self) then
 				if self.added_to_deck then
 					self:remove_from_deck(true)
 					self.added_to_deck = true

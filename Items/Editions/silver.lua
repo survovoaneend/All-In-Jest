@@ -25,7 +25,7 @@ local silver = {
 	on_apply = function(card)
 		if not card.ability.jest_silver_active then
 			local multiplier = 1 + card.edition.extra
-			if card.ability.set == "Enhanced" or card.ability.set == "Default" then
+			if SMODS.is_playing_card(card) then
 				if card.added_to_deck then
 					card:remove_from_deck(true)
 					card.added_to_deck = true
@@ -73,7 +73,7 @@ local silver = {
 	end,
 	on_remove = function(card)
 		local multiplier = 1 + card.edition.extra
-		if card.ability.set == "Enhanced" or card.ability.set == "Default" then
+		if SMODS.is_playing_card(card) then
 			if card.added_to_deck then
 				card:remove_from_deck(true)
 				card.added_to_deck = true
@@ -133,16 +133,12 @@ local aij_card_update_ref = Card.update
 function Card:update(dt)
 	local ref = aij_card_update_ref(self, dt)
 
-	if
-		self.edition
-		and self.edition.aij_silver
-		and (self.ability.set == "Enhanced" or self.ability.set == "Default" or self.ability.set == "Joker")
-	then
+	if self.edition and self.edition.aij_silver and (SMODS.is_playing_card(self) or self.ability.set == "Joker") then
 		if tonumber(self.edition.prevextra) ~= self.edition.extra then
 			local old_multiplier = 1 + tonumber(self.edition.prevextra)
 			local new_multiplier = 1 + self.edition.extra
 
-			if self.ability.set == "Enhanced" or self.ability.set == "Default" then
+			if SMODS.is_playing_card(self) then
 				if self.added_to_deck then
 					self:remove_from_deck(true)
 					self.added_to_deck = true

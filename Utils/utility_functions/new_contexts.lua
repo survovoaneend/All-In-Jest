@@ -27,7 +27,7 @@ function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_jui
 				jest_destroyed_joker = self,
 			})
 		end
-	elseif self.ability.set == "Enhanced" or self.ability.set == "Default" then
+	elseif SMODS.is_playing_card(self) then
 		SMODS.calculate_context({
 			jest_destroying_or_selling_card = true,
 			jest_destroyed_card = self,
@@ -54,7 +54,7 @@ function Card:shatter()
 				jest_destroyed_joker = self,
 			})
 		end
-	elseif self.ability.set == "Enhanced" or self.ability.set == "Default" then
+	elseif SMODS.is_playing_card(self) then
 		SMODS.calculate_context({
 			jest_destroying_or_selling_card = true,
 			jest_destroyed_card = self,
