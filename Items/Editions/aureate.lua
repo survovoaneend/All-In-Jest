@@ -27,7 +27,7 @@ local aureate = {
 	},
 	loc_vars = function(self, info_queue, card)
 		local money
-		if card and card.ability and (card.ability.set == "Enhanced" or card.ability.set == "Default") then
+		if card and card.ability and SMODS.is_playing_card(card) then
 			money = (((card.edition or {}).money or self.config.money) / (3 / 2)) + 1
 		else
 			money = ((card.edition or {}).money or self.config.money) + 1
@@ -40,10 +40,7 @@ local aureate = {
 		}
 	end,
 	calculate = function(self, card, context)
-		if
-			(card.ability.set == "Enhanced" or card.ability.set == "Default")
-			and (context.main_scoring and context.cardarea == G.play)
-		then
+		if SMODS.is_playing_card(card) and (context.main_scoring and context.cardarea == G.play) then
 			local mod = (((card.edition or {}).money or self.config.money) / (3 / 2)) + 1
 			local max = (card.edition or {}).max or self.config.max
 			local total_money = G.GAME.dollars + (G.GAME.dollar_buffer or 0)
