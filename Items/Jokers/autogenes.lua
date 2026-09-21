@@ -61,7 +61,7 @@ local autogenes = {
 							end
 						end
 						G.FUNCS.overlay_menu({
-							config = { no_esc = true, offset = {x=1,y=10} },
+							config = { no_esc = true, offset = { x = 1, y = 10 } },
 							definition = SMODS.jest_no_back_card_collection_UIBox(chosen_cards, { width }, {
 								no_materialize = true,
 								from_area = true,
