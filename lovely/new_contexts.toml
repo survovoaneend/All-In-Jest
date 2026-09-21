@@ -234,6 +234,40 @@ end
 '''
 match_indent = true
 
+
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = '''if next(playing_cards) then SMODS.calculate_context({*'''
+position = "after"
+payload = '''
+SMODS.calculate_context({scoring_hand = cards, aij_destroying_cards = true, removed = queued_for_destruction})
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = '''return queued_for_destruction'''
+position = "before"
+payload = '''
+do
+    areas = {}
+    for k, v in pairs(queued_for_destruction) do
+        areas[k] = v.area
+    end
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            SMODS.calculate_context({scoring_hand = cards, aij_after_destroying_cards = true, removed = queued_for_destruction, removed_areas = areas})
+            return true
+        end,
+    }))
+end
+'''
+match_indent = true
+
+
 # Allows for effects to "block" money effects to perform their own, similar to above
 # Currently not used for anything as of 0.7
 # SMODS.calculate_individual_effect()

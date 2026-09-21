@@ -30,22 +30,38 @@ local truhan = {
 	end,
 
 	calculate = function(self, card, context)
-		if context.jest_destroying_or_selling_joker then
-			if
-				context.jest_destroyed_joker.ability.jest_held_for
-				and tonumber(context.jest_destroyed_joker.ability.jest_held_for) > 0
-			then
+		if context.selling_card and (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit then
+			local sold_card = context.card
+			if sold_card.ability.set == "Joker" then
 				SMODS.scale_card(card, {
 					ref_table = card.ability.extra,
 					ref_value = "xmult",
 					scalar_value = "xmult_mod",
 					operation = function(ref_table, ref_value, initial, change)
 						ref_table[ref_value] = initial
-							+ (change * (tonumber(context.jest_destroyed_joker.ability.jest_held_for) or 0))
+							+ (change * (tonumber(sold_card.ability.jest_held_for) or 0))
 					end,
 				})
 			end
+			return nil, true
 		end
+		if context.aij_after_destroying_cards then
+			for _, destroyed_card in ipairs(context.removed) do
+				if destroyed_card.ability.set == "Joker" then
+					SMODS.scale_card(card, {
+						ref_table = card.ability.extra,
+						ref_value = "xmult",
+						scalar_value = "xmult_mod",
+						operation = function(ref_table, ref_value, initial, change)
+							ref_table[ref_value] = initial
+								+ (change * (tonumber(destroyed_card.ability.jest_held_for) or 0))
+						end,
+					})
+				end
+			end
+			return nil, true
+		end
+
 		if context.joker_main then
 			return {
 				xmult = card.ability.extra.xmult,

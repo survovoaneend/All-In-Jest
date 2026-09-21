@@ -31,7 +31,7 @@ local enraging_photo = {
 	end,
 
 	calculate = function(self, card, context)
-		if context.jest_destroying_or_selling_joker or context.remove_playing_cards or context.selling_card then
+		if (context.selling_card or context.aij_destroying_cards) and not context.blueprint then
 			if not card.ability.extra.active then
 				card.ability.extra.active = true
 				local eval = function()

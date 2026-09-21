@@ -1,0 +1,293 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+
+# Fixed a number of vanilla effects that do not call SMODS.destroy_cards
+# Why SMODS has not done this yet is beyond me
+
+# Hanged Man
+# Card.use_consumeable()
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+G.E_MANAGER:add_event(Event({
+    trigger = 'after',
+    delay = 0.2,
+    func = function() 
+        for i=#G.hand.highlighted, 1, -1 do
+            local card = G.hand.highlighted[i]
+            if SMODS.shatters(card) then
+                card:shatter()
+            else
+                card:start_dissolve(nil, i == #G.hand.highlighted)
+            end
+        end
+        return true end }))
+'''
+payload = '''
+--[[
+G.E_MANAGER:add_event(Event({
+    trigger = 'after',
+    delay = 0.2,
+    func = function() 
+        for i=#G.hand.highlighted, 1, -1 do
+            local card = G.hand.highlighted[i]
+            if SMODS.shatters(card) then
+                card:shatter()
+            else
+                card:start_dissolve(nil, i == #G.hand.highlighted)
+            end
+        end
+        return true end }))
+]]--
+SMODS.destroy_cards(G.hand.highlighted, {delay = 0.2}) -- AIJ Override
+'''
+
+# Immolate
+# Card.use_consumeable()
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+G.E_MANAGER:add_event(Event({
+    trigger = 'after',
+    delay = 0.1,
+    func = function() 
+        for i=#destroyed_cards, 1, -1 do
+            local card = destroyed_cards[i]
+            if SMODS.shatters(card) then
+                card:shatter()
+            else
+                card:start_dissolve(nil, i == #destroyed_cards)
+            end
+        end
+        return true end }))
+'''
+payload = '''
+--[[ 
+G.E_MANAGER:add_event(Event({
+    trigger = 'after',
+    delay = 0.1,
+    func = function() 
+        for i=#destroyed_cards, 1, -1 do
+            local card = destroyed_cards[i]
+            if SMODS.shatters(card) then
+                card:shatter()
+            else
+                card:start_dissolve(nil, i == #destroyed_cards)
+            end
+        end
+        return true end }))
+]]--
+delay(0.1)
+SMODS.destroy_cards(destroyed_cards) -- AIJ Override
+'''
+
+# Remove what would otherwise be an unecessary context call (1/2)
+# This is for hanged man and immolate
+# Card.use_consumeable()
+[[patches]]
+[patches.regex]
+target = 'card.lua'
+position = 'at'
+pattern = '''(SMODS\.calculate_context\(\{ remove_playing_cards = true, removed = destroyed_cards.*)'''
+payload = '''-- AIJ Override -- $1'''
+
+
+# Familiar, Incantation and Grim
+# SMODs local function random_destroy()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+match_indent = true
+position = 'at'
+pattern = '''
+G.E_MANAGER:add_event(Event({
+    trigger = 'after',
+    delay = 0.1,
+    func = function()
+        for i = #destroyed_cards, 1, -1 do
+            local card = destroyed_cards[i]
+            if SMODS.shatters(card) then
+                card:shatter()
+            else
+                card:start_dissolve(nil, i ~= #destroyed_cards)
+            end
+        end
+        return true
+    end
+}))
+'''
+payload = '''
+--[[
+G.E_MANAGER:add_event(Event({
+    trigger = 'after',
+    delay = 0.1,
+    func = function()
+        for i = #destroyed_cards, 1, -1 do
+            local card = destroyed_cards[i]
+            if SMODS.shatters(card) then
+                card:shatter()
+            else
+                card:start_dissolve(nil, i ~= #destroyed_cards)
+            end
+        end
+        return true
+    end
+}))
+]]--
+delay(0.1)
+SMODS.destroy_cards(destroyed_cards) -- AIJ Override
+'''
+
+# Remove what would otherwise be an unecessary context call (2/2)
+# This one is for Grim, Incantation, & Familiar
+# SMODs overrides
+[[patches]]
+[patches.regex]
+target = '=[SMODS _ "src/game_object.lua"]'
+position = 'at'
+times = 3
+pattern = '''(SMODS\.calculate_context\(\{ remove_playing_cards = true, removed = destroyed_cards.*)'''
+payload = '''-- AIJ Override -- $1'''
+
+
+# Ankh
+# Card.use_consumeable()
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = 'v:start_dissolve(nil, _first_dissolve)'
+payload = '''
+-- v:start_dissolve(nil, _first_dissolve)
+SMODS.destroy_cards(v, {silent = _first_dissolve, immediate = true}) -- AIJ Override
+'''
+
+# Hex
+# Card.use_consumeable()
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = 'if v ~= eligible_card and (not SMODS.is_eternal(v, self)) then v.getting_sliced = true; v:start_dissolve(nil, _first_dissolve);_first_dissolve = true end'
+payload = '''
+-- if v ~= eligible_card and (not SMODS.is_eternal(v, self)) then v.getting_sliced = true; v:start_dissolve(nil, _first_dissolve);_first_dissolve = true end
+if v ~= eligible_card and (not SMODS.is_eternal(v, self)) then v.getting_sliced = true; SMODS.destroy_cards(v, {silent = _first_dissolve, immediate = true});_first_dissolve = true end -- AIJ Override
+'''
+
+# Madness
+# Card.calculate()
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = 'joker_to_destroy:start_dissolve({G.C.RED}, nil, 1.6)'
+payload = '''
+-- joker_to_destroy:start_dissolve({G.C.RED}, nil, 1.6)
+SMODS.destroy_cards(joker_to_destroy, {colours={G.C.RED}, dissolve_time_fac=1.6, immediate = true}) -- AIJ Override
+'''
+
+# Ceremonial Dagger
+# Card.calculate()
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = 'sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)'
+payload = '''
+-- sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)
+SMODS.destroy_cards(sliced_card, {colours={HEX("57ecab")}, dissolve_time_fac=1.6, immediate = true}) -- AIJ Override
+'''
+
+# Trading Card (and other on discard destruction effects)
+# Card.calculate()
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if SMODS.shatters(G.hand.highlighted[i]) then
+    G.hand.highlighted[i]:shatter()
+else
+    G.hand.highlighted[i]:start_dissolve()
+end
+'''
+payload = '''
+--[[
+if SMODS.shatters(G.hand.highlighted[i]) then
+    G.hand.highlighted[i]:shatter()
+else
+    G.hand.highlighted[i]:start_dissolve()
+end
+]]--
+SMODS.destroy_cards(G.hand.highlighted[i], {immediate = true}) -- AIJ Override
+'''
+
+# Remove what would otherwise be an unecessary context call (3/4)
+# This one is for Trading Card
+# G.FUNCS.discard_cards_from_highlighted()
+[[patches]]
+[patches.regex]
+target = 'functions/state_events.lua'
+position = 'at'
+pattern = '''(SMODS\.calculate_context\(\{remove_playing_cards = true, removed = destroyed_cards.*)'''
+payload = '''-- AIJ Override -- $1'''
+
+
+# Glass Cards (and other post-hand destruction effects)
+# Card.calculate()
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if cards_destroyed[i].shattered then
+    cards_destroyed[i]:shatter()
+else
+    cards_destroyed[i]:start_dissolve()
+end
+'''
+payload = '''
+--[[
+if cards_destroyed[i].shattered then
+    cards_destroyed[i]:shatter()
+else
+    cards_destroyed[i]:start_dissolve()
+end
+]]--
+SMODS.destroy_cards(cards_destroyed[i], {immediate = true}) -- AIJ Override
+'''
+
+# Remove what would otherwise be an unecessary context call (4/4)
+# This one is for glass cards and similar after hand destruction effects
+# G.FUNCS.discard_cards_from_highlighted()
+[[patches]]
+[patches.regex]
+target = 'functions/state_events.lua'
+position = 'at'
+pattern = '''(SMODS\.calculate_context\(\{scoring_hand = scoring_hand, remove_playing_cards = true, removed = cards_destroyed.*)'''
+payload = '''-- AIJ Override -- $1'''
+
+# Glass Joker
+# Remove unecessary context check when using hanged man
+# This is a bug that is fixed when using SMODS.destroy_cards
+[[patches]]
+[patches.regex]
+target = 'card.lua'
+position = 'at'
+pattern = '''if (self\.ability\.name == 'Glass Joker' and not context\.blueprint and context\.consumeable\.ability\.name == 'The Hanged Man'.*)'''
+payload = '''if false and $1 -- AIJ Override'''
