@@ -128,7 +128,7 @@ end
 
 local smods_add_to_pool_ref = SMODS.add_to_pool
 function SMODS.add_to_pool(prototype_obj, ...)
-	if G.GAME.all_in_jest.banned_keys_barathrum[prototype_obj.key] then
+	if G.GAME.all_in_jest.banned_keys_barathrum and G.GAME.all_in_jest.banned_keys_barathrum[prototype_obj.key] then
 		return false
 	else
 		return smods_add_to_pool_ref(prototype_obj, ...)
