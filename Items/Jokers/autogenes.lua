@@ -35,28 +35,34 @@ local autogenes = {
 			for i = 1, triggers do
 				G.E_MANAGER:add_event(Event({
 					trigger = "after",
+					delay = 0.5,
 					func = function()
 						local chosen_cards = {}
-						for i = 1, math.min(3, #G.deck.cards) do
-							local vaild_cards = {}
-							for k, v in pairs(G.deck.cards) do
-								if #chosen_cards <= 0 then
-									vaild_cards[#vaild_cards + 1] = v
-								else
-									for _k, _v in pairs(chosen_cards) do
-										if _v ~= v then
-											vaild_cards[#vaild_cards + 1] = v
-										end
-									end
+						local vaild_cards = {}
+						for k, v in ipairs(G.deck.cards) do
+							vaild_cards[#vaild_cards + 1] = v
+						end
+						for i = 1, math.min(card.ability.extra.choose_amt, #G.deck.cards) do
+							local choice = pseudorandom_element(vaild_cards, pseudoseed("jest_autogenes"))
+							chosen_cards[#chosen_cards + 1] = choice
+							for k, v in ipairs(vaild_cards) do
+								if v == choice then
+									table.remove(vaild_cards, k)
+									break
 								end
 							end
-							chosen_cards[#chosen_cards + 1] =
-								pseudorandom_element(vaild_cards, pseudoseed("jest_autogenes"))
 						end
 						G.SETTINGS.paused = true
+						local width, w_mod, offset = 5, 1, -1.5
+						if card.ability.extra.choose_amt >= 6 then
+							width, w_mod = 6, 0.8
+							if card.ability.extra.choose_amt > 6 then
+								offset = -2.25
+							end
+						end
 						G.FUNCS.overlay_menu({
-							config = { no_esc = true },
-							definition = SMODS.jest_no_back_card_collection_UIBox(chosen_cards, { 5, 5, 5 }, {
+							config = { no_esc = true, offset = {x=1,y=10} },
+							definition = SMODS.jest_no_back_card_collection_UIBox(chosen_cards, { width }, {
 								no_materialize = true,
 								from_area = true,
 								hide_single_page = true,
@@ -73,9 +79,12 @@ local autogenes = {
 										return a:get_nominal("suit") > b:get_nominal("suit")
 									end)
 								end,
+								w_mod = w_mod,
 								h_mod = 1.05,
 							}),
 						})
+						G.OVERLAY_MENU.alignment.offset.y = offset
+						G.OVERLAY_MENU:align_to_major()
 						return true
 					end,
 				}))
