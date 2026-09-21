@@ -41,8 +41,8 @@ local anagraph = {
 							end,
 						}))
 					end,
-					message = localize("k_again_ex")
-				}
+					message = localize("k_again_ex"),
+				},
 			}
 		end
 		if context.aij_after_destroying_cards and not context.blueprint then
@@ -75,7 +75,7 @@ local anagraph = {
 					message = localize("k_again_ex"),
 					func = function()
 						SMODS.destroy_cards(destroy_cards_again)
-					end
+					end,
 				}
 			end
 		end

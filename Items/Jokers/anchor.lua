@@ -18,9 +18,7 @@ local anchor = {
 	loc_vars = function(self, info_queue, card) end,
 
 	calculate = function(self, card, context)
-		if
-			context.joker_type_destroyed and not context.blueprint
-		then
+		if context.joker_type_destroyed and not context.blueprint then
 			local card_to_be_destroyed = context.card
 			local source_card = context.blueprint_card or card
 

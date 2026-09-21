@@ -23,7 +23,10 @@ local funny_bone = {
 	end,
 
 	calculate = function(self, card, context)
-		if context.selling_card and (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit then
+		if
+			context.selling_card
+			and (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit
+		then
 			local sold_card = context.card
 			if sold_card.ability.set == "Joker" then
 				G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
@@ -38,7 +41,7 @@ local funny_bone = {
 					end,
 				}))
 				return {
-					message = localize("k_plus_tarot")
+					message = localize("k_plus_tarot"),
 				}
 			end
 		end

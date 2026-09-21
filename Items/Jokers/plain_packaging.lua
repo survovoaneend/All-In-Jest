@@ -43,7 +43,7 @@ local plain_packaging = {
 					times = 1
 				end
 			end
-			
+
 			for _ = 1, times do
 				if (card.ability.extra.mult - card.ability.extra.mult_decrease) <= 0 then
 					SMODS.destroy_cards(card, nil, nil, true)

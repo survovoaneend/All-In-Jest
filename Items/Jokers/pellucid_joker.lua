@@ -1,4 +1,3 @@
-
 local create_editioned_playing_card = function(edition, juice_card)
 	local new_card = create_playing_card({
 		front = pseudorandom_element(G.P_CARDS, pseudoseed("pellucid_joker")),
@@ -38,7 +37,10 @@ local pellucid_joker = {
 	loc_vars = function(self, info_queue, card) end,
 
 	calculate = function(self, card, context)
-		if context.selling_card and (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit then
+		if
+			context.selling_card
+			and (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit
+		then
 			local sold_card = context.card
 			if sold_card.ability.set == "Joker" and sold_card.edition ~= nil then
 				local juice_card = context.blueprint_card or card
@@ -49,7 +51,7 @@ local pellucid_joker = {
 					end,
 				}))
 				return {
-					message = "Test!"
+					message = "Test!",
 				}
 			end
 		end
@@ -63,9 +65,7 @@ local pellucid_joker = {
 							return true
 						end,
 					}))
-					SMODS.calculate_effect(
-						{ message = "Test!", colour = G.C.PURPLE }, juice_card
-					)
+					SMODS.calculate_effect({ message = "Test!", colour = G.C.PURPLE }, juice_card)
 				end
 			end
 			return nil, true

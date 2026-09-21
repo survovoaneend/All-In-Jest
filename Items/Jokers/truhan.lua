@@ -30,7 +30,10 @@ local truhan = {
 	end,
 
 	calculate = function(self, card, context)
-		if context.selling_card and (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit then
+		if
+			context.selling_card
+			and (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit
+		then
 			local sold_card = context.card
 			if sold_card.ability.set == "Joker" then
 				SMODS.scale_card(card, {
@@ -38,8 +41,7 @@ local truhan = {
 					ref_value = "xmult",
 					scalar_value = "xmult_mod",
 					operation = function(ref_table, ref_value, initial, change)
-						ref_table[ref_value] = initial
-							+ (change * (tonumber(sold_card.ability.jest_held_for) or 0))
+						ref_table[ref_value] = initial + (change * (tonumber(sold_card.ability.jest_held_for) or 0))
 					end,
 				})
 			end
