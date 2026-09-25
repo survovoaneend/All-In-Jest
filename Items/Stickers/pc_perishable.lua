@@ -26,9 +26,7 @@ end
 
 local set_perishable_ref = Card.set_perishable
 function Card:set_perishable(_perishable)
-	if
-		SMODS.is_playing_card(self)
-	then
+	if SMODS.is_playing_card(self) then
 		self.ability.aij_pc_perishable = nil
 		if not self.ability.aij_pc_eternal then
 			self.ability.aij_pc_perishable = _perishable
