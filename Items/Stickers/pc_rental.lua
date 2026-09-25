@@ -9,9 +9,7 @@ end
 
 local set_rental_ref = Card.set_rental
 function Card:set_rental(_rental)
-	if
-		SMODS.is_playing_card(self)
-	then
+	if SMODS.is_playing_card(self) then
 		self.ability.aij_pc_rental = _rental
 	else
 		return set_rental_ref(self, _rental)
