@@ -10,9 +10,7 @@ end
 local set_rental_ref = Card.set_rental
 function Card:set_rental(_rental)
 	if
-		self.config.center.set == "Default"
-		or self.config.center.set == "Base"
-		or self.config.center.set == "Enhanced"
+		SMODS.is_playing_card(self)
 	then
 		self.ability.aij_pc_rental = _rental
 	else

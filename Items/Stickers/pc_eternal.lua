@@ -1,9 +1,7 @@
 local set_eternal_ref = Card.set_eternal
 function Card:set_eternal(_eternal)
 	if
-		self.config.center.set == "Default"
-		or self.config.center.set == "Base"
-		or self.config.center.set == "Enhanced"
+		SMODS.is_playing_card(self)
 	then
 		self.ability.aij_pc_eternal = nil
 		if not self.ability.aij_pc_perishable then
