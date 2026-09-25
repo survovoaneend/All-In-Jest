@@ -48,7 +48,7 @@ position = "before"
 match_indent = true
 payload = '''
 elseif _c.key == 'm_aij_canvas' and specific_vars.front_hidden then full_UI_table.name = true
-elseif (card and card.config and card.config.aij_other_center) and ((card.config.aij_other_center['center'].key == 'm_aij_canvas' and specific_vars.front_hidden) or (card.config.aij_other_center['center'].name == 'Stone Card' or card.config.aij_other_center['center'].replace_base_card)) then full_UI_table.name = true
+elseif (card and card:should_hide_front()) then full_UI_table.name = true
 elseif (card and card.ability and card.ability.numbertaker_rankless) then
     full_UI_table.name = {}
     localize{type = 'other', key = 'aij_suit_only_playing_card', set = 'Other', nodes = full_UI_table.name, vars = {localize(specific_vars.suit, 'suits_plural'), colours = {specific_vars.colour}}}
