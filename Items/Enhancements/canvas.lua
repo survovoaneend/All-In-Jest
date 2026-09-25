@@ -129,7 +129,7 @@ local canvas = {
 						end
 					end
 				end
-				
+
 				if new_suit or new_rank or changed_random_aij_deck_skin then
 					assert(SMODS.change_base(card, new_suit, new_rank))
 				end
