@@ -241,23 +241,20 @@ function G.UIDEF.SMODS_current_stake()
 				local chip_desc = {}
 				localize({ type = "descriptions", key = v, set = "PolyStakeChips", nodes = chip_desc })
 				if G.GAME.aij_poly_chips[v] > 1 then
-					table.insert(
-						chip_desc,
+					table.insert(chip_desc, {
 						{
-							{
-								n = G.UIT.T,
-								config = {
-									scale = 0.32,
-									colour = G.C.UI.TEXT_INACTIVE,
-									text = localize({
-										type = "variable",
-										key = "a_aij_applied_stake",
-										vars = { G.GAME.aij_poly_chips[v] },
-									}),
-								},
+							n = G.UIT.T,
+							config = {
+								scale = 0.32,
+								colour = G.C.UI.TEXT_INACTIVE,
+								text = localize({
+									type = "variable",
+									key = "a_aij_applied_stake",
+									vars = { G.GAME.aij_poly_chips[v] },
+								}),
 							},
-						}
-					)
+						},
+					})
 				end
 				local chip_sprite = SMODS.create_sprite(0, 0, 0.8, 0.8, chip.atlas, chip.pos)
 				chip_sprite.states.drag.can = false

@@ -268,54 +268,48 @@ function All_in_Jest.create_polychip_unlock(chip)
 			return true
 		end,
 	}))
-	G.E_MANAGER:add_event(
-		Event({
-			timer = "REAL",
-			blockable = false,
-			blocking = false,
-			trigger = "after",
-			delay = 0.6,
-			func = function()
-				if G.OVERLAY_MENU and G.OVERLAY_MENU.joker_unlock_table == chip_card.ID then
-					locked_card:juice_up(0.3, 0.2)
-					play_sound("cancel", 0.8)
-				end
-				return true
-			end,
-		})
-	)
-	G.E_MANAGER:add_event(
-		Event({
-			timer = "REAL",
-			blockable = false,
-			blocking = false,
-			trigger = "after",
-			delay = 1.15,
-			func = function()
-				if G.OVERLAY_MENU and G.OVERLAY_MENU.joker_unlock_table == chip_card.ID then
-					locked_card:juice_up(0.45, 0.3)
-					play_sound("cancel", 0.92)
-				end
-				return true
-			end,
-		})
-	)
-	G.E_MANAGER:add_event(
-		Event({
-			timer = "REAL",
-			blockable = false,
-			blocking = false,
-			trigger = "after",
-			delay = 1.8,
-			func = function()
-				if G.OVERLAY_MENU and G.OVERLAY_MENU.joker_unlock_table == chip_card.ID then
-					locked_card:juice_up(0.6, 0.4)
-					play_sound("cancel", 1.03)
-				end
-				return true
-			end,
-		})
-	)
+	G.E_MANAGER:add_event(Event({
+		timer = "REAL",
+		blockable = false,
+		blocking = false,
+		trigger = "after",
+		delay = 0.6,
+		func = function()
+			if G.OVERLAY_MENU and G.OVERLAY_MENU.joker_unlock_table == chip_card.ID then
+				locked_card:juice_up(0.3, 0.2)
+				play_sound("cancel", 0.8)
+			end
+			return true
+		end,
+	}))
+	G.E_MANAGER:add_event(Event({
+		timer = "REAL",
+		blockable = false,
+		blocking = false,
+		trigger = "after",
+		delay = 1.15,
+		func = function()
+			if G.OVERLAY_MENU and G.OVERLAY_MENU.joker_unlock_table == chip_card.ID then
+				locked_card:juice_up(0.45, 0.3)
+				play_sound("cancel", 0.92)
+			end
+			return true
+		end,
+	}))
+	G.E_MANAGER:add_event(Event({
+		timer = "REAL",
+		blockable = false,
+		blocking = false,
+		trigger = "after",
+		delay = 1.8,
+		func = function()
+			if G.OVERLAY_MENU and G.OVERLAY_MENU.joker_unlock_table == chip_card.ID then
+				locked_card:juice_up(0.6, 0.4)
+				play_sound("cancel", 1.03)
+			end
+			return true
+		end,
+	}))
 
 	G.E_MANAGER:add_event(Event({
 		timer = "REAL",
@@ -344,37 +338,33 @@ function All_in_Jest.create_polychip_unlock(chip)
 			return true
 		end,
 	}))
-	G.E_MANAGER:add_event(
-		Event({
-			timer = "REAL",
-			blockable = false,
-			blocking = false,
-			trigger = "after",
-			delay = 2.78,
-			func = function()
-				if G.OVERLAY_MENU and G.OVERLAY_MENU.joker_unlock_table == chip_card.ID then
-					chip_card.no_ui = nil
-					play_sound("timpani", 0.8, 1.8)
-				end
-				return true
-			end,
-		})
-	)
-	G.E_MANAGER:add_event(
-		Event({
-			timer = "REAL",
-			blockable = false,
-			blocking = false,
-			trigger = "after",
-			delay = 2.95,
-			func = function()
-				if G.OVERLAY_MENU and G.OVERLAY_MENU.joker_unlock_table == chip_card.ID then
-					play_sound("timpani", 1, 1.8)
-				end
-				return true
-			end,
-		})
-	)
+	G.E_MANAGER:add_event(Event({
+		timer = "REAL",
+		blockable = false,
+		blocking = false,
+		trigger = "after",
+		delay = 2.78,
+		func = function()
+			if G.OVERLAY_MENU and G.OVERLAY_MENU.joker_unlock_table == chip_card.ID then
+				chip_card.no_ui = nil
+				play_sound("timpani", 0.8, 1.8)
+			end
+			return true
+		end,
+	}))
+	G.E_MANAGER:add_event(Event({
+		timer = "REAL",
+		blockable = false,
+		blocking = false,
+		trigger = "after",
+		delay = 2.95,
+		func = function()
+			if G.OVERLAY_MENU and G.OVERLAY_MENU.joker_unlock_table == chip_card.ID then
+				play_sound("timpani", 1, 1.8)
+			end
+			return true
+		end,
+	}))
 
 	G.your_collection:emplace(chip_card)
 	G.your_collection:emplace(locked_card)
