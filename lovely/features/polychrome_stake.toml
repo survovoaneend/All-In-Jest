@@ -1,0 +1,167 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+# Lock polychrome stake behind gold stake
+# (This patch will eventually be unnecessary)
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_objects/runselectpage.lua"]'
+pattern = "if save_data and save_data[stake.key] then"
+position = "before"
+payload = '''
+if stake.key == 'stake_aij_polychrome' and not save_data['stake_gold'] then
+    unlocked = false
+end
+'''
+match_indent = true
+
+# Add polychrome shader to polychrome chip
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_objects/runselectpage.lua"]'
+pattern = "if card.config.center.shiny then Sprite.draw_shader(_sprite, 'voucher', nil, _sprite.ARGS.send_to_shader) end"
+position = "after"
+payload = '''
+if stake_key == 'stake_aij_polychrome' then Sprite.draw_shader(_sprite, 'polychrome', nil, _sprite.ARGS.send_to_shader) end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_objects/runselectpage.lua"]'
+pattern = "if card.config.center.shiny then Sprite.draw_shader(_sprite, 'negative_shine', nil, _sprite.ARGS.send_to_shader) end"
+position = "after"
+payload = '''
+if stake_key == 'stake_aij_polychrome' and unlocked then Sprite.draw_shader(_sprite, 'polychrome', nil, _sprite.ARGS.send_to_shader) end
+'''
+match_indent = true
+
+# Offset modifier tooltips upwards
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = "(self.params.run_select_selection_choice and self.params.stake) and 'bm' or"
+position = "after"
+payload = '''
+(self.params.aij_poly_chip) and 'tm' or
+'''
+match_indent = true
+
+# Allow hovering over the chips in the poly stake tower
+[[patches]]
+[patches.pattern]
+target = "engine/controller.lua"
+pattern = "if self.hovering.target and self.hovering.target.role and self.hovering.target.role.major and self.hovering.target.role.major.params and self.hovering.target.role.major.params.stake and self.hovering.target ~= self.hovering.prev_target then self.hovering.target.role.major:hover() end"
+position = "after"
+payload = '''
+if self.hovering.prev_target and self.hovering.prev_target.role and self.hovering.prev_target.role.major and self.hovering.prev_target.role.major.params and self.hovering.prev_target.role.major.params.aij_poly_chip and self.hovering.target ~= self.hovering.prev_target then self.hovering.prev_target.role.major:stop_hover() end
+if self.hovering.target and self.hovering.target.role and self.hovering.target.role.major and self.hovering.target.role.major.params and self.hovering.target.role.major.params.aij_poly_chip and self.hovering.target ~= self.hovering.prev_target then self.hovering.target.role.major:hover() end
+'''
+match_indent = true
+
+# Fix locked description for polychrome stake
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils/run_select.lua"]'
+pattern = "local split = SMODS.split_string(string_output)"
+position = "before"
+payload = '''
+if self.config.center.key == 'stake_aij_polychrome' then
+    string_output = string_output .. localize({type='name_text', set='Stake', key='stake_gold'})
+end
+'''
+match_indent = true
+
+# Localize variables in polychrome sticker tooltip
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.sticker or ((self.sticker_run and self.sticker_run~='NONE') and G.SETTINGS.run_stake_stickers)  then loc_vars = loc_vars or {}; loc_vars.sticker=(self.sticker or self.sticker_run) end"
+position = "after"
+payload = '''
+if self.aij_poly_sticker and G.SETTINGS.run_stake_stickers then
+    loc_vars = loc_vars or {}
+    loc_vars.aij_poly_sticker = true
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if specific_vars and specific_vars.sticker then info_queue[#info_queue+1] = {key = string.lower(specific_vars.sticker)..'_sticker', set = 'Other'} end        "
+position = "after"
+payload = '''
+if specific_vars and specific_vars.aij_poly_sticker then
+    local points = G.PROFILES[G.SETTINGS.profile].joker_usage[_c.key] and G.PROFILES[G.SETTINGS.profile].joker_usage[_c.key].aij_poly_points or 0
+    info_queue[#info_queue + 1] = {key = 'aij_polychrome_sticker', set = 'Other', vars = {points}}
+end
+'''
+match_indent = true
+
+# Give polychrome sticker
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "self.sticker_run = get_joker_win_sticker(self.config.center) or 'NONE'"
+position = "after"
+payload = '''
+if (G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center.key] and G.PROFILES[G.SETTINGS.profile].joker_usage[self.config.center.key].aij_poly_points or 0) > 0 then
+    self.aij_poly_sticker = true
+end
+'''
+match_indent = true
+
+# Draw polychrome sticker
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.ability.name == 'The Soul' and (self.config.center.discovered or self.bypass_discovery_center) then"
+position = "before"
+payload = '''
+if self.aij_poly_sticker and G.SETTINGS.run_stake_stickers then
+    G.shared_stickers['aij_polychrome'].role.draw_major = self
+    G.shared_stickers['aij_polychrome']:draw_shader('dissolve', nil, nil, nil, self.children.center)
+    G.shared_stickers['aij_polychrome']:draw_shader('polychrome', nil, self.ARGS.send_to_shader, nil, self.children.center)
+end
+
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/card_draw.lua"]'
+pattern = "for k, v in pairs(SMODS.Stickers) do"
+position = "before"
+payload = '''
+if self.aij_poly_sticker and G.SETTINGS.run_stake_stickers then
+    G.shared_stickers['aij_polychrome'].role.draw_major = self
+    G.shared_stickers['aij_polychrome']:draw_shader('dissolve', nil, nil, nil, self.children.center)
+    G.shared_stickers['aij_polychrome']:draw_shader('polychrome', nil, self.ARGS.send_to_shader, nil, self.children.center)
+end
+
+'''
+match_indent = true
+
+# Remove polychrome stake from counting towards profile progress
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "G.PROGRESS.deck_stakes.of = G.PROGRESS.deck_stakes.of + #G.P_CENTER_POOLS.Stake"
+position = "after"
+payload = '''
+G.PROGRESS.deck_stakes.of = G.PROGRESS.deck_stakes.of - 1 -- don't count Polychrome stake
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "G.PROGRESS.joker_stickers.of = G.PROGRESS.joker_stickers.of + #G.P_CENTER_POOLS.Stake"
+position = "after"
+payload = '''
+G.PROGRESS.joker_stickers.of = G.PROGRESS.joker_stickers.of - 1 -- don't count Polychrome stake
+'''
+match_indent = true

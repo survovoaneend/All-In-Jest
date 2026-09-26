@@ -215,6 +215,13 @@ return {
 			k_aij_destroyed_ex = "Destroyed!",
 			k_aij_plus_consumable = "+1 Consumable", -- Dizzy Lizzy and Pour One Out
 			k_aij_create = "Create", -- Nonstandard tag
+			-- Polychrome Stake
+			k_aij_points = "Points",
+			k_aij_total_points = "Current Total",
+			k_aij_pb = "Personal Best",
+			k_aij_all_time = "All Time",
+			k_aij_disable_all = "Disable All",
+			run_select_aij_polychrome_settings = "Customize",
 		},
 		v_dictionary = {
 			a_aij_exp_mult = "^#1# Mult",
@@ -252,6 +259,9 @@ return {
 
 			a_aij_slots_minus = "-#1# Slots",
 			a_aij_slots = "+#1# Slots",
+
+			a_aij_points = "#1# Points",
+			a_aij_applied_stake = "(Applied #1# times)",
 		},
 		challenge_names = {
 			c_aij_bananarama = "Bananarama",
@@ -590,7 +600,20 @@ return {
 					"{s:0.8}Applies all previous Stakes",
 				},
 			},
-		} or {},
+			stake_aij_polychrome = {
+				name = "Polychrome Stake",
+				text = {
+					"{C:dark_edition}Customizable{} difficulty",
+				},
+			},
+		} or {
+			stake_aij_polychrome = {
+				name = "Polychrome Stake",
+				text = {
+					"{C:dark_edition}Customizable{} difficulty",
+				},
+			},
+		},
 		Partner = {
 			pnr_aij_simply = {
 				name = "Simply",
@@ -10804,6 +10827,102 @@ return {
 				},
 			},
 		},
+		PolyStakeChips = {
+			locked = {
+				name = "Locked",
+				text = {
+					"Win a run with",
+					"{C:attention}#1#+{} Points",
+					"to unlock",
+				},
+			},
+			aij_up_the_ante = {
+				name = "Up The Ante",
+				text = {
+					"Required score scales",
+					"faster for each {C:attention}Ante",
+				},
+			},
+			aij_sloth = {
+				name = "Sloth",
+				text = {
+					"{C:attention}30%{} chance for Jokers",
+					"in shops or booster packs",
+					"to have an {C:attention}Eternal{} sticker",
+					"{C:inactive,s:0.8}(Can't be sold or destroyed)",
+				},
+			},
+			aij_gluttony = {
+				name = "Gluttony",
+				text = {
+					"{C:attention}30%{} chance for Jokers",
+					"in shops or booster packs",
+					"to have a {C:attention}Perishable{} sticker",
+					"{C:inactive,s:0.8}(Debuffed after 5 Rounds)",
+				},
+			},
+			aij_greed = {
+				name = "Greed",
+				text = {
+					"{C:attention}30%{} chance for Jokers",
+					"in shops or booster packs",
+					"to have a {C:attention}Rental{} sticker",
+					"{C:inactive,s:0.8}(Costs {C:money,s:0.8}$3{C:inactive,s:0.8} per round)",
+				},
+			},
+			aij_red_challenge = {
+				name = "Red Challenge",
+				text = {
+					"{C:attention}Small Blind{} gives",
+					"no reward money",
+				},
+			},
+			aij_broken_foot = {
+				name = "Broken Foot",
+				text = {
+					"{C:red}-1{} Discard",
+					"per round",
+				},
+			},
+			aij_the_pit = {
+				name = "The Pit",
+				text = {
+					"{C:attention}Boss Blind{} on Ante {C:attention}4",
+					"or {C:attention}5{} is replaced by",
+					"a special {C:attention}Pit Blind",
+				},
+			},
+			aij_broken_hand = {
+				name = "Broken Hand",
+				text = {
+					"{C:red}-1{} Hand",
+					"per round",
+				},
+			},
+			aij_pride = {
+				name = "Pride",
+				text = {
+					"{C:attention}10%{} chance for Jokers in",
+					"shops or booster packs to",
+					"have a {C:attention}Mint Condition{} sticker",
+					"{C:inactive,s:0.8}(Costs an additional {C:money,s:0.8}$10{C:inactive,s:0.8})",
+				},
+			},
+			aij_pricey_packs = {
+				name = "Pricey Packs",
+				text = {
+					"Booster Packs cost",
+					"{C:money}$1{} more per {C:attention}Ante",
+				},
+			},
+			aij_double_threat = {
+				name = "Double Threat",
+				text = {
+					"{C:attention}Big Blinds{} are replaced",
+					"with {C:attention}Boss Blinds",
+				},
+			},
+		},
 		Other = {
 			aij_suit_only_playing_card = {
 				text = {
@@ -11255,6 +11374,21 @@ return {
 					"Triggers {C:attention}held in hand",
 					"effects when still in",
 					"the {C:attention}deck",
+				},
+			},
+			-- Polychrome Stake
+			aij_polychrome_sticker = {
+				name = "Polychrome Sticker",
+                text = {
+                    "Used this Joker",
+                    "to win with {C:attention}#1#{} Points",
+                    "on {C:attention}Polychrome Stake",
+                },
+			},
+			aij_poly_points = {
+				name = "Points",
+				text = {
+					"#1#"
 				},
 			},
 			-- Credits page jokers
