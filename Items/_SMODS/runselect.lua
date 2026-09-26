@@ -2,15 +2,17 @@ SMODS.RunSelect.Internals.aij_poly_chips = {}
 local polychrome_stake = {
 	object_type = "RunSelectPage",
 	key = "polychrome_settings",
-	quick_start_text = function(self, choice)
-		local points = 0
-		for _, v in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
-			if choice[v] and choice[v] > 0 then
-				points = points + All_in_Jest.PolyStakeChips[v].points[choice[v]]
-			end
-		end
-		return localize({ type = "variable", key = "a_aij_points", vars = { points } })
-	end,
+	-- quick_start_text = function(self, choice)
+	-- 	local points = 0
+	-- 	if type(choice) == "table" then
+	-- 		for _, v in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
+	-- 			if choice[v] and choice[v] > 0 then
+	-- 				points = points + All_in_Jest.PolyStakeChips[v].points[choice[v]]
+	-- 			end
+	-- 		end
+	-- 	end
+	-- 	return localize({ type = "variable", key = "a_aij_points", vars = { points } })
+	-- end,
 	optional = function(self)
 		return SMODS.RunSelect.Setup.choices.stake_choice == "stake_aij_polychrome"
 	end,
