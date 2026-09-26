@@ -11379,16 +11379,16 @@ return {
 			-- Polychrome Stake
 			aij_polychrome_sticker = {
 				name = "Polychrome Sticker",
-                text = {
-                    "Used this Joker",
-                    "to win with {C:attention}#1#{} Points",
-                    "on {C:attention}Polychrome Stake",
-                },
+				text = {
+					"Used this Joker",
+					"to win with {C:attention}#1#{} Points",
+					"on {C:attention}Polychrome Stake",
+				},
 			},
 			aij_poly_points = {
 				name = "Points",
 				text = {
-					"#1#"
+					"#1#",
 				},
 			},
 			-- Credits page jokers

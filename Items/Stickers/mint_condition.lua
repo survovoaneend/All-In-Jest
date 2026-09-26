@@ -12,7 +12,13 @@ local mint_condition = {
 	sets = { Joker = true },
 	rental_compat = false,
 	should_apply = function(self, card, center, area)
-		if G.GAME.modifiers.aij_enable_mint_condition and card.ability and card.ability.set == 'Joker' and ((area == G.shop_jokers) or (area == G.pack_cards)) and pseudorandom('aij_mint_apply') < 0.1 then
+		if
+			G.GAME.modifiers.aij_enable_mint_condition
+			and card.ability
+			and card.ability.set == "Joker"
+			and ((area == G.shop_jokers) or (area == G.pack_cards))
+			and pseudorandom("aij_mint_apply") < 0.1
+		then
 			return true
 		end
 		return false
