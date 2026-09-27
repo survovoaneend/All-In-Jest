@@ -602,7 +602,7 @@ local polychrome_stake = {
 			{ total_pages = total_pages, page_label = { page = 1, text = localize("k_page") .. " 1/" .. total_pages } }
 		local buttons_def = {
 			n = G.UIT.C,
-			config = { align = "cm", minw = chips_def.config.minw + 5.75 },
+			config = { align = "cm", minw = chips_def.config.minw + 4.3 },
 			nodes = {
 				{
 					n = G.UIT.R,
@@ -664,7 +664,7 @@ local polychrome_stake = {
 								{ n = G.UIT.T, config = { text = ">", scale = 0.5, colour = G.C.WHITE } },
 							},
 						},
-						{ n = G.UIT.C, config = { align = "cm", minw = 3.75 }, nodes = {} },
+						{ n = G.UIT.C, config = { align = "cm", minw = 2.3 }, nodes = {} },
 						{
 							n = G.UIT.C,
 							config = {
