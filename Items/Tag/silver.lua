@@ -1,4 +1,5 @@
 local function contains_number(table, exclusions)
+	table = recursive_table_cull(table)
 	for k, v in pairs(table) do
 		if exclusions and exclusions[k] ~= nil and (exclusions[k] == true or exclusions[k] == v) then
 		else
@@ -19,7 +20,7 @@ local silver = {
 	atlas = "tag_atlas",
 	order = 3, -- Works because of alphabetical sorting of those with same order
 	min_ante = 2,
-	config = { type = "store_joker_modify", edition = "aij_silver" },
+	config = { type = "store_joker_create", edition = "aij_silver" },
 	attributes = { "joker", "editions" },
 	loc_vars = function(self, info_queue)
 		info_queue[#info_queue + 1] = G.P_CENTERS.e_aij_silver
@@ -28,57 +29,50 @@ local silver = {
 
 	apply = function(self, tag, context)
 		if context.type == "store_joker_create" then
-			local card
-			card = create_card("Joker", context.area, nil, nil, nil, nil, nil, "silverta")
-
-			local modifyable = false
-			if
-				contains_number(
-					card.config.center.config,
-					{ x_chips = 1, x_mult = 1, extra_value = true, rarity = true }
-				)
-			then
-				modifyable = true
-			end
-			local ivalue = 1
-			while not modifyable do
-				card:remove()
-				card = create_card("Joker", context.area, nil, nil, nil, nil, nil, "silverta" .. ivalue)
-				if
-					contains_number(
-						card.config.center.config,
+			local dongtong_compat_pool = SMODS.create_poll_pool({ "Joker" }, {
+				type = "Joker",
+				types = { "Joker" },
+				guarenteed = true,
+				append = "silverta",
+			})
+			for i, center in ipairs(dongtong_compat_pool) do
+				if G.P_CENTERS[center.key].dongtong_compat == false then
+					dongtong_compat_pool[i].key = "UNAVAILABLE"
+				elseif
+					not contains_number(
+						G.P_CENTERS[center.key].config,
 						{ x_chips = 1, x_mult = 1, extra_value = true, rarity = true }
 					)
 				then
-					modifyable = true
+					dongtong_compat_pool[i].key = "UNAVAILABLE"
 				end
-				ivalue = ivalue + 1
 			end
+
+			local forced_key = SMODS.poll_object({
+				type = "Joker",
+				guaranteed = true,
+				pool = dongtong_compat_pool,
+				append = "silverta",
+			})
+			local card = SMODS.create_card({
+				set = "Joker",
+				key = forced_key,
+				area = context.area,
+				key_append = "silverta",
+				no_edition = true
+			})
+
 			create_shop_card_ui(card, "Joker", context.area)
 			card.states.visible = false
-			card:start_materialize()
+			tag:yep("+", G.C.GREEN, function()
+				card:set_edition({ aij_silver = true })
+				card:start_materialize()
+				card.ability.couponed = true
+				card:set_cost()
+				return true
+			end)
+			tag.triggered = true
 			return card
-		end
-		if context.type == "store_joker_modify" then
-			local applied = nil
-			if not context.card.edition and not context.card.temp_edition and context.card.ability.set == "Joker" then
-				local lock = tag.ID
-				G.CONTROLLER.locks[lock] = true
-
-				context.card.temp_edition = true
-				tag:yep("+", G.C.DARK_EDITION, function()
-					context.card:set_edition({ aij_silver = true }, true)
-					context.card.ability.couponed = true
-					context.card:set_cost()
-					context.card.temp_edition = nil
-					G.CONTROLLER.locks[lock] = nil
-					return true
-				end)
-				applied = true
-
-				tag.triggered = true
-			end
-			return applied
 		end
 	end,
 }
