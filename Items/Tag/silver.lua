@@ -59,7 +59,7 @@ local silver = {
 				key = forced_key,
 				area = context.area,
 				key_append = "silverta",
-				no_edition = true
+				no_edition = true,
 			})
 
 			create_shop_card_ui(card, "Joker", context.area)
