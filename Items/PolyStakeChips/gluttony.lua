@@ -7,6 +7,8 @@ local gluttony = {
 	atlas = "chips_atlas",
 	stack = 1,
 	points = { 75 },
-	apply = function(self, stack) end,
+	apply = function(self, stack)
+		G.GAME.modifiers.enable_perishables_in_shop = true
+	end,
 }
 return { name = { "PolyStakeChips" }, items = { gluttony } }

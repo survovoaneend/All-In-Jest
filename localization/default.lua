@@ -10902,9 +10902,9 @@ return {
 			aij_pride = {
 				name = "Pride",
 				text = {
-					"{C:attention}10%{} chance for Jokers in",
-					"shops or booster packs to",
-					"have a {C:attention}Mint Condition{} sticker",
+					"{C:attention}10%{} chance for Jokers",
+					"in the {C:attention}shop{} to have a",
+					"{C:attention}Mint Condition{} sticker",
 					"{C:inactive,s:0.8}(Costs an additional {C:money,s:0.8}$10{C:inactive,s:0.8})",
 				},
 			},

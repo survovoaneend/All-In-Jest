@@ -16,7 +16,7 @@ local mint_condition = {
 			G.GAME.modifiers.aij_enable_mint_condition
 			and card.ability
 			and card.ability.set == "Joker"
-			and ((area == G.shop_jokers) or (area == G.pack_cards))
+			and (area == G.shop_jokers) -- no packs
 			and pseudorandom("aij_mint_apply") < 0.1
 		then
 			return true

@@ -7,6 +7,8 @@ local greed = {
 	atlas = "chips_atlas",
 	stack = 1,
 	points = { 50 },
-	apply = function(self, stack) end,
+	apply = function(self, stack)
+		G.GAME.modifiers.enable_rentals_in_shop = true
+	end,
 }
 return { name = { "PolyStakeChips" }, items = { greed } }
