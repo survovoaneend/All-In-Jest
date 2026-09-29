@@ -1088,6 +1088,16 @@ function SMODS.RunSelect.Functions.clean_up(early)
 	SMODS.RunSelect.Internals.aij_poly_chips = {}
 end
 
+local run_setup_ref = G.UIDEF.run_setup_option
+function G.UIDEF.run_setup_option(type)
+	for _, v in ipairs(SMODS.RunSelect.Internals.aij_poly_chips) do
+		v.config.object:remove()
+		v.config.object = nil
+	end
+	SMODS.RunSelect.Internals.aij_poly_chips = {}
+	return run_setup_ref(type)
+end
+
 local card_stop_hover = Card.stop_hover
 function Card:stop_hover()
 	if self.params.aij_poly_chip then
