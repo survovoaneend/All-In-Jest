@@ -39,12 +39,16 @@ local sanguine_joker = {
 				return {
 					focus = juiced_card,
 					message = localize("aij_plus_tag"),
-					func = function()
+					sound = "generic1",
+					pitch = 0.9 + math.random() * 0.1,
+					volume = 0.8,
+					pre_func = function()
 						G.E_MANAGER:add_event(Event({
 							trigger = "before",
 							delay = 0.0,
 							func = function()
-								jest_add_tag(jest_poll_tag("sanguine_tag"))
+								jest_add_tag(jest_poll_tag("sanguine_tag"), nil, true)
+								play_sound("holo1", 1.2 + math.random() * 0.1, 0.4)
 								return true
 							end,
 						}))

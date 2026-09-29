@@ -88,9 +88,13 @@ local youve_got_mail = {
 			and (not card.edition or card.edition.type ~= "negative")
 			and not context.blueprint
 		then
-			local temp_card =
-				create_card("Joker", G.jokers, nil, nil, nil, nil, "j_aij_youve_got_mail", "youve_got_mail")
-			local edition = { negative = true }
+			local temp_card = SMODS.add_card({
+				set = "Joker",
+				area = G.jokers,
+				key = "j_aij_youve_got_mail",
+				key_append = "youve_got_mail",
+				edition = { negative = true }
+			})
 			local effects = {
 				"mult",
 				"chips",
@@ -99,9 +103,6 @@ local youve_got_mail = {
 				"xmult",
 			}
 			temp_card.ability.extra.effect = effects[pseudorandom("aij_youve_got_mail", 1, #effects)]
-			temp_card:add_to_deck()
-			G.jokers:emplace(temp_card)
-			temp_card:set_edition(edition, true)
 			temp_card:start_materialize()
 			temp_card.aij_no_cost = true
 			temp_card.ability.extra_value = 0

@@ -354,26 +354,29 @@ function create_consumable(card_type, tag, message, extra, thing1, thing2, immed
 
 	G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
 	event_alias(function()
-		local card = create_card(card_type, G.consumeables, nil, nil, thing1, thing2, extra.forced_key or nil, tag)
-		card:add_to_deck()
-		if extra.edition ~= nil then
-			card:set_edition(extra.edition, true, silent)
-		end
+		local stickers = {}
 		if extra.eternal ~= nil then
-			card.ability.eternal = extra.eternal
+			table.insert(stickers, "eternal")
 		end
 		if extra.perishable ~= nil then
-			card.ability.perishable = extra.perishable
-			if tag == "v_epilogue" then
-				card.ability.perish_tally = get_voucher("epilogue").config.extra
-			else
-				card.ability.perish_tally = G.GAME.perishable_rounds
-			end
+			table.insert(stickers, "perishable")
 		end
+
+		local card = SMODS.add_card({
+			set = card_type,
+			area = G.consumeables,
+			skip_materialize = thing1,
+			soulable = thing2,
+			key = extra.forced_key or nil,
+			key_append = tag,
+			edition = extra.edition,
+			silent = { edition = silent },
+			stickers = stickers,
+			force_stickers = true,
+		})
 		if extra.extra_ability ~= nil then
 			card.ability[extra.extra_ability] = true
 		end
-		G.consumeables:emplace(card)
 		G.GAME.consumeable_buffer = 0
 		if message ~= nil then
 			card_eval_status_text(card, "extra", nil, nil, nil, { message = message })
@@ -402,26 +405,27 @@ function create_joker(card_type, tag, message, extra, rarity, immediate)
 
 	G.GAME.joker_buffer = G.GAME.joker_buffer + 1
 	event_alias(function()
-		local card = create_card(card_type, G.joker, nil, rarity, nil, nil, extra.forced_key or nil, tag)
-		card:add_to_deck()
-		if extra.edition ~= nil then
-			card:set_edition(extra.edition, true, false)
-		end
+		local stickers = {}
 		if extra.eternal ~= nil then
-			card.ability.eternal = extra.eternal
+			table.insert(stickers, "eternal")
 		end
 		if extra.perishable ~= nil then
-			card.ability.perishable = extra.perishable
-			if tag == "v_epilogue" then
-				card.ability.perish_tally = get_voucher("epilogue").config.extra
-			else
-				card.ability.perish_tally = G.GAME.perishable_rounds
-			end
+			table.insert(stickers, "perishable")
 		end
+
+		local card = SMODS.add_card({
+			set = card_type,
+			area = G.joker,
+			rarity = rarity,
+			key = extra.forced_key or nil,
+			key_append = tag,
+			edition = extra.edition,
+			stickers = stickers,
+			force_stickers = true,
+		})
 		if extra.extra_ability ~= nil then
 			card.ability[extra.extra_ability] = true
 		end
-		G.jokers:emplace(card)
 		G.GAME.joker_buffer = 0
 		if message ~= nil then
 			card_eval_status_text(card, "extra", nil, nil, nil, { message = message })

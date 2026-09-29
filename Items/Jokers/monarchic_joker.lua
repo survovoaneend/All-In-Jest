@@ -42,23 +42,16 @@ local monarchic_joker = {
 					return {
 						focus = juiced_card,
 						message = localize("paperback_plus_minor_arcana"),
-						func = function()
+						pre_func = function()
 							G.E_MANAGER:add_event(Event({
 								trigger = "before",
 								delay = 0.0,
 								func = function()
-									local cardd = create_card(
-										"paperback_minor_arcana",
-										G.consumeables,
-										nil,
-										nil,
-										nil,
-										nil,
-										nil,
-										"mona"
-									)
-									cardd:add_to_deck()
-									G.consumeables:emplace(cardd)
+									SMODS.add_card({
+										set = "paperback_minor_arcana",
+										area = G.consumeables,
+										key_append = "mona",
+									})
 									G.GAME.consumeable_buffer = 0
 									return true
 								end,

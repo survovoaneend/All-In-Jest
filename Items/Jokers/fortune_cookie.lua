@@ -42,9 +42,11 @@ local fortune_cookie = {
 					trigger = "before",
 					delay = 0.0,
 					func = function()
-						local cardd = create_card("Tarot", G.consumeables, nil, nil, nil, nil, nil, "for")
-						cardd:add_to_deck()
-						G.consumeables:emplace(cardd)
+						SMODS.add_card({
+							set = "Tarot",
+							area = G.consumeables,
+							key_append = "for",
+						})
 						G.GAME.consumeable_buffer = 0
 						return true
 					end,

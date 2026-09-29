@@ -142,9 +142,12 @@ local chaos = {
 					G.E_MANAGER:add_event(Event({
 						func = function()
 							for i = 1, jokers_to_create do
-								local card = create_card("Joker", G.jokers, nil, 0, nil, nil, nil, "jest_chaos_tag")
-								card:add_to_deck()
-								G.jokers:emplace(card)
+								local card = SMODS.add_card({
+									set = "Joker",
+									area = G.jokers,
+									rarity = 0,
+									key_append = "jest_chaos_tag",
+								})
 								card:start_materialize(nil, i ~= 1)
 								G.GAME.joker_buffer = 0
 							end
@@ -157,10 +160,7 @@ local chaos = {
 						trigger = "before",
 						delay = 0.4,
 						func = function()
-							local card = copy_card(joker, nil, nil, nil, joker.edition and joker.edition.negative)
-							card:start_materialize()
-							card:add_to_deck()
-							G.jokers:emplace(card)
+							SMODS.copy_card(joker, { strip_edition = joker.edition and joker.edition.negative })
 							return true
 						end,
 					}))

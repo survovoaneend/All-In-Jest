@@ -53,8 +53,13 @@ local ticket_tag = {
 					end
 
 					local cards_to_redeem = {}
-					for _, key in ipairs(vouchers_to_create) do
-						local voucher_card = create_card("Voucher", G.hand, nil, nil, nil, nil, key, "ticket")
+					for _, voucher_key in ipairs(vouchers_to_create) do
+						local voucher_card = SMODS.create_card({
+							set = "Voucher",
+							area = G.hand,
+							key = voucher_key,
+							key_append = "ticket"
+						})
 						G.hand:emplace(voucher_card)
 						voucher_card.cost = 0
 						table.insert(cards_to_redeem, voucher_card)

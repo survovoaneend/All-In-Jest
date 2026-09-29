@@ -27,12 +27,20 @@ local orphic_joker = {
 		if context.skip_blind and not card.debuff then
 			for i = 1, card.ability.extra.jokers do
 				if G.jokers and #G.jokers.cards < G.jokers.config.card_limit then
-					local new_joker = create_card("Joker", G.jokers, nil, 1, nil, nil, nil, "skip_reward")
-					new_joker:add_to_deck()
-					G.jokers:emplace(new_joker)
-					new_joker:start_materialize()
-					card:juice_up(0.4, 0.2)
-					play_sound("card1", 1.3, 0.7)
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							local new_joker = SMODS.add_card({
+								set = "Joker",
+								area = G.jokers,
+								rarity = 1,
+								key_append = "skip_reward",
+							})
+							new_joker:start_materialize()
+							card:juice_up(0.4, 0.2)
+							play_sound("card1", 1.3, 0.7)
+							return true
+						end,
+					}))
 				end
 			end
 			return nil, true

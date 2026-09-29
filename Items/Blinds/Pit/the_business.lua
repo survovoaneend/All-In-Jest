@@ -39,8 +39,39 @@ local the_business = {
 				else
 					SMODS.destroy_cards(destroyable_jokers[1])
 				end
-				local card = create_card("Joker", G.jokers, nil, 0, nil, nil, nil, "jest_chaos_tag")
-				card:add_sticker("eternal", true)
+
+				local eternal_compat_common_pool = SMODS.create_poll_pool(
+					{ "Joker" },
+					{
+						type = "Joker",
+						types = { "Joker" },
+						guarenteed = true,
+						rarity = 1,
+						rarities = { "Common" },
+						append = "aij_the_business",
+					}
+				)
+				for i, center in ipairs(eternal_compat_common_pool) do
+					if not G.P_CENTERS[center.key].eternal_compat then
+						eternal_compat_common_pool[i].key = "UNAVAILABLE"
+					end
+				end
+
+				local forced_key = SMODS.poll_object({
+					type = "Joker",
+					guaranteed = true,
+					pool = eternal_compat_common_pool,
+					append = "aij_the_bussiness",
+				})
+				local card = SMODS.create_card({
+					set = "Joker",
+					key = forced_key,
+					area = G.jokers,
+					no_edition = true,
+					rarity = 0,
+					key_append = "aij_the_bussiness",
+					force_stickers = { "eternal" },
+				})
 				card:add_to_deck()
 				G.jokers:emplace(card)
 				card:start_materialize()

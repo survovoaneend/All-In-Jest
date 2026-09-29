@@ -176,9 +176,11 @@ local anarchy_tag = {
 					G.E_MANAGER:add_event(Event({
 						func = function()
 							for i = 1, jokers_to_create do
-								local card = create_card("Joker", G.jokers, nil, nil, nil, nil, nil, "jest_anarchy_tag")
-								card:add_to_deck()
-								G.jokers:emplace(card)
+								local card = SMODS.add_card({
+									set = "Joker",
+									area = G.jokers,
+									key_append = "jest_anarchy_tag"
+								})
 								card:start_materialize(nil, i ~= 1)
 								G.GAME.joker_buffer = 0
 							end
@@ -191,10 +193,13 @@ local anarchy_tag = {
 						func = function()
 							local edition = { negative = true }
 							for i = 1, jokers_to_create do
-								local card = create_card("Joker", G.jokers, nil, nil, nil, nil, nil, "jest_anarchy_tag")
-								card:add_to_deck()
-								G.jokers:emplace(card)
-								card:set_edition(edition, nil, i ~= 1)
+								local card = SMODS.add_card({
+									set = "Joker",
+									area = G.jokers,
+									key_append = "jest_anarchy_tag",
+									edition = {negative = true},
+									silent = true
+								})
 								card:start_materialize(nil, i ~= 1)
 							end
 							return true
@@ -214,11 +219,8 @@ local anarchy_tag = {
 						trigger = "before",
 						delay = 0.4,
 						func = function()
-							local card = copy_card(joker)
-							card:start_materialize()
-							card:set_edition(edition)
-							card:add_to_deck()
-							G.jokers:emplace(card)
+							local new_card = SMODS.copy_card(joker, { strip_edition = true })
+							new_card:set_edition(edition)
 							return true
 						end,
 					}))
@@ -242,7 +244,12 @@ local anarchy_tag = {
 						iv = iv + 1
 						_voucher_key = pseudorandom_element(_pool, pseudoseed(_pool_key .. "_resample" .. iv))
 					end
-					voucher_card = create_card("Voucher", G.play, nil, nil, nil, nil, _voucher_key, "ticket")
+					local voucher_card = SMODS.create_card({
+						set = "Voucher",
+						area = G.play,
+						key = _voucher_key,
+						key_append = "ticket"
+					})
 					voucher_card.cost = 0
 					G.play:emplace(voucher_card)
 					G.FUNCS.use_card({ config = { ref_table = voucher_card } })
@@ -258,7 +265,12 @@ local anarchy_tag = {
 					ease_discard(1)
 				elseif effect == "plus_ran_enhance" then
 					local ran_amt = pseudorandom("jest_anarchy_tag", 2, 4)
-					local temp_card = create_card("Base", G.play, nil, nil, true, nil, nil, "nonsta")
+					local voucher_card = SMODS.create_card({
+						set = "Base",
+						area = G.play,
+						skip_materialize = true,
+						key_append = "nonsta"
+					})
 					for i = 1, ran_amt do
 						local new_code = pseudorandom_element(
 							SMODS.Suits,

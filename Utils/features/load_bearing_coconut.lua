@@ -6,14 +6,25 @@ function load_coconut_card_area(game)
 		game.jokers.T.h,
 		{ card_limit = 1, type = "joker", highlight_limit = 1 }
 	)
-	local temp = SMODS.bypass_create_card_edition
-	SMODS.bypass_create_card_edition = true
-	local temp_card =
-		create_card("Joker", G.aij_coconut_holder, nil, nil, nil, nil, "j_aij_coconut", "aij_coconut_holder")
-	-- temp_card:start_materialize(nil, true)
-	temp_card.ability.jest_got_no_ui = true
-	G.aij_coconut_holder:emplace(temp_card)
-	SMODS.bypass_create_card_edition = temp
+
+	SMODS.create_card_scale = SMODS.create_card_scale or {w = 1, h = 1}
+	local coconut_card = Card(
+		game.aij_coconut_holder.T.x + game.aij_coconut_holder.T.w / 2,
+		game.aij_coconut_holder.T.y,
+		G.CARD_W * SMODS.create_card_scale.w,
+		G.CARD_H * SMODS.create_card_scale.h,
+		nil,
+		G.P_CENTERS["j_aij_coconut"],
+		{
+			bypass_discovery_center = true,
+			bypass_discovery_ui = true,
+			discover = false,
+			bypass_back = G.GAME.selected_back.pos,
+		}
+	)
+
+	coconut_card.ability.jest_got_no_ui = true
+	G.aij_coconut_holder:emplace(coconut_card)
 end
 
 G.FUNCS.aij_coconut_delete = function(e, mute, nosave)

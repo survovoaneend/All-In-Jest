@@ -26,19 +26,13 @@ local bierstiefel_tag = {
 					G.E_MANAGER:add_event(Event({
 						func = function()
 							for i = 1, jokers_to_create do
-								local card = create_card(
-									"Joker",
-									G.jokers,
-									nil,
-									pseudorandom("jest_bierstiefel_tag") * 0.95,
-									nil,
-									nil,
-									nil,
-									"jest_bierstiefel_tag"
-								)
-								card:add_to_deck()
-								G.jokers:emplace(card)
-								card:start_materialize()
+								local new_joker = SMODS.add_card({
+									set = "Joker",
+									area = G.jokers,
+									rarity = pseudorandom("jest_bierstiefel_tag") * 0.95,
+									key_append = "jest_bierstiefel_tag",
+								})
+								new_joker:start_materialize()
 								G.GAME.joker_buffer = 0
 							end
 							return true

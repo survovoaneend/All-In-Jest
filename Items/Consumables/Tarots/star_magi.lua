@@ -21,14 +21,19 @@ local star_magi_tarot = {
 			return true
 		end
 	end,
-	use = function(self, card)
+	use = function(self, used_tarot)
 		G.E_MANAGER:add_event(Event({
 			trigger = "after",
 			delay = 0.4,
 			func = function()
-				local new_card = create_card("aij_astral", G.consumeables, nil, nil, nil, nil, nil, "jest_star_magi")
-				G.consumeables:emplace(new_card)
+				play_sound('timpani')
+				new_card = SMODS.add_card({
+					set = "aij_astral",
+					area = G.consumeables,
+					key_append = "jest_star_magi",
+				})
 				new_card.ability.consumeable.grade = "Passigrade"
+				used_tarot:juice_up(0.3, 0.5)
 				return true
 			end,
 		}))

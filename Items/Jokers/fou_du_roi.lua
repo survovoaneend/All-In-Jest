@@ -46,9 +46,11 @@ local fou_du_roi = {
 							trigger = "before",
 							delay = 0.0,
 							func = function()
-								local _card = create_card("Tarot", G.consumeables, nil, nil, nil, nil, nil, "vag")
-								_card:add_to_deck()
-								G.consumeables:emplace(_card)
+								SMODS.add_card({
+									set = "Tarot",
+									area = G.consumeables,
+									key_append = "aij_fou_du_roi",
+								})
 								G.GAME.consumeable_buffer = 0
 								return true
 							end,

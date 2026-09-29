@@ -32,13 +32,25 @@ local pour_one_out = {
 	calculate = function(self, card, context)
 		if context.discard and not context.blueprint then
 			if card.ability.extra.discards_remaining <= 1 then
+				G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
 				card.ability.extra.discards_remaining = card.ability.extra.discards
-				local cardd = create_card("Consumeables", G.consumeables, nil, nil, nil, nil, nil, "ison")
-				cardd:add_to_deck()
-				G.consumeables:emplace(cardd)
-				G.GAME.consumeable_buffer = 0
 				return {
 					message = localize("k_aij_plus_consumable"),
+					pre_func = function()
+						G.E_MANAGER:add_event(Event({
+							trigger = "before",
+							delay = 0.0,
+							func = function()
+								SMODS.add_card({
+									set = "Consumeables",
+									area = G.consumeables,
+									key_append = "pour_one_out",
+								})
+								G.GAME.consumeable_buffer = 0
+								return true
+							end,
+						}))
+					end
 				}
 			else
 				card.ability.extra.discards_remaining = card.ability.extra.discards_remaining - 1

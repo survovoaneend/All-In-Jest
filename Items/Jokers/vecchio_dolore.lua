@@ -18,44 +18,35 @@ local vecchio_dolore = {
 
 	calculate = function(self, card, context)
 		if context.all_in_jest and context.all_in_jest.before_reroll_shop then
+			first_dissolve = true
 			for k, v in pairs(G.shop_jokers.cards) do
 				G.E_MANAGER:add_event(Event({
 					trigger = "before",
-					delay = 0.2,
+					delay = 0.0,
 					func = function()
 						if v.config.center.set == "Joker" then
-							local temp_card = create_card(
-								"Joker",
-								G.jokers,
-								nil,
-								nil,
-								nil,
-								nil,
-								v.config.center.key,
-								"vecchio_dolore"
-							)
-							temp_card:set_edition({ negative = true })
-							temp_card:start_materialize()
-							temp_card:add_to_deck()
-							G.jokers:emplace(temp_card)
+							local temp_card = SMODS.add_card({
+								set = "Joker",
+								area = G.jokers,
+								key = v.config.center.key,
+								key_append = "vecchio_dolore",
+								edition = {negative = true},
+							})
+							temp_card:start_materialize(nil, not first_dissolve)
 						elseif v.config.center.consumeable then
-							local temp_card = create_card(
-								"Consumeables",
-								G.consumeables,
-								nil,
-								nil,
-								nil,
-								nil,
-								v.config.center.key,
-								"vecchio_dolore"
-							)
-							temp_card:set_edition({ negative = true })
-							temp_card:add_to_deck()
-							G.consumeables:emplace(temp_card)
+							local temp_card = SMODS.add_card({
+								set = "Consumeables",
+								area = G.consumeables,
+								key = v.config.center.key,
+								key_append = "vecchio_dolore",
+								edition = {negative = true},
+							})
+							-- temp_card:start_materialize(nil, not first_dissolve)
 						end
 						return true
 					end,
 				}))
+				first_dissolve = false
 			end
 			card_eval_status_text(
 				card,

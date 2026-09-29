@@ -40,54 +40,36 @@ local a_v_g_m = {
 			})
 			if not args.free then
 				ease_dollars(-card.ability.extra.cost)
-				card_eval_status_text(card, "dollars", -card.ability.extra.cost)
+				-- card_eval_status_text(card, "dollars", -card.ability.extra.cost)
 			end
 			if pseudorandom("a_v_g_m") < (card.ability.extra.odds / 100) then
-				local max = 2
-				local joker, consumable = false, false
+				local options = {"tag", "playing_card"}
 				if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-					max = max + 1
-					joker = true
+					table.insert(options, "joker")
 				end
 				if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-					max = max + 1
-					consumable = true
+					table.insert(options, "consumable")
 				end
-				local index = pseudorandom("a_v_g_m", 1, max)
-				if index >= 3 then
-					if joker and consumable then
-						local new_index = pseudorandom("a_v_g_m_again", 1, 2)
-						if new_index == 1 then
-							G.GAME.joker_buffer = G.GAME.joker_buffer + 1
-							G.E_MANAGER:add_event(Event({
-								func = function()
-									local card = create_card("Joker", G.jokers)
-									card:add_to_deck()
-									G.jokers:emplace(card)
-									card:start_materialize(nil, i ~= 1)
-									G.GAME.joker_buffer = 0
-									return true
-								end,
-							}))
-						else
-							create_consumable("Consumeables")
-						end
-					elseif joker then
-						G.GAME.joker_buffer = G.GAME.joker_buffer + 1
-						G.E_MANAGER:add_event(Event({
-							func = function()
-								local card = create_card("Joker", G.jokers)
-								card:add_to_deck()
-								G.jokers:emplace(card)
-								card:start_materialize(nil, i ~= 1)
-								G.GAME.joker_buffer = 0
-								return true
-							end,
-						}))
-					else
-						create_consumable("Consumeables")
-					end
-				elseif index == 2 then
+
+				local chosen_option = pseudorandom_element(options, "a_v_g_m")
+
+				if chosen_option == "joker" then
+					G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							local card = SMODS.add_card({
+								set = "Joker",
+								area = G.jokers,
+								key_append = "a_v_g_m",
+							})
+							card:start_materialize()
+							G.GAME.joker_buffer = 0
+							return true
+						end,
+					}))
+				elseif chosen_option == "consumable" then
+					create_consumable("Consumeables")
+				elseif chosen_option == "playing_card" then
 					G.E_MANAGER:add_event(Event({
 						func = function()
 							local new_card = create_playing_card({
@@ -108,10 +90,8 @@ local a_v_g_m = {
 							return true
 						end,
 					}))
-				elseif index == 1 then
+				elseif chosen_option == "tag" then
 					G.E_MANAGER:add_event(Event({
-						trigger = "before",
-						delay = 0.0,
 						func = function()
 							jest_add_tag(jest_poll_tag("a_v_g_m"))
 							return true
@@ -120,6 +100,17 @@ local a_v_g_m = {
 				end
 				card:juice_up(0.4, 0.4)
 				play_sound("tarot1")
+			else
+				card:juice_up(0.4, 0.4)
+				attention_text({
+                    text = localize('k_nope_ex'),
+                    scale = 1, 
+                    hold = 0.7,
+                    major = card,
+                    backdrop_colour = G.C.SECONDARY_SET.Tarot,
+                    align = 'bm',
+                    offset = {x = 0, y = 0},
+				})
 			end
 		end,
 	},

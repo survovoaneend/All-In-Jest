@@ -22,9 +22,13 @@ local cut_here = {
 			if context.card == this_card then
 				G.E_MANAGER:add_event(Event({
 					func = function()
-						local temp_card = create_card("Joker", G.jokers, nil, 1, nil, nil, nil, "cut_here")
-						temp_card:start_materialize()
-						G.jokers:emplace(temp_card)
+						new_joker = SMODS.add_card({
+							set = "Joker",
+							area = G.jokers,
+							rarity = 1,
+							key_append = "cut_here",
+						})
+						new_joker:start_materialize()
 						return true
 					end,
 				}))
