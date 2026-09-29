@@ -1047,6 +1047,23 @@ pattern = '''if v\.ability\.forced_selection and not self\.highlighted\[1\] (?<p
 position = "at"
 payload = 'if v.ability.forced_selection and not v.highlighted $post'
 
+# Mistigri and others (1/1)
+# Fixed cards being drawn to hand beyond hand size when changing hand size
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+pattern = '''SMODS.draw_cards(delta)'''
+position = 'at'
+match_indent = true
+payload = '''
+-- AIJ Override
+local card_count = math.min(delta, math.max(0, self.config.card_limit - #self.cards))
+if card_count > 0 then
+    SMODS.draw_cards(card_count)
+end
+-- End AIJ Override
+'''
+
 
 # ############## #
 # UNUSED PATCHES
