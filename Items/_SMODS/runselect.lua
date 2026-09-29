@@ -1098,6 +1098,16 @@ function G.UIDEF.run_setup_option(type)
 	return run_setup_ref(type)
 end
 
+local challenge_setup_ref = G.UIDEF.challenges
+function G.UIDEF.challenges(from_game_over)
+	for _, v in ipairs(SMODS.RunSelect.Internals.aij_poly_chips) do
+		v.config.object:remove()
+		v.config.object = nil
+	end
+	SMODS.RunSelect.Internals.aij_poly_chips = {}
+	return challenge_setup_ref(from_game_over)
+end
+
 local card_stop_hover = Card.stop_hover
 function Card:stop_hover()
 	if self.params.aij_poly_chip then
