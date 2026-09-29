@@ -56,9 +56,9 @@ local unusual_tag = {
 				area = context.area,
 				key_append = "aij_unusual_tag",
 				no_edition = true,
-				force_stickers = {tag.config.extra.sticker}
+				force_stickers = { tag.config.extra.sticker },
 			})
-			
+
 			create_shop_card_ui(card, "Joker", context.area)
 			card.states.visible = false
 			tag:yep("+", G.C.GREEN, function()

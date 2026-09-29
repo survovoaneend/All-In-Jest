@@ -40,17 +40,14 @@ local the_business = {
 					SMODS.destroy_cards(destroyable_jokers[1])
 				end
 
-				local eternal_compat_common_pool = SMODS.create_poll_pool(
-					{ "Joker" },
-					{
-						type = "Joker",
-						types = { "Joker" },
-						guarenteed = true,
-						rarity = 1,
-						rarities = { "Common" },
-						append = "aij_the_business",
-					}
-				)
+				local eternal_compat_common_pool = SMODS.create_poll_pool({ "Joker" }, {
+					type = "Joker",
+					types = { "Joker" },
+					guarenteed = true,
+					rarity = 1,
+					rarities = { "Common" },
+					append = "aij_the_business",
+				})
 				for i, center in ipairs(eternal_compat_common_pool) do
 					if not G.P_CENTERS[center.key].eternal_compat then
 						eternal_compat_common_pool[i].key = "UNAVAILABLE"

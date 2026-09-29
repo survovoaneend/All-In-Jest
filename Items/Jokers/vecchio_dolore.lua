@@ -30,7 +30,7 @@ local vecchio_dolore = {
 								area = G.jokers,
 								key = v.config.center.key,
 								key_append = "vecchio_dolore",
-								edition = {negative = true},
+								edition = { negative = true },
 							})
 							temp_card:start_materialize(nil, not first_dissolve)
 						elseif v.config.center.consumeable then
@@ -39,7 +39,7 @@ local vecchio_dolore = {
 								area = G.consumeables,
 								key = v.config.center.key,
 								key_append = "vecchio_dolore",
-								edition = {negative = true},
+								edition = { negative = true },
 							})
 							-- temp_card:start_materialize(nil, not first_dissolve)
 						end

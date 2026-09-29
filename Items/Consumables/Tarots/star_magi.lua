@@ -26,7 +26,7 @@ local star_magi_tarot = {
 			trigger = "after",
 			delay = 0.4,
 			func = function()
-				play_sound('timpani')
+				play_sound("timpani")
 				new_card = SMODS.add_card({
 					set = "aij_astral",
 					area = G.consumeables,

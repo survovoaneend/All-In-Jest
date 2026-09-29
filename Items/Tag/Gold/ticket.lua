@@ -58,7 +58,7 @@ local ticket_tag = {
 							set = "Voucher",
 							area = G.hand,
 							key = voucher_key,
-							key_append = "ticket"
+							key_append = "ticket",
 						})
 						G.hand:emplace(voucher_card)
 						voucher_card.cost = 0

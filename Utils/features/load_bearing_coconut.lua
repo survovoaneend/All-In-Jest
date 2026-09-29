@@ -7,7 +7,7 @@ function load_coconut_card_area(game)
 		{ card_limit = 1, type = "joker", highlight_limit = 1 }
 	)
 
-	SMODS.create_card_scale = SMODS.create_card_scale or {w = 1, h = 1}
+	SMODS.create_card_scale = SMODS.create_card_scale or { w = 1, h = 1 }
 	local coconut_card = Card(
 		game.aij_coconut_holder.T.x + game.aij_coconut_holder.T.w / 2,
 		game.aij_coconut_holder.T.y,

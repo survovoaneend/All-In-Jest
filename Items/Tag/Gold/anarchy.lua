@@ -179,7 +179,7 @@ local anarchy_tag = {
 								local card = SMODS.add_card({
 									set = "Joker",
 									area = G.jokers,
-									key_append = "jest_anarchy_tag"
+									key_append = "jest_anarchy_tag",
 								})
 								card:start_materialize(nil, i ~= 1)
 								G.GAME.joker_buffer = 0
@@ -197,8 +197,8 @@ local anarchy_tag = {
 									set = "Joker",
 									area = G.jokers,
 									key_append = "jest_anarchy_tag",
-									edition = {negative = true},
-									silent = true
+									edition = { negative = true },
+									silent = true,
 								})
 								card:start_materialize(nil, i ~= 1)
 							end
@@ -248,7 +248,7 @@ local anarchy_tag = {
 						set = "Voucher",
 						area = G.play,
 						key = _voucher_key,
-						key_append = "ticket"
+						key_append = "ticket",
 					})
 					voucher_card.cost = 0
 					G.play:emplace(voucher_card)
@@ -269,7 +269,7 @@ local anarchy_tag = {
 						set = "Base",
 						area = G.play,
 						skip_materialize = true,
-						key_append = "nonsta"
+						key_append = "nonsta",
 					})
 					for i = 1, ran_amt do
 						local new_code = pseudorandom_element(

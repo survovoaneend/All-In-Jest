@@ -43,7 +43,7 @@ local a_v_g_m = {
 				-- card_eval_status_text(card, "dollars", -card.ability.extra.cost)
 			end
 			if pseudorandom("a_v_g_m") < (card.ability.extra.odds / 100) then
-				local options = {"tag", "playing_card"}
+				local options = { "tag", "playing_card" }
 				if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
 					table.insert(options, "joker")
 				end
@@ -103,13 +103,13 @@ local a_v_g_m = {
 			else
 				card:juice_up(0.4, 0.4)
 				attention_text({
-                    text = localize('k_nope_ex'),
-                    scale = 1, 
-                    hold = 0.7,
-                    major = card,
-                    backdrop_colour = G.C.SECONDARY_SET.Tarot,
-                    align = 'bm',
-                    offset = {x = 0, y = 0},
+					text = localize("k_nope_ex"),
+					scale = 1,
+					hold = 0.7,
+					major = card,
+					backdrop_colour = G.C.SECONDARY_SET.Tarot,
+					align = "bm",
+					offset = { x = 0, y = 0 },
 				})
 			end
 		end,

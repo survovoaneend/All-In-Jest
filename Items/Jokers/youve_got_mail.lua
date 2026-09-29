@@ -93,7 +93,7 @@ local youve_got_mail = {
 				area = G.jokers,
 				key = "j_aij_youve_got_mail",
 				key_append = "youve_got_mail",
-				edition = { negative = true }
+				edition = { negative = true },
 			})
 			local effects = {
 				"mult",

@@ -50,7 +50,7 @@ local pour_one_out = {
 								return true
 							end,
 						}))
-					end
+					end,
 				}
 			else
 				card.ability.extra.discards_remaining = card.ability.extra.discards_remaining - 1
