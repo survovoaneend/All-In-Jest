@@ -19,17 +19,19 @@ local club = {
 		if context.before and context.full_hand then
 			for k, v in pairs(context.full_hand) do
 				if v:is_suit("Clubs") then
-					SMODS.debuff_card(card, true, 'aij_club_sticker', true)
+					SMODS.debuff_card(card, true, "aij_club_sticker", true)
 					return { message = localize("k_disabled_ex") }
 				end
 			end
 		end
-		if context.setting_blind and not card.getting_sliced and card.ability.debuff_sources['aij_club_sticker'] then
-			G.E_MANAGER:add_event(Event({func = function()
-				SMODS.debuff_card(card, nil, 'aij_club_sticker')
-				card:juice_up()
-				return true
-			end}))
+		if context.setting_blind and not card.getting_sliced and card.ability.debuff_sources["aij_club_sticker"] then
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					SMODS.debuff_card(card, nil, "aij_club_sticker")
+					card:juice_up()
+					return true
+				end,
+			}))
 		end
 	end,
 }

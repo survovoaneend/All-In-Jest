@@ -2,19 +2,15 @@ local eval_card_ref = eval_card
 function eval_card(card, context)
 	local effects = { eval_card_ref(card, context) }
 	if card.ability.aij_indecisive and effects[1].jokers then
-		if effects[1].jokers.repetitions and SMODS.pseudorandom_probability(card, "aij_indecisive_"..card.config.center.key, 1, 4) then
+		if
+			effects[1].jokers.repetitions
+			and SMODS.pseudorandom_probability(card, "aij_indecisive_" .. card.config.center.key, 1, 4)
+		then
 			effects[1] = {}
 			effects[2] = {}
-			card_eval_status_text(
-				card,
-				"extra",
-				nil,
-				nil,
-				nil,
-				{ message = localize("k_nope_ex"), colour = G.C.GREEN }
-			)
+			card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_nope_ex"), colour = G.C.GREEN })
 		else
-			for _,key in ipairs(SMODS.scoring_parameter_keys) do
+			for _, key in ipairs(SMODS.scoring_parameter_keys) do
 				if effects[1].jokers[key] then
 					if SMODS.pseudorandom_probability(card, "aij_indecisive", 1, 4) then
 						effects[1].jokers = {
@@ -53,11 +49,11 @@ local indecisive = {
 	sets = { Joker = true },
 	should_apply = function(self, card, center, area, bypass_roll)
 		if
-			SMODS.has_attribute(center, "retrigger") or
-			SMODS.has_attribute(center, "mult") or
-			SMODS.has_attribute(center, "chips") or
-			SMODS.has_attribute(center, "xmult") or
-			SMODS.has_attribute(center, "xchips")
+			SMODS.has_attribute(center, "retrigger")
+			or SMODS.has_attribute(center, "mult")
+			or SMODS.has_attribute(center, "chips")
+			or SMODS.has_attribute(center, "xmult")
+			or SMODS.has_attribute(center, "xchips")
 		then
 			return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll)
 		end
