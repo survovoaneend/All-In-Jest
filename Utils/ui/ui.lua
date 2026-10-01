@@ -815,6 +815,7 @@ G.FUNCS.aij_reroll_tag_button = function(e)
 		and G.GAME.blind_on_deck
 		and G.GAME.round_resets.blind_states[G.GAME.blind_on_deck] ~= "Hide"
 		and (G.GAME.blind_on_deck ~= "Boss" or G.GAME.blind_on_deck ~= "Big_Boss")
+		and G.GAME.aij_tag_rerolls > 0
 	then
 		e.config.colour = G.C.RED
 		e.config.button = "aij_reroll_tag"
