@@ -3,9 +3,31 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
+# Allow calculating certain stickers through debuff
+# eval_card()
+[[patches]]
+[patches.regex]
+target = "functions/common_events.lua"
+pattern = "if card.ability.rental then"
+position = "before"
+match_indent = true
+payload = '''
+local ret = {}
+for _,k in ipairs(SMODS.Sticker.obj_buffer) do
+    local v = SMODS.Stickers[k]
+    if v.aij_calc_debuff or k == 'rental' then
+        local sticker = card:calculate_sticker(context, k)
+        if sticker then
+            ret[v] = sticker
+        end
+    end
+end
+if next(ret) then
+    return ret, {}
+end
+'''
 
-# Perishable for Playing Cards 
-# debuffs cards with sticker 
+# Perishable for Playing Cards
 # Card:set_debuff()
 [[patches]]
 [patches.pattern]
@@ -17,21 +39,6 @@ payload = '''
 if self.ability.aij_pc_perishable and self.ability.perish_tally <= 0 then 
     if not self.debuff then
         self.debuff = true
-        return
-    end
-end
-local aij_debuff_list = {
-    ['aij_spade'] = 'should_debuff',
-    ['aij_diamond'] = 'should_debuff',
-    ['aij_heart'] = 'should_debuff',
-    ['aij_club'] = 'should_debuff',
-    ['aij_face'] = 'should_debuff',
-}
-for k, v in pairs(aij_debuff_list) do
-    if self.ability[k] and self.ability[k].extra[v] <= 0 then 
-        if not self.debuff then
-            self.debuff = true
-        end
         return
     end
 end

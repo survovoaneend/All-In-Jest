@@ -10,7 +10,7 @@ local pride = {
 	stack = 1,
 	points = { 30 },
 	apply = function(self, stack)
-		G.GAME.modifiers.aij_enable_mint_condition = true
+		G.GAME.modifiers.enable_aij_mint_condition = true
 	end,
 }
 return { name = { "PolyStakeChips" }, items = { pride } }

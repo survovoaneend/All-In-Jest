@@ -6,7 +6,6 @@ local spade = {
 	order = 5,
 	pos = { x = 3, y = 0 },
 	badge_colour = HEX("5c6284"),
-	ignore = true,
 	loc_vars = function(self, info_queue, card)
 		return { vars = {} }
 	end,
@@ -14,25 +13,23 @@ local spade = {
 	aij_club_compat = false,
 	aij_diamond_compat = false,
 	aij_heart_compat = false,
+	rate = 0.06, -- 1/5th of standard since there's 5 stickers in this set
+	aij_calc_debuff = true,
 	calculate = function(self, card, context)
 		if context.before and context.full_hand then
 			for k, v in pairs(context.full_hand) do
 				if v:is_suit("Spades") then
-					card.ability.aij_spade.extra.should_debuff = 1
+					SMODS.debuff_card(card, true, 'aij_spade_sticker', true)
+					return { message = localize("k_disabled_ex") }
 				end
 			end
-			if card.ability.aij_spade and card.ability.aij_spade.extra.should_debuff == 1 then
-				card.ability.aij_spade.extra.should_debuff = 0
-				card_eval_status_text(
-					card,
-					"extra",
-					nil,
-					nil,
-					nil,
-					{ message = localize("k_disabled_ex"), colour = G.C.FILTER, delay = 0.45 }
-				)
-				card:set_debuff()
-			end
+		end
+		if context.setting_blind and not card.getting_sliced and card.ability.debuff_sources['aij_spade_sticker'] then
+			G.E_MANAGER:add_event(Event({func = function()
+				SMODS.debuff_card(card, nil, 'aij_spade_sticker')
+				card:juice_up()
+				return true
+			end}))
 		end
 	end,
 }

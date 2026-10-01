@@ -11,15 +11,10 @@ local mint_condition = {
 	end,
 	sets = { Joker = true },
 	rental_compat = false,
-	should_apply = function(self, card, center, area)
-		if
-			G.GAME.modifiers.aij_enable_mint_condition
-			and card.ability
-			and card.ability.set == "Joker"
-			and (area == G.shop_jokers) -- no packs
-			and pseudorandom("aij_mint_apply") < 0.1
-		then
-			return true
+	rate = 0.1,
+	should_apply = function(self, card, center, area, bypass_roll)
+		if area == G.shop_jokers then -- no packs
+			return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll)
 		end
 		return false
 	end,

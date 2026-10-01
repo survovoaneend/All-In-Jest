@@ -356,7 +356,7 @@ return {
 			pinned = "Pinned",
 			aij_unusual_doubled = "Doubled",
 			aij_recherche_doubled = "Doubled",
-			aij_undecisive = "Undecisive",
+			aij_indecisive = "Indecisive",
 			aij_mint_condition = "Mint Condition",
 			aij_spade = "Spade",
 			aij_diamond = "Diamond",
@@ -11278,58 +11278,73 @@ return {
 					"{C:inactive,s:0.8}(Granted by a Recherche Tag){}",
 				},
 			},
-			aij_undecisive = {
-				name = "Undecisive",
+			aij_indecisive = {
+				name = "Indecisive",
 				text = {
-					"This {C:attention}Joker{} has a",
 					"{C:green}#1# in #2#{} chance",
-					"to not trigger",
+					"to not score",
 				},
 			},
 			aij_mint_condition = {
 				name = "Mint Condition",
 				text = {
-					"This {C:attention}Joker{} costs an",
+					"Costs an",
 					"additional {C:money}$10",
+				},
+			},
+			aij_introverted = {
+				name = "Introverted",
+				text = {
+					"{C:red}Self-destructs{} if",
+					"Blind is selected",
+					"with full Joker slots",
+				},
+			},
+			aij_demanding = {
+				name = "Demanding",
+				text = {
+					"Debuffed until a",
+					"{C:attention}#1#{} is played",
+					"each round",
 				},
 			},
 			aij_spade = {
 				name = "Spade",
 				text = {
-					"This {C:attention}Joker{} is debuffed",
-					"if a {C:spades}Spade{} is played",
+					"Debuffed if a",
+					"{C:spades}Spade{} is played",
 					"this round",
 				},
 			},
 			aij_diamond = {
 				name = "Diamond",
 				text = {
-					"This {C:attention}Joker{} is debuffed",
-					"if a {C:diamonds}Diamond{} is played",
+					"Debuffed if a",
+					"{C:diamonds}Diamond{} is played",
 					"this round",
 				},
 			},
 			aij_heart = {
 				name = "Heart",
 				text = {
-					"This {C:attention}Joker{} is debuffed",
-					"if a {C:hearts}Heart{} is played",
+					"Debuffed if a",
+					"{C:hearts}Heart{} is played",
 					"this round",
 				},
 			},
 			aij_club = {
 				name = "Club",
 				text = {
-					"This {C:attention}Joker{} is debuffed",
-					"if a {C:clubs}Club{} is played",
+					"Debuffed if a",
+					"{C:clubs}Club{} is played",
 					"this round",
 				},
 			},
 			aij_face = {
 				name = "Face",
 				text = {
-					"This {C:attention}Joker{} is debuffed",
-					"if a {C:attention}Face Card{} is ",
+					"Debuffed if a",
+					"{C:attention}Face Card{} is",
 					"played this round",
 				},
 			},

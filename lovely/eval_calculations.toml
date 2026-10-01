@@ -41,30 +41,38 @@ end
 -- Perma stuff for Jokers
 if context.joker_main then
     ret.perma_joker_triggers = {}
+    local perma_triggered = false
     local chips = (card.ability.perma_bonus or 0)
     if chips ~= 0 then
         ret.perma_joker_triggers.chips = chips
+        perma_triggered = true
     end
     
     local mult = (card.ability.perma_mult or 0)
     if mult ~= 0 then
         ret.perma_joker_triggers.mult = mult
+        perma_triggered = true
     end
     
     local x_mult = (card.ability.perma_x_mult or 0)
     if x_mult > 0 then
         ret.perma_joker_triggers.x_mult = x_mult + 1
+        perma_triggered = true
     end
     
     local p_dollars = (card.ability.perma_p_dollars or 0)
     if p_dollars ~= 0 then
         ret.perma_joker_triggers.p_dollars = p_dollars
+        perma_triggered = true
     end
     
     local x_chips = (card.ability.perma_x_chips or 0)
     if x_chips > 0 then
         ret.perma_joker_triggers.x_chips = x_chips + 1
+        perma_triggered = true
     end
+
+    if not perma_triggered then ret.perma_joker_triggers = nil end
 end
 if card.aij_seal_edition and card.seal then
     ret.aij_seal_edition = {}
