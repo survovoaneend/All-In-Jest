@@ -19,10 +19,10 @@ local face = {
 		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll)
 	end,
 	calculate = function(self, card, context)
-		if context.before and context.full_hand then
+		if context.before and not card.ability.debuff_sources["aij_face_sticker"] then
 			for k, v in pairs(context.full_hand) do
 				if v:is_face() then
-					SMODS.debuff_card(card, true, "aij_face_sticker", true)
+					SMODS.debuff_card(card, true, "aij_face_sticker", not card.debuff)
 					return { message = localize("k_disabled_ex") }
 				end
 			end

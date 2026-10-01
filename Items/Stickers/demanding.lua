@@ -23,14 +23,8 @@ local demanding = {
 	end,
 	calculate = function(self, card, context)
 		if context.setting_blind and not card.getting_sliced and not card.ability.debuff_sources["aij_demanding"] then
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					play_sound("timpani")
-					SMODS.debuff_card(card, true, "aij_demanding")
-					card:juice_up()
-					return true
-				end,
-			}))
+			SMODS.debuff_card(card, true, "aij_demanding", not card.debuff)
+			return { message = localize("k_disabled_ex") }
 		end
 		if context.before and context.scoring_name == card.ability[self.key].hand then
 			SMODS.debuff_card(card, nil, "aij_demanding")
