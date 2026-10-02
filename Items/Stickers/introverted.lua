@@ -10,7 +10,7 @@ local introverted = {
 		return { vars = {} }
 	end,
 	sets = { Joker = true },
-	rate = 0.3,
+	rate = 1,
 	should_apply = function(self, card, center, area, bypass_roll)
 		if area == G.shop_jokers or area == G.pack_cards then
 			return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll)
@@ -48,7 +48,7 @@ end
 local set_perishable_ref = Card.set_perishable
 function Card:set_perishable(_perishable)
 	if self.ability.aij_introverted then
-		_perishable = false
+		return
 	end
 	set_perishable_ref(self, _perishable)
 end

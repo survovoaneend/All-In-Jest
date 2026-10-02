@@ -22,7 +22,7 @@ for _,k in ipairs(SMODS.Sticker.obj_buffer) do
         end
     end
 end
-if next(ret) then
+if next(ret) or card.ability.rental then
     return ret, {}
 end
 '''
