@@ -13,7 +13,7 @@ local in_the_dark = {
 		if context.setting_blind then
 			G.GAME.aij_draw_face_down = G.GAME.aij_poly_chips[self.key]
 		end
-		if context.stay_flipped and G.GAME.aij_draw_face_down > 0 then
+		if context.stay_flipped and G.GAME.aij_draw_face_down and G.GAME.aij_draw_face_down > 0 then
 			G.GAME.aij_draw_face_down = G.GAME.aij_draw_face_down - 1
 			return { stay_flipped = true }
 		end
