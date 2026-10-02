@@ -13,7 +13,7 @@ local diamond = {
 	rate = 0,
 	aij_calc_debuff = true,
 	should_apply = function(self, card, center, area, bypass_roll)
-		return bypass_roll or card.ability.aij_suit_sticker_choice == 'aij_diamond'
+		return bypass_roll or card.ability.aij_suit_sticker_choice == "aij_diamond"
 	end,
 	calculate = function(self, card, context)
 		if context.before and not card.ability.debuff_sources["aij_diamond_sticker"] then

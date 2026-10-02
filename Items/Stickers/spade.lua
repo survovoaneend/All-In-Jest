@@ -13,7 +13,7 @@ local spade = {
 	rate = 0,
 	aij_calc_debuff = true,
 	should_apply = function(self, card, center, area, bypass_roll)
-		return bypass_roll or card.ability.aij_suit_sticker_choice == 'aij_spade'
+		return bypass_roll or card.ability.aij_suit_sticker_choice == "aij_spade"
 	end,
 	calculate = function(self, card, context)
 		if context.before and not card.ability.debuff_sources["aij_spade_sticker"] then

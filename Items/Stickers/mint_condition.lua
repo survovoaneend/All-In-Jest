@@ -27,7 +27,9 @@ local mint_condition = {
 }
 local set_rental_ref = Card.set_rental
 function Card:set_rental(_rental)
-	if self.ability.aij_mint_condition then _rental = false end
+	if self.ability.aij_mint_condition then
+		_rental = false
+	end
 	set_rental_ref(self, _rental)
 end
 return { name = { "Stickers" }, items = { mint_condition } }

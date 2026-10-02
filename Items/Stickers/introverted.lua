@@ -41,13 +41,15 @@ local introverted = {
 local set_eternal_ref = Card.set_eternal
 function Card:set_eternal(_eternal)
 	if self.ability.aij_introverted then
-		self:remove_sticker('aij_introverted')
+		self:remove_sticker("aij_introverted")
 	end
 	set_eternal_ref(self, _eternal)
 end
 local set_perishable_ref = Card.set_perishable
 function Card:set_perishable(_perishable)
-	if self.ability.aij_introverted then _perishable = false end
+	if self.ability.aij_introverted then
+		_perishable = false
+	end
 	set_perishable_ref(self, _perishable)
 end
 return { name = { "Stickers" }, items = { introverted } }

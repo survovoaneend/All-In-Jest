@@ -13,7 +13,7 @@ local club = {
 	rate = 0,
 	aij_calc_debuff = true,
 	should_apply = function(self, card, center, area, bypass_roll)
-		return bypass_roll or card.ability.aij_suit_sticker_choice == 'aij_club'
+		return bypass_roll or card.ability.aij_suit_sticker_choice == "aij_club"
 	end,
 	calculate = function(self, card, context)
 		if context.before and not card.ability.debuff_sources["aij_club_sticker"] then
