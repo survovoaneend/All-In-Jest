@@ -10,9 +10,13 @@ local introverted = {
 		return { vars = {} }
 	end,
 	sets = { Joker = true },
-	eternal_compat = false,
-	perishable_compat = false,
 	rate = 0.3,
+	should_apply = function(self, card, center, area, bypass_roll)
+		if area == G.shop_jokers or area == G.pack_cards then
+			return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll)
+		end
+		return false
+	end,
 	calculate = function(self, card, context)
 		if
 			context.setting_blind
@@ -34,6 +38,16 @@ local introverted = {
 		end
 	end,
 }
-SMODS.Stickers["eternal"].aij_introverted_compat = false
-SMODS.Stickers["perishable"].aij_introverted_compat = false
+local set_eternal_ref = Card.set_eternal
+function Card:set_eternal(_eternal)
+	if self.ability.aij_introverted then
+		self:remove_sticker('aij_introverted')
+	end
+	set_eternal_ref(self, _eternal)
+end
+local set_perishable_ref = Card.set_perishable
+function Card:set_perishable(_perishable)
+	if self.ability.aij_introverted then _perishable = false end
+	set_perishable_ref(self, _perishable)
+end
 return { name = { "Stickers" }, items = { introverted } }

@@ -12,6 +12,12 @@ local demanding = {
 		return { vars = { card.ability[self.key] and card.ability[self.key].hand or "(poker hand)" } }
 	end,
 	sets = { Joker = true },
+	should_apply = function(self, card, center, area, bypass_roll)
+		if area == G.shop_jokers or area == G.pack_cards then
+			return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll)
+		end
+		return false
+	end,
 	apply = function(self, card, val)
 		SMODS.Sticker.apply(self, card, val)
 		if card.ability[self.key] then

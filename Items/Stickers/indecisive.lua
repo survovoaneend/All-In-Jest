@@ -55,7 +55,9 @@ local indecisive = {
 			or SMODS.has_attribute(center, "xmult")
 			or SMODS.has_attribute(center, "xchips")
 		then
-			return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll)
+			if area == G.shop_jokers or area == G.pack_cards then
+				return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll)
+			end
 		end
 		return false
 	end,

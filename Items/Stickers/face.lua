@@ -1,22 +1,19 @@
 local face = {
 	object_type = "Sticker",
 	key = "face",
-	config = { extra = { should_debuff = 2 } },
+	config = { extra = {} },
 	atlas = "stickers_atlas",
-	order = 9,
+	order = 10,
 	pos = { x = 2, y = 2 },
 	badge_colour = HEX("dbaab5"),
 	loc_vars = function(self, info_queue, card)
 		return { vars = {} }
 	end,
 	sets = { Joker = true },
-	rate = 0.06, -- 1/5th of standard since there's 5 stickers in this set
+	rate = 0,
 	aij_calc_debuff = true,
 	should_apply = function(self, card, center, area, bypass_roll)
-		if SMODS.has_attribute(center, "face") then
-			return false
-		end
-		return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll)
+		return bypass_roll or card.ability.aij_suit_sticker_choice == 'aij_face'
 	end,
 	calculate = function(self, card, context)
 		if context.before and not card.ability.debuff_sources["aij_face_sticker"] then

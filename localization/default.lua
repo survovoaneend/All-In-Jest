@@ -358,6 +358,8 @@ return {
 			aij_recherche_doubled = "Doubled",
 			aij_indecisive = "Indecisive",
 			aij_mint_condition = "Mint Condition",
+			aij_introverted = "Introverted",
+			aij_demanding = "Demanding",
 			aij_spade = "Spade",
 			aij_diamond = "Diamond",
 			aij_heart = "Heart",
@@ -10978,6 +10980,16 @@ return {
 				name = "Journey",
 				text = {
 					"{C:attention}+1{} Win Ante",
+				},
+			},
+			aij_vainglory = {
+				name = "Vainglory",
+				text = {
+					"{C:attention}30%{} chance for Jokers",
+					"in shops or booster packs",
+					"to have a {C:attention}Suit{} or {C:attention}Face{} sticker",
+					"{C:inactive,s:0.8}(Debuffed if the suit or a",
+					"{C:inactive,s:0.8}face card is played that round)",
 				},
 			},
 		},

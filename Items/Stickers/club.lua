@@ -1,7 +1,7 @@
 local club = {
 	object_type = "Sticker",
 	key = "club",
-	config = { extra = { should_debuff = 2 } },
+	config = { extra = {} },
 	atlas = "stickers_atlas",
 	order = 8,
 	pos = { x = 1, y = 1 },
@@ -10,11 +10,11 @@ local club = {
 		return { vars = {} }
 	end,
 	sets = { Joker = true },
-	aij_heart_compat = false,
-	aij_spade_compat = false,
-	aij_diamond_compat = false,
-	rate = 0.06, -- 1/5th of standard since there's 5 stickers in this set
+	rate = 0,
 	aij_calc_debuff = true,
+	should_apply = function(self, card, center, area, bypass_roll)
+		return bypass_roll or card.ability.aij_suit_sticker_choice == 'aij_club'
+	end,
 	calculate = function(self, card, context)
 		if context.before and not card.ability.debuff_sources["aij_club_sticker"] then
 			for k, v in pairs(context.full_hand) do

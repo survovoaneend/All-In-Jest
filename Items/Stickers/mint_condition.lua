@@ -10,7 +10,6 @@ local mint_condition = {
 		return { vars = {} }
 	end,
 	sets = { Joker = true },
-	rental_compat = false,
 	rate = 0.1,
 	should_apply = function(self, card, center, area, bypass_roll)
 		if area == G.shop_jokers then -- no packs
@@ -26,5 +25,9 @@ local mint_condition = {
 		SMODS.Sticker.apply(self, card, val)
 	end,
 }
-SMODS.Stickers["rental"].aij_mint_condition_compat = false
+local set_rental_ref = Card.set_rental
+function Card:set_rental(_rental)
+	if self.ability.aij_mint_condition then _rental = false end
+	set_rental_ref(self, _rental)
+end
 return { name = { "Stickers" }, items = { mint_condition } }
