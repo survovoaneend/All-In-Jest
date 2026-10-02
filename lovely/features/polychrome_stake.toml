@@ -11,7 +11,7 @@ target = '=[SMODS _ "src/game_objects/runselectpage.lua"]'
 pattern = "if save_data and save_data[stake.key] then"
 position = "before"
 payload = '''
-if stake.key == 'stake_aij_polychrome' and not save_data['stake_gold'] then
+if stake.key == 'stake_aij_polychrome' and not save_data['stake_gold'] and not G.PROFILES[G.SETTINGS.profile].all_unlocked then
     unlocked = false
 end
 '''
