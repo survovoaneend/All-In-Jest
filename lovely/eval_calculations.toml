@@ -25,7 +25,7 @@ if context.end_of_round and not context.repetition and not context.individual th
         end
     end
 end
-if card.ability.numbertaker_rankless and card.base.nominal > 0 then card.base.nominal = 1 end
+if (card.ability.numbertaker_rankless or card.ability.deadwood_blank) and card.base.nominal > 0 then card.base.nominal = 1 end
 if context.setting_blind then
     if card.ability.aij_pc_rental_triggered then
         card.ability.aij_pc_rental_triggered = nil

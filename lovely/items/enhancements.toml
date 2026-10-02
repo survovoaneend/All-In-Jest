@@ -40,6 +40,7 @@ front_hidden = self.front_hidden,
 # Canvas Cards (3/3)
 # generate_card_ui()
 # Removes name of card if canvas is blank
+# Localize rankless / blank cards
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -52,6 +53,10 @@ elseif (card and card.config and card.config.aij_other_center) and ((card.config
 elseif (card and card.ability and card.ability.numbertaker_rankless) then
     full_UI_table.name = {}
     localize{type = 'other', key = 'aij_suit_only_playing_card', set = 'Other', nodes = full_UI_table.name, vars = {localize(specific_vars.suit, 'suits_plural'), colours = {specific_vars.colour}}}
+    full_UI_table.name = full_UI_table.name[1]
+elseif (card and card.ability and card.ability.deadwood_blank) then
+    full_UI_table.name = {}
+    localize{type = 'other', key = 'aij_blank_playing_card', set = 'Other', nodes = full_UI_table.name}
     full_UI_table.name = full_UI_table.name[1]
 '''
 

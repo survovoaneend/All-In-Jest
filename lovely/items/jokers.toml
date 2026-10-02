@@ -973,6 +973,11 @@ if other.ability.numbertaker_rankless and other.config.card then
     if new_card.base.nominal > 0 then new_card.base.nominal = 1 end
     new_card:set_sprites(nil, other.config.card)
 end
+if other.ability.deadwood_blank and other.config.card then
+    new_card.ability.deadwood_blank = true
+    if new_card.base.nominal > 0 then new_card.base.nominal = 1 end
+    new_card:set_sprites(nil, other.config.card)
+end
 '''
 
 

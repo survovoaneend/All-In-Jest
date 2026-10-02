@@ -10992,11 +10992,23 @@ return {
 					"{C:inactive,s:0.8}face card is played that round)",
 				},
 			},
+			aij_deadwood = {
+				name = "Deadwood",
+				text = {
+					"Start with {C:attention}6{} additional",
+					"{C:attention}Blank{} cards in your deck",
+				},
+			},
 		},
 		Other = {
 			aij_suit_only_playing_card = {
 				text = {
 					" {V:1}#1# ",
+				},
+			},
+			aij_blank_playing_card = {
+				text = {
+					" Blank ",
 				},
 			},
 			aij_future_sight_tip = {
