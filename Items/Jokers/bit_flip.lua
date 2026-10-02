@@ -71,6 +71,8 @@ local bit_flip = {
 					end,
 				}))
 			end
+
+			return nil, true
 		end
 	end,
 }
