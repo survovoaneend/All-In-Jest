@@ -37,6 +37,7 @@ All_in_Jest.PolyStakeChip = SMODS.GameObject:extend({
 	inject = function(self) end,
 	-- called at the start of the run, 'stack' is the amount it was applied (usually 1)
 	apply = function(self, stack) end,
+	calculate = function(self, context) end,
 })
 
 function All_in_Jest.create_polychip_alert(chip)

@@ -1731,3 +1731,7 @@ function aij_change_shop_size_advanced(mod, remove_tag, type, rarity, key)
 		end
 	end
 end
+
+function All_in_Jest.has_blind_drawn()
+	return (next(SMODS.find_card("j_aij_blind_drawn")) ~= nil) or (G.GAME.aij_poly_chips and G.GAME.aij_poly_chips['aij_blindness'] > 0)
+end

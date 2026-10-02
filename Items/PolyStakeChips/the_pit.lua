@@ -7,6 +7,5 @@ local the_pit = {
 	atlas = "chips_atlas",
 	stack = 1,
 	points = { 150 },
-	apply = function(self, stack) end,
 }
 return { name = { "PolyStakeChips" }, items = { the_pit } }

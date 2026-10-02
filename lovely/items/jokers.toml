@@ -672,7 +672,7 @@ pattern = "function create_UIBox_blind_choice(type, run_info)"
 position = "after"
 payload = '''
   local is_big_boss = false
-  local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and (type == 'Boss' or type == 'Big_Boss')
+  local aij_has_blind_drawn = All_in_Jest.has_blind_drawn() and (type == 'Boss' or type == 'Big_Boss')
 '''
 match_indent = true
 
@@ -685,7 +685,7 @@ target = '=[SMODS _ "src/ui.lua"]'
 pattern = "function create_UIBox_blind_choice(type, run_info)"
 position = "after"
 payload = '''
-    local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and (type == 'Boss' or type == 'Big_Boss')
+    local aij_has_blind_drawn = All_in_Jest.has_blind_drawn() and (type == 'Boss' or type == 'Big_Boss')
 '''
 match_indent = true
 

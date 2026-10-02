@@ -165,3 +165,20 @@ payload = '''
 G.PROGRESS.joker_stickers.of = G.PROGRESS.joker_stickers.of - 1 -- don't count Polychrome stake
 '''
 match_indent = true
+
+# Add stakes to calculation
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "-- TARGET: add your own individual scoring targets"
+position = "after"
+payload = '''
+if G.GAME.aij_poly_chips then
+    for _, v in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
+        if G.GAME.aij_poly_chips[v] > 0 then
+            t[#t + 1] = { object = All_in_Jest.PolyStakeChips[v], scored_card = G.deck and G.deck.cards[1] or G.deck, set = "PolyStakeChips", key = v }
+        end
+    end
+end
+'''
+match_indent = true

@@ -10915,11 +10915,69 @@ return {
 					"{C:money}$1{} more per {C:attention}Ante",
 				},
 			},
+			aij_envy = {
+				name = "Envy",
+				text = {
+					"{C:attention}30%{} chance for Jokers",
+					"in shops or booster packs",
+					"to have an {C:attention}Introverted{} sticker",
+					"{C:inactive,s:0.8}(Self-destructs when selecting",
+					"{C:inactive,s:0.8}Blind with full Joker slots)",
+				},
+			},
+			aij_in_the_dark = {
+				name = "In the Dark",
+				text = {
+					"{C:attention}1{} random card in",
+					"each {C:attention}opening hand",
+					"is drawn {C:attention}face down",
+				},
+			},
+			aij_wrath = {
+				name = "Wrath",
+				text = {
+					"{C:attention}30%{} chance for {C:attention}scoring{} Jokers",
+					"in shops or booster packs",
+					"to have an {C:attention}Indecisive{} sticker",
+					"{C:inactive,s:0.8}({C:green,s:0.8}1 in 4{C:inactive,s:0.8} chance to not score)",
+				},
+			},
+			aij_blindness = {
+				name = "Blindness",
+				text = {
+					"Cannot see {C:attention}Boss Blind{} or",
+					"its effects until selected",
+				},
+			},
+			aij_lust = {
+				name = "Lust",
+				text = {
+					"{C:attention}30%{} chance for Jokers",
+					"in shops or booster packs",
+					"to have a {C:attention}Demanding{} sticker",
+					"{C:inactive,s:0.8}(Debuffed until a specific poker hand",
+					"{C:inactive,s:0.8}is played each round)",
+				},
+			},
 			aij_double_threat = {
 				name = "Double Threat",
 				text = {
 					"{C:attention}Big Blinds{} are replaced",
 					"with {C:attention}Boss Blinds",
+				},
+			},
+			aij_chump_change = {
+				name = "Chump Change",
+				text = {
+					"{C:attention}High Card{} and {C:attention}Pair",
+					"gain {C:attention}5{} less {C:chips}Chips",
+					"when upgraded",
+				},
+			},
+			aij_journey = {
+				name = "Journey",
+				text = {
+					"{C:attention}+1{} Win Ante",
 				},
 			},
 		},
