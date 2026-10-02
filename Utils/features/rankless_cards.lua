@@ -30,7 +30,7 @@ function get_front_spriteinfo(_front)
 				{ x = 12, y = _front.pos.y }
 		end
 	elseif _front.card and _front.card.ability and _front.card.ability.deadwood_blank then
-		return G.ASSET_ATLAS['aij_enhancements_atlas'], { x = 0, y = 6 }
+		return G.ASSET_ATLAS["aij_enhancements_atlas"], { x = 0, y = 6 }
 	else
 		return get_front_spriteinfo_ref(_front)
 	end
