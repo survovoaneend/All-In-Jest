@@ -175,7 +175,7 @@ position = "after"
 payload = '''
 if G.GAME.aij_poly_chips then
     for _, v in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
-        if G.GAME.aij_poly_chips[v] > 0 then
+        if G.GAME.aij_poly_chips[v] and G.GAME.aij_poly_chips[v] > 0 then
             t[#t + 1] = { object = All_in_Jest.PolyStakeChips[v], scored_card = G.deck and G.deck.cards[1] or G.deck, set = "PolyStakeChips", key = v }
         end
     end

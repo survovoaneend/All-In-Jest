@@ -13,6 +13,10 @@ local the_seed = {
 	order = 85,
 	dollars = 5,
 
+	in_pool = function(self)
+		return not G.GAME.aij_has_big_boss
+	end,
+
 	defeat = function(self)
 		local temp = G.GAME.blind and G.GAME.blind.disabled
 		if temp then

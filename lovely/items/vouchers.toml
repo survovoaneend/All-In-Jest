@@ -19,7 +19,7 @@ payload = '''
 local _seal = SMODS.poll_seal({mod = G.GAME.all_in_jest.standard_pack_seal_rate * 10, type_key = 'stdset'..G.GAME.round_resets.ante})
 '''
 
-# Trophy Voucher (1/1)
+# Trophy Voucher (1/1) + Big Boss
 # Sets big blind tag to gold if Trophy activates
 # G.FUNCS.cash_out()
 [[patches]] 
@@ -28,8 +28,10 @@ target = "functions/button_callbacks.lua"
 pattern = "G.GAME.round_resets.blind_tags.Big = get_next_tag_key()"
 position = "after"
 payload = '''
+G.GAME.round_resets.blind_tags.Big_Boss = get_next_tag_key()
 if G.GAME.used_vouchers.v_aij_trophy and G.GAME.all_in_jest.apply.v_aij_trophy_chance then
     G.GAME.round_resets.blind_tags.Big = get_next_tag_key('all_in_jest_guarrented_gold_tag')
+    G.GAME.round_resets.blind_tags.Big_Boss = get_next_tag_key('all_in_jest_guarrented_gold_tag')
 end
 '''
 match_indent = true
