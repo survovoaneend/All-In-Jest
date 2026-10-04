@@ -58,7 +58,13 @@ local chaos = {
 				elseif effect == "boss_reroll" and not (MP and MP.LOBBY.code) then
 					local bosses = {}
 					for k, v in pairs(G.P_BLINDS) do
-						if v and v.boss and not (v.boss.all_in_jest and v.boss.all_in_jest.gladiator) and SMODS.add_to_pool(v) and not G.GAME.banned_keys[k] then
+						if
+							v
+							and v.boss
+							and not (v.boss.all_in_jest and v.boss.all_in_jest.gladiator)
+							and SMODS.add_to_pool(v)
+							and not G.GAME.banned_keys[k]
+						then
 							table.insert(bosses, v)
 						end
 					end

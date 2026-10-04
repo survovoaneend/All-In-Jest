@@ -30,15 +30,15 @@ function All_in_Jest.get_current_blind_mult()
 end
 
 function All_in_Jest.gladiator_blinds_in_play()
-	return G.GAME.aij_poly_chips and G.GAME.aij_poly_chips['aij_gladiator'] > 0
+	return G.GAME.aij_poly_chips and G.GAME.aij_poly_chips["aij_gladiator"] > 0
 end
 
 G.FUNCS.jest_gladiator_blinds = function(e)
 	G.GAME.jest_gladiator_tab = not G.GAME.jest_gladiator_tab
-	G.FUNCS.overlay_menu{
+	G.FUNCS.overlay_menu({
 		definition = create_UIBox_your_collection_blinds(),
-		config = { offset = { x = 0, y = 0 } }
-	}
+		config = { offset = { x = 0, y = 0 } },
+	})
 end
 
 -- remove gladiator blinds from collection count unless one is discovered

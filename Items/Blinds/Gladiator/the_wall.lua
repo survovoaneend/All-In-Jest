@@ -3,9 +3,9 @@ local the_wall = {
 	key = "the_wall_GL",
 	boss = {
 		min = 2,
-        all_in_jest = {
-            gladiator = true
-        }
+		all_in_jest = {
+			gladiator = true,
+		},
 	},
 	mult = 6,
 	attributes = { "large_blind" },
@@ -14,9 +14,9 @@ local the_wall = {
 	order = 17,
 	dollars = 5,
 
-    disable = function(self)
-        G.GAME.blind.chips = G.GAME.blind.chips / 3
+	disable = function(self)
+		G.GAME.blind.chips = G.GAME.blind.chips / 3
 		G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-    end,
+	end,
 }
 return { name = { "Blinds" }, items = { the_wall } }

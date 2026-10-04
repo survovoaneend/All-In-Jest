@@ -98,12 +98,25 @@ local anarchy_tag = {
 					local bosses = {}
 					local showdown_bosses = {}
 					for k, v in pairs(G.P_BLINDS) do
-						if v and v.boss and not (v.boss.all_in_jest and v.boss.all_in_jest.gladiator) and v.boss.showdown and SMODS.add_to_pool(v) and not G.GAME.banned_keys[k] then
+						if
+							v
+							and v.boss
+							and not (v.boss.all_in_jest and v.boss.all_in_jest.gladiator)
+							and v.boss.showdown
+							and SMODS.add_to_pool(v)
+							and not G.GAME.banned_keys[k]
+						then
 							table.insert(showdown_bosses, v)
 						end
 					end
 					for k, v in pairs(G.P_BLINDS) do
-						if v and v.boss and not (v.boss.all_in_jest and v.boss.all_in_jest.gladiator) and SMODS.add_to_pool(v) and not G.GAME.banned_keys[k] then
+						if
+							v
+							and v.boss
+							and not (v.boss.all_in_jest and v.boss.all_in_jest.gladiator)
+							and SMODS.add_to_pool(v)
+							and not G.GAME.banned_keys[k]
+						then
 							table.insert(bosses, v)
 							if not v.boss.showdown then
 								local ran = pseudorandom("jest_chaos_tag", 1, #showdown_bosses)
