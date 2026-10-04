@@ -6,7 +6,7 @@ local deadwood = {
 	pos = { x = 1, y = 2 },
 	atlas = "chips_atlas",
 	unlocked = false,
-	point_requirement = 900,
+	point_requirement = 1250,
 	stack = 2,
 	points = { 100, 300 },
 	apply = function(self, stack)

@@ -6,7 +6,7 @@ local in_the_dark = {
 	pos = { x = 7, y = 1 },
 	atlas = "chips_atlas",
 	unlocked = false,
-	point_requirement = 500,
+	point_requirement = 850,
 	stack = 3,
 	points = { 50, 100, 200 },
 	calculate = function(self, context)

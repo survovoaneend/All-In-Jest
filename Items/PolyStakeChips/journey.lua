@@ -6,7 +6,7 @@ local journey = {
 	pos = { x = 6, y = 1 },
 	atlas = "chips_atlas",
 	unlocked = false,
-	point_requirement = 1000,
+	point_requirement = 1500,
 	stack = 2,
 	points = { 150, 300 },
 	apply = function(self, stack)

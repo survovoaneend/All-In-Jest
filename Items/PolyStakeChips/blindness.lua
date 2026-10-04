@@ -6,7 +6,7 @@ local blindness = {
 	pos = { x = 9, y = 1 },
 	atlas = "chips_atlas",
 	unlocked = false,
-	point_requirement = 700,
+	point_requirement = 1000,
 	stack = 1,
 	points = { 200 },
 }

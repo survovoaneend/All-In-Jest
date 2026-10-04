@@ -6,7 +6,7 @@ local chump_change = {
 	pos = { x = 8, y = 1 },
 	atlas = "chips_atlas",
 	unlocked = false,
-	point_requirement = 800,
+	point_requirement = 1100,
 	stack = 1,
 	points = { 50 },
 	apply = function(self, stack)

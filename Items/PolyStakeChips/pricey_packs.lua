@@ -6,7 +6,7 @@ local pricey_packs = {
 	pos = { x = 9, y = 0 },
 	atlas = "chips_atlas",
 	unlocked = false,
-	point_requirement = 300,
+	point_requirement = 700,
 	stack = 1,
 	points = { 150 },
 	apply = function(self, stack)

@@ -6,7 +6,7 @@ local vainglory = {
 	pos = { x = 0, y = 2 },
 	atlas = "chips_atlas",
 	unlocked = false,
-	point_requirement = 900,
+	point_requirement = 1250,
 	stack = 1,
 	points = { 50 },
 	apply = function(self, stack)

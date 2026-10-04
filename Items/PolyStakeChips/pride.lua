@@ -6,7 +6,7 @@ local pride = {
 	pos = { x = 0, y = 1 },
 	atlas = "chips_atlas",
 	unlocked = false,
-	point_requirement = 100,
+	point_requirement = 500,
 	stack = 1,
 	points = { 30 },
 	apply = function(self, stack)
