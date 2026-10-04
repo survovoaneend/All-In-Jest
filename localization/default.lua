@@ -28,6 +28,7 @@ return {
 			aij_requires_restart = "Requires Restart",
 			aij_doesnt_requires_restart = "Doesn't Require Restart",
 			aij_upgraded_tags = "Gold Tags",
+			aij_gladiator_blinds = "Gladiator Blinds",
 			aij_pc_stickers = "Playing Card Stickers",
 			aij_button_content = "Content",
 			aij_button_moons = "Moons",
@@ -1453,6 +1454,34 @@ return {
 					"played or discarded",
 					"this ante when Blind",
 					"is selected",
+				},
+			},
+			-- Gladiator Blinds
+			bl_aij_the_hook_GL = {
+				name = "The Hook",
+				text = {
+					"Discard 1 random",
+					"scoring card in",
+					"each played hand",
+				},
+			},
+			bl_aij_the_wall_GL = {
+				name = "The Wall",
+				text = {
+					"Very large blind",
+				},
+			},
+			bl_aij_the_manacle_GL = {
+				name = "The Manacle",
+				text = {
+					"-1 Hand Size",
+					"each hand played",
+				},
+			},
+			bl_aij_violet_vessel_GL = {
+				name = "Violet Vessel",
+				text = {
+					"Massive blind",
 				},
 			},
 		},
@@ -10997,6 +11026,13 @@ return {
 				text = {
 					"Start with {C:attention}6{} additional",
 					"{C:attention}Blank{} cards in your deck",
+				},
+			},
+			aij_gladiator = {
+				name = "Gladiator",
+				text = {
+					"{C:attention}Boss Blinds{} have",
+					"tougher effects",
 				},
 			},
 		},

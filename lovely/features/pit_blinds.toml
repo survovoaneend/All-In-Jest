@@ -4,7 +4,7 @@ dump_lua = true
 priority = 214748364
 
 
-# Pit Blinds (1/1)
+# Pit Blinds / Gladiator Blinds (1/1)
 # Patch to force pit blind on ante 4/5 or during the all pit blinds challenge
 # get_new_boss()
 [[patches]]
@@ -15,12 +15,102 @@ position = "before"
 match_indent = true
 payload = '''
 -- AIJ Patch
-if All_in_Jest.force_pit_blind() then
+local force_pit = All_in_Jest.force_pit_blind()
+if force_pit then
     for k, v in pairs(eligible_bosses) do
         if eligible_bosses[k] and not (G.P_BLINDS[k] and G.P_BLINDS[k].boss and G.P_BLINDS[k].boss.all_in_jest and G.P_BLINDS[k].boss.all_in_jest.pit) then
             eligible_bosses[k] = nil
         end
     end
+else
+    local force_gladiator = All_in_Jest.gladiator_blinds_in_play()
+    for k, v in pairs(eligible_bosses) do
+        if eligible_bosses[k] then
+            local is_gladiator = G.P_BLINDS[k] and G.P_BLINDS[k].boss and G.P_BLINDS[k].boss.all_in_jest and G.P_BLINDS[k].boss.all_in_jest.gladiator
+            if force_gladiator ~= is_gladiator then
+                eligible_bosses[k] = nil
+            end
+        end
+    end
 end
 -- end AIJ patch
+'''
+
+# Gladiator Blinds Collection (1/2)
+# Exclude blinds depending on gladiator tab
+# create_UIBox_your_collection_tags_content()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = 'for i, v in ipairs(blind_tab) do'
+position = "before"
+match_indent = true
+payload = '''
+local gladiator_discovered = false
+for i = #blind_tab, 1, -1 do
+    local v = blind_tab[i]
+    local is_gladiator = (v.boss and v.boss.all_in_jest and v.boss.all_in_jest.gladiator) or false
+    if is_gladiator and v.discovered then
+        gladiator_discovered = true
+    end
+    if is_gladiator ~= (G.GAME.jest_gladiator_tab or false) then
+        table.remove(blind_tab, i)
+    end
+end
+blinds_amt = #blind_tab
+'''
+
+# Gladiator Blinds Collection (2/2)
+# Add a button to access gladiator blinds collection
+# create_UIBox_your_collection_tags_content()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = '''
+create_option_cycle({
+    options = page_options,
+    w = 4.5,
+    cycle_shoulders = true,
+    opt_callback = 'your_collection_blinds_page',
+    focus_args = {snap_to = true, nav = 'wide'},
+    current_option = page,
+    colour = G.ACTIVE_MOD_UI and (G.ACTIVE_MOD_UI.ui_config or {}).collection_option_cycle_colour or G.C.RED,
+    no_pips = true
+})'''
+position = "after"
+match_indent = true
+payload = ''',
+(not All_in_Jest.config.aij_lite and gladiator_discovered) and {n=G.UIT.R, config={align = "cm", r = 0.1, w = 0.2, minh = 0.9, hover = true, colour = G.C.FILTER, button = "jest_gladiator_blinds", shadow = true, focus_args = {nav = 'wide', snap_to = true}}, nodes={
+    {n=G.UIT.R, config={align = "cm", padding = 0, no_fill = true}, nodes={
+        {n=G.UIT.T, config={text = localize('aij_gladiator_blinds'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT}}
+    }}
+}} or nil,
+'''
+
+# Gladiator Negative shader (1/2)
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+local extras = nil
+local stake_sprite = get_stake_sprite(G.GAME.stake or 1, 0.5)
+'''
+position = "before"
+match_indent = true
+payload = '''
+if blind_choice.config.boss and blind_choice.config.boss.all_in_jest and blind_choice.config.boss.all_in_jest.gladiator then
+    blind_choice.animation.draw_steps[#blind_choice.animation.draw_steps + 1] = { shader = 'voucher' }
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = "self.children.animatedSprite:draw_shader('dissolve')    "
+position = "after"
+match_indent = true
+payload = '''
+if self.config.blind.boss and self.config.blind.boss.all_in_jest and self.config.blind.boss.all_in_jest.gladiator then
+    self.children.animatedSprite:draw_shader('voucher', nil, self.ARGS.send_to_shader)
+end
 '''

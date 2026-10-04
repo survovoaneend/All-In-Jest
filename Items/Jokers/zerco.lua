@@ -37,7 +37,7 @@ local zerco = {
 				delay = 1,
 				func = function()
 					local _card = context.scoring_hand[1]
-					if not _card.edition then
+					if _card and not _card.edition then
 						_card:set_edition({ negative = true }, true)
 					end
 					return true

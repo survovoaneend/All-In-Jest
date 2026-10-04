@@ -20,7 +20,7 @@ local red_wine = {
 	calculate = function(self, card, context)
 		if context.after then
 			local first_card = { context.scoring_hand[1] }
-			if not first_card[1]:is_suit("Hearts") then
+			if first_card and not first_card[1]:is_suit("Hearts") then
 				All_in_Jest.change_card("Hearts", nil, first_card)
 				delay(0.6)
 			end
