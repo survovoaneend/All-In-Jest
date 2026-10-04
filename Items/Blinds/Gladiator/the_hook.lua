@@ -39,15 +39,12 @@ local the_hook = {
 					blind.aij_discarded_card:calculate_seal({ discard = true, other_card = blind.aij_discarded_card })
 					local removed = false
 					local effects = {}
-					SMODS.calculate_context(
-						{
-							discard = true,
-							other_card = blind.aij_discarded_card,
-							full_hand = G.play.highlighted,
-							ignore_other_debuff = true,
-						},
-						effects
-					)
+					SMODS.calculate_context({
+						discard = true,
+						other_card = blind.aij_discarded_card,
+						full_hand = G.play.highlighted,
+						ignore_other_debuff = true,
+					}, effects)
 					SMODS.trigger_effects(effects)
 					for _, eval in pairs(effects) do
 						if type(eval) == "table" then
