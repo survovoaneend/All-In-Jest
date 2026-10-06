@@ -1478,12 +1478,61 @@ return {
 					"each hand played",
 				},
 			},
+			bl_aij_the_goad_GL = {
+				name = "The Goad",
+				text = {
+					"Reduce score by 20%",
+                    "per Spade played",
+				},
+			},
+			bl_aij_the_head_GL = {
+				name = "The Head",
+				text = {
+					"Reduce score by 20%",
+                    "per Heart played",
+				},
+			},
+			bl_aij_the_club_GL = {
+				name = "The Club",
+				text = {
+					"Reduce score by 20%",
+                    "per Club played",
+				},
+			},
+			bl_aij_the_window_GL = {
+				name = "The Window",
+				text = {
+					"Reduce score by 20%",
+                    "per Diamond played",
+				},
+			},
+			bl_aij_the_plant_GL = {
+				name = "The Plant",
+				text = {
+					"Reduce score by 20%",
+                    "per Face card played",
+				},
+			},
+			bl_aij_the_needle_GL = {
+				name = "The Needle",
+				text = {
+					"Play only 1 hand",
+				},
+			},
 			bl_aij_violet_vessel_GL = {
 				name = "Violet Vessel",
 				text = {
 					"Massive blind",
 				},
 			},
+			bl_aij_the_ulcer_GL = {
+				name = "The Ulcer",
+				text = {
+					"-2 Hands",
+					"-2 Discards",
+				},
+			},
+
 		},
 		Enhanced = {
 			m_aij_fervent = {
