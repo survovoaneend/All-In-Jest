@@ -8,7 +8,7 @@ local the_window = {
 		},
 	},
 	mult = 2,
-	attributes = { "xscore", "diamonds", "suit"},
+	attributes = { "xscore", "diamonds", "suit" },
 	boss_colour = HEX("a9a295"),
 	pos = { x = 0, y = 6 },
 	order = 18,

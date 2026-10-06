@@ -8,7 +8,7 @@ local the_head = {
 		},
 	},
 	mult = 2,
-	attributes = { "xscore", "hearts", "suit"},
+	attributes = { "xscore", "hearts", "suit" },
 	boss_colour = HEX("ac9db4"),
 	pos = { x = 0, y = 21 },
 	order = 16,

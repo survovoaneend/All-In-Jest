@@ -8,7 +8,7 @@ local the_club = {
 		},
 	},
 	mult = 2,
-	attributes = { "xscore", "clubs", "suit"},
+	attributes = { "xscore", "clubs", "suit" },
 	boss_colour = HEX("b9cb92"),
 	pos = { x = 0, y = 4 },
 	order = 17,

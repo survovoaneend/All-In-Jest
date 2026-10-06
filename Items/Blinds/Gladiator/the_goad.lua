@@ -8,7 +8,7 @@ local the_goad = {
 		},
 	},
 	mult = 2,
-	attributes = { "xscore", "spades", "suit"},
+	attributes = { "xscore", "spades", "suit" },
 	boss_colour = HEX("b95c96"),
 	pos = { x = 0, y = 13 },
 	order = 15,

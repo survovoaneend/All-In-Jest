@@ -1482,35 +1482,35 @@ return {
 				name = "The Goad",
 				text = {
 					"Reduce score by 20%",
-                    "per Spade played",
+					"per Spade played",
 				},
 			},
 			bl_aij_the_head_GL = {
 				name = "The Head",
 				text = {
 					"Reduce score by 20%",
-                    "per Heart played",
+					"per Heart played",
 				},
 			},
 			bl_aij_the_club_GL = {
 				name = "The Club",
 				text = {
 					"Reduce score by 20%",
-                    "per Club played",
+					"per Club played",
 				},
 			},
 			bl_aij_the_window_GL = {
 				name = "The Window",
 				text = {
 					"Reduce score by 20%",
-                    "per Diamond played",
+					"per Diamond played",
 				},
 			},
 			bl_aij_the_plant_GL = {
 				name = "The Plant",
 				text = {
 					"Reduce score by 20%",
-                    "per Face card played",
+					"per Face card played",
 				},
 			},
 			bl_aij_the_needle_GL = {
@@ -1532,7 +1532,6 @@ return {
 					"-2 Discards",
 				},
 			},
-
 		},
 		Enhanced = {
 			m_aij_fervent = {

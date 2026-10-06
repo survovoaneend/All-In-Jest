@@ -8,7 +8,7 @@ local the_plant = {
 		},
 	},
 	mult = 2,
-	attributes = { "xscore", "face"},
+	attributes = { "xscore", "face" },
 	boss_colour = HEX("709284"),
 	pos = { x = 0, y = 19 },
 	order = 19,
