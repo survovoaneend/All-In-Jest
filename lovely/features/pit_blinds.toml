@@ -26,7 +26,7 @@ else
     local force_gladiator = All_in_Jest.gladiator_blinds_in_play()
     for k, v in pairs(eligible_bosses) do
         if eligible_bosses[k] then
-            local is_gladiator = G.P_BLINDS[k] and G.P_BLINDS[k].boss and G.P_BLINDS[k].boss.all_in_jest and G.P_BLINDS[k].boss.all_in_jest.gladiator
+            local is_gladiator = (G.P_BLINDS[k] and G.P_BLINDS[k].boss and G.P_BLINDS[k].boss.all_in_jest and G.P_BLINDS[k].boss.all_in_jest.gladiator) or false
             if force_gladiator ~= is_gladiator then
                 eligible_bosses[k] = nil
             end
