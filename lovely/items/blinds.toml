@@ -96,7 +96,7 @@ pattern = "local blind_amt = *"
 position = 'after'
 match_indent = true
 payload = '''
-if type == 'Big_Boss' then extras = nil end
+if type == 'Big_Boss' and G.GAME.round_resets.blind_states['Big_Boss'] == 'Defeated' then extras = nil end
 if All_in_Jest.aij_alias_type(blind_choice.config.aij_blind_amount_display) == 'function' then
     local blind_mult = blind_choice.config.mult
     if next(SMODS.find_card("j_aij_fall_of_count_chaligny")) then
@@ -113,6 +113,20 @@ if G.GAME.the_connection_extra_chips then
     blind_amt = blind_amt + G.GAME.the_connection_extra_chips
 end
 '''
+
+# Big Boss
+# Add skip button to big blind boss
+# create_UIBox_blind_choice()
+[[patches]] 
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "elseif not run_info then"
+position = "before"
+payload = '''
+elseif type == 'Big_Boss' then
+  if not blind_choice.config.unskippable then extras = create_UIBox_blind_tag(type, run_info) end
+'''
+match_indent = true
 
 
 ###########################
