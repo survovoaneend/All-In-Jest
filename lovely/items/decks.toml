@@ -91,7 +91,7 @@ if (G.GAME.selected_back and G.GAME.selected_back.name == 'b_aij_patchwork') or 
 end
 '''
 
-# Branching Deck (1/9)
+# Branching Deck (1/10)
 # Create UI for the three tag choices
 # create_UIBox_blind_tag()
 [[patches]] 
@@ -137,7 +137,7 @@ end
 '''
 match_indent = true
 
-# Branching Deck (2/9)
+# Branching Deck (2/10)
 # Apply the three tag choices to the blind select screen
 # create_UIBox_blind_tag()
 [[patches]] 
@@ -169,7 +169,7 @@ G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt
 '''
 match_indent = true
 
-# Branching Deck (3/9)
+# Branching Deck (3/10)
 # G.FUNCS.blind_choice_handler()
 [[patches]] 
 [patches.pattern]
@@ -285,7 +285,7 @@ end
 '''
 match_indent = true
 
-# Branching Deck (4/9)
+# Branching Deck (4/10)
 # Creates the popup of the selected tag when overing over the button
 # Popup when hovering over the tag itself is handled seperately in the G.FUNCS.aij_hover_tag_branching() function (in functions.lua)
 # G.FUNCS.hover_tag_proxy()
@@ -334,7 +334,7 @@ end
 '''
 match_indent = true
 
-# Branching Deck (5/9)
+# Branching Deck (5/10)
 # Reset selected tag when exiting the shop
 # G.FUNCS.toggle_shop
 [[patches]] 
@@ -350,7 +350,7 @@ end
 '''
 match_indent = true
 
-# Branching Deck (6/9)
+# Branching Deck (6/10)
 # Reset selected tag when ending the blind (needed for Dizzard)
 # Wildcard for compat with multiplayer
 # G.FUNCS.cash_out()
@@ -364,7 +364,7 @@ G.GAME.all_in_jest.blind_tags.selected_index = nil
 '''
 match_indent = true
 
-# Branching Deck (7/9)
+# Branching Deck (7/10)
 # Grant the selected tag when skipping the blind
 # G.FUNCS.cash_out()
 [[patches]] 
@@ -376,37 +376,28 @@ payload = '''
 check_for_unlock({type = 'skip_count'})
 if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
     _tag = e.UIBox:get_UIE_by_ID('tag_'..G.GAME.blind_on_deck)
-    if _tag then 
-      add_tag(_tag.children[2].config.ref_table[G.GAME.all_in_jest.blind_tags.selected_index-(G.GAME.all_in_jest.blind_tags[G.GAME.blind_on_deck].page*3)])
-      G.GAME.all_in_jest.blind_tags.selected_index = nil
-      local skipped, skip_to = G.GAME.blind_on_deck or 'Small', 
-      G.GAME.blind_on_deck == 'Small' and 'Big' or G.GAME.blind_on_deck == 'Big' and 'Boss' or 'Boss'
-      G.GAME.round_resets.blind_states[skipped] = 'Skipped'
-      G.GAME.round_resets.blind_states[skip_to] = 'Select'
-      G.GAME.blind_on_deck = skip_to
-      play_sound('generic1')
-      G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = function()
-          delay(0.3)
-          SMODS.calculate_context({skip_blind = true})
-          save_run()
-          for i = 1, #G.GAME.tags do
-            G.GAME.tags[i]:apply_to_run({type = 'immediate'})
-          end
-          for i = 1, #G.GAME.tags do
-            if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
-          end
-          return true
-        end
-      }))
-    end
-    return
 end
 '''
 match_indent = true
 
-# Branching Deck (8/9)
+# Branching Deck (8/10)
+# Grant the selected tag when skipping the blind
+# G.FUNCS.cash_out()
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "add_tag(_tag.config.ref_table)"
+position = "at"
+payload = '''
+if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
+    add_tag(_tag.children[2].config.ref_table[G.GAME.all_in_jest.blind_tags.selected_index-(G.GAME.all_in_jest.blind_tags[G.GAME.blind_on_deck].page*3)])
+else
+    add_tag(_tag.config.ref_table)
+end
+'''
+match_indent = true
+
+# Branching Deck (9/10)
 # Defines the skip tag choices for the first ante at the start of the run (there is another patch that handles it for future antes)
 # Game:start_run()
 [[patches]] 
@@ -434,7 +425,7 @@ end
 '''
 match_indent = true
 
-# Branching Deck (9/9)
+# Branching Deck (10/10)
 # Defines the skip tag choices for next ante (there is another patch that handles it at the start of the game)
 # Also includes interaction with trophy voucher
 # G.FUNCS.cash_out()
