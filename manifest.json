@@ -1,0 +1,9 @@
+{
+	"name": "All in Jest",
+	"description": "Massive vanilla overhaul mod",
+	"website_url": "https://github.com/survovoaneend/All-In-Jest",
+	"version_number": "0.7.3",
+	"dependencies": [
+		"Steamodded-Steamodded-26.1002.0"
+	]
+}
