@@ -31,12 +31,7 @@ local protophanes = {
 
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and G.deck then
-			local next_card = nil
-			for i = tonumber(card.ability.future_sense), #G.deck.cards do
-				if #G.deck.cards > 0 then
-					next_card = G.deck.cards[i]
-				end
-			end
+			local next_card = #G.deck.cards > 0 and G.deck.cards[1]
 			if next_card and context.other_card:get_id() == next_card:get_id() then
 				return {
 					xmult = card.ability.extra.xmult,
