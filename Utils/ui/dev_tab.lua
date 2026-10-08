@@ -1,4 +1,3 @@
-
 -- Adds a tab to the mod config that lets you see incorrectly configured jokers
 -- This tab is hidden unless you change the DEV_TAB_DEBUG variable in nevernamed.lua
 

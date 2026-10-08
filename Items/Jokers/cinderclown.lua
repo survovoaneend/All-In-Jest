@@ -1,29 +1,25 @@
 local cinderclown = {
-    object_type = "Joker",
-    order = 813,
-    ignore = true,
+	object_type = "Joker",
+	order = 813,
+	ignore = true,
 
-    key = "cinderclown",
-    config = {
+	key = "cinderclown",
+	config = {},
+	attributes = {},
+	rarity = 1,
+	pos = { x = 1, y = 42 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    },
-    attributes = {},
-    rarity = 1,
-    pos = { x = 1, y = 42},
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	loc_vars = function(self, info_queue, card)
+		return {}
+	end,
 
-    loc_vars = function(self, info_queue, card)
-        return { }
-    end,
-
-    calculate = function(self, card, context)
-
-    end
+	calculate = function(self, card, context) end,
 }
-return { name = {"Jokers"}, items = {cinderclown} }
+return { name = { "Jokers" }, items = { cinderclown } }

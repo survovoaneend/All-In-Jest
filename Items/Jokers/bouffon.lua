@@ -1,35 +1,33 @@
 local bouffon = {
-    object_type = "Joker",
-    order = 520,
-    key = "bouffon",
-    config = {
-        extra = {
-            cards = 5
-        }
-    },
-    attributes = { 'trigger_cards', },
-    rarity = 1,
-    pos = { x = 13, y = 24 },
+	object_type = "Joker",
+	order = 520,
+	key = "bouffon",
+	config = {
+		extra = {
+			cards = 5,
+		},
+	},
+	attributes = { "trigger_cards" },
+	rarity = 1,
+	pos = { x = 13, y = 24 },
 
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = true,
-    perishable_compat = true,
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.cards,
-            }
-        }
-    end,
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.cards,
+			},
+		}
+	end,
 
-    calculate = function(self, card, context)
-        
-    end
+	calculate = function(self, card, context) end,
 }
 
 return { name = { "Jokers" }, items = { bouffon } }

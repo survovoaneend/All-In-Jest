@@ -1,35 +1,28 @@
 local clipart = {
-    object_type = "Joker",
-    order = 619,
-    key = "bon_vivant",
-  
-    config = {
-        extra = {
-            
-        }
-    },
-    rarity = 2,
-    pos = { x = 5, y = 28 },
-    atlas = 'joker_atlas',
-    cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	object_type = "Joker",
+	order = 619,
+	key = "bon_vivant",
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                
-            }
-        }
-    end,
+	config = {
+		extra = {},
+	},
+	rarity = 2,
+	pos = { x = 5, y = 28 },
+	atlas = "joker_atlas",
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    calculate = function(self, card, context)
-        
-    end
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {},
+		}
+	end,
+
+	calculate = function(self, card, context) end,
 }
-
 
 return { name = { "Jokers" }, items = { clipart } }

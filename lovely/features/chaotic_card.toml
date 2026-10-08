@@ -1,0 +1,61 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+# Define a custom badge to use for Chaotic Cards
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = "SMODS.Rarities = {}"
+position = "before"
+payload = '''
+SMODS.jest_Badges = {}
+SMODS.jest_Badge = SMODS.GameObject:extend {
+    obj_table = SMODS.jest_Badges,
+    obj_buffer = {},
+    set = 'jest_Badge',
+    required_params = {
+        'key',
+    },
+    badge_colour = HEX 'FFFFFF',
+    inject = function(self, center) 
+        if center.set ~= self.key then SMODS.insert_pool(SMODS.jest_Badges[self.key], center) end
+        if not center.pools then center.pools = {} end
+        center.pools[self.key] = true
+        G.C.jest_Badge[self.key] = self.badge_colour
+    end,
+    process_loc_text = function(self)
+        SMODS.process_loc_text(G.localization.misc.labels, "k_"..self.key:lower(), self.loc_txt, 'name')
+        SMODS.process_loc_text(G.localization.misc.dictionary, "k_"..self.key:lower(), self.loc_txt, 'name')
+    end,
+    get_badge = function(self, badge)
+        return localize("k_"..badge:lower())
+    end,
+}
+
+local game_init_game_object_ref = Game.init_game_object
+function Game:init_game_object()
+    local t = game_init_game_object_ref(self)
+    for _, v in pairs(SMODS.jest_Badges) do
+        local key = v.key:lower() .. '_mod'
+        t[key] = t[key] or 1
+    end
+    return t
+end
+'''
+match_indent = true 
+
+# Inject custom badge
+# Game:init_game_object()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = "for _, v in pairs(SMODS.Rarities) do"
+position = "before"
+payload = '''
+for _, v in pairs(SMODS.jest_Badges) do
+    self:inject(v)
+end
+'''
+match_indent = true 

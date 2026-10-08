@@ -1,71 +1,74 @@
 local elf = {
-    object_type = "Joker",
-    order = 348,
+	object_type = "Joker",
+	order = 348,
 
-    key = "elf",
-    config = {
-        extra = {
-            current_skips = 0,
-            skips = 2,
-            tags = 2
-        }
-    },
-    attributes = { 'skip', 'generation', 'tag', 'economy' },
-    rarity = 2,
-    pos = { x = 12, y = 13 },
-    atlas = 'joker_atlas',
-    cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = false,
-    perishable_compat = true,
+	key = "elf",
+	config = {
+		extra = {
+			current_skips = 0,
+			skips = 2,
+			tags = 2,
+		},
+	},
+	attributes = { "skip", "generation", "tag", "economy" },
+	rarity = 2,
+	pos = { x = 12, y = 13 },
+	atlas = "joker_atlas",
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = false,
+	perishable_compat = true,
 
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = G.P_TAGS['tag_investment']
-        return {
-            vars = {
-                card.ability.extra.current_skips,
-                card.ability.extra.skips,
-                card.ability.extra.tags
-            }
-        }
-    end,
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_TAGS["tag_investment"]
+		return {
+			vars = {
+				card.ability.extra.current_skips,
+				card.ability.extra.skips,
+				card.ability.extra.tags,
+			},
+		}
+	end,
 
-    calculate = function(self, card, context)
-        if context.skip_blind and not context.blueprint then
-            card.ability.extra.current_skips = card.ability.extra.current_skips + 1
-            if card.ability.extra.current_skips == card.ability.extra.skips then
-                local eval = function(cardd) return not cardd.REMOVED end
-                juice_card_until(card, eval, true)
-            end
-            return {
-                message = (card.ability.extra.current_skips < card.ability.extra.skips) and
-                    (card.ability.extra.current_skips .. '/' .. card.ability.extra.skips) or
-                    localize('k_active_ex'),
-                colour = G.C.FILTER
-            }
-        end
-        if context.selling_self and (card.ability.extra.current_skips >= card.ability.extra.skips) then
-            local eval = function(cardd) return false end
-            juice_card_until(card, eval, true) -- Removes previous "juice until" effect
+	calculate = function(self, card, context)
+		if context.skip_blind and not context.blueprint then
+			card.ability.extra.current_skips = card.ability.extra.current_skips + 1
+			if card.ability.extra.current_skips == card.ability.extra.skips then
+				local eval = function(cardd)
+					return not cardd.REMOVED
+				end
+				juice_card_until(card, eval, true)
+			end
+			return {
+				message = (card.ability.extra.current_skips < card.ability.extra.skips)
+						and (card.ability.extra.current_skips .. "/" .. card.ability.extra.skips)
+					or localize("k_active_ex"),
+				colour = G.C.FILTER,
+			}
+		end
+		if context.selling_self and (card.ability.extra.current_skips >= card.ability.extra.skips) then
+			local eval = function(cardd)
+				return false
+			end
+			juice_card_until(card, eval, true) -- Removes previous "juice until" effect
 
-            for _ = 1, card.ability.extra.tags do
-                local juiced_card = context.blueprint_card or card
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        juiced_card:juice_up()
-                        jest_add_tag('tag_investment')
-                        return true
-                    end
-                }))
-                delay(0.75 * 1.25)
-            end
-            return {
-                message = localize('k_aij_merry_christmas')
-            }
-        end
-    end
-
+			for _ = 1, card.ability.extra.tags do
+				local juiced_card = context.blueprint_card or card
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						juiced_card:juice_up()
+						jest_add_tag("tag_investment")
+						return true
+					end,
+				}))
+				delay(0.75 * 1.25)
+			end
+			return {
+				message = localize("k_aij_merry_christmas"),
+			}
+		end
+	end,
 }
 return { name = { "Jokers" }, items = { elf } }

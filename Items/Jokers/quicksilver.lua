@@ -1,39 +1,35 @@
 local quicksilver = {
-    object_type = "Joker",
-    order = 582.1,
-    key = "quicksilver",
-    
-    config = {
-        extra = {
-            
-        }
-    },
-    attributes = { 'retrigger', 'hand_type' },
-    rarity = 1,
-    pos = { x = 2, y = 27 },
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	object_type = "Joker",
+	order = 582.1,
+	key = "quicksilver",
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                
-            }
-        }
-    end,
+	config = {
+		extra = {},
+	},
+	attributes = { "retrigger", "hand_type" },
+	rarity = 1,
+	pos = { x = 2, y = 27 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and context.scoring_name == "Pair" then
-            return {
-                repetitions = 1
-            }
-        end
-    end
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.repetition and context.cardarea == G.play and context.scoring_name == "Pair" then
+			return {
+				repetitions = 1,
+			}
+		end
+	end,
 }
 
 return { name = { "Jokers" }, items = { quicksilver } }

@@ -1,38 +1,33 @@
 local circuit_diagram = {
-    object_type = "Joker",
-    order = 294,
-    key = "circuit_diagram",
-    config = {
-      
-    },
-    attributes = { 'enhancements', 'draw_cards' },
-    rarity = 2,
-    pos = { x = 10, y = 11},
-    atlas = 'joker_atlas',
-    cost = 7,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = true,
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.m_aij_charged
-    end,
-  
-    calculate = function(self, card, context)
-        
-    end,
-    in_pool = function(self, args)
-        if G.GAME and G.playing_cards then
-            for _, card in ipairs(G.playing_cards) do
-                if SMODS.has_enhancement(card, 'm_aij_charged') then
-                    return true
-                end
-            end
-        end
-        return false
-    end,
-  
+	object_type = "Joker",
+	order = 294,
+	key = "circuit_diagram",
+	config = {},
+	attributes = { "enhancements", "draw_cards" },
+	rarity = 2,
+	pos = { x = 10, y = 11 },
+	atlas = "joker_atlas",
+	cost = 7,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = true,
+
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_CENTERS.m_aij_charged
+	end,
+
+	calculate = function(self, card, context) end,
+	in_pool = function(self, args)
+		if G.GAME and G.playing_cards then
+			for _, card in ipairs(G.playing_cards) do
+				if SMODS.has_enhancement(card, "m_aij_charged") then
+					return true
+				end
+			end
+		end
+		return false
+	end,
 }
-return { name = {"Jokers"}, items = {circuit_diagram} }
+return { name = { "Jokers" }, items = { circuit_diagram } }

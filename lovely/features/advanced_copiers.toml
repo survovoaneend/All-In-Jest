@@ -1,0 +1,178 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+
+# Advanced Copiers (1/4)
+# Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
+# This is for vanilla jokers. Needs separate patches for vanilla and modded jokers.
+# generate_card_ui()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "specific_vars = ret[1]"
+position = "after"
+match_indent = true
+payload = '''
+specific_vars = _c.specific_vars or specific_vars
+if specific_vars ~= nil and specific_vars.aij_multi_copier_card then
+    local copier_card = specific_vars.aij_multi_copier_card
+    local new_ability = specific_vars.aij_multi_copier_card_ability
+
+    ret = {Card.generate_UIBox_ability_table({ area = copier_card.area, ability = new_ability, config = { center = G.P_CENTERS[new_ability.key] }, bypass_lock = true}, true)}
+
+    new_ability[copier_card.config.center.key .. "_compat_ui"] = new_ability[copier_card.config.center.key .. "_compat_ui"] or ''
+    new_ability[copier_card.config.center.key .. "_compat_check"] = nil
+    local compatible = G.P_CENTERS[new_ability.key][copier_card.config.center.key .. "_compat"]
+    compatible = compatible ~= false
+    local copier_compat = (copier_card.area and copier_card.area == G.jokers) and {
+        {n=G.UIT.C, config={align = "tm", minh = 0.4}, nodes={
+            {n=G.UIT.C, config={align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06}, nodes={
+                {n=G.UIT.T, config={text = ' ' .. (compatible and localize('k_compatible') or localize('k_incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            }}
+        }}
+    } or nil
+    desc_nodes[#desc_nodes + 1] = copier_compat
+end
+'''
+# Advanced Copiers (2/4)
+# Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
+# This is for modded jokers. Needs separate patches for vanilla and modded jokers.
+# SMODS.Center:generate_ui()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''
+local target = {
+    type = 'descriptions',
+    key = self.key,
+    set = self.set,
+    nodes = desc_nodes,
+    AUT = full_UI_table,
+    vars =
+        specific_vars or {}
+}
+'''
+position = "after"
+match_indent = true
+payload = '''
+-- All in Jest
+if target.vars.aij_multi_copier_card then
+    card = target.vars.aij_multi_copier_card
+    local index = target.vars.aij_multi_copier_card_index
+    local new_ability = target.vars.aij_multi_copier_card_ability
+    
+    if card.added_to_deck then
+        All_in_Jest.hotswap_copied_ability(card, index)
+    else
+        All_in_Jest.set_copied_ability(card, G.P_CENTERS[target.key], nil, new_ability)
+    end
+
+    new_ability[card.config.center.key .. "_compat_ui"] = new_ability[card.config.center.key .. "_compat_ui"] or ''
+    new_ability[card.config.center.key .. "_compat_check"] = nil
+    local compatible = G.P_CENTERS[new_ability.key][card.config.center.key .. "_compat"]
+    compatible = compatible ~= false
+    local main_end = (card.area and card.area == G.jokers) and {
+        {n=G.UIT.C, config={align = "tm", minh = 0.4}, nodes={
+            {n=G.UIT.C, config={align = "m", colour = compatible and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06}, nodes={
+                {n=G.UIT.T, config={text = ' ' .. (compatible and localize('k_compatible') or localize('k_incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            }}
+        }}
+    } or nil
+    desc_nodes[#desc_nodes + 1] = main_end
+
+    target.vars.aij_multi_copier_card = nil
+    target.vars.aij_multi_copier_card_index = nil
+    target.vars.aij_multi_copier_card_ability = nil
+
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            All_in_Jest.set_copied_ability(card, {config = {}})
+            return true
+        end
+    }))
+end
+if target.vars.aij_copier_card then
+    card = target.vars.aij_copier_card
+    target.vars.aij_copier_card = nil
+end
+-- End of All in Jest patch
+'''
+# Advanced Copiers (3/4)
+# Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (2/2)
+# generate_card_ui()
+[[patches]]
+[patches.regex]
+target = 'functions/common_events.lua'
+pattern = '''(?<indent>[\t ]*)(?<pre>.*)\(_c\.create_fake_card and _c\.loc_vars and \(_c:loc_vars\(\{\}, \_c:create_fake_card\(\)\) or \{\}\).vars\)(?<post>.*)'''
+position = "at"
+line_prepend = "$indent"
+payload = '''
+local card = _c.specific_vars and (_c.specific_vars.aij_elder or _c.specific_vars.aij_multi_copier_card or _c.specific_vars.aij_copier_card) or card -- All in Jest overrides
+$pre(_c.create_fake_card and _c.loc_vars and (_c:loc_vars({}, card or _c:create_fake_card()) or {}).vars)$post -- All in Jest overrides
+'''
+# Advanced Copiers (4/4)
+# Fixes a nice SMODs issue where Oops! All sixes is refered to by its key rather than ability name (like other vanilla jokers)
+# Card:calculate_joker
+[[patches]] 
+[patches.regex]
+target = "card.lua"
+pattern = '''(?<indent>[\t ]*)elseif (?<precond>.*?) self.config.center_key == 'j_oops' (?<postcond>.*?)'''
+line_prepend = "$indent"
+position = "at"
+payload = '''elseif $precond self.ability.name == 'Oops! All 6s' $postcond'''
+
+# Patch to make all instances of "destroy" red
+# Just hooks into a function in functions.lua
+# init_localization()
+[[patches]]
+[patches.pattern]
+target = 'functions/misc_functions.lua'
+pattern = "if not center.text then else"
+position = 'after'
+match_indent = true
+payload = '''
+-- All in Jest start
+if All_in_Jest_format_destroy then
+    center.text = All_in_Jest_format_destroy(center.text)
+end
+-- All in Jest end
+'''
+
+# Makes blueprint-like copiers show the correct compatability to joker.png style copiers 
+# Card:update
+[[patches]] 
+[patches.regex]
+target = "card.lua"
+pattern = '''(?<indent>[\t ]*)if other_joker and other_joker ~= self and (?<cond>.*?) then'''
+line_prepend = "$indent"
+position = "at"
+payload = '''local aij_blueprint_compatible = other_joker and (other_joker.ability.aij_blueprint_compat or $cond)
+if other_joker and other_joker ~= self and aij_blueprint_compatible then'''
+
+# Card:add_to_deck()
+[[patches]]
+[patches.regex]
+target = 'card.lua'
+pattern = '(?<indent>[\t ]*)if self.ability.h_size ~= 0 then\n[\t ]*G\.hand:change_size\(self.ability.h_size\)'
+line_prepend = '$indent'
+position = 'before'
+payload = '''
+if self.ability.name == 'j_aij_joker_png' or self.ability.name == 'j_aij_czar' then
+    return
+end
+'''
+
+# Card:remove_from_deck()
+[[patches]]
+[patches.regex]
+target = 'card.lua'
+pattern = '(?<indent>[\t ]*)if self.ability.h_size ~= 0 then\n[\t ]*G\.hand:change_size\(-self.ability.h_size\)'
+line_prepend = '$indent'
+position = 'before'
+payload = '''
+if self.ability.name == 'j_aij_joker_png' or self.ability.name == 'j_aij_czar' then
+    return
+end
+'''

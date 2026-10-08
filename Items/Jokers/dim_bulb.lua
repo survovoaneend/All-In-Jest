@@ -1,48 +1,51 @@
 local dim_bulb = {
-  object_type = "Joker",
-  order = 88,
-  lite = true,
-  key = "dim_bulb",
-  config = {
-    extra = { xmult = 2 }
-  },
-  attributes = { 'xmult', 'joker', 'rarity' },
-  rarity = 1,
-  pos = { x = 5, y = 3 },
-  atlas = 'joker_atlas',
-  cost = 4,
-  unlocked = true,
-  discovered = false,
-  blueprint_compat = true,
-  eternal_compat = true,
-  perishable_compat = true,
+	object_type = "Joker",
+	order = 88,
+	lite = true,
+	key = "dim_bulb",
+	config = {
+		extra = { xmult = 2 },
+	},
+	attributes = { "xmult", "joker", "rarity" },
+	rarity = 1,
+	pos = { x = 5, y = 3 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-  loc_vars = function(self, info_queue, card)
-      if card.is_rarity and (card:is_rarity("Uncommon") or card:is_rarity("Rare")) then
-          return { key = "j_aij_dim_bulb_alt", vars = {card.ability.extra.xmult}}
-      else
-          return { vars = {card.ability.extra.xmult}}
-      end
-  end,
+	loc_vars = function(self, info_queue, card)
+		if card.is_rarity and (card:is_rarity("Uncommon") or card:is_rarity("Rare")) then
+			return { key = "j_aij_dim_bulb_alt", vars = { card.ability.extra.xmult } }
+		else
+			return { vars = { card.ability.extra.xmult } }
+		end
+	end,
 
-  calculate = function(self, card, context)
-      if context.joker_main then
-          local only_common = true
-          if G.jokers and G.jokers.cards then
-              for _, joker_card in ipairs(G.jokers.cards) do
-                  if joker_card ~= card and joker_card.config.center.rarity == 2 or joker_card.config.center.rarity == 3 then
-                      only_common = false
-                      break
-                  end
-              end
-          end
-          
-          if only_common then
-              return {
-                xmult = card.ability.extra.xmult,
-              }
-          end
-      end
-  end
+	calculate = function(self, card, context)
+		if context.joker_main then
+			local only_common = true
+			if G.jokers and G.jokers.cards then
+				for _, joker_card in ipairs(G.jokers.cards) do
+					if
+						joker_card ~= card and joker_card.config.center.rarity == 2
+						or joker_card.config.center.rarity == 3
+					then
+						only_common = false
+						break
+					end
+				end
+			end
+
+			if only_common then
+				return {
+					xmult = card.ability.extra.xmult,
+				}
+			end
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {dim_bulb} }
+return { name = { "Jokers" }, items = { dim_bulb } }

@@ -1,85 +1,83 @@
 local beanstalk = {
-    object_type = "Joker",
-    order = 200,
-    
-    key = "beanstalk",
-    config = {
-      
-    },
-    attributes = { 'passive', 'trigger_cards', 'debuff', 'rank', 'jack' },
-    rarity = 1,
-    pos = { x = 8, y = 7},
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = true,
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {set = 'Other', key = 'aij_marked'}
-    end,
-  
-    calculate = function(self, card, context)
-        if context.modify_scoring_hand and context.other_card:get_id() == 11 then
-            return {
-                add_to_hand = true
-            }
-        end
-    end,
+	object_type = "Joker",
+	order = 200,
 
-    update = function(self, card, dt)
-        if G.jokers and next(SMODS.find_card("j_aij_beanstalk")) then
-            if G.hand then
-                if #G.hand.cards > 0 then
-                    for i = 1, #G.hand.cards do
-                        if G.hand.cards[i]:get_id() == 11 then
-                            if G.hand.cards[i].debuff then
-                                G.hand.cards[i].debuff = false
-                            end
-                            if G.hand.cards[i].ability['aij_marked'] then
-                                SMODS.Stickers['aij_marked']:apply(G.hand.cards[i], false)
-                            end
-                            if G.hand.cards[i].facing ~= 'front' then
-                                G.hand.cards[i].ability.wheel_flipped = nil
-                                G.hand.cards[i].flipping = 'b2f'
-                                G.hand.cards[i].facing='front'
-                                G.hand.cards[i].pinch.x = true
-                            end
-                        end
-                    end
-                end
-            end
-            if G.play then
-                if #G.play.cards > 0 then
-                    for i = 1, #G.play.cards do
-                        if G.play.cards[i]:get_id() == 11 then
-                            if G.play.cards[i].debuff then
-                                G.play.cards[i].debuff = false
-                            end
-                            if G.play.cards[i].ability['aij_marked'] then
-                                SMODS.Stickers['aij_marked']:apply(G.play.cards[i], false)
-                            end
-                        end
-                    end
-                end
-            end
-            if G.deck then
-                if #G.deck.cards > 0 then
-                    for i = 1, #G.deck.cards do
-                        if G.deck.cards[i]:get_id() == 11 then
-                            if G.deck.cards[i].debuff then
-                                G.deck.cards[i].debuff = false
-                            end
-                            if G.deck.cards[i].ability['aij_marked'] then
-                                SMODS.Stickers['aij_marked']:apply(G.deck.cards[i], false)
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    end,
+	key = "beanstalk",
+	config = {},
+	attributes = { "passive", "trigger_cards", "debuff", "rank", "jack" },
+	rarity = 1,
+	pos = { x = 8, y = 7 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = true,
+
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { set = "Other", key = "aij_marked" }
+	end,
+
+	calculate = function(self, card, context)
+		if context.modify_scoring_hand and context.other_card:get_id() == 11 then
+			return {
+				add_to_hand = true,
+			}
+		end
+	end,
+
+	update = function(self, card, dt)
+		if G.jokers and next(SMODS.find_card("j_aij_beanstalk")) then
+			if G.hand then
+				if #G.hand.cards > 0 then
+					for i = 1, #G.hand.cards do
+						if G.hand.cards[i]:get_id() == 11 then
+							if G.hand.cards[i].debuff then
+								G.hand.cards[i].debuff = false
+							end
+							if G.hand.cards[i].ability["aij_marked"] then
+								SMODS.Stickers["aij_marked"]:apply(G.hand.cards[i], false)
+							end
+							if G.hand.cards[i].facing ~= "front" then
+								G.hand.cards[i].ability.wheel_flipped = nil
+								G.hand.cards[i].flipping = "b2f"
+								G.hand.cards[i].facing = "front"
+								G.hand.cards[i].pinch.x = true
+							end
+						end
+					end
+				end
+			end
+			if G.play then
+				if #G.play.cards > 0 then
+					for i = 1, #G.play.cards do
+						if G.play.cards[i]:get_id() == 11 then
+							if G.play.cards[i].debuff then
+								G.play.cards[i].debuff = false
+							end
+							if G.play.cards[i].ability["aij_marked"] then
+								SMODS.Stickers["aij_marked"]:apply(G.play.cards[i], false)
+							end
+						end
+					end
+				end
+			end
+			if G.deck then
+				if #G.deck.cards > 0 then
+					for i = 1, #G.deck.cards do
+						if G.deck.cards[i]:get_id() == 11 then
+							if G.deck.cards[i].debuff then
+								G.deck.cards[i].debuff = false
+							end
+							if G.deck.cards[i].ability["aij_marked"] then
+								SMODS.Stickers["aij_marked"]:apply(G.deck.cards[i], false)
+							end
+						end
+					end
+				end
+			end
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {beanstalk} }
+return { name = { "Jokers" }, items = { beanstalk } }

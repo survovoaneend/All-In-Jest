@@ -1,40 +1,40 @@
 local gloaming = {
-    object_type = "Joker",
-    order = 608,
-    key = "gloaming",
-   
-    config = {
-        extra = {
-            xmult = 1.5
-        }
-    },
-    attributes = { 'xmult', 'hands' },
-    rarity = 3,
-    lite = true,
-    pos = { x = 18, y = 27 },
-    atlas = 'joker_atlas',
-    cost = 8,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	object_type = "Joker",
+	order = 608,
+	key = "gloaming",
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.xmult
-            }
-        }
-    end,
+	config = {
+		extra = {
+			xmult = 1.5,
+		},
+	},
+	attributes = { "xmult", "hands" },
+	rarity = 3,
+	lite = true,
+	pos = { x = 18, y = 27 },
+	atlas = "joker_atlas",
+	cost = 8,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and G.GAME.current_round.hands_left == 0 then
-            return {
-                xmult = card.ability.extra.xmult
-            }
-        end
-    end
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.xmult,
+			},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.individual and context.cardarea == G.play and G.GAME.current_round.hands_left == 0 then
+			return {
+				xmult = card.ability.extra.xmult,
+			}
+		end
+	end,
 }
 
 return { name = { "Jokers" }, items = { gloaming } }

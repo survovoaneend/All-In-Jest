@@ -1,29 +1,22 @@
 local hires_joker = {
-    object_type = "Joker",
-    order = 9,
-    ignore = true,
-    key = "hires_joker",
-    config = {
-      
-    },
-    attributes = {},
-    rarity = 1,
-    pos = { x = 0, y = 0},
-    atlas = 'hires_joker',
-    cost = 4,
-    unlocked = true,
-    discovered = true,
-    blueprint_compat = false,
-    eternal_compat = false,
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-  
-    end,
-  
-    calculate = function(self, card, context)
-        
-    end
-  
+	object_type = "Joker",
+	order = 9,
+	ignore = true,
+	key = "hires_joker",
+	config = {},
+	attributes = {},
+	rarity = 1,
+	pos = { x = 0, y = 0 },
+	atlas = "hires_joker",
+	cost = 4,
+	unlocked = true,
+	discovered = true,
+	blueprint_compat = false,
+	eternal_compat = false,
+	perishable_compat = true,
+
+	loc_vars = function(self, info_queue, card) end,
+
+	calculate = function(self, card, context) end,
 }
-return { name = {"Jokers"}, items = {hires_joker} }
+return { name = { "Jokers" }, items = { hires_joker } }

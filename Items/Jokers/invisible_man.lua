@@ -1,30 +1,23 @@
-
 local invisible_man = {
-    object_type = "Joker",
-    order = 7,
-    ignore = true,
-    key = "invisible_man",
-    config = {
-      
-    },
-    attributes = {},
-    rarity = 3,
-    pos = { x = 4, y = 0 },
-    atlas = 'joker_atlas',
-    cost = 8,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = true,
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-  
-    end,
-  
-    calculate = function(self, card, context)
-      
-    end  
+	object_type = "Joker",
+	order = 7,
+	ignore = true,
+	key = "invisible_man",
+	config = {},
+	attributes = {},
+	rarity = 3,
+	pos = { x = 4, y = 0 },
+	atlas = "joker_atlas",
+	cost = 8,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = true,
+
+	loc_vars = function(self, info_queue, card) end,
+
+	calculate = function(self, card, context) end,
 }
 
-return { name = {"Jokers"}, items = {invisible_man} }
+return { name = { "Jokers" }, items = { invisible_man } }

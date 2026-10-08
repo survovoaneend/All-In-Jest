@@ -1,29 +1,25 @@
 local spy = {
-    object_type = "Joker",
-    order = 739,
-    ignore = true,
+	object_type = "Joker",
+	order = 739,
+	ignore = true,
 
-    key = "spy",
-    config = {
+	key = "spy",
+	config = {},
+	attributes = {},
+	rarity = 1,
+	pos = { x = 7, y = 39 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    },
-    attributes = {},
-    rarity = 1,
-    pos = { x = 7, y = 39},
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	loc_vars = function(self, info_queue, card)
+		return {}
+	end,
 
-    loc_vars = function(self, info_queue, card)
-        return { }
-    end,
-
-    calculate = function(self, card, context)
-
-    end
+	calculate = function(self, card, context) end,
 }
-return { name = {"Jokers"}, items = {spy} }
+return { name = { "Jokers" }, items = { spy } }

@@ -1,30 +1,23 @@
 local lucky_carder = {
-    object_type = "Joker",
-    order = 100,
-    ignore = true,
+	object_type = "Joker",
+	order = 100,
+	ignore = true,
 
-    key = "lucky_carder",
-    config = {
-      
-    },
-    attributes = {},
-    rarity = 1,
-    pos = { x = 17, y = 3 },
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = false,
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-  
-    end,
-  
-    calculate = function(self, card, context)
-      
-    end
-  
+	key = "lucky_carder",
+	config = {},
+	attributes = {},
+	rarity = 1,
+	pos = { x = 17, y = 3 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = false,
+	perishable_compat = true,
+
+	loc_vars = function(self, info_queue, card) end,
+
+	calculate = function(self, card, context) end,
 }
-return { name = {"Jokers"}, items = {lucky_carder} }
+return { name = { "Jokers" }, items = { lucky_carder } }

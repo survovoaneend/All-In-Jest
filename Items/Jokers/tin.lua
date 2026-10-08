@@ -1,39 +1,35 @@
 local tin = {
-    object_type = "Joker",
-    order = 586.5,
-    key = "tin",
-    
-    config = {
-        extra = {
-            
-        }
-    },
-    attributes = { 'retrigger', 'hand_type' },
-    rarity = 3,
-    pos = { x = 14, y = 28 },
-    atlas = 'joker_atlas',
-    cost = 8,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	object_type = "Joker",
+	order = 586.5,
+	key = "tin",
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                
-            }
-        }
-    end,
+	config = {
+		extra = {},
+	},
+	attributes = { "retrigger", "hand_type" },
+	rarity = 3,
+	pos = { x = 14, y = 28 },
+	atlas = "joker_atlas",
+	cost = 8,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and context.scoring_name == "Flush" then
-            return {
-                repetitions = 1
-            }
-        end
-    end
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.repetition and context.cardarea == G.play and context.scoring_name == "Flush" then
+			return {
+				repetitions = 1,
+			}
+		end
+	end,
 }
 
 return { name = { "Jokers" }, items = { tin } }

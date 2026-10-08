@@ -1,25 +1,21 @@
 local eye = {
-    object_type = "Seal",
-    key = 'eye',
-    config = {
-        extra = {
-            
-        },
-    },
-    attributes = {'trigger_cards'},
-    atlas = 'enhancements_atlas',
-    pos = { x = 7, y = 4 },
-    badge_colour = HEX("5c6284"),
-    order = 2,
-    loc_vars = function(self, info_queue, card)
-        return { vars = {  } }
-    end,
-    get_weight = function(self)
-        -- Its normally 10 for seals
-        return 3
-    end,
-    calculate = function(self, card, context)
-        
-    end
+	object_type = "Seal",
+	key = "eye",
+	config = {
+		extra = {},
+	},
+	attributes = { "trigger_cards" },
+	atlas = "enhancements_atlas",
+	pos = { x = 7, y = 4 },
+	badge_colour = HEX("5c6284"),
+	order = 2,
+	loc_vars = function(self, info_queue, card)
+		return { vars = {} }
+	end,
+	get_weight = function(self)
+		-- Its normally 10 for seals
+		return 3
+	end,
+	calculate = function(self, card, context) end,
 }
-return {name = {"Seals"}, items = {eye}}
+return { name = { "Seals" }, items = { eye } }

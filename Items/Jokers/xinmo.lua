@@ -1,67 +1,64 @@
 local xinmo = {
-    object_type = "Joker",
-    order = 1052,
-    
+	object_type = "Joker",
+	order = 1052,
 
-    key = "xinmo",
-    config = {
-      extra = {
-        slots = 3,
-        h_size = 1
-      }
-    },
-    attributes = { 'joker_slot', 'hand_size' },
-    rarity = 4,
-	unlock_condition = {hidden = true},
-    pos = { x = 1, y = 10},
-    atlas = 'legendary_atlas',
-    cost = 20,
-    unlocked = false,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = true,
-    perishable_compat = true,
-    soul_pos = { x = 1, y = 11},
-  
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.slots,
-                card.ability.extra.h_size
-            }
-        }
-    end,
+	key = "xinmo",
+	config = {
+		extra = {
+			slots = 3,
+			h_size = 1,
+		},
+	},
+	attributes = { "joker_slot", "hand_size" },
+	rarity = 4,
+	unlock_condition = { hidden = true },
+	pos = { x = 1, y = 10 },
+	atlas = "legendary_atlas",
+	cost = 20,
+	unlocked = false,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = true,
+	soul_pos = { x = 1, y = 11 },
 
-    add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
-        G.hand:change_size(-card.ability.extra.h_size)
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
-        G.hand:change_size(card.ability.extra.h_size)
-    end,
-  
-    calculate = function(self, card, context)
-      
-    end
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.slots,
+				card.ability.extra.h_size,
+			},
+		}
+	end,
+
+	add_to_deck = function(self, card, from_debuff)
+		G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
+		G.hand:change_size(-card.ability.extra.h_size)
+	end,
+	remove_from_deck = function(self, card, from_debuff)
+		G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.slots
+		G.hand:change_size(card.ability.extra.h_size)
+	end,
+
+	calculate = function(self, card, context) end,
 }
 local aij_check_for_buy_space_ref = G.FUNCS.check_for_buy_space
 G.FUNCS.check_for_buy_space = function(card)
-    if card.config.center.key == "j_aij_xinmo" then
-        return true
-    end
-    local ret = aij_check_for_buy_space_ref(card)
-    return ret
+	if card.config.center.key == "j_aij_xinmo" then
+		return true
+	end
+	local ret = aij_check_for_buy_space_ref(card)
+	return ret
 end
 local ref_can_select_card = G.FUNCS.can_select_card
 G.FUNCS.can_select_card = function(e)
-    local card = e.config.ref_table
-    local card_limit = card.ability.card_limit - card.ability.extra_slots_used
-    if card.config.center.key == "j_aij_".."xinmo" then
-        e.config.colour = G.C.GREEN
-        e.config.button = 'use_card'
-    else
-        ref_can_select_card(e)
-    end
+	local card = e.config.ref_table
+	local card_limit = card.ability.card_limit - card.ability.extra_slots_used
+	if card.config.center.key == "j_aij_" .. "xinmo" then
+		e.config.colour = G.C.GREEN
+		e.config.button = "use_card"
+	else
+		ref_can_select_card(e)
+	end
 end
-return { name = {"Jokers"}, items = {xinmo} }
+return { name = { "Jokers" }, items = { xinmo } }

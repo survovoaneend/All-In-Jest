@@ -1,61 +1,60 @@
 local antares = {
-    object_type = "Consumable",
-	key = 'antares',
-	set = 'aij_astral',
-    atlas = 'consumable_atlas',
+	object_type = "Consumable",
+	key = "antares",
+	set = "aij_astral",
+	atlas = "consumable_atlas",
 	pos = { x = 15, y = 5 },
-    soul_pos = { x = 15, y = 6 },
+	soul_pos = { x = 15, y = 6 },
 	cost = 4,
 	unlocked = true,
 	discovered = false,
-    order = 12,
-	config = { hand = nil, grade = '', pin = 'Antares', extra = {}},
-    attributes = {'hand_type', 'space', 'destroy_card'},
-    loc_vars = function(self, info_queue, card)
-        -- Rest of loc_vars is defined in the ConsumableType in hooks.lua
+	order = 12,
+	config = { hand = nil, grade = "", pin = "Antares", extra = {} },
+	attributes = { "hand_type", "space", "destroy_card" },
+	loc_vars = function(self, info_queue, card)
+		-- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {
 			vars = {
-				(card.area and not card.area.config.collection) and card.ability.consumeable.hand or '(hand)'
+				(card.area and not card.area.config.collection) and card.ability.consumeable.hand or "(hand)",
 			},
 		}
-    end,
+	end,
 }
 local antares_pin = {
 	object_loader = All_in_Jest,
-    object_type = "Astral",
-	key = 'antares_pin',
-    pin = 'Antares',
-    atlas = 'misc_atlas',
+	object_type = "Astral",
+	key = "antares_pin",
+	pin = "Antares",
+	atlas = "misc_atlas",
 	pos = { x = 7, y = 1 },
-    discovered = false,
-    order = 12,
-    config = {},
+	discovered = false,
+	order = 12,
+	config = {},
 
-    pixel_size = { w = 53, h = 28 },
+	pixel_size = { w = 53, h = 28 },
 
-    loc_vars = function(self, info_queue, card)
-        
+	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
-				card.ability.extra.hand
+				card.ability.extra.hand,
 			},
 		}
-    end,
+	end,
 
-    calculate = function(self, card, context)
-        if context.after then
-            if #G.hand.cards > 0 then
-                local o_card = pseudorandom_element(G.hand.cards, pseudoseed('jest_antares'))
-                local total_cards = {}
-                if not o_card.destroyed then
-                    table.insert(total_cards, o_card)
-                end
-                SMODS.destroy_cards(total_cards)
-                return {
-                    message = localize('k_aij_destroyed_ex'),
-                }
-            end
-        end
-    end,
+	calculate = function(self, card, context)
+		if context.after then
+			if #G.hand.cards > 0 then
+				local o_card = pseudorandom_element(G.hand.cards, pseudoseed("jest_antares"))
+				local total_cards = {}
+				if not o_card.destroyed then
+					table.insert(total_cards, o_card)
+				end
+				SMODS.destroy_cards(total_cards)
+				return {
+					message = localize("k_aij_destroyed_ex"),
+				}
+			end
+		end
+	end,
 }
-return {name = {"Astrals"}, items = {antares, antares_pin}}
+return { name = { "Astrals" }, items = { antares, antares_pin } }

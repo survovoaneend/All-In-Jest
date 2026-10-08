@@ -11,7 +11,7 @@ local golem = {
 	discovered = false,
 	order = 24,
 	config = { max_highlighted = 2 },
-	attributes = {'modify_card', 'enhancements'},
+	attributes = { "modify_card", "enhancements" },
 	atlas = "consumable_atlas",
 	loc_vars = function(self, info_queue, card)
 		return {
@@ -21,10 +21,7 @@ local golem = {
 		}
 	end,
 	can_use = function(self, card, area, copier)
-		if
-			card.ability.max_highlighted >= #G.hand.highlighted
-			and #G.hand.highlighted >= 1
-		then
+		if card.ability.max_highlighted >= #G.hand.highlighted and #G.hand.highlighted >= 1 then
 			for k, v in ipairs(G.hand.highlighted) do
 				if not SMODS.has_enhancement(v, "m_stone") then
 					return false
@@ -71,7 +68,7 @@ local golem = {
 				trigger = "after",
 				delay = 0.1,
 				func = function()
-					local enhance = SMODS.poll_enhancement({guaranteed = true, options = cen_pool, key = 'golem'})
+					local enhance = SMODS.poll_enhancement({ guaranteed = true, options = cen_pool, key = "golem" })
 					if G.hand.highlighted[i].config.center.key == "m_stone" then
 						All_in_Jest.set_other_enhancement(G.hand.highlighted[i], enhance)
 					else
@@ -113,12 +110,12 @@ local golem = {
 			local space_taken = 0
 
 			local limit = (G.hand.config.card_limit - #G.hand.cards - (SMODS.cards_to_draw or 0))
-			local flags = SMODS.calculate_context({drawing_cards = true, amount = limit})
+			local flags = SMODS.calculate_context({ drawing_cards = true, amount = limit })
 			limit = flags.cards_to_draw or flags.modify or limit
 			local unfixed = not G.hand.config.fixed_limit
 			local n = 0
 			while n < #G.deck.cards and limit > 0 do
-				local card = G.deck.cards[#G.deck.cards-n]
+				local card = G.deck.cards[#G.deck.cards - n]
 				local mod = unfixed and (card.ability.card_limit - card.ability.extra_slots_used) or 0
 				if limit - 1 + mod < 0 then
 				else

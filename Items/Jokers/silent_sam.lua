@@ -1,48 +1,47 @@
 local silent_sam = {
-    object_type = "Joker",
-    order = 154,
+	object_type = "Joker",
+	order = 154,
 
-    key = "silent_sam",
-    config = {
-      extra = {
-        xmult = 0.2
-      }
-    },
-    attributes = { 'xmult' },
-    rarity = 2,
-    pos = { x = 20, y = 5 },
-    atlas = 'joker_atlas',
-    cost = 7,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                1 + card.ability.extra.xmult
-            }
-        }
-    end,
-  
-    calculate = function(self, card, context)
-      if context.individual and context.cardarea == G.hand and not context.end_of_round then
-        if context.other_card.debuff then 
-            return {
-                message = localize('k_debuffed'),
-                colour = G.C.RED,
-                card = card,
-            }
-        else
-        return {
-            Xmult = 1 + card.ability.extra.xmult,
-            card = card
-        }
-    end
-      end
-    end
-  
+	key = "silent_sam",
+	config = {
+		extra = {
+			xmult = 0.2,
+		},
+	},
+	attributes = { "xmult" },
+	rarity = 2,
+	pos = { x = 20, y = 5 },
+	atlas = "joker_atlas",
+	cost = 7,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				1 + card.ability.extra.xmult,
+			},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.individual and context.cardarea == G.hand and not context.end_of_round then
+			if context.other_card.debuff then
+				return {
+					message = localize("k_debuffed"),
+					colour = G.C.RED,
+					card = card,
+				}
+			else
+				return {
+					Xmult = 1 + card.ability.extra.xmult,
+					card = card,
+				}
+			end
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {silent_sam} }
+return { name = { "Jokers" }, items = { silent_sam } }

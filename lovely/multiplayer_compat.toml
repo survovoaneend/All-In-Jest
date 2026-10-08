@@ -19,9 +19,12 @@ do -- All in Jest multiplayer patch
     MP.DECK.ban_card("j_aij_blind_drawn") -- Downside becomes irrelevant
     MP.DECK.ban_card("j_aij_stultor") -- Rerolls blind
     MP.DECK.ban_card("j_aij_hofnarr_the_barbarian") -- Only cares about showdown blinds
-    MP.DECK.ban_card("j_aij_eulenspeigel") -- Messes with the current Ante
+    MP.DECK.ban_card("j_aij_eulenspiegel") -- Messes with the current Ante
+    MP.DECK.ban_card("j_aij_scarab") -- Messes with the current Ante
+    MP.DECK.ban_card("j_aij_atemporal_taco") -- Messes with the current Ante
     MP.DECK.ban_tag("tag_aij_dominus") -- Can reroll blind
     MP.DECK.ban_card("j_aij_jokey_bear") -- Downside becomes irrelevant
+    MP.DECK.ban_card("c_aij_spica") -- Let's you disable boss
 
     -- Ban boss blinds that increase score requirement
     -- Used for option to combine pvp blind with a boss blind
@@ -35,7 +38,11 @@ do -- All in Jest multiplayer patch
     MP.DECK.ban_blind("bl_aij_the_hoard")
     MP.DECK.ban_blind("bl_aij_the_mountain")
     MP.DECK.ban_blind("bl_aij_the_brilliance")
+    MP.DECK.ban_blind("bl_aij_the_clown")
+    MP.DECK.ban_blind("bl_aij_the_connection")
     MP.DECK.ban_blind("bl_aij_aureate_coin")
+    MP.DECK.ban_blind("bl_aij_mysterious_myriad")
+    MP.DECK.ban_blind("bl_aij_fallen_falcon")
 
     MP.DECK.ban_blind("bl_aij_the_journey")
   end
@@ -112,7 +119,7 @@ match_indent = true
 # action_enemy_info()
 [[patches]]
 [patches.pattern]
-target = '=[SMODS Multiplayer "networking/action_handlers.lua"]'
+target = '=[SMODS Multiplayer "ui/game/blind_hud.lua"]'
 pattern = '''
 G.HUD_blind:get_UIE_by_ID("HUD_blind_count"):juice_up()
 G.HUD_blind:get_UIE_by_ID("dollars_to_be_earned"):juice_up()

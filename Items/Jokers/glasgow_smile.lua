@@ -1,59 +1,59 @@
 local glasgow_smile = {
-    object_type = "Joker",
-    order = 498,
-    key = "glasgow_smile",
-    
-    config = {
-        extra = {
-            chips = 0,
-            gain = 30
-        }
-    },
-    attributes = { 'chips', 'enhancements', 'destroy_card' },
-    rarity = 2,
-    pos = { x = 20, y = 23 },
-    atlas = 'joker_atlas',
-    cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = false,
-    perishable_compat = false,
-    enhancement_gate = 'm_bonus',
+	object_type = "Joker",
+	order = 498,
+	key = "glasgow_smile",
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.chips,
-                card.ability.extra.gain
-            }
-        }
-    end,
+	config = {
+		extra = {
+			chips = 0,
+			gain = 30,
+		},
+	},
+	attributes = { "chips", "enhancements", "destroy_card" },
+	rarity = 2,
+	pos = { x = 20, y = 23 },
+	atlas = "joker_atlas",
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = false,
+	perishable_compat = false,
+	enhancement_gate = "m_bonus",
 
-    calculate = function(self, card, context)
-        if context.after and not context.blueprint then
-            if G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 then
-                 local played_card = context.full_hand[1]
-                 if SMODS.has_enhancement(played_card, 'm_bonus') then
-                    card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.gain
-                     
-                    SMODS.destroy_cards(played_card)
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.chips,
+				card.ability.extra.gain,
+			},
+		}
+	end,
 
-                    return {
-                        message = localize('k_upgrade_ex'),
-                        colour = G.C.CHIPS
-                    }
-                 end
-            end
-        end
-         if context.individual and context.cardarea == G.play then
-            if SMODS.has_enhancement(context.other_card, 'm_bonus') and card.ability.extra.chips > 0 then
-                return {
-                    chips = card.ability.extra.chips
-                }
-            end
-        end
-    end
+	calculate = function(self, card, context)
+		if context.after and not context.blueprint then
+			if G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 then
+				local played_card = context.full_hand[1]
+				if SMODS.has_enhancement(played_card, "m_bonus") then
+					card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.gain
+
+					SMODS.destroy_cards(played_card)
+
+					return {
+						message = localize("k_upgrade_ex"),
+						colour = G.C.CHIPS,
+					}
+				end
+			end
+		end
+		if context.individual and context.cardarea == G.play then
+			if SMODS.has_enhancement(context.other_card, "m_bonus") and card.ability.extra.chips > 0 then
+				return {
+					chips = card.ability.extra.chips,
+				}
+			end
+		end
+	end,
 }
 
 return { name = { "Jokers" }, items = { glasgow_smile } }

@@ -1,29 +1,25 @@
 local tomato_sauce = {
-    object_type = "Joker",
-    order = 664,
-    ignore = true,
+	object_type = "Joker",
+	order = 664,
+	ignore = true,
 
-    key = "tomato_sauce",
-    config = {
+	key = "tomato_sauce",
+	config = {},
+	attributes = {},
+	rarity = 1,
+	pos = { x = 21, y = 29 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    },
-    attributes = {},
-    rarity = 1,
-    pos = { x = 21, y = 29},
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	loc_vars = function(self, info_queue, card)
+		return {}
+	end,
 
-    loc_vars = function(self, info_queue, card)
-        return { }
-    end,
-
-    calculate = function(self, card, context)
-
-    end
+	calculate = function(self, card, context) end,
 }
-return { name = {"Jokers"}, items = {tomato_sauce} }
+return { name = { "Jokers" }, items = { tomato_sauce } }

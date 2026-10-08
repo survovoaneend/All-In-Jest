@@ -16,14 +16,16 @@ local melded = {
 			set = "Stake",
 			key = G.P_CENTER_POOLS.Stake[self.unlock_condition.stake].key,
 		})
-		return { vars = {
-			self.unlock_condition.count,
-			stake_name,
-			colours = { get_stake_col(self.unlock_condition.stake) },
-		} }
+		return {
+			vars = {
+				self.unlock_condition.count,
+				stake_name,
+				colours = { get_stake_col(self.unlock_condition.stake) },
+			},
+		}
 	end,
 	check_for_unlock = function(self, args)
-		if args.type == 'discover_amount' or args.type == "win_stake" then
+		if args.type == "discover_amount" or args.type == "win_stake" then
 			local req_stake_wins = 0
 			for _, deck in pairs(G.PROFILES[G.SETTINGS.profile].deck_usage) do
 				local deck_won_with = nil
@@ -50,7 +52,7 @@ function Card:set_ability(center, initial, delay_sprites)
 		and G.GAME.selected_back.name == "b_aij_melded"
 		and self.ability
 		and self.ability.set == "Enhanced"
-        and not SMODS.aij_applying_thing
+		and not SMODS.aij_applying_thing
 	then
 		old_center_key = self.config.center.key
 	elseif not SMODS.aij_applying_thing then

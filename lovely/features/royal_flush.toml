@@ -1,0 +1,103 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+
+# Royal Flush + Corndog (1/1)
+# Add stats to the royal flush when its played
+# TODO: Replace Corndog patch with new evaluate_poker_hand context?
+# G.FUNCS.evaluate_play()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+G.GAME.hands[text].played = G.GAME.hands[text].played + 1
+'''
+position = "before"
+payload = '''
+if next(SMODS.find_card("j_aij_corndog")) then 
+    text = 'Straight Flush'
+    non_loc_disp_text = text
+    disp_text = localize(text, 'poker_hands')
+    if poker_hands and scoring_hand and not next(poker_hands["Straight Flush"]) then
+        table.insert(poker_hands["Straight Flush"], scoring_hand)
+    end
+end
+local calculated_text = nil
+if text == 'aij_Royal Flush' then
+    calculated_text = 'aij_Royal Flush'
+    G.GAME.hands[calculated_text].played = G.GAME.hands[calculated_text].played + 1
+    G.GAME.hands[calculated_text].played_this_round = G.GAME.hands[calculated_text].played_this_round + 1
+    G.GAME.last_hand_played = calculated_text
+    set_hand_usage(calculated_text)
+    text = 'Straight Flush'
+end
+'''
+match_indent = true
+
+
+# Gives the Royal Flush chips and mult when played (instead of a straight flush)
+# G.FUNCS.evaluate_play()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+mult = mod_mult(G.GAME.hands[text].mult)
+hand_chips = mod_chips(G.GAME.hands[text].chips)
+'''
+position = "at"
+payload = '''
+mult = mod_mult(G.GAME.hands[calculated_text or text].mult)
+hand_chips = mod_chips(G.GAME.hands[calculated_text or text].chips)
+'''
+match_indent = true
+
+
+# Show the Royal Flush chips and mult when played (instead of a straight flush)
+# G.FUNCS.evaluate_play()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+update_hand_text({sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, volume = 0.4, immediate = true, nopulse = nil,
+            delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, {handname=disp_text, level=G.GAME.hands[text].level, mult = G.GAME.hands[text].mult, chips = G.GAME.hands[text].chips})
+'''
+position = "at"
+payload = '''
+update_hand_text({sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, volume = 0.4, immediate = true, nopulse = nil,
+            delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, {handname=disp_text, level=G.GAME.hands[calculated_text or text].level, mult = G.GAME.hands[calculated_text or text].mult, chips = G.GAME.hands[calculated_text or text].chips})
+'''
+match_indent = true
+
+
+# Show the Royal Flush chips and mult when played (instead of a straight flush)
+# G.FUNCS.evaluate_play()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+SMODS.displayed_hand = text
+'''
+position = "after"
+payload = '''
+SMODS.displayed_hand = calculated_text or text
+'''
+match_indent = true
+
+
+# Prevent poker_hand_changed context from firing when a royal flush is upgraded due to upgrading straight flush
+# SMODS.upgrade_poker_hands()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'after'
+pattern = '''
+local context = {card = args.from, poker_hand_changed = true}
+'''
+payload = '''
+if args.aij_level_with then
+    context.poker_hand_changed = nil
+end
+'''

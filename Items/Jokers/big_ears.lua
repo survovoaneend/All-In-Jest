@@ -1,73 +1,99 @@
 local big_ears = {
-    object_type = "Joker",
-    order = 77,
+	object_type = "Joker",
+	order = 77,
 
-    key = "big_ears",
-    config = {
-        extra = {
-            chips = 0,
-            chip_mod = 2,
-            chip_dec = 1
-        }
-    },
-    attributes = { 'chips', 'scaling', 'rank', 'ace', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten' },
-    rarity = 2,
-    pos = { x = 19, y = 2 },
-    atlas = 'joker_atlas',
-    cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = false,
+	key = "big_ears",
+	config = {
+		extra = {
+			chips = 0,
+			chip_mod = 2,
+			chip_dec = 1,
+		},
+	},
+	attributes = {
+		"chips",
+		"scaling",
+		"rank",
+		"ace",
+		"two",
+		"three",
+		"four",
+		"five",
+		"six",
+		"seven",
+		"eight",
+		"nine",
+		"ten",
+	},
+	rarity = 2,
+	pos = { x = 19, y = 2 },
+	atlas = "joker_atlas",
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = false,
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.chips,
-                card.ability.extra.chip_mod,
-                card.ability.extra.chip_dec
-            }
-        }
-    end,
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.chips,
+				card.ability.extra.chip_mod,
+				card.ability.extra.chip_dec,
+			},
+		}
+	end,
 
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and not context.blueprint then
-            if (context.other_card:get_id() <= 10 and context.other_card:get_id() >= 0 and context.other_card:get_id() % 2 == 0) then
-                SMODS.scale_card(card, {
-                    ref_table = card.ability.extra,
-                    ref_value = "chips",
-                    scalar_value = "chip_mod",
-                    no_message = true
-                })
-                return {
-                    message = localize('k_upgrade_ex'),
-                    colour = G.C.CHIPS,
-                    message_card = card
-                }
-            elseif card.ability.extra.chips > 0 and ((context.other_card:get_id() <= 10 and context.other_card:get_id() >= 0 and context.other_card:get_id() % 2 == 1) or (context.other_card:get_id() == 14)) then
-                SMODS.scale_card(card, {
-                    ref_table = card.ability.extra,
-                    ref_value = "chips",
-                    scalar_value = "chip_dec",
-                    operation = function(ref_table, ref_value, initial, change)
-                        ref_table[ref_value] = math.max(0, initial - change)
-                    end,
-                    no_message = true
-                })
-                return {
-                    message = localize('k_aij_downgrade_ex'),
-                    colour = G.C.RED,
-                    message_card = card
-                }
-            end
-        end
-        if context.joker_main then
-            return {
-                chips = card.ability.extra.chips
-            }
-        end
-    end
-
+	calculate = function(self, card, context)
+		if context.individual and context.cardarea == G.play and not context.blueprint then
+			if
+				context.other_card:get_id() <= 10
+				and context.other_card:get_id() >= 0
+				and context.other_card:get_id() % 2 == 0
+			then
+				SMODS.scale_card(card, {
+					ref_table = card.ability.extra,
+					ref_value = "chips",
+					scalar_value = "chip_mod",
+					no_message = true,
+				})
+				return {
+					message = localize("k_upgrade_ex"),
+					colour = G.C.CHIPS,
+					message_card = card,
+				}
+			elseif
+				card.ability.extra.chips > 0
+				and (
+					(
+						context.other_card:get_id() <= 10
+						and context.other_card:get_id() >= 0
+						and context.other_card:get_id() % 2 == 1
+					) or (context.other_card:get_id() == 14)
+				)
+			then
+				SMODS.scale_card(card, {
+					ref_table = card.ability.extra,
+					ref_value = "chips",
+					scalar_value = "chip_dec",
+					operation = function(ref_table, ref_value, initial, change)
+						ref_table[ref_value] = math.max(0, initial - change)
+					end,
+					no_message = true,
+				})
+				return {
+					message = localize("k_aij_downgrade_ex"),
+					colour = G.C.RED,
+					message_card = card,
+				}
+			end
+		end
+		if context.joker_main then
+			return {
+				chips = card.ability.extra.chips,
+			}
+		end
+	end,
 }
 return { name = { "Jokers" }, items = { big_ears } }

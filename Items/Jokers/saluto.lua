@@ -12,7 +12,7 @@ local saluto = {
 	discovered = false,
 	blueprint_compat = false,
 	eternal_compat = true,
-    perishable_compat = true,
+	perishable_compat = true,
 	soul_pos = { x = 3, y = 15 },
 
 	loc_vars = function(self, info_queue, card) end,
@@ -25,8 +25,8 @@ local saluto = {
 					local prev = G.GAME.aij_rare_packs_rate
 					G.GAME.aij_rare_packs_rate = 1
 					local new_booster = SMODS.add_booster_to_shop(get_pack("saluto", "aij_rare").key)
-                    new_booster.ability.couponed = true
-                    new_booster:set_cost()
+					new_booster.ability.couponed = true
+					new_booster:set_cost()
 					G.GAME.aij_rare_packs_rate = prev
 					card:juice_up()
 					return true
@@ -44,8 +44,8 @@ local saluto = {
 					local prev = G.GAME.aij_rare_packs_rate
 					G.GAME.aij_rare_packs_rate = 1
 					local new_booster = SMODS.add_booster_to_shop(get_pack("saluto", "aij_rare").key)
-                    new_booster.ability.couponed = true
-                    new_booster:set_cost()
+					new_booster.ability.couponed = true
+					new_booster:set_cost()
 					card:juice_up()
 					return true
 				end,

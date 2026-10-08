@@ -1,52 +1,51 @@
 local majordomo = {
-    object_type = "Joker",
-    order = 361,
-    key = "majordomo",
-    config = {
-      extra = {
-          more_than = 5,
-          rental_reduce = 2
-      }
-    },
-    attributes = { 'economy', 'passive', 'stickers' },
-    rarity = 2,
-    pos = { x = 23, y = 13},
-    atlas = 'joker_atlas',
-    cost = 7,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = true,
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = {key = 'rental', set = 'Other', vars = {G.GAME.rental_rate or 1}}
-        return {
-            vars = {
-                card.ability.extra.more_than,
-            }
-        }
-    end,
-  
-    calculate = function(self, card, context) 
-        if context.reroll_shop or context.starting_shop and not context.blueprint then
-            for k, v in pairs(G.shop_jokers.cards) do
-                if v.cost > card.ability.extra.more_than then
-                    v:set_rental(true)
-                    v:juice_up(0.3, 0.5)
-                    card:juice_up()
-                end
-            end
-        end
-    end,
+	object_type = "Joker",
+	order = 361,
+	key = "majordomo",
+	config = {
+		extra = {
+			more_than = 5,
+			rental_reduce = 2,
+		},
+	},
+	attributes = { "economy", "passive", "stickers" },
+	rarity = 2,
+	pos = { x = 23, y = 13 },
+	atlas = "joker_atlas",
+	cost = 7,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    add_to_deck = function(self, card, from_debuff)
-      G.GAME.rental_rate = math.max(G.GAME.rental_rate - card.ability.extra.rental_reduce, 0)
-    end,
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = { key = "rental", set = "Other", vars = { G.GAME.rental_rate or 1 } }
+		return {
+			vars = {
+				card.ability.extra.more_than,
+			},
+		}
+	end,
 
-    remove_from_deck = function(self, card, from_debuff)
-      G.GAME.rental_rate = math.max(G.GAME.rental_rate + card.ability.extra.rental_reduce, 0)
-    end,
-  
+	calculate = function(self, card, context)
+		if context.reroll_shop or context.starting_shop and not context.blueprint then
+			for k, v in pairs(G.shop_jokers.cards) do
+				if v.cost > card.ability.extra.more_than then
+					v:set_rental(true)
+					v:juice_up(0.3, 0.5)
+					card:juice_up()
+				end
+			end
+		end
+	end,
+
+	add_to_deck = function(self, card, from_debuff)
+		G.GAME.rental_rate = math.max(G.GAME.rental_rate - card.ability.extra.rental_reduce, 0)
+	end,
+
+	remove_from_deck = function(self, card, from_debuff)
+		G.GAME.rental_rate = math.max(G.GAME.rental_rate + card.ability.extra.rental_reduce, 0)
+	end,
 }
-return { name = {"Jokers"}, items = {majordomo} }
+return { name = { "Jokers" }, items = { majordomo } }

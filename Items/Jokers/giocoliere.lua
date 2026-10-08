@@ -1,76 +1,71 @@
 local giocoliere = {
-    object_type = "Joker",
-    order = 150,
+	object_type = "Joker",
+	order = 150,
 
-    key = "giocoliere",
-    config = {
-      extra = {
-        hand_size = 3
-      },
-    },
-    attributes = { 'hand_size', 'boss_blind' },
-    rarity = 1,
-    pos = { x = 16, y = 5 },
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = true,
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.hand_size
-            }
-        }
-    end,
-  
-    calculate = function(self, card, context)
-      if context.setting_blind and not context.blueprint then
-          card.ability.boss_bonus_active = card.ability.boss_bonus_active or false
-          if G.GAME.blind and G.GAME.blind.boss then
-              if not card.ability.boss_bonus_active then
-                  G.hand:change_size(card.ability.extra.hand_size)     
-                  card.ability.boss_bonus_active = true      
-                  return nil, true 
-              end
+	key = "giocoliere",
+	config = {
+		extra = {
+			hand_size = 3,
+		},
+	},
+	attributes = { "hand_size", "boss_blind" },
+	rarity = 1,
+	pos = { x = 16, y = 5 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = true,
 
-          elseif card.ability.boss_bonus_active then
-              G.hand:change_size(-card.ability.extra.hand_size)                     
-              card.ability.boss_bonus_active = false      
-              return nil, true
-          end
-      end
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.hand_size,
+			},
+		}
+	end,
 
-      if context.blind_defeated and not context.blueprint then
-          card.ability.boss_bonus_active = card.ability.boss_bonus_active or false
-          if card.ability.boss_bonus_active then
-              G.hand:change_size(-card.ability.extra.hand_size)                     
-              card.ability.boss_bonus_active = false   
-              return nil, true
-          end
-      end
-  end,
+	calculate = function(self, card, context)
+		if context.setting_blind and not context.blueprint then
+			card.ability.boss_bonus_active = card.ability.boss_bonus_active or false
+			if G.GAME.blind and G.GAME.blind.boss then
+				if not card.ability.boss_bonus_active then
+					G.hand:change_size(card.ability.extra.hand_size)
+					card.ability.boss_bonus_active = true
+					return nil, true
+				end
+			elseif card.ability.boss_bonus_active then
+				G.hand:change_size(-card.ability.extra.hand_size)
+				card.ability.boss_bonus_active = false
+				return nil, true
+			end
+		end
 
+		if context.blind_defeated and not context.blueprint then
+			card.ability.boss_bonus_active = card.ability.boss_bonus_active or false
+			if card.ability.boss_bonus_active then
+				G.hand:change_size(-card.ability.extra.hand_size)
+				card.ability.boss_bonus_active = false
+				return nil, true
+			end
+		end
+	end,
 
-  add_to_deck = function(self, card, from_debuff)
-      card.ability.boss_bonus_active = false 
-      if G.GAME and G.GAME.blind and G.GAME.blind.boss and not card.debuff then
-           G.hand:change_size(card.ability.extra.hand_size)
-           card.ability.boss_bonus_active = true
-      end
-  end,
+	add_to_deck = function(self, card, from_debuff)
+		card.ability.boss_bonus_active = false
+		if G.GAME and G.GAME.blind and G.GAME.blind.boss and not card.debuff then
+			G.hand:change_size(card.ability.extra.hand_size)
+			card.ability.boss_bonus_active = true
+		end
+	end,
 
-
-  remove_from_deck = function(self, card, from_debuff)
-
-      if card.ability.boss_bonus_active then
-          G.hand:change_size(-card.ability.extra.hand_size)
-          card.ability.boss_bonus_active = false
-      end
-  end,
-  
+	remove_from_deck = function(self, card, from_debuff)
+		if card.ability.boss_bonus_active then
+			G.hand:change_size(-card.ability.extra.hand_size)
+			card.ability.boss_bonus_active = false
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {giocoliere} }
+return { name = { "Jokers" }, items = { giocoliere } }

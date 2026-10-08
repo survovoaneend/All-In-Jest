@@ -1,37 +1,33 @@
 local mistake = {
-  object_type = "Joker",
-  order = 246,
-  
-  key = "mistake",
-  config = {
-    
-  },
-  attributes = { 'passive', 'stickers' },
-  rarity = 2,
-  pos = { x = 9, y = 9},
-  atlas = 'joker_atlas',
-  cost = 6,
-  unlocked = true,
-  discovered = false,
-  blueprint_compat = false,
-  eternal_compat = true,
-  perishable_compat = true,
+	object_type = "Joker",
+	order = 246,
 
-  in_pool = function(self, args)
-    return G.GAME.modifiers.enable_eternals_in_shop or false
-  end,
+	key = "mistake",
+	config = {},
+	attributes = { "passive", "stickers" },
+	rarity = 2,
+	pos = { x = 9, y = 9 },
+	atlas = "joker_atlas",
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = true,
 
-  calculate = function(self, card, context)
-      
-  end
+	in_pool = function(self, args)
+		return G.GAME.modifiers.enable_eternals_in_shop or false
+	end,
+
+	calculate = function(self, card, context) end,
 }
 local can_sell_card_ref = Card.can_sell_card
 function Card:can_sell_card(context)
-  local ref = can_sell_card_ref(self, context)
-  local has_mistake = self.ability.set == 'Joker' and next(SMODS.find_card("j_aij_mistake"))
-  if not ref and self.ability.eternal and has_mistake then
-    return true
-  end
-  return ref
+	local ref = can_sell_card_ref(self, context)
+	local has_mistake = self.ability.set == "Joker" and next(SMODS.find_card("j_aij_mistake"))
+	if not ref and self.ability.eternal and has_mistake then
+		return true
+	end
+	return ref
 end
-return { name = {"Jokers"}, items = {mistake} }
+return { name = { "Jokers" }, items = { mistake } }

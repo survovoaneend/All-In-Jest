@@ -1,62 +1,61 @@
 local maguelonne = {
-    object_type = "Joker",
-    order = 621,
-    key = "maguelonne",
-  
-    config = {
-        extra = {
-            xmult = 1, 
-            xmult_gain = 0.25
-        }
-    },
-    attributes = { 'xmult', 'scaling', 'destroy_card', 'face', 'full_deck' },
-    rarity = 3,
-    pos = { x = 7, y = 28 },
-    atlas = 'joker_atlas',
-    cost = 8,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = false,
+	object_type = "Joker",
+	order = 621,
+	key = "maguelonne",
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                card.ability.extra.xmult_gain, 
-                card.ability.extra.xmult
-            }
-        }
-    end,
+	config = {
+		extra = {
+			xmult = 1,
+			xmult_gain = 0.25,
+		},
+	},
+	attributes = { "xmult", "scaling", "destroy_card", "face", "full_deck" },
+	rarity = 3,
+	pos = { x = 7, y = 28 },
+	atlas = "joker_atlas",
+	cost = 8,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = false,
 
-    calculate = function(self, card, context)
-         if context.end_of_round and context.main_eval and not context.blueprint then
-            local face_cards = {}
-            for _, v in ipairs(G.deck.cards) do
-                if v:is_face() then
-                    face_cards[#face_cards + 1] = v
-                end
-            end
-            if #face_cards > 0 then
-                local destroyed_card = pseudorandom_element(face_cards, 'maguelonne')
-                SMODS.scale_card(card, {
-                    ref_table = card.ability.extra,
-                    ref_value = "xmult",
-                    scalar_value = "xmult_gain",
-                    message_key = 'a_xmult',
-                    message_colour = G.C.MULT
-                })
-                SMODS.destroy_cards(destroyed_card)
-                return nil, true
-            end
-        end
-        if context.joker_main then
-            return {
-                xmult = card.ability.extra.xmult
-            }
-        end
-    end
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.xmult_gain,
+				card.ability.extra.xmult,
+			},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.end_of_round and context.main_eval and not context.blueprint then
+			local face_cards = {}
+			for _, v in ipairs(G.deck.cards) do
+				if v:is_face() then
+					face_cards[#face_cards + 1] = v
+				end
+			end
+			if #face_cards > 0 then
+				local destroyed_card = pseudorandom_element(face_cards, "maguelonne")
+				SMODS.scale_card(card, {
+					ref_table = card.ability.extra,
+					ref_value = "xmult",
+					scalar_value = "xmult_gain",
+					message_key = "a_xmult",
+					message_colour = G.C.MULT,
+				})
+				SMODS.destroy_cards(destroyed_card)
+				return nil, true
+			end
+		end
+		if context.joker_main then
+			return {
+				xmult = card.ability.extra.xmult,
+			}
+		end
+	end,
 }
-
 
 return { name = { "Jokers" }, items = { maguelonne } }

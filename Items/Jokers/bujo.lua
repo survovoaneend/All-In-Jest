@@ -1,29 +1,25 @@
 local bujo = {
-    object_type = "Joker",
-    order = 811,
-    ignore = true,
+	object_type = "Joker",
+	order = 811,
+	ignore = true,
 
-    key = "bujo",
-    config = {
+	key = "bujo",
+	config = {},
+	attributes = {},
+	rarity = 1,
+	pos = { x = 24, y = 41 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    },
-    attributes = {},
-    rarity = 1,
-    pos = { x = 24, y = 41},
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	loc_vars = function(self, info_queue, card)
+		return {}
+	end,
 
-    loc_vars = function(self, info_queue, card)
-        return { }
-    end,
-
-    calculate = function(self, card, context)
-
-    end
+	calculate = function(self, card, context) end,
 }
-return { name = {"Jokers"}, items = {bujo} }
+return { name = { "Jokers" }, items = { bujo } }

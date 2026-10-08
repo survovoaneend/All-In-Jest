@@ -1,68 +1,72 @@
 local touchstone = {
-    object_type = "Joker",
-    order = 1005,
+	object_type = "Joker",
+	order = 1005,
 
-    key = "touchstone",
-    config = {
-      hand_size = 4,
-      future_sense = 12
-    },
-    attributes = { 'hand_size', 'future_sense' },
-    rarity = 4,
-	unlock_condition = {hidden = true},
-    pos = { x = 4, y = 0},
-    atlas = 'legendary_atlas',
-    cost = 20,
-    unlocked = false,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = true,
-    perishable_compat = true,
-    soul_pos = { x = 4, y = 1},
-  
-    loc_vars = function(self, info_queue, card)
-      local main_end = {}
-      if G.deck ~= nil and card.area and card.area.config.type == "joker" and #G.deck.cards > 0 then
-          localize{type = 'other', key = 'aij_future_sight_tip', nodes = main_end, vars = {}}
-          main_end = main_end[1]
-      end
-      return { vars = { card.ability.hand_size, card.ability.future_sense }, main_end = main_end }
-    end,
-  
-    add_to_deck = function(self, card, from_debuff)
-        G.hand:change_size(card.ability.hand_size)
-    end,
+	key = "touchstone",
+	config = {
+		hand_size = 4,
+		future_sense = 12,
+	},
+	attributes = { "hand_size", "future_sense" },
+	rarity = 4,
+	unlock_condition = { hidden = true },
+	pos = { x = 4, y = 0 },
+	atlas = "legendary_atlas",
+	cost = 20,
+	unlocked = false,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = true,
+	soul_pos = { x = 4, y = 1 },
 
-    remove_from_deck = function(self, card, from_debuff)
-        G.hand:change_size(-card.ability.hand_size)
-    end,
-    generate_ui = function(self, info_queue, cardd, desc_nodes, specific_vars, full_UI_table)
-        SMODS.Joker.super.generate_ui(self, info_queue, cardd, desc_nodes, specific_vars, full_UI_table)
-        if G.deck ~= nil and cardd and cardd.area and cardd.area.config.type == "joker" then
-            local cards = {}
-            for i = #G.deck.cards, #G.deck.cards - cardd.ability.future_sense + 1, -1 do
-                if i > 0 then
-                    local card = copy_card(G.deck.cards[i], nil, nil, G.playing_card)
+	loc_vars = function(self, info_queue, card)
+		local main_end = {}
+		if G.deck ~= nil and card.area and card.area.config.type == "joker" and #G.deck.cards > 0 then
+			localize({ type = "other", key = "aij_future_sight_tip", nodes = main_end, vars = {} })
+			main_end = main_end[1]
+		end
+		return { vars = { card.ability.hand_size, card.ability.future_sense }, main_end = main_end }
+	end,
 
-                    -- Re-adds negative to preview if it was stripped by the mod
-                    if G.deck.cards[i].edition and G.deck.cards[i].edition.negative and not All_in_Jest.config.no_copy_neg then
-                        card:set_edition({negative = true}, nil, true)
-                    end
+	add_to_deck = function(self, card, from_debuff)
+		G.hand:change_size(card.ability.hand_size)
+	end,
 
-                    card.facing = 'front'
+	remove_from_deck = function(self, card, from_debuff)
+		G.hand:change_size(-card.ability.hand_size)
+	end,
+	generate_ui = function(self, info_queue, cardd, desc_nodes, specific_vars, full_UI_table)
+		SMODS.Joker.super.generate_ui(self, info_queue, cardd, desc_nodes, specific_vars, full_UI_table)
+		if G.deck ~= nil and cardd and cardd.area and cardd.area.config.type == "joker" then
+			local cards = {}
+			for i = #G.deck.cards, #G.deck.cards - cardd.ability.future_sense + 1, -1 do
+				if i > 0 then
+					local card = copy_card(G.deck.cards[i], nil, nil, G.playing_card)
 
-                    table.insert(cards,card)
-                end
-            end
-            AllInJest.card_area_preview(nil,desc_nodes,{
-                override = true,
-                cards = cards,
-                w = 2.4,
-                h = 0.4,
-                ml = 0,
-                scale = 0.4,
-            })
-        end
-    end,
+					-- Re-adds negative to preview if it was stripped by the mod
+					if
+						G.deck.cards[i].edition
+						and G.deck.cards[i].edition.negative
+						and not All_in_Jest.config.no_copy_neg
+					then
+						card:set_edition({ negative = true }, nil, true)
+					end
+
+					card.facing = "front"
+
+					table.insert(cards, card)
+				end
+			end
+			AllInJest.card_area_preview(nil, desc_nodes, {
+				override = true,
+				cards = cards,
+				w = 2.4,
+				h = 0.4,
+				ml = 0,
+				scale = 0.4,
+			})
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {touchstone} }
+return { name = { "Jokers" }, items = { touchstone } }

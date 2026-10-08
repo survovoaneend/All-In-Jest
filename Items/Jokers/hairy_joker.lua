@@ -1,30 +1,23 @@
 local hairy_joker = {
-    object_type = "Joker",
-    order = 85,
-    ignore = true,
+	object_type = "Joker",
+	order = 85,
+	ignore = true,
 
-    key = "hairy_joker",
-    config = {
-      
-    },
-    attributes = {},
-    rarity = 1,
-    pos = { x = 2, y = 3 },
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = false,
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-  
-    end,
-  
-    calculate = function(self, card, context)
-      
-    end
-  
+	key = "hairy_joker",
+	config = {},
+	attributes = {},
+	rarity = 1,
+	pos = { x = 2, y = 3 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = false,
+	perishable_compat = true,
+
+	loc_vars = function(self, info_queue, card) end,
+
+	calculate = function(self, card, context) end,
 }
-return { name = {"Jokers"}, items = {hairy_joker} }
+return { name = { "Jokers" }, items = { hairy_joker } }

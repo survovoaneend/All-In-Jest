@@ -1,54 +1,54 @@
 local fabled = {
-    object_type = "Back",
-    key = 'fabled',
-    lite = true,
-    atlas = 'deck_atlas',
-    order = 0,
-    pos = { x = 0, y = 0 },
-    unlocked = false,
-    unlock_condition = { hidden = true },
-    config = {
-        joker_slot = -1,
-        extra = {
-            remove_amt = 0,
-            counterbalance = 0
-        }
-    },
-    loc_vars = function(self)
-        return { vars = { self.config.joker_slot } }
-    end,
-    locked_loc_vars = function(self, info_queue, card)
-        if not self.unlocked then
-            return { key = "b_aij_fabled_hidden" }
-        end
-    end,
-    calculate = function(self, card, context)
-        if context.ending_shop then
-            G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate - 0.004
-            G.GAME.selected_back.effect.config.extra.remove_amt = G.GAME.selected_back.effect.config.extra.remove_amt +
-            0.004
-        end
-        if context.buying_card then
-            if context.card.ability.set == "Joker" and context.card.config.center.rarity == 4 then
-                G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate +
-                G.GAME.selected_back.effect.config.extra.remove_amt
-                G.GAME.selected_back.effect.config.extra.remove_amt = 0
-            end
-        end
-    end,
-    check_for_unlock = function(self, args)
-        if args.type == 'discover_amount' and G.P_CENTER_POOLS then
-            for i, v in ipairs(G.P_CENTER_POOLS["Joker"]) do
-                if v.rarity == 4 and v.discovered then
-                    return true
-                end
-            end
-        end
-        return false
-    end,
-    apply = function(self, back)
-        G.GAME.jest_legendary_pool.in_shop = true
-        G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate - 0 -- 0%
-    end
+	object_type = "Back",
+	key = "fabled",
+	lite = true,
+	atlas = "deck_atlas",
+	order = 0,
+	pos = { x = 0, y = 0 },
+	unlocked = false,
+	unlock_condition = { hidden = true },
+	config = {
+		joker_slot = -1,
+		extra = {
+			remove_amt = 0,
+			counterbalance = 0,
+		},
+	},
+	loc_vars = function(self)
+		return { vars = { self.config.joker_slot } }
+	end,
+	locked_loc_vars = function(self, info_queue, card)
+		if not self.unlocked then
+			return { key = "b_aij_fabled_hidden" }
+		end
+	end,
+	calculate = function(self, card, context)
+		if context.ending_shop then
+			G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate - 0.004
+			G.GAME.selected_back.effect.config.extra.remove_amt = G.GAME.selected_back.effect.config.extra.remove_amt
+				+ 0.004
+		end
+		if context.buying_card then
+			if context.card.ability.set == "Joker" and context.card.config.center.rarity == 4 then
+				G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate
+					+ G.GAME.selected_back.effect.config.extra.remove_amt
+				G.GAME.selected_back.effect.config.extra.remove_amt = 0
+			end
+		end
+	end,
+	check_for_unlock = function(self, args)
+		if args.type == "discover_amount" and G.P_CENTER_POOLS then
+			for i, v in ipairs(G.P_CENTER_POOLS["Joker"]) do
+				if v.rarity == 4 and v.discovered then
+					return true
+				end
+			end
+		end
+		return false
+	end,
+	apply = function(self, back)
+		G.GAME.jest_legendary_pool.in_shop = true
+		G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate - 0 -- 0%
+	end,
 }
 return { name = { "Decks" }, items = { fabled } }

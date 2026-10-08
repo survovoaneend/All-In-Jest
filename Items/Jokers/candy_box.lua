@@ -1,29 +1,25 @@
 local candy_box = {
-    object_type = "Joker",
-    order = 948,
-    ignore = true,
+	object_type = "Joker",
+	order = 948,
+	ignore = true,
 
-    key = "candy_box",
-    config = {
+	key = "candy_box",
+	config = {},
+	attributes = {},
+	rarity = 1,
+	pos = { x = 22, y = 43 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    },
-    attributes = {},
-    rarity = 1,
-    pos = { x = 22, y = 43},
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	loc_vars = function(self, info_queue, card)
+		return {}
+	end,
 
-    loc_vars = function(self, info_queue, card)
-        return { }
-    end,
-
-    calculate = function(self, card, context)
-
-    end
+	calculate = function(self, card, context) end,
 }
-return { name = {"Jokers"}, items = {candy_box} }
+return { name = { "Jokers" }, items = { candy_box } }

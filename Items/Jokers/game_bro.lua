@@ -1,39 +1,37 @@
 local game_bro = {
-    object_type = "Joker",
-    order = 456,
-    key = "game_bro",
-    
-    config = {
-        extra = {
-            
-        }
-    },
-    attributes = { 'mult' },
-    rarity = 1,
-    pos = { x = 7, y = 22 },
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	object_type = "Joker",
+	order = 456,
+	key = "game_bro",
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                G.GAME.round * 2
-            }
-        }
-    end,
+	config = {
+		extra = {},
+	},
+	attributes = { "mult" },
+	rarity = 1,
+	pos = { x = 7, y = 22 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    calculate = function(self, card, context)
-        if context.joker_main then
-            return {
-                mult = G.GAME.round * 2
-            }
-        end
-    end
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				G.GAME.round * 2,
+			},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.joker_main then
+			return {
+				mult = G.GAME.round * 2,
+			}
+		end
+	end,
 }
 
 return { name = { "Jokers" }, items = { game_bro } }

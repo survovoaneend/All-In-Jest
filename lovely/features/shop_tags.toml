@@ -1,0 +1,189 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+
+
+# Shop Tags (1/10)
+# Make shop tags always purchaseable
+# G.FUNCS.check_for_buy_space()
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "if card.ability.set ~= 'Voucher' and"
+position = "before"
+payload = '''
+if card.ability.set == 'Tag' then
+    return true
+end
+'''
+match_indent = true
+# Shop Tags (2/10)
+# Add a new card area to the shop for selling tags
+# G.UIDEF.shop()
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "G.shop_booster =*"
+position = 'before'
+match_indent = true
+payload = '''
+G.shop_aij_tags = CardArea(
+    G.hand.T.x+0,
+    G.hand.T.y+G.ROOM.T.y + 9,
+    0.8,
+    1.15*G.CARD_H, 
+    {card_limit = 2, type = 'shop', highlight_limit = 1, card_w = 0.8})
+
+if All_in_Jest.show_shop_aij_tags() then
+    G.shop_vouchers.T.w = G.shop_vouchers.T.w - G.shop_aij_tags.T.w - 0.15 -- The 0.15 accounts for padding
+end
+
+'''
+# Shop Tags (3/10)
+# G.UIDEF.deck_preview
+# Only make the tag area in the shop appear if any tags are for sale
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''{n=G.UIT.C, config={align = "cm", padding = 0.15, r=0.2, colour = G.C.L_BLACK, emboss = 0.05}, nodes={
+  {n=G.UIT.O, config={object = G.shop_booster}},
+}},'''
+position = 'after'
+match_indent = true
+payload = '''
+All_in_Jest.show_shop_aij_tags() and {n=G.UIT.C, config={align = "cm", padding = 0.15, r=0.2, colour = G.C.L_BLACK, emboss = 0.05}, nodes={
+  {n=G.UIT.O, config={object = G.shop_aij_tags}},
+}} or nil,
+'''
+# Shop Tags (4/10)
+# G.UIDEF.card_focus_ui
+# Make tags purchaseable via controller
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = '''if card.area == G.shop_booster and G.shop_booster*'''
+position = 'before'
+match_indent = true
+payload = '''
+if card.area == G.shop_aij_tags and G.shop_aij_tags then
+    base_attach.children.buy = G.UIDEF.card_focus_button{
+        card = card, parent = base_attach, type = 'buy',
+        func = 'can_buy', button = 'buy_from_shop', card_width = card_width * 2
+    }
+end
+'''
+# Shop Tags (5/10)
+# Card:load()
+## Correctly load tags in shop as cards
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = 'self.config.center = G.P_CENTERS[self.config.center_key]'
+position = "after"
+match_indent = true
+payload = '''
+if cardTable.aij and cardTable.aij.tag then
+    self.config.tag = Tag('tag_uncommon')
+    self.config.tag:load(cardTable.aij.tag)
+    self.config.tag.from_load = nil
+    self.config.center_key = self.config.tag.key
+    self.config.center = G.P_TAGS[self.config.tag.key]
+    self.config.center.atlas = self.config.center.atlas or "tags"
+
+    self.config.center.set_card_type_badge = function(self, card, badges)
+        badges[#badges+1] = create_badge(localize('k_tag'), G.C.SECONDARY_SET.Planet, G.C.WHITE, 1.2 )
+    end
+end
+'''
+# Shop Tags (6/10)
+# Card:load
+# Set size of shop tag sprites on game reload
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+self.VT.h = self.T.*
+self.VT.w = self.T.*
+'''
+position = "before"
+match_indent = true
+payload = '''
+if cardTable.aij and cardTable.aij.tag then
+    self.T.w, self.T.h = 0.8, 0.8
+end
+'''
+# Shop Tags (7/10)
+# Game:update_shop
+# Make shop tags re-appear on game reload
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''if G.load_shop_booster then '''
+position = 'before'
+match_indent = true
+payload = '''if G.load_shop_aij_tags then 
+    nosave_shop = true
+    G.shop_aij_tags:load(G.load_shop_aij_tags)
+    for k, v in ipairs(G.shop_aij_tags.cards) do
+        create_shop_card_ui(v, 'Tag', G.shop_aij_tags)
+        v:start_materialize()
+    end
+    G.load_shop_aij_tags = nil
+end
+'''
+
+# Shop Tags (8/10)
+# Card:generate_UIBox_ability_table
+# Proper Shop Tag Text Generation
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "return generate_card_ui(self.config.center, nil, loc_vars, card_type, badges, hide_desc, main_start, main_end, self)"
+position = "before"
+match_indent = true
+payload = '''
+if self.ability.is_aij_shop_tag then 
+    local name_to_check, alt_loc_vars = self.name, nil
+    if name_to_check == 'Orbital Tag' then alt_loc_vars = {
+        (self.ability.orbital_hand == '['..localize('k_poker_hand')..']') and self.ability.orbital_hand or localize(self.ability.orbital_hand, 'poker_hands'), self.ability.levels}
+    end
+    return generate_card_ui(G.P_TAGS[self.config.center.key], nil, alt_loc_vars or loc_vars, (self.hide_ability) and 'Undiscovered' or 'Tag', badges, (self.hide_ability), nil, nil, self) 
+end
+'''
+
+# Shop Tags (9/10)
+# Tag:get_uibox_table
+# Make skip tag show correctly in the shop (by default it adds one to the tag, now it won't do so if in shop/pack)
+[[patches]]
+[patches.regex]
+target = "tag.lua"
+pattern = '''elseif name_to_check == 'Skip Tag' then loc_vars = \{self\.config\.skip_bonus, self\.config\.skip_bonus\*\(\(G\.GAME\.skips or 0\)\+(.*?)\)\}'''
+position = "at"
+payload = '''
+elseif name_to_check == 'Skip Tag' then loc_vars = {self.config.skip_bonus, self.config.skip_bonus*((G.GAME.skips or 0)+(G.STATE == G.STATES.SHOP and 0 or $1))}
+'''
+# Shop Tags (10/10)
+# G.FUNCS.buy_from_shop
+# Add tag when purchased and immediately trigger it if applicable
+[[patches]] 
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "elseif e.config.id ~= 'buy_and_use' then"
+position = "before"
+payload = '''
+elseif c1.ability.set == 'Tag' then
+    local temptag = c1.config.tag
+    add_tag(temptag)
+    c1:remove()
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            for i = 1, #G.GAME.tags do
+              G.GAME.tags[i]:apply_to_run({type = 'immediate'})
+            end
+            return true
+        end
+    })) 
+'''
+match_indent = true

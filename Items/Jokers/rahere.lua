@@ -1,32 +1,25 @@
 local rahere = {
-    object_type = "Joker",
-    order = 1036,
-    ignore = true,
+	object_type = "Joker",
+	order = 1036,
+	ignore = true,
 
-    key = "rahere",
-    config = {
-      
-    },
-    attributes = {},
-    rarity = 4,
-	unlock_condition = {hidden = true},
-    pos = { x = 5, y = 6},
-    atlas = 'legendary_atlas',
-    cost = 4,
-    unlocked = false,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = false,
-    perishable_compat = true,
-    soul_pos = { x = 5, y = 7},
-  
-    loc_vars = function(self, info_queue, card)
-  
-    end,
-  
-    calculate = function(self, card, context)
-      
-    end
-  
+	key = "rahere",
+	config = {},
+	attributes = {},
+	rarity = 4,
+	unlock_condition = { hidden = true },
+	pos = { x = 5, y = 6 },
+	atlas = "legendary_atlas",
+	cost = 4,
+	unlocked = false,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = false,
+	perishable_compat = true,
+	soul_pos = { x = 5, y = 7 },
+
+	loc_vars = function(self, info_queue, card) end,
+
+	calculate = function(self, card, context) end,
 }
-return { name = {"Jokers"}, items = {rahere} }
+return { name = { "Jokers" }, items = { rahere } }

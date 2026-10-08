@@ -1,52 +1,49 @@
 local silvio = {
-    object_type = "Joker",
-    order = 1009,
+	object_type = "Joker",
+	order = 1009,
 
-    key = "silvio",
-    config = {
-        extra = {
-        }
-    },
-    attributes = { 'retrigger', 'rank', 'king', 'queen' },
-    rarity = 4,
-    unlock_condition = { hidden = true },
-    pos = { x = 8, y = 0 },
-    atlas = 'legendary_atlas',
-    cost = 20,
-    unlocked = false,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
-    soul_pos = { x = 8, y = 1 },
+	key = "silvio",
+	config = {
+		extra = {},
+	},
+	attributes = { "retrigger", "rank", "king", "queen" },
+	rarity = 4,
+	unlock_condition = { hidden = true },
+	pos = { x = 8, y = 0 },
+	atlas = "legendary_atlas",
+	cost = 20,
+	unlocked = false,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+	soul_pos = { x = 8, y = 1 },
 
-    loc_vars = function(self, info_queue, card)
-        return {}
-    end,
+	loc_vars = function(self, info_queue, card)
+		return {}
+	end,
 
-    calculate = function(self, card, context)
-        if context.repetition then
-            if context.other_card and context.other_card:get_id() == 13 then
-                local queen_count = 0
-                if G.hand and G.hand.cards then
-                    for _, hand_card in ipairs(G.hand.cards) do
-                        if hand_card:get_id() == 12 then 
-                            queen_count = queen_count + 1
-                        end
-                    end
-                end
+	calculate = function(self, card, context)
+		if context.repetition then
+			if context.other_card and context.other_card:get_id() == 13 then
+				local queen_count = 0
+				if G.hand and G.hand.cards then
+					for _, hand_card in ipairs(G.hand.cards) do
+						if hand_card:get_id() == 12 then
+							queen_count = queen_count + 1
+						end
+					end
+				end
 
-                
-                if queen_count > 0 then
-                    return {
-                        message = localize('k_again_ex'),
-                        repetitions = queen_count,
-                        card = card 
-                    }
-                end
-            end
-        end
-    end
+				if queen_count > 0 then
+					return {
+						message = localize("k_again_ex"),
+						repetitions = queen_count,
+						card = card,
+					}
+				end
+			end
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {silvio} }
-
+return { name = { "Jokers" }, items = { silvio } }

@@ -1,39 +1,38 @@
 local mixel_perfect = {
-    object_type = "Joker",
-    order = 118,
-    lite = true,
-    key = "mixel_perfect",
-    config = {
-      extra = {
-        mult = 9
-      }
-    },
-    attributes = { 'mult' },
-    rarity = 1,
-    pos = { x = 10, y = 4 },
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-      return {
-        vars = {
-          card.ability.extra.mult
-        }
-      }
-    end,
-  
-    calculate = function(self, card, context)
-      if context.joker_main and math.fmod(#context.scoring_hand, 2) == 1 then
-        return {
-          mult = card.ability.extra.mult
-        }
-      end
-    end
-  
+	object_type = "Joker",
+	order = 118,
+	lite = true,
+	key = "mixel_perfect",
+	config = {
+		extra = {
+			mult = 9,
+		},
+	},
+	attributes = { "mult" },
+	rarity = 1,
+	pos = { x = 10, y = 4 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
+
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.mult,
+			},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.joker_main and math.fmod(#context.scoring_hand, 2) == 1 then
+			return {
+				mult = card.ability.extra.mult,
+			}
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {mixel_perfect} }
+return { name = { "Jokers" }, items = { mixel_perfect } }

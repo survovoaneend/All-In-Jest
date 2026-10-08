@@ -1,73 +1,90 @@
 local mocap = {
-    object_type = "Joker",
-    order = 296,
-    key = "mocap",
-    config = {
-      
-    },
-    attributes = { 'generation', 'joker', 'rarity', 'on_sell' },
-    rarity = 2,
-    pos = { x = 12, y = 11},
-    atlas = 'joker_atlas',
-    cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = true,
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-  
-    end,
-  
-    calculate = function(self, card, context)
-        if context.selling_card and not context.blueprint then 
-            if context.card ~= card then
-                if context.card.ability.set == "Joker" then
-                    local rarity = context.card.config.center.rarity
-                    if rarity == 4 then
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'before',
-                            delay = 0.2,
-                            func = function()
-                              card:juice_up()
-                              local temp_card = SMODS.create_card{set="Joker", area=G.Jokers, rarity=1, key_append="mocap"}
-                              temp_card:start_materialize()
-                              G.jokers:emplace(temp_card)
-                              return true
-                            end
-                        }))
-                    elseif rarity == 3 then
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'before',
-                            delay = 0.2,
-                            func = function()
-                              card:juice_up()
-                              local temp_card = SMODS.create_card{set="Joker", area=G.Jokers, rarity=0.9, key_append="mocap"}
-                              temp_card:start_materialize()
-                              G.jokers:emplace(temp_card)
-                              return true
-                            end
-                        }))
-                    elseif rarity == 2 then
-                        G.E_MANAGER:add_event(Event({
-                            trigger = 'before',
-                            delay = 0.2,
-                            func = function()
-                              card:juice_up()
-                              local temp_card = SMODS.create_card{set="Joker", area=G.Jokers, rarity=0.6, key_append="mocap"}
-                              temp_card:start_materialize()
-                              G.jokers:emplace(temp_card)
-                              return true
-                            end
-                        }))
-                    else
-                        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_nope_ex'), colour = G.C.SECONDARY_SET.Tarot})
-                    end
-                end
-            end
-        end
-    end
-  
+	object_type = "Joker",
+	order = 296,
+	key = "mocap",
+	config = {},
+	attributes = { "generation", "joker", "rarity", "on_sell" },
+	rarity = 2,
+	pos = { x = 12, y = 11 },
+	atlas = "joker_atlas",
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true,
+	perishable_compat = true,
+
+	loc_vars = function(self, info_queue, card) end,
+
+	calculate = function(self, card, context)
+		if context.selling_card and not context.blueprint then
+			if context.card ~= card then
+				if context.card.ability.set == "Joker" then
+					local rarity = context.card.config.center.rarity
+					if rarity == 4 then
+						G.E_MANAGER:add_event(Event({
+							trigger = "before",
+							delay = 0.2,
+							func = function()
+								card:juice_up()
+								local temp_card = SMODS.create_card({
+									set = "Joker",
+									area = G.Jokers,
+									rarity = 1,
+									key_append = "mocap",
+								})
+								temp_card:start_materialize()
+								G.jokers:emplace(temp_card)
+								return true
+							end,
+						}))
+					elseif rarity == 3 then
+						G.E_MANAGER:add_event(Event({
+							trigger = "before",
+							delay = 0.2,
+							func = function()
+								card:juice_up()
+								local temp_card = SMODS.create_card({
+									set = "Joker",
+									area = G.Jokers,
+									rarity = 0.9,
+									key_append = "mocap",
+								})
+								temp_card:start_materialize()
+								G.jokers:emplace(temp_card)
+								return true
+							end,
+						}))
+					elseif rarity == 2 then
+						G.E_MANAGER:add_event(Event({
+							trigger = "before",
+							delay = 0.2,
+							func = function()
+								card:juice_up()
+								local temp_card = SMODS.create_card({
+									set = "Joker",
+									area = G.Jokers,
+									rarity = 0.6,
+									key_append = "mocap",
+								})
+								temp_card:start_materialize()
+								G.jokers:emplace(temp_card)
+								return true
+							end,
+						}))
+					else
+						card_eval_status_text(
+							card,
+							"extra",
+							nil,
+							nil,
+							nil,
+							{ message = localize("k_nope_ex"), colour = G.C.SECONDARY_SET.Tarot }
+						)
+					end
+				end
+			end
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {mocap} }
+return { name = { "Jokers" }, items = { mocap } }

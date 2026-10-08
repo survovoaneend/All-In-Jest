@@ -1,66 +1,99 @@
 local bit_flip = {
-    object_type = "Joker",
-    order = 965,
+	object_type = "Joker",
+	order = 965,
 
-    key = "bit_flip",
-    config = {
-        extra = {
-            odds = 2,
-            score_mod = 1
-        }
-    },
-    attributes = { 'chance', 'score' },
-    rarity = 1,
-    pos = { x = 14, y = 44},
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	key = "bit_flip",
+	config = {
+		extra = {
+			odds = 2,
+			score_mod = 1,
+		},
+	},
+	attributes = { "chance", "score" },
+	rarity = 1,
+	pos = { x = 14, y = 44 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    loc_vars = function(self, info_queue, card)
-        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
-        return {
-            vars = {
-                numerator, denominator,
-                card.ability.extra.score_mod
-            }
-        }
-    end,
+	loc_vars = function(self, info_queue, card)
+		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+		return {
+			vars = {
+				numerator,
+				denominator,
+				card.ability.extra.score_mod,
+			},
+		}
+	end,
 
-    calculate = function(self, card, context)
-        if context.all_in_jest and context.all_in_jest.before_round_end_check and context.total_chips > 0 then
-            local num = context.total_chips
-            local digits = {}
-            for digit in tostring(num):gmatch("%d") do
-                table.insert(digits, tonumber(digit))
-            end
-            local str = ''
-            for k, v in pairs(digits) do
-                if SMODS.pseudorandom_probability(card, 'bit_flip', 1, card.ability.extra.odds) then 
-                    digits[k] = digits[k] + card.ability.extra.score_mod
-                end
-                if k ~= 1 and digits[k] >= 10 then
-                    while digits[k] >= 10 do
-                        digits[k-1] = digits[k-1] + 1
-                        digits[k] = digits[k] - 10
-                    end
-                end
-            end
-            for k, v in pairs(digits) do
-                str = str .. tostring(v)
-            end
-            local score_amt = tonumber(str) - context.total_chips
-            if score_amt > 0 then
-                card_eval_status_text(card, 'jokers', nil, percent, nil, {message = localize{type='variable',key= "a_score",vars={SMODS.signed(score_amt)}}, update_score = true, volume = 0.5, sound_override = "gong", colour =  G.C.PURPLE})
-                G.E_MANAGER:add_event(Event({trigger = 'after', func = function()
-                    juice_card(card)
-                    G.GAME.chips = G.GAME.chips + score_amt
-                return true end }))
-            end
-        end
-    end
+	calculate = function(self, card, context)
+		if context.all_in_jest and context.all_in_jest.before_round_end_check and context.total_chips > 0 then
+			local number_of_digits = math.floor(math.log10(context.total_chips + G.GAME.chips)) + 1
+			local scientific_notation = false
+			local chips_text = number_format(context.total_chips + G.GAME.chips)
+
+			-- If number is high enough to not show every digit, then skip the +score animation
+			-- For balance sake the unseen digits are still modified, though they are unlikely to have much effect
+			if string.find(chips_text, "e") then
+				scientific_notation = true
+			end
+			local show_animation_threshold = 0
+			if scientific_notation then
+				show_animation_threshold = number_of_digits - 3
+			end
+
+			for i = 0, number_of_digits - 1 do
+				if SMODS.pseudorandom_probability(card, "bit_flip", 1, card.ability.extra.odds) then
+					G.E_MANAGER:add_event(Event({
+						trigger = "after",
+						func = function()
+							G.GAME.chips = G.GAME.chips + 10 ^ i
+							return true
+						end,
+					}))
+					if i >= show_animation_threshold then
+						card_eval_status_text(card, "jokers", nil, percent, nil, {
+							message = localize({ type = "variable", key = "a_score", vars = { SMODS.signed(10 ^ i) } }),
+							update_score = true,
+							volume = 0.5,
+							sound_override = "gong",
+							colour = G.C.PURPLE,
+						})
+					end
+				else
+					if i >= show_animation_threshold then
+						G.E_MANAGER:add_event(Event({
+							trigger = "after",
+							func = function()
+								G.E_MANAGER:add_event(Event({
+									trigger = "after",
+									delay = 0.06 * G.SETTINGS.GAMESPEED,
+									blockable = false,
+									blocking = false,
+									func = function()
+										play_sound("tarot2", 0.76, 0.4)
+										return true
+									end,
+								}))
+								play_sound("tarot2", 1, 0.4)
+								return true
+							end,
+						}))
+						card_eval_status_text(card, "jokers", nil, percent, nil, {
+							message = localize("k_nope_ex"),
+							colour = G.C.PURPLE,
+						})
+					end
+				end
+			end
+
+			return nil, true
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {bit_flip} }
+return { name = { "Jokers" }, items = { bit_flip } }

@@ -1,41 +1,40 @@
 local realty_sign = {
-    object_type = "Joker",
-    order = 86,
-    lite = true,
-    key = "realty_sign",
-    config = {
-      extra = { sell_increase = 3 }
-    },
-    attributes = { 'sell_value', 'scaling', 'hand_type' },
-    rarity = 1,
-    pos = { x = 3, y = 3 },
-    atlas = 'joker_atlas',
-    cost = 5,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = false,
-    eternal_compat = true, -- Egg can be eternal, so should this
-    perishable_compat = true,
-  
-    loc_vars = function(self, info_queue, card)
-      return { vars = {card.ability.extra.sell_increase} }
-    end,
-  
-    calculate = function(self, card, context)
-        if context.before and context.scoring_name == 'Full House' and not context.blueprint then 
-            SMODS.scale_card(card, {
-	            ref_table = card.ability,
-                ref_value = "extra_value",
-                scalar_table = card.ability.extra,
-	            scalar_value = "sell_increase",
-                scaling_message = {
-	                message = localize('k_val_up'),
-                    colour = G.C.MONEY
-                },
-            })
-            card:set_cost()
-          end
-    end
-  
+	object_type = "Joker",
+	order = 86,
+	lite = true,
+	key = "realty_sign",
+	config = {
+		extra = { sell_increase = 3 },
+	},
+	attributes = { "sell_value", "scaling", "hand_type" },
+	rarity = 1,
+	pos = { x = 3, y = 3 },
+	atlas = "joker_atlas",
+	cost = 5,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = false,
+	eternal_compat = true, -- Egg can be eternal, so should this
+	perishable_compat = true,
+
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card.ability.extra.sell_increase } }
+	end,
+
+	calculate = function(self, card, context)
+		if context.before and context.scoring_name == "Full House" and not context.blueprint then
+			SMODS.scale_card(card, {
+				ref_table = card.ability,
+				ref_value = "extra_value",
+				scalar_table = card.ability.extra,
+				scalar_value = "sell_increase",
+				scaling_message = {
+					message = localize("k_val_up"),
+					colour = G.C.MONEY,
+				},
+			})
+			card:set_cost()
+		end
+	end,
 }
-return { name = {"Jokers"}, items = {realty_sign} }
+return { name = { "Jokers" }, items = { realty_sign } }

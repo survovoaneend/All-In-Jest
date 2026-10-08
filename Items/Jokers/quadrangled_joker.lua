@@ -1,41 +1,39 @@
 local quadrangled_joker = {
-    object_type = "Joker",
-    order = 580,
-    key = "quadrangled_joker",
-    
-    config = {
-        extra = {
-            
-        }
-    },
-    attributes = { 'mult', 'chips', 'hand_type' },
-    rarity = 2,
-    pos = { x = 24, y = 26 },
-    atlas = 'joker_atlas',
-    cost = 8,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	object_type = "Joker",
+	order = 580,
+	key = "quadrangled_joker",
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                G.GAME.hands['Four of a Kind'].chips, 
-                G.GAME.hands['Four of a Kind'].mult
-            }
-        }
-    end,
+	config = {
+		extra = {},
+	},
+	attributes = { "mult", "chips", "hand_type" },
+	rarity = 2,
+	pos = { x = 24, y = 26 },
+	atlas = "joker_atlas",
+	cost = 8,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    calculate = function(self, card, context)
-        if context.joker_main and #context.full_hand == 4 then
-            return {
-                chips = G.GAME.hands['Four of a Kind'].chips,
-                mult = G.GAME.hands['Four of a Kind'].mult
-            }
-        end
-    end
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				G.GAME.hands["Four of a Kind"].chips,
+				G.GAME.hands["Four of a Kind"].mult,
+			},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.joker_main and #context.full_hand == 4 then
+			return {
+				chips = G.GAME.hands["Four of a Kind"].chips,
+				mult = G.GAME.hands["Four of a Kind"].mult,
+			}
+		end
+	end,
 }
 
 return { name = { "Jokers" }, items = { quadrangled_joker } }

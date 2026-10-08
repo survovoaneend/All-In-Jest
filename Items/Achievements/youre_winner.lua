@@ -1,19 +1,19 @@
 local youre_winner = {
-    object_type = "Achievement",
-    atlas = "aij_achievement_atlas",
-    order = 1000,
+	object_type = "Achievement",
+	atlas = "aij_achievement_atlas",
+	order = 1000,
 
-    key = "youre_winner",
-    pos = {x=3, y=1},
-    hidden_pos = {x=2, y=1},
-    reset_on_version_change = true,
+	key = "youre_winner",
+	pos = { x = 3, y = 1 },
+	hidden_pos = { x = 2, y = 1 },
+	reset_on_version_change = true,
 
-    unlock_condition = function(self, args)
-        if args.type and G.PROGRESS and G.PROGRESS.aij_achievements then
-            if G.PROGRESS.aij_achievements.tally >= (G.PROGRESS.aij_achievements.of - 1) then
-                return true
-            end
-        end
-    end,
+	unlock_condition = function(self, args)
+		if args.type and G.PROGRESS and G.PROGRESS.aij_achievements then
+			if G.PROGRESS.aij_achievements.tally >= (G.PROGRESS.aij_achievements.of - 1) then
+				return true
+			end
+		end
+	end,
 }
-return { name = {"Achievements"}, items = {youre_winner} }
+return { name = { "Achievements" }, items = { youre_winner } }

@@ -1,0 +1,26 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 214748364
+
+
+# Pit Blinds (1/1)
+# Patch to force pit blind on ante 4/5 or during the all pit blinds challenge
+# get_new_boss()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils/weights.lua"]'
+pattern = '''for k, v in pairs(G.GAME.banned_keys) do'''
+position = "before"
+match_indent = true
+payload = '''
+-- AIJ Patch
+if All_in_Jest.force_pit_blind() then
+    for k, v in pairs(eligible_bosses) do
+        if eligible_bosses[k] and not (G.P_BLINDS[k] and G.P_BLINDS[k].boss and G.P_BLINDS[k].boss.all_in_jest and G.P_BLINDS[k].boss.all_in_jest.pit) then
+            eligible_bosses[k] = nil
+        end
+    end
+end
+-- end AIJ patch
+'''

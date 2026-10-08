@@ -1,29 +1,25 @@
 local unfalisifiable_ceramics = {
-    object_type = "Joker",
-    order = 770,
-    ignore = true,
+	object_type = "Joker",
+	order = 770,
+	ignore = true,
 
-    key = "unfalisifiable_ceramics",
-    config = {
+	key = "unfalisifiable_ceramics",
+	config = {},
+	attributes = {},
+	rarity = 1,
+	pos = { x = 10, y = 40 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    },
-    attributes = {},
-    rarity = 1,
-    pos = { x = 10, y = 40},
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	loc_vars = function(self, info_queue, card)
+		return {}
+	end,
 
-    loc_vars = function(self, info_queue, card)
-        return { }
-    end,
-
-    calculate = function(self, card, context)
-
-    end
+	calculate = function(self, card, context) end,
 }
-return { name = {"Jokers"}, items = {unfalisifiable_ceramics} }
+return { name = { "Jokers" }, items = { unfalisifiable_ceramics } }

@@ -1,39 +1,35 @@
 local uranium = {
-    object_type = "Joker",
-    order = 583.2,
-    key = "uranium",
-    
-    config = {
-        extra = {
-            
-        }
-    },
-    attributes = { 'retrigger', 'hand_type' },
-    rarity = 2,
-    pos = { x = 1, y = 27 },
-    atlas = 'joker_atlas',
-    cost = 6,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	object_type = "Joker",
+	order = 583.2,
+	key = "uranium",
 
-    loc_vars = function(self, info_queue, card)
-        return {
-            vars = {
-                
-            }
-        }
-    end,
+	config = {
+		extra = {},
+	},
+	attributes = { "retrigger", "hand_type" },
+	rarity = 2,
+	pos = { x = 1, y = 27 },
+	atlas = "joker_atlas",
+	cost = 6,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and context.scoring_name == "Two Pair" then
-            return {
-                repetitions = 1
-            }
-        end
-    end
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {},
+		}
+	end,
+
+	calculate = function(self, card, context)
+		if context.repetition and context.cardarea == G.play and context.scoring_name == "Two Pair" then
+			return {
+				repetitions = 1,
+			}
+		end
+	end,
 }
 
 return { name = { "Jokers" }, items = { uranium } }

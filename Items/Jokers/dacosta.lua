@@ -14,7 +14,7 @@ local dacosta = {
 	discovered = false,
 	blueprint_compat = true,
 	eternal_compat = true,
-    perishable_compat = true,
+	perishable_compat = true,
 	soul_pos = { x = 4, y = 3 },
 
 	loc_vars = function(self, info_queue, card) end,
@@ -59,25 +59,25 @@ local dacosta = {
 
 		local effect_to_return = nil
 
-        local effect1_def
-        if target_joker1 then
-            effect1_def = SMODS.blueprint_effect(card, target_joker1, context)
-        end
+		local effect1_def
+		if target_joker1 then
+			effect1_def = SMODS.blueprint_effect(card, target_joker1, context)
+		end
 
-        local effect2_def
-        if target_joker2 then
-            effect2_def = SMODS.blueprint_effect(card, target_joker2, context)
-        end
+		local effect2_def
+		if target_joker2 then
+			effect2_def = SMODS.blueprint_effect(card, target_joker2, context)
+		end
 
-        if effect1_def and effect2_def then
-            effect_to_return = SMODS.merge_effects({ effect1_def, effect2_def })
-        else
-            effect_to_return = effect1_def or effect2_def
-        end
+		if effect1_def and effect2_def then
+			effect_to_return = SMODS.merge_effects({ effect1_def, effect2_def })
+		else
+			effect_to_return = effect1_def or effect2_def
+		end
 
 		card.is_doodle_calculating = false
 
-        return effect_to_return
+		return effect_to_return
 	end,
 }
 return { name = { "Jokers" }, items = { dacosta } }

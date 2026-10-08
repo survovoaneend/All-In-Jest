@@ -1,29 +1,25 @@
 local strange_situation = {
-    object_type = "Joker",
-    order = 783,
-    ignore = true,
+	object_type = "Joker",
+	order = 783,
+	ignore = true,
 
-    key = "strange_situation",
-    config = {
+	key = "strange_situation",
+	config = {},
+	attributes = {},
+	rarity = 1,
+	pos = { x = 23, y = 40 },
+	atlas = "joker_atlas",
+	cost = 4,
+	unlocked = true,
+	discovered = false,
+	blueprint_compat = true,
+	eternal_compat = true,
+	perishable_compat = true,
 
-    },
-    attributes = {},
-    rarity = 1,
-    pos = { x = 23, y = 40},
-    atlas = 'joker_atlas',
-    cost = 4,
-    unlocked = true,
-    discovered = false,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
+	loc_vars = function(self, info_queue, card)
+		return {}
+	end,
 
-    loc_vars = function(self, info_queue, card)
-        return { }
-    end,
-
-    calculate = function(self, card, context)
-
-    end
+	calculate = function(self, card, context) end,
 }
-return { name = {"Jokers"}, items = {strange_situation} }
+return { name = { "Jokers" }, items = { strange_situation } }
