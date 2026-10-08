@@ -30,7 +30,7 @@ function All_in_Jest.get_current_blind_mult()
 end
 
 function All_in_Jest.gladiator_blinds_in_play()
-	return G.GAME.aij_poly_chips and G.GAME.aij_poly_chips["aij_gladiator"] > 0
+	return (G.GAME.aij_poly_chips and G.GAME.aij_poly_chips["aij_gladiator"] > 0) or false
 end
 
 G.FUNCS.jest_gladiator_blinds = function(e)
