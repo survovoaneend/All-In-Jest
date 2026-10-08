@@ -1602,7 +1602,7 @@ local get_next_reroll_tag_key = function(args, current_tag)
 			-- Turn gold tags into their standard counterparts
 			local tag_key = current_tag
 			if G.P_TAGS[tag_key] and G.P_TAGS[tag_key].config.aij and G.P_TAGS[tag_key].config.aij.upgrade then
-				next_tag_key = G.P_TAGS[tag_key].config.aij.upgrade
+				next_tag_key = "tag_" .. G.P_TAGS[tag_key].config.aij.upgrade
 			end
 		end
 		if args.force_gold then
@@ -1616,6 +1616,12 @@ local get_next_reroll_tag_key = function(args, current_tag)
 							upgraded_tag_key = v.key
 							break
 						end
+					end
+				end
+
+				if G.P_TAGS[upgraded_tag_key].in_pool and type(G.P_TAGS[upgraded_tag_key].in_pool) == "function" then
+					if not G.P_TAGS[upgraded_tag_key]:in_pool() then
+						upgraded_tag_key = nil
 					end
 				end
 

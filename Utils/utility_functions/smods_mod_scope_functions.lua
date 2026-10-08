@@ -261,7 +261,7 @@ function All_in_Jest.calculate(self, context)
 			G.E_MANAGER:add_event(Event({
 				trigger = "immediate",
 				func = function()
-					aij_reroll_tags(nil, { force_no_gold, do_not_change_tags = true })
+					aij_reroll_tags(nil, { force_no_gold = true, do_not_change_tags = true })
 					return true
 				end,
 			}))
