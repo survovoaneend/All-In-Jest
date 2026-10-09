@@ -95,6 +95,38 @@ SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, 
 '''
 match_indent = true
 
+# Apply score reduction after hand calculates score
+# G.FUNCS.evaluate_play()
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "check_and_set_high_score('hand',  SMODS.calculate_round_score() )"
+position = "before"
+payload = '''
+if (G.GAME.aij_score_reduction or 1) ~= 1 then
+    G.GAME.aij_apply_score_reduction = true
+    G.E_MANAGER:add_event(Event({
+        trigger = 'before',
+        delay = 0.8,
+        func = function()
+            play_sound('gong', 0.94, 0.7)
+            play_sound('gong', 0.94*1.5, 0.3)
+            attention_text({
+                scale = 1.0,
+                text = localize({ type = "variable", key = "a_aij_score_reduction", vars = { math.floor(100 - G.GAME.aij_score_reduction*100) } }),
+                hold = 4,
+                align = "cm",
+                offset = { x = 0, y = -2.7 },
+                major = G.play,
+            })
+
+            return true
+        end,
+    }))
+end
+'''
+match_indent = true
+
 # Context for before the Shop is Rerolled
 # G.FUNCS.reroll_shop()
 [[patches]] 

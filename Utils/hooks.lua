@@ -730,3 +730,24 @@ function CardArea:emplace(card, ...)
 
 	return result
 end
+
+-- score reduction effects
+local calculate_round_score_ref = SMODS.calculate_round_score
+function SMODS.calculate_round_score()
+	local ret = calculate_round_score_ref()
+	if G.GAME.aij_apply_score_reduction then
+		return ret * (G.GAME.aij_score_reduction or 1) + 0.5 -- ?? floats are being weird and this fixes it
+	end
+	return ret
+end
+
+-- stupid extra hook to make the hand text accurate
+local update_hand_text_ref = update_hand_text
+function update_hand_text(config, vals)
+	if G.GAME.aij_apply_score_reduction and vals.chip_total == math.floor(SMODS.calculate_round_score()) then
+		G.GAME.aij_apply_score_reduction = false
+		vals.chip_total = math.floor(SMODS.calculate_round_score())
+		G.GAME.aij_apply_score_reduction = true
+	end
+	return update_hand_text_ref(config, vals)
+end

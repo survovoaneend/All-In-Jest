@@ -234,6 +234,8 @@ return {
 
 			a_aij_win_ante_plus = "+#1# Win Ante",
 
+			a_aij_score_reduction = "-#1#% Score",
+
 			a_aij_percent_balance = "+%#1#",
 			a_aij_percent_balance_minus = "-%#1#",
 

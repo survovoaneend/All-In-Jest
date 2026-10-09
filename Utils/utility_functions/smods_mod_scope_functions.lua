@@ -277,6 +277,10 @@ function All_in_Jest.calculate(self, context)
 			end,
 		}))
 	end
+	if context.before then
+		G.GAME.aij_score_reduction = 1
+		G.GAME.aij_apply_score_reduction = false
+	end
 end
 
 function All_in_Jest.custom_card_areas(game)

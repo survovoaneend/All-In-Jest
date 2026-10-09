@@ -18,7 +18,7 @@ local the_plant = {
 		if temp then
 			return
 		end
-		if context.all_in_jest and context.all_in_jest.before_round_end_check and not temp then
+		if context.all_in_jest and context.all_in_jest.before_after then
 			local faces = 0
 			for _, card in ipairs(context.full_hand) do
 				if card:is_face() then
@@ -26,11 +26,10 @@ local the_plant = {
 				end
 			end
 			if faces > 0 then
-				local reduction = math.min(0.20 * faces, 1) -- so ice cards and whatnot don't cause score to go negative, unless we want that
-				local minus_amt = math.floor(context.total_chips * reduction)
-				ease_chips(context.total_chips - minus_amt)
+				G.GAME.aij_score_reduction = G.GAME.aij_score_reduction * math.max(1 - 0.2*faces, 0)
+				blind:wiggle()
+				blind.triggered = true
 			end
-			blind.triggered = true
 		end
 	end,
 }

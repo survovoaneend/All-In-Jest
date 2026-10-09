@@ -21,13 +21,13 @@ local mysterious_myriad = {
 		if temp then
 			return
 		end
-		if context.all_in_jest and context.all_in_jest.before_round_end_check and not temp then
+		if context.all_in_jest and context.all_in_jest.before_after then
 			local amt = 5 - #context.scoring_hand
-			if #context.scoring_hand <= 5 then
-				local minus_amt = math.floor(context.total_chips * (0.20 * amt))
-				ease_chips(context.total_chips - minus_amt)
+			if amt > 0 then
+				G.GAME.aij_score_reduction = G.GAME.aij_score_reduction * math.max(1 - 0.2*amt, 0)
+				blind:wiggle()
+				blind.triggered = true
 			end
-			blind.triggered = true
 		end
 	end,
 }
