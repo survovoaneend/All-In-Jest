@@ -26,7 +26,7 @@ local the_window = {
 				end
 			end
 			if diamonds > 0 then
-				G.GAME.aij_score_reduction = G.GAME.aij_score_reduction * math.max(1 - 0.2*diamonds, 0)
+				G.GAME.aij_score_reduction = G.GAME.aij_score_reduction * math.max(1 - 0.2 * diamonds, 0)
 				blind:wiggle()
 				blind.triggered = true
 			end

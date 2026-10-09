@@ -26,7 +26,7 @@ local the_goad = {
 				end
 			end
 			if spades > 0 then
-				G.GAME.aij_score_reduction = G.GAME.aij_score_reduction * math.max(1 - 0.2*spades, 0)
+				G.GAME.aij_score_reduction = G.GAME.aij_score_reduction * math.max(1 - 0.2 * spades, 0)
 				blind:wiggle()
 				blind.triggered = true
 			end

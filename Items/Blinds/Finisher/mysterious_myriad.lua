@@ -24,7 +24,7 @@ local mysterious_myriad = {
 		if context.all_in_jest and context.all_in_jest.before_after then
 			local amt = 5 - #context.scoring_hand
 			if amt > 0 then
-				G.GAME.aij_score_reduction = G.GAME.aij_score_reduction * math.max(1 - 0.2*amt, 0)
+				G.GAME.aij_score_reduction = G.GAME.aij_score_reduction * math.max(1 - 0.2 * amt, 0)
 				blind:wiggle()
 				blind.triggered = true
 			end

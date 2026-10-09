@@ -14,7 +14,9 @@ local the_club = {
 	order = 17,
 	dollars = 5,
 	calculate = function(self, blind, context)
-		if blind.disabled then return end
+		if blind.disabled then
+			return
+		end
 		if context.all_in_jest and context.all_in_jest.before_after then
 			local clubs = 0
 			for _, card in ipairs(context.full_hand) do
@@ -23,7 +25,7 @@ local the_club = {
 				end
 			end
 			if clubs > 0 then
-				G.GAME.aij_score_reduction = G.GAME.aij_score_reduction * math.max(1 - 0.2*clubs, 0)
+				G.GAME.aij_score_reduction = G.GAME.aij_score_reduction * math.max(1 - 0.2 * clubs, 0)
 				blind:wiggle()
 				blind.triggered = true
 			end
