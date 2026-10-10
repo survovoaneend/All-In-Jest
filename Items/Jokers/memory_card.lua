@@ -40,6 +40,8 @@ local memory_card = {
 	generate_ui = function(self, info_queue, cardd, desc_nodes, specific_vars, full_UI_table)
 		if cardd.ability.jest_stored_memory_card ~= nil and cardd.area == G.jokers then
 			local cards = {}
+			local old_paused = G.SETTINGS.paused
+			G.SETTINGS.paused = true -- Best way I can think to pause calculations here, it's a bit jank
 			local card = copy_card(cardd.ability.jest_stored_memory_card, nil, nil, G.playing_card)
 			table.insert(cards, card)
 			SMODS.Joker.super.generate_ui(self, info_queue, cardd, desc_nodes, specific_vars, full_UI_table)
@@ -51,6 +53,7 @@ local memory_card = {
 				ml = 200.4,
 				scale = 0.4,
 			})
+			G.SETTINGS.paused = old_paused
 		else
 			if not cardd then
 				cardd = self:create_fake_card()

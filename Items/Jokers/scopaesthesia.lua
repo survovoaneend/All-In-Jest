@@ -46,8 +46,10 @@ local scopaesthesia = {
 		SMODS.Joker.super.generate_ui(self, info_queue, cardd, desc_nodes, specific_vars, full_UI_table)
 		if G.deck ~= nil and cardd and cardd.area and cardd.area.config.type == "joker" then
 			local cards = {}
-			local i = #G.deck.cards
-			if i > 0 then
+			local old_paused = G.SETTINGS.paused
+			G.SETTINGS.paused = true -- Best way I can think to pause calculations here, it's a bit jank
+			if #G.deck.cards > 0 then
+				local i = #G.deck.cards
 				local card = copy_card(G.deck.cards[i], nil, nil, G.playing_card)
 
 				-- Re-adds negative to preview if it was stripped by the mod
@@ -70,6 +72,7 @@ local scopaesthesia = {
 				ml = 0,
 				scale = 0.4,
 			})
+			G.SETTINGS.paused = old_paused
 		end
 	end,
 }
