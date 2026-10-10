@@ -4735,7 +4735,7 @@ return {
 				name = "Twisted Pair",
 				text = {
 					"If hand is a {C:attention}Pair{}, each card",
-					"gains a suit {C:attention}patch{} corresponding",
+					"gains a {C:attention}suit patch{} corresponding",
 					"to the suit of the {C:attention}other card",
 				},
 			},
