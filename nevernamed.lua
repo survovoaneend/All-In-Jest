@@ -161,7 +161,8 @@ local function load_items(curr_obj)
 			goto continue
 		end
 		if
-			not All_in_Jest.config.astrals_enabled and (
+			not All_in_Jest.config.astrals_enabled
+			and (
 				(item.attributes and contains(item.attributes, "astral"))
 				or item.set == "aij_astral"
 				or item.soul_set == "aij_astral"
