@@ -42,9 +42,7 @@ local mr_lonely = {
 					end,
 					no_message = true,
 				})
-			end
 
-			if (G.jokers.config.card_limit - #G.jokers.cards - G.GAME.joker_buffer) > 0 then
 				return {
 					message = localize("k_upgrade_ex"),
 					card = card,
