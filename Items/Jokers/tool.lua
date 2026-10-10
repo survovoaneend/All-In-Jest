@@ -33,7 +33,7 @@ local tool = {
 				and context.old_suit ~= context.new_suit
 				and not SMODS.has_enhancement(context.other_card, "m_aij_canvas")
 			then
-                All_in_Jest.add_patch(context.other_card, context.old_suit, true)
+				All_in_Jest.add_patch(context.other_card, context.old_suit, true)
 				local juice_card = context.blueprint_card or card
 				G.E_MANAGER:add_event(Event({
 					func = function()

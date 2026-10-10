@@ -5124,8 +5124,8 @@ return {
 				name = "Tool",
 				text = {
 					"Cards that change {C:attention}suit{}",
-                    "gain the {C:attention}suit patch{}",
-                    "of their {C:attention}old suit{}"
+					"gain the {C:attention}suit patch{}",
+					"of their {C:attention}old suit{}",
 				},
 			},
 			j_aij_tipples_the_clown = {
