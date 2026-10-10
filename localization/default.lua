@@ -1584,11 +1584,77 @@ return {
 					"Very large blind",
 				},
 			},
+			bl_aij_the_fish_GL = {
+				name = "The Fish",
+				text = {
+					"Cards drawn face down",
+                    "after each discard",
+				},
+			},
+			bl_aij_the_wheel_GL = {
+				name = "The Wheel",
+				text = {
+					"#1# in #2# cards get",
+                    "drawn face down",
+				},
+			},
+			bl_aij_the_ash_GL = {
+				name = "The Ash",
+				text = {
+					"+0.25X Base per",
+					"card below #1# in",
+					"full deck",
+				},
+			},
+			bl_aij_the_aspen_GL = {
+				name = "The Aspen",
+				text = {
+					"+2X Base per Blind",
+					"defeated this Ante",
+				},
+			},
+			bl_aij_the_evergreen_GL = {
+				name = "The Evergreen",
+				text = {
+					"+0.25X Base per",
+					"card above #1# in",
+					"full deck",
+				},
+			},
 			bl_aij_the_flint_GL = {
 				name = "The Flint",
 				text = {
 					"Base chips are",
 					"scored as level 0",
+				},
+			},
+			bl_aij_the_serpent_GL = {
+				name = "The Serpent",
+				text = {
+					"After Play or Discard",
+					"always draw a max of",
+					"3 cards"
+				},
+			},
+			bl_aij_the_yew_GL = {
+				name = "The Yew",
+				text = {
+					"Reduce score by 20%",
+					"per odd card played",
+				},
+			},
+			bl_aij_the_birch_GL = {
+				name = "The Birch",
+				text = {
+					"Reduce score by 20%",
+					"per even card played",
+				},
+			},
+			bl_aij_the_thorn_GL = {
+				name = "The Thorn",
+				text = {
+					"Reduce score by 20%",
+					"per enhanced card played",
 				},
 			},
 			bl_aij_violet_vessel_GL = {
