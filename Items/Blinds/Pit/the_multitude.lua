@@ -58,8 +58,7 @@ local the_multitude = {
 		if temp then
 			return
 		end
-		local exclude_contexts = context.individual or context.repetition or context.blueprint
-		if context.end_of_round and not temp and not exclude_contexts then
+		if context.end_of_round and context.main_eval and not temp then
 			local destroy_cards = {}
 			for k, v in pairs(G.deck.cards) do
 				if v.debuff then

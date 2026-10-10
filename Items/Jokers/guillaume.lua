@@ -34,11 +34,11 @@ local guillaume = {
 	calculate = function(self, card, context)
 		if
 			context.end_of_round
+			and context.main_eval
 			and G.jokers
 			and not context.blueprint
 			and context.beat_boss
 			and #G.jokers.cards < 5
-			and context.main_eval
 		then
 			SMODS.scale_card(card, {
 				ref_table = card.ability.extra,

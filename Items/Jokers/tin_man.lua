@@ -25,7 +25,7 @@ local tin_man = {
 	end,
 
 	calculate = function(self, card, context)
-		if context.end_of_round and context.cardarea == G.jokers then
+		if context.end_of_round and context.main_eval then
 			local enhanced_a_card = false
 			if G.hand and G.hand.cards then
 				for k, v in ipairs(G.hand.cards) do

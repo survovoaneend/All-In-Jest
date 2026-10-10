@@ -50,12 +50,7 @@ local fabled = {
 			or G.GAME.selected_back.effect
 
 		if not sleeve.config.increase_legendary_pool_rate then
-			if
-				context.end_of_round
-				and not context.repetition
-				and not context.individual
-				and deck_or_sleeve.config.extra.should_increase
-			then
+			if context.end_of_round and context.main_eval and deck_or_sleeve.config.extra.should_increase then
 				G.GAME.jest_legendary_pool.rate = G.GAME.jest_legendary_pool.rate - 0.002
 				deck_or_sleeve.config.extra.remove_amt = deck_or_sleeve.config.extra.remove_amt + 0.002
 			end

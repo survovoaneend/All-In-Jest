@@ -60,7 +60,7 @@ local jester_zombie = {
 				message = localize("k_active_ex"),
 			}
 		end
-		if ((context.end_of_round and not context.individual) or context.setting_blind) and not context.blueprint then
+		if ((context.end_of_round and context.main_eval) or context.setting_blind) and not context.blueprint then
 			G.GAME.jest_jester_zombie_trigger = false
 		end
 	end,

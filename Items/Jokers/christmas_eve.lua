@@ -28,7 +28,7 @@ local christmas_eve = {
 	calculate = function(self, card, context)
 		local eff_card = context.blueprint_card or card
 		local tag_name = localize({ type = "name_text", set = "Tag", key = "tag_coupon" })
-		if context.end_of_round and context.game_over == false then
+		if context.end_of_round and context.main_eval and context.game_over == false then
 			if G.GAME.blind:get_type() == "Big" then
 				G.E_MANAGER:add_event(Event({
 					func = function()

@@ -224,7 +224,7 @@ function All_in_Jest.calculate(self, context)
 		G.GAME.current_round.discards_left = G.GAME.aij_booster_discards
 		G.GAME.aij_discared_start_booster = true
 	end
-	if context.end_of_round then
+	if context.end_of_round and context.main_eval then
 		G.GAME.all_in_jest.dizzard_shop = false
 	end
 	if context.ending_shop then

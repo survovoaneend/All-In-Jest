@@ -20,9 +20,8 @@ local spectre = {
 	calculate = function(self, card, context)
 		if
 			context.end_of_round
+			and context.main_eval
 			and context.beat_boss
-			and not context.individual
-			and not context.repetition
 			and not context.blueprint
 			and #G.consumeables.cards > 0
 		then

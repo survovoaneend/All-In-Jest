@@ -30,7 +30,7 @@ local pantomimus = {
 	end,
 
 	calculate = function(self, card, context)
-		if context.end_of_round and context.cardarea == G.jokers and not context.blueprint then
+		if context.end_of_round and context.main_eval and not context.blueprint then
 			SMODS.scale_card(card, {
 				ref_table = card.ability.extra,
 				ref_value = "chips",

@@ -40,43 +40,47 @@ local aureate = {
 		}
 	end,
 	calculate = function(self, card, context)
-		if SMODS.is_playing_card(card) and (context.main_scoring and context.cardarea == G.play) then
-			local mod = (((card.edition or {}).money or self.config.money) / (3 / 2)) + 1
-			local max = (card.edition or {}).max or self.config.max
-			local total_money = G.GAME.dollars + (G.GAME.dollar_buffer or 0)
-			local money = (total_money * mod) - total_money
-			money = math.floor(math.min(money, max))
-			if money > 0 then
-				G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + money
-				G.E_MANAGER:add_event(Event({
-					func = function()
-						G.GAME.dollar_buffer = 0
-						return true
-					end,
-				}))
-				return {
-					h_dollars = money,
-					card = card,
-				}
+		if SMODS.is_playing_card(card) then
+			if context.main_scoring and context.cardarea == G.play then
+				local mod = (((card.edition or {}).money or self.config.money) / (3 / 2)) + 1
+				local max = (card.edition or {}).max or self.config.max
+				local total_money = G.GAME.dollars + (G.GAME.dollar_buffer or 0)
+				local money = (total_money * mod) - total_money
+				money = math.floor(math.min(money, max))
+				if money > 0 then
+					G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + money
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							G.GAME.dollar_buffer = 0
+							return true
+						end,
+					}))
+					return {
+						h_dollars = money,
+						card = card,
+					}
+				end
 			end
-		elseif context.end_of_round and card.ability.set == "Joker" and context.main_eval then
-			local mod = ((card.edition or {}).money or self.config.money) + 1
-			local max = (card.edition or {}).max or self.config.max
-			local total_money = G.GAME.dollars + (G.GAME.dollar_buffer or 0)
-			local money = (total_money * mod) - total_money
-			money = math.floor(math.min(money, max))
-			if money > 0 then
-				G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + money
-				G.E_MANAGER:add_event(Event({
-					func = function()
-						G.GAME.dollar_buffer = 0
-						return true
-					end,
-				}))
-				return {
-					dollars = money,
-					card = card,
-				}
+		elseif card.ability.set == "Joker" then
+			if context.end_of_round and context.main_eval then
+				local mod = ((card.edition or {}).money or self.config.money) + 1
+				local max = (card.edition or {}).max or self.config.max
+				local total_money = G.GAME.dollars + (G.GAME.dollar_buffer or 0)
+				local money = (total_money * mod) - total_money
+				money = math.floor(math.min(money, max))
+				if money > 0 then
+					G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + money
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							G.GAME.dollar_buffer = 0
+							return true
+						end,
+					}))
+					return {
+						dollars = money,
+						card = card,
+					}
+				end
 			end
 		end
 	end,

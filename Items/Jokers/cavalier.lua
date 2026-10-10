@@ -43,7 +43,7 @@ local cavalier = {
 			})
 		end
 
-		if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+		if context.end_of_round and context.main_eval and not context.blueprint then
 			card.ability.extra.mult = 0
 			return {
 				message = localize("k_reset"),

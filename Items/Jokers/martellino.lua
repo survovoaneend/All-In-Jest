@@ -31,7 +31,7 @@ local martellino = {
 
 	calculate = function(self, cardd, context)
 		if not context.blueprint then
-			if context.end_of_round and not context.individual and not context.repetition then
+			if context.end_of_round and context.main_eval then
 				cardd.ability.marte_rounds = cardd.ability.marte_rounds + 1
 				if cardd.ability.marte_rounds == cardd.ability.total_rounds then
 					local eval = function(card)

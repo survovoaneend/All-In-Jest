@@ -92,7 +92,7 @@ local opening_move = {
 
 				play_area_status_text(localize("k_aij_does_not_score_ex"))
 			end
-			if context.end_of_round and context.cardarea == G.jokers then
+			if context.end_of_round and context.main_eval then
 				card.ability.extra.cur_xmult = 1
 				return {
 					message = localize("k_reset"),

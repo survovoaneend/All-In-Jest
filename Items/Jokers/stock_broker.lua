@@ -29,7 +29,7 @@ local stock_broker = {
 	end,
 
 	calculate = function(self, card, context)
-		if context.end_of_round and context.cardarea == G.jokers and not context.blueprint then
+		if context.end_of_round and context.main_eval and not context.blueprint then
 			local room_saver = pseudorandom("aij_stock_broker")
 					* (card.ability.extra.maxvalue - card.ability.extra.minvalue)
 				+ card.ability.extra.minvalue

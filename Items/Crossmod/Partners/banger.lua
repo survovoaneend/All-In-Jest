@@ -42,7 +42,10 @@ local banger = {
 		card.ability.extra.prev_discount = tostring(card.ability.extra.reroll_cost)
 	end,
 	calculate = function(self, card, context)
-		if context.end_of_round or (context.card_added and context.card.key == "j_aij_silly_sausage") then
+		if
+			(context.end_of_round and context.main_eval)
+			or (context.card_added and context.card.key == "j_aij_silly_sausage")
+		then
 			local link_level = self:get_link_level()
 			local benefits = 1
 			if link_level == 1 then

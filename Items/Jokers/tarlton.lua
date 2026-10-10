@@ -38,7 +38,7 @@ local tarlton = {
 				chips = card.ability.extra.last_chips,
 			}
 		end
-		if context.end_of_round then
+		if context.end_of_round and context.main_eval then
 			card.ability.extra.last_chips = 0
 		end
 	end,

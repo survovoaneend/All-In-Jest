@@ -33,7 +33,7 @@ local crypto_trader = {
 	end,
 
 	calculate = function(self, card, context)
-		if context.end_of_round and context.cardarea == G.jokers then
+		if context.end_of_round and context.main_eval then
 			local amount = 0
 			local string = tostring(context.blueprint_card or card) .. "crypto_trader"
 			if SMODS.pseudorandom_probability(card, "crypto_trader", 1, card.ability.extra.odds) then

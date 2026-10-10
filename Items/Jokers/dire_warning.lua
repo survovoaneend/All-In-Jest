@@ -35,7 +35,7 @@ local dire_warning = {
 				xmult = card.ability.extra.xmult,
 			}
 		end
-		if context.end_of_round and not context.blueprint and not context.individual and not context.repetition then
+		if context.end_of_round and context.main_eval and not context.blueprint then
 			if G.GAME.current_round.hands_left == 0 then
 				card.ability.extra.active = true
 				return { message = localize("k_active") }

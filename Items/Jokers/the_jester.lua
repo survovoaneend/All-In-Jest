@@ -73,7 +73,7 @@ local the_jester = {
 				end
 			end
 		end
-		if context.end_of_round and not card.ability.extra.active and not context.blueprint then
+		if context.end_of_round and context.main_eval and not card.ability.extra.active and not context.blueprint then
 			card.ability.extra.active = true
 			local eval = function()
 				return card.ability.extra.active
