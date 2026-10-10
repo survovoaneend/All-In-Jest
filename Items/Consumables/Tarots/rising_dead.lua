@@ -78,6 +78,9 @@ local rising_dead_tarot = {
 							)
 						end
 						G.hand.highlighted[i]:set_seal(rightmost.seal, true, true)
+						if rightmost.aij_seal_edition then
+							G.hand.highlighted[i]:All_in_Jest_set_seal_edition(rightmost.aij_seal_edition, true, true)
+						end
 					end
 				end
 				return true
