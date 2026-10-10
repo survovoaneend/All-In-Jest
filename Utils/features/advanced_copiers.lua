@@ -15,7 +15,7 @@ local save_changed_abilities_to_stored_table = function(copier_card, copied_inde
 	for k, v in pairs(copier_card.ability) do
 		if
 			not (
-				k == copier_card.config.center.key
+				k == copier_card.config.center.key -- This is the key that stores all the data related to the copier joker
 				or k == "jest_applied"
 				or k == "jest_silver_active"
 				or k == "name"
@@ -23,10 +23,9 @@ local save_changed_abilities_to_stored_table = function(copier_card, copied_inde
 				or string.sub(k, 1, #(copier_card.config.center.key .. "compat")) == copier_card.config.center.key .. "compat"
 				or SMODS.Stickers[k] ~= nil
 			)
-		then -- This is the key that stores all the data related to the copier joker
+		then
 			if type(v) == "table" then
-				copier_card.ability[copier_card.config.center.key].copied_joker_abilities[copied_index][k] =
-					copy_table(v)
+				copier_card.ability[copier_card.config.center.key].copied_joker_abilities[copied_index][k] = v
 			else
 				copier_card.ability[copier_card.config.center.key].copied_joker_abilities[copied_index][k] = v
 			end
@@ -108,7 +107,7 @@ All_in_Jest.set_copied_ability = function(copier_card, center_to_copy, ability_t
 		repetitions = copied_base_stats.repetitions or 0,
 		h_size = copied_base_stats.h_size or 0,
 		d_size = copied_base_stats.d_size or 0,
-		extra = copy_table(copied_base_stats.extra) or "nil",
+		extra = copied_base_stats.extra or "nil",
 		-- extra_value = 0,
 		type = copied_base_stats.type or "",
 		forced_selection = ability_table and ability_table.forced_selection or "nil",
@@ -153,7 +152,7 @@ All_in_Jest.set_copied_ability = function(copier_card, center_to_copy, ability_t
 			)
 		then
 			if type(v) == "table" then
-				ability_table[k] = copy_table(v)
+				ability_table[k] = v
 			else
 				ability_table[k] = v
 			end
@@ -232,12 +231,6 @@ All_in_Jest.use_copied_joker_function = function(
 
 		local ret = table.pack(nil)
 		if obj[modded_func_name] and type(obj[modded_func_name]) == "function" then
-			if modded_func_name == "calculate" then
-				local context_keys = {}
-				for k, _ in pairs(modded_func_args[2]) do
-					table.insert(context_keys, k)
-				end
-			end
 			-- Modded Jokers
 			ret = table.pack(obj[modded_func_name](obj, table.unpack(modded_func_args)))
 		else
