@@ -11,7 +11,7 @@ local the_club = {
 	attributes = { "xscore", "clubs", "suit" },
 	boss_colour = HEX("b9cb92"),
 	pos = { x = 0, y = 4 },
-	order = 17,
+	order = 10,
 	dollars = 5,
 	calculate = function(self, blind, context)
 		if blind.disabled then

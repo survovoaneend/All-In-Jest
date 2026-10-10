@@ -1402,7 +1402,7 @@ return {
 			bl_aij_rubber_duck = {
 				name = "Rubber Duck",
 				text = {
-					"All poker hands are",
+					"Base mult is",
 					"scored as level 1",
 				},
 			},
@@ -1467,10 +1467,11 @@ return {
 					"each played hand",
 				},
 			},
-			bl_aij_the_wall_GL = {
-				name = "The Wall",
+			bl_aij_the_god_GL = {
+				name = "The God",
 				text = {
-					"Very large blind",
+					"Must score 3",
+					"or more cards",
 				},
 			},
 			bl_aij_the_manacle_GL = {
@@ -1480,11 +1481,32 @@ return {
 					"each hand played",
 				},
 			},
+			bl_aij_the_day_GL = {
+				name = "The Day",
+				text = {
+					"Hand must not contain",
+					"Spades or Clubs",
+				},
+			},
+			bl_aij_the_dagger_GL = {
+				name = "The Dagger",
+				text = {
+					"Hand must not contain",
+					"Hearts or Diamonds",
+				},
+			},
 			bl_aij_the_goad_GL = {
 				name = "The Goad",
 				text = {
 					"Reduce score by 20%",
 					"per Spade played",
+				},
+			},
+			bl_aij_the_willow_GL = {
+				name = "The Willow",
+				text = {
+					"Spades cannot",
+					"be drawn",
 				},
 			},
 			bl_aij_the_head_GL = {
@@ -1494,11 +1516,25 @@ return {
 					"per Heart played",
 				},
 			},
+			bl_aij_the_alder_GL = {
+				name = "The Alder",
+				text = {
+					"Hearts cannot",
+					"be drawn",
+				},
+			},
 			bl_aij_the_club_GL = {
 				name = "The Club",
 				text = {
 					"Reduce score by 20%",
 					"per Club played",
+				},
+			},
+			bl_aij_the_elm_GL = {
+				name = "The Elm",
+				text = {
+					"Clubs cannot",
+					"be drawn",
 				},
 			},
 			bl_aij_the_window_GL = {
@@ -1508,11 +1544,32 @@ return {
 					"per Diamond played",
 				},
 			},
+			bl_aij_the_beith_GL = {
+				name = "The Beith",
+				text = {
+					"Diamonds cannot",
+					"be drawn",
+				},
+			},
 			bl_aij_the_plant_GL = {
 				name = "The Plant",
 				text = {
 					"Reduce score by 20%",
 					"per Face card played",
+				},
+			},
+			bl_aij_the_branch_GL = {
+				name = "The Branch",
+				text = {
+					"Face cards cannot",
+					"be drawn",
+				},
+			},
+			bl_aij_the_ulcer_GL = {
+				name = "The Ulcer",
+				text = {
+					"-2 Hands",
+					"-2 Discards",
 				},
 			},
 			bl_aij_the_needle_GL = {
@@ -1521,17 +1578,30 @@ return {
 					"Play only 1 hand",
 				},
 			},
+			bl_aij_the_wall_GL = {
+				name = "The Wall",
+				text = {
+					"Very large blind",
+				},
+			},
+			bl_aij_the_flint_GL = {
+				name = "The Flint",
+				text = {
+					"Base chips are",
+					"scored as level 0",
+				},
+			},
 			bl_aij_violet_vessel_GL = {
 				name = "Violet Vessel",
 				text = {
 					"Massive blind",
 				},
 			},
-			bl_aij_the_ulcer_GL = {
-				name = "The Ulcer",
+			bl_aij_rubber_duck_GL = {
+				name = "Rubber Duck",
 				text = {
-					"-2 Hands",
-					"-2 Discards",
+					"All poker hands are",
+					"scored as level 1",
 				},
 			},
 		},

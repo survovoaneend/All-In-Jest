@@ -11,7 +11,7 @@ local the_plant = {
 	attributes = { "xscore", "face" },
 	boss_colour = HEX("709284"),
 	pos = { x = 0, y = 19 },
-	order = 19,
+	order = 14,
 	dollars = 5,
 	calculate = function(self, blind, context)
 		local temp = G.GAME.blind and G.GAME.blind.disabled

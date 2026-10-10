@@ -11,7 +11,7 @@ local the_goad = {
 	attributes = { "xscore", "spades", "suit" },
 	boss_colour = HEX("b95c96"),
 	pos = { x = 0, y = 13 },
-	order = 15,
+	order = 6,
 	dollars = 5,
 	calculate = function(self, blind, context)
 		local temp = G.GAME.blind and G.GAME.blind.disabled

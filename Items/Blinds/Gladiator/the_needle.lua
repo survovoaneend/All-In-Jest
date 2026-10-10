@@ -11,7 +11,7 @@ local the_needle = {
 	attributes = { "hands" },
 	boss_colour = HEX("5c6e31"),
 	pos = { x = 0, y = 20 },
-	order = 14,
+	order = 19,
 	dollars = 5,
 	calculate = function(self, blind, context)
 		if context.blind_disabled then

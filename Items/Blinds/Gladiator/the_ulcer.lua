@@ -13,7 +13,7 @@ local the_ulcer = {
 	boss_colour = HEX("e39571"),
 	atlas = "blinds",
 	pos = { X = 0, y = 10 },
-	order = 33,
+	order = 18,
 	dollars = 5,
 	lite = true,
 

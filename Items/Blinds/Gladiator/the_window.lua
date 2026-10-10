@@ -11,7 +11,7 @@ local the_window = {
 	attributes = { "xscore", "diamonds", "suit" },
 	boss_colour = HEX("a9a295"),
 	pos = { x = 0, y = 6 },
-	order = 18,
+	order = 12,
 	dollars = 5,
 	calculate = function(self, blind, context)
 		local temp = G.GAME.blind and G.GAME.blind.disabled

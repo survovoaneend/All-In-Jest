@@ -11,7 +11,7 @@ local the_wall = {
 	attributes = { "large_blind" },
 	boss_colour = HEX("8a59a5"),
 	pos = { x = 0, y = 9 },
-	order = 17,
+	order = 20,
 	dollars = 5,
 
 	disable = function(self)

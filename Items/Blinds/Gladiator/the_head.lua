@@ -11,7 +11,7 @@ local the_head = {
 	attributes = { "xscore", "hearts", "suit" },
 	boss_colour = HEX("ac9db4"),
 	pos = { x = 0, y = 21 },
-	order = 16,
+	order = 8,
 	dollars = 5,
 	calculate = function(self, blind, context)
 		local temp = G.GAME.blind and G.GAME.blind.disabled

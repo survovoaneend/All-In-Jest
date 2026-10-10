@@ -21,8 +21,6 @@ local rubber_duck = {
 		for k, v in pairs(G.GAME.hands) do
 			G.GAME.aij_rubber_duck_hand_stats[k] = SMODS.shallow_copy(v)
 			v.mult = v.s_mult
-			v.chips = v.s_chips
-			v.level = 1
 		end
 	end,
 
@@ -31,16 +29,12 @@ local rubber_duck = {
 		for k, v in pairs(G.GAME.hands) do
 			newer_stats[k] = SMODS.shallow_copy(v)
 			newer_stats[k].mult = newer_stats[k].mult - v.s_mult
-			newer_stats[k].chips = newer_stats[k].chips - v.s_chips
-			newer_stats[k].level = newer_stats[k].level - 1
 		end
 		for k, v in pairs(G.GAME.aij_rubber_duck_hand_stats) do
 			G.GAME.hands[k] = v
 		end
 		for k, v in pairs(newer_stats) do
 			G.GAME.hands[k].mult = G.GAME.hands[k].mult + newer_stats[k].mult
-			G.GAME.hands[k].chips = G.GAME.hands[k].chips + newer_stats[k].chips
-			G.GAME.hands[k].level = G.GAME.hands[k].level + newer_stats[k].level
 		end
 		G.GAME.aij_rubber_duck_hand_stats = nil
 	end,
@@ -54,16 +48,12 @@ local rubber_duck = {
 		for k, v in pairs(G.GAME.hands) do
 			newer_stats[k] = SMODS.shallow_copy(v)
 			newer_stats[k].mult = newer_stats[k].mult - v.s_mult
-			newer_stats[k].chips = newer_stats[k].chips - v.s_chips
-			newer_stats[k].level = newer_stats[k].level - 1
 		end
 		for k, v in pairs(G.GAME.aij_rubber_duck_hand_stats) do
 			G.GAME.hands[k] = v
 		end
 		for k, v in pairs(newer_stats) do
 			G.GAME.hands[k].mult = G.GAME.hands[k].mult + newer_stats[k].mult
-			G.GAME.hands[k].chips = G.GAME.hands[k].chips + newer_stats[k].chips
-			G.GAME.hands[k].level = G.GAME.hands[k].level + newer_stats[k].level
 		end
 		G.GAME.aij_rubber_duck_hand_stats = nil
 	end,
