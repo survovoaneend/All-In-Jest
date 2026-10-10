@@ -37,7 +37,8 @@ local mr_lonely = {
 					ref_value = "chips",
 					scalar_value = "chip_mod",
 					operation = function(ref_table, ref_value, initial, change)
-						ref_table[ref_value] = initial + change * (G.jokers.config.card_limit - #G.jokers.cards - G.GAME.joker_buffer)
+						ref_table[ref_value] = initial
+							+ change * (G.jokers.config.card_limit - #G.jokers.cards - G.GAME.joker_buffer)
 					end,
 					no_message = true,
 				})
