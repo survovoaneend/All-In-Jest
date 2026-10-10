@@ -33,16 +33,14 @@ local tool = {
 				and context.old_suit ~= context.new_suit
 				and not SMODS.has_enhancement(context.other_card, "m_aij_canvas")
 			then
-				context.other_card.ability.perma_mult = context.other_card.ability.perma_mult or 0
-				context.other_card.ability.perma_mult = context.other_card.ability.perma_mult
-					+ card.ability.extra.mult_mod
-				local juiced_card = context.blueprint_card or card
-				return {
-					message = localize("k_upgrade_ex"),
-					colour = G.C.RED,
-					message_card = context.other_card,
-					juice_card = juiced_card,
-				}
+                All_in_Jest.add_patch(context.other_card, context.old_suit, true)
+				local juice_card = context.blueprint_card or card
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						juice_card:juice_up()
+						return true
+					end,
+				}))
 			end
 		end
 	end,
