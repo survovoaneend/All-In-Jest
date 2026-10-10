@@ -37,7 +37,9 @@ local bit_flip = {
 			local scientific_notation = false
 			local chips_text = number_format(context.total_chips + G.GAME.chips)
 
-			local to_number = Big and Big.to_number or function(x) return x end
+			local to_number = Big and Big.to_number or function(x)
+				return x
+			end
 			local number_of_digits = to_number(number_of_digits)
 
 			-- If number is high enough to not show every digit, then skip the +score animation
