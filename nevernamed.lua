@@ -117,6 +117,15 @@ for _, data in ipairs(AllInJest.deck_skins) do
 	end
 end
 
+local contains = function(tbl, item)
+	for k, v in pairs(tbl) do
+		if v == item then
+			return true
+		end
+	end
+	return false
+end
+
 local function load_items(curr_obj)
 	if curr_obj.init then
 		curr_obj:init()
@@ -149,6 +158,16 @@ local function load_items(curr_obj)
 			end
 		end
 		if item.jest_spec_moon and not All_in_Jest.config.moons_enabled then
+			goto continue
+		end
+		if
+			not All_in_Jest.config.astrals_enabled and (
+				(item.attributes and contains(item.attributes, "astral"))
+				or item.set == "aij_astral"
+				or item.soul_set == "aij_astral"
+				or item.object_type == "Astral"
+			)
+		then
 			goto continue
 		end
 		-- Add incompatibility to all jokers with an activated ability and to advanced copiers

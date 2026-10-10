@@ -101,6 +101,25 @@ G.FUNCS.aij_config_content = function(e)
 												{
 													n = G.UIT.C,
 													config = {
+														tooltip = { text = localize("aij_enable_astrals_tooltip") },
+													},
+													nodes = {
+														create_toggle({
+															label = localize("aij_enable_astrals"),
+															ref_table = All_in_Jest.config,
+															ref_value = "astrals_enabled",
+														}),
+													},
+												},
+											},
+										},
+										{
+											n = G.UIT.R,
+											config = { align = "cm" },
+											nodes = {
+												{
+													n = G.UIT.C,
+													config = {
 														tooltip = { text = localize("aij_blue_stake_rework_tooltip") },
 													},
 													nodes = {

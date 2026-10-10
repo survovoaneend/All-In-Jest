@@ -33,6 +33,12 @@ return {
 			aij_button_moons = "Moons",
 			aij_button_visuals = "Visuals / Accessibility",
 			aij_button_consistency = "Consistency",
+			aij_enable_astrals = "Enable Astrals",
+			aij_enable_astrals_tooltip = {
+				"Enables Astral cards and",
+				"related effects to show up",
+				"{s:0.8,C:red}(Requires restart)",
+			},
 			aij_enable_moons = "Enable Moons",
 			aij_enable_moons_tooltip = {
 				"Enables {C:chips}Chips{} and {C:mult}Mult{}-type",

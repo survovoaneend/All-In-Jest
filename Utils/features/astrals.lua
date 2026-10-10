@@ -76,6 +76,7 @@ SMODS.ConsumableType({
 	shop_rate = 0,
 	default = "c_aij_algol",
 	no_buy_and_use = false,
+	no_collection = not All_in_Jest.config.astrals_enabled,
 	inject_card = function(self, center)
 		local set_ability_ref = center.set_ability
 		center.set_ability = function(self, card, initial, delay_sprites)
