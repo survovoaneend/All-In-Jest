@@ -23,6 +23,11 @@ local beheaded_tarot = {
 	end,
 	can_use = function(self, card)
 		if G.hand and (#G.hand.highlighted <= card.ability.max_highlighted and #G.hand.highlighted > 0) then
+			for i = 1, #G.hand.highlighted do
+				if SMODS.is_eternal(G.hand.highlighted[i]) or G.hand.highlighted[i].ability.aij_pc_eternal then
+					return false
+				end
+			end
 			return true
 		end
 	end,
@@ -43,11 +48,7 @@ local beheaded_tarot = {
 				trigger = "after",
 				delay = 0.15,
 				func = function()
-					if target_card.set_sticker then
-						target_card:set_sticker("aij_bomb", true)
-					else
-						target_card.ability["aij_bomb"] = true
-					end
+					target_card:add_sticker("aij_bomb", true)
 					target_card:juice_up(0.3, 0.3)
 					play_sound("gold_seal", 1.2, 0.4)
 					return true

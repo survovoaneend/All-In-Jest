@@ -2,7 +2,7 @@ local set_eternal_ref = Card.set_eternal
 function Card:set_eternal(_eternal)
 	if SMODS.is_playing_card(self) then
 		self.ability.aij_pc_eternal = nil
-		if not self.ability.aij_pc_perishable then
+		if not self.ability.aij_pc_perishable and not self.ability.aij_bomb then
 			self.ability.aij_pc_eternal = _eternal
 		end
 	else
