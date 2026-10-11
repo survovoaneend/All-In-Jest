@@ -6,6 +6,7 @@ local DEV_TAB_DEBUG = false
 
 All_in_Jest.optional_features = {
 	retrigger_joker = true,
+	post_trigger = true,
 	object_weights = true,
 	cardareas = {
 		deck = true,

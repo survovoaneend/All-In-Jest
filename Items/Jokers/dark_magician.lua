@@ -28,6 +28,8 @@ local dark_magician = {
 			end
 			context.booster.config.center.draw_hand = true
 		end
+
+		-- Additional stuff in All_in_Jest.calculate function
 	end,
 	add_to_deck = function(self, card, from_debuff)
 		if #SMODS.find_card("j_aij_dark_magician") == 0 then
@@ -89,6 +91,14 @@ function SMODS.poll_object(args)
 	end
 
 	return ref_smods_poll_object(args)
+end
+
+local aij_card_can_calculate_ref = Card.can_calculate
+function Card:can_calculate(ignore_debuff, ignore_sliced)
+    if self.aij_dark_magician_triggered then
+		return false
+	end
+    return aij_card_can_calculate_ref(self, ignore_debuff, ignore_sliced)
 end
 
 -- local ref_smods_create_poll_pool = SMODS.create_poll_pool
