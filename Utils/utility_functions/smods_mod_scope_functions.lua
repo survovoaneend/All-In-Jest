@@ -323,7 +323,7 @@ function All_in_Jest.calculate(self, context)
 		end
 
 		-- To avoid retriggering effects that apply on generic consumable use (e.g. Vino Veritas in this mod)
-		-- We mark each joker as being triggered after one trigger, 
+		-- We mark each joker as being triggered after one trigger,
 		-- and prevent it from being triggered again with a can_calculate hook in dark_magician.lua
 		if context.post_trigger then
 			local other_context = context.other_context
