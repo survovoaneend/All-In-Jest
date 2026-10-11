@@ -13,7 +13,7 @@ local the_tooth = {
 	pos = { x = 0, y = 22 },
 	order = 39,
 	dollars = 5,
- 
+
 	calculate = function(self, blind, context)
 		if blind.disabled then
 			return

@@ -1588,14 +1588,14 @@ return {
 				name = "The Fish",
 				text = {
 					"Cards drawn face down",
-                    "after each discard",
+					"after each discard",
 				},
 			},
 			bl_aij_the_wheel_GL = {
 				name = "The Wheel",
 				text = {
 					"#1# in #2# cards get",
-                    "drawn face down",
+					"drawn face down",
 				},
 			},
 			bl_aij_the_ash_GL = {
@@ -1633,7 +1633,7 @@ return {
 				text = {
 					"After Play or Discard",
 					"always draw a max of",
-					"3 cards"
+					"3 cards",
 				},
 			},
 			bl_aij_the_yew_GL = {
@@ -1661,20 +1661,20 @@ return {
 				name = "The Tooth",
 				text = {
 					"Lose $1 per card",
-					"drawn"
+					"drawn",
 				},
 			},
 			bl_aij_the_gift_GL = {
 				name = "The Gift",
 				text = {
-					"Set money to $10"
+					"Set money to $10",
 				},
 			},
 			bl_aij_the_storm_GL = {
 				name = "The Storm",
 				text = {
 					"Destroy all scored",
-					"cards"
+					"cards",
 				},
 			},
 			bl_aij_the_spear_GL = {
@@ -1689,7 +1689,7 @@ return {
 				name = "The Life",
 				text = {
 					"All played cards",
-					"become Perishable"
+					"become Perishable",
 				},
 			},
 			bl_aij_the_loan_GL = {
@@ -1697,7 +1697,7 @@ return {
 				text = {
 					"When defeated,",
 					"#1# in #2# cards remaining",
-					"in deck become Rental"
+					"in deck become Rental",
 				},
 			},
 			bl_aij_verdant_leaf_GL = {
@@ -1705,7 +1705,7 @@ return {
 				text = {
 					"Reduce score each",
 					"hand by 90% until",
-					"1 Joker sold"
+					"1 Joker sold",
 				},
 			},
 			bl_aij_violet_vessel_GL = {
@@ -1718,14 +1718,14 @@ return {
 				name = "Crimson Heart",
 				text = {
 					"One additional Joker",
-					"debuffed each hand"
+					"debuffed each hand",
 				},
 			},
 			bl_aij_obsidian_blade_GL = {
 				name = "Obsidian Blade",
 				text = {
 					"1 Hand, 1 Discard,",
-					"extra large blind"
+					"extra large blind",
 				},
 			},
 			bl_aij_rubber_duck_GL = {
@@ -1739,7 +1739,7 @@ return {
 				name = "Wooden Wheel",
 				text = {
 					"Reroll a random Joker",
-					"when Blind is selected"
+					"when Blind is selected",
 				},
 			},
 		},

@@ -14,7 +14,7 @@ local the_serpent = {
 	order = 30,
 	dollars = 5,
 	modifies_draw = true,
- 
+
 	calculate = function(self, blind, context)
 		if blind.disabled then
 			return

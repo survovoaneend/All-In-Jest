@@ -8,12 +8,12 @@ local the_wheel = {
 		},
 	},
 	mult = 2,
-	attributes = { "face_down"},
+	attributes = { "face_down" },
 	boss_colour = HEX("50bf7c"),
 	pos = { x = 0, y = 10 },
 	order = 29,
 	dollars = 5,
- 
+
 	loc_vars = function(self)
 		local numerator, denominator = SMODS.get_probability_vars(self, 1, 4, "the_wheel_GL")
 		return { vars = { numerator, denominator } }
@@ -21,7 +21,7 @@ local the_wheel = {
 	collection_loc_vars = function(self)
 		return { vars = { "1", "4" } }
 	end,
- 
+
 	calculate = function(self, blind, context)
 		if context.blind_disabled then
 			for i = 1, #G.hand.cards do
@@ -33,11 +33,11 @@ local the_wheel = {
 				playing_card.ability.wheel_flipped = nil
 			end
 		end
- 
+
 		if blind.disabled then
 			return
 		end
- 
+
 		if
 			context.stay_flipped
 			and context.to_area == G.hand

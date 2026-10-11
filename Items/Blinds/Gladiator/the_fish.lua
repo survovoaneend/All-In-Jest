@@ -13,7 +13,7 @@ local the_fish = {
 	pos = { x = 0, y = 5 },
 	order = 28,
 	dollars = 5,
- 
+
 	calculate = function(self, blind, context)
 		if context.blind_disabled then
 			for i = 1, #G.hand.cards do
@@ -25,15 +25,15 @@ local the_fish = {
 				playing_card.ability.wheel_flipped = nil
 			end
 		end
- 
+
 		if context.setting_blind or context.hand_drawn then
 			blind.prepped = nil
 		end
- 
+
 		if blind.disabled then
 			return
 		end
- 
+
 		if context.pre_discard then
 			blind.prepped = true
 		end
