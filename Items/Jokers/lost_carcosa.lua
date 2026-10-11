@@ -51,12 +51,11 @@ end
 
 local aij_smods_upgrade_poker_hands_ref = SMODS.upgrade_poker_hands
 function SMODS.upgrade_poker_hands(args)
-
 	if args.func and type(args.func) == "function" then
 		local orig_func = args.func
 		local func_wrapper = function(base, hand, parameter, level_up)
-            return round_int(orig_func(base, hand, parameter, level_up * G.GAME.all_in_jest.apply.lost_carcosa_mult))
-        end
+			return round_int(orig_func(base, hand, parameter, level_up * G.GAME.all_in_jest.apply.lost_carcosa_mult))
+		end
 		args.func = func_wrapper
 	end
 
