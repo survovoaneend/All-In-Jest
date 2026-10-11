@@ -95,10 +95,10 @@ end
 
 local aij_card_can_calculate_ref = Card.can_calculate
 function Card:can_calculate(ignore_debuff, ignore_sliced)
-    if self.aij_dark_magician_triggered then
+	if self.aij_dark_magician_triggered then
 		return false
 	end
-    return aij_card_can_calculate_ref(self, ignore_debuff, ignore_sliced)
+	return aij_card_can_calculate_ref(self, ignore_debuff, ignore_sliced)
 end
 
 -- local ref_smods_create_poll_pool = SMODS.create_poll_pool
