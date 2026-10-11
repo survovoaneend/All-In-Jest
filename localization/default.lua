@@ -10811,6 +10811,20 @@ return {
 				},
 			},
 		},
+		alt_texture = {
+			alt_tex_aij_joker_retextures = {
+				name = "Joker Textures",
+			},
+		},
+		texture_packs = {
+			texpack_aij_nevernamed_retrextures = {
+				name = "All in Jest Retextures",
+				text = { 
+					"Vanilla sprites redrawn", 
+					"by Nevernamed" 
+				},
+			},
+		},
 		Other = {
 			aij_suit_only_playing_card = {
 				text = {

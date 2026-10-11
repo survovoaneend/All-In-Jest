@@ -192,8 +192,12 @@ local function load_items(curr_obj)
 		end
 		if SMODS[item.object_type] and not item.ignore then
 			SMODS[item.object_type](item)
-		elseif item.object_loader and not item.ignore then
-			item.object_loader[item.object_type](item)
+		elseif item.object_loader and not item.ignore then 
+			if item.object_loader == "Global" then -- Just for Malverk atm
+				item.object_type(item)
+			else
+				item.object_loader[item.object_type](item)
+			end
 		elseif not item.ignore then
 			print("Error loading item " .. item.key .. " of unknown type " .. item.object_type)
 		end
