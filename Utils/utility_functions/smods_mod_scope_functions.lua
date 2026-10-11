@@ -277,6 +277,16 @@ function All_in_Jest.calculate(self, context)
 			end,
 		}))
 	end
+	if context.using_consumeable then
+		for i = 1, #G.GAME.tags do
+			local args = {}
+			for k, v in pairs(context) do
+				args[k] = v
+			end
+			args.type = "using_consumeable"
+			G.GAME.tags[i]:apply_to_run(args)
+		end
+	end
 	if #SMODS.find_card("j_aij_dark_magician") > 0 then
 		-- Putting this here because this effect shouldn't stack with multiple dark magicians
 		if context.using_consumeable and not context.from_dark_magician then
@@ -342,16 +352,6 @@ function All_in_Jest.calculate(self, context)
 					end,
 				}))
 			end
-		end
-	end
-	if context.using_consumeable then
-		for i = 1, #G.GAME.tags do
-			local args = {}
-			for k, v in pairs(context) do
-				args[k] = v
-			end
-			args.type = "using_consumeable"
-			G.GAME.tags[i]:apply_to_run(args)
 		end
 	end
 end
