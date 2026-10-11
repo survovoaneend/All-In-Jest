@@ -1657,10 +1657,75 @@ return {
 					"per enhanced card played",
 				},
 			},
+			bl_aij_the_tooth_GL = {
+				name = "The Tooth",
+				text = {
+					"Lose $1 per card",
+					"drawn"
+				},
+			},
+			bl_aij_the_gift_GL = {
+				name = "The Gift",
+				text = {
+					"Set money to $10"
+				},
+			},
+			bl_aij_the_storm_GL = {
+				name = "The Storm",
+				text = {
+					"Destroy all scored",
+					"cards"
+				},
+			},
+			bl_aij_the_spear_GL = {
+				name = "The Spear",
+				text = {
+					"Scoring cards in the",
+					"winning hand are",
+					"permanently debuffed",
+				},
+			},
+			bl_aij_the_life_GL = {
+				name = "The Life",
+				text = {
+					"All played cards",
+					"become Perishable"
+				},
+			},
+			bl_aij_the_loan_GL = {
+				name = "The Loan",
+				text = {
+					"When defeated,",
+					"#1# in #2# cards remaining",
+					"in deck become Rental"
+				},
+			},
+			bl_aij_verdant_leaf_GL = {
+				name = "Verdant Leaf",
+				text = {
+					"Reduce score each",
+					"hand by 90% until",
+					"1 Joker sold"
+				},
+			},
 			bl_aij_violet_vessel_GL = {
 				name = "Violet Vessel",
 				text = {
 					"Massive blind",
+				},
+			},
+			bl_aij_crimson_heart_GL = {
+				name = "Crimson Heart",
+				text = {
+					"One additional Joker",
+					"debuffed each hand"
+				},
+			},
+			bl_aij_obsidian_blade_GL = {
+				name = "Obsidian Blade",
+				text = {
+					"1 Hand, 1 Discard,",
+					"extra large blind"
 				},
 			},
 			bl_aij_rubber_duck_GL = {
@@ -1668,6 +1733,13 @@ return {
 				text = {
 					"All poker hands are",
 					"scored as level 1",
+				},
+			},
+			bl_aij_wooden_wheel_GL = {
+				name = "Wooden Wheel",
+				text = {
+					"Reroll a random Joker",
+					"when Blind is selected"
 				},
 			},
 		},
