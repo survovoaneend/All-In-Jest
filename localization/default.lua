@@ -10819,9 +10819,9 @@ return {
 		texture_packs = {
 			texpack_aij_nevernamed_retrextures = {
 				name = "All in Jest Retextures",
-				text = { 
-					"Vanilla sprites redrawn", 
-					"by Nevernamed" 
+				text = {
+					"Vanilla sprites redrawn",
+					"by Nevernamed",
 				},
 			},
 		},
