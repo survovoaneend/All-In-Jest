@@ -29,28 +29,35 @@ local dongfang = {
 	calculate = function(self, card, context)
 		if context.using_consumeable and (not context.aij_stargazy_pie or context.aij_dongfang_again) then
 			if context.consumeable.ability.set == "Planet" then
-				-- Doing calculate "early" to maintain intuitive order of animations
-				card.ability.extra.triggers = card.ability.extra.triggers - 1
-				SMODS.calculate_context({
-					using_consumeable = true,
-					consumeable = context.consumeable,
-					area = context.from_area,
-					aij_stargazy_pie = true,
-					aij_dongfang_again = card.ability.extra.triggers > 0 and true or false,
-				})
-				if card.ability.extra.triggers == 0 then
-					card.ability.extra.triggers = card.ability.extra.total_triggers
+				-- Check if the consumable can be used
+				-- Would be true for planets usually, but for Dark Magician compat other consumables might not pass this check
+				if
+					type(context.consumeable.can_use_consumeable) == "function"
+					and context.consumeable:can_use_consumeable(true, true)
+				then
+					-- Doing calculate "early" to maintain intuitive order of animations
+					card.ability.extra.triggers = card.ability.extra.triggers - 1
+					SMODS.calculate_context({
+						using_consumeable = true,
+						consumeable = context.consumeable,
+						area = context.from_area,
+						aij_stargazy_pie = true,
+						aij_dongfang_again = card.ability.extra.triggers > 0 and true or false,
+					})
+					if card.ability.extra.triggers == 0 then
+						card.ability.extra.triggers = card.ability.extra.total_triggers
+					end
+					card_eval_status_text(
+						context.blueprint_card or card,
+						"extra",
+						nil,
+						nil,
+						nil,
+						{ message = localize("k_again_ex"), colour = G.C.FILTER }
+					)
+					context.consumeable:use_consumeable(context.area)
+					return nil, true
 				end
-				card_eval_status_text(
-					context.blueprint_card or card,
-					"extra",
-					nil,
-					nil,
-					nil,
-					{ message = localize("k_again_ex"), colour = G.C.FILTER }
-				)
-				context.consumeable:use_consumeable(context.area)
-				return nil, true
 			end
 		end
 	end,
