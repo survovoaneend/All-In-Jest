@@ -107,18 +107,3 @@ if config.tag.key and G.P_TAGS[config.tag.key].atlas and G.P_TAGS[config.tag.key
     blind_sprite = SMODS.create_sprite(0, 0, 0.7,0.7, G.P_TAGS[config.tag.key].atlas, copy_table(config.pos))
 end
 '''
-
-# Astrology Tag (1/1)
-# Activate tags that trigger when a consumable is used
-# G.FUNCS.use_card()
-[[patches]]
-[patches.pattern]
-target = 'functions/button_callbacks.lua'
-pattern = "SMODS.calculate_context({using_consumeable = true, consumeable = card, area = card.from_area})"
-position = "after" 
-match_indent = true
-payload = '''
-for i = #G.GAME.tags, 1, -1 do
-    if G.GAME.tags[i]:apply_to_run({type = 'using_consumeable', consumeable = card, area = card.from_area}) then break end
-end
-'''

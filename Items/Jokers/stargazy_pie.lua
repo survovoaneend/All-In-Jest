@@ -25,7 +25,7 @@ local stargazy_pie = {
 	end,
 
 	calculate = function(self, card, context)
-		if context.using_consumeable and not context.aij_stargazy_pie then
+		if context.using_consumeable and not context.aij_retriggered_consumable then
 			if context.consumeable.ability.set == "Planet" and card.ability.extra.triggers >= 1 then
 				-- Check if the consumable can be used
 				-- Would be true for planets usually, but for Dark Magician compat other consumables might not pass this check
@@ -38,7 +38,7 @@ local stargazy_pie = {
 						using_consumeable = true,
 						consumeable = context.consumeable,
 						area = context.from_area,
-						aij_stargazy_pie = true,
+						aij_retriggered_consumable = true,
 					})
 
 					card_eval_status_text(
