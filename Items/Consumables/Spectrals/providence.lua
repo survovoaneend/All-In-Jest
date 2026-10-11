@@ -19,11 +19,16 @@ local providence = {
 	end,
 	use = function(self, card)
 		local tag_name = localize({ type = "name_text", set = "Tag", key = "tag_aij_astrology" })
-		add_tag(Tag("tag_aij_astrology"))
-		play_sound("tarot1")
-		card_eval_status_text(card, "extra", nil, nil, nil, {
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				add_tag(Tag("tag_aij_astrology"))
+				play_sound("tarot1")
+				return true
+			end,
+		}))
+		return {
 			message = "+" .. tag_name,
-		})
+		}
 	end,
 }
 return { name = { "Spectrals" }, items = { providence } }
