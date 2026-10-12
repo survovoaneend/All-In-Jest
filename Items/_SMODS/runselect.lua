@@ -1,13 +1,23 @@
 SMODS.RunSelect.Internals.aij_poly_chips = {}
+
+local function stick(card)
+	card.children.back.states.hover = card.states.hover
+	card.children.back.states.click = card.states.click
+	card.children.back.states.drag = card.states.drag
+	card.children.back.states.collide.can = false
+	card.children.back:set_role({ major = card, role_type = "Glued", draw_major = card })
+end
+
 local polychrome_stake = {
 	object_type = "RunSelectPage",
 	key = "polychrome_settings",
+	sprite_size = { w = 0.99, h = 0.99 },
 	-- quick_start_text = function(self, choice)
 	-- 	local points = 0
 	-- 	if type(choice) == "table" then
-	-- 		for _, v in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
-	-- 			if choice[v] and choice[v] > 0 then
-	-- 				points = points + All_in_Jest.PolyStakeChips[v].points[choice[v]]
+	-- 		for _, stake_key in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
+	-- 			if choice[stake_key] and choice[stake_key] > 0 then
+	-- 				points = points + All_in_Jest.PolyStakeChips[stake_key].points[choice[stake_key]]
 	-- 			end
 	-- 		end
 	-- 	end
@@ -18,15 +28,15 @@ local polychrome_stake = {
 	end,
 	generate_pool = function(self)
 		local pool = {}
-		for _, v in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
-			pool[#pool + 1] = All_in_Jest.PolyStakeChips[v]
+		for _, stake_key in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
+			pool[#pool + 1] = All_in_Jest.PolyStakeChips[stake_key]
 		end
 		return pool
 	end,
 	set_default = function(self, choice)
 		local default = {}
-		for _, v in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
-			default[v] = choice and choice[v] or 0
+		for _, stake_key in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
+			default[stake_key] = choice and choice[stake_key] or 0
 		end
 		return default
 	end,
@@ -177,9 +187,9 @@ local polychrome_stake = {
 	definition = function(self)
 		local points = 0
 		local choice = SMODS.RunSelect.Setup.choices[self.key]
-		for _, v in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
-			if choice[v] and choice[v] > 0 then
-				points = points + All_in_Jest.PolyStakeChips[v].points[choice[v]]
+		for _, stake_key in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
+			if choice[stake_key] and choice[stake_key] > 0 then
+				points = points + All_in_Jest.PolyStakeChips[stake_key].points[choice[stake_key]]
 			end
 		end
 
@@ -217,6 +227,14 @@ local polychrome_stake = {
 				emboss = 0.05,
 			},
 			nodes = {
+				-- Setting holding node to zero to not extend intended height of parent node
+				{
+					n = G.UIT.R,
+					config = { align = "tm" },
+					nodes = {
+						{ n = G.UIT.O, config = { object = SMODS.RunSelect.Internals.stake_tower_holding } },
+					},
+				},
 				{
 					n = G.UIT.R,
 					config = { align = "bm" },
@@ -227,6 +245,19 @@ local polychrome_stake = {
 				{ n = G.UIT.R, config = { minh = 0.2 } },
 			},
 		}
+
+		do -- Add the polychrome chip sprite
+			local poly_card = SMODS.RunSelect.Pages.stake_choice:create_selection_card(
+				"stake_aij_polychrome",
+				nil,
+				SMODS.RunSelect.Internals.stake_tower_holding
+			)
+			poly_card.params.run_select_stake_tower =
+				{ G.P_STAKES["stake_aij_polychrome"].order, "stake_aij_polychrome" }
+			poly_card.children.back.states.collide.can = true
+			SMODS.RunSelect.Internals.stake_tower_holding:emplace(poly_card)
+			SMODS.RunSelect.Internals.stake_tower:draw_card_from(SMODS.RunSelect.Internals.stake_tower_holding)
+		end
 		All_in_Jest.populate_poly_tower(true)
 
 		-- stats
@@ -665,6 +696,25 @@ local polychrome_stake = {
 							},
 						},
 						{ n = G.UIT.C, config = { align = "cm", minw = 2.3 }, nodes = {} },
+						-- {
+						-- 	n = G.UIT.C,
+						-- 	config = {
+						-- 		r = 0.05,
+						-- 		colour = G.C.BLUE,
+						-- 		minw = 2,
+						-- 		align = "cm",
+						-- 		shadow = true,
+						-- 		button = "aij_poly_random",
+						-- 		hover = true,
+						-- 		minh = 0.5,
+						-- 	},
+						-- 	nodes = {
+						-- 		{
+						-- 			n = G.UIT.T,
+						-- 			config = { text = localize("run_select_stake_choice_random"), scale = 0.4, colour = G.C.WHITE },
+						-- 		},
+						-- 	},
+						-- },
 						{
 							n = G.UIT.C,
 							config = {
@@ -714,15 +764,44 @@ local polychrome_stake = {
 	start_run = function(self, choice)
 		G.GAME.aij_poly_chips = {}
 		G.GAME.aij_poly_points = 0
-		for _, v in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
-			G.GAME.aij_poly_chips[v] = 0
-			if type(choice) == "table" and choice[v] and choice[v] > 0 then
-				local chip = All_in_Jest.PolyStakeChips[v]
-				G.GAME.aij_poly_chips[v] = choice[v]
-				G.GAME.aij_poly_points = G.GAME.aij_poly_points + chip.points[choice[v]]
-				chip:apply(choice[v])
+		for _, stake_key in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
+			G.GAME.aij_poly_chips[stake_key] = 0
+			if type(choice) == "table" and choice[stake_key] and choice[stake_key] > 0 then
+				local chip = All_in_Jest.PolyStakeChips[stake_key]
+				G.GAME.aij_poly_chips[stake_key] = choice[stake_key]
+				G.GAME.aij_poly_points = G.GAME.aij_poly_points + chip.points[choice[stake_key]]
+				chip:apply(choice[stake_key])
 			end
 		end
+	end,
+	create_selection_card = function(self, stake_key, card_number, area)
+		local card = Card(
+			area.T.x,
+			area.T.y,
+			self.sprite_size.w,
+			self.sprite_size.h,
+			nil,
+			G.P_CENTERS.j_joker,
+			{ aij_poly_chip = stake_key }
+		)
+		card.no_shadow = true
+		card.facing = "back"
+		card.sprite_facing = "back"
+		card.config.center = All_in_Jest.PolyStakeChips[stake_key]
+		card.states.collide.can = true
+		card.states.drag.can = false
+		card.children.back:remove()
+		card.children.back = SMODS.create_sprite(
+			card.T.x,
+			card.T.y,
+			card.T.w,
+			card.T.h,
+			All_in_Jest.PolyStakeChips[stake_key].atlas,
+			All_in_Jest.PolyStakeChips[stake_key].pos,
+			card.config.center.sprite_args
+		)
+		stick(card)
+		return card
 	end,
 }
 
@@ -888,8 +967,8 @@ G.FUNCS.aij_polychip_cycle = function(e)
 		total_text_node.UIBox:recalculate()
 		local has_points = false
 		local choice = SMODS.RunSelect.Setup.choices["aij_polychrome_settings"]
-		for _, v in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
-			if choice[v] and choice[v] > 0 then
+		for _, stake_key in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
+			if choice[stake_key] and choice[stake_key] > 0 then
 				has_points = true
 				break
 			end
@@ -901,9 +980,13 @@ G.FUNCS.aij_polychip_cycle = function(e)
 	All_in_Jest.populate_poly_tower(false)
 end
 
-G.FUNCS.aij_poly_disable = function(e)
-	for _, v in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
-		SMODS.RunSelect.Setup.choices["aij_polychrome_settings"][v] = 0
+G.FUNCS.aij_poly_random = function(e)
+	e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+	e.config.button = nil
+
+	for _, stake_key in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
+		SMODS.RunSelect.Setup.choices["aij_polychrome_settings"][stake_key] =
+			math.random(0, All_in_Jest.PolyStakeChips[stake_key].stack)
 	end
 	SMODS.RunSelect.Functions.clean_up(true)
 	SMODS.RunSelect.Pages["aij_polychrome_settings"]:aij_create_poly_chips()
@@ -914,8 +997,8 @@ G.FUNCS.aij_poly_disable = function(e)
 		total_text_node.UIBox:recalculate()
 		local has_points = false
 		local choice = SMODS.RunSelect.Setup.choices["aij_polychrome_settings"]
-		for _, v in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
-			if choice[v] and choice[v] > 0 then
+		for _, stake_key in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
+			if choice[stake_key] and choice[stake_key] > 0 then
 				has_points = true
 				break
 			end
@@ -924,6 +1007,56 @@ G.FUNCS.aij_poly_disable = function(e)
 			{ has_points and G.C.UI.TEXT_LIGHT or G.C.GREY }
 	end
 	All_in_Jest.populate_poly_tower(false)
+
+	G.E_MANAGER:add_event(
+		Event({
+			func = function()
+				e.config.colour = G.C.BLUE
+				e.config.button = "aij_poly_random"
+				return true
+			end,
+		}),
+		"run_select"
+	)
+end
+
+G.FUNCS.aij_poly_disable = function(e)
+	e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+	e.config.button = nil
+
+	for _, stake_key in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
+		SMODS.RunSelect.Setup.choices["aij_polychrome_settings"][stake_key] = 0
+	end
+	SMODS.RunSelect.Functions.clean_up(true)
+	SMODS.RunSelect.Pages["aij_polychrome_settings"]:aij_create_poly_chips()
+	local total_text_node = G.OVERLAY_MENU:get_UIE_by_ID("aij_total_points")
+	if total_text_node then
+		total_text_node.config.object:remove()
+		total_text_node.config.object = All_in_Jest.create_total_points_text()
+		total_text_node.UIBox:recalculate()
+		local has_points = false
+		local choice = SMODS.RunSelect.Setup.choices["aij_polychrome_settings"]
+		for _, stake_key in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
+			if choice[stake_key] and choice[stake_key] > 0 then
+				has_points = true
+				break
+			end
+		end
+		G.OVERLAY_MENU:get_UIE_by_ID("aij_total_points_suffix").config.object.colours =
+			{ has_points and G.C.UI.TEXT_LIGHT or G.C.GREY }
+	end
+	All_in_Jest.populate_poly_tower(false)
+
+	G.E_MANAGER:add_event(
+		Event({
+			func = function()
+				e.config.colour = G.C.RED
+				e.config.button = "aij_poly_disable"
+				return true
+			end,
+		}),
+		"run_select"
+	)
 end
 
 function All_in_Jest.create_mod_points_text(key, value)
@@ -946,9 +1079,9 @@ function All_in_Jest.create_total_points_text(args)
 	args = args or {}
 	local points = 0
 	local choice = SMODS.RunSelect.Setup.choices["aij_polychrome_settings"]
-	for _, v in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
-		if choice[v] and choice[v] > 0 then
-			points = points + All_in_Jest.PolyStakeChips[v].points[choice[v]]
+	for _, stake_key in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
+		if choice[stake_key] and choice[stake_key] > 0 then
+			points = points + All_in_Jest.PolyStakeChips[stake_key].points[choice[stake_key]]
 		end
 	end
 	return DynaText({
@@ -975,94 +1108,154 @@ function All_in_Jest.populate_poly_tower(silent)
 	if SMODS.config.run_select_performance then
 		silent = true
 	end
-	remove_all(SMODS.RunSelect.Internals.stake_tower.cards)
-	SMODS.RunSelect.Internals.stake_tower.cards = {}
-	remove_all(SMODS.RunSelect.Internals.stake_tower_holding.cards)
-	SMODS.RunSelect.Internals.stake_tower_holding.cards = {}
 
-	local tower_area = SMODS.RunSelect.Internals.stake_tower_holding
-	local tower_cards = {}
-	for _, v in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
-		if
-			SMODS.RunSelect.Setup.choices["aij_polychrome_settings"]
-			and SMODS.RunSelect.Setup.choices["aij_polychrome_settings"][v] > 0
-		then
-			for __ = 1, SMODS.RunSelect.Setup.choices["aij_polychrome_settings"][v] do
-				local chip_card =
-					Card(tower_area.T.x, tower_area.T.y, 0.99, 0.99, nil, G.P_CENTERS.j_joker, { aij_poly_chip = v })
-				chip_card.no_shadow = true
-				chip_card.facing = "back"
-				chip_card.sprite_facing = "back"
-				chip_card.config.center = All_in_Jest.PolyStakeChips[v]
-				chip_card.states.collide.can = true
-				chip_card.states.drag.can = false
-				chip_card.children.back:remove()
-				chip_card.children.back = SMODS.create_sprite(
-					chip_card.T.x,
-					chip_card.T.y,
-					chip_card.T.w,
-					chip_card.T.h,
-					chip_card.config.center.atlas,
-					chip_card.config.center.pos,
-					chip_card.config.center.sprite_args
-				)
-
-				chip_card.children.back.states.hover = chip_card.states.hover
-				chip_card.children.back.states.click = chip_card.states.click
-				chip_card.children.back.states.drag = chip_card.states.drag
-				chip_card.children.back:set_role({ major = chip_card, role_type = "Glued", draw_major = chip_card })
-
-				chip_card.params.run_select_stake_tower =
-					{ G.P_STAKES["stake_aij_polychrome"].order, "stake_aij_polychrome" }
-				chip_card.params.hover = 0
-				chip_card.children.back.states.collide.can = true
-				SMODS.RunSelect.Internals.stake_tower_holding:emplace(chip_card)
-				table.insert(tower_cards, chip_card)
-				if not silent then
-					G.E_MANAGER:add_event(
-						Event({
-							trigger = "after",
-							delay = 0.02,
-							func = function()
-								play_sound("chips2", math.random() * 0.2 + 0.99, 0.35)
-								if SMODS.RunSelect.Internals.stake_tower.cards then
-									SMODS.RunSelect.Internals.stake_tower:draw_card_from(
-										SMODS.RunSelect.Internals.stake_tower_holding
-									)
-								end
-								return true
-							end,
-						}),
-						"run_select"
-					)
-				else
-					SMODS.RunSelect.Internals.stake_tower:draw_card_from(SMODS.RunSelect.Internals.stake_tower_holding)
-				end
-			end
+	local old_choices = {}
+	for i, card in ipairs(SMODS.RunSelect.Internals.stake_tower.cards) do
+		if old_choices[card.config.center.key] then
+			old_choices[card.config.center.key] = old_choices[card.config.center.key] + 1
+		else
+			old_choices[card.config.center.key] = 1
 		end
 	end
 
-	local poly_card = SMODS.RunSelect.Pages.stake_choice:create_selection_card(
-		"stake_aij_polychrome",
-		nil,
-		SMODS.RunSelect.Internals.stake_tower_holding
-	)
-	poly_card.params.run_select_stake_tower = { G.P_STAKES["stake_aij_polychrome"].order, "stake_aij_polychrome" }
-	poly_card.children.back.states.collide.can = true
-	SMODS.RunSelect.Internals.stake_tower_holding:emplace(poly_card)
-	table.insert(tower_cards, poly_card)
+	remove_all(SMODS.RunSelect.Internals.stake_tower_holding.cards)
+	SMODS.RunSelect.Internals.stake_tower_holding.cards = {}
+	local page_def = SMODS.RunSelect.Pages.aij_polychrome_settings
+
+	local tower_area = SMODS.RunSelect.Internals.stake_tower_holding
+	for _, stake_key in ipairs(All_in_Jest.PolyStakeChip.obj_buffer) do
+		if SMODS.RunSelect.Setup.choices["aij_polychrome_settings"] then
+			local delta = SMODS.RunSelect.Setup.choices["aij_polychrome_settings"][stake_key]
+				- (old_choices[stake_key] or 0)
+
+			if delta > 0 then
+				for __ = 1, delta do
+					local area = silent and SMODS.RunSelect.Internals.stake_tower
+						or SMODS.RunSelect.Internals.stake_tower_holding
+					local chip_card = page_def:create_selection_card(stake_key, nil, area)
+
+					chip_card.params.run_select_stake_tower =
+						{ G.P_STAKES["stake_aij_polychrome"].order, "stake_aij_polychrome" }
+					chip_card.children.back.states.collide.can = true
+					chip_card.children.back.states.visible = false
+
+					area:emplace(chip_card)
+					if not silent then
+						G.E_MANAGER:add_event(
+							Event({
+								trigger = "after",
+								delay = 0.02,
+								func = function()
+									chip_card.children.back.states.visible = true
+									G.E_MANAGER:add_event(
+										Event({
+											trigger = "after",
+											blocking = false,
+											blockable = false,
+											delay = 0.1,
+											func = function()
+												play_sound(
+													"chips1",
+													#SMODS.RunSelect.Internals.stake_tower.cards / 10 * 0.2 + 0.99,
+													0.55
+												)
+												return true
+											end,
+										}),
+										"run_select"
+									)
+									if SMODS.RunSelect.Internals.stake_tower.cards then
+										SMODS.RunSelect.Internals.stake_tower:draw_card_from(
+											SMODS.RunSelect.Internals.stake_tower_holding
+										)
+									end
+									if #SMODS.RunSelect.Internals.stake_tower.cards > 1 then
+										poly_chip_index = 1
+										for i, card in ipairs(SMODS.RunSelect.Internals.stake_tower.cards) do
+											if card.config.center.key == "stake_aij_polychrome" then
+												poly_chip_index = i
+												break
+											end
+										end
+										SMODS.RunSelect.Internals.stake_tower.cards[1], SMODS.RunSelect.Internals.stake_tower.cards[poly_chip_index] =
+											SMODS.RunSelect.Internals.stake_tower.cards[poly_chip_index],
+											SMODS.RunSelect.Internals.stake_tower.cards[1]
+									end
+									return true
+								end,
+							}),
+							"run_select"
+						)
+					else
+						chip_card.children.back.states.visible = true
+						if #SMODS.RunSelect.Internals.stake_tower.cards > 1 then
+							poly_chip_index = 1
+							for i, card in ipairs(SMODS.RunSelect.Internals.stake_tower.cards) do
+								if card.config.center.key == "stake_aij_polychrome" then
+									poly_chip_index = i
+									break
+								end
+							end
+							SMODS.RunSelect.Internals.stake_tower.cards[1], SMODS.RunSelect.Internals.stake_tower.cards[poly_chip_index] =
+								SMODS.RunSelect.Internals.stake_tower.cards[poly_chip_index],
+								SMODS.RunSelect.Internals.stake_tower.cards[1]
+						end
+					end
+				end
+			elseif delta < 0 then
+				for __ = 1, math.abs(delta) do
+					for i, card in ipairs(SMODS.RunSelect.Internals.stake_tower.cards) do
+						if card.config.center.key == stake_key and not card.ability.discarded then
+							SMODS.RunSelect.Internals.stake_tower.cards[i].ability.discarded = true
+							if not silent then
+								G.E_MANAGER:add_event(
+									Event({
+										trigger = "after",
+										delay = 0.02,
+										func = function()
+											remove_all(SMODS.RunSelect.Internals.stake_tower_holding.cards)
+											play_sound(
+												"chips1",
+												#SMODS.RunSelect.Internals.stake_tower.cards / 10 * 0.2 + 0.99,
+												0.55
+											)
+											if SMODS.RunSelect.Internals.stake_tower.cards then
+												SMODS.RunSelect.Internals.stake_tower:remove_card(card)
+												SMODS.RunSelect.Internals.stake_tower_holding:emplace(card)
+											end
+											return true
+										end,
+									}),
+									"run_select"
+								)
+							else
+								table.remove(SMODS.RunSelect.Internals.stake_tower.cards, i)
+							end
+							break
+						end
+					end
+				end
+				G.E_MANAGER:add_event(
+					Event({
+						trigger = "after",
+						func = function()
+							remove_all(SMODS.RunSelect.Internals.stake_tower_holding.cards)
+							return true
+						end,
+					}),
+					"run_select"
+				)
+			end
+		end
+	end
 
 	if not silent then
 		G.E_MANAGER:add_event(
 			Event({
 				trigger = "after",
-				delay = 0.02,
 				func = function()
-					play_sound("chips2", math.random() * 0.2 + 0.99, 0.35)
-					if SMODS.RunSelect.Internals.stake_tower.cards then
-						SMODS.RunSelect.Internals.stake_tower:draw_card_from(
-							SMODS.RunSelect.Internals.stake_tower_holding
-						)
+					for i, card in ipairs(SMODS.RunSelect.Internals.stake_tower.cards) do
+						card.params.hover = i - 1
 					end
 					return true
 				end,
@@ -1070,29 +1263,27 @@ function All_in_Jest.populate_poly_tower(silent)
 			"run_select"
 		)
 	else
-		SMODS.RunSelect.Internals.stake_tower:draw_card_from(SMODS.RunSelect.Internals.stake_tower_holding)
-	end
-
-	for i, card in ipairs(tower_cards) do
-		card.params.hover = #tower_cards - i
+		for i, card in ipairs(SMODS.RunSelect.Internals.stake_tower.cards) do
+			card.params.hover = i - 1
+		end
 	end
 end
 
 local clean_up_ref = SMODS.RunSelect.Functions.clean_up
 function SMODS.RunSelect.Functions.clean_up(early)
 	clean_up_ref(early)
-	for _, v in ipairs(SMODS.RunSelect.Internals.aij_poly_chips) do
-		v.config.object:remove()
-		v.config.object = nil
+	for _, stake_key in ipairs(SMODS.RunSelect.Internals.aij_poly_chips) do
+		stake_key.config.object:remove()
+		stake_key.config.object = nil
 	end
 	SMODS.RunSelect.Internals.aij_poly_chips = {}
 end
 
 local run_setup_ref = G.UIDEF.run_setup_option
 function G.UIDEF.run_setup_option(type)
-	for _, v in ipairs(SMODS.RunSelect.Internals.aij_poly_chips) do
-		v.config.object:remove()
-		v.config.object = nil
+	for _, stake_key in ipairs(SMODS.RunSelect.Internals.aij_poly_chips) do
+		stake_key.config.object:remove()
+		stake_key.config.object = nil
 	end
 	SMODS.RunSelect.Internals.aij_poly_chips = {}
 	return run_setup_ref(type)
@@ -1100,9 +1291,9 @@ end
 
 local challenge_setup_ref = G.UIDEF.challenges
 function G.UIDEF.challenges(from_game_over)
-	for _, v in ipairs(SMODS.RunSelect.Internals.aij_poly_chips) do
-		v.config.object:remove()
-		v.config.object = nil
+	for _, stake_key in ipairs(SMODS.RunSelect.Internals.aij_poly_chips) do
+		stake_key.config.object:remove()
+		stake_key.config.object = nil
 	end
 	SMODS.RunSelect.Internals.aij_poly_chips = {}
 	return challenge_setup_ref(from_game_over)
@@ -1159,10 +1350,10 @@ function Card:hover()
 				},
 			}
 		end
-		for _, v in ipairs(info_queue) do
+		for _, stake_key in ipairs(info_queue) do
 			table.insert(
 				tooltips,
-				{ n = G.UIT.R, config = { align = "cm", padding = 0.05 }, nodes = { create_info_tooltip(v) } }
+				{ n = G.UIT.R, config = { align = "cm", padding = 0.05 }, nodes = { create_info_tooltip(stake_key) } }
 			)
 		end
 
