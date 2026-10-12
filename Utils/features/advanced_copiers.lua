@@ -15,7 +15,7 @@ local save_changed_abilities_to_stored_table = function(copier_card, copied_inde
 	for k, v in pairs(copier_card.ability) do
 		if
 			not (
-				k == copier_card.config.center.key
+				k == copier_card.config.center.key -- This is the key that stores all the data related to the copier joker
 				or k == "jest_applied"
 				or k == "jest_silver_active"
 				or k == "name"
@@ -23,10 +23,9 @@ local save_changed_abilities_to_stored_table = function(copier_card, copied_inde
 				or string.sub(k, 1, #(copier_card.config.center.key .. "compat")) == copier_card.config.center.key .. "compat"
 				or SMODS.Stickers[k] ~= nil
 			)
-		then -- This is the key that stores all the data related to the copier joker
+		then
 			if type(v) == "table" then
-				copier_card.ability[copier_card.config.center.key].copied_joker_abilities[copied_index][k] =
-					copy_table(v)
+				copier_card.ability[copier_card.config.center.key].copied_joker_abilities[copied_index][k] = v
 			else
 				copier_card.ability[copier_card.config.center.key].copied_joker_abilities[copied_index][k] = v
 			end
@@ -108,7 +107,7 @@ All_in_Jest.set_copied_ability = function(copier_card, center_to_copy, ability_t
 		repetitions = copied_base_stats.repetitions or 0,
 		h_size = copied_base_stats.h_size or 0,
 		d_size = copied_base_stats.d_size or 0,
-		extra = copy_table(copied_base_stats.extra) or "nil",
+		extra = copied_base_stats.extra or "nil",
 		-- extra_value = 0,
 		type = copied_base_stats.type or "",
 		forced_selection = ability_table and ability_table.forced_selection or "nil",
@@ -153,7 +152,7 @@ All_in_Jest.set_copied_ability = function(copier_card, center_to_copy, ability_t
 			)
 		then
 			if type(v) == "table" then
-				ability_table[k] = copy_table(v)
+				ability_table[k] = v
 			else
 				ability_table[k] = v
 			end
@@ -222,7 +221,9 @@ All_in_Jest.use_copied_joker_function = function(
 			return {}
 		end
 
+		local prev_index = nil
 		if index ~= nil then
+			prev_index = tonumber(card.ability.copied_joker_abilities_index)
 			All_in_Jest.hotswap_copied_ability(card, index)
 		end
 
@@ -247,8 +248,17 @@ All_in_Jest.use_copied_joker_function = function(
 		end
 
 		if index ~= nil then
+			local clear_ability = function()
+				if prev_index ~= nil then
+					All_in_Jest.hotswap_copied_ability(card, prev_index)
+				else
+					All_in_Jest.set_copied_ability(card, { config = {} })
+				end
+			end
+
+			clear_ability()
+
 			if not skip_events and (#G.E_MANAGER.queues.base > starting_queue_length) then
-				All_in_Jest.set_copied_ability(card, { config = {} })
 				-- Repeat set_copied_ability in events so that any events the copied joker creates can reference itself correctly
 				-- Using two-deep events, could go deeper if needed
 				local expected_queue_length = #G.E_MANAGER.queues.base
@@ -275,7 +285,7 @@ All_in_Jest.use_copied_joker_function = function(
 						-- If it's greater than expected_queue_length, then additional events have been made
 						-- (If it's somehow less something weird happened)
 						if not skip_events then
-							All_in_Jest.set_copied_ability(card, { config = {} })
+							clear_ability()
 						end
 						if (not skip_events) and (#G.E_MANAGER.queues.base > expected_queue_length) then -- Subtract 1 from starting_queue_length to account for the event inserted above
 							-- This is for events that modify joker values nested in an event
@@ -294,7 +304,7 @@ All_in_Jest.use_copied_joker_function = function(
 							-- Any events made in the events when calling modded_func_name() or vanilla_func_name() above will execute here
 							G.E_MANAGER:add_event(Event({
 								func = function()
-									All_in_Jest.set_copied_ability(card, { config = {} })
+									clear_ability()
 									return true
 								end,
 							}))
@@ -656,6 +666,7 @@ All_in_Jest.multi_copier = SMODS.Joker:extend({
 		end
 
 		if #abilities_to_display > 0 then
+			local prev_index = tonumber(card.ability.copied_joker_abilities_index)
 			for i = #abilities_to_display, math.max(1, #abilities_to_display - card.ability[card.config.center.key].copy_limit + 1), -1 do
 				local center_key = abilities_to_display[i].key
 				local copied_center = G.P_CENTERS[center_key]
@@ -699,7 +710,11 @@ All_in_Jest.multi_copier = SMODS.Joker:extend({
 					info_queue_center.specific_vars.aij_multi_copier_card_ability = abilities_to_display[i]
 				end
 				info_queue[#info_queue + 1] = info_queue_center
-				All_in_Jest.set_copied_ability(card, { config = {} })
+				if prev_index ~= nil then
+					All_in_Jest.hotswap_copied_ability(card, prev_index)
+				else
+					All_in_Jest.set_copied_ability(card, { config = {} })
+				end
 			end
 		end
 		return { vars = {} }

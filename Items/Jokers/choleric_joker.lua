@@ -41,14 +41,16 @@ local choleric_joker = {
 					return {
 						focus = juiced_card,
 						message = localize("k_plus_tarot"),
-						func = function()
+						pre_func = function()
 							G.E_MANAGER:add_event(Event({
 								trigger = "before",
 								delay = 0.0,
 								func = function()
-									local cardd = create_card("Tarot", G.consumeables, nil, nil, nil, nil, nil, "chol")
-									cardd:add_to_deck()
-									G.consumeables:emplace(cardd)
+									SMODS.add_card({
+										set = "Tarot",
+										area = G.consumeables,
+										key_append = "chol",
+									})
 									G.GAME.consumeable_buffer = 0
 									return true
 								end,

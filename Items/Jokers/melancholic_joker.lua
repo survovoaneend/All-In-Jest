@@ -41,15 +41,16 @@ local melancholic_joker = {
 					return {
 						focus = juiced_card,
 						message = localize("k_plus_spectral"),
-						func = function()
+						pre_func = function()
 							G.E_MANAGER:add_event(Event({
 								trigger = "before",
 								delay = 0.0,
 								func = function()
-									local cardd =
-										create_card("Spectral", G.consumeables, nil, nil, nil, nil, nil, "mela")
-									cardd:add_to_deck()
-									G.consumeables:emplace(cardd)
+									SMODS.add_card({
+										set = "Spectral",
+										area = G.consumeables,
+										key_append = "mela",
+									})
 									G.GAME.consumeable_buffer = 0
 									return true
 								end,

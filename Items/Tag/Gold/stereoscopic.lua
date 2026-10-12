@@ -25,7 +25,7 @@ local stereoscopic_tag = {
 				local upgraded_tag_key = nil
 				for k, v in pairs(G.P_TAGS) do
 					if v.config.aij and v.config.aij.upgrade then
-						if v.config.aij.upgrade == "tag_" .. v.config.aij.upgrade then
+						if context.tag.key == "tag_" .. v.config.aij.upgrade then
 							upgraded_tag_key = v.key
 							break
 						end

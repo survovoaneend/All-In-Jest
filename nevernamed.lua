@@ -6,6 +6,7 @@ local DEV_TAB_DEBUG = false
 
 All_in_Jest.optional_features = {
 	retrigger_joker = true,
+	post_trigger = true,
 	object_weights = true,
 	cardareas = {
 		deck = true,
@@ -117,6 +118,15 @@ for _, data in ipairs(AllInJest.deck_skins) do
 	end
 end
 
+local contains = function(tbl, item)
+	for k, v in pairs(tbl) do
+		if v == item then
+			return true
+		end
+	end
+	return false
+end
+
 local function load_items(curr_obj)
 	if curr_obj.init then
 		curr_obj:init()
@@ -151,6 +161,17 @@ local function load_items(curr_obj)
 		if item.jest_spec_moon and not All_in_Jest.config.moons_enabled then
 			goto continue
 		end
+		if
+			not All_in_Jest.config.astrals_enabled
+			and (
+				(item.attributes and contains(item.attributes, "astral"))
+				or item.set == "aij_astral"
+				or item.soul_set == "aij_astral"
+				or item.object_type == "Astral"
+			)
+		then
+			goto continue
+		end
 		-- Add incompatibility to all jokers with an activated ability and to advanced copiers
 		if
 			(item.all_in_jest and item.all_in_jest.use_ability) or (item.config and item.config["j_aij_" .. item.key])
@@ -173,7 +194,11 @@ local function load_items(curr_obj)
 		if SMODS[item.object_type] and not item.ignore then
 			SMODS[item.object_type](item)
 		elseif item.object_loader and not item.ignore then
-			item.object_loader[item.object_type](item)
+			if item.object_loader == "Global" then -- Just for Malverk atm
+				item.object_type(item)
+			else
+				item.object_loader[item.object_type](item)
+			end
 		elseif not item.ignore then
 			print("Error loading item " .. item.key .. " of unknown type " .. item.object_type)
 		end

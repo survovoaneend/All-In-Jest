@@ -1,4 +1,5 @@
 return {
+	["astrals_enabled"] = true,
 	["moons_enabled"] = true,
 	["moons_blocking"] = false,
 	["alter_trypophobia"] = false,

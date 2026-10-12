@@ -54,23 +54,19 @@ local phlegmatic_joker = {
 						return {
 							focus = juiced_card,
 							message = localize("k_plus_planet"),
-							func = function()
+							pre_func = function()
 								G.E_MANAGER:add_event(Event({
 									trigger = "before",
 									delay = 0.0,
 									func = function()
-										local new_planet_card = create_card(
-											"Planet",
-											G.consumeables,
-											nil,
-											nil,
-											true,
-											true,
-											planet_to_spawn_key,
-											"phleg"
-										)
-										new_planet_card:add_to_deck()
-										G.consumeables:emplace(new_planet_card)
+										SMODS.add_card({
+											set = "Planet",
+											area = G.consumeables,
+											key = planet_to_spawn_key,
+											key_append = "phleg",
+											skip_materialize = true,
+											soulable = true,
+										})
 										G.GAME.consumeable_buffer = 0
 										return true
 									end,

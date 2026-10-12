@@ -17,8 +17,7 @@ local the_beast = {
 		if temp then
 			return
 		end
-		local exclude_contexts = context.individual or context.repetition or context.blueprint
-		if context.end_of_round and not temp and not exclude_contexts then
+		if context.end_of_round and context.main_eval and not temp then
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					local jokers_to_destroy = {}

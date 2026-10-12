@@ -38,6 +38,8 @@ local columbina = {
 					scalar_value = "percent_mod",
 					message_key = "a_aij_percent_balance",
 				})
+
+				return nil, true
 			end
 		end
 

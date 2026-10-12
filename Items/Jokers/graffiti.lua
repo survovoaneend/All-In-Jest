@@ -84,7 +84,7 @@ local graffiti = {
 	end,
 
 	calculate = function(self, card, context)
-		if context.end_of_round and context.beat_boss then
+		if context.end_of_round and context.main_eval and context.beat_boss then
 			if card.ability.extra.cost ~= card.ability.extra.base_cost then
 				card.ability.extra.cost = card.ability.extra.base_cost
 				card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_reset") })

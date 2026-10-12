@@ -4,11 +4,11 @@ All in Jest is a massive, vannila-adjacent mod that adds tons of new content foc
 
 Take a look at the [Wiki Page](https://balatromods.miraheze.org/wiki/All_in_Jest)!
 Join the [discord server](https://discord.gg/U9gbU9eshk)!
-# Current content as of 0.7.0
-* 550 Jokers, 50 of which are Legendaries
+# Current content as of 0.7.2
+* 600 Jokers, 55 of which are Legendaries
 * 4 Decks
-* 1 Vouchers
-* 23 Tarot Cards
+* 14 Vouchers
+* 20 Tarot Cards
 * 27 Planet Cards (+8 if Paperback or Bunco are enabled)
 * 15 Spectral Cards
 * 14 of a brand new consumable type, Astral Cards

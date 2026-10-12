@@ -13,7 +13,7 @@ pattern = "self.opening = true"
 position = "after"
 match_indent = true
 payload = '''
-for i = #G.GAME.tags, 1, -1 do
+for i = 1, #G.GAME.tags do
     if G.GAME.tags[i]:apply_to_run({type = 'open_booster', booster = self}) then break end
 end
 '''
@@ -32,7 +32,7 @@ position = "before"
 match_indent = true
 payload = '''
 SMODS.calculate_context({all_in_jest = {modify_booster_cards = true, card = self, before_added = true, pack_cards = pack_cards}})
-for i = #G.GAME.tags, 1, -1 do
+for i = 1, #G.GAME.tags do
     if G.GAME.tags[i]:apply_to_run({type = 'modify_booster_cards', card = self, before_added = true, pack_cards = pack_cards}) then break end
 end
 '''
@@ -105,20 +105,5 @@ match_indent = true
 payload = '''
 if config.tag.key and G.P_TAGS[config.tag.key].atlas and G.P_TAGS[config.tag.key].atlas ~= "tags" then
     blind_sprite = SMODS.create_sprite(0, 0, 0.7,0.7, G.P_TAGS[config.tag.key].atlas, copy_table(config.pos))
-end
-'''
-
-# Astrology Tag (1/1)
-# Activate tags that trigger when a consumable is used
-# G.FUNCS.use_card()
-[[patches]]
-[patches.pattern]
-target = 'functions/button_callbacks.lua'
-pattern = "SMODS.calculate_context({using_consumeable = true, consumeable = card, area = card.from_area})"
-position = "after" 
-match_indent = true
-payload = '''
-for i = #G.GAME.tags, 1, -1 do
-    if G.GAME.tags[i]:apply_to_run({type = 'using_consumeable', consumeable = card, area = card.from_area}) then break end
 end
 '''

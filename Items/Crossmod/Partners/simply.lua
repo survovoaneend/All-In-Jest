@@ -40,7 +40,7 @@ local simply = {
 	end,
 
 	calculate = function(self, card, context)
-		if context.end_of_round and not context.individual and not context.repetition then
+		if context.end_of_round and context.main_eval then
 			local link_level = self:get_link_level()
 			local benefits = 1
 			if link_level == 1 then

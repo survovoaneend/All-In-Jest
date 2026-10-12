@@ -19,7 +19,7 @@ local morio = {
 	loc_vars = function(self, info_queue, card) end,
 
 	calculate = function(self, card, context)
-		if context.end_of_round and context.beat_boss and not context.blueprint then
+		if context.end_of_round and context.main_eval and context.beat_boss and not context.blueprint then
 			card.ability.trigger = true
 			local eval = function()
 				return G.STATE ~= G.STATES.SHOP

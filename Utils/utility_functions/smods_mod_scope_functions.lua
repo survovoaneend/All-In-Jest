@@ -224,7 +224,7 @@ function All_in_Jest.calculate(self, context)
 		G.GAME.current_round.discards_left = G.GAME.aij_booster_discards
 		G.GAME.aij_discared_start_booster = true
 	end
-	if context.end_of_round then
+	if context.end_of_round and context.main_eval then
 		G.GAME.all_in_jest.dizzard_shop = false
 	end
 	if context.ending_shop then
@@ -261,7 +261,7 @@ function All_in_Jest.calculate(self, context)
 			G.E_MANAGER:add_event(Event({
 				trigger = "immediate",
 				func = function()
-					aij_reroll_tags(nil, { force_no_gold, do_not_change_tags = true })
+					aij_reroll_tags(nil, { force_no_gold = true, do_not_change_tags = true })
 					return true
 				end,
 			}))
@@ -280,6 +280,83 @@ function All_in_Jest.calculate(self, context)
 	if context.before then
 		G.GAME.aij_score_reduction = 1
 		G.GAME.aij_apply_score_reduction = false
+	end
+	if context.using_consumeable then
+		for i = 1, #G.GAME.tags do
+			local args = {}
+			for k, v in pairs(context) do
+				args[k] = v
+			end
+			args.type = "using_consumeable"
+			G.GAME.tags[i]:apply_to_run(args)
+		end
+	end
+	if #SMODS.find_card("j_aij_dark_magician") > 0 then
+		-- Putting this here because this effect shouldn't stack with multiple dark magicians
+		if context.using_consumeable and not context.from_dark_magician then
+			local original_set = context.consumeable.ability.set
+			local sets = { "Tarot", "Planet", "Spectral" }
+
+			local ret_table = {}
+
+			-- Sends appropriate context calls for using each consumeble type
+			for _, set in ipairs(sets) do
+				if original_set ~= set then
+					context.consumeable.ability.set = set
+					SMODS.calculate_context({
+						using_consumeable = true,
+						consumeable = context.consumeable,
+						area = context.area,
+						from_dark_magician = true,
+					})
+					context.consumeable.ability.set = original_set
+				end
+			end
+		end
+		if context.all_in_jest and context.all_in_jest.before_using_consumeable and not context.from_dark_magician then
+			local original_set = context.all_in_jest.consumeable.ability.set
+			local sets = { "Tarot", "Planet", "Spectral" }
+
+			local ret_table = {}
+
+			-- Sends appropriate context calls for using each consumeble type
+			for _, set in ipairs(sets) do
+				if original_set ~= set then
+					context.all_in_jest.consumeable.ability.set = set
+					SMODS.calculate_context({
+						all_in_jest = {
+							before_using_consumeable = true,
+							consumeable = context.all_in_jest.consumeable,
+							area = context.all_in_jest.area,
+						},
+						from_dark_magician = true,
+					})
+					context.all_in_jest.consumeable.ability.set = original_set
+				end
+			end
+		end
+
+		-- To avoid retriggering effects that apply on generic consumable use (e.g. Vino Veritas in this mod)
+		-- We mark each joker as being triggered after one trigger,
+		-- and prevent it from being triggered again with a can_calculate hook in dark_magician.lua
+		if context.post_trigger then
+			local other_context = context.other_context
+			if
+				(
+					other_context.using_consumeable
+					or (other_context.all_in_jest and other_context.all_in_jest.before_using_consumeable)
+				) and not context.blueprint_card
+			then
+				local other_card = context.other_card
+				other_card.aij_dark_magician_triggered = true
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						other_card.aij_dark_magician_triggered = false
+						return true
+					end,
+				}))
+			end
+		end
 	end
 end
 

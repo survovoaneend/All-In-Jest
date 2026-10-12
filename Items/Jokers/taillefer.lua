@@ -48,7 +48,7 @@ local taillefer = {
 				xmult = card.ability.extra.xmult,
 			}
 		end
-		if context.end_of_round and G.GAME.blind.boss and not context.blueprint and context.main_eval then
+		if context.end_of_round and context.main_eval and context.beat_boss and not context.blueprint then
 			card.ability.extra.current_boss_blinds = card.ability.extra.current_boss_blinds + 1
 			if card.ability.extra.current_boss_blinds >= card.ability.extra.boss_blinds then
 				SMODS.destroy_cards(card, nil, nil, true)

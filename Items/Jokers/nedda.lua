@@ -27,10 +27,10 @@ local nedda = {
 
 	calculate = function(self, card, context)
 		if
-			not context.end_of_round
-			and context.individual
+			context.individual
 			and context.cardarea == G.hand
 			and context.other_card:get_id() == 12
+			and not context.end_of_round
 		then
 			if context.other_card.debuff then
 				return {

@@ -34,6 +34,12 @@ return {
 			aij_button_moons = "Moons",
 			aij_button_visuals = "Visuals / Accessibility",
 			aij_button_consistency = "Consistency",
+			aij_enable_astrals = "Enable Astrals",
+			aij_enable_astrals_tooltip = {
+				"Enables Astral cards and",
+				"related effects to show up",
+				"{s:0.8,C:red}(Requires restart)",
+			},
 			aij_enable_moons = "Enable Moons",
 			aij_enable_moons_tooltip = {
 				"Enables {C:chips}Chips{} and {C:mult}Mult{}-type",
@@ -3126,7 +3132,7 @@ return {
 				text = {
 					"At the start of the {C:attention}round{},",
 					"search {C:attention}#1#{} card from your",
-					"{C:attention}deck{} to your hand",
+					"{C:attention}deck{} to add to your hand",
 				},
 			},
 			j_aij_bumper_sticker = {
@@ -5047,7 +5053,7 @@ return {
 				name = "Twisted Pair",
 				text = {
 					"If hand is a {C:attention}Pair{}, each card",
-					"gains a suit {C:attention}patch{} corresponding",
+					"gains a {C:attention}suit patch{} corresponding",
 					"to the suit of the {C:attention}other card",
 				},
 			},
@@ -5436,7 +5442,8 @@ return {
 				name = "Tool",
 				text = {
 					"Cards that change {C:attention}suit{}",
-					"permanently gain {C:mult}+#1#{} Mult",
+					"gain the {C:attention}suit patch{}",
+					"of their {C:attention}old suit{}",
 				},
 			},
 			j_aij_tipples_the_clown = {
@@ -11113,6 +11120,20 @@ return {
 					"{C:attention}All{} cards in your hand",
 					"are given a {C:attention}single",
 					"{C:attention}random{} enhancement",
+				},
+			},
+		},
+		alt_texture = {
+			alt_tex_aij_joker_retextures = {
+				name = "Joker Textures",
+			},
+		},
+		texture_packs = {
+			texpack_aij_nevernamed_retrextures = {
+				name = "All in Jest Retextures",
+				text = {
+					"Vanilla sprites redrawn",
+					"by Nevernamed",
 				},
 			},
 		},

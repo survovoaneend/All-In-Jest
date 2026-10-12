@@ -58,6 +58,8 @@ local kalyptos = {
 		SMODS.Joker.super.generate_ui(self, info_queue, cardd, desc_nodes, specific_vars, full_UI_table)
 		if G.deck ~= nil and cardd and cardd.area and cardd.area.config.type == "joker" then
 			local cards = {}
+			local old_paused = G.SETTINGS.paused
+			G.SETTINGS.paused = true -- Best way I can think to pause calculations here, it's a bit jank
 			for i = #G.deck.cards, #G.deck.cards - cardd.ability.future_sense + 1, -1 do
 				if i > 0 then
 					local card = copy_card(G.deck.cards[i], nil, nil, G.playing_card)
@@ -84,6 +86,7 @@ local kalyptos = {
 				ml = 0,
 				scale = 0.4,
 			})
+			G.SETTINGS.paused = old_paused
 		end
 	end,
 }

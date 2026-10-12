@@ -11,7 +11,7 @@ pattern = "-- TARGET: evaluate your own general effects"
 position = "before"
 match_indent = true
 payload = '''
-if context.end_of_round and not context.repetition and not context.individual then
+if context.end_of_round and context.main_eval then
     if card.ability and card.ability.aij_pc_rental and card.area == G.deck and not card.ability.aij_pc_rental_triggered then
         if G.GAME.all_in_jest and G.GAME.all_in_jest.sticker_effects and G.GAME.all_in_jest.sticker_effects['pc_rental'].active then
             local temp = G.GAME.all_in_jest.sticker_effects['pc_rental']

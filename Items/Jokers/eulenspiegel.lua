@@ -25,7 +25,7 @@ local eulenspiegel = {
 		return { vars = { card.ability.ante_mod, card.ability.Xmult_mod, card.ability.Xmult } }
 	end,
 	calculate = function(self, card, context)
-		if context.end_of_round and context.cardarea == G.jokers and context.main_eval then
+		if context.end_of_round and context.main_eval then
 			if G.GAME.blind.boss and not context.blueprint then
 				ease_ante(-card.ability.ante_mod)
 				card_eval_status_text(card, "extra", nil, nil, nil, {

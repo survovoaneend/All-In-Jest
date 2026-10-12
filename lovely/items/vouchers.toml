@@ -21,6 +21,7 @@ local _seal = SMODS.poll_seal({mod = G.GAME.all_in_jest.standard_pack_seal_rate 
 
 # Trophy Voucher (1/1) + Big Boss
 # Sets big blind tag to gold if Trophy activates
+# Also sets Big Boss skip tag. Doing this here to maintain important patch order
 # G.FUNCS.cash_out()
 [[patches]] 
 [patches.pattern]
@@ -33,5 +34,6 @@ if G.GAME.used_vouchers.v_aij_trophy and G.GAME.all_in_jest.apply.v_aij_trophy_c
     G.GAME.round_resets.blind_tags.Big = get_next_tag_key('all_in_jest_guarrented_gold_tag')
     G.GAME.round_resets.blind_tags.Big_Boss = get_next_tag_key('all_in_jest_guarrented_gold_tag')
 end
+G.GAME.round_resets.blind_tags.Big_Boss = G.GAME.round_resets.blind_tags.Big
 '''
 match_indent = true

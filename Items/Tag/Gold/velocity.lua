@@ -20,7 +20,7 @@ local velocity_tag = {
 	min_ante = nil,
 
 	loc_vars = function(self, info_queue, tag)
-		local cur_money = tag.config.extra.money - (tag.config.extra.money_mod * G.GAME.round)
+		local cur_money = math.max(tag.config.extra.money - (tag.config.extra.money_mod * G.GAME.round), 0)
 		return { vars = { tag.config.extra.money, tag.config.extra.money_mod, cur_money } }
 	end,
 

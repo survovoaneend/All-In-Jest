@@ -46,7 +46,7 @@ local parking_space = {
 			end
 		end
 
-		if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+		if context.end_of_round and context.main_eval and not context.blueprint then
 			local limit = #G.jokers.cards or 5
 			card.ability.extra.target_slot = math.ceil(pseudorandom("parking_space") * limit)
 

@@ -59,9 +59,10 @@ local the_jester = {
 						func = function()
 							if G.consumeables.config.card_limit > #G.consumeables.cards then
 								play_sound("timpani")
-								local _card = create_card(nil, G.consumeables, nil, nil, nil, nil, "c_fool", nil)
-								_card:add_to_deck()
-								G.consumeables:emplace(_card)
+								SMODS.add_card({
+									area = G.consumeables,
+									key = "c_fool",
+								})
 							end
 							return true
 						end,
@@ -72,7 +73,7 @@ local the_jester = {
 				end
 			end
 		end
-		if context.end_of_round and not card.ability.extra.active and not context.blueprint then
+		if context.end_of_round and context.main_eval and not card.ability.extra.active and not context.blueprint then
 			card.ability.extra.active = true
 			local eval = function()
 				return card.ability.extra.active

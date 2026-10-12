@@ -4,7 +4,7 @@ local sot = {
 
 	key = "sot",
 	config = {
-		extra = { modxmult = 0.5, curxmult = 1, sold = false },
+		extra = { modxmult = 0.5, curxmult = 1 },
 	},
 	attributes = { "xmult", "tag" },
 	rarity = 2,
@@ -26,28 +26,8 @@ local sot = {
 	end,
 
 	calculate = function(self, card, context)
-		if context.prevent_tag_trigger and not card.ability.extra.sold then
+		if context.prevent_tag_trigger and not card.getting_sliced then
 			return { prevent_trigger = true }
-		end
-		if context.selling_self then
-			card.ability.extra.sold = true
-			G.E_MANAGER:add_event(Event({
-				delay = 0.3,
-				trigger = "before",
-				func = function()
-					if G.STATE == G.STATES.BLIND_SELECT then
-						for _, tag in ipairs(G.GAME.tags) do
-							tag:apply_to_run({ type = "immediate" })
-						end
-						for _, tag in ipairs(G.GAME.tags) do
-							if tag:apply_to_run({ type = "new_blind_choice" }) then
-								break
-							end
-						end
-					end
-					return true
-				end,
-			}))
 		end
 		if context.joker_main then
 			card.ability.extra.curxmult = 1
@@ -60,6 +40,25 @@ local sot = {
 				}
 			end
 		end
+	end,
+
+	remove_from_deck = function(self, card, from_debuff)
+		card.getting_sliced = true
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				if G.STATE == G.STATES.BLIND_SELECT or G.TAROT_INTERRUPT == G.STATES.BLIND_SELECT then
+					for _, tag in ipairs(G.GAME.tags) do
+						tag:apply_to_run({ type = "immediate" })
+					end
+					for _, tag in ipairs(G.GAME.tags) do
+						if tag:apply_to_run({ type = "new_blind_choice" }) then
+							break
+						end
+					end
+				end
+				return true
+			end,
+		}))
 	end,
 }
 return { name = { "Jokers" }, items = { sot } }

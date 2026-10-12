@@ -11,7 +11,7 @@ SMODS.ConsumableType({
 
 local aij_SMODS_card_collection_UIBox = SMODS.card_collection_UIBox
 SMODS.card_collection_UIBox = function(_pool, rows, args)
-	if _base_pool == G.P_CENTER_POOLS.Tarot then
+	if _pool == G.P_CENTER_POOLS.Tarot then
 		for _, v in ipairs(G.P_CENTER_POOLS.aij_hex_tarot) do
 			if v.discovered then
 				table.insert(_pool, v)

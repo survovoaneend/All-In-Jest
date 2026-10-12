@@ -41,15 +41,16 @@ local isonomic_joker = {
 					G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
 					return {
 						focus = juiced_card,
-						func = function()
+						pre_func = function()
 							G.E_MANAGER:add_event(Event({
 								trigger = "before",
 								delay = 0.0,
 								func = function()
-									local cardd =
-										create_card("Consumeables", G.consumeables, nil, nil, nil, nil, nil, "ison")
-									cardd:add_to_deck()
-									G.consumeables:emplace(cardd)
+									SMODS.add_card({
+										set = "Consumeables",
+										area = G.consumeables,
+										key_append = "ison",
+									})
 									G.GAME.consumeable_buffer = 0
 									return true
 								end,

@@ -31,12 +31,7 @@ local protophanes = {
 
 	calculate = function(self, card, context)
 		if context.individual and context.cardarea == G.play and G.deck then
-			local next_card = nil
-			for i = tonumber(card.ability.future_sense), #G.deck.cards do
-				if #G.deck.cards > 0 then
-					next_card = G.deck.cards[i]
-				end
-			end
+			local next_card = #G.deck.cards > 0 and G.deck.cards[1]
 			if next_card and context.other_card:get_id() == next_card:get_id() then
 				return {
 					xmult = card.ability.extra.xmult,
@@ -48,8 +43,10 @@ local protophanes = {
 		SMODS.Joker.super.generate_ui(self, info_queue, cardd, desc_nodes, specific_vars, full_UI_table)
 		if G.deck ~= nil and cardd and cardd.area and cardd.area.config.type == "joker" then
 			local cards = {}
-			local i = 1
+			local old_paused = G.SETTINGS.paused
+			G.SETTINGS.paused = true -- Best way I can think to pause calculations here, it's a bit jank
 			if #G.deck.cards > 0 then
+				local i = 1
 				local card = copy_card(G.deck.cards[i], nil, nil, G.playing_card)
 
 				-- Re-adds negative to preview if it was stripped by the mod
@@ -72,6 +69,7 @@ local protophanes = {
 				ml = 0,
 				scale = 0.4,
 			})
+			G.SETTINGS.paused = old_paused
 		end
 	end,
 }

@@ -59,24 +59,22 @@ local algorab_pin = {
 			if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
 				if SMODS.pseudorandom_probability(card, "capella", 1, card.ability.extra.odds) then
 					G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-					return {
-						focus = card,
-						message = localize("k_plus_tarot"),
+					G.E_MANAGER:add_event(Event({
+						trigger = "before",
+						delay = 0.0,
 						func = function()
-							G.E_MANAGER:add_event(Event({
-								trigger = "before",
-								delay = 0.0,
-								func = function()
-									local cardd = create_card("Tarot", G.consumeables, nil, nil, nil, nil, nil, "zanni")
-									cardd:add_to_deck()
-									G.consumeables:emplace(cardd)
-									G.GAME.consumeable_buffer = 0
-									return true
-								end,
-							}))
+							SMODS.add_card({
+								set = "Tarot",
+								area = G.consumeables,
+								key_append = "algorab",
+							})
+							G.GAME.consumeable_buffer = 0
+							return true
 						end,
+					}))
+					return {
+						message = localize("k_plus_tarot"),
 						colour = G.C.SECONDARY_SET.Tarot,
-						card = card,
 					}
 				else
 					return { message = localize("k_nope_ex"), colour = G.C.SECONDARY_SET.Tarot }

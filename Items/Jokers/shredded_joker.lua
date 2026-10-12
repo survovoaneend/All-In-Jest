@@ -43,7 +43,7 @@ local shredded_joker = {
 			})
 			return nil, true
 		end
-		if context.end_of_round and not context.blueprint and card.ability.extra.mult > 0 then
+		if context.end_of_round and context.main_eval and not context.blueprint and card.ability.extra.mult > 0 then
 			card.ability.extra.mult = 0
 			return {
 				message = localize("k_reset"),
