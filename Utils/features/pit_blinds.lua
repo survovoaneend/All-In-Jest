@@ -12,7 +12,7 @@ end
 function All_in_Jest.force_pit_blind()
 	local blue_stake_replacement_blind = (
 		(G.GAME.stake >= 5 and All_in_Jest.config.blue_stake_rework)
-		or (G.GAME.aij_poly_chips and G.GAME.aij_poly_chips["aij_the_pit"] > 0)
+		or (G.GAME.aij_poly_chips and (G.GAME.aij_poly_chips["aij_the_pit"] or 0) > 0)
 	) and G.GAME.round_resets.ante == G.GAME.all_in_jest.pit_blind_ante
 	local all_pit_blinds_challenge = G.GAME.modifiers["aij_all_pit_blinds"] and G.GAME.round_resets.ante >= 2
 	local not_showdown_blind = not (G.GAME.round_resets.ante % G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2)
@@ -30,7 +30,7 @@ function All_in_Jest.get_current_blind_mult()
 end
 
 function All_in_Jest.gladiator_blinds_in_play()
-	return (G.GAME.aij_poly_chips and G.GAME.aij_poly_chips["aij_gladiator"] > 0) or false
+	return (G.GAME.aij_poly_chips and (G.GAME.aij_poly_chips["aij_gladiator"] or 0) > 0) or false
 end
 
 G.FUNCS.jest_gladiator_blinds = function(e)
