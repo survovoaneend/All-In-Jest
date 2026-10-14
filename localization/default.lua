@@ -1528,6 +1528,13 @@ return {
 					"instead of scoring",
 				},
 			},
+			m_aij_agate = {
+				name = "Agate",
+				text = {
+					"Grants a unique effect",
+					"for this card's suit",
+				},
+			},
 			m_aij_seigaiha = {
 				name = "Seigaiha Card",
 				text = {
@@ -10969,6 +10976,62 @@ return {
 				text = {
 					"Scored {C:hearts}Hearts{}",
 					"give {X:mult,C:white}X#1#{} Mult",
+				},
+			},
+			m_aij_agate_Diamonds = {
+				name = "Crystalic",
+				text = {
+					"{C:money}$#1#{} when scored",
+				},
+			},
+			m_aij_agate_Hearts = {
+				name = "Heliotropic",
+				text = {
+					"{C:green}#1# in #2#{} chance",
+					"to give {X:mult,C:white}X#3#{} when scored",
+				},
+			},
+			m_aij_agate_Spades = {
+				name = "Prehistoric",
+				text = {
+					"{C:chips}+#1#{} extra chips",
+				},
+			},
+			m_aij_agate_Clubs = {
+				name = "Chalcedonic",
+				text = {
+					"{C:mult}+#1#{} mult",
+				},
+			},
+			m_aij_agate_paperback_Crowns = {
+				name = "Ferric",
+				text = {
+					"{C:green}#1# in #2#{} chance",
+					"to created a random {C:tarot}Tarot{} card",
+					"{C:inactive}(Must have room)",
+				},
+			},
+			m_aij_agate_paperback_Stars = {
+				name = "Silicic",
+				text = {
+					"{X:chips,C:white}X1{}",
+					"{X:chips,C:white}+X#1#{} for each",
+					"other played {C:paperback_stars}Star",
+				},
+			},
+			m_aij_agate_bunc_Halberds = {
+				name = "Mythic",
+				text = {
+					"{C:chips}+#1#{} extra chips",
+					"{C:mult}+#2#{} mult",
+				},
+			},
+			m_aij_agate_bunc_Fleurons = {
+				name = "Loric",
+				text = {
+					"{C:green}#1# in #2#{} chance",
+					"to earn {C:money}${} equal to",
+					"this card's Chips",
 				},
 			},
 			p_aij_guess_the_jest = {
