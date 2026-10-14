@@ -242,3 +242,30 @@ do -- AIJ patch
 end
 '''
 match_indent = true
+
+
+# Fix destroyed cards being played and softlocking the game
+# G.FUNCS.play_cards_from_highlighted
+[[patches]] 
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "draw_card(G.hand, G.play, i*100/#G.hand.highlighted, 'up', nil, G.hand.highlighted[i])"
+position = "at"
+payload = '''
+if G.hand.highlighted[i] and not G.hand.highlighted[i].getting_sliced then -- AIJ patch override
+    draw_card(G.hand, G.play, i*100/#G.hand.highlighted, 'up', nil, G.hand.highlighted[i])
+end
+'''
+match_indent = true
+
+# Have hand played with zero scoring cards default to high card
+#  G.FUNCS.get_poker_hand_info()
+[[patches]] 
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = "local text, disp_text, loc_disp_text =*"
+position = "after"
+payload = '''
+text = "High Card" -- All in Jest Patch
+'''
+match_indent = true
