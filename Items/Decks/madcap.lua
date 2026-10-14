@@ -5,21 +5,15 @@ local madcap = {
 	order = 6,
 	pos = { x = 1, y = 1 },
 	unlocked = false,
-	ignore = true,
-	unlock_condition = { hidden = true },
+	unlock_condition = {type = 'win_deck', deck = 'b_aij_melded'},
 	config = {},
 	loc_vars = function(self)
 		return { vars = { self.config.joker_slot } }
 	end,
-	locked_loc_vars = function(self, info_queue, card)
-		if not self.unlocked then
-			return { key = "b_aij_madcap_hidden" }
-		end
-	end,
-	check_for_unlock = function(self, args)
-		-- Currently none
-		return true
-	end,
+	-- check_for_unlock = function(self, args)
+	-- 	-- Currently none
+	-- 	return true
+	-- end,
 	apply = function(self, back)
 		G.GAME.all_in_jest.weird_enhancements = true
 	end,
@@ -52,13 +46,11 @@ local madcap = {
 							and G.pack_cards.cards[1]
 							and G.pack_cards.VT.y < G.ROOM.T.h
 						then
-							local i = 1
-							for _, v in ipairs(G.pack_cards.cards) do
-								if v.config.center == G.P_CENTERS.c_base then
+							for i, v in ipairs(G.pack_cards.cards) do
+								if v.ability.set == "Default" then
 									local enhance = SMODS.poll_enhancement({ guaranteed = true, key = "madcap" .. i })
-									v:set_ability(G.P_CENTERS[enhance], nil, true)
+									v:set_ability(G.P_CENTERS[enhance])
 								end
-								i = i + 1
 							end
 							return true
 						end

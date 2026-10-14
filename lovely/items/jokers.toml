@@ -552,18 +552,6 @@ if has_circuit_diagram then
         end
     end
 end
-for i = #self.cards, 1, -1 do
-    local card = self.cards[i]
-    if SMODS.has_enhancement(card, 'm_aij_cloud') then
-        table.remove(self.cards, i)
-
-        local half = math.floor(#self.cards / 2)
-        local pos = pseudorandom('jest_astrology_tag', half + 1, #self.cards + 1)
-
-        table.insert(self.cards, pos, card)
-    end
-end
-
 '''
 match_indent = true
 

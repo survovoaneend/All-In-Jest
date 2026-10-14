@@ -4,7 +4,7 @@ local lunar = {
 	atlas = "enhancements_atlas",
 	order = 9,
 	pos = { x = 7, y = 5 },
-	ignore = true,
+	-- no_collection = true,
 	config = {
 		extra = {},
 	},
@@ -35,12 +35,7 @@ local lunar = {
 	end,
 
 	in_pool = function(self, args)
-		if G.GAME then
-			if G.GAME.all_in_jest and G.GAME.all_in_jest.weird_enhancements then
-				return true
-			end
-		end
-		return false
+        return G.GAME and G.GAME.all_in_jest and G.GAME.all_in_jest.weird_enhancements
 	end,
 }
 

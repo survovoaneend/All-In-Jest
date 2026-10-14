@@ -328,3 +328,27 @@ if center.set_collection_sprite then
 end
 '''
 match_indent = true
+
+# Cloud Cards (1/1)
+# Move cloud cards to the top half of the deck after shuffling
+# CardArea:shuffle()
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = "pseudoshuffle(self.cards, pseudoseed(_seed or 'shuffle'))"
+position = "after"
+payload = '''
+for i = #self.cards, 1, -1 do
+    local card = self.cards[i]
+    if SMODS.has_enhancement(card, 'm_aij_cloud') then
+        table.remove(self.cards, i)
+
+        local half = math.floor(#self.cards / 2)
+        local pos = pseudorandom('jest_astrology_tag', half + 1, #self.cards + 1)
+
+        table.insert(self.cards, pos, card)
+    end
+end
+
+'''
+match_indent = true

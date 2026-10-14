@@ -574,7 +574,8 @@ return {
 					"{C:attention}Standard Packs",
 					"All cards in {C:attention}Standard Packs",
 					"have a random {C:attention}Enhancement",
-					"{C:red}Weirder{} Enhancements may appear",
+					"{C:red,E:1}Weirder{} Enhancements",
+					"may appear",
 				},
 				unlock = {
 					"",
@@ -1510,6 +1511,7 @@ return {
 					"{C:attention}poker hand{} by {C:attention}#3#{} level",
 				},
 			},
+			-- Weird Enhancements
 			m_aij_memphis = {
 				name = "Memphis Card",
 				text = {

@@ -4,7 +4,7 @@ local memphis = {
 	atlas = "enhancements_atlas",
 	order = 8,
 	pos = { x = 6, y = 5 },
-	ignore = true,
+	-- no_collection = true,
 	config = {
 		extra = {
 			x_mult = 1,
@@ -36,12 +36,7 @@ local memphis = {
 	end,
 
 	in_pool = function(self, args)
-		if G.GAME then
-			if G.GAME.all_in_jest and G.GAME.all_in_jest.weird_enhancements then
-				return true
-			end
-		end
-		return false
+        return G.GAME and G.GAME.all_in_jest and G.GAME.all_in_jest.weird_enhancements
 	end,
 }
 
