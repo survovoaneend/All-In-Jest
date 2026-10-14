@@ -70,7 +70,7 @@ if G.CONTROLLER.HID.controller then
 position = "before"
 payload = '''
 if self.config.type == 'hand' then
-    if (SMODS.get_enhancements(card).m_aij_ice or All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_aij_ice) and not card.debuff then
+    if (SMODS.has_enhancement(card, "m_aij_ice") or All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_aij_ice) and not card.debuff then
         return true
     end
 end
@@ -79,24 +79,28 @@ match_indent = true
 
 # Ice Cards (2/4)
 # Force Ice Cards to always be selectable
+# Regex accounts for handy patch
 # CardArea:can_highlight()
 [[patches]] 
-[patches.pattern]
+[patches.regex]
 target = "cardarea.lua"
-pattern = '''
-if #self.highlighted >= self.config.highlighted_limit then
-    card:highlight(false)
-else
-    self.highlighted[#self.highlighted+1] = card
-    card:highlight(true)
-    if not silent then play_sound('cardSlide1') end
-end
-'''
+pattern = '''(?<indent>[\t ]*)if #self\.highlighted >= self\.config\.highlighted_limit then
+(?:[\t ]*)    card:highlight\(false\)
+(?:[\t ]*)else
+(?:[\t ]*)    self\.highlighted\[#self\.highlighted\+1\] = card
+(?:[\t ]*)    card:highlight\(true\)
+(?:(?:([\t ]*)    if not silent then play_sound\('cardSlide1'\) end)|(?:(?:[\t ]*)    if Handy\.ARGS\.increase_highlight_pitch then
+(?:[\t ]*)        if not silent then play_sound\('cardSlide1', math\.min\(1\.25, 1 \+ #self\.highlighted \* 0\.015\)\) end
+(?:[\t ]*)    else
+(?:[\t ]*)        if not silent then play_sound\('cardSlide1'\) end
+(?:[\t ]*)    end))
+(?:[\t ]*)end'''
 position = "after"
+line_prepend = "$indent"
 payload = '''
 local ice = {}
 for k, v in pairs(self.highlighted) do
-    if (SMODS.get_enhancements(self.highlighted[k]).m_aij_ice or All_in_Jest.get_inherent_effects(self.highlighted[k], 'enhancement', nil, true).m_aij_ice) and not self.highlighted[k].debuff then
+    if (SMODS.has_enhancement(self.highlighted[k], "m_aij_ice") or All_in_Jest.get_inherent_effects(self.highlighted[k], 'enhancement', nil, true).m_aij_ice) and not self.highlighted[k].debuff then
         ice[#ice+1] = v
     end
 end
@@ -109,13 +113,12 @@ if not card.highlighted and #ice >= 1 then
         if not silent then play_sound('cardSlide1') end
     end
 end
-if (SMODS.get_enhancements(card).m_aij_ice or All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_aij_ice) and not card.debuff and not card.highlighted then
+if (SMODS.has_enhancement(card, "m_aij_ice") or All_in_Jest.get_inherent_effects(card, 'enhancement', nil, true).m_aij_ice) and not card.debuff and not card.highlighted then
     self.highlighted[#self.highlighted+1] = card
     card:highlight(true)
     if not silent then play_sound('cardSlide1') end
 end
 '''
-match_indent = true
 
 # Ice Cards (3/4)
 # Exclude ice cards that exceed hand limit from determining in hand type
