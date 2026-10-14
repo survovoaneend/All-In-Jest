@@ -3304,6 +3304,15 @@ return {
 					"{C:inactive}(Currently{} {C:mult}+#2#{C:inactive} Mult){}",
 				},
 			},
+			j_aij_sticker_exclude_stake_stickers = {
+				name = "Sticker",
+				text = {
+					"{C:mult}+#1#{} Mult for each {C:attention}sticker{}",
+					"on your {C:attention}Jokers{}",
+					"{C:inactive}(Excluding Stake Stickers){}",
+					"{C:inactive}(Currently{} {C:mult}+#2#{C:inactive} Mult){}",
+				},
+			},
 			j_aij_feedback_form = {
 				name = "Feedback Form",
 				text = {
