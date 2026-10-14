@@ -369,6 +369,7 @@ return {
 		},
 		poker_hands = {
 			["aij_Royal Flush"] = "Royal Flush",
+			["aij_Nothing_q"] = "Nothing?",
 		},
 		poker_hand_descriptions = {
 			["aij_Royal Flush"] = {
