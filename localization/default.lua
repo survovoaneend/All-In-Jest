@@ -1528,6 +1528,14 @@ return {
 					"instead of scoring",
 				},
 			},
+			m_aij_seigaiha = {
+				name = "Seigaiha Card",
+				text = {
+					"{C:green}+#1# Odds{}",
+					"while this card",
+					"stays in hand",
+				},
+			},
 			m_aij_cloud = {
 				name = "Cloud Card",
 				text = {
