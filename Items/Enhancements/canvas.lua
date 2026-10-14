@@ -166,34 +166,36 @@ function SMODS.has_playing_card_property(card, key)
 		SMODS.has_enhancement(card, "m_aij_canvas")
 		and (key == "no_suit" or key == "no_rank" or key == "replace_base_card")
 	then
-		if card.area == G.play and not card.debuff then
-			for k, v in pairs(G.play.cards) do
-				if v == card and v ~= G.play.cards[#G.play.cards] and not G.play.cards[k + 1].debuff then
-					return SMODS.has_playing_card_property(G.play.cards[k + 1], key)
-				end
-			end
-		elseif card.area == G.hand and not card.debuff then
-			local highlighted = false
-			local highlighted_cards = {}
-			for k, v in pairs(G.hand.cards) do
-				for key, val in pairs(G.hand.highlighted) do
-					if v == val then
-						highlighted_cards[#highlighted_cards + 1] = v
+		if card.area ~= nil then
+			if card.area == G.play and not card.debuff then
+				for k, v in pairs(G.play.cards) do
+					if v == card and v ~= G.play.cards[#G.play.cards] and not G.play.cards[k + 1].debuff then
+						return SMODS.has_playing_card_property(G.play.cards[k + 1], key)
 					end
 				end
-			end
-			for k, v in pairs(highlighted_cards) do
-				if v == card then
-					highlighted = true
-					if v ~= highlighted_cards[#highlighted_cards] and not highlighted_cards[k + 1].debuff then
-						return SMODS.has_playing_card_property(highlighted_cards[k + 1], key)
-					end
-				end
-			end
-			if not highlighted then
+			elseif card.area == G.hand and not card.debuff then
+				local highlighted = false
+				local highlighted_cards = {}
 				for k, v in pairs(G.hand.cards) do
-					if v == card and v ~= G.hand.cards[#G.hand.cards] and not G.hand.cards[k + 1].debuff then
-						return SMODS.has_playing_card_property(G.hand.cards[k + 1], key)
+					for key, val in pairs(G.hand.highlighted) do
+						if v == val then
+							highlighted_cards[#highlighted_cards + 1] = v
+						end
+					end
+				end
+				for k, v in pairs(highlighted_cards) do
+					if v == card then
+						highlighted = true
+						if v ~= highlighted_cards[#highlighted_cards] and not highlighted_cards[k + 1].debuff then
+							return SMODS.has_playing_card_property(highlighted_cards[k + 1], key)
+						end
+					end
+				end
+				if not highlighted then
+					for k, v in pairs(G.hand.cards) do
+						if v == card and v ~= G.hand.cards[#G.hand.cards] and not G.hand.cards[k + 1].debuff then
+							return SMODS.has_playing_card_property(G.hand.cards[k + 1], key)
+						end
 					end
 				end
 			end
