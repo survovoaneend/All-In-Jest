@@ -81,6 +81,7 @@ local agate = {
 	end,
 	calculate = function(self, card, context)
 		if context.main_scoring and context.cardarea == G.play then
+			local return_table = {}
 			for suit, suit_effect in pairs(card.ability.extra) do
 				if card:is_suit(suit) and suit_effect then
 					local triggers = true
@@ -89,11 +90,14 @@ local agate = {
 					end
 					if triggers then
 						if suit_effect.return_values then
-							return copy_table(suit_effect.return_values)
+							for k, v in pairs(suit_effect.return_values) do
+								return_table[k] = return_table[k] or 0
+								return_table[k] = return_table[k] + v
+							end
 						-- These have dynamic return values
 						elseif card:is_suit("paperback_Crowns") then
 							G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-							return {
+							return_table.extra = {
 								message = localize("k_plus_tarot"),
 								pre_func = function()
 									G.E_MANAGER:add_event(Event({
@@ -120,19 +124,18 @@ local agate = {
 								end
 							end
 							if stars > 0 then
-								return {
-									x_chips = 1 + suit_effect.xchips_mod * stars,
-								}
+								return_table["x_chips"] = return_table["x_chips"] or 0
+								return_table["x_chips"] = return_table["x_chips"] + 1 + suit_effect.xchips_mod * stars
 							end
 						elseif card:is_suit("bunc_Fleurons") then
 							local value = card:get_chip_bonus()
-							return {
-								dollars = value,
-							}
+							return_table["dollars"] = return_table["dollars"] or 0
+							return_table["dollars"] = return_table["dollars"] + value
 						end
 					end
 				end
 			end
+			return return_table
 		end
 	end,
 
