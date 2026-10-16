@@ -72,7 +72,7 @@ local agate = {
 					end
 				end
 
-				info_queue[#info_queue + 1] = { set = "Other", key = "m_aij_agate_" .. suit, vars = info_queue_vars}
+				info_queue[#info_queue + 1] = { set = "Other", key = "m_aij_agate_" .. suit, vars = info_queue_vars }
 			end
 		end
 		return {
