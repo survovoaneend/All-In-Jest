@@ -1521,8 +1521,8 @@ return {
 			m_aij_lunar = {
 				name = "Lunar Card",
 				text = {
-					"Apply {C:chips}Chips{} to {C:attention}Poker",
-					"{C:attention}Hand permanently{}",
+					"Apply {C:chips}Chips{} to Poker",
+					"Hand {C:attention}permanently{}",
 					"instead of scoring",
 				},
 			},
