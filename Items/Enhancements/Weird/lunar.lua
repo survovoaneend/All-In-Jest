@@ -25,7 +25,7 @@ local lunar = {
 				func = function(base, hand, parameter, level_up)
 					return base + chip_val
 				end,
-				level_up = 1,
+				level_up = 0,
 				from = card,
 				instant = nil,
 				parameters = { "chips" },
