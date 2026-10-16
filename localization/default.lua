@@ -570,10 +570,8 @@ return {
 			b_aij_madcap = {
 				name = "Madcap Deck",
 				text = {
-					"{C:attention}+2{} Options available in",
-					"{C:attention}Standard Packs",
-					"All cards in {C:attention}Standard Packs",
-					"have a random {C:attention}Enhancement",
+					"Standard Packs have {C:attention}+2{} Options",
+					"and contain only {C:attention}enhanced cards{}",
 					"{C:red,E:1}Weirder{} Enhancements",
 					"may appear",
 				},
