@@ -205,7 +205,7 @@ target = 'functions/UI_definitions.lua'
 pattern = "{n=G.UIT.T, config={text = number_format(blind_amt)*"
 position = 'before'
 match_indent = true
-payload = '''(blind_choice.config.name == "bl_aij_the_clay" and not aij_has_blind_drawn and {n=G.UIT.O, config={object = DynaText({string = getRandomClayBlindReqs(blind_amt), colours = {disabled and G.C.UI.TEXT_INACTIVE or blind_state_text_colour or G.C.RED},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = score_number_scale(blind_state_text_colour and 0.47 or 0.9, blind_amt), shadow = not disabled, min_cycle_time = 0})}}) or'''
+payload = '''((blind_choice.config.name == "bl_aij_the_clay" or blind_choice.config.name == "bl_aij_the_clay_GL") and not aij_has_blind_drawn and {n=G.UIT.O, config={object = DynaText({string = getRandomClayBlindReqs(blind_amt), colours = {disabled and G.C.UI.TEXT_INACTIVE or blind_state_text_colour or G.C.RED},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = score_number_scale(blind_state_text_colour and 0.47 or 0.9, blind_amt), shadow = not disabled, min_cycle_time = 0})}}) or'''
 
 # The Clay blind (2/2)
 # create_UIBox_blind_popup
@@ -217,6 +217,7 @@ pattern = "{n=G.UIT.T, config={text = blind.mult..localize('k_x_base'), scale = 
 position = "before"
 match_indent = true
 payload = '''blind.key == "bl_aij_the_clay" and {n=G.UIT.T, config={text = "2~5"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or 
+             blind.key == "bl_aij_the_clay_GL" and {n=G.UIT.T, config={text = "4~10"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or 
               blind.aij_variable_req and false and {n=G.UIT.T, config={text = blind.mult.."+?"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or '''
 
 # The Journey Blind (1/1)

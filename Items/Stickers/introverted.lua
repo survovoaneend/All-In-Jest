@@ -10,7 +10,7 @@ local introverted = {
 		return { vars = {} }
 	end,
 	sets = { Joker = true },
-	rate = 1,
+	rate = 0.3,
 	should_apply = function(self, card, center, area, bypass_roll)
 		if area == G.shop_jokers or area == G.pack_cards then
 			return SMODS.Sticker.should_apply(self, card, center, area, bypass_roll)

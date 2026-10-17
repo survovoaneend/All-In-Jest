@@ -1408,7 +1408,8 @@ return {
 			bl_aij_rubber_duck = {
 				name = "Rubber Duck",
 				text = {
-					"Base mult is",
+					"Base chips or",
+					"base mult is",
 					"scored as level 1",
 				},
 			},
@@ -1571,6 +1572,14 @@ return {
 					"be drawn",
 				},
 			},
+			bl_aij_the_arm_GL = {
+				name = "The Arm",
+				text = {
+					"Decrease level of",
+					"all poker hands",
+					"each hand played",
+				},
+			},
 			bl_aij_the_ulcer_GL = {
 				name = "The Ulcer",
 				text = {
@@ -1588,6 +1597,13 @@ return {
 				name = "The Wall",
 				text = {
 					"Very large blind",
+				},
+			},
+			bl_aij_the_groan_GL = {
+				name = "The Groan",
+				text = {
+					"+2X Base after",
+					"playing a hand",
 				},
 			},
 			bl_aij_the_fish_GL = {
@@ -1627,6 +1643,20 @@ return {
 					"full deck",
 				},
 			},
+			bl_aij_the_clay_GL = {
+				name = "The Clay",
+				text = {
+					"Randomly large blind",
+				},
+			},
+			bl_aij_the_celebration_GL = {
+				name = "The Celebration",
+				text = {
+					"+0.25X Base for",
+					"each unused hand",
+					"this run",
+				},
+			},
 			bl_aij_the_flint_GL = {
 				name = "The Flint",
 				text = {
@@ -1661,6 +1691,29 @@ return {
 				text = {
 					"Reduce score by 20%",
 					"per enhanced card played",
+				},
+			},
+			bl_aij_the_enigma_GL = {
+				name = "The Enigma",
+				text = {
+					"Enhanced cards",
+					"cannot be drawn",
+				},
+			},
+			bl_aij_the_need_GL = {
+				name = "The Need",
+				text = {
+					"Must have at",
+					"least $#1# for",
+					"hands to score",
+				},
+			},
+			bl_aij_the_need_GL_collection = {
+				name = "The Need",
+				text = {
+					"Must have at least",
+					"(X1.5 starting money)",
+					"for hands to score",
 				},
 			},
 			bl_aij_the_tooth_GL = {

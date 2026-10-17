@@ -733,8 +733,8 @@ end
 
 -- score reduction effects
 local calculate_round_score_ref = SMODS.calculate_round_score
-function SMODS.calculate_round_score()
-	local ret = calculate_round_score_ref()
+function SMODS.calculate_round_score(flames)
+	local ret = calculate_round_score_ref(flames)
 	if G.GAME.aij_apply_score_reduction then
 		return ret * (G.GAME.aij_score_reduction or 1) + 0.5 -- ?? floats are being weird and this fixes it
 	end
