@@ -14,7 +14,10 @@ local the_auroch = {
 
 	loc_vars = function(self)
 		return {
-			vars = { G.GAME.current_round.aij_the_auroch.suit, G.GAME.current_round.aij_the_auroch.rank },
+			vars = {
+				localize(G.GAME.current_round.aij_the_auroch.suit, "suits_plural"),
+				localize(G.GAME.current_round.aij_the_auroch.rank, "ranks"),
+			},
 		}
 	end,
 
@@ -28,12 +31,12 @@ local the_auroch = {
 		if
 			G.GAME.current_round.aij_the_auroch
 			and G.GAME.current_round.aij_the_auroch.suit
-			and G.GAME.current_round.aij_the_auroch.rank
+			and G.GAME.current_round.aij_the_auroch.id
 			and area == G.hand
 		then
 			if
 				card:is_suit(G.GAME.current_round.aij_the_auroch.suit)
-				or card:get_id() == G.GAME.current_round.aij_the_auroch.rank
+				or card:get_id() == G.GAME.current_round.aij_the_auroch.id
 			then
 				return true
 			end

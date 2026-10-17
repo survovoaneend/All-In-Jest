@@ -40,13 +40,6 @@ local you_broke_it = {
 	calculate = function(self, card, context)
 		if context.before and not context.blueprint then
 			local enhanced_a_card = false
-			local message_text = localize({
-				type = "name_text",
-				set = "Enhanced",
-				key = G.GAME.current_round.jest_you_broke_it_card
-						and G.GAME.current_round.jest_you_broke_it_card.enhancement
-					or "m_bonus",
-			})
 			if context.scoring_hand and #context.scoring_hand > 0 then
 				for k, v in ipairs(context.scoring_hand) do
 					if
@@ -69,6 +62,13 @@ local you_broke_it = {
 			end
 
 			if enhanced_a_card then
+				local message_text = localize({
+					type = "name_text",
+					set = "Enhanced",
+					key = G.GAME.current_round.jest_you_broke_it_card
+							and G.GAME.current_round.jest_you_broke_it_card.enhancement
+						or "m_bonus",
+				})
 				return {
 					message = message_text,
 					card = card,
