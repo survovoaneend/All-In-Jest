@@ -39,6 +39,30 @@ local astrologer = {
 	end,
 }
 
+
+local ref_create_card_aij = create_card
+function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
+	if forced_key and G.P_CENTERS[forced_key].set == "Planet" and next(SMODS.find_card("j_aij_astrologer")) then
+		for k, v in pairs(G.P_CENTER_POOLS.Planet) do
+			if v.config.moon and v.config.hand_type == G.P_CENTERS[forced_key].config.hand_type then
+				if (G.GAME.round_resets.ante % 2) == 0 then
+					if v.config.chips then
+						forced_key = v.key
+						break
+					end
+				else
+					if v.config.mult then
+						forced_key = v.key
+						break
+					end
+				end
+			end
+		end
+	end
+
+	return ref_create_card_aij(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
+end
+
 -- Theoretically less RNG than changing the object pool, and does exactly what it says
 -- Also allows other planets without moons to appear, which seems fairer
 local ref_smods_poll_object_aij = SMODS.poll_object
