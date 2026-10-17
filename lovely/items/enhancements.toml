@@ -338,17 +338,35 @@ target = "cardarea.lua"
 pattern = "pseudoshuffle(self.cards, pseudoseed(_seed or 'shuffle'))"
 position = "after"
 payload = '''
-for i = #self.cards, 1, -1 do
-    local card = self.cards[i]
-    if SMODS.has_enhancement(card, 'm_aij_cloud') then
-        table.remove(self.cards, i)
+do -- All in Jest Cloud Cards
+    self:set_ranks()
+    local clouds = {}
+    for i = 1, #self.cards, 1 do
+        local card = self.cards[i]
+        if SMODS.has_enhancement(card, 'm_aij_cloud') and not card.debuff then
+            clouds[#clouds + 1] = card
+        end
+    end
+    local deck_size = #self.cards
+    local half = math.floor(deck_size / 2)
 
-        local half = math.floor(#self.cards / 2)
-        local pos = pseudorandom('jest_astrology_tag', half + 1, #self.cards + 1)
+    -- Remember, index 1 is bottom of the deck
+    for i, cloud_card in ipairs(clouds) do
+        local cloud_index = cloud_card.rank
+        -- sendDebugMessage("OG Index: " .. tostring(cloud_card.rank), "AIJ")
+        if cloud_index < half then
+            table.remove(self.cards, cloud_index)
 
-        table.insert(self.cards, pos, card)
+            -- We increase the index by a bit more than half the deck size
+            -- since every cloud card yet to be moved can potentially bump its index down by 1.
+            -- This ensures no cloud card is bumped to the bottom half
+            -- (Unless over half the deck is cloud cards)
+            local new_index = cloud_index + half + (#clouds - i)
+            table.insert(self.cards, math.min(new_index, deck_size), cloud_card)
+            self:set_ranks()
+        end
+        -- sendDebugMessage("New Index: " .. tostring(cloud_card.rank), "AIJ")
     end
 end
-
 '''
 match_indent = true
