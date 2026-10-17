@@ -9892,7 +9892,7 @@ return {
 				name = "Palmistry",
 				text = {
 					"Apply a random {C:attention}enhancement{}",
-					"to all cards {C:attention}held in hand",
+					"to each card {C:attention}held in hand",
 				},
 			},
 			c_aij_gegenschein = {
