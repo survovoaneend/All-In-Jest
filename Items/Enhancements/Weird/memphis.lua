@@ -36,7 +36,7 @@ local memphis = {
 	end,
 
 	in_pool = function(self, args)
-        return G.GAME and G.GAME.all_in_jest and G.GAME.all_in_jest.weird_enhancements
+		return G.GAME and G.GAME.all_in_jest and G.GAME.all_in_jest.weird_enhancements
 	end,
 }
 

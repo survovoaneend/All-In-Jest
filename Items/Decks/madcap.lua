@@ -5,7 +5,7 @@ local madcap = {
 	order = 6,
 	pos = { x = 1, y = 1 },
 	unlocked = false,
-	unlock_condition = {type = 'win_deck', deck = 'b_aij_melded'},
+	unlock_condition = { type = "win_deck", deck = "b_aij_melded" },
 	config = {},
 	loc_vars = function(self)
 		return { vars = { self.config.joker_slot } }
