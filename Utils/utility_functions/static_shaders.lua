@@ -23,8 +23,12 @@ local function load_file_content(path, id)
 end
 
 All_in_Jest.load_shaders = function()
-	G.SHADERS["aij_wood_new_spritesheet"] =
-		love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/wood_new_spritesheet.fs"))
+	G.SHADERS["aij_wood_spritesheet"] =
+		love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/wood_spritesheet.fs"))
+	G.SHADERS["aij_agate_spritesheet"] =
+		love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/agate_spritesheet.fs"))
+	G.SHADERS["aij_lunar_spritesheet"] =
+		love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/lunar_spritesheet.fs"))
 	G.SHADERS["aij_burnt_spritesheet"] =
 		love.graphics.newShader(load_file_content("assets/shaders/spritesheet_shaders/burnt_spritesheet.fs"))
 	G.SHADERS["aij_fusion_spritesheet"] =

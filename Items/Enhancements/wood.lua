@@ -77,8 +77,8 @@ function process_texture_wood(image, high_contrast)
 
 	love.graphics.setColor(1, 1, 1, 1)
 
-	G.SHADERS["aij_wood_new_spritesheet"]:send("image_dims", { image:getDimensions() })
-	love.graphics.setShader(G.SHADERS["aij_wood_new_spritesheet"])
+	G.SHADERS["aij_wood_spritesheet"]:send("image_dims", { image:getDimensions() })
+	love.graphics.setShader(G.SHADERS["aij_wood_spritesheet"])
 
 	-- Draw image with wood shader on new canvas
 	love.graphics.draw(image)

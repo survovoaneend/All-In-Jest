@@ -144,4 +144,76 @@ local agate = {
 	end,
 }
 
+function process_texture_agate(image, high_contrast)
+	local width, height = image:getDimensions()
+	local canvas =
+		love.graphics.newCanvas(width, height, { type = "2d", readable = true, dpiscale = image:getDPIScale() })
+
+	love.graphics.push("all")
+
+	love.graphics.setCanvas(canvas)
+	local agate_bg_colour = { 79 / 255, 99 / 255, 103 / 255, 0 }
+	love.graphics.clear(agate_bg_colour)
+
+	love.graphics.setColor(1, 1, 1, 1)
+
+	G.SHADERS["aij_agate_spritesheet"]:send("image_dims", { image:getDimensions() })
+	love.graphics.setShader(G.SHADERS["aij_agate_spritesheet"])
+
+	-- Draw image with agate shader on new canvas
+	love.graphics.draw(image)
+
+	love.graphics.pop()
+
+	image_data = canvas:newImageData()
+
+	return love.graphics.newImage(image_data, { mipmaps = true, dpiscale = image:getDPIScale() }), image_data
+end
+
+function pre_agateed(a, high_contrast)
+	local atlas = a.name or a.key
+	local name = atlas .. "_agateed"
+	if high_contrast then
+		name = name .. "_hc"
+	end
+	if SMODS.get_atlas(name) then
+		return {
+			old_name = atlas,
+			new_name = name,
+			atlas = SMODS.get_atlas(name),
+		}
+	else
+		return {
+			old_name = atlas,
+			new_name = name,
+			atlas = nil,
+		}
+	end
+end
+
+function agate_atlas(a, high_contrast)
+	local agateed = pre_agateed(a, high_contrast)
+
+	if not agateed.atlas then
+		local atlas_type = a.atlas_table or "ASSET_ATLAS"
+		G[atlas_type][agateed.new_name] = {}
+		SMODS.get_atlas(agateed.new_name).agate = true
+		if high_contrast then
+			SMODS.get_atlas(agateed.new_name).name = SMODS.get_atlas(agateed.old_name).name .. "_agateed_hc"
+		else
+			SMODS.get_atlas(agateed.new_name).name = SMODS.get_atlas(agateed.old_name).name .. "_agateed"
+		end
+		SMODS.get_atlas(agateed.new_name).type = SMODS.get_atlas(agateed.old_name).type
+		SMODS.get_atlas(agateed.new_name).px = SMODS.get_atlas(agateed.old_name).px
+		SMODS.get_atlas(agateed.new_name).py = SMODS.get_atlas(agateed.old_name).py
+		SMODS.get_atlas(agateed.new_name).frames = SMODS.get_atlas(agateed.old_name).frames
+
+		image, image_data = process_texture_agate(SMODS.get_atlas(agateed.old_name).image, high_contrast)
+		SMODS.get_atlas(agateed.new_name).image = image
+		SMODS.get_atlas(agateed.new_name).image_data = image_data
+	end
+
+	return SMODS.get_atlas(agateed.new_name)
+end
+
 return { name = { "Enhancements" }, items = { agate } }

@@ -56,22 +56,23 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     if (pixel.a > 0) {
         if (up_left_pixel.a > 0) {
             // Multiply with highlight colour
-            return_pixel.rgb = return_pixel.rgb * vec3(242, 215, 169) / 0xff;
+            return_pixel.rgb = return_pixel.rgb * vec3(244, 244, 244) / 0xff;
         } else {
             // Multiply with shadow colour
-            return_pixel.rgb = return_pixel.rgb * vec3(117, 95, 87) / 0xff;
+            return_pixel.rgb = return_pixel.rgb * vec3(142, 155, 159) / 0xff;
         }
 
         vec3 hsv = rgbToHsv(return_pixel.rgb);
-        hsv.g = hsv.g * 0.75;
+        // hsv.g = hsv.g * 0.75;
+        // hsv.b = hsv.b * 1.25;
         return_pixel.rgb = hsvToRgb(hsv);
         // return_pixel.a = pixel.a * 0.9;
     }
         
     else if (up_left_pixel.a > 0)
-        return_pixel = vec4(vec3(242, 215, 169)/0xff, up_left_pixel.a);
+        return_pixel = vec4(vec3(244, 244, 244)/0xff, up_left_pixel.a);
     else if (down_right_pixel.a > 0)
-        return_pixel = vec4(vec3(117, 95, 87)/0xff, down_right_pixel.a);
+        return_pixel = vec4(vec3(142, 155, 159)/0xff, down_right_pixel.a);
             
     return return_pixel;
 }

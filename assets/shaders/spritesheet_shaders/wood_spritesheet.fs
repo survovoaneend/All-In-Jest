@@ -1,3 +1,11 @@
+#if defined(VERTEX) || __VERSION__ > 100 || defined(GL_FRAGMENT_PRECISION_HIGH)
+	#define MY_HIGHP_OR_MEDIUMP highp
+#else
+	#define MY_HIGHP_OR_MEDIUMP mediump
+#endif
+
+extern MY_HIGHP_OR_MEDIUMP vec2 image_dims;
+
 vec3 rgbToHsv(vec3 c) {
     float maxC = max(c.r, max(c.g, c.b));
     float minC = min(c.r, min(c.g, c.b));
@@ -38,15 +46,32 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
 {
     vec4 pixel = Texel(texture, texture_coords);
 
-    vec4 tex = vec4(1., 1., 1., 0.1);
+    vec2 texture_coords_unstandardised = texture_coords * image_dims;
 
-    pixel.a = pixel.a * 0.8;
+    vec4 down_right_pixel = Texel(texture, (texture_coords_unstandardised + vec2(1, 1)) / image_dims);
+    vec4 up_left_pixel = Texel(texture, (texture_coords_unstandardised - vec2(1, 1)) / image_dims);
 
-    vec3 hsv = rgbToHsv(pixel.rgb);
-    hsv.r = 26.90/255;
-    pixel.rgb = hsvToRgb(hsv);
+    vec4 return_pixel = pixel;
 
-    pixel = vec4(pixel.rgb, pixel.a);
+    if (pixel.a > 0) {
+        if (up_left_pixel.a > 0) {
+            // Multiply with highlight colour
+            return_pixel.rgb = return_pixel.rgb * vec3(242, 215, 169) / 0xff;
+        } else {
+            // Multiply with shadow colour
+            return_pixel.rgb = return_pixel.rgb * vec3(117, 95, 87) / 0xff;
+        }
 
-    return pixel;
+        vec3 hsv = rgbToHsv(return_pixel.rgb);
+        hsv.g = hsv.g * 0.75;
+        return_pixel.rgb = hsvToRgb(hsv);
+        // return_pixel.a = pixel.a * 0.9;
+    }
+        
+    else if (up_left_pixel.a > 0)
+        return_pixel = vec4(vec3(242, 215, 169)/0xff, up_left_pixel.a);
+    else if (down_right_pixel.a > 0)
+        return_pixel = vec4(vec3(117, 95, 87)/0xff, down_right_pixel.a);
+            
+    return return_pixel;
 }
