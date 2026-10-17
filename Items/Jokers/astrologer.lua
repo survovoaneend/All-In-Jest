@@ -39,7 +39,6 @@ local astrologer = {
 	end,
 }
 
-
 local ref_create_card_aij = create_card
 function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
 	if forced_key and G.P_CENTERS[forced_key].set == "Planet" and next(SMODS.find_card("j_aij_astrologer")) then
