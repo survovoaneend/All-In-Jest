@@ -1700,6 +1700,20 @@ return {
 					"cannot be drawn",
 				},
 			},
+			bl_aij_the_steed_GL = {
+				name = "The Steed",
+				text = {
+					"Debuff held cards",
+					"when hand is played",
+				},
+			},
+			bl_aij_the_beast_GL = {
+				name = "The Beast",
+				text = {
+					"Destroy all Food Jokers",
+					"when hand is played",
+				},
+			},
 			bl_aij_the_need_GL = {
 				name = "The Need",
 				text = {
@@ -1716,6 +1730,14 @@ return {
 					"for hands to score",
 				},
 			},
+			bl_aij_the_ox_GL = {
+				name = "The Ox",
+				text = {
+					"Set money to $0 if",
+					"poker hand has been",
+					"played 5 or more times",
+				},
+			},
 			bl_aij_the_tooth_GL = {
 				name = "The Tooth",
 				text = {
@@ -1727,6 +1749,29 @@ return {
 				name = "The Gift",
 				text = {
 					"Set money to $10",
+				},
+			},
+			bl_aij_the_brimstone_GL = {
+				name = "The Brimstone",
+				text = {
+					"Lose $#1#",
+					"on discard",
+				},
+			},
+			bl_aij_the_brimstone_GL_collection = {
+				name = "The Brimstone",
+				text = {
+					"Lose (X0.5",
+					"starting money)",
+					"on discard",
+				},
+			},
+			bl_aij_the_wound_GL = {
+				name = "The Wound",
+				text = {
+					"Must discard",
+					"before each",
+					"hand played",
 				},
 			},
 			bl_aij_the_storm_GL = {

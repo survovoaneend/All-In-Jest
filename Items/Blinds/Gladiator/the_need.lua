@@ -48,7 +48,12 @@ local get_blind_ref = SMODS.get_new_blind
 function SMODS.get_new_blind(blind_type)
 	local ret = get_blind_ref(blind_type)
 	if ret == 'bl_aij_the_need_GL' then
-		G.GAME.current_round.aij_the_need_money = math.floor(G.GAME.dollars * 1.5)
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.GAME.current_round.aij_the_need_money = math.floor(G.GAME.dollars * 1.5)
+				return true
+			end,
+		}))
 	end
 	return ret
 end
