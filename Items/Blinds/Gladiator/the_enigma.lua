@@ -11,7 +11,7 @@ local the_enigma = {
 		if G.playing_cards then
 			local count = 0
 			for k, v in ipairs(G.playing_cards) do
-				if  then
+				if next(SMODS.get_enhancements(v)) then
 					count = count + 1
 				end
 			end
