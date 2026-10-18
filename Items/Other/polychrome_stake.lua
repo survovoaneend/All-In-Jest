@@ -147,13 +147,13 @@ function check_and_set_high_score(score, amt)
 		and G.GAME.aij_poly_points > 0
 		and score == "furthest_ante"
 		and type(amt) == "number"
-		and amt > 8
+		and amt > (G.GAME.win_ante or 8)
 	then
-		G.PROFILES[G.SETTINGS.profile].aij_poly_points = G.PROFILES[G.SETTINGS.profile].aij_poly_points
-			or { points = 0, ante = amt - 1 }
-		if G.GAME.aij_poly_points >= G.PROFILES[G.SETTINGS.profile].aij_poly_points.points then
-			G.PROFILES[G.SETTINGS.profile].aij_poly_points.ante =
-				math.max(G.PROFILES[G.SETTINGS.profile].aij_poly_points.ante, amt - 1)
+		local current_profile = G.PROFILES[G.SETTINGS.profile]
+
+		current_profile.aij_poly_points = current_profile.aij_poly_points or { points = 0, ante = amt - 1 }
+		if G.GAME.aij_poly_points >= current_profile.aij_poly_points.points then
+			current_profile.aij_poly_points.ante = math.max(current_profile.aij_poly_points.ante, amt - 1)
 		end
 		if
 			G.GAME.selected_back
@@ -162,11 +162,14 @@ function check_and_set_high_score(score, amt)
 			and G.GAME.selected_back.effect.center.key
 		then
 			local deck_key = G.GAME.selected_back.effect.center.key
-			G.PROFILES[G.SETTINGS.profile].deck_usage[deck_key].aij_poly_points = G.PROFILES[G.SETTINGS.profile].deck_usage[deck_key].aij_poly_points
-				or { points = 0, ante = amt - 1 }
-			if G.GAME.aij_poly_points >= G.PROFILES[G.SETTINGS.profile].deck_usage[deck_key].aij_poly_points.points then
-				G.PROFILES[G.SETTINGS.profile].deck_usage[deck_key].aij_poly_points.ante =
-					math.max(G.PROFILES[G.SETTINGS.profile].deck_usage[deck_key].aij_poly_points.ante, amt - 1)
+			local current_deck_usage = current_profile.deck_usage[deck_key]
+			if current_deck_usage == nil then
+				set_deck_usage()
+				current_deck_usage = current_profile.deck_usage[deck_key]
+			end
+			current_deck_usage.aij_poly_points = current_deck_usage.aij_poly_points or { points = 0, ante = amt - 1 }
+			if G.GAME.aij_poly_points >= current_deck_usage.aij_poly_points.points then
+				current_deck_usage.aij_poly_points.ante = math.max(current_deck_usage.aij_poly_points.ante, amt - 1)
 			end
 		end
 	end
