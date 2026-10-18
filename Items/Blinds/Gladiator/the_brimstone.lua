@@ -23,7 +23,7 @@ local the_brimstone = {
 
 	collection_loc_vars = function(self)
 		return {
-			key = 'bl_aij_the_brimstone_GL_collection',
+			key = "bl_aij_the_brimstone_GL_collection",
 		}
 	end,
 
@@ -38,7 +38,7 @@ local the_brimstone = {
 local get_blind_ref = SMODS.get_new_blind
 function SMODS.get_new_blind(blind_type)
 	local ret = get_blind_ref(blind_type)
-	if ret == 'bl_aij_the_brimstone_GL' then
+	if ret == "bl_aij_the_brimstone_GL" then
 		G.E_MANAGER:add_event(Event({
 			func = function()
 				G.GAME.current_round.aij_the_brimstone_money = math.floor(G.GAME.dollars * 0.5)

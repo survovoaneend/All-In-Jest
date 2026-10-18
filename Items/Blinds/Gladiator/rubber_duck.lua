@@ -20,14 +20,16 @@ local rubber_duck = {
 	dollars = 8,
 
 	calculate = function(self, blind, context)
-        if blind.disabled then return end
+		if blind.disabled then
+			return
+		end
 
-        if context.modify_hand then
-            blind.triggered = true
+		if context.modify_hand then
+			blind.triggered = true
 			hand_chips = mod_chips(G.GAME.hands[context.scoring_name].s_chips)
 			mult = mod_mult(G.GAME.hands[context.scoring_name].s_mult)
-			update_hand_text({ sound = 'chips2', modded = true }, { chips = hand_chips, mult = mult })
-        end
-    end,
+			update_hand_text({ sound = "chips2", modded = true }, { chips = hand_chips, mult = mult })
+		end
+	end,
 }
 return { name = { "Finisher Blinds" }, items = { rubber_duck } }

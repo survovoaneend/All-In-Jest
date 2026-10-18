@@ -30,7 +30,7 @@ local the_need = {
 
 	collection_loc_vars = function(self)
 		return {
-			key = 'bl_aij_the_need_GL_collection',
+			key = "bl_aij_the_need_GL_collection",
 		}
 	end,
 
@@ -47,7 +47,7 @@ local the_need = {
 local get_blind_ref = SMODS.get_new_blind
 function SMODS.get_new_blind(blind_type)
 	local ret = get_blind_ref(blind_type)
-	if ret == 'bl_aij_the_need_GL' then
+	if ret == "bl_aij_the_need_GL" then
 		G.E_MANAGER:add_event(Event({
 			func = function()
 				G.GAME.current_round.aij_the_need_money = math.floor(G.GAME.dollars * 1.5)
