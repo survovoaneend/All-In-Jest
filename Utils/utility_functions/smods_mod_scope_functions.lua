@@ -358,6 +358,11 @@ function All_in_Jest.calculate(self, context)
 			end
 		end
 	end
+	if context.pre_discard and not context.hook then
+		local text, disp_text = G.FUNCS.get_poker_hand_info(context.full_hand)
+		print(text)
+		G.GAME.all_in_jest.discarded_poker_hands_ante[text] = true
+	end
 end
 
 function All_in_Jest.custom_card_areas(game)

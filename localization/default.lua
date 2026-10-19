@@ -1649,6 +1649,15 @@ return {
 					"Randomly large blind",
 				},
 			},
+			bl_aij_the_hoard_GL = {
+				name = "The Hoard",
+				text = {
+					"Smaller Blinds this Ante,",
+					"excess score this Ante",
+					"adds to this blind",
+					"when selected",
+				},
+			},
 			bl_aij_the_celebration_GL = {
 				name = "The Celebration",
 				text = {
@@ -1774,11 +1783,35 @@ return {
 					"hand played",
 				},
 			},
+			bl_aij_the_ancestor_GL = {
+				name = "The Ancestor",
+				text = {
+					"Poker hands",
+					"discarded this Ante",
+					"cannot be played",
+				},
+			},
+			bl_aij_the_seed_GL = {
+				name = "The Seed",
+				text = {
+					"Next Ante is a",
+					"Small Blind, Boss Blind,",
+					"and Showdown Blind",
+				},
+			},
 			bl_aij_the_storm_GL = {
 				name = "The Storm",
 				text = {
-					"Destroy all scored",
-					"cards",
+					"Destroy all",
+					"scored cards",
+				},
+			},
+			bl_aij_the_pear_GL = {
+				name = "The Pear",
+				text = {
+					"After Play, randomize",
+					"suit and rank of",
+					"played cards",
 				},
 			},
 			bl_aij_the_spear_GL = {
@@ -1796,12 +1829,28 @@ return {
 					"become Perishable",
 				},
 			},
+			bl_aij_the_solid_GL = {
+				name = "The Solid",
+				text = {
+					"All discarded",
+					"or unscored cards",
+					"become Eternal",
+				},
+			},
 			bl_aij_the_loan_GL = {
 				name = "The Loan",
 				text = {
 					"When defeated,",
 					"#1# in #2# cards remaining",
 					"in deck become Rental",
+				},
+			},
+			bl_aij_amber_acorn_GL = {
+				name = "Amber Acorn",
+				text = {
+					"Shuffle all Jokers",
+					"and played cards",
+					"each hand played",
 				},
 			},
 			bl_aij_verdant_leaf_GL = {
@@ -1825,6 +1874,14 @@ return {
 					"debuffed each hand",
 				},
 			},
+			bl_aij_cerulean_bell_GL = {
+				name = "Cerulean Bell",
+				text = {
+					"On Play or Discard,",
+					"deselect 1 random card",
+					"and select another in hand",
+				},
+			},
 			bl_aij_obsidian_blade_GL = {
 				name = "Obsidian Blade",
 				text = {
@@ -1832,10 +1889,34 @@ return {
 					"extra large blind",
 				},
 			},
+			bl_aij_golden_string_GL = {
+				name = "Golden String",
+				text = {
+					"Lose $2 per card drawn,",
+					"all cards are debuffed",
+					"at $#1# or less",
+				},
+			},
+			bl_aij_golden_string_GL_collection = {
+				name = "Golden String",
+				text = {
+					"Lose $2 per card drawn,",
+					"all cards are debuffed",
+					"at (starting money) or less",
+				},
+			},
+			bl_aij_tarnished_tile_GL = {
+				name = "Tarnished_tile",
+				text = {
+					"Discard all cards",
+					"in your deck",
+					"after your 3rd draw",
+				},
+			},
 			bl_aij_rubber_duck_GL = {
 				name = "Rubber Duck",
 				text = {
-					"All poker hands are",
+					"Base Chips an Mult are",
 					"scored as level 1",
 				},
 			},

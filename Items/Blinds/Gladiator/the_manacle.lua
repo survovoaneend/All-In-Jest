@@ -14,14 +14,17 @@ local the_manacle = {
 	order = 3,
 	dollars = 5,
 
+	set_blind = function(self)
+		G.GAME.current_round.aij_the_manacle = { hand_size = 0 }
+	end,
 	disable = function(self)
-		G.hand:change_size(-(G.GAME.blind.hand_size_taken or 0))
+		G.hand:change_size(-G.GAME.current_round.aij_the_manacle.hand_size)
 	end,
 	defeat = function(self)
-		if G.GAME.blind.disabled then
-			return
+		if not G.GAME.blind.disabled then
+			G.hand:change_size(-G.GAME.current_round.aij_the_manacle.hand_size)
 		end
-		G.hand:change_size(-(G.GAME.blind.hand_size_taken or 0))
+		G.GAME.current_round.aij_the_manacle = nil
 	end,
 	calculate = function(self, blind, context)
 		if blind.disabled then
@@ -29,7 +32,7 @@ local the_manacle = {
 		end
 		if context.before then
 			G.hand:change_size(-1)
-			blind.hand_size_taken = (blind.hand_size_taken or 0) + 1
+			G.GAME.current_round.aij_the_manacle.hand_size = G.GAME.current_round.aij_the_manacle.hand_size + 1
 		end
 	end,
 }

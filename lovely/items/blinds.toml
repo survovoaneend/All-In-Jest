@@ -1,7 +1,7 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = 214748364
+priority = 214748365
 
 
 ########################################
@@ -97,6 +97,13 @@ position = 'after'
 match_indent = true
 payload = '''
 if type == 'Big_Boss' and G.GAME.round_resets.blind_states['Big_Boss'] == 'Defeated' then extras = nil end
+if (G.GAME.round_resets.blind_choices['Boss'] == 'bl_aij_the_hoard_GL' or G.GAME.round_resets.blind_choices['Big_Boss'] == 'bl_aij_the_hoard_GL') then
+    if type == 'Small' then
+        blind_amt = get_blind_amount(G.GAME.round_resets.blind_ante)*0.25*G.GAME.starting_params.ante_scaling
+    elseif type == 'Big' then
+        blind_amt = get_blind_amount(G.GAME.round_resets.blind_ante)*0.5*G.GAME.starting_params.ante_scaling
+    end
+end
 if All_in_Jest.aij_alias_type(blind_choice.config.aij_blind_amount_display) == 'function' then
     local blind_mult = blind_choice.config.mult
     if next(SMODS.find_card("j_aij_fall_of_count_chaligny")) then
@@ -249,8 +256,8 @@ payload = '''elseif blindname == 'bl_aij_the_journey' and G.GAME.current_round.a
     end
 '''
 
-# The Connection (1/1)
-# Add excess chips to blind requirements
+# The Connection + The Hoard (1/1)
+# Change blind requirements based on other bosses
 # Blind:set_blind()
 [[patches]]
 [patches.pattern]
@@ -259,6 +266,13 @@ pattern = "self.in_blind = true"
 position = "after"
 match_indent = true
 payload = '''
+if (G.GAME.round_resets.blind_choices['Boss'] == 'bl_aij_the_hoard_GL' or G.GAME.round_resets.blind_choices['Big_Boss'] == 'bl_aij_the_hoard_GL') then
+    if G.GAME.round_resets.blind.key == 'bl_small' then
+        All_in_Jest.ease_blind_requirement(0.25 - All_in_Jest.get_current_blind_mult(), nil, true)
+    elseif G.GAME.round_resets.blind.key == 'bl_big' then
+        All_in_Jest.ease_blind_requirement(0.5 - All_in_Jest.get_current_blind_mult(), nil, true)
+    end
+end
 if G.GAME.the_connection_extra_chips then
     All_in_Jest.ease_blind_requirement(nil, G.GAME.the_connection_extra_chips, true)
 end
@@ -476,7 +490,9 @@ payload = '''
 if G.GAME.blind.aij_discarded_card then
     local played_hand = {}
     for _, v in ipairs(G.play.cards) do
-        played_hand[#played_hand + 1] = v
+        if not v.ability.aij_bell_dont_add then
+            played_hand[#played_hand + 1] = v
+        end
     end
     played_hand[#played_hand + 1] = G.GAME.blind.aij_discarded_card
     fake_text,fake_disp_text,fake_poker_hands,fake_scoring_hand,fake_non_loc_disp_text = G.FUNCS.get_poker_hand_info(played_hand)

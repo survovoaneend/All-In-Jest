@@ -105,6 +105,7 @@ SMODS.calculate_context({end_of_round = true, game_over = game_over, beat_boss =
 position = "before"
 payload = '''
 if G.GAME.blind.boss and not G.GAME.aij_big_boss_reset_ante then
+    G.GAME.all_in_jest.discarded_poker_hands_ante = {}
     for k, v in pairs(G.GAME.all_in_jest.advanced_hand_usage_ante) do
         G.GAME.all_in_jest.advanced_hand_usage_ante[k] = nil
     end

@@ -15,6 +15,9 @@ local the_hook = {
 	dollars = 5,
 
 	calculate = function(self, blind, context)
+		if context.after then
+			blind.aij_discarded_card = nil
+		end
 		if blind.disabled then
 			return
 		end
@@ -75,9 +78,6 @@ local the_hook = {
 			}))
 			blind.triggered = true
 			delay(0.7)
-		end
-		if context.after then
-			blind.aij_discarded_card = nil
 		end
 	end,
 }

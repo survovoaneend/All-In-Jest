@@ -100,6 +100,7 @@ all_in_jest = {
 	advanced_hand_usage_run = {},
 	advanced_hand_usage_ante = {},
 	advanced_hand_usage_blind = {},
+	discarded_poker_hands_ante = {},
 	previously_sold_jokers = {},
 	previously_destroyed_jokers = {},
 	previously_destroyed_playing_cards = {},
