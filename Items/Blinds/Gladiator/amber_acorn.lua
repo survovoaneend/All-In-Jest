@@ -13,9 +13,11 @@ local amber_acorn = {
 	pos = { x = 0, y = 27 },
 	order = 51,
 	dollars = 8,
-	
+
 	press_play = function(self)
-		if G.GAME.blind.disabled then return end
+		if G.GAME.blind.disabled then
+			return
+		end
 		G.E_MANAGER:add_event(Event({
 			trigger = "immediate",
 			func = function()

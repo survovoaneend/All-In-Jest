@@ -38,7 +38,7 @@ function G.FUNCS.play_cards_from_highlighted(e)
 				end
 			end
 			if not is_selected then
-				unselected[#unselected+1] = v
+				unselected[#unselected + 1] = v
 			end
 		end
 		local new_selected = pseudorandom_element(unselected, pseudoseed("bell_GL_new"))
@@ -62,7 +62,7 @@ function G.FUNCS.discard_cards_from_highlighted(e, hook)
 				end
 			end
 			if not is_selected then
-				unselected[#unselected+1] = v
+				unselected[#unselected + 1] = v
 			end
 		end
 		local new_selected = pseudorandom_element(unselected, pseudoseed("bell_GL_new"))

@@ -20,7 +20,9 @@ local tarnished_tile = {
 	config = { extra = { draws = 0 } },
 
 	calculate = function(self, blind, context)
-		if blind.disabled then return end
+		if blind.disabled then
+			return
+		end
 
 		if context.hand_drawn then
 			blind.ability.extra.draws = blind.ability.extra.draws + 1

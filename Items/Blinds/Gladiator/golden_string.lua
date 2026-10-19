@@ -27,7 +27,7 @@ local golden_string = {
 
 	collection_loc_vars = function(self)
 		return {
-			key = 'bl_aij_golden_string_GL_collection',
+			key = "bl_aij_golden_string_GL_collection",
 		}
 	end,
 
@@ -47,7 +47,9 @@ local golden_string = {
 	end,
 
 	calculate = function(self, blind, context)
-		if blind.disabled then return end
+		if blind.disabled then
+			return
+		end
 		if context.hand_drawn and type(context.hand_drawn) == "table" and #context.hand_drawn > 0 then
 			local drawn = context.hand_drawn
 			blind.triggered = true
@@ -68,7 +70,10 @@ local golden_string = {
 						ease_dollars(-2)
 						G.E_MANAGER:add_event(Event({
 							func = function()
-								if G.GAME.dollars <= G.GAME.current_round.aij_golden_string_money and G.GAME.golden_string_recalc_debuff then
+								if
+									G.GAME.dollars <= G.GAME.current_round.aij_golden_string_money
+									and G.GAME.golden_string_recalc_debuff
+								then
 									G.GAME.golden_string_recalc_debuff = nil
 									for _, v in ipairs(G.playing_cards) do
 										if G.GAME.blind.config.blind:recalc_debuff(v, nil) then
@@ -116,7 +121,7 @@ local golden_string = {
 local get_blind_ref = SMODS.get_new_blind
 function SMODS.get_new_blind(blind_type)
 	local ret = get_blind_ref(blind_type)
-	if ret == 'bl_aij_golden_string_GL' then
+	if ret == "bl_aij_golden_string_GL" then
 		G.E_MANAGER:add_event(Event({
 			func = function()
 				G.GAME.current_round.aij_golden_string_money = math.floor(G.GAME.dollars)

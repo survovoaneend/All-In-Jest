@@ -26,7 +26,7 @@ local the_pear = {
 				end,
 			}))
 			G.E_MANAGER:add_event(Event({
-				trigger = 'after',
+				trigger = "after",
 				delay = 1,
 				func = function()
 					blind:wiggle()
