@@ -195,6 +195,14 @@ function All_in_Jest.set_debuff(card)
 	end
 end
 
+local check_for_valid_contexts = function(context)
+	if context.change_rank or context.repetition_only then
+		return false
+	else
+		return true
+	end
+end
+
 function All_in_Jest.calculate(self, context)
 	if context.ante_end and G.GAME.aij_big_boss_reset_ante then
 		G.GAME.aij_has_big_boss = nil
@@ -293,13 +301,64 @@ function All_in_Jest.calculate(self, context)
 			G.GAME.tags[i]:apply_to_run(args)
 		end
 	end
+
+	if
+		(
+			(context.other_card and SMODS.has_enhancement(context.other_card, "m_aij_dyscalcular"))
+			or (context.destroying_card and SMODS.has_enhancement(context.destroying_card, "m_aij_dyscalcular"))
+		)
+		and check_for_valid_contexts(context)
+		and not context.post_trigger
+		and not context.aij_from_dyscalcular
+	then
+		local card = context.other_card or context.destroying_card
+		sendDebugMessage("dyscalcular", "AIJ")
+		local original_id = card:get_id()
+		local ranks = {
+			["2"] = 2,
+			["3"] = 3,
+			["4"] = 4,
+			["5"] = 5,
+			["6"] = 6,
+			["7"] = 7,
+			["8"] = 8,
+			["9"] = 9,
+			["10"] = 10,
+		}
+
+		return_flags = {}
+
+		-- Sends appropriate context calls for using each consumeble type
+		for _, new_id in pairs(ranks) do
+			if new_id ~= original_id then
+				card.aij_dyscalcular_id_override = new_id
+
+				local new_context = {}
+				for k, v in pairs(context) do
+					new_context[k] = v
+				end
+				new_context.aij_from_dyscalcular = true
+				-- This should only successfully trigger once, so we don't need to worry about values getting overriden (hopefully)
+				flags = SMODS.calculate_context(new_context)
+				for k, v in pairs(flags) do
+					return_flags[k] = v
+				end
+				sendDebugMessage(tprint(return_flags), "AIJ")
+
+				card.aij_dyscalcular_id_override = nil
+			end
+		end
+
+		if return_flags ~= {} then
+			return return_flags
+		end
+	end
+
 	if #SMODS.find_card("j_aij_dark_magician") > 0 then
 		-- Putting this here because this effect shouldn't stack with multiple dark magicians
 		if context.using_consumeable and not context.from_dark_magician then
 			local original_set = context.consumeable.ability.set
 			local sets = { "Tarot", "Planet", "Spectral" }
-
-			local ret_table = {}
 
 			-- Sends appropriate context calls for using each consumeble type
 			for _, set in ipairs(sets) do
@@ -318,8 +377,6 @@ function All_in_Jest.calculate(self, context)
 		if context.all_in_jest and context.all_in_jest.before_using_consumeable and not context.from_dark_magician then
 			local original_set = context.all_in_jest.consumeable.ability.set
 			local sets = { "Tarot", "Planet", "Spectral" }
-
-			local ret_table = {}
 
 			-- Sends appropriate context calls for using each consumeble type
 			for _, set in ipairs(sets) do
@@ -353,7 +410,7 @@ function All_in_Jest.calculate(self, context)
 				other_card.aij_dark_magician_triggered = true
 				G.E_MANAGER:add_event(Event({
 					func = function()
-						other_card.aij_dark_magician_triggered = false
+						other_card.aij_dark_magician_triggered = nil
 						return true
 					end,
 				}))
