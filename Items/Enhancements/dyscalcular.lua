@@ -19,24 +19,7 @@ local dyscalcular = {
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { set = "Other", key = "m_aij_dyscalcular_numbered_rank" }
 	end,
-	calculate = function(self, card, context)
-		if
-			context.post_trigger
-			and (context.other_context.other_card == card or context.other_context.destroying_card == card)
-			and check_for_valid_contexts(context.other_context)
-			and not context.blueprint_card
-		then
-			local triggered_card = context.other_card
-			triggered_card.aij_dyscalcular_triggered = triggered_card.aij_dyscalcular_triggered or {}
-			triggered_card.aij_dyscalcular_triggered[card.unique_val] = true
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					triggered_card.aij_dyscalcular_triggered[card.unique_val] = false
-					return true
-				end,
-			}))
-		end
-	end,
+	calculate = function(self, card, context) end,
 }
 
 local aij_eval_card_ref = eval_card

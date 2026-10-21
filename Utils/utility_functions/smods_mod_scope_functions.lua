@@ -302,55 +302,78 @@ function All_in_Jest.calculate(self, context)
 		end
 	end
 
-	if
-		(
-			(context.other_card and SMODS.has_enhancement(context.other_card, "m_aij_dyscalcular"))
-			or (context.destroying_card and SMODS.has_enhancement(context.destroying_card, "m_aij_dyscalcular"))
-		)
-		and check_for_valid_contexts(context)
-		and not context.post_trigger
-		and not context.aij_from_dyscalcular
-	then
-		local card = context.other_card or context.destroying_card
-		sendDebugMessage("dyscalcular", "AIJ")
-		local original_id = card:get_id()
-		local ranks = {
-			["2"] = 2,
-			["3"] = 3,
-			["4"] = 4,
-			["5"] = 5,
-			["6"] = 6,
-			["7"] = 7,
-			["8"] = 8,
-			["9"] = 9,
-			["10"] = 10,
-		}
-
-		return_flags = {}
-
-		-- Sends appropriate context calls for using each consumeble type
-		for _, new_id in pairs(ranks) do
-			if new_id ~= original_id then
-				card.aij_dyscalcular_id_override = new_id
-
-				local new_context = {}
-				for k, v in pairs(context) do
-					new_context[k] = v
-				end
-				new_context.aij_from_dyscalcular = true
-				-- This should only successfully trigger once, so we don't need to worry about values getting overriden (hopefully)
-				flags = SMODS.calculate_context(new_context)
-				for k, v in pairs(flags) do
-					return_flags[k] = v
-				end
-				sendDebugMessage(tprint(return_flags), "AIJ")
-
-				card.aij_dyscalcular_id_override = nil
+	if not context.retrigger_joker_check and not context.aij_from_dyscalcular and check_for_valid_contexts(context) then
+		if context.post_trigger then
+			if
+				(
+					context.other_context.other_card
+					and SMODS.has_enhancement(context.other_context.other_card, "m_aij_dyscalcular")
+				)
+				or (
+						context.other_context.destroying_card
+						and SMODS.has_enhancement(context.other_context.destroying_card, "m_aij_dyscalcular")
+					)
+					and not context.blueprint_card
+			then
+				local triggered_card = context.other_card
+				local card = context.other_context.other_card or context.other_context.destroying_card
+				triggered_card.aij_dyscalcular_triggered = triggered_card.aij_dyscalcular_triggered or {}
+				triggered_card.aij_dyscalcular_triggered[card.unique_val] = true
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						triggered_card.aij_dyscalcular_triggered[card.unique_val] = false
+						return true
+					end,
+				}))
 			end
-		end
+		else
+			if context.other_card or context.destroying_card then
+				-- sendDebugMessage(tprint(context), "AIJcontext")
+				-- sendDebugMessage(tprint(context.other_card), "AIJothercard")
+				if
+					(context.other_card and SMODS.has_enhancement(context.other_card, "m_aij_dyscalcular"))
+					or (context.destroying_card and SMODS.has_enhancement(context.destroying_card, "m_aij_dyscalcular"))
+				then
+					local card = context.other_card or context.destroying_card
+					sendDebugMessage("dyscalcular", "AIJ")
+					local original_id = card:get_id()
+					local ranks = {
+						["2"] = 2,
+						["3"] = 3,
+						["4"] = 4,
+						["5"] = 5,
+						["6"] = 6,
+						["7"] = 7,
+						["8"] = 8,
+						["9"] = 9,
+						["10"] = 10,
+					}
 
-		if return_flags ~= {} then
-			return return_flags
+					effects = {}
+
+					-- Sends appropriate context calls for using each consumeble type
+					for _, new_id in pairs(ranks) do
+						if new_id ~= original_id then
+							card.aij_dyscalcular_id_override = new_id
+
+							local new_context = {}
+							for k, v in pairs(context) do
+								new_context[k] = v
+							end
+							new_context.aij_from_dyscalcular = true
+							-- This should only successfully trigger once, so we don't need to worry about values getting overriden (hopefully)
+							SMODS.calculate_context(new_context, effects)
+
+							card.aij_dyscalcular_id_override = nil
+						end
+					end
+
+					sendDebugMessage("Return", "AIJ")
+					sendDebugMessage(tprint(effects), "AIJ")
+
+					return SMODS.trigger_effects(effects)
+				end
+			end
 		end
 	end
 
