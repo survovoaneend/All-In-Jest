@@ -1,17 +1,3 @@
-local function contains_number(table, exclusions)
-	for k, v in pairs(table) do
-		if exclusions and exclusions[k] ~= nil and (exclusions[k] == true or exclusions[k] == v) then
-		else
-			if type(v) == "number" and v ~= 0 then
-				return true
-			elseif type(v) == "table" and contains_number(v, exclusions) then
-				return true
-			end
-		end
-	end
-	return false
-end
-
 local broken_fate = {
 	object_type = "Consumable",
 	key = "broken_fate",
@@ -34,7 +20,7 @@ local broken_fate = {
 			-- Check for Ankh and Hex explicitly, as they have unused variables that make it seem like they are compatible
 			return (
 				leftmost_card.config.center.key ~= "c_aij_broken_fate"
-				and contains_number(leftmost_card.ability, {
+				and All_in_Jest.contains_number(leftmost_card.ability, {
 					card_limit = true,
 					h_x_chips = 1,
 					x_chips = 1,

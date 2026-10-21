@@ -3,6 +3,23 @@
 -- E.g. Dongtong, Silver, Charged Cards
 -- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+-- This is a helper function used by a bunch of effects
+-- Helps determine if a card has values to modify
+function All_in_Jest.contains_number(table, exclusions)
+	table = recursive_table_cull(table)
+	for k, v in pairs(table) do
+		if exclusions and exclusions[k] ~= nil and (exclusions[k] == true or exclusions[k] == v) then
+		else
+			if type(v) == "number" and v ~= 0 then
+				return true
+			elseif type(v) == "table" and All_in_Jest.contains_number(v, exclusions) then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 local function round_int(x)
 	return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
 end

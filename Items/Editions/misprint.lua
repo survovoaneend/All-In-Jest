@@ -1,17 +1,3 @@
--- local misprint_shader = {
--- 	object_type = "Shader",
--- 	key = "misprint",
--- 	path = "misprint.fs",
--- 	send_vars = function(sprite, card)
--- 		local temp = nil
--- 		if card.children and card.children.center and card.children.center.scale then
--- 			temp = card.children.center.scale.x
--- 		end
--- 		return {
--- 			card_x = temp,
--- 		}
--- 	end,
--- }
 SMODS.Sound({
 	key = "misprint",
 	path = "misprinted.mp3",
@@ -197,6 +183,15 @@ local misprint = {
 	extra_cost = 4,
 	get_weight = function(self)
 		return self.weight
+	end,
+	aij_can_apply = function(self, card)
+		return (
+			card.config.center.dongtong_compat ~= false
+			and All_in_Jest.contains_number(
+				card.config.center.config,
+				{ x_chips = 1, x_mult = 1, extra_value = true, rarity = true }
+			)
+		) or card.ability.set ~= "Joker"
 	end,
 
 	shader = false,

@@ -1,18 +1,3 @@
-local function contains_number(table, exclusions)
-	table = recursive_table_cull(table)
-	for k, v in pairs(table) do
-		if exclusions and exclusions[k] ~= nil and (exclusions[k] == true or exclusions[k] == v) then
-		else
-			if type(v) == "number" and v ~= 0 then
-				return true
-			elseif type(v) == "table" and contains_number(v, exclusions) then
-				return true
-			end
-		end
-	end
-	return false
-end
-
 local silver = {
 	object_type = "Tag",
 	key = "silver",
@@ -39,7 +24,7 @@ local silver = {
 				if G.P_CENTERS[center.key].dongtong_compat == false then
 					dongtong_compat_pool[i].key = "UNAVAILABLE"
 				elseif
-					not contains_number(
+					not All_in_Jest.contains_number(
 						G.P_CENTERS[center.key].config,
 						{ x_chips = 1, x_mult = 1, extra_value = true, rarity = true }
 					)
