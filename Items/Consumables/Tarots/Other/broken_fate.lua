@@ -90,12 +90,7 @@ local broken_fate = {
 
 -- Set some vanilla consumables to be incompatible
 -- These have variables that look like they make it compatible, but actually aren't
--- Some of these (the seals) should be refactored to work as expected
 G.P_CENTERS["c_ankh"].dongtong_compat = false
 G.P_CENTERS["c_hex"].dongtong_compat = false
-G.P_CENTERS["c_talisman"].dongtong_compat = false
-G.P_CENTERS["c_trance"].dongtong_compat = false
-G.P_CENTERS["c_medium"].dongtong_compat = false
-G.P_CENTERS["c_deja_vu"].dongtong_compat = false
 
 return { name = { "Tarots" }, items = { broken_fate } }

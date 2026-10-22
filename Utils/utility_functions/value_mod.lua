@@ -20,6 +20,8 @@ function All_in_Jest.contains_number(table, exclusions)
 	return false
 end
 
+-- Local functions used in this file
+
 local function round_int(x)
 	return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
 end
@@ -321,3 +323,104 @@ jest_ability_calculate = function(card, equation, extra_value, exclusions, inclu
 		end
 	end
 end
+
+-- -=-=-=-=-=-=-=-
+--  Vanila Fixes
+-- -=-=-=-=-=-=-=-
+
+-- Fix Vanilla Spectrals to have their values modified
+
+-- Aura (this has no hard coded value)
+
+SMODS.Consumable:take_ownership("aura", {
+	config = { max_highlighted = 1 },
+	use = function(self, used_tarot)
+		G.E_MANAGER:add_event(Event({
+			trigger = "after",
+			delay = 0.4,
+			func = function()
+				local over = false
+				local edition = poll_edition("aura", nil, true, true)
+				for i, aura_card in ipairs(G.hand.highlighted) do
+					aura_card:set_edition(edition, true, i ~= 1)
+				end
+				used_tarot:juice_up(0.3, 0.5)
+				return true
+			end,
+		}))
+	end,
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_CENTERS.e_foil
+		info_queue[#info_queue + 1] = G.P_CENTERS.e_holo
+		info_queue[#info_queue + 1] = G.P_CENTERS.e_polychrome
+		return {
+			vars = {
+				card.ability.max_highlighted,
+			},
+		}
+	end,
+}, true)
+
+-- Seal Spectrals (these do have values, but they are ignored)
+
+local seal_use_func = function(self, card)
+	G.E_MANAGER:add_event(Event({
+		func = function()
+			play_sound("tarot1")
+			card:juice_up(0.3, 0.5)
+			return true
+		end,
+	}))
+
+	G.E_MANAGER:add_event(Event({
+		trigger = "after",
+		delay = 0.1,
+		func = function()
+			for i = 1, #G.hand.highlighted do
+				local conv_card = G.hand.highlighted[i]
+				conv_card:set_seal(card.ability.extra, i ~= 1, true)
+			end
+			return true
+		end,
+	}))
+
+	delay(0.5)
+	G.E_MANAGER:add_event(Event({
+		trigger = "after",
+		delay = 0.2,
+		func = function()
+			G.hand:unhighlight_all()
+			return true
+		end,
+	}))
+end
+
+local seal_loc_vars_func = function(self, info_queue, card)
+	info_queue[#info_queue + 1] = G.P_SEALS[card.ability.extra]
+	return {
+		vars = {
+			card.ability.max_highlighted,
+			localize({ type = "name_text", set = "Other", key = card.ability.extra .. "_seal" }),
+			colours = {
+				HEX("a28b8b"),
+			},
+		},
+	}
+end
+
+SMODS.Consumable:take_ownership("talisman", {
+	use = seal_use_func,
+	loc_vars = seal_loc_vars_func,
+}, true)
+SMODS.Consumable:take_ownership("trance", {
+	use = seal_use_func,
+	loc_vars = seal_loc_vars_func,
+}, true)
+SMODS.Consumable:take_ownership("medium", {
+	use = seal_use_func,
+	loc_vars = seal_loc_vars_func,
+}, true)
+SMODS.Consumable:take_ownership("deja_vu", {
+	use = seal_use_func,
+	loc_vars = seal_loc_vars_func,
+}, true)
