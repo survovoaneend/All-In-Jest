@@ -7709,6 +7709,47 @@ return {
 					"Otorga una {C:attention}Etiqueta de Astrología{}",
 				},
 			},
+			-- Change vanilla spectrals to let their descriptions be modified by value changes
+			c_aura = {
+				name = "Aura",
+				text = {
+					"Agrega efectos de {C:dark_edition}laminado{}, {C:dark_edition}holográfico{}",
+					"o {C:dark_edition}polícromo{} a",
+					"{C:attention}#1#{} carta seleccionada de tu mano",
+				},
+			},
+			c_deja_vu = {
+				name = "Déjà vu",
+				text = {
+					"Agrega un {C:red}sello rojo{}",
+					"a {C:attention}#1#{} carta seleccionada",
+					"de tu mano al azar",
+				},
+			},
+			c_medium = {
+				name = "Médium",
+				text = {
+					"Agrega un {C:purple}sello morado{}",
+					"a {C:attention}#1#{} carta seleccionada",
+					"de tu mano al azar",
+				},
+			},
+			c_talisman = {
+				name = "Talismán",
+				text = {
+					"Agrega un {C:attention}sello de oro{}",
+					"a {C:attention}#1#{} carta seleccionada",
+					"de tu mano al azar",
+				},
+			},
+			c_trance = {
+				name = "Trance",
+				text = {
+					"Agrega un {C:blue}sello azul{}",
+					"a {C:attention}#1#{} carta seleccionada",
+					"de tu mano al azar",
+				},
+			},
 		},
 		aij_astral = {
 			c_aij_algol = {

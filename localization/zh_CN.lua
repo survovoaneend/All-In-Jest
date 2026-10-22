@@ -4336,6 +4336,47 @@ return {
 					"打上{V:1}#2#",
 				},
 			},
+			-- Change vanilla spectrals to let their descriptions be modified by value changes
+			c_aura = {
+				name = "光环",
+				text = {
+					"选定{C:attention}#1#{}张手牌，为其添加",
+					"{C:dark_edition}闪箔卡{}、{C:dark_edition}镭射卡{}、或{C:dark_edition}多彩卡{}",
+					"效果中的一种",
+				},
+			},
+			c_deja_vu = {
+				name = "既视感",
+				text = {
+					"给你手牌中的",
+					"{C:attention}#1#{}张所选卡牌",
+					"加上{C:red}红色蜡封{}",
+				},
+			},
+			c_medium = {
+				name = "灵媒",
+				text = {
+					"给你手牌中的",
+					"{C:attention}#1#{}张所选卡牌",
+					"加上{C:purple}紫色蜡封{}",
+				},
+			},
+			c_talisman = {
+				name = "护身符",
+				text = {
+					"将{C:attention}金色蜡封{}添加到",
+					"{C:attention}#1#{}张选定的",
+					"手牌中",
+				},
+			},
+			c_trance = {
+				name = "入迷",
+				text = {
+					"给你手牌中的",
+					"{C:attention}#1#{}张所选卡牌",
+					"加上{C:blue}蓝色蜡封{}",
+				},
+			},
 		},
 		Tag = {
 			tag_aij_glimmer = {

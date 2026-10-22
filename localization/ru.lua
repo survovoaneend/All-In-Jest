@@ -5216,6 +5216,49 @@ return {
 					"карте в руке",
 				},
 			},
+			-- Change vanilla spectrals to let their descriptions be modified by value changes
+			c_aura = {
+				name = "Аура",
+				text = {
+					"Добавляет {C:dark_edition}фольговый{}, {C:dark_edition}голографический{}",
+					"или {C:dark_edition}полихромный{} эффект к",
+					"{C:attention}#1#{} выбранной карте в руке",
+				},
+			},
+			c_deja_vu = {
+				name = "Дежавю",
+				text = {
+					"Добавьте {C:red}красную печать{}",
+					"к {C:attention}#1#{} выбранной",
+					"карте в вашей руке",
+				},
+			},
+			c_medium = {
+				c_medium = {
+					name = "Медиум",
+					text = {
+						"Добавьте {C:purple}фиолетовую печать{}",
+						"к {C:attention}#1#{} выбранной",
+						"карте в вашей руке",
+					},
+				},
+			},
+			c_talisman = {
+				name = "Талисман",
+				text = {
+					"Добавляет {C:attention}золотую печать{}",
+					"к {C:attention}#1#{} выбранной",
+					"карте в вашей руке",
+				},
+			},
+			c_trance = {
+				name = "Транс",
+				text = {
+					"Добавьте {C:blue}синюю печать{}",
+					"к {C:attention}#1#{} выбранной",
+					"карте в вашей руке",
+				},
+			},
 		},
 
 		Tag = {
@@ -5750,7 +5793,7 @@ return {
 			palindrome = {
 				name = "Палиндром",
 				text = {
-					"Многозначное число, которое",
+					"Многозначное чи��ло, которое",
 					"{C:attention}не меняется{} при переворачивании",
 					"{C:inactive}напр. 33, 151, 3003{}",
 				},
