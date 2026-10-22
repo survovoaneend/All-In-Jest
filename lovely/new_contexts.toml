@@ -3,14 +3,13 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
-# Add a context that fires when a card is retriggered
+# Add a context that fires when a card is retriggered (1/2)
 # SMODS.insert_repetitions()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
 match_indent = true
-position = 'before'
+position = "before"
 pattern = '''
 if _type == 'joker_retrigger' then
 '''
@@ -18,13 +17,24 @@ payload = '''
 SMODS.calculate_context({aij_retriggered_card = true, card = effect_card, ret = ret, times = eval.repetitions})
 '''
 
+# Add a context that fires when a card is retriggered (2/2)
+# Fixes SMODs bug that calculates repetitions even if a card did not trigger during end of round
+# SMODS.insert_repetitions()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = "at"
+pattern = "if reps[j] == 1 then"
+payload = "if reps[j] == 1 and flags.calculated then"
+
 # Add a context to detect when a held in hand effect is trigegred
 # SMODS.score_card()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
 match_indent = true
-position = 'after'
+position = "after"
 pattern = '''
 local flags = SMODS.trigger_effects(effects, card)
 '''
@@ -37,7 +47,7 @@ end
 # Add context for when cards are drawn to hand
 # Usually for effects that happen at the start of the round and after a hand is played but did not win
 # G.FUNCS.play_cards_from_highlighted()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = "G.GAME.hands_played = G.GAME.hands_played + 1"
@@ -49,7 +59,7 @@ match_indent = true
 
 # Adds a context used to modify the hand type that was played
 # G.FUNCS.evaluate_play()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
@@ -64,7 +74,7 @@ match_indent = true
 
 # Adds a new context that occurs slightly before after, used for effects that occur between the end of hand scoring and the score being tallied
 # G.FUNCS.evaluate_play()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
@@ -82,7 +92,7 @@ match_indent = true
 # Add a context for immediately before end of round check
 # Used by mysterious myriad finisher blind and bit flip joker
 # G.FUNCS.evaluate_play()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
@@ -97,7 +107,7 @@ match_indent = true
 
 # Context for before the Shop is Rerolled
 # G.FUNCS.reroll_shop()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "calculate_reroll_cost(final_free)"
@@ -109,7 +119,7 @@ match_indent = true
 
 # Context for after the Shop is Rerolled
 # G.FUNCS.reroll_shop()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "SMODS.calculate_context({reroll_shop = true, cost = reroll_cost})"
@@ -123,7 +133,6 @@ func = function()
 }))
 '''
 match_indent = true
-
 
 # Add context for when an edition is triggered
 # (As of v0.6 is just for Chromasist)
@@ -141,7 +150,6 @@ if edition then
 end
 '''
 
-
 # Add context for before a consumable is used
 # As of v0.6, just for Lost Carcosa (randomises planet values)
 # Card:use_consumeable()
@@ -149,12 +157,11 @@ end
 [patches.pattern]
 target = "card.lua"
 pattern = "local used_tarot = copier or self"
-position = "after" 
+position = "after"
 match_indent = true
 payload = '''
 SMODS.calculate_context({all_in_jest = {before_using_consumeable = true, consumeable = self, area = area }})
 '''
-
 
 # Add context before blind is set
 # Used by Fall of Count Chaligny and Dong Tong
@@ -169,14 +176,13 @@ payload = '''
 SMODS.calculate_context({aij_before_setting_blind = true, blind = G.GAME.round_resets.blind})
 '''
 
-
 # Add a context when a card is highlighted
 # function Card:highlight (Tumbler)
 [[patches]]
 [patches.pattern]
-target = 'card.lua'
-pattern = 'self.highlighted = is_higlighted'
-position = 'after'
+target = "card.lua"
+pattern = "self.highlighted = is_higlighted"
+position = "after"
 match_indent = true
 payload = '''
 if G.jokers ~= nil and next(SMODS.find_card('j_aij_tumbler')) then
@@ -186,7 +192,7 @@ end
 
 # Return to hand effects (e.g. Simulated Cards)
 # G.FUNCS.draw_from_play_to_discard
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = "draw_card(G.play,G.discard, it*100/play_count,'down', false, v)"
@@ -201,7 +207,6 @@ else
 end
 '''
 match_indent = true
-
 
 # Allows for effects to "block" scoring effects to perform their own
 # Hooks into SMODS.Scoring_Parameter.calc_effect rather than modifying directly because Scoring_Parameter often overrides this function when defined
@@ -234,8 +239,6 @@ end
 '''
 match_indent = true
 
-
-
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
@@ -267,7 +270,6 @@ end
 '''
 match_indent = true
 
-
 # Allows for effects to "block" money effects to perform their own, similar to above
 # Currently not used for anything as of 0.7
 # SMODS.calculate_individual_effect()
@@ -292,8 +294,7 @@ match_indent = true
 # if override then return true end
 # '''
 # match_indent = true
-# 
-
+#
 
 # Unused Context that Might be Used Eventually
 # [[patches]]
