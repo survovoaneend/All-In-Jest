@@ -38,7 +38,7 @@ local scopophobia = {
 			func = function()
 				for i = 1, #G.hand.highlighted do
 					local conv_card = G.hand.highlighted[i]
-					conv_card:set_seal(card.ability.extra.mod_conv, nil, true)
+					conv_card:set_seal(card.ability.extra.mod_conv, i ~= 1, true)
 				end
 				return true
 			end,
