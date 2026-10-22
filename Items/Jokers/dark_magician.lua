@@ -101,29 +101,4 @@ function Card:can_calculate(ignore_debuff, ignore_sliced)
 	return aij_card_can_calculate_ref(self, ignore_debuff, ignore_sliced)
 end
 
--- local ref_smods_create_poll_pool = SMODS.create_poll_pool
--- function SMODS.create_poll_pool(labels, args)
--- 	if next(SMODS.find_card("j_aij_dark_magician")) then
--- 		local sets = {}
-
--- 		for i = 1, #labels do
--- 			sets[labels[i]] = true
--- 		end
-
--- 		if sets["Tarot"] or sets["Planet"] or sets["Spectral"] or sets["Tarot_Planet"] then
--- 			if not sets["Tarot"] and not sets["Tarot_Planet"] then
--- 				table.insert(labels, "Tarot")
--- 			end
--- 			if not sets["Planet"] and not sets["Tarot_Planet"] then
--- 				table.insert(labels, "Planet")
--- 			end
--- 			if not sets["Spectral"] then
--- 				table.insert(labels, "Spectral")
--- 			end
--- 		end
--- 	end
-
--- 	return ref_smods_create_poll_pool(labels, args)
--- end
-
 return { name = { "Jokers" }, items = { dark_magician } }
