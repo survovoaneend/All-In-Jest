@@ -6,7 +6,6 @@ local jokey_bear = {
 	config = {
 		extra = {
 			dollars = 3,
-			temp_chips = "0",
 		},
 	},
 	attributes = { "xmult", "economy", "retrigger" },
@@ -31,7 +30,6 @@ local jokey_bear = {
 
 	calculate = function(self, card, context)
 		if context.all_in_jest and context.all_in_jest.before_after then
-			card.ability.extra.temp_chips = tostring(math.floor(SMODS.calculate_round_score()))
 			if context.total_chips >= G.GAME.blind.chips then
 				return {
 					x_mult = 0.75,
@@ -45,16 +43,26 @@ local jokey_bear = {
 			and context.other_context.all_in_jest
 			and context.other_context.all_in_jest.before_after
 		then
-			local to_number = Big and Big.to_number or function(x)
-				return x
-			end
-			local chip_amt = to_number(card.ability.extra.temp_chips)
+			-- local to_number = Big and Big.to_number or function(x)
+			-- 	return tonumber(x)
+			-- end
+			local chip_amt = SMODS.calculate_round_score()
 			chip_amt = chip_amt * 0.75
 			local reps = 0
-			while chip_amt >= G.GAME.blind.chips do
-				reps = reps + 1
-				chip_amt = chip_amt * 0.75
-			end
+			-- while chip_amt >= G.GAME.blind.chips do
+			-- 	reps = reps + 1
+			-- 	chip_amt = chip_amt * 0.75
+			-- end
+
+			-- Doing some cheeky logarithms to avoid a while loop
+			-- Essentially, we're solving for reps in:
+			-- chips_amount * 0.75 ^ reps < G.GAME.blind.chips
+			-- Which, thanks to logarithm quotient rule, comes to:
+			-- reps = log_0.75(G.GAME.blind.chips / chips_amount) = log_0.75(G.GAME.blind.chips) - log_0.75(chips_amount)
+			-- Using logarithm quotient rule to avoid diving numbers, which can get funky with floating points
+			reps = math.log(G.GAME.blind.chips, 0.75) - math.log(chip_amt, 0.75)
+			reps = math.ceil(reps)
+
 			if reps > 0 then
 				return {
 					repetitions = reps,
