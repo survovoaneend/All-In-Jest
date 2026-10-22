@@ -3,10 +3,9 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
 # Grant lucky cards additional +mult from other effects (rather than only giving +20 mult on a trigger)
 # Card:get_chip_mult()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "card.lua"
 pattern = '''
@@ -39,7 +38,6 @@ if self.ability.effect == "Lucky Card" then
 else
 '''
 match_indent = true
-
 
 # Prevent perma-debuffed cards from copying the perma-debuff status (1/2)
 # copy_card()
@@ -74,7 +72,7 @@ end
 
 # Implemenet alternative to calc_dollar_bonus (currently just for Jogre)
 # G.FUNCS.evaluate_round()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = "add_round_eval_row({name = 'bottom', dollars = dollars*"
@@ -108,7 +106,7 @@ match_indent = true
 
 # Round dollars earned at the end of the round to the nearest whole number
 # G.FUNCS.evaluate_round()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = "add_round_eval_row({name = 'bottom', dollars = dollars*"
@@ -117,7 +115,6 @@ payload = '''
 dollars = math.floor(dollars + 0.5)
 '''
 match_indent = true
-
 
 # When saving a run, save all data in G.all_in_jest as direct children of G
 # save_run()
@@ -162,27 +159,23 @@ do
 end
 '''
 
-
 # Fix a crash if you call G.FUNCS.use_card multiple times in quick succession
 # G.FUNCS.use_card
 [[patches]]
 [patches.regex]
-target = 'functions/button_callbacks.lua'
+target = "functions/button_callbacks.lua"
 pattern = "G\\.(.*?)\\.alignment\\.offset\\.y = G\\.(.*?)\\.alignment\\.offset\\.py"
-position = 'at'
-payload = 'G.$1.alignment.offset.y = G.$1.alignment.offset.py or G.$1.alignment.offset.y'
+position = "at"
+payload = "G.$1.alignment.offset.y = G.$1.alignment.offset.py or G.$1.alignment.offset.y"
 
 # Fix a crash if a voucher card is used via G.FUNCS.use_card outside the shop
 # G.FUNCS.use_card
 [[patches]]
 [patches.regex]
-target = 'functions/button_callbacks.lua'
+target = "functions/button_callbacks.lua"
 pattern = " if card\\.ability\\.set == 'Voucher' (.*)"
-position = 'at'
+position = "at"
 payload = " if card.ability.set == 'Voucher' and G.shop $1"
-
-
-
 
 # Set rerolls to zero cost if reroll cost would be below zero
 # Needed now that there are multiple stacking effects that can reduce reroll costs
@@ -195,7 +188,6 @@ position = "at"
 match_indent = true
 payload = '''G.GAME.current_round.reroll_cost = (G.GAME.round_resets.temp_reroll_cost or math.max(0, G.GAME.round_resets.reroll_cost)) + G.GAME.current_round.reroll_cost_increase'''
 
-
 # Stop jokers in shop getting deleted when shop slots are removed
 # change_shop_size()
 [[patches]]
@@ -207,7 +199,6 @@ pattern = '''
 position = "at"
 line_prepend = "$indent"
 payload = '$pre and false$post -- AIJ Override \n'
-
 
 # Set rerolls to zero cost if reroll cost would be below zero
 # Needed now that there are multiple stacking effects that can reduce reroll costs
@@ -230,7 +221,7 @@ end
 
 # Recalculate G.shop area on reroll
 # G.FUNCS.reroll_shop()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "for i = 1, G.GAME.shop.joker_max - #G.shop_jokers.cards do"
@@ -243,10 +234,9 @@ end
 '''
 match_indent = true
 
-
 # Fix destroyed cards being played and softlocking the game
 # G.FUNCS.play_cards_from_highlighted
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = "draw_card(G.hand, G.play, i*100/#G.hand.highlighted, 'up', nil, G.hand.highlighted[i])"
@@ -260,7 +250,7 @@ match_indent = true
 
 # Have hand played with zero scoring cards default to high card
 #  G.FUNCS.get_poker_hand_info()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/overrides.lua"]'
 pattern = "local text, disp_text, loc_disp_text =*"
@@ -271,3 +261,26 @@ if G.STATE == G.STATES.HAND_PLAYED then -- All in Jest Patch
 end
 '''
 match_indent = true
+
+# Fix the "ghost cards" bug when two effects try to move the same card simultaneously
+# Don't know what in AIJ does this, but this fixing the underlying bug.
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if from then card = from:remove_card(card) end"
+position = "before"
+match_indent = true
+payload = '''
+if from then -- AIJ Patch
+    local in_area = false
+    for n = 0, #from.cards do
+        if from.cards[n] == card then
+            in_area = true
+            break
+        end
+    end
+    if not in_area then
+        return true
+    end
+end
+'''
