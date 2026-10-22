@@ -43,9 +43,6 @@ local jokey_bear = {
 			and context.other_context.all_in_jest
 			and context.other_context.all_in_jest.before_after
 		then
-			-- local to_number = Big and Big.to_number or function(x)
-			-- 	return tonumber(x)
-			-- end
 			local chip_amt = SMODS.calculate_round_score()
 			chip_amt = chip_amt * 0.75
 			local reps = 0
@@ -61,7 +58,11 @@ local jokey_bear = {
 			-- reps = log_0.75(G.GAME.blind.chips / chips_amount) = log_0.75(G.GAME.blind.chips) - log_0.75(chips_amount)
 			-- Using logarithm quotient rule to avoid diving numbers, which can get funky with floating points
 			reps = math.log(G.GAME.blind.chips, 0.75) - math.log(chip_amt, 0.75)
-			reps = math.ceil(reps)
+
+			local to_number = Big and Big.to_number or function(x)
+				return x
+			end
+			reps = to_number(math.ceil(reps))
 
 			if reps > 0 then
 				return {
