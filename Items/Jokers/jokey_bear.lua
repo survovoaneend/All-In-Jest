@@ -45,7 +45,10 @@ local jokey_bear = {
 			and context.other_context.all_in_jest
 			and context.other_context.all_in_jest.before_after
 		then
-			local chip_amt = tonumber(card.ability.extra.temp_chips)
+			local to_number = Big and Big.to_number or function(x)
+				return x
+			end
+			local chip_amt = to_number(card.ability.extra.temp_chips)
 			chip_amt = chip_amt * 0.75
 			local reps = 0
 			while chip_amt >= G.GAME.blind.chips do
