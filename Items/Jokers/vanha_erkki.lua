@@ -30,7 +30,7 @@ local vanha_erkki = {
 
 	calculate = function(self, card, context)
 		if context.before and not context.blueprint then
-			local possible_timings = { "before" }
+			local possible_timings = { "before", "after_cards", "joker_main", "after_jokers" }
 			card.ability.extra.chosen_timing =
 				pseudorandom_element(possible_timings, "vanha_erkki_" .. G.GAME.round_resets.ante)
 		end
