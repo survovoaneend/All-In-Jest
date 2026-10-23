@@ -22,14 +22,8 @@ local branching = {
 	end,
 	apply = function(self, sleeve)
 		CardSleeves.Sleeve.apply(self)
-		G.E_MANAGER:add_event(Event({
-			trigger = "after",
-			func = function()
-				G.GAME.all_in_jest.blind_tags.has_multiple = true
-				G.GAME.all_in_jest.blind_tags.amt = G.GAME.all_in_jest.blind_tags.amt + 2
-				return true
-			end,
-		}))
+		G.GAME.all_in_jest.blind_tags.has_multiple = true
+		G.GAME.all_in_jest.blind_tags.amt = G.GAME.all_in_jest.blind_tags.amt + 2
 	end,
 }
 if next(SMODS.find_mod("CardSleeves")) then
