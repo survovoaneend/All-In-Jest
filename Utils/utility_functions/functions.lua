@@ -932,44 +932,53 @@ end
 All_in_Jest.change_card = function(suit, rank, cards)
 	-- Using same code as suit tarots, stolen from old read em and weep
 	for i = 1, #cards do
+		local other_card = cards[i]
 		local percent = 1.15 - (i - 0.999) / (#cards - 0.998) * 0.3
 		G.E_MANAGER:add_event(Event({
 			trigger = "after",
 			delay = 0.15,
 			func = function()
-				cards[i]:flip()
-				play_sound("card1", percent)
-				cards[i]:juice_up(0.3, 0.3)
+				if other_card then
+					other_card:flip()
+					play_sound("card1", percent)
+					other_card:juice_up(0.3, 0.3)
+				end
 				return true
 			end,
 		}))
 	end
 	delay(0.2)
 	for i = 1, #cards do
+		local other_card = cards[i]
 		G.E_MANAGER:add_event(Event({
 			trigger = "after",
 			delay = 0.2,
 			func = function()
-				if cards[i].ability then -- This stuff is here bc its used in read em and weep and i dont think it matters much for other things that use it
-					cards[i].ability.played_this_ante = false
-				end
-				SMODS.change_base(cards[i], suit, rank)
-				if cards[i].ability then
-					cards[i].ability.played_this_ante = true
+				if other_card then
+					if other_card.ability then -- This stuff is here bc its used in read em and weep and i dont think it matters much for other things that use it
+						other_card.ability.played_this_ante = false
+					end
+					SMODS.change_base(other_card, suit, rank)
+					if other_card.ability then
+						other_card.ability.played_this_ante = true
+					end
 				end
 				return true
 			end,
 		}))
 	end
 	for i = 1, #cards do
+		local other_card = cards[i]
 		local percent = 0.85 + (i - 0.999) / (#cards - 0.998) * 0.3
 		G.E_MANAGER:add_event(Event({
 			trigger = "after",
 			delay = 0.15,
 			func = function()
-				cards[i]:flip()
-				play_sound("tarot2", percent, 0.6)
-				cards[i]:juice_up(0.3, 0.3)
+				if other_card then
+					other_card:flip()
+					play_sound("tarot2", percent, 0.6)
+					other_card:juice_up(0.3, 0.3)
+				end
 				return true
 			end,
 		}))

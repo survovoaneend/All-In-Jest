@@ -31,10 +31,11 @@ local curse_of_scotland = {
 			and #context.full_hand == 1
 		then
 			if not (context.full_hand[1]:is_suit("Diamonds") and context.full_hand[1]:get_id() == 9) then
+				local other_card = context.full_hand[1]
 				return {
 					message = localize("k_aij_change_ex"),
 					func = function()
-						All_in_Jest.change_card("Diamonds", "9", context.full_hand)
+						All_in_Jest.change_card("Diamonds", "9", { other_card })
 						delay(0.5)
 					end,
 				}
