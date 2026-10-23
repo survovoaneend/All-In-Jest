@@ -264,6 +264,7 @@ match_indent = true
 
 # Fix the "ghost cards" bug when two effects try to move the same card simultaneously
 # Don't know what in AIJ does this, but this fixing the underlying bug.
+# draw_card()
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
@@ -271,7 +272,7 @@ pattern = "if from then card = from:remove_card(card) end"
 position = "before"
 match_indent = true
 payload = '''
-if from then -- AIJ Patch
+if from and card.playing_card then -- AIJ Patch
     local in_area = false
     for n = 0, #from.cards do
         if from.cards[n] == card then
