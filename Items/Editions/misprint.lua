@@ -110,13 +110,14 @@ local misprint = {
 	end,
 	on_remove = function(card)
 		if card.children.front then
-			local _atlas, _pos = get_front_spriteinfo(_front)
+			local _atlas, _pos = get_front_spriteinfo(card.config.card)
 			card.children.front.atlas = _atlas
 			card.children.front:set_sprite_pos(_pos)
 		end
 		if card.children.center then
-			local atlas_name = card.config.center.atlas
-			card.children.center.atlas = SMODS.get_atlas("atlas_name")
+			local atlas_name = card.config.center.atlas or "centers"
+			card.children.center.atlas = SMODS.get_atlas(atlas_name)
+			card.children.center:set_sprite_pos(card.config.center.pos)
 		end
 
 		if SMODS.is_playing_card(card) then
