@@ -134,22 +134,6 @@ func = function()
 '''
 match_indent = true
 
-# Add context for when an edition is triggered
-# (As of v0.6 is just for Chromasist)
-# eval_card()
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "local edition = card:calculate_edition(context)"
-position = "after"
-match_indent = true
-payload = '''
-if edition then
-    local flags = SMODS.calculate_context({all_in_jest = {calculating_edition = true, other_card = card, edition = card.edition, area = card.area }})
-    ret.extra = flags
-end
-'''
-
 # Add context for before a consumable is used
 # As of v0.6, just for Lost Carcosa (randomises planet values)
 # Card:use_consumeable()
