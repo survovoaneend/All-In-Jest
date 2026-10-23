@@ -22,7 +22,9 @@ local barathrum = {
 		for _, pool in pairs(G.P_CENTER_POOLS) do
 			local available = 0
 			for key, val in pairs(pool) do
-				if not G.GAME.all_in_jest.banned_keys_barathrum[val.key] then
+				if
+					not (G.GAME.all_in_jest.banned_keys_barathrum and G.GAME.all_in_jest.banned_keys_barathrum[val.key])
+				then
 					available = available + 1
 				end
 			end
@@ -33,6 +35,7 @@ local barathrum = {
 		return true
 	end,
 	use = function(self, card)
+		G.GAME.all_in_jest.banned_keys_barathrum = G.GAME.all_in_jest.banned_keys_barathrum or {}
 		G.E_MANAGER:add_event(Event({
 			func = function()
 				G.SETTINGS.paused = true
@@ -63,7 +66,9 @@ local barathrum = {
 		for _, pool in pairs(G.P_CENTER_POOLS) do
 			local available = 0
 			for key, val in pairs(pool) do
-				if not G.GAME.all_in_jest.banned_keys_barathrum[val.key] then
+				if
+					not (G.GAME.all_in_jest.banned_keys_barathrum and G.GAME.all_in_jest.banned_keys_barathrum[val.key])
+				then
 					available = available + 1
 				end
 			end
