@@ -478,7 +478,7 @@ position = "before"
 match_indent = true
 payload = '''
 -- All in Jest patch
-if _type == 'Enhanced' and G.GAME.selected_back.name == "b_aij_melded" and pseudorandom('meldedfusion' .. G.GAME.round_resets.ante) > 0.6 then
+if _type == 'Enhanced' and G.GAME.all_in_jest.fusion_enhancements and pseudorandom('meldedfusion' .. G.GAME.round_resets.ante) > 0.6 then
     local _pool, _pool_key = get_current_pool(_type, _rarity, legendary, key_append)
     local other_center = pseudorandom_element(_pool, pseudoseed(_pool_key))
     local it = 1

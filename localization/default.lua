@@ -719,6 +719,20 @@ return {
 					"with {C:attention}2 random{} suit patches",
 				},
 			},
+			sleeve_aij_melded = {
+				name = "Melded Sleeve",
+				text = {
+					"Each playing card may",
+					"have {C:attention}two{} enhancements",
+				},
+			},
+			sleeve_aij_melded_alt = {
+				name = "Melded Sleeve",
+				text = {
+					"Start with a copy",
+					"of {C:spectral,T:c_aij_palmistry}#1#{}",
+				},
+			},
 		},
 		Blind = {
 			--Normal Blinds

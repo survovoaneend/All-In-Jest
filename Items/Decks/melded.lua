@@ -39,6 +39,9 @@ local melded = {
 			return req_stake_wins >= 5
 		end
 	end,
+	apply = function(self, back)
+		G.GAME.all_in_jest.fusion_enhancements = true
+	end,
 }
 
 local aij_card_set_ability_ref = Card.set_ability
@@ -49,7 +52,7 @@ function Card:set_ability(center, initial, delay_sprites)
 		self.config.aij_other_center = nil
 	elseif
 		G.GAME.selected_back
-		and G.GAME.selected_back.name == "b_aij_melded"
+		and G.GAME.all_in_jest.fusion_enhancements
 		and self.ability
 		and self.ability.set == "Enhanced"
 		and not SMODS.aij_applying_thing

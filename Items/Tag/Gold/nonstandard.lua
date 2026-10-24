@@ -274,7 +274,7 @@ function create_UIBox_nonstandard(create_func)
 	})
 
 	local other_enhancements_option_cycle = nil
-	if G.GAME.selected_back and G.GAME.selected_back.name == "b_aij_melded" then
+	if G.GAME.selected_back and G.GAME.all_in_jest.fusion_enhancements then
 		other_enhancements_option_cycle = create_option_cycle({
 			label = "Enhancement",
 			text_scale = 0.4,
