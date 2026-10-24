@@ -50,15 +50,17 @@ local veggie_joker = {
 					total_ranks = total_ranks + rank
 				end
 			end
-			SMODS.scale_card(card, {
-				ref_table = card.ability.extra,
-				ref_value = "chips",
-				scalar_table = { value = total_ranks * 3 },
-				scalar_value = "value",
-				message_key = "a_chips",
-				message_colour = G.C.CHIPS,
-			})
-			return nil, true
+			if total_ranks > 0 then
+				SMODS.scale_card(card, {
+					ref_table = card.ability.extra,
+					ref_value = "chips",
+					scalar_table = { value = total_ranks * 3 },
+					scalar_value = "value",
+					message_key = "a_chips",
+					message_colour = G.C.CHIPS,
+				})
+				return nil, true
+			end
 		end
 		if context.joker_main then
 			return {
