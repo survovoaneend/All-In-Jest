@@ -3,13 +3,13 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-[[patches]] #G.Game.current_round
+[[patches]]  # G.Game.current_round
 [patches.pattern]
-target = 'game.lua'
+target = "game.lua"
 pattern = '''
 reroll_cost_increase = 0,
 '''
-position = 'after'
+position = "after"
 match_indent = true
 payload = '''
 jest_magick_joker_card = {suit = 'Spades'},
@@ -20,13 +20,13 @@ jest_handsome_joker_card = {rank = nil, suit = nil, enhancement = nil, id = nil}
 aij_the_journey_blind = {selected_suit = selected_suit or "Spades", triggered = false},
 '''
 
-[[patches]] #G.GAME 
+[[patches]]  # G.GAME
 [patches.pattern]
-target = 'game.lua'
+target = "game.lua"
 pattern = '''
 unused_discards = 0,'''
-position = 'after'
-match_indent = true 
+position = "after"
+match_indent = true
 payload = '''
 all_in_jest = {
 	starting_prams = {
@@ -132,11 +132,11 @@ shop_galloping_dominoed = false,
 temp_create_card = {},
 '''
 
-[[patches]] #Colors
+[[patches]]  # Colors
 [patches.pattern]
-target = 'functions/misc_functions.lua'
+target = "functions/misc_functions.lua"
 pattern = '''enhanced = G.C.SECONDARY_SET.Enhanced'''
-position = 'before'
+position = "before"
 payload = '''
 jest_inherent = HEX("b7e1d7"),
 jest_glitter = HEX("ff97ff"),

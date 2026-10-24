@@ -3,9 +3,8 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
 ########################################
-    # GENERAL BLIND FUNCTIONALITY #
+# GENERAL BLIND FUNCTIONALITY #
 ########################################
 
 # AiJ Blind Functionality (1/5)
@@ -91,9 +90,9 @@ payload = '''
 # create_UIBox_blind_choice()
 [[patches]]
 [patches.pattern]
-target = 'functions/UI_definitions.lua'
+target = "functions/UI_definitions.lua"
 pattern = "local blind_amt = *"
-position = 'after'
+position = "after"
 match_indent = true
 payload = '''
 if type == 'Big_Boss' and G.GAME.round_resets.blind_states['Big_Boss'] == 'Defeated' then extras = nil end
@@ -117,7 +116,7 @@ end
 # Big Boss
 # Add skip button to big blind boss
 # create_UIBox_blind_choice()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = "elseif not run_info then"
@@ -128,14 +127,13 @@ elseif type == 'Big_Boss' then
 '''
 match_indent = true
 
-
 ###########################
-    # SPECIFIC BLINDS #
+# SPECIFIC BLINDS #
 ###########################
 
 # The Seed
 # end_round()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
@@ -152,7 +150,7 @@ match_indent = true
 
 # The Seed
 # end_round()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
@@ -165,7 +163,7 @@ G.GAME.aij_big_boss_avoid = nil
 match_indent = true
 
 # # Currently unused patch, used to be used for the brilliance
-# [[patches]] 
+# [[patches]]
 # [patches.pattern]
 # target = "functions/state_events.lua"
 # pattern = '''
@@ -201,9 +199,9 @@ match_indent = true
 # By coincidence this also works when UnBlind is installed, just gotta use the blind_state_text_colour variable to check if its in UnBlind's code or not
 [[patches]]
 [patches.pattern]
-target = 'functions/UI_definitions.lua'
+target = "functions/UI_definitions.lua"
 pattern = "{n=G.UIT.T, config={text = number_format(blind_amt)*"
-position = 'before'
+position = "before"
 match_indent = true
 payload = '''(blind_choice.config.name == "bl_aij_the_clay" and not aij_has_blind_drawn and {n=G.UIT.O, config={object = DynaText({string = getRandomClayBlindReqs(blind_amt), colours = {disabled and G.C.UI.TEXT_INACTIVE or blind_state_text_colour or G.C.RED},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = score_number_scale(blind_state_text_colour and 0.47 or 0.9, blind_amt), shadow = not disabled, min_cycle_time = 0})}}) or'''
 
@@ -266,7 +264,7 @@ end
 # The Seed
 # Show/Hide boss blind that replaces big blind
 # create_UIBox_blind_select()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = "G.blind_select_opts = {}"
@@ -289,8 +287,6 @@ end
 '''
 match_indent = true
 
-
-
 # The Seed
 # Return type of big blind boss as distinct for big blind and boss blind
 # Blind:get_type()
@@ -309,7 +305,7 @@ end
 # The Seed
 # Include UI for big blind boss if required
 # create_UIBox_blind_select()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = '''G.GAME.round_resets.blind_states['Big'] ~= 'Hide' and {n=G.UIT.O, config={align = "cm", object = G.blind_select_opts.big}} or nil,'''
@@ -355,10 +351,10 @@ end
 # end_round()
 [[patches]]
 [patches.pattern]
-target = 'functions/state_events.lua'
+target = "functions/state_events.lua"
 pattern = """elseif G.GAME.round_resets.blind_states.Big == 'Current' then
     G.GAME.round_resets.blind_states.Big = 'Defeated'"""
-position = 'before'
+position = "before"
 match_indent = true
 payload = '''
 elseif G.GAME.aij_temp_big_boss then
@@ -371,10 +367,10 @@ elseif G.GAME.aij_temp_big_boss then
 # new_round()
 [[patches]]
 [patches.pattern]
-target = 'functions/state_events.lua'
+target = "functions/state_events.lua"
 pattern = """elseif G.GAME.round_resets.blind_states.Big == 'Current' then
     G.GAME.round_resets.blind_states.Big = 'Current'"""
-position = 'before'
+position = "before"
 match_indent = true
 payload = '''
 elseif G.GAME.aij_temp_big_boss then
@@ -434,14 +430,13 @@ end
 # Game:update()
 [[patches]]
 [patches.pattern]
-target = 'game.lua'
+target = "game.lua"
 pattern = '''G.GAME.round_resets.loc_blind_states.Big = localize(G.GAME.round_resets.blind_states.Big,'blind_states')'''
-position = 'after'
+position = "after"
 match_indent = true
 payload = '''
 G.GAME.round_resets.loc_blind_states.Big_Boss = localize(G.GAME.round_resets.blind_states.Big_Boss or 'Upcoming','blind_states')
 '''
-
 
 # Perma-flipped for Playing Cards
 # allows cards to stay flipped when drawn permanently
@@ -454,7 +449,7 @@ G.GAME.round_resets.loc_blind_states.Big_Boss = localize(G.GAME.round_resets.bli
 # position = "after"
 # match_indent = true
 # payload = '''
-# if card.ability.aij_perma_flipped then 
+# if card.ability.aij_perma_flipped then
 #     if to == G.hand then
 #         stay_flipped = true
 #     end

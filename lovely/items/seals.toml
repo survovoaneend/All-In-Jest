@@ -9,7 +9,7 @@ priority = 214748364
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
 match_indent = true
-position = 'after'
+position = "after"
 pattern = '''
 card.repetition_trigger = nil
 '''

@@ -21,7 +21,6 @@ if All_in_Jest.has_patches(self, suit) then
 end
 '''
 
-
 # Adds tooltip for suit patches
 # generate_card_ui()
 [[patches]]

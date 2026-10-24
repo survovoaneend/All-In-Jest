@@ -7,11 +7,11 @@ priority = 214748364
 # G.UIDEF.use_and_sell_buttons()
 [[patches]]
 [patches.pattern]
-target = 'functions/UI_definitions.lua'
+target = "functions/UI_definitions.lua"
 pattern = '''
 if card.ability.consumeable and card.area == G.pack_cards and G.pack_cards and booster_obj then
 '''
-position = 'before'
+position = "before"
 payload = '''
 if card.area and card.area == G.aij_coconut_holder then
     sell = nil

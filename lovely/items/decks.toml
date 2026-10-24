@@ -3,7 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
 # Fabled Deck (1/2)
 # Make legendary jokers in the shop show their description
 # Card:generate_UIBox_ability_table()
@@ -14,7 +13,7 @@ pattern = '''
 (?<indent>[\t ]*)if self\.config\.center\.unlocked == false and not self\.bypass_lock (?<post>.*)
 '''
 position = "at"
-line_prepend = '$indent'
+line_prepend = "$indent"
 payload = '''
 if self.config.center.unlocked == false and not self.bypass_lock and not self.bypass_discovery_ui $post
 '''
@@ -94,7 +93,7 @@ end
 # Branching Deck (1/10)
 # Create UI for the three tag choices
 # create_UIBox_blind_tag()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = '''
@@ -140,7 +139,7 @@ match_indent = true
 # Branching Deck (2/10)
 # Apply the three tag choices to the blind select screen
 # create_UIBox_blind_tag()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = '''
@@ -171,7 +170,7 @@ match_indent = true
 
 # Branching Deck (3/10)
 # G.FUNCS.blind_choice_handler()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "if not e.config.ref_table.run_info and G.blind_select and G.blind_select.VT.y < 10 and e.config.id and G.blind_select_opts[string.lower(e.config.id)] then"
@@ -289,7 +288,7 @@ match_indent = true
 # Creates the popup of the selected tag when overing over the button
 # Popup when hovering over the tag itself is handled seperately in the G.FUNCS.aij_hover_tag_branching() function (in functions.lua)
 # G.FUNCS.hover_tag_proxy()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "if (e.states.hover.is or e.parent.states.hover.is) and (e.created_on_pause == G.SETTINGS.paused) and"
@@ -337,7 +336,7 @@ match_indent = true
 # Branching Deck (5/10)
 # Reset selected tag when exiting the shop
 # G.FUNCS.toggle_shop
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "SMODS.calculate_context({ending_shop = true})"
@@ -354,7 +353,7 @@ match_indent = true
 # Reset selected tag when ending the blind (needed for Dizzard)
 # Wildcard for compat with multiplayer
 # G.FUNCS.cash_out()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "G.deck:shuffle('cashout'..*"
@@ -367,7 +366,7 @@ match_indent = true
 # Branching Deck (7/10)
 # Grant the selected tag when skipping the blind
 # G.FUNCS.cash_out()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "G.GAME.skips = (G.GAME.skips or 0) + 1"
@@ -383,7 +382,7 @@ match_indent = true
 # Branching Deck (8/10)
 # Grant the selected tag when skipping the blind
 # G.FUNCS.cash_out()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "add_tag(_tag.config.ref_table)"
@@ -400,7 +399,7 @@ match_indent = true
 # Branching Deck (9/10)
 # Defines the skip tag choices for the first ante at the start of the run (there is another patch that handles it for future antes)
 # Game:start_run()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "game.lua"
 pattern = "self.GAME.round_resets.blind_tags.Big = G.SETTINGS.tutorial_progress and G.SETTINGS.tutorial_progress.forced_tags and G.SETTINGS.tutorial_progress.forced_tags[2] or get_next_tag_key()"
@@ -429,7 +428,7 @@ match_indent = true
 # Defines the skip tag choices for next ante (there is another patch that handles it at the start of the game)
 # Also includes interaction with trophy voucher
 # G.FUNCS.cash_out()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "reset_blinds()"

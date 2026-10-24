@@ -3,10 +3,9 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
 # Add which version of the mod an achievement was completed (1/4)
 # buildAchievementsTab()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/ui.lua"]'
 pattern = "temp_achievement.states.collide.can = true"
@@ -19,7 +18,7 @@ match_indent = true
 
 # Add which version of the mod an achievement was completed (2/4)
 # buildAchievementsTab()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/ui.lua"]'
 pattern = "Node.hover(temp_achievement)"

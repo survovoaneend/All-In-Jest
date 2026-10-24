@@ -10,7 +10,7 @@ priority = 214748364
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
 match_indent = true
-position = 'after'
+position = "after"
 pattern = '''
 card.lucky_trigger = nil
 '''
@@ -54,14 +54,15 @@ if next(SMODS.find_card("j_aij_ninja")) and context.cardarea == G.play and not c
     end
 end
 '''
-# Bullet King (2/3) 
+
+# Bullet King (2/3)
 # Scored cards trigger end of round in hand effects
 # G.FUNCS.evaluate_play()
 [[patches]]
 [patches.pattern]
-target = 'functions/state_events.lua'
+target = "functions/state_events.lua"
 match_indent = true
-position = 'after'
+position = "after"
 pattern = '''
 hand_chips = mod_chips(nu_chip or hand_chips)
 '''
@@ -71,14 +72,15 @@ if next(bullet_kings) then
     All_in_Jest.bullet_king_end_of_round({cardarea = G.hand, end_of_round = true, beat_boss = G.GAME.blind.boss }, G.play.cards, bullet_kings[1])
 end
 '''
+
 # Bullet King (3/3)
 # Raised Fist compat
 # Card:calculate_joker()
 [[patches]]
 [patches.pattern]
-target = 'card.lua'
+target = "card.lua"
 match_indent = true
-position = 'before'
+position = "before"
 pattern = '''
 if raised_card == context.other_card then 
 '''
@@ -94,13 +96,11 @@ if next(SMODS.find_card('j_aij_bullet_king')) then
 end
 '''
 
-
-
-# The Treachery Of Jokers 
+# The Treachery Of Jokers
 # Make joker go into Consumable slot instead of joker slot
 # Also make advanced copier jokers (joker.png, what's left, etc.) go into consumable slot if they're copying ToJ
 # CardArea:emplace()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "cardarea.lua"
 pattern = '''
@@ -133,12 +133,10 @@ end
 '''
 match_indent = true
 
-
-
 # Scapino (1/3) (Booster pack rerolling)
 # Removes all booster packs on reroll
 # G.FUNCS.reroll_shop()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "for i = #G.shop_jokers.cards,1, -1 do"
@@ -157,7 +155,7 @@ match_indent = true
 # Scapino (2/3) (Booster pack rerolling)
 # Adds new booster packs on reroll
 # G.FUNCS.reroll_shop()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "for i = 1, G.GAME.shop.joker_max - #G.shop_jokers.cards do"
@@ -182,7 +180,7 @@ target = '=[SMODS _ "src/utils/weights.lua"]'
 pattern = '''
 card_args.key = SMODS.poll_object({type = card_args.type, append = 'sho', guaranteed = card_args.type == 'Enhanced'})
 '''
-position = 'before'
+position = "before"
 payload = '''
 if area == G.shop_booster then
     card_args.type = 'Booster'
@@ -190,9 +188,6 @@ if area == G.shop_booster then
 end
 '''
 match_indent = true
-
-
-
 
 # Dark Magician (1/2)
 # Tick up consumable uses for tarots, planets and spectrals when any one is used
@@ -283,7 +278,6 @@ local has_note = next(SMODS.find_card("j_aij_infuriating_note"))
 if has_note and self.config.center_key == 'j_aij_infuriating_note' then self.extra_cost = 0 end
 '''
 
-
 # Make simple simon the default joker to appear if little boy blue is owned
 # get_current_pool()
 [[patches]]
@@ -310,8 +304,6 @@ elseif next(SMODS.find_card("j_aij_warhol")) and self.seal and not SMODS.aij_inh
     ret = ret +  3
 '''
 
-
-
 # The Grim Joker (Purple Seals) (1/3)
 # Adds chance for negative tarots to be created by purple seals
 # and forces card creation even if it "exceeds" the card limit
@@ -322,7 +314,7 @@ pattern = '''
 (?<indent>[\t ]*)if self\.seal == 'Purple' and #G\.consumeables\.cards \+ G\.GAME\.consumeable_buffer < G\.consumeables\.config\.card_limit (?<post>.*)
 '''
 position = "at"
-line_prepend = '$indent'
+line_prepend = "$indent"
 payload = '''
 -- All in Jest patch
 local aij_purple_seal_is_negative = false
@@ -335,6 +327,7 @@ end
 -- End All in Jest patch
 if (self.seal == 'Purple' or (next(SMODS.find_card("j_aij_warhol")) and self.seal)) and (aij_purple_seal_is_negative or (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit)) $post
 '''
+
 # The Grim Joker (Purple Seals) (2/3)
 # Undo buffer change so that non-negative consumables aren't prevented from spawning
 [[patches]]
@@ -351,6 +344,7 @@ payload = '''
     end
     -- End All in Jest patch
 '''
+
 # The Grim Joker (Purple Seals) (3/3)
 # Applies negative to card if set to be negative
 [[patches]]
@@ -366,6 +360,7 @@ if aij_purple_seal_is_negative then -- Will always be faled in 8-ball calc
 end
 -- End All in Jest patch
 '''
+
 # The Grim Joker (Blue Seals) (1/3)
 # Adds chance for negative planets to be created by blue seals
 # and forces card creation even if it "exceeds" the card limit
@@ -377,7 +372,7 @@ pattern = '''
 (?<indent>[\t ]*)if self\.seal == 'Blue' and #G\.consumeables\.cards \+ G\.GAME\.consumeable_buffer < G\.consumeables\.config\.card_limit (?<post>.*)
 '''
 position = "at"
-line_prepend = '$indent'
+line_prepend = "$indent"
 payload = '''
 -- All in Jest patch
 if context and (context.aij_inherent_enhancement or context.aij_other_enhancement) then return ret end
@@ -391,6 +386,7 @@ end
 -- End All in Jest patch
 if (self.seal == 'Blue' or (next(SMODS.find_card("j_aij_warhol")) and self.seal)) and (aij_blue_seal_is_negative or (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit)) $post
 '''
+
 # The Grim Joker (Blue Seals) (2/3) & Sky Trees (1/3)
 # Undo buffer change so that non-negative consumables aren't prevented from spawning
 # Also, add to buffer a second time if two cards are being created via Sky Trees
@@ -411,6 +407,7 @@ if aij_blue_seal_is_negative then
 end
 -- End All in Jest patch
 '''
+
 # The Grim Joker (Blue Seals) (3/3)
 # Applies negative to card if set to be negative
 [[patches]]
@@ -430,7 +427,7 @@ end
 # Sky Trees (2/3)
 # Creates two moon cards instead of a planet card
 # Card:get_end_of_round_effect()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "card.lua"
 pattern = '''
@@ -462,12 +459,12 @@ end
 # Sky Trees (3/3)
 # Show "+2 Moons" message instead of "+1 Planet"
 # Card:get_end_of_round_effect()
-[[patches]] 
+[[patches]]
 [patches.regex]
 target = "card.lua"
 pattern = '''(?<indent>[\t ]*)(?<pattern>card_eval_status_text\(self, 'extra', nil, nil, nil, \{message = localize\('k_plus_planet'\).*)'''
 position = "at"
-line_prepend = '$indent    '
+line_prepend = "$indent    "
 payload = '''
 if next(SMODS.find_card("j_aij_sky_trees")) then
     card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('k_aij_plus_two_moons'), colour = G.C.SECONDARY_SET.Planet})
@@ -482,7 +479,7 @@ end
 [[patches]]
 [patches.pattern]
 target = "cardarea.lua"
-pattern = 'G.boss_throw_hand = nil'
+pattern = "G.boss_throw_hand = nil"
 position = "after"
 match_indent = true
 payload = '''
@@ -507,7 +504,7 @@ if next(SMODS.find_card("j_aij_pace")) then
     v.weight = 1
 end
 '''
-match_indent = true 
+match_indent = true
 
 # Pace Legendary (2/2)
 # Make all jokers cost $4
@@ -516,7 +513,7 @@ match_indent = true
 [patches.pattern]
 target = "card.lua"
 pattern = "self.cost = math.max(1, math.floor((self.base_cost + self.extra_cost + 0.5)*(100-G.GAME.discount_percent)/100))"
-position = "after" 
+position = "after"
 match_indent = true
 payload = '''
 if next(SMODS.find_card("j_aij_pace")) and self.ability.set == 'Joker' then
@@ -529,9 +526,6 @@ if next(SMODS.find_card("j_aij_barcode")) and self.ability.set == 'Booster' then
 end
 if self.ability.aij_mint_condition then self.cost = self.cost + 10 end
 '''
-
-
-
 
 # Circuit Diagram (1/1)
 # Move charged cards to the top of the deck after shuffling
@@ -586,6 +580,7 @@ if G.STATE == G.STATES.NEW_ROUND then
     return true
 end
 '''
+
 # Electric Snow (2/2)
 # Prevent round from ending after boss is disabled (unless final hand is played)
 # Blind:disable()
@@ -606,7 +601,6 @@ if G.STATE == G.STATES.NEW_ROUND then
 end
 '''
 
-
 # Line in the Sand (1/3)
 # Add card area for Line in the Sand (discarded cards only return at end of ante)
 # Game:start_run()
@@ -626,7 +620,7 @@ self.jest_super_discard = CardArea(
 # Line in the Sand (2/3)
 # Put discarded cards in super discard area instead of normal discard area
 # G.FUNCS.discard_cards_from_highlighted()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = "draw_card(G.hand, G.discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])"
@@ -644,7 +638,7 @@ match_indent = true
 # Line in the Sand (3/3)
 # If there are cards removed by line in the sand, return them after boss blind is defeated
 # G.FUNCS.draw_from_discard_to_deck()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = "local discard_count = #G.discard.cards"
@@ -659,13 +653,10 @@ end
 '''
 match_indent = true
 
-
-
-
 # Blind Drawn (1/8)
 # Set variable for later
 # create_UIBox_blind_choice()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = "function create_UIBox_blind_choice(type, run_info)"
@@ -679,7 +670,7 @@ match_indent = true
 # Blind Drawn (2/8)
 # Prevent the mod badge from appearing when blind drawn is owned
 # SMODS src/ui.lua: create_UIBox_blind_choice()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/ui.lua"]'
 pattern = "function create_UIBox_blind_choice(type, run_info)"
@@ -692,7 +683,7 @@ match_indent = true
 # Blind Drawn (3/8)
 # Replace blind ability description with ???
 # create_UIBox_blind_choice()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = '''
@@ -719,7 +710,7 @@ match_indent = true
 # Blind Drawn (4/8)
 # Set name of Boss Blind to ???
 # create_UIBox_blind_choice()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = ''' {n=G.UIT.R, config={id = 'blind_name',align = "cm", padding = 0.07}, nodes={
@@ -742,7 +733,7 @@ match_indent = true
 # Hide blind requirement if blind drawn is owned
 # Uses regex so it doesn't match with another function + so it works with The Clay blind's thing
 # create_UIBox_blind_choice()
-[[patches]] 
+[[patches]]
 [patches.regex]
 target = "functions/UI_definitions.lua"
 pattern = '''(?<pre>function create_UIBox_blind_choice(?:.|\n)*?)
@@ -756,7 +747,7 @@ $indent{n=G.UIT.T, config={text = aij_has_blind_drawn and "???" or $post
 # Blind Drawn (6/8)
 # Hide blind reward if blind drawn is owned
 # create_UIBox_blind_choice()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = ''' _reward and {n=G.UIT.R, config={align = "cm"}, nodes={
@@ -777,7 +768,7 @@ match_indent = true
 # Defines the shaders for the hidden blind sprite
 # Using regex so it doesn't match with another function
 # create_UIBox_blind_choice()
-[[patches]] 
+[[patches]]
 [patches.regex]
 target = "functions/UI_definitions.lua"
 pattern = '''
@@ -786,7 +777,7 @@ pattern = '''
 [\t ]*blind_choice\.animation = .*
 '''
 position = "after"
-line_prepend = '$indent'
+line_prepend = "$indent"
 payload = '''
   if aij_has_blind_drawn then
       blind_choice.animation = SMODS.create_sprite(0,0, 1.4, 1.4, "aij_blind_drawn_replacement",  { x = 0, y = 0 })
@@ -806,7 +797,7 @@ payload = '''
 # Remove mod badge added by SMODS
 # Also uses regex so it doesn't match with another function
 # SMODS src/ui.lua: create_UIBox_blind_choice()
-[[patches]] 
+[[patches]]
 [patches.regex]
 target = '=[SMODS _ "src/ui.lua"]'
 pattern = '''
@@ -815,10 +806,9 @@ pattern = '''
 .*(?<root>blind.mod)'''
 root_capture = "$root"
 position = "at"
-line_prepend = '$indent'
+line_prepend = "$indent"
 payload = '''(blind.mod and not aij_has_blind_drawn)'''
 times = 1
-
 
 # Touchstone (1/1)
 # Adds the touchstone forecast on the hover deck preview
@@ -838,9 +828,9 @@ payload = '''
 # eval_card()
 [[patches]]
 [patches.pattern]
-target = 'functions/common_events.lua'
+target = "functions/common_events.lua"
 pattern = '''-- TARGET: main scoring on played cards'''
-position = 'before'
+position = "before"
 match_indent = true
 payload = '''
 do -- All in Jest - Magick Joker and Red Sky
@@ -909,7 +899,6 @@ end
 match_indent = true
 times = 1
 
-
 # Soft Serve (1/1)
 # Remove vanilla items if soft serve is owned
 # get_current_pool()
@@ -928,8 +917,6 @@ if G.GAME.aij_exculde_vanilla_in_shop then
     end
 end
 '''
-
-
 
 # Stultor (1/1)
 # Free reroll button
@@ -975,7 +962,6 @@ if other.ability.numbertaker_rankless and other.config.card then
 end
 '''
 
-
 # The Mermaid Booster pack discard (1/2)
 # SMODS.Booster.create_UIBox()
 [[patches]]
@@ -1015,13 +1001,13 @@ match_indent = true
 # highlight_card()
 [[patches]]
 [patches.pattern]
-target = 'functions/common_events.lua'
+target = "functions/common_events.lua"
 pattern = '''func = function()
     card:highlight(highlight)
     play_sound('cardSlide1', 0.85 + percent*0.2)
     return true
 end'''
-position = 'at'
+position = "at"
 match_indent = true
 payload = '''
 -- All in Jest overriden
@@ -1045,15 +1031,15 @@ end
 target = "cardarea.lua"
 pattern = '''if v\.ability\.forced_selection and not self\.highlighted\[1\] (?<post>.*)'''
 position = "at"
-payload = 'if v.ability.forced_selection and not v.highlighted $post'
+payload = "if v.ability.forced_selection and not v.highlighted $post"
 
 # Mistigri and others (1/1)
 # Fixed cards being drawn to hand beyond hand size when changing hand size
 [[patches]]
 [patches.pattern]
-target = 'cardarea.lua'
+target = "cardarea.lua"
 pattern = '''SMODS.draw_cards(delta)'''
-position = 'at'
+position = "at"
 match_indent = true
 payload = '''
 -- AIJ Override
@@ -1063,7 +1049,6 @@ if card_count > 0 then
 end
 -- End AIJ Override
 '''
-
 
 # ############## #
 # UNUSED PATCHES
@@ -1078,10 +1063,10 @@ end
 # '''
 # position = "after"
 # match_indent = true
-# payload = '''            
+# payload = '''
 # if next(SMODS.find_card("j_aij_aluzinnu")) and pseudorandom('aluzinnu_rate') < 1 + next(SMODS.find_card("j_aij_aluzinnu")) / 4 + next(SMODS.find_card("j_aij_aluzinnu")) then
 #    local ran = pseudorandom('aij_aluzinnu',1,2)
-#    if ran == 1 then 
+#    if ran == 1 then
 #        center = "v_petroglyph"
 #    else
 #        center = "v_hieroglyph"
@@ -1106,13 +1091,13 @@ end
 #            local card_type_colour = get_type_colour(card.config.center or card.config, card)
 #            local card_type_background = G.C.SET[AUT.card_type] or {0, 1, 1, 1}
 
-#            local outer_padding = 0.05
+# local outer_padding = 0.05
 #            local card_type = localize('k_'..string.lower(AUT.card_type))
 
-#            local info_boxes = {}
+# local info_boxes = {}
 #            local badges = {}
 
-#            if AUT.badges.card_type or AUT.badges.force_rarity then
+# if AUT.badges.card_type or AUT.badges.force_rarity then
 #                badges[#badges + 1] = create_badge(((card.ability.name == 'Pluto' or card.ability.name == 'Ceres' or card.ability.name == 'Eris') and localize('k_dwarf_planet')) or (card.ability.name == 'Planet X' and localize('k_planet_q') or card_type),card_type_colour, nil, 1.2)
 #            end
 #            if AUT.badges then
@@ -1121,7 +1106,7 @@ end
 #                end
 #            end
 
-#            if AUT.info then
+# if AUT.info then
 #            for k, v in ipairs(AUT.info) do
 #                info_boxes[#info_boxes+1] =
 #                {n=G.UIT.R, config={align = "cm"}, nodes={
@@ -1132,7 +1117,7 @@ end
 #            end
 #            end
 
-#            return {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR}, nodes={
+# return {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR}, nodes={
 #            {n=G.UIT.C, config={align = "cm", func = 'show_infotip',object = Moveable(),ref_table = next(info_boxes) and info_boxes or nil}, nodes={
 #                {n=G.UIT.R, config={padding = outer_padding, r = 0.12, colour = lighten(G.C.JOKER_GREY, 0.5), emboss = 0.07}, nodes={
 #                {n=G.UIT.R, config={align = "cm", padding = 0.07, r = 0.1, colour = adjust_alpha(card_type_background, 0.8)}, nodes={
@@ -1163,12 +1148,12 @@ end
 # pattern = "elseif request.type == 'save_run' then "
 # position = "before"
 # payload = '''
-# elseif request.type == 'save_run_aij_spiral_gestalt' then 
+# elseif request.type == 'save_run_aij_spiral_gestalt' then
 #     local prefix_profile = (request.profile_num or 1)..''
 #     if not love.filesystem.getInfo(prefix_profile) then love.filesystem.createDirectory( prefix_profile ) end
 #     prefix_profile = prefix_profile..'/'
 
-#     compress_and_save(prefix_profile..'save_aij_spiral_gestalt.jkr', request.save_table)
+# compress_and_save(prefix_profile..'save_aij_spiral_gestalt.jkr', request.save_table)
 # '''
 # match_indent = true
 # times = 1
@@ -1193,7 +1178,7 @@ end
 # pattern = "G.screenwipecard = Card(1, 1, G.CARD_W, G.CARD_H, pseudorandom_element(G.P_CARDS), G.P_CENTERS.c_base)"
 # position = "after"
 # payload = '''
-# if G.SAVED_GAME ~= nil and G.SAVED_GAME.aij_spiral_gestal_save then 
+# if G.SAVED_GAME ~= nil and G.SAVED_GAME.aij_spiral_gestal_save then
 #     G.screenwipecard:remove()
 #     G.screenwipecard = Card(1, 1, G.CARD_W, G.CARD_H, nil, G.P_CENTERS["j_aij_spiral_gestalt"])
 # end

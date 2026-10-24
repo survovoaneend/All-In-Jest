@@ -3,12 +3,11 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
 # Royal Flush + Corndog (1/1)
 # Add stats to the royal flush when its played
 # TODO: Replace Corndog patch with new evaluate_poker_hand context?
 # G.FUNCS.evaluate_play()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
@@ -36,10 +35,9 @@ end
 '''
 match_indent = true
 
-
 # Gives the Royal Flush chips and mult when played (instead of a straight flush)
 # G.FUNCS.evaluate_play()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
@@ -53,10 +51,9 @@ hand_chips = mod_chips(G.GAME.hands[calculated_text or text].chips)
 '''
 match_indent = true
 
-
 # Show the Royal Flush chips and mult when played (instead of a straight flush)
 # G.FUNCS.evaluate_play()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
@@ -70,10 +67,9 @@ update_hand_text({sound = G.GAME.current_round.current_hand.handname ~= disp_tex
 '''
 match_indent = true
 
-
 # Show the Royal Flush chips and mult when played (instead of a straight flush)
 # G.FUNCS.evaluate_play()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
@@ -85,14 +81,13 @@ SMODS.displayed_hand = calculated_text or text
 '''
 match_indent = true
 
-
 # Prevent poker_hand_changed context from firing when a royal flush is upgraded due to upgrading straight flush
 # SMODS.upgrade_poker_hands()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
 match_indent = true
-position = 'after'
+position = "after"
 pattern = '''
 local context = {card = args.from, poker_hand_changed = true}
 '''

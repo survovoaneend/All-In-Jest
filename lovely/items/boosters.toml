@@ -3,15 +3,13 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
-
 # Guess the Jest (1/4)
 # Prevents tooltip for Guess the Jest cards from appearing while hovering over cards in the pack (if 'Guess the Jest Names' is not enabled)
 # Card:hover()
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "if self.facing == 'front' and (not self.states.drag.is or G.CONTROLLER.HID.touch)*" # Find a line inside Card:hover() before the tooltip logic
+pattern = "if self.facing == 'front' and (not self.states.drag.is or G.CONTROLLER.HID.touch)*"  # Find a line inside Card:hover() before the tooltip logic
 position = "before"
 match_indent = true
 payload = '''

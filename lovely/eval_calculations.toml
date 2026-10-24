@@ -4,7 +4,7 @@ dump_lua = true
 priority = 214748364
 
 # Issue: Everything here will not work if there are no cards on screen to calculate with
-[[patches]] #This being a separate file felt warranted
+[[patches]]  # This being a separate file felt warranted
 [patches.pattern]
 target = "functions/common_events.lua"
 pattern = "-- TARGET: evaluate your own general effects"
@@ -108,7 +108,7 @@ end
 -- end
 '''
 
-[[patches]] #For repetition on cards
+[[patches]]  # For repetition on cards
 [patches.pattern]
 target = "functions/common_events.lua"
 pattern = "-- TARGET: evaluate your own repetition effects"
@@ -118,7 +118,7 @@ payload = '''
 if context and (context.aij_inherent_enhancement or context.aij_other_enhancement) then return ret end
 '''
 
-[[patches]] #For >run
+[[patches]]  # For >run
 [patches.pattern]
 target = "functions/common_events.lua"
 pattern = "if not card:can_calculate(context.ignore_debuff, context.remove_playing_cards*"
@@ -156,7 +156,7 @@ if (context.joker_main or context.initial_scoring_step or context.main_eval) and
 end
 '''
 
-[[patches]] #For debuffed joker cards
+[[patches]]  # For debuffed joker cards
 [patches.pattern]
 target = "functions/common_events.lua"
 pattern = "if not card:can_calculate(context.ignore_debuff, context.remove_playing_cards*"
@@ -202,9 +202,7 @@ if next(SMODS.find_card("j_aij_run")) and card.config.center_key ~= 'j_aij_run' 
 end
 '''
 
-
-
-[[patches]] #For debuffed played cards
+[[patches]]  # For debuffed played cards
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
 pattern = "--if card is debuffed"

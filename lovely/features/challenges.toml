@@ -17,10 +17,10 @@ if G.GAME.modifiers.aij_sharpest_tool_1 then aij_change_shop_size_advanced(mod, 
 
 # Force blind to be skipped in the pandemonium challenge
 # G.FUNCS.blind_choice_handler()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
-pattern = '_top_button.children[1].config.colour = G.C.WHITE'
+pattern = "_top_button.children[1].config.colour = G.C.WHITE"
 position = "after"
 payload = '''
 if (e.config.id == "Small" or e.config.id == "Big") and G.GAME.modifiers["aij_pandemonium_1"] then
@@ -83,7 +83,6 @@ if G.GAME.modifiers["aij_all_jokers_is_food"] and _type == 'Joker' then
     end
 end
 '''
-
 
 # Makes all jokers perishable for micromanagement challenge
 # create_card()

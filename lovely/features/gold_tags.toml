@@ -3,14 +3,13 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
 # Gold Tag Collection (1/4)
 # Exclude either gold tags or non-gold tags from collection depending if on gold tag screen or not
 # create_UIBox_your_collection_tags_content()
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/overrides.lua"]'
-pattern = 'for k, v in ipairs(tag_tab) do'
+pattern = "for k, v in ipairs(tag_tab) do"
 position = "before"
 match_indent = true
 payload = '''
@@ -59,14 +58,14 @@ payload = ''',
 [[patches]]
 [patches.pattern]
 target = "tag.lua"
-pattern = 'local tag_sprite = *'
+pattern = "local tag_sprite = *"
 position = "after"
 match_indent = true
 payload = '''
 if self.config.aij and self.config.aij.upgrade then
     tag_sprite = SMODS.create_sprite(0,0,_size*1,_size*1,SMODS.get_atlas((not self.hide_ability) and G.P_TAGS[self.key].atlas or "aij_tag_atlas"), (self.hide_ability) and { x = 5, y = 4 } or self.pos, self.sprite_args)
 end
-''' 
+'''
 
 # Gold Tags Collection (4/4)
 # Set collection page to page 1 if entering/exiting a gold tags page
@@ -103,7 +102,7 @@ if _type == 'Jest_Golden_Tag' then
     jest_golden = true
     _type = 'Tag'
 end
-''' 
+'''
 
 # Gold tags (2/5)
 # Include or exclude gold tags from pool depending on if regular or golden tags were requested
@@ -180,7 +179,6 @@ match_indent = true
 payload = '''
     if _context.tag.config.aij and _context.tag.config.aij.upgrade then return end
 '''
-
 
 # Frugal Tag (1/1)
 # Make cards and boosters free if set by jest_shop_perma_free

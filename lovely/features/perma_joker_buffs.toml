@@ -3,7 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
 # Joker Perma stuff
 # Card:generate_UIBox_ability_tavle()
 [[patches]]
@@ -33,6 +32,7 @@ if self.ability.set == 'Joker' then
     end
 end
 '''
+
 # Perma Joker stuff Locaization
 # generate_card_ui()
 [[patches]]
@@ -50,6 +50,7 @@ if _c.generate_ui and type(_c.generate_ui) == 'function' and _c.set ~= 'Enhanced
     SMODS.localize_perma_bonuses(specific_vars, desc_nodes)
 end
 '''
+
 # After Vanilla Jokers
 # generate_card_ui()
 [[patches]]
@@ -64,6 +65,7 @@ if specific_vars and specific_vars.bonus_chips then
 end
 SMODS.localize_perma_bonuses(specific_vars, desc_nodes)
 '''
+
 # Perma Joker Trigger stuff
 # SMODS.trigger_effects()
 [[patches]]
@@ -76,4 +78,4 @@ for _, key in ipairs({'perma_joker_triggers'}) do
     SMODS.calculate_effect_table_key(effect_table, key, card, ret)
 end
 '''
-match_indent = true 
+match_indent = true

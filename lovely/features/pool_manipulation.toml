@@ -3,12 +3,10 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
-
 # Gives more fine grain control of the jokers generated in the shop
 # Used for sharpest tool challenge and Wamba legendary
 # create_card_for_shop()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = '''
@@ -38,7 +36,6 @@ if G.GAME.shop and G.GAME.shop.slot_details and #G.GAME.shop.slot_details > 0 an
 end
 '''
 match_indent = true
-
 
 # Prevent jokers that can only appear in shop or booster packs from appearing elsewhere
 # create_card()
@@ -81,7 +78,7 @@ end
 # create_card()
 [[patches]]
 [patches.pattern]
-target = 'functions/common_events.lua'
+target = "functions/common_events.lua"
 pattern = '''center = pseudorandom_element(_pool, pseudoseed(_pool_key))'''
 position = "before"
 match_indent = true

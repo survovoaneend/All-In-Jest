@@ -55,13 +55,10 @@ elseif (card and card.ability and card.ability.numbertaker_rankless) then
     full_UI_table.name = full_UI_table.name[1]
 '''
 
-
-
-
 # Ice Cards (1/4)
 # Force Ice Cards to always be selectable
 # CardArea:can_highlight()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "cardarea.lua"
 pattern = '''
@@ -81,7 +78,7 @@ match_indent = true
 # Force Ice Cards to always be selectable
 # Regex accounts for handy patch
 # CardArea:can_highlight()
-[[patches]] 
+[[patches]]
 [patches.regex]
 target = "cardarea.lua"
 pattern = '''(?<indent>[\t ]*)if #self\.highlighted >= self\.config\.highlighted_limit then
@@ -123,7 +120,7 @@ end
 # Ice Cards (3/4)
 # Exclude ice cards that exceed hand limit from determining in hand type
 # evaluate_poker_hand()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/overrides.lua"]'
 pattern = "for _, v in ipairs(SMODS.PokerHandPart.obj_buffer) do"
@@ -157,12 +154,11 @@ end
 '''
 match_indent = true
 
-
 # Ice Cards (4/4) + Marked Cards (1/3) (Marked cards aren't really an ehancement but it's more optimal to combine their logic here
 # Make play button active regardless of if ice cards exceed limit
 # Make play button disabled if any selected card is marked
 # G.FUNCS.can_play()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "if #G.hand.highlighted <= 0 or G.GAME.blind.block_play or #G.hand.highlighted > math.max(G.GAME.starting_params.play_limit, 1) then"
@@ -192,7 +188,7 @@ match_indent = true
 # Marked Cards (2/3)
 # Make discard button disabled if any selected card is marked
 # G.FUNCS.can_discard()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = '''
@@ -220,7 +216,7 @@ match_indent = true
 # Marked Cards (3/3)
 # Ends the round if all cards in hand are marked (resulting in a game over)
 # SMODS.draw_cards
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
 pattern = "local flags = SMODS.calculate_context({drawing_cards = true, amount = *"
@@ -243,7 +239,7 @@ match_indent = true
 # Simulated Cards (1/2)
 # Make discard button always active if only simulated cards are highlighted
 # G.FUNCS.can_discard
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "if G.GAME.current_round.discards_left <= 0 or #G.hand.highlighted <= 0 or #G.hand.highlighted > math.max(G.GAME.starting_params.discard_limit, 0) then "
@@ -269,7 +265,7 @@ match_indent = true
 # Simulated Cards (2/2)
 # Don't consume discard if hand is all simulated cards
 # G.FUNCS.evaluate_play()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = "ease_discard(-1)"
@@ -287,8 +283,6 @@ if not aij_only_simulated then
 end
 '''
 match_indent = true
-
-
 
 # Prevent charged cards from affecting things when a card is copied (1/2)
 # copy_card()
@@ -317,7 +311,7 @@ new_card.ability.m_aij_charged_chaging = nil
 # Scorched Cards (1/1)
 # Set sprite in collection when specified
 # G.FUNCS.SMODS_card_collection_page() (this is a local function in SMODS.card_collection_UIBox())
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/ui.lua"]'
 pattern = "if not args.no_materialize then card:start_materialize(nil, i>1 or j>1) end"

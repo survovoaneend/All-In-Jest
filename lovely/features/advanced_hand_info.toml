@@ -3,15 +3,14 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
 # Advanced hand information (1/3)
 # Adds info about played hand to advanced hand info
 # G.FUNCS.evaluate_play()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 match_indent = false
-position = 'after'
+position = "after"
 pattern = '''
   func = (function() G.GAME.current_round.current_hand.handname = '';return true end)
 }))
@@ -80,7 +79,7 @@ payload = '''
 
 # Advanced hand information (2/3)
 # Clear per-round advanced stats
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
@@ -96,7 +95,7 @@ match_indent = true
 
 # Advanced hand information (3/3)
 # Clear per-ante advanced stats
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
@@ -128,11 +127,10 @@ G.GAME.all_in_jest.unused_hands.ante = G.GAME.all_in_jest.unused_hands.ante + G.
 G.GAME.all_in_jest.unused_discards.ante = G.GAME.all_in_jest.unused_discards.ante + G.GAME.current_round.discards_left
 '''
 
-
 # Discarded this ante stat (1/2)
 # Used for a couple boss blinds
 # G.FUNCS.discard_cards_from_highlighted()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = "G.hand.highlighted[i].ability.discarded = true"
@@ -145,7 +143,7 @@ match_indent = true
 # Discarded this ante stat (2/2)
 # Used for a couple boss blinds
 # end_round()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = "v.ability.played_this_ante = nil"
@@ -154,4 +152,3 @@ payload = '''
 v.ability.aij_discarded_this_ante = nil
 '''
 match_indent = true
-

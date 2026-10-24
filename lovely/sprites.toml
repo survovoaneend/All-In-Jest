@@ -3,8 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
-
 # Adds Sprites needed for patches and a new sticker/indicator for perma debuff
 # Game:start_run()
 [[patches]]
