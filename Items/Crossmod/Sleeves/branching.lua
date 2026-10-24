@@ -6,6 +6,7 @@ local branching = {
 	atlas = "sleeve_atlas",
 	pos = { x = 1, y = 0 },
 	unlocked = false,
+	lite = true,
 	unlock_condition = { deck = "b_aij_branching", stake = "stake_blue" },
 	loc_vars = function(self)
 		local key

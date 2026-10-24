@@ -7,5 +7,6 @@ local plasma = {
 	},
 	cycle = 5,
 	interpolation = "trig",
+	lite = true,
 }
 return { name = { "Gradients" }, items = { plasma } }

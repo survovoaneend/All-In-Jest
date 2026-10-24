@@ -6,6 +6,7 @@ local fabled = {
 	atlas = "sleeve_atlas",
 	pos = { x = 0, y = 0 },
 	unlocked = false,
+	lite = true,
 	unlock_condition = { deck = "b_aij_fabled", stake = "stake_blue" },
 	loc_vars = function(self)
 		local key

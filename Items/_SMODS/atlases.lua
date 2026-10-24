@@ -4,6 +4,7 @@ local atlases = {
 		path = "jokers.png",
 		px = 71,
 		py = 95,
+		lite = true,
 	},
 
 	{
@@ -11,6 +12,7 @@ local atlases = {
 		path = "achievements.png",
 		px = 71,
 		py = 71,
+		lite = true,
 	},
 
 	{
@@ -32,6 +34,7 @@ local atlases = {
 		path = "jumbo_joker.png",
 		px = 81,
 		py = 111,
+		lite = true,
 	},
 
 	{
@@ -46,6 +49,7 @@ local atlases = {
 		path = "decks.png",
 		px = 71,
 		py = 95,
+		lite = true,
 	},
 
 	{
@@ -53,6 +57,7 @@ local atlases = {
 		path = "sleeves.png",
 		px = 73,
 		py = 95,
+		lite = true,
 	},
 
 	{
@@ -60,6 +65,7 @@ local atlases = {
 		path = "stickers.png",
 		px = 71,
 		py = 95,
+		lite = true,
 	},
 
 	{
@@ -69,6 +75,7 @@ local atlases = {
 		py = 34,
 		frames = 21,
 		atlas_table = "ANIMATION_ATLAS",
+		lite = true,
 	},
 
 	{
@@ -78,6 +85,7 @@ local atlases = {
 		py = 34,
 		frames = 21,
 		atlas_table = "ANIMATION_ATLAS",
+		lite = true,
 	},
 
 	{
@@ -87,6 +95,7 @@ local atlases = {
 		py = 34,
 		frames = 21,
 		atlas_table = "ANIMATION_ATLAS",
+		lite = true,
 	},
 
 	{
@@ -94,6 +103,7 @@ local atlases = {
 		path = "legendaries.png",
 		px = 71,
 		py = 95,
+		lite = true,
 	},
 
 	{
@@ -101,6 +111,7 @@ local atlases = {
 		path = "consumables.png",
 		px = 71,
 		py = 95,
+		lite = true,
 	},
 
 	{
@@ -108,6 +119,7 @@ local atlases = {
 		path = "enhancements.png",
 		px = 71,
 		py = 95,
+		lite = true,
 	},
 
 	{
@@ -115,6 +127,7 @@ local atlases = {
 		path = "multi_enhancements.png",
 		px = 71,
 		py = 95,
+		lite = true,
 	},
 
 	{
@@ -124,6 +137,7 @@ local atlases = {
 		frames = 10,
 		px = 71,
 		py = 95,
+		lite = true,
 	},
 
 	{
@@ -131,6 +145,7 @@ local atlases = {
 		path = "fusion_parts/foregrounds.png",
 		px = 71,
 		py = 95,
+		lite = true,
 	},
 
 	{
@@ -138,6 +153,7 @@ local atlases = {
 		path = "vouchers.png",
 		px = 71,
 		py = 95,
+		lite = true,
 	},
 
 	{
@@ -145,6 +161,7 @@ local atlases = {
 		path = "tag.png",
 		px = 34,
 		py = 34,
+		lite = true,
 	},
 
 	{
@@ -152,6 +169,7 @@ local atlases = {
 		path = "familiar.png",
 		px = 71,
 		py = 95,
+		lite = true,
 	},
 
 	{
@@ -159,6 +177,7 @@ local atlases = {
 		path = "partner_atlas.png",
 		px = 46,
 		py = 58,
+		lite = true,
 	},
 
 	{
@@ -166,6 +185,7 @@ local atlases = {
 		path = "boosters.png",
 		px = 71,
 		py = 95,
+		lite = true,
 	},
 
 	{
@@ -173,6 +193,7 @@ local atlases = {
 		path = "mystery.png",
 		px = 71,
 		py = 95,
+		lite = true,
 	},
 
 	{
@@ -180,6 +201,7 @@ local atlases = {
 		px = 32,
 		py = 32,
 		path = "modicon.png",
+		lite = true,
 	},
 
 	{
@@ -189,6 +211,7 @@ local atlases = {
 		py = 34,
 		frames = 21,
 		atlas_table = "ANIMATION_ATLAS",
+		lite = true,
 	},
 }
 

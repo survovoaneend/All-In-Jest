@@ -4,15 +4,25 @@ G.AIJ = {}
 
 local DEV_TAB_DEBUG = false
 
-All_in_Jest.optional_features = {
-	retrigger_joker = true,
-	post_trigger = true,
-	object_weights = true,
-	cardareas = {
-		deck = true,
-		discard = true,
-	},
-}
+if All_in_Jest.config.aij_lite then
+	All_in_Jest.optional_features = {
+		object_weights = true,
+		cardareas = {
+			deck = true,
+			discard = true,
+		},
+	}
+else
+	All_in_Jest.optional_features = {
+		retrigger_joker = true,
+		post_trigger = true,
+		object_weights = true,
+		cardareas = {
+			deck = true,
+			discard = true,
+		},
+	}
+end
 
 local injectitems_ref = SMODS.injectItems
 SMODS.injectItems = function()
