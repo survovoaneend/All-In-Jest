@@ -68,6 +68,6 @@ function G.FUNCS.discard_cards_from_highlighted(e, hook)
 		local new_selected = pseudorandom_element(unselected, pseudoseed("bell_GL_new"))
 		G.hand:add_to_highlighted(new_selected)
 	end
-	discard_cards_ref(e)
+	discard_cards_ref(e, hook)
 end
 return { name = { "Blinds" }, items = { cerulean_bell } }
