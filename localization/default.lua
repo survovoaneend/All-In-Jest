@@ -10756,8 +10756,7 @@ return {
 				name = "Star of the Magi",
 				text = {
 					"{C:attention}Create{} a random",
-					"Passigrade {C:aij_astral}Astral{}",
-					"card",
+					"Passigrade {C:aij_astral}Astral{} card",
 				},
 			},
 			c_aij_twilight = {
@@ -10986,7 +10985,7 @@ return {
 				name = "Sidereal Pack",
 				text = {
 					"Choose {C:attention}#1#{} of up to",
-					"{C:attention}#2#{} {C:spectral}Astral{} cards to",
+					"{C:attention}#2#{} {C:aij_astral}Astral{} cards to",
 					"be used immediately",
 				},
 			},
