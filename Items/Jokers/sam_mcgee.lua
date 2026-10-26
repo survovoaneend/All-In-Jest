@@ -10,6 +10,7 @@ local sam_mcgee = {
 		},
 	},
 	attributes = { "xmult" },
+	lite = true,
 	rarity = 2,
 	pos = { x = 11, y = 23 },
 	atlas = "joker_atlas",

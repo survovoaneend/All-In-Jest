@@ -9,6 +9,7 @@ local dog_treat = {
 		},
 	},
 	attributes = { "food", "economy" },
+	lite = true,
 	rarity = 1,
 	pos = { x = 20, y = 43 },
 	atlas = "joker_atlas",
