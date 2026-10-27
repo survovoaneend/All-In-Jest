@@ -7,44 +7,45 @@ priority = 214748364
 [[patches]]
 [patches.pattern]
 target = '=[SMODS Multiplayer "core.lua"]'
-pattern = 'MP.load_mp_dir("compatibility")'
+pattern = 'PVP.load_mp_dir("compatibility")'
 position = "after"
 payload = '''
 do -- All in Jest multiplayer patch 
   if next(SMODS.find_mod("allinjest")) then
 	  sendDebugMessage("All in Jest compatibility detected", "MULTIPLAYER")
-    MP.DECK.ban_card("j_aij_blood_artist") -- Messes with blind req.
-    -- MP.DECK.ban_card("j_aij_fall_of_count_chaligny") -- Messes with blind req.
-    MP.DECK.ban_card("j_aij_pedrolino") -- Messes with blind req.
-    MP.DECK.ban_card("j_aij_blind_drawn") -- Downside becomes irrelevant
-    MP.DECK.ban_card("j_aij_stultor") -- Rerolls blind
-    MP.DECK.ban_card("j_aij_hofnarr_the_barbarian") -- Only cares about showdown blinds
-    MP.DECK.ban_card("j_aij_eulenspiegel") -- Messes with the current Ante
-    MP.DECK.ban_card("j_aij_scarab") -- Messes with the current Ante
-    MP.DECK.ban_card("j_aij_atemporal_taco") -- Messes with the current Ante
-    MP.DECK.ban_tag("tag_aij_dominus") -- Can reroll blind
-    MP.DECK.ban_card("j_aij_jokey_bear") -- Downside becomes irrelevant
-    MP.DECK.ban_card("c_aij_spica") -- Let's you disable boss
+    PVP.DECK.ban_card("j_aij_blood_artist") -- Messes with blind req.
+    -- PVP.DECK.ban_card("j_aij_fall_of_count_chaligny") -- Messes with blind req.
+    PVP.DECK.ban_card("j_aij_pedrolino") -- Messes with blind req.
+    PVP.DECK.ban_card("j_aij_blind_drawn") -- Downside becomes irrelevant
+    PVP.DECK.ban_card("j_aij_stultor") -- Rerolls blind
+    PVP.DECK.ban_card("j_aij_hofnarr_the_barbarian") -- Only cares about showdown blinds
+    PVP.DECK.ban_card("j_aij_eulenspiegel") -- Messes with the current Ante
+    PVP.DECK.ban_card("j_aij_scarab") -- Messes with the current Ante
+    PVP.DECK.ban_card("j_aij_atemporal_taco") -- Messes with the current Ante
+    PVP.DECK.ban_card("j_aij_jokey_bear") -- Downside becomes irrelevant
+    PVP.DECK.ban_card("c_aij_spica") -- Let's you disable boss
+
+    PVP.DECK.ban_tag("tag_aij_dominus") -- Can reroll blind
 
     -- Ban boss blinds that increase score requirement
     -- Used for option to combine pvp blind with a boss blind
-    MP.DECK.ban_blind("bl_aij_the_groan")
-    MP.DECK.ban_blind("bl_aij_the_ash")
-    MP.DECK.ban_blind("bl_aij_the_clay")
-    MP.DECK.ban_blind("bl_aij_the_aspen")
-    MP.DECK.ban_blind("bl_aij_the_evergreen")
-    MP.DECK.ban_blind("bl_aij_the_giant")
-    MP.DECK.ban_blind("bl_aij_the_celebration")
-    MP.DECK.ban_blind("bl_aij_the_hoard")
-    MP.DECK.ban_blind("bl_aij_the_mountain")
-    MP.DECK.ban_blind("bl_aij_the_brilliance")
-    MP.DECK.ban_blind("bl_aij_the_clown")
-    MP.DECK.ban_blind("bl_aij_the_connection")
-    MP.DECK.ban_blind("bl_aij_aureate_coin")
-    MP.DECK.ban_blind("bl_aij_mysterious_myriad")
-    MP.DECK.ban_blind("bl_aij_fallen_falcon")
+    PVP.DECK.ban_blind("bl_aij_the_groan")
+    PVP.DECK.ban_blind("bl_aij_the_ash")
+    PVP.DECK.ban_blind("bl_aij_the_clay")
+    PVP.DECK.ban_blind("bl_aij_the_aspen")
+    PVP.DECK.ban_blind("bl_aij_the_evergreen")
+    PVP.DECK.ban_blind("bl_aij_the_giant")
+    PVP.DECK.ban_blind("bl_aij_the_celebration")
+    PVP.DECK.ban_blind("bl_aij_the_hoard")
+    PVP.DECK.ban_blind("bl_aij_the_mountain")
+    PVP.DECK.ban_blind("bl_aij_the_brilliance")
+    PVP.DECK.ban_blind("bl_aij_the_clown")
+    PVP.DECK.ban_blind("bl_aij_the_connection")
+    PVP.DECK.ban_blind("bl_aij_aureate_coin")
+    PVP.DECK.ban_blind("bl_aij_mysterious_myriad")
+    PVP.DECK.ban_blind("bl_aij_fallen_falcon")
 
-    MP.DECK.ban_blind("bl_aij_the_journey")
+    PVP.DECK.ban_blind("bl_aij_the_journey")
   end
 end -- End of All in Jest multiplayer patch
 '''
@@ -53,15 +54,15 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = '=[SMODS Multiplayer "core.lua"]'
-pattern = 'MP.load_mp_dir("gamemodes")'
+pattern = 'PVP.load_mp_dir("gamemodes")'
 position = "after"
 payload = '''
 do -- All in Jest multiplayer patch 
   if next(SMODS.find_mod("allinjest")) then
-    for _, t in ipairs({MP.Gamemodes.gamemode_mp_attrition, MP.Gamemodes.gamemode_mp_showdown}) do
+    for _, t in ipairs({PVP.Gamemodes.gamemode_mp_attrition, PVP.Gamemodes.gamemode_mp_showdown}) do
       table.insert(t.reworked_jokers, "j_aij_mp_blind_drawn")
     end
-    sendDebugMessage(tprint(MP.Gamemodes.gamemode_mp_attrition), "AIJ")
+    sendDebugMessage(tprint(PVP.Gamemodes.gamemode_mp_attrition), "AIJ")
   end
 end -- End of All in Jest multiplayer patch
 '''
@@ -73,7 +74,7 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = '=[SMODS Multiplayer "ui/game.lua"]'
-pattern = "MP.GAME.enemy.score_text = new_score_text"
+pattern = "PVP.GAME.enemy.score_text = new_score_text"
 position = "before"
 payload = '''
 do -- All in Jest multiplayer patch 
@@ -92,7 +93,7 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = '=[SMODS Multiplayer "ui/game.lua"]'
-pattern = "local new_score_text = MP.INSANE_INT.to_string(MP.GAME.enemy.score)"
+pattern = "local new_score_text = PVP.INSANE_INT.to_string(PVP.GAME.enemy.score)"
 position = "after"
 payload = '''
 if next(SMODS.find_card("j_aij_mp_blind_drawn")) then -- All in Jest multiplayer patch 
@@ -107,7 +108,7 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = '=[SMODS Multiplayer "ui/game.lua"]'
-pattern = '{ { ref_table = MP.GAME.enemy, ref_value = "hands" } }'
+pattern = '{ { ref_table = PVP.GAME.enemy, ref_value = "hands" } }'
 position = "before"
 payload = '''
 next(SMODS.find_card("j_aij_mp_blind_drawn")) and { { ref_table = {hands = "?"}, ref_value = "hands" } } or 
@@ -139,9 +140,9 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = '=[SMODS Multiplayer "ui/hud.lua"]'
-pattern = "text = MP.INSANE_INT.to_string(highest_score),"
+pattern = "text = PVP.INSANE_INT.to_string(highest_score),"
 position = "at"
-payload = 'text = (next(SMODS.find_card("j_aij_mp_blind_drawn")) and not ((type == "host" and MP.LOBBY.is_host) or (type == "guest" and not MP.LOBBY.is_host))) and "???" or MP.INSANE_INT.to_string(highest_score), -- All in Jest override'
+payload = 'text = (next(SMODS.find_card("j_aij_mp_blind_drawn")) and not ((type == "host" and PVP.LOBBY.is_host) or (type == "guest" and not PVP.LOBBY.is_host))) and "???" or PVP.INSANE_INT.to_string(highest_score), -- All in Jest override'
 match_indent = true
 
 # AiJ Blind Functionality (5/5)

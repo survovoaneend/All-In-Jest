@@ -1,9 +1,9 @@
 local function update_blind_HUD()
-	if MP.LOBBY.code and MP.is_pvp_boss() then
+	if PVP.LOBBY.code and PVP.is_pvp_boss() then
 		G.HUD_blind:get_UIE_by_ID("dollars_to_be_earned").config.object.config.string = next(
 			SMODS.find_card("j_aij_mp_blind_drawn")
 		) and { { ref_table = { hands = "?" }, ref_value = "hands" } } or {
-			{ ref_table = MP.GAME.enemy, ref_value = "hands" },
+			{ ref_table = PVP.GAME.enemy, ref_value = "hands" },
 		}
 		G.HUD_blind:get_UIE_by_ID("dollars_to_be_earned").config.object:update_text()
 	end
@@ -58,13 +58,13 @@ local mp_blind_drawn = {
 	end,
 
 	mp_include = function(self)
-		if MP.is_practice_mode() then
+		if PVP.is_practice_mode() then
 			return false
 		else
-			return MP.current_ruleset() and MP.LOBBY.code
+			return PVP.current_ruleset() and PVP.LOBBY.code
 		end
 	end,
 }
-if next(SMODS.find_mod("Multiplayer")) then
+if next(SMODS.find_mod("MultiplayerPvP")) then
 	return { name = { "Jokers" }, items = { mp_blind_drawn } }
 end
