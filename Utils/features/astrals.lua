@@ -68,6 +68,36 @@ All_in_Jest.Astral = SMODS.Tag:extend({
 	end,
 })
 
+All_in_Jest.Astral_Grades = {}
+All_in_Jest.Astral_Grade = SMODS.Sticker:extend({
+	obj_table = All_in_Jest.Astral_Grades,
+	atlas = "stickers_atlas",
+	class_prefix = "astral_grade",
+	atlas = "stickers_atlas",
+	pos = { x = 0, y = 3 },
+	no_collection = true,
+	sets = { aij_astral = true },
+	rate = 0,
+	all_in_jest = { rarity = 0 },
+	apply = function(self, card, val)
+		card.ability.astral_grade = self.key
+		card.ability.astral_hand = self:choose_hand()
+		if self.config and next(self.config) then
+			card.ability[self.key] = {}
+			for k, v in pairs(self.config) do
+				if type(v) == "table" then
+					card.ability[self.key][k] = copy_table(v)
+				else
+					card.ability[self.key][k] = v
+					if k == "card_limit" or k == "extra_slots_used" then
+						card.ability[k] = (card.ability[k] or 0) + v
+					end
+				end
+			end
+		end
+	end,
+})
+
 SMODS.ConsumableType({
 	key = "aij_astral",
 	primary_colour = HEX("d1e2f6"),
@@ -83,8 +113,7 @@ SMODS.ConsumableType({
 			card.ability = copy_table(card.ability)
 			local center_cfg = card.config.center
 			local grade = All_in_Jest.astral_set_grade(center_cfg.all_in_jest and center_cfg.all_in_jest.grades)
-			card.ability.consumeable.grade = grade
-			card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(grade)
+			grade:apply(card)
 
 			if set_ability_ref then
 				return set_ability_ref(self, card, initial, delay_sprites)
@@ -100,9 +129,10 @@ SMODS.ConsumableType({
 					G.GAME.Astral_pins
 					and #G.GAME.Astral_pins
 					and card.ability.consumeable
-					and card.ability.consumeable.hand
+					and card.ability.astral_hand
+					and G.GAME.Astral_pins[card.ability.astral_hand]
 				then
-					pin_count = #G.GAME.Astral_pins[card.ability.consumeable.hand] or 0
+					pin_count = #G.GAME.Astral_pins[card.ability.astral_hand]
 				end
 				local pins_left = math.max((G.GAME.all_in_jest.astral_pin_per_hand or 3) - pin_count, 0)
 
@@ -111,40 +141,36 @@ SMODS.ConsumableType({
 					ret = loc_vars_ref(self, info_queue, card)
 				end
 
-				if card.area and not card.area.config.collection then
-					if card.ability.consumeable.hand and card.ability.consumeable.grade then
-						if card.ability.consumeable.grade == "Retrograde" then
-							card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade("Retrograde")
-						end
-						info_queue[#info_queue + 1] =
-							{ key = "aij_astral_" .. string.lower(card.ability.consumeable.grade), set = "Other" }
-					end
+				info_queue[#info_queue + 1] = { key = card.ability.astral_grade, set = "Other" }
 
+				if card.area and not card.area.config.collection then
 					ret.main_end = ret.main_end or {}
-					ret.main_end[#ret.main_end + 1] = {
-						n = G.UIT.R,
-						config = { align = "cm" },
-						nodes = {
-							{
-								n = G.UIT.R,
-								config = { align = "cm", padding = 0.02 },
-								nodes = {
-									{
-										n = G.UIT.T,
-										config = {
-											text = localize({
-												type = "variable",
-												key = "a_aij_slots_left",
-												vars = { pins_left },
-											}),
-											colour = G.C.UI.TEXT_INACTIVE,
-											scale = 0.32,
+					if card.ability.astral_hand ~= "All Hands" then
+						ret.main_end[#ret.main_end + 1] = {
+							n = G.UIT.R,
+							config = { align = "cm" },
+							nodes = {
+								{
+									n = G.UIT.R,
+									config = { align = "cm", padding = 0.02 },
+									nodes = {
+										{
+											n = G.UIT.T,
+											config = {
+												text = localize({
+													type = "variable",
+													key = "a_aij_slots_left",
+													vars = { pins_left },
+												}),
+												colour = G.C.UI.TEXT_INACTIVE,
+												scale = 0.32,
+											},
 										},
 									},
 								},
 							},
-						},
-					}
+						}
+					end
 				end
 
 				return ret
@@ -161,12 +187,12 @@ SMODS.ConsumableType({
 				All_in_Jest.use_astral_card(card)
 				if
 					G.aij_cur_astral_hand
-					and G.aij_cur_astral_hand == card.ability.consumeable.hand
+					and (G.aij_cur_astral_hand == card.ability.astral_hand or G.aij_cur_astral_hand == "Omnigrade")
 					and G.GAME.Astral_pins
 				then
 					if G.aij_astral_pin_area and #G.aij_astral_pin_area.cards > 0 then
 						All_in_Jest.astral_visuals(
-							card.ability.consumeable.hand,
+							G.aij_cur_astral_hand,
 							"only_remove",
 							All_in_Jest.old_colours or nil,
 							true
@@ -175,7 +201,7 @@ SMODS.ConsumableType({
 							v:remove()
 						end
 					end
-					All_in_Jest.astral_visuals(card.ability.consumeable.hand, "no_remove")
+					All_in_Jest.astral_visuals(G.aij_cur_astral_hand, "no_remove")
 				end
 			end
 		end
@@ -192,95 +218,69 @@ SMODS.UndiscoveredSprite({
 
 --Sets an Astral cards grade
 function All_in_Jest.astral_set_grade(rarity)
-	local rand_val = pseudorandom("aij_astral_grade")
+	local polled_value = pseudorandom("aij_astral_grade")
 
-	rarity = rarity or { ["Retrograde"] = 0.1, ["Passigrade"] = 0.45 }
-
-	local retro_chance = rarity["Retrograde"] or 0
-	local passi_chance = rarity["Passigrade"] or 0
-
-	-- Check probabilities sequentially so they don't overwrite each other
-	if rand_val <= retro_chance then
-		return "Retrograde"
-	elseif rand_val <= (retro_chance + passi_chance) then
-		return "Passigrade"
-	else
-		return "Prograde"
-	end
-end
-
--- Gets hand from grade type
-function All_in_Jest.astral_hand_from_grade(grade, cur_hand)
-	local _hand = "High Card"
-	if G.GAME.hands and G.handlist then
-		if grade == "Retrograde" then
-			local _tally = 0
-			for k, v in ipairs(G.handlist) do
-				if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played >= _tally then
-					_hand = v
-					_tally = G.GAME.hands[v].played
-				end
-			end
-		elseif grade == "Prograde" then
-			local _remove_tally = 0
-			for k, v in ipairs(G.handlist) do
-				if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played >= _remove_tally then
-					_remove_tally = G.GAME.hands[v].played
-				end
-			end
-			local vaild_hands = {}
-			for k, v in ipairs(G.handlist) do
-				if SMODS.is_poker_hand_visible(v) and G.GAME.hands[v].played < _remove_tally then
-					vaild_hands[#vaild_hands + 1] = v
-				end
-			end
-			if #vaild_hands <= 0 then
-				for k, v in ipairs(G.handlist) do
-					if SMODS.is_poker_hand_visible(v) then
-						vaild_hands[#vaild_hands + 1] = v
-					end
-				end
-			end
-			_hand = cur_hand or pseudorandom_element(vaild_hands, pseudoseed(grade))
-		elseif grade == "Passigrade" then
-			local vaild_hands = {}
-			for k, v in ipairs(G.handlist) do
-				if SMODS.is_poker_hand_visible(v) then
-					vaild_hands[#vaild_hands + 1] = v
-				end
-			end
-			_hand = cur_hand or pseudorandom_element(vaild_hands, pseudoseed(grade))
+	local rarity_sum = 0
+	for _, v in pairs(All_in_Jest.Astral_Grades) do
+		if rarity and rarity[v.key] then
+			rarity_sum = rarity_sum + rarity[v.key]
+		else
+			rarity_sum = rarity_sum + v.all_in_jest.rarity
 		end
 	end
-	return _hand
+	polled_value = polled_value * rarity_sum
+
+	local ongoing_sum = 0
+	for _, v in pairs(All_in_Jest.Astral_Grades) do
+		if rarity and rarity[v.key] then
+			ongoing_sum = ongoing_sum + rarity[v.key]
+		else
+			ongoing_sum = ongoing_sum + v.all_in_jest.rarity
+		end
+		if polled_value <= ongoing_sum then
+			return v
+		end
+	end
 end
 
 function All_in_Jest.create_astral_pin(card, index)
-	local index = index or #G.GAME.Astral_pins[card.ability.consumeable.hand] + 1
-	G.GAME.Astral_pins[card.ability.consumeable.hand][index] = {}
-	G.GAME.Astral_pins[card.ability.consumeable.hand][index]["pin"] = card.ability.consumeable.pin
-	G.GAME.Astral_pins[card.ability.consumeable.hand][index].ability = {}
-	G.GAME.Astral_pins[card.ability.consumeable.hand][index].ability.extra = card.ability.extra
+	if card.ability.astral_hand == "All Hands" then
+		for k, v in ipairs(G.handlist) do
+			if index or #G.GAME.Astral_pins[v] < G.GAME.all_in_jest.astral_pin_per_hand then
+				if not index then
+					index = #G.GAME.Astral_pins[v] + 1
+				end
+				G.GAME.Astral_pins[v][index] = {}
+				G.GAME.Astral_pins[v][index]["pin"] = card.ability.consumeable.pin
+				G.GAME.Astral_pins[v][index].ability = {}
+				G.GAME.Astral_pins[v][index].ability.extra = card.ability.extra
+			end
+		end
+	else
+		if not index then
+			index = #G.GAME.Astral_pins[card.ability.astral_hand] + 1
+		end
+		G.GAME.Astral_pins[card.ability.astral_hand][index] = {}
+		G.GAME.Astral_pins[card.ability.astral_hand][index]["pin"] = card.ability.consumeable.pin
+		G.GAME.Astral_pins[card.ability.astral_hand][index].ability = {}
+		G.GAME.Astral_pins[card.ability.astral_hand][index].ability.extra = card.ability.extra
+	end
 end
 
 function All_in_Jest.use_astral_card(card)
 	if
-		G.GAME.Astral_pins[card.ability.consumeable.hand]
-		and #G.GAME.Astral_pins[card.ability.consumeable.hand] >= G.GAME.all_in_jest.astral_pin_per_hand
+		card.ability.astral_hand ~= "All Hands"
+		and G.GAME.Astral_pins[card.ability.astral_hand]
+		and #G.GAME.Astral_pins[card.ability.astral_hand] >= G.GAME.all_in_jest.astral_pin_per_hand
 	then
 		if G.GAME.Astral_pins and G.aij_astral_pin_area and #G.aij_astral_pin_area.cards > 0 then
-			All_in_Jest.astral_visuals(
-				card.ability.consumeable.hand,
-				"only_remove",
-				All_in_Jest.old_colours or nil,
-				true
-			)
+			All_in_Jest.astral_visuals(card.ability.astral_hand, "only_remove", All_in_Jest.old_colours or nil, true)
 			for _, v in pairs(G.aij_astral_pin_area.cards) do
 				v:remove()
 			end
 		end
 		if G.GAME.Astral_pins then
-			All_in_Jest.astral_visuals(card.ability.consumeable.hand, "no_remove")
+			All_in_Jest.astral_visuals(card.ability.astral_hand, "no_remove")
 		end
 		G.E_MANAGER:add_event(Event({
 			func = function()
@@ -323,7 +323,7 @@ function All_in_Jest.use_astral_card(card)
 				})
 				if G.GAME.Astral_pins then
 					All_in_Jest.astral_visuals(
-						card.ability.consumeable.hand,
+						card.ability.astral_hand,
 						"only_remove",
 						All_in_Jest.old_colours or nil,
 						true
@@ -342,8 +342,8 @@ function All_in_Jest.use_astral_card(card)
 	end
 end
 
-function All_in_Jest.astral_background(type, colours)
-	if type then
+function All_in_Jest.astral_background(_type, colours)
+	if _type then
 		ease_background_colour({
 			special_colour = darken(colours.background[1], 0.5),
 			new_colour = colours.background[2],

@@ -9,22 +9,22 @@ local sirius = {
 	unlocked = true,
 	discovered = false,
 	order = 4,
-	config = { hand = nil, grade = "", pin = "Sirius", extra = { cards = 1 } },
+	config = { pin = "Sirius", extra = { cards = 1 } },
 	attributes = { "hand_type", "space", "retrigger" },
 	loc_vars = function(self, info_queue, card)
 		-- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {
 			vars = {
-				(card.area and not card.area.config.collection) and card.ability.consumeable.hand or "(hand)",
+				not (card.area and card.area.config.collection) and card.ability.astral_hand or "(hand)",
 				card.ability.extra.cards,
 			},
 		}
 	end,
 	all_in_jest = {
 		grades = {
-			["Retrograde"] = 0.15,
-			["Passigrade"] = 0.55,
-			["Prograde"] = 0.3,
+			["astral_grade_aij_retrograde"] = 0.15,
+			["astral_grade_aij_passigrade"] = 0.55,
+			["astral_grade_aij_prograde"] = 0.3,
 		},
 	},
 }

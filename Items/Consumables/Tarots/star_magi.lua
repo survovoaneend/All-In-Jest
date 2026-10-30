@@ -11,7 +11,7 @@ local star_magi_tarot = {
 	attributes = { "generation", "astral" },
 	atlas = "consumable_atlas",
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue + 1] = { key = "aij_astral_passigrade", set = "Other" }
+		info_queue[#info_queue + 1] = { key = "astral_grade_aij_passigrade", set = "Other" }
 		return {
 			vars = {},
 		}
@@ -32,7 +32,7 @@ local star_magi_tarot = {
 					area = G.consumeables,
 					key_append = "jest_star_magi",
 				})
-				new_card.ability.consumeable.grade = "Passigrade"
+				All_in_Jest.Astral_Grades["astral_grade_aij_passigrade"]:apply(new_card)
 				used_tarot:juice_up(0.3, 0.5)
 				return true
 			end,

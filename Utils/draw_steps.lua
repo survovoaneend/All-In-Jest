@@ -96,28 +96,33 @@ SMODS.DrawStep({
 				)
 			end
 		end
-
-		--Astral Grades/Pins
-		if
-			(
-				(self.ability and self.ability.set and self.ability.set == "aij_astral")
-				or (center and center.all_in_jest and center.all_in_jest.as_astral)
-			) and not self.config.center.is_pin
-		then
-			if
-				G.all_in_jest
-				and G.all_in_jest.astral_grades[self.ability.consumeable.grade]
-				and self.area
-				and not self.area.config.collection
-			then
-				G.all_in_jest.astral_grades[self.ability.consumeable.grade].role.draw_major = self
-				G.all_in_jest.astral_grades[self.ability.consumeable.grade]:draw_shader(
-					"dissolve",
-					nil,
-					nil,
-					nil,
-					self.children.center
-				)
+	end,
+	conditions = { vortex = false, facing = "front" },
+})
+SMODS.DrawStep({
+	key = "astral_grade_stickers",
+	order = 21,
+	func = function(self, layer)
+		if not (self.area and self.area.config.collection) then
+			for k, v in pairs(All_in_Jest.Astral_Grades) do
+				if
+					self.ability.astral_grade == v.key
+					and not (self.aij_delay_sticker and self.aij_delay_sticker[v.key])
+				then
+					if v and v.draw and type(v.draw) == "function" then
+						v:draw(self, layer)
+					else
+						G.shared_stickers[v.key].role.draw_major = self
+						G.shared_stickers[v.key]:draw_shader("dissolve", nil, nil, nil, self.children.center)
+						G.shared_stickers[v.key]:draw_shader(
+							"voucher",
+							nil,
+							self.ARGS.send_to_shader,
+							nil,
+							self.children.center
+						)
+					end
+				end
 			end
 		end
 	end,

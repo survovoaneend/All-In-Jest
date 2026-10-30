@@ -9,21 +9,21 @@ local aldebaran = {
 	unlocked = true,
 	discovered = false,
 	order = 2,
-	config = { hand = nil, grade = "", pin = "Aldebaran", extra = { percent = 20 } },
+	config = { pin = "Aldebaran", extra = { percent = 20 } },
 	attributes = { "hand_type", "space", "balance" },
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
-				(card.area and not card.area.config.collection) and card.ability.consumeable.hand or "(hand)",
+				not (card.area and card.area.config.collection) and card.ability.astral_hand or "(hand)",
 				card.ability.extra.percent,
 			},
 		}
 	end,
 	all_in_jest = {
 		grades = {
-			["Retrograde"] = 0.4,
-			["Passigrade"] = 0.4,
-			["Prograde"] = 0.2,
+			["astral_grade_aij_retrograde"] = 0.4,
+			["astral_grade_aij_passigrade"] = 0.4,
+			["astral_grade_aij_prograde"] = 0.2,
 		},
 	},
 }

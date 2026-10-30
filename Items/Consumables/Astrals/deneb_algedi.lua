@@ -9,22 +9,22 @@ local deneb_algedi = {
 	unlocked = true,
 	discovered = false,
 	order = 14,
-	config = { hand = nil, grade = "", pin = "Deneb Algedi", extra = { hands = 1 } },
+	config = { pin = "Deneb Algedi", extra = { hands = 1 } },
 	attributes = { "hand_type", "space", "hands" },
 	loc_vars = function(self, info_queue, card)
 		-- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {
 			vars = {
-				(card.area and not card.area.config.collection) and card.ability.consumeable.hand or "(hand)",
+				not (card.area and card.area.config.collection) and card.ability.astral_hand or "(hand)",
 				card.ability.extra.hands,
 			},
 		}
 	end,
 	all_in_jest = {
 		grades = {
-			["Retrograde"] = 0.3,
-			["Passigrade"] = 0.6,
-			["Prograde"] = 0.1,
+			["astral_grade_aij_retrograde"] = 0.3,
+			["astral_grade_aij_passigrade"] = 0.6,
+			["astral_grade_aij_prograde"] = 0.1,
 		},
 	},
 }

@@ -9,22 +9,22 @@ local arcturus = {
 	unlocked = true,
 	discovered = false,
 	order = 10,
-	config = { hand = nil, grade = "", pin = "Arcturus", extra = { discards = 1 } },
+	config = { pin = "Arcturus", extra = { discards = 1 } },
 	attributes = { "hand_type", "space", "discard" },
 	loc_vars = function(self, info_queue, card)
 		-- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {
 			vars = {
-				(card.area and not card.area.config.collection) and card.ability.consumeable.hand or "(hand)",
+				not (card.area and card.area.config.collection) and card.ability.astral_hand or "(hand)",
 				card.ability.consumeable.extra.discards,
 			},
 		}
 	end,
 	all_in_jest = {
 		grades = {
-			["Retrograde"] = 0.4,
-			["Passigrade"] = 0.4,
-			["Prograde"] = 0.2,
+			["astral_grade_aij_retrograde"] = 0.4,
+			["astral_grade_aij_passigrade"] = 0.4,
+			["astral_grade_aij_prograde"] = 0.2,
 		},
 	},
 }

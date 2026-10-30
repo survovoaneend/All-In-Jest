@@ -9,14 +9,14 @@ local regulus = {
 	unlocked = true,
 	discovered = false,
 	order = 5,
-	config = { hand = nil, grade = "", pin = "Regulus", extra = { odds = 6 } },
+	config = { pin = "Regulus", extra = { odds = 6 } },
 	attributes = { "hand_type", "space", "chance", "hand_level" },
 	loc_vars = function(self, info_queue, card)
 		-- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
 		return {
 			vars = {
-				(card.area and not card.area.config.collection) and card.ability.consumeable.hand or "(hand)",
+				not (card.area and card.area.config.collection) and card.ability.astral_hand or "(hand)",
 				numerator,
 				denominator,
 			},
@@ -24,9 +24,9 @@ local regulus = {
 	end,
 	all_in_jest = {
 		grades = {
-			["Retrograde"] = 0.4,
-			["Passigrade"] = 0.4,
-			["Prograde"] = 0.2,
+			["astral_grade_aij_retrograde"] = 0.4,
+			["astral_grade_aij_passigrade"] = 0.4,
+			["astral_grade_aij_prograde"] = 0.2,
 		},
 	},
 }

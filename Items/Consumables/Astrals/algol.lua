@@ -9,22 +9,22 @@ local algol = {
 	unlocked = true,
 	discovered = false,
 	order = 0,
-	config = { hand = nil, grade = "", pin = "Algol", extra = { dollars = 2 } },
+	config = { pin = "Algol", extra = { dollars = 2 } },
 	attributes = { "hand_type", "space", "economy" },
 	loc_vars = function(self, info_queue, card)
 		-- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {
 			vars = {
-				(card.area and not card.area.config.collection) and card.ability.consumeable.hand or "(hand)",
+				not (card.area and card.area.config.collection) and card.ability.astral_hand or "(hand)",
 				card.ability.extra.dollars,
 			},
 		}
 	end,
 	all_in_jest = {
 		grades = {
-			["Retrograde"] = 0.3,
-			["Passigrade"] = 0.6,
-			["Prograde"] = 0.1,
+			["astral_grade_aij_retrograde"] = 0.3,
+			["astral_grade_aij_passigrade"] = 0.6,
+			["astral_grade_aij_prograde"] = 0.1,
 		},
 	},
 }

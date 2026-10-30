@@ -10157,7 +10157,7 @@ return {
 				text = {
 					"Disable the current {C:attention}Boss Blind{},",
 					"then remove this {C:spectral}Alignment",
-					"{C:inactive}#1#{}",
+					"{C:inactive}#2#{}",
 				},
 			},
 			c_aij_arcturus = {
@@ -10868,25 +10868,33 @@ return {
 					"run to find out what it does",
 				},
 			},
-			aij_astral_prograde = {
+			astral_grade_aij_prograde = {
 				name = "Prograde",
 				text = {
 					"Aligns to one of your",
 					"{C:attention}least{} played hands",
 				},
 			},
-			aij_astral_retrograde = {
+			astral_grade_aij_retrograde = {
 				name = "Retrograde",
 				text = {
 					"Aligns to your {C:attention}most{}",
 					"played hand",
 				},
 			},
-			aij_astral_passigrade = {
+			astral_grade_aij_passigrade = {
 				name = "Passigrade",
 				text = {
 					"Aligns to a {C:attention}random{}",
 					"hand",
+				},
+			},
+			astral_grade_aij_omnigrade = {
+				name = "Omnigrade",
+				text = {
+					"Aligns to {C:legendary,E:1}all{}",
+					"hand types with an",
+					"empty astral slot",
 				},
 			},
 			aij_patches_suit = {
