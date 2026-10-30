@@ -1,8 +1,9 @@
 local clipart = {
 	object_type = "Joker",
 	order = 619,
-	key = "bon_vivant",
+	ignore = true,
 
+	key = "clipart",
 	config = {
 		extra = {},
 	},
