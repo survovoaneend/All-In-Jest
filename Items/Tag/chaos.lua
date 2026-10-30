@@ -28,10 +28,11 @@ local chaos = {
 		local trigger = false
 		while (not trigger) or (effect == nil) do
 			effect = pseudorandom_element(self.config.effects, pseudoseed("jest_chaos_tag"))
+			if effect == "boss_reroll" and PVP and PVP.LOBBY.code then
+				effect = "money"
+			end
 
-			if effect == "boss_reroll" and MP and MP.LOBBY.code then
-				trigger = false
-			elseif effect == "create_consumables" then
+			if effect == "create_consumables" then
 				trigger = #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
 			elseif effect == "create_jokers" then
 				trigger = #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
@@ -55,7 +56,7 @@ local chaos = {
 				if effect == "money" then
 					local money = pseudorandom("jest_chaos_tag", 1, 50)
 					ease_dollars(money)
-				elseif effect == "boss_reroll" and not (MP and MP.LOBBY.code) then
+				elseif effect == "boss_reroll" and not (PVP and PVP.LOBBY.code) then
 					local bosses = {}
 					for k, v in pairs(G.P_BLINDS) do
 						if v and v.boss and SMODS.add_to_pool(v) and not G.GAME.banned_keys[k] then
