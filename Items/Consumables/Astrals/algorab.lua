@@ -16,7 +16,13 @@ local algorab = {
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
 		return {
 			vars = {
-				not (card.area and card.area.config.collection) and card.ability.astral_hand or "(hand)",
+				not (
+							card.area
+							and card.area.config.collection
+							and not card.area.config.aij_card_select_collection
+						)
+						and card.ability.astral_hand
+					or "(hand)",
 				numerator,
 				denominator,
 			},

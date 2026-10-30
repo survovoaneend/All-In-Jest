@@ -10328,6 +10328,13 @@ return {
 					"becomes {E:aij_misprinted_red}Misprinted{}",
 				},
 			},
+			tag_aij_cosmic = {
+				name = "Cosmic Tag",
+				text = {
+					"Gives a free",
+					"{C:aij_astral}Jumbo Sidereal Pack{}",
+				},
+			},
 			tag_aij_astrology = {
 				name = "Astrology Tag",
 				text = {
@@ -10598,6 +10605,14 @@ return {
 				text = {
 					"All Jokers in the next",
 					"shop are {E:aij_misprinted_red}Misprinted",
+				},
+			},
+			tag_aij_lacteal = {
+				name = "Lacteal Tag",
+				text = {
+					"Choose an {C:legendary,E:1}Omnigrade{}",
+					"{C:aij_astral}Astral{} card to create",
+					"{C:inactive}(Must have room)",
 				},
 			},
 			tag_aij_grand_astrologer = {
@@ -10872,28 +10887,28 @@ return {
 				name = "Prograde",
 				text = {
 					"Aligns to one of your",
-					"{C:attention}least{} played hands",
+					"{C:attention}least{} played poker hands",
 				},
 			},
 			astral_grade_aij_retrograde = {
 				name = "Retrograde",
 				text = {
 					"Aligns to your {C:attention}most{}",
-					"played hand",
+					"played poker hand",
 				},
 			},
 			astral_grade_aij_passigrade = {
 				name = "Passigrade",
 				text = {
 					"Aligns to a {C:attention}random{}",
-					"hand",
+					"poker hand",
 				},
 			},
 			astral_grade_aij_omnigrade = {
 				name = "Omnigrade",
 				text = {
-					"Aligns to {C:legendary,E:1}all{}",
-					"hand types with an",
+					"Aligns to {C:legendary,E:1}every{}",
+					"poker hand with an",
 					"empty astral slot",
 				},
 			},

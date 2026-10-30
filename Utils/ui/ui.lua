@@ -226,7 +226,13 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
 				G.ROOM.T.h + args.offset.y,
 				(args.w_mod * rows[j] + 0.25) * G.CARD_W,
 				args.h_mod * G.CARD_H,
-				{ card_limit = rows[j], type = args.area_type or "title", highlight_limit = 0, collection = true }
+				{
+					card_limit = rows[j],
+					type = args.area_type or "title",
+					highlight_limit = 0,
+					collection = true,
+					aij_card_select_collection = true,
+				}
 			)
 			table.insert(deck_tables, {
 				n = G.UIT.R,

@@ -141,9 +141,10 @@ SMODS.ConsumableType({
 					ret = loc_vars_ref(self, info_queue, card)
 				end
 
-				info_queue[#info_queue + 1] = { key = card.ability.astral_grade, set = "Other" }
-
-				if card.area and not card.area.config.collection then
+				if
+					not (card.area and card.area.config.collection and not card.area.config.aij_card_select_collection)
+				then
+					info_queue[#info_queue + 1] = { key = card.ability.astral_grade, set = "Other" }
 					ret.main_end = ret.main_end or {}
 					if card.ability.astral_hand ~= "All Hands" then
 						ret.main_end[#ret.main_end + 1] = {
@@ -245,15 +246,15 @@ end
 
 function All_in_Jest.create_astral_pin(card, index)
 	if card.ability.astral_hand == "All Hands" then
-		for k, v in ipairs(G.handlist) do
-			if index or #G.GAME.Astral_pins[v] < G.GAME.all_in_jest.astral_pin_per_hand then
+		for k, _ in pairs(G.GAME.Astral_pins) do
+			if index or #G.GAME.Astral_pins[k] < G.GAME.all_in_jest.astral_pin_per_hand then
 				if not index then
-					index = #G.GAME.Astral_pins[v] + 1
+					index = #G.GAME.Astral_pins[k] + 1
 				end
-				G.GAME.Astral_pins[v][index] = {}
-				G.GAME.Astral_pins[v][index]["pin"] = card.ability.consumeable.pin
-				G.GAME.Astral_pins[v][index].ability = {}
-				G.GAME.Astral_pins[v][index].ability.extra = card.ability.extra
+				G.GAME.Astral_pins[k][index] = {}
+				G.GAME.Astral_pins[k][index]["pin"] = card.ability.consumeable.pin
+				G.GAME.Astral_pins[k][index].ability = {}
+				G.GAME.Astral_pins[k][index].ability.extra = card.ability.extra
 			end
 		end
 	else

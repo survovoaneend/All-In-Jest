@@ -12,7 +12,7 @@ local grand_astrologer = {
 	attributes = { "planet", "hand_level" },
 
 	discovered = false,
-	order = 34,
+	order = 99,
 	min_ante = nil,
 
 	loc_vars = function(self, info_queue, tag)
