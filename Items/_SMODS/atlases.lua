@@ -196,13 +196,13 @@ local atlases = {
 		lite = true,
 	},
 
-	{
-		key = "modicon",
-		px = 32,
-		py = 32,
-		path = "modicon.png",
-		lite = true,
-	},
+	-- {
+	-- 	key = "modicon",
+	-- 	px = 32,
+	-- 	py = 32,
+	-- 	path = "modicon.png",
+	-- 	lite = true,
+	-- },
 
 	{
 		key = "blind_drawn_replacement",
