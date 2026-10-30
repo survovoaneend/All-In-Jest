@@ -3,7 +3,6 @@ local ketu = {
 	key = "ketu",
 	set = "Spectral",
 	atlas = "consumable_atlas",
-	ignore = true,
 	pos = { x = 13, y = 3 },
 	soul_pos = { x = 13, y = 4 },
 	cost = 4,
@@ -12,38 +11,29 @@ local ketu = {
 	soul_set = "aij_astral",
 	unlocked = true,
 	discovered = false,
-	order = 18,
-	config = { hand = nil, grade = "", pin = "Ketu", extra = {} },
+	order = 110,
+	config = { pin = "Ketu", extra = {} },
 	-- no attributes yet, soulable objects not yet supported by SMODS
 	loc_vars = function(self, info_queue, card)
-		card.ability.consumeable.hand =
-			All_in_Jest.astral_hand_from_grade(card.ability.consumeable.grade, card.ability.consumeable.hand)
-		if card.ability.consumeable.hand then
-			info_queue[#info_queue + 1] =
-				{ key = "aij_astral_" .. string.lower(card.ability.consumeable.grade), set = "Other" }
-		end
+		-- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {
 			vars = {
-				card.ability.consumeable.hand or "(hand)",
+				not (
+							card.area
+							and card.area.config.collection
+							and not card.area.config.aij_card_select_collection
+						)
+						and card.ability.astral_hand
+					or "(hand)",
 			},
 		}
 	end,
 	all_in_jest = {
 		as_astral = true,
 	},
-	add_to_deck = function(self, card, from_debuff)
-		if card.ability.consumeable.grade == "" then
-			local center = card.config.center
-			local grade = All_in_Jest.astral_set_grade(center.all_in_jest and center.all_in_jest.grades)
-			card.ability.consumeable.grade = grade
-			card.ability.consumeable.hand = All_in_Jest.astral_hand_from_grade(grade)
-		end
-	end,
-	can_use = function(self, card)
-		return true
-	end,
-	use = function(self, card, area, copier)
-		All_in_Jest.use_astral_card(card)
+	inject = function(self)
+		SMODS.Spectral.inject(self)
+		SMODS.ObjectTypes["aij_astral"]:inject_card(self)
 	end,
 }
 local ketu_pin = {
@@ -53,10 +43,9 @@ local ketu_pin = {
 	pin = "Ketu",
 	alt_set = "Spectral",
 	atlas = "misc_atlas",
-	pos = { x = 0, y = -1 },
-	soul_pos = { x = 5, y = 0 },
+	pos = { x = 5, y = 0 },
 	discovered = false,
-	order = 18,
+	order = 110,
 	config = {},
 
 	pixel_size = { w = 53, h = 28 },
@@ -74,19 +63,8 @@ local ketu_pin = {
 			if context.other_card == G.jokers.cards[1] then
 				return {
 					repetitions = 1,
-					card = card,
-					message = localize("k_again_ex"),
 				}
 			end
-		end
-		if context.after then
-			G.E_MANAGER:add_event(Event({
-				trigger = "after",
-				func = function()
-					SMODS.destroy_cards(card, true, true, true)
-					return true
-				end,
-			}))
 		end
 	end,
 }

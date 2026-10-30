@@ -9,7 +9,7 @@ local gravastar_spectral = {
 	soul_set = "Planet",
 	unlocked = true,
 	discovered = false,
-	order = 30,
+	order = 101,
 	config = { moon = true },
 	-- no attributes yet, soulable objects not yet supported by SMODS
 	atlas = "consumable_atlas",

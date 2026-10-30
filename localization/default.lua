@@ -9952,17 +9952,25 @@ return {
 			c_aij_ketu = {
 				name = "Ketu",
 				text = {
-					"Retrigger leftmost",
-					"{C:attention}Joker{} when {C:attention}#1#{}",
-					"is played",
+					{
+						"Align {C:attention}#1#{} to {C:legendary,E:1}Ketu",
+					},
+					{
+						"{C:legendary,E:1}Ketu:{} Retrigger your",
+						"leftmost {C:attention}Joker{}",
+					},
 				},
 			},
 			c_aij_rahu = {
 				name = "Rahu",
 				text = {
-					"Retrigger all cards",
-					"{C:attention}played{} when {C:attention}#1#{}",
-					"is played",
+					{
+						"Align {C:attention}#1#{} to {C:legendary,E:1}Rahu",
+					},
+					{
+						"{C:legendary,E:1}Rahu:{} Retrigger all",
+						"{C:attention}played{} cards",
+					},
 				},
 			},
 		},
@@ -9974,7 +9982,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Algol",
 					},
 					{
-						"{C:attention}Algol: {}Earn {C:money}$#2#{} after",
+						"{C:attention}Algol:{} Earn {C:money}$#2#{} after",
 						"hand is played",
 					},
 				},
@@ -9993,7 +10001,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Alcyone",
 					},
 					{
-						"{C:attention}Alcyone: {}Draw {C:attention}#2#{} additional card",
+						"{C:attention}Alcyone:{} Draw {C:attention}#2#{} additional card",
 						"after hand is played",
 					},
 				},
@@ -10031,7 +10039,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Capella",
 					},
 					{
-						"{C:attention}Capella: {}{C:green}#2# in #3#{} chance to create a",
+						"{C:attention}Capella:{} {C:green}#2# in #3#{} chance to create a",
 						"random {C:planet}Planet{} card",
 					},
 				},
@@ -10050,7 +10058,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Sirius",
 					},
 					{
-						"{C:attention}Sirius: {}Retrigger {C:attention}#2#{}",
+						"{C:attention}Sirius:{} Retrigger {C:attention}#2#{}",
 						"random card",
 					},
 				},
@@ -10069,7 +10077,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Procyon",
 					},
 					{
-						"{C:attention}Procyon: {}Add {C:money}$#2#{} of sell value",
+						"{C:attention}Procyon:{} Add {C:money}$#2#{} of sell value",
 						"to a random {C:attention}Joker",
 					},
 				},
@@ -10088,7 +10096,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Regulus",
 					},
 					{
-						"{C:attention}Regulus: {}{C:green}#2# in #3#{} chance to {C:attention}level up",
+						"{C:attention}Regulus:{} {C:green}#2# in #3#{} chance to {C:attention}level up",
 						"{C:attention}played{} hand",
 					},
 				},
@@ -10107,7 +10115,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Alkaid",
 					},
 					{
-						"{C:attention}Alkaid: {}Enhance {C:attention}#2#{} random",
+						"{C:attention}Alkaid:{} Enhance {C:attention}#2#{} random",
 						"unenhanced card",
 						"in poker hand",
 					},
@@ -10128,7 +10136,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Algorab",
 					},
 					{
-						"{C:attention}Algorab: {}{C:green}#2# in #3#{} chance to create a",
+						"{C:attention}Algorab:{} {C:green}#2# in #3#{} chance to create a",
 						"random {C:tarot}Tarot{} card",
 					},
 				},
@@ -10147,7 +10155,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Spica",
 					},
 					{
-						"{C:attention}Spica: {}Disable the current {C:attention}Boss Blind{},",
+						"{C:attention}Spica:{} Disable the current {C:attention}Boss Blind{},",
 						"then remove this {C:spectral}Alignment",
 					},
 				},
@@ -10167,7 +10175,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Arcturus",
 					},
 					{
-						"{C:attention}Arcturus: {}+#2# {C:red}Discard{}",
+						"{C:attention}Arcturus:{} +#2# {C:red}Discard{}",
 					},
 				},
 			},
@@ -10184,7 +10192,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Alphecca",
 					},
 					{
-						"{C:attention}Alphecca: {}Scored cards {C:attention}permanently",
+						"{C:attention}Alphecca:{} Scored cards {C:attention}permanently",
 						"gain {C:chips}+#2#{} Chips",
 					},
 				},
@@ -10203,7 +10211,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Antares",
 					},
 					{
-						"{C:attention}Antares: {}{C:red}Destroy{} a random card",
+						"{C:attention}Antares:{} {C:red}Destroy{} a random card",
 						"{C:attention}held in hand",
 					},
 				},
@@ -10222,7 +10230,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Vega",
 					},
 					{
-						"{C:attention}Vega: {}Retrigger the {C:attention}first",
+						"{C:attention}Vega:{} Retrigger the {C:attention}first",
 						"card {C:attention}held in hand",
 					},
 				},
@@ -10241,7 +10249,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Deneb Algedi",
 					},
 					{
-						"{C:attention}Deneb Algedi: {}{C:blue}+#2#{} Hand the {C:attention}first{}",
+						"{C:attention}Deneb Algedi:{} {C:blue}+#2#{} Hand the {C:attention}first{}",
 						"time this hand is",
 						"played each round",
 					},
@@ -10254,6 +10262,20 @@ return {
 					"time this hand is",
 					"played each round",
 					"{C:inactive}#3#{}",
+				},
+			},
+			c_aij_ketu_pin = {
+				name = "Ketu",
+				text = {
+					"Retrigger your",
+					"leftmost {C:attention}Joker{}",
+				},
+			},
+			c_aij_rahu_pin = {
+				name = "Rahu",
+				text = {
+					"Retrigger all",
+					"{C:attention}played{} cards",
 				},
 			},
 		},

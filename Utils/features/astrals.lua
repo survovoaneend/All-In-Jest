@@ -98,6 +98,92 @@ All_in_Jest.Astral_Grade = SMODS.Sticker:extend({
 	end,
 })
 
+All_in_Jest.aij_astral_loc_vars = function(loc_vars_ref)
+	return function(self, info_queue, card)
+		local pin_count = 0
+		if
+			G.GAME.Astral_pins
+			and #G.GAME.Astral_pins
+			and card.ability.consumeable
+			and card.ability.astral_hand
+			and G.GAME.Astral_pins[card.ability.astral_hand]
+		then
+			pin_count = #G.GAME.Astral_pins[card.ability.astral_hand]
+		end
+		local pins_left = math.max((G.GAME.all_in_jest.astral_pin_per_hand or 3) - pin_count, 0)
+
+		local ret = {}
+		if loc_vars_ref then
+			ret = loc_vars_ref(self, info_queue, card)
+		end
+
+		if not (card.area and card.area.config.collection and not card.area.config.aij_card_select_collection) then
+			info_queue[#info_queue + 1] = { key = card.ability.astral_grade, set = "Other" }
+			ret.main_end = ret.main_end or {}
+			if card.ability.astral_hand ~= "All Hands" then
+				ret.main_end[#ret.main_end + 1] = {
+					n = G.UIT.R,
+					config = { align = "cm" },
+					nodes = {
+						{
+							n = G.UIT.R,
+							config = { align = "cm", padding = 0.02 },
+							nodes = {
+								{
+									n = G.UIT.T,
+									config = {
+										text = localize({
+											type = "variable",
+											key = "a_aij_slots_left",
+											vars = { pins_left },
+										}),
+										colour = G.C.UI.TEXT_INACTIVE,
+										scale = 0.32,
+									},
+								},
+							},
+						},
+					},
+				}
+			end
+		end
+
+		return ret
+	end
+end
+
+All_in_Jest.aij_astral_use = function(use_ref)
+	return function(self, card, area, copier)
+		All_in_Jest.use_astral_card(card)
+		if
+			G.aij_cur_astral_hand
+			and (G.aij_cur_astral_hand == card.ability.astral_hand or G.aij_cur_astral_hand == "Omnigrade")
+			and G.GAME.Astral_pins
+		then
+			if G.aij_astral_pin_area and #G.aij_astral_pin_area.cards > 0 then
+				All_in_Jest.astral_visuals(G.aij_cur_astral_hand, "only_remove", All_in_Jest.old_colours or nil, true)
+				for _, v in pairs(G.aij_astral_pin_area.cards) do
+					v:remove()
+				end
+			end
+			All_in_Jest.astral_visuals(G.aij_cur_astral_hand, "no_remove")
+		end
+	end
+end
+
+All_in_Jest.aij_astral_set_ability = function(set_ability_ref)
+	return function(self, card, initial, delay_sprites)
+		card.ability = copy_table(card.ability)
+		local center_cfg = card.config.center
+		local grade = All_in_Jest.astral_set_grade(center_cfg.all_in_jest and center_cfg.all_in_jest.grades)
+		grade:apply(card)
+
+		if set_ability_ref then
+			return set_ability_ref(self, card, initial, delay_sprites)
+		end
+	end
+end
+
 SMODS.ConsumableType({
 	key = "aij_astral",
 	primary_colour = HEX("d1e2f6"),
@@ -108,102 +194,22 @@ SMODS.ConsumableType({
 	no_buy_and_use = false,
 	no_collection = not All_in_Jest.config.astrals_enabled,
 	inject_card = function(self, center)
-		local set_ability_ref = center.set_ability
-		center.set_ability = function(self, card, initial, delay_sprites)
-			card.ability = copy_table(card.ability)
-			local center_cfg = card.config.center
-			local grade = All_in_Jest.astral_set_grade(center_cfg.all_in_jest and center_cfg.all_in_jest.grades)
-			grade:apply(card)
+		if not center.inject_astral_applied then
+			center.inject_astral_applied = true
 
-			if set_ability_ref then
-				return set_ability_ref(self, card, initial, delay_sprites)
-			end
-		end
+			local set_ability_ref = center.set_ability
+			center.set_ability = All_in_Jest.aij_astral_set_ability(set_ability_ref)
 
-		if not center.loc_vars_astral_applied then
-			center.loc_vars_astral_applied = true
 			local loc_vars_ref = center.loc_vars
-			center.loc_vars = function(self, info_queue, card)
-				local pin_count = 0
-				if
-					G.GAME.Astral_pins
-					and #G.GAME.Astral_pins
-					and card.ability.consumeable
-					and card.ability.astral_hand
-					and G.GAME.Astral_pins[card.ability.astral_hand]
-				then
-					pin_count = #G.GAME.Astral_pins[card.ability.astral_hand]
-				end
-				local pins_left = math.max((G.GAME.all_in_jest.astral_pin_per_hand or 3) - pin_count, 0)
+			center.loc_vars = All_in_Jest.aij_astral_loc_vars(loc_vars_ref)
 
-				local ret = {}
-				if loc_vars_ref then
-					ret = loc_vars_ref(self, info_queue, card)
-				end
-
-				if
-					not (card.area and card.area.config.collection and not card.area.config.aij_card_select_collection)
-				then
-					info_queue[#info_queue + 1] = { key = card.ability.astral_grade, set = "Other" }
-					ret.main_end = ret.main_end or {}
-					if card.ability.astral_hand ~= "All Hands" then
-						ret.main_end[#ret.main_end + 1] = {
-							n = G.UIT.R,
-							config = { align = "cm" },
-							nodes = {
-								{
-									n = G.UIT.R,
-									config = { align = "cm", padding = 0.02 },
-									nodes = {
-										{
-											n = G.UIT.T,
-											config = {
-												text = localize({
-													type = "variable",
-													key = "a_aij_slots_left",
-													vars = { pins_left },
-												}),
-												colour = G.C.UI.TEXT_INACTIVE,
-												scale = 0.32,
-											},
-										},
-									},
-								},
-							},
-						}
-					end
-				end
-
-				return ret
-			end
+			local use_ref = center.use_ref
+			center.use = All_in_Jest.aij_astral_use(use_ref)
 		end
 
 		if not center.can_use then
 			center.can_use = function(self, card)
 				return true
-			end
-		end
-		if not center.use then
-			center.use = function(self, card, area, copier)
-				All_in_Jest.use_astral_card(card)
-				if
-					G.aij_cur_astral_hand
-					and (G.aij_cur_astral_hand == card.ability.astral_hand or G.aij_cur_astral_hand == "Omnigrade")
-					and G.GAME.Astral_pins
-				then
-					if G.aij_astral_pin_area and #G.aij_astral_pin_area.cards > 0 then
-						All_in_Jest.astral_visuals(
-							G.aij_cur_astral_hand,
-							"only_remove",
-							All_in_Jest.old_colours or nil,
-							true
-						)
-						for _, v in pairs(G.aij_astral_pin_area.cards) do
-							v:remove()
-						end
-					end
-					All_in_Jest.astral_visuals(G.aij_cur_astral_hand, "no_remove")
-				end
 			end
 		end
 		SMODS.ObjectType.inject_card(self, center)
