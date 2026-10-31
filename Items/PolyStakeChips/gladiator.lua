@@ -12,6 +12,10 @@ local gladiator = {
 	apply = function(self, stack)
 		-- need to reroll it to use the correct pool
 		G.GAME.round_resets.blind_choices.Boss = SMODS.get_new_blind("boss")
+		if G.GAME.aij_has_big_boss and G.GAME.round_resets.blind_choices.Big_Boss then
+			G.GAME.round_resets.blind_choices.Big_Boss = nil
+			G.GAME.round_resets.blind_choices.Big_Boss = SMODS.get_new_blind("big_boss")
+		end
 	end,
 }
 return { name = { "PolyStakeChips" }, items = { gladiator } }
