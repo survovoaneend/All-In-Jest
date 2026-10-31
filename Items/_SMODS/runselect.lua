@@ -368,8 +368,8 @@ local polychrome_stake = {
 										{
 											n = G.UIT.T,
 											config = {
-												text = deck_name,
-												scale = 0.7 / math.max(1.75, string.len(deck_name) / 8),
+												text = localize("k_aij_pb"),
+												scale = 0.4,
 												colour = G.C.GREY,
 											},
 										},
@@ -382,8 +382,8 @@ local polychrome_stake = {
 										{
 											n = G.UIT.T,
 											config = {
-												text = localize("k_aij_pb"),
-												scale = 0.5,
+												text = deck_name,
+												scale = 0.875 / math.max(1.75, string.len(deck_name) / 8),
 												colour = G.C.UI.TEXT_LIGHT,
 											},
 										},
@@ -506,7 +506,7 @@ local polychrome_stake = {
 										{
 											n = G.UIT.T,
 											config = {
-												text = localize("k_aij_all_time"),
+												text = localize("k_aij_pb"),
 												scale = 0.4,
 												colour = G.C.GREY,
 											},
@@ -520,7 +520,7 @@ local polychrome_stake = {
 										{
 											n = G.UIT.T,
 											config = {
-												text = localize("k_aij_pb"),
+												text = localize("k_aij_all_time"),
 												scale = 0.5,
 												colour = G.C.UI.TEXT_LIGHT,
 											},
@@ -1311,59 +1311,35 @@ local card_hover_ref = Card.hover
 function Card:hover()
 	if self.params.aij_poly_chip and (not self.states.drag.is or G.CONTROLLER.HID.touch) and not self.no_ui then
 		SMODS.RunSelect.Internals.hover_index = self.params.hover or 0
-		local info_queue = {
-			{ set = "PolyStakeChips", key = self.config.center.key },
-		}
-		self.config.center:loc_vars(info_queue)
+        self:juice_up(0.05, 0.03)
+        play_sound('paper1', math.random()*0.2 + 0.99, 0.35)
+		local key, vars = self.config.center.key, {}
 		if not self.config.center:check_for_unlock() then
-			info_queue = {
-				{ set = "PolyStakeChips", key = "locked", vars = { self.config.center.point_requirement } },
-			}
+			key, vars = "locked", { self.config.center.point_requirement }
 		end
 
-		local tooltips = {}
-		local function create_info_tooltip(tooltip_data)
-			local desc = generate_card_ui(
-				tooltip_data,
-				{ main = {}, info = {}, type = {}, name = "done", badges = {}, from_detailed_tooltip = true },
-				nil,
-				tooltip_data.set,
-				nil
-			)
-			return {
-				n = G.UIT.R,
-				config = { align = "cm" },
-				nodes = {
-					{
-						n = G.UIT.R,
-						config = {
-							align = "cm",
-							colour = lighten(G.C.JOKER_GREY, 0.5),
-							r = 0.1,
-							padding = 0.05,
-							emboss = 0.05,
-						},
-						nodes = {
-							info_tip_from_rows(desc.info[1], desc.info[1].name),
-						},
-					},
-				},
-			}
-		end
-		for _, stake_key in ipairs(info_queue) do
-			table.insert(
-				tooltips,
-				{ n = G.UIT.R, config = { align = "cm", padding = 0.05 }, nodes = { create_info_tooltip(stake_key) } }
-			)
+		local ret_nodes = {}
+		localize{type = 'descriptions', set = "PolyStakeChips", key = key, vars = vars, nodes = ret_nodes}
+
+		local desc_t = {}
+		for k, v in ipairs(ret_nodes) do
+			desc_t[#desc_t+1] = {n=G.UIT.R, config={align = "cm", maxw = 5.3}, nodes=v}
 		end
 
-		self.config.h_popup = {
-			n = G.UIT.C,
-			config = { align = "cm", colour = G.C.CLEAR },
-			nodes = {
-				{ n = G.UIT.C, config = { align = "cm" }, nodes = tooltips },
-			},
-		}
+		self.config.h_popup = {n = G.UIT.C, config={align='cm', colour = G.C.CLEAR}, nodes = {
+            {n=G.UIT.R, config={align='cm'}, nodes = {
+                {n=G.UIT.R, config={align = "cm", minh = 1.5, r = 0.1, colour = G.C.L_BLACK, padding = 0.05, outline=1}, nodes ={
+                    {n=G.UIT.C, config={align = "cm", padding = 0}, nodes={
+						{n=G.UIT.C, config={align = "cm", padding = 0.05, r = 0.1, colour = G.C.L_BLACK}, nodes={
+							{n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+								{n=G.UIT.T, config={text = localize{type = 'name_text', set = "PolyStakeChips", key = key}, scale = 0.35, colour = G.C.WHITE}}
+							}},
+							{n=G.UIT.R, config={align = "cm", padding = 0.05, colour = G.C.WHITE, r = 0.1, minh = 1}, nodes=desc_t}
+						}}
+					}}
+                }},
+            }},
+        }}
 
 		self.config.h_popup_config = self:align_h_popup()
 		Node.hover(self)
