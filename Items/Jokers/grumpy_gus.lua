@@ -23,7 +23,7 @@ local grumpy_gus = {
 		return {
 			vars = {
 				card.ability.extra.mult,
-				G.GAME.unused_discards or 0,
+				(G.GAME.unused_discards or 0) * card.ability.extra.mult,
 			},
 		}
 	end,
