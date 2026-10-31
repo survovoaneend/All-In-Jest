@@ -8,7 +8,7 @@ local in_the_dark = {
 	unlocked = false,
 	point_requirement = 850,
 	stack = 3,
-	points = { 50, 100, 200 },
+	points = { 75, 150, 250 },
 	calculate = function(self, context)
 		if context.setting_blind then
 			G.GAME.aij_draw_face_down = G.GAME.aij_poly_chips[self.key]

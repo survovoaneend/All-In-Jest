@@ -8,7 +8,7 @@ local vainglory = {
 	unlocked = false,
 	point_requirement = 1250,
 	stack = 1,
-	points = { 50 },
+	points = { 65 },
 	apply = function(self, stack)
 		G.GAME.modifiers.enable_aij_suit_face = true
 	end,

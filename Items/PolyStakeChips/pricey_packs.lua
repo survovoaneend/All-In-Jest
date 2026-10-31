@@ -8,7 +8,7 @@ local pricey_packs = {
 	unlocked = false,
 	point_requirement = 700,
 	stack = 1,
-	points = { 150 },
+	points = { 200 },
 	apply = function(self, stack)
 		G.GAME.modifiers.booster_ante_scaling = true
 	end,

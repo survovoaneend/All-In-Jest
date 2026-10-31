@@ -6,6 +6,6 @@ local the_pit = {
 	pos = { x = 8, y = 0 },
 	atlas = "chips_atlas",
 	stack = 1,
-	points = { 150 },
+	points = { 100 },
 }
 return { name = { "PolyStakeChips" }, items = { the_pit } }

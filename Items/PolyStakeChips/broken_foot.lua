@@ -6,7 +6,7 @@ local broken_foot = {
 	pos = { x = 7, y = 0 },
 	atlas = "chips_atlas",
 	stack = 2,
-	points = { 100, 200 },
+	points = { 150, 250 },
 	apply = function(self, stack)
 		G.GAME.starting_params.discards = G.GAME.starting_params.discards - stack
 		G.GAME.round_resets.discards = G.GAME.starting_params.discards
