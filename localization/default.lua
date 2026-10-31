@@ -1916,7 +1916,7 @@ return {
 			bl_aij_rubber_duck_GL = {
 				name = "Rubber Duck",
 				text = {
-					"Base Chips an Mult are",
+					"Base Chips and Mult are",
 					"scored as level 1",
 				},
 			},
