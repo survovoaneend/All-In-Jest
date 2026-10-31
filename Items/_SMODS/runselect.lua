@@ -1311,35 +1311,87 @@ local card_hover_ref = Card.hover
 function Card:hover()
 	if self.params.aij_poly_chip and (not self.states.drag.is or G.CONTROLLER.HID.touch) and not self.no_ui then
 		SMODS.RunSelect.Internals.hover_index = self.params.hover or 0
-        self:juice_up(0.05, 0.03)
-        play_sound('paper1', math.random()*0.2 + 0.99, 0.35)
+		self:juice_up(0.05, 0.03)
+		play_sound("paper1", math.random() * 0.2 + 0.99, 0.35)
 		local key, vars = self.config.center.key, {}
 		if not self.config.center:check_for_unlock() then
 			key, vars = "locked", { self.config.center.point_requirement }
 		end
 
 		local ret_nodes = {}
-		localize{type = 'descriptions', set = "PolyStakeChips", key = key, vars = vars, nodes = ret_nodes}
+		localize({ type = "descriptions", set = "PolyStakeChips", key = key, vars = vars, nodes = ret_nodes })
 
 		local desc_t = {}
 		for k, v in ipairs(ret_nodes) do
-			desc_t[#desc_t+1] = {n=G.UIT.R, config={align = "cm", maxw = 5.3}, nodes=v}
+			desc_t[#desc_t + 1] = { n = G.UIT.R, config = { align = "cm", maxw = 5.3 }, nodes = v }
 		end
 
-		self.config.h_popup = {n = G.UIT.C, config={align='cm', colour = G.C.CLEAR}, nodes = {
-            {n=G.UIT.R, config={align='cm'}, nodes = {
-                {n=G.UIT.R, config={align = "cm", minh = 1.5, r = 0.1, colour = G.C.L_BLACK, padding = 0.05, outline=1}, nodes ={
-                    {n=G.UIT.C, config={align = "cm", padding = 0}, nodes={
-						{n=G.UIT.C, config={align = "cm", padding = 0.05, r = 0.1, colour = G.C.L_BLACK}, nodes={
-							{n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
-								{n=G.UIT.T, config={text = localize{type = 'name_text', set = "PolyStakeChips", key = key}, scale = 0.35, colour = G.C.WHITE}}
-							}},
-							{n=G.UIT.R, config={align = "cm", padding = 0.05, colour = G.C.WHITE, r = 0.1, minh = 1}, nodes=desc_t}
-						}}
-					}}
-                }},
-            }},
-        }}
+		self.config.h_popup = {
+			n = G.UIT.C,
+			config = { align = "cm", colour = G.C.CLEAR },
+			nodes = {
+				{
+					n = G.UIT.R,
+					config = { align = "cm" },
+					nodes = {
+						{
+							n = G.UIT.R,
+							config = {
+								align = "cm",
+								minh = 1.5,
+								r = 0.1,
+								colour = G.C.L_BLACK,
+								padding = 0.05,
+								outline = 1,
+							},
+							nodes = {
+								{
+									n = G.UIT.C,
+									config = { align = "cm", padding = 0 },
+									nodes = {
+										{
+											n = G.UIT.C,
+											config = { align = "cm", padding = 0.05, r = 0.1, colour = G.C.L_BLACK },
+											nodes = {
+												{
+													n = G.UIT.R,
+													config = { align = "cm", padding = 0 },
+													nodes = {
+														{
+															n = G.UIT.T,
+															config = {
+																text = localize({
+																	type = "name_text",
+																	set = "PolyStakeChips",
+																	key = key,
+																}),
+																scale = 0.35,
+																colour = G.C.WHITE,
+															},
+														},
+													},
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm",
+														padding = 0.05,
+														colour = G.C.WHITE,
+														r = 0.1,
+														minh = 1,
+													},
+													nodes = desc_t,
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		}
 
 		self.config.h_popup_config = self:align_h_popup()
 		Node.hover(self)
