@@ -42,36 +42,13 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = '''if forced_key and not G.GAME.banned_keys[forced_key] then'''
+pattern = '''-- Use SMODS object weight system when enabled'''
 position = "before"
 match_indent = true
 payload = '''
--- All in Jest patch
-if _type == 'Joker' then
-    local _pool, _pool_key = get_current_pool(_type, _rarity, legendary, key_append)
-    for k, v in pairs(_pool) do
-        if G.P_CENTERS[v] and G.P_CENTERS[v].all_in_jest then
-            local appear = false
-            if (G.P_CENTERS[v].all_in_jest.only_shop_pool and area == G.shop_jokers) then
-                appear = true
-            elseif (G.P_CENTERS[v].all_in_jest.only_booster_pool and area == G.pack_cards) then
-                appear = true
-            end
-            if G.P_CENTERS[v].all_in_jest.only_shop_pool or G.P_CENTERS[v].all_in_jest.only_booster_pool then
-                if appear then
-                    G.P_CENTERS[v].in_pool = function(self, args)
-    		            return true
-                    end
-                else
-                    G.P_CENTERS[v].in_pool = function(self, args)
-    		            return false
-                    end
-                end
-            end
-        end
-    end
-end
--- End of All in Jest patch
+G.aij_create_in_shop = (area == G.shop_jokers)
+G.aij_create_in_pack = (area == G.pack_cards)
+
 '''
 
 # Prevent jokers that can only appear in shop or booster packs from appearing elsewhere
@@ -79,34 +56,26 @@ end
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = '''center = pseudorandom_element(_pool, pseudoseed(_pool_key))'''
+pattern = '''local front = SMODS.set_create_card_front or ((_type=='Base' or _type == 'Enhanced') and pseudorandom_element(G.P_CARDS, pseudoseed('front'..(key_append or '')..G.GAME.round_resets.ante))) or nil'''
 position = "before"
 match_indent = true
 payload = '''
-do -- All in Jest Patch
-    if _type == 'Joker' then
-        local _pool, _pool_key = get_current_pool(_type, _rarity, legendary, key_append)
-        for k, v in pairs(_pool) do
-            if G.P_CENTERS[v] and G.P_CENTERS[v].all_in_jest then
-                local appear = false
-                if (G.P_CENTERS[v].all_in_jest.only_shop_pool and area == G.shop_jokers) then
-                    appear = true
-                elseif (G.P_CENTERS[v].all_in_jest.only_booster_pool and area == G.pack_cards) then
-                    appear = true
-                end
-                if G.P_CENTERS[v].all_in_jest.only_shop_pool or G.P_CENTERS[v].all_in_jest.only_booster_pool then
-                    if appear then
-                        G.P_CENTERS[v].in_pool = function(self, args)
-                            return true
-                        end
-                    else
-                        G.P_CENTERS[v].in_pool = function(self, args)
-                            return false
-                        end
-                    end
-                end
-            end
-        end
-    end
-end -- End of All in Jest Patch
+G.aij_create_in_shop = nil
+G.aij_create_in_pack = nil
+'''
+
+# Prevent jokers that can only appear in shop or booster packs from appearing elsewhere
+# get_current_pool()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''if v.yes_pool_flag and not G.GAME.pool_flags[v.yes_pool_flag] then add = nil end'''
+position = "after"
+match_indent = true
+payload = '''
+if add and (v.only_shop_pool or v.only_booster_pool) then
+    add = nil
+    if v.only_shop_pool and G.aij_create_in_shop then add = true end
+    if v.only_booster_pool and G.aij_create_in_pack then add = true end
+end
 '''
