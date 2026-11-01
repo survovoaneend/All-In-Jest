@@ -9949,6 +9949,15 @@ return {
 					"Gives an {C:attention}Astrology Tag{}",
 				},
 			},
+			c_aij_lacuna = {
+				name = "Lacuna",
+				text = {
+					"{C:money}Sell{} {C:attention}#1#{} selected card and earn {C:money}$#2#{},",
+					"plus an additional {C:money}$#3#{} for each",
+					"{C:attention}Enhancement{}, {C:attention}Seal{}, and",
+					"{C:dark_edition}Edition{} on the card.",
+				},
+			},
 			c_aij_ketu = {
 				name = "Ketu",
 				text = {
@@ -10903,6 +10912,11 @@ return {
 				text = {
 					"Find this card in an unseeded",
 					"run to find out what it does",
+				},
+			},
+			c_aij_astral_alignment = {
+				text = {
+					"Align {C:attention}#1#{} to {C:attention}#2#{}",
 				},
 			},
 			astral_grade_aij_prograde = {
