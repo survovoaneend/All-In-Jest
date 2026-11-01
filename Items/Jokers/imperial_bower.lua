@@ -51,7 +51,8 @@ local imperial_bower = {
 		end
 	end,
 }
-SMODS.DrawStep({
+local imperial_bower_card_draw_step = {
+	object_type = "DrawStep",
 	key = "imperial_bower_card",
 	order = 15,
 	func = function(self, layer)
@@ -60,5 +61,5 @@ SMODS.DrawStep({
 		end
 	end,
 	conditions = { vortex = false, facing = "front" },
-})
-return { name = { "Jokers" }, items = { imperial_bower } }
+}
+return { name = { "Jokers" }, items = { imperial_bower, imperial_bower_card_draw_step } }

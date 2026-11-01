@@ -729,3 +729,55 @@ function CardArea:emplace(card, ...)
 
 	return result
 end
+
+-- Hook that replaces the floating sprite of legendaries in the collection
+-- with a winking jimbo while a Guess the Jest is open
+local aij_drawstep_floating_sprite_ref = SMODS.DrawSteps["floating_sprite"].func
+SMODS.DrawSteps["floating_sprite"].func = function(self)
+	if
+		self.config.center.rarity == 4
+		and G.STATE == G.STATES.SMODS_BOOSTER_OPENED
+		and SMODS.OPENED_BOOSTER
+		and SMODS.OPENED_BOOSTER.config.center.key == "p_aij_guess_the_jest"
+		and self.area
+		and self.area.config.collection
+	then
+		if self.config.center.soul_pos and (self.config.center.discovered or self.bypass_discovery_center) then
+			local scale_mod = 0.07
+				+ 0.02 * math.sin(1.8 * G.TIMERS.REAL)
+				+ 0.00
+					* math.sin((G.TIMERS.REAL - math.floor(G.TIMERS.REAL)) * math.pi * 14)
+					* (1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL))) ^ 3
+			local rotate_mod = 0.05 * math.sin(1.219 * G.TIMERS.REAL)
+				+ 0.00
+					* math.sin(G.TIMERS.REAL * math.pi * 5)
+					* (1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL))) ^ 2
+
+			G.all_in_jest.extra_card_sprites["Jimbo_Soul_Wink"].role.draw_major = self
+			G.all_in_jest.extra_card_sprites["Jimbo_Soul_Wink"]:draw_shader(
+				"dissolve",
+				0,
+				nil,
+				nil,
+				self.children.center,
+				scale_mod,
+				rotate_mod,
+				nil,
+				0.1 + 0.03 * math.sin(1.8 * G.TIMERS.REAL),
+				nil,
+				0.6
+			)
+			G.all_in_jest.extra_card_sprites["Jimbo_Soul_Wink"]:draw_shader(
+				"dissolve",
+				nil,
+				nil,
+				nil,
+				self.children.center,
+				scale_mod,
+				rotate_mod
+			)
+		end
+	else
+		aij_drawstep_floating_sprite_ref(self)
+	end
+end
