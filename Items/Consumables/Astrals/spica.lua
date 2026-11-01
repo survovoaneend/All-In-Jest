@@ -41,7 +41,6 @@ local spica_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 4, y = 1 },
 	discovered = false,
-	order = 9,
 	config = {},
 
 	pixel_size = { w = 53, h = 28 },

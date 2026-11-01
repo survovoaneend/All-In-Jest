@@ -42,7 +42,6 @@ local alkaid_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 2, y = 1 },
 	discovered = false,
-	order = 7,
 	config = {},
 
 	pixel_size = { w = 53, h = 42 },

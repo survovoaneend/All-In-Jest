@@ -42,7 +42,6 @@ local sirius_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 0, y = 0 },
 	discovered = false,
-	order = 4,
 	config = {},
 
 	pixel_size = { w = 53, h = 28 },

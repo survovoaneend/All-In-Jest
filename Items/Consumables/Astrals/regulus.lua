@@ -44,7 +44,6 @@ local regulus_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 1, y = 1 },
 	discovered = false,
-	order = 6,
 	config = {},
 
 	pixel_size = { w = 48, h = 42 },

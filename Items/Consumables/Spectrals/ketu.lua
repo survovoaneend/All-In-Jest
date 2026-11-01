@@ -45,7 +45,6 @@ local ketu_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 5, y = 0 },
 	discovered = false,
-	order = 110,
 	config = {},
 
 	pixel_size = { w = 53, h = 28 },

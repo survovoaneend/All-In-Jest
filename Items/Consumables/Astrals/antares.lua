@@ -34,7 +34,6 @@ local antares_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 7, y = 1 },
 	discovered = false,
-	order = 12,
 	config = {},
 
 	pixel_size = { w = 53, h = 28 },

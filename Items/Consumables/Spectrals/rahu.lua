@@ -45,7 +45,6 @@ local rahu_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 6, y = 0 },
 	discovered = false,
-	order = 111,
 	config = {},
 
 	pixel_size = { w = 53, h = 28 },

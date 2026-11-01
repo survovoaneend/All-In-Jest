@@ -44,7 +44,6 @@ local capella_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 1, y = 0 },
 	discovered = false,
-	order = 3,
 	config = {},
 
 	pixel_size = { w = 53, h = 28 },

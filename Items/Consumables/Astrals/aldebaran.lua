@@ -41,7 +41,6 @@ local aldebaran_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 4, y = 0 },
 	discovered = false,
-	order = 2,
 	config = {},
 
 	pixel_size = { w = 53, h = 34 }, --This is off because it makes the sprite smaller if it was accurate

@@ -42,7 +42,6 @@ local procyon_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 0, y = 1 },
 	discovered = false,
-	order = 5,
 	config = {},
 
 	pixel_size = { w = 48, h = 42 },

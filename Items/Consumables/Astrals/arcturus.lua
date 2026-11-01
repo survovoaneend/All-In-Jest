@@ -42,7 +42,6 @@ local arcturus_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 5, y = 1 },
 	discovered = false,
-	order = 10,
 	config = {},
 
 	pixel_size = { w = 53, h = 28 },

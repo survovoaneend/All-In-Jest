@@ -44,7 +44,6 @@ local algorab_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 3, y = 1 },
 	discovered = false,
-	order = 8,
 	config = {},
 
 	pixel_size = { w = 53, h = 28 },

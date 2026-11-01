@@ -42,7 +42,6 @@ local algol_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 2, y = 0 },
 	discovered = false,
-	order = 0,
 	config = {},
 
 	pixel_size = { w = 53, h = 28 },

@@ -42,7 +42,6 @@ local deneb_algedi_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 9, y = 1 },
 	discovered = false,
-	order = 14,
 	config = {},
 
 	pixel_size = { w = 53, h = 28 },

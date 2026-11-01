@@ -42,7 +42,6 @@ local alcyone_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 3, y = 0 },
 	discovered = false,
-	order = 1,
 	config = { no_auto_destroy = true },
 
 	pixel_size = { w = 53, h = 28 },
