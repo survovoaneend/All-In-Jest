@@ -232,21 +232,34 @@ for _, rel in ipairs(files) do
 	end
 end
 
--- Sort loaded objects by defined order
-table.sort(objects, function(a, b)
-	local function get_lowest_order(obj)
-		if not obj.items then
-			return math.huge
+local function get_lowest_order(obj)
+	if not obj.items then
+		return math.huge
+	end
+	local lowest = math.huge
+	for _, item in ipairs(obj.items) do
+		if item.order and item.order < lowest then
+			lowest = item.order
 		end
-		local lowest = math.huge
+	end
+	return lowest
+end
+local function get_first_order(obj)
+	if not obj.items then
+		return math.huge
+	else
 		for _, item in ipairs(obj.items) do
-			if item.order and item.order < lowest then
-				lowest = item.order
+			if item.order then
+				return item.order
 			end
 		end
-		return lowest
+		return math.huge
 	end
-	return get_lowest_order(a) < get_lowest_order(b)
+end
+
+-- Sort loaded objects by defined order
+table.sort(objects, function(a, b)
+	return get_first_order(a) < get_first_order(b)
 end)
 
 -- Load all the items
