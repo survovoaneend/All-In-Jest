@@ -85,7 +85,7 @@ end
 target = '=[SMODS _ "src/ui.lua"]'
 pattern = "create_UIBox_your_collection_stickers = function()"
 position = "before"
-payload = "-- Function overridden by All in Jest in Utils/overrides.lua"
+payload = "-- Function overridden by All in Jest in Utils/ui/playing_card_sticker_collection.lua"
 match_indent = true
 
 # Allow bomb stickers to calculate when being destroyed

@@ -142,9 +142,10 @@ All_in_Jest.stickers_collection_content_UIBox = function(page, rows, args)
 					G.your_collection[j].T.y,
 					G.CARD_W * args.card_scale,
 					G.CARD_H * args.card_scale,
-					base,
-					center
+					G.P_CARDS.empty,
+					G.P_CENTERS.c_base
 				)
+				card:set_sprites(center, base)
 				if args.modify_card then
 					args.modify_card(card, sticker, i, j)
 				end
