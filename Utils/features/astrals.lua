@@ -35,16 +35,6 @@ All_in_Jest.Astral_Grade = SMODS.Sticker:extend({
 		card.ability[self.key] = true
 
 		card.ability.astral_hand = self:choose_hand()
-		if self.config and next(self.config) then
-			card.ability[self.key] = {}
-			for k, v in pairs(self.config) do
-				if type(v) == "table" then
-					card.ability[self.key][k] = copy_table(v)
-				else
-					card.ability[self.key][k] = v
-				end
-			end
-		end
 	end,
 })
 
@@ -67,37 +57,32 @@ All_in_Jest.aij_astral_loc_vars = function(loc_vars_ref)
 			ret = loc_vars_ref(self, info_queue, card)
 		end
 
-		if
-			not (card.area and card.area.config.collection and not card.area.config.aij_card_select_collection)
-			or self.aij_bypass_collection_hidden
-		then
+		if card.ability.astral_hand and card.ability.astral_hand ~= "All Hands" then
 			ret.main_end = ret.main_end or {}
-			if card.ability.astral_hand ~= "All Hands" then
-				ret.main_end[#ret.main_end + 1] = {
-					n = G.UIT.R,
-					config = { align = "cm" },
-					nodes = {
-						{
-							n = G.UIT.R,
-							config = { align = "cm", padding = 0.02 },
-							nodes = {
-								{
-									n = G.UIT.T,
-									config = {
-										text = localize({
-											type = "variable",
-											key = "a_aij_slots_left",
-											vars = { pins_left },
-										}),
-										colour = G.C.UI.TEXT_INACTIVE,
-										scale = 0.32,
-									},
+			ret.main_end[#ret.main_end + 1] = {
+				n = G.UIT.R,
+				config = { align = "cm" },
+				nodes = {
+					{
+						n = G.UIT.R,
+						config = { align = "cm", padding = 0.02 },
+						nodes = {
+							{
+								n = G.UIT.T,
+								config = {
+									text = localize({
+										type = "variable",
+										key = "a_aij_slots_left",
+										vars = { pins_left },
+									}),
+									colour = G.C.UI.TEXT_INACTIVE,
+									scale = 0.32,
 								},
 							},
 						},
 					},
-				}
-			end
+				},
+			}
 		end
 
 		return ret
@@ -299,6 +284,28 @@ function All_in_Jest.use_astral_card(card)
 	else
 		All_in_Jest.create_astral_pin(card)
 	end
+end
+
+-- Hook to remove astral grade sticker if card is placed into the collection
+-- Cannot do this as its is being set, as set_ability() is called before the card is placed in an area
+local aij_cardarea_emplace_ref = CardArea.emplace
+function CardArea:emplace(card, location, stay_flipped)
+	local ret = aij_cardarea_emplace_ref(self, card, location, stay_flipped)
+
+	if card.ability.astral_grade then
+		if
+			card.area
+			and card.area.config.collection
+			and not card.area.config.aij_card_select_collection
+			and not card.aij_bypass_collection_hidden
+		then
+			card.ability[card.ability.astral_grade] = nil
+			card.ability.astral_grade = nil
+			card.ability.astral_hand = nil
+		end
+	end
+
+	return ret
 end
 
 function All_in_Jest.astral_background(_type, colours)
@@ -506,6 +513,56 @@ function All_in_Jest.astral_visuals(hand, extra, old_colours, immediate, colours
 	end
 end
 
+-- Adds astral grades to collection tag
+-- Blatantly stolen from Paperback's code for its clip collection tab
+do
+	SMODS.current_mod.custom_collection_tabs = function()
+		local custom_collection_tabs = {}
+		if All_in_Jest.config.astrals_enabled then
+			table.insert(
+				custom_collection_tabs,
+				UIBox_button({
+					button = "your_collection_aij_astral_grades",
+					id = "your_collection_aij_astral_grades",
+					label = { localize("aij_astral_grades_collection_label") },
+					minw = 5,
+					minh = 1,
+				})
+			)
+		end
+		return custom_collection_tabs
+	end
+
+	local function create_UIBox_your_collection_astral_grades()
+		local astral_grades = {}
+
+		for k, _ in pairs(All_in_Jest.Astral_Grades) do
+			astral_grades[k] = SMODS.Stickers[k]
+		end
+
+		return SMODS.card_collection_UIBox(astral_grades, { 4 }, {
+			snap_back = true,
+			hide_single_page = true,
+			collapse_single_page = true,
+			center = "c_base",
+			h_mod = 1.18,
+			back_func = "your_collection_other_gameobjects",
+			modify_card = function(card, center)
+				card.aij_bypass_collection_hidden = true
+				card:set_sprites(G.P_CENTERS["c_aij_algol"])
+				center:apply(card, true)
+			end,
+		})
+	end
+
+	G.FUNCS.your_collection_aij_astral_grades = function()
+		G.SETTINGS.paused = true
+		G.FUNCS.overlay_menu({
+			definition = create_UIBox_your_collection_astral_grades(),
+		})
+	end
+end
+
 ----- Hooks -----
 
 local aij_ease_bg_blind_ref = ease_background_colour_blind
@@ -640,49 +697,4 @@ function create_UIBox_hand_tip(handname)
 	end
 
 	return ret
-end
-
--- Adds astral grades to collection tag
--- Blatantly stolen from Paperback's code for its clip collection tab
-do
-	SMODS.current_mod.custom_collection_tabs = function()
-		return {
-			UIBox_button({
-				button = "your_collection_aij_astral_grades",
-				id = "your_collection_aij_astral_grades",
-				label = { localize("aij_astral_grades_collection_label") },
-				minw = 5,
-				minh = 1,
-			}),
-		}
-	end
-
-	local function create_UIBox_your_collection_astral_grades()
-		local astral_grades = {}
-
-		for k, _ in pairs(All_in_Jest.Astral_Grades) do
-			astral_grades[k] = SMODS.Stickers[k]
-		end
-
-		return SMODS.card_collection_UIBox(astral_grades, { 4 }, {
-			snap_back = true,
-			hide_single_page = true,
-			collapse_single_page = true,
-			center = "c_base",
-			h_mod = 1.18,
-			back_func = "your_collection_other_gameobjects",
-			modify_card = function(card, center)
-				card.aij_bypass_collection_hidden = true
-				card:set_sprites(G.P_CENTERS["c_aij_algol"])
-				center:apply(card, true)
-			end,
-		})
-	end
-
-	G.FUNCS.your_collection_aij_astral_grades = function()
-		G.SETTINGS.paused = true
-		G.FUNCS.overlay_menu({
-			definition = create_UIBox_your_collection_astral_grades(),
-		})
-	end
 end

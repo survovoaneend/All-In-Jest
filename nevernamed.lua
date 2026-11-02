@@ -178,6 +178,7 @@ local function load_items(curr_obj)
 				or item.set == "aij_astral"
 				or item.soul_set == "aij_astral"
 				or item.object_type == "Astral"
+				or item.object_type == "Astral_Grade"
 			)
 		then
 			goto continue
