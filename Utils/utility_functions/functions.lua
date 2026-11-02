@@ -1628,7 +1628,11 @@ local get_next_reroll_tag_key = function(args, current_tag)
 					end
 				end
 
-				if G.P_TAGS[upgraded_tag_key].in_pool and type(G.P_TAGS[upgraded_tag_key].in_pool) == "function" then
+				if
+					G.P_TAGS[upgraded_tag_key]
+					and G.P_TAGS[upgraded_tag_key].in_pool
+					and type(G.P_TAGS[upgraded_tag_key].in_pool) == "function"
+				then
 					if not G.P_TAGS[upgraded_tag_key]:in_pool() then
 						upgraded_tag_key = nil
 					end
