@@ -15,13 +15,7 @@ local algol = {
 		-- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {
 			vars = {
-				not (
-							card.area
-							and card.area.config.collection
-							and not card.area.config.aij_card_select_collection
-						)
-						and card.ability.astral_hand
-					or "(hand)",
+				card.ability.astral_hand or "(hand)",
 				card.ability.extra.dollars,
 			},
 		}

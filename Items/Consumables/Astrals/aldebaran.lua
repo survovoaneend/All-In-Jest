@@ -14,13 +14,7 @@ local aldebaran = {
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = {
-				not (
-							card.area
-							and card.area.config.collection
-							and not card.area.config.aij_card_select_collection
-						)
-						and card.ability.astral_hand
-					or "(hand)",
+				card.ability.astral_hand or "(hand)",
 				card.ability.extra.percent,
 			},
 		}
