@@ -43,7 +43,7 @@ local pc_perishable = {
 	config = { aij = { pc_sticker = true }, extra = {} },
 	pos = { x = 0, y = 2 },
 	badge_colour = HEX("4f5da1"),
-	order = 1,
+	order = 2,
 	apply = function(self, card, val)
 		card.ability[self.key] = val
 		if card.ability[self.key] then

@@ -5,7 +5,7 @@ local bomb = {
 	pos = { x = 3, y = 2 },
 	atlas = "stickers_atlas",
 	badge_colour = HEX("61767a"),
-	order = 1,
+	order = 4,
 
 	loc_vars = function(self, info_queue, card) end,
 	calculate = function(self, card, context)
