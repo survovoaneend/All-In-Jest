@@ -3,7 +3,10 @@ local astral_grade_stickers = {
 	key = "astral_grade_stickers",
 	order = 21,
 	func = function(self, layer)
-		if not (self.area and self.area.config.collection and not self.area.config.aij_card_select_collection) then
+		if
+			not (self.area and self.area.config.collection and not self.area.config.aij_card_select_collection)
+			or self.aij_bypass_collection_hidden
+		then
 			for k, v in pairs(All_in_Jest.Astral_Grades) do
 				if
 					self.ability.astral_grade == v.key

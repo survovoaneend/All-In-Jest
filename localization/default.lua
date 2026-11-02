@@ -29,6 +29,7 @@ return {
 			aij_doesnt_requires_restart = "Doesn't Require Restart",
 			aij_upgraded_tags = "Gold Tags",
 			aij_pc_stickers = "Playing Card Stickers",
+			aij_astral_grades_collection_label = "Astral Grades",
 			aij_button_content = "Content",
 			aij_button_moons = "Moons",
 			aij_button_visuals = "Visuals / Accessibility",
@@ -366,6 +367,11 @@ return {
 			aij_eye_seal = "Eye Seal",
 			-- Other
 			aij_jest_chaotic_card = "Chaotic", -- Treated internally as a sticker
+			-- Astral Stickers
+			astral_grade_aij_passigrade = "Passigrade",
+			astral_grade_aij_prograde = "Prograde",
+			astral_grade_aij_retrograde = "Retrograde",
+			astral_grade_aij_omnigrade = "Omnigrade",
 		},
 		poker_hands = {
 			["aij_Royal Flush"] = "Royal Flush",

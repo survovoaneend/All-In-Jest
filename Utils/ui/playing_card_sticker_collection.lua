@@ -72,7 +72,9 @@ All_in_Jest.stickers_collection_content_UIBox = function(page, rows, args)
 	local pool = SMODS.collection_pool(SMODS.Stickers)
 	for i = #pool, 1, -1 do
 		local v = pool[i]
-		if v.config and v.config.aij and v.config.aij.pc_sticker and not G.GAME.jest_pc_stickers_tab then
+		if v.key and All_in_Jest.Astral_Grades[v.key] then
+			table.remove(pool, i)
+		elseif v.config and v.config.aij and v.config.aij.pc_sticker and not G.GAME.jest_pc_stickers_tab then
 			table.remove(pool, i)
 		elseif G.GAME.jest_pc_stickers_tab then
 			if not (v.config and v.config.aij and v.config.aij.pc_sticker) then
