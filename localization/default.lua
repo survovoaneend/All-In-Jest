@@ -11209,7 +11209,7 @@ return {
 				text = {
 					"Debuffed after",
 					"scoring {C:attention}#1#{} times",
-					"{C:inactive}({C:attention}#2#{} remaining{C:inactive}){}",
+					"{C:inactive}({C:attention}#2#{C:inactive} remaining){}",
 				},
 			},
 			aij_pc_rental = {

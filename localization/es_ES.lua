@@ -8816,7 +8816,7 @@ return {
 				name = "Perecedero",
 				text = {
 					"Se debilita tras anotar {C:attention}#1#{} veces",
-					"{C:inactive}({C:attention}#2#{} restantes{C:inactive}){}",
+					"{C:inactive}({C:attention}#2#{C:inactive} restantes){}",
 				},
 			},
 			aij_pc_rental = {
