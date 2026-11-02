@@ -3,6 +3,7 @@ local omnigrade = {
 	object_type = "Astral_Grade",
 	key = "omnigrade",
 	atlas = "stickers_atlas",
+	badge_colour = G.C.SET.Spectral,
 	pos = { x = 3, y = 3 },
 	order = 3,
 	config = {},
