@@ -84,7 +84,7 @@ payload = ''',
     {n=G.UIT.R, config={align = "cm", padding = 0, no_fill = true}, nodes={
         {n=G.UIT.T, config={text = localize('aij_gladiator_blinds'), scale = 0.5, colour = G.C.UI.TEXT_LIGHT}}
     }}
-}} or nil,
+}} or nil
 '''
 
 # Gladiator Negative shader (1/2)
