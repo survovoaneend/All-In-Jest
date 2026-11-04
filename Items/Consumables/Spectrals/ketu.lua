@@ -27,7 +27,7 @@ local ketu = {
 	},
 	inject = function(self)
 		SMODS.Spectral.inject(self)
-		SMODS.ObjectTypes["aij_astral"]:inject_card(self)
+		SMODS.ObjectTypes["aij_astral"]:inject_card(self, true)
 	end,
 }
 local ketu_pin = {

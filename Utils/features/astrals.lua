@@ -130,7 +130,7 @@ SMODS.ConsumableType({
 	default = "c_aij_algol",
 	no_buy_and_use = false,
 	no_collection = not All_in_Jest.config.astrals_enabled,
-	inject_card = function(self, center)
+	inject_card = function(self, center, skip_inject)
 		if not center.inject_astral_applied then
 			center.inject_astral_applied = true
 
@@ -149,7 +149,9 @@ SMODS.ConsumableType({
 				return true
 			end
 		end
-		SMODS.ObjectType.inject_card(self, center)
+		if not skip_inject then
+			SMODS.ObjectType.inject_card(self, center)
+		end
 	end,
 })
 

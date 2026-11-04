@@ -27,7 +27,7 @@ local rahu = {
 	},
 	inject = function(self)
 		SMODS.Spectral.inject(self)
-		SMODS.ObjectTypes["aij_astral"]:inject_card(self)
+		SMODS.ObjectTypes["aij_astral"]:inject_card(self, true)
 	end,
 }
 local rahu_pin = {
