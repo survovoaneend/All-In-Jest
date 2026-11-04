@@ -12,7 +12,14 @@ function eval_card(card, context)
 		else
 			for _, key in ipairs(SMODS.scoring_parameter_keys) do
 				if effects[1].jokers[key] then
-					if SMODS.pseudorandom_probability(card, "aij_indecisive", 1, 4) then
+					if
+						SMODS.pseudorandom_probability(
+							card,
+							"aij_indecisive",
+							1,
+							G.GAME.all_in_jest.sticker_effects["aij_indecisive"].odds
+						)
+					then
 						effects[1].jokers = {
 							card = card,
 							message = localize("k_nope_ex"),
@@ -31,14 +38,15 @@ end
 local indecisive = {
 	object_type = "Sticker",
 	key = "indecisive",
-	config = { extra = {} },
+	config = { extra = { odds = 4 } },
 	atlas = "stickers_atlas",
 	order = 1,
 	pos = { x = 0, y = 2 },
 	badge_colour = HEX("55a383"),
 	rate = 0.3,
 	loc_vars = function(self, info_queue, card)
-		local numerator, denominator = SMODS.get_probability_vars(card, 1, 4)
+		local numerator, denominator =
+			SMODS.get_probability_vars(card, 1, G.GAME.all_in_jest.sticker_effects["aij_indecisive"].odds)
 		return {
 			vars = {
 				numerator,
