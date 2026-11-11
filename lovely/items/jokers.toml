@@ -152,7 +152,7 @@ end
 '''
 match_indent = true
 
-# Scapino (2/3) (Booster pack rerolling)
+# Scapino (2/2) (Booster pack rerolling)
 # Adds new booster packs on reroll
 # G.FUNCS.reroll_shop()
 [[patches]]
@@ -162,29 +162,9 @@ pattern = "for i = 1, G.GAME.shop.joker_max - #G.shop_jokers.cards do"
 position = "before"
 payload = '''
 if next(SMODS.find_card("j_aij_scapino")) then
-    for i = 1, ((G.GAME.modifiers.extra_boosters or 0) + 2) - #G.shop_booster.cards do
-        local new_shop_card = create_card_for_shop(G.shop_booster)
-        G.shop_booster:emplace(new_shop_card)
-        new_shop_card:juice_up()
+    for i = 1, (G.GAME.starting_params.boosters_in_shop or 2) + (G.GAME.modifiers.extra_boosters or 0) - #G.shop_booster.cards do
+        SMODS.add_booster_to_shop()
     end
-end
-'''
-match_indent = true
-
-# Scapino (3/3) (Booster pack rerolling)
-# Define card to create for the shop_booster area
-# create_card_for_shop()
-[[patches]]
-[patches.pattern]
-target = '=[SMODS _ "src/utils/weights.lua"]'
-pattern = '''
-card_args.key = SMODS.poll_object({type = card_args.type, append = 'sho', guaranteed = card_args.type == 'Enhanced'})
-'''
-position = "before"
-payload = '''
-if area == G.shop_booster then
-    card_args.type = 'Booster'
-    card_args.scale = {w = 1.27, h = 1.27}
 end
 '''
 match_indent = true
@@ -524,7 +504,7 @@ if next(SMODS.find_card("j_aij_barcode")) and self.ability.set == 'Booster' then
         self.cost = math.max(1, math.floor((self.cost + self.extra_cost + 0.5)*(100-v.ability.extra.sale)/100))
     end
 end
-if self.ability.aij_mint_condition then self.cost = self.cost + 10 end
+if self.ability.aij_mint_condition then self.cost = self.cost + G.GAME.all_in_jest.sticker_effects["aij_mint_condition"].markup end
 '''
 
 # Circuit Diagram (1/1)
@@ -663,7 +643,7 @@ pattern = "function create_UIBox_blind_choice(type, run_info)"
 position = "after"
 payload = '''
   local is_big_boss = false
-  local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and (type == 'Boss' or type == 'Big_Boss')
+  local aij_has_blind_drawn = All_in_Jest.has_blind_drawn() and (type == 'Boss' or type == 'Big_Boss')
 '''
 match_indent = true
 
@@ -676,7 +656,7 @@ target = '=[SMODS _ "src/ui.lua"]'
 pattern = "function create_UIBox_blind_choice(type, run_info)"
 position = "after"
 payload = '''
-    local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn")) and (type == 'Boss' or type == 'Big_Boss')
+    local aij_has_blind_drawn = All_in_Jest.has_blind_drawn() and (type == 'Boss' or type == 'Big_Boss')
 '''
 match_indent = true
 
@@ -960,6 +940,11 @@ if other.ability.numbertaker_rankless and other.config.card then
     if new_card.base.nominal > 0 then new_card.base.nominal = 1 end
     new_card:set_sprites(nil, other.config.card)
 end
+if other.ability.deadwood_blank and other.config.card then
+    new_card.ability.deadwood_blank = true
+    if new_card.base.nominal > 0 then new_card.base.nominal = 1 end
+    new_card:set_sprites(nil, other.config.card)
+end
 '''
 
 # The Mermaid Booster pack discard (1/2)
@@ -1048,6 +1033,28 @@ if card_count > 0 then
     SMODS.draw_cards(card_count)
 end
 -- End AIJ Override
+'''
+
+# Coffee Thermos
+# Retrigger end of round dollar bonuses
+# G.FUNCS.evaluate_round()
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "-- TARGET: calc_dollar_bonus per card"
+position = "after"
+match_indent = true
+payload = '''
+if ret then
+    for _ = 1, #SMODS.find_card('j_aij_coffee_thermos') do
+        if not ret_opts.no_eval_row then
+            i = i + 1
+            add_round_eval_row({dollars = ret, bonus = true, name = 'joker'..i, pitch = pitch, card = _card, loc_opts = ret_opts})
+            pitch = pitch + 0.06
+        end
+        dollars = dollars + ret
+    end
+end
 '''
 
 # ############## #

@@ -730,6 +730,27 @@ function CardArea:emplace(card, ...)
 	return result
 end
 
+-- score reduction effects
+local calculate_round_score_ref = SMODS.calculate_round_score
+function SMODS.calculate_round_score(flames)
+	local ret = calculate_round_score_ref(flames)
+	if G.GAME.aij_apply_score_reduction then
+		return ret * (G.GAME.aij_score_reduction or 1) + 0.5 -- ?? floats are being weird and this fixes it
+	end
+	return ret
+end
+
+-- stupid extra hook to make the hand text accurate
+local update_hand_text_ref = update_hand_text
+function update_hand_text(config, vals)
+	if G.GAME.aij_apply_score_reduction and vals.chip_total == math.floor(SMODS.calculate_round_score()) then
+		G.GAME.aij_apply_score_reduction = false
+		vals.chip_total = math.floor(SMODS.calculate_round_score())
+		G.GAME.aij_apply_score_reduction = true
+	end
+	return update_hand_text_ref(config, vals)
+end
+
 -- Hook that replaces the floating sprite of legendaries in the collection
 -- with a winking jimbo while a Guess the Jest is open
 local aij_drawstep_floating_sprite_ref = SMODS.DrawSteps["floating_sprite"].func
@@ -780,4 +801,22 @@ SMODS.DrawSteps["floating_sprite"].func = function(self)
 	else
 		aij_drawstep_floating_sprite_ref(self)
 	end
+end
+--Hook that makes it so Death-like effects don't
+--retain stickers and attributes such as rankless or blank
+local aij_copy_card_ref = copy_card
+function copy_card(other, new_card, card_scale, playing_card, strip_edition)
+	if new_card and other and new_card ~= other and new_card.ability and other.ability then
+		for k, _ in pairs(SMODS.Stickers) do
+			if k ~= "pinned" and new_card.ability[k] and not other.ability[k] then
+				new_card:remove_sticker(k)
+			end
+		end
+		for _, k in ipairs({ "numbertaker_rankless", "deadwood_blank" }) do
+			if new_card.ability[k] and not other.ability[k] then
+				new_card.ability[k] = nil
+			end
+		end
+	end
+	return aij_copy_card_ref(other, new_card, card_scale, playing_card, strip_edition)
 end

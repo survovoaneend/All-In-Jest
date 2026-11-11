@@ -145,6 +145,13 @@ function Card:update(dt)
 			local inherent_keys = {}
 			if enhancement_key then
 				extract_keys(enhancement_key.config, inherent_keys)
+				--this is specifically for glass lmao
+				for i = #inherent_keys, 1, -1 do
+					local k = inherent_keys[i]
+					if k == "Xmult" then
+						table.insert(inherent_keys, "x_mult")
+					end
+				end
 				if #inherent_keys > 0 then
 					jest_ability_calculate(self, "*", diff, {
 						h_x_chips = 1,

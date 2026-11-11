@@ -59,6 +59,9 @@ function SMODS.has_no_suit(card)
 	if card.base.suit == nil then
 		return true
 	end
+	if card.ability.deadwood_blank then
+		return true
+	end
 	return has_no_suit_ref(card)
 end
 
@@ -67,7 +70,7 @@ function SMODS.has_no_rank(card)
 	if card.base.id == nil then
 		return true
 	end
-	if card.ability.numbertaker_rankless then
+	if card.ability.numbertaker_rankless or card.ability.deadwood_blank then
 		return true
 	end
 	return has_no_rank_ref(card)

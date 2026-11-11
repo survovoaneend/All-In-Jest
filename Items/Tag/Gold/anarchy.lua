@@ -99,12 +99,25 @@ local anarchy_tag = {
 					local bosses = {}
 					local showdown_bosses = {}
 					for k, v in pairs(G.P_BLINDS) do
-						if v and v.boss and v.boss.showdown and SMODS.add_to_pool(v) and not G.GAME.banned_keys[k] then
+						if
+							v
+							and v.boss
+							and not (v.boss.all_in_jest and v.boss.all_in_jest.gladiator)
+							and v.boss.showdown
+							and SMODS.add_to_pool(v)
+							and not G.GAME.banned_keys[k]
+						then
 							table.insert(showdown_bosses, v)
 						end
 					end
 					for k, v in pairs(G.P_BLINDS) do
-						if v and v.boss and SMODS.add_to_pool(v) and not G.GAME.banned_keys[k] then
+						if
+							v
+							and v.boss
+							and not (v.boss.all_in_jest and v.boss.all_in_jest.gladiator)
+							and SMODS.add_to_pool(v)
+							and not G.GAME.banned_keys[k]
+						then
 							table.insert(bosses, v)
 							if not v.boss.showdown then
 								local ran = pseudorandom("jest_chaos_tag", 1, #showdown_bosses)
@@ -266,7 +279,7 @@ local anarchy_tag = {
 					ease_discard(1)
 				elseif effect == "plus_ran_enhance" then
 					local ran_amt = pseudorandom("jest_anarchy_tag", 2, 4)
-					local voucher_card = SMODS.create_card({
+					local temp_card = SMODS.create_card({
 						set = "Base",
 						area = G.play,
 						skip_materialize = true,
@@ -283,7 +296,7 @@ local anarchy_tag = {
 						).card_key
 						local new_card = G.P_CARDS[new_code .. "_" .. new_val]
 						G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-						local cur_card = copy_card(temp_card)
+						local cur_card = copy_card(temp_card, nil, nil, G.playing_card)
 
 						cur_card:set_base(new_card)
 						local enhance = SMODS.poll_enhancement({

@@ -1,10 +1,9 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = 214748364
-
+priority = 214748365
 ########################################
-# GENERAL BLIND FUNCTIONALITY #
+    # GENERAL BLIND FUNCTIONALITY #
 ########################################
 
 # AiJ Blind Functionality (1/5)
@@ -96,6 +95,13 @@ position = "after"
 match_indent = true
 payload = '''
 if type == 'Big_Boss' and G.GAME.round_resets.blind_states['Big_Boss'] == 'Defeated' then extras = nil end
+if (G.GAME.round_resets.blind_choices['Boss'] == 'bl_aij_the_hoard_GL' or G.GAME.round_resets.blind_choices['Big_Boss'] == 'bl_aij_the_hoard_GL') then
+    if type == 'Small' then
+        blind_amt = get_blind_amount(G.GAME.round_resets.blind_ante)*0.25*G.GAME.starting_params.ante_scaling
+    elseif type == 'Big' then
+        blind_amt = get_blind_amount(G.GAME.round_resets.blind_ante)*0.5*G.GAME.starting_params.ante_scaling
+    end
+end
 if All_in_Jest.aij_alias_type(blind_choice.config.aij_blind_amount_display) == 'function' then
     local blind_mult = blind_choice.config.mult
     if next(SMODS.find_card("j_aij_fall_of_count_chaligny")) then
@@ -203,7 +209,7 @@ target = "functions/UI_definitions.lua"
 pattern = "{n=G.UIT.T, config={text = number_format(blind_amt)*"
 position = "before"
 match_indent = true
-payload = '''(blind_choice.config.name == "bl_aij_the_clay" and not aij_has_blind_drawn and {n=G.UIT.O, config={object = DynaText({string = getRandomClayBlindReqs(blind_amt), colours = {disabled and G.C.UI.TEXT_INACTIVE or blind_state_text_colour or G.C.RED},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = score_number_scale(blind_state_text_colour and 0.47 or 0.9, blind_amt), shadow = not disabled, min_cycle_time = 0})}}) or'''
+payload = '''((blind_choice.config.name == "bl_aij_the_clay" or blind_choice.config.name == "bl_aij_the_clay_GL") and not aij_has_blind_drawn and {n=G.UIT.O, config={object = DynaText({string = getRandomClayBlindReqs(blind_amt), colours = {disabled and G.C.UI.TEXT_INACTIVE or blind_state_text_colour or G.C.RED},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = score_number_scale(blind_state_text_colour and 0.47 or 0.9, blind_amt), shadow = not disabled, min_cycle_time = 0})}}) or'''
 
 # The Clay blind (2/2)
 # create_UIBox_blind_popup
@@ -215,6 +221,7 @@ pattern = "{n=G.UIT.T, config={text = blind.mult..localize('k_x_base'), scale = 
 position = "before"
 match_indent = true
 payload = '''blind.key == "bl_aij_the_clay" and {n=G.UIT.T, config={text = "2~5"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or 
+             blind.key == "bl_aij_the_clay_GL" and {n=G.UIT.T, config={text = "4~10"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or 
               blind.aij_variable_req and false and {n=G.UIT.T, config={text = blind.mult.."+?"..localize('k_x_base'), scale = 0.4, colour = G.C.RED}} or '''
 
 # The Journey Blind (1/1)
@@ -246,8 +253,8 @@ payload = '''elseif blindname == 'bl_aij_the_journey' and G.GAME.current_round.a
     end
 '''
 
-# The Connection (1/1)
-# Add excess chips to blind requirements
+# The Connection + The Hoard (1/1)
+# Change blind requirements based on other bosses
 # Blind:set_blind()
 [[patches]]
 [patches.pattern]
@@ -256,6 +263,13 @@ pattern = "self.in_blind = true"
 position = "after"
 match_indent = true
 payload = '''
+if (G.GAME.round_resets.blind_choices['Boss'] == 'bl_aij_the_hoard_GL' or G.GAME.round_resets.blind_choices['Big_Boss'] == 'bl_aij_the_hoard_GL') then
+    if G.GAME.round_resets.blind.key == 'bl_small' then
+        All_in_Jest.ease_blind_requirement(0.25 - All_in_Jest.get_current_blind_mult(), nil, true)
+    elseif G.GAME.round_resets.blind.key == 'bl_big' then
+        All_in_Jest.ease_blind_requirement(0.5 - All_in_Jest.get_current_blind_mult(), nil, true)
+    end
+end
 if G.GAME.the_connection_extra_chips then
     All_in_Jest.ease_blind_requirement(nil, G.GAME.the_connection_extra_chips, true)
 end
@@ -273,7 +287,7 @@ payload = '''
 if G.GAME.aij_has_big_boss then
     if G.GAME.blind_on_deck == 'Boss' and G.GAME.round_resets.blind_states.Big_Boss and not (G.GAME.round_resets.blind_states.Big_Boss == 'Defeated' or G.GAME.round_resets.blind_states.Big_Boss == 'Skipped' or G.GAME.round_resets.blind_states.Big_Boss == 'Hide') then 
         G.GAME.blind_on_deck = 'Big_Boss' 
-        G.GAME.round_resets.blind_states['Big_Boss'] = 'Current'
+        G.GAME.round_resets.blind_states['Big_Boss'] = 'Select'
         G.GAME.round_resets.blind_states['Boss'] = 'Upcoming'
         G.GAME.round_resets.loc_blind_states.Big_Boss = localize(G.GAME.round_resets.blind_states.Big_Boss or 'Upcoming','blind_states')
     end

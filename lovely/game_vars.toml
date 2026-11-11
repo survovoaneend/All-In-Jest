@@ -41,7 +41,10 @@ all_in_jest = {
 	sticker_effects = {
       ['rental'] = 1,
 	  ['pc_rental'] = {num = 0, odds = 3, active = false},
-      ['perishable'] = 2
+      ['perishable'] = 2,
+	  ['aij_indecisive'] = {odds = 4},
+	  ['aij_mint_condition'] = {markup = 10},
+	  ['aij_demanding'] = {active = false, hands = { "Two Pair", "Three of a Kind", "Flush", "Straight" }},
     },
 	dizzard_shop = false,
 	gold_card_amt = 3,
@@ -101,6 +104,7 @@ all_in_jest = {
 	advanced_hand_usage_run = {},
 	advanced_hand_usage_ante = {},
 	advanced_hand_usage_blind = {},
+	discarded_poker_hands_ante = {},
 	previously_sold_jokers = {},
 	previously_destroyed_jokers = {},
 	previously_destroyed_playing_cards = {},

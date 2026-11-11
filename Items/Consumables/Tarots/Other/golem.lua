@@ -58,8 +58,8 @@ local golem = {
 		delay(0.2)
 
 		local cen_pool = {}
-		for k, v in pairs(get_current_pool("Enhanced")) do
-			if v.key ~= "m_stone" then
+		for k, v in ipairs(get_current_pool("Enhanced")) do
+			if v ~= "m_stone" and v ~= "UNAVAILABLE" then
 				cen_pool[#cen_pool + 1] = v
 			end
 		end

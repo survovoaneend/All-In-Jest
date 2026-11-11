@@ -1,7 +1,7 @@
 aij_UnBlind_current_blinds_ref = G.UIDEF.UnBlind_current_blinds
 function G.UIDEF.UnBlind_current_blinds() -- called by the replaced bit of code.	see lovely.toml			♥
 	local ret = aij_UnBlind_current_blinds_ref()
-	local aij_has_blind_drawn = next(SMODS.find_card("j_aij_blind_drawn"))
+	local aij_has_blind_drawn = All_in_Jest.has_blind_drawn()
 	if aij_has_blind_drawn and (ret.nodes and ret.nodes[1] and ret.nodes[1].nodes and ret.nodes[1].nodes[3]) then
 		ret.nodes[1].nodes[3] = G.GAME.round_resets.blind_states["Boss"] ~= "Hide"
 				and UnBlind_create_UIBox_blind("aij_Hidden")

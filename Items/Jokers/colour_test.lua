@@ -29,10 +29,12 @@ local colour_test = {
 			and not context.blueprint
 		then
 			local poly = context.scoring_hand[1]
-			poly:set_edition("e_polychrome")
-			return {
-				message = localize("k_aij_polychrome_ex"),
-			}
+			if poly then
+				poly:set_edition("e_polychrome")
+				return {
+					message = localize("k_aij_polychrome_ex"),
+				}
+			end
 		end
 	end,
 }

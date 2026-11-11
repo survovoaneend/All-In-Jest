@@ -28,6 +28,7 @@ return {
 			aij_requires_restart = "Requires Restart",
 			aij_doesnt_requires_restart = "Doesn't Require Restart",
 			aij_upgraded_tags = "Gold Tags",
+			aij_gladiator_blinds = "Gladiator Blinds",
 			aij_pc_stickers = "Playing Card Stickers",
 			aij_astral_grades_collection_label = "Astral Grades",
 			aij_button_content = "Content",
@@ -222,6 +223,13 @@ return {
 			k_aij_destroyed_ex = "Destroyed!",
 			k_aij_plus_consumable = "+1 Consumable", -- Dizzy Lizzy and Pour One Out
 			k_aij_create = "Create", -- Nonstandard tag
+			-- Polychrome Stake
+			k_aij_points = "Points",
+			k_aij_total_points = "Current Total",
+			k_aij_pb = "Personal Best",
+			k_aij_all_time = "All Time",
+			k_aij_disable_all = "Disable All",
+			run_select_aij_polychrome_settings = "Customize",
 		},
 		v_dictionary = {
 			a_aij_exp_mult = "^#1# Mult",
@@ -232,6 +240,8 @@ return {
 			a_aij_ante_minus = "-#1# Ante",
 
 			a_aij_win_ante_plus = "+#1# Win Ante",
+
+			a_aij_score_reduction = "-#1#% Score",
 
 			a_aij_percent_balance = "+%#1#",
 			a_aij_percent_balance_minus = "-%#1#",
@@ -259,6 +269,9 @@ return {
 
 			a_aij_slots_minus = "-#1# Slots",
 			a_aij_slots = "+#1# Slots",
+
+			a_aij_points = "#1# Points",
+			a_aij_applied_stake = "(Applied #1# times)",
 		},
 		challenge_names = {
 			c_aij_bananarama = "Bananarama",
@@ -353,8 +366,10 @@ return {
 			pinned = "Pinned",
 			aij_unusual_doubled = "Doubled",
 			aij_recherche_doubled = "Doubled",
-			aij_undecisive = "Undecisive",
+			aij_indecisive = "Indecisive",
 			aij_mint_condition = "Mint Condition",
+			aij_introverted = "Introverted",
+			aij_demanding = "Demanding",
 			aij_spade = "Spade",
 			aij_diamond = "Diamond",
 			aij_heart = "Heart",
@@ -603,7 +618,20 @@ return {
 					"{s:0.8}Applies all previous Stakes",
 				},
 			},
-		} or {},
+			stake_aij_polychrome = {
+				name = "Polychrome Stake",
+				text = {
+					"{C:dark_edition}Customizable{} difficulty",
+				},
+			},
+		} or {
+			stake_aij_polychrome = {
+				name = "Polychrome Stake",
+				text = {
+					"{C:dark_edition}Customizable{} difficulty",
+				},
+			},
+		},
 		Partner = {
 			pnr_aij_simply = {
 				name = "Simply",
@@ -1401,7 +1429,8 @@ return {
 			bl_aij_rubber_duck = {
 				name = "Rubber Duck",
 				text = {
-					"All poker hands are",
+					"Base chips or",
+					"base mult is",
 					"scored as level 1",
 				},
 			},
@@ -1455,6 +1484,468 @@ return {
 					"played or discarded",
 					"this ante when Blind",
 					"is selected",
+				},
+			},
+			-- Gladiator Blinds
+			bl_aij_the_hook_GL = {
+				name = "The Hook",
+				text = {
+					"Discard 1 random",
+					"scoring card in",
+					"each played hand",
+				},
+			},
+			bl_aij_the_god_GL = {
+				name = "The God",
+				text = {
+					"Must score 3",
+					"or more cards",
+				},
+			},
+			bl_aij_the_manacle_GL = {
+				name = "The Manacle",
+				text = {
+					"-1 Hand Size",
+					"each hand played",
+				},
+			},
+			bl_aij_the_day_GL = {
+				name = "The Day",
+				text = {
+					"Hand must not contain",
+					"Spades or Clubs",
+				},
+			},
+			bl_aij_the_dagger_GL = {
+				name = "The Dagger",
+				text = {
+					"Hand must not contain",
+					"Hearts or Diamonds",
+				},
+			},
+			bl_aij_the_goad_GL = {
+				name = "The Goad",
+				text = {
+					"Reduce score by 20%",
+					"per Spade played",
+				},
+			},
+			bl_aij_the_willow_GL = {
+				name = "The Willow",
+				text = {
+					"Spades cannot",
+					"be drawn",
+				},
+			},
+			bl_aij_the_head_GL = {
+				name = "The Head",
+				text = {
+					"Reduce score by 20%",
+					"per Heart played",
+				},
+			},
+			bl_aij_the_alder_GL = {
+				name = "The Alder",
+				text = {
+					"Hearts cannot",
+					"be drawn",
+				},
+			},
+			bl_aij_the_club_GL = {
+				name = "The Club",
+				text = {
+					"Reduce score by 20%",
+					"per Club played",
+				},
+			},
+			bl_aij_the_elm_GL = {
+				name = "The Elm",
+				text = {
+					"Clubs cannot",
+					"be drawn",
+				},
+			},
+			bl_aij_the_window_GL = {
+				name = "The Window",
+				text = {
+					"Reduce score by 20%",
+					"per Diamond played",
+				},
+			},
+			bl_aij_the_beith_GL = {
+				name = "The Beith",
+				text = {
+					"Diamonds cannot",
+					"be drawn",
+				},
+			},
+			bl_aij_the_plant_GL = {
+				name = "The Plant",
+				text = {
+					"Reduce score by 20%",
+					"per Face card played",
+				},
+			},
+			bl_aij_the_branch_GL = {
+				name = "The Branch",
+				text = {
+					"Face cards cannot",
+					"be drawn",
+				},
+			},
+			bl_aij_the_arm_GL = {
+				name = "The Arm",
+				text = {
+					"Decrease level of",
+					"all poker hands",
+					"each hand played",
+				},
+			},
+			bl_aij_the_ulcer_GL = {
+				name = "The Ulcer",
+				text = {
+					"-2 Hands",
+					"-2 Discards",
+				},
+			},
+			bl_aij_the_needle_GL = {
+				name = "The Needle",
+				text = {
+					"Play only 1 hand",
+				},
+			},
+			bl_aij_the_wall_GL = {
+				name = "The Wall",
+				text = {
+					"Very large blind",
+				},
+			},
+			bl_aij_the_groan_GL = {
+				name = "The Groan",
+				text = {
+					"+2X Base after",
+					"playing a hand",
+				},
+			},
+			bl_aij_the_fish_GL = {
+				name = "The Fish",
+				text = {
+					"Cards drawn face down",
+					"after each discard",
+				},
+			},
+			bl_aij_the_wheel_GL = {
+				name = "The Wheel",
+				text = {
+					"#1# in #2# cards get",
+					"drawn face down",
+				},
+			},
+			bl_aij_the_ash_GL = {
+				name = "The Ash",
+				text = {
+					"+0.25X Base per",
+					"card below #1# in",
+					"full deck",
+				},
+			},
+			bl_aij_the_aspen_GL = {
+				name = "The Aspen",
+				text = {
+					"+2X Base per Blind",
+					"defeated this Ante",
+				},
+			},
+			bl_aij_the_evergreen_GL = {
+				name = "The Evergreen",
+				text = {
+					"+0.25X Base per",
+					"card above #1# in",
+					"full deck",
+				},
+			},
+			bl_aij_the_clay_GL = {
+				name = "The Clay",
+				text = {
+					"Randomly large blind",
+				},
+			},
+			bl_aij_the_hoard_GL = {
+				name = "The Hoard",
+				text = {
+					"Smaller Blinds this Ante,",
+					"excess score this Ante",
+					"adds to this blind",
+					"when selected",
+				},
+			},
+			bl_aij_the_celebration_GL = {
+				name = "The Celebration",
+				text = {
+					"+0.25X Base for",
+					"each unused hand",
+					"this run",
+				},
+			},
+			bl_aij_the_flint_GL = {
+				name = "The Flint",
+				text = {
+					"Base chips are",
+					"scored as level 0",
+				},
+			},
+			bl_aij_the_serpent_GL = {
+				name = "The Serpent",
+				text = {
+					"After Play or Discard",
+					"always draw a max of",
+					"3 cards",
+				},
+			},
+			bl_aij_the_yew_GL = {
+				name = "The Yew",
+				text = {
+					"Reduce score by 20%",
+					"per odd card played",
+				},
+			},
+			bl_aij_the_birch_GL = {
+				name = "The Birch",
+				text = {
+					"Reduce score by 20%",
+					"per even card played",
+				},
+			},
+			bl_aij_the_thorn_GL = {
+				name = "The Thorn",
+				text = {
+					"Reduce score by 20%",
+					"per enhanced card played",
+				},
+			},
+			bl_aij_the_enigma_GL = {
+				name = "The Enigma",
+				text = {
+					"Enhanced cards",
+					"cannot be drawn",
+				},
+			},
+			bl_aij_the_steed_GL = {
+				name = "The Steed",
+				text = {
+					"Debuff held cards",
+					"when hand is played",
+				},
+			},
+			bl_aij_the_beast_GL = {
+				name = "The Beast",
+				text = {
+					"Destroy all Food Jokers",
+					"when hand is played",
+				},
+			},
+			bl_aij_the_need_GL = {
+				name = "The Need",
+				text = {
+					"Must have at",
+					"least $#1# for",
+					"hands to score",
+				},
+			},
+			bl_aij_the_need_GL_collection = {
+				name = "The Need",
+				text = {
+					"Must have at least",
+					"(X1.5 starting money)",
+					"for hands to score",
+				},
+			},
+			bl_aij_the_ox_GL = {
+				name = "The Ox",
+				text = {
+					"Set money to $0 if",
+					"poker hand has been",
+					"played 5 or more times",
+				},
+			},
+			bl_aij_the_tooth_GL = {
+				name = "The Tooth",
+				text = {
+					"Lose $1 per card",
+					"drawn",
+				},
+			},
+			bl_aij_the_gift_GL = {
+				name = "The Gift",
+				text = {
+					"Set money to $10",
+				},
+			},
+			bl_aij_the_brimstone_GL = {
+				name = "The Brimstone",
+				text = {
+					"Lose $#1#",
+					"on discard",
+				},
+			},
+			bl_aij_the_brimstone_GL_collection = {
+				name = "The Brimstone",
+				text = {
+					"Lose (X0.5",
+					"starting money)",
+					"on discard",
+				},
+			},
+			bl_aij_the_wound_GL = {
+				name = "The Wound",
+				text = {
+					"Must discard",
+					"before each",
+					"hand played",
+				},
+			},
+			bl_aij_the_ancestor_GL = {
+				name = "The Ancestor",
+				text = {
+					"Poker hands",
+					"discarded this Ante",
+					"cannot be played",
+				},
+			},
+			bl_aij_the_seed_GL = {
+				name = "The Seed",
+				text = {
+					"Next Ante is a",
+					"Small Blind, Boss Blind,",
+					"and Showdown Blind",
+				},
+			},
+			bl_aij_the_storm_GL = {
+				name = "The Storm",
+				text = {
+					"Destroy all",
+					"scored cards",
+				},
+			},
+			bl_aij_the_pear_GL = {
+				name = "The Pear",
+				text = {
+					"After Play, randomize",
+					"suit and rank of",
+					"played cards",
+				},
+			},
+			bl_aij_the_spear_GL = {
+				name = "The Spear",
+				text = {
+					"Scoring cards in the",
+					"winning hand are",
+					"permanently debuffed",
+				},
+			},
+			bl_aij_the_life_GL = {
+				name = "The Life",
+				text = {
+					"All played cards",
+					"become Perishable",
+				},
+			},
+			bl_aij_the_solid_GL = {
+				name = "The Solid",
+				text = {
+					"All discarded",
+					"or unscored cards",
+					"become Eternal",
+				},
+			},
+			bl_aij_the_loan_GL = {
+				name = "The Loan",
+				text = {
+					"When defeated,",
+					"#1# in #2# cards remaining",
+					"in deck become Rental",
+				},
+			},
+			bl_aij_amber_acorn_GL = {
+				name = "Amber Acorn",
+				text = {
+					"Shuffle all Jokers",
+					"and played cards",
+					"each hand played",
+				},
+			},
+			bl_aij_verdant_leaf_GL = {
+				name = "Verdant Leaf",
+				text = {
+					"Reduce score each",
+					"hand by 90% until",
+					"1 Joker sold",
+				},
+			},
+			bl_aij_violet_vessel_GL = {
+				name = "Violet Vessel",
+				text = {
+					"Massive blind",
+				},
+			},
+			bl_aij_crimson_heart_GL = {
+				name = "Crimson Heart",
+				text = {
+					"One additional Joker",
+					"debuffed each hand",
+				},
+			},
+			bl_aij_cerulean_bell_GL = {
+				name = "Cerulean Bell",
+				text = {
+					"On Play or Discard,",
+					"deselect 1 random card",
+					"and select another in hand",
+				},
+			},
+			bl_aij_obsidian_blade_GL = {
+				name = "Obsidian Blade",
+				text = {
+					"1 Hand, 1 Discard,",
+					"extra large blind",
+				},
+			},
+			bl_aij_golden_string_GL = {
+				name = "Golden String",
+				text = {
+					"Lose $2 per card drawn,",
+					"all cards are debuffed",
+					"at $#1# or less",
+				},
+			},
+			bl_aij_golden_string_GL_collection = {
+				name = "Golden String",
+				text = {
+					"Lose $2 per card drawn,",
+					"all cards are debuffed",
+					"at (starting money) or less",
+				},
+			},
+			bl_aij_tarnished_tile_GL = {
+				name = "Tarnished_tile",
+				text = {
+					"Discard all cards",
+					"in your deck",
+					"after your 3rd draw",
+				},
+			},
+			bl_aij_rubber_duck_GL = {
+				name = "Rubber Duck",
+				text = {
+					"Base Chips and Mult are",
+					"scored as level 1",
+				},
+			},
+			bl_aij_wooden_wheel_GL = {
+				name = "Wooden Wheel",
+				text = {
+					"Reroll a random Joker",
+					"when Blind is selected",
 				},
 			},
 		},
@@ -10900,10 +11391,193 @@ return {
 				},
 			},
 		},
+		PolyStakeChips = {
+			locked = {
+				name = "Locked",
+				text = {
+					"Win a run with",
+					"{C:attention}#1#+{} Points",
+					"to unlock",
+				},
+			},
+			aij_up_the_ante = {
+				name = "Up The Ante",
+				text = {
+					"Required score scales",
+					"faster for each {C:attention}Ante",
+				},
+			},
+			aij_sloth = {
+				name = "Sloth",
+				text = {
+					"{C:attention}30%{} chance for Jokers",
+					"in shops or booster packs",
+					"to have an {C:attention}Eternal{} sticker",
+					"{C:inactive,s:0.8}(Can't be sold or destroyed)",
+				},
+			},
+			aij_gluttony = {
+				name = "Gluttony",
+				text = {
+					"{C:attention}30%{} chance for Jokers",
+					"in shops or booster packs",
+					"to have a {C:attention}Perishable{} sticker",
+					"{C:inactive,s:0.8}(Debuffed after 5 Rounds)",
+				},
+			},
+			aij_greed = {
+				name = "Greed",
+				text = {
+					"{C:attention}30%{} chance for Jokers",
+					"in shops or booster packs",
+					"to have a {C:attention}Rental{} sticker",
+					"{C:inactive,s:0.8}(Costs {C:money,s:0.8}$3{C:inactive,s:0.8} per round)",
+				},
+			},
+			aij_red_challenge = {
+				name = "Red Challenge",
+				text = {
+					"{C:attention}Small Blind{} gives",
+					"no reward money",
+				},
+			},
+			aij_broken_foot = {
+				name = "Broken Foot",
+				text = {
+					"{C:red}-1{} Discard",
+					"per round",
+				},
+			},
+			aij_the_pit = {
+				name = "The Pit",
+				text = {
+					"{C:attention}Boss Blind{} on Ante {C:attention}4",
+					"or {C:attention}5{} is replaced by",
+					"a special {C:attention}Pit Blind",
+				},
+			},
+			aij_broken_hand = {
+				name = "Broken Hand",
+				text = {
+					"{C:red}-1{} Hand",
+					"per round",
+				},
+			},
+			aij_pride = {
+				name = "Pride",
+				text = {
+					"{C:attention}10%{} chance for Jokers",
+					"in the {C:attention}shop{} to have a",
+					"{C:attention}Mint Condition{} sticker",
+					"{C:inactive,s:0.8}(Costs an additional {C:money,s:0.8}$10{C:inactive,s:0.8})",
+				},
+			},
+			aij_pricey_packs = {
+				name = "Pricey Packs",
+				text = {
+					"Booster Packs cost",
+					"{C:money}$1{} more per {C:attention}Ante",
+				},
+			},
+			aij_envy = {
+				name = "Envy",
+				text = {
+					"{C:attention}30%{} chance for Jokers",
+					"in shops or booster packs",
+					"to have an {C:attention}Introverted{} sticker",
+					"{C:inactive,s:0.8}(Self-destructs when selecting",
+					"{C:inactive,s:0.8}Blind with full Joker slots)",
+				},
+			},
+			aij_in_the_dark = {
+				name = "In the Dark",
+				text = {
+					"{C:attention}1{} random card in",
+					"each {C:attention}opening hand",
+					"is drawn {C:attention}face down",
+				},
+			},
+			aij_wrath = {
+				name = "Wrath",
+				text = {
+					"{C:attention}30%{} chance for {C:attention}scoring{} Jokers",
+					"in shops or booster packs",
+					"to have an {C:attention}Indecisive{} sticker",
+					"{C:inactive,s:0.8}({C:green,s:0.8}1 in 4{C:inactive,s:0.8} chance to not score)",
+				},
+			},
+			aij_blindness = {
+				name = "Blindness",
+				text = {
+					"Cannot see {C:attention}Boss Blind{} or",
+					"its effects until selected",
+				},
+			},
+			aij_lust = {
+				name = "Lust",
+				text = {
+					"{C:attention}30%{} chance for Jokers",
+					"in shops or booster packs",
+					"to have a {C:attention}Demanding{} sticker",
+					"{C:inactive,s:0.8}(Debuffed until a specific poker hand",
+					"{C:inactive,s:0.8}is played each round)",
+				},
+			},
+			aij_double_threat = {
+				name = "Double Threat",
+				text = {
+					"{C:attention}Big Blinds{} are replaced",
+					"with {C:attention}Boss Blinds",
+				},
+			},
+			aij_chump_change = {
+				name = "Chump Change",
+				text = {
+					"{C:attention}High Card{} and {C:attention}Pair",
+					"gain {C:attention}5{} less {C:chips}Chips",
+					"when upgraded",
+				},
+			},
+			aij_journey = {
+				name = "Journey",
+				text = {
+					"{C:attention}+1{} Win Ante",
+				},
+			},
+			aij_vainglory = {
+				name = "Vainglory",
+				text = {
+					"{C:attention}30%{} chance for Jokers",
+					"in shops or booster packs",
+					"to have a {C:attention}Suit{} or {C:attention}Face{} sticker",
+					"{C:inactive,s:0.8}(Debuffed if the suit or a",
+					"{C:inactive,s:0.8}face card is played that round)",
+				},
+			},
+			aij_deadwood = {
+				name = "Deadwood",
+				text = {
+					"Start with {C:attention}6{} additional",
+					"{C:attention}Blank{} cards in your deck",
+				},
+			},
+			aij_gladiator = {
+				name = "Gladiator",
+				text = {
+					"{C:attention}Boss Blinds{} have",
+					"tougher effects",
+				},
+			},
+		},
 		Other = {
 			aij_suit_only_playing_card = {
 				text = {
 					" {V:1}#1# ",
+				},
+			},
+			aij_blank_playing_card = {
+				text = {
+					" Blank ",
 				},
 			},
 			aij_future_sight_tip = {
@@ -11268,58 +11942,81 @@ return {
 					"{C:inactive,s:0.8}(Granted by a Recherche Tag){}",
 				},
 			},
-			aij_undecisive = {
-				name = "Undecisive",
+			aij_indecisive = {
+				name = "Indecisive",
 				text = {
-					"This {C:attention}Joker{} has a",
 					"{C:green}#1# in #2#{} chance",
-					"to not trigger",
+					"to {C:red}not{} trigger",
 				},
 			},
 			aij_mint_condition = {
 				name = "Mint Condition",
 				text = {
-					"This {C:attention}Joker{} costs an",
-					"additional {C:money}$10",
+					"Costs an",
+					"additional {C:money}$#1#{}",
+				},
+			},
+			aij_introverted = {
+				name = "Introverted",
+				text = {
+					"{C:red}Self-destructs{} if",
+					"Blind is selected",
+					"with full Joker slots",
+				},
+			},
+			aij_demanding = {
+				name = "Demanding",
+				text = {
+					"Debuffed until a",
+					"{C:attention}#1#{} is played",
+					"each round",
+				},
+			},
+			aij_demanding_alt = {
+				name = "Demanding",
+				text = {
+					"Debuffed until a",
+					"hand containing a {C:attention}#1#{}",
+					"is played each round",
 				},
 			},
 			aij_spade = {
 				name = "Spade",
 				text = {
-					"This {C:attention}Joker{} is debuffed",
-					"if a {C:spades}Spade{} is played",
+					"Debuffed if a",
+					"{C:spades}Spade{} is played",
 					"this round",
 				},
 			},
 			aij_diamond = {
 				name = "Diamond",
 				text = {
-					"This {C:attention}Joker{} is debuffed",
-					"if a {C:diamonds}Diamond{} is played",
+					"Debuffed if a",
+					"{C:diamonds}Diamond{} is played",
 					"this round",
 				},
 			},
 			aij_heart = {
 				name = "Heart",
 				text = {
-					"This {C:attention}Joker{} is debuffed",
-					"if a {C:hearts}Heart{} is played",
+					"Debuffed if a",
+					"{C:hearts}Heart{} is played",
 					"this round",
 				},
 			},
 			aij_club = {
 				name = "Club",
 				text = {
-					"This {C:attention}Joker{} is debuffed",
-					"if a {C:clubs}Club{} is played",
+					"Debuffed if a",
+					"{C:clubs}Club{} is played",
 					"this round",
 				},
 			},
 			aij_face = {
 				name = "Face",
 				text = {
-					"This {C:attention}Joker{} is debuffed",
-					"if a {C:attention}Face Card{} is ",
+					"Debuffed if a",
+					"{C:attention}Face Card{} is",
 					"played this round",
 				},
 			},
@@ -11364,6 +12061,21 @@ return {
 					"Triggers {C:attention}held in hand",
 					"effects when still in",
 					"the {C:attention}deck",
+				},
+			},
+			-- Polychrome Stake
+			aij_polychrome_sticker = {
+				name = "Polychrome Sticker",
+				text = {
+					"Used this Joker",
+					"to win with {C:attention}#1#{} Points",
+					"on {C:attention}Polychrome Stake",
+				},
+			},
+			aij_poly_points = {
+				name = "Points",
+				text = {
+					"#1#",
 				},
 			},
 			-- Credits page jokers
@@ -11441,6 +12153,7 @@ return {
 			vitellary_credits_info = {
 				name = "Info",
 				text = {
+					"{s:0.8}-Coded almost all of Polychrome Stake",
 					"{s:0.8}-Helps with bugfixing and polish",
 					"{s:0.8}-Helps a lot with balance feedback",
 					"{s:0.8}-Gold stake player",

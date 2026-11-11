@@ -5,9 +5,6 @@ local wooden_wheel = {
 		min = 1,
 		showdown = true,
 	},
-	in_pool = function(self)
-		return true
-	end,
 	mult = 2,
 	attributes = { "joker" },
 	boss_colour = HEX("9f7b60"),

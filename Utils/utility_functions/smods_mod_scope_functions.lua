@@ -181,7 +181,9 @@ function All_in_Jest.reset_game_globals(run_start)
 		G.GAME.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed("pit_blinds"))
 
 		-- Reset Aureate Coin
-		G.P_BLINDS["bl_aij_aureate_coin"].boss.spent_money = 0
+		if G.P_BLINDS["bl_aij_aureate_coin"] then
+			G.P_BLINDS["bl_aij_aureate_coin"].boss.spent_money = 0
+		end
 	end
 end
 
@@ -283,6 +285,10 @@ function All_in_Jest.calculate(self, context)
 			end,
 		}))
 	end
+	if context.before then
+		G.GAME.aij_score_reduction = 1
+		G.GAME.aij_apply_score_reduction = false
+	end
 	if context.using_consumeable then
 		for i = 1, #G.GAME.tags do
 			local args = {}
@@ -359,6 +365,10 @@ function All_in_Jest.calculate(self, context)
 				}))
 			end
 		end
+	end
+	if context.pre_discard and not context.hook then
+		local text, disp_text = G.FUNCS.get_poker_hand_info(context.full_hand)
+		G.GAME.all_in_jest.discarded_poker_hands_ante[text] = true
 	end
 end
 

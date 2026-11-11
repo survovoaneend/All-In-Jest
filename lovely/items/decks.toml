@@ -105,6 +105,7 @@ local jest_tag_nodes = {}
 local jest_tag_sprites = {}
 local jest_tag_info = {}
 if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
+    G.GAME.all_in_jest.blind_tags[blind_choice] = G.GAME.all_in_jest.blind_tags[blind_choice] or {}
     G.GAME.all_in_jest.blind_tags[blind_choice].page = G.GAME.all_in_jest.blind_tags[blind_choice].page or 0
     local temp_index = 0
     for i = 1, G.GAME.all_in_jest.blind_tags.amt do

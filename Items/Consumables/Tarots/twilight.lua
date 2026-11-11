@@ -6,6 +6,7 @@ local twilight_tarot = {
 	cost = 3,
 	unlocked = true,
 	discovered = false,
+	lite = true,
 	order = 17,
 	config = {
 		extra = {

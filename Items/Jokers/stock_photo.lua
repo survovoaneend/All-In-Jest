@@ -71,6 +71,9 @@ local stock_photo = {
 				}
 			end
 		end
+		if context.ending_booster and not context.blueprint then
+			card.ability.extra.trigger = false
+		end
 	end,
 }
 return { name = { "Jokers" }, items = { stock_photo } }

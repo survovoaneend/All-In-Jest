@@ -1668,6 +1668,7 @@ function aij_reroll_tags(blind, args)
 		then
 			G.GAME.round_resets.blind_tags[k] = get_next_reroll_tag_key(args, G.GAME.round_resets.blind_tags[k])
 			if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
+				G.GAME.all_in_jest.blind_tags[k] = G.GAME.all_in_jest.blind_tags[k] or {}
 				for i = 1, G.GAME.all_in_jest.blind_tags.amt do
 					if i == 1 then -- Leftmost tag matches vanilla skip tag
 						G.GAME.all_in_jest.blind_tags[k][i] = G.GAME.round_resets.blind_tags[k]
@@ -1753,4 +1754,21 @@ function aij_change_shop_size_advanced(mod, remove_tag, type, rarity, key)
 			end
 		end
 	end
+end
+
+function All_in_Jest.has_blind_drawn()
+	return (next(SMODS.find_card("j_aij_blind_drawn")) ~= nil)
+		or (G.GAME.aij_poly_chips and G.GAME.aij_poly_chips["aij_blindness"] > 0)
+end
+
+function All_in_Jest.is_real_playing_card(card)
+	if not card or not G.playing_cards then
+		return false
+	end
+	for _, v in ipairs(G.playing_cards) do
+		if v == card then
+			return true
+		end
+	end
+	return false
 end

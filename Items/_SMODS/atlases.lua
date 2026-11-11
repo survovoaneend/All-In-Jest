@@ -213,6 +213,13 @@ local atlases = {
 		atlas_table = "ANIMATION_ATLAS",
 		lite = true,
 	},
+
+	{
+		key = "chips_atlas",
+		path = "chips.png",
+		px = 29,
+		py = 29,
+	},
 }
 
 for i = 1, #atlases do

@@ -50,10 +50,25 @@ local scarab = {
 	end,
 
 	remove_from_deck = function(self, card, from_debuff)
+		if from_debuff then
+			return
+		end
 		ease_ante(card.ability.extra.ante_mod)
 		if G.GAME.round_resets.ante + card.ability.extra.ante_mod == G.GAME.win_ante then
-			G.from_boss_tag = true
-			G.FUNCS.reroll_boss()
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					local boss_state = G.GAME.round_resets.blind_states.Boss
+					if boss_state ~= "Current" and boss_state ~= "Defeated" then
+						if G.STATE == G.STATES.BLIND_SELECT and G.blind_select then
+							G.from_boss_tag = true
+							G.FUNCS.reroll_boss()
+						else
+							G.GAME.round_resets.blind_choices.Boss = get_new_boss()
+						end
+					end
+					return true
+				end,
+			}))
 		end
 	end,
 

@@ -38,11 +38,12 @@ local devil_deal = {
 					hearts = hearts + 1
 				end
 			end
-			for _ = 1, hearts do
+			if hearts > 0 then
 				SMODS.scale_card(card, {
 					ref_table = card.ability.extra,
 					ref_value = "xmult",
 					scalar_value = "xmult_mod",
+					scalar_factor = hearts,
 					message_key = "a_xmult",
 				})
 			end

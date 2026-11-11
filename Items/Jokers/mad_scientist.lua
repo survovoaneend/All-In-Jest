@@ -28,6 +28,7 @@ local mad_scientist = {
 			and not context.unchanged
 			and not context.blueprint
 			and not context.other_card.mad_scientist_processing
+			and All_in_Jest.is_real_playing_card(context.other_card)
 		then
 			local can_proceed = false
 			local enhancements = get_current_pool("Enhanced")

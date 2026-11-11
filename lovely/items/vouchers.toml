@@ -27,8 +27,10 @@ target = "functions/button_callbacks.lua"
 pattern = "G.GAME.round_resets.blind_tags.Big = get_next_tag_key()"
 position = "after"
 payload = '''
+G.GAME.round_resets.blind_tags.Big_Boss = get_next_tag_key()
 if G.GAME.used_vouchers.v_aij_trophy and G.GAME.all_in_jest.apply.v_aij_trophy_chance then
     G.GAME.round_resets.blind_tags.Big = get_next_tag_key('all_in_jest_guarrented_gold_tag')
+    G.GAME.round_resets.blind_tags.Big_Boss = get_next_tag_key('all_in_jest_guarrented_gold_tag')
 end
 G.GAME.round_resets.blind_tags.Big_Boss = G.GAME.round_resets.blind_tags.Big
 '''

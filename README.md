@@ -4,20 +4,21 @@ All in Jest is a massive, vannila-adjacent mod that adds tons of new content foc
 
 Take a look at the [Wiki Page](https://balatromods.miraheze.org/wiki/All_in_Jest)!
 Join the [discord server](https://discord.gg/U9gbU9eshk)!
-# Current content as of 0.7.2
+# Current content as of 0.8.0
 * 600 Jokers, 55 of which are Legendaries
 * 4 Decks
 * 14 Vouchers
 * 20 Tarot Cards
 * 27 Planet Cards (+8 if Paperback or Bunco are enabled)
-* 15 Spectral Cards
-* 14 of a brand new consumable type, Astral Cards
+* 18 Spectral Cards
+* 14 of a brand new consumable type, Astral Cards, which align permanent buffs to your poker hands
+* A brand new Stake with customizable difficulty (available standalone [here](https://github.com/survovoaneend/Polychrome-Stake))
 * 7 Enhancements
 * 3 Seals
 * 5 Editions
 * 8 challenges
-* 4 Booster Pack Types
-* 42 Tags
+* 5 Booster Pack Types
+* 46 Tags
 * 90 Boss Blinds
 * 70 Deck Skins
 * Deck Sleeves compatibility
