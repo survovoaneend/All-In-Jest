@@ -1668,6 +1668,7 @@ function aij_reroll_tags(blind, args)
 		then
 			G.GAME.round_resets.blind_tags[k] = get_next_reroll_tag_key(args, G.GAME.round_resets.blind_tags[k])
 			if G.GAME.all_in_jest.blind_tags.has_multiple and G.GAME.all_in_jest.blind_tags.amt > 1 then
+				G.GAME.all_in_jest.blind_tags[k] = G.GAME.all_in_jest.blind_tags[k] or {}
 				for i = 1, G.GAME.all_in_jest.blind_tags.amt do
 					if i == 1 then -- Leftmost tag matches vanilla skip tag
 						G.GAME.all_in_jest.blind_tags[k][i] = G.GAME.round_resets.blind_tags[k]
