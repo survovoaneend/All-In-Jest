@@ -1035,6 +1035,28 @@ end
 -- End AIJ Override
 '''
 
+# Coffee Thermos
+# Retrigger end of round dollar bonuses
+# G.FUNCS.evaluate_round()
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "-- TARGET: calc_dollar_bonus per card"
+position = "after"
+match_indent = true
+payload = '''
+if ret then
+    for _ = 1, #SMODS.find_card('j_aij_coffee_thermos') do
+        if not ret_opts.no_eval_row then
+            i = i + 1
+            add_round_eval_row({dollars = ret, bonus = true, name = 'joker'..i, pitch = pitch, card = _card, loc_opts = ret_opts})
+            pitch = pitch + 0.06
+        end
+        dollars = dollars + ret
+    end
+end
+'''
+
 # ############## #
 # UNUSED PATCHES
 # ############## #
