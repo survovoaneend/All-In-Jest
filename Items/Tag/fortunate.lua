@@ -7,7 +7,14 @@ local fortunate_tag = {
 	order = 6,
 	min_ante = nil,
 	attributes = { "generation", "tarot", "choice" },
-
+	in_pool = function(self, args)
+		for _, v in ipairs(G.P_CENTER_POOLS.Tarot) do
+			if v.discovered and not v.hidden and not (G.GAME.banned_keys and G.GAME.banned_keys[v.key]) then
+				return true
+			end
+		end
+		return false
+	end,
 	loc_vars = function(self, info_queue) end,
 
 	apply = function(self, tag, context)
