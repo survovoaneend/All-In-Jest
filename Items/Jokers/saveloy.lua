@@ -13,7 +13,7 @@ local saveloy = {
 	rarity = 1,
 	pos = { x = 16, y = 43 },
 	atlas = "joker_atlas",
-	cost = 4,
+	cost = 5,
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
