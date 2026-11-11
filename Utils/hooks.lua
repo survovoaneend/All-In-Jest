@@ -802,7 +802,7 @@ SMODS.DrawSteps["floating_sprite"].func = function(self)
 		aij_drawstep_floating_sprite_ref(self)
 	end
 end
---Hook that makes it so Death-like effects don't 
+--Hook that makes it so Death-like effects don't
 --retain stickers and attributes such as rankless or blank
 local aij_copy_card_ref = copy_card
 function copy_card(other, new_card, card_scale, playing_card, strip_edition)

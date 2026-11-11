@@ -181,8 +181,8 @@ function All_in_Jest.reset_game_globals(run_start)
 		G.GAME.all_in_jest.pit_blind_ante = pseudorandom_element(index, pseudoseed("pit_blinds"))
 
 		-- Reset Aureate Coin
-		if G.P_BLINDS["bl_aij_aureate_coin"] then 
-			G.P_BLINDS["bl_aij_aureate_coin"].boss.spent_money = 0 
+		if G.P_BLINDS["bl_aij_aureate_coin"] then
+			G.P_BLINDS["bl_aij_aureate_coin"].boss.spent_money = 0
 		end
 	end
 end

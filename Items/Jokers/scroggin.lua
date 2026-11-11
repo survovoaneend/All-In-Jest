@@ -35,7 +35,7 @@ local scroggin = {
 	end,
 
 	add_to_deck = function(self, card, from_debuff)
-		if not from_debuff and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit  then
+		if not from_debuff and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
 			G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
 			G.E_MANAGER:add_event(Event({
 				func = function()
@@ -48,7 +48,12 @@ local scroggin = {
 	end,
 
 	calculate = function(self, card, context)
-		if context.setting_ability and not context.unchanged and not context.blueprint and All_in_Jest.is_real_playing_card(context.other_card) then
+		if
+			context.setting_ability
+			and not context.unchanged
+			and not context.blueprint
+			and All_in_Jest.is_real_playing_card(context.other_card)
+		then
 			local enhancements = get_current_pool("Enhanced")
 			local can_proceed = false
 			for k, v in pairs(enhancements) do
