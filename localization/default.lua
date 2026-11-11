@@ -12153,6 +12153,7 @@ return {
 			vitellary_credits_info = {
 				name = "Info",
 				text = {
+					"{s:0.8}-Coded almost all of Polychrome Stake",
 					"{s:0.8}-Helps with bugfixing and polish",
 					"{s:0.8}-Helps a lot with balance feedback",
 					"{s:0.8}-Gold stake player",
