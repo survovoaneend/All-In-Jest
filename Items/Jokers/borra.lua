@@ -60,7 +60,7 @@ local borra = {
 	end,
 
 	calculate = function(self, card, context)
-		local triggers = (context.setting_ability and not context.unchanged)
+		local triggers = (context.setting_ability and not context.unchanged and All_in_Jest.is_real_playing_card(context.other_card))
 			or (context.individual and context.cardarea == G.play)
 			or context.press_play
 			or context.ante_change

@@ -1760,3 +1760,15 @@ function All_in_Jest.has_blind_drawn()
 	return (next(SMODS.find_card("j_aij_blind_drawn")) ~= nil)
 		or (G.GAME.aij_poly_chips and G.GAME.aij_poly_chips["aij_blindness"] > 0)
 end
+
+function All_in_Jest.is_real_playing_card(card)
+	if not card or not G.playing_cards then
+		return false
+	end
+	for _, v in ipairs(G.playing_cards) do
+		if v == card then
+			return true
+		end
+	end
+	return false
+end

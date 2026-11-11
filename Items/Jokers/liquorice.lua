@@ -48,7 +48,7 @@ local liquorice = {
 	end,
 
 	calculate = function(self, card, context)
-		if context.setting_ability and not context.unchanged and not context.blueprint then
+		if context.setting_ability and not context.unchanged and not context.blueprint and All_in_Jest.is_real_playing_card(context.other_card) then
 			local enhancements = get_current_pool("Enhanced")
 			local can_proceed = false
 			for k, v in pairs(enhancements) do
