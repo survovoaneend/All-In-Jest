@@ -1,13 +1,13 @@
 local mint_condition = {
 	object_type = "Sticker",
 	key = "mint_condition",
-	config = { extra = {} },
+	config = { extra = { markup = 10 } },
 	atlas = "stickers_atlas",
 	order = 2,
 	pos = { x = 3, y = 1 },
 	badge_colour = HEX("d56f7e"),
 	loc_vars = function(self, info_queue, card)
-		return { vars = {} }
+		return { vars = { G.GAME.all_in_jest.sticker_effects["aij_mint_condition"].markup } }
 	end,
 	sets = { Joker = true },
 	rate = 0.1,

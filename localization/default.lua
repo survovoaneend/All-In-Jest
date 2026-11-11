@@ -11858,14 +11858,14 @@ return {
 				name = "Indecisive",
 				text = {
 					"{C:green}#1# in #2#{} chance",
-					"to not score",
+					"to {C:red}not{} trigger",
 				},
 			},
 			aij_mint_condition = {
 				name = "Mint Condition",
 				text = {
 					"Costs an",
-					"additional {C:money}$10",
+					"additional {C:money}$#1#{}",
 				},
 			},
 			aij_introverted = {
@@ -11882,6 +11882,14 @@ return {
 					"Debuffed until a",
 					"{C:attention}#1#{} is played",
 					"each round",
+				},
+			},
+			aij_demanding_alt = {
+				name = "Demanding",
+				text = {
+					"Debuffed until a",
+					"hand containing a {C:attention}#1#{}",
+					"is played each round",
 				},
 			},
 			aij_spade = {
