@@ -18,11 +18,11 @@ local the_manacle = {
 		G.GAME.current_round.aij_the_manacle = { hand_size = 0 }
 	end,
 	disable = function(self)
-		G.hand:change_size(-G.GAME.current_round.aij_the_manacle.hand_size)
+		G.hand:change_size(G.GAME.current_round.aij_the_manacle.hand_size)
 	end,
 	defeat = function(self)
 		if not G.GAME.blind.disabled then
-			G.hand:change_size(-G.GAME.current_round.aij_the_manacle.hand_size)
+			G.hand:change_size(G.GAME.current_round.aij_the_manacle.hand_size)
 		end
 		G.GAME.current_round.aij_the_manacle = nil
 	end,
