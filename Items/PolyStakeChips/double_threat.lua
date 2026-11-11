@@ -13,6 +13,9 @@ local double_threat = {
 		G.GAME.aij_has_big_boss = true
 		G.GAME.round_resets.blind_choices.Big_Boss = SMODS.get_new_blind("boss")
 		G.GAME.round_resets.blind_tags.Big_Boss = get_next_tag_key()
+		G.GAME.round_resets.blind_states.Big_Boss = "Upcoming"
+		G.GAME.round_resets.blind_states.Big = "Hide"
+		G.GAME.round_resets.blind_order = { "Small", "Big_Boss", "Boss" }
 	end,
 }
 return { name = { "PolyStakeChips" }, items = { double_threat } }
