@@ -802,3 +802,21 @@ SMODS.DrawSteps["floating_sprite"].func = function(self)
 		aij_drawstep_floating_sprite_ref(self)
 	end
 end
+--Hook that makes it so Death-like effects don't 
+--retain stickers and attributes such as rankless or blank
+local aij_copy_card_ref = copy_card
+function copy_card(other, new_card, card_scale, playing_card, strip_edition)
+	if new_card and other and new_card ~= other and new_card.ability and other.ability then
+		for k, _ in pairs(SMODS.Stickers) do
+			if k ~= "pinned" and new_card.ability[k] and not other.ability[k] then
+				new_card:remove_sticker(k)
+			end
+		end
+		for _, k in ipairs({ "numbertaker_rankless", "deadwood_blank" }) do
+			if new_card.ability[k] and not other.ability[k] then
+				new_card.ability[k] = nil
+			end
+		end
+	end
+	return aij_copy_card_ref(other, new_card, card_scale, playing_card, strip_edition)
+end
