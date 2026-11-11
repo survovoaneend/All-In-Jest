@@ -9,7 +9,7 @@ local gegenschein = {
 	soul_set = "Planet",
 	unlocked = true,
 	discovered = false,
-	order = 40,
+	order = 102,
 	config = {},
 	-- no attributes yet, soulable objects not yet supported by SMODS
 	atlas = "consumable_atlas",

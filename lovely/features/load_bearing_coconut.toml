@@ -3,15 +3,30 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
+# Prevents tooltip for the coconut from appearing
+# Card:hover()
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "if self.facing == 'front' and (not self.states.drag.is or G.CONTROLLER.HID.touch)*"  # Find a line inside Card:hover() before the tooltip logic
+position = "before"
+match_indent = true
+payload = '''
+-- Prevent tooltip for Guess the Jest cards while in the pack
+if self.ability.jest_got_no_ui then
+    return
+end
+'''
+
 # Adds special use button for off-screen coconut
 # G.UIDEF.use_and_sell_buttons()
 [[patches]]
 [patches.pattern]
-target = 'functions/UI_definitions.lua'
+target = "functions/UI_definitions.lua"
 pattern = '''
 if card.ability.consumeable and card.area == G.pack_cards and G.pack_cards and booster_obj then
 '''
-position = 'before'
+position = "before"
 payload = '''
 if card.area and card.area == G.aij_coconut_holder then
     sell = nil

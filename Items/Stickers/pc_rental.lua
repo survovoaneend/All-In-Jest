@@ -22,7 +22,7 @@ local pc_rental = {
 	config = { aij = { pc_sticker = true }, extra = {} },
 	pos = { x = 1, y = 2 },
 	badge_colour = HEX("b18f43"),
-	order = 1,
+	order = 3,
 	loc_vars = function(self, info_queue, card)
 		local key, num, odds = self.key, 1, 1
 		if

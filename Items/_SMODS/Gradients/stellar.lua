@@ -7,5 +7,6 @@ local stellar = {
 	},
 	cycle = 5,
 	interpolation = "trig",
+	lite = true,
 }
 return { name = { "Gradients" }, items = { stellar } }

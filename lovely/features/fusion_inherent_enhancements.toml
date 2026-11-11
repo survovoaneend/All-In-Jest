@@ -3,14 +3,13 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
 # Adds fused enhancements in return to get_enhancements
 # SMODS.get_enhancements()
 [[patches]]
 [patches.pattern]
 target = '''=[SMODS _ "src/utils.lua"]'''
 pattern = '''return not extra_only and*'''
-position = 'before'
+position = "before"
 match_indent = true
 payload = '''
 if
@@ -30,7 +29,7 @@ end
 [patches.pattern]
 target = '''=[SMODS _ "src/utils.lua"]'''
 pattern = '''SMODS.enh_cache:write(card, enhancements)'''
-position = 'before'
+position = "before"
 match_indent = true
 payload = '''
 -- Prevent Astral Pins from having themselves as enhancement
@@ -136,8 +135,8 @@ match_indent = true
 ## Correctly load fused and inherent enhancements
 [[patches]]
 [patches.pattern]
-target = 'card.lua'
-pattern = 'self.config.center = G.P_CENTERS[self.config.center_key]'
+target = "card.lua"
+pattern = "self.config.center = G.P_CENTERS[self.config.center_key]"
 position = "after"
 match_indent = true
 payload = '''
@@ -192,10 +191,10 @@ end
 ## Add badge for 2nd enhancement
 [[patches]]
 [patches.regex]
-target = 'functions/UI_definitions.lua'
+target = "functions/UI_definitions.lua"
 pattern = '(?<indent>[\t ]*)badges\[#badges \+ 1\] = create_badge\(.*card_type.*\n'
 position = "after"
-line_prepend = '$indent'
+line_prepend = "$indent"
 payload = '''
 if card.config and card.config.aij_other_center and card.config.aij_other_center.center then
     local other_card_type = localize{type = 'name_text', key = card.config.aij_other_center.center.key, set = 'Enhanced'}
@@ -207,7 +206,7 @@ end
 # Card:set_ability
 [[patches]]
 [patches.pattern]
-target = 'card.lua'
+target = "card.lua"
 pattern = '''local obj = self.config.center
 if obj.set_ability and type(obj.set_ability) == 'function' then'''
 position = "before"
@@ -229,7 +228,7 @@ end
 # Card:add_to_deck
 [[patches]]
 [patches.pattern]
-target = 'card.lua'
+target = "card.lua"
 pattern = '''local obj = self.config.center
 if obj and obj.add_to_deck and type(obj.add_to_deck) == 'function' then'''
 position = "before"
@@ -251,7 +250,7 @@ end
 # Card:remove_from_deck
 [[patches]]
 [patches.pattern]
-target = 'card.lua'
+target = "card.lua"
 pattern = '''local obj = self.config.center
 if obj and obj.remove_from_deck and type(obj.remove_from_deck) == 'function' then'''
 position = "before"
@@ -273,7 +272,7 @@ end
 # Card:calculate_dollar_bonus
 [[patches]]
 [patches.pattern]
-target = 'card.lua'
+target = "card.lua"
 pattern = '''local obj = self.config.center
 if obj.calc_dollar_bonus and type(obj.calc_dollar_bonus) == 'function' then'''
 position = "before"
@@ -295,7 +294,7 @@ end
 # Card:update
 [[patches]]
 [patches.pattern]
-target = 'card.lua'
+target = "card.lua"
 pattern = '''local obj = self.config.center
 if obj.update and type(obj.update) == 'function' then'''
 position = "before"
@@ -319,7 +318,7 @@ end
 # Card:load
 [[patches]]
 [patches.pattern]
-target = 'card.lua'
+target = "card.lua"
 pattern = '''local obj = self.config.center
 if obj.load and type(obj.load) == 'function' then'''
 position = "before"
@@ -337,32 +336,28 @@ if aij_other_obj and aij_other_obj.load and type(aij_other_obj.load) == 'functio
 end
 '''
 
-
-
 # Prevent seals from retriggering with inherent and fused enhancements (1/2)
 # Card:calculate_seal()
 [[patches]]
 [patches.pattern]
-target = 'card.lua'
+target = "card.lua"
 pattern = '''function Card:calculate_seal(context)'''
-position = 'after'
+position = "after"
 payload = '''
     if context.aij_inherent_enhancement or context.aij_other_enhancement then
         return
     end
 '''
 match_indent = true
+
 # Prevent seals from retriggering with inherent and fused enhancements (2/2)
 # Card:get_p_dollars()
 [[patches]]
 [patches.regex]
 target = "card.lua"
 pattern = '''elseif self\.seal == 'Gold' (?<post>.*) then$'''
-position = 'at'
+position = "at"
 payload = '''elseif self.seal == 'Gold' and not SMODS.aij_inherent_enhancement_calc_in_progress $post then'''
-
-
-
 
 # Add tootip for inherent effects
 # generate_card_ui()
@@ -429,10 +424,9 @@ if card and card.aij_inherent_effects then
 end
 '''
 
-
 # Adding compatability between context.setting_ability and fusion enhancements
 # Card.set_ability() SMODS hook
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/overrides.lua"]'
 pattern = "set_ability(self, center, initial, delay_sprites)"
@@ -453,8 +447,6 @@ if self.aij_setting_other_enhancement then
 end
 '''
 match_indent = true
-
-
 
 # Remove "+x hand size" info box when card has inherent negative (1/2)
 # generate_card_ui()
@@ -480,14 +472,12 @@ payload = '''
 target = "functions/common_events.lua"
 pattern = "(?<indent>[\t ]*)(?<content>info_queue\\[#info_queue \\+ 1\\] = \\{set = 'Other', key = .* vars =\\{math\\.abs\\(amount\\).*)"
 position = "at"
-line_prepend = '$indent'
+line_prepend = "$indent"
 payload = '''
 if amount ~= 0 then
   $content
 end
 '''
-
-
 
 # Add extra desc box for vanilla fused enhancements
 # Modded enhancements (and overidden vanilla ones) are tied into generate_ui
@@ -524,7 +514,6 @@ payload = '''
         card.front_hidden = card:should_hide_front()
     end
 '''
-
 
 # Add extra desc box for modded fused enhancements
 # generate_card_ui()
@@ -597,7 +586,6 @@ if args.all_in_jest and args.all_in_jest.add_box then
 end
 '''
 
-
 # Prevent fused stone cards from showing nominal chips tooltip (1/2)
 # generate_card_ui()
 [[patches]]
@@ -622,38 +610,38 @@ payload = '''
 end
 '''
 
-
 # Add image_data to vanilla atlases (1/3)
 # Game:set_render_setting()
 [[patches]]
 [patches.pattern]
-target = 'game.lua'
+target = "game.lua"
 pattern = '''self.ANIMATION_ATLAS[self.animation_atli[i].name].image = *'''
-position = 'after'
+position = "after"
 payload = '''
 self.ANIMATION_ATLAS[self.animation_atli[i].name].image_data = love.image.newImageData(self.animation_atli[i].path)
 '''
 match_indent = true
+
 # Add image_data to vanilla atlases (2/3)
 # Game:set_render_setting()
 [[patches]]
 [patches.pattern]
-target = 'game.lua'
+target = "game.lua"
 pattern = '''self.ASSET_ATLAS[self.asset_atli[i].name].image = *'''
-position = 'after'
+position = "after"
 payload = '''
 self.ASSET_ATLAS[self.asset_atli[i].name].image_data = love.image.newImageData(self.asset_atli[i].path)
 '''
 match_indent = true
+
 # Add image_data to vanilla atlases (3/3)
 # Game:set_render_setting()
 [[patches]]
 [patches.pattern]
-target = 'game.lua'
+target = "game.lua"
 pattern = '''self.ASSET_ATLAS[self.asset_images[i].name].image = *'''
-position = 'after'
+position = "after"
 payload = '''
 self.ASSET_ATLAS[self.asset_images[i].name].image_data = love.image.newImageData(self.asset_atli[i].path)
 '''
 match_indent = true
-

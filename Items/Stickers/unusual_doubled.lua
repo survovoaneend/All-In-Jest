@@ -1,17 +1,3 @@
-local function contains_number(table, exclusions)
-	for k, v in pairs(table) do
-		if exclusions and exclusions[k] ~= nil and (exclusions[k] == true or exclusions[k] == v) then
-		else
-			if type(v) == "number" and v ~= 0 then
-				return true
-			elseif type(v) == "table" and contains_number(v, exclusions) then
-				return true
-			end
-		end
-	end
-	return false
-end
-
 local unusual_doubled = {
 	object_type = "Sticker",
 	key = "unusual_doubled",
@@ -31,7 +17,7 @@ local unusual_doubled = {
 		local default_check = SMODS.Sticker.should_apply(self, card, center, area, bypass_reroll)
 		return default_check
 			and (center.dongtong_compat == nil or center.dongtong_compat)
-			and contains_number(
+			and All_in_Jest.contains_number(
 				center.config,
 				{ x_chips = 1, x_mult = 1, extra_value = true, rarity = true, odds = true, chance = true }
 			)

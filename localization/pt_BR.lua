@@ -4570,6 +4570,47 @@ return {
 					"na sua mão",
 				},
 			},
+			-- Change vanilla spectrals to let their descriptions be modified by value changes
+			c_aura = {
+				name = "Aura",
+				text = {
+					"Adiciona o efeito {C:dark_edition}Laminado{}, {C:dark_edition}Holográfico{}",
+					"ou {C:dark_edition}Policromático{} a",
+					"{C:attention}#1#{} carta selecionada na sua mão",
+				},
+			},
+			c_deja_vu = {
+				name = "Déjà vu",
+				text = {
+					"Adiciona um {C:red}Selo Vermelho{}",
+					"a {C:attention}#1#{} carta selecionada",
+					"na sua mão",
+				},
+			},
+			c_medium = {
+				name = "Médium",
+				text = {
+					"Adiciona um {C:purple}Selo Roxo{}",
+					"a {C:attention}#1#{} carta selecionada",
+					"na sua mão",
+				},
+			},
+			c_talisman = {
+				name = "Talismã",
+				text = {
+					"Adiciona um {C:attention}Selo Dourado{}",
+					"a {C:attention}#1#{} carta",
+					"escolhida na sua mão",
+				},
+			},
+			c_trance = {
+				name = "Transe",
+				text = {
+					"Adiciona um {C:blue}Selo Azul{}",
+					"a {C:attention}#1#{} carta selecionada",
+					"na sua mão",
+				},
+			},
 		},
 		Tag = {
 			tag_aij_glimmer = {

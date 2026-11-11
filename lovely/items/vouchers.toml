@@ -3,8 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
-
 # Wax Stamp Voucher
 # Standard Pack SMODS.Booster.create_card()
 [[patches]]
@@ -23,7 +21,7 @@ local _seal = SMODS.poll_seal({mod = G.GAME.all_in_jest.standard_pack_seal_rate 
 # Sets big blind tag to gold if Trophy activates
 # Also sets Big Boss skip tag. Doing this here to maintain important patch order
 # G.FUNCS.cash_out()
-[[patches]] 
+[[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
 pattern = "G.GAME.round_resets.blind_tags.Big = get_next_tag_key()"

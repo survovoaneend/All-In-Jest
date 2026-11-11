@@ -9,6 +9,7 @@ local blacklight = {
 		},
 	},
 	attributes = { "hand_size" },
+	lite = true,
 	rarity = 2,
 	pos = { x = 18, y = 21 },
 	atlas = "joker_atlas",

@@ -4,7 +4,7 @@ local astrology_tag = {
 	pos = { x = 0, y = 4 },
 	atlas = "tag_atlas",
 	discovered = false,
-	order = 8,
+	order = 99,
 	min_ante = nil,
 	attributes = { "planet", "retrigger" },
 

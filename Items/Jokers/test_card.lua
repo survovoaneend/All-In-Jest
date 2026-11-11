@@ -39,24 +39,21 @@ local test_card = {
 		if context.individual and context.cardarea == G.hand and not context.end_of_round then
 			if context.other_card.edition ~= nil then
 				local text, disp_text, poker_hands, scoring_hand = G.FUNCS.get_poker_hand_info(G.play.cards)
-				local edition = G.P_CENTERS[context.other_card.edition.key]
-				if edition.calculate and type(edition.calculate) == "function" then
-					local o = edition:calculate(context.other_card, {
-						cardarea = G.play,
-						full_hand = G.play.cards,
-						scoring_hand = scoring_hand,
-						scoring_name = text,
-						poker_hands = poker_hands,
-						edition = true,
-						main_scoring = true,
-					})
-					if o then
-						if not o.card then
-							o.card = context.other_card
-						end
-						o.juice_card = context.blueprint_card or card
-						return o
-					end
+
+				local edition_context = {
+					cardarea = G.play,
+					full_hand = G.play.cards,
+					scoring_hand = scoring_hand,
+					scoring_name = text,
+					poker_hands = poker_hands,
+					edition = true,
+					main_scoring = true,
+				}
+
+				local edition = context.other_card:calculate_edition(edition_context)
+				if edition then
+					edition.juice_card = context.blueprint_card or card
+					return edition
 				end
 			end
 		end

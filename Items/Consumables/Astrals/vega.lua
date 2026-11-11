@@ -9,21 +9,21 @@ local vega = {
 	unlocked = true,
 	discovered = false,
 	order = 13,
-	config = { hand = nil, grade = "", pin = "Vega", extra = {} },
+	config = { pin = "Vega", extra = {} },
 	attributes = { "hand_type", "space", "retrigger" },
 	loc_vars = function(self, info_queue, card)
 		-- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {
 			vars = {
-				(card.area and not card.area.config.collection) and card.ability.consumeable.hand or "(hand)",
+				card.ability.astral_hand or "(hand)",
 			},
 		}
 	end,
 	all_in_jest = {
 		grades = {
-			["Retrograde"] = 0.2,
-			["Passigrade"] = 0.6,
-			["Prograde"] = 0.2,
+			["astral_grade_aij_retrograde"] = 0.2,
+			["astral_grade_aij_passigrade"] = 0.6,
+			["astral_grade_aij_prograde"] = 0.2,
 		},
 	},
 }
@@ -35,7 +35,6 @@ local vega_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 8, y = 1 },
 	discovered = false,
-	order = 13,
 	config = {},
 
 	pixel_size = { w = 53, h = 28 },

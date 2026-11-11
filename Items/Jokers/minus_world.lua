@@ -71,7 +71,7 @@ local minus_world = {
 	end,
 
 	in_pool = function(self, args)
-		if G.GAME.round_resets.ante < G.GAME.win_ante and not (MP and MP.LOBBY.code) then
+		if G.GAME.round_resets.ante < G.GAME.win_ante and not (PVP and PVP.LOBBY.code) then
 			return true
 		else
 			return false

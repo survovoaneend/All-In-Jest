@@ -128,5 +128,6 @@ local attributes = {
 
 for i = 1, #attributes do
 	attributes[i].object_type = "Attribute"
+	attributes[i].lite = true
 end
 return { name = { "Attributes" }, items = attributes }

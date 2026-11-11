@@ -59,10 +59,11 @@ local anarchy_tag = {
 		local trigger = false
 		while not trigger do
 			effect = pseudorandom_element(self.config.effects, pseudoseed("jest_anarchy_tag"))
+			if effect == "boss_reroll" and PVP and PVP.LOBBY.code then
+				effect = "money"
+			end
 
-			if effect == "boss_reroll" and MP and MP.LOBBY.code then
-				trigger = false
-			elseif effect == "create_jokers" then
+			if effect == "create_jokers" then
 				trigger = #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
 			elseif effect == "apply_edition" then
 				if #G.jokers.cards > 0 then
@@ -94,7 +95,7 @@ local anarchy_tag = {
 				if effect == "money" then
 					local money = pseudorandom("jest_chaos_tag", 1, 150)
 					ease_dollars(money)
-				elseif effect == "boss_reroll" and not (MP and MP.LOBBY.code) then
+				elseif effect == "boss_reroll" and not (PVP and PVP.LOBBY.code) then
 					local bosses = {}
 					local showdown_bosses = {}
 					for k, v in pairs(G.P_BLINDS) do

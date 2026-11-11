@@ -87,24 +87,30 @@ local function aij_upscale_imagedata(src, scale)
 
 	return dst
 end
-SMODS.Atlas({
-	key = "aij_nooutline_joker_parts",
-	path = "parts/nooutline_joker_parts.png",
-	px = 71,
-	py = 95,
-})
-SMODS.Atlas({
-	key = "aij_joker_parts",
-	path = "parts/joker_parts.png",
-	px = 71,
-	py = 95,
-})
-SMODS.Atlas({
-	key = "aij_joker_parts_base",
-	path = "parts/joker_parts_base.png",
-	px = 71,
-	py = 95,
-})
+
+local items_to_inject = {
+	{
+		object_type = "Atlas",
+		key = "aij_nooutline_joker_parts",
+		path = "parts/nooutline_joker_parts.png",
+		px = 71,
+		py = 95,
+	},
+	{
+		object_type = "Atlas",
+		key = "aij_joker_parts",
+		path = "parts/joker_parts.png",
+		px = 71,
+		py = 95,
+	},
+	{
+		object_type = "Atlas",
+		key = "aij_joker_parts_base",
+		path = "parts/joker_parts_base.png",
+		px = 71,
+		py = 95,
+	},
+}
 
 local function aij_ran_pasteAlpha(base, layer, posb, posl, args)
 	args = args or {}
@@ -352,4 +358,7 @@ local random_joker = {
 
 	calculate = function(self, card, context) end,
 }
-return { name = { "Jokers" }, items = { random_joker } }
+
+table.insert(items_to_inject, random_joker)
+
+return { name = { "Atlases", "Jokers" }, items = items_to_inject }

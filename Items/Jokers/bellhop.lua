@@ -9,6 +9,7 @@ local bellhop = {
 		},
 	},
 	attributes = { "shop", "shop_slot" },
+	lite = true,
 	rarity = 1,
 	pos = { x = 4, y = 35 },
 	atlas = "joker_atlas",

@@ -45,7 +45,7 @@ local mad_scientist = {
 				context.other_card.mad_scientist_processing = true
 				play_sound("card1", 0.9 + 0.05, 0.5)
 				context.other_card:juice_up(0.2, 0.1)
-				if G.GAME.selected_back.name == "b_aij_melded" then
+				if G.GAME.all_in_jest.fusion_enhancements then
 					context.other_card:set_ability(G.P_CENTERS[other_enhancement], nil, true)
 				else
 					All_in_Jest.set_other_enhancement(context.other_card, other_enhancement)

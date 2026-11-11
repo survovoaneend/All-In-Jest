@@ -13,20 +13,6 @@ G.P_CENTERS["j_hack"].dongtong_compat = false
 G.P_CENTERS["j_supernova"].dongtong_compat = false
 G.P_CENTERS["j_swashbuckler"].dongtong_compat = false
 
-local function contains_number(table, exclusions)
-	for k, v in pairs(table) do
-		if exclusions and exclusions[k] ~= nil and (exclusions[k] == true or exclusions[k] == v) then
-		else
-			if type(v) == "number" and v ~= 0 then
-				return true
-			elseif type(v) == "table" and contains_number(v, exclusions) then
-				return true
-			end
-		end
-	end
-	return false
-end
-
 local contains = function(tbl, item)
 	for k, v in pairs(tbl) do
 		if v == item then
@@ -132,7 +118,7 @@ function Card:add_to_deck(from_debuff)
 		and G.jokers
 		and (self.area == nil or contains(SMODS.get_card_areas("jokers"), self.area))
 		and (self.config.center.dongtong_compat ~= false)
-		and contains_number(
+		and All_in_Jest.contains_number(
 			self.config.center.config,
 			{ x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit = true }
 		)
@@ -151,7 +137,7 @@ function Card:update(dt)
 		and self.ability.set == "Joker"
 		and contains(SMODS.get_card_areas("jokers"), self.area)
 		and (self.config.center.dongtong_compat ~= false)
-		and contains_number(
+		and All_in_Jest.contains_number(
 			self.config.center.config,
 			{ x_chips = 1, x_mult = 1, extra_value = true, rarity = true, card_limit = true }
 		)

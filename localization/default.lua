@@ -30,6 +30,7 @@ return {
 			aij_upgraded_tags = "Gold Tags",
 			aij_gladiator_blinds = "Gladiator Blinds",
 			aij_pc_stickers = "Playing Card Stickers",
+			aij_astral_grades_collection_label = "Astral Grades",
 			aij_button_content = "Content",
 			aij_button_moons = "Moons",
 			aij_button_visuals = "Visuals / Accessibility",
@@ -381,9 +382,15 @@ return {
 			aij_eye_seal = "Eye Seal",
 			-- Other
 			aij_jest_chaotic_card = "Chaotic", -- Treated internally as a sticker
+			-- Astral Stickers
+			astral_grade_aij_passigrade = "Passigrade",
+			astral_grade_aij_prograde = "Prograde",
+			astral_grade_aij_retrograde = "Retrograde",
+			astral_grade_aij_omnigrade = "Omnigrade",
 		},
 		poker_hands = {
 			["aij_Royal Flush"] = "Royal Flush",
+			["aij_Nothing_q"] = "Nothing?",
 		},
 		poker_hand_descriptions = {
 			["aij_Royal Flush"] = {
@@ -744,6 +751,20 @@ return {
 				text = {
 					"All playing cards {C:attention}appear",
 					"with {C:attention}2 random{} suit patches",
+				},
+			},
+			sleeve_aij_melded = {
+				name = "Melded Sleeve",
+				text = {
+					"Each playing card may",
+					"have {C:attention}two{} enhancements",
+				},
+			},
+			sleeve_aij_melded_alt = {
+				name = "Melded Sleeve",
+				text = {
+					"Start with a copy",
+					"of {C:spectral,T:c_aij_palmistry}#1#{}",
 				},
 			},
 		},
@@ -3791,6 +3812,15 @@ return {
 				text = {
 					"{C:mult}+#1#{} Mult for each {C:attention}sticker{}",
 					"on your {C:attention}Jokers{}",
+					"{C:inactive}(Currently{} {C:mult}+#2#{C:inactive} Mult){}",
+				},
+			},
+			j_aij_sticker_exclude_stake_stickers = {
+				name = "Sticker",
+				text = {
+					"{C:mult}+#1#{} Mult for each {C:attention}sticker{}",
+					"on your {C:attention}Jokers{}",
+					"{C:inactive}(Excluding Stake Stickers){}",
 					"{C:inactive}(Currently{} {C:mult}+#2#{C:inactive} Mult){}",
 				},
 			},
@@ -10373,7 +10403,7 @@ return {
 				name = "Palmistry",
 				text = {
 					"Apply a random {C:attention}enhancement{}",
-					"to all cards {C:attention}held in hand",
+					"to each card {C:attention}held in hand",
 				},
 			},
 			c_aij_gegenschein = {
@@ -10416,20 +10446,37 @@ return {
 					"Gives an {C:attention}Astrology Tag{}",
 				},
 			},
+			c_aij_lacuna = {
+				name = "Lacuna",
+				text = {
+					"{C:money}Sell{} {C:attention}#1#{} selected card and earn {C:money}$#2#{},",
+					"plus an additional {C:money}$#3#{} for each",
+					"{C:attention}Enhancement{}, {C:attention}Seal{}, and",
+					"{C:dark_edition}Edition{} on the card.",
+				},
+			},
 			c_aij_ketu = {
 				name = "Ketu",
 				text = {
-					"Retrigger leftmost",
-					"{C:attention}Joker{} when {C:attention}#1#{}",
-					"is played",
+					{
+						"Align {C:attention}#1#{} to {C:legendary,E:1}Ketu",
+					},
+					{
+						"{C:legendary,E:1}Ketu:{} Retrigger your",
+						"leftmost {C:attention}Joker{}",
+					},
 				},
 			},
 			c_aij_rahu = {
 				name = "Rahu",
 				text = {
-					"Retrigger all cards",
-					"{C:attention}played{} when {C:attention}#1#{}",
-					"is played",
+					{
+						"Align {C:attention}#1#{} to {C:legendary,E:1}Rahu",
+					},
+					{
+						"{C:legendary,E:1}Rahu:{} Retrigger all",
+						"{C:attention}played{} cards",
+					},
 				},
 			},
 		},
@@ -10441,7 +10488,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Algol",
 					},
 					{
-						"{C:attention}Algol: {}Earn {C:money}$#2#{} after",
+						"{C:attention}Algol:{} Earn {C:money}$#2#{} after",
 						"hand is played",
 					},
 				},
@@ -10460,7 +10507,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Alcyone",
 					},
 					{
-						"{C:attention}Alcyone: {}Draw {C:attention}#2#{} additional card",
+						"{C:attention}Alcyone:{} Draw {C:attention}#2#{} additional card",
 						"after hand is played",
 					},
 				},
@@ -10498,7 +10545,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Capella",
 					},
 					{
-						"{C:attention}Capella: {}{C:green}#2# in #3#{} chance to create a",
+						"{C:attention}Capella:{} {C:green}#2# in #3#{} chance to create a",
 						"random {C:planet}Planet{} card",
 					},
 				},
@@ -10517,7 +10564,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Sirius",
 					},
 					{
-						"{C:attention}Sirius: {}Retrigger {C:attention}#2#{}",
+						"{C:attention}Sirius:{} Retrigger {C:attention}#2#{}",
 						"random card",
 					},
 				},
@@ -10536,7 +10583,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Procyon",
 					},
 					{
-						"{C:attention}Procyon: {}Add {C:money}$#2#{} of sell value",
+						"{C:attention}Procyon:{} Add {C:money}$#2#{} of sell value",
 						"to a random {C:attention}Joker",
 					},
 				},
@@ -10555,7 +10602,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Regulus",
 					},
 					{
-						"{C:attention}Regulus: {}{C:green}#2# in #3#{} chance to {C:attention}level up",
+						"{C:attention}Regulus:{} {C:green}#2# in #3#{} chance to {C:attention}level up",
 						"{C:attention}played{} hand",
 					},
 				},
@@ -10574,7 +10621,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Alkaid",
 					},
 					{
-						"{C:attention}Alkaid: {}Enhance {C:attention}#2#{} random",
+						"{C:attention}Alkaid:{} Enhance {C:attention}#2#{} random",
 						"unenhanced card",
 						"in poker hand",
 					},
@@ -10595,7 +10642,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Algorab",
 					},
 					{
-						"{C:attention}Algorab: {}{C:green}#2# in #3#{} chance to create a",
+						"{C:attention}Algorab:{} {C:green}#2# in #3#{} chance to create a",
 						"random {C:tarot}Tarot{} card",
 					},
 				},
@@ -10614,7 +10661,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Spica",
 					},
 					{
-						"{C:attention}Spica: {}Disable the current {C:attention}Boss Blind{},",
+						"{C:attention}Spica:{} Disable the current {C:attention}Boss Blind{},",
 						"then remove this {C:spectral}Alignment",
 					},
 				},
@@ -10624,7 +10671,7 @@ return {
 				text = {
 					"Disable the current {C:attention}Boss Blind{},",
 					"then remove this {C:spectral}Alignment",
-					"{C:inactive}#1#{}",
+					"{C:inactive}#2#{}",
 				},
 			},
 			c_aij_arcturus = {
@@ -10634,7 +10681,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Arcturus",
 					},
 					{
-						"{C:attention}Arcturus: {}+#2# {C:red}Discard{}",
+						"{C:attention}Arcturus:{} +#2# {C:red}Discard{}",
 					},
 				},
 			},
@@ -10651,7 +10698,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Alphecca",
 					},
 					{
-						"{C:attention}Alphecca: {}Scored cards {C:attention}permanently",
+						"{C:attention}Alphecca:{} Scored cards {C:attention}permanently",
 						"gain {C:chips}+#2#{} Chips",
 					},
 				},
@@ -10670,7 +10717,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Antares",
 					},
 					{
-						"{C:attention}Antares: {}{C:red}Destroy{} a random card",
+						"{C:attention}Antares:{} {C:red}Destroy{} a random card",
 						"{C:attention}held in hand",
 					},
 				},
@@ -10689,7 +10736,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Vega",
 					},
 					{
-						"{C:attention}Vega: {}Retrigger the {C:attention}first",
+						"{C:attention}Vega:{} Retrigger the {C:attention}first",
 						"card {C:attention}held in hand",
 					},
 				},
@@ -10708,7 +10755,7 @@ return {
 						"Align {C:attention}#1#{} to {C:attention}Deneb Algedi",
 					},
 					{
-						"{C:attention}Deneb Algedi: {}{C:blue}+#2#{} Hand the {C:attention}first{}",
+						"{C:attention}Deneb Algedi:{} {C:blue}+#2#{} Hand the {C:attention}first{}",
 						"time this hand is",
 						"played each round",
 					},
@@ -10721,6 +10768,20 @@ return {
 					"time this hand is",
 					"played each round",
 					"{C:inactive}#3#{}",
+				},
+			},
+			c_aij_ketu_pin = {
+				name = "Ketu",
+				text = {
+					"Retrigger your",
+					"leftmost {C:attention}Joker{}",
+				},
+			},
+			c_aij_rahu_pin = {
+				name = "Rahu",
+				text = {
+					"Retrigger all",
+					"{C:attention}played{} cards",
 				},
 			},
 		},
@@ -10793,6 +10854,13 @@ return {
 					"Next base edition shop",
 					"Joker is free and",
 					"becomes {E:aij_misprinted_red}Misprinted{}",
+				},
+			},
+			tag_aij_cosmic = {
+				name = "Cosmic Tag",
+				text = {
+					"Gives a free",
+					"{C:aij_astral}Jumbo Sidereal Pack{}",
 				},
 			},
 			tag_aij_astrology = {
@@ -11067,6 +11135,14 @@ return {
 					"shop are {E:aij_misprinted_red}Misprinted",
 				},
 			},
+			tag_aij_lacteal = {
+				name = "Lacteal Tag",
+				text = {
+					"Choose an {C:legendary,E:1}Omnigrade{}",
+					"{C:aij_astral}Astral{} card to create",
+					"{C:inactive}(Must have room)",
+				},
+			},
 			tag_aij_grand_astrologer = {
 				name = "Grand Astrologer Tag",
 				text = {
@@ -11223,8 +11299,7 @@ return {
 				name = "Star of the Magi",
 				text = {
 					"{C:attention}Create{} a random",
-					"Passigrade {C:aij_astral}Astral{}",
-					"card",
+					"Passigrade {C:aij_astral}Astral{} card",
 				},
 			},
 			c_aij_twilight = {
@@ -11519,25 +11594,38 @@ return {
 					"run to find out what it does",
 				},
 			},
-			aij_astral_prograde = {
+			c_aij_astral_alignment = {
+				text = {
+					"Align {C:attention}#1#{} to {C:attention}#2#{}",
+				},
+			},
+			astral_grade_aij_prograde = {
 				name = "Prograde",
 				text = {
 					"Aligns to one of your",
-					"{C:attention}least{} played hands",
+					"{C:attention}least{} played poker hands",
 				},
 			},
-			aij_astral_retrograde = {
+			astral_grade_aij_retrograde = {
 				name = "Retrograde",
 				text = {
 					"Aligns to your {C:attention}most{}",
-					"played hand",
+					"played poker hand",
 				},
 			},
-			aij_astral_passigrade = {
+			astral_grade_aij_passigrade = {
 				name = "Passigrade",
 				text = {
 					"Aligns to a {C:attention}random{}",
-					"hand",
+					"poker hand",
+				},
+			},
+			astral_grade_aij_omnigrade = {
+				name = "Omnigrade",
+				text = {
+					"Aligns to {C:legendary,E:1}every{}",
+					"poker hand with an",
+					"empty astral slot",
 				},
 			},
 			aij_patches_suit = {
@@ -11636,7 +11724,7 @@ return {
 				name = "Sidereal Pack",
 				text = {
 					"Choose {C:attention}#1#{} of up to",
-					"{C:attention}#2#{} {C:spectral}Astral{} cards to",
+					"{C:attention}#2#{} {C:aij_astral}Astral{} cards to",
 					"be used immediately",
 				},
 			},
@@ -11801,7 +11889,7 @@ return {
 				text = {
 					"Debuffed after",
 					"scoring {C:attention}#1#{} times",
-					"{C:inactive}({C:attention}#2#{} remaining{C:inactive}){}",
+					"{C:inactive}({C:attention}#2#{C:inactive} remaining){}",
 				},
 			},
 			aij_pc_rental = {

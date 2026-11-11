@@ -6,6 +6,7 @@ local branching = {
 	atlas = "sleeve_atlas",
 	pos = { x = 1, y = 0 },
 	unlocked = false,
+	lite = true,
 	unlock_condition = { deck = "b_aij_branching", stake = "stake_blue" },
 	loc_vars = function(self)
 		local key
@@ -22,14 +23,8 @@ local branching = {
 	end,
 	apply = function(self, sleeve)
 		CardSleeves.Sleeve.apply(self)
-		G.E_MANAGER:add_event(Event({
-			trigger = "after",
-			func = function()
-				G.GAME.all_in_jest.blind_tags.has_multiple = true
-				G.GAME.all_in_jest.blind_tags.amt = G.GAME.all_in_jest.blind_tags.amt + 2
-				return true
-			end,
-		}))
+		G.GAME.all_in_jest.blind_tags.has_multiple = true
+		G.GAME.all_in_jest.blind_tags.amt = G.GAME.all_in_jest.blind_tags.amt + 2
 	end,
 }
 if next(SMODS.find_mod("CardSleeves")) then

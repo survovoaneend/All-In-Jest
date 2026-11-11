@@ -84,7 +84,7 @@ local scarab = {
 	end,
 
 	in_pool = function(self, args)
-		if G.GAME.round_resets.ante ~= G.GAME.win_ante + 1 and not (MP and MP.LOBBY.code) then
+		if G.GAME.round_resets.ante ~= G.GAME.win_ante + 1 then
 			return true
 		else
 			return false

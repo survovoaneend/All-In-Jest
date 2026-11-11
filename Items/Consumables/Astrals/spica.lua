@@ -9,21 +9,21 @@ local spica = {
 	unlocked = true,
 	discovered = false,
 	order = 9,
-	config = { hand = nil, grade = "", pin = "Spica", extra = {} },
+	config = { pin = "Spica", extra = {} },
 	attributes = { "hand_type", "space", "boss_blind" },
 	loc_vars = function(self, info_queue, card)
 		-- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		return {
 			vars = {
-				(card.area and not card.area.config.collection) and card.ability.consumeable.hand or "(hand)",
+				card.ability.astral_hand or "(hand)",
 			},
 		}
 	end,
 	all_in_jest = {
 		grades = {
-			["Retrograde"] = 0.01,
-			["Passigrade"] = 0.5,
-			["Prograde"] = 0.49,
+			["astral_grade_aij_retrograde"] = 0.01,
+			["astral_grade_aij_passigrade"] = 0.5,
+			["astral_grade_aij_prograde"] = 0.49,
 		},
 	},
 }
@@ -35,7 +35,6 @@ local spica_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 4, y = 1 },
 	discovered = false,
-	order = 9,
 	config = {},
 
 	pixel_size = { w = 53, h = 28 },
@@ -47,6 +46,7 @@ local spica_pin = {
 		end
 		return {
 			vars = {
+				card.ability.extra.hand,
 				active_text,
 			},
 		}

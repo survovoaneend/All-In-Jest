@@ -28,6 +28,7 @@ end
 '''
 
 # Perishable for Playing Cards
+# debuffs cards with sticker
 # Card:set_debuff()
 [[patches]]
 [patches.pattern]
@@ -53,7 +54,7 @@ pattern = '''
 (?<indent>[\t ]*)a\.pinned(?<post>.*)
 '''
 position = "at"
-line_prepend = '$indent'
+line_prepend = "$indent"
 payload = '''
 $indent(a.ability and a.ability.aij_pinned or a.pinned)$post
 '''
@@ -67,11 +68,10 @@ pattern = '''
 (?<indent>[\t ]*)b\.pinned(?<post>.*)
 '''
 position = "at"
-line_prepend = '$indent'
+line_prepend = "$indent"
 payload = '''
 $indent(b.ability and b.ability.aij_pinned or b.pinned)$post
 '''
-
 
 # Adds tooltip for special "stickers"
 # (Mark of the Spear)
@@ -94,14 +94,14 @@ end
 target = '=[SMODS _ "src/ui.lua"]'
 pattern = "create_UIBox_your_collection_stickers = function()"
 position = "before"
-payload = "-- Function overridden by All in Jest in Utils/overrides.lua"
+payload = "-- Function overridden by All in Jest in Utils/ui/playing_card_sticker_collection.lua"
 match_indent = true
 
 # Allow bomb stickers to calculate when being destroyed
 # eval_card()
 [[patches]]
 [patches.regex]
-target = 'functions/common_events.lua'
+target = "functions/common_events.lua"
 pattern = "(?<indent>[\t ]*)(?<pre>if not card:can_calculate\\(context\\.ignore_debuff, context\\.remove_playing_cards or context\\.joker_type_destroyed)(?<post>.*)"
 position = "at"
 line_prepend = "$indent"

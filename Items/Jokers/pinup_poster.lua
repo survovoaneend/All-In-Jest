@@ -9,6 +9,7 @@ local pinup_poster = {
 		},
 	},
 	attributes = { "xmult", "scaling", "stickers", "full_deck", "suit", "hearts" },
+	lite = true,
 	rarity = 3,
 	pos = { x = 2, y = 39 },
 	atlas = "joker_atlas",

@@ -35,7 +35,7 @@ local unusual_tag = {
 				if
 					not SMODS.Stickers[tag.config.extra.sticker]:should_apply(
 						nil,
-						G.P_CENTERS[center],
+						G.P_CENTERS[center.key],
 						context.area,
 						true
 					)

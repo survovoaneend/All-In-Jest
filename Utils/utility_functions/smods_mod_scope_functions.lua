@@ -67,11 +67,13 @@ local function reset_the_auroch_blind()
 	local common_suit, common_rank = nil, nil
 	local temp_suit_val, temp_rank_val = 0, 0
 	local suit_table, rank_table = {}, {}
-	for _, v in pairs(G.deck.cards) do
+	for _, v in pairs(G.playing_cards) do
 		suit_table[v.base.suit] = suit_table[v.base.suit] or 0
 		suit_table[v.base.suit] = suit_table[v.base.suit] + 1
-		rank_table[v.base.value] = rank_table[v.base.value] or 0
-		rank_table[v.base.value] = rank_table[v.base.value] + 1
+		if not SMODS.has_no_rank(v) then
+			rank_table[v.base.value] = rank_table[v.base.value] or 0
+			rank_table[v.base.value] = rank_table[v.base.value] + 1
+		end
 	end
 	for k, v in pairs(suit_table) do -- TODO nondeterministic, breaks seeding
 		if v >= temp_suit_val then
@@ -85,7 +87,11 @@ local function reset_the_auroch_blind()
 			common_rank = k
 		end
 	end
-	G.GAME.current_round.aij_the_auroch = { suit = common_suit or "Spades", rank = common_rank or "Ace" }
+	G.GAME.current_round.aij_the_auroch = {
+		suit = common_suit or "Spades",
+		rank = common_rank or "Ace",
+		id = SMODS.Ranks[common_rank].id,
+	}
 end
 local function reset_jest_lavatch_card()
 	G.GAME.current_round.jest_lavatch_card = G.GAME.current_round.jest_lavatch_card or { suit = "Spades" }

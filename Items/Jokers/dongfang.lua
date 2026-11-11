@@ -22,7 +22,7 @@ local dongfang = {
 	soul_pos = { x = 1, y = 7 },
 
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.total_triggers } }
+		return { vars = { card.ability.extra.triggers } }
 	end,
 
 	calculate = function(self, card, context)

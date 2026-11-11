@@ -15,7 +15,7 @@ local fall_of_count_chaligny = {
 	perishable_compat = true,
 
 	loc_vars = function(self, info_queue, card)
-		if MP and MP.UTILS.is_standard_ruleset() and MP.LOBBY.code then
+		if PVP and PVP.UTILS.is_standard_ruleset() and PVP.LOBBY.code then
 			return { key = "j_aij_mp_fall_of_count_chaligny" }
 		end
 	end,

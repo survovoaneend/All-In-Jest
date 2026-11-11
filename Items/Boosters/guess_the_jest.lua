@@ -70,7 +70,88 @@ local guess_the_jest = {
 	end,
 	group_key = "k_aij_guess_the_jest",
 }
-SMODS.DrawStep({
+
+local aij_generate_card_ui_ref = generate_card_ui
+function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)
+	local ret
+	if card and card.ability and card.ability.from_guess_the_jest then
+		ret = aij_generate_card_ui_ref(
+			{ key = "guess_the_jest_hidden", set = "Other", vars = {} },
+			full_UI_table,
+			nil,
+			"Other",
+			badges,
+			false,
+			main_start,
+			main_end,
+			card
+		)
+		if All_in_Jest.config.guess_names then
+			local name_ret = aij_generate_card_ui_ref(
+				_c,
+				full_UI_table,
+				specific_vars,
+				card_type,
+				badges,
+				hide_desc,
+				main_start,
+				main_end,
+				card
+			)
+			ret.name = name_ret.name
+		end
+	else
+		if
+			card
+			and _c.rarity == 4
+			and G.STATE == G.STATES.SMODS_BOOSTER_OPENED
+			and SMODS.OPENED_BOOSTER
+			and SMODS.OPENED_BOOSTER.config.center.key == "p_aij_guess_the_jest"
+			and card.area
+			and card.area.config.collection
+		then
+			ret = aij_generate_card_ui_ref(
+				_c,
+				full_UI_table,
+				specific_vars,
+				card_type,
+				badges,
+				hide_desc,
+				main_start,
+				main_end,
+				card
+			)
+			local name_ret = aij_generate_card_ui_ref(
+				{ key = "guess_the_jest_hidden", set = "Other", vars = {} },
+				full_UI_table,
+				nil,
+				"Other",
+				badges,
+				false,
+				main_start,
+				main_end,
+				card
+			)
+			ret.name = name_ret.name
+		else
+			ret = aij_generate_card_ui_ref(
+				_c,
+				full_UI_table,
+				specific_vars,
+				card_type,
+				badges,
+				hide_desc,
+				main_start,
+				main_end,
+				card
+			)
+		end
+	end
+	return ret
+end
+
+local background_draw_step = {
+	object_type = "DrawStep",
 	key = "guess_the_jest_background",
 	order = 2,
 	func = function(self, layer)
@@ -86,8 +167,9 @@ SMODS.DrawStep({
 		end
 	end,
 	conditions = { vortex = false, facing = "front" },
-})
-SMODS.DrawStep({
+}
+local silhouette_draw_step = {
+	object_type = "DrawStep",
 	key = "silhouette",
 	order = 65,
 	func = function(self, layer)
@@ -111,5 +193,8 @@ SMODS.DrawStep({
 		end
 	end,
 	conditions = { vortex = false, facing = "front" },
-})
-return { name = { "Boosters" }, items = { guess_the_jest, silhouette_shader } }
+}
+return {
+	name = { "Boosters" },
+	items = { guess_the_jest, silhouette_shader, background_draw_step, silhouette_draw_step },
+}

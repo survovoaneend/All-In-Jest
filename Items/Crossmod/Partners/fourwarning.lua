@@ -14,6 +14,7 @@ local fourwarning = {
 	atlas = "partner_atlas",
 	unlocked = false,
 	discovered = true,
+	lite = true,
 	link_config = { j_aij_tetraphobia = 1 },
 	loc_vars = function(self, info_queue, card)
 		local link_level = self:get_link_level()

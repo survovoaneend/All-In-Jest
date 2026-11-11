@@ -5,6 +5,7 @@ local dacosta = {
 	key = "dacosta",
 	config = {},
 	attributes = { "copying" },
+	lite = true,
 	rarity = 4,
 	unlock_condition = { hidden = true },
 	pos = { x = 4, y = 2 },

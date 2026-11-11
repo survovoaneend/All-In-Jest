@@ -3,9 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
-
-# Silver Cards (1/2)
+# Silver/Misprinted Cards (1/3)
 # Resets attributes to pre-silver stats when card enhancements are removed
 # Card:set_base()
 [[patches]]
@@ -57,13 +55,14 @@ if self.edition and self.edition.aij_misprint then
     end
 end
 '''
-# Silver Cards (2/2)
+
+# Silver/Misprinted Cards (2/3)
 # Re-applies attributes to pre-silver stats when new enhancements are applied
 # Card:set_base()
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = 'if not initial and G.GAME.blind then G.GAME.blind:debuff_card(self) end'
+pattern = "if not initial and G.GAME.blind then G.GAME.blind:debuff_card(self) end"
 position = "before"
 match_indent = true
 payload = '''
@@ -95,4 +94,21 @@ if self.edition and self.edition.aij_misprint then
     end
 end
 if self.ability then self.ability.m_aij_charged_chaging = nil end
+'''
+
+# Silver/Misprinted Cards (3/3)
+# Prevent silver and misprinted (and other editions maybe) from being applied when an incompatible card is created
+# create_card()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "local edition = poll_edition('edi'..(key_append or '')..G.GAME.round_resets.ante*"
+position = "after"
+match_indent = true
+payload = '''
+if edition and G.P_CENTERS[edition].aij_can_apply then
+    if not G.P_CENTERS[edition]:aij_can_apply(card) then
+        edition = nil
+    end
+end
 '''

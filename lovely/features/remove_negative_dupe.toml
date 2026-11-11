@@ -3,7 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
 # Add the tooltip that says negative does not get copied
 # generate_card_ui()
 [[patches]]

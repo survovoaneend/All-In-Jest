@@ -28,6 +28,21 @@ function SMODS.calculate_main_scoring(context, scoring_hand)
 	end
 end
 
+-- Add context for when an edition is triggered
+-- (As of v0.6 is just for Chromasist)
+local aij_card_calculate_edition_ref = Card.calculate_edition
+function Card:calculate_edition(context)
+	local ret = aij_card_calculate_edition_ref(self, context)
+
+	if ret then
+		SMODS.calculate_context({
+			all_in_jest = { calculating_edition = true, other_card = self, edition = self.edition, area = self.area },
+		})
+	end
+
+	return ret
+end
+
 -- Workshoping
 -- context.chance_trigger.trigger (returns true when 1 in whatever chance is true and false when it fails)
 -- context.chance_trigger.chances (The denomator of the triggered chance)

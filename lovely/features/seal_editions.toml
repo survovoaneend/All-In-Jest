@@ -3,7 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
 # Seal Edition Calculation
 # SMODS.trigger_effects()
 [[patches]]
@@ -22,8 +21,8 @@ match_indent = true
 # Card:load()
 [[patches]]
 [patches.pattern]
-target = 'card.lua'
-pattern = 'self.config.center = G.P_CENTERS[self.config.center_key]'
+target = "card.lua"
+pattern = "self.config.center = G.P_CENTERS[self.config.center_key]"
 position = "after"
 match_indent = true
 payload = '''

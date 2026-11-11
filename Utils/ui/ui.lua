@@ -226,7 +226,13 @@ SMODS.jest_no_back_card_collection_UIBox = function(_pool, rows, args)
 				G.ROOM.T.h + args.offset.y,
 				(args.w_mod * rows[j] + 0.25) * G.CARD_W,
 				args.h_mod * G.CARD_H,
-				{ card_limit = rows[j], type = args.area_type or "title", highlight_limit = 0, collection = true }
+				{
+					card_limit = rows[j],
+					type = args.area_type or "title",
+					highlight_limit = 0,
+					collection = true,
+					aij_card_select_collection = true,
+				}
 			)
 			table.insert(deck_tables, {
 				n = G.UIT.R,
@@ -553,8 +559,8 @@ G.FUNCS.jest_astral_replace = function(e)
 	local area = e.config.data[1]
 	local data = e.config.data[2]
 	All_in_Jest.create_astral_pin(data.consumable_card, data.astral_index)
-	if G.aij_cur_astral_hand and G.aij_cur_astral_hand == data.consumable_card.ability.consumeable.hand then
-		All_in_Jest.astral_visuals(data.consumable_card.ability.consumeable.hand, "no_remove")
+	if G.aij_cur_astral_hand and G.aij_cur_astral_hand == data.consumable_card.ability.astral_hand then
+		All_in_Jest.astral_visuals(data.consumable_card.ability.astral_hand, "no_remove")
 	end
 	G.SETTINGS.paused = false
 	if G.OVERLAY_MENU ~= nil then

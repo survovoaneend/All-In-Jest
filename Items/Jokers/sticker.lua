@@ -24,6 +24,7 @@ local sticker = {
 
 	loc_vars = function(self, info_queue, card)
 		return {
+			key = G.SETTINGS.run_stake_stickers and "j_aij_sticker_exclude_stake_stickers" or "j_aij_sticker",
 			vars = {
 				card.ability.extra.mult,
 				card.ability.extra.mult * tonumber(card.ability.extra.totalstickers),

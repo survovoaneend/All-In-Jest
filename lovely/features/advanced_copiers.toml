@@ -3,7 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
 # Advanced Copiers (1/4)
 # Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
 # This is for vanilla jokers. Needs separate patches for vanilla and modded jokers.
@@ -36,6 +35,7 @@ if specific_vars ~= nil and specific_vars.aij_multi_copier_card then
     desc_nodes[#desc_nodes + 1] = copier_compat
 end
 '''
+
 # Advanced Copiers (2/4)
 # Allows passing specific variables to the info_queue, so joker tooltips aren't just default stats
 # This is for modded jokers. Needs separate patches for vanilla and modded jokers.
@@ -99,12 +99,13 @@ if target.vars.aij_copier_card then
 end
 -- End of All in Jest patch
 '''
+
 # Advanced Copiers (3/4)
 # Fixes an SMODs bug where it tries to access loc_vars incorrectly for formatting the joker's name (2/2)
 # generate_card_ui()
 [[patches]]
 [patches.regex]
-target = 'functions/common_events.lua'
+target = "functions/common_events.lua"
 pattern = '''(?<indent>[\t ]*)(?<pre>.*)\(_c\.create_fake_card and _c\.loc_vars and \(_c:loc_vars\(\{\}, \_c:create_fake_card\(\)\) or \{\}\).vars\)(?<post>.*)'''
 position = "at"
 line_prepend = "$indent"
@@ -112,10 +113,11 @@ payload = '''
 local card = _c.specific_vars and (_c.specific_vars.aij_elder or _c.specific_vars.aij_multi_copier_card or _c.specific_vars.aij_copier_card) or card -- All in Jest overrides
 $pre(_c.create_fake_card and _c.loc_vars and (_c:loc_vars({}, card or _c:create_fake_card()) or {}).vars)$post -- All in Jest overrides
 '''
+
 # Advanced Copiers (4/4)
 # Fixes a nice SMODs issue where Oops! All sixes is refered to by its key rather than ability name (like other vanilla jokers)
 # Card:calculate_joker
-[[patches]] 
+[[patches]]
 [patches.regex]
 target = "card.lua"
 pattern = '''(?<indent>[\t ]*)elseif (?<precond>.*?) self.config.center_key == 'j_oops' (?<postcond>.*?)'''
@@ -128,9 +130,9 @@ payload = '''elseif $precond self.ability.name == 'Oops! All 6s' $postcond'''
 # init_localization()
 [[patches]]
 [patches.pattern]
-target = 'functions/misc_functions.lua'
+target = "functions/misc_functions.lua"
 pattern = "if not center.text then else"
-position = 'after'
+position = "after"
 match_indent = true
 payload = '''
 -- All in Jest start
@@ -140,9 +142,9 @@ end
 -- All in Jest end
 '''
 
-# Makes blueprint-like copiers show the correct compatability to joker.png style copiers 
+# Makes blueprint-like copiers show the correct compatability to joker.png style copiers
 # Card:update
-[[patches]] 
+[[patches]]
 [patches.regex]
 target = "card.lua"
 pattern = '''(?<indent>[\t ]*)if other_joker and other_joker ~= self and (?<cond>.*?) then'''
@@ -154,10 +156,10 @@ if other_joker and other_joker ~= self and aij_blueprint_compatible then'''
 # Card:add_to_deck()
 [[patches]]
 [patches.regex]
-target = 'card.lua'
+target = "card.lua"
 pattern = '(?<indent>[\t ]*)if self.ability.h_size ~= 0 then\n[\t ]*G\.hand:change_size\(self.ability.h_size\)'
-line_prepend = '$indent'
-position = 'before'
+line_prepend = "$indent"
+position = "before"
 payload = '''
 if self.ability.name == 'j_aij_joker_png' or self.ability.name == 'j_aij_czar' then
     return
@@ -167,10 +169,10 @@ end
 # Card:remove_from_deck()
 [[patches]]
 [patches.regex]
-target = 'card.lua'
+target = "card.lua"
 pattern = '(?<indent>[\t ]*)if self.ability.h_size ~= 0 then\n[\t ]*G\.hand:change_size\(-self.ability.h_size\)'
-line_prepend = '$indent'
-position = 'before'
+line_prepend = "$indent"
+position = "before"
 payload = '''
 if self.ability.name == 'j_aij_joker_png' or self.ability.name == 'j_aij_czar' then
     return

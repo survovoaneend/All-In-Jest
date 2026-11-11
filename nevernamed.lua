@@ -4,15 +4,25 @@ G.AIJ = {}
 
 local DEV_TAB_DEBUG = false
 
-All_in_Jest.optional_features = {
-	retrigger_joker = true,
-	post_trigger = true,
-	object_weights = true,
-	cardareas = {
-		deck = true,
-		discard = true,
-	},
-}
+if All_in_Jest.config.aij_lite then
+	All_in_Jest.optional_features = {
+		object_weights = true,
+		cardareas = {
+			deck = true,
+			discard = true,
+		},
+	}
+else
+	All_in_Jest.optional_features = {
+		retrigger_joker = true,
+		post_trigger = true,
+		object_weights = true,
+		cardareas = {
+			deck = true,
+			discard = true,
+		},
+	}
+end
 
 local injectitems_ref = SMODS.injectItems
 SMODS.injectItems = function()
@@ -168,6 +178,7 @@ local function load_items(curr_obj)
 				or item.set == "aij_astral"
 				or item.soul_set == "aij_astral"
 				or item.object_type == "Astral"
+				or item.object_type == "Astral_Grade"
 			)
 		then
 			goto continue
@@ -222,21 +233,34 @@ for _, rel in ipairs(files) do
 	end
 end
 
--- Sort loaded objects by defined order
-table.sort(objects, function(a, b)
-	local function get_lowest_order(obj)
-		if not obj.items then
-			return math.huge
+local function get_lowest_order(obj)
+	if not obj.items then
+		return math.huge
+	end
+	local lowest = math.huge
+	for _, item in ipairs(obj.items) do
+		if item.order and item.order < lowest then
+			lowest = item.order
 		end
-		local lowest = math.huge
+	end
+	return lowest
+end
+local function get_first_order(obj)
+	if not obj.items then
+		return math.huge
+	else
 		for _, item in ipairs(obj.items) do
-			if item.order and item.order < lowest then
-				lowest = item.order
+			if item.order then
+				return item.order
 			end
 		end
-		return lowest
+		return math.huge
 	end
-	return get_lowest_order(a) < get_lowest_order(b)
+end
+
+-- Sort loaded objects by defined order
+table.sort(objects, function(a, b)
+	return get_first_order(a) < get_first_order(b)
 end)
 
 -- Load all the items

@@ -3,17 +3,16 @@ version = "1.0.0"
 dump_lua = true
 priority = 214748364
 
-
 # Activated Ability Button UI (1/4)
 # Clear use button before creating it
 # G.UIDEF.use_and_sell_buttons()
 [[patches]]
 [patches.pattern]
-target = 'functions/UI_definitions.lua'
+target = "functions/UI_definitions.lua"
 pattern = '''
 local use = nil
 '''
-position = 'after'
+position = "after"
 payload = '''
 local aij_activate_ability = nil
 '''
@@ -24,11 +23,11 @@ match_indent = true
 # G.UIDEF.use_and_sell_buttons()
 [[patches]]
 [patches.pattern]
-target = 'functions/UI_definitions.lua'
+target = "functions/UI_definitions.lua"
 pattern = '''
 if card.area and card.area.config.type == 'joker' then
 '''
-position = 'after'
+position = "after"
 payload = '''
 if card.config.center.all_in_jest and card.config.center.all_in_jest.use_ability then 
     local use_button = {n=G.UIT.T, config={text = localize('b_use'),colour = G.C.UI.TEXT_LIGHT, scale = card.config.center.all_in_jest.ability_cost and card.aij_ability_cost_label and 0.4 or 0.55, shadow = true}}
@@ -56,13 +55,13 @@ match_indent = true
 # G.UIDEF.use_and_sell_buttons()
 [[patches]]
 [patches.pattern]
-target = 'functions/UI_definitions.lua'
+target = "functions/UI_definitions.lua"
 pattern = '''
 {n=G.UIT.R, config={align = 'cl'}, nodes={
     sell
 }},
 '''
-position = 'after'
+position = "after"
 payload = '''
 {n=G.UIT.R, config={align = 'cr'}, nodes={
     aij_activate_ability
@@ -76,11 +75,11 @@ match_indent = true
 # G.UIDEF.card_focus_ui()
 [[patches]]
 [patches.pattern]
-target = 'functions/UI_definitions.lua'
+target = "functions/UI_definitions.lua"
 pattern = '''
 base_attach.children.sell = G.UIDEF.card_focus_button{
 '''
-position = 'before'
+position = "before"
 payload = '''
 if card.config.center.all_in_jest and card.config.center.all_in_jest.use_ability then 
     base_attach.children.aij_activate_ability = G.UIDEF.card_focus_button{

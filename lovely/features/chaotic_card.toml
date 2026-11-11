@@ -44,7 +44,7 @@ function Game:init_game_object()
     return t
 end
 '''
-match_indent = true 
+match_indent = true
 
 # Inject custom badge
 # Game:init_game_object()
@@ -58,4 +58,4 @@ for _, v in pairs(SMODS.jest_Badges) do
     self:inject(v)
 end
 '''
-match_indent = true 
+match_indent = true

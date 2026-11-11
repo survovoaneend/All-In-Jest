@@ -124,6 +124,15 @@ local silver = {
 	get_weight = function(self)
 		return self.weight
 	end,
+	aij_can_apply = function(self, card)
+		return (
+			card.config.center.dongtong_compat ~= false
+			and All_in_Jest.contains_number(
+				card.config.center.config,
+				{ x_chips = 1, x_mult = 1, extra_value = true, rarity = true }
+			)
+		) or card.ability.set ~= "Joker"
+	end,
 
 	shader = "silver",
 }

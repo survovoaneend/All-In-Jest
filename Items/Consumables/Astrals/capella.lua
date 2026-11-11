@@ -9,14 +9,14 @@ local capella = {
 	unlocked = true,
 	discovered = false,
 	order = 3,
-	config = { hand = nil, grade = "", pin = "Capella", extra = { odds = 2 } },
+	config = { pin = "Capella", extra = { odds = 2 } },
 	attributes = { "hand_type", "space", "chance", "generation", "planet", "consumable" },
 	loc_vars = function(self, info_queue, card)
 		-- Rest of loc_vars is defined in the ConsumableType in hooks.lua
 		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
 		return {
 			vars = {
-				(card.area and not card.area.config.collection) and card.ability.consumeable.hand or "(hand)",
+				card.ability.astral_hand or "(hand)",
 				numerator,
 				denominator,
 			},
@@ -24,9 +24,9 @@ local capella = {
 	end,
 	all_in_jest = {
 		grades = {
-			["Retrograde"] = 0.3,
-			["Passigrade"] = 0.6,
-			["Prograde"] = 0.1,
+			["astral_grade_aij_retrograde"] = 0.3,
+			["astral_grade_aij_passigrade"] = 0.6,
+			["astral_grade_aij_prograde"] = 0.1,
 		},
 	},
 }
@@ -38,7 +38,6 @@ local capella_pin = {
 	atlas = "misc_atlas",
 	pos = { x = 1, y = 0 },
 	discovered = false,
-	order = 3,
 	config = {},
 
 	pixel_size = { w = 53, h = 28 },
