@@ -49,7 +49,7 @@ local polkadot = {
 
 		for _, card in pairs(G.jokers.cards) do
 			if card.ability.perishable then
-				cardv.ability.perish_tally = card.ability.perish_tally
+				card.ability.perish_tally = card.ability.perish_tally
 						and card.ability.perish_tally + self.config.sticker_effects["perishable"]
 					or 5 + self.config.sticker_effects["perishable"]
 			end
