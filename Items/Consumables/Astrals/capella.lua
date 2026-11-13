@@ -66,7 +66,7 @@ local capella_pin = {
 							SMODS.add_card({
 								set = "Planet",
 								area = G.consumeables,
-								key_append = "zanni",
+								key_append = "capella",
 							})
 							G.GAME.consumeable_buffer = 0
 							return true
