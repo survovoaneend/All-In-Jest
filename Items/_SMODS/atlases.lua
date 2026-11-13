@@ -69,6 +69,13 @@ local atlases = {
 	},
 
 	{
+		key = "astral_grades_atlas",
+		path = "astral_grades.png",
+		px = 71,
+		py = 95,
+	},
+
+	{
 		key = "blinds",
 		path = "blinds.png",
 		px = 34,
