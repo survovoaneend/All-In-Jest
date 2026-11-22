@@ -24,7 +24,7 @@ local misprint = {
 		per = 1,
 		vol = 0.7,
 	},
-	order = 3,
+	order = 4,
 	config = { min_mult = 50, max_mult = 300, mult = 1, prevmult = "1" },
 	attributes = { "multiplier" },
 	loc_vars = function(self, info_queue, card)
