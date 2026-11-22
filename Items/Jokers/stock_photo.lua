@@ -5,8 +5,6 @@ local stock_photo = {
 	key = "stock_photo",
 	config = {
 		extra = {
-			trigger = false,
-			pseudo_trigger = false,
 			odds = 2,
 		},
 	},
@@ -32,7 +30,7 @@ local stock_photo = {
 	end,
 
 	calculate = function(self, card, context)
-		if context.starting_shop or (card.ability.extra.pseudo_trigger and context.ending_booster) then
+		if context.starting_shop then
 			stop_use()
 			G.E_MANAGER:add_event(Event({
 				trigger = "after",
@@ -49,20 +47,15 @@ local stock_photo = {
 							{ bypass_discovery_center = true, bypass_discovery_ui = true }
 						)
 						cardd.cost = 0
+						cardd.ability.aij_stock_photo = true
 						G.FUNCS.use_card({ config = { ref_table = cardd } })
 						cardd:start_materialize()
-						card.ability.extra.trigger = true
-						card.ability.extra.pseudo_trigger = false
-						return true
-					else
-						card.ability.extra.pseudo_trigger = true
-						return true
 					end
+					return true
 				end,
 			}))
 		end
-		if context.skipping_booster and card.ability.extra.trigger and not context.blueprint then
-			card.ability.extra.trigger = false
+		if context.skipping_booster and not context.blueprint and SMODS.OPENED_BOOSTER.ability.aij_stock_photo then
 			if SMODS.pseudorandom_probability(card, "stock_photo", 1, card.ability.extra.odds) then
 				SMODS.destroy_cards(card)
 			else
@@ -70,9 +63,6 @@ local stock_photo = {
 					message = localize("k_safe_ex"),
 				}
 			end
-		end
-		if context.ending_booster and not context.blueprint then
-			card.ability.extra.trigger = false
 		end
 	end,
 }
