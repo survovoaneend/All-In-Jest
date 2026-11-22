@@ -89,7 +89,7 @@ local function reset_the_auroch_blind()
 			common_rank = k
 		end
 	end
-	common_suit = common_suit or "Spades",
+	common_suit = common_suit or "Spades"
 	common_rank = common_rank or "Ace"
 	G.GAME.current_round.aij_the_auroch = {
 		suit = common_suit,
