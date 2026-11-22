@@ -60,6 +60,7 @@ local old_joker = {
 				scalar_value = "mult_mod",
 				no_message = true,
 			})
+			return nil, true
 		end
 		if context.joker_main then
 			return {
