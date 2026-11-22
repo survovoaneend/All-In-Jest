@@ -68,8 +68,10 @@ local function reset_the_auroch_blind()
 	local temp_suit_val, temp_rank_val = 0, 0
 	local suit_table, rank_table = {}, {}
 	for _, v in pairs(G.playing_cards) do
-		suit_table[v.base.suit] = suit_table[v.base.suit] or 0
-		suit_table[v.base.suit] = suit_table[v.base.suit] + 1
+		if not SMODS.has_no_suit(v) then
+			suit_table[v.base.suit] = suit_table[v.base.suit] or 0
+			suit_table[v.base.suit] = suit_table[v.base.suit] + 1
+		end
 		if not SMODS.has_no_rank(v) then
 			rank_table[v.base.value] = rank_table[v.base.value] or 0
 			rank_table[v.base.value] = rank_table[v.base.value] + 1
@@ -87,9 +89,11 @@ local function reset_the_auroch_blind()
 			common_rank = k
 		end
 	end
+	common_suit = common_suit or "Spades",
+	common_rank = common_rank or "Ace"
 	G.GAME.current_round.aij_the_auroch = {
-		suit = common_suit or "Spades",
-		rank = common_rank or "Ace",
+		suit = common_suit,
+		rank = common_rank,
 		id = SMODS.Ranks[common_rank].id,
 	}
 end
