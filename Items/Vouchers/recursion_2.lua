@@ -26,7 +26,7 @@ local recursion = {
 		G.E_MANAGER:add_event(Event({
 			trigger = "after",
 			func = function()
-				if G.shop_vouchers then
+				if G.shop and G.shop_vouchers and G.shop_vouchers.cards then
 					for _, v in ipairs(G.shop_vouchers.cards) do
 						v:set_cost()
 					end

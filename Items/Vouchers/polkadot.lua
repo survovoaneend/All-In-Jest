@@ -36,13 +36,15 @@ local polkadot = {
 		G.GAME.rental_rate = math.max(G.GAME.rental_rate - self.config.sticker_effects["rental"], 0)
 
 		G.GAME.perishable_rounds = G.GAME.perishable_rounds
-				and G.GAME.perishable_rounds + self.config.sticker_effects["perishable"]
+			and G.GAME.perishable_rounds + self.config.sticker_effects["perishable"]
 			or 5 + self.config.sticker_effects["perishable"]
 
-		G.GAME.all_in_jest.sticker_effects["aij_indecisive"].odds = G.GAME.all_in_jest.sticker_effects["aij_indecisive"].odds
+		G.GAME.all_in_jest.sticker_effects["aij_indecisive"].odds = G.GAME.all_in_jest.sticker_effects["aij_indecisive"]
+			.odds
 			+ 4
 
-		G.GAME.all_in_jest.sticker_effects["aij_mint_condition"].markup = G.GAME.all_in_jest.sticker_effects["aij_mint_condition"].markup
+		G.GAME.all_in_jest.sticker_effects["aij_mint_condition"].markup = G.GAME.all_in_jest.sticker_effects
+			["aij_mint_condition"].markup
 			- 4
 
 		G.GAME.all_in_jest.sticker_effects["aij_demanding"].hands = { "Pair" }
@@ -50,7 +52,7 @@ local polkadot = {
 		for _, card in pairs(G.jokers.cards) do
 			if card.ability.perishable then
 				card.ability.perish_tally = card.ability.perish_tally
-						and card.ability.perish_tally + self.config.sticker_effects["perishable"]
+					and card.ability.perish_tally + self.config.sticker_effects["perishable"]
 					or 5 + self.config.sticker_effects["perishable"]
 			end
 
@@ -59,8 +61,10 @@ local polkadot = {
 		end
 
 		-- For updating mint condition
-		for _, card in pairs(G.shop_jokers.cards) do
-			card:set_cost()
+		if G.shop and G.shop_jokers and G.shop_jokers.cards then
+			for _, card in pairs(G.shop_jokers.cards) do
+				card:set_cost()
+			end
 		end
 	end,
 }

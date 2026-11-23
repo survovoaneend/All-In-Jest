@@ -11,7 +11,7 @@ local common_caste = {
 	loc_vars = function(self, info_queue) end,
 
 	redeem = function(self, card)
-		if not G.shop_booster then
+		if not G.shop_booster or not G.shop then
 			return
 		end
 		G.E_MANAGER:add_event(Event({

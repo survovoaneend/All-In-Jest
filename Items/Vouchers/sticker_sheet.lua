@@ -43,7 +43,7 @@ local sticker_sheet = {
 			- 4
 
 		G.GAME.all_in_jest.sticker_effects["aij_demanding"].active = true
-
+		
 		for _, card in pairs(G.jokers.cards) do
 			if card.ability.perishable then
 				card.ability.perish_tally = card.ability.perish_tally
@@ -56,8 +56,10 @@ local sticker_sheet = {
 		end
 
 		-- For updating mint condition
-		for _, card in pairs(G.shop_jokers.cards) do
-			card:set_cost()
+		if G.shop and G.shop_jokers and G.shop_jokers.cards then
+			for _, card in pairs(G.shop_jokers.cards) do
+				card:set_cost()
+			end
 		end
 	end,
 }
