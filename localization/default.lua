@@ -10964,10 +10964,9 @@ return {
 			tag_aij_bierstiefel = {
 				name = "Bierstiefel Tag",
 				text = {
-					"Fill all empty",
-					"{C:attention}Joker slots{} with",
-					"random {C:common}Common{} or",
-					"{C:uncommon}Uncommon{} Jokers",
+					"Create a random ",
+					"{C:dark_edition}Negative{} {C:common}Common{}",
+					"and {C:uncommon}Uncommon{} {C:attention}Joker",
 				},
 			},
 			tag_aij_ticket = {
