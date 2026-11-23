@@ -28,19 +28,17 @@ local the_ludovico_technique = {
 	end,
 
 	calculate = function(self, card, context)
-		if context.before then
-			if G.GAME.current_round.hands_played == 0 then
-				card.ability.extra.first_hand = context.scoring_name
-			end
-			if G.GAME.current_round.hands_left == 0 then
-				return {
-					message = localize("k_level_up_ex"),
-					func = function()
-						level_up_hand(context.blueprint_card or card, card.ability.extra.first_hand)
-						return true
-					end,
-				}
-			end
+		if context.setting_blind and not context.blueprint then card.ability.extra.first_hand = nil end
+		if (context.before or context.debuffed_hand) and not context.blueprint and G.GAME.current_round.hands_played == 0 then
+			card.ability.extra.first_hand = context.scoring_name
+		end
+		if context.before and G.GAME.current_round.hands_left == 0 and card.ability.extra.first_hand then
+			return {
+				message = localize("k_level_up_ex"),
+				func = function()
+					level_up_hand(context.blueprint_card or card, card.ability.extra.first_hand); return true
+				end
+			}
 		end
 	end,
 }
