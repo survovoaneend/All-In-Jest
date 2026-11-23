@@ -48,6 +48,7 @@ local zanni = {
 		if context.individual and context.cardarea == G.play then
 			if
 				not context.other_card:is_face()
+				and not context.other_card:get_id() == 14
 				and not context.other_card.no_rank
 				and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
 			then
