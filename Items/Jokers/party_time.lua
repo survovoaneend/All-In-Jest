@@ -39,7 +39,7 @@ local party_time = {
 				card_eval_status_text(v, "extra", nil, nil, nil, {
 					message = localize("k_upgrade_ex"),
 					colour = G.C.CHIPS,
-					delay = 0.3
+					delay = 0.3,
 				})
 				card:juice_up(0.4, 0.4)
 			end
