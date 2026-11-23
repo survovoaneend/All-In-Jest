@@ -50,7 +50,7 @@ local embroidery = {
 		if G.deck then
 			if #G.deck.cards > 0 then
 				for i = 1, #G.deck.cards do
-					if SMODS.has_enhancement(G.deck.cards[i], "m_canvas") then
+					if SMODS.has_enhancement(G.deck.cards[i], "m_aij_canvas") then
 						return true
 					end
 				end
