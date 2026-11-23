@@ -3,6 +3,7 @@ local double_threat = {
 	object_type = "PolyStakeChip",
 	order = 18,
 	key = "double_threat",
+	lite = true,
 	pos = { x = 1, y = 1 },
 	atlas = "chips_atlas",
 	unlocked = false,

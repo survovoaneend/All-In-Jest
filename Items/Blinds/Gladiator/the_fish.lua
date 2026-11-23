@@ -8,6 +8,7 @@ local the_fish = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "face_down", "discard" },
 	boss_colour = HEX("3e85bd"),
 	pos = { x = 0, y = 5 },

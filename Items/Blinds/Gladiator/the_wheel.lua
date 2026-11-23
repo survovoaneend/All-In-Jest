@@ -8,6 +8,7 @@ local the_wheel = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "face_down" },
 	boss_colour = HEX("50bf7c"),
 	pos = { x = 0, y = 10 },

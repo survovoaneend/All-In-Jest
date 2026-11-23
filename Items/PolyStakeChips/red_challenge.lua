@@ -3,6 +3,7 @@ local red_challenge = {
 	object_type = "PolyStakeChip",
 	order = 5,
 	key = "red_challenge",
+	lite = true,
 	pos = { x = 5, y = 0 },
 	atlas = "chips_atlas",
 	stack = 1,

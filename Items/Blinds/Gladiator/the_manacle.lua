@@ -8,6 +8,7 @@ local the_manacle = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "hand_size" },
 	boss_colour = HEX("575757"),
 	pos = { x = 0, y = 8 },

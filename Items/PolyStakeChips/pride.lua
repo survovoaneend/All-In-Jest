@@ -5,6 +5,7 @@ local pride = {
 	key = "pride",
 	pos = { x = 0, y = 1 },
 	atlas = "chips_atlas",
+	lite = true,
 	unlocked = false,
 	point_requirement = 500,
 	stack = 1,

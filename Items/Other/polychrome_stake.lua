@@ -2,6 +2,7 @@ local polychrome_stake = {
 	object_type = "Stake",
 	key = "polychrome",
 	applied_stakes = {},
+	lite = true,
 	pos = { x = 0, y = 0 },
 	atlas = "chips_atlas",
 	sticker_pos = { x = 4, y = 2 },

@@ -3,6 +3,7 @@ local up_the_ante = {
 	object_type = "PolyStakeChip",
 	order = 1,
 	key = "up_the_ante",
+	lite = true,
 	pos = { x = 1, y = 0 },
 	atlas = "chips_atlas",
 	stack = 3,

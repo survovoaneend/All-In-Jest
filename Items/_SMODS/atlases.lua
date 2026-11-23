@@ -226,6 +226,7 @@ local atlases = {
 		path = "chips.png",
 		px = 29,
 		py = 29,
+		lite = true,
 	},
 }
 

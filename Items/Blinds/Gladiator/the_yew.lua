@@ -8,6 +8,7 @@ local the_yew = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "xscore", "rank", "ace", "three", "five", "seven", "nine" },
 	boss_colour = HEX("f28a3c"),
 	atlas = "blinds",

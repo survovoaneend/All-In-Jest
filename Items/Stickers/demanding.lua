@@ -4,6 +4,7 @@ local demanding = {
 	config = { hand = "(poker hand)", extra = { hands = { "Two Pair", "Three of a Kind", "Flush", "Straight" } } },
 	atlas = "stickers_atlas",
 	order = 1,
+	lite = true,
 	pos = { x = 1, y = 2 },
 	badge_colour = HEX("55a383"),
 	rate = 0.3,

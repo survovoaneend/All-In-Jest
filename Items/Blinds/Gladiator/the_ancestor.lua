@@ -8,6 +8,7 @@ local the_ancestor = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "hand_type", "discard" },
 	boss_colour = HEX("f03464"),
 	atlas = "blinds",

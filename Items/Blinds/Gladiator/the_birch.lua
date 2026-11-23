@@ -8,6 +8,7 @@ local the_birch = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "xscore", "rank", "two", "four", "six", "eight", "ten" },
 	boss_colour = HEX("5b9baa"),
 	atlas = "blinds",

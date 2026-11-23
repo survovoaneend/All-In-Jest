@@ -8,6 +8,7 @@ local the_serpent = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "draw_cards" },
 	boss_colour = HEX("439a4f"),
 	pos = { x = 0, y = 15 },

@@ -5,6 +5,7 @@ local face = {
 	atlas = "stickers_atlas",
 	order = 10,
 	pos = { x = 2, y = 2 },
+	lite = true,
 	badge_colour = HEX("dbaab5"),
 	loc_vars = function(self, info_queue, card)
 		return { vars = {} }

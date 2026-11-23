@@ -3,6 +3,7 @@ local gluttony = {
 	object_type = "PolyStakeChip",
 	order = 3,
 	key = "gluttony",
+	lite = true,
 	pos = { x = 4, y = 0 },
 	atlas = "chips_atlas",
 	stack = 1,

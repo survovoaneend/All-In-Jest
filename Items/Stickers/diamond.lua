@@ -5,6 +5,7 @@ local diamond = {
 	atlas = "stickers_atlas",
 	order = 9,
 	pos = { x = 4, y = 0 },
+	lite = true,
 	badge_colour = HEX("f28865"),
 	loc_vars = function(self, info_queue, card)
 		return { vars = {} }

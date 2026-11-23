@@ -6,6 +6,7 @@ local broken_foot = {
 	pos = { x = 6, y = 0 },
 	atlas = "chips_atlas",
 	unlocked = false,
+	lite = true,
 	point_requirement = 500,
 	stack = 2,
 	points = { 200, 400 },

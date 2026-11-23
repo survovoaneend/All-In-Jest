@@ -5,6 +5,7 @@ local spade = {
 	atlas = "stickers_atlas",
 	order = 6,
 	pos = { x = 3, y = 0 },
+	lite = true,
 	badge_colour = HEX("5c6284"),
 	loc_vars = function(self, info_queue, card)
 		return { vars = {} }

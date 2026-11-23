@@ -3,6 +3,7 @@ local the_pit = {
 	object_type = "PolyStakeChip",
 	order = 9,
 	key = "the_pit",
+	lite = true,
 	pos = { x = 8, y = 0 },
 	atlas = "chips_atlas",
 	stack = 1,

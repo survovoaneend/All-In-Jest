@@ -8,6 +8,7 @@ local the_flint = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "hand_level" },
 	boss_colour = HEX("e56a2f"),
 	pos = { x = 0, y = 24 },

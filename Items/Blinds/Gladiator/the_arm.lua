@@ -8,6 +8,7 @@ local the_arm = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "hand_level" },
 	boss_colour = HEX("6865f3"),
 	pos = { x = 0, y = 11 },

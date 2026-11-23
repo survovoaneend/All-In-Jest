@@ -11,6 +11,7 @@ end
 local polychrome_stake = {
 	object_type = "RunSelectPage",
 	key = "polychrome_settings",
+	lite = true,
 	sprite_size = { w = 0.99, h = 0.99 },
 	-- quick_start_text = function(self, choice)
 	-- 	local points = 0

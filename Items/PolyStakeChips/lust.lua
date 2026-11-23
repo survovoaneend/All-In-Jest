@@ -5,6 +5,7 @@ local lust = {
 	key = "lust",
 	pos = { x = 4, y = 1 },
 	atlas = "chips_atlas",
+	lite = true,
 	unlocked = false,
 	point_requirement = 1000,
 	stack = 1,

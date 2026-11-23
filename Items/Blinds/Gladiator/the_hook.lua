@@ -8,6 +8,7 @@ local the_hook = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "discard" },
 	boss_colour = HEX("a84024"),
 	pos = { x = 0, y = 7 },
