@@ -1927,7 +1927,7 @@ return {
 				},
 			},
 			bl_aij_tarnished_tile_GL = {
-				name = "Tarnished_tile",
+				name = "Tarnished Tile",
 				text = {
 					"Discard all cards",
 					"in your deck",
