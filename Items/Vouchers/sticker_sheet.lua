@@ -43,7 +43,7 @@ local sticker_sheet = {
 			- 4
 
 		G.GAME.all_in_jest.sticker_effects["aij_demanding"].active = true
-		
+
 		for _, card in pairs(G.jokers.cards) do
 			if card.ability.perishable then
 				card.ability.perish_tally = card.ability.perish_tally

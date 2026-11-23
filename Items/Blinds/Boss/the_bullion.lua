@@ -29,7 +29,8 @@ local the_bullion = {
 		local triggered = false
 		for _, c in ipairs(G.hand.highlighted) do
 			if next(SMODS.get_enhancements(c)) then
-				triggered = true; break
+				triggered = true
+				break
 			end
 		end
 		if triggered then
@@ -39,14 +40,18 @@ local the_bullion = {
 				func = function()
 					for _, c in ipairs(G.play.cards) do
 						if next(SMODS.get_enhancements(c)) then
-							G.E_MANAGER:add_event(Event({ func = function()
-								c:juice_up(); return true
-							end }))
-							ease_dollars(-5); delay(0.23)
+							G.E_MANAGER:add_event(Event({
+								func = function()
+									c:juice_up()
+									return true
+								end,
+							}))
+							ease_dollars(-5)
+							delay(0.23)
 						end
 					end
 					return true
-				end
+				end,
 			}))
 			G.GAME.blind.triggered = true
 		end

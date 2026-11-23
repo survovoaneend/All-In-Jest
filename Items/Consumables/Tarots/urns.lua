@@ -134,7 +134,10 @@ local urns = {
 				else
 					limit = limit - 1 + mod
 
-					if card.config.center ~= G.P_CENTERS.c_base and not SMODS.is_eternal(card, { destroy_cards = true }) then
+					if
+						card.config.center ~= G.P_CENTERS.c_base
+						and not SMODS.is_eternal(card, { destroy_cards = true })
+					then
 						return true
 					end
 

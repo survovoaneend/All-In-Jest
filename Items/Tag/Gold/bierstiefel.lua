@@ -28,14 +28,16 @@ local bierstiefel_tag = {
 								area = G.jokers,
 								rarity = r,
 								edition = "e_negative",
-								key_append = "jest_bierstiefel_tag"
+								key_append = "jest_bierstiefel_tag",
 							})
 						end
 						return true
-					end
+					end,
 				}))
 				return true
-			end, function() return true end)
+			end, function()
+				return true
+			end)
 			tag.triggered = true
 			return true
 		end
