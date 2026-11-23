@@ -1076,7 +1076,7 @@ return {
 			bl_aij_the_steed = {
 				name = "The Steed",
 				text = {
-					"On Play,",
+					"After scoring,",
 					"debuff cards",
 					"held in hand",
 				},
@@ -11888,7 +11888,7 @@ return {
 				name = "Perishable",
 				text = {
 					"Debuffed after",
-					"scoring {C:attention}#1#{} times",
+					"played {C:attention}#1#{} times",
 					"{C:inactive}({C:attention}#2#{C:inactive} remaining){}",
 				},
 			},
