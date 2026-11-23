@@ -11594,6 +11594,13 @@ return {
 					"run to find out what it does",
 				},
 			},
+			undiscovered_aij_hex_tarot = {
+				name = "Unknown Tarot Card",
+				text = {
+					"Find this card in an unseeded",
+					"run to find out what it does",
+				},
+			},
 			c_aij_astral_alignment = {
 				text = {
 					"Align {C:attention}#1#{} to {C:attention}#2#{}",
