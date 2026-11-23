@@ -637,7 +637,7 @@ function Card:set_sprites(_center, _front)
 	end
 
 	-- For scorched cards
-	if _center and _center.set and self.ability then
+	if _center and _center.set and (_center.key == "m_aij_scorched" or (self.ability and SMODS.has_enhancement(self, "m_aij_scorched"))) then
 		if SMODS.has_enhancement(self, "m_aij_scorched") then
 			local atlas_key = _center.atlas or "centers"
 			local atlas = SMODS.get_atlas(atlas_key)
