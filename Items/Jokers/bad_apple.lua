@@ -6,7 +6,7 @@ local bad_apple = {
 	config = {
 		extra = {
 			xmult = 1,
-			xmult_mod = 0.2,
+			xmult_mod = 0.25,
 			light_suits = "3",
 			dark_suits = "2",
 		},

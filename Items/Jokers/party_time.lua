@@ -5,14 +5,14 @@ local party_time = {
 	key = "party_time",
 	config = {
 		extra = {
-			chip_mod = 4,
+			chip_mod = 3,
 		},
 	},
 	attributes = { "perma_bonus", "joker", "chips" },
 	rarity = 1,
 	pos = { x = 17, y = 24 },
 	atlas = "joker_atlas",
-	cost = 4,
+	cost = 5,
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
