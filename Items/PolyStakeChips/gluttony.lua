@@ -6,7 +6,7 @@ local gluttony = {
 	pos = { x = 4, y = 0 },
 	atlas = "chips_atlas",
 	stack = 1,
-	points = { 75 },
+	points = { 50 },
 	apply = function(self, stack)
 		G.GAME.modifiers.enable_perishables_in_shop = true
 	end,

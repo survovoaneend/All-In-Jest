@@ -6,7 +6,7 @@ local greed = {
 	pos = { x = 2, y = 0 },
 	atlas = "chips_atlas",
 	stack = 1,
-	points = { 50 },
+	points = { 75 },
 	apply = function(self, stack)
 		G.GAME.modifiers.enable_rentals_in_shop = true
 	end,
