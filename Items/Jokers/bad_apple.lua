@@ -46,10 +46,6 @@ local bad_apple = {
 			local random_value = pseudorandom("bad_apple", 0, 5)
 			card.ability.extra.light_suits = tostring(random_value)
 			card.ability.extra.dark_suits = tostring(5 - random_value)
-			return {
-				message = localize("k_reset"),
-				card = card,
-			}
 		end
 		if context.before and not context.blueprint then
 			local dark_count, light_count = 0, 0
