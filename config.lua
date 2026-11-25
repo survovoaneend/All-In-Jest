@@ -2,7 +2,7 @@ return {
 	["astrals_enabled"] = true,
 	["moons_enabled"] = true,
 	["moons_blocking"] = false,
-	["alter_trypophobia"] = false,
+	["alter_trypophobia"] = true,
 	["no_copy_neg"] = false,
 	["blue_stake_rework"] = true,
 	["random_deck_skins"] = true,
