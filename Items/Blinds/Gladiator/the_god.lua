@@ -9,6 +9,7 @@ local the_god = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = {},
 	boss_colour = HEX("9badaf"),
 	atlas = "blinds",

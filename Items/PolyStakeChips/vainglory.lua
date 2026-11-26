@@ -3,6 +3,7 @@ local vainglory = {
 	object_type = "PolyStakeChip",
 	order = 21,
 	key = "vainglory",
+	lite = true,
 	pos = { x = 0, y = 2 },
 	atlas = "chips_atlas",
 	unlocked = false,

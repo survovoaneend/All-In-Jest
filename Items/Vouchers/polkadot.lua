@@ -59,8 +59,10 @@ local polkadot = {
 		end
 
 		-- For updating mint condition
-		for _, card in pairs(G.shop_jokers.cards) do
-			card:set_cost()
+		if G.shop and G.shop_jokers and G.shop_jokers.cards then
+			for _, card in pairs(G.shop_jokers.cards) do
+				card:set_cost()
+			end
 		end
 	end,
 }

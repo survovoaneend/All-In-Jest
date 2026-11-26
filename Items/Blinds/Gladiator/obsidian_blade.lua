@@ -8,6 +8,7 @@ local obsidian_blade = {
 		},
 	},
 	mult = 3,
+	lite = true,
 	attributes = { "large_blind", "hands", "discard" },
 	boss_colour = HEX("635d91"),
 	atlas = "blinds_final",

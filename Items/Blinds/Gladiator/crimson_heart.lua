@@ -8,6 +8,7 @@ local crimson_heart = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "joker", "debuff" },
 	boss_colour = HEX("ac3232"),
 	pos = { x = 0, y = 25 },

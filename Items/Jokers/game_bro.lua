@@ -10,7 +10,7 @@ local game_bro = {
 	rarity = 1,
 	pos = { x = 7, y = 22 },
 	atlas = "joker_atlas",
-	cost = 4,
+	cost = 6,
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,

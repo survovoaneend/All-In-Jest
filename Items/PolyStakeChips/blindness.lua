@@ -2,6 +2,7 @@ local blindness = {
 	object_loader = All_in_Jest,
 	object_type = "PolyStakeChip",
 	order = 16,
+	lite = true,
 	key = "blindness",
 	pos = { x = 9, y = 1 },
 	atlas = "chips_atlas",

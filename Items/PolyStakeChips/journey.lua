@@ -5,6 +5,7 @@ local journey = {
 	key = "journey",
 	pos = { x = 6, y = 1 },
 	atlas = "chips_atlas",
+	lite = true,
 	unlocked = false,
 	point_requirement = 1500,
 	stack = 2,

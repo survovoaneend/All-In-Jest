@@ -8,6 +8,7 @@ local the_ox = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "lose_economy" },
 	boss_colour = HEX("b95b08"),
 	pos = { x = 0, y = 2 },

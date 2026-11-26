@@ -5,6 +5,7 @@ local mint_condition = {
 	atlas = "stickers_atlas",
 	order = 2,
 	pos = { x = 3, y = 1 },
+	lite = true,
 	badge_colour = HEX("d56f7e"),
 	loc_vars = function(self, info_queue, card)
 		return { vars = { G.GAME.all_in_jest.sticker_effects["aij_mint_condition"].markup } }

@@ -98,7 +98,7 @@ end
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = "if not strip_edition then"
+pattern = "return new_card"
 position = "before"
 match_indent = true
 payload = '''

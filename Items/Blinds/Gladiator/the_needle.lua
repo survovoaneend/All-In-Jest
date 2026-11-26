@@ -8,6 +8,7 @@ local the_needle = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "hands" },
 	boss_colour = HEX("5c6e31"),
 	pos = { x = 0, y = 20 },

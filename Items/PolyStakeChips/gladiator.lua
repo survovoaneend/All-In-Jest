@@ -3,6 +3,7 @@ local gladiator = {
 	object_type = "PolyStakeChip",
 	order = 23,
 	key = "gladiator",
+	lite = true,
 	pos = { x = 5, y = 1 },
 	atlas = "chips_atlas",
 	unlocked = false,

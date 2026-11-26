@@ -5,6 +5,7 @@ local envy = {
 	key = "envy",
 	pos = { x = 3, y = 1 },
 	atlas = "chips_atlas",
+	lite = true,
 	unlocked = false,
 	point_requirement = 700,
 	stack = 1,

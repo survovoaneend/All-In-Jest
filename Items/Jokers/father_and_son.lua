@@ -5,7 +5,7 @@ local father_and_son = {
 
 	config = {
 		extra = {
-			gain = 0.25,
+			gain = 0.2,
 			xmult = 1,
 		},
 	},

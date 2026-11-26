@@ -8,6 +8,7 @@ local amber_acorn = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "position" },
 	boss_colour = HEX("fda200"),
 	pos = { x = 0, y = 27 },

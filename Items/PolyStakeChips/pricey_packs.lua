@@ -3,6 +3,7 @@ local pricey_packs = {
 	object_type = "PolyStakeChip",
 	order = 12,
 	key = "pricey_packs",
+	lite = true,
 	pos = { x = 9, y = 0 },
 	atlas = "chips_atlas",
 	unlocked = false,

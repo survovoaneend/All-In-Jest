@@ -9,6 +9,7 @@ local the_ulcer = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "hands", "discard" },
 	boss_colour = HEX("e39571"),
 	atlas = "blinds",

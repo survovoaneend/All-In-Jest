@@ -1076,7 +1076,7 @@ return {
 			bl_aij_the_steed = {
 				name = "The Steed",
 				text = {
-					"On Play,",
+					"After scoring,",
 					"debuff cards",
 					"held in hand",
 				},
@@ -1927,7 +1927,7 @@ return {
 				},
 			},
 			bl_aij_tarnished_tile_GL = {
-				name = "Tarnished_tile",
+				name = "Tarnished Tile",
 				text = {
 					"Discard all cards",
 					"in your deck",
@@ -10964,10 +10964,9 @@ return {
 			tag_aij_bierstiefel = {
 				name = "Bierstiefel Tag",
 				text = {
-					"Fill all empty",
-					"{C:attention}Joker slots{} with",
-					"random {C:common}Common{} or",
-					"{C:uncommon}Uncommon{} Jokers",
+					"Create a random ",
+					"{C:dark_edition}Negative{} {C:common}Common{}",
+					"and {C:uncommon}Uncommon{} {C:attention}Joker",
 				},
 			},
 			tag_aij_ticket = {
@@ -11594,6 +11593,13 @@ return {
 					"run to find out what it does",
 				},
 			},
+			undiscovered_aij_hex_tarot = {
+				name = "Unknown Tarot Card",
+				text = {
+					"Find this card in an unseeded",
+					"run to find out what it does",
+				},
+			},
 			c_aij_astral_alignment = {
 				text = {
 					"Align {C:attention}#1#{} to {C:attention}#2#{}",
@@ -11888,7 +11894,7 @@ return {
 				name = "Perishable",
 				text = {
 					"Debuffed after",
-					"scoring {C:attention}#1#{} times",
+					"played {C:attention}#1#{} times",
 					"{C:inactive}({C:attention}#2#{C:inactive} remaining){}",
 				},
 			},

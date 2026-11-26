@@ -3,6 +3,7 @@ local club = {
 	key = "club",
 	config = { extra = {} },
 	atlas = "stickers_atlas",
+	lite = true,
 	order = 8,
 	pos = { x = 1, y = 1 },
 	badge_colour = HEX("417c78"),

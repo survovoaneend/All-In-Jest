@@ -3,6 +3,7 @@ local chump_change = {
 	object_type = "PolyStakeChip",
 	order = 19,
 	key = "chump_change",
+	lite = true,
 	pos = { x = 8, y = 1 },
 	atlas = "chips_atlas",
 	unlocked = false,

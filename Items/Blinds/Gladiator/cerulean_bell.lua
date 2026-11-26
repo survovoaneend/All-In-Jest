@@ -8,6 +8,7 @@ local cerulean_bell = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	boss_colour = HEX("009cfd"),
 	pos = { x = 0, y = 26 },
 	order = 55,

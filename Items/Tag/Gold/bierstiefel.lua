@@ -20,34 +20,26 @@ local bierstiefel_tag = {
 	apply = function(self, tag, context)
 		if context.type == "immediate" then
 			tag:jest_apply("+", G.C.ATTENTION, function()
-				if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-					local jokers_to_create = G.jokers.config.card_limit - #G.jokers.cards
-					G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
-					G.E_MANAGER:add_event(Event({
-						func = function()
-							for i = 1, jokers_to_create do
-								local new_joker = SMODS.add_card({
-									set = "Joker",
-									area = G.jokers,
-									rarity = pseudorandom("jest_bierstiefel_tag") * 0.95,
-									key_append = "jest_bierstiefel_tag",
-								})
-								new_joker:start_materialize()
-								G.GAME.joker_buffer = 0
-							end
-							return true
-						end,
-					}))
-				end
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						for _, r in ipairs({ "Common", "Uncommon" }) do
+							SMODS.add_card({
+								set = "Joker",
+								area = G.jokers,
+								rarity = r,
+								edition = "e_negative",
+								key_append = "jest_bierstiefel_tag",
+							})
+						end
+						return true
+					end,
+				}))
 				return true
 			end, function()
-				return #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
-			end)
-			if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
-				tag.triggered = true
 				return true
-			end
-			return
+			end)
+			tag.triggered = true
+			return true
 		end
 	end,
 }

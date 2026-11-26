@@ -3,6 +3,7 @@ local deadwood = {
 	object_type = "PolyStakeChip",
 	order = 20,
 	key = "deadwood",
+	lite = true,
 	pos = { x = 1, y = 2 },
 	atlas = "chips_atlas",
 	unlocked = false,

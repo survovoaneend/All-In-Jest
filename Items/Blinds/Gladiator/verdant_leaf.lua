@@ -8,6 +8,7 @@ local verdant_leaf = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "xscore", "joker" },
 	boss_colour = HEX("56a786"),
 	pos = { x = 0, y = 28 },

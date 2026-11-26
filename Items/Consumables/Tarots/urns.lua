@@ -117,5 +117,44 @@ local urns = {
 			end
 		end
 	end,
+	in_pool = function(self, args)
+		if G.STATE == G.STATES.SMODS_BOOSTER_OPENED and G.hand then
+			local cards_to_draw = {}
+			local space_taken = 0
+
+			local limit = (G.hand.config.card_limit - #G.hand.cards - (SMODS.cards_to_draw or 0))
+			local flags = SMODS.calculate_context({ drawing_cards = true, amount = limit })
+			limit = flags.cards_to_draw or flags.modify or limit
+			local unfixed = not G.hand.config.fixed_limit
+			local n = 0
+			while n < #G.deck.cards and limit > 0 do
+				local card = G.deck.cards[#G.deck.cards - n]
+				local mod = unfixed and (card.ability.card_limit - card.ability.extra_slots_used) or 0
+				if limit - 1 + mod < 0 then
+				else
+					limit = limit - 1 + mod
+
+					if
+						card.config.center ~= G.P_CENTERS.c_base
+						and not SMODS.is_eternal(card, { destroy_cards = true })
+					then
+						return true
+					end
+
+					space_taken = space_taken + (1 - mod)
+				end
+				n = n + 1
+			end
+		else
+			add = nil
+			for kk, vv in pairs(G.playing_cards) do
+				if vv.config.center ~= G.P_CENTERS.c_base and not SMODS.is_eternal(vv, { destroy_cards = true }) then
+					return true
+				end
+			end
+		end
+
+		return false
+	end,
 }
 return { name = { "Tarots" }, items = { urns } }

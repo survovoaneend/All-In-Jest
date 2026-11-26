@@ -3,6 +3,7 @@ local in_the_dark = {
 	object_type = "PolyStakeChip",
 	order = 14,
 	key = "in_the_dark",
+	lite = true,
 	pos = { x = 7, y = 1 },
 	atlas = "chips_atlas",
 	unlocked = false,

@@ -26,6 +26,7 @@ Join the [discord server](https://discord.gg/U9gbU9eshk)!
 * Blue Stake rework
 * So much more planned...
 
+And if all that sounds like too much, we don't blame you! That's why we have a feature you can enable in the mod's settings titled All in Jest Lite, which enables only a small subset of this mod's content, so you can enjoy some of it without it being too overwhelming.
 # Credits
 * Lead Developer: survivalaiden
 * Lead Artist: Nevernamed

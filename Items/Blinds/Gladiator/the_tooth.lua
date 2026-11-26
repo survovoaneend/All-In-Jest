@@ -8,6 +8,7 @@ local the_tooth = {
 		},
 	},
 	mult = 2,
+	lite = true,
 	attributes = { "money", "draw_cards" },
 	boss_colour = HEX("b52d2d"),
 	pos = { x = 0, y = 22 },

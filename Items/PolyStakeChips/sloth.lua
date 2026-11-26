@@ -3,6 +3,7 @@ local sloth = {
 	object_type = "PolyStakeChip",
 	order = 2,
 	key = "sloth",
+	lite = true,
 	pos = { x = 3, y = 0 },
 	atlas = "chips_atlas",
 	stack = 1,

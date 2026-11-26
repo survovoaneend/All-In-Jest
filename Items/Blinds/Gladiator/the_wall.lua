@@ -8,6 +8,7 @@ local the_wall = {
 		},
 	},
 	mult = 6,
+	lite = true,
 	attributes = { "large_blind" },
 	boss_colour = HEX("8a59a5"),
 	pos = { x = 0, y = 9 },

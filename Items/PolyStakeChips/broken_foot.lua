@@ -3,6 +3,7 @@ local broken_foot = {
 	object_type = "PolyStakeChip",
 	order = 8,
 	key = "broken_foot",
+	lite = true,
 	pos = { x = 7, y = 0 },
 	atlas = "chips_atlas",
 	stack = 2,

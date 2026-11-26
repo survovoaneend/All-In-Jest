@@ -2,7 +2,7 @@
 	"name": "All_in_Jest",
 	"description": "Massive vanilla overhaul mod",
 	"website_url": "https://github.com/survovoaneend/All-In-Jest",
-	"version_number": "0.8.0",
+	"version_number": "0.8.01",
 	"dependencies": [
 		"Steamodded-Steamodded-26.1002.0"
 	]
