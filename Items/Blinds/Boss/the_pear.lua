@@ -31,9 +31,11 @@ local the_pear = {
 					trigger = "after",
 					delay = 0.1,
 					func = function()
-						G.hand.cards[i]:set_base(pseudorandom_element(G.P_CARDS, pseudoseed("the_pear")))
-						G.hand.cards[i]:flip()
-						G.hand.cards[i]:juice_up(0.3, 0.3)
+						if G.hand.cards[i] then
+							G.hand.cards[i]:set_base(pseudorandom_element(G.P_CARDS, pseudoseed("the_pear")))
+							G.hand.cards[i]:flip()
+							G.hand.cards[i]:juice_up(0.3, 0.3)
+						end
 						return true
 					end,
 				}))
