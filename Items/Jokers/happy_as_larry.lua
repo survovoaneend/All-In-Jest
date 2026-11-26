@@ -54,7 +54,11 @@ local happy_as_larry = {
 					card.ability.extra.odds
 				)
 			do
-				card.ability.extra.new_odds = card.ability.extra.new_odds - 1
+				local numerator, _ =
+					SMODS.get_probability_vars(card, card.ability.extra.new_odds, card.ability.extra.odds)
+				local scaled_numerator = numerator / card.ability.extra.new_odds -- This makes larry work properly with oops and other prob mod
+				card.ability.extra.new_odds = card.ability.extra.new_odds
+					- card.ability.extra.decrease_odds / scaled_numerator
 				retriggers = retriggers + 1
 			end
 			if context.other_card == card and retriggers > 0 then
