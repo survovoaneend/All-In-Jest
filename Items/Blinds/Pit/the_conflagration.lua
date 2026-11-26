@@ -2,7 +2,6 @@ local the_conflagration = {
 	object_type = "Blind",
 	key = "the_conflagration",
 	boss = {
-		min = 4,
 		all_in_jest = {
 			pit = true,
 		},

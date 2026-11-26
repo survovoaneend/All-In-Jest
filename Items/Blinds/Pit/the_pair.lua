@@ -2,7 +2,6 @@ local the_pair = {
 	object_type = "Blind",
 	key = "the_pair",
 	boss = {
-		min = 4,
 		all_in_jest = {
 			pit = true,
 		},

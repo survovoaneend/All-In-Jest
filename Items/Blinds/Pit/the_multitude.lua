@@ -2,7 +2,6 @@ local the_multitude = {
 	object_type = "Blind",
 	key = "the_multitude",
 	boss = {
-		min = 4,
 		all_in_jest = {
 			pit = true,
 		},

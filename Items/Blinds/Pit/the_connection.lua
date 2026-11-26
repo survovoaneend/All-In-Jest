@@ -2,7 +2,6 @@ local the_connection = {
 	object_type = "Blind",
 	key = "the_connection",
 	boss = {
-		min = 4,
 		all_in_jest = {
 			pit = true,
 		},

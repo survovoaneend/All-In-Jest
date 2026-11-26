@@ -2,7 +2,6 @@ local the_moon = {
 	object_type = "Blind",
 	key = "the_moon",
 	boss = {
-		min = 4,
 		all_in_jest = {
 			pit = true,
 		},

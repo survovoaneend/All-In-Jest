@@ -2,7 +2,6 @@ local the_rains = {
 	object_type = "Blind",
 	key = "the_rains",
 	boss = {
-		min = 4,
 		trigger = false,
 		all_in_jest = {
 			pit = true,

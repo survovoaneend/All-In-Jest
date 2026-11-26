@@ -2,7 +2,6 @@ local the_trio = {
 	object_type = "Blind",
 	key = "the_trio",
 	boss = {
-		min = 4,
 		all_in_jest = {
 			pit = true,
 		},

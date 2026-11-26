@@ -2,7 +2,6 @@ local the_brilliance = {
 	object_type = "Blind",
 	key = "the_brilliance",
 	boss = {
-		min = 4,
 		all_in_jest = {
 			pit = true,
 		},

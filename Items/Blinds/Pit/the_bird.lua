@@ -2,7 +2,6 @@ local the_bird = {
 	object_type = "Blind",
 	key = "the_bird",
 	boss = {
-		min = 4,
 		all_in_jest = {
 			pit = true,
 		},

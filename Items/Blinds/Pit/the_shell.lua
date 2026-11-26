@@ -2,7 +2,6 @@ local the_shell = {
 	object_type = "Blind",
 	key = "the_shell",
 	boss = {
-		min = 4,
 		odds = 4,
 		odds2 = 3,
 		all_in_jest = {

@@ -2,7 +2,6 @@ local the_business = {
 	object_type = "Blind",
 	key = "the_business",
 	boss = {
-		min = 4,
 		all_in_jest = {
 			pit = true,
 		},

@@ -2,7 +2,6 @@ local the_earth = {
 	object_type = "Blind",
 	key = "the_earth",
 	boss = {
-		min = 4,
 		all_in_jest = {
 			pit = true,
 		},

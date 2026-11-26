@@ -18,7 +18,6 @@ local the_assistant = {
 	object_type = "Blind",
 	key = "the_assistant",
 	boss = {
-		min = 4,
 		all_in_jest = {
 			pit = true,
 		},
