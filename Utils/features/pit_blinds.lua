@@ -1,9 +1,13 @@
 -- Check if Pit Blinds should appear or not
 function All_in_Jest.pit_blinds_in_play()
-	local blue_stake_replacement_blind = (
-		(G.GAME.stake >= 5 and not G.GAME.aij_poly_chips and All_in_Jest.config.blue_stake_rework)
-		or (G.GAME.aij_poly_chips and G.GAME.aij_poly_chips["aij_the_pit"] > 0)
-	) and G.GAME.round_resets.ante == G.GAME.all_in_jest.pit_blind_ante
+	local blue_stake_active = false
+	if G.GAME.aij_poly_chips then
+		blue_stake_active = G.GAME.aij_poly_chips["aij_the_pit"] > 0
+	else
+		blue_stake_active = G.GAME.stake >= 5 and All_in_Jest.config.blue_stake_rework
+	end
+	local blue_stake_replacement_blind = blue_stake_active
+		and G.GAME.round_resets.ante == G.GAME.all_in_jest.pit_blind_ante
 	local all_pit_blinds_challenge = G.GAME.modifiers["aij_all_pit_blinds"] and G.GAME.round_resets.ante >= 2
 	return blue_stake_replacement_blind or all_pit_blinds_challenge or G.GAME.won
 end
